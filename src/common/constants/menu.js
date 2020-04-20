@@ -1,0 +1,5 @@
+export const MENU_REQUEST = '[MENU] MENU_REQUEST';
+export const MENU_SUCCESS = '[MENU] MENU_SUCCESS';
+export const MENU_FAILED = '[MENU] MENU_FAILED';
+export const MENU_IN_PROGRESS = '[MENU] MENU_IN_PROGRESS';
+export const MENU_INIT = '[MENU] MENU_INIT';
