@@ -83,6 +83,8 @@ target 'Badr' do
 
   pod 'RNLocalize', :path => '../node_modules/react-native-localize'
 
+  pod 'RNCPicker', :path => '../node_modules/@react-native-community/picker'
+
   target 'BadrTests' do
     inherit! :complete
     # Pods for testing

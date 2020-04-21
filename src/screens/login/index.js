@@ -25,7 +25,7 @@ import {BadrLoginHeader} from '../../components/header/Login';
 import {BadrProgressBar} from '../../components/progressbars/BadrProgressBar';
 import {BadrErrorMessage} from '../../components/messages/Error';
 import {BadrInfoMessage} from '../../components/messages/Info';
-
+import {BadrPicker} from '../../components/pickers/BadrPicker';
 
 /** CONSTANTS **/
 const screenHeight = Dimensions.get('window').height;
@@ -35,7 +35,7 @@ class Login extends React.Component {
     login: '',
     password: '',
   };
-  
+
   handleLogin = () => {
     var action = authAction.request(
       {
@@ -72,6 +72,7 @@ class Login extends React.Component {
             <BadrErrorMessage message={this.props.errorMessage} />
           )}
         </View>
+
       </ScrollView>
     );
   }
