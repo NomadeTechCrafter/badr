@@ -1,20 +1,21 @@
-import {TransverseApi} from '../../../services/api/transverse-api';
+import TransverseApi from '../../../services/api/transverse-api';
 import * as Constants from '../../../common/constants/badrPicker';
 
 export function request(action) {
   return dispatch => {
-    dispatch(action);
+    console.log('....');
     dispatch(inProgress(action));
     TransverseApi.doProcess(
-      'YASAG',
-      'REF_LIB',
-      'getCmbTypeIdentifiant',
-      'SP',
+      action.value.user,
+      action.value.module,
+      action.value.command,
+      action.value.typeService,
       '',
     )
-      .then(data => {
-        if (data) {
-          action.value.payload = data;
+      .then(response => {
+        const data = JSON.parse(response.data);
+        if (data && data.jsonVO) {
+          action.value.payload = data.jsonVO;
           dispatch(success(action));
         } else {
           dispatch(failed({value: 'error while getting data'}));
@@ -41,6 +42,7 @@ export function failed(action) {
 }
 
 export function inProgress(action) {
+  console.log('in progress fired ...');
   return {
     type: Constants.BADRPICKER_IN_PROGRESS,
     value: action.value,

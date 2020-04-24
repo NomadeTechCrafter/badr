@@ -10,6 +10,7 @@ export default class TransverseApi {
     _typeService,
     _jsonVO,
   ) => {
+    console.log("doProcess ...");
     const data = {
       dtoHeader: {
         userLogin: _login,
@@ -20,6 +21,7 @@ export default class TransverseApi {
       },
       jsonVO: _jsonVO,
     };
+    console.log("returning response ...");
     return await HttpHelper.process(data);
   };
 }

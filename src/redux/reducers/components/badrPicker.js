@@ -4,7 +4,7 @@ const initialState = {
   loaded: false,
   errorMessage: '',
   displayError: false,
-  data: [],
+  picker: null,
 };
 
 export default (state = initialState, action) => {
@@ -13,29 +13,33 @@ export default (state = initialState, action) => {
     value: action.value,
   };
   switch (action.type) {
-    case Constants.SMSVERIFY_REQUEST:
+    case Constants.BADRPICKER_REQUEST:
       nextState.displayError = false;
       nextState.loaded = false;
       nextState.errorMessage = null;
       return nextState;
-    case Constants.SMSVERIFY_IN_PROGRESS:
+    case Constants.BADRPICKER_IN_PROGRESS:
       return nextState;
-    case Constants.SMSVERIFY_SUCCESS:
+    case Constants.BADRPICKER_SUCCESS:
       nextState.displayError = false;
       nextState.loaded = true;
       nextState.errorMessage = null;
-      nextState.data = action.value;
+      if (!nextState.picker) {
+        nextState.picker = {};
+      }
+      nextState.picker[action.value.command] = {};
+      nextState.picker[action.value.command].items = action.value.payload;
       return nextState;
-    case Constants.SMSVERIFY_FAILED:
+    case Constants.BADRPICKER_FAILED:
       nextState.displayError = true;
       nextState.loaded = false;
       nextState.errorMessage = null;
       return nextState;
-    case Constants.SMSVERIFY_INIT:
+    case Constants.BADRPICKER_INIT:
       nextState.displayError = true;
       nextState.loaded = false;
       nextState.errorMessage = null;
-      nextState.data = [];
+      nextState.items = [];
       return initialState;
     default:
       return initialState;

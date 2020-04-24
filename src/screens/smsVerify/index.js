@@ -104,8 +104,7 @@ class SmsVerify extends React.Component {
 }
 
 const mapStateToProps = state => {
-  console.log('State changed ...');
-  console.log(state);
+  console.log('SMS VERIFY State changed ...');
   return {
     ...state.confirmConnexionReducer,
     ...state.smsVerifyReducer,
