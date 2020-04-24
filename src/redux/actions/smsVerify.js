@@ -35,14 +35,15 @@ export function request(action, navigation) {
         const data = JSON.parse(response.data);
         if (data.jsonVO.code === '200') {
           dispatch(success(data.jsonVO));
-          dispatch(
-            buildConfirmConnexionAction(
-              navigation,
-              '309',
-              ['ALLPROFIL'],
-              action.value.login,
-            ),
-          );
+          // dispatch(
+          //   buildConfirmConnexionAction(
+          //     navigation,
+          //     '309',
+          //     ['ALLPROFIL'],
+          //     action.value.login,
+          //   ),
+          // );
+           navigation.navigate('Profile', {login: action.value.login});
         } else {
           if (data.jsonVO.message) {
             dispatch(failed(data.jsonVO.message));

@@ -15,6 +15,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import Login from './screens/login';
 import SmsVerify from './screens/smsVerify';
 import Home from './screens/home';
+import Profile from './screens/profile';
 
 import Toolbar from './components/toolbar';
 
@@ -31,7 +32,6 @@ import allReducers from './redux/reducers';
 import thunk from 'redux-thunk';
 const middleware = [thunk];
 const store = createStore(allReducers, applyMiddleware(thunk));
-
 
 const theme = {
   ...DefaultTheme,
@@ -62,9 +62,15 @@ export default class App extends React.Component {
               />
 
               <Stack.Screen
-                name="Home" 
+                name="Home"
                 options={{headerShown: false}}
                 component={Home}
+              />
+
+              <Stack.Screen
+                name="Profile"
+                options={{headerShown: false}}
+                component={Profile}
               />
             </Stack.Navigator>
           </NavigationContainer>

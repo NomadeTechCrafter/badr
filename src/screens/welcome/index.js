@@ -47,6 +47,7 @@ class WelcomeScreen extends React.Component {
           style={{width: 400}}
           title="Type document"
           cle="code"
+          selectedValue="06"
           libelle="libelle"
           module="REF_LIB"
           command="getCmbTypeIdentifiant"

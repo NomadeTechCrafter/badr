@@ -41,13 +41,15 @@ class BadrPicker extends React.Component {
     return (
       <View>
         <Text>{this.props.title}</Text>
-        {(this.props.badrPickerReducer.picker && this.props.badrPickerReducer.picker[this.props.command]) ? (
+        {this.props.badrPickerReducer.picker &&
+        this.props.badrPickerReducer.picker[this.props.command] ? (
           <Picker
             style={this.props.style}
             selectedValue={this.state.selectedValue}
-            onValueChange={(itemValue, itemIndex) =>
-              this.setState({selectedValue: itemValue})
-            }>
+            onValueChange={(itemValue, itemIndex) => {
+              this.setState({selectedValue: itemValue});
+              this.props.onValueChange(itemValue, itemIndex);
+            }}>
             {this.props.badrPickerReducer.picker[this.props.command].items.map(
               item => {
                 const key = item[this.props.cle] + '_' + this.props.command;
