@@ -4,7 +4,11 @@ const initialState = {
   picker: {
     empty: {
       loaded: true,
-      data: [],
+      group: [
+        {
+          children: [],
+        },
+      ],
     },
   },
 };
@@ -20,7 +24,7 @@ export default (state = initialState, action) => {
         loaded: false,
         errorMessage: '',
         displayError: false,
-        items: [],
+        group: [],
       };
       return nextState;
     case Constants.BADRPICKER_IN_PROGRESS:
@@ -28,16 +32,24 @@ export default (state = initialState, action) => {
         loaded: false,
         errorMessage: '',
         displayError: false,
-        items: [],
+        group: [],
       };
       return nextState;
     case Constants.BADRPICKER_SUCCESS:
+    console.log("SUCCESS ############################################");
       nextState.picker[action.value.command] = {
         loaded: true,
         errorMessage: '',
         displayError: false,
-        items : action.value.payload
+        group: [
+          {
+            children: action.value.payload,
+          },
+        ],
       };
+      nextState.picker[action.value.command].group[0][action.value.cle] = '0';
+      nextState.picker[action.value.command].group[0][action.value.libelle] =
+        'Séléctionnez tous';
       return nextState;
     case Constants.BADRPICKER_FAILED:
       nextState.picker[action.value.command] = {

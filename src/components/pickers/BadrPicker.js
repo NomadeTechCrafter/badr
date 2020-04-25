@@ -10,63 +10,84 @@ import {connect} from 'react-redux';
 import * as Constants from '../../common/constants/badrPicker';
 import * as badrPickerAction from '../../redux/actions/components/badrPicker';
 
+import {BadrInfoMessage} from '../../components/messages/Info';
+
 class BadrPicker extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      picker: null,
       selectedValue: this.props.selectedValue,
     };
+    console.log('LOGIN : ' + this.props);
   }
 
-  componentDidMount() {
-    console.log('--------------> initializing component : ');
-    console.log(this.props.module);
-    console.log(this.props.command);
-    console.log(this.props.cle);
-    console.log('--------------> initializing component : ');
+  componentDidUpdate(prevProps, prevState, snapshot) {}
 
+  refresh = params => {
+    this.fetchData(params);
+  };
+
+  fetchData = params => {
+    console.log('fetching ...');
+    console.log(params);
     let action = badrPickerAction.request({
       type: Constants.BADRPICKER_REQUEST,
       value: {
-        user: 'AD6203',
         module: this.props.module,
         command: this.props.command,
         typeService: this.props.typeService,
+        param: params,
       },
     });
     this.props.actions.dispatch(action);
+  };
+
+  componentDidMount() {
+    console.log('componentDidMount');
+    if (this.props.onRef) {
+      this.props.onRef(this);
+    }
+    this.fetchData(this.props.params);
+    console.log('componentDidMount');
   }
 
   render() {
     return (
-      <View>
-        <Text>{this.props.title}</Text>
-        {this.props.badrPickerReducer.picker &&
-        this.props.badrPickerReducer.picker[this.props.command] ? (
+      <View style={this.props.style}>
+        <Text style={this.props.titleStyle}>{this.props.title}</Text>
+        {this.props.items && this.props.loaded ? (
           <Picker
-            style={this.props.style}
+            textStyle={{fontSize: 8}}
             selectedValue={this.state.selectedValue}
             onValueChange={(itemValue, itemIndex) => {
               this.setState({selectedValue: itemValue});
               this.props.onValueChange(itemValue, itemIndex);
             }}>
-            {this.props.badrPickerReducer.picker[this.props.command].items.map(
-              item => {
-                const key = item[this.props.cle] + '_' + this.props.command;
-                return this.props.cle && item[this.props.cle] ? (
-                  <Picker.Item
-                    label={item[this.props.libelle]}
-                    value={item[this.props.cle]}
-                    key={key}
-                  />
-                ) : (
-                  <Picker.Item label="???" />
-                );
-              },
-            )}
+            <Picker.Item
+              label="Séléctionnez une valeur"
+              value={'default_item_' + this.props.command}
+              key={'default_item_' + this.props.command}
+            />
+            {this.props.items.map(item => {
+              const key = item[this.props.cle] + '_' + this.props.command;
+              return (
+                <Picker.Item
+                  label={item[this.props.libelle]}
+                  value={item[this.props.cle]}
+                  key={key}>
+                  <Text>Check</Text>
+                </Picker.Item>
+              );
+            })}
           </Picker>
         ) : (
-          <View />
+          <View>
+            {/* TODO : REFACTO */}
+            <Text style={{padding: 20, textAlign: 'center', color: '#009ab2'}}>
+              Chargement ...
+            </Text>
+          </View>
         )}
       </View>
     );
@@ -74,15 +95,23 @@ class BadrPicker extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: 40,
-    alignItems: 'center',
+  title: {
+    fontWeight: 'bold',
   },
 });
 
-function mapStateToProps(state) {
-  return {...state};
+function mapStateToProps(state, ownProps) {
+  console.log('*************** mapStateToProps - BadrPicker ');
+  console.log(state.badrPickerReducer.picker[ownProps.command]);
+  if (
+    state.badrPickerReducer &&
+    state.badrPickerReducer.picker &&
+    state.badrPickerReducer.picker[ownProps.command]
+  ) {
+    return {...state.badrPickerReducer.picker[ownProps.command]};
+  } else {
+    return {...state.badrPickerReducer};
+  }
 }
 
 function mapDispatchToProps(dispatch) {

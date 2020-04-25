@@ -4,7 +4,7 @@ import smsVerifyReducer from './smsVerify';
 import confirmConnexionReducer from './confirmConnexion';
 import menuReducer from './menu';
 import badrPickerReducer from './components/badrPicker';
-
+import badrPickerCheckerReducer from './components/badrPickerChecker';
 /**
  * combine all reducer
  */
@@ -13,7 +13,8 @@ const allReducers = combineReducers({
   smsVerifyReducer,
   confirmConnexionReducer,
   menuReducer,
-  badrPickerReducer
+  badrPickerReducer,
+  badrPickerCheckerReducer
 });
 
 export default allReducers;

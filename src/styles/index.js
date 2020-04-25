@@ -5,22 +5,23 @@ import * as Images from './images';
 import * as Messages from './messages';
 import * as Login from './login';
 import * as Containers from './containers';
-import * as Cards from './cards'
+import * as Cards from './cards';
+import * as Pickers from './picker';
 
 import {StyleSheet} from 'react-native';
 
 const CustomStyleSheet = StyleSheet.create({
-  badrCardText : {
-    ...Texts.cardText
+  badrCardText: {
+    ...Texts.cardText,
   },
   badrCard: {
-    ...Cards.badrCard
+    ...Cards.badrCard,
   },
   badrButton: {
-    ...Buttons.badrButton
+    ...Buttons.badrButton,
   },
-  loginButton : {
-    ...Buttons.loginButton
+  loginButton: {
+    ...Buttons.loginButton,
   },
   badrButtonText: {
     ...Texts.buttonLoginText,
@@ -56,6 +57,12 @@ const CustomStyleSheet = StyleSheet.create({
   menuContainer: {
     ...Containers.menuContainer,
   },
+  badrPicker: {
+    ...Pickers.badrPicker,
+  },
+  badrPickerTitle : {
+    ...Pickers.badrPickerTitle
+  }
 });
 
 export {CustomStyleSheet};

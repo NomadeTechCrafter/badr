@@ -35,7 +35,15 @@ export const centeredText = {
   color: '#696969',
 };
 
-
 export const card = {
-  backgroundColor : '#009ab2',
-}
+  backgroundColor: '#009ab2',
+};
+
+export const badrPicker = {
+  borderColor: '#009ab2',
+};
+
+export const badrPickerTitle = {
+  backgroundColor: '#009ab2',
+  color: 'white',
+};
