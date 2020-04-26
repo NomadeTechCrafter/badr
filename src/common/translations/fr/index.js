@@ -11,6 +11,12 @@ export default {
     codeCorrect: 'Code correct',
     codePlaceholder: '6 chiffres reçus par SMS',
   },
+  profile: {
+    listeBureaux: 'Liste des bureaux',
+    listeArrondissements: 'Liste des arrondissements',
+    listeProfils: 'Liste des profils',
+    submit: 'Valider',
+  },
   errors: {
     technicalIssue: "Erreur technique, contactez l''administratteur",
   },
@@ -22,5 +28,17 @@ export default {
       confirmConnexionPending:
         'Confirmation de la connexion avec le profil : [ALLPROFIL]',
     },
+  },
+  components: {
+    pickerchecker: {
+      default_value: 'Choisissez une valeur',
+      selected: 'Sélectionnés',
+      delete_all: 'Supprimer tous',
+      search: 'Rechercher...',
+      submit: 'Valider',
+    },
+    progressbar : {
+      loading : 'Chargement en cours...'
+    }
   },
 };

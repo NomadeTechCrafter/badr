@@ -12,79 +12,59 @@ import {
   Dimensions,
 } from 'react-native';
 
-import {translate as translate} from '../../common/translations/i18n';
-
-const buildTextInput = (
-  autoCapitalize,
-  style,
-  placeholder,
-  onChangeText,
-  secureTextEntry,
-  maxLength,
-) => {
-  return (
-    <View style={CustomStyleSheet.badrInput}>
-      {maxLength ? (
-        <TextInput
-          autoCapitalize={autoCapitalize}
-          style={style}
-          placeholder={placeholder}
-          onChangeText={onChangeText}
-          secureTextEntry={secureTextEntry}
-          maxLength={maxLength}
-        />
-      ) : (
-        <TextInput
-          autoCapitalize={autoCapitalize}
-          style={style}
-          placeholder={placeholder}
-          onChangeText={onChangeText}
-          secureTextEntry={secureTextEntry}
-        />
-      )}
-    </View>
-  );
-};
+import {translate} from '../../common/translations/i18n';
 
 export class BadrTextInput extends React.Component {
   constructor(props) {
     super(props);
   }
   render() {
-    return buildTextInput(
-      this.props.type,
-      CustomStyleSheet.badrText,
-      this.props.placeholder,
-      this.props.onChangeText,
-      false,
-      this.props.maxLength,
+    return (
+      <View style={CustomStyleSheet.badrInput}>
+        <TextInput
+          style={CustomStyleSheet.badrText}
+          keyboardType={this.props.keyboardType}
+          placeholder={this.props.placeholder}
+          onChangeText={text => this.props.onChangeText(text)}
+          secureTextEntry={false}
+          maxLength={this.props.maxLength}
+        />
+      </View>
     );
   }
 }
-
 
 export class LoginTextInput extends React.Component {
   constructor(props) {
     super(props);
   }
   render() {
-    return buildTextInput(
-      'characters',
-      CustomStyleSheet.badrText,
-      translate("login.userName"),
-      this.props.onChangeText,
-      false,
+    return (
+      <View style={CustomStyleSheet.badrInput}>
+        <TextInput
+          value={this.props.value}
+          autoCapitalize="characters"
+          style={CustomStyleSheet.badrText}
+          placeholder={translate('login.userName')}
+          onChangeText={text => this.props.onChangeText(text)}
+          secureTextEntry={false}
+        />
+      </View>
     );
   }
 }
 export class PasswordTextInput extends React.Component {
   render() {
-    return buildTextInput(
-      'none',
-      CustomStyleSheet.badrText,
-      translate("login.password"),
-      this.props.onChangeText,
-      true,
+    return (
+      <View style={CustomStyleSheet.badrInput}>
+        <TextInput
+          autoCapitalize="none"
+          style={CustomStyleSheet.badrText}
+          placeholder={translate('login.password')}
+          onChangeText={text => this.props.onChangeText(text)}
+          secureTextEntry={true}
+        />
+      </View>
     );
   }
 }

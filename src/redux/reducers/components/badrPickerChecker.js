@@ -36,7 +36,6 @@ export default (state = initialState, action) => {
       };
       return nextState;
     case Constants.BADRPICKER_SUCCESS:
-    console.log("SUCCESS ############################################");
       nextState.picker[action.value.command] = {
         loaded: true,
         errorMessage: '',

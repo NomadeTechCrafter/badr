@@ -6,7 +6,7 @@ import {
 import {
   buttonLoginText as buttonLoginTextAlignment,
   centeredText as centeredTextAlignment,
-  cardText as cardTextAlignment
+  cardText as cardTextAlignment,
 } from './alignment';
 
 import {centeredText as centeredTextSize} from './size';
@@ -34,5 +34,11 @@ export const centeredText = {
 
 export const cardText = {
   ...cardTextCalligraphy,
-  ...cardTextAlignment
+  ...cardTextAlignment,
+};
+
+export const progressbarText = {
+  padding: 10,
+  textAlign: 'center',
+  color: '#009ab2',
 };

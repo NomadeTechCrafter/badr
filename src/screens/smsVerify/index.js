@@ -74,6 +74,7 @@ class SmsVerify extends React.Component {
         <View style={CustomStyleSheet.centerContainer}>
           <BadrTextInput
             maxLength={6}
+            keyboardType="numeric"
             placeholder={translate('smsVerify.codePlaceholder')}
             onChangeText={text => this.setState({code: text})}
           />
@@ -81,21 +82,19 @@ class SmsVerify extends React.Component {
             onPress={this.onConfirmerClicked}
             text={translate('smsVerify.confirm')}
           />
-          
+
           {!this.props.correct && this.props.displayError && (
             <BadrErrorMessage message={this.props.errorMessage} />
           )}
 
-          {(!this.props.confirmed && this.props.showProgressConfirmCnx) && (
+          {!this.props.confirmed && this.props.showProgressConfirmCnx && (
             <BadrInfoMessage
               message={translate('info.smsVerify.confirmConnexionPending')}
             />
           )}
 
-           {(!this.props.correct && this.props.showProgress) && (
-            <BadrInfoMessage
-              message={translate('info.pleasewait')}
-            />
+          {!this.props.correct && this.props.showProgress && (
+            <BadrInfoMessage message={translate('info.pleasewait')} />
           )}
         </View>
       </ScrollView>
@@ -104,22 +103,11 @@ class SmsVerify extends React.Component {
 }
 
 const mapStateToProps = state => {
-  console.log('SMS VERIFY State changed ...');
   return {
     ...state.confirmConnexionReducer,
     ...state.smsVerifyReducer,
   };
 };
-
-// function mapDispatchToProps(dispatch) {
-//   let actionsSmsVerify = bindActionCreators({SmsVerifyActionCreators});
-//   let actionsConfirmCnx = bindActionCreators({ConfirmConnexionActionCreators});
-//   return {actionsSmsVerify, actionsConfirmCnx, dispatch};
-// }
-
-// function mapDispatchToProps(dispatch) {
-//   return {dispatch};
-// }
 
 export default connect(
   mapStateToProps,

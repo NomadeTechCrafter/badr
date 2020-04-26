@@ -1,8 +1,9 @@
 import React from 'react';
-import {View, Text, StyleSheet, Image} from 'react-native';
+import {View, Text, StyleSheet, ScrollView} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-// import PickerCheckBox from 'react-native-picker-checkbox';
 import SectionedMultiSelect from 'react-native-sectioned-multi-select';
+import {BadrCircleProgressBar} from '../../components/progressbars/BadrCircleProgressBar';
+import _ from 'lodash';
 
 /** REDUX **/
 import {bindActionCreators} from 'redux';
@@ -11,6 +12,8 @@ import {connect} from 'react-redux';
 /**ACTIONS */
 import * as Constants from '../../common/constants/badrPicker';
 import * as badrPickerAction from '../../redux/actions/components/badrPicker';
+
+import {translate} from '../../common/translations/i18n';
 
 import {BadrInfoMessage} from '../../components/messages/Info';
 
@@ -30,8 +33,6 @@ class BadrPickerChecker extends React.Component {
   };
 
   fetchData = params => {
-    console.log('fetching ...');
-    console.log(params);
     let action = badrPickerAction.request({
       type: Constants.BADRPICKER_REQUEST,
       value: {
@@ -50,15 +51,11 @@ class BadrPickerChecker extends React.Component {
     if (this.props.onRef) {
       this.props.onRef(this);
     }
-    this.fetchData(this.props.params);
+    this.fetchData(this.props.param);
   }
 
   onSelectedItemsChange = selectedItems => {
     this.setState({selectedItems});
-  };
-
-  onConfirm = () => {
-    console.log(this.state.selectedItems);
   };
 
   icon = ({name, size = 18, style}) => {
@@ -110,50 +107,43 @@ class BadrPickerChecker extends React.Component {
       <View style={this.props.style}>
         <Text style={this.props.titleStyle}>{this.props.title}</Text>
         {this.props.group && this.props.loaded ? (
-          <View>
+          <ScrollView>
             <SectionedMultiSelect
               styles={{
                 button: {backgroundColor: '#009ab2'},
-                subItem: {
-                  fontSize: 22,
-                },
-                item: {
-                  fontSize: 22,
-                },
-                container: {
-                  height: 400,
-                },
-                modalWrapper: {
-                  height: 400,
-                },
               }}
               items={this.props.group}
               uniqueKey={this.props.cle}
               subKey="children"
               iconRenderer={this.icon}
               displayKey={this.props.libelle}
-              selectText="Séléctionnez une valeur"
-              selectedText="Séléctionnés"
-              removeAllText="Supprimer tous"
-              searchPlaceholderText="Rechercher"
-              confirmText="Valider"
+              selectText={translate('components.pickerchecker.default_value')}
+              selectedText={translate('components.pickerchecker.selected')}
+              searchPlaceholderText={translate(
+                'components.pickerchecker.search',
+              )}
+              confirmText={translate('components.pickerchecker.submit')}
               showDropDowns={false}
               selectChildren={true}
               highlightChildren={true}
               loading={!this.props.loaded}
-              showRemoveAll={true}
               onSelectedItemsChange={this.onSelectedItemsChange}
               selectedItems={this.state.selectedItems}
-              onConfirm={this.onConfirm}
+              onConfirm={() => {
+                const results = this.state.selectedItems;
+                /* Exclude parent item */
+                _.remove(results, item => {
+                  return '0' === item;
+                });
+                this.props.onConfirm(results);
+              }}
+              onSelectedItemObjectsChange={(newCollection) => {
+                this.props.onSelectedItemObjectsChange(newCollection);
+              }}
             />
-          </View>
+          </ScrollView>
         ) : (
-          <View>
-            {/* TODO : REFACTO */}
-            <Text style={{padding: 20, textAlign: 'center', color: '#009ab2'}}>
-              Chargement ...
-            </Text>
-          </View>
+          <BadrCircleProgressBar size={30} />
         )}
       </View>
     );
@@ -167,8 +157,6 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps(state, ownProps) {
-  console.log('*************** mapStateToProps - BadrPicker ');
-  console.log(state.badrPickerCheckerReducer.picker[ownProps.command]);
   if (
     state.badrPickerCheckerReducer &&
     state.badrPickerCheckerReducer.picker &&

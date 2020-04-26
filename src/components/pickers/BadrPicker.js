@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {Picker} from '@react-native-community/picker';
+import {BadrCircleProgressBar} from '../../components/progressbars/BadrCircleProgressBar';
 
 /** REDUX **/
 import {bindActionCreators} from 'redux';
@@ -12,6 +13,11 @@ import * as badrPickerAction from '../../redux/actions/components/badrPicker';
 
 import {BadrInfoMessage} from '../../components/messages/Info';
 
+import {translate} from '../../common/translations/i18n';
+
+/** STYLING **/
+import {CustomStyleSheet} from '../../styles/index';
+
 class BadrPicker extends React.Component {
   constructor(props) {
     super(props);
@@ -19,7 +25,6 @@ class BadrPicker extends React.Component {
       picker: null,
       selectedValue: this.props.selectedValue,
     };
-    console.log('LOGIN : ' + this.props);
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {}
@@ -29,8 +34,6 @@ class BadrPicker extends React.Component {
   };
 
   fetchData = params => {
-    console.log('fetching ...');
-    console.log(params);
     let action = badrPickerAction.request({
       type: Constants.BADRPICKER_REQUEST,
       value: {
@@ -44,12 +47,10 @@ class BadrPicker extends React.Component {
   };
 
   componentDidMount() {
-    console.log('componentDidMount');
     if (this.props.onRef) {
       this.props.onRef(this);
     }
-    this.fetchData(this.props.params);
-    console.log('componentDidMount');
+    this.fetchData(this.props.param);
   }
 
   render() {
@@ -58,6 +59,8 @@ class BadrPicker extends React.Component {
         <Text style={this.props.titleStyle}>{this.props.title}</Text>
         {this.props.items && this.props.loaded ? (
           <Picker
+            enabled={this.props.loaded}
+            mode="dropdown"
             textStyle={{fontSize: 8}}
             selectedValue={this.state.selectedValue}
             onValueChange={(itemValue, itemIndex) => {
@@ -65,7 +68,7 @@ class BadrPicker extends React.Component {
               this.props.onValueChange(itemValue, itemIndex);
             }}>
             <Picker.Item
-              label="Séléctionnez une valeur"
+              label={translate('components.pickerchecker.default_value')}
               value={'default_item_' + this.props.command}
               key={'default_item_' + this.props.command}
             />
@@ -82,12 +85,7 @@ class BadrPicker extends React.Component {
             })}
           </Picker>
         ) : (
-          <View>
-            {/* TODO : REFACTO */}
-            <Text style={{padding: 20, textAlign: 'center', color: '#009ab2'}}>
-              Chargement ...
-            </Text>
-          </View>
+          <BadrCircleProgressBar size={30} />
         )}
       </View>
     );
@@ -101,8 +99,6 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps(state, ownProps) {
-  console.log('*************** mapStateToProps - BadrPicker ');
-  console.log(state.badrPickerReducer.picker[ownProps.command]);
   if (
     state.badrPickerReducer &&
     state.badrPickerReducer.picker &&

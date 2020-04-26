@@ -8,7 +8,12 @@ import * as Containers from './containers';
 import * as Cards from './cards';
 import * as Pickers from './picker';
 
+import * as Colors from './colors';
+
 import {StyleSheet} from 'react-native';
+
+export const primaryColor = '#009ab2';
+export const accentColor = '#FFFFFF';
 
 const CustomStyleSheet = StyleSheet.create({
   badrCardText: {
@@ -35,6 +40,9 @@ const CustomStyleSheet = StyleSheet.create({
   centeredText: {
     ...Texts.centeredText,
   },
+  progressbarText: {
+    ...Texts.progressbarText,
+  },
   loginHeaderImage: {
     ...Images.loginHeaderImage,
   },
@@ -60,9 +68,9 @@ const CustomStyleSheet = StyleSheet.create({
   badrPicker: {
     ...Pickers.badrPicker,
   },
-  badrPickerTitle : {
-    ...Pickers.badrPickerTitle
-  }
+  badrPickerTitle: {
+    ...Pickers.badrPickerTitle,
+  },
 });
 
 export {CustomStyleSheet};
