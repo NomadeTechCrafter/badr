@@ -7,20 +7,28 @@ import {
   ScrollView,
   StyleSheet,
   TouchableOpacity,
+  Dimensions,
 } from 'react-native';
 
 import BadrPicker from '../../components/pickers/BadrPicker';
 import BadrPickerChecker from '../../components/pickers/BadrPickerChecker';
 import {BadrFloatingButton} from '../../components/buttons/BadrFloatingButton';
+import {BadrProgressBar} from '../../components/progressbars/BadrProgressBar';
 
 /** REDUX **/
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 
+import * as ConstantsConfirmCnx from '../../common/constants/confirmConnexion';
+import * as confirmCnxAction from '../../redux/actions/confirmCnx';
+
 /** STYLING **/
 import {CustomStyleSheet} from '../../styles/index';
 
 import {translate} from '../../common/translations/i18n';
+
+/** CONSTANTS **/
+const screenHeight = Dimensions.get('window').height;
 
 class Profile extends React.Component {
   constructor(props) {
@@ -31,6 +39,26 @@ class Profile extends React.Component {
       selectedProfiles: [],
     };
   }
+
+  buildConfirmConnexionAction = (
+    navigation,
+    codeBureau,
+    listeProfilCoche,
+    login,
+  ) => {
+    var action = confirmCnxAction.request(
+      {
+        type: ConstantsConfirmCnx.CONFIRMCNX_REQUEST,
+        value: {
+          login: login,
+          codeBureau: codeBureau,
+          listeProfilCoche: listeProfilCoche,
+        },
+      },
+      navigation,
+    );
+    return action;
+  };
 
   handleArrondissementChanged = (selectedValue, selectedIndex) => {
     this.setState({selectedArrondissement: selectedValue});
@@ -53,12 +81,23 @@ class Profile extends React.Component {
   };
 
   handleConfirmButton = () => {
-    console.log(this.state);
+    let action = this.buildConfirmConnexionAction(
+      this.props.navigation,
+      this.state.selectedBureau,
+      this.state.selectedProfiles,
+      this.props.route.params.login,
+    );
+    console.log(action);
+    this.props.actions.dispatch(action);
   };
 
   render() {
     return (
       <View style={styles.container}>
+        {this.props.confirmConnexionReducer.showProgressConfirmCnx && (
+          <BadrProgressBar width={screenHeight} />
+        )}
+
         <ScrollView>
           <BadrPicker
             key="bureau"
@@ -127,7 +166,7 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps(state) {
-  return {...state.badrPickerReducer};
+  return {...state};
 }
 
 function mapDispatchToProps(dispatch) {

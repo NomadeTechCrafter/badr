@@ -137,8 +137,14 @@ class BadrPickerChecker extends React.Component {
                 });
                 this.props.onConfirm(results);
               }}
-              onSelectedItemObjectsChange={(newCollection) => {
-                this.props.onSelectedItemObjectsChange(newCollection);
+              onSelectedItemObjectsChange={newCollection => {
+                let profils = [];
+                if (newCollection[0] && newCollection[0].children) {
+                  newCollection[0].children.forEach(item => {
+                    profils.push(item.codeProfil);
+                  });
+                }
+                this.props.onSelectedItemObjectsChange(profils);
               }}
             />
           </ScrollView>
