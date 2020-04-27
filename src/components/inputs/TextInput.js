@@ -28,8 +28,8 @@ export class BadrTextInput extends React.Component {
           onChangeText={text => this.props.onChangeText(text)}
           secureTextEntry={false}
           maxLength={this.props.maxLength}
-          value={value}
-          autoCapitalize={autoCapitalize}
+          value={this.props.value}
+          autoCapitalize={this.props.autoCapitalize}
           onEndEditing={this.props.onEndEditing}
         />
       </View>
