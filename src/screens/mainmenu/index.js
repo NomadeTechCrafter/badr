@@ -7,19 +7,14 @@ import {
   ScrollView,
   StyleSheet,
 } from 'react-native';
-import Toolbar from '../../components/toolbar';
 import {
   Appbar,
   Provider as PaperProvider,
   DefaultTheme,
 } from 'react-native-paper';
-import {FlatGrid} from 'react-native-super-grid';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {SearchBar, Icon} from 'react-native-elements';
-import {BackHandler} from 'react-native';
-
-import {FadeInView} from '../../components/animated/index';
-
+import Icon from 'react-native-vector-icons/FontAwesome';
+import BadrTree from '../../components/tree/BadrTree';
+import {Divider} from 'react-native-elements';
 import _ from 'lodash';
 
 /** REDUX **/
@@ -32,72 +27,26 @@ import * as menuAction from '../../redux/actions/menu';
 /** STYLING **/
 import {CustomStyleSheet} from '../../styles/index';
 
-class MainMenu extends React.Component {
-  parentStack = [];
+function getIndicator(isExpanded, hasChildrenNodes) {
+  if (!hasChildrenNodes) {
+    return <Icon name="circle" size={10} />;
+  } else if (isExpanded) {
+    return <Icon name="angle-down" size={20} />;
+  } else {
+    return <Icon name="angle-right" size={20} />;
+  }
+}
 
+class MainMenu extends React.Component {
   constructor(props) {
     super(props);
-    const {search} = this.state;
-    this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
-  }
-
-  handleBackButtonClick() {
-    if (this.props.level >= 2) {
-      this.dispatchWith({
-        niveau: this.props.level - 1,
-        parent: this.parentStack.pop(),
-      });
-      return true;
-    } else {
-      return true;
-    }
-  }
-
-  handleItemPressed = item => {
-    if (item.isFeuille) {
-      console.log("C'est une feuille ...");
-
-      switch (item.raccourci) {
-        case 'cf3072':
-          console.log('--> initRegime interne');
-          return this.props.navigation.navigate('RechercheDum', {});;
-        default:
-          return ;
-      }
-      
-      console.log(item);
-    } else {
-      this.parentStack.push(item.parent);
-      console.log(this.parentStack);
-      this.dispatchWith({parent: item.id});
-    }
-  };
-
-  componentWillUnmount() {
-    BackHandler.removeEventListener(
-      'hardwareBackPress',
-      this.handleBackButtonClick,
-    );
   }
 
   componentDidMount() {
-    BackHandler.addEventListener(
-      'hardwareBackPress',
-      this.handleBackButtonClick,
-    );
-    this.dispatchWith({niveau: 1});
+    this.fetchMenu();
   }
 
-  state = {
-    search: '',
-  };
-
-  updateSearch = search => {
-    this.setState({search});
-    this.dispatchWith(search ? {libelleFonctionnalite: search} : {niveau: 1});
-  };
-
-  dispatchWith = predicate => {
+  fetchMenu = predicate => {
     var action = menuAction.request({
       type: Constants.MENU_REQUEST,
       value: {
@@ -108,44 +57,41 @@ class MainMenu extends React.Component {
   };
 
   render() {
-    const {search} = this.state;
     return (
       <View style={CustomStyleSheet.menuContainer}>
-        {/* <Toolbar
-          title="Menu principal"
-          icon="menu"
-          navigation={this.props.navigation}
-        /> */}
-        <SearchBar
-          lightTheme={true}
-          placeholder="Rechercher des fonctionnalités..."
-          onChangeText={this.updateSearch}
-          value={search}
-        />
-        <FlatGrid
-          itemDimension={130}
-          spacing={30}
-          items={this.props.menuList}
-          renderItem={({item}) => (
-              <TouchableOpacity onPress={() => this.handleItemPressed(item)}>
-                <View style={CustomStyleSheet.badrCard}>
-                  <Text style={CustomStyleSheet.badrCardText}>
-                    {item.libelleFonctionnalite.toUpperCase()}
+        <ScrollView>
+          <BadrTree
+            getCollapsedNodeHeight={() => 60}
+            style={{padding: 10}}
+            data={this.props.menuList} // defined above
+            renderNode={({node, level, isExpanded, hasChildrenNodes}) => {
+              return (
+                <View style={{height: 60}}>
+                  <Divider style={{ backgroundColor: '#009ab2' }}/>
+                  <Text
+                    style={{
+                      paddingTop: 20,
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      paddingLeft: 10,
+                      fontSize: hasChildrenNodes ? 15 : 13,
+                      marginLeft: 25 * level,
+                    }}>
+                    {getIndicator(isExpanded, hasChildrenNodes)}
+                    {'  '}
+                    {node.libelleFonctionnalite}
                   </Text>
                 </View>
-              </TouchableOpacity>
-          )}
-        />
+              );
+            }}
+          />
+        </ScrollView>
       </View>
     );
   }
 }
 
 const mapStateToProps = state => ({...state.menuReducer});
-
-// function mapDispatchToProps(dispatch) {
-//   return {dispatch};
-// }
 
 export default connect(
   mapStateToProps,
