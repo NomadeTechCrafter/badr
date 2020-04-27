@@ -60,9 +60,9 @@ class Login extends React.Component {
         {this.props.showProgress && <BadrProgressBar width={screenHeight} />}
         <View style={CustomStyleSheet.centerContainer}>
           <BadrLoginHeader />
-          <LoginTextInput onChangeText={text => this.setState({login: text})} />
+          <LoginTextInput onChangeText={text => this.setState({login: text}) } value ={this.state.login}/>
           <PasswordTextInput
-            onChangeText={text => this.setState({password: text})}
+            onChangeText={text => this.setState({password: text})}  value = {this.state.password}
           />
           <BadrButton
             onPress={this.handleLogin}

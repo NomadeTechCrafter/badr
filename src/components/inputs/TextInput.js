@@ -20,7 +20,10 @@ const buildTextInput = (
   placeholder,
   onChangeText,
   secureTextEntry,
+  value,
+  keyboardType,
   maxLength,
+  onEndEditing
 ) => {
   return (
     <View style={CustomStyleSheet.badrInput}>
@@ -32,6 +35,9 @@ const buildTextInput = (
           onChangeText={onChangeText}
           secureTextEntry={secureTextEntry}
           maxLength={maxLength}
+          value={value}
+          keyboardType={keyboardType}
+          onEndEditing={onEndEditing}
         />
       ) : (
         <TextInput
@@ -40,6 +46,7 @@ const buildTextInput = (
           placeholder={placeholder}
           onChangeText={onChangeText}
           secureTextEntry={secureTextEntry}
+          value={value}
         />
       )}
     </View>
@@ -52,12 +59,15 @@ export class BadrTextInput extends React.Component {
   }
   render() {
     return buildTextInput(
-      this.props.type,
+      this.props.autoCapitalize,
       CustomStyleSheet.badrText,
       this.props.placeholder,
       this.props.onChangeText,
       false,
+      this.props.value,
+      this.props.keyboardType,
       this.props.maxLength,
+      this.props.onEndEditing
     );
   }
 }
@@ -74,6 +84,7 @@ export class LoginTextInput extends React.Component {
       translate("login.userName"),
       this.props.onChangeText,
       false,
+      this.props.value
     );
   }
 }
@@ -85,6 +96,7 @@ export class PasswordTextInput extends React.Component {
       translate("login.password"),
       this.props.onChangeText,
       true,
+      this.props.value
     );
   }
 }

@@ -7,7 +7,6 @@
  */
 
 import React from 'react';
-import {View, Text} from 'react-native';
 
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
@@ -15,6 +14,8 @@ import {createStackNavigator} from '@react-navigation/stack';
 import Login from './screens/login';
 import SmsVerify from './screens/smsVerify';
 import Home from './screens/home';
+import RechercheDum from './screens/controle/rechercheDum';
+import RegimeInterne from './screens/controle/regimeInterne';
 
 import Toolbar from './components/toolbar';
 
@@ -26,11 +27,12 @@ import {
 
 /** REDUX */
 import {Provider} from 'react-redux';
-import {createStore, applyMiddleware} from 'redux';
+import {createStore, applyMiddleware, compose} from 'redux';
 import allReducers from './redux/reducers';
 import thunk from 'redux-thunk';
 const middleware = [thunk];
-const store = createStore(allReducers, applyMiddleware(thunk));
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(allReducers, composeEnhancers(applyMiddleware(thunk)));
 
 
 const theme = {
@@ -50,22 +52,28 @@ export default class App extends React.Component {
         <Provider store={store}>
           <NavigationContainer>
             <Stack.Navigator>
-              <Stack.Screen
+            <Stack.Screen
                 name="Login"
                 component={Login}
                 options={{headerShown: false}}
               />
+            <Stack.Screen
+                name="RechercheDum"
+                options={{headerShown: false}}
+                component={RechercheDum}
+              /> 
+              <Stack.Screen name="RegimeInterne" component={RegimeInterne} />
               <Stack.Screen
                 name="SmsVerify"
                 mode="modal"
                 component={SmsVerify}
               />
-
               <Stack.Screen
                 name="Home" 
                 options={{headerShown: false}}
                 component={Home}
               />
+
             </Stack.Navigator>
           </NavigationContainer>
         </Provider>

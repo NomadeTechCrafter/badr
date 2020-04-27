@@ -56,6 +56,16 @@ class MainMenu extends React.Component {
   handleItemPressed = item => {
     if (item.isFeuille) {
       console.log("C'est une feuille ...");
+
+      switch (item.raccourci) {
+        case 'cf3072':
+          console.log('--> initRegime interne');
+          return this.props.navigation.navigate('RechercheDum', {});;
+        default:
+          return ;
+      }
+      
+      console.log(item);
     } else {
       this.parentStack.push(item.parent);
       console.log(this.parentStack);
