@@ -14,6 +14,7 @@ export default class HttpHelper {
   }
 
   static async process(object) {
+    console.log(object);
     return RNFetchBlob.config({trusty: true}).fetch(
       'POST',
       SERVER_URL + PROCESS_API,

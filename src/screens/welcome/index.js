@@ -4,19 +4,58 @@ import {Text, View} from 'react-native';
 import {CustomStyleSheet} from '../../styles/index';
 import {Icon} from 'react-native-elements';
 
-import {BadrPicker} from '../../components/pickers/BadrPicker';
+import BadrPicker from '../../components/pickers/BadrPicker';
 
 /** i18n **/
 import {translate} from '../../common/translations/i18n';
 
-export default class WelcomeScreen extends React.Component {
+class WelcomeScreen extends React.Component {
+  /*
+    getCmbTypeIdentifiant
+    getListeProfil
+    getAllTypeT6bis
+  */
   render() {
+    console.log('dispatch=');
+    console.log(this.props.dispatch);
     return (
-      <View style={CustomStyleSheet.centerContainer}>
-        <BadrPicker items={['Amine', 'Toto', 'Mimi']} title="Name" />
-        <Icon name="face" size={200} />
-        <Text>{translate('info.welcome')}</Text>
+      <View>
+        <BadrPicker
+          key="profil"
+          style={{width: 400}}
+          title="Profil"
+          cle="codeProfil"
+          libelle="libelleProfil"
+          module="HAB_LIB"
+          command="getListeProfil"
+          typeService="SP"
+        />
+
+        <BadrPicker
+          key="typeT6BIS"
+          style={{width: 400}}
+          title="Type t6bis"
+          cle="code"
+          libelle="libelle"
+          module="T6BIS_LIB"
+          command="getAllTypeT6bis"
+          typeService="SP"
+        />
+
+        <BadrPicker
+          key="typeDoc"
+          style={{width: 400}}
+          title="Type document"
+          cle="code"
+          selectedValue="06"
+          libelle="libelle"
+          module="REF_LIB"
+          command="getCmbTypeIdentifiant"
+          typeService="SP"
+        />
       </View>
     );
   }
 }
+
+export default WelcomeScreen;

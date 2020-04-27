@@ -5,22 +5,28 @@ import * as Images from './images';
 import * as Messages from './messages';
 import * as Login from './login';
 import * as Containers from './containers';
-import * as Cards from './cards'
+import * as Cards from './cards';
+import * as Pickers from './picker';
+
+import * as Colors from './colors';
 
 import {StyleSheet} from 'react-native';
 
+export const primaryColor = '#009ab2';
+export const accentColor = '#FFFFFF';
+
 const CustomStyleSheet = StyleSheet.create({
-  badrCardText : {
-    ...Texts.cardText
+  badrCardText: {
+    ...Texts.cardText,
   },
   badrCard: {
-    ...Cards.badrCard
+    ...Cards.badrCard,
   },
   badrButton: {
-    ...Buttons.badrButton
+    ...Buttons.badrButton,
   },
-  loginButton : {
-    ...Buttons.loginButton
+  loginButton: {
+    ...Buttons.loginButton,
   },
   badrButtonText: {
     ...Texts.buttonLoginText,
@@ -33,6 +39,9 @@ const CustomStyleSheet = StyleSheet.create({
   },
   centeredText: {
     ...Texts.centeredText,
+  },
+  progressbarText: {
+    ...Texts.progressbarText,
   },
   loginHeaderImage: {
     ...Images.loginHeaderImage,
@@ -55,6 +64,12 @@ const CustomStyleSheet = StyleSheet.create({
   },
   menuContainer: {
     ...Containers.menuContainer,
+  },
+  badrPicker: {
+    ...Pickers.badrPicker,
+  },
+  badrPickerTitle: {
+    ...Pickers.badrPickerTitle,
   },
 });
 

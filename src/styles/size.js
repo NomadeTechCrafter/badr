@@ -23,10 +23,15 @@ export const centerContainer = {
 };
 
 export const centeredText = {
-  fontSize : 16,
+  fontSize: 16,
 };
 
 export const card = {
- height: 150,
- width : 150
-}
+  height: 150,
+  width: 150,
+};
+
+export const badrPicker = {};
+
+export const badrPickerTitle = {
+};

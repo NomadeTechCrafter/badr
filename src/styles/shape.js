@@ -16,5 +16,11 @@ export const card = {
   borderBottomLeftRadius: 20,
   borderBottomRightRadius: 20,
   borderTopRightRadius: 20,
-  elevation : 15
+  elevation: 15,
+};
+
+export const badrPicker = {
+  borderRadius: 5,
+  borderWidth: 0.2,
+  elevation: 1,
 };

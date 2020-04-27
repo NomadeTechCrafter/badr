@@ -29,9 +29,17 @@ export const centeredText = {
   margin: 40,
 };
 
-
-
 export const card = {
- padding: 10,
-}
+  padding: 10,
+};
 
+export const badrPicker = {
+  margin: 10,
+  padding: 10,
+};
+
+export const badrPickerTitle = {
+  margin: -10,
+  padding: 5,
+  marginBottom: 10,
+};

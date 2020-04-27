@@ -21,7 +21,6 @@ export default (state = initialState, action) => {
     case Constants.MENU_IN_PROGRESS:
       return nextState;
     case Constants.MENU_SUCCESS:
-      console.log('success');
       nextState.showProgress = false;
       var collection = JSON.parse(action.value.payload);
       var libelleSearch = action.value.predicate.libelleFonctionnalite;
@@ -38,11 +37,9 @@ export default (state = initialState, action) => {
           nextState.level = collection[0].niveau;
         }
       }
-      console.log(collection.length);
       nextState.menuList = collection;
       return nextState;
     case Constants.MENU_FAILED:
-      console.log('failed');
       nextState.showProgress = false;
       nextState.displayError = true;
       nextState.errorMessage = action.value;

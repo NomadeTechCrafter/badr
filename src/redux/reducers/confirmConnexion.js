@@ -20,12 +20,10 @@ export default (state = initialState, action) => {
     case Constants.CONFIRMCNX_IN_PROGRESS:
       return nextState;
     case Constants.CONFIRMCNX_SUCCESS:
-      console.log(action.value.listFonctionnaliteVOs[0]);
       nextState.showProgressConfirmCnx = false;
       nextState.confirmed = true;
       return nextState;
     case Constants.CONFIRMCNX_FAILED:
-      console.log(action.value);
       nextState.showProgressConfirmCnx = false;
       nextState.cofirmed = false;
       nextState.displayError = true;

@@ -7,6 +7,7 @@ import badrPickerReducer from './components/badrPicker';
 import controleRechercheDumReducer from './controle/rechercheDum';
 import regimeInterneReducer from './controle/regimeInterne';
 
+import badrPickerCheckerReducer from './components/badrPickerChecker';
 /**
  * combine all reducer
  */
@@ -16,6 +17,7 @@ const allReducers = combineReducers({
   confirmConnexionReducer,
   menuReducer,
   badrPickerReducer,
+  badrPickerCheckerReducer,
   controleRechercheDumReducer,
   regimeInterneReducer,
 });

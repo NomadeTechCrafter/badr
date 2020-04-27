@@ -15,6 +15,8 @@ import {translate} from '../../common/translations/i18n';
 /** STYLING **/
 import {CustomStyleSheet} from '../../styles/index';
 
+import {load} from '../../services/storage-service';
+
 /** COMPONENTS **/
 import {
   LoginTextInput,
@@ -53,14 +55,25 @@ class Login extends React.Component {
       value: {},
     });
     this.props.dispatch(action);
+
+    this.loadOldUserIfExist();
   }
+
+  loadOldUserIfExist = async () => {
+    let user = await load('user');
+    if (user) {
+      console.log(JSON.parse(user).login);
+      this.setState({login: JSON.parse(user).login});
+    }
+  };
+
   render() {
     return (
       <ScrollView style={CustomStyleSheet.whiteContainer}>
         {this.props.showProgress && <BadrProgressBar width={screenHeight} />}
         <View style={CustomStyleSheet.centerContainer}>
           <BadrLoginHeader />
-          <LoginTextInput onChangeText={text => this.setState({login: text}) } value ={this.state.login}/>
+          <LoginTextInput value={this.state.login} onChangeText={text => this.setState({login: text})} />
           <PasswordTextInput
             onChangeText={text => this.setState({password: text})}  value = {this.state.password}
           />
@@ -72,7 +85,6 @@ class Login extends React.Component {
             <BadrErrorMessage message={this.props.errorMessage} />
           )}
         </View>
-
       </ScrollView>
     );
   }

@@ -12,91 +12,63 @@ import {
   Dimensions,
 } from 'react-native';
 
-import {translate as translate} from '../../common/translations/i18n';
-
-const buildTextInput = (
-  autoCapitalize,
-  style,
-  placeholder,
-  onChangeText,
-  secureTextEntry,
-  value,
-  keyboardType,
-  maxLength,
-  onEndEditing
-) => {
-  return (
-    <View style={CustomStyleSheet.badrInput}>
-      {maxLength ? (
-        <TextInput
-          autoCapitalize={autoCapitalize}
-          style={style}
-          placeholder={placeholder}
-          onChangeText={onChangeText}
-          secureTextEntry={secureTextEntry}
-          maxLength={maxLength}
-          value={value}
-          keyboardType={keyboardType}
-          onEndEditing={onEndEditing}
-        />
-      ) : (
-        <TextInput
-          autoCapitalize={autoCapitalize}
-          style={style}
-          placeholder={placeholder}
-          onChangeText={onChangeText}
-          secureTextEntry={secureTextEntry}
-          value={value}
-        />
-      )}
-    </View>
-  );
-};
+import {translate} from '../../common/translations/i18n';
 
 export class BadrTextInput extends React.Component {
   constructor(props) {
     super(props);
   }
   render() {
-    return buildTextInput(
-      this.props.autoCapitalize,
-      CustomStyleSheet.badrText,
-      this.props.placeholder,
-      this.props.onChangeText,
-      false,
-      this.props.value,
-      this.props.keyboardType,
-      this.props.maxLength,
-      this.props.onEndEditing
+    return (
+      <View style={CustomStyleSheet.badrInput}>
+        <TextInput
+          style={CustomStyleSheet.badrText}
+          keyboardType={this.props.keyboardType}
+          placeholder={this.props.placeholder}
+          onChangeText={text => this.props.onChangeText(text)}
+          secureTextEntry={false}
+          maxLength={this.props.maxLength}
+          value={value}
+          autoCapitalize={autoCapitalize}
+          onEndEditing={this.props.onEndEditing}
+        />
+      </View>
     );
   }
 }
-
 
 export class LoginTextInput extends React.Component {
   constructor(props) {
     super(props);
   }
   render() {
-    return buildTextInput(
-      'characters',
-      CustomStyleSheet.badrText,
-      translate("login.userName"),
-      this.props.onChangeText,
-      false,
-      this.props.value
+    return (
+      <View style={CustomStyleSheet.badrInput}>
+        <TextInput
+          value={this.props.value}
+          autoCapitalize="characters"
+          style={CustomStyleSheet.badrText}
+          placeholder={translate('login.userName')}
+          onChangeText={text => this.props.onChangeText(text)}
+          secureTextEntry={false}
+        />
+      </View>
     );
   }
 }
 export class PasswordTextInput extends React.Component {
   render() {
-    return buildTextInput(
-      'none',
-      CustomStyleSheet.badrText,
-      translate("login.password"),
-      this.props.onChangeText,
-      true,
-      this.props.value
+    return (
+      <View style={CustomStyleSheet.badrInput}>
+        <TextInput
+          autoCapitalize="none"
+          style={CustomStyleSheet.badrText}
+          placeholder={translate('login.password')}
+          onChangeText={text => this.props.onChangeText(text)}
+          secureTextEntry={true}
+          value={this.props.value}
+        />
+      </View>
     );
   }
 }

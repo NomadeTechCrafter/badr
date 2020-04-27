@@ -7,6 +7,7 @@
  */
 
 import React from 'react';
+import {View, Text} from 'react-native';
 
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
@@ -16,6 +17,7 @@ import SmsVerify from './screens/smsVerify';
 import Home from './screens/home';
 import RechercheDum from './screens/controle/rechercheDum';
 import RegimeInterne from './screens/controle/regimeInterne';
+import Profile from './screens/profile';
 
 import Toolbar from './components/toolbar';
 
@@ -33,7 +35,6 @@ import thunk from 'redux-thunk';
 const middleware = [thunk];
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(allReducers, composeEnhancers(applyMiddleware(thunk)));
-
 
 const theme = {
   ...DefaultTheme,
@@ -61,19 +62,25 @@ export default class App extends React.Component {
                 name="RechercheDum"
                 options={{headerShown: false}}
                 component={RechercheDum}
-              /> 
+              />
               <Stack.Screen name="RegimeInterne" component={RegimeInterne} />
               <Stack.Screen
                 name="SmsVerify"
                 mode="modal"
                 component={SmsVerify}
               />
+
               <Stack.Screen
-                name="Home" 
+                name="Home"
                 options={{headerShown: false}}
                 component={Home}
               />
 
+              <Stack.Screen
+                name="Profile"
+                options={{headerShown: false}}
+                component={Profile}
+              />
             </Stack.Navigator>
           </NavigationContainer>
         </Provider>
