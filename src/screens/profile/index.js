@@ -99,7 +99,8 @@ class Profile extends React.Component {
         )}
 
         <ScrollView>
-          <BadrPicker
+        
+           <BadrPicker
             key="bureau"
             style={CustomStyleSheet.badrPicker}
             titleStyle={CustomStyleSheet.badrPickerTitle}
@@ -113,6 +114,7 @@ class Profile extends React.Component {
             }
             param=""
             typeService="SP"
+            storeWithKey="bureau"
           />
 
           <BadrPicker
@@ -131,6 +133,7 @@ class Profile extends React.Component {
             }
             param={this.state.selectedBureau}
             typeService="SP"
+            storeWithKey="arrondissement"
           />
 
           <BadrPickerChecker
@@ -150,6 +153,8 @@ class Profile extends React.Component {
             onConfirm={this.handleOnConfirmProfils}
             onSelectedItemObjectsChange={this.handleOnProfilItemsChanged}
           />
+
+          
         </ScrollView>
 
         <BadrFloatingButton onConfirm={this.handleConfirmButton} />

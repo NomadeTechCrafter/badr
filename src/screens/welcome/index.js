@@ -9,52 +9,28 @@ import BadrPicker from '../../components/pickers/BadrPicker';
 /** i18n **/
 import {translate} from '../../common/translations/i18n';
 
+import Utils from '../../common/util';
+import {load} from '../../services/storage-service';
+
+import MainMenu from '../mainmenu/index';
+
 class WelcomeScreen extends React.Component {
-  /*
-    getCmbTypeIdentifiant
-    getListeProfil
-    getAllTypeT6bis
-  */
+  loadmenuData = async () => {
+    let menuList = await load('listFonctionnaliteVOs').then(menuJson => {
+      let menuList = JSON.parse(menuJson);
+      console.log(Utils.unflatten(menuList));
+      // this.setState({treeData: unflatten(menuList)});
+    });
+  };
+
+  componentDidMount() {
+    this.loadmenuData();
+  }
+
   render() {
     console.log('dispatch=');
     console.log(this.props.dispatch);
-    return (
-      <View>
-        <BadrPicker
-          key="profil"
-          style={{width: 400}}
-          title="Profil"
-          cle="codeProfil"
-          libelle="libelleProfil"
-          module="HAB_LIB"
-          command="getListeProfil"
-          typeService="SP"
-        />
-
-        <BadrPicker
-          key="typeT6BIS"
-          style={{width: 400}}
-          title="Type t6bis"
-          cle="code"
-          libelle="libelle"
-          module="T6BIS_LIB"
-          command="getAllTypeT6bis"
-          typeService="SP"
-        />
-
-        <BadrPicker
-          key="typeDoc"
-          style={{width: 400}}
-          title="Type document"
-          cle="code"
-          selectedValue="06"
-          libelle="libelle"
-          module="REF_LIB"
-          command="getCmbTypeIdentifiant"
-          typeService="SP"
-        />
-      </View>
-    );
+    return <View />;
   }
 }
 

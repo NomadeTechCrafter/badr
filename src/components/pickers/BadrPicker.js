@@ -18,6 +18,9 @@ import {translate} from '../../common/translations/i18n';
 /** STYLING **/
 import {CustomStyleSheet} from '../../styles/index';
 
+/** STORAGE **/
+import {save} from '../../services/storage-service';
+
 class BadrPicker extends React.Component {
   constructor(props) {
     super(props);
@@ -64,6 +67,9 @@ class BadrPicker extends React.Component {
             textStyle={{fontSize: 8}}
             selectedValue={this.state.selectedValue}
             onValueChange={(itemValue, itemIndex) => {
+              if (this.props.storeWithKey && itemIndex > 0) {
+                save(this.props.storeWithKey, itemValue.toString());
+              }
               this.setState({selectedValue: itemValue});
               this.props.onValueChange(itemValue, itemIndex);
             }}>
