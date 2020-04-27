@@ -16,7 +16,7 @@ export class BadrButton extends React.Component {
   }
   render() {
     return buildButton(
-      CustomStyleSheet.badrButton,
+      [CustomStyleSheet.badrButton, this.props.style],
       this.props.onPress,
       this.props.text,
       CustomStyleSheet.badrButtonText,

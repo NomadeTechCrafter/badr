@@ -30,7 +30,7 @@ const screenHeight = Dimensions.get('window').height;
 
 class SmsVerify extends React.Component {
   state = {
-    code: '',
+    code: '000000',
     login: '',
   };
 
@@ -77,6 +77,7 @@ class SmsVerify extends React.Component {
             keyboardType="numeric"
             placeholder={translate('smsVerify.codePlaceholder')}
             onChangeText={text => this.setState({code: text})}
+            value={this.state.code}
           />
           <BadrButton
             onPress={this.onConfirmerClicked}

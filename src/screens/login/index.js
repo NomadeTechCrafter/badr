@@ -81,7 +81,7 @@ class Login extends React.Component {
             onChangeText={text => this.setState({login: text})}
           />
           <PasswordTextInput
-            onChangeText={text => this.setState({password: text})}
+            onChangeText={text => this.setState({password: text})}  value = {this.state.password}
           />
           <BadrButton
             onPress={this.handleLogin}

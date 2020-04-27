@@ -28,6 +28,9 @@ export class BadrTextInput extends React.Component {
           onChangeText={text => this.props.onChangeText(text)}
           secureTextEntry={false}
           maxLength={this.props.maxLength}
+          value={this.props.value}
+          autoCapitalize={this.props.autoCapitalize}
+          onEndEditing={this.props.onEndEditing}
         />
       </View>
     );
@@ -63,6 +66,7 @@ export class PasswordTextInput extends React.Component {
           placeholder={translate('login.password')}
           onChangeText={text => this.props.onChangeText(text)}
           secureTextEntry={true}
+          value={this.props.value}
         />
       </View>
     );

@@ -13,8 +13,10 @@ I18n.translations = {
   fr
 };
 
-export function translate(key) {
-  return I18n.t(key);
+//export default I18n;
+
+export function translate(key,option) {
+  return I18n.t(key ,option);
 }
 
 export default translate;
