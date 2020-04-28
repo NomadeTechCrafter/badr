@@ -39,7 +39,5 @@ export const badrPicker = {
 };
 
 export const badrPickerTitle = {
-  margin: -10,
-  padding: 5,
   marginBottom: 10,
 };

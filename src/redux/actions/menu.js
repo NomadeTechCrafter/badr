@@ -1,27 +1,33 @@
+/** API Services */
 import * as Constants from '../../common/constants/menu';
-import {load} from '../../services/storage-service';
+
+/** Storage  */
+import {loadParsed} from '../../services/storage-service';
+
+/** i18n */
+import {translate} from '../../common/translations/i18n';
 
 export function request(action) {
   return dispatch => {
     dispatch(action);
     dispatch(inProgress(action));
-    load('listFonctionnaliteVOs')
+    loadParsed('listFonctionnaliteVOs')
       .then(data => {
         if (data) {
           action.value.payload = data;
           dispatch(success(action.value));
         } else {
-          dispatch(failed('Cannot retrieve menu list.'));
+          dispatch(failed(translate('errors.technicalIssue')));
         }
       })
       .catch(e => {
-        dispatch(failed('Cannot retrieve menu list.'));
+        dispatch(failed(translate('errors.technicalIssue')));
       });
   };
 }
 
 export function inProgress(action) {
-  console.log("inprogress...");
+  console.log('inprogress...');
   return {
     type: Constants.MENU_IN_PROGRESS,
     value: action.value,
@@ -36,7 +42,7 @@ export function init(action) {
 }
 
 export function success(data) {
-    console.log("sucess...");
+  console.log('sucess...');
   return {
     type: Constants.MENU_SUCCESS,
     value: data,
@@ -44,7 +50,7 @@ export function success(data) {
 }
 
 export function failed(data) {
-    console.log("failed...");
+  console.log('failed...');
   return {
     type: Constants.MENU_FAILED,
     value: data,

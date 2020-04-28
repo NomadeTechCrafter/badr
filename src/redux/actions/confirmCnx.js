@@ -1,7 +1,28 @@
+/** API Services */
 import HabApi from '../../services/api/hab-api';
-
+/**Constants */
 import * as Constants from '../../common/constants/confirmConnexion';
-import {save} from '../../services/storage-service';
+
+/** Storage  */
+import {saveStringified} from '../../services/storage-service';
+
+/** i18n */
+import {translate} from '../../common/translations/i18n';
+
+function doAsyncStorageOperations(data) {
+  /** Saving the listFonctionnaliteVOs for menu usage */
+  saveStringified('listFonctionnaliteVOs', data.listFonctionnaliteVOs).then(
+    () => data.listFonctionnaliteVOs,
+  );
+  const user = {
+    login: data.codeAgent,
+    nomAgent: data.nomAgent,
+    prenomAgent: data.prenomAgent,
+    codeUOR: data.codeUOR,
+  };
+  /** Saving user information in the local storage */
+  saveStringified('user', user).then(() => user);
+}
 
 export function request(action, navigation) {
   return dispatch => {
@@ -15,16 +36,15 @@ export function request(action, navigation) {
       .then(response => {
         const data = JSON.parse(response.data).jsonVO;
         if (data) {
-          console.log('SUCCESS => ');
-          save('listFonctionnaliteVOs', JSON.stringify(data.listFonctionnaliteVOs)).then(() => data.listFonctionnaliteVOs);
+          doAsyncStorageOperations(data);
           dispatch(success(data));
-           navigation.navigate('Home', {login: action.value.login});
+          navigation.navigate('Home', {login: action.value.login});
         } else {
-          dispatch(failed(data.jsonVO.message));
+          dispatch(failed(data));
         }
       })
       .catch(e => {
-        dispatch(failed('Cannot confirm connexion'));
+        dispatch(failed(translate('errors.technicalIssue')));
       });
   };
 }

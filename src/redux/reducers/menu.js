@@ -1,5 +1,8 @@
+/**Constants */
 import * as Constants from '../../common/constants/menu';
+/** Utils */
 import Utils from '../../common/util';
+/** Loadash */
 import _ from 'lodash';
 
 const initialState = {
@@ -23,8 +26,8 @@ export default (state = initialState, action) => {
       return nextState;
     case Constants.MENU_SUCCESS:
       nextState.showProgress = false;
-      var collection = JSON.parse(action.value.payload);
-      nextState.menuList =  Utils.unflatten(collection);
+      var collection = action.value.payload;
+      nextState.menuList = Utils.unflatten(collection);
       return nextState;
     case Constants.MENU_FAILED:
       nextState.showProgress = false;

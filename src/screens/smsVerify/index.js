@@ -1,10 +1,21 @@
 import React from 'react';
 
+/** React Components */
 import {View, Text, Dimensions, ScrollView} from 'react-native';
+
+/** Custom Components */
+import {
+  BadrTextInput,
+  BadrErrorMessage,
+  BadrInfoMessage,
+  BadrButton,
+  BadrProgressBar,
+} from '../../components';
 
 /** REDUX **/
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
+import * as SmsVerifyActionCreators from '../../redux/actions/smsVerify';
 
 /**ACTIONS */
 import * as Constants from '../../common/constants/smsVerify';
@@ -12,20 +23,13 @@ import * as Constants from '../../common/constants/smsVerify';
 /**i18n */
 import {translate} from '../../common/translations/i18n';
 
-import * as SmsVerifyActionCreators from '../../redux/actions/smsVerify';
-import * as ConfirmConnexionActionCreators from '../../redux/actions/confirmCnx';
-
-import {BadrButton} from '../../components/buttons/Button';
-import {BadrTextInput} from '../../components/inputs/TextInput';
-import {BadrErrorMessage} from '../../components/messages/Error';
-import {BadrInfoMessage} from '../../components/messages/Info';
-import {BadrProgressBar} from '../../components/progressbars/BadrProgressBar';
-
+/**Styling */
 import {CustomStyleSheet} from '../../styles/index';
 
-import {load} from '../../services/storage-service';
+/**Storage */
+import {loadParsed} from '../../services/storage-service';
 
-/** CONSTANTS **/
+/** Constants **/
 const screenHeight = Dimensions.get('window').height;
 
 class SmsVerify extends React.Component {
@@ -43,7 +47,6 @@ class SmsVerify extends React.Component {
       this.props.navigation,
     );
     this.props.dispatch(action);
-    console.log('dispatch fired !!');
   };
 
   handleTextChanged = text => {
@@ -56,8 +59,8 @@ class SmsVerify extends React.Component {
       value: {},
     });
     this.props.dispatch(action);
-    load('user').then(user => {
-      this.setState({login: JSON.parse(user).login});
+    loadParsed('user').then(user => {
+      this.setState({login: user.login});
     });
   }
 
@@ -67,7 +70,6 @@ class SmsVerify extends React.Component {
         {(this.props.showProgress || this.props.showProgressConfirmCnx) && (
           <BadrProgressBar width={screenHeight} />
         )}
-
         <Text style={CustomStyleSheet.centeredText}>
           {translate('smsVerify.message')}
         </Text>
@@ -105,7 +107,6 @@ class SmsVerify extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    ...state.confirmConnexionReducer,
     ...state.smsVerifyReducer,
   };
 };

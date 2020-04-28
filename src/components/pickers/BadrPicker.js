@@ -1,7 +1,9 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {Picker} from '@react-native-community/picker';
-import {BadrCircleProgressBar} from '../../components/progressbars/BadrCircleProgressBar';
+import {BadrCircleProgressBar} from '../';
+import {BadrInfoMessage} from '../';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 /** REDUX **/
 import {bindActionCreators} from 'redux';
@@ -10,8 +12,6 @@ import {connect} from 'react-redux';
 /**ACTIONS */
 import * as Constants from '../../common/constants/badrPicker';
 import * as badrPickerAction from '../../redux/actions/components/badrPicker';
-
-import {BadrInfoMessage} from '../../components/messages/Info';
 
 import {translate} from '../../common/translations/i18n';
 
@@ -26,14 +26,24 @@ class BadrPicker extends React.Component {
     super(props);
     this.state = {
       picker: null,
+      expanded: true,
+      disabled: false,
       selectedValue: this.props.selectedValue,
     };
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {}
 
-  refresh = params => {
+  refresh = (params, caller) => {
     this.fetchData(params);
+    this.caller = caller;
+    this.caller.disable();
+  };
+
+  disable = () => {
+    if (this.caller) {
+      this.caller.setState({disabled: true});
+    }
   };
 
   fetchData = params => {
@@ -56,42 +66,94 @@ class BadrPicker extends React.Component {
     this.fetchData(this.props.param);
   }
 
+  toggleExpand = () => {
+    this.setState({expanded: !this.state.expanded});
+  };
+
+  disableCallerIfPending = pickerData => {
+    if (this.caller && this.caller.setState) {
+      if (pickerData && pickerData.loaded ) {
+        this.caller.setState({disabled: false});
+      } else {
+        this.caller.setState({disabled: true});
+      }
+    }
+  };
+
   render() {
+    let pickerData = this.props.picker[this.props.command];
+    this.disableCallerIfPending(pickerData);
     return (
-      <View style={this.props.style}>
-        <Text style={this.props.titleStyle}>{this.props.title}</Text>
-        {this.props.items && this.props.loaded ? (
-          <Picker
-            enabled={this.props.loaded}
-            mode="dropdown"
-            textStyle={{fontSize: 8}}
-            selectedValue={this.state.selectedValue}
-            onValueChange={(itemValue, itemIndex) => {
-              if (this.props.storeWithKey && itemIndex > 0) {
-                save(this.props.storeWithKey, itemValue.toString());
-              }
-              this.setState({selectedValue: itemValue});
-              this.props.onValueChange(itemValue, itemIndex);
-            }}>
-            <Picker.Item
-              label={translate('components.pickerchecker.default_value')}
-              value={'default_item_' + this.props.command}
-              key={'default_item_' + this.props.command}
+      <View style={{...this.props.style, borderWidth: 0}}>
+        {this.props.toggle && (
+          <TouchableOpacity
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              margin: -10,
+              padding: 10,
+              backgroundColor: '#ececec',
+              ...this.props.titleStyle,
+            }}
+            onPress={() => this.toggleExpand()}>
+            <Text style={this.props.titleStyle}>{this.props.title}</Text>
+            <Icon
+              style={this.props.titleStyle}
+              name={this.state.expanded ? 'minus-square' : 'plus-square'}
+              size={30}
+              color={'#5E5E5E'}
             />
-            {this.props.items.map(item => {
-              const key = item[this.props.cle] + '_' + this.props.command;
-              return (
+          </TouchableOpacity>
+        )}
+
+        {!this.props.toggle && (
+          <Text
+            style={{
+              margin: -10,
+              padding: 10,
+              ...this.props.titleStyle,
+            }}>
+            {this.props.title}
+          </Text>
+        )}
+
+        {this.state.expanded && (
+          <View style={{margin: -10}}>
+            {pickerData && pickerData.items && pickerData.loaded ? (
+              <Picker
+                enabled={!this.state.disabled}
+                mode="dropdown"
+                textStyle={{fontSize: 8}}
+                selectedValue={this.state.selectedValue}
+                onValueChange={(itemValue, itemIndex) => {
+                  if (this.props.storeWithKey && itemIndex > 0) {
+                    save(this.props.storeWithKey, itemValue.toString());
+                  }
+                  this.setState({selectedValue: itemValue});
+                  this.props.onValueChange(itemValue, itemIndex);
+                }}>
                 <Picker.Item
-                  label={item[this.props.libelle]}
-                  value={item[this.props.cle]}
-                  key={key}>
-                  <Text>Check</Text>
-                </Picker.Item>
-              );
-            })}
-          </Picker>
-        ) : (
-          <BadrCircleProgressBar size={30} />
+                  label={translate('components.pickerchecker.default_value')}
+                  value={'default_item_' + this.props.command}
+                  key={'default_item_' + this.props.command}
+                />
+                {pickerData.items.map(item => {
+                  const key = item[this.props.cle] + '_' + this.props.command;
+                  return (
+                    <Picker.Item
+                      label={item[this.props.libelle]}
+                      value={item[this.props.cle]}
+                      key={key}>
+                      <Text>Check</Text>
+                    </Picker.Item>
+                  );
+                })}
+              </Picker>
+            ) : (
+              <BadrCircleProgressBar size={30} />
+            )}
+          </View>
         )}
       </View>
     );
@@ -105,15 +167,16 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps(state, ownProps) {
-  if (
-    state.badrPickerReducer &&
-    state.badrPickerReducer.picker &&
-    state.badrPickerReducer.picker[ownProps.command]
-  ) {
-    return {...state.badrPickerReducer.picker[ownProps.command]};
-  } else {
-    return {...state.badrPickerReducer};
-  }
+  // if (
+  //   state.badrPickerReducer &&
+  //   state.badrPickerReducer.picker &&
+  //   state.badrPickerReducer.picker[ownProps.command]
+  // ) {
+  //   return {...state.badrPickerReducer.picker[ownProps.command]};
+  // } else {
+
+  return {...state.badrPickerReducer};
+  // }
 }
 
 function mapDispatchToProps(dispatch) {

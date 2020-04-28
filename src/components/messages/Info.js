@@ -6,7 +6,7 @@ const buildInfo = (message, style) => {
   return <Text style={style}>{message}</Text>;
 };
 
-export class BadrInfoMessage extends React.Component {
+export default class BadrInfoMessage extends React.Component {
   constructor(props) {
     super(props);
   }
