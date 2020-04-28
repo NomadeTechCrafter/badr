@@ -6,7 +6,7 @@ const buildError = (message, style) => {
   return message ? <Text style={style}>{message}</Text> : <View />;
 };
 
-export class BadrErrorMessage extends React.Component {
+export default class BadrErrorMessage extends React.Component {
   constructor(props) {
     super(props);
   }

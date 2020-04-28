@@ -22,5 +22,4 @@ export const card = {
 export const badrPicker = {
   borderRadius: 5,
   borderWidth: 0.2,
-  elevation: 1,
 };

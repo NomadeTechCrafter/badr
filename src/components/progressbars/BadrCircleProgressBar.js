@@ -6,7 +6,7 @@ import * as Progress from 'react-native-progress';
 import { translate } from "../../common/translations/i18n";
 const buildProgressBar = (color, size) => {
   return (
-    <View style={CustomStyleSheet.centerContainer}>
+    <View style={{...CustomStyleSheet.centerContainer, backgroundColor: 'transparent'}}>
       <Progress.Circle
         color={primaryColor}
         indeterminate={true}
@@ -17,7 +17,7 @@ const buildProgressBar = (color, size) => {
   );
 };
 
-export class BadrCircleProgressBar extends React.Component {
+export default class BadrCircleProgressBar extends React.Component {
   constructor(props) {
     super(props);
   }

@@ -14,7 +14,7 @@ import {
 
 import {translate} from '../../common/translations/i18n';
 
-export default class BadrTextInput extends React.Component {
+export default class LoginTextInput extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -22,15 +22,12 @@ export default class BadrTextInput extends React.Component {
     return (
       <View style={CustomStyleSheet.badrInput}>
         <TextInput
+          value={this.props.value}
+          autoCapitalize="characters"
           style={CustomStyleSheet.badrText}
-          keyboardType={this.props.keyboardType}
-          placeholder={this.props.placeholder}
+          placeholder={translate('login.userName')}
           onChangeText={text => this.props.onChangeText(text)}
           secureTextEntry={false}
-          maxLength={this.props.maxLength}
-          value={this.props.value}
-          autoCapitalize={this.props.autoCapitalize}
-          onEndEditing={this.props.onEndEditing}
         />
       </View>
     );

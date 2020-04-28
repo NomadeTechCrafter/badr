@@ -1,7 +1,6 @@
-/** NATIVE **/
+/** React Components */
 import React from 'react';
 import {View, Dimensions, ScrollView, Text} from 'react-native';
-
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 /** REDUX **/
@@ -17,21 +16,22 @@ import {translate} from '../../common/translations/i18n';
 /** STYLING **/
 import {CustomStyleSheet} from '../../styles/index';
 
-import {load} from '../../services/storage-service';
+/** Storage **/
+import {loadParsed} from '../../services/storage-service';
+
+/** Loadash **/
 import _ from 'lodash';
 
-/** COMPONENTS **/
+/** Custom Components */
 import {
   LoginTextInput,
   PasswordTextInput,
-} from '../../components/inputs/TextInput';
-import {BadrButton} from '../../components/buttons/Button';
-import {BadrLoginHeader} from '../../components/header/Login';
-import {BadrProgressBar} from '../../components/progressbars/BadrProgressBar';
-import {BadrErrorMessage} from '../../components/messages/Error';
-import {BadrInfoMessage} from '../../components/messages/Info';
-import {BadrPicker} from '../../components/pickers/BadrPicker';
-import BadrTree from '../../components/tree/BadrTree';
+  BadrLoginHeader,
+  BadrProgressBar,
+  BadrErrorMessage,
+  BadrInfoMessage,
+  BadrButton,
+} from '../../components';
 
 /** CONSTANTS **/
 const screenHeight = Dimensions.get('window').height;
@@ -64,9 +64,9 @@ class Login extends React.Component {
   }
 
   loadOldUserIfExist = async () => {
-    let user = await load('user');
+    let user = await loadParsed('user');
     if (user) {
-      this.setState({login: JSON.parse(user).login});
+      this.setState({login: user.login});
     }
   };
 
@@ -81,7 +81,8 @@ class Login extends React.Component {
             onChangeText={text => this.setState({login: text})}
           />
           <PasswordTextInput
-            onChangeText={text => this.setState({password: text})}  value = {this.state.password}
+            onChangeText={text => this.setState({password: text})}
+            value={this.state.password}
           />
           <BadrButton
             onPress={this.handleLogin}

@@ -1,8 +1,15 @@
 import React from 'react';
-import {View, Text, StyleSheet, ScrollView} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import SectionedMultiSelect from 'react-native-sectioned-multi-select';
-import {BadrCircleProgressBar} from '../../components/progressbars/BadrCircleProgressBar';
+import {BadrCircleProgressBar} from '../';
+import {BadrInfoMessage} from '../';
 import _ from 'lodash';
 
 /** REDUX **/
@@ -15,13 +22,12 @@ import * as badrPickerAction from '../../redux/actions/components/badrPicker';
 
 import {translate} from '../../common/translations/i18n';
 
-import {BadrInfoMessage} from '../../components/messages/Info';
-
 class BadrPickerChecker extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       picker: null,
+      expanded: true,
       selectedItems: [],
     };
   }
@@ -102,54 +108,99 @@ class BadrPickerChecker extends React.Component {
     return <View style={styles}>{iconComponent}</View>;
   };
 
+  toggleExpand = () => {
+    this.setState({expanded: !this.state.expanded});
+  };
+
   render() {
     return (
-      <View style={this.props.style}>
-        <Text style={this.props.titleStyle}>{this.props.title}</Text>
-        {this.props.group && this.props.loaded ? (
-          <ScrollView>
-            <SectionedMultiSelect
-              styles={{
-                button: {backgroundColor: '#009ab2'},
-              }}
-              items={this.props.group}
-              uniqueKey={this.props.cle}
-              subKey="children"
-              iconRenderer={this.icon}
-              displayKey={this.props.libelle}
-              selectText={translate('components.pickerchecker.default_value')}
-              selectedText={translate('components.pickerchecker.selected')}
-              searchPlaceholderText={translate(
-                'components.pickerchecker.search',
-              )}
-              confirmText={translate('components.pickerchecker.submit')}
-              showDropDowns={false}
-              selectChildren={true}
-              highlightChildren={true}
-              loading={!this.props.loaded}
-              onSelectedItemsChange={this.onSelectedItemsChange}
-              selectedItems={this.state.selectedItems}
-              onConfirm={() => {
-                const results = this.state.selectedItems;
-                /* Exclude parent item */
-                _.remove(results, item => {
-                  return '0' === item;
-                });
-                this.props.onConfirm(results);
-              }}
-              onSelectedItemObjectsChange={newCollection => {
-                let profils = [];
-                if (newCollection[0] && newCollection[0].children) {
-                  newCollection[0].children.forEach(item => {
-                    profils.push(item.codeProfil);
-                  });
-                }
-                this.props.onSelectedItemObjectsChange(profils);
-              }}
+      <View style={{...this.props.style, borderWidth: 0}}>
+        {this.props.toggle && (
+          <TouchableOpacity
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              margin: -10,
+              padding: 10,
+              backgroundColor: '#ececec',
+              ...this.props.titleStyle,
+            }}
+            onPress={() => this.toggleExpand()}>
+            <Text style={this.props.titleStyle}>{this.props.title}</Text>
+            <Icon
+              style={this.props.titleStyle}
+              name={this.state.expanded ? 'minus-square' : 'plus-square'}
+              size={30}
+              color={'#5E5E5E'}
             />
-          </ScrollView>
-        ) : (
-          <BadrCircleProgressBar size={30} />
+          </TouchableOpacity>
+        )}
+
+        {!this.props.toggle && (
+          <Text
+            style={{
+              margin: -10,
+              padding: 10,
+              ...this.props.titleStyle,
+            }}>
+            {this.props.title}
+          </Text>
+        )}
+
+        {this.state.expanded && (
+          <View>
+            {this.props.group && this.props.loaded ? (
+              <ScrollView>
+                <SectionedMultiSelect
+                  styles={{
+                    button: {backgroundColor: '#009ab2'},
+                  }}
+                  items={this.props.group}
+                  uniqueKey={this.props.cle}
+                  subKey="children"
+                  iconRenderer={this.icon}
+                  displayKey={this.props.libelle}
+                  selectText={translate(
+                    'components.pickerchecker.default_value',
+                  )}
+                  selectedText={translate('components.pickerchecker.selected')}
+                  searchPlaceholderText={translate(
+                    'components.pickerchecker.search',
+                  )}
+                  confirmText={translate('components.pickerchecker.submit')}
+                  showDropDowns={false}
+                  selectChildren={true}
+                  highlightChildren={true}
+                  loading={!this.props.loaded}
+                  onSelectedItemsChange={this.onSelectedItemsChange}
+                  selectedItems={this.state.selectedItems}
+                  onConfirm={() => {
+                    const results = this.state.selectedItems;
+                    /* Exclude parent item */
+                    _.remove(results, item => {
+                      return '0' === item;
+                    });
+                    this.props.onConfirm(results);
+                  }}
+                  onSelectedItemObjectsChange={newCollection => {
+                    let profils = [];
+                    if (newCollection ) {
+                      newCollection.forEach(item => {
+                        profils.push(item.codeProfil);
+                      });
+                    }
+                    console.log(profils);
+                    this.props.onSelectedItemObjectsChange(profils);
+                  }}
+                />
+              </ScrollView>
+            ) : (
+              <View style={{margin : 0, padding : 0}}>
+              <BadrCircleProgressBar size={30} />
+              </View>
+            )}
+          </View>
         )}
       </View>
     );

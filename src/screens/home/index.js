@@ -1,32 +1,27 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
+/** React Components */
 import React from 'react';
-import {createDrawerNavigator} from '@react-navigation/drawer';
-import {NavigationContainer} from '@react-navigation/native';
 import {View, Text, Dimensions} from 'react-native';
 
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-
+/** Screens */
 import WelcomeScreen from '../welcome';
 import MainMenu from '../mainmenu/index';
 
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-
+/** Drawer navigation */
+import {createDrawerNavigator} from '@react-navigation/drawer';
+import {NavigationContainer} from '@react-navigation/native';
 const Drawer = createDrawerNavigator();
 
+const deltaScreen = 60;
 export default class Home extends React.Component {
+  componentDidMount() {
+    console.log(this.props);
+  }
   render() {
     return (
       <Drawer.Navigator
         drawerType="front"
         drawerStyle={{
-          width: Dimensions.get('window').width - 40,
+          width: Dimensions.get('window').width - deltaScreen,
         }}
         initialRouteName="Home"
         drawerContent={props => <MainMenu {...props} />}>

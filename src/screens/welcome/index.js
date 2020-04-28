@@ -4,7 +4,8 @@ import {Text, View} from 'react-native';
 import {CustomStyleSheet} from '../../styles/index';
 import {Icon} from 'react-native-elements';
 
-import BadrPicker from '../../components/pickers/BadrPicker';
+/** Custom Components */
+import {BadrPicker} from '../../components';
 
 /** i18n **/
 import {translate} from '../../common/translations/i18n';

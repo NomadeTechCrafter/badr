@@ -1,30 +1,11 @@
+/** API Services */
 import HabApi from '../../services/api/hab-api';
 
+/**Constants */
 import * as Constants from '../../common/constants/smsVerify';
 
-import * as ConstantsConfirmCnx from '../../common/constants/confirmConnexion';
-
-import * as confirmCnxAction from './confirmCnx';
-
-const buildConfirmConnexionAction = (
-  navigation,
-  codeBureau,
-  listeProfilCoche,
-  login,
-) => {
-  var action = confirmCnxAction.request(
-    {
-      type: ConstantsConfirmCnx.CONFIRMCNX_REQUEST,
-      value: {
-        login: login,
-        codeBureau: codeBureau,
-        listeProfilCoche: listeProfilCoche,
-      },
-    },
-    navigation,
-  );
-  return action;
-};
+/** i18n */
+import {translate} from '../../common/translations/i18n';
 
 export function request(action, navigation) {
   return dispatch => {
@@ -40,13 +21,13 @@ export function request(action, navigation) {
           if (data.jsonVO.message) {
             dispatch(failed(data.jsonVO.message));
           } else {
-            dispatch(failed('Code incorrect'));
+            dispatch(failed(translate('errors.technicalIssue')));
           }
         }
       })
       .catch(e => {
         console.log(e);
-        dispatch(failed('Code incorrect'));
+        dispatch(failed(translate('errors.technicalIssue')));
       });
   };
 }

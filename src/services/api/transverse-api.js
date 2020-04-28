@@ -1,7 +1,7 @@
 import {Component} from 'react';
 
 import HttpHelper from './common/http-helper';
-import {load} from '../../services/storage-service';
+import {loadParsed} from '../../services/storage-service';
 
 export default class TransverseApi {
   static doProcess = async (
@@ -13,11 +13,11 @@ export default class TransverseApi {
   ) => {
     console.log('doProcess ...');
 
-    const user = await load('user');
+    const user = await loadParsed('user');
 
     const data = {
       dtoHeader: {
-        userLogin: JSON.parse(user).login,
+        userLogin: user.login,
         fonctionnalite: 'cf4011',
         module: _module,
         commande: _command,
@@ -25,8 +25,8 @@ export default class TransverseApi {
       },
       jsonVO: _jsonVO,
     };
-    if( _jsonVO) {
-      console.log("################ json vo : ");
+    if (_jsonVO) {
+      console.log('################ json vo : ');
       console.log(_jsonVO);
     }
     let response = await HttpHelper.process(data);

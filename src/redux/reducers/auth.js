@@ -1,3 +1,4 @@
+/**Constants */
 import * as Constants from '../../common/constants/auth';
 
 const initialState = {
