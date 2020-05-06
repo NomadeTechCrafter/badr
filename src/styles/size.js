@@ -35,3 +35,13 @@ export const badrPicker = {};
 
 export const badrPickerTitle = {
 };
+
+export const smallInput = {
+  width: 75,
+};
+export const mediumInput = {
+  width: 150,
+};
+export const largeInput = {
+  width: 300,
+};

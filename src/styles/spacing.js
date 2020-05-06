@@ -43,3 +43,10 @@ export const badrPickerTitle = {
   padding: 5,
   marginBottom: 10,
 };
+
+
+export const inputRechercheDum= {
+  marginBottom: 15,
+};
+
+

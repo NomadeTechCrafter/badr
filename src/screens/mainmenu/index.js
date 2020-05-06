@@ -60,7 +60,10 @@ class MainMenu extends React.Component {
       switch (item.raccourci) {
         case 'cf3072':
           console.log('--> initRegime interne');
-          return this.props.navigation.navigate('RechercheDum', {});;
+          return this.props.navigation.navigate('RechercheDum', {typeControle: "RI"});
+        case 'cf3064':
+          console.log('--> ACVP');
+          return this.props.navigation.navigate('RechercheDum', {typeControle: "AC"});        
         default:
           return ;
       }

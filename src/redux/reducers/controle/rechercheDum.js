@@ -2,7 +2,6 @@ import * as Constants from '../../../common/constants/controle/rechercheDum';
 
 const initialState = {
   refDum: null,
-  loggedIn: false,
   showProgress: false,
   errorMessage: null,
 };
@@ -25,14 +24,11 @@ export default (state = initialState, action) => {
       console.log('--> initControle success...',nextState);
       nextState.showProgress = false;
       nextState.errorMessage = null;
-      nextState.loggedIn = true;
-      nextState.user = action.value;
       return nextState;
     case Constants.RECHERCHEDUM_INITCONTROLE_FAILED:
       console.log('--> initControle failed...');
       nextState.showProgress = false;
-      nextState.loggedIn = false;
-      nextState.errorMessage = action.value.messagesRetour ? JSON.stringify(action.value.messagesRetour[0]) : action.value;
+      nextState.errorMessage = action.value.dtoHeader.messagesErreur;
       return nextState;
     case Constants.RECHERCHEDUM_INITCONTROLE_INIT:
       return initialState;

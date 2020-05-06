@@ -6,8 +6,8 @@ import * as Constants from '../../../common/constants/controle/rechercheDum';
 import {translate} from '../../../common/translations/i18n';
 
 import {save} from '../../../services/storage-service';
-import * as data from './dataInitControle.json';
-export function request(action, navigation) {
+//import * as data from './dataInitControle.json';
+export function request(action, navigation,successRedirection) {
   return dispatch => {
     dispatch(action);
     dispatch(inProgress(action));
@@ -18,18 +18,19 @@ export function request(action, navigation) {
     )
       .then(response => {
         if (response) {
-          //const data = JSON.parse(response.data);
-          if (data) {
-            dispatch(success(data.jsonVO));
+          const data = JSON.parse(response.data);
+          if (data && !data.dtoHeader.messagesErreur) {
+            console.log('data' ,data);
+            dispatch(success(data));
             /** Naviguer vers la vue suivant. */
-            navigation.navigate('RegimeInterne', {
+            navigation.navigate(successRedirection , {
               login: action.value.login,
               refDeclaration: action.value.data.referenceDed,
               numeroVoyage: action.value.numeroVoyage,
               cle: action.value.cle,
               declarationRI: data.jsonVO,
             });
-          } else {
+          } else {      
             dispatch(failed(data));
           }
         } else {
