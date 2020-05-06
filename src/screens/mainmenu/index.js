@@ -1,11 +1,18 @@
 import React from 'react';
 
 /** React Components */
-import {View, ScrollView, StyleSheet} from 'react-native';
+import {
+  View,
+  ScrollView,
+  StyleSheet,
+  Text,
+  Image,
+  ImageBackground,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 /** Custom Components */
-import {BadrTree, BadrTreeItem} from '../../components';
+import {BadrTree, BadrTreeItem, MenuHeader} from '../../components';
 
 /** REDUX **/
 import {connect} from 'react-redux';
@@ -17,13 +24,38 @@ import * as menuAction from '../../redux/actions/menu';
 /** STYLING **/
 import {CustomStyleSheet} from '../../styles/index';
 
+import {buildRoute} from '../../common/routing';
+
+/** STORAGE **/
+import {loadParsed, load} from '../../services/storage-service';
+
+/** Utils */
+import Utils from '../../common/util';
+
 class MainMenu extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      fullname: '',
+      bureau: '',
+      arrondissement: '',
+    };
   }
 
   componentDidMount() {
-    this.fetchMenu();
+    if (this.props.menuList.length === 0) {
+      this.fetchMenu();
+    }
+
+    loadParsed('bureau').then(bureau => {
+      this.setState({bureau: bureau});
+    });
+    load('arrondissement_libelle').then(arrondissement => {
+      this.setState({arrondissement: arrondissement});
+    });
+    loadParsed('user').then(user => {
+      this.setState({fullname: Utils.buildUserFullname(user)});
+    });
   }
 
   fetchMenu = predicate => {
@@ -36,13 +68,27 @@ class MainMenu extends React.Component {
     this.props.dispatch(action);
   };
 
+  onItemSelected = item => {
+    if (this.props.navigation) {
+      let route = buildRoute(item.emplacement);
+      this.props.navigation.navigate(route, {});
+      console.log('Going to => ' + route);
+    }
+  };
+
   render() {
     return (
       <View style={CustomStyleSheet.menuContainer}>
+        <MenuHeader
+          fullname={this.state.fullname}
+          bureau={this.state.bureau}
+          arrondissement={this.state.arrondissement}
+        />
         <ScrollView>
           <BadrTree
             getCollapsedNodeHeight={() => 60}
             data={this.props.menuList}
+            onItemSelected={item => this.onItemSelected(item)}
             renderNode={({node, level, isExpanded, hasChildrenNodes}) => {
               return (
                 <BadrTreeItem
@@ -60,7 +106,10 @@ class MainMenu extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({...state.menuReducer});
+const mapStateToProps = state => {
+  console.log(state.menuReducer.menuList.length);
+  return {...state.menuReducer};
+};
 
 export default connect(
   mapStateToProps,

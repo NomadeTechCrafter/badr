@@ -5,6 +5,8 @@ import {View, Text, Dimensions} from 'react-native';
 /** Screens */
 import WelcomeScreen from '../welcome';
 import MainMenu from '../mainmenu/index';
+import RechercheDum from '../controle/rechercheDum';
+import RegimeInterne from '../controle/regimeInterne';
 
 /** Drawer navigation */
 import {createDrawerNavigator} from '@react-navigation/drawer';
@@ -26,6 +28,13 @@ export default class Home extends React.Component {
         initialRouteName="Home"
         drawerContent={props => <MainMenu {...props} />}>
         <Drawer.Screen name="Bienvenue" component={WelcomeScreen} />
+
+        <Drawer.Screen
+          name="RechercheDum"
+          options={{headerShown: false}}
+          component={RechercheDum}
+        />
+        <Drawer.Screen name="RegimeInterne" component={RegimeInterne} />
       </Drawer.Navigator>
     );
   }

@@ -82,7 +82,10 @@ class BadrTree extends React.Component {
 
     if (nodePressResult !== false && this.hasChildrenNodes(node)) {
       this.toggleCollapse(node[this.props.idKey])
+    } else {
+      this.props.onItemSelected(node);
     }
+
   }
 
   Node = ({ nodes, level }) => {

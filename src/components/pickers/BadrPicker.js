@@ -20,7 +20,7 @@ import {CustomStyleSheet} from '../../styles/index';
 
 /** STORAGE **/
 import {save} from '../../services/storage-service';
-
+console.disableYellowBox = true;
 class BadrPicker extends React.Component {
   constructor(props) {
     super(props);
@@ -35,9 +35,9 @@ class BadrPicker extends React.Component {
   componentDidUpdate(prevProps, prevState, snapshot) {}
 
   refresh = (params, caller) => {
-    this.fetchData(params);
     this.caller = caller;
     this.caller.disable();
+    this.fetchData(params);
   };
 
   disable = () => {
@@ -72,12 +72,48 @@ class BadrPicker extends React.Component {
 
   disableCallerIfPending = pickerData => {
     if (this.caller && this.caller.setState) {
-      if (pickerData && pickerData.loaded ) {
+      if (pickerData && pickerData.loaded) {
         this.caller.setState({disabled: false});
       } else {
         this.caller.setState({disabled: true});
       }
     }
+  };
+
+  onValueChanged = (itemValue, itemIndex) => {
+    if (this.props.storeWithKey && itemIndex > 0) {
+      console.log(
+        '----------------- PICKER ASYNC STORAGE OPERATION ------------------',
+      );
+      save(this.props.storeWithKey, itemValue.toString());
+
+      if (this.props.storeLibelleWithKey) {
+        let selectedItem = this.props.picker[this.props.command].items[
+          itemIndex - 1
+        ];
+        console.log('Saving : ');
+        console.log(
+          this.props.storeWithKey
+            .concat('_')
+            .concat(this.props.storeLibelleWithKey),
+        );
+        console.log('With value : ');
+        console.log(selectedItem[this.props.storeLibelleWithKey]);
+        if (selectedItem) {
+          save(
+            this.props.storeWithKey
+              .concat('_')
+              .concat(this.props.storeLibelleWithKey),
+            selectedItem[this.props.storeLibelleWithKey],
+          );
+        }
+      }
+    }
+    console.log(
+      '----------------- PICKER ASYNC STORAGE OPERATION ------------------',
+    );
+    this.props.onValueChange(itemValue, itemIndex);
+    this.setState({selectedValue: itemValue});
   };
 
   render() {
@@ -126,13 +162,9 @@ class BadrPicker extends React.Component {
                 mode="dropdown"
                 textStyle={{fontSize: 8}}
                 selectedValue={this.state.selectedValue}
-                onValueChange={(itemValue, itemIndex) => {
-                  if (this.props.storeWithKey && itemIndex > 0) {
-                    save(this.props.storeWithKey, itemValue.toString());
-                  }
-                  this.setState({selectedValue: itemValue});
-                  this.props.onValueChange(itemValue, itemIndex);
-                }}>
+                onValueChange={(itemValue, itemIndex) =>
+                  this.onValueChanged(itemValue, itemIndex)
+                }>
                 <Picker.Item
                   label={translate('components.pickerchecker.default_value')}
                   value={'default_item_' + this.props.command}

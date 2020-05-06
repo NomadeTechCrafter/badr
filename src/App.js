@@ -15,9 +15,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import Login from './screens/login';
 import SmsVerify from './screens/smsVerify';
 import Home from './screens/home';
-import RechercheDum from './screens/controle/rechercheDum';
-import RegimeInterne from './screens/controle/regimeInterne';
-import ACVP from './screens/controle/ACVP';
+
 import Profile from './screens/profile';
 
 import Toolbar from './components/toolbar';
@@ -63,13 +61,6 @@ export default class App extends React.Component {
                 component={Login}
                 options={{headerShown: false}}
               />
-            <Stack.Screen
-                name="RechercheDum"
-                options={{headerShown: false}}
-                component={RechercheDum}
-              />
-              <Stack.Screen name="RegimeInterne" component={RegimeInterne} />
-              <Stack.Screen name="ACVP" component={ACVP} />
               <Stack.Screen
                 name="SmsVerify"
                 mode="modal"

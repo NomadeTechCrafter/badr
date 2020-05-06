@@ -44,5 +44,11 @@ export const card = {
   justifyContent: 'flex-start',
 };
 
+export const menuHeader = {
+  alignItems: 'center',
+  justifyContent: 'center',
+};
+
+
 export const cardText = {};
 

@@ -121,6 +121,7 @@ class Profile extends React.Component {
             param=""
             typeService="SP"
             storeWithKey="bureau"
+            storeLibelleWithKey="nomBureauDouane"
           />
 
           <BadrPicker
@@ -140,6 +141,7 @@ class Profile extends React.Component {
             param={this.state.selectedBureau}
             typeService="SP"
             storeWithKey="arrondissement"
+            storeLibelleWithKey="libelle"
           />
 
           <BadrPickerChecker

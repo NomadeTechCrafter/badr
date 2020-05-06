@@ -57,10 +57,8 @@ export default (state = initialState, action) => {
         displayError: false,
       };
       return nextState;
-    case Constants.BADRPICKER_INIT:
-      nextState.picker = {};
-      return initialState;
     default:
-      return initialState;
+      state.picker = initialState.picker;
+      return state;
   }
 };

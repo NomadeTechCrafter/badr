@@ -43,6 +43,15 @@ export const badrPickerTitle = {
 };
 
 
+export const menuHeader = {
+  paddingTop: 15,
+  paddingBottom: 15,
+};
+
+export const menuUserImage = {
+  marginBottom : 15
+};
+
 export const inputRechercheDum= {
   marginBottom: 15,
 };

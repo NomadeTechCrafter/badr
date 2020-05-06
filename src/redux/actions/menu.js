@@ -9,6 +9,7 @@ import {translate} from '../../common/translations/i18n';
 
 export function request(action) {
   return dispatch => {
+    console.log("reloading menu...");
     dispatch(action);
     dispatch(inProgress(action));
     loadParsed('listFonctionnaliteVOs')
