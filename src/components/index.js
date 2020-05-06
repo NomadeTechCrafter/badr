@@ -26,3 +26,5 @@ export {
 } from './progressbars/BadrCircleProgressBar';
 export {default as BadrLoginHeader} from './header/Login';
 export {default as MenuHeader} from './header/MenuHeader';
+export { default as RechercheRefDum } from "./rechercheRefDum"
+

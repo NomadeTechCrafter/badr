@@ -9,6 +9,8 @@ import * as Cards from './cards';
 import * as Pickers from './picker';
 
 import * as Colors from './colors';
+import * as Size from './size';
+import * as Spacing from './spacing';
 
 import {StyleSheet} from 'react-native';
 
@@ -83,6 +85,19 @@ const CustomStyleSheet = StyleSheet.create({
   menuUserImage: {
     ...Images.menuUserImage,
   },
+
+  smallInput:{
+    ...Size.smallInput,
+    ...Spacing.inputRechercheDum,
+  },
+  mediumInput:{
+    ...Size.mediumInput,
+    ...Spacing.inputRechercheDum,
+  },
+  largeInput:{
+    ...Size.largeInput,
+  }
+
 });
 
 export {CustomStyleSheet};

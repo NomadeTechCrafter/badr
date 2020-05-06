@@ -32,6 +32,8 @@ import {createStore, applyMiddleware, compose} from 'redux';
 import allReducers from './redux/reducers';
 import thunk from 'redux-thunk';
 const middleware = [thunk];
+//config debuggin
+
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(allReducers, composeEnhancers(applyMiddleware(thunk)));
 
@@ -45,6 +47,7 @@ const theme = {
 };
 
 const Stack = createStackNavigator();
+//GLOBAL.XMLHttpRequest = GLOBAL.originalXMLHttpRequest || GLOBAL.XMLHttpRequest;
 export default class App extends React.Component {
   render() {
     return (
@@ -52,6 +55,7 @@ export default class App extends React.Component {
         <Provider store={store}>
           <NavigationContainer>
             <Stack.Navigator>
+
             <Stack.Screen
                 name="Login"
                 component={Login}

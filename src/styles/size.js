@@ -39,3 +39,13 @@ export const menuUserImage = {
   width: 100,
   height: 100,
 };
+
+export const smallInput = {
+  width: 75,
+};
+export const mediumInput = {
+  width: 150,
+};
+export const largeInput = {
+  width: 300,
+};
