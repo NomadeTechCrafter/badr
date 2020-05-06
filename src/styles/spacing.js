@@ -41,3 +41,12 @@ export const badrPicker = {
 export const badrPickerTitle = {
   marginBottom: 10,
 };
+
+export const menuHeader = {
+  paddingTop: 15,
+  paddingBottom: 15,
+};
+
+export const menuUserImage = {
+  marginBottom : 15
+};

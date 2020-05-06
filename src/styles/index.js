@@ -71,6 +71,18 @@ const CustomStyleSheet = StyleSheet.create({
   badrPickerTitle: {
     ...Pickers.badrPickerTitle,
   },
+  menuHeader: {
+    ...Containers.menuHeader,
+  },
+  menuHeaderSubTitle: {
+    ...Texts.menuHeaderSubTitle,
+  },
+  menuHeaderTitle: {
+    ...Texts.menuHeaderTitle,
+  },
+  menuUserImage: {
+    ...Images.menuUserImage,
+  },
 });
 
 export {CustomStyleSheet};

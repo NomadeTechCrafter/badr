@@ -47,3 +47,7 @@ export const badrPickerTitle = {
   backgroundColor: '#009ab2',
   color: 'white',
 };
+
+export const menuHeader = {
+  backgroundColor: '#009ab2',
+};

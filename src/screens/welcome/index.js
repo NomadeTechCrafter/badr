@@ -16,16 +16,8 @@ import {load} from '../../services/storage-service';
 import MainMenu from '../mainmenu/index';
 
 class WelcomeScreen extends React.Component {
-  loadmenuData = async () => {
-    let menuList = await load('listFonctionnaliteVOs').then(menuJson => {
-      let menuList = JSON.parse(menuJson);
-      console.log(Utils.unflatten(menuList));
-      // this.setState({treeData: unflatten(menuList)});
-    });
-  };
 
   componentDidMount() {
-    this.loadmenuData();
   }
 
   render() {

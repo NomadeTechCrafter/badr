@@ -33,5 +33,9 @@ export const card = {
 
 export const badrPicker = {};
 
-export const badrPickerTitle = {
+export const badrPickerTitle = {};
+
+export const menuUserImage = {
+  width: 100,
+  height: 100,
 };

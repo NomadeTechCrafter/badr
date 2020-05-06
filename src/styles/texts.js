@@ -42,3 +42,14 @@ export const progressbarText = {
   textAlign: 'center',
   color: '#009ab2',
 };
+
+export const menuHeaderTitle = {
+  color: 'white',
+  fontSize: 18,
+  fontWeight: 'bold',
+};
+
+export const menuHeaderSubTitle = {
+  color: 'white',
+  fontSize: 14,
+};

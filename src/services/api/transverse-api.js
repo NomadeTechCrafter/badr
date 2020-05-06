@@ -31,6 +31,7 @@ export default class TransverseApi {
     }
     let response = await HttpHelper.process(data);
     console.log('returning response ...');
+    console.log(response);
     return response;
   };
 }

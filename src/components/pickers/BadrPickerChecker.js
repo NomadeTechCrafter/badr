@@ -150,13 +150,15 @@ class BadrPickerChecker extends React.Component {
 
         {this.state.expanded && (
           <View>
-            {this.props.group && this.props.loaded ? (
+            {this.props.picker[this.props.command] &&
+            this.props.picker[this.props.command].group &&
+            this.props.picker[this.props.command].loaded ? (
               <ScrollView>
                 <SectionedMultiSelect
                   styles={{
                     button: {backgroundColor: '#009ab2'},
                   }}
-                  items={this.props.group}
+                  items={this.props.picker[this.props.command].group}
                   uniqueKey={this.props.cle}
                   subKey="children"
                   iconRenderer={this.icon}
@@ -172,7 +174,7 @@ class BadrPickerChecker extends React.Component {
                   showDropDowns={false}
                   selectChildren={true}
                   highlightChildren={true}
-                  loading={!this.props.loaded}
+                  loading={!this.props.picker[this.props.command].loaded}
                   onSelectedItemsChange={this.onSelectedItemsChange}
                   selectedItems={this.state.selectedItems}
                   onConfirm={() => {
@@ -185,7 +187,7 @@ class BadrPickerChecker extends React.Component {
                   }}
                   onSelectedItemObjectsChange={newCollection => {
                     let profils = [];
-                    if (newCollection ) {
+                    if (newCollection) {
                       newCollection.forEach(item => {
                         profils.push(item.codeProfil);
                       });
@@ -196,8 +198,8 @@ class BadrPickerChecker extends React.Component {
                 />
               </ScrollView>
             ) : (
-              <View style={{margin : 0, padding : 0}}>
-              <BadrCircleProgressBar size={30} />
+              <View style={{margin: 0, padding: 0}}>
+                <BadrCircleProgressBar size={30} />
               </View>
             )}
           </View>
@@ -214,15 +216,7 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps(state, ownProps) {
-  if (
-    state.badrPickerCheckerReducer &&
-    state.badrPickerCheckerReducer.picker &&
-    state.badrPickerCheckerReducer.picker[ownProps.command]
-  ) {
-    return {...state.badrPickerCheckerReducer.picker[ownProps.command]};
-  } else {
-    return {...state.badrPickerCheckerReducer};
-  }
+  return {...state.badrPickerCheckerReducer};
 }
 
 function mapDispatchToProps(dispatch) {
