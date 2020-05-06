@@ -10,7 +10,7 @@ const buildHeader = (style, img) => {
   );
 };
 
-class BadrLoginHeader extends React.Component {
+export default class BadrLoginHeader extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -21,5 +21,3 @@ class BadrLoginHeader extends React.Component {
     );
   }
 }
-
-export {BadrLoginHeader};

@@ -3,7 +3,7 @@ import * as Constants from '../../../common/constants/badrPicker';
 const initialState = {
   picker: {
     empty: {
-      loaded: true,
+      loaded: false,
       data: [],
     },
   },
@@ -47,7 +47,6 @@ export default (state = initialState, action) => {
       };
       return nextState;
     case Constants.BADRPICKER_INIT:
-      nextState.picker = {};
       return initialState;
     default:
       return initialState;

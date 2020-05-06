@@ -1,11 +1,14 @@
+/** API Services */
 import HabApi from '../../services/api/hab-api';
 
+/** Constants */
 import * as Constants from '../../common/constants/auth';
 
 /**i18n */
-import {translate as translate} from '../../common/translations/i18n';
+import {translate} from '../../common/translations/i18n';
 
-import {save} from '../../services/storage-service';
+/** Storage */
+import {saveStringified} from '../../services/storage-service';
 
 export function request(action, navigation) {
   return dispatch => {
@@ -16,8 +19,8 @@ export function request(action, navigation) {
         if (data) {
           if (data.statutConnexion === '1') {
             dispatch(success(data));
-            /** Sauvegarde de l'utilisateur dans la base de donnée locale. */
-            save('user', JSON.stringify(data)).then(() => data.login);
+            /** Saving the user login into the local storage */
+            saveStringified('user', data).then(() => data.login);
             /** Naviguer vers la vue suivant. */
             navigation.navigate('SmsVerify', {login: action.value.login});
           } else {

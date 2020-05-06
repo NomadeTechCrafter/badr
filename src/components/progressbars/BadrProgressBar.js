@@ -6,7 +6,7 @@ const buildProgressBar = (color, width) => {
   return <Progress.Bar color={'#009ab2'} indeterminate={true} width={width} />;
 };
 
-export class BadrProgressBar extends React.Component {
+export default class BadrProgressBar extends React.Component {
   constructor(props) {
     super(props);
   }

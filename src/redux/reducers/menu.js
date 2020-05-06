@@ -1,4 +1,8 @@
+/**Constants */
 import * as Constants from '../../common/constants/menu';
+/** Utils */
+import Utils from '../../common/util';
+/** Loadash */
 import _ from 'lodash';
 
 const initialState = {
@@ -22,22 +26,8 @@ export default (state = initialState, action) => {
       return nextState;
     case Constants.MENU_SUCCESS:
       nextState.showProgress = false;
-      var collection = JSON.parse(action.value.payload);
-      var libelleSearch = action.value.predicate.libelleFonctionnalite;
-      if (libelleSearch) {
-        collection = _.filter(collection, function(menu) {
-          return _.includes(
-            menu.libelleFonctionnalite.toLowerCase(),
-            libelleSearch.toLowerCase(),
-          );
-        });
-      } else {
-        collection = _.filter(collection, action.value.predicate);
-        if (!_.isEmpty(collection)) {
-          nextState.level = collection[0].niveau;
-        }
-      }
-      nextState.menuList = collection;
+      var collection = action.value.payload;
+      nextState.menuList = Utils.unflatten(collection);
       return nextState;
     case Constants.MENU_FAILED:
       nextState.showProgress = false;

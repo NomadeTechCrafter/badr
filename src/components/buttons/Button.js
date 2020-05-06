@@ -10,7 +10,7 @@ const buildButton = (style, onPress, text, textStyle) => {
   );
 };
 
-export class BadrButton extends React.Component {
+export default class BadrButton extends React.Component {
   constructor(props) {
     super(props);
   }

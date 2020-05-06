@@ -1,24 +1,18 @@
+/** React Components */
 import React from 'react';
+import {View, ScrollView, StyleSheet, Dimensions} from 'react-native';
 
+/**Custom Components */
 import {
-  Text,
-  View,
-  Button,
-  ScrollView,
-  StyleSheet,
-  TouchableOpacity,
-  Dimensions,
-} from 'react-native';
-
-import BadrPicker from '../../components/pickers/BadrPicker';
-import BadrPickerChecker from '../../components/pickers/BadrPickerChecker';
-import {BadrFloatingButton} from '../../components/buttons/BadrFloatingButton';
-import {BadrProgressBar} from '../../components/progressbars/BadrProgressBar';
+  BadrPickerChecker,
+  BadrPicker,
+  BadrFloatingButton,
+  BadrProgressBar,
+  BadrErrorMessage,
+} from '../../components';
 
 /** REDUX **/
-import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-
 import * as ConstantsConfirmCnx from '../../common/constants/confirmConnexion';
 import * as confirmCnxAction from '../../redux/actions/confirmCnx';
 
@@ -35,6 +29,7 @@ class Profile extends React.Component {
     super(props);
     this.state = {
       selectedBureau: '',
+      selectedBureauIndex: 0,
       selectedArrondissement: '',
       selectedProfiles: [],
     };
@@ -67,28 +62,32 @@ class Profile extends React.Component {
   handleBureauChanged = (selectedValue, selectedIndex) => {
     this.setState({
       selectedBureau: selectedValue,
+      selectedBureauIndex: selectedIndex,
       selectedArrondissement: '',
     });
-    this.comboArrondissements.refresh(selectedValue);
+    this.comboArrondissements.refresh(selectedValue, this.comboBureaux);
   };
 
-  handleOnConfirmProfils = items => {
-    // console.log(items);
-  };
+  handleOnConfirmProfils = items => {};
 
   handleOnProfilItemsChanged = items => {
     this.setState({selectedProfiles: items});
+    console.log(items);
   };
 
   handleConfirmButton = () => {
-    let action = this.buildConfirmConnexionAction(
-      this.props.navigation,
-      this.state.selectedBureau,
-      this.state.selectedProfiles,
-      this.props.route.params.login,
-    );
-    console.log(action);
-    this.props.actions.dispatch(action);
+    if (this.state.selectedBureau != null) {
+      let action = this.buildConfirmConnexionAction(
+        this.props.navigation,
+        this.state.selectedBureau,
+        this.state.selectedProfiles,
+        this.props.route.params.login,
+      );
+      console.log(action);
+      this.props.actions.dispatch(action);
+    } else {
+      this.setState({});
+    }
   };
 
   render() {
@@ -97,9 +96,17 @@ class Profile extends React.Component {
         {this.props.confirmConnexionReducer.showProgressConfirmCnx && (
           <BadrProgressBar width={screenHeight} />
         )}
-
         <ScrollView>
+          <View>
+            {this.props.confirmConnexionReducer.displayError && (
+              <BadrErrorMessage
+                message={this.props.confirmConnexionReducer.errorMessage}
+              />
+            )}
+          </View>
+
           <BadrPicker
+            onRef={ref => (this.comboBureaux = ref)}
             key="bureau"
             style={CustomStyleSheet.badrPicker}
             titleStyle={CustomStyleSheet.badrPickerTitle}
@@ -113,6 +120,7 @@ class Profile extends React.Component {
             }
             param=""
             typeService="SP"
+            storeWithKey="bureau"
           />
 
           <BadrPicker
@@ -131,6 +139,7 @@ class Profile extends React.Component {
             }
             param={this.state.selectedBureau}
             typeService="SP"
+            storeWithKey="arrondissement"
           />
 
           <BadrPickerChecker
@@ -152,7 +161,13 @@ class Profile extends React.Component {
           />
         </ScrollView>
 
-        <BadrFloatingButton onConfirm={this.handleConfirmButton} />
+        <BadrFloatingButton
+          visible={
+            this.state.selectedBureauIndex > 0 &&
+            this.state.selectedProfiles.length > 0
+          }
+          onConfirm={this.handleConfirmButton}
+        />
       </View>
     );
   }
