@@ -24,7 +24,7 @@ import * as menuAction from '../../redux/actions/menu';
 /** STYLING **/
 import {CustomStyleSheet} from '../../styles/index';
 
-import {buildRoute} from '../../common/routing';
+import {buildRouteWithParams} from '../../common/routing';
 
 /** STORAGE **/
 import {loadParsed, load} from '../../services/storage-service';
@@ -70,9 +70,9 @@ class MainMenu extends React.Component {
 
   onItemSelected = item => {
     if (this.props.navigation) {
-      let route = buildRoute(item.emplacement);
-      this.props.navigation.navigate(route, {});
-      console.log('Going to => ' + route);
+      let route = buildRouteWithParams(item.id);
+      console.log('Going to => ' , route);
+      this.props.navigation.navigate(route.screen, route.params);
     }
   };
 

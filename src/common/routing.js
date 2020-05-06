@@ -1,17 +1,17 @@
 const mapping = {
-  '7605': 'RechercheDum',
-  '7615': 'RechercheDum',
+  '3072': {screen: 'RechercheDum', params: {typeControle: 'RI'}},
+  '3064': {screen: 'RechercheDum', params: {typeControle: 'AC'}},
 };
 const DEFAULT_SCREEN = 'Bienvenue';
 
 const buildRoute = code => {
-  return mapping[code] ? mapping[code] : DEFAULT_SCREEN;
+  return mapping[code].screen ? mapping[code].screen : DEFAULT_SCREEN;
 };
 
-const buildRouteWithParams = (code, params) => {
-  return mapping[code]
-    ? {screen: mapping[code], params: params}
-    : {screen: DEFAULT_SCREEN, params: params};
+const buildRouteWithParams = code => {
+  return mapping[code].screen
+    ? {screen: mapping[code].screen, params: mapping[code].params}
+    : {screen: DEFAULT_SCREEN, params: {}};
 };
 
 export {buildRouteWithParams, buildRoute};
