@@ -39,6 +39,7 @@ class Profile extends React.Component {
     navigation,
     codeBureau,
     listeProfilCoche,
+    selectedArrondissement,
     login,
   ) => {
     var action = confirmCnxAction.request(
@@ -48,6 +49,7 @@ class Profile extends React.Component {
           login: login,
           codeBureau: codeBureau,
           listeProfilCoche: listeProfilCoche,
+          codeArrondissement: selectedArrondissement,
         },
       },
       navigation,
@@ -81,6 +83,7 @@ class Profile extends React.Component {
         this.props.navigation,
         this.state.selectedBureau,
         this.state.selectedProfiles,
+        this.state.selectedArrondissement,
         this.props.route.params.login,
       );
       console.log(action);

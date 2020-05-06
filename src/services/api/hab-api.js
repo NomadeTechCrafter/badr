@@ -38,7 +38,7 @@ export default class HabApi {
     return await HttpHelper.process(data);
   };
 
-  static confirmConnexion = async (codeBureau, listeProfilCoche, login) => {
+  static confirmConnexion = async (codeBureau, listeProfilCoche,codeArrondissement, login) => {
     const data = {
       dtoHeader: {
         userLogin: login,
@@ -48,6 +48,7 @@ export default class HabApi {
         typeService: 'SP',
       },
       jsonVO: {
+        codeArrondissement: codeArrondissement,
         codeBureau: codeBureau,
         listProfilsCoche: listeProfilCoche,
       },

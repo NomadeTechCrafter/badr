@@ -32,6 +32,7 @@ export function request(action, navigation) {
     HabApi.confirmConnexion(
       action.value.codeBureau,
       action.value.listeProfilCoche,
+      action.value.codeArrondissement,
       action.value.login,
     )
       .then(response => {
