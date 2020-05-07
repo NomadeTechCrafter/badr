@@ -2,12 +2,9 @@ import {CustomStyleSheet} from '../../styles/index';
 import React from 'react';
 import {Image, View, ImageBackground, Text} from 'react-native';
 
-import {A} from '../../common/constants/paths';
-
 export default class MenuHeader extends React.Component {
   constructor(props) {
     super(props);
-    console.log(A);
   }
   render() {
     return (
