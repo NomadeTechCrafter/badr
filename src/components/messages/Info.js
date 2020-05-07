@@ -2,11 +2,22 @@ import {CustomStyleSheet} from '../../styles/index';
 import React from 'react';
 import {Text} from 'react-native';
 import * as Progress from 'react-native-progress';
+
+import * as Animatable from 'react-native-animatable';
+
 const buildInfo = (message, style) => {
-  return <Text style={style}>{message}</Text>;
+  return (
+    <Animatable.View
+      animation="pulse"
+      easing="ease-out"
+      iterationCount="infinite"
+      style={{textAlign: 'center'}}>
+      <Text style={style}>{message}</Text>
+    </Animatable.View>
+  );
 };
 
-export default class BadrInfoMessage extends React.Component {
+class BadrInfoMessage extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -14,3 +25,6 @@ export default class BadrInfoMessage extends React.Component {
     return buildInfo(this.props.message, CustomStyleSheet.infoMessages);
   }
 }
+
+BadrInfoMessage = Animatable.createAnimatableComponent(BadrInfoMessage);
+export default BadrInfoMessage;

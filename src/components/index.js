@@ -3,10 +3,14 @@ export {default as LoginTextInput} from './inputs/LoginTextInput';
 export {default as PasswordTextInput} from './inputs/PasswordTextInput';
 
 export {default as BadrButton} from './buttons/Button';
+export {default as BadrButtonIcon} from './buttons/ButtonIcon';
 export {default as BadrFloatingButton} from './buttons/BadrFloatingButton';
 
 export {default as BadrErrorMessage} from './messages/Error';
 export {default as BadrInfoMessage} from './messages/Info';
+export {default as BadrPopup} from './messages/Popup';
+
+
 
 export {default as Card} from './cards';
 export {default as CardSection} from './cardSection';

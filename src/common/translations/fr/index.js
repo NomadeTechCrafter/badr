@@ -92,5 +92,18 @@ export default {
     retablir: 'Rétablir',
     enregistrer: 'Enregistrer',
     quitter: 'Quitter',
+    fermer: 'Fermer',
+    rechercher: 'Rechercher',
+  },
+ referentiel: {
+    plaquesImm: {
+      title : 'Plaques d\'immatriculation',
+      subTitle : 'écran de echerche',
+      searchByNumChassis: 'Par numéro de chassis',
+      searchByNumImmNormal: 'Par numéro d\'immatriculation NORMALE',
+      searchByNumImmDiplo: 'Par numéro d\'immatriculation DIPLOMATIQUE',
+      searchByNumImmRemorque: 'Par numéro d\immatriculation REMORQUE',
+      searchByIdentitePropr: 'Par identité du propriétaire',
+    },
   },
 };

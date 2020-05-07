@@ -49,6 +49,10 @@ export const menuHeader = {
   justifyContent: 'center',
 };
 
-
 export const cardText = {};
 
+export const verticalActionContainer = {
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+};
