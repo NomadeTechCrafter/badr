@@ -1,5 +1,5 @@
 /**Constants */
-import * as Constants from '../../common/constants/hab/smsVerify';
+import * as Constants from '../../../common/constants/hab/smsVerify';
 
 const initialState = {
   correct: false,

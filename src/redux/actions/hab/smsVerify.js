@@ -1,11 +1,11 @@
 /** API Services */
-import HabApi from '../../services/api/hab-api';
+import HabApi from '../../../services/api/hab-api';
 
 /**Constants */
-import * as Constants from '../../common/constants/hab/smsVerify';
+import * as Constants from '../../../common/constants/hab/smsVerify';
 
 /** i18n */
-import {translate} from '../../common/translations/i18n';
+import {translate} from '../../../common/translations/i18n';
 
 export function request(action, navigation) {
   return dispatch => {

@@ -1,13 +1,13 @@
 /** API Services */
-import HabApi from '../../services/api/hab-api';
+import HabApi from '../../../services/api/hab-api';
 /**Constants */
-import * as Constants from '../../common/constants/hab/confirmConnexion';
+import * as Constants from '../../../common/constants/hab/confirmConnexion';
 
 /** Storage  */
-import {saveStringified} from '../../services/storage-service';
+import {saveStringified} from '../../../services/storage-service';
 
 /** i18n */
-import {translate} from '../../common/translations/i18n';
+import {translate} from '../../../common/translations/i18n';
 
 function doAsyncStorageOperations(data) {
   /** Saving the listFonctionnaliteVOs for menu usage */

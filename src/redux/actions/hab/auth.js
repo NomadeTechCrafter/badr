@@ -1,14 +1,14 @@
 /** API Services */
-import HabApi from '../../services/api/hab-api';
+import HabApi from '../../../services/api/hab-api';
 
 /** Constants */
-import * as Constants from '../../common/constants/hab/auth';
+import * as Constants from '../../../common/constants/hab/auth';
 
 /**i18n */
-import {translate} from '../../common/translations/i18n';
+import {translate} from '../../../common/translations/i18n';
 
 /** Storage */
-import {saveStringified} from '../../services/storage-service';
+import {saveStringified} from '../../../services/storage-service';
 
 export function request(action, navigation) {
   return dispatch => {
