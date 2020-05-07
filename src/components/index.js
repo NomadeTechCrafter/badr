@@ -14,6 +14,8 @@ export {default as Container} from './container';
 export {default as CardBox} from './cardBox';
 export {default as Accordion} from './accordion';
 
+export {default as Toolbar} from './toolbar';
+
 export {default as BadrPicker} from './pickers/BadrPicker';
 export {default as BadrPickerChecker} from './pickers/BadrPickerChecker';
 
