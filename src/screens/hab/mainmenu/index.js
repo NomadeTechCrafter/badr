@@ -12,25 +12,25 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 /** Custom Components */
-import {BadrTree, BadrTreeItem, MenuHeader} from '../../components';
+import {BadrTree, BadrTreeItem, MenuHeader} from '../../../components';
 
 /** REDUX **/
 import {connect} from 'react-redux';
 
 /**ACTIONS */
-import * as Constants from '../../common/constants/hab/menu';
-import * as menuAction from '../../redux/actions/hab/menu';
+import * as Constants from '../../../common/constants/hab/menu';
+import * as menuAction from '../../../redux/actions/hab/menu';
 
 /** STYLING **/
-import {CustomStyleSheet} from '../../styles/index';
+import {CustomStyleSheet} from '../../../styles/index';
 
-import {buildRouteWithParams} from '../../common/routing';
+import {buildRouteWithParams} from '../../../common/routing';
 
 /** STORAGE **/
-import {loadParsed, load} from '../../services/storage-service';
+import {loadParsed, load} from '../../../services/storage-service';
 
 /** Utils */
-import Utils from '../../common/util';
+import Utils from '../../../common/util';
 
 class MainMenu extends React.Component {
   constructor(props) {

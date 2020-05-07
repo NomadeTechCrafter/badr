@@ -12,11 +12,11 @@ import {View, Text} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
-import Login from './screens/login';
-import SmsVerify from './screens/smsVerify';
-import Home from './screens/home';
+import Login from './screens/hab/login';
+import SmsVerify from './screens/hab/smsVerify';
+import Home from './screens/hab/home';
 
-import Profile from './screens/profile';
+import Profile from './screens/hab/profile';
 
 import Toolbar from './components/toolbar';
 

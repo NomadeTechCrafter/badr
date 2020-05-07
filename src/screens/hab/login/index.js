@@ -7,17 +7,17 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 /**ACTIONS */
-import * as Constants from '../../common/constants/hab/auth';
-import * as authAction from '../../redux/actions/hab/auth';
+import * as Constants from '../../../common/constants/hab/auth';
+import * as authAction from '../../../redux/actions/hab/auth';
 
 /** i18n **/
-import {translate} from '../../common/translations/i18n';
+import {translate} from '../../../common/translations/i18n';
 
 /** STYLING **/
-import {CustomStyleSheet} from '../../styles/index';
+import {CustomStyleSheet} from '../../../styles/index';
 
 /** Storage **/
-import {loadParsed} from '../../services/storage-service';
+import {loadParsed} from '../../../services/storage-service';
 
 /** Loadash **/
 import _ from 'lodash';
@@ -31,7 +31,7 @@ import {
   BadrErrorMessage,
   BadrInfoMessage,
   BadrButton,
-} from '../../components';
+} from '../../../components';
 
 /** CONSTANTS **/
 const screenHeight = Dimensions.get('window').height;
