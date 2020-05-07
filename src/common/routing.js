@@ -9,7 +9,7 @@ const buildRoute = code => {
 };
 
 const buildRouteWithParams = code => {
-  return mapping[code].screen
+  return mapping[code] && mapping[code].screen
     ? {screen: mapping[code].screen, params: mapping[code].params}
     : {screen: DEFAULT_SCREEN, params: {}};
 };
