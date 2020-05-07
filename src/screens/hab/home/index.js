@@ -5,8 +5,8 @@ import {View, Text, Dimensions} from 'react-native';
 /** Screens */
 import WelcomeScreen from '../welcome';
 import MainMenu from '../mainmenu/index';
-import RechercheDum from '../controle/rechercheDum';
-import RegimeInterne from '../controle/regimeInterne';
+import RechercheDum from '../../controle/rechercheDum';
+import RegimeInterne from '../../controle/regimeInterne';
 
 /** Drawer navigation */
 import {createDrawerNavigator} from '@react-navigation/drawer';

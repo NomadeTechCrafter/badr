@@ -9,17 +9,17 @@ import {
   BadrFloatingButton,
   BadrProgressBar,
   BadrErrorMessage,
-} from '../../components';
+} from '../../../components';
 
 /** REDUX **/
 import {connect} from 'react-redux';
-import * as ConstantsConfirmCnx from '../../common/constants/hab/confirmConnexion';
-import * as confirmCnxAction from '../../redux/actions/hab/confirmCnx';
+import * as ConstantsConfirmCnx from '../../../common/constants/hab/confirmConnexion';
+import * as confirmCnxAction from '../../../redux/actions/hab/confirmCnx';
 
 /** STYLING **/
-import {CustomStyleSheet} from '../../styles/index';
+import {CustomStyleSheet} from '../../../styles/index';
 
-import {translate} from '../../common/translations/i18n';
+import {translate} from '../../../common/translations/i18n';
 
 /** CONSTANTS **/
 const screenHeight = Dimensions.get('window').height;
