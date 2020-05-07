@@ -18,8 +18,8 @@ import {BadrTree, BadrTreeItem, MenuHeader} from '../../components';
 import {connect} from 'react-redux';
 
 /**ACTIONS */
-import * as Constants from '../../common/constants/menu';
-import * as menuAction from '../../redux/actions/menu';
+import * as Constants from '../../common/constants/hab/menu';
+import * as menuAction from '../../redux/actions/hab/menu';
 
 /** STYLING **/
 import {CustomStyleSheet} from '../../styles/index';

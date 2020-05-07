@@ -1,4 +1,4 @@
-import * as Constants from '../../../common/constants/badrPicker';
+import * as Constants from '../../../common/constants/components/badrPicker';
 
 const initialState = {
   picker: {

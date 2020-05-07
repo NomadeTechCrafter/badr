@@ -2,7 +2,7 @@
 import HabApi from '../../services/api/hab-api';
 
 /** Constants */
-import * as Constants from '../../common/constants/auth';
+import * as Constants from '../../common/constants/hab/auth';
 
 /**i18n */
 import {translate} from '../../common/translations/i18n';

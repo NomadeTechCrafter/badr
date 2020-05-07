@@ -1,7 +1,7 @@
 /** API Services */
 import HabApi from '../../services/api/hab-api';
 /**Constants */
-import * as Constants from '../../common/constants/confirmConnexion';
+import * as Constants from '../../common/constants/hab/confirmConnexion';
 
 /** Storage  */
 import {saveStringified} from '../../services/storage-service';

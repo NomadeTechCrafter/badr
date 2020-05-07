@@ -1,5 +1,5 @@
 /** API Services */
-import * as Constants from '../../common/constants/menu';
+import * as Constants from '../../common/constants/hab/menu';
 
 /** Storage  */
 import {loadParsed} from '../../services/storage-service';

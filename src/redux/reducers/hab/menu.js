@@ -1,5 +1,5 @@
 /**Constants */
-import * as Constants from '../../common/constants/menu';
+import * as Constants from '../../common/constants/hab/menu';
 /** Utils */
 import Utils from '../../common/util';
 /** Loadash */

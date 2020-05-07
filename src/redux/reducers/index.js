@@ -1,8 +1,8 @@
 import {combineReducers} from 'redux';
-import authReducer from './auth';
-import smsVerifyReducer from './smsVerify';
-import confirmConnexionReducer from './confirmConnexion';
-import menuReducer from './menu';
+import authReducer from './hab/auth';
+import smsVerifyReducer from './hab/smsVerify';
+import confirmConnexionReducer from './hab/confirmConnexion';
+import menuReducer from './hab/menu';
 import controleRechercheDumReducer from './controle/rechercheDum';
 import regimeInterneReducer from './controle/regimeInterne';
 
