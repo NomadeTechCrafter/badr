@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {View, Text} from 'react-native';
-import {Container, RechercheRefDum} from '../../../components';
+import {Container, RechercheRefDum,Toolbar} from '../../../components';
 
 import {TextInput, Button, HelperText} from 'react-native-paper';
 /**i18n */
@@ -42,11 +42,15 @@ class RechecheDum extends Component {
   };
   render() {
     return (
+      <View>
+      <Toolbar navigation={this.props.navigation} title="Contrôle" subtitle="Régime interne" icon="menu"/>
       <RechercheRefDum
         navigation={this.props.navigation}
         commande={'initControlerDedRI'}
         successRedirection={this.getSuccessRedirectionScreen()}
       />
+
+      </View>
     );
   }
 }
