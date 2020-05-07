@@ -10,7 +10,7 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 
 /**ACTIONS */
-import * as Constants from '../../common/constants/badrPicker';
+import * as Constants from '../../common/constants/components/badrPicker';
 import * as badrPickerAction from '../../redux/actions/components/badrPicker';
 
 import {translate} from '../../common/translations/i18n';

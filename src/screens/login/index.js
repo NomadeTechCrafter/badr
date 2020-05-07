@@ -7,8 +7,8 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 /**ACTIONS */
-import * as Constants from '../../common/constants/auth';
-import * as authAction from '../../redux/actions/auth';
+import * as Constants from '../../common/constants/hab/auth';
+import * as authAction from '../../redux/actions/hab/auth';
 
 /** i18n **/
 import {translate} from '../../common/translations/i18n';

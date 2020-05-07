@@ -15,10 +15,10 @@ import {
 /** REDUX **/
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import * as SmsVerifyActionCreators from '../../redux/actions/smsVerify';
+import * as SmsVerifyActionCreators from '../../redux/actions/hab/smsVerify';
 
 /**ACTIONS */
-import * as Constants from '../../common/constants/smsVerify';
+import * as Constants from '../../common/constants/hab/smsVerify';
 
 /**i18n */
 import {translate} from '../../common/translations/i18n';

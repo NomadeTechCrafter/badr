@@ -1,11 +1,11 @@
 /** API Services */
-import * as Constants from '../../common/constants/menu';
+import * as Constants from '../../../common/constants/hab/menu';
 
 /** Storage  */
-import {loadParsed} from '../../services/storage-service';
+import {loadParsed} from '../../../services/storage-service';
 
 /** i18n */
-import {translate} from '../../common/translations/i18n';
+import {translate} from '../../../common/translations/i18n';
 
 export function request(action) {
   return dispatch => {

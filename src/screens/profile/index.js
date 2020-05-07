@@ -13,8 +13,8 @@ import {
 
 /** REDUX **/
 import {connect} from 'react-redux';
-import * as ConstantsConfirmCnx from '../../common/constants/confirmConnexion';
-import * as confirmCnxAction from '../../redux/actions/confirmCnx';
+import * as ConstantsConfirmCnx from '../../common/constants/hab/confirmConnexion';
+import * as confirmCnxAction from '../../redux/actions/hab/confirmCnx';
 
 /** STYLING **/
 import {CustomStyleSheet} from '../../styles/index';

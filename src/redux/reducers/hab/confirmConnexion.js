@@ -1,5 +1,5 @@
 /**Constants */
-import * as Constants from '../../common/constants/confirmConnexion';
+import * as Constants from '../../../common/constants/hab/confirmConnexion';
 
 const initialState = {
   confirmed: false,
