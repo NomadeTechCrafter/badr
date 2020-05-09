@@ -13,7 +13,7 @@ export function request(action, navigation) {
     dispatch(inProgress(action));
     HabApi.verify(action.value.code, action.value.login)
       .then(response => {
-        const data = JSON.parse(response.data);
+        const data = response.data;
         if (data.jsonVO.code === '200') {
           dispatch(success(data.jsonVO));
           navigation.navigate('Profile', {login: action.value.login});

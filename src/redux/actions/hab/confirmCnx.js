@@ -36,7 +36,7 @@ export function request(action, navigation) {
       action.value.login,
     )
       .then(response => {
-        const data = JSON.parse(response.data).jsonVO;
+        const data = response.data.jsonVO;
         if (data) {
           doAsyncStorageOperations(data);
           dispatch(success(data));

@@ -12,7 +12,6 @@ import {View, Text} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
-import PlaquesImmatriculation from './screens/referentiel/plaquesimm/index';
 import Login from './screens/hab/login';
 import SmsVerify from './screens/hab/smsVerify';
 import Home from './screens/hab/home';
@@ -60,14 +59,7 @@ export default class App extends React.Component {
         <Provider store={store}>
           <NavigationContainer>
             <Stack.Navigator>
-
             
-              {/* <Stack.Screen
-                name="PlaquesImmatriculation"
-                component={PlaquesImmatriculation}
-                options={{headerShown: false}}
-              /> */}
-
               <Stack.Screen
                 name="Login"
                 component={Login}

@@ -9,8 +9,9 @@ export default class HabApi {
       password: pwd,
       forcerConnexion: true,
     });
-    console.log(response);
-    return response && response.data ? JSON.parse(response.data) : {};
+    console.log('response ===> ');
+    console.log(response.data);
+    return response && response.data ? response.data : {};
   };
 
   static verify = async (code, login) => {
@@ -24,7 +25,9 @@ export default class HabApi {
       },
       jsonVO: {
         code: code,
-        device_id: Math.random().toString(17).slice(2),
+        device_id: Math.random()
+          .toString(17)
+          .slice(2),
         device_manufacturer: 'apple',
         device_model: 'p1010',
         os: 'iOs',
@@ -38,7 +41,12 @@ export default class HabApi {
     return await HttpHelper.process(data);
   };
 
-  static confirmConnexion = async (codeBureau, listeProfilCoche,codeArrondissement, login) => {
+  static confirmConnexion = async (
+    codeBureau,
+    listeProfilCoche,
+    codeArrondissement,
+    login,
+  ) => {
     const data = {
       dtoHeader: {
         userLogin: login,

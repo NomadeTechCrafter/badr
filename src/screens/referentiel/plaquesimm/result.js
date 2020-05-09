@@ -1,45 +1,85 @@
 import React from 'react';
 import {View, Text, ScrollView} from 'react-native';
-import { DataTable } from 'react-native-paper';
+import {DataTable} from 'react-native-paper';
+import utf8 from 'utf8';
 
-export default class PlaquesImmatriculationResult extends React.Component {
+/** REDUX **/
+import {connect} from 'react-redux';
+class PlaquesImmatriculationResult extends React.Component {
   constructor(props) {
     super(props);
   }
 
   componentDidMount() {}
 
-
   render() {
+    let rows = [];
+    let mItem = null;
+    if (this.props.value && this.props.value.resultBean) {
+      rows = this.props.value.resultBean.rows;
+      rows.map(item => {
+        mItem = item.vehiculeNumImmatComplet;
+      });
+    }
+
+    console.log(utf8);
     return (
       <ScrollView>
         <DataTable>
-        <DataTable.Header>
-          <DataTable.Title sortDirection="descending">Dessert</DataTable.Title>
-          <DataTable.Title sortDirection="descending" numeric>Calories</DataTable.Title>
-          <DataTable.Title sortDirection="descending" numeric>Fat</DataTable.Title>
-        </DataTable.Header>
- 
-        <DataTable.Row>
-          <DataTable.Cell>Frozen yogurt</DataTable.Cell>
-          <DataTable.Cell numeric>159</DataTable.Cell>
-          <DataTable.Cell numeric>6.0</DataTable.Cell>
-        </DataTable.Row>
+          <DataTable.Header>
+            <DataTable.Title sortDirection="ascending">
+              N° de chassis
+            </DataTable.Title>
+            <DataTable.Title sortDirection="descending">
+              Propriétaire
+            </DataTable.Title>
+            <DataTable.Title sortDirection="descending">
+              N° d'immatriculation normale
+            </DataTable.Title>
+          </DataTable.Header>
 
-        <DataTable.Row>
-          <DataTable.Cell>Ice cream sandwich</DataTable.Cell>
-          <DataTable.Cell numeric>237</DataTable.Cell>
-          <DataTable.Cell numeric>8.0</DataTable.Cell>
-        </DataTable.Row>
-
-        <DataTable.Pagination
-          page={1}
-          numberOfPages={3}
-          onPageChange={(page) => { console.log(page); }}
-          label="1-2 of 6"
-        />
-      </DataTable>
+          {rows.map(item => (
+            <DataTable.Row key={item.identifiantDMD}>
+              <DataTable.Cell>{item.vehiculeNumChassis}</DataTable.Cell>
+              <DataTable.Cell>
+                {item.proprietaireNom} {item.proprietaireNom} {'('}{' '}
+                {item.proprietaireNumeroIdentifiant} {')'}
+              </DataTable.Cell>
+              <DataTable.Cell>
+                {item.vehiculeNumImmatComplet.split('-')[2]}
+                {'- '}
+                {item.vehiculeNumImmatComplet.split('-')[0]}
+                {'- '}
+                {item.vehiculeNumImmatComplet.split('-')[1]}
+              </DataTable.Cell>
+            </DataTable.Row>
+          ))}
+          <DataTable.Pagination
+            page={1}
+            numberOfPages={3}
+            onPageChange={page => {
+              console.log(page);
+            }}
+            label="1-2 of 6"
+          />
+        </DataTable>
       </ScrollView>
     );
   }
 }
+
+function mapStateToProps(state) {
+  return {...state.plaquesImmReducer};
+}
+
+function mapDispatchToProps(dispatch) {
+  let actions = {dispatch};
+  return {
+    actions,
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(PlaquesImmatriculationResult);

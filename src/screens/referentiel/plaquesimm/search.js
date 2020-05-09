@@ -1,13 +1,21 @@
 import React from 'react';
 
-import {View, Text, ScrollView} from 'react-native';
+import {View, Text, ScrollView, Dimensions} from 'react-native';
 
 import {translate} from '../../../common/translations/i18n';
 
 import {Divider} from 'react-native-elements';
 
+/** REDUX **/
+import {connect} from 'react-redux';
+import * as ConstantsPlaquesImm from '../../../common/constants/referentiel/plaquesImm';
+import * as plaquesImmAction from '../../../redux/actions/referentiel/plaquesImm';
+
 /**Styling */
 import {CustomStyleSheet} from '../../../styles/index';
+
+/** Storage **/
+import {loadParsed} from '../../../services/storage-service';
 
 /**Custom Components */
 import {
@@ -17,21 +25,54 @@ import {
   BadrErrorMessage,
   BadrInfoMessage,
   Toolbar,
+  BadrProgressBar
 } from '../../../components';
 
-export default class PlaquesImmatriculationSearch extends React.Component {
+class PlaquesImmatriculationSearch extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       messageVisibility: false,
       message: '',
       messageType: '',
+      rechercheObject: {proprietairePrenom: 'ahmed'},
+      login: '',
     };
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    this.loadUser();
+  }
 
-  handleSearch = () => {};
+  loadUser = async () => {
+    let action = this.buildInitSearchPlaquesImmAction();
+    this.props.actions.dispatch(action);
+    let user = await loadParsed('user');
+    if (user) {
+      this.setState({login: user.login});
+    }
+  };
+
+  buildInitSearchPlaquesImmAction = () => {
+    var action = plaquesImmAction.init({value: {}});
+    return action;
+  };
+
+  buildSearchPlaquesImmAction = () => {
+    var action = plaquesImmAction.request({
+      type: ConstantsPlaquesImm.PLAQUES_IMM_REQUEST,
+      value: {
+        login: this.state.login,
+        rechercheObj: this.state.rechercheObject,
+      },
+    });
+    return action;
+  };
+
+  handleSearch = () => {
+    let action = this.buildSearchPlaquesImmAction();
+    this.props.actions.dispatch(action);
+  };
 
   showMessages = (type, message) => {
     this.setState({
@@ -102,6 +143,7 @@ export default class PlaquesImmatriculationSearch extends React.Component {
           <BadrButtonIcon
             onPress={() => this.handleSearch()}
             icon="magnify"
+            loading={this.props.showProgress}
             text={translate('transverse.rechercher')}
           />
           <BadrButtonIcon
@@ -159,3 +201,19 @@ export default class PlaquesImmatriculationSearch extends React.Component {
     );
   };
 }
+
+function mapStateToProps(state) {
+  return {...state.plaquesImmReducer};
+}
+
+function mapDispatchToProps(dispatch) {
+  let actions = {dispatch};
+  return {
+    actions,
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(PlaquesImmatriculationSearch);
