@@ -1,5 +1,4 @@
 import {SERVER_URL, LOGIN_API, PROCESS_API} from '../../../common/config';
-import RNFetchBlob from 'rn-fetch-blob';
 
 import * as axios from 'axios';
 

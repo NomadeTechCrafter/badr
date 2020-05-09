@@ -10,7 +10,7 @@ export {default as BadrErrorMessage} from './messages/Error';
 export {default as BadrInfoMessage} from './messages/Info';
 export {default as BadrPopup} from './messages/Popup';
 
-
+export {default as NumeroPlaque} from './referentiel/numeroPlaque';
 
 export {default as Card} from './cards';
 export {default as CardSection} from './cardSection';
@@ -32,5 +32,4 @@ export {
 } from './progressbars/BadrCircleProgressBar';
 export {default as BadrLoginHeader} from './header/Login';
 export {default as MenuHeader} from './header/MenuHeader';
-export { default as RechercheRefDum } from "./rechercheRefDum"
-
+export {default as RechercheRefDum} from './rechercheRefDum';

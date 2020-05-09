@@ -3,6 +3,9 @@ import {View, Text, ScrollView} from 'react-native';
 import {DataTable} from 'react-native-paper';
 import utf8 from 'utf8';
 
+/**Custom Components */
+import {NumeroPlaque} from '../../../components';
+
 /** REDUX **/
 import {connect} from 'react-redux';
 class PlaquesImmatriculationResult extends React.Component {
@@ -45,13 +48,11 @@ class PlaquesImmatriculationResult extends React.Component {
                 {item.proprietaireNom} {item.proprietaireNom} {'('}{' '}
                 {item.proprietaireNumeroIdentifiant} {')'}
               </DataTable.Cell>
-              <DataTable.Cell>
-                {item.vehiculeNumImmatComplet.split('-')[2]}
-                {'- '}
-                {item.vehiculeNumImmatComplet.split('-')[0]}
-                {'- '}
-                {item.vehiculeNumImmatComplet.split('-')[1]}
-              </DataTable.Cell>
+              <DataTable.Cell
+                children={
+                  <NumeroPlaque numero={item.vehiculeNumImmatComplet} />
+                }
+              />
             </DataTable.Row>
           ))}
           <DataTable.Pagination
