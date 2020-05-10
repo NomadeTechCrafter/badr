@@ -1,6 +1,14 @@
-import {SERVER_URL, LOGIN_API, PROCESS_API} from '../../../common/config';
-
+import {
+  SERVER_URL,
+  LOGIN_API,
+  PROCESS_API,
+  remote,
+} from '../../../common/config';
 import * as axios from 'axios';
+
+const localStore = {
+  rechercheEchangeMetVehicule: require('../offline/rechercheEchangeMetVehicule.json'),
+};
 
 const instance = axios.create({
   baseURL: SERVER_URL,
@@ -9,12 +17,15 @@ const instance = axios.create({
 });
 
 export default class HttpHelper {
-
   static async login(user) {
     return instance.post(LOGIN_API, JSON.stringify(user));
   }
 
   static async process(object) {
-    return instance.post(PROCESS_API, JSON.stringify(object));
+    if (remote) {
+      return instance.post(PROCESS_API, JSON.stringify(object));
+    } else {
+      return {data: localStore[object.dtoHeader.commande]};
+    }
   }
 }

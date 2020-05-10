@@ -16,10 +16,10 @@ export function request(action) {
     RefApi.rechercheEchangeMetVehicule(
       action.value.login,
       action.value.rechercheObj,
+      action.value.pageSize,
+      action.value.offset,
     )
       .then(response => {
-        // let base64Decoded = base64.decode(response.data);
-        // const data = JSON.parse(base64Decoded);
         if (response && response.data && response.data.jsonVO) {
           dispatch(success(response.data.jsonVO));
         } else {

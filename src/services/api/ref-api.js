@@ -5,7 +5,7 @@ import HttpHelper from './common/http-helper';
 import utf8 from 'utf8';
 
 export default class RefApi {
-  static rechercheEchangeMetVehicule = async (login, rechercheObject) => {
+  static rechercheEchangeMetVehicule = async (login, rechercheObject, pageSize, offset) => {
     const data = {
       dtoHeader: {
         userLogin: login,
@@ -13,8 +13,8 @@ export default class RefApi {
         module: 'REF_LIB',
         commande: 'rechercheEchangeMetVehicule',
         typeService: 'SP',
-        offset: 0,
-        pageSize: 10,
+        offset: offset,
+        pageSize: pageSize,
       },
       jsonVO: rechercheObject,
     };

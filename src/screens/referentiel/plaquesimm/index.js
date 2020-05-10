@@ -12,7 +12,7 @@ import PlaquesImmatriculationSearch from './search';
 import PlaquesImmatriculationResult from './result';
 
 /**Custom Components */
-import {BadrProgressBar} from '../../../components';
+import {BadrProgressBar, BadrCircleProgressBar, Toolbar} from '../../../components';
 
 /** REDUX **/
 import {connect} from 'react-redux';
@@ -29,7 +29,14 @@ class PlaquesImmatriculation extends React.Component {
   render() {
     return (
       <ScrollView>
+      <Toolbar
+            navigation={this.props.navigation}
+            icon="menu"
+            title={translate('referentiel.plaquesImm.title')}
+            subtitle={translate('referentiel.plaquesImm.subTitle')}
+          />
         {this.props.showProgress && <BadrProgressBar width={screenHeight} />}
+         {/* {this.props.showProgress && <BadrCircleProgressBar size={30} />} */}
         <Tab.Navigator
           tabBarOptions={{
             labelStyle: {fontSize: 16, fontWeight: 'bold'},
@@ -59,9 +66,10 @@ class PlaquesImmatriculation extends React.Component {
                 <Icon name="list" color={color} size={size} />
               ),
             }}
-            name="Résultats"
+            name="Resultat"
             component={PlaquesImmatriculationResult}
           />
+
         </Tab.Navigator>
       </ScrollView>
     );

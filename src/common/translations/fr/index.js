@@ -95,15 +95,26 @@ export default {
     fermer: 'Fermer',
     rechercher: 'Rechercher',
   },
- referentiel: {
+  referentiel: {
     plaquesImm: {
-      title : 'Plaques d\'immatriculation',
-      subTitle : 'écran de echerche',
+      title: "Plaques d'immatriculation",
+      subTitle: 'écran de echerche',
+      numeroChassis: 'N° de chassis : ',
+      numeroIdentifiant: 'Numéro identifiant',
+      nomProprietaire : 'Nom',
+      proprietaire : 'Proprietaire',
+      numeroPlaqueImmNormale : 'N° d\'immatriculation normale',
+      numeroPlaqueImmDiplomatqiue : 'N° d\'immatriculation diplomatique',
+      numeroPlaqueImmRemorque : 'N° d\'immatriculation remorque',
+      prenomProprietaire : 'Prenom',
+      raisonSociale : 'Raison sociale',
       searchByNumChassis: 'Par numéro de chassis',
-      searchByNumImmNormal: 'Par numéro d\'immatriculation NORMALE',
-      searchByNumImmDiplo: 'Par numéro d\'immatriculation DIPLOMATIQUE',
-      searchByNumImmRemorque: 'Par numéro d\immatriculation REMORQUE',
+      searchByNumImmNormal: "Par numéro d'immatriculation NORMALE",
+      searchByNumImmDiplo: "Par numéro d'immatriculation DIPLOMATIQUE",
+      searchByNumImmRemorque: 'Par numéro dimmatriculation REMORQUE',
       searchByIdentitePropr: 'Par identité du propriétaire',
+      searchMandatoryFields:
+        'Merci de saisir au moins un critère de recherche.',
     },
   },
 };

@@ -61,4 +61,5 @@ export const badrButtonIcon = {
 
 export const verticalActionContainer = {
   marginTop: 20,
+  marginBottom : 40
 };

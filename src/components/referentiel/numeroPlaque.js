@@ -1,17 +1,22 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, Clipboard} from 'react-native';
+
+import {CopyPaste} from '../';
 
 export default class NumeroPlaque extends React.Component {
-  render() {
-    const parts = this.props.numero.split('-');
+  buildNumero = parts => {
     return (
-      <Text>
-        {parts[2]}
-        {'- '}
-        {parts[0]}
-        {'- '}
-        {parts[1]}
-      </Text>
+      ' \t' + parts[2] + '\t - \t' + parts[1] + '\t - \t' + parts[0] + '\t'
     );
+  };
+
+  render() {
+    if (this.props.numero) {
+      const parts = this.props.numero.split('-');
+      const numero = this.buildNumero(parts);
+      return <CopyPaste value={numero} />;
+    } else {
+      return <View />;
+    }
   }
 }

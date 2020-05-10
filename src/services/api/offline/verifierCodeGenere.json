@@ -1,0 +1,15 @@
+{
+    "dtoHeader": {
+        "userLogin": "AD6203",
+        "fonctionnalite": "cf4011",
+        "module": "HAB_LIB",
+        "commande": "verifierCodeGenere",
+        "typeService": "SP",
+        "offset": 0,
+        "pageSize": 0,
+        "rowCount": 0
+    },
+    "jsonVO": {
+        "connexion": "true"
+    }
+}
