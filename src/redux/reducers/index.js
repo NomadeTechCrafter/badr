@@ -6,6 +6,8 @@ import menuReducer from './hab/menu';
 import controleRechercheDumReducer from './controle/rechercheDum';
 import regimeInterneReducer from './controle/regimeInterne';
 
+import plaquesImmReducer from './referentiel/plaquesImm';
+
 import badrPickerReducer from './components/badrPicker';
 import badrPickerCheckerReducer from './components/badrPickerChecker';
 /**
@@ -20,6 +22,7 @@ const allReducers = combineReducers({
   badrPickerCheckerReducer,
   controleRechercheDumReducer,
   regimeInterneReducer,
+  plaquesImmReducer,
 });
 
 export default allReducers;

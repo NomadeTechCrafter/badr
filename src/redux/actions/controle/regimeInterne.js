@@ -21,7 +21,7 @@ export function validateSave(action, navigation) {
         if (response) {
           console.log('validateaction response',response)
 
-          const data = JSON.parse(response.data);
+          const data = response.data;
           if (data && (data.dtoHeader.messagesErreur==null || data.dtoHeader.messagesErreur.length == 0 )) {
             dispatch(success(data));
             console.log('validateaction',data)

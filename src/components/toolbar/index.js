@@ -7,14 +7,6 @@ import {
   DefaultTheme,
 } from 'react-native-paper';
 
-const theme = {
-  ...DefaultTheme,
-  colors: {
-    ...DefaultTheme.colors,
-    primary: '#1cadae',
-    accent: 'white',
-  },
-};
 
 class Toolbar extends React.Component {
 

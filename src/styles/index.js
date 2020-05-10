@@ -16,6 +16,8 @@ import {StyleSheet} from 'react-native';
 
 export const primaryColor = '#009ab2';
 export const accentColor = '#FFFFFF';
+export const warnColor = '#ffcc00';
+export const errorColor = 'red';
 
 const CustomStyleSheet = StyleSheet.create({
   badrCardText: {
@@ -26,6 +28,9 @@ const CustomStyleSheet = StyleSheet.create({
   },
   badrButton: {
     ...Buttons.badrButton,
+  },
+  badrButtonIcon: {
+    ...Buttons.badrButtonIcon,
   },
   loginButton: {
     ...Buttons.loginButton,
@@ -86,18 +91,20 @@ const CustomStyleSheet = StyleSheet.create({
     ...Images.menuUserImage,
   },
 
-  smallInput:{
+  smallInput: {
     ...Size.smallInput,
     ...Spacing.inputRechercheDum,
   },
-  mediumInput:{
+  mediumInput: {
     ...Size.mediumInput,
     ...Spacing.inputRechercheDum,
   },
-  largeInput:{
+  largeInput: {
     ...Size.largeInput,
-  }
-
+  },
+  verticalActionsContainer: {
+    ...Containers.verticalActionsContainer,
+  },
 });
 
 export {CustomStyleSheet};

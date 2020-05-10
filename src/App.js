@@ -15,10 +15,11 @@ import {createStackNavigator} from '@react-navigation/stack';
 import Login from './screens/hab/login';
 import SmsVerify from './screens/hab/smsVerify';
 import Home from './screens/hab/home';
-
 import Profile from './screens/hab/profile';
-
 import Toolbar from './components/toolbar';
+
+import {translate} from './common/translations/i18n';
+import {primaryColor} from './styles/index';
 
 import {
   Appbar,
@@ -35,13 +36,16 @@ const middleware = [thunk];
 //config debuggin
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(allReducers, composeEnhancers(applyMiddleware(thunk)));
+const store = createStore(
+  allReducers,
+  composeEnhancers(applyMiddleware(thunk)),
+);
 
 const theme = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
-    primary: '#1cadae',
+    primary: primaryColor,
     accent: 'white',
   },
 };
@@ -55,8 +59,8 @@ export default class App extends React.Component {
         <Provider store={store}>
           <NavigationContainer>
             <Stack.Navigator>
-
-            <Stack.Screen
+            
+              <Stack.Screen
                 name="Login"
                 component={Login}
                 options={{headerShown: false}}
