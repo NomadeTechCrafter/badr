@@ -20,7 +20,7 @@ export function validateSave(action, navigation) {
       .then(response => {
         if (response) {
 
-          const data = response.data;
+          const data = JSON.parse(response.data);
           if (data && (data.dtoHeader.messagesErreur==null || data.dtoHeader.messagesErreur.length == 0 )) {
             dispatch(success(data));
             

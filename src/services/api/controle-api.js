@@ -1,6 +1,7 @@
 import {Component} from 'react';
-
+import {WS_MODE} from '../../common/config';
 import HttpHelper from './common/http-helper';
+
 const WS_MODULE_PARAM = 'CONTROL_LIB';
 export default class ControleApi {
   static initControler = async (login, commande, data) => {
@@ -18,7 +19,9 @@ export default class ControleApi {
       jsonVO: data,
     };
 
-    return await HttpHelper.process(_data);
+      return await HttpHelper.process(_data);
+
+
   };
   static validateSaveAction = async (login, commande, data) => {
     const _data = {
@@ -57,6 +60,28 @@ export default class ControleApi {
         desactiverRedressement: null,
         suggererVP: false,
         refHistoriques: [],
+      },
+    };
+      return await HttpHelper.process(_data);
+
+  };
+
+  static genererCompteRendu = async (login, data) => {
+    const _data = {
+      dtoHeader: {
+        userLogin: login,
+        fonctionnalite: 'cf4011',
+        module: WS_MODULE_PARAM,
+        commande: 'genererCompteRenduRedressements',
+        typeService: 'UC',
+        motif: null,
+        messagesInfo: null,
+        messagesErreur: null,
+      },
+      jsonVO: {
+        idDed: data.idDed,
+      numeroVersionBase: data.numeroVersionBase,
+      numeroVersionCourante: data.numeroVersionCourante,
       },
     };
 

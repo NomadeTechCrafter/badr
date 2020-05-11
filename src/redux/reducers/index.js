@@ -5,6 +5,7 @@ import confirmConnexionReducer from './hab/confirmConnexion';
 import menuReducer from './hab/menu';
 import controleRechercheDumReducer from './controle/rechercheDum';
 import regimeInterneReducer from './controle/regimeInterne';
+import acvpReducer from './controle/acvp';
 
 import plaquesImmReducer from './referentiel/plaquesImm';
 
@@ -22,6 +23,7 @@ const allReducers = combineReducers({
   badrPickerCheckerReducer,
   controleRechercheDumReducer,
   regimeInterneReducer,
+  acvpReducer,
   plaquesImmReducer,
 });
 
