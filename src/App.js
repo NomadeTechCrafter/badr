@@ -17,6 +17,7 @@ import SmsVerify from './screens/hab/smsVerify';
 import Home from './screens/hab/home';
 
 import Profile from './screens/hab/profile';
+import ListDeclarationDum from './screens/listDeclarationDum';
 
 import Toolbar from './components/toolbar';
 
@@ -56,6 +57,8 @@ export default class App extends React.Component {
           <NavigationContainer>
             <Stack.Navigator>
 
+           
+
             <Stack.Screen
                 name="Login"
                 component={Login}
@@ -77,6 +80,12 @@ export default class App extends React.Component {
                 name="Profile"
                 options={{headerShown: false}}
                 component={Profile}
+              />
+
+             <Stack.Screen
+                name="ListDeclarationDum" 
+                options={{headerShown: false}}
+                component={ListDeclarationDum}
               />
             </Stack.Navigator>
           </NavigationContainer>

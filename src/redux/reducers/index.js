@@ -5,6 +5,7 @@ import confirmConnexionReducer from './hab/confirmConnexion';
 import menuReducer from './hab/menu';
 import controleRechercheDumReducer from './controle/rechercheDum';
 import regimeInterneReducer from './controle/regimeInterne';
+import listDeclarationReducer from './listDeclarationDum';
 
 import badrPickerReducer from './components/badrPicker';
 import badrPickerCheckerReducer from './components/badrPickerChecker';
@@ -20,6 +21,7 @@ const allReducers = combineReducers({
   badrPickerCheckerReducer,
   controleRechercheDumReducer,
   regimeInterneReducer,
+  listDeclarationReducer
 });
 
 export default allReducers;
