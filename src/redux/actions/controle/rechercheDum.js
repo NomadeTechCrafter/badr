@@ -19,6 +19,8 @@ export function request(action, navigation,successRedirection) {
       .then(response => {
         if (response) {
          // const data = JSON.parse(response.data);
+         //const data = response.data;
+
           if (data && !data.dtoHeader.messagesErreur) {
             console.log('data' ,data);
             dispatch(success(data));

@@ -33,7 +33,13 @@ export default (state = initialState, action) => {
       console.log('--> login failed...');
       nextState.showProgress = false;
       nextState.loggedIn = false;
-      nextState.errorMessage = action.value.messagesRetour ? JSON.stringify(action.value.messagesRetour[0]) : action.value;
+      if (action.value.messagesRetour) {
+        nextState.errorMessage = action.value.messagesRetour
+          ? JSON.stringify(action.value.messagesRetour[0])
+          : action.value;
+      } else {
+        nextState.errorMessage = action.value;
+      }
       return nextState;
     case Constants.AUTH_LOGOUT:
       console.log('login logout...');

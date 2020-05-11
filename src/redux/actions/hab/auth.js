@@ -24,6 +24,7 @@ export function request(action, navigation) {
             /** Naviguer vers la vue suivant. */
             navigation.navigate('SmsVerify', {login: action.value.login});
           } else {
+            console.log(data);
             dispatch(failed(data));
           }
         } else {
@@ -31,6 +32,7 @@ export function request(action, navigation) {
         }
       })
       .catch(e => {
+         console.log(e);
         dispatch(failed(translate('errors.technicalIssue')));
       });
   };

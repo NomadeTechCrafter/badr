@@ -33,6 +33,8 @@ import {
   BadrButton,
 } from '../../../components';
 
+import {remote, bootstrapRoute} from '../../../common/config';
+
 /** CONSTANTS **/
 const screenHeight = Dimensions.get('window').height;
 
@@ -61,6 +63,12 @@ class Login extends React.Component {
     this.props.dispatch(action);
 
     this.loadOldUserIfExist();
+
+    if (!remote) {
+      this.props.navigation.navigate(bootstrapRoute, {
+        login: 'AD6203',
+      });
+    }
   }
 
   loadOldUserIfExist = async () => {

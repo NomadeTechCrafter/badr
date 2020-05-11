@@ -7,6 +7,8 @@ import controleRechercheDumReducer from './controle/rechercheDum';
 import regimeInterneReducer from './controle/regimeInterne';
 import acvpReducer from './controle/acvp';
 
+import plaquesImmReducer from './referentiel/plaquesImm';
+
 import badrPickerReducer from './components/badrPicker';
 import badrPickerCheckerReducer from './components/badrPickerChecker';
 /**
@@ -21,7 +23,8 @@ const allReducers = combineReducers({
   badrPickerCheckerReducer,
   controleRechercheDumReducer,
   regimeInterneReducer,
-    acvpReducer,
+  acvpReducer,
+  plaquesImmReducer,
 });
 
 export default allReducers;

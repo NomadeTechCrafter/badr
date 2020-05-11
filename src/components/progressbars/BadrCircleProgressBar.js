@@ -3,16 +3,22 @@ import React from 'react';
 import {Text, View, TouchableOpacity} from 'react-native';
 import * as Progress from 'react-native-progress';
 
-import { translate } from "../../common/translations/i18n";
-const buildProgressBar = (color, size) => {
+import {translate} from '../../common/translations/i18n';
+const buildProgressBar = (color, size, style) => {
   return (
-    <View style={{...CustomStyleSheet.centerContainer, backgroundColor: 'transparent'}}>
-      <Progress.Circle
-        color={primaryColor}
-        indeterminate={true}
-        size={size}
-      />
-      <Text style={CustomStyleSheet.progressbarText}>{translate('components.progressbar.loading')}</Text>
+    <View
+      style={
+        style
+          ? style
+          : {
+              ...CustomStyleSheet.centerContainer,
+              backgroundColor: 'transparent',
+            }
+      }>
+      <Progress.Circle color={primaryColor} indeterminate={true} size={size} />
+      <Text style={CustomStyleSheet.progressbarText}>
+        {translate('components.progressbar.loading')}
+      </Text>
     </View>
   );
 };
@@ -22,6 +28,6 @@ export default class BadrCircleProgressBar extends React.Component {
     super(props);
   }
   render() {
-    return buildProgressBar('#009ab2', this.props.size);
+    return buildProgressBar('#009ab2', this.props.size, this.props.style);
   }
 }

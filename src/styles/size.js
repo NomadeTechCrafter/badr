@@ -49,3 +49,7 @@ export const mediumInput = {
 export const largeInput = {
   width: 300,
 };
+
+export const badrButtonIcon = {
+  width: 280,
+};
