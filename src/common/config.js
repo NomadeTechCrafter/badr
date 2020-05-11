@@ -1,5 +1,6 @@
 module.exports = {
     SERVER_URL: 'https://badr4.douane.gov.ma/badr',
     LOGIN_API : '/rest/api/login',
-    PROCESS_API : '/rest/api/process'
+    PROCESS_API : '/rest/api/process',
+    WS_MODE : 'local',
 };

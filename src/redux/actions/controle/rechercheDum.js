@@ -6,7 +6,7 @@ import * as Constants from '../../../common/constants/controle/rechercheDum';
 import {translate} from '../../../common/translations/i18n';
 
 import {save} from '../../../services/storage-service';
-//import * as data from './dataInitControle.json';
+import * as data from '../../../services/api/localData/controle/dataInitControle.json';
 export function request(action, navigation,successRedirection) {
   return dispatch => {
     dispatch(action);
@@ -18,7 +18,7 @@ export function request(action, navigation,successRedirection) {
     )
       .then(response => {
         if (response) {
-          const data = JSON.parse(response.data);
+         // const data = JSON.parse(response.data);
           if (data && !data.dtoHeader.messagesErreur) {
             console.log('data' ,data);
             dispatch(success(data));

@@ -17,7 +17,9 @@ import SmsVerify from './screens/hab/smsVerify';
 import Home from './screens/hab/home';
 
 import Profile from './screens/hab/profile';
-
+import RechercheDum from './screens/controle/rechercheDum';
+import RegimeInterne from './screens/controle/regimeInterne';
+import ACVP from './screens/controle/ACVP'
 import Toolbar from './components/toolbar';
 
 import {
@@ -62,6 +64,11 @@ export default class App extends React.Component {
                 options={{headerShown: false}}
               />
               <Stack.Screen
+                  name="RechercheDum"
+                  options={{headerShown: false}}
+                  component={RechercheDum}
+              />
+              <Stack.Screen
                 name="SmsVerify"
                 mode="modal"
                 component={SmsVerify}
@@ -78,6 +85,9 @@ export default class App extends React.Component {
                 options={{headerShown: false}}
                 component={Profile}
               />
+
+              <Stack.Screen name="RegimeInterne" component={RegimeInterne} />
+              <Stack.Screen name="ACVP" component={ACVP} />
             </Stack.Navigator>
           </NavigationContainer>
         </Provider>

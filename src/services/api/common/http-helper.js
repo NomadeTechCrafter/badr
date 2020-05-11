@@ -1,6 +1,7 @@
 import {SERVER_URL, LOGIN_API, PROCESS_API} from '../../../common/config';
 import RNFetchBlob from 'rn-fetch-blob';
 
+
 export default class HttpHelper {
   static async login(user) {
     return RNFetchBlob.config({trusty: true}).fetch(
@@ -24,4 +25,5 @@ export default class HttpHelper {
       JSON.stringify(object),
     );
   }
+
 }
