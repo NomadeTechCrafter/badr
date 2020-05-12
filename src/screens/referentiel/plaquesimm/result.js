@@ -21,17 +21,7 @@ import {connect} from 'react-redux';
 import * as ConstantsPlaquesImm from '../../../common/constants/referentiel/plaquesImm';
 import * as plaquesImmAction from '../../../redux/actions/referentiel/plaquesImm';
 
-import {useScrollToTop} from '@react-navigation/native';
-
 const MAX_RESULTS_PER_PAGE = 10;
-
-function Albums() {
-  const ref = React.useRef(null);
-
-  useScrollToTop(ref);
-
-  return <ScrollView ref={ref}>{/* content */}</ScrollView>;
-}
 
 class PlaquesImmatriculationResult extends React.Component {
   constructor(props) {
@@ -96,7 +86,7 @@ class PlaquesImmatriculationResult extends React.Component {
   };
 
   onItemSelected = item => {
-    this.scrollView.scrollTo({y: 0});
+    // this.scrollView.scrollTo({y: 0});
     this.setState({showDetail: true});
     this.setState({item: item});
   };
@@ -111,12 +101,11 @@ class PlaquesImmatriculationResult extends React.Component {
         this.props.value.totalNumberOfResult / MAX_RESULTS_PER_PAGE,
       );
     }
-
     return (
-      <ScrollView horizontal={true} ref={ref => (this.scrollView = ref)}>
+      <ScrollView horizontal={true}>
         {!this.props.showProgress && (
-          <View>
-            <DataTable ref={ref => (this.datatable = ref)}>
+          <ScrollView>
+            <DataTable>
               <DataTable.Header>
                 <DataTable.Title style={{width: 180}}>
                   {translate('referentiel.plaquesImm.numeroChassis')}
@@ -214,7 +203,7 @@ class PlaquesImmatriculationResult extends React.Component {
               onDismiss={this.onDismiss}>
               <DetailPlaque data={this.state.item} />
             </BadrModal>
-          </View>
+          </ScrollView>
         )}
       </ScrollView>
     );

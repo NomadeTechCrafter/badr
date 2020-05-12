@@ -29,8 +29,9 @@ import {CustomStyleSheet} from '../../../styles/index';
 /**Storage */
 import {loadParsed} from '../../../services/storage-service';
 
-/** Constants **/
-const screenHeight = Dimensions.get('window').height;
+
+/** CONSTANTS **/
+const screenWidth = Dimensions.get('window').width;
 
 class SmsVerify extends React.Component {
   state = {
@@ -68,7 +69,7 @@ class SmsVerify extends React.Component {
     return (
       <ScrollView style={CustomStyleSheet.whiteContainer}>
         {(this.props.showProgress || this.props.showProgressConfirmCnx) && (
-          <BadrProgressBar width={screenHeight} />
+          <BadrProgressBar width={screenWidth} />
         )}
         <Text style={CustomStyleSheet.centeredText}>
           {translate('smsVerify.message')}

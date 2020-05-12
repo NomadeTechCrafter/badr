@@ -22,7 +22,7 @@ import {CustomStyleSheet} from '../../../styles/index';
 import {translate} from '../../../common/translations/i18n';
 
 /** CONSTANTS **/
-const screenHeight = Dimensions.get('window').height;
+const screenWidth = Dimensions.get('window').width;
 
 class Profile extends React.Component {
   constructor(props) {
@@ -97,7 +97,7 @@ class Profile extends React.Component {
     return (
       <View style={styles.container}>
         {this.props.confirmConnexionReducer.showProgressConfirmCnx && (
-          <BadrProgressBar width={screenHeight} />
+          <BadrProgressBar width={screenWidth } />
         )}
         <ScrollView>
           <View>
