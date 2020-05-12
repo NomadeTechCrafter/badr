@@ -1,0 +1,16 @@
+
+
+    create a new git branch : 
+        1) git branch list-declaration-et-transit
+    pointer sur la branche : 
+
+    1) git checkout list-declaration-et-transit
+    2) git add .
+    3) git commit -m "commentaire du commit"
+    4) git push --set-upstream origin list-declaration-et-transit
+
+
+    ws <---- pull ---> git repo local <----- fetch ----> remote repo
+
+   > git fetch 
+   > git pull
