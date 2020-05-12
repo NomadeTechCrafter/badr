@@ -7,17 +7,15 @@
  */
 
 import React from 'react';
-import {View, Text} from 'react-native';
+import { View, Text } from 'react-native';
 
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
 import Login from './screens/hab/login';
 import SmsVerify from './screens/hab/smsVerify';
 import Home from './screens/hab/home';
 import Profile from './screens/hab/profile';
-
-import ListDeclarationDum from './screens/listDeclarationDum';
 
 import RechercheDum from './screens/controle/rechercheDum';
 import RegimeInterne from './screens/controle/regimeInterne';
@@ -26,8 +24,8 @@ import ACVP from './screens/controle/ACVP';
 
 import Toolbar from './components/toolbar';
 
-import {translate} from './common/translations/i18n';
-import {primaryColor} from './styles/index';
+import { translate } from './common/translations/i18n';
+import { primaryColor } from './styles/index';
 
 import {
   Appbar,
@@ -36,8 +34,8 @@ import {
 } from 'react-native-paper';
 
 /** REDUX */
-import {Provider} from 'react-redux';
-import {createStore, applyMiddleware, compose} from 'redux';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import allReducers from './redux/reducers';
 import thunk from 'redux-thunk';
 const middleware = [thunk];
@@ -69,16 +67,16 @@ export default class App extends React.Component {
             <Stack.Navigator>
 
 
-      <Stack.Screen
+              <Stack.Screen
 
                 name="Login"
                 component={Login}
-                options={{headerShown: false}}
+                options={{ headerShown: false }}
               />
               <Stack.Screen
-                  name="RechercheDum"
-                  options={{headerShown: false}}
-                  component={RechercheDum}
+                name="RechercheDum"
+                options={{ headerShown: false }}
+                component={RechercheDum}
               />
               <Stack.Screen
                 name="SmsVerify"
@@ -88,22 +86,18 @@ export default class App extends React.Component {
 
               <Stack.Screen
                 name="Home"
-                options={{headerShown: false}}
+                options={{ headerShown: false }}
                 component={Home}
               />
 
               <Stack.Screen
                 name="Profile"
-                options={{headerShown: false}}
+                options={{ headerShown: false }}
                 component={Profile}
               />
 
 
-             <Stack.Screen
-                name="ListDeclarationDum" 
-                options={{headerShown: false}}
-                component={ListDeclarationDum}
-              />
+
 
               <Stack.Screen name="RegimeInterne" component={RegimeInterne} />
               <Stack.Screen name="ACVP" component={ACVP} />
