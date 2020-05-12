@@ -10,7 +10,7 @@ export default class BadrItemsPicker extends React.Component {
   };
   render() {
     return (
-      <View style={{width: '100%'}}>
+      <View style={this.props.style}>
         <Picker
           mode="dropdown"
           selectedValue={this.props.selectedValue}
@@ -19,7 +19,7 @@ export default class BadrItemsPicker extends React.Component {
             this.props.onValueChanged(itemValue, itemIndex);
           }}>
           <Picker.Item
-            label={translate('components.pickerchecker.default_value')}
+            label={this.props.label}
             value={'default_item'}
             key={'default_item'}
           />

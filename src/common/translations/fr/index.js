@@ -103,6 +103,8 @@ export default {
       numeroIdentifiant: 'Numéro identifiant',
       nomProprietaire : 'Nom',
       proprietaire : 'Proprietaire',
+      categoryDiplomatique: 'Catégorie diplomatique',
+      choose_categoryDiplomatique : 'Choisissez une catégorie diplomatique',
       numeroPlaqueImmNormale : 'N° d\'immatriculation normale',
       numeroPlaqueImmDiplomatqiue : 'N° d\'immatriculation diplomatique',
       numeroPlaqueImmRemorque : 'N° d\'immatriculation remorque',

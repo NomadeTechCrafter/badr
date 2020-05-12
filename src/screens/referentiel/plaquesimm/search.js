@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {View, Text, ScrollView, Dimensions, StyleSheet} from 'react-native';
-import {TextInput} from 'react-native-paper';
+import {TextInput, Headline} from 'react-native-paper';
 import {Divider} from 'react-native-elements';
 
 import {translate} from '../../../common/translations/i18n';
@@ -114,6 +114,9 @@ class PlaquesImmatriculationSearch extends React.Component {
   };
 
   handleSearch = () => {
+    if (this.layout && this.scrollViewRef) {
+      this.scrollViewRef.scrollTo({y: 0, animated: true});
+    }
     if (this.validate()) {
       let action = this.buildSearchPlaquesImmAction();
       this.props.actions.dispatch(action);
@@ -173,7 +176,14 @@ class PlaquesImmatriculationSearch extends React.Component {
   render() {
     return (
       <View>
-        <ScrollView>
+        <ScrollView
+          horizontal={false}
+          ref={ref => {
+            this.scrollViewRef = ref;
+          }}
+          onLayout={event => {
+            this.layout = event.nativeEvent.layout;
+          }}>
           <BadrPopup
             message={this.state.message}
             type={this.state.messageType}
@@ -214,6 +224,7 @@ class PlaquesImmatriculationSearch extends React.Component {
     return (
       <Accordion title={translate('referentiel.plaquesImm.searchByNumChassis')}>
         <TextInput
+          mode="outlined"
           label={translate('referentiel.plaquesImm.numeroChassis')}
           value={this.state.vehiculeNumChassis}
           onChangeText={text => this.setState({vehiculeNumChassis: text})}
@@ -233,6 +244,7 @@ class PlaquesImmatriculationSearch extends React.Component {
         title={translate('referentiel.plaquesImm.searchByNumImmNormal')}>
         <View style={styles.row}>
           <TextInput
+            mode="outlined"
             style={styles.columnThree}
             label=" "
             value={this.state.vehiculeNumImmat1}
@@ -247,6 +259,7 @@ class PlaquesImmatriculationSearch extends React.Component {
           />
           <Text>{' \t-\t '}</Text>
           <TextInput
+            mode="outlined"
             style={styles.columnThree}
             label=""
             value={this.state.vehiculeNumImmat3}
@@ -267,13 +280,15 @@ class PlaquesImmatriculationSearch extends React.Component {
         title={translate('referentiel.plaquesImm.searchByNumImmDiplo')}>
         <View style={styles.row}>
           <TextInput
+            mode="outlined"
             style={styles.column}
             label=""
             value={this.state.vehiculeNumImmatDiplo1}
             onChangeText={text => this.setState({vehiculeNumImmatDiplo1: text})}
           />
-          <Text>{' \t-\t '}</Text>
+          <Text>{'\t-\t'}</Text>
           <TextInput
+            mode="outlined"
             style={styles.column}
             label=" "
             value={this.state.vehiculeNumImmatDiplo2}
@@ -283,6 +298,8 @@ class PlaquesImmatriculationSearch extends React.Component {
 
         <View style={{flexDirection: 'row', margin: 10}}>
           <BadrItemsPicker
+            style={styles.column}
+            label={translate('referentiel.plaquesImm.choose_categoryDiplomatique')}
             selectedValue={this.state.vehiculeCodeTypeImmatDiplo}
             items={ConstantsPlaquesImm.categoryDiplomatique}
             onValueChanged={(v, i) => this.onCategoryDiploPickerChanged(v, i)}
@@ -298,6 +315,7 @@ class PlaquesImmatriculationSearch extends React.Component {
         title={translate('referentiel.plaquesImm.searchByNumImmRemorque')}>
         <View style={styles.row}>
           <TextInput
+            mode="outlined"
             style={styles.column}
             label=" "
             value={this.state.vehiculeNumImmatRem1}
@@ -305,6 +323,7 @@ class PlaquesImmatriculationSearch extends React.Component {
           />
           <Text>{' \t-\t '}</Text>
           <TextInput
+            mode="outlined"
             style={styles.column}
             label=" "
             value={this.state.vehiculeNumImmatRem2}
@@ -321,6 +340,7 @@ class PlaquesImmatriculationSearch extends React.Component {
         title={translate('referentiel.plaquesImm.searchByIdentitePropr')}>
         <View style={styles.row}>
           <TextInput
+            mode="outlined"
             style={styles.column}
             label={translate('referentiel.plaquesImm.numeroIdentifiant')}
             value={this.state.proprietaireNumeroIdentifiant}
@@ -329,6 +349,7 @@ class PlaquesImmatriculationSearch extends React.Component {
             }
           />
           <TextInput
+            mode="outlined"
             style={styles.column}
             label={translate('referentiel.plaquesImm.nomProprietaire')}
             value={this.state.proprietaireNom}
@@ -338,12 +359,14 @@ class PlaquesImmatriculationSearch extends React.Component {
 
         <View style={styles.row}>
           <TextInput
+            mode="outlined"
             style={styles.column}
             label={translate('referentiel.plaquesImm.prenomProprietaire')}
             value={this.state.proprietairePrenom}
             onChangeText={text => this.setState({proprietairePrenom: text})}
           />
           <TextInput
+            mode="outlined"
             style={styles.column}
             label={translate('referentiel.plaquesImm.raisonSociale')}
             value={this.state.raisonSocial}
@@ -358,11 +381,11 @@ class PlaquesImmatriculationSearch extends React.Component {
 const styles = StyleSheet.create({
   columnOne: {
     width: '100%',
-    marginBottom: 10,
+    margin: 10,
   },
   column: {
     width: '45%',
-    marginRight: 10,
+    margin: 10,
   },
   columnThree: {
     width: '30%',
