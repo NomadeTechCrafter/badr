@@ -26,9 +26,7 @@ const allReducers = combineReducers({
   badrPickerCheckerReducer,
   controleRechercheDumReducer,
   regimeInterneReducer,
-
-  listDeclarationReducer
-
+  listDeclarationReducer,
   acvpReducer,
   plaquesImmReducer,
 
