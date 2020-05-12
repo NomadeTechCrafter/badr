@@ -81,11 +81,9 @@ export default class ControleApi {
     };
     return await HttpHelper.process(data);
   };
-}
 
-      return await HttpHelper.process(_data);
 
-  };
+    
 
   static genererCompteRendu = async (login, data) => {
     const _data = {
