@@ -36,7 +36,7 @@ import {
 import {remote, bootstrapRoute} from '../../../common/config';
 
 /** CONSTANTS **/
-const screenHeight = Dimensions.get('window').height;
+const screenWidth = Dimensions.get('window').width;
 
 class Login extends React.Component {
   state = {
@@ -81,7 +81,7 @@ class Login extends React.Component {
   render() {
     return (
       <ScrollView style={CustomStyleSheet.whiteContainer}>
-        {this.props.showProgress && <BadrProgressBar width={screenHeight} />}
+        {this.props.showProgress && <BadrProgressBar width={screenWidth} />}
         <View style={CustomStyleSheet.centerContainer}>
           <BadrLoginHeader />
           <LoginTextInput

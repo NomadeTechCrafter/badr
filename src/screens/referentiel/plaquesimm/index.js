@@ -1,6 +1,7 @@
 import React from 'react';
 
 import {View, Text, ScrollView, Dimensions} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
 
 import {translate} from '../../../common/translations/i18n';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -12,14 +13,32 @@ import PlaquesImmatriculationSearch from './search';
 import PlaquesImmatriculationResult from './result';
 
 /**Custom Components */
-import {BadrProgressBar, BadrCircleProgressBar, Toolbar} from '../../../components';
+import {
+  BadrProgressBar,
+  BadrCircleProgressBar,
+  Toolbar,
+} from '../../../components';
 
 /** REDUX **/
 import {connect} from 'react-redux';
 
 const Tab = createMaterialTopTabNavigator();
 /** CONSTANTS **/
-const screenHeight = Dimensions.get('window').height;
+const screenWidth = Dimensions.get('window').width;
+
+import {useScrollToTop} from '@react-navigation/native';
+function ResultScreen({route, navigation}) {
+  return (
+    <PlaquesImmatriculationResult
+      navigation={navigation}
+      route={route}
+    />
+  );
+}
+
+function SearchScreen({route, navigation}) {
+  return <PlaquesImmatriculationSearch navigation={navigation} route={route} />;
+}
 
 class PlaquesImmatriculation extends React.Component {
   constructor(props) {
@@ -28,50 +47,37 @@ class PlaquesImmatriculation extends React.Component {
 
   render() {
     return (
-      <ScrollView>
-      <Toolbar
-            navigation={this.props.navigation}
-            icon="menu"
-            title={translate('referentiel.plaquesImm.title')}
-            subtitle={translate('referentiel.plaquesImm.subTitle')}
-          />
-        {this.props.showProgress && <BadrProgressBar width={screenHeight} />}
-         {/* {this.props.showProgress && <BadrCircleProgressBar size={30} />} */}
-        <Tab.Navigator
-          tabBarOptions={{
-            labelStyle: {fontSize: 16, fontWeight: 'bold'},
-            showLabel: true,
-            allowFontScaling: true,
-            activeBackgroundColor: primaryColor,
-            activeTintColor: primaryColor,
-            inactiveTintColor: 'gray',
-            indicatorStyle: {
-              backgroundColor: primaryColor,
-              borderWidth: 2.5,
-              borderColor: primaryColor,
-            },
-          }}>
-          <Tab.Screen
-            options={{
-              tabBarIcon: ({color, size}) => (
-                <Icon name="search" color={color} size={size} />
-              ),
-            }}
-            name="Recherche"
-            component={PlaquesImmatriculationSearch}
-          />
-          <Tab.Screen
-            options={{
-              tabBarIcon: ({color, size}) => (
-                <Icon name="list" color={color} size={size} />
-              ),
-            }}
-            name="Resultat"
-            component={PlaquesImmatriculationResult}
-          />
-
-        </Tab.Navigator>
-      </ScrollView>
+      <View style={{width: '100%', height: '100%'}}>
+        <Toolbar
+          navigation={this.props.navigation}
+          icon="menu"
+          title={translate('referentiel.plaquesImm.title')}
+          subtitle={translate('referentiel.plaquesImm.subTitle')}
+        />
+        {this.props.showProgress && <BadrProgressBar width={screenWidth} />}
+        {/* {this.props.showProgress && <BadrCircleProgressBar size={30} />} */}
+        <NavigationContainer independent={true}>
+          <Tab.Navigator
+            initialLayout={{height: Dimensions.get('window').height}}
+            swipeEnabled={false}
+            tabBarOptions={{
+              labelStyle: {fontSize: 16, fontWeight: 'bold'},
+              showLabel: true,
+              allowFontScaling: true,
+              activeBackgroundColor: primaryColor,
+              activeTintColor: primaryColor,
+              inactiveTintColor: 'gray',
+              indicatorStyle: {
+                backgroundColor: primaryColor,
+                borderWidth: 2.5,
+                borderColor: primaryColor,
+              },
+            }}>
+            <Tab.Screen name="Recherche" component={SearchScreen} />
+            <Tab.Screen name="Resultat" component={ResultScreen} />
+          </Tab.Navigator>
+        </NavigationContainer>
+      </View>
     );
   }
 }

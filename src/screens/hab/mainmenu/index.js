@@ -56,6 +56,10 @@ class MainMenu extends React.Component {
     loadParsed('user').then(user => {
       this.setState({fullname: Utils.buildUserFullname(user)});
     });
+
+    if (this.props.navigation) {
+      this.props.navigation.toggleDrawer();
+    }
   }
 
   fetchMenu = predicate => {

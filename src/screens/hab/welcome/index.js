@@ -18,6 +18,7 @@ import MainMenu from '../mainmenu/index';
 class WelcomeScreen extends React.Component {
 
   componentDidMount() {
+     this.props.navigation.toggleDrawer();
   }
 
   render() {
