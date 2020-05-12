@@ -34,10 +34,6 @@ class BadrPickerChecker extends React.Component {
 
   componentDidUpdate(prevProps, prevState, snapshot) {}
 
-  refresh = params => {
-    this.fetchData(params);
-  };
-
   fetchData = params => {
     let action = badrPickerAction.request({
       type: Constants.BADRPICKER_REQUEST,

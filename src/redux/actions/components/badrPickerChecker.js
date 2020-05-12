@@ -13,7 +13,7 @@ export function request(action) {
       action.value.param,
     )
       .then(response => {
-        const data = JSON.parse(response.data);
+        const data = response.data;
         if (data && data.jsonVO) {
           action.value.payload = data.jsonVO;
           dispatch(success(action));

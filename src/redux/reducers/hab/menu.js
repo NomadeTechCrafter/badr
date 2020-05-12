@@ -35,10 +35,8 @@ export default (state = initialState, action) => {
       nextState.errorMessage = action.value;
       return nextState;
     case Constants.MENU_INIT:
-      console.log('init menu');
       return state;
     default:
-      console.log('default menu');
       nextState.showProgress = false;
       return state;
   }

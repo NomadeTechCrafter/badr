@@ -1,6 +1,7 @@
 const mapping = {
   '3072': {screen: 'RechercheDum', params: {typeControle: 'RI'}},
   '3064': {screen: 'RechercheDum', params: {typeControle: 'AC'}},
+  '823': {screen: 'PlaquesImmatriculation', params: {}},
 };
 const DEFAULT_SCREEN = 'Bienvenue';
 
