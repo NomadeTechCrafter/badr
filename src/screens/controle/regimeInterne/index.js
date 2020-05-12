@@ -25,7 +25,10 @@ import * as Constants from '../../../common/constants/controle/regimeInterne';
 import * as RegimeInterneAction from '../../../redux/actions/controle/regimeInterne';
 
 const screenHeight = Dimensions.get('window').height;
+const RECONNU = "reconnu";
+const DEMANDE_CONSIGNATION = "demandeConsignation";
 class RegimeInterne extends Component {
+
   constructor(props) {
     super(props);
     this.state = {
@@ -42,10 +45,8 @@ class RegimeInterne extends Component {
       isConsultation: false,
       compteRendu:'',
     };
-    //console.log('RegimeInterne constructor',decisionControle,observation);
   }
 
- 
   componentDidMount() {
     console.log('componentDidMount ri:');
     load('user').then(user => {
@@ -70,8 +71,8 @@ class RegimeInterne extends Component {
     return documentAnnexeResultVO;
   };
 
-  sauvgarder = commande => {
-    console.log('sauvgarder');
+    sauvgarderValider = commande => {
+    console.log('sauvgarderValider');
     var data = {
       idControle: this.state.declaration.idControle,
       idDed: this.state.declaration.idDed,
@@ -117,6 +118,29 @@ class RegimeInterne extends Component {
     console.log('dispatch fired !!');
 
 }
+    //toggleChoice for field RECONNU && DEMANDE_CONSIGNATION
+    toggleChoiceInList =  (indexDocument, key) =>{
+        let listDoc = this.state.declaration.documentAnnexeResultVOs;
+        if (listDoc[i].documentAnnexe[key]) {
+            listDoc[i].documentAnnexe[key] = false;
+        } else {
+            listDoc[i].documentAnnexe[key] = true;
+            var otherKey = key == RECONNU ? DEMANDE_CONSIGNATION : RECONNU;
+            listDoc[i].documentAnnexe[otherKey] = false;
+        }
+        console.log('toggleChoiceInList :',listDoc)
+        return listDoc;
+    }
+
+    setChoiceForReconnu = (indexDocument,key) =>{
+        this.setState(prevState => ({
+            declaration: {                   // object that we want to update
+                ...prevState.declaration,    // keep all other key-value pairs
+                documentAnnexeResultVOs: this.toggleChoiceInList(indexDocument,key)
+            }
+        }));
+        console.log('setChoiceForReconnu :',this.state.declaration.documentAnnexeResultVOs)
+    }
 
   static getDerivedStateFromProps(props, state) {
     if (props.reponseData && props.reponseData.historiqueCompte && (props.reponseData.historiqueCompte !== state.declaration.historiqueCompte)) {
@@ -263,9 +287,7 @@ class RegimeInterne extends Component {
                                     item.documentAnnexe.reconnu ? 'checked' : 'unchecked'
                                 }
                                 disabled={this.state.isConsultation}
-                                onPress={() => {
-                                    this.setState({checked: !this.state.checked});
-                                }}
+                                onPress={() =>{this.setChoiceForReconnu(index , RECONNU)}}
                             />
                             <Checkbox
                                 status={
@@ -377,13 +399,13 @@ class RegimeInterne extends Component {
             <View style={styles.containerActionBtn} pointerEvents={this.state.isConsultation ? 'none' : 'auto'}>
               <BadrButton
                   style={{width: 100}}
-                  onPress={() =>{this.sauvgarder('sauvegarderRI')}}
+                  onPress={() =>{this.sauvgarderValider('sauvegarderRI')}}
                   text={translate('controle.sauvegarder')}
                   disabled={this.state.decisionControle ? false : true }
               />
               <BadrButton
                   style={{width: 100}}
-                  onPress={() =>{this.sauvgarder('validerRI')}}
+                  onPress={() =>{this.sauvgarderValider('validerRI')}}
                   text={translate('controle.validerControle')}
                   disabled={this.state.decisionControle ? false : true }
               />

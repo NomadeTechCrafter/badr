@@ -18,7 +18,7 @@ import Home from './screens/hab/home';
 import Profile from './screens/hab/profile';
 import RechercheDum from './screens/controle/rechercheDum';
 import RegimeInterne from './screens/controle/regimeInterne';
-import ACVP from './screens/controle/ACVP
+import ACVP from './screens/controle/ACVP';
 
 import Toolbar from './components/toolbar';
 
