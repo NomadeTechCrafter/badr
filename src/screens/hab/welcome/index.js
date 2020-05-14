@@ -1,5 +1,6 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {Text, View, ScrollView, Dimensions} from 'react-native';
+import {Title} from 'react-native-paper';
 /** STYLING **/
 import {CustomStyleSheet} from '../../../styles/index';
 import {Icon} from 'react-native-elements';
@@ -15,16 +16,30 @@ import {load} from '../../../services/storage-service';
 
 import MainMenu from '../mainmenu/index';
 
+/**Custom Components */
+import {Toolbar, BadrInfoMessage} from '../../../components';
+const screenHeight = Dimensions.get('window').height;
 class WelcomeScreen extends React.Component {
-
   componentDidMount() {
-     this.props.navigation.toggleDrawer();
+    this.props.navigation.toggleDrawer();
   }
 
   render() {
     console.log('dispatch=');
     console.log(this.props.dispatch);
-    return <View />;
+    return (
+      <View>
+        <Toolbar
+          navigation={this.props.navigation}
+          icon="menu"
+          title={translate('welcome.title')}
+          subtitle={translate('welcome.subTitle')}
+        />
+        <View style={{...CustomStyleSheet.centerContainer, backgroundColor: 'transparent'}}>
+          <BadrInfoMessage message={translate('loremIpsum1')} />
+        </View>
+      </View>
+    );
   }
 }
 
