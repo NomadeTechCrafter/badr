@@ -9,6 +9,9 @@ import {
   Image,
   ImageBackground,
 } from 'react-native';
+
+import {NavigationContainer, DrawerActions} from '@react-navigation/native';
+
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 /** Custom Components */
@@ -56,6 +59,9 @@ class MainMenu extends React.Component {
     loadParsed('user').then(user => {
       this.setState({fullname: Utils.buildUserFullname(user)});
     });
+    if (this.props.navigation) {
+      this.props.navigation.toggleDrawer();
+    }
   }
 
   fetchMenu = predicate => {
@@ -107,7 +113,6 @@ class MainMenu extends React.Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state.menuReducer.menuList.length);
   return {...state.menuReducer};
 };
 

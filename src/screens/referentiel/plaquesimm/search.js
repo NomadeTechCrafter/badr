@@ -1,9 +1,9 @@
 import React from 'react';
-
 import {View, Text, ScrollView, Dimensions, StyleSheet} from 'react-native';
 import {TextInput, Headline} from 'react-native-paper';
 import {Divider} from 'react-native-elements';
 
+/** i18n **/
 import {translate} from '../../../common/translations/i18n';
 
 /** REDUX **/

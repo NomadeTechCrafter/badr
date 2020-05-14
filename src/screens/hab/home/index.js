@@ -8,6 +8,7 @@ import MainMenu from '../mainmenu/index';
 import RechercheDum from '../../controle/rechercheDum';
 import RegimeInterne from '../../controle/regimeInterne';
 import PlaquesImmatriculation from '../../referentiel/plaquesimm/index';
+import ControleVehicules from '../../referentiel/controleVehicules/index';
 
 /** Drawer navigation */
 import {createDrawerNavigator} from '@react-navigation/drawer';
@@ -40,6 +41,12 @@ export default class Home extends React.Component {
         <Drawer.Screen
           name="PlaquesImmatriculation"
           component={PlaquesImmatriculation}
+          options={{headerShown: false}}
+        />
+
+        <Drawer.Screen
+          name="ControleVehicules"
+          component={ControleVehicules}
           options={{headerShown: false}}
         />
       </Drawer.Navigator>
