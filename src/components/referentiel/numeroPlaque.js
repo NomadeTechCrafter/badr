@@ -16,7 +16,7 @@ export default class NumeroPlaque extends React.Component {
       const numero = this.buildNumero(parts);
       return <CopyPaste value={numero} />;
     } else {
-      return <View />;
+      return <Text>{' '}</Text>;
     }
   }
 }

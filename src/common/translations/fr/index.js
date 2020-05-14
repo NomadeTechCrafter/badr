@@ -94,6 +94,7 @@ export default {
     quitter: 'Quitter',
     fermer: 'Fermer',
     rechercher: 'Rechercher',
+    noRowFound : 'Aucun enregistrement trouvé.'
   },
   referentiel: {
     plaquesImm: {

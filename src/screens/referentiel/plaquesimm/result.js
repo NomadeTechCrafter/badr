@@ -1,8 +1,12 @@
+/** React Components */
 import React from 'react';
 import {View, Text, ScrollView} from 'react-native';
 import {DataTable} from 'react-native-paper';
-import utf8 from 'utf8';
 
+/** STYLING **/
+import {CustomStyleSheet} from '../../../styles/index';
+
+/** i18n **/
 import {translate} from '../../../common/translations/i18n';
 
 /**Custom Components */
@@ -97,14 +101,15 @@ class PlaquesImmatriculationResult extends React.Component {
     let mItem = null;
     if (this.props.value && this.props.value.resultBean) {
       rows = this.props.value.resultBean.rows;
+      console.log(rows);
       pageCount = Math.round(
         this.props.value.totalNumberOfResult / MAX_RESULTS_PER_PAGE,
       );
     }
     return (
-      <ScrollView horizontal={true}>
+      <ScrollView key="horizontalScrollView" horizontal={true}>
         {!this.props.showProgress && (
-          <ScrollView>
+          <ScrollView key="verticalScrollView">
             <DataTable>
               <DataTable.Header>
                 <DataTable.Title style={{width: 180}}>
@@ -128,7 +133,7 @@ class PlaquesImmatriculationResult extends React.Component {
               {rows ? (
                 rows.map((item, index) => (
                   <DataTable.Row
-                    key={item.identifiantDMD}
+                    key={item.propritaireIdentite + '-' + item.identifiantDMD}
                     onPress={() => this.onItemSelected(item)}>
                     <DataTable.Cell
                       style={{width: 180}}
@@ -166,7 +171,9 @@ class PlaquesImmatriculationResult extends React.Component {
                   </DataTable.Row>
                 ))
               ) : (
-                <DataTable.Row />
+                <View style={CustomStyleSheet.centerContainer}>
+                  <Text>{translate('transverse.noRowFound')}</Text>
+                </View>
               )}
 
               {!this.props.showProgress &&
