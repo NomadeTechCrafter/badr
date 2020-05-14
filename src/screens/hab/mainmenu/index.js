@@ -56,10 +56,6 @@ class MainMenu extends React.Component {
     loadParsed('user').then(user => {
       this.setState({fullname: Utils.buildUserFullname(user)});
     });
-
-    if (this.props.navigation) {
-      this.props.navigation.toggleDrawer();
-    }
   }
 
   fetchMenu = predicate => {
@@ -75,7 +71,7 @@ class MainMenu extends React.Component {
   onItemSelected = item => {
     if (this.props.navigation) {
       let route = buildRouteWithParams(item.id);
-      console.log('Going to => ' , route);
+      console.log('Going to => ', route);
       this.props.navigation.navigate(route.screen, route.params);
     }
   };

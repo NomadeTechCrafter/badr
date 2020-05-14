@@ -14,11 +14,10 @@ import {createDrawerNavigator} from '@react-navigation/drawer';
 import {NavigationContainer} from '@react-navigation/native';
 const Drawer = createDrawerNavigator();
 
-const deltaScreen = Dimensions.get('window').width / 3;
+const deltaScreen = Dimensions.get('window').width / 4;
 export default class Home extends React.Component {
   componentDidMount() {
     console.log(this.props);
-    // this.props.navigation.toggleDrawer();
   }
   render() {
     return (
