@@ -97,7 +97,7 @@ class Profile extends React.Component {
     return (
       <View style={styles.container}>
         {this.props.confirmConnexionReducer.showProgressConfirmCnx && (
-          <BadrProgressBar width={screenWidth } />
+          <BadrProgressBar width={screenWidth} />
         )}
         <ScrollView>
           <View>
@@ -172,6 +172,7 @@ class Profile extends React.Component {
             this.state.selectedProfiles.length > 0
           }
           onConfirm={this.handleConfirmButton}
+          icon="check"
         />
       </View>
     );

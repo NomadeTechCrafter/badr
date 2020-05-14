@@ -29,6 +29,8 @@ export {default as Accordion} from './accordion';
 
 export {default as Toolbar} from './toolbar';
 
+export {default as BadrTable} from './datatable';
+
 export {default as BadrPicker} from './pickers/BadrPicker';
 export {default as BadrPickerChecker} from './pickers/BadrPickerChecker';
 export {default as AlphabetPicker} from './pickers/AlphabetPicker';

@@ -79,7 +79,7 @@ export default {
   },
   welcome: {
     title: 'Bienvenue',
-    subTitle: 'Écran D\'accueil',
+    subTitle: "Écran D'accueil",
   },
   transverse: {
     bureau: 'Bureau',
@@ -121,6 +121,14 @@ export default {
       searchByIdentitePropr: 'Par identité du propriétaire',
       searchMandatoryFields:
         'Merci de saisir au moins un critère de recherche.',
+    },
+    controleVehicules: {
+      title: 'Contrôle des véhicules volés',
+      subTitle: 'écran de echerche',
+      choose_status: 'Choisissez un statut',
+      numeroChassis: 'N° chassis',
+      matricule: 'Matricule',
+      numeroCarteGrise: 'N° Carte grise',
     },
   },
   loremIpsum1:

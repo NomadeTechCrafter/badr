@@ -17,7 +17,7 @@ export default class BadrFloatingButton extends React.Component {
           onClickAction={this.props.onConfirm}
           // visible={this.props.visible}
           disabled={true}
-          iconTextComponent={<Icon name="check" />}
+          iconTextComponent={<Icon name={this.props.icon} />}
         />
       )
     );

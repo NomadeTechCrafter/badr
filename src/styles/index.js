@@ -105,6 +105,16 @@ const CustomStyleSheet = StyleSheet.create({
   verticalActionsContainer: {
     ...Containers.verticalActionsContainer,
   },
+
+  verticalContainer20: {
+    ...Containers.verticalContainer20,
+  },
+  row: {
+    ...Containers.row,
+  },
+  column: {
+    ...Containers.column,
+  },
 });
 
 export {CustomStyleSheet};

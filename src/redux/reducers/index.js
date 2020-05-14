@@ -11,6 +11,7 @@ import listDeclarationReducer from './listDeclarationDum';
 import acvpReducer from './controle/acvp';
 
 import plaquesImmReducer from './referentiel/plaquesImm';
+import controleVehiculesReducer from './referentiel/controleVehicules';
 
 import badrPickerReducer from './components/badrPicker';
 import badrPickerCheckerReducer from './components/badrPickerChecker';
@@ -29,7 +30,7 @@ const allReducers = combineReducers({
   listDeclarationReducer,
   acvpReducer,
   plaquesImmReducer,
-
+  controleVehiculesReducer,
 });
 
 export default allReducers;
