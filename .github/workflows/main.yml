@@ -20,7 +20,7 @@ jobs:
         with:
           java-version: 1.8
       - name: Build debug APK
-        run: bash ./gradlew assembleDebug --stacktrace
+        run: cd android && ./gradlew assembleDebug --stacktrace
       - name: Upload APK 🚀
         uses: actions/upload-artifact@v1
         with:
