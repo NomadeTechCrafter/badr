@@ -38,33 +38,13 @@ class WelcomeScreen extends React.Component {
           subtitle={translate('welcome.subTitle')}
         />
 
-        <BadrApiTable
-          module="REF_LIB"
-          command="rechercheEchangeMetVehicule"
-          typeService="SP"
-          searchObject={{proprietairePrenom: 'Ahmed'}}
-          resultArrayMapping="resultBean.rows"
-          totalElementsMapping="totalNumberOfResult"
-          id="numeroChassis"
-          onItemSelected={item => this.onItemSelected(item)}
-          cols={[
-            {code: 'proprietaireNom', libelle: 'Nom', width: 300},
-            {
-              code: 'proprietairePrenom',
-              libelle: 'Prenom',
-              width: 300,
-            },
-            {code: 'proprietaireAdresse', libelle: 'Adresse', width: 300},
-            {
-              code: 'vehiculeNumChassis',
-              libelle: 'N° Chassis',
-              width: 200,
-            },
-          ]}
-          maxResultsPerPage={10}
-          paginate={true}
-          paginateServerSide={true}
-        />
+        <View
+          style={{
+            ...CustomStyleSheet.centerContainer,
+            backgroundColor: 'transparent',
+          }}>
+          <BadrInfoMessage message={translate('loremIpsum1')} />
+        </View>
       </ScrollView>
     );
   }
