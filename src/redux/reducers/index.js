@@ -15,6 +15,8 @@ import controleVehiculesReducer from './referentiel/controleVehicules';
 
 import badrPickerReducer from './components/badrPicker';
 import badrPickerCheckerReducer from './components/badrPickerChecker';
+
+import badrApiTable from './components/badrApiTable';
 /**
  * combine all reducer
  */
@@ -25,6 +27,7 @@ const allReducers = combineReducers({
   menuReducer,
   badrPickerReducer,
   badrPickerCheckerReducer,
+  badrApiTable,
   controleRechercheDumReducer,
   regimeInterneReducer,
   listDeclarationReducer,

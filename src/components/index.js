@@ -29,13 +29,13 @@ export {default as Accordion} from './accordion';
 
 export {default as Toolbar} from './toolbar';
 
-export {default as BadrTable} from './datatable';
+export {default as BadrApiTable} from './datatable/generic';
+export {default as BadrTable} from './datatable/basic';
 
 export {default as BadrPicker} from './pickers/BadrPicker';
 export {default as BadrPickerChecker} from './pickers/BadrPickerChecker';
 export {default as AlphabetPicker} from './pickers/AlphabetPicker';
-export {default as BadrItemsPicker } from './pickers/BadrItemsPicker';
-
+export {default as BadrItemsPicker} from './pickers/BadrItemsPicker';
 
 export {default as BadrTree} from './tree/BadrTree';
 export {default as BadrTreeItem} from './tree/BadrTreeItem';
@@ -48,4 +48,4 @@ export {default as BadrLoginHeader} from './header/Login';
 export {default as MenuHeader} from './header/MenuHeader';
 export {default as RechercheRefDum} from './rechercheRefDum';
 
-export {default as CopyPaste } from './container/CopyPaste';
+export {default as CopyPaste} from './container/CopyPaste';

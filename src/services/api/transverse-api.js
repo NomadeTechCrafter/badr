@@ -10,6 +10,8 @@ export default class TransverseApi {
     _command,
     _typeService,
     _jsonVO,
+    _offset,
+    _pageSize,
   ) => {
     const user = await loadParsed('user');
     const data = {
@@ -19,6 +21,8 @@ export default class TransverseApi {
         module: _module,
         commande: _command,
         typeService: _typeService,
+        offset: _offset,
+        pageSize: _pageSize,
       },
       jsonVO: _jsonVO,
     };
