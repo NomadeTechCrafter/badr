@@ -29,11 +29,22 @@ class ControleVehiculesResult extends React.Component {
     console.log(row);
   };
 
+  componentDidMount() {
+    console.log('init...');
+  }
+
+  componentDidUpdate() {
+    if (this.props.route.params.first) {
+      this.refs._badrTable.reset();
+    }
+  }
+
   render() {
     console.log(this.props.data.length);
     return (
       <View>
         <BadrTable
+          ref="_badrTable"
           id="numeroChassis"
           rows={this.props.data}
           cols={this.cols}
@@ -41,6 +52,7 @@ class ControleVehiculesResult extends React.Component {
           totalElements={this.props.data.length}
           maxResultsPerPage={5}
           paginate={true}
+          showProgress={this.props.showProgress}
         />
       </View>
     );
