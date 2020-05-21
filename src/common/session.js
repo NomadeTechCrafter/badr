@@ -12,6 +12,15 @@ export class Session {
   _profiles = [];
 
   /**
+    Device information
+   */
+  _deviceId = '';
+  _deviceName = '';
+  _model = '';
+  _manufacturer = '';
+  _systemVersion = '';
+
+  /**
     @returns { login | nomAgent │ prenomAgent | codeUOR }
    */
   _userObject = {};
@@ -80,5 +89,45 @@ export class Session {
 
   setUserObject(userObject) {
     this._userObject = userObject;
+  }
+
+  getDeviceId() {
+    return this._deviceId;
+  }
+
+  setDeviceId(deviceId) {
+    this._deviceId = deviceId;
+  }
+
+  getManufacturer() {
+    return this._manufacturer;
+  }
+
+  setManufacturer(manufacturer) {
+    this._manufacturer = manufacturer;
+  }
+
+  getModel() {
+    return this._model;
+  }
+
+  setModel(model) {
+    this._model = model;
+  }
+
+  getSystemVersion() {
+    return this._systemVersion;
+  }
+
+  setSystemVersion(systemVersion) {
+    this._systemVersion = systemVersion;
+  }
+
+  getDeviceName() {
+    return this._deviceName;
+  }
+
+  setDeviceName(deviceName) {
+    this._deviceName = deviceName;
   }
 }

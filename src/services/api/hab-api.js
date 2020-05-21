@@ -2,6 +2,9 @@ import {Component} from 'react';
 
 import HttpHelper from './common/http-helper';
 
+/** Inmemory session */
+import {Session} from '../../common/session';
+
 export default class HabApi {
   static login = async (login, pwd) => {
     const response = await HttpHelper.login({
@@ -23,17 +26,20 @@ export default class HabApi {
       },
       jsonVO: {
         code: code,
-        device_id: "72d949306e82c064",
-        device_manufacturer: 'apple',
-        device_model: 'p1010',
-        os: 'iOs',
-        os_version: 'iOS7',
+        device_id: Session.getInstance().getDeviceId(),
+        device_manufacturer: Session.getInstance().getManufacturer(),
+        device_model: Session.getInstance().getModel(),
+        os: 'Android',
+        os_version: Session.getInstance().getSystemVersion(),
         app_version: '2.3',
-        device_name: 'iPhone7',
+        device_name: Session.getInstance().getDeviceName(),
         lng: '150.644',
         lat: '-34.397',
       },
     };
+    console.log('Verifying SMS with data ---------> ');
+    console.log(data.jsonVO);
+    console.log('Verifying SMS with data <---------  ');
     return await HttpHelper.process(data);
   };
 
