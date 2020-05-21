@@ -107,12 +107,13 @@ class BadrPicker extends React.Component {
             selectedItem[this.props.storeLibelleWithKey],
           );
         }
+        this.props.onValueChange(
+          itemValue,
+          itemIndex,
+          selectedItem,
+        );
       }
     }
-    console.log(
-      '----------------- PICKER ASYNC STORAGE OPERATION ------------------',
-    );
-    this.props.onValueChange(itemValue, itemIndex);
     this.setState({selectedValue: itemValue});
   };
 

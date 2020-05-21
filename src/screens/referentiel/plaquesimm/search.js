@@ -17,6 +17,9 @@ import {CustomStyleSheet} from '../../../styles/index';
 /** Storage **/
 import {loadParsed} from '../../../services/storage-service';
 
+/** Inmemory session */
+import {Session} from '../../../common/session';
+
 /**Custom Components */
 import {
   Accordion,
@@ -55,18 +58,10 @@ class PlaquesImmatriculationSearch extends React.Component {
   }
 
   componentDidMount() {
-    this.loadUser();
-  }
-
-  loadUser = async () => {
+    this.setState({login: Session.getInstance().getLogin()});
     let action = this.buildInitSearchPlaquesImmAction();
     this.props.actions.dispatch(action);
-    let user = await loadParsed('user');
-    if (user) {
-      initialState.login = user.login;
-      this.setState({login: user.login});
-    }
-  };
+  }
 
   buildInitSearchPlaquesImmAction = () => {
     var action = plaquesImmAction.init({value: {}});
@@ -88,7 +83,6 @@ class PlaquesImmatriculationSearch extends React.Component {
         offset: 0,
       },
     });
-    console.log(this.state.login);
     this.props.navigation.navigate('Resultat', {
       searchState: searchObject,
       login: this.state.login,
@@ -299,7 +293,9 @@ class PlaquesImmatriculationSearch extends React.Component {
         <View style={{flexDirection: 'row', margin: 10}}>
           <BadrItemsPicker
             style={styles.column}
-            label={translate('referentiel.plaquesImm.choose_categoryDiplomatique')}
+            label={translate(
+              'referentiel.plaquesImm.choose_categoryDiplomatique',
+            )}
             selectedValue={this.state.vehiculeCodeTypeImmatDiplo}
             items={ConstantsPlaquesImm.categoryDiplomatique}
             onValueChanged={(v, i) => this.onCategoryDiploPickerChanged(v, i)}
