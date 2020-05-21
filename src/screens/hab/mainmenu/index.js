@@ -44,7 +44,7 @@ class MainMenu extends React.Component {
     super(props);
     this.state = {
       login: Session.getInstance().getLogin(),
-      fullname: '',
+      fullname: Utils.buildUserFullname(Session.getInstance().getUserObject()),
       bureau: Session.getInstance().getNomBureauDouane(),
       arrondissement: Session.getInstance().getLibelleArrondissement(),
     };
@@ -54,9 +54,6 @@ class MainMenu extends React.Component {
     if (this.props.menuList.length === 0) {
       this.fetchMenu();
     }
-    loadParsed('user').then(user => {
-      this.setState({fullname: Utils.buildUserFullname(user)});
-    });
     if (this.props.navigation) {
       this.props.navigation.toggleDrawer();
     }
