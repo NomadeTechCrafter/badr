@@ -12,6 +12,11 @@ export class Session {
   _profiles = [];
 
   /**
+    @returns { login | nomAgent │ prenomAgent | codeUOR }
+   */
+  _userObject = {};
+
+  /**
    * @returns {Session}
    */
   static getInstance() {
@@ -67,5 +72,13 @@ export class Session {
 
   setProfiles(profiles) {
     this._profiles = profiles;
+  }
+
+  getUserObject() {
+    return this._userObject;
+  }
+
+  setUserObject(userObject) {
+    this._userObject = userObject;
   }
 }
