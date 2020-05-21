@@ -24,13 +24,18 @@ import {translate} from '../../../common/translations/i18n';
 /** CONSTANTS **/
 const screenWidth = Dimensions.get('window').width;
 
+/** Inmemory session */
+import {Session} from '../../../common/session';
+
 class Profile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       selectedBureau: '',
       selectedBureauIndex: 0,
+      nomBureauDouane: '',
       selectedArrondissement: '',
+      selectedArrondissementLibelle: '',
       selectedProfiles: [],
     };
   }
@@ -57,17 +62,23 @@ class Profile extends React.Component {
     return action;
   };
 
-  handleArrondissementChanged = (selectedValue, selectedIndex) => {
-    this.setState({selectedArrondissement: selectedValue});
+  handleArrondissementChanged = (selectedValue, selectedIndex, item) => {
+    this.setState({
+      selectedArrondissement: selectedValue,
+      selectedArrondissementLibelle: item.libelle,
+    });
+    console.log(item);
   };
 
-  handleBureauChanged = (selectedValue, selectedIndex) => {
+  handleBureauChanged = (selectedValue, selectedIndex, item) => {
     this.setState({
       selectedBureau: selectedValue,
       selectedBureauIndex: selectedIndex,
+      nomBureauDouane: item.nomBureauDouane,
       selectedArrondissement: '',
     });
     this.comboArrondissements.refresh(selectedValue, this.comboBureaux);
+    console.log(item);
   };
 
   handleOnConfirmProfils = items => {};
@@ -86,7 +97,17 @@ class Profile extends React.Component {
         this.state.selectedArrondissement,
         this.props.route.params.login,
       );
-      console.log(action);
+      /** Update Inmemory session */
+      Session.getInstance().setCodeBureau(this.state.selectedBureau);
+      Session.getInstance().setNomBureauDouane(this.state.nomBureauDouane);
+      Session.getInstance().setCodeArrondissement(
+        this.state.selectedArrondissement,
+      );
+      Session.getInstance().setLibelleArrondissement(
+        this.state.selectedArrondissementLibelle,
+      );
+      Session.getInstance().setProfiles(this.state.selectedProfiles);
+
       this.props.actions.dispatch(action);
     } else {
       this.setState({});
@@ -118,8 +139,8 @@ class Profile extends React.Component {
             libelle="nomBureauDouane"
             module="REF_LIB"
             command="getListeBureaux"
-            onValueChange={(selectedValue, selectedIndex) =>
-              this.handleBureauChanged(selectedValue, selectedIndex)
+            onValueChange={(selectedValue, selectedIndex, item) =>
+              this.handleBureauChanged(selectedValue, selectedIndex, item)
             }
             param=""
             typeService="SP"
@@ -138,8 +159,12 @@ class Profile extends React.Component {
             libelle="libelle"
             module="REF_LIB"
             command="getArrondissementsByAgentAndBureau"
-            onValueChange={(selectedValue, selectedIndex) =>
-              this.handleArrondissementChanged(selectedValue, selectedIndex)
+            onValueChange={(selectedValue, selectedIndex, item) =>
+              this.handleArrondissementChanged(
+                selectedValue,
+                selectedIndex,
+                item,
+              )
             }
             param={this.state.selectedBureau}
             typeService="SP"

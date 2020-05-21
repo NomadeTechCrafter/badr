@@ -20,26 +20,20 @@ import {CustomStyleSheet} from '../../../styles/index';
 /** i18n **/
 import {translate} from '../../../common/translations/i18n';
 
+/** Inmemory session */
+import {Session} from '../../../common/session';
+
 class ControleVehiculesSearch extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      login: '',
+      login: Session.getInstance().getLogin(),
       status: '',
       numeroChassis: '',
       numeroCarteGrise: '',
       matricule: '',
     };
   }
-
-  loadUser = async () => {
-    let action = this.buildInitControleVehiculesAction();
-    this.props.actions.dispatch(action);
-    let user = await loadParsed('user');
-    if (user) {
-      this.setState({login: user.login});
-    }
-  };
 
   handleSearch = () => {
     let action = this.buildSearchControleVehiculesAction(this.state.login);
@@ -73,13 +67,14 @@ class ControleVehiculesSearch extends React.Component {
     });
     this.props.navigation.navigate('Resultat', {
       login: this.state.login,
-      first : true
+      first: true,
     });
     return action;
   };
 
   componentDidMount() {
-    this.loadUser();
+    let action = this.buildInitControleVehiculesAction();
+    this.props.actions.dispatch(action);
   }
 
   onStatusChanged = (v, i) => {

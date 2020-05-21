@@ -23,9 +23,7 @@ export default class HabApi {
       },
       jsonVO: {
         code: code,
-        device_id: Math.random()
-          .toString(17)
-          .slice(2),
+        device_id: "72d949306e82c064",
         device_manufacturer: 'apple',
         device_model: 'p1010',
         os: 'iOs',

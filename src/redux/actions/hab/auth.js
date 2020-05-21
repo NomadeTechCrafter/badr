@@ -10,6 +10,10 @@ import {translate} from '../../../common/translations/i18n';
 /** Storage */
 import {saveStringified} from '../../../services/storage-service';
 
+/** Inmemory session */
+import {Session} from '../../../common/session';
+
+
 export function request(action, navigation) {
   return dispatch => {
     dispatch(action);
@@ -21,6 +25,8 @@ export function request(action, navigation) {
             dispatch(success(data));
             /** Saving the user login into the local storage */
             saveStringified('user', data).then(() => data.login);
+            /** Saving the user login into the global in-memory session */
+            Session.getInstance().setLogin(data.login);
             /** Naviguer vers la vue suivant. */
             navigation.navigate('SmsVerify', {login: action.value.login});
           } else {
@@ -32,7 +38,7 @@ export function request(action, navigation) {
         }
       })
       .catch(e => {
-         console.log(e);
+        console.log(e);
         dispatch(failed(translate('errors.technicalIssue')));
       });
   };
