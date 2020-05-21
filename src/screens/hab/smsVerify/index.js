@@ -30,13 +30,17 @@ import {CustomStyleSheet} from '../../../styles/index';
 import {loadParsed} from '../../../services/storage-service';
 
 
+/** Inmemory session */
+import {Session} from '../../../common/session';
+
+
 /** CONSTANTS **/
 const screenWidth = Dimensions.get('window').width;
 
 class SmsVerify extends React.Component {
   state = {
     code: '000000',
-    login: '',
+    login: Session.getInstance().getLogin(),
   };
 
   onConfirmerClicked = () => {
@@ -60,9 +64,6 @@ class SmsVerify extends React.Component {
       value: {},
     });
     this.props.dispatch(action);
-    loadParsed('user').then(user => {
-      this.setState({login: user.login});
-    });
   }
 
   render() {

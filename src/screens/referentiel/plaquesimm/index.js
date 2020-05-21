@@ -26,7 +26,6 @@ const Tab = createMaterialTopTabNavigator();
 /** CONSTANTS **/
 const screenWidth = Dimensions.get('window').width;
 
-import {useScrollToTop} from '@react-navigation/native';
 function ResultScreen({route, navigation}) {
   return (
     <PlaquesImmatriculationResult
