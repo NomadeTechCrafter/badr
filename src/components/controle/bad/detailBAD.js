@@ -1,8 +1,8 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View} from 'react-native';
 
 import {primaryColor} from '../../../styles/index';
-import {Col, Row, Grid} from 'react-native-easy-grid';
+import {Col, Grid} from 'react-native-easy-grid';
 import {Paragraph, Caption} from 'react-native-paper';
 
 /** i18n **/

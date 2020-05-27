@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  Text,
-  View,
-  ScrollView,
-  Dimensions,
-  StyleSheet,
-  Button,
-} from 'react-native';
+import {Text, View, ScrollView, Dimensions, StyleSheet} from 'react-native';
 import {DataTable} from 'react-native-paper';
 import {FAB} from 'react-native-paper';
 
@@ -20,7 +13,7 @@ import {CustomStyleSheet} from '../../styles/index';
 import _ from 'lodash';
 
 /** Custom components */
-import {BadrFloatingButton, BadrCircleProgressBar} from '../';
+import {BadrCircleProgressBar} from '../';
 
 /** Storage **/
 import {loadParsed} from '../../services/storage-service';
@@ -143,9 +136,7 @@ class BadrApiTable extends React.Component {
             : {}
         }
         onPress={() => column.action(row)}>
-        {_.get(row, column.code) != null
-          ? String(_.get(row, column.code))
-          : ''}
+        {_.get(row, column.code) != null ? String(_.get(row, column.code)) : ''}
       </Text>
     );
     // }
@@ -154,7 +145,6 @@ class BadrApiTable extends React.Component {
   buildDataTable = () => {
     let data = [];
     if (this.props.resultArrayMapping) {
-      let str = this.props.resultArrayMapping;
       data = _.get(this.props.data, this.props.resultArrayMapping);
     } else {
       data = this.props.data;

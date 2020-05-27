@@ -3,8 +3,6 @@ module.exports = {
   LOGIN_API: '/rest/api/login',
   PROCESS_API: '/rest/api/process',
   remote: true,
-  bootstrapRoute  :'Home',
-  WS_MODE : 'local',
+  bootstrapRoute: 'Home',
+  WS_MODE: 'local',
 };
-
-

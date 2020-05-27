@@ -2,13 +2,7 @@ import React, {Component} from 'react';
 import {View, Dimensions} from 'react-native';
 import {Container, BadrProgressBar, BadrErrorMessage} from '../index';
 
-import {
-  TextInput,
-  Button,
-  HelperText,
-  ActivityIndicator,
-  Colors,
-} from 'react-native-paper';
+import {TextInput, Button, HelperText} from 'react-native-paper';
 /**i18n */
 import {translate} from '../../common/translations/i18n';
 import {CustomStyleSheet} from '../../styles';
@@ -69,12 +63,12 @@ class RechecheRefDum extends Component {
   };
 
   confirmer = () => {
-    console.log('confirmer',this.props.successRedirection);
+    console.log('confirmer', this.props.successRedirection);
     this.setState({showErrorMsg: true});
     if (this.state.regime && this.state.serie) {
       this.state.cleValide = this.cleDUM(this.state.regime, this.state.serie);
 
-      if (this.state.cle == this.state.cleValide) {
+      if (this.state.cle === this.state.cleValide) {
         var referenceDed =
           this.state.bureau +
           this.state.regime +
@@ -106,7 +100,7 @@ class RechecheRefDum extends Component {
     return this.state.showErrorMsg && _.isEmpty(this.state[field]);
   };
   isCleValide = () => {
-    return this.state.showErrorMsg && this.state.cle != this.state.cleValide;
+    return this.state.showErrorMsg && this.state.cle !== this.state.cleValide;
   };
 
   cleDUM = function(regime, serie) {
@@ -116,7 +110,7 @@ class RechecheRefDum extends Component {
   }*/
     if (serie.length > 6) {
       let firstSerie = serie.substring(0, 1);
-      if (firstSerie == '0') {
+      if (firstSerie === '0') {
         serie = serie.substring(1, 7);
       }
     }
@@ -129,8 +123,8 @@ class RechecheRefDum extends Component {
     return (
       <Container style={styles.container}>
         {this.props.showProgress && <BadrProgressBar width={screenHeight} />}
-        { this.props.errorMessage != null && (
-            <BadrErrorMessage message={this.props.errorMessage} />
+        {this.props.errorMessage != null && (
+          <BadrErrorMessage message={this.props.errorMessage} />
         )}
         <View style={styles.containerInputs}>
           <View>

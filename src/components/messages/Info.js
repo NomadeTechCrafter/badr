@@ -1,7 +1,6 @@
 import {CustomStyleSheet} from '../../styles/index';
 import React from 'react';
 import {Text} from 'react-native';
-import * as Progress from 'react-native-progress';
 
 import * as Animatable from 'react-native-animatable';
 

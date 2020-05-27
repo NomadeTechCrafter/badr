@@ -1,7 +1,7 @@
-import get from 'lodash.get'
-import PropTypes from 'prop-types'
-import React from 'react'
-import { TouchableOpacity, View } from 'react-native'
+import get from 'lodash.get';
+import PropTypes from 'prop-types';
+import React from 'react';
+import {TouchableOpacity, View} from 'react-native';
 
 function noop() {}
 
@@ -16,8 +16,8 @@ class BadrTree extends React.Component {
     onNodePress: PropTypes.func,
     onNodeLongPress: PropTypes.func,
     isNodeExpanded: PropTypes.func,
-    shouldDisableTouchOnLeaf: PropTypes.func
-  }
+    shouldDisableTouchOnLeaf: PropTypes.func,
+  };
 
   static defaultProps = {
     initialExpanded: false,
@@ -27,74 +27,73 @@ class BadrTree extends React.Component {
     onNodePress: noop,
     onNodeLongPress: noop,
     isNodeExpanded: noop,
-    shouldDisableTouchOnLeaf: () => false
-  }
+    shouldDisableTouchOnLeaf: () => false,
+  };
 
   constructor(props) {
-    super(props)
+    super(props);
 
-    this.state = this.getInitialState()
+    this.state = this.getInitialState();
   }
 
   getInitialState = () => ({
     expandedNodeKeys: {},
-  })
+  });
 
   componentDidUpdate(prevProps) {
-    const hasDataUpdated = prevProps.data !== this.props.data
-    const hasIdKeyUpdated = prevProps.idKey !== this.props.idKey
-    const childrenKeyUpdated = prevProps.childrenKey !== this.props.childrenKey
+    const hasDataUpdated = prevProps.data !== this.props.data;
+    const hasIdKeyUpdated = prevProps.idKey !== this.props.idKey;
+    const childrenKeyUpdated = prevProps.childrenKey !== this.props.childrenKey;
 
     if (hasDataUpdated || hasIdKeyUpdated || childrenKeyUpdated) {
-      this.setState(this.getInitialState())
+      this.setState(this.getInitialState());
     }
   }
 
-  hasChildrenNodes = (node) =>
-    get(node, `${this.props.childrenKey}.length`, 0) > 0
+  hasChildrenNodes = node =>
+    get(node, `${this.props.childrenKey}.length`, 0) > 0;
 
-  isExpanded = (id) => {
+  isExpanded = id => {
     if (this.props.isNodeExpanded !== noop) {
-      return this.props.isNodeExpanded(id)
+      return this.props.isNodeExpanded(id);
     } else {
-      return get(this.state.expandedNodeKeys, id, this.props.initialExpanded)
+      return get(this.state.expandedNodeKeys, id, this.props.initialExpanded);
     }
-  }
+  };
 
-  updateNodeKeyById = (id, expanded) => ({ expandedNodeKeys }) => ({
+  updateNodeKeyById = (id, expanded) => ({expandedNodeKeys}) => ({
     expandedNodeKeys: Object.assign({}, expandedNodeKeys, {
       [id]: expanded,
     }),
-  })
+  });
 
-  collapseNode = (id) => this.setState(this.updateNodeKeyById(id, false))
+  collapseNode = id => this.setState(this.updateNodeKeyById(id, false));
 
-  expandNode = (id) => this.setState(this.updateNodeKeyById(id, true))
+  expandNode = id => this.setState(this.updateNodeKeyById(id, true));
 
-  toggleCollapse = (id) => {
-    const method = this.isExpanded(id) ? 'collapseNode' : 'expandNode'
+  toggleCollapse = id => {
+    const method = this.isExpanded(id) ? 'collapseNode' : 'expandNode';
 
-    this[method](id)
-  }
+    this[method](id);
+  };
 
-  handleNodePressed = async ({ node, level }) => {
-    const nodePressResult = await this.props.onNodePress({ node, level })
+  handleNodePressed = async ({node, level}) => {
+    const nodePressResult = await this.props.onNodePress({node, level});
 
     if (nodePressResult !== false && this.hasChildrenNodes(node)) {
-      this.toggleCollapse(node[this.props.idKey])
+      this.toggleCollapse(node[this.props.idKey]);
     } else {
       this.props.onItemSelected(node);
     }
+  };
 
-  }
+  Node = ({nodes, level}) => {
+    const NodeComponent = this.Node;
 
-  Node = ({ nodes, level }) => {
-    const NodeComponent = this.Node
-
-    return nodes.map((node) => {
-      const isExpanded = this.isExpanded(node[this.props.idKey])
-      const hasChildrenNodes = this.hasChildrenNodes(node)
-      const shouldRenderLevel = hasChildrenNodes && isExpanded
+    return nodes.map(node => {
+      const isExpanded = this.isExpanded(node[this.props.idKey]);
+      const hasChildrenNodes = this.hasChildrenNodes(node);
+      const shouldRenderLevel = hasChildrenNodes && isExpanded;
 
       return (
         <View
@@ -108,13 +107,11 @@ class BadrTree extends React.Component {
                 }),
             zIndex: 1,
             overflow: 'hidden',
-          }}
-        >
+          }}>
           <TouchableOpacity
-            disabled={this.props.shouldDisableTouchOnLeaf({ node, level })}
-            onPress={() => this.handleNodePressed({ node, level })}
-            onLongPress={() => this.props.onNodeLongPress({ node, level })}
-          >
+            disabled={this.props.shouldDisableTouchOnLeaf({node, level})}
+            onPress={() => this.handleNodePressed({node, level})}
+            onLongPress={() => this.props.onNodeLongPress({node, level})}>
             {React.createElement(this.props.renderNode, {
               node,
               level,
@@ -129,13 +126,13 @@ class BadrTree extends React.Component {
             />
           )}
         </View>
-      )
-    })
-  }
+      );
+    });
+  };
 
   render() {
-    return <this.Node nodes={this.props.data} level={0} />
+    return <this.Node nodes={this.props.data} level={0} />;
   }
 }
 
-export default BadrTree
+export default BadrTree;

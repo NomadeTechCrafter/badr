@@ -1,16 +1,11 @@
-import {CustomStyleSheet} from '../../styles/index';
 import React from 'react';
-import {Text, Image, View} from 'react-native';
+import {Text, View} from 'react-native';
 import {Banner} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import {translate} from '../../common/translations/i18n';
 
 import {primaryColor, warnColor, errorColor} from '../../styles/index';
-
-const buildInfo = (message, style) => {
-  return <Text style={style}>{message}</Text>;
-};
 
 const messageTypes = {
   error: {name: 'exclamation-triangle', color: errorColor},

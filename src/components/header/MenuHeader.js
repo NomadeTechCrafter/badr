@@ -24,7 +24,7 @@ export default class MenuHeader extends React.Component {
             style={CustomStyleSheet.menuUserImage}
             source={require('../../common/assets/images/agent.png')}
           />
-          <View style={{flexDirection: 'column', paddingLeft : 30}}>
+          <View style={{flexDirection: 'column', paddingLeft: 30}}>
             <Text style={CustomStyleSheet.menuHeaderTitle}>
               {this.props.fullname}
             </Text>

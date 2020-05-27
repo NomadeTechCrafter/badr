@@ -1,8 +1,6 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View} from 'react-native';
 import {Picker} from '@react-native-community/picker';
-
-import {translate} from '../../common/translations/i18n';
 
 export default class BadrItemsPicker extends React.Component {
   state = {
