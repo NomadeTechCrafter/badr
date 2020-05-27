@@ -5,12 +5,9 @@
  * @format
  * @flow strict-local
  */
-
 import React from 'react';
-import { View, Text } from 'react-native';
-
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
 
 import Login from './screens/hab/login';
 import SmsVerify from './screens/hab/smsVerify';
@@ -21,25 +18,15 @@ import RechercheDum from './screens/controle/rechercheDum';
 import RegimeInterne from './screens/controle/regimeInterne';
 import ACVP from './screens/controle/ACVP';
 
+import {primaryColor} from './styles/index';
 
-import Toolbar from './components/toolbar';
-
-import { translate } from './common/translations/i18n';
-import { primaryColor } from './styles/index';
-
-import {
-  Appbar,
-  Provider as PaperProvider,
-  DefaultTheme,
-} from 'react-native-paper';
+import {Provider as PaperProvider, DefaultTheme} from 'react-native-paper';
 
 /** REDUX */
-import { Provider } from 'react-redux';
-import { createStore, applyMiddleware, compose } from 'redux';
+import {Provider} from 'react-redux';
+import {createStore, applyMiddleware, compose} from 'redux';
 import allReducers from './redux/reducers';
 import thunk from 'redux-thunk';
-const middleware = [thunk];
-//config debuggin
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
@@ -65,17 +52,14 @@ export default class App extends React.Component {
         <Provider store={store}>
           <NavigationContainer>
             <Stack.Navigator>
-
-
               <Stack.Screen
-
                 name="Login"
                 component={Login}
-                options={{ headerShown: false }}
+                options={{headerShown: false}}
               />
               <Stack.Screen
                 name="RechercheDum"
-                options={{ headerShown: false }}
+                options={{headerShown: false}}
                 component={RechercheDum}
               />
               <Stack.Screen
@@ -83,25 +67,18 @@ export default class App extends React.Component {
                 mode="modal"
                 component={SmsVerify}
               />
-
               <Stack.Screen
                 name="Home"
-                options={{ headerShown: false }}
+                options={{headerShown: false}}
                 component={Home}
               />
-
               <Stack.Screen
                 name="Profile"
-                options={{ headerShown: false }}
+                options={{headerShown: false}}
                 component={Profile}
               />
-
-
-
-
               <Stack.Screen name="RegimeInterne" component={RegimeInterne} />
               <Stack.Screen name="ACVP" component={ACVP} />
-
             </Stack.Navigator>
           </NavigationContainer>
         </Provider>

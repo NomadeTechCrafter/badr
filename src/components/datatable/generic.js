@@ -1,5 +1,12 @@
 import React from 'react';
-import {Text, View, ScrollView, Dimensions, StyleSheet} from 'react-native';
+import {
+  Text,
+  View,
+  ScrollView,
+  Dimensions,
+  StyleSheet,
+  Button,
+} from 'react-native';
 import {DataTable} from 'react-native-paper';
 import {FAB} from 'react-native-paper';
 
@@ -17,6 +24,8 @@ import {BadrFloatingButton, BadrCircleProgressBar} from '../';
 
 /** Storage **/
 import {loadParsed} from '../../services/storage-service';
+
+import {primaryColor} from '../../styles/index';
 
 /** REDUX **/
 import {connect} from 'react-redux';
@@ -120,12 +129,35 @@ class BadrApiTable extends React.Component {
       x: screenWidth,
     });
   };
+  buildCell = (column, row) => {
+    return (
+      <Text
+        style={
+          column.action
+            ? {
+                color: primaryColor,
+                textAlign: 'center',
+                fontWeight: 'bold',
+                textDecorationLine: 'underline',
+              }
+            : {}
+        }
+        onPress={() => column.action(row)}>
+        {_.get(row, column.code) != null
+          ? String(_.get(row, column.code))
+          : ''}
+      </Text>
+    );
+    // }
+  };
 
   buildDataTable = () => {
     let data = [];
     if (this.props.resultArrayMapping) {
       let str = this.props.resultArrayMapping;
       data = _.get(this.props.data, this.props.resultArrayMapping);
+    } else {
+      data = this.props.data;
     }
 
     let totalElements = _.get(this.props.data, this.props.totalElementsMapping);
@@ -134,10 +166,12 @@ class BadrApiTable extends React.Component {
       console.log(totalElements);
       pageCount = Math.ceil(totalElements / this.props.maxResultsPerPage);
     }
-
     const totalWidth = _.sumBy(this.props.cols, function(col) {
       return col.width;
     });
+
+    console.log(data);
+
     return (
       <View>
         <ScrollView
@@ -166,10 +200,9 @@ class BadrApiTable extends React.Component {
                         <DataTable.Cell
                           style={{
                             width: column.width,
-                          }}>
-                          {' '}
-                          {row[column.code]}
-                        </DataTable.Cell>
+                          }}
+                          children={this.buildCell(column, row)}
+                        />
                       ))}
                     </DataTable.Row>
                   ))

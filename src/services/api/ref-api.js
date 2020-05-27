@@ -1,11 +1,12 @@
-import {Component} from 'react';
-
 import HttpHelper from './common/http-helper';
 
-import utf8 from 'utf8';
-
 export default class RefApi {
-  static rechercheEchangeMetVehicule = async (login, rechercheObject, pageSize, offset) => {
+  static rechercheEchangeMetVehicule = async (
+    login,
+    rechercheObject,
+    pageSize,
+    offset,
+  ) => {
     const data = {
       dtoHeader: {
         userLogin: login,
@@ -22,7 +23,6 @@ export default class RefApi {
     return response;
   };
 
-
   static findVehiculeVoleByParameter = async (login, rechercheObject) => {
     const data = {
       dtoHeader: {
@@ -30,7 +30,7 @@ export default class RefApi {
         fonctionnalite: 'cf6153',
         module: 'MCV_LIB',
         commande: 'findVehiculeVoleByParameter',
-        typeService: 'SP'
+        typeService: 'SP',
       },
       jsonVO: rechercheObject,
     };

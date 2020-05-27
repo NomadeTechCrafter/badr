@@ -4,10 +4,9 @@ import * as Constants from '../../../common/constants/controle/rechercheDum';
 
 /**i18n */
 import {translate} from '../../../common/translations/i18n';
-
-import {save} from '../../../services/storage-service';
 import * as data from '../../../services/api/localData/controle/dataInitControle.json';
-export function request(action, navigation,successRedirection) {
+
+export function request(action, navigation, successRedirection) {
   return dispatch => {
     dispatch(action);
     dispatch(inProgress(action));
@@ -18,21 +17,21 @@ export function request(action, navigation,successRedirection) {
     )
       .then(response => {
         if (response) {
-         // const data = JSON.parse(response.data);
-         //const data = response.data;
+          // const data = JSON.parse(response.data);
+          //const data = response.data;
 
           if (data && !data.dtoHeader.messagesErreur) {
-            console.log('data' ,data);
+            console.log('data', data);
             dispatch(success(data));
             /** Naviguer vers la vue suivant. */
-            navigation.navigate(successRedirection , {
+            navigation.navigate(successRedirection, {
               login: action.value.login,
               refDeclaration: action.value.data.referenceDed,
               numeroVoyage: action.value.numeroVoyage,
               cle: action.value.cle,
               declarationRI: data.jsonVO,
             });
-          } else {      
+          } else {
             dispatch(failed(data));
           }
         } else {
@@ -53,17 +52,17 @@ export function inProgress(action) {
   };
 }
 
-export function success(data) {
+export function success(_data) {
   return {
     type: Constants.RECHERCHEDUM_INITCONTROLE_SUCCESS,
-    value: data,
+    value: _data,
   };
 }
 
-export function failed(data) {
+export function failed(_data) {
   return {
     type: Constants.RECHERCHEDUM_INITCONTROLE_FAILED,
-    value: data,
+    value: _data,
   };
 }
 

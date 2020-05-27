@@ -1,19 +1,7 @@
 import React from 'react';
 
 /** React Components */
-import {
-  View,
-  ScrollView,
-  StyleSheet,
-  Text,
-  Image,
-  ImageBackground,
-  Linking,
-} from 'react-native';
-
-import {NavigationContainer, DrawerActions} from '@react-navigation/native';
-
-import Icon from 'react-native-vector-icons/FontAwesome';
+import {View, ScrollView, Linking} from 'react-native';
 
 /** Custom Components */
 import {BadrTree, BadrTreeItem, MenuHeader} from '../../../components';
@@ -29,9 +17,6 @@ import * as menuAction from '../../../redux/actions/hab/menu';
 import {CustomStyleSheet} from '../../../styles/index';
 
 import {buildRouteWithParams} from '../../../common/routing';
-
-/** STORAGE **/
-import {loadParsed, load} from '../../../services/storage-service';
 
 /** Utils */
 import Utils from '../../../common/util';

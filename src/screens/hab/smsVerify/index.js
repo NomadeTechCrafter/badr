@@ -13,7 +13,6 @@ import {
 } from '../../../components';
 
 /** REDUX **/
-import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import * as SmsVerifyActionCreators from '../../../redux/actions/hab/smsVerify';
 
@@ -26,13 +25,8 @@ import {translate} from '../../../common/translations/i18n';
 /**Styling */
 import {CustomStyleSheet} from '../../../styles/index';
 
-/**Storage */
-import {loadParsed} from '../../../services/storage-service';
-
-
 /** Inmemory session */
 import {Session} from '../../../common/session';
-
 
 /** CONSTANTS **/
 const screenWidth = Dimensions.get('window').width;

@@ -1,5 +1,3 @@
-import {Component} from 'react';
-
 import HttpHelper from './common/http-helper';
 
 /** Inmemory session */

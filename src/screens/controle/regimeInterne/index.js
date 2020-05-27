@@ -1,22 +1,19 @@
 import React, {Component} from 'react';
-import {View,Dimensions} from 'react-native';
+import {View, Dimensions} from 'react-native';
 
 import {
   Container,
   CardBox,
   Accordion,
-  Card,
-  CardSection,
-  BadrTextInput,
   BadrButton,
   BadrErrorMessage,
   BadrInfoMessage,
-  BadrProgressBar,Toolbar,
+  BadrProgressBar,
+  Toolbar,
 } from '../../../components';
 import {Checkbox, TextInput, Text, RadioButton} from 'react-native-paper';
 /**i18n */
 import {translate} from '../../../common/translations/i18n';
-import {CustomStyleSheet} from '../../../styles';
 import _ from 'lodash';
 
 import {load} from '../../../services/storage-service';
@@ -25,10 +22,9 @@ import * as Constants from '../../../common/constants/controle/regimeInterne';
 import * as RegimeInterneAction from '../../../redux/actions/controle/regimeInterne';
 
 const screenHeight = Dimensions.get('window').height;
-const RECONNU = "reconnu";
-const DEMANDE_CONSIGNATION = "demandeConsignation";
+const RECONNU = 'reconnu';
+const DEMANDE_CONSIGNATION = 'demandeConsignation';
 class RegimeInterne extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -43,7 +39,7 @@ class RegimeInterne extends Component {
       observation: props.route.params.declarationRI.observation,
       numeroVersionCourante: 0,
       isConsultation: false,
-      compteRendu:'',
+      compteRendu: '',
     };
   }
 
@@ -54,8 +50,8 @@ class RegimeInterne extends Component {
     });
   }
 
-   // init documentAnnexeResultVOItem JSON field for action save/validate
-   initDocumentJSONField = () => {
+  // init documentAnnexeResultVOItem JSON field for action save/validate
+  initDocumentJSONField = () => {
     let documentAnnexeResultVO = [];
     let documentAnnexeResultVOItem = {};
     for (let doc of this.state.declaration.documentAnnexeResultVOs) {
@@ -71,7 +67,7 @@ class RegimeInterne extends Component {
     return documentAnnexeResultVO;
   };
 
-    sauvgarderValider = commande => {
+  sauvgarderValider = commande => {
     console.log('sauvgarderValider');
     var data = {
       idControle: this.state.declaration.idControle,
@@ -98,12 +94,12 @@ class RegimeInterne extends Component {
     console.log('dispatch fired !!');
   };
 
- genererCompteRendu = () => {
+  genererCompteRendu = () => {
     var data = {
       idDed: this.state.declaration.idDed,
       //numeroVersionBase: this.state.numeroVersionCourante,
       //numeroVersionCourante: this.state.numeroVersionCourante,
-    }
+    };
     var action = RegimeInterneAction.genererCR(
       {
         type: Constants.REGIMEINTERNE_VALIDATESAVE_REQUEST,
@@ -116,40 +112,49 @@ class RegimeInterne extends Component {
     );
     this.props.dispatch(action);
     console.log('dispatch fired !!');
-
-}
-    //toggleChoice for field RECONNU && DEMANDE_CONSIGNATION
-    toggleChoiceInList =  (indexDocument, key) =>{
-        let listDoc = this.state.declaration.documentAnnexeResultVOs;
-        if (listDoc[i].documentAnnexe[key]) {
-            listDoc[i].documentAnnexe[key] = false;
-        } else {
-            listDoc[i].documentAnnexe[key] = true;
-            var otherKey = key == RECONNU ? DEMANDE_CONSIGNATION : RECONNU;
-            listDoc[i].documentAnnexe[otherKey] = false;
-        }
-        console.log('toggleChoiceInList :',listDoc)
-        return listDoc;
+  };
+  //toggleChoice for field RECONNU && DEMANDE_CONSIGNATION
+  // TODO : where is i var ?
+  toggleChoiceInList = (indexDocument, key) => {
+    let listDoc = this.state.declaration.documentAnnexeResultVOs;
+    if (listDoc[i].documentAnnexe[key]) {
+      listDoc[i].documentAnnexe[key] = false;
+    } else {
+      listDoc[i].documentAnnexe[key] = true;
+      var otherKey = key === RECONNU ? DEMANDE_CONSIGNATION : RECONNU;
+      listDoc[i].documentAnnexe[otherKey] = false;
     }
+    console.log('toggleChoiceInList :', listDoc);
+    return listDoc;
+  };
 
-    setChoiceForReconnu = (indexDocument,key) =>{
-        this.setState(prevState => ({
-            declaration: {                   // object that we want to update
-                ...prevState.declaration,    // keep all other key-value pairs
-                documentAnnexeResultVOs: this.toggleChoiceInList(indexDocument,key)
-            }
-        }));
-        console.log('setChoiceForReconnu :',this.state.declaration.documentAnnexeResultVOs)
-    }
+  setChoiceForReconnu = (indexDocument, key) => {
+    this.setState(prevState => ({
+      declaration: {
+        // object that we want to update
+        ...prevState.declaration, // keep all other key-value pairs
+        documentAnnexeResultVOs: this.toggleChoiceInList(indexDocument, key),
+      },
+    }));
+    console.log(
+      'setChoiceForReconnu :',
+      this.state.declaration.documentAnnexeResultVOs,
+    );
+  };
 
   static getDerivedStateFromProps(props, state) {
-    if (props.reponseData && props.reponseData.historiqueCompte && (props.reponseData.historiqueCompte !== state.declaration.historiqueCompte)) {
+    if (
+      props.reponseData &&
+      props.reponseData.historiqueCompte &&
+      props.reponseData.historiqueCompte !== state.declaration.historiqueCompte
+    ) {
       return {
-        declaration: { // object that we want to update
+        declaration: {
+          // object that we want to update
           ...state.declaration, // keep all other key-value pairs
           historiqueCompte: props.reponseData.historiqueCompte, // update the value of specific key
-      },
-      isConsultation: true,
+        },
+        isConsultation: true,
       };
     }
     // Return null to indicate no change to state.
@@ -158,265 +163,294 @@ class RegimeInterne extends Component {
 
   render() {
     return (
-        <View>
-          <Toolbar navigation={this.props.navigation} title="Contrôle" subtitle="Régime interne" icon="menu"/>
-          <Container>
-              {this.props.showProgress && <BadrProgressBar width={screenHeight} />}
-              { this.props.errorMessage != null && (
-                  <BadrErrorMessage message={this.props.errorMessage} />
+      <View>
+        <Toolbar
+          navigation={this.props.navigation}
+          title="Contrôle"
+          subtitle="Régime interne"
+          icon="menu"
+        />
+        <Container>
+          {this.props.showProgress && <BadrProgressBar width={screenHeight} />}
+          {this.props.errorMessage != null && (
+            <BadrErrorMessage message={this.props.errorMessage} />
+          )}
+          {this.props.successMessage != null && (
+            <BadrInfoMessage message={this.props.successMessage} />
+          )}
+          {/* Référence déclaration */}
+          <CardBox style={styles.cardBoxInfoDum}>
+            <View style={styles.flexDirectionRow}>
+              <Text style={styles.libelleM}>
+                {translate('transverse.bureau')}
+              </Text>
+              <Text style={styles.libelleM}>
+                {translate('transverse.regime')}
+              </Text>
+              <Text style={styles.libelleM}>
+                {translate('transverse.annee')}
+              </Text>
+              <Text style={styles.libelleL}>
+                {translate('transverse.serie')}
+              </Text>
+              <Text style={styles.libelleS}>{translate('transverse.cle')}</Text>
+              <Text style={styles.libelleM}>
+                {translate('transverse.nVoyage')}
+              </Text>
+              <Text style={styles.libelleM}>
+                {translate('transverse.type')}
+              </Text>
+            </View>
+            <View style={styles.flexDirectionRow}>
+              <Text style={styles.libelleM}>
+                {this.state.refDeclaration.slice(0, 3)}
+              </Text>
+              <Text style={styles.libelleM}>
+                {this.state.refDeclaration.slice(3, 6)}
+              </Text>
+              <Text style={styles.libelleM}>
+                {this.state.refDeclaration.slice(6, 10)}
+              </Text>
+              <Text style={styles.libelleL}>
+                {this.state.refDeclaration.slice(10, 17)}
+              </Text>
+              <Text style={styles.libelleS}>{this.state.cle}</Text>
+              <Text style={styles.libelleM}>{this.state.numeroVoyage}</Text>
+              <Text style={styles.libelleM}>{this.state.typeRegime}</Text>
+            </View>
+          </CardBox>
+
+          {/* Annotations */}
+          <CardBox style={styles.cardBox}>
+            <Accordion title={translate('controle.annotations')}>
+              {this.state.declaration.annotation && (
+                <View style={styles.flexDirectionRow}>
+                  <Text style={styles.libelleM}>
+                    {this.state.declaration.annotation}
+                  </Text>
+                </View>
               )}
-              {this.props.successMessage != null && (
-                  <BadrInfoMessage message={this.props.successMessage} />
-              )}
-              {/* Référence déclaration */}
-            <CardBox style={styles.cardBoxInfoDum}>
+            </Accordion>
+          </CardBox>
+
+          {/* Intervention */}
+          <CardBox style={styles.cardBox}>
+            <Accordion title={translate('controle.intervention')}>
               <View style={styles.flexDirectionRow}>
                 <Text style={styles.libelleM}>
-                    {translate('transverse.bureau')}
-                </Text>
-                <Text style={styles.libelleM}>
-                    {translate('transverse.regime')}
-                </Text>
-                <Text style={styles.libelleM}>{translate('transverse.annee')}</Text>
-                <Text style={styles.libelleL}>{translate('transverse.serie')}</Text>
-                <Text style={styles.libelleS}>{translate('transverse.cle')}</Text>
-                <Text style={styles.libelleM}>
-                    {translate('transverse.nVoyage')}
-                </Text>
-                <Text style={styles.libelleM}>{translate('transverse.type')}</Text>
-              </View>
-              <View style={styles.flexDirectionRow}>
-                <Text style={styles.libelleM}>
-                    {this.state.refDeclaration.slice(0, 3)}
-                </Text>
-                <Text style={styles.libelleM}>
-                    {this.state.refDeclaration.slice(3, 6)}
-                </Text>
-                <Text style={styles.libelleM}>
-                    {this.state.refDeclaration.slice(6, 10)}
+                  {translate('controle.version')}
                 </Text>
                 <Text style={styles.libelleL}>
-                    {this.state.refDeclaration.slice(10, 17)}
+                  {translate('controle.typeIntervention')}
                 </Text>
-                <Text style={styles.libelleS}>{this.state.cle}</Text>
-                <Text style={styles.libelleM}>{this.state.numeroVoyage}</Text>
-                <Text style={styles.libelleM}>{this.state.typeRegime}</Text>
+                <Text style={styles.libelleM}>
+                  {translate('controle.date')}
+                </Text>
+                <Text style={styles.libelleM}>
+                  {translate('controle.acteur')}
+                </Text>
+                <Text style={styles.libelleL}>
+                  {translate('controle.commentaire')}
+                </Text>
               </View>
-            </CardBox>
 
-              {/* Annotations */}
-            <CardBox style={styles.cardBox}>
-              <Accordion title={translate('controle.annotations')}>
-                  {this.state.declaration.annotation &&
-                  <View style={styles.flexDirectionRow}>
-                    <Text style={styles.libelleM}>
-                        {this.state.declaration.annotation}
-                    </Text>
+              {this.state.declaration.autreAnnotationVOs &&
+                this.state.declaration.autreAnnotationVOs.map((item, index) => (
+                  <View style={styles.flexDirectionRow} key={index}>
+                    <Text style={styles.libelleM}>{item.numeroVersion}</Text>
+                    <Text style={styles.libelleL}>{item.intervention}</Text>
+                    <Text style={styles.libelleM}>{item.dateIntervention}</Text>
+                    <Text style={styles.libelleM}>{item.acteur}</Text>
+                    <Text style={styles.libelleL}>{item.commentaire}</Text>
                   </View>
-                  }
-              </Accordion>
-            </CardBox>
+                ))}
+            </Accordion>
+          </CardBox>
 
-              {/* Intervention */}
-            <CardBox style={styles.cardBox}>
-              <Accordion title={translate('controle.intervention')}>
-                <View style={styles.flexDirectionRow}>
-                  <Text style={styles.libelleM}>
-                      {translate('controle.version')}
-                  </Text>
-                  <Text style={styles.libelleL}>
-                      {translate('controle.typeIntervention')}
-                  </Text>
-                  <Text style={styles.libelleM}>{translate('controle.date')}</Text>
-                  <Text style={styles.libelleM}>
-                      {translate('controle.acteur')}
-                  </Text>
-                  <Text style={styles.libelleL}>
-                      {translate('controle.commentaire')}
-                  </Text>
-                </View>
-
-                  {this.state.declaration.autreAnnotationVOs && this.state.declaration.autreAnnotationVOs.map((item, index) => (
-                      <View style={styles.flexDirectionRow} key={index}>
-                        <Text style={styles.libelleM}>{item.numeroVersion}</Text>
-                        <Text style={styles.libelleL}>{item.intervention}</Text>
-                        <Text style={styles.libelleM}>{item.dateIntervention}</Text>
-                        <Text style={styles.libelleM}>{item.acteur}</Text>
-                        <Text style={styles.libelleL}>{item.commentaire}</Text>
-                      </View>
-                  ))}
-              </Accordion>
-            </CardBox>
-
-              {/* Liste des Docs exigibles */}
-            <CardBox style={styles.cardBox}>
-              <Accordion title={translate('controle.listDocExigible')}>
-                <View style={styles.flexDirectionRow}>
-                  <Text style={styles.libelleM}>{translate('controle.doc')}</Text>
-                  <Text style={styles.libelleM}>
-                      {translate('controle.portee')}
-                  </Text>
-                  <Text style={styles.libelleM}>
-                      {translate('controle.nArticle')}
-                  </Text>
-                  <Text style={styles.libelleM}>
-                      {translate('controle.reconnu')}
-                  </Text>
-                  <Text style={styles.libelleM}>
-                      {translate('controle.consignation')}
-                  </Text>
-                  <Text style={styles.libelleL}>
-                      {translate('controle.decision')}
-                  </Text>
-                </View>
-                  {this.state.declaration.documentAnnexeResultVOs && this.state.declaration.documentAnnexeResultVOs.map(
-                      (item, index) => (
-                          <View style={styles.flexDirectionRow} key={index}>
-                            <Text style={styles.libelleM}>
-                                {item.documentAnnexe.libelle}
-                            </Text>
-                            <Text style={styles.libelleM}>
-                                {item.documentAnnexe.portee}
-                            </Text>
-                            <Text style={styles.libelleM}>
-                                {item.documentAnnexe.numeroOrdreArticle}
-                            </Text>
-                            <Checkbox
-                                color={'#009ab2'}
-                                status={
-                                    item.documentAnnexe.reconnu ? 'checked' : 'unchecked'
-                                }
-                                disabled={this.state.isConsultation}
-                                onPress={() =>{this.setChoiceForReconnu(index , RECONNU)}}
-                            />
-                            <Checkbox
-                                status={
-                                    item.documentAnnexe.demandeConsignation
-                                        ? 'checked'
-                                        : 'unchecked'
-                                }
-                                disabled={this.state.isConsultation}
-                                onPress={() => {
-                                    this.setState({checked: !this.state.checked});
-                                }}
-                            />
-                            <Text style={styles.libelleL}>{item.decisionMCI}</Text>
-                          </View>
-                      ),
-                  )}
-              </Accordion>
-            </CardBox>
-
-              {/* Redressement opéré */}
-            <CardBox style={styles.cardBox}>
-              <Accordion title={translate('controle.redressementOperes')}>
-                <View>
-                    {!_.isEmpty(this.state.declaration.redressement) && (
-                        <View>
-                          <Text>{this.state.declaration.redressement}</Text>
-                        </View>
-                    )}
-                    {!_.isEmpty(this.state.compteRendu) &&
-                    <View>
-                      <Text>{this.state.compteRendu}</Text>
-                    </View>
-                    }
-                  <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-                    <BadrButton
-                        onPress={this.genererCompteRendu}
+          {/* Liste des Docs exigibles */}
+          <CardBox style={styles.cardBox}>
+            <Accordion title={translate('controle.listDocExigible')}>
+              <View style={styles.flexDirectionRow}>
+                <Text style={styles.libelleM}>{translate('controle.doc')}</Text>
+                <Text style={styles.libelleM}>
+                  {translate('controle.portee')}
+                </Text>
+                <Text style={styles.libelleM}>
+                  {translate('controle.nArticle')}
+                </Text>
+                <Text style={styles.libelleM}>
+                  {translate('controle.reconnu')}
+                </Text>
+                <Text style={styles.libelleM}>
+                  {translate('controle.consignation')}
+                </Text>
+                <Text style={styles.libelleL}>
+                  {translate('controle.decision')}
+                </Text>
+              </View>
+              {this.state.declaration.documentAnnexeResultVOs &&
+                this.state.declaration.documentAnnexeResultVOs.map(
+                  (item, index) => (
+                    <View style={styles.flexDirectionRow} key={index}>
+                      <Text style={styles.libelleM}>
+                        {item.documentAnnexe.libelle}
+                      </Text>
+                      <Text style={styles.libelleM}>
+                        {item.documentAnnexe.portee}
+                      </Text>
+                      <Text style={styles.libelleM}>
+                        {item.documentAnnexe.numeroOrdreArticle}
+                      </Text>
+                      <Checkbox
+                        color={'#009ab2'}
+                        status={
+                          item.documentAnnexe.reconnu ? 'checked' : 'unchecked'
+                        }
                         disabled={this.state.isConsultation}
-                        text={translate('controle.genererCompte')}
-                    />
+                        onPress={() => {
+                          this.setChoiceForReconnu(index, RECONNU);
+                        }}
+                      />
+                      <Checkbox
+                        status={
+                          item.documentAnnexe.demandeConsignation
+                            ? 'checked'
+                            : 'unchecked'
+                        }
+                        disabled={this.state.isConsultation}
+                        onPress={() => {
+                          this.setState({checked: !this.state.checked});
+                        }}
+                      />
+                      <Text style={styles.libelleL}>{item.decisionMCI}</Text>
+                    </View>
+                  ),
+                )}
+            </Accordion>
+          </CardBox>
+
+          {/* Redressement opéré */}
+          <CardBox style={styles.cardBox}>
+            <Accordion title={translate('controle.redressementOperes')}>
+              <View>
+                {!_.isEmpty(this.state.declaration.redressement) && (
+                  <View>
+                    <Text>{this.state.declaration.redressement}</Text>
                   </View>
-                </View>
-
-              </Accordion>
-            </CardBox>
-
-              {/* Observation */}
-            <CardBox style={styles.cardBox}>
-              <Accordion title={translate('controle.observation')}>
-                <View>
-                  <TextInput
-                      placeholder={translate('controle.votreObservation')}
-                      value={this.state.declaration.observation}
-                      multiline={true}
-                      numberOfLines={6}
-                      disabled={this.state.isConsultation}
-                      onChangeText={text => this.setState({observation: text})}
+                )}
+                {!_.isEmpty(this.state.compteRendu) && (
+                  <View>
+                    <Text>{this.state.compteRendu}</Text>
+                  </View>
+                )}
+                <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+                  <BadrButton
+                    onPress={this.genererCompteRendu}
+                    disabled={this.state.isConsultation}
+                    text={translate('controle.genererCompte')}
                   />
                 </View>
-              </Accordion>
-            </CardBox>
+              </View>
+            </Accordion>
+          </CardBox>
 
-              {/* Historique des comptes rendu de contrôle */}
-            <CardBox style={styles.cardBox}>
-              <Accordion title={translate('controle.historiqueCompteRendu')}>
-                  {this.state.declaration.historiqueCompte &&
-                  <View>
-                    <Text>{this.state.declaration.historiqueCompte}</Text>
-                  </View>
-                  }
-              </Accordion>
-            </CardBox>
+          {/* Observation */}
+          <CardBox style={styles.cardBox}>
+            <Accordion title={translate('controle.observation')}>
+              <View>
+                <TextInput
+                  placeholder={translate('controle.votreObservation')}
+                  value={this.state.declaration.observation}
+                  multiline={true}
+                  numberOfLines={6}
+                  disabled={this.state.isConsultation}
+                  onChangeText={text => this.setState({observation: text})}
+                />
+              </View>
+            </Accordion>
+          </CardBox>
 
-              {/* Décision */}
-            <CardBox style={styles.cardBox}>
-              <Accordion title={translate('controle.decision')}>
-                <View style={{flexDirection: 'column'}}   pointerEvents={this.state.isConsultation ? 'none' : 'auto'}>
-                  <RadioButton.Group
-                      onValueChange={value =>
-                          this.setState({decisionControle: value})
-                      }
-                      value={this.state.decisionControle}>
-                    <View style={styles.decisionContainerRB}>
-                      <Text style={styles.textRadio}>
-                          {translate('controle.controleConforme')}
-                      </Text>
-                      <RadioButton color={styles.textRadio.color}
-                                   value="controleConforme" />
-                    </View>
-                    <View style={styles.decisionContainerRB}>
-                      <Text style={styles.textRadio}>
-                          {translate('controle.redressementContentieux')}
-                      </Text>
-                      <RadioButton color={styles.textRadio.color}
-                                   value="contencieux" />
-                    </View>
-                    <View style={styles.decisionContainerRB}>
-                      <Text style={styles.textRadio}>
-                          {translate('controle.redressementSansContentieux')}
-                      </Text>
-                      <RadioButton color={styles.textRadio.color}
-                                   value="sansContencieux" />
-                    </View>
-                  </RadioButton.Group>
+          {/* Historique des comptes rendu de contrôle */}
+          <CardBox style={styles.cardBox}>
+            <Accordion title={translate('controle.historiqueCompteRendu')}>
+              {this.state.declaration.historiqueCompte && (
+                <View>
+                  <Text>{this.state.declaration.historiqueCompte}</Text>
                 </View>
-              </Accordion>
-            </CardBox>
+              )}
+            </Accordion>
+          </CardBox>
 
-              {/* Actions */}
-            <View style={styles.containerActionBtn} pointerEvents={this.state.isConsultation ? 'none' : 'auto'}>
-              <BadrButton
-                  style={{width: 100}}
-                  onPress={() =>{this.sauvgarderValider('sauvegarderRI')}}
-                  text={translate('controle.sauvegarder')}
-                  disabled={this.state.decisionControle ? false : true }
-              />
-              <BadrButton
-                  style={{width: 100}}
-                  onPress={() =>{this.sauvgarderValider('validerRI')}}
-                  text={translate('controle.validerControle')}
-                  disabled={this.state.decisionControle ? false : true }
-              />
-              <BadrButton
-                  style={{width: 100}}
-                  text={translate('controle.redresserDeclaration')}
-              />
-            </View>
-          </Container>
-        </View>
+          {/* Décision */}
+          <CardBox style={styles.cardBox}>
+            <Accordion title={translate('controle.decision')}>
+              <View
+                style={{flexDirection: 'column'}}
+                pointerEvents={this.state.isConsultation ? 'none' : 'auto'}>
+                <RadioButton.Group
+                  onValueChange={value =>
+                    this.setState({decisionControle: value})
+                  }
+                  value={this.state.decisionControle}>
+                  <View style={styles.decisionContainerRB}>
+                    <Text style={styles.textRadio}>
+                      {translate('controle.controleConforme')}
+                    </Text>
+                    <RadioButton
+                      color={styles.textRadio.color}
+                      value="controleConforme"
+                    />
+                  </View>
+                  <View style={styles.decisionContainerRB}>
+                    <Text style={styles.textRadio}>
+                      {translate('controle.redressementContentieux')}
+                    </Text>
+                    <RadioButton
+                      color={styles.textRadio.color}
+                      value="contencieux"
+                    />
+                  </View>
+                  <View style={styles.decisionContainerRB}>
+                    <Text style={styles.textRadio}>
+                      {translate('controle.redressementSansContentieux')}
+                    </Text>
+                    <RadioButton
+                      color={styles.textRadio.color}
+                      value="sansContencieux"
+                    />
+                  </View>
+                </RadioButton.Group>
+              </View>
+            </Accordion>
+          </CardBox>
 
+          {/* Actions */}
+          <View
+            style={styles.containerActionBtn}
+            pointerEvents={this.state.isConsultation ? 'none' : 'auto'}>
+            <BadrButton
+              style={{width: 100}}
+              onPress={() => {
+                this.sauvgarderValider('sauvegarderRI');
+              }}
+              text={translate('controle.sauvegarder')}
+              disabled={this.state.decisionControle ? false : true}
+            />
+            <BadrButton
+              style={{width: 100}}
+              onPress={() => {
+                this.sauvgarderValider('validerRI');
+              }}
+              text={translate('controle.validerControle')}
+              disabled={this.state.decisionControle ? false : true}
+            />
+            <BadrButton
+              style={{width: 100}}
+              text={translate('controle.redresserDeclaration')}
+            />
+          </View>
+        </Container>
+      </View>
     );
   }
 }
@@ -455,15 +489,15 @@ const styles = {
   },
   decisionContainerRB: {
     flexDirection: 'row',
-    justifyContent:'space-between',
+    justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: '#009ab2',
     padding: 8,
     width: 300,
   },
-  textRadio:{
-    color: '#FFF'
-  }
+  textRadio: {
+    color: '#FFF',
+  },
 };
 
 const mapStateToProps = state => ({...state.regimeInterneReducer});

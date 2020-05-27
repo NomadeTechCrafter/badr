@@ -1,8 +1,6 @@
 /** API Services */
 import RefApi from '../../../services/api/ref-api';
 
-import base64 from 'react-native-base64';
-
 /**Constants */
 import * as Constants from '../../../common/constants/referentiel/controleVehicules';
 

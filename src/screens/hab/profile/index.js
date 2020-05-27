@@ -85,7 +85,6 @@ class Profile extends React.Component {
 
   handleOnProfilItemsChanged = items => {
     this.setState({selectedProfiles: items});
-    console.log(items);
   };
 
   handleConfirmButton = () => {
@@ -153,7 +152,6 @@ class Profile extends React.Component {
             style={CustomStyleSheet.badrPicker}
             titleStyle={CustomStyleSheet.badrPickerTitle}
             key="arrondissements"
-            style={CustomStyleSheet.badrPicker}
             title={translate('profile.listeArrondissements')}
             cle="code"
             libelle="libelle"
