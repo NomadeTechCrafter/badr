@@ -21,4 +21,20 @@ export default class RefApi {
     let response = await HttpHelper.process(data);
     return response;
   };
+
+
+  static findVehiculeVoleByParameter = async (login, rechercheObject) => {
+    const data = {
+      dtoHeader: {
+        userLogin: login,
+        fonctionnalite: 'cf6153',
+        module: 'MCV_LIB',
+        commande: 'findVehiculeVoleByParameter',
+        typeService: 'SP'
+      },
+      jsonVO: rechercheObject,
+    };
+    let response = await HttpHelper.process(data);
+    return response;
+  };
 }

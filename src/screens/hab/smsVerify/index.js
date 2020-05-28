@@ -29,13 +29,18 @@ import {CustomStyleSheet} from '../../../styles/index';
 /**Storage */
 import {loadParsed} from '../../../services/storage-service';
 
-/** Constants **/
-const screenHeight = Dimensions.get('window').height;
+
+/** Inmemory session */
+import {Session} from '../../../common/session';
+
+
+/** CONSTANTS **/
+const screenWidth = Dimensions.get('window').width;
 
 class SmsVerify extends React.Component {
   state = {
     code: '000000',
-    login: '',
+    login: Session.getInstance().getLogin(),
   };
 
   onConfirmerClicked = () => {
@@ -59,16 +64,13 @@ class SmsVerify extends React.Component {
       value: {},
     });
     this.props.dispatch(action);
-    loadParsed('user').then(user => {
-      this.setState({login: user.login});
-    });
   }
 
   render() {
     return (
       <ScrollView style={CustomStyleSheet.whiteContainer}>
         {(this.props.showProgress || this.props.showProgressConfirmCnx) && (
-          <BadrProgressBar width={screenHeight} />
+          <BadrProgressBar width={screenWidth} />
         )}
         <Text style={CustomStyleSheet.centeredText}>
           {translate('smsVerify.message')}

@@ -9,11 +9,10 @@ export default class TransverseApi {
     _command,
     _typeService,
     _jsonVO,
+    _offset,
+    _pageSize,
   ) => {
-    console.log('doProcess ...');
-
     const user = await loadParsed('user');
-
     const data = {
       dtoHeader: {
         userLogin: user.login,
@@ -21,16 +20,12 @@ export default class TransverseApi {
         module: _module,
         commande: _command,
         typeService: _typeService,
+        offset: _offset,
+        pageSize: _pageSize,
       },
       jsonVO: _jsonVO,
     };
-    if (_jsonVO) {
-      console.log('################ json vo : ');
-      console.log(data ,_jsonVO);
-    }
     let response = await HttpHelper.process(data);
-    console.log('returning response ...');
-    console.log(response);
     return response;
   };
 }

@@ -8,17 +8,35 @@ import MainMenu from '../mainmenu/index';
 import RechercheDum from '../../controle/rechercheDum';
 import RegimeInterne from '../../controle/regimeInterne';
 import PlaquesImmatriculation from '../../referentiel/plaquesimm/index';
+import ControleVehicules from '../../referentiel/controleVehicules/index';
 
 /** Drawer navigation */
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {NavigationContainer} from '@react-navigation/native';
+
+/** STORAGE **/
+import {loadParsed, load} from '../../../services/storage-service';
+
 const Drawer = createDrawerNavigator();
 
-const deltaScreen = 60;
+const deltaScreen = Dimensions.get('window').width / 4;
+
+/** Inmemory session */
+import {Session} from '../../../common/session';
+
 export default class Home extends React.Component {
-  componentDidMount() {
-    console.log(this.props);
+  constructor(props) {
+    super(props);
+    this.state = {
+      login: '',
+    };
   }
+
+  componentDidMount() {
+    console.log('Displaying in memory session values ====> ');
+    console.log(Session.getInstance().getNom);
+  }
+
   render() {
     return (
       <Drawer.Navigator
@@ -40,6 +58,12 @@ export default class Home extends React.Component {
         <Drawer.Screen
           name="PlaquesImmatriculation"
           component={PlaquesImmatriculation}
+          options={{headerShown: false}}
+        />
+
+        <Drawer.Screen
+          name="ControleVehicules"
+          component={ControleVehicules}
           options={{headerShown: false}}
         />
       </Drawer.Navigator>

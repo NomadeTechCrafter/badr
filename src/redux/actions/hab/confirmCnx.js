@@ -9,6 +9,10 @@ import {saveStringified} from '../../../services/storage-service';
 /** i18n */
 import {translate} from '../../../common/translations/i18n';
 
+/** Inmemory session */
+import {Session} from '../../../common/session';
+
+
 function doAsyncStorageOperations(data) {
   /** Saving the listFonctionnaliteVOs for menu usage */
   saveStringified('listFonctionnaliteVOs', data.listFonctionnaliteVOs).then(
@@ -20,6 +24,8 @@ function doAsyncStorageOperations(data) {
     prenomAgent: data.prenomAgent,
     codeUOR: data.codeUOR,
   };
+
+  Session.getInstance().setUserObject(user);
   /** Saving user information in the local storage */
   saveStringified('user', user).then(() => user);
 }

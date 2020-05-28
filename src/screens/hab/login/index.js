@@ -35,8 +35,20 @@ import {
 
 import {remote, bootstrapRoute} from '../../../common/config';
 
+/** Inmemory session */
+import {Session} from '../../../common/session';
+
+/** Device informations */
+import {
+  getAndroidId,
+  getManufacturer,
+  getSystemVersion,
+  getModel,
+  getDeviceName,
+} from 'react-native-device-info';
+
 /** CONSTANTS **/
-const screenHeight = Dimensions.get('window').height;
+const screenWidth = Dimensions.get('window').width;
 
 class Login extends React.Component {
   state = {
@@ -55,7 +67,26 @@ class Login extends React.Component {
     this.props.dispatch(action);
   };
 
+  setDeviceInformations = () => {
+    getAndroidId().then(value => {
+      console.log(value);
+      Session.getInstance().setDeviceId(value);
+    });
+    getManufacturer().then(value => {
+      Session.getInstance().setManufacturer(value);
+    });
+    Session.getInstance().setSystemVersion(getSystemVersion());
+
+    Session.getInstance().setModel(getModel());
+
+    getDeviceName().then(value => {
+      Session.getInstance().setDeviceName(value);
+    });
+  };
+
   componentDidMount() {
+    this.setDeviceInformations();
+
     var action = authAction.init({
       type: Constants.LOGIN_INIT,
       value: {},
@@ -81,7 +112,7 @@ class Login extends React.Component {
   render() {
     return (
       <ScrollView style={CustomStyleSheet.whiteContainer}>
-        {this.props.showProgress && <BadrProgressBar width={screenHeight} />}
+        {this.props.showProgress && <BadrProgressBar width={screenWidth} />}
         <View style={CustomStyleSheet.centerContainer}>
           <BadrLoginHeader />
           <LoginTextInput

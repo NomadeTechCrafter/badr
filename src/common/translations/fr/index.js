@@ -79,7 +79,10 @@ export default {
     redresserDeclaration: 'Redresser la déclaration',
     regimeInterne: 'Régime interne',
   },
-
+  welcome: {
+    title: 'Bienvenue',
+    subTitle: "Écran D'accueil",
+  },
   transverse: {
     bureau: 'Bureau',
     regime: 'Régime',
@@ -98,6 +101,7 @@ export default {
     rechercher: 'Rechercher',
     du: "Du",
     au: "Au",
+    noRowFound: 'Aucun enregistrement trouvé.',
   },
   referentiel: {
     plaquesImm: {
@@ -105,13 +109,15 @@ export default {
       subTitle: 'écran de echerche',
       numeroChassis: 'N° de chassis : ',
       numeroIdentifiant: 'Numéro identifiant',
-      nomProprietaire : 'Nom',
-      proprietaire : 'Proprietaire',
-      numeroPlaqueImmNormale : 'N° d\'immatriculation normale',
-      numeroPlaqueImmDiplomatqiue : 'N° d\'immatriculation diplomatique',
-      numeroPlaqueImmRemorque : 'N° d\'immatriculation remorque',
-      prenomProprietaire : 'Prenom',
-      raisonSociale : 'Raison sociale',
+      nomProprietaire: 'Nom',
+      proprietaire: 'Proprietaire',
+      categoryDiplomatique: 'Catégorie diplomatique',
+      choose_categoryDiplomatique: 'Choisissez une catégorie diplomatique',
+      numeroPlaqueImmNormale: "N° d'immatriculation normale",
+      numeroPlaqueImmDiplomatqiue: "N° d'immatriculation diplomatique",
+      numeroPlaqueImmRemorque: "N° d'immatriculation remorque",
+      prenomProprietaire: 'Prenom',
+      raisonSociale: 'Raison sociale',
       searchByNumChassis: 'Par numéro de chassis',
       searchByNumImmNormal: "Par numéro d'immatriculation NORMALE",
       searchByNumImmDiplo: "Par numéro d'immatriculation DIPLOMATIQUE",
@@ -120,7 +126,17 @@ export default {
       searchMandatoryFields:
         'Merci de saisir au moins un critère de recherche.',
     },
+    controleVehicules: {
+      title: 'Contrôle des véhicules volés',
+      subTitle: 'écran de echerche',
+      choose_status: 'Choisissez un statut',
+      numeroChassis: 'N° chassis',
+      matricule: 'Matricule',
+      numeroCarteGrise: 'N° Carte grise',
+    },
   },
+   loremIpsum1:
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque mi lectus, placerat mattis nulla ut, molestie consequat libero. Praesent ut dui ac elit pellentesque imperdiet eu a augue. Morbi ante velit, posuere sed orci ut, venenatis accumsan sapien. Vivamus sed luctus libero. Donec mattis condimentum turpis, sit amet consectetur ligula.',
   mainlevee: {
     title: "MainLevée",
     operateur: "Opérateur",

@@ -124,7 +124,17 @@ const CustomStyleSheet = StyleSheet.create({
   },
   lightBlueRow :{
     ...Rows.gridLightBlueRow
- }
+ },
+  verticalContainer20: {
+    ...Containers.verticalContainer20,
+  },
+  row: {
+    ...Containers.row,
+  },
+  column: {
+    ...Containers.column,
+  },
+
 });
 
 export {CustomStyleSheet};

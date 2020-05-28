@@ -5,9 +5,13 @@ import confirmConnexionReducer from './hab/confirmConnexion';
 import menuReducer from './hab/menu';
 import controleRechercheDumReducer from './components/rechercheDum';
 import regimeInterneReducer from './controle/regimeInterne';
+
+import listDeclarationReducer from './listDeclarationDum';
+
 import acvpReducer from './controle/acvp';
 
 import plaquesImmReducer from './referentiel/plaquesImm';
+import controleVehiculesReducer from './referentiel/controleVehicules';
 
 import badrPickerReducer from './components/badrPicker';
 import badrPickerCheckerReducer from './components/badrPickerChecker';
@@ -17,6 +21,7 @@ import listeDeclarationsMLVReducer from './mainLevee/listeDeclarationsMLV';
 import rechercheMLVReducer from './mainLevee/rechercheMLV';
 import qrCodeReducer from './components/qrCode';
 
+import badrApiTable from './components/badrApiTable';
 
 /**
  * combine all reducer
@@ -28,15 +33,17 @@ const allReducers = combineReducers({
   menuReducer,
   badrPickerReducer,
   badrPickerCheckerReducer,
+  badrApiTable,
   controleRechercheDumReducer,
   regimeInterneReducer,
+  listDeclarationReducer,
   acvpReducer,
   plaquesImmReducer,
   autoCompleteReducer,
   listeDeclarationsMLVReducer,
   rechercheMLVReducer,
-  qrCodeReducer
-
+  qrCodeReducer,
+  controleVehiculesReducer,
 });
 
 export default allReducers;

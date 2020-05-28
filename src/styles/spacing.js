@@ -60,8 +60,12 @@ export const badrButtonIcon = {
 };
 
 export const verticalActionContainer = {
-  marginTop: 20,
-  marginBottom : 40
+  marginTop: 10,
+  marginBottom: 40,
+};
+
+export const verticalContainer20 = {
+  margin: 20,
 };
 
 export const gridRow = {

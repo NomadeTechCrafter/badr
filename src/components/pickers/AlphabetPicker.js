@@ -18,7 +18,7 @@ export default class AlphabetPicker extends React.Component {
             this.setState({letter: itemValue});
             this.props.onValueChanged(itemValue, itemIndex);
           }}>
-          <Picker.Item label={''} value={'default_item'} key={'default_item'} />
+          <Picker.Item label={translate('components.pickerchecker.default_value')} value={'default_item'} key={'default_item'} />
           {this.props.items.map((item, index) => (
             <Picker.Item key={item.code} label={item.code} value={item.code} />
           ))}

@@ -9,8 +9,8 @@ import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs
 
 import {primaryColor, accentColor} from '../../../styles/index';
 
-import PlaquesImmatriculationSearch from './search';
-import PlaquesImmatriculationResult from './result';
+import ControleVehiculesSearch from './search';
+import ControleVehiculesResult from './result';
 
 /**Custom Components */
 import {
@@ -27,19 +27,14 @@ const Tab = createMaterialTopTabNavigator();
 const screenWidth = Dimensions.get('window').width;
 
 function ResultScreen({route, navigation}) {
-  return (
-    <PlaquesImmatriculationResult
-      navigation={navigation}
-      route={route}
-    />
-  );
+  return <ControleVehiculesResult navigation={navigation} route={route} />;
 }
 
 function SearchScreen({route, navigation}) {
-  return <PlaquesImmatriculationSearch navigation={navigation} route={route} />;
+  return <ControleVehiculesSearch navigation={navigation} route={route} />;
 }
 
-class PlaquesImmatriculation extends React.Component {
+class ControleVehicules extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -50,8 +45,8 @@ class PlaquesImmatriculation extends React.Component {
         <Toolbar
           navigation={this.props.navigation}
           icon="menu"
-          title={translate('referentiel.plaquesImm.title')}
-          subtitle={translate('referentiel.plaquesImm.subTitle')}
+          title={translate('referentiel.controleVehicules.title')}
+          subtitle={translate('referentiel.controleVehicules.subTitle')}
         />
         {this.props.showProgress && <BadrProgressBar width={screenWidth} />}
         {/* {this.props.showProgress && <BadrCircleProgressBar size={30} />} */}
@@ -82,7 +77,7 @@ class PlaquesImmatriculation extends React.Component {
 }
 
 function mapStateToProps(state) {
-  return {...state.plaquesImmReducer};
+  return {...state.controleVehiculesReducer};
 }
 
 function mapDispatchToProps(dispatch) {
@@ -95,4 +90,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(PlaquesImmatriculation);
+)(ControleVehicules);

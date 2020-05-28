@@ -61,9 +61,28 @@ export default class ControleApi {
         refHistoriques: [],
       },
     };
-      return await HttpHelper.process(_data);
 
+    
+
+    return await HttpHelper.process(_data);
   };
+
+  static getDataListDeclaration = async (login,typcontrol) => {
+    const data = {
+      dtoHeader: {
+        userLogin: login,
+        fonctionnalite: 'cf4011',
+        module: 'CONTROL_LIB',
+        commande: 'listeDeclaration',
+        typeService: 'SP',
+      },
+      jsonVO: typcontrol
+    };
+    return await HttpHelper.process(data);
+  };
+
+
+    
 
   static genererCompteRendu = async (login, data) => {
     const _data = {
@@ -87,3 +106,4 @@ export default class ControleApi {
     return await HttpHelper.process(_data);
   };
 }
+
