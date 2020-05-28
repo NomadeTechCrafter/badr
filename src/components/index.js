@@ -47,3 +47,9 @@ export {default as MenuHeader} from './header/MenuHeader';
 export {default as RechercheRefDum} from './rechercheRefDum';
 
 export {default as CopyPaste } from './container/CopyPaste';
+
+export {default as BadrAutoComplete} from './autoComplete';
+export {default as ScanQrCode} from './qrCode';
+export {default as BadrList} from './list/badrList';
+export {default as BadrLibelleBleu} from './text/libelleBleu';
+export {default as BadrLibelleNoir} from './text/libelleNoir';

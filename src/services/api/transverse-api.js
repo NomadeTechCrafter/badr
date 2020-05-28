@@ -5,7 +5,6 @@ import {loadParsed} from '../../services/storage-service';
 
 export default class TransverseApi {
   static doProcess = async (
-    _login,
     _module,
     _command,
     _typeService,
@@ -27,7 +26,7 @@ export default class TransverseApi {
     };
     if (_jsonVO) {
       console.log('################ json vo : ');
-      console.log(_jsonVO);
+      console.log(data ,_jsonVO);
     }
     let response = await HttpHelper.process(data);
     console.log('returning response ...');

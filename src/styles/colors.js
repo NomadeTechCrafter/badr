@@ -51,3 +51,16 @@ export const badrPickerTitle = {
 export const menuHeader = {
   backgroundColor: '#009ab2',
 };
+
+export const libelleBleu = {
+    color: '#006acd'
+};
+export const libelleNoir = {
+    color: '#444'
+};
+export const lightBlueRow = {
+    backgroundColor: '#f0f5f9'
+};
+export const whiteRow = {
+    backgroundColor: 'white'
+};

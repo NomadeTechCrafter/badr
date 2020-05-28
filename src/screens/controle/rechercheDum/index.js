@@ -1,53 +1,53 @@
 import React, {Component} from 'react';
 import {View, Text} from 'react-native';
 import {Container, RechercheRefDum,Toolbar} from '../../../components';
-
-import {TextInput, Button, HelperText} from 'react-native-paper';
 /**i18n */
 import {translate} from '../../../common/translations/i18n';
-import {CustomStyleSheet} from '../../../styles';
-import _ from 'lodash';
-
-import {load} from '../../../services/storage-service';
-import {connect} from 'react-redux';
-import * as Constants from '../../../common/constants/controle/rechercheDum';
-import * as RechecheDumAction from '../../../redux/actions/controle/rechercheDum';
 
 class RechecheDum extends Component {
-  defaultState = {
-    bureau: '',
-    regime: '',
-    annee: '',
-    serie: '',
-    cle: '',
-    cleValide: '',
-    login: '',
-    numeroVoyage: '',
-    showErrorMsg: false,
-  };
-  typeControle ='';
+  subTitle='';
   constructor(props) {
     super(props);
-    this.state = this.defaultState;
-    this.typeControle ='RI'; //(props.route.params.typeControle) ? props.route.params.typeControle : 'RI';
+
   }
-  getSuccessRedirectionScreen = () => {
-    switch (this.typeControle) {
+  getInfoControle = () => {
+      let typeControle = this.props.route.params.typeControle;
+      console.log('  getSuccessRedirectionScreen', typeControle )
+      switch (typeControle) {
       case 'RI':
-        return 'RegimeInterne';
+        return {
+          successRedirectionScreen:'RegimeInterne',
+          subtitle:translate("controle.RI"),
+          commande:'initControlerDedRI'
+        };
         break;
       case 'AC':
-        return 'ACVP';
+          return {successRedirectionScreen:'ACVP',subtitle:translate("controle.ACVP"),commande:'initControlerDedACVP'};
     }
   };
+    getSubTitle = () => {
+        let typeControle = this.props.route.params.typeControle;
+        console.log('  getSuccessRedirectionScreen', typeControle )
+        switch (typeControle) {
+            case 'RI':
+                return translate("controle.RI");
+                break;
+            case 'AC':
+                return translate("controle.ACVP");
+        }
+    };
   render() {
+    let infoControle = this.getInfoControle();
     return (
       <View>
-      <Toolbar navigation={this.props.navigation} title="Contrôle" subtitle="Régime interne" icon="menu"/>
+      <Toolbar navigation={this.props.navigation} title="Contrôle" subtitle={infoControle.subtitle} icon="menu"/>
       <RechercheRefDum
+        module="CONTROL_LIB"
+        commande={infoControle.commande}
+        typeService="UC"
         navigation={this.props.navigation}
-        commande={'initControlerDedRI'}
-        successRedirection={this.getSuccessRedirectionScreen()}
+        successRedirection={infoControle.successRedirectionScreen}
+        routeParams={this.props.route.params}
       />
 
       </View>
@@ -55,9 +55,5 @@ class RechecheDum extends Component {
   }
 }
 
-const mapStateToProps = state => ({...state.controleRechercheDumReducer});
 
-export default connect(
-  mapStateToProps,
-  null,
-)(RechecheDum);
+export default RechecheDum;

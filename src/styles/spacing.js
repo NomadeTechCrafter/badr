@@ -63,3 +63,11 @@ export const verticalActionContainer = {
   marginTop: 20,
   marginBottom : 40
 };
+
+export const gridRow = {
+    paddingHorizontal: 15,
+    paddingVertical:12,
+    minHeight:50,
+    alignItems:'center'
+};
+

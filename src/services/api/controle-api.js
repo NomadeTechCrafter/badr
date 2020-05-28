@@ -1,5 +1,4 @@
 import {Component} from 'react';
-import {WS_MODE} from '../../common/config';
 import HttpHelper from './common/http-helper';
 
 const WS_MODULE_PARAM = 'CONTROL_LIB';
