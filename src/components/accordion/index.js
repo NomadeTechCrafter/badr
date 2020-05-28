@@ -15,7 +15,7 @@ export default class Accordion extends Component{
   render() {
 
     return (
-       <View>
+       <View style={styles.container}>
             <TouchableOpacity style={styles.row} onPress={()=>this.toggleExpand()}>
                 <Text style={[styles.title, styles.font]}>{this.props.title}</Text>
                 <Icon name={this.state.expanded ? 'keyboard-arrow-up' : 'keyboard-arrow-down'} size={30} color={'#5E5E5E'} />
@@ -37,6 +37,9 @@ export default class Accordion extends Component{
 }
 
 const styles = StyleSheet.create({
+    container:{
+        flex:1
+    },
     title:{
         fontSize: 14,
         fontWeight:'bold',
@@ -53,7 +56,6 @@ const styles = StyleSheet.create({
     },
     child:{
         flexDirection:'column',
-        padding:8,
     }
     
 });

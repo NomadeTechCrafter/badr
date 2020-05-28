@@ -1,0 +1,47 @@
+{
+  "dtoHeader": {
+    "userLogin": "TESTAG3",
+    "fonctionnalite": "cf5971",
+    "module": "MLV_LIB",
+    "commande": "editerMlv",
+    "typeService": "UC",
+    "messagesInfo": [
+      "??? EditerMainLevee_MESSAGE_INFO ???"
+    ]
+  },
+  "jsonVO": {
+    "indentificateur": "32887",
+    "dateHeureEcor": "",
+    "numeroPince": "16523",
+    "agentDouanier": "",
+    "nombreDeScelles": "10",
+    "annotations": "",
+    "avecPesage": "",
+    "numeroCarnetTIR": "56",
+    "numeroCarnetATA": "",
+    "dechargeAcquitAcaution": "",
+    "validee": "true",
+    "dateValidation": "java.util.GregorianCalendar[time=1514381734041,areFieldsSet=true,areAllFieldsSet=true,lenient=true,zone=sun.util.calendar.ZoneInfo[id=\"Africa/Casablanca\",offset=0,dstSavings=3600000,useDaylight=true,transitions=103,lastRule=java.util.SimpleTimeZone[id=Africa/Casablanca,offset=0,dstSavings=3600000,useDaylight=true,startYear=0,startMode=2,startMonth=2,startDay=-1,startDayOfWeek=1,startTime=7200000,startTimeMode=0,endMode=2,endMonth=9,endDay=-1,endDayOfWeek=1,endTime=10800000,endTimeMode=0]],firstDayOfWeek=2,minimalDaysInFirstWeek=4,ERA=1,YEAR=2017,MONTH=11,WEEK_OF_YEAR=52,WEEK_OF_MONTH=4,DAY_OF_MONTH=27,DAY_OF_YEAR=361,DAY_OF_WEEK=4,DAY_OF_WEEK_IN_MONTH=4,AM_PM=1,HOUR=1,HOUR_OF_DAY=13,MINUTE=35,SECOND=34,MILLISECOND=41,ZONE_OFFSET=0,DST_OFFSET=0]",
+    "dateImpression": "java.util.GregorianCalendar[time=1514382847312,areFieldsSet=true,areAllFieldsSet=true,lenient=true,zone=sun.util.calendar.ZoneInfo[id=\"Africa/Casablanca\",offset=0,dstSavings=3600000,useDaylight=true,transitions=103,lastRule=java.util.SimpleTimeZone[id=Africa/Casablanca,offset=0,dstSavings=3600000,useDaylight=true,startYear=0,startMode=2,startMonth=2,startDay=-1,startDayOfWeek=1,startTime=7200000,startTimeMode=0,endMode=2,endMonth=9,endDay=-1,endDayOfWeek=1,endTime=10800000,endTimeMode=0]],firstDayOfWeek=2,minimalDaysInFirstWeek=4,ERA=1,YEAR=2017,MONTH=11,WEEK_OF_YEAR=52,WEEK_OF_MONTH=4,DAY_OF_MONTH=27,DAY_OF_YEAR=361,DAY_OF_WEEK=4,DAY_OF_WEEK_IN_MONTH=4,AM_PM=1,HOUR=1,HOUR_OF_DAY=13,MINUTE=54,SECOND=7,MILLISECOND=312,ZONE_OFFSET=0,DST_OFFSET=0]",
+    "editee": "true",
+    "editeeSousReserve": "false",
+    "dateEditionSousReserve": "",
+    "chezOperateur": "false",
+    "dateDemande": "",
+    "delaiAcheminement": "3",
+    "typeBureau": "true",
+    "refDeclarationEnDouane": "30901020170011621",
+    "identifiantDed": "178269",
+    "forcerMLV": "false",
+    "motifForcerMLV": "",
+    "state": "D",
+    "listIdDocsAnnexesLaisserPasser": [],
+    "listIdDocsAnnexesReconnu": [],
+    "preApurement": "[Aucune ligne de pré-apurement à traiter]",
+    "apurement": "",
+    "selectivite": "",
+    "deds": "'30901020170011621'",
+    "listeDocsExigibles": [],
+    "defaultConverter": {}
+  }
+}

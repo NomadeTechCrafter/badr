@@ -21,8 +21,8 @@ import _ from 'lodash';
 
 import {load} from '../../../services/storage-service';
 import {connect} from 'react-redux';
-import * as Constants from '../../../common/constants/controle/regimeInterne';
-import * as RegimeInterneAction from '../../../redux/actions/controle/regimeInterne';
+import * as Constants from '../../../common/constants/controle/ACVP';
+import * as RegimeACVPAction from '../../../redux/actions/controle/acvp';
 
 const screenHeight = Dimensions.get('window').height;
 class ACVP extends Component {
@@ -35,19 +35,17 @@ class ACVP extends Component {
             cle: props.route.params.cle,
             numeroVoyage: props.route.params.numeroVoyage,
             declaration: props.route.params.declarationRI,
-            typeRegime: translate('controle.regimeInterne'),
+            typeRegime: translate('controle.ACVP'),
             decisionControle: props.route.params.declarationRI.decisionControle,
             observation: props.route.params.declarationRI.observation,
             numeroVersionCourante: 0,
             isConsultation: false,
             compteRendu:'',
         };
-        //console.log('RegimeInterne constructor',decisionControle,observation);
     }
 
 
     componentDidMount() {
-        console.log('componentDidMount ri:');
         load('user').then(user => {
             this.setState({login: JSON.parse(user).login});
         });
@@ -82,9 +80,9 @@ class ACVP extends Component {
             numeroVersionCourante: this.state.numeroVersionCourante,
         };
         console.log('data----', data);
-        var action = RegimeInterneAction.validateSave(
+        var action = RegimeACVPAction.validateSave(
             {
-                type: Constants.REGIMEINTERNE_VALIDATESAVE_REQUEST,
+                type: Constants.ACVP_VALIDATESAVE_REQUEST,
                 value: {
                     login: this.state.login,
                     commande: commande,
@@ -103,9 +101,9 @@ class ACVP extends Component {
             //numeroVersionBase: this.state.numeroVersionCourante,
             //numeroVersionCourante: this.state.numeroVersionCourante,
         }
-        var action = RegimeInterneAction.genererCR(
+        var action = RegimeACVPAction.genererCR(
             {
-                type: Constants.REGIMEINTERNE_VALIDATESAVE_REQUEST,
+                type: Constants.ACVP_VALIDATESAVE_REQUEST,
                 value: {
                     login: this.state.login,
                     data: data,
@@ -134,8 +132,8 @@ class ACVP extends Component {
 
     render() {
         return (
-            <View>
-              <Toolbar navigation={this.props.navigation} title="Contrôle" subtitle="Régime interne" icon="menu"/>
+            <View style={CustomStyleSheet.fullContainer}>
+              <Toolbar navigation={this.props.navigation} title="Contrôle" subtitle={translate("controle.ACVP")} icon="menu"/>
               <Container>
                   {this.props.showProgress && <BadrProgressBar width={screenHeight} />}
                   { this.props.errorMessage != null && (
@@ -444,7 +442,7 @@ const styles = {
     }
 };
 
-const mapStateToProps = state => ({...state.regimeInterneReducer});
+const mapStateToProps = state => ({...state.acvpReducer});
 
 export default connect(
     mapStateToProps,

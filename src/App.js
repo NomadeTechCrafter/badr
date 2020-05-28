@@ -20,6 +20,10 @@ import Profile from './screens/hab/profile';
 import RechercheDum from './screens/controle/rechercheDum';
 import RegimeInterne from './screens/controle/regimeInterne';
 import ACVP from './screens/controle/ACVP';
+import RechecheMLV from './screens/mainlevee/rechercheMLV';
+import ListDeclarationMLV from './screens/mainlevee/listedeclarationsMLV';
+import DelivrerMLV from './screens/mainlevee/delivrerMLV';
+import ScanQrCode from './components/qrCode/'
 
 
 import Toolbar from './components/toolbar';
@@ -65,19 +69,41 @@ export default class App extends React.Component {
         <Provider store={store}>
           <NavigationContainer>
             <Stack.Navigator>
-
-
               <Stack.Screen
+                  name="Login"
+                  component={Login}
+                  options={{headerShown: false}}
+              />
+              <Stack.Screen
+                  name="RechecheMLV"
+                  component={RechecheMLV}
+                  options={{headerShown: false}}
 
-                name="Login"
-                component={Login}
-                options={{ headerShown: false }}
               />
               <Stack.Screen
                 name="RechercheDum"
                 options={{ headerShown: false }}
                 component={RechercheDum}
               />
+              <Stack.Screen
+                  name="ScanQrCode"
+                  component={ScanQrCode}
+                  options={{headerShown: false}}
+              />
+
+              <Stack.Screen
+                  name="DelivrerMLV"
+                  component={DelivrerMLV}
+                  options={{headerShown: false}}
+              />
+
+              <Stack.Screen
+                  name="ListDeclarationMLV"
+                  component={ListDeclarationMLV}
+                  options={{headerShown: false}}
+              />
+
+
               <Stack.Screen
                 name="SmsVerify"
                 mode="modal"
@@ -96,11 +122,8 @@ export default class App extends React.Component {
                 component={Profile}
               />
 
-
-
-
-              <Stack.Screen name="RegimeInterne" component={RegimeInterne} />
-              <Stack.Screen name="ACVP" component={ACVP} />
+              <Stack.Screen name="RegimeInterne" options={{headerShown: false}} component={RegimeInterne} />
+              <Stack.Screen name="ACVP" options={{headerShown: false}} component={ACVP} />
 
             </Stack.Navigator>
           </NavigationContainer>

@@ -1,0 +1,38 @@
+{
+  "dtoHeader": {
+    "userLogin": "TESTAG3",
+    "fonctionnalite": "cf1201",
+    "module": "MLV_LIB",
+    "commande": "listeDeclarationsMLV",
+    "typeService": "SP",
+    "offset": 0,
+    "pageSize": 0,
+    "rowCount": 0
+  },
+  "jsonVO": [
+    {
+      "idDeclaration": "178270",
+      "refDeclaration": "30901020170011622",
+      "opeDeclarant": "BABYTEX TEST",
+      "declarationDateCreation": "19/12/2017 15:00",
+      "declarationDateEnrg": "19/12/2017 15:00",
+      "numVersion": "0"
+    },
+    {
+      "idDeclaration": "178551",
+      "refDeclaration": "30901020170011655",
+      "opeDeclarant": "BABYTEX TEST",
+      "declarationDateCreation": "29/12/2017 09:45",
+      "declarationDateEnrg": "29/12/2017 09:45",
+      "numVersion": "0"
+    },
+    {
+      "idDeclaration": "177896",
+      "refDeclaration": "30901020170997788",
+      "opeDeclarant": "BABYTEX TEST",
+      "declarationDateCreation": "07/12/2017 11:02",
+      "declarationDateEnrg": "07/12/2017 10:00",
+      "numVersion": "0"
+    }
+  ]
+}

@@ -1,37 +1,37 @@
-import ControleApi from '../../../services/api/controle-api';
+import TransverseApi from '../../../services/api/transverse-api';
 
-import * as Constants from '../../../common/constants/controle/rechercheDum';
+import * as Constants from '../../../common/constants/mainLevee/listeDeclarationsMLV';
 
 /**i18n */
 import {translate} from '../../../common/translations/i18n';
 
-import {save} from '../../../services/storage-service';
-import * as data from '../../../services/api/localData/controle/dataInitControle.json';
+const MODULE = "MLV_LIB";
+const TYPE_SERVICE = "SP";
 export function request(action, navigation,successRedirection) {
   return dispatch => {
     dispatch(action);
     dispatch(inProgress(action));
-    ControleApi.initControler(
-      action.value.login,
-      action.value.commande,
+      TransverseApi.doProcess(
+      MODULE,
+      "listeDeclarationsMLV",
+      TYPE_SERVICE,
       action.value.data,
     )
       .then(response => {
         if (response) {
-         // const data = JSON.parse(response.data);
-         //const data = response.data;
 
+         const data = response.data;
           if (data && !data.dtoHeader.messagesErreur) {
             console.log('data' ,data);
             dispatch(success(data));
             /** Naviguer vers la vue suivant. */
-            navigation.navigate(successRedirection , {
+            /*navigation.navigate(successRedirection , {
               login: action.value.login,
               refDeclaration: action.value.data.referenceDed,
               numeroVoyage: action.value.numeroVoyage,
               cle: action.value.cle,
               declarationRI: data.jsonVO,
-            });
+            });*/
           } else {      
             dispatch(failed(data));
           }
@@ -48,30 +48,25 @@ export function request(action, navigation,successRedirection) {
 
 export function inProgress(action) {
   return {
-    type: Constants.RECHERCHEDUM_INITCONTROLE_IN_PROGRESS,
+    type: Constants.MAINLEVEE_LISTEDECLARATIONS_IN_PROGRESS,
     value: action.value,
   };
 }
 
 export function success(data) {
   return {
-    type: Constants.RECHERCHEDUM_INITCONTROLE_SUCCESS,
+    type: Constants.MAINLEVEE_LISTEDECLARATIONS_SUCCESS,
     value: data,
   };
 }
 
 export function failed(data) {
   return {
-    type: Constants.RECHERCHEDUM_INITCONTROLE_FAILED,
+    type: Constants.MAINLEVEE_LISTEDECLARATIONS_FAILED,
     value: data,
   };
-}
 
-export function init(action) {
-  return {
-    type: Constants.RECHERCHEDUM_INITCONTROLE_INIT,
-    value: action.value,
-  };
+
 }
 
 export default {

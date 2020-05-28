@@ -1,0 +1,119 @@
+{
+  "dtoHeader": {
+    "userLogin": "YASAG",
+    "fonctionnalite": "cf4011",
+    "module": "REF_LIB",
+    "commande": "getCmbOperateur",
+    "typeService": "SP"
+  },
+  "jsonVO": [
+    {
+      "code": "30447",
+      "libelle": "TESTT3(81/135771)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "47612",
+      "libelle": "ODELIA BEAUTY 181(47/25985)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "10814",
+      "libelle": "OP DECLATANT T12 ",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "18236",
+      "libelle": "ODESSA IMPORT EXPORT(81/73267)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "31901",
+      "libelle": "ODIENCIA SARL(83/3901)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "17811",
+      "libelle": "ODIM (OMINIUM DE DISTRIBUTION)(81/58671)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "16597",
+      "libelle": "ODIMATIC(81/29833)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "14601",
+      "libelle": "ODISI MAROC(45/11555)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "32130",
+      "libelle": "ODISI MAROC(85/49183)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "24791",
+      "libelle": "ODONE PUSCEDDU(35/47596)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "7283",
+      "libelle": "ODYSSEE ART ET DECORATION(81/85383)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "23790",
+      "libelle": "ODYSSEE PARK HOTEL(01/7753)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    }
+  ]
+}

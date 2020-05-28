@@ -5,7 +5,10 @@ import { scale } from "react-native-size-matters";
 const CardBox = props => {
   let { boxShadow, defaultStyle } = styles;
   return (
-    <View style={[defaultStyle, boxShadow, props.style]}>{props.children}</View>
+    <View style={[defaultStyle,
+        boxShadow,
+        props.noPadding ? styles.noPadding :styles.addPadding,
+        props.style]}>{props.children}</View>
   );
 };
 
@@ -16,8 +19,13 @@ const styles = {
     borderRadius: 6,
     overflow: "hidden",
     backgroundColor: "#FFFFFF",
-    padding: scale(10),
     marginBottom:scale(10)
+  },
+  addPadding:{
+   padding: scale(10),
+  },
+  noPadding:{
+   padding: 0,
   },
   boxShadow: {
     shadowColor: "rgba(59,59,59,0.04)",

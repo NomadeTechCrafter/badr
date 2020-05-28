@@ -16,7 +16,7 @@ import {
 import {Checkbox, TextInput, Text, RadioButton} from 'react-native-paper';
 /**i18n */
 import {translate} from '../../../common/translations/i18n';
-import {CustomStyleSheet} from '../../../styles';
+import {CustomStyleSheet, primaryColor} from '../../../styles';
 import _ from 'lodash';
 
 import {load} from '../../../services/storage-service';
@@ -121,25 +121,23 @@ class RegimeInterne extends Component {
     //toggleChoice for field RECONNU && DEMANDE_CONSIGNATION
     toggleChoiceInList =  (indexDocument, key) =>{
         let listDoc = this.state.declaration.documentAnnexeResultVOs;
-        if (listDoc[i].documentAnnexe[key]) {
-            listDoc[i].documentAnnexe[key] = false;
+        if (listDoc[indexDocument].documentAnnexe[key]) {
+            listDoc[indexDocument].documentAnnexe[key] = false;
         } else {
-            listDoc[i].documentAnnexe[key] = true;
+            listDoc[indexDocument].documentAnnexe[key] = true;
             var otherKey = key == RECONNU ? DEMANDE_CONSIGNATION : RECONNU;
-            listDoc[i].documentAnnexe[otherKey] = false;
+            listDoc[indexDocument].documentAnnexe[otherKey] = false;
         }
-        console.log('toggleChoiceInList :',listDoc)
         return listDoc;
     }
 
-    setChoiceForReconnu = (indexDocument,key) =>{
+    setChoiceDocAnnexe = (indexDocument,key) =>{
         this.setState(prevState => ({
-            declaration: {                   // object that we want to update
-                ...prevState.declaration,    // keep all other key-value pairs
+            declaration: {
+                ...prevState.declaration,
                 documentAnnexeResultVOs: this.toggleChoiceInList(indexDocument,key)
             }
         }));
-        console.log('setChoiceForReconnu :',this.state.declaration.documentAnnexeResultVOs)
     }
 
   static getDerivedStateFromProps(props, state) {
@@ -158,7 +156,7 @@ class RegimeInterne extends Component {
 
   render() {
     return (
-        <View>
+        <View style={CustomStyleSheet.fullContainer}>
           <Toolbar navigation={this.props.navigation} title="Contrôle" subtitle="Régime interne" icon="menu"/>
           <Container>
               {this.props.showProgress && <BadrProgressBar width={screenHeight} />}
@@ -282,23 +280,22 @@ class RegimeInterne extends Component {
                                 {item.documentAnnexe.numeroOrdreArticle}
                             </Text>
                             <Checkbox
-                                color={'#009ab2'}
+                                color={primaryColor}
                                 status={
                                     item.documentAnnexe.reconnu ? 'checked' : 'unchecked'
                                 }
                                 disabled={this.state.isConsultation}
-                                onPress={() =>{this.setChoiceForReconnu(index , RECONNU)}}
+                                onPress={() =>{this.setChoiceDocAnnexe(index , RECONNU)}}
                             />
                             <Checkbox
+                                color={primaryColor}
                                 status={
                                     item.documentAnnexe.demandeConsignation
                                         ? 'checked'
                                         : 'unchecked'
                                 }
-                                disabled={this.state.isConsultation}
-                                onPress={() => {
-                                    this.setState({checked: !this.state.checked});
-                                }}
+                                disabled={this.state.isConsultation || !item.documentAnnexe.impactFiscal}
+                                onPress={() =>{this.setChoiceDocAnnexe(index , DEMANDE_CONSIGNATION)}}
                             />
                             <Text style={styles.libelleL}>{item.decisionMCI}</Text>
                           </View>
@@ -457,13 +454,13 @@ const styles = {
     flexDirection: 'row',
     justifyContent:'space-between',
     alignItems: 'center',
-    backgroundColor: '#009ab2',
+    backgroundColor: primaryColor,
     padding: 8,
     width: 300,
   },
   textRadio:{
     color: '#FFF'
-  }
+  },
 };
 
 const mapStateToProps = state => ({...state.regimeInterneReducer});
