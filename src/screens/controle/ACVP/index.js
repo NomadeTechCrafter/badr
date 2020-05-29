@@ -5,6 +5,9 @@ import {
   Container,
   CardBox,
   Accordion,
+  Card,
+  CardSection,
+  BadrTextInput,
   BadrButton,
   BadrErrorMessage,
   BadrInfoMessage,
@@ -14,6 +17,7 @@ import {
 import {Checkbox, TextInput, Text, RadioButton} from 'react-native-paper';
 /**i18n */
 import {translate} from '../../../common/translations/i18n';
+import {CustomStyleSheet} from '../../../styles';
 import _ from 'lodash';
 
 import {load} from '../../../services/storage-service';
@@ -21,11 +25,8 @@ import {connect} from 'react-redux';
 import * as Constants from '../../../common/constants/controle/ACVP';
 import * as RegimeACVPAction from '../../../redux/actions/controle/acvp';
 
-import {BAD} from '../BAD';
-
 const screenHeight = Dimensions.get('window').height;
 class ACVP extends Component {
-<<<<<<< HEAD
   constructor(props) {
     super(props);
     this.state = {
@@ -35,43 +36,21 @@ class ACVP extends Component {
       cle: props.route.params.cle,
       numeroVoyage: props.route.params.numeroVoyage,
       declaration: props.route.params.declarationRI,
-      typeRegime: translate('controle.regimeInterne'),
+      typeRegime: translate('controle.ACVP'),
       decisionControle: props.route.params.declarationRI.decisionControle,
       observation: props.route.params.declarationRI.observation,
       numeroVersionCourante: 0,
       isConsultation: false,
       compteRendu: '',
     };
-    //console.log('RegimeInterne constructor',decisionControle,observation);
   }
-=======
-    constructor(props) {
-        super(props);
-        this.state = {
-            login: '',
-            checked: false,
-            refDeclaration: props.route.params.refDeclaration,
-            cle: props.route.params.cle,
-            numeroVoyage: props.route.params.numeroVoyage,
-            declaration: props.route.params.declarationRI,
-            typeRegime: translate('controle.ACVP'),
-            decisionControle: props.route.params.declarationRI.decisionControle,
-            observation: props.route.params.declarationRI.observation,
-            numeroVersionCourante: 0,
-            isConsultation: false,
-            compteRendu:'',
-        };
-    }
->>>>>>> master
 
   componentDidMount() {
-    console.log('componentDidMount ri:');
     load('user').then(user => {
       this.setState({login: JSON.parse(user).login});
     });
   }
 
-<<<<<<< HEAD
   // init documentAnnexeResultVOItem JSON field for action save/validate
   initDocumentJSONField = () => {
     let documentAnnexeResultVO = [];
@@ -83,13 +62,6 @@ class ACVP extends Component {
       documentAnnexeResultVOItem.reconnu = doc.documentAnnexe.reconnu;
       documentAnnexeResultVOItem.consigne =
         doc.documentAnnexe.demandeConsignation;
-=======
-    componentDidMount() {
-        load('user').then(user => {
-            this.setState({login: JSON.parse(user).login});
-        });
-    }
->>>>>>> master
 
       documentAnnexeResultVO.push(documentAnnexeResultVOItem);
     }
@@ -108,9 +80,9 @@ class ACVP extends Component {
       numeroVersionCourante: this.state.numeroVersionCourante,
     };
     console.log('data----', data);
-    var action = RegimeInterneAction.validateSave(
+    var action = RegimeACVPAction.validateSave(
       {
-        type: Constants.REGIMEINTERNE_VALIDATESAVE_REQUEST,
+        type: Constants.ACVP_VALIDATESAVE_REQUEST,
         value: {
           login: this.state.login,
           commande: commande,
@@ -123,43 +95,15 @@ class ACVP extends Component {
     console.log('dispatch fired !!');
   };
 
-<<<<<<< HEAD
   genererCompteRendu = () => {
     var data = {
       idDed: this.state.declaration.idDed,
       //numeroVersionBase: this.state.numeroVersionCourante,
       //numeroVersionCourante: this.state.numeroVersionCourante,
-=======
-    sauvgarder = commande => {
-        console.log('sauvgarder');
-        var data = {
-            idControle: this.state.declaration.idControle,
-            idDed: this.state.declaration.idDed,
-            referenceDed: this.state.refDeclaration,
-            documentAnnexeResultVO: this.initDocumentJSONField(),
-            observation: this.state.observation,
-            decisions: this.state.decisionControle,
-            numeroVersionCourante: this.state.numeroVersionCourante,
-        };
-        console.log('data----', data);
-        var action = RegimeACVPAction.validateSave(
-            {
-                type: Constants.ACVP_VALIDATESAVE_REQUEST,
-                value: {
-                    login: this.state.login,
-                    commande: commande,
-                    data: data,
-                },
-            },
-            this.props.navigation,
-        );
-        this.props.dispatch(action);
-        console.log('dispatch fired !!');
->>>>>>> master
     };
-    var action = RegimeInterneAction.genererCR(
+    var action = RegimeACVPAction.genererCR(
       {
-        type: Constants.REGIMEINTERNE_VALIDATESAVE_REQUEST,
+        type: Constants.ACVP_VALIDATESAVE_REQUEST,
         value: {
           login: this.state.login,
           data: data,
@@ -171,7 +115,6 @@ class ACVP extends Component {
     console.log('dispatch fired !!');
   };
 
-<<<<<<< HEAD
   static getDerivedStateFromProps(props, state) {
     if (
       props.reponseData &&
@@ -186,57 +129,18 @@ class ACVP extends Component {
         },
         isConsultation: true,
       };
-=======
-    genererCompteRendu = () => {
-        var data = {
-            idDed: this.state.declaration.idDed,
-            //numeroVersionBase: this.state.numeroVersionCourante,
-            //numeroVersionCourante: this.state.numeroVersionCourante,
-        }
-        var action = RegimeACVPAction.genererCR(
-            {
-                type: Constants.ACVP_VALIDATESAVE_REQUEST,
-                value: {
-                    login: this.state.login,
-                    data: data,
-                },
-            },
-            this.props.navigation,
-        );
-        this.props.dispatch(action);
-        console.log('dispatch fired !!');
-
-    }
-
-    static getDerivedStateFromProps(props, state) {
-        if (props.reponseData && props.reponseData.historiqueCompte && (props.reponseData.historiqueCompte !== state.declaration.historiqueCompte)) {
-            return {
-                declaration: { // object that we want to update
-                    ...state.declaration, // keep all other key-value pairs
-                    historiqueCompte: props.reponseData.historiqueCompte, // update the value of specific key
-                },
-                isConsultation: true,
-            };
-        }
-        // Return null to indicate no change to state.
-        return null;
->>>>>>> master
     }
     // Return null to indicate no change to state.
     return null;
   }
 
-<<<<<<< HEAD
   render() {
-    console.log('--- ID DED ---> ');
-    console.log(this.props);
-    console.log('<--- ID DED --- ');
     return (
-      <View>
+      <View style={CustomStyleSheet.fullContainer}>
         <Toolbar
           navigation={this.props.navigation}
           title="Contrôle"
-          subtitle="Régime interne"
+          subtitle={translate('controle.ACVP')}
           icon="menu"
         />
         <Container>
@@ -288,55 +192,6 @@ class ACVP extends Component {
               <Text style={styles.libelleM}>{this.state.typeRegime}</Text>
             </View>
           </CardBox>
-=======
-    render() {
-        return (
-            <View style={CustomStyleSheet.fullContainer}>
-              <Toolbar navigation={this.props.navigation} title="Contrôle" subtitle={translate("controle.ACVP")} icon="menu"/>
-              <Container>
-                  {this.props.showProgress && <BadrProgressBar width={screenHeight} />}
-                  { this.props.errorMessage != null && (
-                      <BadrErrorMessage message={this.props.errorMessage} />
-                  )}
-                  {this.props.successMessage != null && (
-                      <BadrInfoMessage message={this.props.successMessage} />
-                  )}
-                  {/* Référence déclaration */}
-                <CardBox style={styles.cardBoxInfoDum}>
-                  <View style={styles.flexDirectionRow}>
-                    <Text style={styles.libelleM}>
-                        {translate('transverse.bureau')}
-                    </Text>
-                    <Text style={styles.libelleM}>
-                        {translate('transverse.regime')}
-                    </Text>
-                    <Text style={styles.libelleM}>{translate('transverse.annee')}</Text>
-                    <Text style={styles.libelleL}>{translate('transverse.serie')}</Text>
-                    <Text style={styles.libelleS}>{translate('transverse.cle')}</Text>
-                    <Text style={styles.libelleM}>
-                        {translate('transverse.nVoyage')}
-                    </Text>
-                    <Text style={styles.libelleM}>{translate('transverse.type')}</Text>
-                  </View>
-                  <View style={styles.flexDirectionRow}>
-                    <Text style={styles.libelleM}>
-                        {this.state.refDeclaration.slice(0, 3)}
-                    </Text>
-                    <Text style={styles.libelleM}>
-                        {this.state.refDeclaration.slice(3, 6)}
-                    </Text>
-                    <Text style={styles.libelleM}>
-                        {this.state.refDeclaration.slice(6, 10)}
-                    </Text>
-                    <Text style={styles.libelleL}>
-                        {this.state.refDeclaration.slice(10, 17)}
-                    </Text>
-                    <Text style={styles.libelleS}>{this.state.cle}</Text>
-                    <Text style={styles.libelleM}>{this.state.numeroVoyage}</Text>
-                    <Text style={styles.libelleM}>{this.state.typeRegime}</Text>
-                  </View>
-                </CardBox>
->>>>>>> master
 
           {/* Annotations */}
           <CardBox style={styles.cardBox}>
@@ -539,12 +394,6 @@ class ACVP extends Component {
                   </View>
                 </RadioButton.Group>
               </View>
-            </Accordion>
-          </CardBox>
-
-          <CardBox style={styles.cardBox}>
-            <Accordion title="BAD">
-              <BAD />
             </Accordion>
           </CardBox>
 

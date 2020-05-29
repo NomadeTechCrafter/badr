@@ -5,6 +5,9 @@ import {
   Container,
   CardBox,
   Accordion,
+  Card,
+  CardSection,
+  BadrTextInput,
   BadrButton,
   BadrErrorMessage,
   BadrInfoMessage,
@@ -113,62 +116,28 @@ class RegimeInterne extends Component {
     );
     this.props.dispatch(action);
     console.log('dispatch fired !!');
-<<<<<<< HEAD
   };
   //toggleChoice for field RECONNU && DEMANDE_CONSIGNATION
-  // TODO : where is i var ?
   toggleChoiceInList = (indexDocument, key) => {
     let listDoc = this.state.declaration.documentAnnexeResultVOs;
-    if (listDoc[i].documentAnnexe[key]) {
-      listDoc[i].documentAnnexe[key] = false;
+    if (listDoc[indexDocument].documentAnnexe[key]) {
+      listDoc[indexDocument].documentAnnexe[key] = false;
     } else {
-      listDoc[i].documentAnnexe[key] = true;
-      var otherKey = key === RECONNU ? DEMANDE_CONSIGNATION : RECONNU;
-      listDoc[i].documentAnnexe[otherKey] = false;
-=======
-
-}
-    //toggleChoice for field RECONNU && DEMANDE_CONSIGNATION
-    toggleChoiceInList =  (indexDocument, key) =>{
-        let listDoc = this.state.declaration.documentAnnexeResultVOs;
-        if (listDoc[indexDocument].documentAnnexe[key]) {
-            listDoc[indexDocument].documentAnnexe[key] = false;
-        } else {
-            listDoc[indexDocument].documentAnnexe[key] = true;
-            var otherKey = key == RECONNU ? DEMANDE_CONSIGNATION : RECONNU;
-            listDoc[indexDocument].documentAnnexe[otherKey] = false;
-        }
-        return listDoc;
->>>>>>> master
+      listDoc[indexDocument].documentAnnexe[key] = true;
+      var otherKey = key == RECONNU ? DEMANDE_CONSIGNATION : RECONNU;
+      listDoc[indexDocument].documentAnnexe[otherKey] = false;
     }
-    console.log('toggleChoiceInList :', listDoc);
     return listDoc;
   };
 
-<<<<<<< HEAD
-  setChoiceForReconnu = (indexDocument, key) => {
+  setChoiceDocAnnexe = (indexDocument, key) => {
     this.setState(prevState => ({
       declaration: {
-        // object that we want to update
-        ...prevState.declaration, // keep all other key-value pairs
+        ...prevState.declaration,
         documentAnnexeResultVOs: this.toggleChoiceInList(indexDocument, key),
       },
     }));
-    console.log(
-      'setChoiceForReconnu :',
-      this.state.declaration.documentAnnexeResultVOs,
-    );
   };
-=======
-    setChoiceDocAnnexe = (indexDocument,key) =>{
-        this.setState(prevState => ({
-            declaration: {
-                ...prevState.declaration,
-                documentAnnexeResultVOs: this.toggleChoiceInList(indexDocument,key)
-            }
-        }));
-    }
->>>>>>> master
 
   static getDerivedStateFromProps(props, state) {
     if (
@@ -191,15 +160,72 @@ class RegimeInterne extends Component {
 
   render() {
     return (
-        <View style={CustomStyleSheet.fullContainer}>
-          <Toolbar navigation={this.props.navigation} title="Contrôle" subtitle="Régime interne" icon="menu"/>
-          <Container>
-              {this.props.showProgress && <BadrProgressBar width={screenHeight} />}
-              { this.props.errorMessage != null && (
-                  <BadrErrorMessage message={this.props.errorMessage} />
-              )}
-              {this.props.successMessage != null && (
-                  <BadrInfoMessage message={this.props.successMessage} />
+      <View style={CustomStyleSheet.fullContainer}>
+        <Toolbar
+          navigation={this.props.navigation}
+          title="Contrôle"
+          subtitle="Régime interne"
+          icon="menu"
+        />
+        <Container>
+          {this.props.showProgress && <BadrProgressBar width={screenHeight} />}
+          {this.props.errorMessage != null && (
+            <BadrErrorMessage message={this.props.errorMessage} />
+          )}
+          {this.props.successMessage != null && (
+            <BadrInfoMessage message={this.props.successMessage} />
+          )}
+          {/* Référence déclaration */}
+          <CardBox style={styles.cardBoxInfoDum}>
+            <View style={styles.flexDirectionRow}>
+              <Text style={styles.libelleM}>
+                {translate('transverse.bureau')}
+              </Text>
+              <Text style={styles.libelleM}>
+                {translate('transverse.regime')}
+              </Text>
+              <Text style={styles.libelleM}>
+                {translate('transverse.annee')}
+              </Text>
+              <Text style={styles.libelleL}>
+                {translate('transverse.serie')}
+              </Text>
+              <Text style={styles.libelleS}>{translate('transverse.cle')}</Text>
+              <Text style={styles.libelleM}>
+                {translate('transverse.nVoyage')}
+              </Text>
+              <Text style={styles.libelleM}>
+                {translate('transverse.type')}
+              </Text>
+            </View>
+            <View style={styles.flexDirectionRow}>
+              <Text style={styles.libelleM}>
+                {this.state.refDeclaration.slice(0, 3)}
+              </Text>
+              <Text style={styles.libelleM}>
+                {this.state.refDeclaration.slice(3, 6)}
+              </Text>
+              <Text style={styles.libelleM}>
+                {this.state.refDeclaration.slice(6, 10)}
+              </Text>
+              <Text style={styles.libelleL}>
+                {this.state.refDeclaration.slice(10, 17)}
+              </Text>
+              <Text style={styles.libelleS}>{this.state.cle}</Text>
+              <Text style={styles.libelleM}>{this.state.numeroVoyage}</Text>
+              <Text style={styles.libelleM}>{this.state.typeRegime}</Text>
+            </View>
+          </CardBox>
+
+          {/* Annotations */}
+          <CardBox style={styles.cardBox}>
+            <Accordion title={translate('controle.annotations')}>
+              {this.state.declaration.annotation && (
+                <View style={styles.flexDirectionRow}>
+                  <Text style={styles.libelleM}>
+                    {this.state.declaration.annotation}
+                  </Text>
+                </View>
               )}
             </Accordion>
           </CardBox>
@@ -273,24 +299,28 @@ class RegimeInterne extends Component {
                         {item.documentAnnexe.numeroOrdreArticle}
                       </Text>
                       <Checkbox
-                        color={'#009ab2'}
+                        color={primaryColor}
                         status={
                           item.documentAnnexe.reconnu ? 'checked' : 'unchecked'
                         }
                         disabled={this.state.isConsultation}
                         onPress={() => {
-                          this.setChoiceForReconnu(index, RECONNU);
+                          this.setChoiceDocAnnexe(index, RECONNU);
                         }}
                       />
                       <Checkbox
+                        color={primaryColor}
                         status={
                           item.documentAnnexe.demandeConsignation
                             ? 'checked'
                             : 'unchecked'
                         }
-                        disabled={this.state.isConsultation}
+                        disabled={
+                          this.state.isConsultation ||
+                          !item.documentAnnexe.impactFiscal
+                        }
                         onPress={() => {
-                          this.setState({checked: !this.state.checked});
+                          this.setChoiceDocAnnexe(index, DEMANDE_CONSIGNATION);
                         }}
                       />
                       <Text style={styles.libelleL}>{item.decisionMCI}</Text>
@@ -308,119 +338,10 @@ class RegimeInterne extends Component {
                   <View>
                     <Text>{this.state.declaration.redressement}</Text>
                   </View>
-                  }
-              </Accordion>
-            </CardBox>
-
-              {/* Intervention */}
-            <CardBox style={styles.cardBox}>
-              <Accordion title={translate('controle.intervention')}>
-                <View style={styles.flexDirectionRow}>
-                  <Text style={styles.libelleM}>
-                      {translate('controle.version')}
-                  </Text>
-                  <Text style={styles.libelleL}>
-                      {translate('controle.typeIntervention')}
-                  </Text>
-                  <Text style={styles.libelleM}>{translate('controle.date')}</Text>
-                  <Text style={styles.libelleM}>
-                      {translate('controle.acteur')}
-                  </Text>
-                  <Text style={styles.libelleL}>
-                      {translate('controle.commentaire')}
-                  </Text>
-                </View>
-
-                  {this.state.declaration.autreAnnotationVOs && this.state.declaration.autreAnnotationVOs.map((item, index) => (
-                      <View style={styles.flexDirectionRow} key={index}>
-                        <Text style={styles.libelleM}>{item.numeroVersion}</Text>
-                        <Text style={styles.libelleL}>{item.intervention}</Text>
-                        <Text style={styles.libelleM}>{item.dateIntervention}</Text>
-                        <Text style={styles.libelleM}>{item.acteur}</Text>
-                        <Text style={styles.libelleL}>{item.commentaire}</Text>
-                      </View>
-                  ))}
-              </Accordion>
-            </CardBox>
-
-              {/* Liste des Docs exigibles */}
-            <CardBox style={styles.cardBox}>
-              <Accordion title={translate('controle.listDocExigible')}>
-                <View style={styles.flexDirectionRow}>
-                  <Text style={styles.libelleM}>{translate('controle.doc')}</Text>
-                  <Text style={styles.libelleM}>
-                      {translate('controle.portee')}
-                  </Text>
-                  <Text style={styles.libelleM}>
-                      {translate('controle.nArticle')}
-                  </Text>
-                  <Text style={styles.libelleM}>
-                      {translate('controle.reconnu')}
-                  </Text>
-                  <Text style={styles.libelleM}>
-                      {translate('controle.consignation')}
-                  </Text>
-                  <Text style={styles.libelleL}>
-                      {translate('controle.decision')}
-                  </Text>
-                </View>
-                  {this.state.declaration.documentAnnexeResultVOs && this.state.declaration.documentAnnexeResultVOs.map(
-                      (item, index) => (
-                          <View style={styles.flexDirectionRow} key={index}>
-                            <Text style={styles.libelleM}>
-                                {item.documentAnnexe.libelle}
-                            </Text>
-                            <Text style={styles.libelleM}>
-                                {item.documentAnnexe.portee}
-                            </Text>
-                            <Text style={styles.libelleM}>
-                                {item.documentAnnexe.numeroOrdreArticle}
-                            </Text>
-                            <Checkbox
-                                color={primaryColor}
-                                status={
-                                    item.documentAnnexe.reconnu ? 'checked' : 'unchecked'
-                                }
-                                disabled={this.state.isConsultation}
-                                onPress={() =>{this.setChoiceDocAnnexe(index , RECONNU)}}
-                            />
-                            <Checkbox
-                                color={primaryColor}
-                                status={
-                                    item.documentAnnexe.demandeConsignation
-                                        ? 'checked'
-                                        : 'unchecked'
-                                }
-                                disabled={this.state.isConsultation || !item.documentAnnexe.impactFiscal}
-                                onPress={() =>{this.setChoiceDocAnnexe(index , DEMANDE_CONSIGNATION)}}
-                            />
-                            <Text style={styles.libelleL}>{item.decisionMCI}</Text>
-                          </View>
-                      ),
-                  )}
-              </Accordion>
-            </CardBox>
-
-              {/* Redressement opéré */}
-            <CardBox style={styles.cardBox}>
-              <Accordion title={translate('controle.redressementOperes')}>
-                <View>
-                    {!_.isEmpty(this.state.declaration.redressement) && (
-                        <View>
-                          <Text>{this.state.declaration.redressement}</Text>
-                        </View>
-                    )}
-                    {!_.isEmpty(this.state.compteRendu) &&
-                    <View>
-                      <Text>{this.state.compteRendu}</Text>
-                    </View>
-                    }
-                  <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-                    <BadrButton
-                        onPress={this.genererCompteRendu}
-                        disabled={this.state.isConsultation}
-                        text={translate('controle.genererCompte')}
-                    />
+                )}
+                {!_.isEmpty(this.state.compteRendu) && (
+                  <View>
+                    <Text>{this.state.compteRendu}</Text>
                   </View>
                 )}
                 <View style={{flexDirection: 'row', justifyContent: 'center'}}>
@@ -575,13 +496,8 @@ const styles = {
     padding: 8,
     width: 300,
   },
-<<<<<<< HEAD
   textRadio: {
     color: '#FFF',
-=======
-  textRadio:{
-    color: '#FFF'
->>>>>>> master
   },
 };
 
