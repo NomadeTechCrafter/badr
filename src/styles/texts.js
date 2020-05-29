@@ -2,6 +2,7 @@ import {
   inputsBackgroundColor,
   buttonLoginTextColor,
   centeredText as centeredTextColor,
+  libelle as libelleColor
 } from './colors';
 import {
   buttonLoginText as buttonLoginTextAlignment,
@@ -14,6 +15,8 @@ import {centeredText as centeredTextSize} from './size';
 import {centeredText as centeredTextSipacing} from './spacing';
 
 import {cardText as cardTextCalligraphy} from './calligraphy';
+
+import { s, vs, ms } from 'react-native-size-matters';
 
 export const loginText = {
   height: 50,
@@ -52,4 +55,8 @@ export const menuHeaderTitle = {
 export const menuHeaderSubTitle = {
   color: 'white',
   fontSize: 14,
+};
+
+export const badrLibelle = {
+    fontSize: ms(10),
 };

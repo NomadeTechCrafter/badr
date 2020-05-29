@@ -3,7 +3,6 @@ import {loadParsed} from '../../services/storage-service';
 
 export default class TransverseApi {
   static doProcess = async (
-    _login,
     _module,
     _command,
     _typeService,

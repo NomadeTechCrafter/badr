@@ -4,5 +4,4 @@ module.exports = {
   PROCESS_API: '/rest/api/process',
   remote: true,
   bootstrapRoute: 'Home',
-  WS_MODE: 'local',
 };

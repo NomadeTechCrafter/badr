@@ -2,18 +2,26 @@ import React, {Component} from 'react';
 import {View, Dimensions} from 'react-native';
 import {Container, BadrProgressBar, BadrErrorMessage} from '../index';
 
-import {TextInput, Button, HelperText} from 'react-native-paper';
+import {
+  TextInput,
+  Button,
+  HelperText,
+  Checkbox,
+  TouchableRipple,
+  Paragraph,
+} from 'react-native-paper';
 /**i18n */
 import {translate} from '../../common/translations/i18n';
-import {CustomStyleSheet} from '../../styles';
+import {CustomStyleSheet, primaryColor} from '../../styles';
 import _ from 'lodash';
 
 import {load} from '../../services/storage-service';
 import {connect} from 'react-redux';
 import * as Constants from '../../common/constants/controle/rechercheDum';
-import * as RechecheDumAction from '../../redux/actions/controle/rechercheDum';
+import * as RechecheDumAction from '../../redux/actions/components/rechercheDum';
 
 const screenHeight = Dimensions.get('window').height;
+
 class RechecheRefDum extends Component {
   defaultState = {
     bureau: '',
@@ -25,6 +33,7 @@ class RechecheRefDum extends Component {
     login: '',
     numeroVoyage: '',
     showErrorMsg: false,
+    sousReservePaiementMLV: false,
   };
 
   constructor(props) {
@@ -41,7 +50,24 @@ class RechecheRefDum extends Component {
     load('user').then(user => {
       this.setState({login: JSON.parse(user).login});
     });
+
+    this.loadRefDumFormScanQrCode();
   }
+
+  //load Dum Reference from scan Qrcode
+  loadRefDumFormScanQrCode = () => {
+    if (this.props.routeParams && this.props.routeParams.refDeclaration) {
+      const {refDeclaration} = this.props.routeParams;
+      console.log('refDeclaration', refDeclaration);
+      this.setState({
+        bureau: refDeclaration.slice(0, 3),
+        regime: refDeclaration.slice(3, 6),
+        annee: refDeclaration.slice(6, 10),
+        serie: refDeclaration.slice(10, 17),
+      });
+    }
+  };
+  //accept just Number
   onChangeInput = input => {
     let keyImput = _.keys(input)[0];
     this.setState({[keyImput]: input[keyImput].replace(/[^0-9]/g, '')});
@@ -61,6 +87,26 @@ class RechecheRefDum extends Component {
     console.log('retablir');
     this.setState({...this.defaultState});
   };
+  initWSData = referenceDed => {
+    let data = {};
+    switch (this.props.module) {
+      case 'CONTROL_LIB':
+        return (data = {
+          referenceDed: referenceDed,
+          numeroVoyage: this.state.numeroVoyage,
+        });
+      case 'MLV_LIB':
+        return (data = {
+          refDeclarationEnDouane: referenceDed,
+          numSousDum: this.state.numeroVoyage,
+          sousReserve: this.state.sousReservePaiementMLV ? '1' : '0',
+          forcerMLV: false,
+          flag: 'F',
+        });
+      default:
+        return data;
+    }
+  };
 
   confirmer = () => {
     console.log('confirmer', this.props.successRedirection);
@@ -74,18 +120,19 @@ class RechecheRefDum extends Component {
           this.state.regime +
           this.state.annee +
           this.state.serie;
-        var data = {
-          referenceDed: referenceDed,
-          numeroVoyage: this.state.numeroVoyage,
-        };
+        var data = this.initWSData(referenceDed);
         var action = RechecheDumAction.request(
           {
             type: Constants.RECHERCHEDUM_INITCONTROLE_REQUEST,
             value: {
               login: this.state.login,
               commande: this.props.commande,
+              module: this.props.module,
+              typeService: this.props.typeService,
               data: data,
+              referenceDed: referenceDed,
               cle: this.state.cle,
+              sousReservePaiementMLV: this.state.sousReservePaiementMLV,
             },
           },
           this.props.navigation,
@@ -106,11 +153,11 @@ class RechecheRefDum extends Component {
   cleDUM = function(regime, serie) {
     let alpha = 'ABCDEFGHJKLMNPRSTUVWXYZ';
     /*while (serie.length < 6) {
-    serie = '0' + serie;
-  }*/
+        serie = '0' + serie;
+      }*/
     if (serie.length > 6) {
       let firstSerie = serie.substring(0, 1);
-      if (firstSerie === '0') {
+      if (firstSerie == '0') {
         serie = serie.substring(1, 7);
       }
     }
@@ -119,6 +166,7 @@ class RechecheRefDum extends Component {
     alpha = alpha.charAt(RS);
     return alpha;
   };
+
   render() {
     return (
       <Container style={styles.container}>
@@ -265,6 +313,43 @@ class RechecheRefDum extends Component {
           </View>
         </View>
 
+        {this.props.module === 'MLV_LIB' && (
+          <View style={{flexDirection: 'row'}}>
+            <TouchableRipple
+              onPress={() => {
+                this.setState({
+                  sousReservePaiementMLV: !this.state.sousReservePaiementMLV,
+                });
+              }}>
+              <View style={styles.containerCheckbox}>
+                <View pointerEvents="none">
+                  <Checkbox
+                    color={primaryColor}
+                    status={
+                      this.state.sousReservePaiementMLV
+                        ? 'checked'
+                        : 'unchecked'
+                    }
+                  />
+                </View>
+                <Paragraph>
+                  {translate('mainlevee.sousReservePaiement')}
+                </Paragraph>
+              </View>
+            </TouchableRipple>
+            <Button
+              style={{width: 100}}
+              icon="plus-box-outline"
+              mode="text"
+              compact={true}
+              onPress={() =>
+                this.props.navigation.navigate('ListDeclarationMLV')
+              }>
+              Option
+            </Button>
+          </View>
+        )}
+
         <View style={styles.containerBtn}>
           <Button
             onPress={this.confirmer}
@@ -312,6 +397,11 @@ const styles = {
   btnRetablir: {
     color: '#FFF',
     padding: 5,
+  },
+  containerCheckbox: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
 };
 

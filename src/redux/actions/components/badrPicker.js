@@ -5,7 +5,6 @@ export function request(action) {
   return dispatch => {
     dispatch(inProgress(action));
     TransverseApi.doProcess(
-      action.value.user,
       action.value.module,
       action.value.command,
       action.value.typeService,
