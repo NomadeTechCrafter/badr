@@ -1,5 +1,5 @@
 module.exports = {
-  SERVER_URL: 'https://badr4.douane.gov.ma/badr',
+  SERVER_URL: 'https://192.168.251.171/badr',
   LOGIN_API: '/rest/api/login',
   PROCESS_API: '/rest/api/process',
   remote: true,
