@@ -16,6 +16,7 @@ import {
     BadrList,
     BadrLibelleBleu,
     BadrLibelleNoir,
+    BadrNumericTextInput,
 } from '../../../components';
 import {
     Checkbox,
@@ -852,6 +853,21 @@ class DelivrerMLV extends Component {
                                         />
                                     </Col>
                                     <Col size={2}>
+                                        <BadrNumericTextInput
+                                            maxLength={8}
+                                            value={delivrerMainleveeVO.delaiAcheminement}
+                                            label={translate('mainlevee.delivrerMainlevee.transit.delaiAcheminement' )}
+                                            style={{height: 50}}
+                                            onChangeText={text =>
+                                                this.setState({
+                                                    delivrerMainleveeVO: {
+                                                        ...this.state.delivrerMainleveeVO,
+                                                        delaiAcheminement: text,
+                                                    },
+                                                })
+                                            }
+                                        />
+
                                     </Col>
                                 </Row>
                             </Grid>
