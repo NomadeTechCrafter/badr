@@ -157,7 +157,7 @@ class RechecheRefDum extends Component {
       }*/
     if (serie.length > 6) {
       let firstSerie = serie.substring(0, 1);
-      if (firstSerie == '0') {
+      if (firstSerie === '0') {
         serie = serie.substring(1, 7);
       }
     }
