@@ -5,9 +5,6 @@ import {
   Container,
   CardBox,
   Accordion,
-  Card,
-  CardSection,
-  BadrTextInput,
   BadrButton,
   BadrErrorMessage,
   BadrInfoMessage,
@@ -124,7 +121,7 @@ class RegimeInterne extends Component {
       listDoc[indexDocument].documentAnnexe[key] = false;
     } else {
       listDoc[indexDocument].documentAnnexe[key] = true;
-      var otherKey = key == RECONNU ? DEMANDE_CONSIGNATION : RECONNU;
+      var otherKey = key === RECONNU ? DEMANDE_CONSIGNATION : RECONNU;
       listDoc[indexDocument].documentAnnexe[otherKey] = false;
     }
     return listDoc;

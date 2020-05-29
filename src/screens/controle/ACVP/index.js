@@ -1,13 +1,9 @@
 import React, {Component} from 'react';
 import {View, Dimensions} from 'react-native';
-
 import {
   Container,
   CardBox,
   Accordion,
-  Card,
-  CardSection,
-  BadrTextInput,
   BadrButton,
   BadrErrorMessage,
   BadrInfoMessage,
@@ -19,7 +15,6 @@ import {Checkbox, TextInput, Text, RadioButton} from 'react-native-paper';
 import {translate} from '../../../common/translations/i18n';
 import {CustomStyleSheet} from '../../../styles';
 import _ from 'lodash';
-
 import {load} from '../../../services/storage-service';
 import {connect} from 'react-redux';
 import * as Constants from '../../../common/constants/controle/ACVP';
