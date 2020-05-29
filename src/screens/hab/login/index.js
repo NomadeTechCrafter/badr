@@ -1,10 +1,8 @@
 /** React Components */
 import React from 'react';
-import {View, Dimensions, ScrollView, Text} from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import {View, Dimensions, ScrollView} from 'react-native';
 
 /** REDUX **/
-import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 /**ACTIONS */
 import * as Constants from '../../../common/constants/hab/auth';
@@ -29,7 +27,6 @@ import {
   BadrLoginHeader,
   BadrProgressBar,
   BadrErrorMessage,
-  BadrInfoMessage,
   BadrButton,
 } from '../../../components';
 

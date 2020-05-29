@@ -21,12 +21,10 @@ const instance = axios.create({
   headers: {'Content-Type': 'application/json;charset=utf-8'},
 });
 
-
 export default class HttpHelper {
   static async login(user) {
     return instance.post(LOGIN_API, JSON.stringify(user));
   }
-
   static async process(object) {
     if (remote) {
       return instance.post(PROCESS_API, JSON.stringify(object));
@@ -37,5 +35,4 @@ export default class HttpHelper {
       };
     }
   }
-
 }

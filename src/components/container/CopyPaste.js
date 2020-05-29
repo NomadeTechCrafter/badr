@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, Clipboard, ToastAndroid} from 'react-native';
+import {Text, Clipboard, ToastAndroid} from 'react-native';
 
 export default class CopyPaste extends React.Component {
   writeToClipboard = async text => {

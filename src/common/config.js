@@ -3,7 +3,5 @@ module.exports = {
   LOGIN_API: '/rest/api/login',
   PROCESS_API: '/rest/api/process',
   remote: true,
-  bootstrapRoute  :'Home'
+  bootstrapRoute: 'Home',
 };
-
-

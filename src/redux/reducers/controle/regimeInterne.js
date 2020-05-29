@@ -33,7 +33,9 @@ export default (state = initialState, action) => {
     case Constants.REGIMEINTERNE_VALIDATESAVE_FAILED:
       console.log('--> ValiderSave failed...');
       nextState.showProgress = false;
-      nextState.errorMessage = (action.value.dtoHeader.messagesErreur)? action.value.dtoHeader.messagesErreur : action.value ;
+      nextState.errorMessage = action.value.dtoHeader.messagesErreur
+        ? action.value.dtoHeader.messagesErreur
+        : action.value;
       nextState.reponseData = null;
       return nextState;
     case Constants.REGIMEINTERNE_GENERERCR_REQUEST:
@@ -56,10 +58,12 @@ export default (state = initialState, action) => {
     case Constants.REGIMEINTERNE_GENERERCR_FAILED:
       console.log('--> GENERERCR failed...');
       nextState.showProgress = false;
-      nextState.errorMessage = (action.value.dtoHeader.messagesErreur)? action.value.dtoHeader.messagesErreur : action.value ;
+      nextState.errorMessage = action.value.dtoHeader.messagesErreur
+        ? action.value.dtoHeader.messagesErreur
+        : action.value;
       nextState.reponseData = null;
       return nextState;
-      
+
     default:
       nextState.showProgress = false;
       return initialState;

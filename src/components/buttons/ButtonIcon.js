@@ -1,6 +1,5 @@
 import {CustomStyleSheet} from '../../styles/index';
 import React from 'react';
-import {Text, TouchableOpacity} from 'react-native';
 import {Button} from 'react-native-paper';
 
 const buildButton = (style, onPress, text, icon, loading, disabled) => {

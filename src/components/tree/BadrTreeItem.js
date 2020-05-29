@@ -1,5 +1,3 @@
-import get from 'lodash.get';
-import PropTypes from 'prop-types';
 import React from 'react';
 import {Text, View} from 'react-native';
 import {Divider} from 'react-native-elements';
@@ -16,8 +14,6 @@ function getIndicator(isExpanded, hasChildrenNodes) {
 }
 
 class BadrTreeItem extends React.Component {
-
-
   render() {
     return (
       <View style={{height: 60}}>

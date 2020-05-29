@@ -1,11 +1,5 @@
 import React from 'react';
-import {Text, View} from 'react-native';
-
-import {
-  Appbar,
-  Provider as PaperProvider,
-  DefaultTheme,
-} from 'react-native-paper';
+import {Appbar} from 'react-native-paper';
 
 class Toolbar extends React.Component {
   toggleDrawer = () => {

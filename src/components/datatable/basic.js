@@ -12,9 +12,6 @@ import {CustomStyleSheet} from '../../styles/index';
 /** Loadash */
 import _ from 'lodash';
 
-/** Custom components */
-import {BadrFloatingButton} from '../';
-
 const FIRST_PAGINATION_SEPARATOR = ' / ';
 const SECOND_PAGINATION_SEPARATOR = ' - ';
 const screenWidth = Dimensions.get('window').width;

@@ -19,6 +19,8 @@ export {
 } from './referentiel/numeroPlaqueRemorque';
 export {default as DetailPlaque} from './referentiel/detailPlaque';
 
+export {default as DetailBAD} from './controle/bad/detailBAD';
+
 export {default as BadrModal} from './modal/BadrModal';
 
 export {default as Card} from './cards';
