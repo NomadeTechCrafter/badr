@@ -47,5 +47,6 @@ export {
 export {default as BadrLoginHeader} from './header/Login';
 export {default as MenuHeader} from './header/MenuHeader';
 export {default as RechercheRefDum} from './rechercheRefDum';
+export {default as RechercheRefAt} from './rechercheRefAt';
 
 export {default as CopyPaste} from './container/CopyPaste';

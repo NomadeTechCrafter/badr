@@ -86,6 +86,7 @@ export default {
     regime: 'Régime',
     annee: 'Année',
     serie: 'Série',
+    numero: 'Numéro',
     cle: 'Clé',
     nVoyage: 'n°Voy',
     type: 'Type',
@@ -130,6 +131,10 @@ export default {
       matricule: 'Matricule',
       numeroCarteGrise: 'N° Carte grise',
     },
+  },
+  at: {
+    title: 'Admission Temporaire',
+    subTitle: 'Créer Apurement',
   },
   loremIpsum1:
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque mi lectus, placerat mattis nulla ut, molestie consequat libero. Praesent ut dui ac elit pellentesque imperdiet eu a augue. Morbi ante velit, posuere sed orci ut, venenatis accumsan sapien. Vivamus sed luctus libero. Donec mattis condimentum turpis, sit amet consectetur ligula.',

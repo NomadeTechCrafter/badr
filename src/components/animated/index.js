@@ -12,7 +12,7 @@ export const FadeInView = (props) => {
         toValue: 1,
         duration: 300,
       },
-      
+
     ).start();
   }, [])
 
