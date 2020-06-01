@@ -29,13 +29,9 @@ jobs:
       - name: Build Android Release
         run: |
           cd android && ./gradlew clean && ./gradlew assembleDebug
-      - name: Clear artifacts
-        uses: kolpav/purge-artifacts-action@v1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          expire-in: 1hr
       - name: Upload Artifact
         uses: actions/upload-artifact@v1
         with:
           name: app-debug.apk
           path: /home/runner/work/BadrMobileRn/BadrMobileRn/android/app/build/outputs/apk/debug/
+          retention-days: 4
