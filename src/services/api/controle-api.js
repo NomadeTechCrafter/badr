@@ -1,5 +1,3 @@
-import {Component} from 'react';
-import {WS_MODE} from '../../common/config';
 import HttpHelper from './common/http-helper';
 
 const WS_MODULE_PARAM = 'CONTROL_LIB';
@@ -18,10 +16,7 @@ export default class ControleApi {
       },
       jsonVO: data,
     };
-
-      return await HttpHelper.process(_data);
-
-
+    return await HttpHelper.process(_data);
   };
   static validateSaveAction = async (login, commande, data) => {
     const _data = {
@@ -62,13 +57,10 @@ export default class ControleApi {
         refHistoriques: [],
       },
     };
-
-    
-
     return await HttpHelper.process(_data);
   };
 
-  static getDataListDeclaration = async (login,typcontrol) => {
+  static getDataListDeclaration = async (login, typcontrol) => {
     const data = {
       dtoHeader: {
         userLogin: login,
@@ -77,13 +69,10 @@ export default class ControleApi {
         commande: 'listeDeclaration',
         typeService: 'SP',
       },
-      jsonVO: typcontrol
+      jsonVO: typcontrol,
     };
     return await HttpHelper.process(data);
   };
-
-
-    
 
   static genererCompteRendu = async (login, data) => {
     const _data = {
@@ -99,12 +88,10 @@ export default class ControleApi {
       },
       jsonVO: {
         idDed: data.idDed,
-      numeroVersionBase: data.numeroVersionBase,
-      numeroVersionCourante: data.numeroVersionCourante,
+        numeroVersionBase: data.numeroVersionBase,
+        numeroVersionCourante: data.numeroVersionCourante,
       },
     };
-
     return await HttpHelper.process(_data);
   };
 }
-

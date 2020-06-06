@@ -19,6 +19,8 @@ export {
 } from './referentiel/numeroPlaqueRemorque';
 export {default as DetailPlaque} from './referentiel/detailPlaque';
 
+export {default as DetailBAD} from './controle/bad/detailBAD';
+
 export {default as BadrModal} from './modal/BadrModal';
 
 export {default as Card} from './cards';
@@ -49,5 +51,9 @@ export {default as BadrLoginHeader} from './header/Login';
 export {default as MenuHeader} from './header/MenuHeader';
 export {default as RechercheRefDum} from './rechercheRefDum';
 export {default as RechercheRefAt} from './rechercheRefAt';
-
 export {default as CopyPaste} from './container/CopyPaste';
+export {default as BadrAutoComplete} from './autoComplete';
+export {default as ScanQrCode} from './qrCode';
+export {default as BadrList} from './list/badrList';
+export {default as BadrLibelleBleu} from './text/libelleBleu';
+export {default as BadrLibelleNoir} from './text/libelleNoir';

@@ -1,24 +1,13 @@
 import React from 'react';
-import {Text, View, ScrollView, Dimensions} from 'react-native';
-import {Title} from 'react-native-paper';
+import {View, ScrollView} from 'react-native';
 /** STYLING **/
 import {CustomStyleSheet} from '../../../styles/index';
-import {Icon} from 'react-native-elements';
-
-/** Custom Components */
-import {BadrApiTable} from '../../../components';
 
 /** i18n **/
 import {translate} from '../../../common/translations/i18n';
 
-import Utils from '../../../common/util';
-import {load} from '../../../services/storage-service';
-
-import MainMenu from '../mainmenu/index';
-
 /**Custom Components */
-import {Toolbar, BadrInfoMessage, NumeroPlaque} from '../../../components';
-const screenHeight = Dimensions.get('window').height;
+import {Toolbar, BadrInfoMessage} from '../../../components';
 class WelcomeScreen extends React.Component {
   componentDidMount() {
     this.props.navigation.toggleDrawer();
@@ -38,16 +27,19 @@ class WelcomeScreen extends React.Component {
           subtitle={translate('welcome.subTitle')}
         />
 
-        <View
-          style={{
-            ...CustomStyleSheet.centerContainer,
-            backgroundColor: 'transparent',
-          }}>
+        <View style={styles.container}>
           <BadrInfoMessage message={translate('loremIpsum1')} />
         </View>
       </ScrollView>
     );
   }
 }
+
+const styles = {
+  container: {
+    ...CustomStyleSheet.centerContainer,
+    backgroundColor: 'transparent',
+  },
+};
 
 export default WelcomeScreen;

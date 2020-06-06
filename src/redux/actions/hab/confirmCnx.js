@@ -12,7 +12,6 @@ import {translate} from '../../../common/translations/i18n';
 /** Inmemory session */
 import {Session} from '../../../common/session';
 
-
 function doAsyncStorageOperations(data) {
   /** Saving the listFonctionnaliteVOs for menu usage */
   saveStringified('listFonctionnaliteVOs', data.listFonctionnaliteVOs).then(
@@ -34,7 +33,7 @@ export function request(action, navigation) {
   return dispatch => {
     dispatch(action);
     dispatch(inProgress(action));
-    console.log("confirmer connexion ...");
+    console.log('confirmer connexion ...');
     HabApi.confirmConnexion(
       action.value.codeBureau,
       action.value.listeProfilCoche,

@@ -1,6 +1,6 @@
 /** React Components */
 import React from 'react';
-import {View, Text, Dimensions} from 'react-native';
+import {Dimensions} from 'react-native';
 
 /** Screens */
 import WelcomeScreen from '../welcome';
@@ -14,13 +14,8 @@ import Apurement from '../../at/ongletAt/apurement';
 
 /** Drawer navigation */
 import {createDrawerNavigator} from '@react-navigation/drawer';
-import {NavigationContainer} from '@react-navigation/native';
-
-/** STORAGE **/
-import {loadParsed, load} from '../../../services/storage-service';
 
 const Drawer = createDrawerNavigator();
-
 const deltaScreen = Dimensions.get('window').width / 4;
 
 /** Inmemory session */

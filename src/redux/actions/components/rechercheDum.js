@@ -1,38 +1,37 @@
-import ControleApi from '../../../services/api/controle-api';
+import TransverseApi from '../../../services/api/transverse-api';
 
 import * as Constants from '../../../common/constants/controle/rechercheDum';
 
 /**i18n */
 import {translate} from '../../../common/translations/i18n';
 
-import {save} from '../../../services/storage-service';
-import * as data from '../../../services/api/localData/controle/dataInitControle.json';
-export function request(action, navigation,successRedirection) {
+export function request(action, navigation, successRedirection) {
   return dispatch => {
     dispatch(action);
     dispatch(inProgress(action));
-    ControleApi.initControler(
-      action.value.login,
+    TransverseApi.doProcess(
+      action.value.module,
       action.value.commande,
+      action.value.typeService,
       action.value.data,
     )
       .then(response => {
         if (response) {
-         // const data = JSON.parse(response.data);
-         //const data = response.data;
-
+          console.log('response', response);
+          const data = response.data;
           if (data && !data.dtoHeader.messagesErreur) {
-            console.log('data' ,data);
+            console.log('data', data);
             dispatch(success(data));
             /** Naviguer vers la vue suivant. */
-            navigation.navigate(successRedirection , {
+            navigation.navigate(successRedirection, {
               login: action.value.login,
-              refDeclaration: action.value.data.referenceDed,
+              refDeclaration: action.value.referenceDed,
               numeroVoyage: action.value.numeroVoyage,
               cle: action.value.cle,
               declarationRI: data.jsonVO,
+              sousReservePaiementMLV: action.value.sousReservePaiementMLV,
             });
-          } else {      
+          } else {
             dispatch(failed(data));
           }
         } else {

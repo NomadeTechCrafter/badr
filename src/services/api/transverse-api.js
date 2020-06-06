@@ -1,11 +1,8 @@
-import {Component} from 'react';
-
 import HttpHelper from './common/http-helper';
 import {loadParsed} from '../../services/storage-service';
 
 export default class TransverseApi {
   static doProcess = async (
-    _login,
     _module,
     _command,
     _typeService,

@@ -1,8 +1,7 @@
 import React from 'react';
 import {View, ScrollView, TouchableOpacity} from 'react-native';
-import {Modal, Portal, Text, Button, Provider} from 'react-native-paper';
+import {Modal, Portal, Text} from 'react-native-paper';
 import {primaryColor} from '../../styles/index';
-import {CustomStyleSheet} from '../../styles/index';
 
 export default class BadrModal extends React.Component {
   render() {
@@ -28,9 +27,7 @@ export default class BadrModal extends React.Component {
               onPress={() => this.props.onDismiss()}>
               <Text style={{color: primaryColor}}>Fermer</Text>
             </TouchableOpacity>
-            <ScrollView>
-              {this.props.children}
-            </ScrollView>
+            <ScrollView>{this.props.children}</ScrollView>
           </View>
         </Modal>
       </Portal>

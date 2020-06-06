@@ -1,0 +1,127 @@
+{
+  "dtoHeader": {
+    "userLogin": "TESTAG3",
+    "fonctionnalite": "cf5971",
+    "module": "MLV_LIB",
+    "commande": "initDelivrerMlv",
+    "typeService": "UC",
+    "messagesInfo": [
+      "Mainlevée délivrée au(x) DUM(s) '30901020180001768''30901020180001769' [Aucune ligne de préapurement à traiter]"
+    ]
+  },
+  "jsonVO": {
+    "indentificateur": "",
+    "dateHeureEcor": "",
+    "numeroPince": "",
+    "agentDouanier": "",
+    "nombreDeScelles": "",
+    "avecPesage": "",
+    "numeroCarnetTIR": "",
+    "numeroCarnetATA": "",
+    "dechargeAcquitAcaution": "",
+    "validee": "",
+    "dateValidation": "",
+    "dateImpression": "",
+    "editee": "",
+    "editeeSousReserve": "",
+    "dateEditionSousReserve": "",
+    "chezOperateur": "",
+    "dateDemande": "",
+    "delaiAcheminement": "",
+    "typeBureau": "",
+    "refDeclarationEnDouane": "30901020180001768",
+    "forcerMLV": "false",
+    "motifForcerMLV": "",
+    "liquidation": "oui",
+    "listIdDocsAnnexesLaisserPasser": [],
+    "listIdDocsAnnexesReconnu": [],
+    "paiement": "oui",
+    "redressementsOperes": "Aucun Redressement effectué",
+    "redressement": "2",
+    "suggererVisite": false,
+    "listeDocsExigibles": [
+      {
+        "docAnnexe": "CERTIFICAT SANITAIRE VETERINAIRE                                      ",
+        "portee": "A",
+        "narticle": "1",
+        "reconnu": true,
+        "dconsignation": false,
+        "laisserPasser": false,
+        "decisionOrgControle": "",
+        "type": false,
+        "refTypeDocument": {
+          "refOrgansimeEmetteur": {
+            "code": "21",
+            "dateEffet": 1317427200000,
+            "dateFin": 253402214400000,
+            "libelle": "SERVICE VETERINAIRE AU POSTE FRONTIERE",
+            "hibernateLazyInitializer": {}
+          },
+          "code": "04905",
+          "dateEffet": 631152060000,
+          "dateFin": 253402214400000,
+          "impactFiscal": false,
+          "libelle": "CERTIFICAT SANITAIRE VETERINAIRE                                      ",
+          "refTypeDocumentExigible": {
+            "code": "DOC",
+            "dateEffet": -2209075200000,
+            "dateFin": 253402214400000,
+            "libelle": "Type par défaut"
+          },
+          "reglementationParticuliere": true,
+          "dematerialise": false
+        },
+        "numeroVersion": 0,
+        "idDocAnnexe": 208130,
+        "reconnuDisabled": false,
+        "dconsignationDisabled": true,
+        "laisserPasserDisbled": false
+      },
+      {
+        "docAnnexe": "CERTIFICAT SANITAIRE VETERINAIRE 22",
+        "portee": "A",
+        "narticle": "1",
+        "reconnu": false,
+        "dconsignation": false,
+        "laisserPasser": false,
+        "decisionOrgControle": "",
+        "type": false,
+        "refTypeDocument": {
+          "refOrgansimeEmetteur": {
+            "code": "21",
+            "dateEffet": 1317427200000,
+            "dateFin": 253402214400000,
+            "libelle": "SERVICE VETERINAIRE AU POSTE FRONTIERE",
+            "hibernateLazyInitializer": {}
+          },
+          "code": "04905",
+          "dateEffet": 631152060000,
+          "dateFin": 253402214400000,
+          "impactFiscal": false,
+          "libelle": "CERTIFICAT SANITAIRE VETERINAIRE                                      ",
+          "refTypeDocumentExigible": {
+            "code": "DOC",
+            "dateEffet": -2209075200000,
+            "dateFin": 253402214400000,
+            "libelle": "Type par défaut"
+          },
+          "reglementationParticuliere": true,
+          "dematerialise": false
+        },
+        "numeroVersion": 0,
+        "idDocAnnexe": 208130,
+        "reconnuDisabled": false,
+        "dconsignationDisabled": true,
+        "laisserPasserDisbled": false
+      }
+    ],
+    "scelles": {
+      "14589995": "14589995",
+      "14589996": "14589996",
+      "14589997": "14589997",
+      "14589998": "14589998",
+      "14589999": "14589999"
+    },
+    "defaultConverter": {}
+  }
+}

@@ -1,16 +1,6 @@
 import {CustomStyleSheet} from '../../styles/index';
 import React from 'react';
-import {
-  Image,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TextInput,
-  ToastAndroid,
-  TouchableOpacity,
-  View,
-  Dimensions,
-} from 'react-native';
+import {TextInput, View} from 'react-native';
 
 import {translate} from '../../common/translations/i18n';
 

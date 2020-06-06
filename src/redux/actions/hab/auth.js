@@ -13,7 +13,6 @@ import {saveStringified} from '../../../services/storage-service';
 /** Inmemory session */
 import {Session} from '../../../common/session';
 
-
 export function request(action, navigation) {
   return dispatch => {
     dispatch(action);

@@ -7,10 +7,13 @@ import * as Login from './login';
 import * as Containers from './containers';
 import * as Cards from './cards';
 import * as Pickers from './picker';
+import * as Rows from './rows';
+
 
 import * as Colors from './colors';
 import * as Size from './size';
 import * as Spacing from './spacing';
+import * as Alignment from './alignment';
 
 import {StyleSheet} from 'react-native';
 
@@ -105,7 +108,23 @@ const CustomStyleSheet = StyleSheet.create({
   verticalActionsContainer: {
     ...Containers.verticalActionsContainer,
   },
-
+  fullContainer :{
+    ...Alignment.fullContainer,
+  },
+  badrLibelleBleu :{
+      ...Colors.libelleBleu,
+      ...Texts.badrLibelle
+  },
+  badrLibelleNoir :{
+     ...Colors.libelleNoir,
+     ...Texts.badrLibelle
+  },
+  whiteRow :{
+    ...Rows.gridWhiteRow
+  },
+  lightBlueRow :{
+    ...Rows.gridLightBlueRow
+ },
   verticalContainer20: {
     ...Containers.verticalContainer20,
   },
@@ -115,6 +134,7 @@ const CustomStyleSheet = StyleSheet.create({
   column: {
     ...Containers.column,
   },
+
 });
 
 export {CustomStyleSheet};

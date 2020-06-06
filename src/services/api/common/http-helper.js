@@ -8,6 +8,11 @@ import * as axios from 'axios';
 
 const localStore = {
   rechercheEchangeMetVehicule: require('../offline/rechercheEchangeMetVehicule.json'),
+    initControlerDedRI: require('../offline/controle/initControleDedRI.json'),
+    getCmbOperateur: require('../offline/referential/getCmbOperateur.json'),
+    getRegimByCode: require('../offline/referential/getRegimByCode.json'),
+    initDelivrerMlv: require('../offline/mainLevee/initDelivrerMlv.json'),
+    listeDeclarationsMLV: require('../offline/mainLevee/listeDeclarationsMLV.json'),
 };
 
 const instance = axios.create({
@@ -16,18 +21,18 @@ const instance = axios.create({
   headers: {'Content-Type': 'application/json;charset=utf-8'},
 });
 
-
 export default class HttpHelper {
   static async login(user) {
     return instance.post(LOGIN_API, JSON.stringify(user));
   }
-
   static async process(object) {
     if (remote) {
       return instance.post(PROCESS_API, JSON.stringify(object));
     } else {
-      return {data: localStore[object.dtoHeader.commande]};
+        console.log('Api local data :',localStore[object.dtoHeader.commande]);
+      return {
+        data: localStore[object.dtoHeader.commande]
+      };
     }
   }
-
 }

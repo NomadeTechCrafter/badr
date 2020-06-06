@@ -57,7 +57,7 @@ class BadrPickerChecker extends React.Component {
   }
 
   onSelectedItemsChange = selectedItems => {
-    this.setState({selectedItems});
+    this.setState({selectedItems : selectedItems});
   };
 
   icon = ({name, size = 18, style}) => {
@@ -169,6 +169,7 @@ class BadrPickerChecker extends React.Component {
                   confirmText={translate('components.pickerchecker.submit')}
                   showDropDowns={false}
                   selectChildren={true}
+                  showChips={this.state.selectedItems.length < 100}
                   highlightChildren={true}
                   loading={!this.props.picker[this.props.command].loaded}
                   onSelectedItemsChange={this.onSelectedItemsChange}
@@ -188,7 +189,6 @@ class BadrPickerChecker extends React.Component {
                         profils.push(item.codeProfil);
                       });
                     }
-                    console.log(profils);
                     this.props.onSelectedItemObjectsChange(profils);
                   }}
                 />

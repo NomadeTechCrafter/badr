@@ -2,11 +2,9 @@ import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {Picker} from '@react-native-community/picker';
 import {BadrCircleProgressBar} from '../';
-import {BadrInfoMessage} from '../';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 /** REDUX **/
-import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 
 /**ACTIONS */
@@ -14,9 +12,6 @@ import * as Constants from '../../common/constants/components/badrPicker';
 import * as badrPickerAction from '../../redux/actions/components/badrPicker';
 
 import {translate} from '../../common/translations/i18n';
-
-/** STYLING **/
-import {CustomStyleSheet} from '../../styles/index';
 
 /** STORAGE **/
 import {save} from '../../services/storage-service';
@@ -107,11 +102,7 @@ class BadrPicker extends React.Component {
             selectedItem[this.props.storeLibelleWithKey],
           );
         }
-        this.props.onValueChange(
-          itemValue,
-          itemIndex,
-          selectedItem,
-        );
+        this.props.onValueChange(itemValue, itemIndex, selectedItem);
       }
     }
     this.setState({selectedValue: itemValue});

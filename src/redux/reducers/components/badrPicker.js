@@ -36,7 +36,7 @@ export default (state = initialState, action) => {
         loaded: true,
         errorMessage: '',
         displayError: false,
-        items : action.value.payload
+        items: action.value.payload,
       };
       return nextState;
     case Constants.BADRPICKER_FAILED:

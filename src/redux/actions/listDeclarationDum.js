@@ -2,12 +2,14 @@ import ControleApi from '../../services/api/controle-api';
 
 import * as Constants from '../../common/constants/listDeclarationDum';
 
-
 export function request(action, navigation) {
   return dispatch => {
     dispatch(action);
     dispatch(inProgress(action));
-    ControleApi.getDataListDeclaration(action.value.login,action.value.typeControl)
+    ControleApi.getDataListDeclaration(
+      action.value.login,
+      action.value.typeControl,
+    )
       .then(response => {
         const data = JSON.parse(response.data);
         if (data.jsonVO.code === '200') {
