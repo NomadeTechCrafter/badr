@@ -3,6 +3,7 @@ const mapping = {
   '3064': {screen: 'RechercheDum', params: {typeControle: 'AC'}},
   '823': {screen: 'PlaquesImmatriculation', params: {}},
   '4096': {screen: 'ControleVehicules', params: {}},
+  '9005': {screen: 'CreerApurement', params: {}},
 };
 
 const ionicMapping = {

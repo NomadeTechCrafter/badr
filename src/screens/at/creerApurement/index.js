@@ -1,13 +1,49 @@
 import React from 'react';
-import { ScrollView } from 'react-native';
-import { Button } from 'react-native-paper';
-import { translate } from '../../../common/translations/i18n';
-import { RechercheRefAt, Toolbar } from '../../../components';
+import _ from 'lodash';
+import {Dimensions, ScrollView} from 'react-native';
+import {connect} from 'react-redux';
+import {translate} from '../../../common/translations/i18n';
+import {
+  BadrErrorMessage,
+  BadrProgressBar,
+  RechercheRefAt,
+  Toolbar,
+} from '../../../components';
+import * as InitApurementAction from '../../../redux/actions/at/initApurement';
+import * as ConstantsAt from '../../../common/constants/at/at';
 
-export default class CreerApurement extends React.Component {
-  confirmer = () => {};
+const screenWidth = Dimensions.get('window').width;
 
-  retablir = () => {};
+const initialState = {reference: ''};
+class CreerApurement extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {...initialState};
+  }
+
+  componentDidMount() {
+    console.log('componentDidMount Parent');
+    this.state = {...initialState};
+  }
+
+  apurManuelle = reference => {
+    console.log('apu Man');
+    console.log(this.state.reference);
+    var action = InitApurementAction.request(
+      {
+        type: ConstantsAt.INIT_APUR_REQUEST,
+        value: {
+          reference: reference,
+        },
+      },
+      this.props.navigation,
+    );
+    this.props.actions.dispatch(action);
+  };
+
+  apurAutomatique = reference => {
+    console.log(this.state);
+  };
 
   render() {
     return (
@@ -16,46 +52,43 @@ export default class CreerApurement extends React.Component {
           navigation={this.props.navigation}
           icon="menu"
           title={translate('at.title')}
-          subtitle={translate('at.subTitle')}
-        />  
-        <RechercheRefAt>
-          <Button
-            onPress={this.confirmer}
-            mode="contained"
-            icon="check"
-            compact="true"
-            style={styles.btnConfirmer}>
-            {translate('transverse.confirmer')}
-          </Button>
-          <Button
-            onPress={this.confirmer}
-            mode="contained"
-            icon="check"
-            compact="true"
-            style={styles.btnConfirmer}>
-            {translate('transverse.confirmer')}
-          </Button>
-          <Button
-            onPress={this.retablir}
-            icon="autorenew"
-            mode="contained"
-            style={styles.btnRetablir}>
-            {translate('transverse.retablir')}
-          </Button>
-        </RechercheRefAt>
+          subtitle={translate('at.apurement.subTitleAction')}
+        />
+        {this.props.showProgress && <BadrProgressBar width={screenWidth} />}
+        {this.props.errorMessage != null && (
+          <BadrErrorMessage
+            style={styles.centerErrorMsg}
+            message={this.props.errorMessage}
+          />
+        )}
+        <RechercheRefAt
+          onApurManuelle={reference => this.apurManuelle(reference)}
+          onApurAutomatique={reference => this.onApurAutomatique(reference)}
+        />
       </ScrollView>
     );
   }
 }
 
 const styles = {
-  btnConfirmer: {
-    color: '#FFF',
-    padding: 5,
-    marginRight: 15,
-  },
-  btnRetablir: {
-    color: '#FFF',
-    padding: 5,
+  centerErrorMsg: {
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 };
+
+function mapStateToProps(state) {
+  return {...state.initApurementReducer};
+}
+
+function mapDispatchToProps(dispatch) {
+  let actions = {dispatch};
+  return {
+    actions,
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(CreerApurement);

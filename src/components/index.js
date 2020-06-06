@@ -25,6 +25,7 @@ export {default as Card} from './cards';
 export {default as CardSection} from './cardSection';
 export {default as Container} from './container';
 export {default as CardBox} from './cardBox';
+export {default as CardsWithTitle} from './cardsWithTitle';
 export {default as Accordion} from './accordion';
 
 export {default as Toolbar} from './toolbar';

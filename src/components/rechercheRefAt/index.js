@@ -1,45 +1,57 @@
 import _ from 'lodash';
 import React, {Component} from 'react';
-import {Dimensions, View} from 'react-native';
-import {HelperText, TextInput} from 'react-native-paper';
+import {View} from 'react-native';
+import {HelperText, TextInput, Button} from 'react-native-paper';
+import {Col, Row, Grid} from 'react-native-easy-grid';
 import {connect} from 'react-redux';
 /**i18n */
 import {translate} from '../../common/translations/i18n';
 import {CustomStyleSheet} from '../../styles';
-import {BadrErrorMessage, BadrProgressBar, Container} from '../index';
+import {Container} from '../index';
+import * as InitApurementAction from '../../redux/actions/at/initApurement';
+import * as ConstantsAt from '../../common/constants/at/at';
+/** Utils */
+import Utils from '../../common/util';
 
-const screenWidth = Dimensions.get('window').width;
 class RechecheRefAt extends Component {
-  defaultState = {
-    bureau: '',
-    annee: '',
-    numero: '',
-    serie: '',
-    login: '',
-    showErrorMsg: false,
-  };
-
   constructor(props) {
     super(props);
-    this.state = this.defaultState;
+    this.state = {
+      bureau: '',
+      annee: '',
+      numero: '',
+      serie: '',
+      showErrorMsg: false,
+    };
   }
 
   componentDidMount() {
-    // var action = RechecheDumAction.init({
-    //   type: Constants.RECHERCHEDUM_INITCONTROL_INIT,
-    //   value: {},
-    // });
-    // this.props.dispatch(action);
-    // load('user').then(user => {
-    //   this.setState({login: JSON.parse(user).login});
-    // });
+    console.log('componentDidMount FIls');
+    this.retablir();
   }
-  onChangeInput = input => {
-    let keyImput = _.keys(input)[0];
-    this.setState({[keyImput]: input[keyImput].replace(/[^0-9]/g, '')});
+
+  retablir = () => {
+    console.log('retablir');
+    this.setState({
+      bureau: '',
+      annee: '',
+      numero: '',
+      serie: '',
+      showErrorMsg: false,
+    });
+    this.initRechercheAt();
+  };
+
+  _hasErrors = field => {
+    return this.state.showErrorMsg && _.isEmpty(this.state[field]);
+  };
+
+  afficherErreurMsg = () => {
+    this.setState({showErrorMsg: true});
   };
 
   addZeros = input => {
+    console.log('Addd zeroooo');
     let keyImput = _.keys(input)[0];
     if (input[keyImput] !== '') {
       this.setState({
@@ -47,56 +59,47 @@ class RechecheRefAt extends Component {
       });
     }
   };
-  retablir = () => {
-    console.log('retablir');
-    this.setState({...this.defaultState});
+
+  onChangeInput = input => {
+    let keyImput = _.keys(input)[0];
+    this.setState({[keyImput]: input[keyImput].replace(/[^0-9]/g, '')});
   };
 
-  confirmer = () => {
-    console.log('confirmer', this.props.successRedirection);
-    // this.setState({showErrorMsg: true});
-    // if (this.state.regime && this.state.serie) {
-    //   this.state.cleValide = this.cleDUM(this.state.regime, this.state.serie);
+  getReferenceAt = () =>
+    Utils.concatReference(
+      this.state.bureau,
+      this.state.annee,
+      this.state.numero,
+      this.state.serie,
+    );
 
-    //   if (this.state.cle == this.state.cleValide) {
-    //     var referenceDed =
-    //       this.state.bureau +
-    //       this.state.regime +
-    //       this.state.annee +
-    //       this.state.serie;
-    //     var data = {
-    //       referenceDed: referenceDed,
-    //       numeroVoyage: this.state.numeroVoyage,
-    //     };
-    //     var action = RechecheDumAction.request(
-    //       {
-    //         type: Constants.RECHERCHEDUM_INITCONTROLE_REQUEST,
-    //         value: {
-    //           login: this.state.login,
-    //           commande: this.props.commande,
-    //           data: data,
-    //           cle: this.state.cle,
-    //         },
-    //       },
-    //       this.props.navigation,
-    //       this.props.successRedirection,
-    //     );
-    //     this.props.dispatch(action);
-    //     console.log('dispatch fired !!');
-    //   }
-    // }
+  initRechercheAt() {
+    var action = InitApurementAction.init({
+      type: ConstantsAt.INIT_APUR_INIT,
+      value: {},
+    });
+    this.props.dispatch(action);
+  }
+
+  apurManuelle = () => {
+    this.afficherErreurMsg();
+    let ref = this.getReferenceAt();
+    if (ref && ref.length === 17) {
+      this.props.onApurManuelle(ref);
+    }
   };
-  _hasErrors = field => {
-    return this.state.showErrorMsg && _.isEmpty(this.state[field]);
+
+  apurAutomatique = () => {
+    this.afficherErreurMsg();
+    let ref = this.getReferenceAt();
+    if (ref && ref.length === 17) {
+      this.props.onApurAutomatique(ref);
+    }
   };
 
   render() {
     return (
       <Container style={styles.container}>
-        {this.props.showProgress && <BadrProgressBar width={screenWidth} />}
-        {this.props.errorMessage != null && (
-          <BadrErrorMessage message={this.props.errorMessage} />
-        )}
         <View style={styles.containerInputs}>
           <View>
             <TextInput
@@ -132,12 +135,12 @@ class RechecheRefAt extends Component {
               value={this.state.annee}
               label={translate('transverse.annee')}
               onChangeText={val => this.onChangeInput({annee: val})}
-              onEndEditing={event =>
+              onEndEditing={event => {
                 this.addZeros({
                   annee: event.nativeEvent.text,
                   maxLength: 4,
-                })
-              }
+                });
+              }}
               style={CustomStyleSheet.largeInput}
             />
             <HelperText
@@ -160,7 +163,7 @@ class RechecheRefAt extends Component {
               onChangeText={val => this.onChangeInput({numero: val})}
               onEndEditing={event =>
                 this.addZeros({
-                  serie: event.nativeEvent.text,
+                  numero: event.nativeEvent.text,
                   maxLength: 3,
                 })
               }
@@ -202,8 +205,41 @@ class RechecheRefAt extends Component {
             </HelperText>
           </View>
         </View>
-
-        <View style={styles.containerBtn}>{this.props.children}</View>
+        <Grid style={styles.gridContainer}>
+          <Row>
+            <Col style={styles.column} size={50}>
+              <Button
+                mode="contained"
+                icon="check"
+                compact="true"
+                onPress={this.apurManuelle}
+                style={styles.btnConfirmer}>
+                {translate('at.apurement.manuelle')}
+              </Button>
+            </Col>
+            <Col style={styles.column} size={50}>
+              <Button
+                onPress={this.apurAutomatique}
+                mode="contained"
+                icon="check"
+                compact="true"
+                style={styles.btnConfirmer}>
+                {translate('at.apurement.automatique')}
+              </Button>
+            </Col>
+          </Row>
+          <Row>
+            <Col style={styles.column} size={100}>
+              <Button
+                onPress={() => this.retablir()}
+                icon="autorenew"
+                mode="contained"
+                style={styles.btnRetablir}>
+                {translate('transverse.retablir')}
+              </Button>
+            </Col>
+          </Row>
+        </Grid>
       </Container>
     );
   }
@@ -226,9 +262,19 @@ const styles = {
     justifyContent: 'center',
     marginTop: 10,
   },
+  column: {padding: 10},
+  gridContainer: {paddingRight: 25, paddingLeft: 25, width: '100%'},
+  btnConfirmer: {
+    color: '#FFF',
+    padding: 5,
+  },
+  btnRetablir: {
+    color: '#FFF',
+    padding: 5,
+  },
 };
 
-const mapStateToProps = state => ({...state.controleRechercheDumReducer});
+const mapStateToProps = state => ({...state.initApurementReducer});
 
 export default connect(
   mapStateToProps,

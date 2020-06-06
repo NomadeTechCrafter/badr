@@ -17,6 +17,7 @@ import badrPickerReducer from './components/badrPicker';
 import badrPickerCheckerReducer from './components/badrPickerChecker';
 
 import badrApiTable from './components/badrApiTable';
+import initApurementReducer from './at/initApurement';
 /**
  * combine all reducer
  */
@@ -34,6 +35,7 @@ const allReducers = combineReducers({
   acvpReducer,
   plaquesImmReducer,
   controleVehiculesReducer,
+  initApurementReducer,
 });
 
 export default allReducers;

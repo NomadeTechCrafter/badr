@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 export default class Utils {
   static buildUserFullname = user => {
     if (user.nomAgent && user.prenomAgent) {
@@ -29,5 +31,9 @@ export default class Utils {
       }
     }
     return tree;
+  };
+
+  static concatReference = (bureau, annee, serie, numero) => {
+    return bureau + annee + serie + numero;
   };
 }
