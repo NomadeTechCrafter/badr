@@ -27,6 +27,7 @@ export {default as Card} from './cards';
 export {default as CardSection} from './cardSection';
 export {default as Container} from './container';
 export {default as CardBox} from './cardBox';
+export {default as CardsWithTitle} from './cardsWithTitle';
 export {default as Accordion} from './accordion';
 
 export {default as Toolbar} from './toolbar';
@@ -49,11 +50,10 @@ export {
 export {default as BadrLoginHeader} from './header/Login';
 export {default as MenuHeader} from './header/MenuHeader';
 export {default as RechercheRefDum} from './rechercheRefDum';
-export {default as CopyPaste } from './container/CopyPaste';
+export {default as RechercheRefAt} from './rechercheRefAt';
+export {default as CopyPaste} from './container/CopyPaste';
 export {default as BadrAutoComplete} from './autoComplete';
 export {default as ScanQrCode} from './qrCode';
 export {default as BadrList} from './list/badrList';
 export {default as BadrLibelleBleu} from './text/libelleBleu';
 export {default as BadrLibelleNoir} from './text/libelleNoir';
-
-

@@ -5,6 +5,7 @@ const mapping = {
   '5971': {screen: 'RechecheMLV', params: {}},
   '597111': {screen: 'ScanQrCode', params: {screenAfterScan:'RechecheMLV'}},
   '4096': {screen: 'ControleVehicules', params: {}},
+  '9005': {screen: 'CreerApurement', params: {}},
 };
 
 const ionicMapping = {

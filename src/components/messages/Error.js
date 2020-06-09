@@ -18,7 +18,7 @@ class BadrErrorMessage extends React.Component {
         animation={this.props.pulse ? 'pulse' : 'flipInX'}
         easing="ease-out"
         iterationCount={this.props.pulse ? 'infinite' : 1}
-        style={{textAlign: 'center'}}>
+        style={[{textAlign: 'center'}, this.props.style]}>
         {buildError(this.props.message, CustomStyleSheet.errorMessages)}
       </Animatable.View>
     );
