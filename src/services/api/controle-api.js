@@ -73,7 +73,7 @@ export default class ControleApi {
       dtoHeader: {
         userLogin: login,
         fonctionnalite: 'cf4011',
-        module: 'CONTROL_LIB',
+        module: WS_MODULE_PARAM,
         commande: 'listeDeclaration',
         typeService: 'SP',
       },

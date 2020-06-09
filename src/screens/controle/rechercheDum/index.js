@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {View, Text} from 'react-native';
 import {Container, RechercheRefDum,Toolbar} from '../../../components';
 
-import {TextInput, Button, HelperText} from 'react-native-paper';
+import {TextInput, Button, HelperText,BadrButtonIcon} from 'react-native-paper';
 /**i18n */
 import {translate} from '../../../common/translations/i18n';
 import {CustomStyleSheet} from '../../../styles';
@@ -38,8 +38,51 @@ class RechecheDum extends Component {
         break;
       case 'AC':
         return 'ACVP';
+        break;
+      case 'TR':
+        return 'Transit';
     }
   };
+
+  listDeclarationSearchAction = () => {
+    var action = RechecheDumAction.searchListeDeclaration({
+      type: Constants.RECHERCHEDUM_LISTDECLARATION_REQUEST,
+      value: {
+        login: this.state.login,
+        typeControle:this.typeControle ,
+       // pageSize: 10,
+       // offset: 0,
+      },
+    });
+   /* if(this.typeControle=='RI'){
+      this.props.navigation.navigate('RegimeInterne', {
+        searchState: this.typeControle,
+        login: this.state.login,
+      });
+    }
+    else if(this.typeControle=='TR'){
+      this.props.navigation.navigate('Transit', {
+        searchState: this.typeControle,
+        login: this.state.login,
+      });
+    }else{
+      this.props.navigation.navigate('ACVP', {
+        searchState: this.typeControle,
+        login: this.state.login,
+      });
+
+    }*/
+    this.props.navigation.navigate('ListDeclarationDum', {
+      searchState: this.typeControle,
+      login: this.state.login,
+    });
+    return action;
+  };
+  listDeclarationSearch = () => {
+      let action = this.listDeclarationSearchAction();
+      this.props.actions.dispatch(action);
+  };
+
   render() {
     return (
       <View>
@@ -49,10 +92,17 @@ class RechecheDum extends Component {
         commande={'initControlerDedRI'}
         successRedirection={this.getSuccessRedirectionScreen()}
       />
+     <BadrButtonIcon
+              onPress={() => this.listDeclarationSearch()}
+              icon="magnify"
+              loading={this.props.showProgress}
+              text={translate('transverse.listDeclaration')}
+            />
 
       </View>
     );
   }
+  
 }
 
 const mapStateToProps = state => ({...state.controleRechercheDumReducer});

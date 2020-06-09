@@ -76,6 +76,13 @@ export default {
     validerControle: 'Valider le contrôle',
     redresserDeclaration: 'Redresser la déclaration',
     regimeInterne: 'Régime interne',
+    declarationEnattenteControl: 'Déclarations en attente de contrôle',
+    nbrEnregistrement: 'Nombre Enregistrements',
+    declaration: 'Déclaration',
+    dateCreation: 'Date Création',
+    dateEnregistrement: 'Date Enregistrement',
+    nVoyage:'N°Voy',
+    version:'Version',
   },
 
   transverse: {
@@ -94,6 +101,8 @@ export default {
     quitter: 'Quitter',
     fermer: 'Fermer',
     rechercher: 'Rechercher',
+    listDeclaration:'Liste Declaclartion',
+
   },
   referentiel: {
     plaquesImm: {

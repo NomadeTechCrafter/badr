@@ -17,9 +17,12 @@ import SmsVerify from './screens/hab/smsVerify';
 import Home from './screens/hab/home';
 import Profile from './screens/hab/profile';
 
+import ListDeclarationDum from './screens/controle/listDeclarationDum';
+
 import RechercheDum from './screens/controle/rechercheDum';
 import RegimeInterne from './screens/controle/regimeInterne';
 import ACVP from './screens/controle/ACVP';
+import VuEmbarque from './screens/ecorexport/vuEmbarque/vuEmbarque';
 
 
 import Toolbar from './components/toolbar';
@@ -97,10 +100,20 @@ export default class App extends React.Component {
               />
 
 
-
+              <Stack.Screen
+                name="ListDeclarationDum"
+                options={{ headerShown: false }}
+                component={ListDeclarationDum}
+              />
 
               <Stack.Screen name="RegimeInterne" component={RegimeInterne} />
               <Stack.Screen name="ACVP" component={ACVP} />
+              <Stack.Screen name="Transit" component={Transit} />
+              <Stack.Screen
+                name="VuEmbarque"
+                options={{ headerShown: false }}
+                component={VuEmbarque}
+              />
 
             </Stack.Navigator>
           </NavigationContainer>
