@@ -40,7 +40,7 @@ class RechecheDum extends Component {
         return 'ACVP';
         break;
       case 'TR':
-        return 'Transit';
+        return 'RegimeTransit';
     }
   };
 
@@ -53,30 +53,10 @@ class RechecheDum extends Component {
        // pageSize: 10,
        // offset: 0,
       },
-    });
-   /* if(this.typeControle=='RI'){
-      this.props.navigation.navigate('RegimeInterne', {
-        searchState: this.typeControle,
-        login: this.state.login,
-      });
-    }
-    else if(this.typeControle=='TR'){
-      this.props.navigation.navigate('Transit', {
-        searchState: this.typeControle,
-        login: this.state.login,
-      });
-    }else{
-      this.props.navigation.navigate('ACVP', {
-        searchState: this.typeControle,
-        login: this.state.login,
-      });
-
-    }*/
-    this.props.navigation.navigate('ListDeclarationDum', {
-      searchState: this.typeControle,
-      login: this.state.login,
-    });
-    return action;
+    },
+      this.props.navigation, 
+    );
+    this.props.dispatch(action);
   };
   listDeclarationSearch = () => {
       let action = this.listDeclarationSearchAction();

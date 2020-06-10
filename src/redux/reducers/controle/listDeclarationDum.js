@@ -1,7 +1,7 @@
-import * as Constants from '../../common/constants/listDeclarationDum';
+import * as Constants from  '../../../common/constants/controle/listDeclarationDum';
 
 const initialState = {
-  dataDeclaration: null,
+  refDum: null,
   showProgress: false,
   errorMessage: null,
 };
@@ -21,7 +21,7 @@ export default (state = initialState, action) => {
     case Constants.LISTDECLARATION_SUCCESS:
       nextState.errorMessage = null;
       nextState.showProgress = false;
-      nextState.dataDeclaration = action.value;
+      nextState.refDum = action.value;
       return nextState;
     case Constants.LISTDECLARATION_FAILED:
       nextState.showProgress = false;

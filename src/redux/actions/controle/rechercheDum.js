@@ -87,8 +87,13 @@ export function searchListeDeclaration(action, navigation) {
         if (response) {
         const data = JSON.parse(response.data);
         if (data && !data.dtoHeader.messagesErreur) {
-          dispatch(searchListeDeclaration_success(data.jsonVO));
-          //navigation.navigate('control', {login: action.value.login});
+          dispatch(searchListeDeclaration_success(data));
+             /** Naviguer vers la vue suivant. */
+             navigation.navigate('ListDeclarationDum' , {
+              login: action.value.login,
+              typeControle:action.value.typeControle,
+              listeDeclaration: data.jsonVO,
+            });
         } else {
           dispatch(searchListeDeclaration_failed(data));
         }

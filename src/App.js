@@ -21,6 +21,7 @@ import ListDeclarationDum from './screens/controle/listDeclarationDum';
 
 import RechercheDum from './screens/controle/rechercheDum';
 import RegimeInterne from './screens/controle/regimeInterne';
+import RegimeTransit from './screens/controle/regimeTransit';
 import ACVP from './screens/controle/ACVP';
 import VuEmbarque from './screens/ecorexport/vuEmbarque/vuEmbarque';
 
@@ -108,7 +109,7 @@ export default class App extends React.Component {
 
               <Stack.Screen name="RegimeInterne" component={RegimeInterne} />
               <Stack.Screen name="ACVP" component={ACVP} />
-              <Stack.Screen name="Transit" component={Transit} />
+              <Stack.Screen name="RegimeTransit" component={RegimeTransit} />
               <Stack.Screen
                 name="VuEmbarque"
                 options={{ headerShown: false }}
