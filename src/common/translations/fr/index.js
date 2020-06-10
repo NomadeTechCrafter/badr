@@ -83,6 +83,7 @@ export default {
     dateEnregistrement: 'Date Enregistrement',
     nVoyage:'N°Voy',
     version:'Version',
+    regimeTransite: 'Régime transit',
   },
 
   transverse: {
