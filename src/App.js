@@ -15,14 +15,18 @@ import SmsVerify from './screens/hab/smsVerify';
 import Home from './screens/hab/home';
 import Profile from './screens/hab/profile';
 
+import ListDeclarationDum from './screens/controle/listDeclarationDum';
+
 import RechercheDum from './screens/controle/rechercheDum';
 import RegimeInterne from './screens/controle/regimeInterne';
+import RegimeTransit from './screens/controle/regimeTransit';
 import ACVP from './screens/controle/ACVP';
 import RechecheMLV from './screens/mainlevee/rechercheMLV';
 import ListDeclarationMLV from './screens/mainlevee/listedeclarationsMLV';
 import DelivrerMLV from './screens/mainlevee/delivrerMLV';
 import ScanQrCode from './components/qrCode/';
-import {primaryColor} from './styles/index';
+import VuEmbarque from './screens/ecorexport/vuEmbarque/vuEmbarque';
+import { primaryColor } from './styles/index';
 
 import {Provider as PaperProvider, DefaultTheme} from 'react-native-paper';
 
@@ -117,6 +121,20 @@ export default class App extends React.Component {
                 options={{headerShown: false}}
                 component={ACVP}
               />
+
+              <Stack.Screen
+                name="ListDeclarationDum"
+                options={{ headerShown: false }}
+                component={ListDeclarationDum}
+              />
+
+              <Stack.Screen name="RegimeTransit" component={RegimeTransit} />
+              <Stack.Screen
+                name="VuEmbarque"
+                options={{ headerShown: false }}
+                component={VuEmbarque}
+              />
+
             </Stack.Navigator>
           </NavigationContainer>
         </Provider>

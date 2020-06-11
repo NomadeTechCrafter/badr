@@ -5,8 +5,9 @@ import confirmConnexionReducer from './hab/confirmConnexion';
 import menuReducer from './hab/menu';
 import controleRechercheDumReducer from './components/rechercheDum';
 import regimeInterneReducer from './controle/regimeInterne';
+import regimeTransitReducer from './controle/regimeTransit';
 
-import listDeclarationReducer from './listDeclarationDum';
+import listDeclarationReducer from './controle/listDeclarationDum';
 
 import acvpReducer from './controle/acvp';
 
@@ -39,6 +40,7 @@ const allReducers = combineReducers({
   badrApiTable,
   controleRechercheDumReducer,
   regimeInterneReducer,
+  regimeTransitReducer,
   listDeclarationReducer,
   acvpReducer,
   plaquesImmReducer,

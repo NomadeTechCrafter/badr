@@ -84,6 +84,14 @@ export default {
     validerControle: 'Valider le contrôle',
     redresserDeclaration: 'Redresser la déclaration',
     regimeInterne: 'Régime interne',
+    declarationEnattenteControl: 'Déclarations en attente de contrôle',
+    nbrEnregistrement: 'Nombre Enregistrements',
+    declaration: 'Déclaration',
+    dateCreation: 'Date Création',
+    dateEnregistrement: 'Date Enregistrement',
+    nVoyage:'N°Voy',
+    version:'Version',
+    regimeTransite: 'Régime transit',
   },
   welcome: {
     title: 'Bienvenue',
@@ -111,6 +119,8 @@ export default {
     du: 'Du',
     au: 'Au',
     noRowFound: 'Aucun enregistrement trouvé.',
+    listDeclaration:'Liste Declaclartion',
+
   },
   referentiel: {
     plaquesImm: {
