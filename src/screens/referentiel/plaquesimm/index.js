@@ -27,12 +27,7 @@ const Tab = createMaterialTopTabNavigator();
 const screenWidth = Dimensions.get('window').width;
 
 function ResultScreen({route, navigation}) {
-  return (
-    <PlaquesImmatriculationResult
-      navigation={navigation}
-      route={route}
-    />
-  );
+  return <PlaquesImmatriculationResult navigation={navigation} route={route} />;
 }
 
 function SearchScreen({route, navigation}) {

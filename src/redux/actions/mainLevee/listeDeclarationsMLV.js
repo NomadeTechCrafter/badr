@@ -5,24 +5,23 @@ import * as Constants from '../../../common/constants/mainLevee/listeDeclaration
 /**i18n */
 import {translate} from '../../../common/translations/i18n';
 
-const MODULE = "MLV_LIB";
-const TYPE_SERVICE = "SP";
-export function request(action, navigation,successRedirection) {
+const MODULE = 'MLV_LIB';
+const TYPE_SERVICE = 'SP';
+export function request(action, navigation, successRedirection) {
   return dispatch => {
     dispatch(action);
     dispatch(inProgress(action));
-      TransverseApi.doProcess(
+    TransverseApi.doProcess(
       MODULE,
-      "listeDeclarationsMLV",
+      'listeDeclarationsMLV',
       TYPE_SERVICE,
       action.value.data,
     )
       .then(response => {
         if (response) {
-
-         const data = response.data;
+          const data = response.data;
           if (data && !data.dtoHeader.messagesErreur) {
-            console.log('data' ,data);
+            console.log('data', data);
             dispatch(success(data));
             /** Naviguer vers la vue suivant. */
             /*navigation.navigate(successRedirection , {
@@ -32,7 +31,7 @@ export function request(action, navigation,successRedirection) {
               cle: action.value.cle,
               declarationRI: data.jsonVO,
             });*/
-          } else {      
+          } else {
             dispatch(failed(data));
           }
         } else {
@@ -65,8 +64,6 @@ export function failed(data) {
     type: Constants.MAINLEVEE_LISTEDECLARATIONS_FAILED,
     value: data,
   };
-
-
 }
 
 export default {

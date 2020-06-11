@@ -57,5 +57,5 @@ export const verticalActionContainer = {
   alignItems: 'center',
 };
 export const fullContiner = {
-  flex:1,
-}
+  flex: 1,
+};

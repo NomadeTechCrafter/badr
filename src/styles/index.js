@@ -9,7 +9,6 @@ import * as Cards from './cards';
 import * as Pickers from './picker';
 import * as Rows from './rows';
 
-
 import * as Colors from './colors';
 import * as Size from './size';
 import * as Spacing from './spacing';
@@ -108,23 +107,23 @@ const CustomStyleSheet = StyleSheet.create({
   verticalActionsContainer: {
     ...Containers.verticalActionsContainer,
   },
-  fullContainer :{
-    ...Alignment.fullContainer,
+  fullContainer: {
+    ...Alignment.fullContiner,
   },
-  badrLibelleBleu :{
-      ...Colors.libelleBleu,
-      ...Texts.badrLibelle
+  badrLibelleBleu: {
+    ...Colors.libelleBleu,
+    ...Texts.badrLibelle,
   },
-  badrLibelleNoir :{
-     ...Colors.libelleNoir,
-     ...Texts.badrLibelle
+  badrLibelleNoir: {
+    ...Colors.libelleNoir,
+    ...Texts.badrLibelle,
   },
-  whiteRow :{
-    ...Rows.gridWhiteRow
+  whiteRow: {
+    ...Rows.gridWhiteRow,
   },
-  lightBlueRow :{
-    ...Rows.gridLightBlueRow
- },
+  lightBlueRow: {
+    ...Rows.gridLightBlueRow,
+  },
   verticalContainer20: {
     ...Containers.verticalContainer20,
   },
@@ -134,7 +133,9 @@ const CustomStyleSheet = StyleSheet.create({
   column: {
     ...Containers.column,
   },
-
+  badrInputHeight: {
+    ...Size.badrInputHeight,
+  },
 });
 
 export {CustomStyleSheet};

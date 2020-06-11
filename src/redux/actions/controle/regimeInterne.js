@@ -3,9 +3,7 @@ import ControleApi from '../../../services/api/controle-api';
 import * as Constants from '../../../common/constants/controle/regimeInterne';
 
 /**i18n */
-import {translate as translate} from '../../../common/translations/i18n';
-
-import {save} from '../../../services/storage-service';
+import {translate} from '../../../common/translations/i18n';
 
 export function validateSave(action, navigation) {
   return dispatch => {
@@ -19,11 +17,13 @@ export function validateSave(action, navigation) {
     )
       .then(response => {
         if (response) {
-
           const data = response.data;
-          if (data && (data.dtoHeader.messagesErreur==null || data.dtoHeader.messagesErreur.length == 0 )) {
+          if (
+            data &&
+            (data.dtoHeader.messagesErreur === null ||
+              data.dtoHeader.messagesErreur.length === 0)
+          ) {
             dispatch(success(data));
-            
           } else {
             dispatch(failed(data));
           }
@@ -64,17 +64,16 @@ export function genererCR(action) {
     dispatch(action);
     dispatch(genererCR_inProgress(action));
 
-    ControleApi.genererCompteRendu(
-      action.value.login,
-      action.value.data,
-    )
+    ControleApi.genererCompteRendu(action.value.login, action.value.data)
       .then(response => {
         if (response) {
-
           const data = JSON.parse(response.data);
-          if (data && (data.dtoHeader.messagesErreur==null || data.dtoHeader.messagesErreur.length == 0 )) {
+          if (
+            data &&
+            (data.dtoHeader.messagesErreur === null ||
+              data.dtoHeader.messagesErreur.length === 0)
+          ) {
             dispatch(genererCR_success(data));
-            
           } else {
             dispatch(genererCR_failed(data));
           }

@@ -1,33 +1,35 @@
 import React from 'react';
 import {TextInput} from 'react-native-paper';
+import {CustomStyleSheet} from '../../styles';
 
 export default class BadrNumericTextInput extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      inputValue: props.value,
+    };
+  }
+  handleInputChange = text => {
+    if (/^\d+$/.test(text) || text === '') {
+      this.setState({
+        inputValue: text,
+      });
+      this.props.onChangeBadrInput(text);
+    }
+  };
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            inputValue: ''
-        };
-    }
-    handleInputChange = (text) => {
-        if (/^\d+$/.test(text)) {
-            this.setState({
-                inputValue: text
-            });
-        }
-    }
-    render() {
-        return (
-            <TextInput
-                mode={'outlined'}
-                error={this.props.error}
-                maxLength={this.props.maxLength}
-                keyboardType={'number-pad'}
-                value={this.state.inputValue}
-                label={this.props.label}
-                onChangeText={this.handleInputChange}
-                style={this.props.style}
-            />
-        );
-    }
+  render() {
+    const {value, style, ...inputProps} = this.props;
+    return (
+      <TextInput
+        {...inputProps}
+        ref={this.props.onRef}
+        mode={'outlined'}
+        keyboardType={'number-pad'}
+        value={this.state.inputValue}
+        onChangeText={text => this.handleInputChange(text)}
+        style={[CustomStyleSheet.badrInputHeight, style]}
+      />
+    );
+  }
 }

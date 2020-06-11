@@ -3,34 +3,33 @@ import * as Constants from '../../../common/constants/mainLevee/rechercheMLV';
 /**i18n */
 import {translate} from '../../../common/translations/i18n';
 
-const MODULE = "MLV_LIB";
-const TYPE_SERVICE = "SP";
-export function request(action, navigation,successRedirection) {
+const MODULE = 'MLV_LIB';
+const TYPE_SERVICE = 'SP';
+export function request(action, navigation, successRedirection) {
   return dispatch => {
     dispatch(action);
     dispatch(inProgress(action));
-      TransverseApi.doProcess(
+    TransverseApi.doProcess(
       MODULE,
-      "initDelivrerMlv",
+      'initDelivrerMlv',
       TYPE_SERVICE,
       action.value.data,
     )
       .then(response => {
         if (response) {
-
-         const data = response.data;
+          const data = response.data;
           if (data && !data.dtoHeader.messagesErreur) {
-            console.log('data' ,data);
+            console.log('data', data);
             dispatch(success(data));
             /** Naviguer vers la vue suivant. */
-            navigation.navigate(successRedirection , {
+            navigation.navigate(successRedirection, {
               login: action.value.login,
               refDeclaration: action.value.data.referenceDed,
               numeroVoyage: action.value.numeroVoyage,
               cle: action.value.cle,
               declarationRI: data.jsonVO,
             });
-          } else {      
+          } else {
             dispatch(failed(data));
           }
         } else {

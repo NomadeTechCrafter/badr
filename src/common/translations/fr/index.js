@@ -25,6 +25,12 @@ export default {
     technicalIssue: "Erreur technique, contactez l''administratteur",
     donneeObligatoire: 'la saisie du champ "{{champ}}" est obligatoire !',
     cleNotValid: 'Vérifiez la référence de votre déclaration ({{cle}})',
+    maxNombreScelle: 'Le maximum des scellés generés est 100',
+    numScelleInferieur:
+      'Le premier numéro de scellé du générateur doit être inférieur au dernier. ',
+    numScelleLongueur:
+      'Le nombre de scellé doit être numérique et de longueur 8! ',
+    numScelleExisteDeja: 'Le nombre de scellé existe déjà',
   },
   info: {
     pleasewait: 'Veuillez pateinter...',
@@ -48,8 +54,8 @@ export default {
     },
   },
   controle: {
-    RI:'Régimes internes',
-    ACVP:'ADMISSION POUR CONFORME / VISITE PHYSIQUE',
+    RI: 'Régimes internes',
+    ACVP: 'ADMISSION POUR CONFORME / VISITE PHYSIQUE',
     annotations: 'Annotations',
     intervention: 'Interventions',
     version: 'Version',
@@ -99,8 +105,8 @@ export default {
     quitter: 'Quitter',
     fermer: 'Fermer',
     rechercher: 'Rechercher',
-    du: "Du",
-    au: "Au",
+    du: 'Du',
+    au: 'Au',
     noRowFound: 'Aucun enregistrement trouvé.',
   },
   referentiel: {
@@ -135,81 +141,81 @@ export default {
       numeroCarteGrise: 'N° Carte grise',
     },
   },
-   loremIpsum1:
+  loremIpsum1:
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque mi lectus, placerat mattis nulla ut, molestie consequat libero. Praesent ut dui ac elit pellentesque imperdiet eu a augue. Morbi ante velit, posuere sed orci ut, venenatis accumsan sapien. Vivamus sed luctus libero. Donec mattis condimentum turpis, sit amet consectetur ligula.',
   mainlevee: {
-    title: "MainLevée",
-    operateur: "Opérateur",
-    Aucunenregistrementtrouve: "Aucun enregistrement trouvé. ",
-    Listedesdeclarations: " Liste des déclarations ",
-    refDroitTaxGaran: "Droits et taxes payés ou garanties ",
+    title: 'MainLevée',
+    operateur: 'Opérateur',
+    Aucunenregistrementtrouve: 'Aucun enregistrement trouvé. ',
+    Listedesdeclarations: ' Liste des déclarations ',
+    refDroitTaxGaran: 'Droits et taxes payés ou garanties ',
     refPaiementAmend: "Paiement d'amendes ",
-    sousReservePaiement: "sous Réserve de Paiement ",
-    mainleveeSousReservePaiement: "Mainlevée Sous Réserve de Paiement ",
-    validerMainlevee: "Valider la mainlevée",
-    referenceDeclaration: "Référence déclaration",
-    numVoyage: "N° Voyage",
-    numVersion: "N° Version",
-    dateCreation: "Date création",
-    dateEnregistrement: "Date enreg.",
-    operateurDeclarant: "Opérateur déclarant (Nom)",
+    sousReservePaiement: 'sous Réserve de Paiement ',
+    mainleveeSousReservePaiement: 'Mainlevée Sous Réserve de Paiement ',
+    validerMainlevee: 'Valider la mainlevée',
+    referenceDeclaration: 'Référence déclaration',
+    numVoyage: 'N° Voyage',
+    numVersion: 'N° Version',
+    dateCreation: 'Date création',
+    dateEnregistrement: 'Date enreg.',
+    operateurDeclarant: 'Opérateur déclarant (Nom)',
     listeLiquidations: {
-        title: "Liste des liquidations",
-        numLiquidation: "N° Liquidation"
-     },
+      title: 'Liste des liquidations',
+      numLiquidation: 'N° Liquidation',
+    },
     delivrerMainlevee: {
-        title: "Délivrer la mainLevée",
-        secondTitle: "Compte rendu du contrôle immédiat",
-        annotations: {
-            title: "Annotations",
-            avecPesage: "Avec pesage"
-        },
-        listeDocumentsExigibles: {
-            title: "Liste des documents exigibles",
-            documentAnnexe: "Document annexe",
-            portee: "Portée",
-            numArticle: "N° Article",
-            reconnu: "Reconnu",
-            dConsignation: "d. Consignation",
-            laisserPasser: "Laisser Passer",
-            decisionOrganismeControle: "Décision organisme de controle"
-        },
-        redressementOperes: {
-            title: "Redressements opérés",
-            aucunRedressementEffectue: "Aucun redressement effectué"
-              },
-        motivations: {
-            title: "Motivations"
-              },
-        decision: {
-            title: "Décision",
-            redressementAvecContentieux: "Redressement avec contentieux",
-            redressementSansContentieux: "Redressement sans contentieux",
-            suggererVisitePhysique: "Suggérer visite physique"
-              },
-        constationMarchandise: {
-            title: "Constation de la marchandise",
-            numeroBulletinReception: "Numéro du bulletin de réception",
-            etatChargement: "Etat de chargement"
-              },
-        informationsEcor: {
-            title: "Informations ECOR",
-            numeroPince: "Numéro Pince",
-            nombreScelles: "Nombre de Scellés",
-            generateurScelle: "Génerateur de numéros de scellés ",
-            numeroScelle: "Numéro scellé "
-              },
-        dedouanementRemorque: {
-            title: "Dédouanement sur remorque",
-            carnetTir: "Carnet TIR",
-            carnetAta: "Carnet ATA",
-            dechargeAquitCaution: "Décharge d'aquit à caution"
-              },
-        transit: {
-            title: "Transit",
-            delaiAcheminement: "Délai d'acheminement",
-            enHeure: "h"
-              }
-          }
-  }
+      title: 'Délivrer la mainLevée',
+      secondTitle: 'Compte rendu du contrôle immédiat',
+      annotations: {
+        title: 'Annotations',
+        avecPesage: 'Avec pesage',
+      },
+      listeDocumentsExigibles: {
+        title: 'Liste des documents exigibles',
+        documentAnnexe: 'Document annexe',
+        portee: 'Portée',
+        numArticle: 'N° Article',
+        reconnu: 'Reconnu',
+        dConsignation: 'd. Consignation',
+        laisserPasser: 'Laisser Passer',
+        decisionOrganismeControle: 'Décision organisme de controle',
+      },
+      redressementOperes: {
+        title: 'Redressements opérés',
+        aucunRedressementEffectue: 'Aucun redressement effectué',
+      },
+      motivations: {
+        title: 'Motivations',
+      },
+      decision: {
+        title: 'Décision',
+        redressementAvecContentieux: 'Redressement avec contentieux',
+        redressementSansContentieux: 'Redressement sans contentieux',
+        suggererVisitePhysique: 'Suggérer visite physique',
+      },
+      constationMarchandise: {
+        title: 'Constation de la marchandise',
+        numeroBulletinReception: 'Numéro du bulletin de réception',
+        etatChargement: 'Etat de chargement',
+      },
+      informationsEcor: {
+        title: 'Informations ECOR',
+        numeroPince: 'Numéro Pince',
+        nombreScelles: 'Nombre de Scellés',
+        generateurScelle: 'Génerateur de numéros de scellés ',
+        numeroScelle: 'Numéro scellé ',
+      },
+      dedouanementRemorque: {
+        title: 'Dédouanement sur remorque',
+        carnetTir: 'Carnet TIR',
+        carnetAta: 'Carnet ATA',
+        dechargeAquitCaution: "Décharge d'aquit à caution",
+      },
+      transit: {
+        title: 'Transit',
+        delaiAcheminement: "Délai d'acheminement",
+        enHeure: 'h',
+      },
+    },
+  },
 };

@@ -5,11 +5,11 @@ import * as Constants from '../../../common/constants/controle/rechercheDum';
 /**i18n */
 import {translate} from '../../../common/translations/i18n';
 
-export function request(action, navigation,successRedirection) {
+export function request(action, navigation, successRedirection) {
   return dispatch => {
     dispatch(action);
     dispatch(inProgress(action));
-      TransverseApi.doProcess(
+    TransverseApi.doProcess(
       action.value.module,
       action.value.commande,
       action.value.typeService,
@@ -17,21 +17,21 @@ export function request(action, navigation,successRedirection) {
     )
       .then(response => {
         if (response) {
-            console.log('response' ,response);
-         const data = response.data;
+          console.log('response', response);
+          const data = response.data;
           if (data && !data.dtoHeader.messagesErreur) {
-            console.log('data' ,data);
+            console.log('data', data);
             dispatch(success(data));
             /** Naviguer vers la vue suivant. */
-            navigation.navigate(successRedirection , {
+            navigation.navigate(successRedirection, {
               login: action.value.login,
               refDeclaration: action.value.referenceDed,
               numeroVoyage: action.value.numeroVoyage,
               cle: action.value.cle,
               declarationRI: data.jsonVO,
-              sousReservePaiementMLV : action.value.sousReservePaiementMLV,
+              sousReservePaiementMLV: action.value.sousReservePaiementMLV,
             });
-          } else {      
+          } else {
             dispatch(failed(data));
           }
         } else {

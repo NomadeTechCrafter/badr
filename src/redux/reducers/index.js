@@ -19,6 +19,8 @@ import badrPickerCheckerReducer from './components/badrPickerChecker';
 import autoCompleteReducer from './components/autoComplete';
 import listeDeclarationsMLVReducer from './mainLevee/listeDeclarationsMLV';
 import rechercheMLVReducer from './mainLevee/rechercheMLV';
+import delivrerMLVReducer from './mainLevee/delivrerMLV';
+
 import qrCodeReducer from './components/qrCode';
 
 import badrApiTable from './components/badrApiTable';
@@ -42,6 +44,7 @@ const allReducers = combineReducers({
   autoCompleteReducer,
   listeDeclarationsMLVReducer,
   rechercheMLVReducer,
+  delivrerMLVReducer,
   qrCodeReducer,
   controleVehiculesReducer,
 });

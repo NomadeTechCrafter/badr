@@ -21,14 +21,16 @@ export default (state = initialState, action) => {
       console.log('--> initControle in progress...');
       return nextState;
     case Constants.RECHERCHEDUM_INITCONTROLE_SUCCESS:
-      console.log('--> initControle success...',nextState);
+      console.log('--> initControle success...', nextState);
       nextState.showProgress = false;
       nextState.errorMessage = null;
       return nextState;
-      case Constants.RECHERCHEDUM_INITCONTROLE_FAILED:
+    case Constants.RECHERCHEDUM_INITCONTROLE_FAILED:
       console.log('--> initControle failed...');
       nextState.showProgress = false;
-      nextState.errorMessage = (action.value.dtoHeader) ? action.value.dtoHeader.messagesErreur : action.value ;
+      nextState.errorMessage = action.value.dtoHeader
+        ? action.value.dtoHeader.messagesErreur
+        : action.value;
       return nextState;
     case Constants.RECHERCHEDUM_INITCONTROLE_INIT:
       return initialState;
