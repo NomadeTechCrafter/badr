@@ -25,8 +25,8 @@ import RechecheMLV from './screens/mainlevee/rechercheMLV';
 import ListDeclarationMLV from './screens/mainlevee/listedeclarationsMLV';
 import DelivrerMLV from './screens/mainlevee/delivrerMLV';
 import ScanQrCode from './components/qrCode/';
-import VuEmbarque from './screens/ecorexport/vuEmbarque/vuEmbarque';
-import { primaryColor } from './styles/index';
+//import VuEmbarque from './screens/ecorexport/vuEmbarque/vuEmbarque';
+import {primaryColor} from './styles/index';
 
 import {Provider as PaperProvider, DefaultTheme} from 'react-native-paper';
 
@@ -124,17 +124,11 @@ export default class App extends React.Component {
 
               <Stack.Screen
                 name="ListDeclarationDum"
-                options={{ headerShown: false }}
+                options={{headerShown: false}}
                 component={ListDeclarationDum}
               />
 
               <Stack.Screen name="RegimeTransit" component={RegimeTransit} />
-              <Stack.Screen
-                name="VuEmbarque"
-                options={{ headerShown: false }}
-                component={VuEmbarque}
-              />
-
             </Stack.Navigator>
           </NavigationContainer>
         </Provider>

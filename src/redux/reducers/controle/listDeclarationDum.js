@@ -1,4 +1,4 @@
-import * as Constants from  '../../../common/constants/controle/listDeclarationDum';
+import * as Constants from '../../../common/constants/controle/listDeclarationDum';
 
 const initialState = {
   refDum: null,

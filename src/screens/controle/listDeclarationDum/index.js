@@ -1,12 +1,8 @@
-import React, { Component }   from 'react';
+import React from 'react';
 
-import {View, Text, Dimensions, ScrollView,StyleSheet} from 'react-native';
-import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
+import {ScrollView} from 'react-native';
 
-/** REDUX **/
-import {bindActionCreators} from 'redux';
-import _ from 'lodash';
-
+import {DataTable} from 'react-native-paper';
 
 import {connect} from 'react-redux';
 
@@ -14,23 +10,11 @@ import {connect} from 'react-redux';
 import * as Constants from '../../../common/constants/controle/listDeclarationDum';
 
 /**i18n */
-import {translate} from '../../common/translations/i18n';
+import {translate} from '../../../common/translations/i18n';
 
 import * as RechecheDumAction from '../../../redux/actions/controle/listDeclarationDum';
+import {CopyPaste} from '../../../components';
 
-import {BadrButton} from '../../components/buttons/Button';
-import {BadrTextInput} from '../../components/inputs/TextInput';
-import {BadrErrorMessage} from '../../components/messages/Error';
-import {BadrInfoMessage} from '../../components/messages/Info';
-import {BadrProgressBar} from '../../components/progressbars/BadrProgressBar';
-
-import {CustomStyleSheet} from '../../styles/index';
-
-import {load} from '../../services/storage-service';
-
-/** CONSTANTS **/
-const screenHeight = Dimensions.get('window').height;
-const MAX_RESULTS_PER_PAGE = 10;
 class ListDeclarationDum extends React.Component {
   constructor(props) {
     super(props);
@@ -42,7 +26,7 @@ class ListDeclarationDum extends React.Component {
       cle: '',
       cleValide: '',
       login: props.route.params.login,
-      typeControle:props.route.params.typeControle,
+      typeControle: props.route.params.typeControle,
       numeroVoyage: '',
       showErrorMsg: false,
       offset: 0,
@@ -57,10 +41,8 @@ class ListDeclarationDum extends React.Component {
     switch (this.state.typeControle) {
       case 'RI':
         return 'RegimeInterne';
-        break;
       case 'AC':
         return 'ACVP';
-        break;
       case 'TR':
         return 'RegimeTransit';
     }
@@ -69,10 +51,8 @@ class ListDeclarationDum extends React.Component {
     switch (this.state.typeControle) {
       case 'RI':
         return 'initControlerDedRI';
-        break;
       case 'AC':
         return 'initControlerDedACVP';
-        break;
       case 'TR':
         return 'initControlerDedTR';
     }
@@ -81,19 +61,14 @@ class ListDeclarationDum extends React.Component {
   componentDidMount() {}
 
   componentDidUpdate(prevProps, prevState) {}
-  
-
-  
-
- 
 
   onItemSelected = item => {
-    console.log('selection item declaration',this.props.successRedirection);
+    console.log('selection item declaration', this.props.successRedirection);
     this.setState({showErrorMsg: true});
     if (this.state.regime && this.state.serie) {
       this.state.cleValide = this.cleDUM(this.state.regime, this.state.serie);
 
-      if (this.state.cle == this.state.cleValide) {
+      if (this.state.cle === this.state.cleValide) {
         /*var referenceDed =
           this.state.bureau +
           this.state.regime +
@@ -114,7 +89,7 @@ class ListDeclarationDum extends React.Component {
             },
           },
           this.props.navigation,
-          this.props.successRedirection=this.getSuccessRedirectionScreen(),
+          (this.props.successRedirection = this.getSuccessRedirectionScreen()),
         );
         this.props.dispatch(action);
         console.log('dispatch fired !!');
@@ -123,13 +98,9 @@ class ListDeclarationDum extends React.Component {
   };
 
   render() {
-    let pageCount = 0;
     let rows = [];
-    let mItem = null;
     if (this.state.listeDeclaration) {
       rows = this.state.listeDeclaration;
-      pageCount = this.state.listeDeclaration.length;
-  
     }
     return (
       <ScrollView horizontal={true}>
@@ -154,20 +125,17 @@ class ListDeclarationDum extends React.Component {
                 </DataTable.Title>
               </DataTable.Header>
               {rows ? (
-                rows.map((item, index) => (
+                rows.map(item => (
                   <DataTable.Row
-                  
                     key={item.reference}
-                    onPress={() => this.onItemSelected(item)}
-                    >
+                    onPress={() => this.onItemSelected(item)}>
                     <DataTable.Cell
                       style={{width: 300}}
                       children={<CopyPaste value={item.reference} />}
                     />
-                    <DataTable.Cell 
-                    style={{width: 150}}
-                    children={<CopyPaste value={item.numVoyage} />}
-                   
+                    <DataTable.Cell
+                      style={{width: 150}}
+                      children={<CopyPaste value={item.numVoyage} />}
                     />
                     <DataTable.Cell
                       style={{width: 150}}
@@ -176,24 +144,18 @@ class ListDeclarationDum extends React.Component {
                     <DataTable.Cell
                       style={{width: 200}}
                       children={<CopyPaste value={item.dateCreationVersion} />}
-                     
                     />
 
                     <DataTable.Cell
                       style={{width: 200}}
                       children={<CopyPaste value={item.dateEnregVersion} />}
-                      
                     />
                   </DataTable.Row>
                 ))
               ) : (
                 <DataTable.Row />
               )}
-
-      
             </DataTable>
-
-     
           </ScrollView>
         )}
       </ScrollView>

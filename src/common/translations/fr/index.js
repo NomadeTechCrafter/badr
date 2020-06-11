@@ -89,8 +89,7 @@ export default {
     declaration: 'Déclaration',
     dateCreation: 'Date Création',
     dateEnregistrement: 'Date Enregistrement',
-    nVoyage:'N°Voy',
-    version:'Version',
+    nVoyage: 'N°Voy',
     regimeTransite: 'Régime transit',
   },
   welcome: {
@@ -119,8 +118,7 @@ export default {
     du: 'Du',
     au: 'Au',
     noRowFound: 'Aucun enregistrement trouvé.',
-    listDeclaration:'Liste Declaclartion',
-
+    listDeclaration: 'Liste Declaclartion',
   },
   referentiel: {
     plaquesImm: {
