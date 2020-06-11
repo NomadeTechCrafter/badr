@@ -3,10 +3,11 @@ import authReducer from './hab/auth';
 import smsVerifyReducer from './hab/smsVerify';
 import confirmConnexionReducer from './hab/confirmConnexion';
 import menuReducer from './hab/menu';
-import controleRechercheDumReducer from './components/rechercheDum';
+
+import rechercheRefDumReducer from './components/rechercheDum';
+import controleRechercheDumReducer from './controle/rechercheDum';
 import regimeInterneReducer from './controle/regimeInterne';
 import regimeTransitReducer from './controle/regimeTransit';
-
 import listDeclarationReducer from './controle/listDeclarationDum';
 
 import acvpReducer from './controle/acvp';
@@ -38,6 +39,7 @@ const allReducers = combineReducers({
   badrPickerReducer,
   badrPickerCheckerReducer,
   badrApiTable,
+  rechercheRefDumReducer,
   controleRechercheDumReducer,
   regimeInterneReducer,
   regimeTransitReducer,

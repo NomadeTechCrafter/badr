@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import {View} from 'react-native';
-import {RechercheRefDum, Toolbar} from '../../../components';
-
-import {BadrButtonIcon} from 'react-native-paper';
+import {RechercheRefDum, Toolbar, BadrButtonIcon} from '../../../components';
 /**i18n */
 import {translate} from '../../../common/translations/i18n';
 

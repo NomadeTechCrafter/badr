@@ -1,10 +1,10 @@
 const mapping = {
   '3072': {screen: 'RechercheDum', params: {typeControle: 'RI'}},
   '3064': {screen: 'RechercheDum', params: {typeControle: 'AC'}},
-  '3086':{screen: 'RechercheDum', params: {typeControle: 'RI'}},
+  '3086': {screen: 'RechercheDum', params: {typeControle: 'TR'}},
   '823': {screen: 'PlaquesImmatriculation', params: {}},
   '5971': {screen: 'RechecheMLV', params: {}},
-  '597111': {screen: 'ScanQrCode', params: {screenAfterScan:'RechecheMLV'}},
+  '597111': {screen: 'ScanQrCode', params: {screenAfterScan: 'RechecheMLV'}},
   '4096': {screen: 'ControleVehicules', params: {}},
   '9005': {screen: 'CreerApurement', params: {}},
 };
