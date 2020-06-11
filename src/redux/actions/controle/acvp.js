@@ -20,7 +20,7 @@ export function validateSave(action, navigation) {
           const data = JSON.parse(response.data);
           if (
             data &&
-            (data.dtoHeader.messagesErreur == null ||
+            (data.dtoHeader.messagesErreur === null ||
               data.dtoHeader.messagesErreur.length === 0)
           ) {
             dispatch(success(data));
@@ -70,7 +70,7 @@ export function genererCR(action) {
           const data = JSON.parse(response.data);
           if (
             data &&
-            (data.dtoHeader.messagesErreur == null ||
+            (data.dtoHeader.messagesErreur === null ||
               data.dtoHeader.messagesErreur.length === 0)
           ) {
             dispatch(genererCR_success(data));

@@ -1,36 +1,32 @@
 import TransverseApi from '../../../services/api/transverse-api';
 
-import * as Constants from '../../../common/constants/mainLevee/listeDeclarationsMLV';
+import * as Constants from '../../../common/constants/mainLevee/delivrerMLV';
 
 /**i18n */
 import {translate} from '../../../common/translations/i18n';
 
-const MODULE = 'MLV_LIB';
-const TYPE_SERVICE = 'SP';
-export function request(action, navigation, successRedirection) {
+const WS_MODULE_PARAM = 'MLV_LIB';
+const WS_TYPESERVICE_PARAM = 'UC';
+export function validerMLV(action, navigation) {
   return dispatch => {
     dispatch(action);
     dispatch(inProgress(action));
+
     TransverseApi.doProcess(
-      MODULE,
-      'listeDeclarationsMLV',
-      TYPE_SERVICE,
+      WS_MODULE_PARAM,
+      'validerMlv',
+      WS_TYPESERVICE_PARAM,
       action.value.data,
     )
       .then(response => {
         if (response) {
           const data = response.data;
-          if (data && !data.dtoHeader.messagesErreur) {
-            console.log('data', data);
+          if (
+            data &&
+            (data.dtoHeader.messagesErreur == null ||
+              data.dtoHeader.messagesErreur.length === 0)
+          ) {
             dispatch(success(data));
-            /** Naviguer vers la vue suivant. */
-            /*navigation.navigate(successRedirection , {
-              login: action.value.login,
-              refDeclaration: action.value.data.referenceDed,
-              numeroVoyage: action.value.numeroVoyage,
-              cle: action.value.cle,
-              declarationRI: data.jsonVO,
-            });*/
           } else {
             dispatch(failed(data));
           }
@@ -45,29 +41,36 @@ export function request(action, navigation, successRedirection) {
   };
 }
 
+export function init(action) {
+  return {
+    type: Constants.DELIVRERMLV_VALIDERMLV_INIT,
+    value: action.value,
+  };
+}
+
 export function inProgress(action) {
   return {
-    type: Constants.MAINLEVEE_LISTEDECLARATIONS_IN_PROGRESS,
+    type: Constants.DELIVRERMLV_VALIDERMLV_IN_PROGRESS,
     value: action.value,
   };
 }
 
 export function success(data) {
   return {
-    type: Constants.MAINLEVEE_LISTEDECLARATIONS_SUCCESS,
+    type: Constants.DELIVRERMLV_VALIDERMLV_SUCCESS,
     value: data,
   };
 }
 
 export function failed(data) {
   return {
-    type: Constants.MAINLEVEE_LISTEDECLARATIONS_FAILED,
+    type: Constants.DELIVRERMLV_VALIDERMLV_FAILED,
     value: data,
   };
 }
 
 export default {
-  request,
+  validerMLV,
   success,
   failed,
   inProgress,

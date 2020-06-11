@@ -57,3 +57,4 @@ export {default as ScanQrCode} from './qrCode';
 export {default as BadrList} from './list/badrList';
 export {default as BadrLibelleBleu} from './text/libelleBleu';
 export {default as BadrLibelleNoir} from './text/libelleNoir';
+export {default as BadrNumericTextInput} from './inputs/numericTextInput';

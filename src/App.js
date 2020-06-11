@@ -22,7 +22,6 @@ import RechecheMLV from './screens/mainlevee/rechercheMLV';
 import ListDeclarationMLV from './screens/mainlevee/listedeclarationsMLV';
 import DelivrerMLV from './screens/mainlevee/delivrerMLV';
 import ScanQrCode from './components/qrCode/';
-
 import {primaryColor} from './styles/index';
 
 import {Provider as PaperProvider, DefaultTheme} from 'react-native-paper';
@@ -32,6 +31,7 @@ import {Provider} from 'react-redux';
 import {createStore, applyMiddleware, compose} from 'redux';
 import allReducers from './redux/reducers';
 import thunk from 'redux-thunk';
+//config debuggin
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(

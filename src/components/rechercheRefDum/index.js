@@ -9,6 +9,8 @@ import {
   Checkbox,
   TouchableRipple,
   Paragraph,
+  ActivityIndicator,
+  Colors,
 } from 'react-native-paper';
 /**i18n */
 import {translate} from '../../common/translations/i18n';
@@ -79,7 +81,7 @@ class RechecheRefDum extends Component {
     let keyImput = _.keys(input)[0];
     if (input[keyImput] != '') {
       this.setState({
-        [keyImput]: _.padStart(input[keyImput], input['maxLength'], '0'),
+        [keyImput]: _.padStart(input[keyImput], input.maxLength, '0'),
       });
     }
   };
@@ -147,7 +149,7 @@ class RechecheRefDum extends Component {
     return this.state.showErrorMsg && _.isEmpty(this.state[field]);
   };
   isCleValide = () => {
-    return this.state.showErrorMsg && this.state.cle !== this.state.cleValide;
+    return this.state.showErrorMsg && this.state.cle != this.state.cleValide;
   };
 
   cleDUM = function(regime, serie) {
@@ -157,7 +159,7 @@ class RechecheRefDum extends Component {
       }*/
     if (serie.length > 6) {
       let firstSerie = serie.substring(0, 1);
-      if (firstSerie === '0') {
+      if (firstSerie == '0') {
         serie = serie.substring(1, 7);
       }
     }

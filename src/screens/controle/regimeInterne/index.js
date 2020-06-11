@@ -427,7 +427,7 @@ class RegimeInterne extends Component {
             style={styles.containerActionBtn}
             pointerEvents={this.state.isConsultation ? 'none' : 'auto'}>
             <BadrButton
-              style={{width: 100}}
+              style={styles.actionBtn}
               onPress={() => {
                 this.sauvgarderValider('sauvegarderRI');
               }}
@@ -435,7 +435,7 @@ class RegimeInterne extends Component {
               disabled={this.state.decisionControle ? false : true}
             />
             <BadrButton
-              style={{width: 100}}
+              style={styles.actionBtn}
               onPress={() => {
                 this.sauvgarderValider('validerRI');
               }}
@@ -443,7 +443,7 @@ class RegimeInterne extends Component {
               disabled={this.state.decisionControle ? false : true}
             />
             <BadrButton
-              style={{width: 100}}
+              style={styles.actionBtn}
               text={translate('controle.redresserDeclaration')}
             />
           </View>
@@ -496,6 +496,7 @@ const styles = {
   textRadio: {
     color: '#FFF',
   },
+  actionBtn: {width: 100},
 };
 
 const mapStateToProps = state => ({...state.regimeInterneReducer});
