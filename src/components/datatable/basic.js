@@ -1,7 +1,18 @@
 import React from 'react';
-import {Text, View, ScrollView, Dimensions, StyleSheet} from 'react-native';
+import {
+  Text,
+  View,
+  ScrollView,
+  Dimensions,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
+import {IconButton, Colors} from 'react-native-paper';
+
 import {DataTable} from 'react-native-paper';
-import {FAB} from 'react-native-paper';
+import {FAB, Checkbox} from 'react-native-paper';
+
+import {primaryColor} from '../../styles/index';
 
 /** i18n **/
 import {translate} from '../../common/translations/i18n';
@@ -15,13 +26,27 @@ import _ from 'lodash';
 const FIRST_PAGINATION_SEPARATOR = ' / ';
 const SECOND_PAGINATION_SEPARATOR = ' - ';
 const screenWidth = Dimensions.get('window').width;
+
 export default class BadrTable extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {currentPage: 0, offset: 0};
+    let checkedItems = [];
+    this.props.rows.forEach((element) => {
+      checkedItems.push({checked: false});
+    });
+    this.state = {currentPage: 0, offset: 0, checkedItems: checkedItems};
   }
 
-  changeCurrentPage = page => {
+  clearSelection = () => {
+    let checkedItems = [];
+    this.props.rows.forEach((element) => {
+      checkedItems.push({checked: false});
+    });
+    this.setState({checkedItems: checkedItems});
+    console.log('clear selection ...');
+  };
+
+  changeCurrentPage = (page) => {
     if (page < this.state.currentPage) {
       this.setState({
         offset: this.state.offset - this.props.maxResultsPerPage,
@@ -44,13 +69,13 @@ export default class BadrTable extends React.Component {
     return this.buildDataTable();
   }
 
-  buildPagination = pageCount => {
+  buildPagination = (pageCount) => {
     return (
       <DataTable.Pagination
         style={{alignSelf: 'flex-start'}}
         page={this.state.currentPage}
         numberOfPages={pageCount}
-        onPageChange={page => {
+        onPageChange={(page) => {
           this.changeCurrentPage(page);
         }}
         label={
@@ -65,20 +90,23 @@ export default class BadrTable extends React.Component {
     );
   };
 
+  componentDidMount = () => {
+    if (this.props.onRef) {
+      this.props.onRef(this);
+    }
+  };
+
   scrollMore = () => {
     this.refs._horizontalScrollView.scrollTo({x: screenWidth});
   };
 
   buildDataTable = () => {
-    const totalWidth = _.sumBy(this.props.cols, function(col) {
+    const totalWidth = _.sumBy(this.props.cols, function (col) {
       return col.width;
     });
-
     const pageCount = Math.ceil(
       this.props.totalElements / this.props.maxResultsPerPage,
     );
-
-    console.log('offset = ' + this.state.offset);
     return (
       <View>
         <ScrollView
@@ -88,6 +116,10 @@ export default class BadrTable extends React.Component {
           <ScrollView key="verticalScrollView">
             <DataTable style={this.props.fullWidth ? {width: screenWidth} : {}}>
               <DataTable.Header>
+                {this.props.hasId && (
+                  <DataTable.Title style={{width: 50}}>ID</DataTable.Title>
+                )}
+
                 {this.props.cols.map((column, index) => (
                   <DataTable.Title style={{width: column.width}}>
                     {column.libelle}
@@ -105,13 +137,65 @@ export default class BadrTable extends React.Component {
                   ).map((row, index) => (
                     <DataTable.Row
                       key={row[this.props.id]}
-                      onPress={() => this.props.onItemSelected(row)}>
-                      {this.props.cols.map((column, index) => (
-                        <DataTable.Cell style={{width: column.width}}>
-                          {' '}
-                          {row[column.code]}
+                      onPress={() => {
+                        if (this.props.onItemSelected) {
+                          this.props.onItemSelected(row);
+                        }
+                      }}>
+                      {this.props.hasId && (
+                        <DataTable.Cell style={{width: 50}}>
+                          {index + 1}
                         </DataTable.Cell>
-                      ))}
+                      )}
+
+                      {this.props.cols.map((column, colindex) => {
+                        return column.component ? (
+                          <View style={{width: column.width}}>
+                            {column.component === 'checkbox' && (
+                              <Checkbox
+                                color={primaryColor}
+                                status={
+                                  this.state.checkedItems &&
+                                  this.state.checkedItems.length > 0 &&
+                                  this.state.checkedItems[index] &&
+                                  this.state.checkedItems[index].checked
+                                    ? 'checked'
+                                    : 'unchecked'
+                                }
+                                onPress={() => {
+                                  let items = this.state.checkedItems;
+                                  items[index] = {
+                                    checked: items[index]
+                                      ? !items[index].checked
+                                      : false,
+                                  };
+                                  this.setState({checkedItems: items});
+                                  row.selected = items[index].checked;
+                                  console.log(row.selected);
+                                  column.action(row, index);
+                                }}
+                              />
+                            )}
+
+                            {column.component === 'button' && (
+                              <IconButton
+                                icon={column.icon ? column.icon : 'minus'}
+                                color={
+                                  column.color ? column.color : primaryColor
+                                }
+                                size={20}
+                                onPress={() => column.action(row, index)}
+                              />
+                            )}
+                          </View>
+                        ) : (
+                          <DataTable.Cell style={{width: column.width}}>
+                            {_.get(row, column.code) != null
+                              ? String(_.get(row, column.code))
+                              : ''}
+                          </DataTable.Cell>
+                        );
+                      })}
                     </DataTable.Row>
                   ))
                 : !this.props.showProgress && (
@@ -128,6 +212,7 @@ export default class BadrTable extends React.Component {
         </ScrollView>
         <FAB
           visible={
+            this.props.showRightIndicator &&
             this.props.rows &&
             this.props.rows.length > 0 &&
             totalWidth > screenWidth

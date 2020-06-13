@@ -5,18 +5,15 @@ export {default as PasswordTextInput} from './inputs/PasswordTextInput';
 export {default as BadrButton} from './buttons/Button';
 export {default as BadrButtonIcon} from './buttons/ButtonIcon';
 export {default as BadrFloatingButton} from './buttons/BadrFloatingButton';
+export {default as BadrActionButton} from './buttons/BadrActionButton';
 
 export {default as BadrErrorMessage} from './messages/Error';
 export {default as BadrInfoMessage} from './messages/Info';
 export {default as BadrPopup} from './messages/Popup';
 
 export {default as NumeroPlaque} from './referentiel/numeroPlaque';
-export {
-  default as NumeroPlaqueDiplo,
-} from './referentiel/numeroPlaqueDiplomatique';
-export {
-  default as NumeroPlaqueRemorque,
-} from './referentiel/numeroPlaqueRemorque';
+export {default as NumeroPlaqueDiplo} from './referentiel/numeroPlaqueDiplomatique';
+export {default as NumeroPlaqueRemorque} from './referentiel/numeroPlaqueRemorque';
 export {default as DetailPlaque} from './referentiel/detailPlaque';
 
 export {default as DetailBAD} from './controle/bad/detailBAD';
@@ -44,9 +41,7 @@ export {default as BadrTree} from './tree/BadrTree';
 export {default as BadrTreeItem} from './tree/BadrTreeItem';
 
 export {default as BadrProgressBar} from './progressbars/BadrProgressBar';
-export {
-  default as BadrCircleProgressBar,
-} from './progressbars/BadrCircleProgressBar';
+export {default as BadrCircleProgressBar} from './progressbars/BadrCircleProgressBar';
 export {default as BadrLoginHeader} from './header/Login';
 export {default as MenuHeader} from './header/MenuHeader';
 export {default as RechercheRefDum} from './rechercheRefDum';
@@ -57,3 +52,5 @@ export {default as ScanQrCode} from './qrCode';
 export {default as BadrList} from './list/badrList';
 export {default as BadrLibelleBleu} from './text/libelleBleu';
 export {default as BadrLibelleNoir} from './text/libelleNoir';
+
+export {default as BadrDatePicker} from './datePicker';

@@ -8,11 +8,11 @@ import * as Constants from '../../../common/constants/at/at';
 import {translate} from '../../../common/translations/i18n';
 
 export function request(action, navigation) {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(action);
     dispatch(inProgress(action));
     AtApi.initApurement(action.value.reference)
-      .then(response => {
+      .then((response) => {
         if (response) {
           console.log('PARSE');
           const data = response.data;
@@ -32,7 +32,7 @@ export function request(action, navigation) {
           dispatch(failed(translate('errors.technicalIssue')));
         }
       })
-      .catch(e => {
+      .catch((e) => {
         console.log(e);
         dispatch(failed(translate('errors.technicalIssue')));
       });
@@ -64,6 +64,25 @@ export function failed(data) {
   return {
     type: Constants.INIT_APUR_FAILED,
     value: data,
+  };
+}
+
+export function confirm(data) {
+  return {
+    type: Constants.PREPARE_APUR_CONFIRM,
+    value: {
+      listComposantAapurer: data.value.listComposantAapurer,
+      exportateur: data.value.exportateur,
+      dateApurement: data.value.dateApurement,
+      motif: data.value.motif,
+    },
+  };
+}
+
+export function remove(data) {
+  return {
+    type: Constants.PREPARE_APUR_REMOVE,
+    value: {index: data.value.index},
   };
 }
 

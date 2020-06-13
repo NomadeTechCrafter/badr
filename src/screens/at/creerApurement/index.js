@@ -26,7 +26,7 @@ class CreerApurement extends React.Component {
     this.state = {...initialState};
   }
 
-  apurManuelle = reference => {
+  apurManuelle = (reference) => {
     console.log('apu Man');
     console.log(this.state.reference);
     var action = InitApurementAction.request(
@@ -41,7 +41,7 @@ class CreerApurement extends React.Component {
     this.props.actions.dispatch(action);
   };
 
-  apurAutomatique = reference => {
+  apurAutomatique = (reference) => {
     console.log(this.state);
   };
 
@@ -62,8 +62,8 @@ class CreerApurement extends React.Component {
           />
         )}
         <RechercheRefAt
-          onApurManuelle={reference => this.apurManuelle(reference)}
-          onApurAutomatique={reference => this.onApurAutomatique(reference)}
+          onApurManuelle={(reference) => this.apurManuelle(reference)}
+          onApurAutomatique={(reference) => this.onApurAutomatique(reference)}
         />
       </ScrollView>
     );
@@ -88,7 +88,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(CreerApurement);
+export default connect(mapStateToProps, mapDispatchToProps)(CreerApurement);

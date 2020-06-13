@@ -7,7 +7,7 @@ import {connect} from 'react-redux';
 /**i18n */
 import {translate} from '../../common/translations/i18n';
 import {CustomStyleSheet} from '../../styles';
-import {Container} from '../index';
+import {Container, BadrActionButton} from '../index';
 import * as InitApurementAction from '../../redux/actions/at/initApurement';
 import * as ConstantsAt from '../../common/constants/at/at';
 /** Utils */
@@ -33,16 +33,16 @@ class RechecheRefAt extends Component {
   retablir = () => {
     console.log('retablir');
     this.setState({
-      bureau: '',
-      annee: '',
-      numero: '',
-      serie: '',
+      bureau: '309',
+      annee: '2020',
+      numero: '000',
+      serie: '0000008',
       showErrorMsg: false,
     });
     this.initRechercheAt();
   };
 
-  _hasErrors = field => {
+  _hasErrors = (field) => {
     return this.state.showErrorMsg && _.isEmpty(this.state[field]);
   };
 
@@ -50,7 +50,7 @@ class RechecheRefAt extends Component {
     this.setState({showErrorMsg: true});
   };
 
-  addZeros = input => {
+  addZeros = (input) => {
     console.log('Addd zeroooo');
     let keyImput = _.keys(input)[0];
     if (input[keyImput] !== '') {
@@ -60,7 +60,7 @@ class RechecheRefAt extends Component {
     }
   };
 
-  onChangeInput = input => {
+  onChangeInput = (input) => {
     let keyImput = _.keys(input)[0];
     this.setState({[keyImput]: input[keyImput].replace(/[^0-9]/g, '')});
   };
@@ -97,155 +97,165 @@ class RechecheRefAt extends Component {
     }
   };
 
+  handleConfirmATButton = () => {};
+
   render() {
     return (
-      <Container style={styles.container}>
-        <View style={styles.containerInputs}>
-          <View>
-            <TextInput
-              error={this._hasErrors('bureau')}
-              maxLength={3}
-              keyboardType={'number-pad'}
-              value={this.state.bureau}
-              label={translate('transverse.bureau')}
-              onChangeText={val => this.onChangeInput({bureau: val})}
-              onEndEditing={event =>
-                this.addZeros({
-                  bureau: event.nativeEvent.text,
-                  maxLength: 3,
-                })
-              }
-              style={CustomStyleSheet.largeInput}
-            />
-            <HelperText
-              type="error"
-              padding="none"
-              visible={this._hasErrors('bureau')}>
-              {translate('errors.donneeObligatoire', {
-                champ: translate('transverse.bureau'),
-              })}
-            </HelperText>
-          </View>
+      <View style={styles.fabContainer}>
+        <Container style={styles.container}>
+          <View style={styles.containerInputs}>
+            <View>
+              <TextInput
+                error={this._hasErrors('bureau')}
+                maxLength={3}
+                keyboardType={'number-pad'}
+                value={this.state.bureau}
+                label={translate('transverse.bureau')}
+                onChangeText={(val) => this.onChangeInput({bureau: val})}
+                onEndEditing={(event) =>
+                  this.addZeros({
+                    bureau: event.nativeEvent.text,
+                    maxLength: 3,
+                  })
+                }
+                style={CustomStyleSheet.largeInput}
+              />
+              <HelperText
+                type="error"
+                padding="none"
+                visible={this._hasErrors('bureau')}>
+                {translate('errors.donneeObligatoire', {
+                  champ: translate('transverse.bureau'),
+                })}
+              </HelperText>
+            </View>
 
-          <View>
-            <TextInput
-              error={this._hasErrors('annee')}
-              maxLength={4}
-              keyboardType={'number-pad'}
-              value={this.state.annee}
-              label={translate('transverse.annee')}
-              onChangeText={val => this.onChangeInput({annee: val})}
-              onEndEditing={event => {
-                this.addZeros({
-                  annee: event.nativeEvent.text,
-                  maxLength: 4,
-                });
-              }}
-              style={CustomStyleSheet.largeInput}
-            />
-            <HelperText
-              type="error"
-              padding="none"
-              visible={this._hasErrors('annee')}>
-              {translate('errors.donneeObligatoire', {
-                champ: translate('transverse.annee'),
-              })}
-            </HelperText>
-          </View>
+            <View>
+              <TextInput
+                error={this._hasErrors('annee')}
+                maxLength={4}
+                keyboardType={'number-pad'}
+                value={this.state.annee}
+                label={translate('transverse.annee')}
+                onChangeText={(val) => this.onChangeInput({annee: val})}
+                onEndEditing={(event) => {
+                  this.addZeros({
+                    annee: event.nativeEvent.text,
+                    maxLength: 4,
+                  });
+                }}
+                style={CustomStyleSheet.largeInput}
+              />
+              <HelperText
+                type="error"
+                padding="none"
+                visible={this._hasErrors('annee')}>
+                {translate('errors.donneeObligatoire', {
+                  champ: translate('transverse.annee'),
+                })}
+              </HelperText>
+            </View>
 
-          <View>
-            <TextInput
-              error={this._hasErrors('numero')}
-              maxLength={3}
-              keyboardType={'number-pad'}
-              value={this.state.numero}
-              label={translate('transverse.numero')}
-              onChangeText={val => this.onChangeInput({numero: val})}
-              onEndEditing={event =>
-                this.addZeros({
-                  numero: event.nativeEvent.text,
-                  maxLength: 3,
-                })
-              }
-              style={CustomStyleSheet.largeInput}
-            />
-            <HelperText
-              type="error"
-              padding="none"
-              visible={this._hasErrors('numero')}>
-              {translate('errors.donneeObligatoire', {
-                champ: translate('transverse.numero'),
-              })}
-            </HelperText>
-          </View>
+            <View>
+              <TextInput
+                error={this._hasErrors('numero')}
+                maxLength={3}
+                keyboardType={'number-pad'}
+                value={this.state.numero}
+                label={translate('transverse.numero')}
+                onChangeText={(val) => this.onChangeInput({numero: val})}
+                onEndEditing={(event) =>
+                  this.addZeros({
+                    numero: event.nativeEvent.text,
+                    maxLength: 3,
+                  })
+                }
+                style={CustomStyleSheet.largeInput}
+              />
+              <HelperText
+                type="error"
+                padding="none"
+                visible={this._hasErrors('numero')}>
+                {translate('errors.donneeObligatoire', {
+                  champ: translate('transverse.numero'),
+                })}
+              </HelperText>
+            </View>
 
-          <View>
-            <TextInput
-              error={this._hasErrors('serie')}
-              maxLength={7}
-              keyboardType={'number-pad'}
-              value={this.state.serie}
-              label={translate('transverse.serie')}
-              onChangeText={val => this.onChangeInput({serie: val})}
-              onEndEditing={event =>
-                this.addZeros({
-                  serie: event.nativeEvent.text,
-                  maxLength: 7,
-                })
-              }
-              style={CustomStyleSheet.largeInput}
-            />
-            <HelperText
-              type="error"
-              padding="none"
-              visible={this._hasErrors('serie')}>
-              {translate('errors.donneeObligatoire', {
-                champ: translate('transverse.serie'),
-              })}
-            </HelperText>
+            <View>
+              <TextInput
+                error={this._hasErrors('serie')}
+                maxLength={7}
+                keyboardType={'number-pad'}
+                value={this.state.serie}
+                label={translate('transverse.serie')}
+                onChangeText={(val) => this.onChangeInput({serie: val})}
+                onEndEditing={(event) =>
+                  this.addZeros({
+                    serie: event.nativeEvent.text,
+                    maxLength: 7,
+                  })
+                }
+                style={CustomStyleSheet.largeInput}
+              />
+              <HelperText
+                type="error"
+                padding="none"
+                visible={this._hasErrors('serie')}>
+                {translate('errors.donneeObligatoire', {
+                  champ: translate('transverse.serie'),
+                })}
+              </HelperText>
+            </View>
           </View>
-        </View>
-        <Grid style={styles.gridContainer}>
-          <Row>
-            <Col style={styles.column} size={50}>
-              <Button
-                mode="contained"
-                icon="check"
-                compact="true"
-                onPress={this.apurManuelle}
-                style={styles.btnConfirmer}>
-                {translate('at.apurement.manuelle')}
-              </Button>
-            </Col>
-            <Col style={styles.column} size={50}>
-              <Button
-                onPress={this.apurAutomatique}
-                mode="contained"
-                icon="check"
-                compact="true"
-                style={styles.btnConfirmer}>
-                {translate('at.apurement.automatique')}
-              </Button>
-            </Col>
-          </Row>
-          <Row>
-            <Col style={styles.column} size={100}>
-              <Button
-                onPress={() => this.retablir()}
-                icon="autorenew"
-                mode="contained"
-                style={styles.btnRetablir}>
-                {translate('transverse.retablir')}
-              </Button>
-            </Col>
-          </Row>
-        </Grid>
-      </Container>
+          <Grid style={styles.gridContainer}>
+            <Row>
+              <Col style={styles.column} size={50}>
+                <Button
+                  mode="contained"
+                  icon="check"
+                  compact="true"
+                  onPress={this.apurManuelle}
+                  style={styles.btnConfirmer}>
+                  {translate('at.apurement.manuelle')}
+                </Button>
+              </Col>
+              <Col style={styles.column} size={50}>
+                <Button
+                  onPress={this.apurAutomatique}
+                  mode="contained"
+                  icon="check"
+                  compact="true"
+                  style={styles.btnConfirmer}>
+                  {translate('at.apurement.automatique')}
+                </Button>
+              </Col>
+            </Row>
+            <Row>
+              <Col style={styles.column} size={100}>
+                <Button
+                  onPress={() => this.retablir()}
+                  icon="autorenew"
+                  mode="contained"
+                  style={styles.btnRetablir}>
+                  {translate('transverse.retablir')}
+                </Button>
+              </Col>
+            </Row>
+          </Grid>
+        </Container>
+
+        <BadrActionButton />
+      </View>
     );
   }
 }
 
 const styles = {
+  fabContainer: {
+    flex: 1,
+    justifyContent: 'flex-end',
+  },
   container: {
     justifyContent: 'center',
     alignItems: 'center',
@@ -274,9 +284,6 @@ const styles = {
   },
 };
 
-const mapStateToProps = state => ({...state.initApurementReducer});
+const mapStateToProps = (state) => ({...state.initApurementReducer});
 
-export default connect(
-  mapStateToProps,
-  null,
-)(RechecheRefAt);
+export default connect(mapStateToProps, null)(RechecheRefAt);

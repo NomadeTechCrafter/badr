@@ -54,7 +54,7 @@ class BadrApiTable extends React.Component {
     }
   }
 
-  loadMore = login => {
+  loadMore = (login) => {
     /**
       Load more data ...
     */
@@ -62,7 +62,7 @@ class BadrApiTable extends React.Component {
     this.props.actions.dispatch(action);
   };
 
-  buildSearchAction = login => {
+  buildSearchAction = (login) => {
     var action = badrApiAction.request({
       type: ConstantsBadrApiTable.BADR_APITABLE_REQUEST,
       value: {
@@ -78,7 +78,7 @@ class BadrApiTable extends React.Component {
     return action;
   };
 
-  changeCurrentPage = page => {
+  changeCurrentPage = (page) => {
     if (page < this.state.currentPage) {
       this.setState({
         offset: this.state.offset - this.props.maxResultsPerPage,
@@ -96,13 +96,13 @@ class BadrApiTable extends React.Component {
     return this.buildDataTable();
   }
 
-  buildPagination = pageCount => {
+  buildPagination = (pageCount) => {
     return (
       <DataTable.Pagination
         style={{alignSelf: 'flex-start'}}
         page={this.state.currentPage}
         numberOfPages={pageCount}
-        onPageChange={page => {
+        onPageChange={(page) => {
           this.changeCurrentPage(page);
         }}
         label={
@@ -156,7 +156,7 @@ class BadrApiTable extends React.Component {
       console.log(totalElements);
       pageCount = Math.ceil(totalElements / this.props.maxResultsPerPage);
     }
-    const totalWidth = _.sumBy(this.props.cols, function(col) {
+    const totalWidth = _.sumBy(this.props.cols, function (col) {
       return col.width;
     });
 
@@ -251,7 +251,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(BadrApiTable);
+export default connect(mapStateToProps, mapDispatchToProps)(BadrApiTable);

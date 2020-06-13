@@ -1,14 +1,24 @@
 import _ from 'lodash';
 
+import moment from 'moment';
+
 export default class Utils {
-  static buildUserFullname = user => {
+  static buildUserFullname = (user) => {
     if (user.nomAgent && user.prenomAgent) {
       return user.nomAgent.concat(' ').concat(user.prenomAgent);
     }
     return 'Anonymous';
   };
 
-  static unflatten = arr => {
+  static isDateBiggerThanNow(date, dateFormat) {
+    if (moment(date, dateFormat) > moment()) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  static unflatten = (arr) => {
     var tree = [],
       mappedArr = {},
       arrElem,
