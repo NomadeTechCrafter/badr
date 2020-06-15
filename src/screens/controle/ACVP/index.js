@@ -1,9 +1,13 @@
 import React, {Component} from 'react';
 import {View, Dimensions} from 'react-native';
+
 import {
   Container,
   CardBox,
   Accordion,
+  Card,
+  CardSection,
+  BadrTextInput,
   BadrButton,
   BadrErrorMessage,
   BadrInfoMessage,

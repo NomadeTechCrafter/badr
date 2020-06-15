@@ -2,7 +2,7 @@ import React from 'react';
 import {View, ScrollView} from 'react-native';
 const Container = props => {
   return (
-    <ScrollView>
+    <ScrollView ref={props.ContainerRef}>
       <View style={[styles.defaultStyle, props.style]}>{props.children}</View>
     </ScrollView>
   );

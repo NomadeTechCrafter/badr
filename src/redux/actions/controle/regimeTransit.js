@@ -1,6 +1,6 @@
 import ControleApi from '../../../services/api/controle-api';
 
-import * as Constants from '../../../common/constants/controle/regimeInterne';
+import * as Constants from '../../../common/constants/controle/regimeTransit';
 
 /**i18n */
 import {translate} from '../../../common/translations/i18n';
@@ -17,7 +17,7 @@ export function validateSave(action, navigation) {
     )
       .then(response => {
         if (response) {
-          const data = JSON.parse(response.data);
+          const data = response.data;
           if (
             data &&
             (data.dtoHeader.messagesErreur === null ||
@@ -40,21 +40,21 @@ export function validateSave(action, navigation) {
 
 export function inProgress(action) {
   return {
-    type: Constants.REGIMEINTERNE_VALIDATESAVE_IN_PROGRESS,
+    type: Constants.REGIMETRANSIT_VALIDATESAVE_IN_PROGRESS,
     value: action.value,
   };
 }
 
 export function success(data) {
   return {
-    type: Constants.REGIMEINTERNE_VALIDATESAVE_SUCCESS,
+    type: Constants.REGIMETRANSIT_VALIDATESAVE_SUCCESS,
     value: data,
   };
 }
 
 export function failed(data) {
   return {
-    type: Constants.REGIMEINTERNE_VALIDATESAVE_FAILED,
+    type: Constants.REGIMETRANSIT_VALIDATESAVE_FAILED,
     value: data,
   };
 }
@@ -90,21 +90,21 @@ export function genererCR(action) {
 
 export function genererCR_inProgress(action) {
   return {
-    type: Constants.REGIMEINTERNE_GENERERCR_IN_PROGRESS,
+    type: Constants.REGIMETRANSIT_GENERERCR_IN_PROGRESS,
     value: action.value,
   };
 }
 
 export function genererCR_success(data) {
   return {
-    type: Constants.REGIMEINTERNE_GENERERCR_SUCCESS,
+    type: Constants.REGIMETRANSIT_GENERERCR_SUCCESS,
     value: data,
   };
 }
 
 export function genererCR_failed(data) {
   return {
-    type: Constants.REGIMEINTERNE_GENERERCR_FAILED,
+    type: Constants.REGIMETRANSIT_GENERERCR_FAILED,
     value: data,
   };
 }

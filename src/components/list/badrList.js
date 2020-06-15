@@ -1,64 +1,73 @@
-import {CustomStyleSheet} from '../../styles/index';
+import {primaryColor} from '../../styles/index';
 import React from 'react';
 import {
-    Text,
-    View,
-    FlatList,
-    TouchableHighlight,
-    StyleSheet
+  Text,
+  View,
+  FlatList,
+  TouchableHighlight,
+  StyleSheet,
+  SafeAreaView,
 } from 'react-native';
 
-const DATA = [
-    {
-        id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-        title: 'First Item',
-    },
-    {
-        id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-        title: 'Second Item',
-    },
-    {
-        id: '58694a0f-3da1-471f-bd96-145571e29d72',
-        title: 'Third Item',
-    },
-];
 export default class BadrList extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-    render() {
-        return (
-            <FlatList style = {this.props.style}
-                data={DATA}
-                renderItem={({item, index, separators}) => (
-                    <TouchableHighlight
-                        key={item.id}
-                        onPress={() => this._onPress(item)}
-                        onShowUnderlay={separators.highlight}
-                        onHideUnderlay={separators.unhighlight}>
-                      <View  style={styles.item} >
-                        <Text style={styles.title} >{item.title}</Text>
-                      </View>
-                    </TouchableHighlight>
-                )}
-            />
-        );
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      indexSelectedItem: '',
+    };
+  }
+  onPressItem = index => {
+    this.props.onPressListItem(index);
+    this.setState({indexSelectedItem: index});
+  };
+  render() {
+    return (
+      <SafeAreaView style={styles.container}>
+        <FlatList
+          style={this.props.style}
+          nestedScrollEnabled={true}
+          data={this.props.data}
+          renderItem={({item, index, separators}) => (
+            <TouchableHighlight
+              key={item}
+              underlayColor={primaryColor}
+              onPress={() => this.onPressItem(index)}>
+              <View
+                style={[
+                  styles.item,
+                  this.state.indexSelectedItem === index
+                    ? styles.selectedItem
+                    : '',
+                ]}>
+                <Text style={styles.title}>{item}</Text>
+              </View>
+            </TouchableHighlight>
+          )}
+        />
+      </SafeAreaView>
+    );
+  }
 }
 const styles = StyleSheet.create({
-    item: {
-        backgroundColor: '#f8f8f8',
-        paddingHorizontal: 10,
-        paddingVertical:6,
-        marginVertical: 5,
-        height: 50,
-        borderStyle: 'solid',
-        borderRadius: 4,
-        alignItems: 'center',
-        justifyContent:'center'
-    },
-    title: {
-        fontSize: 16,
-        color: '#444'
-    },
+  container: {
+    flex: 1,
+  },
+  item: {
+    backgroundColor: '#f8f8f8',
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    marginVertical: 5,
+    height: 50,
+    borderStyle: 'solid',
+    borderRadius: 4,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  selectedItem: {
+    backgroundColor: primaryColor,
+  },
+  title: {
+    fontSize: 16,
+    color: '#444',
+  },
 });

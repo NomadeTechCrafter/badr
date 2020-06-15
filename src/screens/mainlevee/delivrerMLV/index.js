@@ -13,6 +13,8 @@ import {
   BadrList,
   BadrLibelleBleu,
   BadrLibelleNoir,
+  BadrNumericTextInput,
+  BadrPopup,
 } from '../../../components';
 import {
   Checkbox,
@@ -31,19 +33,54 @@ import _ from 'lodash';
 
 import {load} from '../../../services/storage-service';
 import {connect} from 'react-redux';
-import * as Constants from '../../../common/constants/controle/regimeInterne';
-import * as RegimeInterneAction from '../../../redux/actions/controle/regimeInterne';
+import * as Constants from '../../../common/constants/mainLevee/delivrerMLV';
+import * as DelivrerMLVAction from '../../../redux/actions/mainLevee/delivrerMLV';
 
 const screenHeight = Dimensions.get('window').height;
 const RECONNU = 'reconnu';
 const DEMANDE_CONSIGNATION = 'demandeConsignation';
 
 class DelivrerMLV extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      login: '',
+      checked: false,
+      refDeclaration: props.route.params.refDeclaration,
+      cle: props.route.params.cle,
+      numeroVoyage: props.route.params.numeroVoyage,
+      declaration: props.route.params.declarationRI,
+      delivrerMainleveeVO: props.route.params.declarationRI,
+      typeRegime: translate('controle.regimeInterne'),
+      decisionControle: props.route.params.declarationRI.decisionControle,
+      observation: props.route.params.declarationRI.observation,
+      sousReservePaiementMLV: props.route.params.sousReservePaiementMLV,
+      numeroVersionCourante: 0,
+      isConsultation: false,
+      compteRendu: '',
+      generateurNumScelleAu: '',
+      generateurNumScelleDu: '',
+      messagesErreur: [],
+      listeNombreDeScelles: [],
+      messageVisibility: false,
+      message: '',
+      messageType: '',
+      selectedItemListScelle: '',
+    };
+    this.numeroScelle = '';
+  }
+
+  componentDidMount() {
+    console.log('componentDidMount DelivrerMLV:');
+    load('user').then(user => {
+      this.setState({login: JSON.parse(user).login});
+    });
+  }
   // init documentAnnexeResultVOItem JSON field for action save/validate
   initDocumentJSONField = () => {
     let documentAnnexeResultVO = [];
     let documentAnnexeResultVOItem = {};
-    for (let doc of this.state.declaration.documentAnnexeResultVOs) {
+    for (var doc of this.state.declaration.documentAnnexeResultVOs) {
       documentAnnexeResultVOItem = {};
       documentAnnexeResultVOItem.id = doc.documentAnnexe.identifiant;
       documentAnnexeResultVOItem.decisionMCI = doc.decisionMCI;
@@ -55,24 +92,14 @@ class DelivrerMLV extends Component {
     }
     return documentAnnexeResultVO;
   };
-  sauvgarderValider = commande => {
-    console.log('sauvgarderValider');
-    var data = {
-      idControle: this.state.declaration.idControle,
-      idDed: this.state.declaration.idDed,
-      referenceDed: this.state.refDeclaration,
-      documentAnnexeResultVO: this.initDocumentJSONField(),
-      observation: this.state.observation,
-      decisions: this.state.decisionControle,
-      numeroVersionCourante: this.state.numeroVersionCourante,
-    };
+  validerMainLevee = () => {
+    console.log('validerMainLevee');
+    var data = this.state.delivrerMainleveeVO;
     console.log('data----', data);
-    var action = RegimeInterneAction.validateSave(
+    var action = DelivrerMLVAction.validerMLV(
       {
-        type: Constants.REGIMEINTERNE_VALIDATESAVE_REQUEST,
+        type: Constants.DELIVRERMLV_VALIDERMLV_REQUEST,
         value: {
-          login: this.state.login,
-          commande: commande,
           data: data,
         },
       },
@@ -81,7 +108,24 @@ class DelivrerMLV extends Component {
     this.props.dispatch(action);
     console.log('dispatch fired !!');
   };
-  genererCompteRendu = () => {
+
+  showMessages = (type, message) => {
+    this.scrollViewRef.scrollTo({y: 0, animated: true});
+    this.setState({
+      messageVisibility: true,
+      message: message,
+      messageType: type,
+    });
+  };
+
+  onCloseMessagesPressed = () => {
+    this.setState({
+      messageVisibility: false,
+      message: '',
+      messageType: '',
+    });
+  };
+  /* genererCompteRendu = () => {
     var data = {
       idDed: this.state.declaration.idDed,
       //numeroVersionBase: this.state.numeroVersionCourante,
@@ -99,7 +143,8 @@ class DelivrerMLV extends Component {
     );
     this.props.dispatch(action);
     console.log('dispatch fired !!');
-  };
+  };*/
+
   //toggleChoice for field RECONNU && DEMANDE_CONSIGNATION
   toggleChoiceInList = (indexDocument, key) => {
     let listDoc = this.state.declaration.documentAnnexeResultVOs;
@@ -121,26 +166,6 @@ class DelivrerMLV extends Component {
     }));
   };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      login: '',
-      checked: false,
-      refDeclaration: props.route.params.refDeclaration,
-      cle: props.route.params.cle,
-      numeroVoyage: props.route.params.numeroVoyage,
-      declaration: props.route.params.declarationRI,
-      delivrerMainleveeVO: props.route.params.declarationRI,
-      typeRegime: translate('controle.regimeInterne'),
-      decisionControle: props.route.params.declarationRI.decisionControle,
-      observation: props.route.params.declarationRI.observation,
-      sousReservePaiementMLV: props.route.params.sousReservePaiementMLV,
-      numeroVersionCourante: 0,
-      isConsultation: false,
-      compteRendu: '',
-    };
-  }
-
   static getDerivedStateFromProps(props, state) {
     if (
       props.reponseData &&
@@ -159,16 +184,90 @@ class DelivrerMLV extends Component {
     // Return null to indicate no change to state.
     return null;
   }
+  genererNumeroScelle = () => {
+    var {
+      generateurNumScelleDu,
+      generateurNumScelleAu,
+      listeNombreDeScelles,
+    } = this.state;
+    if (generateurNumScelleDu && generateurNumScelleAu) {
+      if (
+        generateurNumScelleDu.length === 8 &&
+        generateurNumScelleAu.length === 8
+      ) {
+        var du = Number(generateurNumScelleDu);
+        var au = Number(generateurNumScelleAu);
+        if (au > du) {
+          if (au - du <= 100) {
+            //$scope.listeNombreDeScelles = $scope.listeNombreDeScelles ? $scope.listeNombreDeScelles : [];
+            var nbScelle = du;
 
-  componentDidMount() {
-    console.log('componentDidMount ri:');
-    load('user').then(user => {
-      this.setState({login: JSON.parse(user).login});
-    });
-  }
+            for (var i = du; i <= au; i++) {
+              listeNombreDeScelles.push(('00000000' + nbScelle).slice(-8));
+              this.setState({listeNombreDeScelles: listeNombreDeScelles});
+              nbScelle += 1;
+            }
+            this.setState({
+              generateurNumScelleDu: '',
+              generateurNumScelleAu: '',
+            });
+            this.generateurNumScelleDu.clear();
+            this.generateurNumScelleAu.clear();
+          } else {
+            this.showMessages('warn', translate('errors.maxNombreScelle'));
+          }
+        } else {
+          this.showMessages('warn', translate('errors.numScelleInferieur'));
+        }
+      } else {
+        this.showMessages('warn', translate('errors.numScelleLongueur'));
+      }
+    }
+  };
+
+  addNumeroScelle = () => {
+    var {listeNombreDeScelles} = this.state;
+    let numeroScelle = this.numeroScelle;
+    if (numeroScelle) {
+      if (numeroScelle.length === 8) {
+        if (listeNombreDeScelles.length < 100) {
+          if (_.indexOf(listeNombreDeScelles, numeroScelle) === -1) {
+            listeNombreDeScelles.push(numeroScelle);
+            this.setState({
+              listeNombreDeScelles: listeNombreDeScelles,
+            });
+            this.numeroScelleInput.clear();
+          } else {
+            this.showMessages('warn', translate('errors.numScelleExisteDeja'));
+          }
+        } else {
+          this.showMessages('warn', translate('errors.maxNombreScelle'));
+        }
+      } else {
+        this.showMessages('warn', translate('errors.numScelleLongueur'));
+      }
+    }
+  };
+
+  deleteNumeroScelle = () => {
+    var {selectedItemListScelle, listeNombreDeScelles} = this.state;
+    if (
+      selectedItemListScelle !== '' &&
+      listeNombreDeScelles[selectedItemListScelle]
+    ) {
+      listeNombreDeScelles.splice(selectedItemListScelle, 1);
+      this.setState({
+        listeNombreDeScelles: listeNombreDeScelles,
+      });
+    }
+  };
 
   render() {
-    const {delivrerMainleveeVO} = this.state;
+    const {
+      delivrerMainleveeVO,
+      generateurNumScelleAu,
+      listeNombreDeScelles,
+    } = this.state;
     return (
       <View style={CustomStyleSheet.fullContainer}>
         <Toolbar
@@ -177,8 +276,17 @@ class DelivrerMLV extends Component {
           subtitle={translate('mainlevee.delivrerMainlevee.title')}
           icon="menu"
         />
-        <Container>
+        <Container
+          ContainerRef={ref => {
+            this.scrollViewRef = ref;
+          }}>
           {this.props.showProgress && <BadrProgressBar width={screenHeight} />}
+          <BadrPopup
+            message={this.state.message}
+            type={this.state.messageType}
+            visible={this.state.messageVisibility}
+            onClosePressed={this.onCloseMessagesPressed}
+          />
           {this.props.errorMessage != null && (
             <BadrErrorMessage message={this.props.errorMessage} />
           )}
@@ -507,7 +615,7 @@ class DelivrerMLV extends Component {
                       }
                       disabled={this.state.isConsultation}
                       onPress={() => {
-                        this.setChoiceDocAnnexe(index, DEMANDE_CONSIGNATION);
+                        this.setChoiceDocAnnexe(DEMANDE_CONSIGNATION);
                       }}
                     />
                     <Text>
@@ -568,13 +676,14 @@ class DelivrerMLV extends Component {
               )}>
               <Grid>
                 <Row style={CustomStyleSheet.whiteRow}>
-                  <TextInput
-                    style={{flex: 1}}
-                    value={delivrerMainleveeVO.annotations}
-                    multiline={true}
-                    numberOfLines={6}
-                    onChangeText={text => this.setState({observation: text})}
-                  />
+                  <Col size={1}>
+                    <TextInput
+                      value={delivrerMainleveeVO.annotations}
+                      multiline={true}
+                      numberOfLines={6}
+                      onChangeText={text => this.setState({observation: text})}
+                    />
+                  </Col>
                 </Row>
                 <Row style={CustomStyleSheet.lightBlueRow}>
                   <TouchableRipple
@@ -623,7 +732,7 @@ class DelivrerMLV extends Component {
                       label={translate(
                         'mainlevee.delivrerMainlevee.informationsEcor.numeroPince',
                       )}
-                      style={{height: 50}}
+                      style={CustomStyleSheet.badrInputHeight}
                       onChangeText={text =>
                         this.setState({
                           delivrerMainleveeVO: {
@@ -636,15 +745,13 @@ class DelivrerMLV extends Component {
                   </Col>
                   <Col size={1} />
                   <Col size={1}>
-                    <TextInput
-                      mode={'outlined'}
+                    <BadrNumericTextInput
                       maxLength={8}
-                      keyboardType={'number-pad'}
                       value={delivrerMainleveeVO.nombreDeScelles}
                       label={translate(
                         'mainlevee.delivrerMainlevee.informationsEcor.nombreScelles',
                       )}
-                      onChangeText={text =>
+                      onChangeBadrInput={text =>
                         this.setState({
                           delivrerMainleveeVO: {
                             ...this.state.delivrerMainleveeVO,
@@ -652,7 +759,6 @@ class DelivrerMLV extends Component {
                           },
                         })
                       }
-                      style={{height: 50}}
                     />
                   </Col>
                 </Row>
@@ -665,80 +771,75 @@ class DelivrerMLV extends Component {
                     </BadrLibelleBleu>
                   </Col>
                   <Col size={2}>
-                    <TextInput
-                      mode={'outlined'}
+                    <BadrNumericTextInput
+                      onRef={input => {
+                        this.generateurNumScelleDu = input;
+                      }}
                       maxLength={8}
-                      value={delivrerMainleveeVO.numeroPince}
+                      value={this.state.generateurNumScelleDu}
                       label={translate('transverse.du')}
-                      style={{height: 45}}
-                      onChangeText={text =>
+                      onChangeBadrInput={text =>
                         this.setState({
-                          delivrerMainleveeVO: {
-                            ...this.state.delivrerMainleveeVO,
-                            numeroPince: text,
-                          },
+                          generateurNumScelleDu: text,
                         })
                       }
                     />
                   </Col>
                   <Col size={1} />
                   <Col size={2}>
-                    <TextInput
-                      mode={'outlined'}
+                    <BadrNumericTextInput
+                      onRef={input => {
+                        this.generateurNumScelleAu = input;
+                      }}
                       maxLength={8}
-                      keyboardType={'number-pad'}
-                      value={delivrerMainleveeVO.nombreDeScelles}
+                      value={generateurNumScelleAu}
                       label={translate('transverse.au')}
-                      style={{height: 45}}
-                      onChangeText={text =>
+                      onChangeBadrInput={text =>
                         this.setState({
-                          delivrerMainleveeVO: {
-                            ...this.state.delivrerMainleveeVO,
-                            nombreDeScelles: text,
-                          },
+                          generateurNumScelleAu: text,
                         })
                       }
                     />
                   </Col>
                   <Col size={2} />
                   <Col size={1}>
-                    <Button onPress={''} mode="contained" compact="true">
+                    <Button
+                      mode="contained"
+                      compact="true"
+                      onPress={this.genererNumeroScelle}>
                       {translate('transverse.Ok')}
                     </Button>
                   </Col>
                   <Col size={2} />
                 </Row>
-                <Row style={CustomStyleSheet.whiteRow}>
+                <Row
+                  style={[CustomStyleSheet.whiteRow, styles.rowListNumScelle]}>
                   <Col size={5}>
-                    <TextInput
-                      mode={'outlined'}
+                    <BadrNumericTextInput
+                      onRef={input => {
+                        this.numeroScelleInput = input;
+                      }}
                       maxLength={8}
-                      value={delivrerMainleveeVO.numeroScelle}
+                      value={this.numeroScelle}
                       label={translate(
                         'mainlevee.delivrerMainlevee.informationsEcor.numeroScelle',
                       )}
-                      style={{height: 50}}
-                      onChangeText={text =>
-                        this.setState({
-                          delivrerMainleveeVO: {
-                            ...this.state.delivrerMainleveeVO,
-                            numeroPince: text,
-                          },
-                        })
-                      }
+                      onChangeBadrInput={text => {
+                        this.numeroScelle = text;
+                      }}
                     />
                   </Col>
                   <Col size={2} />
 
                   <Col size={1}>
                     <Button
-                      onPress={''}
+                      onPress={this.addNumeroScelle}
                       icon="plus-box"
                       mode="contained"
                       compact="true"
                     />
                     <Button
-                      onPress={''}
+                      onPress={this.deleteNumeroScelle}
                       icon="delete"
                       mode="contained"
                       compact="true"
@@ -746,7 +847,12 @@ class DelivrerMLV extends Component {
                   </Col>
                   <Col size={2} />
                   <Col size={5}>
-                    <BadrList />
+                    <BadrList
+                      data={listeNombreDeScelles}
+                      onPressListItem={index =>
+                        this.setState({selectedItemListScelle: index})
+                      }
+                    />
                   </Col>
                 </Row>
               </Grid>
@@ -769,7 +875,7 @@ class DelivrerMLV extends Component {
                       label={translate(
                         'mainlevee.delivrerMainlevee.dedouanementRemorque.carnetTir',
                       )}
-                      style={{height: 50}}
+                      style={CustomStyleSheet.badrInputHeight}
                       onChangeText={text =>
                         this.setState({
                           delivrerMainleveeVO: {
@@ -798,7 +904,7 @@ class DelivrerMLV extends Component {
                           },
                         })
                       }
-                      style={{height: 50}}
+                      style={CustomStyleSheet.badrInputHeight}
                     />
                   </Col>
                 </Row>
@@ -811,7 +917,7 @@ class DelivrerMLV extends Component {
                       label={translate(
                         'mainlevee.delivrerMainlevee.dedouanementRemorque.dechargeAquitCaution',
                       )}
-                      style={{height: 50}}
+                      style={CustomStyleSheet.badrInputHeight}
                       onChangeText={text =>
                         this.setState({
                           delivrerMainleveeVO: {
@@ -844,7 +950,7 @@ class DelivrerMLV extends Component {
                           'mainlevee.delivrerMainlevee.transit.delaiAcheminement',
                         ) + ' (h)'
                       }
-                      style={{height: 50}}
+                      style={CustomStyleSheet.badrInputHeight}
                       onChangeText={text =>
                         this.setState({
                           delivrerMainleveeVO: {
@@ -866,19 +972,19 @@ class DelivrerMLV extends Component {
             style={styles.containerActionBtn}
             pointerEvents={this.state.isConsultation ? 'none' : 'auto'}>
             <BadrButton
-              style={{width: 100}}
+              style={styles.actionBtn}
               onPress={() => {
                 this.sauvgarderValider('sauvegarderRI');
               }}
-              text={translate('controle.sauvegarder')}
+              text={translate('mainlevee.validerMainlevee')}
               disabled={this.state.decisionControle ? false : true}
             />
             <BadrButton
-              style={{width: 100}}
+              style={styles.actionBtn}
               onPress={() => {
                 this.sauvgarderValider('validerRI');
               }}
-              text={translate('controle.validerControle')}
+              text={translate('mainlevee.delivrerMainlevee.title')}
               disabled={this.state.decisionControle ? false : true}
             />
           </View>
@@ -941,9 +1047,15 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'space-between',
   },
+  actionBtn: {
+    width: 200,
+  },
+  rowListNumScelle: {
+    height: 170,
+  },
 };
 
-const mapStateToProps = state => ({...state.regimeInterneReducer});
+const mapStateToProps = state => ({...state.delivrerMLVReducer});
 
 export default connect(
   mapStateToProps,
