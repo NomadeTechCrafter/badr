@@ -22,8 +22,12 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case Constants.INIT_APUR_REQUEST:
       nextState.displayError = false;
+      nextState.messageInfo = null;
       nextState.errorMessage = null;
       nextState.data = {};
+      if (nextState.successMessage) {
+        delete nextState.successMessage;
+      }
       return nextState;
     case Constants.INIT_APUR_IN_PROGRESS:
       nextState.showProgress = true;
@@ -37,7 +41,6 @@ export default (state = initialState, action) => {
     case Constants.INIT_APUR_FAILED:
       nextState.showProgress = false;
       nextState.displayError = true;
-      nextState.data = {};
       if (action.value.dtoHeader) {
         nextState.errorMessage = action.value.dtoHeader.messagesErreur
           ? action.value.dtoHeader.messagesErreur
@@ -50,15 +53,101 @@ export default (state = initialState, action) => {
       return initialState;
     case Constants.PREPARE_APUR_CONFIRM:
       prepareConfirm(action.value, nextState);
-      console.log('--> PREPARE_APUR_CONFIRM...');
       return nextState;
     case Constants.PREPARE_APUR_REMOVE:
       prepareRemove(action.value, nextState);
-      console.log('--> PREPARE_APUR_REMOVE...');
+      return nextState;
+    case Constants.CREATE_APUR_REQUEST:
+      nextState.displayError = false;
+      nextState.errorMessage = null;
+      nextState.messageInfo = null;
+      return nextState;
+    case Constants.CREATE_APUR_IN_PROGRESS:
+      nextState.showProgress = true;
+      return nextState;
+    case Constants.CREATE_APUR_SUCCESS:
+      nextState.errorMessage = null;
+      nextState.showProgress = false;
+      nextState.data = action.value.jsonVO;
+      construireComposantsAapurer(nextState.data);
+      if (
+        action.value.dtoHeader &&
+        action.value.dtoHeader.messagesInfo &&
+        action.value.dtoHeader.messagesInfo.length > 0
+      ) {
+        nextState.successMessage = action.value.dtoHeader.messagesInfo[0];
+      }
+      return nextState;
+    case Constants.CREATE_APUR_FAILED:
+      if (nextState.successMessage) {
+        delete nextState.successMessage;
+      }
+      nextState.showProgress = false;
+      nextState.displayError = true;
+      if (action.value.dtoHeader) {
+        nextState.errorMessage = action.value.dtoHeader.messagesErreur
+          ? action.value.dtoHeader.messagesErreur
+          : action.value;
+      } else {
+        nextState.errorMessage = translate('errors.technicalIssue');
+      }
+      return nextState;
+    case Constants.CREATE_APURAUTO_REQUEST:
+      nextState.displayError = false;
+      nextState.messageInfo = null;
+      nextState.errorMessage = null;
+      nextState.data = {};
+      return nextState;
+    case Constants.CREATE_APURAUTO_IN_PROGRESS:
+      nextState.showProgress = true;
+      return nextState;
+    case Constants.CREATE_APURAUTO_SUCCESS:
+      if (action.value.dtoHeader && action.value.dtoHeader.messagesInfo) {
+        nextState.messageInfo = action.value.dtoHeader.messagesInfo[0];
+      }
+      nextState.errorMessage = null;
+      nextState.showProgress = false;
+      nextState.data = action.value.jsonVO;
+      return nextState;
+    case Constants.CREATE_APURAUTO_FAILED:
+      nextState.showProgress = false;
+      nextState.displayError = true;
+      if (action.value.dtoHeader) {
+        nextState.errorMessage = action.value.dtoHeader.messagesErreur
+          ? action.value.dtoHeader.messagesErreur
+          : action.value;
+      } else {
+        nextState.errorMessage = translate('errors.technicalIssue');
+      }
+      return nextState;
+    case Constants.INIT_APURAUTO_REQUEST:
+      nextState.displayError = false;
+      nextState.errorMessage = null;
+      nextState.data = {};
+      return nextState;
+    case Constants.INIT_APURAUTO_IN_PROGRESS:
+      nextState.showProgress = true;
+      return nextState;
+    case Constants.INIT_APURAUTO_SUCCESS:
+      nextState.errorMessage = null;
+      nextState.showProgress = false;
+      nextState.data = action.value.jsonVO;
+      return nextState;
+    case Constants.INIT_APURAUTO_FAILED:
+      nextState.showProgress = false;
+      nextState.displayError = true;
+      if (action.value.dtoHeader) {
+        nextState.errorMessage = action.value.dtoHeader.messagesErreur;
+      } else {
+        nextState.errorMessage = translate('errors.technicalIssue');
+      }
       return nextState;
     default:
-      nextState.showProgress = true;
-      return initialState;
+      if (nextState.successMessage) {
+        delete nextState.successMessage;
+      }
+      nextState.showProgress = false;
+      return nextState.data ? nextState : initialState;
   }
 };
 
@@ -68,16 +157,22 @@ const prepareConfirm = (incomingValue, state) => {
   const motif = incomingValue.motif;
   let selectedApurements = [];
   let allTypes = '';
+  console.log('COMPOSANT A APURER ::::::::: ');
+  console.log(listComposants);
   if (listComposants && listComposants.length > 0) {
     let iteration = 0;
     listComposants.forEach((composant) => {
       let newComponent = {
         idComposant: composant.idComposant,
         exportateur: exportateur,
-        modeApur: composant.modeApur,
+        modeApur: composant.modeApurementComposant
+          ? composant.modeApurementComposant
+          : composant.modeApur,
         typeComposant: composant.typeComposant,
         informationAffichee: composant.informationAffichee,
       };
+      console.log('  CREATION DU COMPOSANT ::::::::: ');
+      console.log(newComponent);
       selectedApurements.push(newComponent);
       _.remove(state.data.composantsApures, {
         idComposant: composant.idComposant,
@@ -95,11 +190,11 @@ const prepareConfirm = (incomingValue, state) => {
       code: Session.getInstance().getCodeBureau(),
       libelle: Session.getInstance().getNomBureauDouane(),
     },
-    arronfApur: {
+    arrondApur: {
       code: Session.getInstance().getCodeArrondissement(),
       libelle: Session.getInstance().getLibelleArrondissement(),
     },
-    typeComposantApur: allTypes,
+    typeComposApur: allTypes,
     dateApurement: incomingValue.dateApurement,
     motifDateApur: motif,
     apurementComposantVOs: selectedApurements,
@@ -107,6 +202,8 @@ const prepareConfirm = (incomingValue, state) => {
   if (!state.data.apurementVOs) {
     state.data.apurementVOs = [];
   }
+  console.log('  APUREMENT CREE ::::::::: ');
+  console.log(newApurementVO);
   state.data.apurementVOs.push(newApurementVO);
 };
 
@@ -164,7 +261,7 @@ const buildVehiculeVOs = (admissionTempVO, listeIdDejaApure) => {
         value.matricule +
         ' / Pays : ' +
         value.paysMatricule.libelle;
-      value.modeApur = {code: '001', libelle: 'Réexportation'};
+      value.modeApurementComposant = {code: '001', libelle: 'Réexportation'};
       admissionTempVO.composantsApures.push(value);
     }
   });
@@ -176,7 +273,7 @@ const buildRemorqueVOs = (admissionTempVO, listeIdDejaApure) => {
       value.selected = false;
       value.typeComposant = 'Remorque';
       value.informationAffichee = 'Matricule : ' + value.matricule;
-      value.modeApur = {code: '001', libelle: 'Réexportation'};
+      value.modeApurementComposant = {code: '001', libelle: 'Réexportation'};
       admissionTempVO.composantsApures.push(value);
     }
   });
@@ -194,7 +291,7 @@ const buildMotoQuadVOs = (admissionTempVO, listeIdDejaApure) => {
       }
       value.typeComposant = 'Moto / Quad';
       value.informationAffichee = informationAffichee;
-      value.modeApur = {code: '001', libelle: 'Réexportation'};
+      value.modeApurementComposant = {code: '001', libelle: 'Réexportation'};
       admissionTempVO.composantsApures.push(value);
     }
   });
@@ -205,7 +302,7 @@ const buildJetskyVOs = (admissionTempVO, listeIdDejaApure) => {
       value.selected = false;
       value.typeComposant = 'Jet Ski';
       value.informationAffichee = 'Série : ' + value.serie;
-      value.modeApur = {code: '001', libelle: 'Réexportation'};
+      value.modeApurementComposant = {code: '001', libelle: 'Réexportation'};
       admissionTempVO.composantsApures.push(value);
     }
   });
@@ -221,7 +318,7 @@ const buildBateauPlaisanceVOs = (admissionTempVO, listeIdDejaApure) => {
         value.matricule +
         ' / Pays : ' +
         value.pavillion.libelle;
-      value.modeApur = {code: '001', libelle: 'Réexportation'};
+      value.modeApurementComposant = {code: '001', libelle: 'Réexportation'};
       admissionTempVO.composantsApures.push(value);
     }
   });
@@ -233,7 +330,7 @@ const buildPneumatiqueVos = (admissionTempVO, listeIdDejaApure) => {
       value.selected = false;
       value.typeComposant = 'Pneumatique';
       value.informationAffichee = 'Série : ' + value.serie;
-      value.modeApur = {code: '001', libelle: 'Réexportation'};
+      value.modeApurementComposant = {code: '001', libelle: 'Réexportation'};
       admissionTempVO.composantsApures.push(value);
     }
   });
@@ -245,7 +342,7 @@ const buildKartingVOs = (admissionTempVO, listeIdDejaApure) => {
       value.selected = false;
       value.typeComposant = 'Karting';
       value.informationAffichee = 'Série : ' + value.serie;
-      value.modeApur = {code: '001', libelle: 'Réexportation'};
+      value.modeApurementComposant = {code: '001', libelle: 'Réexportation'};
       admissionTempVO.composantsApures.push(value);
     }
   });
@@ -257,7 +354,7 @@ const buildArmeVos = (admissionTempVO, listeIdDejaApure) => {
       value.selected = false;
       value.typeComposant = 'Arme';
       value.informationAffichee = 'Série : ' + value.serie;
-      value.modeApur = {code: '001', libelle: 'Réexportation'};
+      value.modeApurementComposant = {code: '001', libelle: 'Réexportation'};
       admissionTempVO.composantsApures.push(value);
     }
   });
@@ -269,7 +366,7 @@ const buildDronesVos = (admissionTempVO, listeIdDejaApure) => {
       value.selected = false;
       value.typeComposant = value.drone ? 'Drone' : 'Engin volant';
       value.informationAffichee = 'Série : ' + value.serie;
-      value.modeApur = {code: '001', libelle: 'Réexportation'};
+      value.modeApurementComposant = {code: '001', libelle: 'Réexportation'};
       admissionTempVO.composantsApures.push(value);
     }
   });
@@ -284,7 +381,7 @@ const buildMarchandiseVos = (admissionTempVO, listeIdDejaApure) => {
         'Désignation : ' +
         value.designation +
         (value.nature ? ' / Nature : ' + value.nature.libelle : '');
-      value.modeApur = {code: '001', libelle: 'Réexportation'};
+      value.modeApurementComposant = {code: '001', libelle: 'Réexportation'};
       admissionTempVO.composantsApures.push(value);
     }
   });

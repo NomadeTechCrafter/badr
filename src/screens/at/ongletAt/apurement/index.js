@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Dimensions} from 'react-native';
+import {View, Dimensions, ScrollView} from 'react-native';
 import {TextInput, Button} from 'react-native-paper';
 import {translate} from '../../../../common/translations/i18n';
 import {primaryColor} from '../../../../styles/index';
@@ -8,7 +8,8 @@ import {InfoCommon} from '../common/';
 import {connect} from 'react-redux';
 import {Col, Row} from 'react-native-easy-grid';
 import _ from 'lodash';
-import * as InitApurementAction from '../../../../redux/actions/at/initApurement';
+import * as InitApurementAction from '../../../../redux/actions/at/apurement';
+import * as CreateApurementAction from '../../../../redux/actions/at/createApurement';
 import * as ConstantsAt from '../../../../common/constants/at/at';
 
 /** Utils */
@@ -25,27 +26,25 @@ import {
   BadrTable,
   CardsWithTitle,
   BadrDatePicker,
-  BadrFloatingButton,
+  BadrActionButton,
 } from '../../../../components';
-
-const screenHeight = Dimensions.get('window').height;
 
 const buildComposantsColumns = (reference) => {
   return [
     {
       code: 'typeComposant',
       libelle: 'Type composant',
-      width: 200,
+      width: 160,
     },
     {
       code: 'informationAffichee',
       libelle: 'Information affichée',
-      width: 300,
+      width: 380,
     },
     {
-      code: 'modeApur.libelle',
+      code: 'modeApurementComposant.libelle',
       libelle: 'Mode apurement',
-      width: 250,
+      width: 160,
     },
     {
       code: '',
@@ -65,12 +64,12 @@ const buildApurementsColumns = (reference) => {
       width: 150,
     },
     {
-      code: 'arronfApur.libelle',
+      code: 'arrondApur.libelle',
       libelle: 'Arrondissement apurement',
       width: 180,
     },
     {
-      code: 'typeComposantApur',
+      code: 'typeComposApur',
       libelle: 'Type composants apurés',
       width: 250,
     },
@@ -86,6 +85,7 @@ const buildApurementsColumns = (reference) => {
       width: 100,
       component: 'button',
       icon: 'delete-outline',
+      attrCondition: 'idApurement',
       action: (row, index) => reference.onApurementDeleted(row, index),
     },
   ];
@@ -99,6 +99,8 @@ class Apurement extends React.Component {
     dateApurement: '',
     showMotif: false,
     motif: '',
+    errorMessage: null,
+    screenWidth: Dimensions.get('screen').width,
   };
   constructor(props) {
     super(props);
@@ -109,37 +111,61 @@ class Apurement extends React.Component {
   }
 
   onComponentChecked = (row, index) => {
-    let item = this.props.data.composantsApures[index];
-    item.id = index + 1;
-    if (item && item.selected) {
-      let result = _.filter(this.componentsAapurer, function (val) {
-        return val.idComposant === item.idComposant;
-      });
-      if (result.length === 0) {
-        this.componentsAapurer.push(item);
+    if (this.state.dateApurement) {
+      let item = this.props.initApurement.data.composantsApures[index];
+      item.id = index + 1;
+      if (item && item.selected) {
+        let result = _.filter(this.componentsAapurer, function (val) {
+          return val.idComposant === item.idComposant;
+        });
+        if (result.length === 0) {
+          this.componentsAapurer.push(item);
+        }
+      } else {
+        _.remove(this.componentsAapurer, {
+          idComposant: row.idComposant,
+        });
       }
     } else {
-      _.remove(this.componentsAapurer, {
-        idComposant: row.idComposant,
+      this.badrComposantsTable.clearSelection();
+      this.scroll.scrollTo({x: 0, y: 0, animated: true});
+      this.setState({
+        errorMessage: translate('at.apurement.mandatory.dateApurement'),
       });
     }
   };
 
   confirmer = () => {
-    this.badrComposantsTable.clearSelection();
-    if (this.componentsAapurer && this.componentsAapurer.length > 0) {
-      let actionPrepare = InitApurementAction.confirm({
-        type: ConstantsAt.PREPARE_APUR_CONFIRM,
-        value: {
-          listComposantAapurer: this.componentsAapurer,
-          exportateur: this.state.exportateur,
-          dateApurement: this.state.dateApurement,
-          motif: this.state.motif,
-        },
+    if (this.state.dateApurement) {
+      this.setState({
+        errorMessage: null,
       });
-      this.props.actions.dispatch(actionPrepare);
+      this.badrComposantsTable.clearSelection();
+      if (this.componentsAapurer && this.componentsAapurer.length > 0) {
+        let actionPrepare = InitApurementAction.confirm({
+          type: ConstantsAt.PREPARE_APUR_CONFIRM,
+          value: {
+            listComposantAapurer: this.componentsAapurer,
+            exportateur: this.state.exportateur,
+            dateApurement: this.state.dateApurement,
+            motif: this.state.motif,
+          },
+        });
+        this.props.actions.dispatch(actionPrepare);
+      }
+      this.componentsAapurer = [];
+      this.setState({
+        showNouveauApur: false,
+        exportateur: '',
+        dateApurement: '',
+        motif: '',
+      });
+    } else {
+      this.scroll.scrollTo({x: 0, y: 0, animated: true});
+      this.setState({
+        errorMessage: translate('at.apurement.mandatory.dateApurement'),
+      });
     }
-    this.componentsAapurer = [];
   };
 
   onApurementDeleted = (row, index) => {
@@ -174,212 +200,274 @@ class Apurement extends React.Component {
   onApurementSelected = (apurement) => {};
 
   handleConfirmATButton = () => {
-    console.log('Confirmation');
+    console.log('########### apurement started #########');
+    console.log('     |_with data :');
+    console.log(this.props.initApurement.data.apurementVOs);
+    console.log('########### apurement started #########');
+    let apurerAction = CreateApurementAction.requestManuel({
+      type: ConstantsAt.CREATE_APUR_REQUEST,
+      value: {
+        atVO: this.props.initApurement.data,
+      },
+    });
+    this.props.actions.dispatch(apurerAction);
+    this.setState({showNouveauApur: false});
   };
 
   componentDidMount = () => {
+    console.log(this.props.initApurement.data.apurementVOs);
     this.componentsAapurer = [];
+    Dimensions.addEventListener('change', () => {
+      console.log(Dimensions.get('screen').width);
+      this.setState({screenWidth: Dimensions.get('screen').width});
+    });
   };
 
   render() {
-    const atVo = this.props.data;
+    const atVo = this.props.initApurement.data;
+
     return (
       <View style={styles.fabContainer}>
-        <Toolbar
-          navigation={this.props.navigation}
-          title={translate('at.title')}
-          subtitle={translate('at.apurement.title')}
-          icon="menu"
-        />
-        {atVo != null && atVo.atEnteteVO != null && (
-          <Container>
-            {this.props.showProgress && (
-              <BadrProgressBar width={screenHeight} />
-            )}
-            {this.props.errorMessage != null && (
-              <BadrErrorMessage message={this.props.errorMessage} />
-            )}
-            {this.props.successMessage != null && (
-              <BadrInfoMessage message={this.props.successMessage} />
-            )}
-            {/* Information commun */}
-            <InfoCommon
-              bureau={atVo.atEnteteVO.bureau}
-              annee={atVo.atEnteteVO.annee}
-              numeroOrdre={atVo.atEnteteVO.numeroOrdre}
-              serie={atVo.atEnteteVO.serie}
-              dateEnregistrement={atVo.atEnteteVO.dateEnregistrement}
-              dateCreation={atVo.atEnteteVO.dateCreation}
-              numVersion={atVo.atEnteteVO.numVersion}
-              etat={atVo.atEnteteVO.etatAt.libelle}
-            />
-
-            {/* Apurements */}
-            <CardBox style={styles.cardBox}>
-              <Accordion
-                expanded={true}
-                title={translate('at.apurement.titleTableau')}>
-                {/* {this.state.declaration.annotation && ( */}
-                <View style={styles.flexDirectionRow}>
-                  <BadrTable
-                    id="idComposantApures"
-                    rows={
-                      this.props.data.apurementVOs
-                        ? this.props.data.apurementVOs
-                        : []
-                    }
-                    cols={this.apurementsCols}
-                    totalElements={0}
-                    maxResultsPerPage={5}
-                    paginate={true}
-                    hasId={true}
+        <ScrollView
+          ref={(c) => {
+            this.scroll = c;
+          }}>
+          <Toolbar
+            navigation={this.props.navigation}
+            title={translate('at.title')}
+            subtitle={translate('at.apurement.title')}
+            icon="menu"
+          />
+          {this.props.initApurement.showProgress && (
+            <BadrProgressBar width={this.state.screenWidth} />
+          )}
+          {atVo != null && atVo.atEnteteVO != null && (
+            <Container>
+              {this.props.initApurement.errorMessage != null && (
+                <View style={styles.messages}>
+                  <BadrErrorMessage
+                    message={this.props.initApurement.errorMessage}
                   />
                 </View>
-              </Accordion>
-            </CardBox>
-            {!this.state.showNouveauApur && (
-              <View style={styles.actionsContainer}>
-                <Button
-                  onPress={() => this.nouveauApurement()}
-                  icon="plus"
-                  mode="contained"
-                  style={styles.btnActions}>
-                  {translate('transverse.nouveau')}
-                </Button>
-              </View>
-            )}
-            {this.state.showNouveauApur && (
-              <CardBox style={styles.cardBox}>
-                <CardsWithTitle title={translate('at.apurement.title')}>
-                  <View>
-                    <Row size={100}>
-                      <Col size={50}>
-                        <TextInput
-                          style={styles.textInputsStyle}
-                          mode="outlined"
-                          value={
-                            this.props.data.atEnteteVO.bureauEntree.libelle
-                          }
-                          disabled="true"
-                          label={translate('at.apurement.bureauApurement')}
-                        />
-                      </Col>
-                      <Col size={50}>
-                        <TextInput
-                          style={styles.textInputsStyle}
-                          underlineColor={primaryColor}
-                          mode="outlined"
-                          value={
-                            this.props.data.atEnteteVO.arrondEntree.libelle
-                          }
-                          disabled="true"
-                          label={translate('at.apurement.arrondApurement')}
-                        />
-                      </Col>
-                    </Row>
+              )}
+              {this.props.initApurement.successMessage != null && (
+                <View style={styles.messages}>
+                  <BadrInfoMessage
+                    message={this.props.initApurement.successMessage}
+                  />
+                </View>
+              )}
 
-                    <Row size={100}>
-                      <Col size={50}>
-                        <BadrDatePicker
-                          dateFormat="DD/MM/YYYY"
-                          onDateChanged={this.onDateApurementChanged}
-                          inputStyle={styles.textInputsStyle}
-                        />
-                      </Col>
-                      <Col size={50}>
-                        {this.state.showMotif && (
+              {this.state.errorMessage != null && (
+                <View style={styles.messages}>
+                  <BadrErrorMessage message={this.state.errorMessage} />
+                </View>
+              )}
+
+              {/* Information commun */}
+              <InfoCommon
+                bureau={atVo.atEnteteVO.bureau}
+                annee={atVo.atEnteteVO.annee}
+                numeroOrdre={atVo.atEnteteVO.numeroOrdre}
+                serie={atVo.atEnteteVO.serie}
+                dateEnregistrement={atVo.atEnteteVO.dateEnregistrement}
+                dateCreation={atVo.atEnteteVO.dateCreation}
+                numVersion={atVo.atEnteteVO.numVersion}
+                etat={atVo.atEnteteVO.etatAt.libelle}
+              />
+
+              {/* Apurements */}
+              <CardBox style={styles.cardBox}>
+                <Accordion
+                  expanded={true}
+                  title={translate('at.apurement.titleTableau')}>
+                  {/* {this.state.declaration.annotation && ( */}
+                  <View style={styles.flexDirectionRow}>
+                    <BadrTable
+                      id="idComposantApures"
+                      rows={
+                        this.props.initApurement.data.apurementVOs
+                          ? this.props.initApurement.data.apurementVOs
+                          : []
+                      }
+                      cols={this.apurementsCols}
+                      totalElements={0}
+                      maxResultsPerPage={5}
+                      paginate={true}
+                      hasId={true}
+                    />
+                  </View>
+                </Accordion>
+              </CardBox>
+              {!this.state.showNouveauApur &&
+                atVo.atEnteteVO &&
+                atVo.atEnteteVO.etatAt &&
+                atVo.atEnteteVO.etatAt.code !== '005' &&
+                atVo.composantsApures &&
+                atVo.composantsApures.length > 0 && (
+                  <View style={styles.actionsContainer}>
+                    <Button
+                      onPress={() => this.nouveauApurement()}
+                      icon="plus"
+                      mode="contained"
+                      style={styles.btnActions}>
+                      {translate('transverse.nouveau')}
+                    </Button>
+                  </View>
+                )}
+              {this.state.showNouveauApur && (
+                <CardBox style={styles.cardBox}>
+                  <CardsWithTitle title={translate('at.apurement.title')}>
+                    <View>
+                      <Row size={100}>
+                        <Col size={50}>
+                          <TextInput
+                            style={styles.textInputsStyle}
+                            mode="outlined"
+                            value={
+                              this.props.initApurement.data.atEnteteVO
+                                .bureauEntree.libelle
+                            }
+                            disabled="true"
+                            label={translate('at.apurement.bureauApurement')}
+                          />
+                        </Col>
+                        <Col size={50}>
                           <TextInput
                             style={styles.textInputsStyle}
                             underlineColor={primaryColor}
                             mode="outlined"
-                            value={this.state.motif}
-                            onChangeText={(text) =>
-                              this.setState({motif: text})
+                            value={
+                              this.props.initApurement.data.atEnteteVO
+                                .arrondEntree.libelle
                             }
-                            label={translate('at.apurement.motif')}
+                            disabled="true"
+                            label={translate('at.apurement.arrondApurement')}
                           />
-                        )}
-                      </Col>
-                    </Row>
+                        </Col>
+                      </Row>
 
-                    <Row size={100}>
-                      <Col size={50}>
-                        <TextInput
-                          style={styles.textInputsStyle}
-                          underlineColor={primaryColor}
-                          mode="outlined"
-                          value={translate('at.apurement.reexportation')}
-                          disabled="true"
-                          label={translate('at.apurement.mode')}
-                        />
+                      <Row>
+                        <Col size={50}>
+                          <BadrDatePicker
+                            dateFormat="DD/MM/YYYY"
+                            onDateChanged={this.onDateApurementChanged}
+                            inputStyle={styles.textInputsStyle}
+                          />
+                        </Col>
+                        <Col size={50} />
+                      </Row>
+
+                      <Row>
+                        <Col size={100}>
+                          {this.state.showMotif && (
+                            <TextInput
+                              multiline={true}
+                              numberOfLines={4}
+                              style={styles.textInputsStyle}
+                              underlineColor={primaryColor}
+                              mode="outlined"
+                              value={this.state.motif}
+                              onChangeText={(text) =>
+                                this.setState({motif: text})
+                              }
+                              label={translate('at.apurement.motif')}
+                            />
+                          )}
+                        </Col>
+                      </Row>
+
+                      <Row size={100}>
+                        <Col size={50}>
+                          <TextInput
+                            style={styles.textInputsStyle}
+                            underlineColor={primaryColor}
+                            mode="outlined"
+                            value={translate('at.apurement.reexportation')}
+                            disabled="true"
+                            label={translate('at.apurement.mode')}
+                          />
+                        </Col>
+                        <Col size={50}>
+                          <TextInput
+                            style={styles.textInputsStyle}
+                            underlineColor={primaryColor}
+                            mode="outlined"
+                            onChangeText={(text) =>
+                              this.setState({exportateur: text})
+                            }
+                            value={this.state.exportateur}
+                            label={translate('at.apurement.exportateur')}
+                          />
+                        </Col>
+                      </Row>
+                    </View>
+                  </CardsWithTitle>
+                  <CardsWithTitle
+                    title={translate('at.apurement.titleTableauCompo')}>
+                    <View style={styles.flexDirectionRow}>
+                      <BadrTable
+                        onRef={(ref) => (this.badrComposantsTable = ref)}
+                        hasId={true}
+                        id="idComposant"
+                        rows={this.props.initApurement.data.composantsApures}
+                        cols={this.composantTablesCols}
+                        onItemSelected={this.onComposantSelected}
+                        totalElements={
+                          this.props.initApurement.data.composantsApures.length
+                        }
+                        maxResultsPerPage={5}
+                        paginate={true}
+                      />
+                    </View>
+                  </CardsWithTitle>
+                  <View style={styles.actionsContainer}>
+                    <Row size={4}>
+                      <Col />
+                      <Col>
+                        <Button
+                          onPress={() => this.confirmer()}
+                          icon="check"
+                          mode="contained"
+                          style={styles.btnActions}>
+                          {translate('transverse.confirmer')}
+                        </Button>
                       </Col>
-                      <Col size={50}>
-                        <TextInput
-                          style={styles.textInputsStyle}
-                          underlineColor={primaryColor}
-                          mode="outlined"
-                          onChangeText={(text) =>
-                            this.setState({exportateur: text})
-                          }
-                          value={this.state.exportateur}
-                          label={translate('at.apurement.exportateur')}
-                        />
+                      <Col size={1}>
+                        <Button
+                          onPress={() => this.abandonner()}
+                          icon="autorenew"
+                          mode="contained"
+                          style={styles.btnActions}>
+                          {translate('transverse.abandonner')}
+                        </Button>
                       </Col>
+                      <Col />
                     </Row>
                   </View>
-                </CardsWithTitle>
-                <CardsWithTitle
-                  title={translate('at.apurement.titleTableauCompo')}>
-                  <View style={styles.flexDirectionRow}>
-                    <BadrTable
-                      onRef={(ref) => (this.badrComposantsTable = ref)}
-                      hasId={true}
-                      id="idComposant"
-                      rows={this.props.data.composantsApures}
-                      cols={this.composantTablesCols}
-                      onItemSelected={this.onComposantSelected}
-                      totalElements={this.props.data.composantsApures.length}
-                      maxResultsPerPage={5}
-                      paginate={true}
-                    />
-                  </View>
-                </CardsWithTitle>
-                <View style={styles.actionsContainer}>
-                  <Row size={4}>
-                    <Col />
-                    <Col>
-                      <Button
-                        onPress={() => this.confirmer()}
-                        icon="check"
-                        mode="contained"
-                        style={styles.btnActions}>
-                        {translate('transverse.confirmer')}
-                      </Button>
-                    </Col>
-                    <Col size={1}>
-                      <Button
-                        onPress={() => this.abandonner()}
-                        icon="autorenew"
-                        mode="contained"
-                        style={styles.btnActions}>
-                        {translate('transverse.abandonner')}
-                      </Button>
-                    </Col>
-                    <Col />
-                  </Row>
-                </View>
-              </CardBox>
-            )}
-          </Container>
-        )}
-        <BadrFloatingButton
+                </CardBox>
+              )}
+            </Container>
+          )}
+        </ScrollView>
+        <BadrActionButton
+          style={{justifyContent: 'flex-end'}}
           visible={
-            this.props.data &&
-            this.props.data.apurementVOs &&
-            this.props.data.apurementVOs.length > 0
+            atVo.atEnteteVO &&
+            atVo.atEnteteVO.etatAt &&
+            atVo.atEnteteVO.etatAt.code !== '005' &&
+            this.props.initApurement.data &&
+            this.props.initApurement.data.apurementVOs &&
+            this.props.initApurement.data.apurementVOs.length > 0
           }
-          onConfirm={this.handleConfirmATButton}
-          icon="check"
+          active={true}
+          actions={[
+            {
+              title: 'Confirmer',
+              icon: 'check',
+              onActionPressed: this.handleConfirmATButton,
+            },
+          ]}
         />
       </View>
     );
@@ -387,7 +475,10 @@ class Apurement extends React.Component {
 }
 
 function mapStateToProps(state) {
-  return {...state.initApurementReducer};
+  const combinedState = {
+    initApurement: {...state.initApurementReducer},
+  };
+  return combinedState;
 }
 
 function mapDispatchToProps(dispatch) {
@@ -400,9 +491,11 @@ export default connect(mapStateToProps, mapDispatchToProps)(Apurement);
 
 const styles = {
   fabContainer: {
-    flex: 1,
-    justifyContent: 'flex-end',
+    height: '100%',
+    // flex: 1,
+    // justifyContent: 'flex-end',
   },
+  messages: {justifyContent: 'center', alignItems: 'center'},
   btnActions: {margin: 2},
   actionsContainer: {
     width: '100%',

@@ -7,8 +7,8 @@ import {connect} from 'react-redux';
 /**i18n */
 import {translate} from '../../common/translations/i18n';
 import {CustomStyleSheet} from '../../styles';
-import {Container, BadrActionButton} from '../index';
-import * as InitApurementAction from '../../redux/actions/at/initApurement';
+import {Container} from '../index';
+import * as InitApurementAction from '../../redux/actions/at/apurement';
 import * as ConstantsAt from '../../common/constants/at/at';
 /** Utils */
 import Utils from '../../common/util';
@@ -210,7 +210,7 @@ class RechecheRefAt extends Component {
           </View>
           <Grid style={styles.gridContainer}>
             <Row>
-              <Col style={styles.column} size={50}>
+              <Col style={styles.column} size={35}>
                 <Button
                   mode="contained"
                   icon="check"
@@ -220,7 +220,7 @@ class RechecheRefAt extends Component {
                   {translate('at.apurement.manuelle')}
                 </Button>
               </Col>
-              <Col style={styles.column} size={50}>
+              <Col style={styles.column} size={35}>
                 <Button
                   onPress={this.apurAutomatique}
                   mode="contained"
@@ -230,9 +230,7 @@ class RechecheRefAt extends Component {
                   {translate('at.apurement.automatique')}
                 </Button>
               </Col>
-            </Row>
-            <Row>
-              <Col style={styles.column} size={100}>
+              <Col style={styles.column} size={30}>
                 <Button
                   onPress={() => this.retablir()}
                   icon="autorenew"
@@ -244,8 +242,6 @@ class RechecheRefAt extends Component {
             </Row>
           </Grid>
         </Container>
-
-        <BadrActionButton />
       </View>
     );
   }

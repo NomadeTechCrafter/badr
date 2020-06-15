@@ -1,25 +1,45 @@
 import React from 'react';
 import _ from 'lodash';
-import {Dimensions, ScrollView} from 'react-native';
+import {View, Dimensions, ScrollView} from 'react-native';
+import {Button, Dialog, Paragraph, Portal} from 'react-native-paper';
+
 import {connect} from 'react-redux';
 import {translate} from '../../../common/translations/i18n';
 import {
   BadrErrorMessage,
+  BadrInfoMessage,
   BadrProgressBar,
   RechercheRefAt,
   Toolbar,
 } from '../../../components';
-import * as InitApurementAction from '../../../redux/actions/at/initApurement';
+import * as CreateApurementAction from '../../../redux/actions/at/createApurement';
+import * as InitApurementAction from '../../../redux/actions/at/apurement';
 import * as ConstantsAt from '../../../common/constants/at/at';
 
 const screenWidth = Dimensions.get('window').width;
 
-const initialState = {reference: ''};
+const initialState = {
+  reference: '',
+  dialogVisibility: false,
+  dialogMessage: '',
+  apurAutoData: null,
+};
 class CreerApurement extends React.Component {
   constructor(props) {
     super(props);
     this.state = {...initialState};
   }
+
+  _showDialog = (message, data) => {
+    console.log('|_' + message);
+    this.setState({
+      dialogVisibility: true,
+      dialogMessage: message,
+      apurAutoData: data,
+    });
+  };
+
+  _hideDialog = () => this.setState({dialogVisibility: false});
 
   componentDidMount() {
     console.log('componentDidMount Parent');
@@ -42,7 +62,30 @@ class CreerApurement extends React.Component {
   };
 
   apurAutomatique = (reference) => {
-    console.log(this.state);
+    var action = InitApurementAction.requestAuto(
+      {
+        type: ConstantsAt.INIT_APURAUTO_REQUEST,
+        value: {
+          reference: reference,
+        },
+      },
+      this,
+    );
+    this.props.actions.dispatch(action);
+  };
+
+  confirmApurAutomatique = () => {
+    var action = CreateApurementAction.requestAutomatique(
+      {
+        type: ConstantsAt.CREATE_APURAUTO_REQUEST,
+        value: {
+          atVO: this.state.apurAutoData,
+        },
+      },
+      this,
+    );
+    this.props.actions.dispatch(action);
+    this._hideDialog();
   };
 
   render() {
@@ -56,21 +99,55 @@ class CreerApurement extends React.Component {
         />
         {this.props.showProgress && <BadrProgressBar width={screenWidth} />}
         {this.props.errorMessage != null && (
-          <BadrErrorMessage
-            style={styles.centerErrorMsg}
-            message={this.props.errorMessage}
-          />
+          <View style={styles.messages}>
+            <BadrErrorMessage
+              style={styles.centerErrorMsg}
+              message={this.props.errorMessage}
+            />
+          </View>
         )}
+
+        {this.props.messageInfo != null && (
+          <View style={styles.messages}>
+            <BadrInfoMessage
+              style={styles.centerErrorMsg}
+              message={this.props.messageInfo}
+            />
+          </View>
+        )}
+
         <RechercheRefAt
           onApurManuelle={(reference) => this.apurManuelle(reference)}
-          onApurAutomatique={(reference) => this.onApurAutomatique(reference)}
+          onApurAutomatique={(reference) => this.apurAutomatique(reference)}
         />
+
+        <Portal>
+          <Dialog
+            visible={this.state.dialogVisibility}
+            onDismiss={this._hideDialog}>
+            <Dialog.Title>
+              {translate('at.apurementauto.confirmDialog.info')}
+            </Dialog.Title>
+            <Dialog.Content>
+              <Paragraph>{this.state.dialogMessage}</Paragraph>
+            </Dialog.Content>
+            <Dialog.Actions>
+              <Button onPress={this.confirmApurAutomatique}>
+                {translate('at.apurementauto.confirmDialog.oui')}
+              </Button>
+              <Button onPress={this._hideDialog}>
+                {translate('at.apurementauto.confirmDialog.non')}
+              </Button>
+            </Dialog.Actions>
+          </Dialog>
+        </Portal>
       </ScrollView>
     );
   }
 }
 
 const styles = {
+  messages: {justifyContent: 'center', alignItems: 'center'},
   centerErrorMsg: {
     justifyContent: 'center',
     alignItems: 'center',
@@ -78,6 +155,7 @@ const styles = {
 };
 
 function mapStateToProps(state) {
+  console.log(state.initApurementReducer);
   return {...state.initApurementReducer};
 }
 

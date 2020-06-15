@@ -1,16 +1,9 @@
 import React from 'react';
-import {
-  Text,
-  View,
-  ScrollView,
-  Dimensions,
-  StyleSheet,
-  TouchableOpacity,
-} from 'react-native';
-import {IconButton, Colors} from 'react-native-paper';
+import {Text, View, ScrollView, Dimensions} from 'react-native';
+import {IconButton} from 'react-native-paper';
 
 import {DataTable} from 'react-native-paper';
-import {FAB, Checkbox} from 'react-native-paper';
+import {Checkbox} from 'react-native-paper';
 
 import {primaryColor} from '../../styles/index';
 
@@ -177,16 +170,17 @@ export default class BadrTable extends React.Component {
                               />
                             )}
 
-                            {column.component === 'button' && (
-                              <IconButton
-                                icon={column.icon ? column.icon : 'minus'}
-                                color={
-                                  column.color ? column.color : primaryColor
-                                }
-                                size={20}
-                                onPress={() => column.action(row, index)}
-                              />
-                            )}
+                            {column.component === 'button' &&
+                              !row[column.attrCondition] && (
+                                <IconButton
+                                  icon={column.icon ? column.icon : 'minus'}
+                                  color={
+                                    column.color ? column.color : primaryColor
+                                  }
+                                  size={20}
+                                  onPress={() => column.action(row, index)}
+                                />
+                              )}
                           </View>
                         ) : (
                           <DataTable.Cell style={{width: column.width}}>
@@ -210,28 +204,7 @@ export default class BadrTable extends React.Component {
             </DataTable>
           </ScrollView>
         </ScrollView>
-        <FAB
-          visible={
-            this.props.showRightIndicator &&
-            this.props.rows &&
-            this.props.rows.length > 0 &&
-            totalWidth > screenWidth
-          }
-          style={styles.fab}
-          small
-          icon="chevron-right"
-          onPress={() => this.scrollMore()}
-        />
       </View>
     );
   };
 }
-
-const styles = StyleSheet.create({
-  fab: {
-    position: 'absolute',
-    margin: 16,
-    right: 0,
-    bottom: 0,
-  },
-});

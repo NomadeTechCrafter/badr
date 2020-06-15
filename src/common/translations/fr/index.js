@@ -144,7 +144,18 @@ export default {
     dateCreation: 'Date création',
     dateEnregistrement: 'Date enregistrement',
     version: 'Version',
+    apurementauto: {
+      confirmDialog: {
+        info: 'Admission temporaire automatique',
+        oui: 'Oui',
+        non: 'Non',
+        confirmApurMessage: 'Voulez-vous apurer cette admission temporaire?',
+      },
+    },
     apurement: {
+      mandatory: {
+        dateApurement: 'La date apurement est une donnée obligatoire.',
+      },
       title: 'Apurement',
       subTitleAction: 'Créer Apurement',
       manuelle: 'Manuelle',

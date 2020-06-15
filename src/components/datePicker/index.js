@@ -97,8 +97,8 @@ export default class BadrDatePicker extends React.Component {
           />
         )}
 
-        <Row size={100}>
-          <Col size={50}>
+        <Row>
+          <Col size={94}>
             <TouchableOpacity onPress={() => this.showDatepicker()}>
               <TextInput
                 disabled="true"

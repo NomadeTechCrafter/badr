@@ -1,8 +1,27 @@
 import _ from 'lodash';
-
+import {Dimensions} from 'react-native';
 import moment from 'moment';
 
 export default class Utils {
+  static deepDelete = (obj, keysToOmit) => {
+    var keysToOmitIndex = _.keyBy(
+      Array.isArray(keysToOmit) ? keysToOmit : [keysToOmit],
+    ); // create an index object of the keys that should be omitted
+    function omitFromObject(obj) {
+      // the inner function which will be called recursivley
+      return _.transform(obj, function (result, value, key) {
+        // transform to a new object
+        if (key in keysToOmitIndex) {
+          // if the key is in the index skip it
+          return;
+        }
+        result[key] = _.isObject(value) ? omitFromObject(value) : value;
+      });
+    }
+
+    return omitFromObject(obj); // return the inner function result
+  };
+
   static buildUserFullname = (user) => {
     if (user.nomAgent && user.prenomAgent) {
       return user.nomAgent.concat(' ').concat(user.prenomAgent);
@@ -45,5 +64,10 @@ export default class Utils {
 
   static concatReference = (bureau, annee, serie, numero) => {
     return bureau + annee + serie + numero;
+  };
+
+  static isLandscape = () => {
+    const dimension = Dimensions.get('screen');
+    return dimension.width >= dimension.height;
   };
 }
