@@ -1,14 +1,20 @@
 import React, {Component} from 'react';
 import {View} from 'react-native';
-import {RechercheRefDum, Toolbar} from '../../../components';
+import {RechercheRefDum, Toolbar, BadrButtonIcon} from '../../../components';
 /**i18n */
 import {translate} from '../../../common/translations/i18n';
 
+import {connect} from 'react-redux';
+import * as Constants from '../../../common/constants/controle/rechercheDum';
+import * as RechecheDumAction from '../../../redux/actions/controle/rechercheDum';
+
 class RechecheDum extends Component {
   subTitle = '';
+
   constructor(props) {
     super(props);
   }
+
   getInfoControle = () => {
     let typeControle = this.props.route.params.typeControle;
     console.log('  getSuccessRedirectionScreen', typeControle);
@@ -25,18 +31,35 @@ class RechecheDum extends Component {
           subtitle: translate('controle.ACVP'),
           commande: 'initControlerDedACVP',
         };
+      case 'TR':
+        return {
+          successRedirectionScreen: 'RegimeTransit',
+          subtitle: translate('controle.regimeTransite'),
+          commande: 'initControlerDedTR',
+        };
     }
   };
-  getSubTitle = () => {
-    let typeControle = this.props.route.params.typeControle;
-    console.log('  getSuccessRedirectionScreen', typeControle);
-    switch (typeControle) {
-      case 'RI':
-        return translate('controle.RI');
-      case 'AC':
-        return translate('controle.ACVP');
-    }
+
+  listDeclarationSearchAction = () => {
+    var action = RechecheDumAction.searchListeDeclaration(
+      {
+        type: Constants.RECHERCHEDUM_LISTDECLARATION_REQUEST,
+        value: {
+          login: this.state.login,
+          typeControle: this.typeControle,
+          // pageSize: 10,
+          // offset: 0,
+        },
+      },
+      this.props.navigation,
+    );
+    this.props.dispatch(action);
   };
+  listDeclarationSearch = () => {
+    let action = this.listDeclarationSearchAction();
+    this.props.actions.dispatch(action);
+  };
+
   render() {
     let infoControle = this.getInfoControle();
     return (
@@ -55,9 +78,20 @@ class RechecheDum extends Component {
           successRedirection={infoControle.successRedirectionScreen}
           routeParams={this.props.route.params}
         />
+        <BadrButtonIcon
+          onPress={() => this.listDeclarationSearch()}
+          icon="magnify"
+          loading={this.props.showProgress}
+          text={translate('transverse.listDeclaration')}
+        />
       </View>
     );
   }
 }
 
-export default RechecheDum;
+const mapStateToProps = state => ({...state.controleRechercheDumReducer});
+
+export default connect(
+  mapStateToProps,
+  null,
+)(RechecheDum);

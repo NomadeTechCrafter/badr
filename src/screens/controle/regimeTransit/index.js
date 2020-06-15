@@ -14,18 +14,17 @@ import {
 import {Checkbox, TextInput, Text, RadioButton} from 'react-native-paper';
 /**i18n */
 import {translate} from '../../../common/translations/i18n';
-import {CustomStyleSheet, primaryColor} from '../../../styles';
 import _ from 'lodash';
 
 import {load} from '../../../services/storage-service';
 import {connect} from 'react-redux';
-import * as Constants from '../../../common/constants/controle/regimeInterne';
-import * as RegimeInterneAction from '../../../redux/actions/controle/regimeInterne';
+import * as Constants from '../../../common/constants/controle/regimeTransit';
+import * as RegimeTransitAction from '../../../redux/actions/controle/regimeTransit';
 
 const screenHeight = Dimensions.get('window').height;
 const RECONNU = 'reconnu';
 const DEMANDE_CONSIGNATION = 'demandeConsignation';
-class RegimeInterne extends Component {
+class RegimeTransit extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -35,7 +34,7 @@ class RegimeInterne extends Component {
       cle: props.route.params.cle,
       numeroVoyage: props.route.params.numeroVoyage,
       declaration: props.route.params.declarationRI,
-      typeRegime: translate('controle.regimeInterne'),
+      typeRegime: translate('controle.regimeTransite'),
       decisionControle: props.route.params.declarationRI.decisionControle,
       observation: props.route.params.declarationRI.observation,
       numeroVersionCourante: 0,
@@ -80,9 +79,9 @@ class RegimeInterne extends Component {
       numeroVersionCourante: this.state.numeroVersionCourante,
     };
     console.log('data----', data);
-    var action = RegimeInterneAction.validateSave(
+    var action = RegimeTransitAction.validateSave(
       {
-        type: Constants.REGIMEINTERNE_VALIDATESAVE_REQUEST,
+        type: Constants.REGIMETRANSIT_VALIDATESAVE_REQUEST,
         value: {
           login: this.state.login,
           commande: commande,
@@ -101,9 +100,9 @@ class RegimeInterne extends Component {
       //numeroVersionBase: this.state.numeroVersionCourante,
       //numeroVersionCourante: this.state.numeroVersionCourante,
     };
-    var action = RegimeInterneAction.genererCR(
+    var action = RegimeTransitAction.genererCR(
       {
-        type: Constants.REGIMEINTERNE_VALIDATESAVE_REQUEST,
+        type: Constants.REGIMETRANSIT_VALIDATESAVE_REQUEST,
         value: {
           login: this.state.login,
           data: data,
@@ -124,16 +123,22 @@ class RegimeInterne extends Component {
       var otherKey = key === RECONNU ? DEMANDE_CONSIGNATION : RECONNU;
       listDoc[indexDocument].documentAnnexe[otherKey] = false;
     }
+    console.log('toggleChoiceInList :', listDoc);
     return listDoc;
   };
 
-  setChoiceDocAnnexe = (indexDocument, key) => {
+  setChoiceForReconnu = (indexDocument, key) => {
     this.setState(prevState => ({
       declaration: {
-        ...prevState.declaration,
+        // object that we want to update
+        ...prevState.declaration, // keep all other key-value pairs
         documentAnnexeResultVOs: this.toggleChoiceInList(indexDocument, key),
       },
     }));
+    console.log(
+      'setChoiceForReconnu :',
+      this.state.declaration.documentAnnexeResultVOs,
+    );
   };
 
   static getDerivedStateFromProps(props, state) {
@@ -157,11 +162,11 @@ class RegimeInterne extends Component {
 
   render() {
     return (
-      <View style={CustomStyleSheet.fullContainer}>
+      <View>
         <Toolbar
           navigation={this.props.navigation}
           title="Contrôle"
-          subtitle="Régime interne"
+          subtitle="Régime transit"
           icon="menu"
         />
         <Container>
@@ -296,28 +301,24 @@ class RegimeInterne extends Component {
                         {item.documentAnnexe.numeroOrdreArticle}
                       </Text>
                       <Checkbox
-                        color={primaryColor}
+                        color={'#009ab2'}
                         status={
                           item.documentAnnexe.reconnu ? 'checked' : 'unchecked'
                         }
                         disabled={this.state.isConsultation}
                         onPress={() => {
-                          this.setChoiceDocAnnexe(index, RECONNU);
+                          this.setChoiceForReconnu(index, RECONNU);
                         }}
                       />
                       <Checkbox
-                        color={primaryColor}
                         status={
                           item.documentAnnexe.demandeConsignation
                             ? 'checked'
                             : 'unchecked'
                         }
-                        disabled={
-                          this.state.isConsultation ||
-                          !item.documentAnnexe.impactFiscal
-                        }
+                        disabled={this.state.isConsultation}
                         onPress={() => {
-                          this.setChoiceDocAnnexe(index, DEMANDE_CONSIGNATION);
+                          this.setState({checked: !this.state.checked});
                         }}
                       />
                       <Text style={styles.libelleL}>{item.decisionMCI}</Text>
@@ -427,7 +428,7 @@ class RegimeInterne extends Component {
             style={styles.containerActionBtn}
             pointerEvents={this.state.isConsultation ? 'none' : 'auto'}>
             <BadrButton
-              style={styles.actionBtn}
+              style={{width: 100}}
               onPress={() => {
                 this.sauvgarderValider('sauvegarderRI');
               }}
@@ -435,7 +436,7 @@ class RegimeInterne extends Component {
               disabled={this.state.decisionControle ? false : true}
             />
             <BadrButton
-              style={styles.actionBtn}
+              style={{width: 100}}
               onPress={() => {
                 this.sauvgarderValider('validerRI');
               }}
@@ -443,7 +444,7 @@ class RegimeInterne extends Component {
               disabled={this.state.decisionControle ? false : true}
             />
             <BadrButton
-              style={styles.actionBtn}
+              style={{width: 100}}
               text={translate('controle.redresserDeclaration')}
             />
           </View>
@@ -489,19 +490,18 @@ const styles = {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: primaryColor,
+    backgroundColor: '#009ab2',
     padding: 8,
     width: 300,
   },
   textRadio: {
     color: '#FFF',
   },
-  actionBtn: {width: 100},
 };
 
-const mapStateToProps = state => ({...state.regimeInterneReducer});
+const mapStateToProps = state => ({...state.regimeTransitReducer});
 
 export default connect(
   mapStateToProps,
   null,
-)(RegimeInterne);
+)(RegimeTransit);

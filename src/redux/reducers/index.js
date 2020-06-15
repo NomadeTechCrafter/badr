@@ -3,10 +3,12 @@ import authReducer from './hab/auth';
 import smsVerifyReducer from './hab/smsVerify';
 import confirmConnexionReducer from './hab/confirmConnexion';
 import menuReducer from './hab/menu';
-import controleRechercheDumReducer from './components/rechercheDum';
-import regimeInterneReducer from './controle/regimeInterne';
 
-import listDeclarationReducer from './listDeclarationDum';
+import rechercheRefDumReducer from './components/rechercheDum';
+import controleRechercheDumReducer from './controle/rechercheDum';
+import regimeInterneReducer from './controle/regimeInterne';
+import regimeTransitReducer from './controle/regimeTransit';
+import listDeclarationReducer from './controle/listDeclarationDum';
 
 import acvpReducer from './controle/acvp';
 
@@ -19,6 +21,8 @@ import badrPickerCheckerReducer from './components/badrPickerChecker';
 import autoCompleteReducer from './components/autoComplete';
 import listeDeclarationsMLVReducer from './mainLevee/listeDeclarationsMLV';
 import rechercheMLVReducer from './mainLevee/rechercheMLV';
+import delivrerMLVReducer from './mainLevee/delivrerMLV';
+
 import qrCodeReducer from './components/qrCode';
 
 import badrApiTable from './components/badrApiTable';
@@ -34,14 +38,17 @@ const allReducers = combineReducers({
   badrPickerReducer,
   badrPickerCheckerReducer,
   badrApiTable,
+  rechercheRefDumReducer,
   controleRechercheDumReducer,
   regimeInterneReducer,
+  regimeTransitReducer,
   listDeclarationReducer,
   acvpReducer,
   plaquesImmReducer,
   autoCompleteReducer,
   listeDeclarationsMLVReducer,
   rechercheMLVReducer,
+  delivrerMLVReducer,
   qrCodeReducer,
   controleVehiculesReducer,
   initApurementReducer,

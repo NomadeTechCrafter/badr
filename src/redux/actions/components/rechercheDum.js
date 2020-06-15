@@ -1,6 +1,6 @@
 import TransverseApi from '../../../services/api/transverse-api';
 
-import * as Constants from '../../../common/constants/controle/rechercheDum';
+import * as Constants from '../../../common/constants/components/rechercheRefDum';
 
 /**i18n */
 import {translate} from '../../../common/translations/i18n';
@@ -47,28 +47,28 @@ export function request(action, navigation, successRedirection) {
 
 export function inProgress(action) {
   return {
-    type: Constants.RECHERCHEDUM_INITCONTROLE_IN_PROGRESS,
+    type: Constants.RECHERCHEREFDUM_IN_PROGRESS,
     value: action.value,
   };
 }
 
 export function success(data) {
   return {
-    type: Constants.RECHERCHEDUM_INITCONTROLE_SUCCESS,
+    type: Constants.RECHERCHEREFDUM_SUCCESS,
     value: data,
   };
 }
 
 export function failed(data) {
   return {
-    type: Constants.RECHERCHEDUM_INITCONTROLE_FAILED,
+    type: Constants.RECHERCHEREFDUM_FAILED,
     value: data,
   };
 }
 
 export function init(action) {
   return {
-    type: Constants.RECHERCHEDUM_INITCONTROLE_INIT,
+    type: Constants.RECHERCHEREFDUM_INIT,
     value: action.value,
   };
 }

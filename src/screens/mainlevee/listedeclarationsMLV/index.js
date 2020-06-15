@@ -2,10 +2,12 @@ import React, {Component} from 'react';
 import {View, StyleSheet, ScrollView} from 'react-native';
 import {Toolbar, BadrAutoComplete} from '../../../components';
 import {Button, DataTable} from 'react-native-paper';
+/**i18n */
 import {translate} from '../../../common/translations/i18n';
 import {connect} from 'react-redux';
 import * as Constants from '../../../common/constants/mainLevee/listeDeclarationsMLV';
 import * as listeDeclarationsMLVAction from '../../../redux/actions/mainLevee/listeDeclarationsMLV';
+//const MAX_RESULTS_PER_PAGE = 10;
 
 class ListDeclarationMLV extends Component {
   defaultState = {

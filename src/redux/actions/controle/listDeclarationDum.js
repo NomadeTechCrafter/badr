@@ -1,36 +1,35 @@
-import TransverseApi from '../../../services/api/transverse-api';
+import ControleApi from '../../../services/api/controle-api';
 
-import * as Constants from '../../../common/constants/mainLevee/listeDeclarationsMLV';
-
+import * as Constants from '../../../common/constants/controle/listDeclarationDum';
 /**i18n */
 import {translate} from '../../../common/translations/i18n';
 
-const MODULE = 'MLV_LIB';
-const TYPE_SERVICE = 'SP';
+import * as data from '../../../services/api/offline/controle/dataInitControle.json';
 export function request(action, navigation, successRedirection) {
   return dispatch => {
     dispatch(action);
     dispatch(inProgress(action));
-    TransverseApi.doProcess(
-      MODULE,
-      'listeDeclarationsMLV',
-      TYPE_SERVICE,
+    ControleApi.initControler(
+      action.value.login,
+      action.value.commande,
       action.value.data,
     )
       .then(response => {
         if (response) {
-          const data = response.data;
+          // const data = JSON.parse(response.data);
+          //const data = response.data;
+
           if (data && !data.dtoHeader.messagesErreur) {
             console.log('data', data);
             dispatch(success(data));
             /** Naviguer vers la vue suivant. */
-            /*navigation.navigate(successRedirection , {
+            navigation.navigate(successRedirection, {
               login: action.value.login,
               refDeclaration: action.value.data.referenceDed,
               numeroVoyage: action.value.numeroVoyage,
               cle: action.value.cle,
               declarationRI: data.jsonVO,
-            });*/
+            });
           } else {
             dispatch(failed(data));
           }
@@ -47,22 +46,29 @@ export function request(action, navigation, successRedirection) {
 
 export function inProgress(action) {
   return {
-    type: Constants.MAINLEVEE_LISTEDECLARATIONS_IN_PROGRESS,
+    type: Constants.LISTDECLARATION_IN_PROGRESS,
     value: action.value,
   };
 }
 
 export function success(data) {
   return {
-    type: Constants.MAINLEVEE_LISTEDECLARATIONS_SUCCESS,
+    type: Constants.LISTDECLARATION_SUCCESS,
     value: data,
   };
 }
 
 export function failed(data) {
   return {
-    type: Constants.MAINLEVEE_LISTEDECLARATIONS_FAILED,
+    type: Constants.LISTDECLARATION_FAILED,
     value: data,
+  };
+}
+
+export function init(action) {
+  return {
+    type: Constants.LISTDECLARATION_INIT,
+    value: action.value,
   };
 }
 

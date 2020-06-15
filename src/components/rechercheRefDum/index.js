@@ -17,7 +17,7 @@ import _ from 'lodash';
 
 import {load} from '../../services/storage-service';
 import {connect} from 'react-redux';
-import * as Constants from '../../common/constants/controle/rechercheDum';
+import * as Constants from '../../common/constants/components/rechercheRefDum';
 import * as RechecheDumAction from '../../redux/actions/components/rechercheDum';
 
 const screenHeight = Dimensions.get('window').height;
@@ -43,7 +43,7 @@ class RechecheRefDum extends Component {
 
   componentDidMount() {
     var action = RechecheDumAction.init({
-      type: Constants.RECHERCHEDUM_INITCONTROL_INIT,
+      type: Constants.RECHERCHEREFDUM_INIT,
       value: {},
     });
     this.props.dispatch(action);
@@ -79,7 +79,7 @@ class RechecheRefDum extends Component {
     let keyImput = _.keys(input)[0];
     if (input[keyImput] != '') {
       this.setState({
-        [keyImput]: _.padStart(input[keyImput], input['maxLength'], '0'),
+        [keyImput]: _.padStart(input[keyImput], input.maxLength, '0'),
       });
     }
   };
@@ -123,7 +123,7 @@ class RechecheRefDum extends Component {
         var data = this.initWSData(referenceDed);
         var action = RechecheDumAction.request(
           {
-            type: Constants.RECHERCHEDUM_INITCONTROLE_REQUEST,
+            type: Constants.RECHERCHEREFDUM_REQUEST,
             value: {
               login: this.state.login,
               commande: this.props.commande,
@@ -147,7 +147,7 @@ class RechecheRefDum extends Component {
     return this.state.showErrorMsg && _.isEmpty(this.state[field]);
   };
   isCleValide = () => {
-    return this.state.showErrorMsg && this.state.cle !== this.state.cleValide;
+    return this.state.showErrorMsg && this.state.cle != this.state.cleValide;
   };
 
   cleDUM = function (regime, serie) {
@@ -157,7 +157,7 @@ class RechecheRefDum extends Component {
       }*/
     if (serie.length > 6) {
       let firstSerie = serie.substring(0, 1);
-      if (firstSerie === '0') {
+      if (firstSerie == '0') {
         serie = serie.substring(1, 7);
       }
     }
@@ -405,6 +405,6 @@ const styles = {
   },
 };
 
-const mapStateToProps = (state) => ({...state.controleRechercheDumReducer});
+const mapStateToProps = state => ({...state.rechercheRefDumReducer});
 
 export default connect(mapStateToProps, null)(RechecheRefDum);

@@ -53,3 +53,7 @@ export const largeInput = {
 export const badrButtonIcon = {
   width: 280,
 };
+
+export const badrInputHeight = {
+  height: 45,
+};
