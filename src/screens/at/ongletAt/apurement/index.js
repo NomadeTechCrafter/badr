@@ -33,22 +33,22 @@ const buildComposantsColumns = (reference) => {
   return [
     {
       code: 'typeComposant',
-      libelle: 'Type composant',
+      libelle: translate('at.apurement.typeComposant'),
       width: 160,
     },
     {
       code: 'informationAffichee',
-      libelle: 'Information affichée',
+      libelle: translate('at.apurement.informationAffichee'),
       width: 380,
     },
     {
       code: 'modeApurementComposant.libelle',
-      libelle: 'Mode apurement',
+      libelle: translate('at.apurement.modeApurement'),
       width: 160,
     },
     {
       code: '',
-      libelle: 'Selectionner',
+      libelle: translate('at.apurement.selectionner'),
       width: 200,
       component: 'checkbox',
       action: (row, index) => reference.onComponentChecked(row, index),
@@ -60,22 +60,22 @@ const buildApurementsColumns = (reference) => {
   return [
     {
       code: 'bureauApur.libelle',
-      libelle: 'Bureau apurement',
+      libelle: translate('at.apurement.bureauApurement'),
       width: 150,
     },
     {
       code: 'arrondApur.libelle',
-      libelle: 'Arrondissement apurement',
+      libelle: translate('at.apurement.arrondApurement'),
       width: 180,
     },
     {
       code: 'typeComposApur',
-      libelle: 'Type composants apurés',
+      libelle: translate('at.apurement.typeComposant'),
       width: 250,
     },
     {
       code: 'dateApurement',
-      libelle: 'Date apurement',
+      libelle: translate('at.apurement.dateApurement'),
       width: 140,
     },
 

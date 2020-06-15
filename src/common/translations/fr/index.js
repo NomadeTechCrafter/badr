@@ -169,6 +169,10 @@ export default {
       exportateur: 'Exportateur',
       reexportation: 'Réexportation',
       titleTableauCompo: 'Liste des composants à apurer',
+      typeComposant: 'Type composant',
+      informationAffichee: 'Information affichée',
+      modeApurement: 'Mode apurement',
+      selectionner: 'Selectionner',
     },
   },
   loremIpsum1:
