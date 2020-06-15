@@ -81,9 +81,9 @@ class Profile extends React.Component {
     console.log(item);
   };
 
-  handleOnConfirmProfils = items => {};
+  handleOnConfirmProfils = (items) => {};
 
-  handleOnProfilItemsChanged = items => {
+  handleOnProfilItemsChanged = (items) => {
     this.setState({selectedProfiles: items});
   };
 
@@ -129,7 +129,7 @@ class Profile extends React.Component {
           </View>
 
           <BadrPicker
-            onRef={ref => (this.comboBureaux = ref)}
+            onRef={(ref) => (this.comboBureaux = ref)}
             key="bureau"
             style={CustomStyleSheet.badrPicker}
             titleStyle={CustomStyleSheet.badrPickerTitle}
@@ -148,7 +148,7 @@ class Profile extends React.Component {
           />
 
           <BadrPicker
-            onRef={ref => (this.comboArrondissements = ref)}
+            onRef={(ref) => (this.comboArrondissements = ref)}
             style={CustomStyleSheet.badrPicker}
             titleStyle={CustomStyleSheet.badrPickerTitle}
             key="arrondissements"
@@ -220,7 +220,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Profile);
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);

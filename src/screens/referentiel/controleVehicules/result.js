@@ -1,16 +1,11 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {View} from 'react-native';
 
 /**Custom Components */
 import {BadrTable} from '../../../components';
 
 /** REDUX **/
 import {connect} from 'react-redux';
-import * as ConstantsControleVehicules from '../../../common/constants/referentiel/controleVehicules';
-import * as controleVehiculesAction from '../../../redux/actions/referentiel/controleVehicules';
-
-/** Storage **/
-import {loadParsed} from '../../../services/storage-service';
 
 class ControleVehiculesResult extends React.Component {
   constructor(props) {
@@ -25,7 +20,7 @@ class ControleVehiculesResult extends React.Component {
     ];
   }
 
-  onItemSelected = row => {
+  onItemSelected = (row) => {
     console.log(row);
   };
 

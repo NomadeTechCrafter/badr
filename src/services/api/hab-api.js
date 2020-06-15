@@ -25,6 +25,7 @@ export default class HabApi {
       jsonVO: {
         code: code,
         device_id: Session.getInstance().getDeviceId(),
+        // device_id: '129834954738573587',
         device_manufacturer: Session.getInstance().getManufacturer(),
         device_model: Session.getInstance().getModel(),
         os: 'Android',

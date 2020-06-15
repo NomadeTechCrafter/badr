@@ -47,7 +47,7 @@ class RechecheRefDum extends Component {
       value: {},
     });
     this.props.dispatch(action);
-    load('user').then(user => {
+    load('user').then((user) => {
       this.setState({login: JSON.parse(user).login});
     });
 
@@ -68,14 +68,14 @@ class RechecheRefDum extends Component {
     }
   };
   //accept just Number
-  onChangeInput = input => {
+  onChangeInput = (input) => {
     let keyImput = _.keys(input)[0];
     this.setState({[keyImput]: input[keyImput].replace(/[^0-9]/g, '')});
   };
-  onChangeInputCle = cle => {
+  onChangeInputCle = (cle) => {
     this.setState({cle: cle.replace(/[^A-Za-z]/g, '')});
   };
-  addZeros = input => {
+  addZeros = (input) => {
     let keyImput = _.keys(input)[0];
     if (input[keyImput] != '') {
       this.setState({
@@ -87,7 +87,7 @@ class RechecheRefDum extends Component {
     console.log('retablir');
     this.setState({...this.defaultState});
   };
-  initWSData = referenceDed => {
+  initWSData = (referenceDed) => {
     let data = {};
     switch (this.props.module) {
       case 'CONTROL_LIB':
@@ -143,14 +143,14 @@ class RechecheRefDum extends Component {
       }
     }
   };
-  _hasErrors = field => {
+  _hasErrors = (field) => {
     return this.state.showErrorMsg && _.isEmpty(this.state[field]);
   };
   isCleValide = () => {
     return this.state.showErrorMsg && this.state.cle != this.state.cleValide;
   };
 
-  cleDUM = function(regime, serie) {
+  cleDUM = function (regime, serie) {
     let alpha = 'ABCDEFGHJKLMNPRSTUVWXYZ';
     /*while (serie.length < 6) {
         serie = '0' + serie;
@@ -182,8 +182,8 @@ class RechecheRefDum extends Component {
               keyboardType={'number-pad'}
               value={this.state.bureau}
               label={translate('transverse.bureau')}
-              onChangeText={val => this.onChangeInput({bureau: val})}
-              onEndEditing={event =>
+              onChangeText={(val) => this.onChangeInput({bureau: val})}
+              onEndEditing={(event) =>
                 this.addZeros({
                   bureau: event.nativeEvent.text,
                   maxLength: 3,
@@ -208,8 +208,8 @@ class RechecheRefDum extends Component {
               keyboardType={'number-pad'}
               value={this.state.regime}
               label={translate('transverse.regime')}
-              onChangeText={val => this.onChangeInput({regime: val})}
-              onEndEditing={event =>
+              onChangeText={(val) => this.onChangeInput({regime: val})}
+              onEndEditing={(event) =>
                 this.addZeros({
                   regime: event.nativeEvent.text,
                   maxLength: 3,
@@ -234,8 +234,8 @@ class RechecheRefDum extends Component {
               keyboardType={'number-pad'}
               value={this.state.annee}
               label={translate('transverse.annee')}
-              onChangeText={val => this.onChangeInput({annee: val})}
-              onEndEditing={event =>
+              onChangeText={(val) => this.onChangeInput({annee: val})}
+              onEndEditing={(event) =>
                 this.addZeros({
                   annee: event.nativeEvent.text,
                   maxLength: 4,
@@ -260,8 +260,8 @@ class RechecheRefDum extends Component {
               keyboardType={'number-pad'}
               value={this.state.serie}
               label={translate('transverse.serie')}
-              onChangeText={val => this.onChangeInput({serie: val})}
-              onEndEditing={event =>
+              onChangeText={(val) => this.onChangeInput({serie: val})}
+              onEndEditing={(event) =>
                 this.addZeros({
                   serie: event.nativeEvent.text,
                   maxLength: 7,
@@ -288,7 +288,7 @@ class RechecheRefDum extends Component {
               autoCapitalize={'characters'}
               value={this.state.cle}
               label={translate('transverse.cle')}
-              onChangeText={val => this.onChangeInputCle(val)}
+              onChangeText={(val) => this.onChangeInputCle(val)}
               style={CustomStyleSheet.mediumInput}
             />
             <HelperText
@@ -307,7 +307,7 @@ class RechecheRefDum extends Component {
               value={this.state.numeroVoyage}
               maxLength={1}
               label={translate('transverse.nVoyage')}
-              onChangeText={val => this.onChangeInput({numeroVoyage: val})}
+              onChangeText={(val) => this.onChangeInput({numeroVoyage: val})}
               style={CustomStyleSheet.mediumInput}
             />
           </View>
@@ -407,7 +407,4 @@ const styles = {
 
 const mapStateToProps = state => ({...state.rechercheRefDumReducer});
 
-export default connect(
-  mapStateToProps,
-  null,
-)(RechecheRefDum);
+export default connect(mapStateToProps, null)(RechecheRefDum);

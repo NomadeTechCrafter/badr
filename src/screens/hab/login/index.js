@@ -65,18 +65,17 @@ class Login extends React.Component {
   };
 
   setDeviceInformations = () => {
-    getAndroidId().then(value => {
-      console.log(value);
+    getAndroidId().then((value) => {
       Session.getInstance().setDeviceId(value);
     });
-    getManufacturer().then(value => {
+    getManufacturer().then((value) => {
       Session.getInstance().setManufacturer(value);
     });
     Session.getInstance().setSystemVersion(getSystemVersion());
 
     Session.getInstance().setModel(getModel());
 
-    getDeviceName().then(value => {
+    getDeviceName().then((value) => {
       Session.getInstance().setDeviceName(value);
     });
   };
@@ -114,10 +113,10 @@ class Login extends React.Component {
           <BadrLoginHeader />
           <LoginTextInput
             value={this.state.login}
-            onChangeText={text => this.setState({login: text})}
+            onChangeText={(text) => this.setState({login: text})}
           />
           <PasswordTextInput
-            onChangeText={text => this.setState({password: text})}
+            onChangeText={(text) => this.setState({password: text})}
             value={this.state.password}
           />
           <BadrButton
@@ -133,9 +132,6 @@ class Login extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({...state.authReducer});
+const mapStateToProps = (state) => ({...state.authReducer});
 
-export default connect(
-  mapStateToProps,
-  null,
-)(Login);
+export default connect(mapStateToProps, null)(Login);

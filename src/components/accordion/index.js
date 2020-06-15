@@ -7,7 +7,7 @@ export default class Accordion extends Component {
     super(props);
     this.state = {
       data: props.data,
-      expanded: false,
+      expanded: props.expanded,
     };
   }
 

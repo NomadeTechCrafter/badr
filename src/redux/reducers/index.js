@@ -26,8 +26,7 @@ import delivrerMLVReducer from './mainLevee/delivrerMLV';
 import qrCodeReducer from './components/qrCode';
 
 import badrApiTable from './components/badrApiTable';
-import initApurementReducer from './at/initApurement';
-
+import initApurementReducer from './at/apurement';
 /**
  * combine all reducer
  */
