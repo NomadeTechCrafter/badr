@@ -934,7 +934,7 @@
   "window.titleSeparator": " - ",
 
   // Adjust the zoom level of the window. The original size is 0 and each increment above (e.g. 1) or below (e.g. -1) represents zooming 20% larger or smaller. You can also enter decimals to adjust the zoom level with a finer granularity.
-  "window.zoomLevel": 0,
+  "window.zoomLevel": -1,
 
   // Files
 
@@ -2756,6 +2756,9 @@
   // The default click action used in the npm scripts explorer: `open` or `run`, the default is `open`.
   "npm.scriptExplorerAction": "open",
 
-  "eslint.enable" :  true,
+  "eslint.enable": true,
+  "[javascript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
 
 }

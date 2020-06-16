@@ -66,7 +66,7 @@ class RechecheDum extends Component {
       <View>
         <Toolbar
           navigation={this.props.navigation}
-          title="Contrôle"
+          title={translate('controle.title')}
           subtitle={infoControle.subtitle}
           icon="menu"
         />

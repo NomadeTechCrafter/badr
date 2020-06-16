@@ -2,6 +2,7 @@ import React from 'react';
 import {Text, View, ScrollView, Dimensions, StyleSheet} from 'react-native';
 import {DataTable} from 'react-native-paper';
 import {FAB} from 'react-native-paper';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 /** i18n **/
 import {translate} from '../../common/translations/i18n';
@@ -69,6 +70,25 @@ export default class BadrTable extends React.Component {
     this.refs._horizontalScrollView.scrollTo({x: screenWidth});
   };
 
+  concatMultiColumns = (row, keysColumn) => {
+    if (!_.isArray(keysColumn)) {
+      console.log('keysColumn', keysColumn);
+      return _.get(row, keysColumn);
+    }
+    if (_.isArray(keysColumn)) {
+      let listKeysColumn = _.clone(keysColumn);
+      console.log('keysColumn2', listKeysColumn);
+      let columns = [];
+      _.forEach(listKeysColumn.splice(0, listKeysColumn.length - 1), function(
+        value,
+      ) {
+        console.log('keysColumn3', value);
+        columns.push(_.get(row, value));
+      });
+      return _.join(columns, _.last(keysColumn));
+    }
+  };
+
   buildDataTable = () => {
     const totalWidth = _.sumBy(this.props.cols, function(col) {
       return col.width;
@@ -88,11 +108,22 @@ export default class BadrTable extends React.Component {
           <ScrollView key="verticalScrollView">
             <DataTable style={this.props.fullWidth ? {width: screenWidth} : {}}>
               <DataTable.Header>
+                {this.props.addAction && (
+                  <DataTable.Title style={{width: 80}}>
+                    <Icon name={'plus-square'} size={30} color={'#5E5E5E'} />
+                  </DataTable.Title>
+                )}
                 {this.props.cols.map((column, index) => (
                   <DataTable.Title style={{width: column.width}}>
                     {column.libelle}
                   </DataTable.Title>
                 ))}
+                {this.props.updateAction && (
+                  <DataTable.Title style={{width: 80}} />
+                )}
+                {this.props.deleteAction && (
+                  <DataTable.Title style={{width: 80}} />
+                )}
               </DataTable.Header>
 
               {this.props.rows && this.props.rows.length > 0
@@ -106,12 +137,28 @@ export default class BadrTable extends React.Component {
                     <DataTable.Row
                       key={row[this.props.id]}
                       onPress={() => this.props.onItemSelected(row)}>
+                      {this.props.addAction && (
+                        <DataTable.Cell style={{width: 80}} />
+                      )}
                       {this.props.cols.map((column, index) => (
                         <DataTable.Cell style={{width: column.width}}>
-                          {' '}
-                          {row[column.code]}
+                          {this.concatMultiColumns(row, column.code)}
                         </DataTable.Cell>
                       ))}
+                      {this.props.updateAction && (
+                        <DataTable.Cell style={{width: 80}}   onPress={() => this.props.onUpdate(index)}>
+                          <Icon
+                            name={'plus-square'}
+                            size={30}
+                            color={'#5E5E5E'}
+                          />
+                        </DataTable.Cell>
+                      )}
+                      {this.props.deleteAction && (
+                        <DataTable.Cell style={{width: 80}}>
+                          <Icon name={'trash'} size={30} color={'#5E5E5E'} />
+                        </DataTable.Cell>
+                      )}
                     </DataTable.Row>
                   ))
                 : !this.props.showProgress && (

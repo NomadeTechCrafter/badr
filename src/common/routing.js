@@ -6,6 +6,14 @@ const mapping = {
   '5971': {screen: 'RechecheMLV', params: {}},
   '597111': {screen: 'ScanQrCode', params: {screenAfterScan: 'RechecheMLV'}},
   '4096': {screen: 'ControleVehicules', params: {}},
+  '1201': {
+    screen: 'RechercheEcorImport',
+    params: {typeEcorImport: 'EnleverMarchandise'},
+  },
+  '1203': {
+    screen: 'RechercheEcorImport',
+    params: {typeEcorImport: 'EnleverMarchandiseParPesage'},
+  },
   '9005': {screen: 'CreerApurement', params: {}},
 };
 
