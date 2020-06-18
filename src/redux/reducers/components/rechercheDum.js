@@ -34,5 +34,7 @@ export default (state = initialState, action) => {
       return nextState;
     case Constants.RECHERCHEREFDUM_INIT:
       return initialState;
+    default:
+      return initialState;
   }
 };
