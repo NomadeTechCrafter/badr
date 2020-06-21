@@ -2,7 +2,15 @@ import {CustomStyleSheet} from '../../styles/index';
 import React from 'react';
 import {Button} from 'react-native-paper';
 
-const buildButton = (style, onPress, text, icon, loading, disabled) => {
+const buildButton = (
+  style,
+  onPress,
+  text,
+  icon,
+  loading,
+  disabled,
+  compact,
+) => {
   return (
     <Button
       onPress={onPress}
@@ -10,8 +18,8 @@ const buildButton = (style, onPress, text, icon, loading, disabled) => {
       icon={icon}
       dark={true}
       loading={loading}
+      compact={compact}
       labelStyle={{color: 'white'}}
-      compact="false"
       disabled={disabled}
       style={style}>
       {text}
@@ -25,12 +33,13 @@ export default class BadrButtonIcon extends React.Component {
   }
   render() {
     return buildButton(
-      CustomStyleSheet.badrButtonIcon,
+      this.props.style ? this.props.style : CustomStyleSheet.badrButtonIcon,
       this.props.onPress,
       this.props.text,
       this.props.icon,
       this.props.loading,
       this.props.disabled,
+      this.props.compact,
     );
   }
 }
