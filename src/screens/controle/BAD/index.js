@@ -2,9 +2,10 @@ import React from 'react';
 import {View} from 'react-native';
 
 /**Custom Components */
-import {BadrApiTable, BadrModal, DetailBAD} from '../../../components';
+import {BadrApiTable, DetailBAD} from '../../../components';
+import {translate} from '../../../common/translations/i18n';
 
-export class BAD extends React.Component {
+export default class BAD extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -13,9 +14,9 @@ export class BAD extends React.Component {
     };
   }
 
-  onItemSelected = item => {};
+  onItemSelected = (item) => {};
 
-  handleBadPressed = item => {
+  handleBadPressed = (item) => {
     this.setState({detail: item, showDetail: true});
   };
 
@@ -37,36 +38,50 @@ export class BAD extends React.Component {
             },
           }}
           id="referenceDs"
-          onItemSelected={item => this.onItemSelected(item)}
+          onItemSelected={(item) => this.onItemSelected(item)}
           cols={[
-            {code: 'vo.typeDS', libelle: 'Type DS', width: 70},
-            {code: 'referenceDs', libelle: 'Reference DS', width: 200},
+            {code: 'vo.typeDS', libelle: translate('bad.typeDS'), width: 70},
+            {
+              code: 'referenceDs',
+              libelle: translate('bad.referenceDS'),
+              width: 200,
+            },
             {
               code: 'vo.lieuChargement',
-              libelle: 'Lieu de chargement',
+              libelle: translate('bad.lieuDechargement'),
               width: 180,
             },
-            {code: 'vo.referenceLot', libelle: 'Référence lot', width: 120},
-            {code: 'vo.poidsLot', libelle: 'Poids brut', width: 120},
+            {
+              code: 'vo.referenceLot',
+              libelle: translate('bad.referenceLot'),
+              width: 120,
+            },
+            {
+              code: 'vo.poidsLot',
+              libelle: translate('bad.poidbrut'),
+              width: 120,
+            },
             {
               code: 'vo.nombreContenant',
-              libelle: 'Nombre contenants',
+              libelle: translate('bad.nombreContenant'),
               width: 130,
             },
             {
-              //   code: 'vo.bonADelivrer.numeroBAD',
               code: 'vo.lieuChargement',
-              libelle: 'Bon à délivrer',
-              action: item => this.handleBadPressed(item),
+              libelle: translate('bad.title'),
+              action: (item) => this.handleBadPressed(item),
               width: 200,
             },
           ]}
           paginate={false}
         />
 
-        <BadrModal visible={this.state.showDetail} onDismiss={this.onDismiss}>
-          <DetailBAD data={this.state.detail.vo} />
-        </BadrModal>
+        {this.state.detail && this.state.detail.referenceDs && (
+          <DetailBAD
+            referenceDs={this.state.detail.referenceDs}
+            detail={this.state.detail.vo}
+          />
+        )}
       </View>
     );
   }

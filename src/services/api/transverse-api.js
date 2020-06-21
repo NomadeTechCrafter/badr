@@ -1,6 +1,6 @@
 import HttpHelper from './common/http-helper';
-import {loadParsed} from '../../services/storage-service';
-
+/** Inmemory session */
+import {Session} from '../../common/session';
 export default class TransverseApi {
   static doProcess = async (
     _module,
@@ -10,10 +10,9 @@ export default class TransverseApi {
     _offset,
     _pageSize,
   ) => {
-    const user = await loadParsed('user');
     const data = {
       dtoHeader: {
-        userLogin: user.login,
+        userLogin: Session.getInstance().getLogin(),
         fonctionnalite: 'cf4011',
         module: _module,
         commande: _command,

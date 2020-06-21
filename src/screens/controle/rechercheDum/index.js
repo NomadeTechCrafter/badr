@@ -3,7 +3,7 @@ import {View} from 'react-native';
 import {RechercheRefDum, Toolbar, BadrButtonIcon} from '../../../components';
 /**i18n */
 import {translate} from '../../../common/translations/i18n';
-
+import {Session} from '../../../common/session';
 import {connect} from 'react-redux';
 import * as Constants from '../../../common/constants/controle/rechercheDum';
 import * as RechecheDumAction from '../../../redux/actions/controle/rechercheDum';
@@ -41,23 +41,20 @@ class RechecheDum extends Component {
   };
 
   listDeclarationSearchAction = () => {
-    var action = RechecheDumAction.searchListeDeclaration(
+    return RechecheDumAction.searchListeDeclaration(
       {
         type: Constants.RECHERCHEDUM_LISTDECLARATION_REQUEST,
         value: {
-          login: this.state.login,
+          login: Session.getInstance().getLogin(),
           typeControle: this.typeControle,
-          // pageSize: 10,
-          // offset: 0,
         },
       },
       this.props.navigation,
     );
-    this.props.dispatch(action);
   };
   listDeclarationSearch = () => {
     let action = this.listDeclarationSearchAction();
-    this.props.actions.dispatch(action);
+    this.props.dispatch(action);
   };
 
   render() {
@@ -89,9 +86,6 @@ class RechecheDum extends Component {
   }
 }
 
-const mapStateToProps = state => ({...state.controleRechercheDumReducer});
+const mapStateToProps = (state) => ({...state.controleRechercheDumReducer});
 
-export default connect(
-  mapStateToProps,
-  null,
-)(RechecheDum);
+export default connect(mapStateToProps, null)(RechecheDum);

@@ -5,15 +5,14 @@ import {
   Container,
   CardBox,
   Accordion,
-  Card,
-  CardSection,
-  BadrTextInput,
   BadrButton,
   BadrErrorMessage,
   BadrInfoMessage,
   BadrProgressBar,
   Toolbar,
 } from '../../../components';
+
+import BAD from '../BAD';
 import {Checkbox, TextInput, Text, RadioButton} from 'react-native-paper';
 /**i18n */
 import {translate} from '../../../common/translations/i18n';
@@ -45,7 +44,7 @@ class ACVP extends Component {
   }
 
   componentDidMount() {
-    load('user').then(user => {
+    load('user').then((user) => {
       this.setState({login: JSON.parse(user).login});
     });
   }
@@ -67,7 +66,7 @@ class ACVP extends Component {
     return documentAnnexeResultVO;
   };
 
-  sauvgarder = commande => {
+  sauvgarder = (commande) => {
     console.log('sauvgarder');
     var data = {
       idControle: this.state.declaration.idControle,
@@ -134,6 +133,7 @@ class ACVP extends Component {
   }
 
   render() {
+    console.log(this.props);
     return (
       <View style={CustomStyleSheet.fullContainer}>
         <Toolbar
@@ -336,7 +336,7 @@ class ACVP extends Component {
                   multiline={true}
                   numberOfLines={6}
                   disabled={this.state.isConsultation}
-                  onChangeText={text => this.setState({observation: text})}
+                  onChangeText={(text) => this.setState({observation: text})}
                 />
               </View>
             </Accordion>
@@ -357,10 +357,10 @@ class ACVP extends Component {
           <CardBox style={styles.cardBox}>
             <Accordion title={translate('controle.decision')}>
               <View
-                style={{flexDirection: 'column'}}
+                style={styles.flexColumn}
                 pointerEvents={this.state.isConsultation ? 'none' : 'auto'}>
                 <RadioButton.Group
-                  onValueChange={value =>
+                  onValueChange={(value) =>
                     this.setState({decisionControle: value})
                   }
                   value={this.state.decisionControle}>
@@ -392,6 +392,14 @@ class ACVP extends Component {
                     />
                   </View>
                 </RadioButton.Group>
+              </View>
+            </Accordion>
+          </CardBox>
+
+          <CardBox style={styles.cardBox}>
+            <Accordion title={translate('bad.title')}>
+              <View style={styles.flexColumn}>
+                <BAD />
               </View>
             </Accordion>
           </CardBox>
@@ -470,11 +478,9 @@ const styles = {
   textRadio: {
     color: '#FFF',
   },
+  flexColumn: {flexDirection: 'column'},
 };
 
-const mapStateToProps = state => ({...state.acvpReducer});
+const mapStateToProps = (state) => ({...state.acvpReducer});
 
-export default connect(
-  mapStateToProps,
-  null,
-)(ACVP);
+export default connect(mapStateToProps, null)(ACVP);

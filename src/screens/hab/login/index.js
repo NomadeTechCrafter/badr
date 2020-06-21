@@ -80,6 +80,8 @@ class Login extends React.Component {
     });
   };
 
+ 
+
   componentDidMount() {
     this.setDeviceInformations();
 

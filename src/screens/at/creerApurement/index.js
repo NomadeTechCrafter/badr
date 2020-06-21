@@ -155,7 +155,6 @@ const styles = {
 };
 
 function mapStateToProps(state) {
-  console.log(state.initApurementReducer);
   return {...state.initApurementReducer};
 }
 

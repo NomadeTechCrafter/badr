@@ -2,178 +2,322 @@ import React from 'react';
 import {View} from 'react-native';
 
 import {primaryColor} from '../../../styles/index';
-import {Col, Grid} from 'react-native-easy-grid';
+import {Col, Row, Grid} from 'react-native-easy-grid';
 import {Paragraph, Caption} from 'react-native-paper';
+import {connect} from 'react-redux';
+import {BadrTable, CardBox, Accordion} from '../../';
 
 /** i18n **/
 import {translate} from '../../../common/translations/i18n';
+/** i18n **/
+import * as Constants from '../../../common/constants/controle/BAD';
+import * as BadActions from '../../../redux/actions/controle/BAD';
 
-export default class DetailBAD extends React.Component {
+class DetailBAD extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedEquipement: null,
+    };
+  }
+  componentDidMount = () => {
+    let actionParam = {
+      typeDS: this.props.data.typeDS,
+      refDS: this.props.referenceDs,
+      reflot: this.props.data.referenceLot,
+      lieuChargement: this.props.data.lieuChargement,
+    };
+    console.log('Detail BAD with params : ');
+    console.log(actionParam);
+    var action = BadActions.request({
+      type: Constants.DETAIL_BAD_REQUEST,
+      value: actionParam,
+    });
+    this.props.dispatch(action);
+  };
+
+  onEquipementClicked = (row) => {
+    console.log(row.badequipementVOList);
+    this.setState({selectedEquipement: row.badequipementVOList});
+  };
+
   render() {
-    let data = this.props.data;
+    let data = this.props.detail;
+    let detailBAD = {};
+    if (this.props.data && this.props.data.bad) {
+      detailBAD = this.props.data.bad;
+    }
+    console.log('############## rendering data ===> ');
     console.log(data);
     return (
-      <View style={{padding: 30}}>
+      <View style={styles.container}>
         <Grid>
-          <Col size={20}>
+          <Col size={20} style={styles.colStyle}>
             <Caption style={styles.caption}>
-              {translate('controle.bad.numeroBAD')}
+              {translate('bad.numeroBAD')}
             </Caption>
           </Col>
-          <Col size={30}>
-            <Paragraph style={styles.paragraph}>{data.numeroBAD}</Paragraph>
-          </Col>
-          <Col size={20}>
-            <Caption style={styles.caption}>
-              {translate('controle.bad.statutBAD')}
-            </Caption>
-          </Col>
-          <Col size={30}>
-            <Paragraph style={styles.paragraph}>{data.statutBAD} </Paragraph>
-          </Col>
-        </Grid>
-
-        <Grid>
-          <Col size={20}>
-            <Caption style={styles.caption}>
-              {translate('controle.bad.nomImportateur')}
-            </Caption>
-          </Col>
-          <Col size={30}>
+          <Col size={30} style={styles.colStyle}>
             <Paragraph style={styles.paragraph}>
-              {data.nomImportateur}
+              {detailBAD.numeroBAD}
             </Paragraph>
           </Col>
-          <Col size={20}>
+          <Col size={20} style={styles.colStyle}>
             <Caption style={styles.caption}>
-              {translate('controle.bad.nomTransportateur')}
+              {translate('bad.statutBAD')}
             </Caption>
           </Col>
-          <Col size={30}>
+          <Col size={30} style={styles.colStyle}>
             <Paragraph style={styles.paragraph}>
-              {data.nomTransportateur}
+              {detailBAD.statutBAD}
             </Paragraph>
           </Col>
         </Grid>
 
         <Grid>
-          <Col size={20}>
+          <Col size={20} style={styles.colStyle}>
             <Caption style={styles.caption}>
-              {translate('controle.bad.nomConsignataire')}
+              {translate('bad.nomImportateur')}
             </Caption>
           </Col>
-          <Col size={30}>
+          <Col size={30} style={styles.colStyle}>
             <Paragraph style={styles.paragraph}>
-              {data.nomConsignataire}
+              {detailBAD.nomImportateur}
             </Paragraph>
           </Col>
-          <Col size={20}>
+          <Col size={20} style={styles.colStyle}>
             <Caption style={styles.caption}>
-              {translate('controle.bad.dateBonADelivrerStr')}
+              {translate('bad.nomTransportateur')}
             </Caption>
           </Col>
-          <Col size={30}>
+          <Col size={30} style={styles.colStyle}>
             <Paragraph style={styles.paragraph}>
-              {data.dateBonADelivrerStr}
-            </Paragraph>
-          </Col>
-        </Grid>
-
-        <Grid>
-          <Col size={20}>
-            <Caption style={styles.caption}>
-              {translate('controle.bad.descriptionMoyenTransport')}
-            </Caption>
-          </Col>
-          <Col size={30}>
-            <Paragraph style={styles.paragraph}>
-              {data.descriptionMoyenTransport}
-            </Paragraph>
-          </Col>
-          <Col size={20}>
-            <Caption style={styles.caption}>
-              {translate('controle.bad.numeroEscale')}
-            </Caption>
-          </Col>
-          <Col size={30}>
-            <Paragraph style={styles.paragraph}>{data.numeroEscale} </Paragraph>
-          </Col>
-        </Grid>
-
-        <Grid>
-          <Col size={20}>
-            <Caption style={styles.caption}>
-              {translate('controle.bad.lieuDechargement')}
-            </Caption>
-          </Col>
-          <Col size={30}>
-            <Paragraph style={styles.paragraph}>
-              {data.lieuDechargement}
-            </Paragraph>
-          </Col>
-          <Col size={20}>
-            <Caption style={styles.caption}>
-              {translate('controle.bad.lieuProvenance')}
-            </Caption>
-          </Col>
-          <Col size={30}>
-            <Paragraph style={styles.paragraph}>
-              {data.lieuProvenance}
+              {detailBAD.nomTransportateur}
             </Paragraph>
           </Col>
         </Grid>
 
         <Grid>
-          <Col size={20}>
+          <Col size={20} style={styles.colStyle}>
             <Caption style={styles.caption}>
-              {translate('controle.bad.dateArrivee')}
+              {translate('bad.nomConsignataire')}
             </Caption>
           </Col>
-          <Col size={30}>
+          <Col size={30} style={styles.colStyle}>
             <Paragraph style={styles.paragraph}>
-              {data.lieuDechargement}
+              {detailBAD.nomConsignataire}
             </Paragraph>
           </Col>
-          <Col size={20}>
+          <Col size={20} style={styles.colStyle}>
             <Caption style={styles.caption}>
-              {translate('controle.bad.referenceDSBAD')}
+              {translate('bad.dateBonADelivrerStr')}
             </Caption>
           </Col>
-          <Col size={30}>
+          <Col size={30} style={styles.colStyle}>
             <Paragraph style={styles.paragraph}>
-              {data.lieuProvenance}
+              {detailBAD.dateBonADelivrerStr}
             </Paragraph>
           </Col>
         </Grid>
 
         <Grid>
-          <Col size={20}>
+          <Col size={20} style={styles.colStyle}>
             <Caption style={styles.caption}>
-              {translate('controle.bad.descriptionTypeDSBAD')}
+              {translate('bad.descriptionMoyenTransport')}
             </Caption>
           </Col>
-          <Col size={30}>
+          <Col size={30} style={styles.colStyle}>
             <Paragraph style={styles.paragraph}>
-              {data.descriptionTypeDSBAD}
+              {detailBAD.descriptionMoyenTransport}
             </Paragraph>
           </Col>
-          <Col size={20}>
+          <Col size={20} style={styles.colStyle}>
             <Caption style={styles.caption}>
-              {translate('controle.bad.referenceCNTBAD')}
+              {translate('bad.numeroEscale')}
             </Caption>
           </Col>
-          <Col size={30}>
+          <Col size={30} style={styles.colStyle}>
             <Paragraph style={styles.paragraph}>
-              {data.referenceCNTBAD}
+              {detailBAD.numeroEscale}
             </Paragraph>
           </Col>
         </Grid>
+
+        <Grid>
+          <Col size={20} style={styles.colStyle}>
+            <Caption style={styles.caption}>
+              {translate('bad.lieuDechargement')}
+            </Caption>
+          </Col>
+          <Col size={30} style={styles.colStyle}>
+            <Paragraph style={styles.paragraph}>
+              {data.lieuChargement}
+            </Paragraph>
+          </Col>
+          <Col size={20} style={styles.colStyle}>
+            <Caption style={styles.caption}>
+              {translate('bad.lieuProvenance')}
+            </Caption>
+          </Col>
+          <Col size={30} style={styles.colStyle}>
+            <Paragraph style={styles.paragraph}>
+              {detailBAD.lieuProvenance}
+            </Paragraph>
+          </Col>
+        </Grid>
+
+        <Grid>
+          <Col size={20} style={styles.colStyle}>
+            <Caption style={styles.caption}>
+              {translate('bad.dateArrivee')}
+            </Caption>
+          </Col>
+          <Col size={30} style={styles.colStyle}>
+            <Paragraph style={styles.paragraph}>
+              {detailBAD.dateArrivee}
+            </Paragraph>
+          </Col>
+          <Col size={20} style={styles.colStyle}>
+            <Caption style={styles.caption}>
+              {translate('bad.referenceDSBAD')}
+            </Caption>
+          </Col>
+          <Col size={30} style={styles.colStyle}>
+            <Paragraph style={styles.paragraph}>
+              {this.props.referenceDs}
+            </Paragraph>
+          </Col>
+        </Grid>
+
+        <Grid>
+          <Col size={20} style={styles.colStyle}>
+            <Caption style={styles.caption}>
+              {translate('bad.descriptionTypeDSBAD')}
+            </Caption>
+          </Col>
+          <Col size={30} style={styles.colStyle}>
+            <Paragraph style={styles.paragraph}>
+              {detailBAD.descriptionTypeDSBAD}
+            </Paragraph>
+          </Col>
+          <Col size={20} style={styles.colStyle}>
+            <Caption style={styles.caption}>
+              {translate('bad.referenceCNTBAD')}
+            </Caption>
+          </Col>
+          <Col size={30} style={styles.colStyle}>
+            <Paragraph style={styles.paragraph}>
+              {detailBAD.referenceCNTBAD}
+            </Paragraph>
+          </Col>
+        </Grid>
+
+        <CardBox>
+          <Accordion title="Lignes du Bon à délivrer">
+            <Grid>
+              <Row>
+                <BadrTable
+                  id="numeroLigne"
+                  rows={
+                    this.props.data && detailBAD && detailBAD.refBADLigneLot
+                      ? detailBAD.refBADLigneLot
+                      : []
+                  }
+                  cols={[
+                    {
+                      width: 100,
+                      code: 'numeroLigne',
+                      libelle: translate('bad.numeroLigne'),
+                    },
+                    {
+                      width: 430,
+                      code: 'natureMarchandise',
+                      libelle: translate('bad.natureMarchandise'),
+                    },
+                    {
+                      width: 120,
+                      code: 'poidsBrut',
+                      libelle: translate('bad.poidbrut'),
+                    },
+                    {
+                      width: 120,
+                      code: 'tareLigne',
+                      libelle: translate('bad.tare'),
+                    },
+                    {
+                      code: '',
+                      libelle: '',
+                      width: 100,
+                      component: 'button',
+                      icon: 'eye',
+                      attrCondition: 'idApurement',
+                      action: (row, index) => {
+                        this.onEquipementClicked(row);
+                      },
+                    },
+                  ]}
+                  paginate={false}
+                />
+              </Row>
+
+              <Row style={styles.rowStyle}>
+                {this.state.selectedEquipement && (
+                  <View>
+                    <Paragraph style={styles.paragraphTitle}>
+                      {translate('bad.listEquipementsTitle')}
+                    </Paragraph>
+
+                    <BadrTable
+                      id="numeroEquipement"
+                      rows={
+                        this.state.selectedEquipement
+                          ? this.state.selectedEquipement
+                          : []
+                      }
+                      cols={[
+                        {
+                          width: 300,
+                          code: 'numeroEquipement',
+                          libelle: translate('bad.numeroEquipement'),
+                        },
+                        {
+                          width: 300,
+                          code: 'tareEquipement',
+                          libelle: translate('bad.tareEquipement'),
+                        },
+                      ]}
+                      paginate={false}
+                    />
+                  </View>
+                )}
+              </Row>
+            </Grid>
+          </Accordion>
+        </CardBox>
       </View>
     );
   }
 }
 
+const mapStateToProps = (state) => {
+  return {...state.badReducer};
+};
+
+export default connect(mapStateToProps, null)(DetailBAD);
+
 const styles = {
-  caption: {fontSize: 18, color: primaryColor, fontWeight: 'bold'},
-  paragraph: {fontSize: 18},
+  colStyle: {padding: 20},
+  title: {textAlign: 'center', fontSize: 20, padding: 15},
+  caption: {fontSize: 14, color: primaryColor, fontWeight: 'bold'},
+  paragraph: {
+    fontSize: 12,
+  },
+  paragraphTitle: {
+    fontSize: 14,
+    paddingTop: 20,
+    textAlign: 'center',
+    fontWeight: 'bold',
+  },
+  container: {padding: 30},
+  rowStyle: {justifyContent: 'center'},
 };

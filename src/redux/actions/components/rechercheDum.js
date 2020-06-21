@@ -6,7 +6,7 @@ import * as Constants from '../../../common/constants/components/rechercheRefDum
 import {translate} from '../../../common/translations/i18n';
 
 export function request(action, navigation, successRedirection) {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(action);
     dispatch(inProgress(action));
     TransverseApi.doProcess(
@@ -15,7 +15,7 @@ export function request(action, navigation, successRedirection) {
       action.value.typeService,
       action.value.data,
     )
-      .then(response => {
+      .then((response) => {
         if (response) {
           console.log('response', response);
           const data = response.data;
@@ -38,7 +38,7 @@ export function request(action, navigation, successRedirection) {
           dispatch(failed(translate('errors.technicalIssue')));
         }
       })
-      .catch(e => {
+      .catch((e) => {
         console.log('in action request catch', e);
         dispatch(failed(translate('errors.technicalIssue')));
       });

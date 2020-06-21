@@ -2,10 +2,9 @@ import TransverseApi from '../../../services/api/transverse-api';
 import * as Constants from '../../../common/constants/components/badrApiTable';
 
 export function request(action) {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(inProgress(action));
     TransverseApi.doProcess(
-      action.value.login,
       action.value.module,
       action.value.command,
       action.value.typeService,
@@ -13,8 +12,9 @@ export function request(action) {
       action.value.offset,
       action.value.pageSize,
     )
-      .then(response => {
+      .then((response) => {
         const data = response.data;
+        console.log(data);
         if (data && data.jsonVO) {
           action.value.payload = data.jsonVO;
           dispatch(success(action));
@@ -22,7 +22,7 @@ export function request(action) {
           dispatch(failed({value: 'error while getting data'}));
         }
       })
-      .catch(e => {
+      .catch((e) => {
         console.log(e);
         dispatch(failed({value: 'error while getting data'}));
       });

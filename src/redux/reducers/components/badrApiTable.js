@@ -32,6 +32,6 @@ export default (state = initialState, action) => {
     case Constants.BADR_APITABLE_INIT:
       return initialState;
     default:
-      return initialState;
+      return nextState ? nextState : initialState;
   }
 };
