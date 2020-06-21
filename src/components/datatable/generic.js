@@ -99,7 +99,7 @@ class BadrApiTable extends React.Component {
   buildPagination = (pageCount) => {
     return (
       <DataTable.Pagination
-        style={{alignSelf: 'flex-start'}}
+        style={styles.pagination}
         page={this.state.currentPage}
         numberOfPages={pageCount}
         onPageChange={(page) => {
@@ -118,27 +118,21 @@ class BadrApiTable extends React.Component {
   };
 
   scrollMore = () => {
-    this.refs._horizontalScrollView.scrollTo({
+    this._horizontalScrollView.scrollTo({
       x: screenWidth,
     });
   };
   buildCell = (column, row) => {
-    return (
+    return !column.actionCondition ? (
       <Text
-        style={
-          column.action
-            ? {
-                color: primaryColor,
-                textAlign: 'center',
-                fontWeight: 'bold',
-                textDecorationLine: 'underline',
-              }
-            : {}
-        }
+        style={column.action ? styles.action : {}}
         onPress={() => column.action(row)}>
         {_.get(row, column.code) != null ? String(_.get(row, column.code)) : ''}
       </Text>
+    ) : (
+      <Text />
     );
+
     // }
   };
 
@@ -165,7 +159,9 @@ class BadrApiTable extends React.Component {
     return (
       <View>
         <ScrollView
-          ref="_horizontalScrollView"
+          ref={(node) => {
+            this._horizontalScrollView = node;
+          }}
           key="horizontalScrollView"
           horizontal={true}>
           <ScrollView key="verticalScrollView">
@@ -186,7 +182,7 @@ class BadrApiTable extends React.Component {
                     <DataTable.Row
                       key={row[this.props.id]}
                       onPress={() => this.props.onItemSelected(row)}>
-                      {this.props.cols.map((column, index) => (
+                      {this.props.cols.map((column) => (
                         <DataTable.Cell
                           style={{
                             width: column.width,
@@ -238,6 +234,13 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
   },
+  action: {
+    color: primaryColor,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    textDecorationLine: 'underline',
+  },
+  pagination: {alignSelf: 'flex-start'},
 });
 
 function mapStateToProps(state) {

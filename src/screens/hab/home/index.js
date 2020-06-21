@@ -12,6 +12,14 @@ import ControleVehicules from '../../referentiel/controleVehicules/index';
 import CreerApurement from '../../at/creerApurement';
 import Apurement from '../../at/ongletAt/apurement';
 
+import ListDeclarationDum from '../../controle/listDeclarationDum';
+import RegimeTransit from '../../controle/regimeTransit';
+import ACVP from '../../controle/ACVP';
+import RechecheMLV from '../../mainlevee/rechercheMLV';
+import ListDeclarationMLV from '../../mainlevee/listedeclarationsMLV';
+import DelivrerMLV from '../../mainlevee/delivrerMLV';
+import ScanQrCode from '../../../components/qrCode/';
+
 /** Drawer navigation */
 import {createDrawerNavigator} from '@react-navigation/drawer';
 
@@ -42,7 +50,7 @@ export default class Home extends React.Component {
           width: Dimensions.get('window').width - deltaScreen,
         }}
         initialRouteName="Home"
-        drawerContent={props => <MainMenu {...props} />}>
+        drawerContent={(props) => <MainMenu {...props} />}>
         <Drawer.Screen name="Bienvenue" component={WelcomeScreen} />
 
         <Drawer.Screen
@@ -73,6 +81,43 @@ export default class Home extends React.Component {
           component={Apurement}
           options={{headerShown: false}}
         />
+
+        <Drawer.Screen
+          name="RechecheMLV"
+          component={RechecheMLV}
+          options={{headerShown: false}}
+        />
+        <Drawer.Screen
+          name="ScanQrCode"
+          component={ScanQrCode}
+          options={{headerShown: false}}
+        />
+
+        <Drawer.Screen
+          name="DelivrerMLV"
+          component={DelivrerMLV}
+          options={{headerShown: false}}
+        />
+
+        <Drawer.Screen
+          name="ListDeclarationMLV"
+          component={ListDeclarationMLV}
+          options={{headerShown: false}}
+        />
+
+        <Drawer.Screen
+          name="ACVP"
+          options={{headerShown: false}}
+          component={ACVP}
+        />
+
+        <Drawer.Screen
+          name="ListDeclarationDum"
+          options={{headerShown: false}}
+          component={ListDeclarationDum}
+        />
+
+        <Drawer.Screen name="RegimeTransit" component={RegimeTransit} />
       </Drawer.Navigator>
     );
   }

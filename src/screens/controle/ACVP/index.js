@@ -399,7 +399,15 @@ class ACVP extends Component {
           <CardBox style={styles.cardBox}>
             <Accordion title={translate('bad.title')}>
               <View style={styles.flexColumn}>
-                <BAD />
+                <BAD
+                  idDeclaration={
+                    this.props.route &&
+                    this.props.route.params &&
+                    this.props.route.params.declarationRI
+                      ? this.props.route.params.declarationRI.idDed
+                      : -1
+                  }
+                />
               </View>
             </Accordion>
           </CardBox>

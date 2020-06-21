@@ -1,6 +1,11 @@
 import React, {Component} from 'react';
 import {View, Dimensions} from 'react-native';
-import {Container, BadrProgressBar, BadrErrorMessage} from '../index';
+import {
+  Container,
+  BadrProgressBar,
+  BadrErrorMessage,
+  BadrButtonIcon,
+} from '../index';
 
 import {
   TextInput,
@@ -170,7 +175,6 @@ class RechecheRefDum extends Component {
   render() {
     return (
       <Container style={styles.container}>
-        {this.props.showProgress && <BadrProgressBar width={screenHeight} />}
         {this.props.errorMessage != null && (
           <BadrErrorMessage message={this.props.errorMessage} />
         )}
@@ -351,14 +355,15 @@ class RechecheRefDum extends Component {
         )}
 
         <View style={styles.containerBtn}>
-          <Button
+          <BadrButtonIcon
             onPress={this.confirmer}
-            mode="contained"
             icon="check"
             compact="true"
-            style={styles.btnConfirmer}>
-            {translate('transverse.confirmer')}
-          </Button>
+            style={styles.btnConfirmer}
+            loading={this.props.showProgress}
+            text={translate('transverse.confirmer')}
+          />
+
           <Button
             onPress={this.retablir}
             icon="autorenew"
@@ -405,6 +410,6 @@ const styles = {
   },
 };
 
-const mapStateToProps = state => ({...state.rechercheRefDumReducer});
+const mapStateToProps = (state) => ({...state.rechercheRefDumReducer});
 
 export default connect(mapStateToProps, null)(RechecheRefDum);

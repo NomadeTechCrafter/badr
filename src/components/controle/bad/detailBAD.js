@@ -21,19 +21,21 @@ class DetailBAD extends React.Component {
     };
   }
   componentDidMount = () => {
-    let actionParam = {
-      typeDS: this.props.data.typeDS,
-      refDS: this.props.referenceDs,
-      reflot: this.props.data.referenceLot,
-      lieuChargement: this.props.data.lieuChargement,
-    };
-    console.log('Detail BAD with params : ');
-    console.log(actionParam);
-    var action = BadActions.request({
-      type: Constants.DETAIL_BAD_REQUEST,
-      value: actionParam,
-    });
-    this.props.dispatch(action);
+    if (this.props.data) {
+      let actionParam = {
+        typeDS: this.props.data.typeDS,
+        refDS: this.props.referenceDs,
+        reflot: this.props.data.referenceLot,
+        lieuChargement: this.props.data.lieuChargement,
+      };
+      console.log('Detail BAD with params : ');
+      console.log(actionParam);
+      var action = BadActions.request({
+        type: Constants.DETAIL_BAD_REQUEST,
+        value: actionParam,
+      });
+      this.props.dispatch(action);
+    }
   };
 
   onEquipementClicked = (row) => {
@@ -49,7 +51,7 @@ class DetailBAD extends React.Component {
     }
     console.log('############## rendering data ===> ');
     console.log(data);
-    return (
+    return data !== null ? (
       <View style={styles.container}>
         <Grid>
           <Col size={20} style={styles.colStyle}>
@@ -295,6 +297,8 @@ class DetailBAD extends React.Component {
           </Accordion>
         </CardBox>
       </View>
+    ) : (
+      <View />
     );
   }
 }
