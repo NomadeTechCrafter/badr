@@ -1,5 +1,8 @@
 import HttpHelper from './common/http-helper';
 
+/** Inmemory session */
+import {Session} from '../../common/session';
+
 const WS_MODULE_PARAM = 'CONTROL_LIB';
 export default class ControleApi {
   static initControler = async (login, commande, data) => {
@@ -91,6 +94,23 @@ export default class ControleApi {
         numeroVersionBase: data.numeroVersionBase,
         numeroVersionCourante: data.numeroVersionCourante,
       },
+    };
+    return await HttpHelper.process(_data);
+  };
+
+  static getDetailBAD = async (data) => {
+    const _data = {
+      dtoHeader: {
+        userLogin: Session.getInstance().getLogin(),
+        fonctionnalite: 'cf6153',
+        module: WS_MODULE_PARAM,
+        commande: 'getDetailBAD',
+        typeService: 'SP',
+        motif: null,
+        messagesInfo: null,
+        messagesErreur: null,
+      },
+      jsonVO: data,
     };
     return await HttpHelper.process(_data);
   };

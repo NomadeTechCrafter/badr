@@ -1,9 +1,8 @@
 import TransverseApi from '../../../services/api/transverse-api';
 import * as Constants from '../../../common/constants/components/qrCode';
 
-
-export function request(action, navigation,screenAfterScan) {
-  return dispatch => {
+export function request(action, navigation, screenAfterScan) {
+  return (dispatch) => {
     dispatch(inProgress(action));
     TransverseApi.doProcess(
       action.value.module,
@@ -11,20 +10,20 @@ export function request(action, navigation,screenAfterScan) {
       action.value.typeService,
       action.value.param,
     )
-      .then(response => {
+      .then((response) => {
         const data = response.data;
         if (data && data.jsonVO) {
-          console.log('action qrcode :',data.jsonVO);
+          console.log('action qrcode :', data.jsonVO);
           action.value.data = data.jsonVO;
           dispatch(success(action));
-            navigation.navigate(screenAfterScan , {
-                refDeclaration: data.jsonVO
-            });
+          navigation.navigate(screenAfterScan, {
+            refDeclaration: data.jsonVO,
+          });
         } else {
           dispatch(failed({value: 'error while getting data'}));
         }
       })
-      .catch(e => {
+      .catch((e) => {
         dispatch(failed({value: 'error while getting data'}));
       });
   };

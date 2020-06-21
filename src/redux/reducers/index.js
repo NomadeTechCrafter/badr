@@ -9,6 +9,7 @@ import controleRechercheDumReducer from './controle/rechercheDum';
 import regimeInterneReducer from './controle/regimeInterne';
 import regimeTransitReducer from './controle/regimeTransit';
 import listDeclarationReducer from './controle/listDeclarationDum';
+import badReducer from './controle/BAD';
 
 import acvpReducer from './controle/acvp';
 
@@ -52,6 +53,7 @@ const allReducers = combineReducers({
   qrCodeReducer,
   controleVehiculesReducer,
   initApurementReducer,
+  badReducer,
 });
 
 export default allReducers;

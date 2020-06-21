@@ -3,6 +3,13 @@ import HttpHelper from './common/http-helper';
 /** Inmemory session */
 import {Session} from '../../common/session';
 
+const MOCKED_DEVICES_ID = {
+  YELM: '129834954738573581',
+  AD6203: '129834954738573582',
+  MAFOULKID: '129834954738573583',
+  SUPSI1082: '129834954738573584',
+};
+
 export default class HabApi {
   static login = async (login, pwd) => {
     const response = await HttpHelper.login({
@@ -24,8 +31,8 @@ export default class HabApi {
       },
       jsonVO: {
         code: code,
-        device_id: Session.getInstance().getDeviceId(),
-        // device_id: '129834954738573587',
+        // device_id: Session.getInstance().getDeviceId(),
+        device_id: MOCKED_DEVICES_ID[login],
         device_manufacturer: Session.getInstance().getManufacturer(),
         device_model: Session.getInstance().getModel(),
         os: 'Android',
