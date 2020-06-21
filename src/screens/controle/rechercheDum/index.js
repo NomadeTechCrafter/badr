@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View} from 'react-native';
+import {ScrollView, View} from 'react-native';
 import {RechercheRefDum, Toolbar, BadrButtonIcon} from '../../../components';
 /**i18n */
 import {translate} from '../../../common/translations/i18n';
@@ -60,31 +60,47 @@ class RechecheDum extends Component {
   render() {
     let infoControle = this.getInfoControle();
     return (
-      <View>
+      <ScrollView>
         <Toolbar
           navigation={this.props.navigation}
           title="Contrôle"
           subtitle={infoControle.subtitle}
           icon="menu"
         />
-        <RechercheRefDum
-          module="CONTROL_LIB"
-          commande={infoControle.commande}
-          typeService="UC"
-          navigation={this.props.navigation}
-          successRedirection={infoControle.successRedirectionScreen}
-          routeParams={this.props.route.params}
-        />
-        <BadrButtonIcon
-          onPress={() => this.listDeclarationSearch()}
-          icon="magnify"
-          loading={this.props.showProgress}
-          text={translate('transverse.listDeclaration')}
-        />
-      </View>
+        <View style={styles.rechercheDum}>
+          <RechercheRefDum
+            module="CONTROL_LIB"
+            commande={infoControle.commande}
+            typeService="UC"
+            navigation={this.props.navigation}
+            successRedirection={infoControle.successRedirectionScreen}
+            routeParams={this.props.route.params}
+          />
+        </View>
+
+        <View style={styles.listDeclarationStyle}>
+          <BadrButtonIcon
+            onPress={() => this.listDeclarationSearch()}
+            icon="magnify"
+            loading={this.props.showProgress}
+            text={translate('transverse.listDeclaration')}
+          />
+        </View>
+      </ScrollView>
     );
   }
 }
+
+const styles = {
+  listDeclarationStyle: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingBottom: 30,
+  },
+  rechercheDum: {
+    paddingTop: 30,
+  },
+};
 
 const mapStateToProps = (state) => ({...state.controleRechercheDumReducer});
 

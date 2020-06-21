@@ -65,7 +65,7 @@ export default class BadrTable extends React.Component {
   buildPagination = (pageCount) => {
     return (
       <DataTable.Pagination
-        style={{alignSelf: 'flex-start'}}
+        style={styles.pagination}
         page={this.state.currentPage}
         numberOfPages={pageCount}
         onPageChange={(page) => {
@@ -90,27 +90,28 @@ export default class BadrTable extends React.Component {
   };
 
   scrollMore = () => {
-    this.refs._horizontalScrollView.scrollTo({x: screenWidth});
+    this._horizontalScrollView.scrollTo({x: screenWidth});
   };
 
   buildDataTable = () => {
-    const totalWidth = _.sumBy(this.props.cols, function (col) {
-      return col.width;
-    });
     const pageCount = Math.ceil(
       this.props.totalElements / this.props.maxResultsPerPage,
     );
     return (
       <View>
         <ScrollView
-          ref="_horizontalScrollView"
+          ref={(node) => {
+            this._horizontalScrollView = node;
+          }}
           key="horizontalScrollView"
           horizontal={true}>
           <ScrollView key="verticalScrollView">
             <DataTable style={this.props.fullWidth ? {width: screenWidth} : {}}>
               <DataTable.Header>
                 {this.props.hasId && (
-                  <DataTable.Title style={{width: 50}}>ID</DataTable.Title>
+                  <DataTable.Title style={styles.datatableTitle}>
+                    ID
+                  </DataTable.Title>
                 )}
 
                 {this.props.cols.map((column, index) => (
@@ -136,7 +137,7 @@ export default class BadrTable extends React.Component {
                         }
                       }}>
                       {this.props.hasId && (
-                        <DataTable.Cell style={{width: 50}}>
+                        <DataTable.Cell style={styles.datatableCell}>
                           {index + 1}
                         </DataTable.Cell>
                       )}
@@ -208,3 +209,9 @@ export default class BadrTable extends React.Component {
     );
   };
 }
+
+const styles = {
+  datatableCell: {width: 50},
+  pagination: {alignSelf: 'flex-start'},
+  datatableTitle: {width: 50},
+};

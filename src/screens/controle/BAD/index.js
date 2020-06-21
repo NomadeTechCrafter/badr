@@ -14,6 +14,10 @@ export default class BAD extends React.Component {
     };
   }
 
+  componentDidMount = () => {
+    console.log(this.props.data);
+  };
+
   onItemSelected = (item) => {};
 
   handleBadPressed = (item) => {
@@ -71,6 +75,7 @@ export default class BAD extends React.Component {
               libelle: translate('bad.title'),
               action: (item) => this.handleBadPressed(item),
               width: 200,
+              actionCondition: 'hasBAD',
             },
           ]}
           paginate={false}
