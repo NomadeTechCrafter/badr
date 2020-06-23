@@ -45,13 +45,11 @@ class Profile extends React.Component {
     codeBureau,
     listeProfilCoche,
     selectedArrondissement,
-    login,
   ) => {
     var action = confirmCnxAction.request(
       {
         type: ConstantsConfirmCnx.CONFIRMCNX_REQUEST,
         value: {
-          login: login,
           codeBureau: codeBureau,
           listeProfilCoche: listeProfilCoche,
           codeArrondissement: selectedArrondissement,
@@ -94,7 +92,6 @@ class Profile extends React.Component {
         this.state.selectedBureau,
         this.state.selectedProfiles,
         this.state.selectedArrondissement,
-        this.props.route.params.login,
       );
       /** Update Inmemory session */
       Session.getInstance().setCodeBureau(this.state.selectedBureau);

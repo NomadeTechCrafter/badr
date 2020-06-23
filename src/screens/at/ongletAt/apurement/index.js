@@ -233,6 +233,7 @@ class Apurement extends React.Component {
             this.scroll = c;
           }}>
           <Toolbar
+            back={true}
             navigation={this.props.navigation}
             title={translate('at.title')}
             subtitle={translate('at.apurement.title')}

@@ -2,8 +2,14 @@ export default {
   menu: {
     arrondissement: 'Arrondissement : ',
     bureau: 'Bureau',
-    logout_in_progress: 'Déconnexion en cours...',
+    logout_in_progress: 'Chargement...',
     logout: 'Se déconnecter',
+    change_profile: 'Changer les profils',
+  },
+  annonce: {
+    title: 'Accueil',
+    annonces: 'Annonces',
+    aucune_annonce: 'Aucune annonce pour le moment.',
   },
   login: {
     userName: "Nom d'utilisateur",

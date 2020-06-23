@@ -16,7 +16,6 @@ export default class MenuHeader extends React.Component {
       <ImageBackground blurRadius={4} style={{...CustomStyleSheet.menuHeader}}>
         <View style={styles.containerStyle}>
           {this.props.children}
-
           <View style={styles.infoContainer}>
             <Text style={CustomStyleSheet.menuHeaderTitle}>
               {this.props.fullname}
@@ -31,16 +30,46 @@ export default class MenuHeader extends React.Component {
             </Text>
 
             <TouchableOpacity
-              style={styles.logoutButton}
-              onPress={this.props.onLogout}>
-              <View style={styles.logoutContainer}>
+              style={styles.actionButton}
+              onPress={this.props.onGoHome}>
+              <View style={styles.actionContainer}>
                 <Icon
-                  name="sign-out"
+                  name="home"
+                  style={styles.iconInput}
+                  color={accentColor}
+                  size={22}
+                />
+                <Text style={styles.actionText}>Page principale</Text>
+              </View>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.actionButton}
+              onPress={this.props.onChangeProfile}>
+              <View style={styles.actionContainer}>
+                <Icon
+                  name="users"
                   style={styles.iconInput}
                   color={accentColor}
                   size={20}
                 />
-                <Text style={styles.logoutText}>
+                <Text style={styles.actionText}>
+                  {translate('menu.change_profile')}
+                </Text>
+              </View>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.actionButton}
+              onPress={this.props.onLogout}>
+              <View style={styles.actionContainer}>
+                <Icon
+                  name="sign-out"
+                  style={styles.iconInput}
+                  color={accentColor}
+                  size={22}
+                />
+                <Text style={styles.actionText}>
                   {this.props.showProgress
                     ? translate('menu.logout_in_progress')
                     : translate('menu.logout')}
@@ -55,20 +84,20 @@ export default class MenuHeader extends React.Component {
 }
 
 const styles = {
-  logoutButton: {
+  actionButton: {
     paddingRight: 5,
     width: '100%',
   },
-  logoutText: {
+  actionText: {
     paddingTop: 10,
     fontWeight: 'bold',
     textDecorationLine: 'underline',
-    fontSize: 18,
+    fontSize: 14,
     color: 'white',
   },
   infoContainer: {
     flexDirection: 'column',
-    paddingLeft: 120,
+    paddingLeft: 110,
   },
   containerStyle: {
     ...CustomStyleSheet.menuHeader,
@@ -84,5 +113,5 @@ const styles = {
     paddingTop: 10,
     marginRight: 5,
   },
-  logoutContainer: {flexDirection: 'row'},
+  actionContainer: {flexDirection: 'row'},
 };

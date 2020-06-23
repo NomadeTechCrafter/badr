@@ -41,14 +41,14 @@ class SmsVerify extends React.Component {
     var action = SmsVerifyActionCreators.request(
       {
         type: Constants.SMSVERIFY_REQUEST,
-        value: {code: this.state.code, login: this.state.login},
+        value: {code: this.state.code},
       },
       this.props.navigation,
     );
     this.props.dispatch(action);
   };
 
-  handleTextChanged = text => {
+  handleTextChanged = (text) => {
     this.setState({smsCode: text});
   };
 
@@ -74,7 +74,7 @@ class SmsVerify extends React.Component {
             maxLength={6}
             keyboardType="numeric"
             placeholder={translate('smsVerify.codePlaceholder')}
-            onChangeText={text => this.setState({code: text})}
+            onChangeText={(text) => this.setState({code: text})}
             value={this.state.code}
           />
           <BadrButton
@@ -101,13 +101,10 @@ class SmsVerify extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     ...state.smsVerifyReducer,
   };
 };
 
-export default connect(
-  mapStateToProps,
-  null,
-)(SmsVerify);
+export default connect(mapStateToProps, null)(SmsVerify);
