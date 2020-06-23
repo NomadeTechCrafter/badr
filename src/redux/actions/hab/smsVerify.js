@@ -8,24 +8,27 @@ import * as Constants from '../../../common/constants/hab/smsVerify';
 import {translate} from '../../../common/translations/i18n';
 
 export function request(action, navigation) {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(action);
     dispatch(inProgress(action));
     HabApi.verify(action.value.code, action.value.login)
-      .then(response => {
-        const data = response.data;
-        if (data.jsonVO.code === '200') {
-          dispatch(success(data.jsonVO));
+      .then((response) => {
+        const jsonVO = response.data.jsonVO;
+        console.log('-----> data ');
+        console.log(jsonVO);
+        console.log('<----- data ');
+        if (jsonVO.connexion) {
+          dispatch(success(jsonVO));
           navigation.navigate('Profile', {login: action.value.login});
         } else {
-          if (data.jsonVO.message) {
-            dispatch(failed(data.jsonVO.message));
+          if (jsonVO.message) {
+            dispatch(failed(jsonVO.message));
           } else {
             dispatch(failed(translate('errors.technicalIssue')));
           }
         }
       })
-      .catch(e => {
+      .catch((e) => {
         console.log(e);
         dispatch(failed(translate('errors.technicalIssue')));
       });

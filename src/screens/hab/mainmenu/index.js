@@ -1,7 +1,10 @@
 import React from 'react';
-
+import LinearGradient from 'react-native-linear-gradient';
 /** React Components */
-import {View, ScrollView, Linking} from 'react-native';
+import {View, ScrollView, Linking, Image} from 'react-native';
+
+import {Col, Grid} from 'react-native-easy-grid';
+import {primaryColor, accentColor} from '../../../styles/index';
 
 /** Custom Components */
 import {BadrTree, BadrTreeItem, MenuHeader} from '../../../components';
@@ -12,6 +15,9 @@ import {connect} from 'react-redux';
 /**ACTIONS */
 import * as Constants from '../../../common/constants/hab/menu';
 import * as menuAction from '../../../redux/actions/hab/menu';
+
+import * as LoginConstants from '../../../common/constants/hab/auth';
+import * as authAction from '../../../redux/actions/hab/auth';
 
 /** STYLING **/
 import {CustomStyleSheet} from '../../../styles/index';
@@ -44,7 +50,7 @@ class MainMenu extends React.Component {
     }
   }
 
-  fetchMenu = predicate => {
+  fetchMenu = (predicate) => {
     var action = menuAction.request({
       type: Constants.MENU_REQUEST,
       value: {
@@ -54,7 +60,7 @@ class MainMenu extends React.Component {
     this.props.dispatch(action);
   };
 
-  openIntent = async route => {
+  openIntent = async (route) => {
     return await Linking.openURL(
       'badrio://ma.adii.badrmobile?login=' +
         this.state.login +
@@ -63,14 +69,14 @@ class MainMenu extends React.Component {
     );
   };
 
-  onItemSelected = item => {
+  onItemSelected = (item) => {
     if (this.props.navigation) {
       let route = buildRouteWithParams(item.id);
       console.log('Going to => ', route);
       console.log(route.screen);
       if (route.screen.includes('app2.')) {
         console.log('go to ionic app. ');
-        this.openIntent(route).then(resp => {
+        this.openIntent(route).then((resp) => {
           console.log(resp);
         });
       } else {
@@ -79,41 +85,78 @@ class MainMenu extends React.Component {
     }
   };
 
+  logout = () => {
+    var action = authAction.requestLogout(
+      {
+        type: LoginConstants.AUTH_LOGOUT_REQUEST,
+        value: {},
+      },
+      this.props.navigation,
+    );
+    this.props.dispatch(action);
+  };
+
   render() {
     return (
       <View style={CustomStyleSheet.menuContainer}>
         <MenuHeader
+          showProgress={this.props.showProgress}
+          onLogout={this.logout}
           fullname={this.state.fullname}
           bureau={this.state.bureau}
-          arrondissement={this.state.arrondissement}
-        />
-        <ScrollView>
-          <BadrTree
-            getCollapsedNodeHeight={() => 60}
-            data={this.props.menuList}
-            onItemSelected={item => this.onItemSelected(item)}
-            renderNode={({node, level, isExpanded, hasChildrenNodes}) => {
-              return (
-                <BadrTreeItem
-                  node={node}
-                  level={level}
-                  isExpanded={isExpanded}
-                  hasChildrenNodes={hasChildrenNodes}
-                />
-              );
-            }}
-          />
-        </ScrollView>
+          arrondissement={this.state.arrondissement}>
+          <Grid>
+            <Col>
+              <Image
+                style={styles.agentImageStyle}
+                source={require('../../../common/assets/images/agent.png')}
+              />
+            </Col>
+            <Col />
+          </Grid>
+        </MenuHeader>
+        <LinearGradient
+          colors={[primaryColor, accentColor]}
+          start={{x: 0, y: 0}}
+          locations={[0, 0.04, 0.06, 0.09]}
+          end={{x: 0, y: 1}}>
+          <ScrollView style={styles.scrollViewStyle}>
+            <BadrTree
+              getCollapsedNodeHeight={() => 60}
+              data={this.props.menuList}
+              onItemSelected={(item) => this.onItemSelected(item)}
+              renderNode={({node, level, isExpanded, hasChildrenNodes}) => {
+                return (
+                  <BadrTreeItem
+                    node={node}
+                    level={level}
+                    isExpanded={isExpanded}
+                    hasChildrenNodes={hasChildrenNodes}
+                  />
+                );
+              }}
+            />
+          </ScrollView>
+        </LinearGradient>
       </View>
     );
   }
 }
 
-const mapStateToProps = state => {
+const styles = {
+  scrollViewStyle: {zIndex: -1, marginTop: 20},
+  agentImageStyle: {
+    width: 100,
+    height: 100,
+    paddingBottom: 30,
+    marginTop: -10,
+    position: 'absolute',
+    zIndex: 1,
+  },
+};
+
+const mapStateToProps = (state) => {
   return {...state.menuReducer};
 };
 
-export default connect(
-  mapStateToProps,
-  null,
-)(MainMenu);
+export default connect(mapStateToProps, null)(MainMenu);

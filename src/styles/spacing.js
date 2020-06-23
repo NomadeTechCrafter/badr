@@ -34,7 +34,7 @@ export const card = {
 };
 
 export const badrPicker = {
-  margin: 10,
+  margin: 0,
   padding: 10,
 };
 

@@ -8,7 +8,7 @@ import * as Constants from '../../../common/constants/referentiel/plaquesImm';
 import {translate} from '../../../common/translations/i18n';
 
 export function request(action) {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(action);
     dispatch(inProgress(action));
     RefApi.rechercheEchangeMetVehicule(
@@ -17,7 +17,7 @@ export function request(action) {
       action.value.pageSize,
       action.value.offset,
     )
-      .then(response => {
+      .then((response) => {
         if (response && response.data && response.data.jsonVO) {
           dispatch(success(response.data.jsonVO));
         } else {
@@ -28,7 +28,7 @@ export function request(action) {
           }
         }
       })
-      .catch(e => {
+      .catch((e) => {
         console.log(e);
         dispatch(failed(translate('errors.technicalIssue')));
       });

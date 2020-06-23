@@ -4,10 +4,10 @@ import HttpHelper from './common/http-helper';
 import {Session} from '../../common/session';
 
 const MOCKED_DEVICES_ID = {
-  YELM: '129834954738573581',
-  AD6203: '129834954738573582',
-  MAFOULKID: '129834954738573583',
-  SUPSI1082: '129834954738573584',
+  YELM: Math.random().toString(17).slice(2),
+  AD6203: Math.random().toString(17).slice(2),
+  MAFOULKID: Math.random().toString(17).slice(2),
+  SUPSI1082: Math.random().toString(17).slice(2),
 };
 
 export default class HabApi {
@@ -46,7 +46,9 @@ export default class HabApi {
     console.log('Verifying SMS with data ---------> ');
     console.log(data.jsonVO);
     console.log('Verifying SMS with data <---------  ');
-    return await HttpHelper.process(data);
+    const response = await HttpHelper.process(data);
+    console.log(response);
+    return response;
   };
 
   static confirmConnexion = async (
@@ -70,5 +72,12 @@ export default class HabApi {
       },
     };
     return await HttpHelper.process(data);
+  };
+
+  static logout = async () => {
+    const data = {
+      login: Session.getInstance().getLogin(),
+    };
+    return await HttpHelper.logout(data);
   };
 }

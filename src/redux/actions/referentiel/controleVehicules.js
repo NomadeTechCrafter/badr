@@ -8,7 +8,7 @@ import * as Constants from '../../../common/constants/referentiel/controleVehicu
 import {translate} from '../../../common/translations/i18n';
 
 export function request(action) {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(action);
     dispatch(inProgress(action));
     RefApi.findVehiculeVoleByParameter(action.value.login, {
@@ -17,7 +17,7 @@ export function request(action) {
       numeroCarteGrise: action.value.numeroCarteGrise,
       matricule: action.value.matricule,
     })
-      .then(response => {
+      .then((response) => {
         console.log(action.value);
         if (response && response.data && response.data.jsonVO) {
           dispatch(success(response.data.jsonVO));
@@ -29,7 +29,7 @@ export function request(action) {
           }
         }
       })
-      .catch(e => {
+      .catch((e) => {
         console.log(e);
         dispatch(failed(translate('errors.technicalIssue')));
       });

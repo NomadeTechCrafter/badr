@@ -1,4 +1,10 @@
 export default {
+  menu: {
+    arrondissement: 'Arrondissement : ',
+    bureau: 'Bureau',
+    logout_in_progress: 'Déconnexion en cours...',
+    logout: 'Se déconnecter',
+  },
   login: {
     userName: "Nom d'utilisateur",
     password: 'Mot de pass',

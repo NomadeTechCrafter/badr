@@ -18,7 +18,7 @@ import ACVP from '../../controle/ACVP';
 import RechecheMLV from '../../mainlevee/rechercheMLV';
 import ListDeclarationMLV from '../../mainlevee/listedeclarationsMLV';
 import DelivrerMLV from '../../mainlevee/delivrerMLV';
-import ScanQrCode from '../../../components/qrCode/';
+import {ScanQrCode} from '../../../components';
 
 /** Drawer navigation */
 import {createDrawerNavigator} from '@react-navigation/drawer';

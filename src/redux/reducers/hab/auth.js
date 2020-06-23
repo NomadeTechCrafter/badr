@@ -41,8 +41,19 @@ export default (state = initialState, action) => {
         nextState.errorMessage = action.value;
       }
       return nextState;
-    case Constants.AUTH_LOGOUT:
-      console.log('login logout...');
+    case Constants.AUTH_LOGOUT_REQUEST:
+      nextState.errorMessage = null;
+      return nextState;
+    case Constants.AUTH_LOGOUT_IN_PROGRESS:
+      nextState.showProgress = true;
+      return nextState;
+    case Constants.AUTH_LOGOUT_SUCCESS:
+      nextState.showProgress = false;
+      nextState.loggedIn = false;
+      return initialState;
+    case Constants.AUTH_LOGOUT_FAILED:
+      nextState.showProgress = false;
+      nextState.loggedIn = true;
       return nextState;
     case Constants.LOGIN_INIT:
       return initialState;

@@ -19,15 +19,15 @@ const ionicMapping = {
 
 const DEFAULT_SCREEN = 'ionic';
 
-const buildRoute = code => {
+const buildRoute = (code) => {
   return mapping[code].screen ? mapping[code].screen : DEFAULT_SCREEN;
 };
 
-const buildIonicRoute = code => {
+const buildIonicRoute = (code) => {
   return ionicMapping[code];
 };
 
-const buildRouteWithParams = code => {
+const buildRouteWithParams = (code) => {
   console.log('code ==> ' + code);
   return mapping[code] && mapping[code].screen
     ? {screen: mapping[code].screen, params: mapping[code].params}

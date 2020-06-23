@@ -14,11 +14,11 @@ import {saveStringified} from '../../../services/storage-service';
 import {Session} from '../../../common/session';
 
 export function request(action, navigation) {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(action);
     dispatch(inProgress(action));
     HabApi.login(action.value.login, action.value.pwd)
-      .then(data => {
+      .then((data) => {
         if (data) {
           if (data.statutConnexion === '1') {
             dispatch(success(data));
@@ -36,9 +36,30 @@ export function request(action, navigation) {
           dispatch(failed(translate('errors.technicalIssue')));
         }
       })
-      .catch(e => {
+      .catch((e) => {
         console.log(e);
         dispatch(failed(translate('errors.technicalIssue')));
+      });
+  };
+}
+
+export function requestLogout(action, navigation) {
+  return (dispatch) => {
+    dispatch(action);
+    dispatch(inProgressLogout(action));
+    HabApi.logout()
+      .then((data) => {
+        if (data) {
+          dispatch(successLogout(translate('errors.technicalIssue')));
+          console.log('LOGOUT [OK]');
+          navigation.navigate('Login', {});
+        } else {
+          dispatch(failedLogout(translate('errors.technicalIssue')));
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+        dispatch(failedLogout(translate('errors.technicalIssue')));
       });
   };
 }
@@ -64,6 +85,27 @@ export function failed(data) {
   };
 }
 
+export function inProgressLogout(action) {
+  return {
+    type: Constants.AUTH_LOGOUT_IN_PROGRESS,
+    value: action.value,
+  };
+}
+
+export function successLogout(data) {
+  return {
+    type: Constants.AUTH_LOGOUT_SUCCESS,
+    value: data,
+  };
+}
+
+export function failedLogout(data) {
+  return {
+    type: Constants.AUTH_LOGOUT_FAILED,
+    value: data,
+  };
+}
+
 export function init(action) {
   return {
     type: Constants.LOGIN_INIT,
@@ -76,4 +118,8 @@ export default {
   success,
   failed,
   inProgress,
+  requestLogout,
+  successLogout,
+  failedLogout,
+  inProgressLogout,
 };

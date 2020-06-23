@@ -48,7 +48,7 @@ export const progressbarText = {
 
 export const menuHeaderTitle = {
   color: 'white',
-  fontSize: 18,
+  fontSize: 20,
   fontWeight: 'bold',
 };
 

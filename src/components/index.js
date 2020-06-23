@@ -1,56 +1,46 @@
-export {default as BadrTextInput} from './inputs/TextInput';
-export {default as LoginTextInput} from './inputs/LoginTextInput';
-export {default as PasswordTextInput} from './inputs/PasswordTextInput';
+export {default as ScanQrCode} from './modules/qrCode';
+export {default as NumeroPlaque} from './modules/referentiel/numeroPlaque';
+export {default as NumeroPlaqueDiplo} from './modules/referentiel/numeroPlaqueDiplomatique';
+export {default as NumeroPlaqueRemorque} from './modules/referentiel/numeroPlaqueRemorque';
+export {default as DetailPlaque} from './modules/referentiel/detailPlaque';
+export {default as DetailBAD} from './modules/controle/bad/detailBAD';
+export {default as RechercheRefDum} from './modules/rechercheRefDum';
+export {default as RechercheRefAt} from './modules/rechercheRefAt';
 
-export {default as BadrButton} from './buttons/Button';
-export {default as BadrButtonIcon} from './buttons/ButtonIcon';
-export {default as BadrFloatingButton} from './buttons/BadrFloatingButton';
-export {default as BadrActionButton} from './buttons/BadrActionButton';
-
-export {default as BadrErrorMessage} from './messages/Error';
-export {default as BadrInfoMessage} from './messages/Info';
-export {default as BadrPopup} from './messages/Popup';
-
-export {default as NumeroPlaque} from './referentiel/numeroPlaque';
-export {default as NumeroPlaqueDiplo} from './referentiel/numeroPlaqueDiplomatique';
-export {default as NumeroPlaqueRemorque} from './referentiel/numeroPlaqueRemorque';
-export {default as DetailPlaque} from './referentiel/detailPlaque';
-
-export {default as DetailBAD} from './controle/bad/detailBAD';
-
-export {default as BadrModal} from './modal/BadrModal';
-
-export {default as Card} from './cards';
-export {default as CardSection} from './cardSection';
-export {default as Container} from './container';
-export {default as CardBox} from './cardBox';
-export {default as CardsWithTitle} from './cardsWithTitle';
-export {default as Accordion} from './accordion';
-
-export {default as Toolbar} from './toolbar';
-
-export {default as BadrApiTable} from './datatable/generic';
-export {default as BadrTable} from './datatable/basic';
-
-export {default as BadrPicker} from './pickers/BadrPicker';
-export {default as BadrPickerChecker} from './pickers/BadrPickerChecker';
-export {default as AlphabetPicker} from './pickers/AlphabetPicker';
-export {default as BadrItemsPicker} from './pickers/BadrItemsPicker';
-
-export {default as BadrTree} from './tree/BadrTree';
-export {default as BadrTreeItem} from './tree/BadrTreeItem';
-
-export {default as BadrProgressBar} from './progressbars/BadrProgressBar';
-export {default as BadrCircleProgressBar} from './progressbars/BadrCircleProgressBar';
-export {default as BadrLoginHeader} from './header/Login';
-export {default as MenuHeader} from './header/MenuHeader';
-export {default as RechercheRefDum} from './rechercheRefDum';
-export {default as RechercheRefAt} from './rechercheRefAt';
-export {default as CopyPaste} from './container/CopyPaste';
-export {default as BadrAutoComplete} from './autoComplete';
-export {default as ScanQrCode} from './qrCode';
-export {default as BadrList} from './list/badrList';
-export {default as BadrLibelleBleu} from './text/libelleBleu';
-export {default as BadrLibelleNoir} from './text/libelleNoir';
-export {default as BadrDatePicker} from './datePicker';
-export {default as BadrNumericTextInput} from './inputs/numericTextInput';
+export {default as BadrTextInput} from './shared/inputs/TextInput';
+export {default as LoginTextInput} from './shared/inputs/LoginTextInput';
+export {default as PasswordTextInput} from './shared/inputs/PasswordTextInput';
+export {default as BadrButton} from './shared/buttons/Button';
+export {default as BadrButtonIcon} from './shared/buttons/ButtonIcon';
+export {default as BadrFloatingButton} from './shared/buttons/BadrFloatingButton';
+export {default as BadrActionButton} from './shared/buttons/BadrActionButton';
+export {default as BadrErrorMessage} from './shared/messages/Error';
+export {default as BadrInfoMessage} from './shared/messages/Info';
+export {default as BadrPopup} from './shared/messages/Popup';
+export {default as BadrModal} from './shared/modal/BadrModal';
+export {default as Card} from './shared/cards';
+export {default as CardSection} from './shared/cardSection';
+export {default as Container} from './shared/container';
+export {default as CardBox} from './shared/cardBox';
+export {default as CardsWithTitle} from './shared/cardsWithTitle';
+export {default as Accordion} from './shared/accordion';
+export {default as Toolbar} from './shared/toolbar';
+export {default as BadrApiTable} from './shared/datatable/generic';
+export {default as BadrTable} from './shared/datatable/basic';
+export {default as BadrPicker} from './shared/pickers/BadrPicker';
+export {default as BadrPickerChecker} from './shared/pickers/BadrPickerChecker';
+export {default as AlphabetPicker} from './shared/pickers/AlphabetPicker';
+export {default as BadrItemsPicker} from './shared/pickers/BadrItemsPicker';
+export {default as BadrTree} from './shared/tree/BadrTree';
+export {default as BadrTreeItem} from './shared/tree/BadrTreeItem';
+export {default as BadrProgressBar} from './shared/progressbars/BadrProgressBar';
+export {default as BadrCircleProgressBar} from './shared/progressbars/BadrCircleProgressBar';
+export {default as BadrLoginHeader} from './shared/header/Login';
+export {default as MenuHeader} from './shared/header/MenuHeader';
+export {default as CopyPaste} from './shared/container/CopyPaste';
+export {default as BadrAutoComplete} from './shared/autoComplete';
+export {default as BadrList} from './shared/list/badrList';
+export {default as BadrLibelleBleu} from './shared/text/libelleBleu';
+export {default as BadrLibelleNoir} from './shared/text/libelleNoir';
+export {default as BadrDatePicker} from './shared/datePicker';
+export {default as BadrNumericTextInput} from './shared/inputs/numericTextInput';
