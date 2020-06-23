@@ -20,10 +20,10 @@ export default class HabApi {
     return response && response.data ? response.data : {};
   };
 
-  static verify = async (code, login) => {
+  static verify = async (code) => {
     const data = {
       dtoHeader: {
-        userLogin: login,
+        userLogin: Session.getInstance().getLogin(),
         fonctionnalite: 'cf4011',
         module: 'HAB_LIB',
         commande: 'verifierCodeGenere',
@@ -32,7 +32,7 @@ export default class HabApi {
       jsonVO: {
         code: code,
         // device_id: Session.getInstance().getDeviceId(),
-        device_id: MOCKED_DEVICES_ID[login],
+        device_id: MOCKED_DEVICES_ID[Session.getInstance().getLogin()],
         device_manufacturer: Session.getInstance().getManufacturer(),
         device_model: Session.getInstance().getModel(),
         os: 'Android',
@@ -55,11 +55,10 @@ export default class HabApi {
     codeBureau,
     listeProfilCoche,
     codeArrondissement,
-    login,
   ) => {
     const data = {
       dtoHeader: {
-        userLogin: login,
+        userLogin: Session.getInstance().getLogin(),
         fonctionnalite: 'cf4011',
         module: 'HAB_LIB',
         commande: 'confirmerConnexionAgent',

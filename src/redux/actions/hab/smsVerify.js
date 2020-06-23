@@ -11,7 +11,7 @@ export function request(action, navigation) {
   return (dispatch) => {
     dispatch(action);
     dispatch(inProgress(action));
-    HabApi.verify(action.value.code, action.value.login)
+    HabApi.verify(action.value.code)
       .then((response) => {
         const jsonVO = response.data.jsonVO;
         console.log('-----> data ');
@@ -19,7 +19,7 @@ export function request(action, navigation) {
         console.log('<----- data ');
         if (jsonVO.connexion) {
           dispatch(success(jsonVO));
-          navigation.navigate('Profile', {login: action.value.login});
+          navigation.navigate('Profile', {});
         } else {
           if (jsonVO.message) {
             dispatch(failed(jsonVO.message));

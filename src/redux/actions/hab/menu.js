@@ -8,12 +8,12 @@ import {loadParsed} from '../../../services/storage-service';
 import {translate} from '../../../common/translations/i18n';
 
 export function request(action) {
-  return dispatch => {
+  return (dispatch) => {
     console.log('reloading menu...');
     dispatch(action);
     dispatch(inProgress(action));
     loadParsed('listFonctionnaliteVOs')
-      .then(data => {
+      .then((data) => {
         if (data) {
           action.value.payload = data;
           dispatch(success(action.value));
@@ -21,7 +21,7 @@ export function request(action) {
           dispatch(failed(translate('errors.technicalIssue')));
         }
       })
-      .catch(e => {
+      .catch((e) => {
         dispatch(failed(translate('errors.technicalIssue')));
       });
   };

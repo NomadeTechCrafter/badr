@@ -21,11 +21,7 @@ export function request(action) {
         if (response && response.data && response.data.jsonVO) {
           dispatch(success(response.data.jsonVO));
         } else {
-          if (response.data.jsonVO) {
-            dispatch(failed(response.data.jsonVO));
-          } else {
-            dispatch(failed(translate('errors.technicalIssue')));
-          }
+          dispatch(failed(translate('errors.technicalIssue')));
         }
       })
       .catch((e) => {

@@ -137,6 +137,7 @@ class ACVP extends Component {
     return (
       <View style={CustomStyleSheet.fullContainer}>
         <Toolbar
+          back={true}
           navigation={this.props.navigation}
           title="Contrôle"
           subtitle={translate('controle.ACVP')}

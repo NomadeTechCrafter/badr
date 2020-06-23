@@ -30,7 +30,7 @@ function doAsyncStorageOperations(data) {
 }
 
 export function request(action, navigation) {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(action);
     dispatch(inProgress(action));
     console.log('confirmer connexion ...');
@@ -38,19 +38,18 @@ export function request(action, navigation) {
       action.value.codeBureau,
       action.value.listeProfilCoche,
       action.value.codeArrondissement,
-      action.value.login,
     )
-      .then(response => {
+      .then((response) => {
         const data = response.data.jsonVO;
         if (data) {
           doAsyncStorageOperations(data);
           dispatch(success(data));
-          navigation.navigate('Home', {login: action.value.login});
+          navigation.navigate('Home', {});
         } else {
           dispatch(failed(data));
         }
       })
-      .catch(e => {
+      .catch((e) => {
         dispatch(failed(translate('errors.technicalIssue')));
       });
   };

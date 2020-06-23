@@ -42,9 +42,8 @@ class MainMenu extends React.Component {
   }
 
   componentDidMount() {
-    if (this.props.menuList.length === 0) {
-      this.fetchMenu();
-    }
+    console.log(this.props.menuList.length);
+    this.fetchMenu();
     if (this.props.navigation) {
       this.props.navigation.toggleDrawer();
     }
@@ -96,12 +95,22 @@ class MainMenu extends React.Component {
     this.props.dispatch(action);
   };
 
+  changeProfile = () => {
+    this.props.navigation.replace('Profile', {});
+  };
+
+  goHome = () => {
+    this.props.navigation.replace('Home', {});
+  };
+
   render() {
     return (
       <View style={CustomStyleSheet.menuContainer}>
         <MenuHeader
           showProgress={this.props.showProgress}
           onLogout={this.logout}
+          onGoHome={this.goHome}
+          onChangeProfile={this.changeProfile}
           fullname={this.state.fullname}
           bureau={this.state.bureau}
           arrondissement={this.state.arrondissement}>
@@ -116,9 +125,9 @@ class MainMenu extends React.Component {
           </Grid>
         </MenuHeader>
         <LinearGradient
-          colors={[primaryColor, accentColor]}
+          colors={[primaryColor, accentColor, accentColor, accentColor]}
           start={{x: 0, y: 0}}
-          locations={[0, 0.04, 0.06, 0.09]}
+          locations={[0, 0.04, 0.05, 0.07]}
           end={{x: 0, y: 1}}>
           <ScrollView style={styles.scrollViewStyle}>
             <BadrTree

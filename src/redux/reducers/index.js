@@ -28,6 +28,7 @@ import qrCodeReducer from './components/qrCode';
 
 import badrApiTable from './components/badrApiTable';
 import initApurementReducer from './at/apurement';
+import genericReducer from './generic';
 /**
  * combine all reducer
  */
@@ -54,6 +55,7 @@ const allReducers = combineReducers({
   controleVehiculesReducer,
   initApurementReducer,
   badReducer,
+  genericReducer,
 });
 
 export default allReducers;
