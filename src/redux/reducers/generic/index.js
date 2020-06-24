@@ -35,7 +35,6 @@ export default (state = initialState, action) => {
     case Constants.GENERIC_INIT:
       return initialState;
     default:
-      nextState.showProgress = false;
       return nextState ? nextState : initialState;
   }
 };

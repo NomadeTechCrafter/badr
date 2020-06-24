@@ -111,6 +111,7 @@ export default (state = initialState, action) => {
       return nextState;
     case Constants.CREATE_APURAUTO_FAILED:
       nextState.showProgress = false;
+      nextState.messageInfo = null;
       nextState.displayError = true;
       if (action.value.dtoHeader) {
         nextState.errorMessage = action.value.dtoHeader.messagesErreur
@@ -122,6 +123,7 @@ export default (state = initialState, action) => {
       return nextState;
     case Constants.INIT_APURAUTO_REQUEST:
       nextState.displayError = false;
+      nextState.messageInfo = null;
       nextState.errorMessage = null;
       nextState.data = {};
       return nextState;

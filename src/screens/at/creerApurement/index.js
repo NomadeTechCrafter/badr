@@ -1,7 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
 import {View, Dimensions, ScrollView} from 'react-native';
-import {Button, Dialog, Paragraph, Portal} from 'react-native-paper';
 
 import {connect} from 'react-redux';
 import {translate} from '../../../common/translations/i18n';
@@ -11,6 +10,7 @@ import {
   BadrProgressBar,
   RechercheRefAt,
   Toolbar,
+  BadrDialog,
 } from '../../../components';
 import * as CreateApurementAction from '../../../redux/actions/at/createApurement';
 import * as InitApurementAction from '../../../redux/actions/at/apurement';
@@ -121,34 +121,24 @@ class CreerApurement extends React.Component {
           onApurAutomatique={(reference) => this.apurAutomatique(reference)}
         />
 
-        <Portal>
-          <Dialog
-            visible={this.state.dialogVisibility}
-            onDismiss={this._hideDialog}>
-            <Dialog.Title>
-              {translate('at.apurementauto.confirmDialog.info')}
-            </Dialog.Title>
-            <Dialog.Content>
-              <Paragraph>{this.state.dialogMessage}</Paragraph>
-            </Dialog.Content>
-            <Dialog.Actions>
-              <Button onPress={this.confirmApurAutomatique}>
-                {translate('at.apurementauto.confirmDialog.oui')}
-              </Button>
-              <Button onPress={this._hideDialog}>
-                {translate('at.apurementauto.confirmDialog.non')}
-              </Button>
-            </Dialog.Actions>
-          </Dialog>
-        </Portal>
+        <BadrDialog
+          title={translate('at.apurementauto.confirmDialog.info')}
+          confirmMessage={translate('at.apurementauto.confirmDialog.oui')}
+          cancelMessage={translate('at.apurementauto.confirmDialog.non')}
+          dialogMessage={this.state.dialogMessage}
+          onCancel={this._hideDialog}
+          onOk={this.confirmApurAutomatique}
+          dialogVisibility={this.state.dialogVisibility}
+        />
       </ScrollView>
     );
   }
 }
 
 const styles = {
-  messages: {justifyContent: 'center', alignItems: 'center'},
+  messages: {},
   centerErrorMsg: {
+    width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
   },

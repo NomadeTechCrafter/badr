@@ -43,4 +43,5 @@ export {default as BadrList} from './shared/list/badrList';
 export {default as BadrLibelleBleu} from './shared/text/libelleBleu';
 export {default as BadrLibelleNoir} from './shared/text/libelleNoir';
 export {default as BadrDatePicker} from './shared/datePicker';
+export {default as BadrDialog} from './shared/dialog';
 export {default as BadrNumericTextInput} from './shared/inputs/numericTextInput';

@@ -96,7 +96,7 @@ class MainMenu extends React.Component {
   };
 
   changeProfile = () => {
-    this.props.navigation.replace('Profile', {});
+    this.props.navigation.pop();
   };
 
   goHome = () => {
