@@ -106,6 +106,7 @@ class Login extends React.Component {
   };
 
   render() {
+    console.log(this.props.errorMessage);
     return (
       <ScrollView style={CustomStyleSheet.whiteContainer}>
         {this.props.showProgress && <BadrProgressBar width={screenWidth} />}

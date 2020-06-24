@@ -10,7 +10,7 @@ const buildInfo = (message, style) => {
       animation="pulse"
       easing="ease-out"
       iterationCount="infinite"
-      style={{textAlign: 'center'}}>
+      style={styles.animatableStyle}>
       <Text style={style}>{message}</Text>
     </Animatable.View>
   );
@@ -27,3 +27,7 @@ class BadrInfoMessage extends React.Component {
 
 BadrInfoMessage = Animatable.createAnimatableComponent(BadrInfoMessage);
 export default BadrInfoMessage;
+
+const styles = {
+  animatableStyle: {textAlign: 'center', paddingTop: 20},
+};

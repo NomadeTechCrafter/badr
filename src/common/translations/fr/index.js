@@ -193,6 +193,9 @@ export default {
     },
   },
   at: {
+    verifierDepassementDelai: {
+      message: 'Le délai est dépassé.',
+    },
     title: 'Admission Temporaire',
     statut: 'Statut',
     dateCreation: 'Date création',
@@ -207,6 +210,9 @@ export default {
       },
     },
     apurement: {
+      actions: {
+        apurer: 'apurer',
+      },
       mandatory: {
         dateApurement: 'La date apurement est une donnée obligatoire.',
       },
