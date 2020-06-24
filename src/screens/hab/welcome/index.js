@@ -60,15 +60,15 @@ class WelcomeScreen extends React.Component {
         />
         {this.props.showProgress && <BadrProgressBar width={screenWidth} />}
         <View style={styles.container}>
-          <BadrInfoMessage
-            message={
-              this.props.data && this.props.data.length
-                ? translate('annonce.annonces')
-                : !this.props.showProgress && !this.props.data
-                ? translate('annonce.aucune_annonce')
-                : translate('info.pleasewait')
-            }
-          />
+          {!this.props.showProgress && (
+            <BadrInfoMessage
+              message={
+                this.props.data && this.props.data.length > 0
+                  ? translate('annonce.annonces')
+                  : translate('annonce.aucune_annonce')
+              }
+            />
+          )}
           {this.props.data &&
             this.props.data.map((item) => {
               console.log(item.libelleInformation);

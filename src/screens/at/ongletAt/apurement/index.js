@@ -61,22 +61,22 @@ const buildApurementsColumns = (reference) => {
     {
       code: 'bureauApur.libelle',
       libelle: translate('at.apurement.bureauApurement'),
-      width: 150,
+      width: 200,
     },
     {
       code: 'arrondApur.libelle',
       libelle: translate('at.apurement.arrondApurement'),
-      width: 180,
+      width: 200,
     },
     {
       code: 'typeComposApur',
       libelle: translate('at.apurement.typeComposant'),
-      width: 250,
+      width: 270,
     },
     {
       code: 'dateApurement',
       libelle: translate('at.apurement.dateApurement'),
-      width: 140,
+      width: 120,
     },
 
     {
@@ -415,7 +415,10 @@ class Apurement extends React.Component {
                         cols={this.composantTablesCols}
                         onItemSelected={this.onComposantSelected}
                         totalElements={
-                          this.props.initApurement.data.composantsApures.length
+                          this.props.initApurement.data.composantsApures
+                            ? this.props.initApurement.data.composantsApures
+                                .length
+                            : 0
                         }
                         maxResultsPerPage={5}
                         paginate={true}
@@ -452,7 +455,7 @@ class Apurement extends React.Component {
           )}
         </ScrollView>
         <BadrActionButton
-          style={{justifyContent: 'flex-end'}}
+          style={styles.badrActionsStyle}
           visible={
             atVo.atEnteteVO &&
             atVo.atEnteteVO.etatAt &&
@@ -464,7 +467,7 @@ class Apurement extends React.Component {
           active={true}
           actions={[
             {
-              title: 'Confirmer',
+              title: translate('at.apurement.actions.apurer'),
               icon: 'check',
               onActionPressed: this.handleConfirmATButton,
             },
@@ -496,6 +499,7 @@ const styles = {
     // flex: 1,
     // justifyContent: 'flex-end',
   },
+  badrActionsStyle: {justifyContent: 'flex-end'},
   messages: {justifyContent: 'center', alignItems: 'center'},
   btnActions: {margin: 2},
   actionsContainer: {

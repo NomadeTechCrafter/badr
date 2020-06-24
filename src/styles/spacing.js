@@ -21,8 +21,8 @@ export const loginComponent = {};
 export const loadingIndicator = {};
 
 export const errorsBox = {
-  margin: 40,
-  padding: 20,
+  margin: 0,
+  padding: 10,
 };
 
 export const centeredText = {
@@ -69,9 +69,8 @@ export const verticalContainer20 = {
 };
 
 export const gridRow = {
-    paddingHorizontal: 15,
-    paddingVertical:12,
-    minHeight:50,
-    alignItems:'center'
+  paddingHorizontal: 15,
+  paddingVertical: 12,
+  minHeight: 50,
+  alignItems: 'center',
 };
-

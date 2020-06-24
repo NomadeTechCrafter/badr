@@ -123,7 +123,7 @@ export default class BadrDatePicker extends React.Component {
               name="calendar-o"
               style={styles.iconInput}
               color={primaryColor}
-              size={22}
+              size={18}
             />
           </Col>
 
@@ -156,7 +156,7 @@ export default class BadrDatePicker extends React.Component {
                     name="clock-o"
                     style={styles.iconInput}
                     color={primaryColor}
-                    size={22}
+                    size={18}
                   />
                 </Col>
               </Row>
