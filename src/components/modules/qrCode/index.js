@@ -38,23 +38,19 @@ class ScanQrCode extends React.Component {
 
   render() {
     return (
-      <QRCodeScanner
-        showMarker={true}
-        cameraStyle={styles.cameraStyle}
-        ref={(node) => {
-          this.scanner = node;
-        }}
-        onRead={this.onSuccess}
-        topContent={
-          <View style={styles.bottomContainer}>
-            <Text style={styles.centerText}>
-              Placez le <Text style={styles.textBold}>code QR</Text> dans la
-              zone en vert.
-            </Text>
-          </View>
-        }
-        bottomContent={
-          <View style={styles.bottomContainer}>
+      <View style={styles.container}>
+        <QRCodeScanner
+          reactivate={true}
+          showMarker={true}
+          cameraStyle={styles.cameraStyle}
+          ref={(node) => {
+            this.scanner = node;
+          }}
+          onRead={this.onSuccess}
+        />
+
+        <View style={styles.bottomContainer}>
+          <View style={styles.subBottomContainer}>
             {this.props.showProgress && (
               <ActivityIndicator
                 size={'large'}
@@ -68,34 +64,17 @@ class ScanQrCode extends React.Component {
               <Text style={styles.confirmerText}>Quitter</Text>
             </TouchableOpacity>
           </View>
-        }
-      />
+        </View>
+      </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  bottomContainer: {width: 250},
-  centerText: {
-    flex: 1,
-    fontSize: 18,
-    padding: 15,
-    color: '#777',
-    textAlign: 'center',
-  },
-  textBold: {
-    fontWeight: '500',
-    color: '#000',
-  },
-  buttonText: {
-    padding: 10,
-    fontSize: 21,
-    color: 'rgb(0,122,255)',
-  },
-  buttonTouchable: {
-    padding: 16,
-  },
+  bottomContainer: {width: '30%', height: '100%', zIndex: 99999999},
+  subBottomContainer: {flex: 1, justifyContent: 'flex-end', marginBottom: 36},
   confirmerBtn: {
+    marginTop: 15,
     color: '#fff',
     width: '100%',
     backgroundColor: '#009ab2',
@@ -108,16 +87,18 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   cameraStyle: {
-    height: 300,
-    width: 600,
-    alignSelf: 'center',
+    height: '100%',
+    width: '100%',
   },
   container: {
-    flex: 1,
+    alignItems: 'center',
     justifyContent: 'center',
   },
 });
 
-const mapStateToProps = (state) => ({...state.qrCodeReducer});
+const mapStateToProps = (state) => {
+  console.log(state.qrCodeReducer);
+  return {...state.qrCodeReducer};
+};
 
 export default connect(mapStateToProps, null)(ScanQrCode);
