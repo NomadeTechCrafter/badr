@@ -11,6 +11,7 @@ import PlaquesImmatriculation from '../../referentiel/plaquesimm/index';
 import ControleVehicules from '../../referentiel/controleVehicules/index';
 import CreerApurement from '../../at/creerApurement';
 import Apurement from '../../at/ongletAt/apurement';
+import T6bis from '../../t6bis';
 
 import ListDeclarationDum from '../../controle/listDeclarationDum';
 import RegimeTransit from '../../controle/regimeTransit';
@@ -59,6 +60,7 @@ export default class Home extends React.Component {
           component={RechercheDum}
         />
         <Drawer.Screen name="RegimeInterne" component={RegimeInterne} />
+        <Drawer.Screen name="T6bis" component={T6bis} />
 
         <Drawer.Screen
           name="PlaquesImmatriculation"

@@ -37,6 +37,7 @@ export const centeredText = {
 
 export const menuContainer = {
   flex: 1,
+  height: '100%',
 };
 
 export const card = {
