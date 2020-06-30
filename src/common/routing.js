@@ -7,6 +7,14 @@ const mapping = {
   '597111': {screen: 'ScanQrCode', params: {screenAfterScan: 'RechecheMLV'}},
   '4096': {screen: 'ControleVehicules', params: {}},
   '9005': {screen: 'ScanQrCode', params: {screenAfterScan: 'CreerApurement'}},
+  '1201': {
+    screen: 'RechercheEcorImport',
+    params: {typeEcorImport: 'EnleverMarchandise'},
+  },
+  '1203': {
+    screen: 'RechercheEcorImport',
+    params: {typeEcorImport: 'EnleverMarchandiseParPesage'},
+  },
 };
 
 const ionicMapping = {
