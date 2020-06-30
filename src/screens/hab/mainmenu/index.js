@@ -42,6 +42,7 @@ class MainMenu extends React.Component {
   }
 
   componentDidMount() {
+    console.log('-----------> ' + Session.getInstance().getLogin());
     console.log(this.props.menuList.length);
     this.fetchMenu();
     if (this.props.navigation) {
@@ -59,23 +60,25 @@ class MainMenu extends React.Component {
     this.props.dispatch(action);
   };
 
-  openIntent = async (route) => {
+  openIntent = async (route, id) => {
     return await Linking.openURL(
       'badrio://ma.adii.badrmobile?login=' +
-        this.state.login +
+        Session.getInstance().getLogin() +
         '&route=' +
         route.screen,
+      '&fonctionalite=' + id,
     );
   };
 
   onItemSelected = (item) => {
+    console.log('device id : ' + Session.getInstance().getDeviceId());
     if (this.props.navigation) {
       let route = buildRouteWithParams(item.id);
       console.log('Going to => ', route);
       console.log(route.screen);
       if (route.screen.includes('app2.')) {
         console.log('go to ionic app. ');
-        this.openIntent(route).then((resp) => {
+        this.openIntent(route, item.id).then((resp) => {
           console.log(resp);
         });
       } else {
@@ -153,7 +156,7 @@ class MainMenu extends React.Component {
 }
 
 const styles = {
-  scrollViewStyle: {zIndex: -1, marginTop: 20},
+  scrollViewStyle: {zIndex: -1, marginTop: 20, marginBottom: 200},
   agentImageStyle: {
     width: 100,
     height: 100,
