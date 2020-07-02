@@ -6,7 +6,19 @@ const mapping = {
   '5971': {screen: 'RechecheMLV', params: {}},
   '597111': {screen: 'ScanQrCode', params: {screenAfterScan: 'RechecheMLV'}},
   '4096': {screen: 'ControleVehicules', params: {}},
-  '9005': {screen: 'CreerApurement', params: {}},
+  '9005': {screen: 'ScanQrCode', params: {screenAfterScan: 'CreerApurement'}},
+  '1201': {
+    screen: 'RechercheEcorImport',
+    params: {typeEcorImport: 'EnleverMarchandise'},
+  },
+  '1203': {
+    screen: 'RechercheEcorImport',
+    params: {typeEcorImport: 'EnleverMarchandiseParPesage'},
+  },
+};
+
+const rnMapping = {
+  '110001': {screen: 'T6bis', params: {}},
 };
 
 const ionicMapping = {
@@ -14,7 +26,10 @@ const ionicMapping = {
   '1101': {screen: 'app2.initConsultationTI', params: {}},
   '767': {screen: 'app2.bloquerOperateur', params: {}},
   '42997': {screen: 'app2.debloquerOperateur', params: {}},
-  '110001': {screen: 'app2.ctrl_t6bis_type_chooser', params: {}},
+  '110001': {
+    screen: 'app2.ctrl_t6bis_type_chooser',
+    params: {},
+  },
 };
 
 const DEFAULT_SCREEN = 'ionic';
@@ -27,6 +42,10 @@ const buildIonicRoute = (code) => {
   return ionicMapping[code];
 };
 
+const buildRnRoute = (code) => {
+  return rnMapping[code];
+};
+
 const buildRouteWithParams = (code) => {
   console.log('code ==> ' + code);
   return mapping[code] && mapping[code].screen
@@ -34,4 +53,4 @@ const buildRouteWithParams = (code) => {
     : buildIonicRoute(code);
 };
 
-export {buildRouteWithParams, buildRoute};
+export {buildRouteWithParams, buildRoute, buildRnRoute};

@@ -32,8 +32,8 @@ export default class HabApi {
       },
       jsonVO: {
         code: code,
-        // device_id: Session.getInstance().getDeviceId(),
-        device_id: MOCKED_DEVICES_ID[Session.getInstance().getLogin()],
+        device_id: Session.getInstance().getDeviceId(),
+        // device_id: MOCKED_DEVICES_ID[Session.getInstance().getLogin()],
         device_manufacturer: Session.getInstance().getManufacturer(),
         device_model: Session.getInstance().getModel(),
         os: 'Android',

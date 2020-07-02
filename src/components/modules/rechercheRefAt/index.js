@@ -25,6 +25,22 @@ class RechecheRefAt extends Component {
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.qrCodeReducer !== this.props.qrCodeReducer) {
+      if (
+        this.props.qrCodeReducer.value &&
+        this.props.qrCodeReducer.value.data
+      ) {
+        this.setState({
+          bureau: this.props.qrCodeReducer.value.data.slice(0, 3),
+          annee: this.props.qrCodeReducer.value.data.slice(3, 7),
+          numero: this.props.qrCodeReducer.value.data.slice(7, 10),
+          serie: this.props.qrCodeReducer.value.data.slice(10, 17),
+        });
+      }
+    }
+  }
+
   componentDidMount() {
     console.log('componentDidMount FIls');
     this.retablir();
@@ -280,6 +296,12 @@ const styles = {
   },
 };
 
-const mapStateToProps = (state) => ({...state.initApurementReducer});
+const mapStateToProps = (state) => {
+  let clonedState = {
+    initApurementReducer: {...state.initApurementReducer},
+    qrCodeReducer: {...state.qrCodeReducer},
+  };
+  return clonedState;
+};
 
 export default connect(mapStateToProps, null)(RechecheRefAt);

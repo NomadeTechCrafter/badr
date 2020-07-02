@@ -17,6 +17,8 @@ const localStore = {
   getRegimByCode: require('../offline/referential/getRegimByCode.json'),
   initDelivrerMlv: require('../offline/mainLevee/initDelivrerMlv.json'),
   listeDeclarationsMLV: require('../offline/mainLevee/listeDeclarationsMLV.json'),
+  initEnleverMarchandise: require('../offline/ecorImport/initEnleverMarchandise.json'),
+  initEnleverMarchandiseParPesage: require('../offline/ecorImport/initEnleverMarchandiseParPesage.json'),
 };
 
 const instance = axios.create({
