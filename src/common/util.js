@@ -29,13 +29,11 @@ export default class Utils {
     return 'Anonymous';
   };
 
-  static isDateBiggerThanNow(date, dateFormat) {
-    if (moment(date, dateFormat) > moment()) {
-      return true;
-    } else {
-      return false;
-    }
-  }
+  static isSameThanNow = (date, dateFormat) => {
+    return moment(date, dateFormat)
+      .startOf('day')
+      .isSame(moment(new Date()).startOf('day'));
+  };
 
   static unflatten = (arr) => {
     var tree = [],

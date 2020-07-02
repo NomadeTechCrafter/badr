@@ -20,6 +20,8 @@ import {loadParsed} from '../../../services/storage-service';
 /** Loadash **/
 import _ from 'lodash';
 
+import * as axios from 'axios';
+
 /** Custom Components */
 import {
   LoginTextInput,
@@ -97,6 +99,24 @@ class Login extends React.Component {
       });
     }
   }
+
+  // testLogin = async () => {
+  //   let instance = axios.create({
+  //     baseURL: 'https://badr4.douane.gov.ma/badr',
+  //     timeout: 1000,
+  //     withCredentials: false,
+  //     headers: {
+  //       'Content-Type': 'application/json;charset=utf-8',
+  //     },
+  //   });
+
+  //   let response = await instance.post(
+  //     '/rest/api/login',
+  //     '{"login": "AD6203","password": "testtest","forcerConnexion": "true"}',
+  //   );
+
+  //   console.log(response.headers);
+  // };
 
   loadOldUserIfExist = async () => {
     let user = await loadParsed('user');

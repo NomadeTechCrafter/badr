@@ -9,7 +9,7 @@ import {errorsBox as errorsBoxShape} from './shape';
 import {errorsBox as errorsBoxAlignment} from './alignment';
 
 const custom = {
-  width: 300,
+  width: '60%',
   borderWidth: 1,
 };
 

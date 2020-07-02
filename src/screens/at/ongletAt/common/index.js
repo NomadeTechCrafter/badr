@@ -44,10 +44,10 @@ export class InfoCommon extends React.Component {
             <Text style={styles.libelleTitleS}>{translate('at.version')}</Text>
           </View>
           <View style={styles.containerValRow}>
+            <Text style={styles.libelleValL}>{this.props.dateCreation}</Text>
             <Text style={styles.libelleValL}>
               {this.props.dateEnregistrement}
             </Text>
-            <Text style={styles.libelleValL}>{this.props.dateCreation}</Text>
             <Text style={styles.libelleValS}>{this.props.numVersion}</Text>
           </View>
         </CardSection>

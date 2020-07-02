@@ -211,7 +211,10 @@ export default {
     },
     apurement: {
       actions: {
-        apurer: 'apurer',
+        apurer: 'APURER',
+      },
+      msg: {
+        apurementOK: 'S40003 : AT Apurée avec succés',
       },
       mandatory: {
         dateApurement: 'La date apurement est une donnée obligatoire.',
