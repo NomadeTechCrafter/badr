@@ -65,6 +65,11 @@ export default (state = initialState, action) => {
     case Constants.CREATE_APUR_IN_PROGRESS:
       nextState.showProgress = true;
       return nextState;
+    case Constants.CREATE_APUR_CLEAR_MSG:
+      if (nextState.successMessage) {
+        delete nextState.successMessage;
+      }
+      return nextState;
     case Constants.CREATE_APUR_SUCCESS:
       nextState.errorMessage = null;
       nextState.showProgress = false;
@@ -144,6 +149,24 @@ export default (state = initialState, action) => {
         nextState.errorMessage = translate('errors.technicalIssue');
       }
       return nextState;
+    case Constants.VERIFIER_DELAI_DEPASSEMENT_IN_PROGRESS:
+      nextState.showProgress = true;
+      return nextState;
+    case Constants.VERIFIER_DELAI_DEPASSEMENT_SUCCESS:
+      nextState.errorMessage = null;
+      nextState.showProgress = false;
+      nextState.data = action.value.jsonVO;
+      return nextState;
+    case Constants.VERIFIER_DELAI_DEPASSEMENT_FAILED:
+      nextState.showProgress = false;
+      nextState.displayError = true;
+      if (action.value.dtoHeader) {
+        nextState.errorMessage = action.value.dtoHeader.messagesErreur;
+      } else {
+        nextState.errorMessage = translate('errors.technicalIssue');
+      }
+      return nextState;
+
     default:
       if (nextState.successMessage) {
         delete nextState.successMessage;
@@ -274,7 +297,7 @@ const buildRemorqueVOs = (admissionTempVO, listeIdDejaApure) => {
     if (listeIdDejaApure.indexOf(value.idComposant) === -1) {
       value.selected = false;
       value.typeComposant = 'Remorque';
-      value.informationAffichee = 'Matricule : ' + value.matricule;
+      value.informationAffichee = 'Type : ' + value.type.libelle;
       value.modeApurementComposant = {code: '001', libelle: 'Réexportation'};
       admissionTempVO.composantsApures.push(value);
     }

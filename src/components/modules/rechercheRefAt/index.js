@@ -49,10 +49,10 @@ class RechecheRefAt extends Component {
   retablir = () => {
     console.log('retablir');
     this.setState({
-      bureau: '309',
-      annee: '2020',
-      numero: '000',
-      serie: '0000008',
+      bureau: '',
+      annee: '',
+      numero: '',
+      serie: '',
       showErrorMsg: false,
     });
     this.initRechercheAt();

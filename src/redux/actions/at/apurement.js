@@ -7,6 +7,7 @@ import * as Constants from '../../../common/constants/at/at';
 /** i18n */
 import {translate} from '../../../common/translations/i18n';
 
+import * as CreateApurementAction from './createApurement';
 /**
   Initialisation manuelle
  */
@@ -120,6 +121,11 @@ export function requestAuto(action, componentInstance) {
               data.jsonVO.atEnteteVO.dateFinSaisieAT,
               // mock it to get depassement '17/10/2019',
             ).then((vddResponse) => {
+              console.log('------______________________');
+              console.log('------______________________');
+              console.log(vddResponse.status);
+              console.log('------______________________');
+              console.log('------______________________');
               if (vddResponse && vddResponse.data.jsonVO) {
                 componentInstance._showDialog(
                   vddResponse.data.dtoHeader.messagesErreur +
@@ -129,6 +135,20 @@ export function requestAuto(action, componentInstance) {
                     ),
                   data.jsonVO,
                 );
+              } else if (!vddResponse.data.jsonVO) {
+                /**apurer at */
+                console.log('--__--__--__');
+                console.log(data.jsonVO);
+                var reqAutoAction = CreateApurementAction.requestAutomatique(
+                  {
+                    type: Constants.CREATE_APURAUTO_REQUEST,
+                    value: {
+                      atVO: data.jsonVO,
+                    },
+                  },
+                  this,
+                );
+                dispatch(reqAutoAction);
               } else {
                 const messages = handleVerifierDepassementDelaiResponse(
                   vddResponse,
@@ -187,6 +207,35 @@ export function failedAuto(data) {
   };
 }
 
+export function verifierDepassementDelaiRequest(action) {
+  return (dispatch) => {
+    dispatch(action);
+    AtApi.verifierDepassementDelai(action.value.dateFinSaisieAT).then(
+      (vddResponse) => {
+        if (!vddResponse.data.jsonVO) {
+          dispatch(verifierDepassementDelaiSuccess(vddResponse.data.jsonVO));
+        } else {
+          dispatch(verifierDepassementDelaiFailed(vddResponse.data.jsonVO));
+        }
+      },
+    );
+  };
+}
+
+export function verifierDepassementDelaiSuccess(data) {
+  return {
+    type: Constants.VERIFIER_DELAI_DEPASSEMENT_SUCCESS,
+    value: data,
+  };
+}
+
+export function verifierDepassementDelaiFailed(data) {
+  return {
+    type: Constants.VERIFIER_DELAI_DEPASSEMENT__FAILED,
+    value: data,
+  };
+}
+
 export default {
   request,
   success,
@@ -198,4 +247,7 @@ export default {
   successAuto,
   failedAuto,
   inProgressAuto,
+  verifierDepassementDelaiRequest,
+  verifierDepassementDelaiSuccess,
+  verifierDepassementDelaiFailed,
 };

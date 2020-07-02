@@ -13,6 +13,15 @@ export function request(action, navigation) {
     dispatch(inProgress(action));
     HabApi.verify(action.value.code)
       .then((response) => {
+        console.log('-----> response header ----------');
+        console.log('-----> response header ----------');
+        console.log('-----> response header ----------');
+        console.log('-----> response header ----------');
+        console.log(response.headers['set-cookies']);
+        console.log('-----> response header ----------');
+        console.log('-----> response header ----------');
+        console.log('-----> response header ----------');
+        console.log('-----> response header ----------');
         const jsonVO = response.data.jsonVO;
         console.log('-----> data ');
         console.log(jsonVO);

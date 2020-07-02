@@ -21,7 +21,9 @@ class BadrInfoMessage extends React.Component {
     super(props);
   }
   render() {
-    return buildInfo(this.props.message, CustomStyleSheet.infoMessages);
+    return buildInfo(this.props.message, {
+      ...CustomStyleSheet.infoMessages,
+    });
   }
 }
 
@@ -29,5 +31,10 @@ BadrInfoMessage = Animatable.createAnimatableComponent(BadrInfoMessage);
 export default BadrInfoMessage;
 
 const styles = {
-  animatableStyle: {textAlign: 'center', paddingTop: 20},
+  animatableStyle: {
+    textAlign: 'center',
+    padding: 15,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 };

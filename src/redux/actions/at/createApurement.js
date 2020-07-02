@@ -47,6 +47,13 @@ export function inProgressManuel(action) {
   };
 }
 
+export function clearMsgManuel(action) {
+  return {
+    type: Constants.CREATE_APUR_CLEAR_MSG,
+    value: action.value,
+  };
+}
+
 export function initManuel(action) {
   return {
     type: Constants.CREATE_APUR_INIT,
@@ -134,4 +141,5 @@ export default {
   successManuel,
   failedManuel,
   inProgressManuel,
+  clearMsgManuel,
 };

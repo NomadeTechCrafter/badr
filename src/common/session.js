@@ -21,6 +21,12 @@ export class Session {
   _systemVersion = '';
 
   /**
+    session
+   */
+
+  _sessionId = '';
+
+  /**
     @returns { login | nomAgent │ prenomAgent | codeUOR }
    */
   _userObject = {};
@@ -42,6 +48,14 @@ export class Session {
 
   setLogin(login) {
     this._login = login;
+  }
+
+  getSessionId() {
+    return this._sessionId;
+  }
+
+  setSessionId(sessionId) {
+    this._sessionId = sessionId;
   }
 
   getCodeBureau() {

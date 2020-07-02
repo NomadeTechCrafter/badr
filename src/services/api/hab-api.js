@@ -17,6 +17,7 @@ export default class HabApi {
       password: pwd,
       forcerConnexion: true,
     });
+    console.log(response);
     return response && response.data ? response.data : {};
   };
 
@@ -44,7 +45,7 @@ export default class HabApi {
       },
     };
     console.log('Verifying SMS with data ---------> ');
-    console.log(data.jsonVO);
+    console.log(data.headers);
     console.log('Verifying SMS with data <---------  ');
     const response = await HttpHelper.process(data);
     console.log(response);

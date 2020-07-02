@@ -106,21 +106,18 @@ class CreerApurement extends React.Component {
             />
           </View>
         )}
-
         {this.props.messageInfo != null && (
           <View style={styles.messages}>
             <BadrInfoMessage
-              style={styles.centerErrorMsg}
+              style={styles.centerInfoMsg}
               message={this.props.messageInfo}
             />
           </View>
         )}
-
         <RechercheRefAt
           onApurManuelle={(reference) => this.apurManuelle(reference)}
           onApurAutomatique={(reference) => this.apurAutomatique(reference)}
         />
-
         <BadrDialog
           title={translate('at.apurementauto.confirmDialog.info')}
           confirmMessage={translate('at.apurementauto.confirmDialog.oui')}
@@ -138,6 +135,11 @@ class CreerApurement extends React.Component {
 const styles = {
   messages: {},
   centerErrorMsg: {
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  centerInfoMsg: {
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',

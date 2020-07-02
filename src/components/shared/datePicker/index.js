@@ -16,7 +16,7 @@ export default class BadrDatePicker extends React.Component {
     this.state = {
       showDate: false,
       showTime: false,
-      dateValue: '',
+      dateValue: props.value ? props.value : '',
       timeValue: '',
       mode: 'date',
     };
