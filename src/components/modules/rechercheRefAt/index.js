@@ -26,19 +26,16 @@ class RechecheRefAt extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.qrCodeReducer !== this.props.qrCodeReducer) {
-      if (
-        this.props.qrCodeReducer.value &&
-        this.props.qrCodeReducer.value.data
-      ) {
-        this.setState({
-          bureau: this.props.qrCodeReducer.value.data.slice(0, 3),
-          annee: this.props.qrCodeReducer.value.data.slice(3, 7),
-          numero: this.props.qrCodeReducer.value.data.slice(7, 10),
-          serie: this.props.qrCodeReducer.value.data.slice(10, 17),
-        });
-      }
+    // if (nextProps.qrCodeReducer !== this.props.qrCodeReducer) {
+    if (this.props.qrCodeReducer.value && this.props.qrCodeReducer.value.data) {
+      this.setState({
+        bureau: this.props.qrCodeReducer.value.data.slice(0, 3),
+        annee: this.props.qrCodeReducer.value.data.slice(3, 7),
+        numero: this.props.qrCodeReducer.value.data.slice(7, 10),
+        serie: this.props.qrCodeReducer.value.data.slice(10, 17),
+      });
     }
+    // }
   }
 
   componentDidMount() {
@@ -228,6 +225,7 @@ class RechecheRefAt extends Component {
             <Row>
               <Col style={styles.column} size={35}>
                 <Button
+                  loading={this.props.qrCodeReducer.showProgress}
                   mode="contained"
                   icon="check"
                   compact="true"
@@ -238,6 +236,7 @@ class RechecheRefAt extends Component {
               </Col>
               <Col style={styles.column} size={35}>
                 <Button
+                  loading={this.props.qrCodeReducer.showProgress}
                   onPress={this.apurAutomatique}
                   mode="contained"
                   icon="check"

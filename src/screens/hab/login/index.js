@@ -17,11 +17,6 @@ import {CustomStyleSheet} from '../../../styles/index';
 /** Storage **/
 import {loadParsed} from '../../../services/storage-service';
 
-/** Loadash **/
-import _ from 'lodash';
-
-import * as axios from 'axios';
-
 /** Custom Components */
 import {
   LoginTextInput,
@@ -84,22 +79,18 @@ class Login extends React.Component {
 
   componentDidMount() {
     this.setDeviceInformations();
-
     var action = authAction.init({
       type: Constants.LOGIN_INIT,
       value: {},
     });
     this.props.dispatch(action);
-
     this.loadOldUserIfExist();
-
     if (!remote) {
       this.props.navigation.navigate(bootstrapRoute, {
         login: 'AD6203',
       });
     }
   }
-
   loadOldUserIfExist = async () => {
     let user = await loadParsed('user');
     if (user) {
