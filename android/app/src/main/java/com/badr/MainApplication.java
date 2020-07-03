@@ -34,6 +34,7 @@ import java.util.*;
 import javax.net.ssl.*;
 import java.security.cert.CertificateException;
 
+import com.badr.zxing.ZxingPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -49,7 +50,7 @@ public class MainApplication extends Application implements ReactApplication {
           @SuppressWarnings("UnnecessaryLocalVariable")
           List<ReactPackage> packages = new PackageList(this).getPackages();
           // Packages that cannot be autolinked yet can be added manually here, for example:
-          // packages.add(new MyReactNativePackage());
+          packages.add(new ZxingPackage());
           return packages;
         }
 

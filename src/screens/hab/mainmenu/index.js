@@ -6,6 +6,8 @@ import {View, ScrollView, Linking, Image} from 'react-native';
 import {Col, Grid} from 'react-native-easy-grid';
 import {primaryColor, accentColor} from '../../../styles/index';
 
+import * as Zxing from '../../../native/zxing';
+
 /** Custom Components */
 import {BadrTree, BadrTreeItem, MenuHeader} from '../../../components';
 
@@ -30,6 +32,9 @@ import Utils from '../../../common/util';
 /** Inmemory session */
 import {Session} from '../../../common/session';
 
+import * as QrConstants from '../../../common/constants/components/qrCode';
+import * as QrCodeAction from '../../../redux/actions/components/qrCode';
+
 class MainMenu extends React.Component {
   constructor(props) {
     super(props);
@@ -43,12 +48,11 @@ class MainMenu extends React.Component {
 
   componentDidMount() {
     console.log('-----------> ' + Session.getInstance().getLogin());
-    console.log(this.props.menuList.length);
+    console.log(this.props.menuReducer.menuList.length);
     this.fetchMenu();
     if (this.props.navigation) {
       this.props.navigation.toggleDrawer();
     }
-
     console.log(Session.getInstance().getSessionId(true));
   }
 
@@ -74,19 +78,33 @@ class MainMenu extends React.Component {
   };
 
   onItemSelected = (item) => {
-    console.log('device id : ' + Session.getInstance().getDeviceId());
     if (this.props.navigation) {
       let route = buildRouteWithParams(item.id);
-      console.log('Going to => ', route);
-      console.log(route.screen);
-      if (route.screen.includes('app2.')) {
-        console.log('go to ionic app. ');
-        this.openIntent(route, item.id).then((resp) => {
-          console.log(resp);
-        });
-      } else {
+      if (route.params.qr) {
+        Zxing.default.showQrReader(this.onBarcodeRead);
         this.props.navigation.navigate(route.screen, route.params);
+      } else {
+        if (route.screen.includes('app2.')) {
+          this.openIntent(route, item.id).then((resp) => {});
+        } else {
+          this.props.navigation.navigate(route.screen, route.params);
+        }
       }
+    }
+  };
+
+  onBarcodeRead = (data) => {
+    if (data) {
+      let action = QrCodeAction.request({
+        type: Constants.QRCODE_REQUEST,
+        value: {
+          module: 'DED_LIB',
+          command: 'ded.lireCodeQr',
+          typeService: 'SP',
+          param: data,
+        },
+      });
+      this.props.dispatch(action);
     }
   };
 
@@ -113,7 +131,7 @@ class MainMenu extends React.Component {
     return (
       <View style={CustomStyleSheet.menuContainer}>
         <MenuHeader
-          showProgress={this.props.showProgress}
+          showProgress={this.props.menuReducer.showProgress}
           onLogout={this.logout}
           onGoHome={this.goHome}
           onChangeProfile={this.changeProfile}
@@ -138,7 +156,7 @@ class MainMenu extends React.Component {
           <ScrollView style={styles.scrollViewStyle}>
             <BadrTree
               getCollapsedNodeHeight={() => 60}
-              data={this.props.menuList}
+              data={this.props.menuReducer.menuList}
               onItemSelected={(item) => this.onItemSelected(item)}
               renderNode={({node, level, isExpanded, hasChildrenNodes}) => {
                 return (
@@ -171,7 +189,11 @@ const styles = {
 };
 
 const mapStateToProps = (state) => {
-  return {...state.menuReducer};
+  console.log({...state.menuReducer, ...state.qrCodeReducer});
+  return {
+    menuReducer: {...state.menuReducer},
+    qrCodeReducer: {...state.qrCodeReducer},
+  };
 };
 
 export default connect(mapStateToProps, null)(MainMenu);
