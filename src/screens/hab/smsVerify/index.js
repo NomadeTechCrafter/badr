@@ -58,7 +58,6 @@ class SmsVerify extends React.Component {
       value: {},
     });
     this.props.dispatch(action);
-    console.log(Session.getInstance());
   }
 
   render() {

@@ -48,6 +48,8 @@ class MainMenu extends React.Component {
     if (this.props.navigation) {
       this.props.navigation.toggleDrawer();
     }
+
+    console.log(Session.getInstance().getSessionId(true));
   }
 
   fetchMenu = (predicate) => {
@@ -67,6 +69,7 @@ class MainMenu extends React.Component {
         '&route=' +
         route.screen,
       '&fonctionalite=' + id,
+      '&sessionId=' + Session.getInstance().getSessionId(true),
     );
   };
 
