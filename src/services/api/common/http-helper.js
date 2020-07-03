@@ -23,23 +23,29 @@ const localStore = {
 
 const instance = axios.create({
   baseURL: SERVER_URL,
-  withCredentials: false,
   timeout: 1000,
   headers: {
     'Content-Type': 'application/json;charset=utf-8',
     Connection: 'keep-alive',
     Accept: '*/*',
+    Host: 'badr4.douane.gov.ma',
   },
 });
 
 export default class HttpHelper {
   static async login(user) {
-    let response = await instance.post(LOGIN_API, JSON.stringify(user));
+    let response = await instance.post(LOGIN_API, JSON.stringify(user), {
+      withCredentials: true,
+    });
     console.log(response.headers);
     console.log('_____________*** *** ***_________________');
-    console.log(response.headers['set-cookie']);
+    console.log(response.headers['session_id']);
     console.log('_____________*** *** ***_________________');
-    Session.getInstance().setSessionId(response.headers['set-cookie']);
+    Session.getInstance().setSessionId(response.headers['session_id']);
+    console.log('Session.getInstance().getSessionId(true)');
+    console.log(Session.getInstance().getSessionId(true));
+    console.log('Session.getInstance().getSessionId(false)');
+    console.log(Session.getInstance().getSessionId(false));
     return response;
   }
 
@@ -49,11 +55,10 @@ export default class HttpHelper {
 
   static async process(object) {
     if (remote) {
-      let response = await instance.post(PROCESS_API, JSON.stringify(object));
-      console.log(response.headers);
-      console.log('_____________*** *** ***_________________');
-      console.log(response.headers['set-cookie']);
-      console.log('_____________*** *** ***_________________');
+      let response = await instance.post(PROCESS_API, JSON.stringify(object), {
+        withCredentials: true,
+        Cookie: Session.getInstance().getSessionId(true),
+      });
       return response;
     } else {
       console.log('Api local data :', localStore[object.dtoHeader.commande]);

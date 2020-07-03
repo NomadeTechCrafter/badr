@@ -1,8 +1,7 @@
 /** React Components */
 import React from 'react';
-import {View, Dimensions, ScrollView, Linking} from 'react-native';
+import {View, Dimensions, ScrollView} from 'react-native';
 
-import {buildRnRoute} from '../../../common/routing';
 /** REDUX **/
 import {connect} from 'react-redux';
 /**ACTIONS */
@@ -18,6 +17,11 @@ import {CustomStyleSheet} from '../../../styles/index';
 /** Storage **/
 import {loadParsed} from '../../../services/storage-service';
 
+/** Loadash **/
+import _ from 'lodash';
+
+import * as axios from 'axios';
+
 /** Custom Components */
 import {
   LoginTextInput,
@@ -25,7 +29,6 @@ import {
   BadrLoginHeader,
   BadrProgressBar,
   BadrErrorMessage,
-  BadrInfoMessage,
   BadrButton,
 } from '../../../components';
 
@@ -50,7 +53,6 @@ class Login extends React.Component {
   state = {
     login: '',
     password: '',
-    externalCallMsg: null,
   };
 
   handleLogin = () => {
@@ -72,7 +74,9 @@ class Login extends React.Component {
       Session.getInstance().setManufacturer(value);
     });
     Session.getInstance().setSystemVersion(getSystemVersion());
+
     Session.getInstance().setModel(getModel());
+
     getDeviceName().then((value) => {
       Session.getInstance().setDeviceName(value);
     });
@@ -86,61 +90,15 @@ class Login extends React.Component {
       value: {},
     });
     this.props.dispatch(action);
-    // this.loadOldUserIfExist();
+
+    this.loadOldUserIfExist();
+
     if (!remote) {
       this.props.navigation.navigate(bootstrapRoute, {
         login: 'AD6203',
       });
     }
-    this.initExternalCall();
   }
-
-  initExternalCall = async () => {
-    const initialUrl = await Linking.getInitialURL();
-    console.log('initial url : ');
-    console.log('|__ ' + initialUrl);
-    if (initialUrl) {
-      let params = this.extractUrlParams(initialUrl);
-      console.log(' params : ');
-      console.log('|__ ' + params);
-      this.setState({login: params.login});
-      if (params) {
-        this.handleExternalCall(params);
-      }
-    }
-  };
-
-  extractUrlParams = (initialUrl) => {
-    let params = {};
-    let urlParts = initialUrl.split('?');
-    if (urlParts && urlParts.length > 1) {
-      let parameters = urlParts[1];
-      let paramsParts = parameters.split('&');
-      if (paramsParts) {
-        paramsParts.forEach((parameter) => {
-          let paramsKeyValue = parameter.split('=');
-          params[paramsKeyValue[0]] = paramsKeyValue[1];
-        });
-      }
-    }
-    return params;
-  };
-
-  handleExternalCall = (params) => {
-    console.log(params.login);
-    Session.getInstance().setLogin(params.login);
-    Session.getInstance().setUserObject({
-      login: params.login,
-      prenomAgent: params.prenomAgent,
-      nomAgent: params.nomAgent,
-    });
-    let route = buildRnRoute(params.cf.replace('cf', ''));
-    this.setState({externalCallMsg: 'Calling ' + route + ' ...'});
-    this.props.navigation.navigate('Home', {
-      screen: route.screen,
-      params: route.params,
-    });
-  };
 
   loadOldUserIfExist = async () => {
     let user = await loadParsed('user');
@@ -150,7 +108,7 @@ class Login extends React.Component {
   };
 
   render() {
-    console.log(this.props.errorMessage);
+    // console.log(this.props.errorMessage);
     return (
       <ScrollView style={CustomStyleSheet.whiteContainer}>
         {this.props.showProgress && <BadrProgressBar width={screenWidth} />}
@@ -170,10 +128,6 @@ class Login extends React.Component {
           />
           {!this.props.loggedIn && this.props.errorMessage != null && (
             <BadrErrorMessage message={this.props.errorMessage} />
-          )}
-
-          {this.state.externalCallMsg && (
-            <BadrInfoMessage message={this.state.externalCallMsg} />
           )}
         </View>
       </ScrollView>

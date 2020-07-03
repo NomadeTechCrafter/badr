@@ -50,8 +50,8 @@ export class Session {
     this._login = login;
   }
 
-  getSessionId() {
-    return this._sessionId;
+  getSessionId(withKey) {
+    return withKey ? 'JSESSIONID=' + this._sessionId : this._sessionId;
   }
 
   setSessionId(sessionId) {
