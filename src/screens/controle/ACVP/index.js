@@ -23,7 +23,6 @@ import {connect} from 'react-redux';
 import * as Constants from '../../../common/constants/controle/ACVP';
 import * as RegimeACVPAction from '../../../redux/actions/controle/acvp';
 
-const screenHeight = Dimensions.get('window').height;
 class ACVP extends Component {
   constructor(props) {
     super(props);
@@ -144,7 +143,7 @@ class ACVP extends Component {
           icon="menu"
         />
         <Container>
-          {this.props.showProgress && <BadrProgressBar width={screenHeight} />}
+          {this.props.showProgress && <BadrProgressBar />}
           {this.props.errorMessage != null && (
             <BadrErrorMessage message={this.props.errorMessage} />
           )}

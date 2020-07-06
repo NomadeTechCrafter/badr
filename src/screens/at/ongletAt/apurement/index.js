@@ -127,7 +127,6 @@ class Apurement extends React.Component {
     showMotif: false,
     motif: '',
     errorMessage: null,
-    screenWidth: Dimensions.get('screen').width,
     selectedApurement: {},
   };
   constructor(props) {
@@ -281,10 +280,6 @@ class Apurement extends React.Component {
 
   componentDidMount = () => {
     this.componentsAapurer = [];
-    Dimensions.addEventListener('change', () => {
-      this.setState({screenWidth: Dimensions.get('screen').width});
-    });
-
     this._unsubscribe = this.props.navigation.addListener('focus', () => {
       this.onScreenReloaded();
     });
@@ -328,9 +323,7 @@ class Apurement extends React.Component {
             icon="menu"
           />
 
-          {this.props.initApurement.showProgress && (
-            <BadrProgressBar width={this.state.screenWidth} />
-          )}
+          {this.props.initApurement.showProgress && <BadrProgressBar />}
           {atVo != null && atVo.atEnteteVO != null && (
             <Container>
               {this.props.initApurement.errorMessage != null && (

@@ -1,7 +1,5 @@
 import React from 'react';
-import _ from 'lodash';
-import {View, Dimensions, ScrollView} from 'react-native';
-
+import {View, ScrollView} from 'react-native';
 import {connect} from 'react-redux';
 import {translate} from '../../../common/translations/i18n';
 import {
@@ -16,8 +14,6 @@ import * as CreateApurementAction from '../../../redux/actions/at/createApuremen
 import * as InitApurementAction from '../../../redux/actions/at/apurement';
 import * as ConstantsAt from '../../../common/constants/at/at';
 
-const screenWidth = Dimensions.get('window').width;
-
 const initialState = {
   reference: '',
   dialogVisibility: false,
@@ -31,7 +27,6 @@ class CreerApurement extends React.Component {
   }
 
   _showDialog = (message, data) => {
-    console.log('|_' + message);
     this.setState({
       dialogVisibility: true,
       dialogMessage: message,
@@ -42,7 +37,6 @@ class CreerApurement extends React.Component {
   _hideDialog = () => this.setState({dialogVisibility: false});
 
   componentDidMount() {
-    console.log('componentDidMount Parent');
     this.state = {...initialState};
     this._unsubscribe = this.props.navigation.addListener('focus', () => {
       this.onScreenReloaded();
@@ -60,8 +54,6 @@ class CreerApurement extends React.Component {
   };
 
   apurManuelle = (reference) => {
-    console.log('apu Man');
-    console.log(this.state.reference);
     var action = InitApurementAction.request(
       {
         type: ConstantsAt.INIT_APUR_REQUEST,
@@ -110,7 +102,7 @@ class CreerApurement extends React.Component {
           title={translate('at.title')}
           subtitle={translate('at.apurement.subTitleAction')}
         />
-        {this.props.showProgress && <BadrProgressBar width={screenWidth} />}
+        {this.props.showProgress && <BadrProgressBar />}
         {this.props.errorMessage != null && (
           <View style={styles.messages}>
             <BadrErrorMessage
@@ -144,7 +136,6 @@ class CreerApurement extends React.Component {
     );
   }
 }
-
 const styles = {
   messages: {},
   centerErrorMsg: {
@@ -169,5 +160,4 @@ function mapDispatchToProps(dispatch) {
     actions,
   };
 }
-
 export default connect(mapStateToProps, mapDispatchToProps)(CreerApurement);

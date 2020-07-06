@@ -21,7 +21,6 @@ import {connect} from 'react-redux';
 import * as Constants from '../../../common/constants/controle/regimeTransit';
 import * as RegimeTransitAction from '../../../redux/actions/controle/regimeTransit';
 
-const screenHeight = Dimensions.get('window').height;
 const RECONNU = 'reconnu';
 const DEMANDE_CONSIGNATION = 'demandeConsignation';
 class RegimeTransit extends Component {
@@ -45,7 +44,7 @@ class RegimeTransit extends Component {
 
   componentDidMount() {
     console.log('componentDidMount ri:');
-    load('user').then(user => {
+    load('user').then((user) => {
       this.setState({login: JSON.parse(user).login});
     });
   }
@@ -67,7 +66,7 @@ class RegimeTransit extends Component {
     return documentAnnexeResultVO;
   };
 
-  sauvgarderValider = commande => {
+  sauvgarderValider = (commande) => {
     console.log('sauvgarderValider');
     var data = {
       idControle: this.state.declaration.idControle,
@@ -128,7 +127,7 @@ class RegimeTransit extends Component {
   };
 
   setChoiceForReconnu = (indexDocument, key) => {
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       declaration: {
         // object that we want to update
         ...prevState.declaration, // keep all other key-value pairs
@@ -170,7 +169,7 @@ class RegimeTransit extends Component {
           icon="menu"
         />
         <Container>
-          {this.props.showProgress && <BadrProgressBar width={screenHeight} />}
+          {this.props.showProgress && <BadrProgressBar />}
           {this.props.errorMessage != null && (
             <BadrErrorMessage message={this.props.errorMessage} />
           )}
@@ -363,7 +362,7 @@ class RegimeTransit extends Component {
                   multiline={true}
                   numberOfLines={6}
                   disabled={this.state.isConsultation}
-                  onChangeText={text => this.setState({observation: text})}
+                  onChangeText={(text) => this.setState({observation: text})}
                 />
               </View>
             </Accordion>
@@ -387,7 +386,7 @@ class RegimeTransit extends Component {
                 style={{flexDirection: 'column'}}
                 pointerEvents={this.state.isConsultation ? 'none' : 'auto'}>
                 <RadioButton.Group
-                  onValueChange={value =>
+                  onValueChange={(value) =>
                     this.setState({decisionControle: value})
                   }
                   value={this.state.decisionControle}>
@@ -499,9 +498,6 @@ const styles = {
   },
 };
 
-const mapStateToProps = state => ({...state.regimeTransitReducer});
+const mapStateToProps = (state) => ({...state.regimeTransitReducer});
 
-export default connect(
-  mapStateToProps,
-  null,
-)(RegimeTransit);
+export default connect(mapStateToProps, null)(RegimeTransit);

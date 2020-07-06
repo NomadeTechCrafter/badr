@@ -167,7 +167,7 @@ class EnleverMarchandise extends Component {
           ContainerRef={(ref) => {
             this.scrollViewRef = ref;
           }}>
-          {this.props.showProgress && <BadrProgressBar width={screenHeight} />}
+          {this.props.showProgress && <BadrProgressBar />}
           <BadrPopup
             message={this.state.message}
             type={this.state.messageType}

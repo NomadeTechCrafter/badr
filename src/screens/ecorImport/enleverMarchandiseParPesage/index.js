@@ -70,7 +70,7 @@ class EnleverMarchandiseParPesage extends Component {
 
   componentDidMount() {
     console.log('componentDidMount DelivrerMLV:');
-    load('user').then(user => {
+    load('user').then((user) => {
       this.setState({login: JSON.parse(user).login});
     });
   }
@@ -143,10 +143,10 @@ class EnleverMarchandiseParPesage extends Component {
           icon="menu"
         />
         <Container
-          ContainerRef={ref => {
+          ContainerRef={(ref) => {
             this.scrollViewRef = ref;
           }}>
-          {this.props.showProgress && <BadrProgressBar width={screenHeight} />}
+          {this.props.showProgress && <BadrProgressBar />}
           <BadrPopup
             message={this.state.message}
             type={this.state.messageType}

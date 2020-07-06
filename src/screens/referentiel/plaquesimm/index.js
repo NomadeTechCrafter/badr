@@ -18,8 +18,6 @@ import {BadrProgressBar, Toolbar} from '../../../components';
 import {connect} from 'react-redux';
 
 const Tab = createMaterialTopTabNavigator();
-/** CONSTANTS **/
-const screenWidth = Dimensions.get('window').width;
 
 function ResultScreen({route, navigation}) {
   return <PlaquesImmatriculationResult navigation={navigation} route={route} />;
@@ -43,7 +41,7 @@ class PlaquesImmatriculation extends React.Component {
           title={translate('referentiel.plaquesImm.title')}
           subtitle={translate('referentiel.plaquesImm.subTitle')}
         />
-        {this.props.showProgress && <BadrProgressBar width={screenWidth} />}
+        {this.props.showProgress && <BadrProgressBar />}
         {/* {this.props.showProgress && <BadrCircleProgressBar size={30} />} */}
         <NavigationContainer independent={true}>
           <Tab.Navigator

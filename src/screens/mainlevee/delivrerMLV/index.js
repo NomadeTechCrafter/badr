@@ -36,7 +36,6 @@ import {connect} from 'react-redux';
 import * as Constants from '../../../common/constants/mainLevee/delivrerMLV';
 import * as DelivrerMLVAction from '../../../redux/actions/mainLevee/delivrerMLV';
 
-const screenHeight = Dimensions.get('window').height;
 const RECONNU = 'reconnu';
 const DEMANDE_CONSIGNATION = 'demandeConsignation';
 
@@ -72,7 +71,7 @@ class DelivrerMLV extends Component {
 
   componentDidMount() {
     console.log('componentDidMount DelivrerMLV:');
-    load('user').then(user => {
+    load('user').then((user) => {
       this.setState({login: JSON.parse(user).login});
     });
   }
@@ -158,7 +157,7 @@ class DelivrerMLV extends Component {
     return listDoc;
   };
   setChoiceDocAnnexe = (indexDocument, key) => {
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       declaration: {
         ...prevState.declaration,
         documentAnnexeResultVOs: this.toggleChoiceInList(indexDocument, key),
@@ -277,10 +276,10 @@ class DelivrerMLV extends Component {
           icon="menu"
         />
         <Container
-          ContainerRef={ref => {
+          ContainerRef={(ref) => {
             this.scrollViewRef = ref;
           }}>
-          {this.props.showProgress && <BadrProgressBar width={screenHeight} />}
+          {this.props.showProgress && <BadrProgressBar />}
           <BadrPopup
             message={this.state.message}
             type={this.state.messageType}
@@ -576,7 +575,7 @@ class DelivrerMLV extends Component {
                         this.state.isConsultation ? 'none' : 'auto'
                       }>
                       <RadioButton.Group
-                        onValueChange={value =>
+                        onValueChange={(value) =>
                           this.setState({decisionControle: value})
                         }
                         value={this.state.decisionControle}>
@@ -681,7 +680,9 @@ class DelivrerMLV extends Component {
                       value={delivrerMainleveeVO.annotations}
                       multiline={true}
                       numberOfLines={6}
-                      onChangeText={text => this.setState({observation: text})}
+                      onChangeText={(text) =>
+                        this.setState({observation: text})
+                      }
                     />
                   </Col>
                 </Row>
@@ -733,7 +734,7 @@ class DelivrerMLV extends Component {
                         'mainlevee.delivrerMainlevee.informationsEcor.numeroPince',
                       )}
                       style={CustomStyleSheet.badrInputHeight}
-                      onChangeText={text =>
+                      onChangeText={(text) =>
                         this.setState({
                           delivrerMainleveeVO: {
                             ...this.state.delivrerMainleveeVO,
@@ -751,7 +752,7 @@ class DelivrerMLV extends Component {
                       label={translate(
                         'mainlevee.delivrerMainlevee.informationsEcor.nombreScelles',
                       )}
-                      onChangeBadrInput={text =>
+                      onChangeBadrInput={(text) =>
                         this.setState({
                           delivrerMainleveeVO: {
                             ...this.state.delivrerMainleveeVO,
@@ -772,13 +773,13 @@ class DelivrerMLV extends Component {
                   </Col>
                   <Col size={2}>
                     <BadrNumericTextInput
-                      onRef={input => {
+                      onRef={(input) => {
                         this.generateurNumScelleDu = input;
                       }}
                       maxLength={8}
                       value={this.state.generateurNumScelleDu}
                       label={translate('transverse.du')}
-                      onChangeBadrInput={text =>
+                      onChangeBadrInput={(text) =>
                         this.setState({
                           generateurNumScelleDu: text,
                         })
@@ -788,13 +789,13 @@ class DelivrerMLV extends Component {
                   <Col size={1} />
                   <Col size={2}>
                     <BadrNumericTextInput
-                      onRef={input => {
+                      onRef={(input) => {
                         this.generateurNumScelleAu = input;
                       }}
                       maxLength={8}
                       value={generateurNumScelleAu}
                       label={translate('transverse.au')}
-                      onChangeBadrInput={text =>
+                      onChangeBadrInput={(text) =>
                         this.setState({
                           generateurNumScelleAu: text,
                         })
@@ -816,7 +817,7 @@ class DelivrerMLV extends Component {
                   style={[CustomStyleSheet.whiteRow, styles.rowListNumScelle]}>
                   <Col size={5}>
                     <BadrNumericTextInput
-                      onRef={input => {
+                      onRef={(input) => {
                         this.numeroScelleInput = input;
                       }}
                       maxLength={8}
@@ -824,7 +825,7 @@ class DelivrerMLV extends Component {
                       label={translate(
                         'mainlevee.delivrerMainlevee.informationsEcor.numeroScelle',
                       )}
-                      onChangeBadrInput={text => {
+                      onChangeBadrInput={(text) => {
                         this.numeroScelle = text;
                       }}
                     />
@@ -849,7 +850,7 @@ class DelivrerMLV extends Component {
                   <Col size={5}>
                     <BadrList
                       data={listeNombreDeScelles}
-                      onPressListItem={index =>
+                      onPressListItem={(index) =>
                         this.setState({selectedItemListScelle: index})
                       }
                     />
@@ -876,7 +877,7 @@ class DelivrerMLV extends Component {
                         'mainlevee.delivrerMainlevee.dedouanementRemorque.carnetTir',
                       )}
                       style={CustomStyleSheet.badrInputHeight}
-                      onChangeText={text =>
+                      onChangeText={(text) =>
                         this.setState({
                           delivrerMainleveeVO: {
                             ...this.state.delivrerMainleveeVO,
@@ -896,7 +897,7 @@ class DelivrerMLV extends Component {
                       label={translate(
                         'mainlevee.delivrerMainlevee.dedouanementRemorque.carnetAta',
                       )}
-                      onChangeText={text =>
+                      onChangeText={(text) =>
                         this.setState({
                           delivrerMainleveeVO: {
                             ...this.state.delivrerMainleveeVO,
@@ -918,7 +919,7 @@ class DelivrerMLV extends Component {
                         'mainlevee.delivrerMainlevee.dedouanementRemorque.dechargeAquitCaution',
                       )}
                       style={CustomStyleSheet.badrInputHeight}
-                      onChangeText={text =>
+                      onChangeText={(text) =>
                         this.setState({
                           delivrerMainleveeVO: {
                             ...this.state.delivrerMainleveeVO,
@@ -951,7 +952,7 @@ class DelivrerMLV extends Component {
                         ) + ' (h)'
                       }
                       style={CustomStyleSheet.badrInputHeight}
-                      onChangeText={text =>
+                      onChangeText={(text) =>
                         this.setState({
                           delivrerMainleveeVO: {
                             ...this.state.delivrerMainleveeVO,
@@ -1055,9 +1056,6 @@ const styles = {
   },
 };
 
-const mapStateToProps = state => ({...state.delivrerMLVReducer});
+const mapStateToProps = (state) => ({...state.delivrerMLVReducer});
 
-export default connect(
-  mapStateToProps,
-  null,
-)(DelivrerMLV);
+export default connect(mapStateToProps, null)(DelivrerMLV);

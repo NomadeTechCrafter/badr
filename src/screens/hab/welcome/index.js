@@ -20,8 +20,6 @@ import {Toolbar, BadrInfoMessage, BadrProgressBar} from '../../../components';
 
 /** Inmemory session */
 import {Session} from '../../../common/session';
-/** CONSTANTS **/
-const screenWidth = Dimensions.get('window').width;
 class WelcomeScreen extends React.Component {
   componentDidMount() {
     this.fetchAnnonces();
@@ -58,7 +56,7 @@ class WelcomeScreen extends React.Component {
           title={translate('welcome.title')}
           subtitle={translate('welcome.subTitle')}
         />
-        {this.props.showProgress && <BadrProgressBar width={screenWidth} />}
+        {this.props.showProgress && <BadrProgressBar />}
         <View style={styles.container}>
           {!this.props.showProgress && (
             <BadrInfoMessage

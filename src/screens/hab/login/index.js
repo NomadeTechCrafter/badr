@@ -41,9 +41,6 @@ import {
   getDeviceName,
 } from 'react-native-device-info';
 
-/** CONSTANTS **/
-const screenWidth = Dimensions.get('window').width;
-
 class Login extends React.Component {
   state = {
     login: '',
@@ -102,7 +99,7 @@ class Login extends React.Component {
     // console.log(this.props.errorMessage);
     return (
       <ScrollView style={CustomStyleSheet.whiteContainer}>
-        {this.props.showProgress && <BadrProgressBar width={screenWidth} />}
+        {this.props.showProgress && <BadrProgressBar />}
         <View style={CustomStyleSheet.centerContainer}>
           <BadrLoginHeader />
           <LoginTextInput
