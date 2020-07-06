@@ -2,7 +2,7 @@ import TransverseApi from '../../../services/api/transverse-api';
 import * as Constants from '../../../common/constants/components/badrPicker';
 
 export function request(action) {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(inProgress(action));
     TransverseApi.doProcess(
       action.value.module,
@@ -10,7 +10,7 @@ export function request(action) {
       action.value.typeService,
       action.value.param,
     )
-      .then(response => {
+      .then((response) => {
         const data = response.data;
         if (data && data.jsonVO) {
           action.value.payload = data.jsonVO;
@@ -19,7 +19,7 @@ export function request(action) {
           dispatch(failed({value: 'error while getting data'}));
         }
       })
-      .catch(e => {
+      .catch((e) => {
         dispatch(failed({value: 'error while getting data'}));
       });
   };
@@ -40,7 +40,6 @@ export function failed(action) {
 }
 
 export function inProgress(action) {
-  console.log('in progress fired ...');
   return {
     type: Constants.BADRPICKER_IN_PROGRESS,
     value: action.value,

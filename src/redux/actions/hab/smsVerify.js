@@ -13,28 +13,17 @@ export function request(action, navigation) {
     dispatch(inProgress(action));
     HabApi.verify(action.value.code)
       .then((response) => {
-        console.log('-----> response header ----------');
-        console.log('-----> response header ----------');
-        console.log('-----> response header ----------');
-        console.log('-----> response header ----------');
-        console.log(response.headers['set-cookies']);
-        console.log('-----> response header ----------');
-        console.log('-----> response header ----------');
-        console.log('-----> response header ----------');
-        console.log('-----> response header ----------');
         const jsonVO = response.data.jsonVO;
-        console.log('-----> data ');
-        console.log(jsonVO);
-        console.log('<----- data ');
-        if (jsonVO.connexion) {
+        console.log('-------------------');
+        console.log(jsonVO.connexion);
+        if (jsonVO.connexion && jsonVO.connexion === 'true') {
           dispatch(success(jsonVO));
           navigation.navigate('Profile', {});
+        } else if (jsonVO.connexion && jsonVO.connexion === 'false') {
+          dispatch(failed(translate('smsVerify.codeIncorrect')));
         } else {
-          if (jsonVO.message) {
-            dispatch(failed(jsonVO.message));
-          } else {
-            dispatch(failed(translate('errors.technicalIssue')));
-          }
+          console.log(response);
+          dispatch(failed(translate('errors.technicalIssue')));
         }
       })
       .catch((e) => {

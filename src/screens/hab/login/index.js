@@ -95,8 +95,11 @@ class Login extends React.Component {
     }
   };
 
+  onLoginChanged = (text) => {
+    this.setState({login: text.toUpperCase()});
+  };
+
   render() {
-    // console.log(this.props.errorMessage);
     return (
       <ScrollView style={CustomStyleSheet.whiteContainer}>
         {this.props.showProgress && <BadrProgressBar />}
@@ -104,7 +107,7 @@ class Login extends React.Component {
           <BadrLoginHeader />
           <LoginTextInput
             value={this.state.login}
-            onChangeText={(text) => this.setState({login: text})}
+            onChangeText={(text) => this.onLoginChanged(text)}
           />
           <PasswordTextInput
             onChangeText={(text) => this.setState({password: text})}

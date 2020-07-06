@@ -41,7 +41,6 @@ export function failed(action) {
 }
 
 export function inProgress(action) {
-  console.log('in progress fired ...');
   return {
     type: Constants.QRCODE_IN_PROGRESS,
     value: action.value,

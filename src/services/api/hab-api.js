@@ -3,12 +3,15 @@ import HttpHelper from './common/http-helper';
 /** Inmemory session */
 import {Session} from '../../common/session';
 
+/**
+Uncomment this block to use mocked device id.
 const MOCKED_DEVICES_ID = {
   YELM: Math.random().toString(17).slice(2),
   AD6203: Math.random().toString(17).slice(2),
   MAFOULKID: Math.random().toString(17).slice(2),
   SUPSI1082: Math.random().toString(17).slice(2),
 };
+*/
 
 export default class HabApi {
   static login = async (login, pwd) => {
@@ -44,11 +47,7 @@ export default class HabApi {
         lat: '-34.397',
       },
     };
-    console.log('Verifying SMS with data ---------> ');
-    console.log(data.headers);
-    console.log('Verifying SMS with data <---------  ');
     const response = await HttpHelper.process(data);
-    console.log(response);
     return response;
   };
 

@@ -42,7 +42,6 @@ export function failed(action) {
 }
 
 export function inProgress(action) {
-  console.log('in progress fired ...');
   return {
     type: Constants.AUTOCOMPLETE_IN_PROGRESS,
     value: action.value,

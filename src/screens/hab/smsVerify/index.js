@@ -30,7 +30,7 @@ import {Session} from '../../../common/session';
 
 class SmsVerify extends React.Component {
   state = {
-    code: '000000',
+    code: '',
     login: Session.getInstance().getLogin(),
   };
 
