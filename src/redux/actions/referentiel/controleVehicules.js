@@ -11,7 +11,7 @@ export function request(action) {
   return (dispatch) => {
     dispatch(action);
     dispatch(inProgress(action));
-    RefApi.findVehiculeVoleByParameter(action.value.login, {
+    RefApi.findVehiculeVoleByParameter({
       status: action.value.status,
       numeroChassis: action.value.numeroChassis,
       numeroCarteGrise: action.value.numeroCarteGrise,

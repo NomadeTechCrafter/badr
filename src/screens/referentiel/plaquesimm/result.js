@@ -6,6 +6,9 @@ import {DataTable} from 'react-native-paper';
 /** STYLING **/
 import {CustomStyleSheet} from '../../../styles/index';
 
+/** Inmemory session */
+import {Session} from '../../../common/session';
+
 /** i18n **/
 import {translate} from '../../../common/translations/i18n';
 
@@ -67,7 +70,6 @@ class PlaquesImmatriculationResult extends React.Component {
     var action = plaquesImmAction.request({
       type: ConstantsPlaquesImm.PLAQUES_IMM_REQUEST,
       value: {
-        login: this.props.route.params.login,
         rechercheObj: searchObject,
         pageSize: MAX_RESULTS_PER_PAGE,
         offset: this.state.offset,
