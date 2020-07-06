@@ -12,6 +12,7 @@ const initialState = {
   errorMessage: '',
   displayError: false,
   data: {},
+  depassementDelai: {},
 };
 
 export default (state = initialState, action) => {
@@ -149,17 +150,21 @@ export default (state = initialState, action) => {
         nextState.errorMessage = translate('errors.technicalIssue');
       }
       return nextState;
+    case Constants.VERIFIER_DELAI_DEPASSEMENT_REQUEST:
+      return nextState;
     case Constants.VERIFIER_DELAI_DEPASSEMENT_IN_PROGRESS:
       nextState.showProgress = true;
       return nextState;
     case Constants.VERIFIER_DELAI_DEPASSEMENT_SUCCESS:
       nextState.errorMessage = null;
       nextState.showProgress = false;
-      nextState.data = action.value.jsonVO;
+      nextState.depassementDelai = action.value.jsonVO;
       return nextState;
     case Constants.VERIFIER_DELAI_DEPASSEMENT_FAILED:
       nextState.showProgress = false;
       nextState.displayError = true;
+      console.log('######## VERIFIER_DELAI_DEPASSEMENT_FAILED #############');
+      console.log(action.value.dtoHeader);
       if (action.value.dtoHeader) {
         nextState.errorMessage = action.value.dtoHeader.messagesErreur;
       } else {

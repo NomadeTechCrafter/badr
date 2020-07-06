@@ -16,7 +16,6 @@ import {
   NumeroPlaqueRemorque,
   BadrModal,
   DetailPlaque,
-  BadrCircleProgressBar,
   CopyPaste,
 } from '../../../components';
 
@@ -50,7 +49,7 @@ class PlaquesImmatriculationResult extends React.Component {
     }
   }
 
-  changeCurrentPage = page => {
+  changeCurrentPage = (page) => {
     if (page < this.state.currentPage) {
       this.setState({
         offset: this.state.offset - MAX_RESULTS_PER_PAGE,
@@ -64,7 +63,7 @@ class PlaquesImmatriculationResult extends React.Component {
     }
   };
 
-  buildSearchPlaquesImmAction = searchObject => {
+  buildSearchPlaquesImmAction = (searchObject) => {
     var action = plaquesImmAction.request({
       type: ConstantsPlaquesImm.PLAQUES_IMM_REQUEST,
       value: {
@@ -77,7 +76,7 @@ class PlaquesImmatriculationResult extends React.Component {
     return action;
   };
 
-  loadMore = searchState => {
+  loadMore = (searchState) => {
     /**
       Load more data ...
     */
@@ -89,7 +88,7 @@ class PlaquesImmatriculationResult extends React.Component {
     this.setState({showDetail: false});
   };
 
-  onItemSelected = item => {
+  onItemSelected = (item) => {
     // this.scrollView.scrollTo({y: 0});
     this.setState({showDetail: true});
     this.setState({item: item});
@@ -98,7 +97,6 @@ class PlaquesImmatriculationResult extends React.Component {
   render() {
     let pageCount = 0;
     let rows = [];
-    let mItem = null;
     if (this.props.value && this.props.value.resultBean) {
       rows = this.props.value.resultBean.rows;
       console.log(rows);
@@ -112,21 +110,21 @@ class PlaquesImmatriculationResult extends React.Component {
           <ScrollView key="verticalScrollView">
             <DataTable>
               <DataTable.Header>
-                <DataTable.Title style={{width: 180}}>
+                <DataTable.Title style={styles.datatableTitle}>
                   {translate('referentiel.plaquesImm.numeroChassis')}
                 </DataTable.Title>
-                <DataTable.Title style={{width: 300}}>
+                <DataTable.Title style={styles.datatableTitle}>
                   {translate('referentiel.plaquesImm.proprietaire')}
                 </DataTable.Title>
-                <DataTable.Title style={{width: 200}}>
+                <DataTable.Title style={styles.datatableTitle}>
                   {translate('referentiel.plaquesImm.numeroPlaqueImmNormale')}
                 </DataTable.Title>
-                <DataTable.Title style={{width: 200}}>
+                <DataTable.Title style={styles.datatableTitle}>
                   {translate(
                     'referentiel.plaquesImm.numeroPlaqueImmDiplomatqiue',
                   )}
                 </DataTable.Title>
-                <DataTable.Title style={{width: 200}}>
+                <DataTable.Title style={styles.datatableTitle}>
                   {translate('referentiel.plaquesImm.numeroPlaqueImmRemorque')}
                 </DataTable.Title>
               </DataTable.Header>
@@ -136,21 +134,21 @@ class PlaquesImmatriculationResult extends React.Component {
                     key={item.propritaireIdentite + '-' + item.identifiantDMD}
                     onPress={() => this.onItemSelected(item)}>
                     <DataTable.Cell
-                      style={{width: 180}}
+                      style={styles.datatableTitle}
                       children={<CopyPaste value={item.vehiculeNumChassis} />}
                     />
-                    <DataTable.Cell style={{width: 300}}>
+                    <DataTable.Cell style={styles.datatableTitle}>
                       {item.proprietaireNom} {item.proprietaireNom} {'('}{' '}
                       {item.proprietaireNumeroIdentifiant} {')'}
                     </DataTable.Cell>
                     <DataTable.Cell
-                      style={{width: 200}}
+                      style={styles.datatableTitle}
                       children={
                         <NumeroPlaque numero={item.vehiculeNumImmatComplet} />
                       }
                     />
                     <DataTable.Cell
-                      style={{width: 200}}
+                      style={styles.datatableTitle}
                       children={
                         <NumeroPlaqueDiplo
                           numero1={item.vehiculeNumImmatDiplo1}
@@ -160,7 +158,7 @@ class PlaquesImmatriculationResult extends React.Component {
                     />
 
                     <DataTable.Cell
-                      style={{width: 200}}
+                      style={styles.datatableTitle}
                       children={
                         <NumeroPlaqueRemorque
                           numero1={item.vehiculeNumImmatRem1}
@@ -182,10 +180,10 @@ class PlaquesImmatriculationResult extends React.Component {
                 this.props.value.totalNumberOfResult &&
                 this.props.value.totalNumberOfResult > MAX_RESULTS_PER_PAGE && (
                   <DataTable.Pagination
-                    style={{alignSelf: 'flex-start'}}
+                    style={styles.datatablePagination}
                     page={this.state.currentPage}
                     numberOfPages={pageCount}
-                    onPageChange={page => {
+                    onPageChange={(page) => {
                       if (
                         this.props.route.params &&
                         this.props.route.params.searchState
@@ -216,6 +214,10 @@ class PlaquesImmatriculationResult extends React.Component {
     );
   }
 }
+const styles = {
+  datatableTitle: {width: 300},
+  datatablePagination: {alignSelf: 'flex-start'},
+};
 
 function mapStateToProps(state) {
   return {...state.plaquesImmReducer};

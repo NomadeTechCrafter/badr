@@ -44,7 +44,20 @@ class CreerApurement extends React.Component {
   componentDidMount() {
     console.log('componentDidMount Parent');
     this.state = {...initialState};
+    this._unsubscribe = this.props.navigation.addListener('focus', () => {
+      this.onScreenReloaded();
+    });
   }
+  componentWillUnmount() {
+    this._unsubscribe();
+  }
+  onScreenReloaded = () => {
+    var action = InitApurementAction.init({
+      type: ConstantsAt.INIT_APUR_INIT,
+      value: {},
+    });
+    this.props.actions.dispatch(action);
+  };
 
   apurManuelle = (reference) => {
     console.log('apu Man');

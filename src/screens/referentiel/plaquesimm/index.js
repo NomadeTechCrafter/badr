@@ -1,23 +1,18 @@
 import React from 'react';
 
-import {View, Text, ScrollView, Dimensions} from 'react-native';
+import {View, Dimensions} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 
 import {translate} from '../../../common/translations/i18n';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 
-import {primaryColor, accentColor} from '../../../styles/index';
+import {primaryColor} from '../../../styles/index';
 
 import PlaquesImmatriculationSearch from './search';
 import PlaquesImmatriculationResult from './result';
 
 /**Custom Components */
-import {
-  BadrProgressBar,
-  BadrCircleProgressBar,
-  Toolbar,
-} from '../../../components';
+import {BadrProgressBar, Toolbar} from '../../../components';
 
 /** REDUX **/
 import {connect} from 'react-redux';
@@ -41,7 +36,7 @@ class PlaquesImmatriculation extends React.Component {
 
   render() {
     return (
-      <View style={{width: '100%', height: '100%'}}>
+      <View style={styles.container}>
         <Toolbar
           navigation={this.props.navigation}
           icon="menu"
@@ -75,6 +70,10 @@ class PlaquesImmatriculation extends React.Component {
     );
   }
 }
+
+const styles = {
+  container: {width: '100%', height: '100%'},
+};
 
 function mapStateToProps(state) {
   return {...state.plaquesImmReducer};

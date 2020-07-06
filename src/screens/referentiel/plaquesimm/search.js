@@ -1,6 +1,6 @@
 import React from 'react';
-import {View, Text, ScrollView, Dimensions, StyleSheet} from 'react-native';
-import {TextInput, Headline} from 'react-native-paper';
+import {View, Text, ScrollView, StyleSheet} from 'react-native';
+import {TextInput} from 'react-native-paper';
 import {Divider} from 'react-native-elements';
 
 /** i18n **/
@@ -10,12 +10,9 @@ import {translate} from '../../../common/translations/i18n';
 import {connect} from 'react-redux';
 import * as ConstantsPlaquesImm from '../../../common/constants/referentiel/plaquesImm';
 import * as plaquesImmAction from '../../../redux/actions/referentiel/plaquesImm';
-
+import {Col, Row, Grid} from 'react-native-easy-grid';
 /**Styling */
 import {CustomStyleSheet} from '../../../styles/index';
-
-/** Storage **/
-import {loadParsed} from '../../../services/storage-service';
 
 /** Inmemory session */
 import {Session} from '../../../common/session';
@@ -25,9 +22,6 @@ import {
   Accordion,
   BadrButtonIcon,
   BadrPopup,
-  BadrErrorMessage,
-  BadrInfoMessage,
-  BadrProgressBar,
   AlphabetPicker,
   BadrItemsPicker,
 } from '../../../components';
@@ -36,7 +30,7 @@ const initialState = {
   messageVisibility: false,
   message: '',
   messageType: '',
-  login: '',
+  login: Session.getInstance().getLogin(),
   vehiculeNumChassis: '',
   vehiculeNumImmat1: '',
   vehiculeNumImmat2: '',
@@ -58,7 +52,6 @@ class PlaquesImmatriculationSearch extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({login: Session.getInstance().getLogin()});
     let action = this.buildInitSearchPlaquesImmAction();
     this.props.actions.dispatch(action);
   }
@@ -137,7 +130,7 @@ class PlaquesImmatriculationSearch extends React.Component {
     this.setState(initialState);
   };
 
-  buildSearchZone = index => {
+  buildSearchZone = (index) => {
     let component = <View />;
     switch (index) {
       case '1':
@@ -172,10 +165,10 @@ class PlaquesImmatriculationSearch extends React.Component {
       <View>
         <ScrollView
           horizontal={false}
-          ref={ref => {
+          ref={(ref) => {
             this.scrollViewRef = ref;
           }}
-          onLayout={event => {
+          onLayout={(event) => {
             this.layout = event.nativeEvent.layout;
           }}>
           <BadrPopup
@@ -195,20 +188,29 @@ class PlaquesImmatriculationSearch extends React.Component {
           {this.buildSearchZone('5')}
           <Divider />
 
-          <View style={CustomStyleSheet.verticalActionsContainer}>
-            <BadrButtonIcon
-              onPress={() => this.handleSearch()}
-              icon="magnify"
-              loading={this.props.showProgress}
-              text={translate('transverse.rechercher')}
-            />
-            <BadrButtonIcon
-              onPress={() => this.handleClear()}
-              icon="autorenew"
-              style={{marginTop: 15}}
-              text={translate('transverse.retablir')}
-            />
-          </View>
+          <Grid>
+            <Row>
+              <Col size={20} />
+              <Col size={30}>
+                <BadrButtonIcon
+                  onPress={() => this.handleSearch()}
+                  icon="magnify"
+                  style={styles.buttonIcon}
+                  loading={this.props.showProgress}
+                  text={translate('transverse.rechercher')}
+                />
+              </Col>
+              <Col size={30}>
+                <BadrButtonIcon
+                  onPress={() => this.handleClear()}
+                  icon="autorenew"
+                  style={styles.buttonIcon}
+                  text={translate('transverse.retablir')}
+                />
+              </Col>
+              <Col size={20} />
+            </Row>
+          </Grid>
         </ScrollView>
       </View>
     );
@@ -221,7 +223,7 @@ class PlaquesImmatriculationSearch extends React.Component {
           mode="outlined"
           label={translate('referentiel.plaquesImm.numeroChassis')}
           value={this.state.vehiculeNumChassis}
-          onChangeText={text => this.setState({vehiculeNumChassis: text})}
+          onChangeText={(text) => this.setState({vehiculeNumChassis: text})}
         />
       </Accordion>
     );
@@ -242,7 +244,7 @@ class PlaquesImmatriculationSearch extends React.Component {
             style={styles.columnThree}
             label=" "
             value={this.state.vehiculeNumImmat1}
-            onChangeText={text => this.setState({vehiculeNumImmat1: text})}
+            onChangeText={(text) => this.setState({vehiculeNumImmat1: text})}
           />
 
           <Text>{' \t-\t '}</Text>
@@ -257,7 +259,7 @@ class PlaquesImmatriculationSearch extends React.Component {
             style={styles.columnThree}
             label=""
             value={this.state.vehiculeNumImmat3}
-            onChangeText={text => this.setState({vehiculeNumImmat3: text})}
+            onChangeText={(text) => this.setState({vehiculeNumImmat3: text})}
           />
         </View>
       </Accordion>
@@ -278,7 +280,9 @@ class PlaquesImmatriculationSearch extends React.Component {
             style={styles.column}
             label=""
             value={this.state.vehiculeNumImmatDiplo1}
-            onChangeText={text => this.setState({vehiculeNumImmatDiplo1: text})}
+            onChangeText={(text) =>
+              this.setState({vehiculeNumImmatDiplo1: text})
+            }
           />
           <Text>{'\t-\t'}</Text>
           <TextInput
@@ -286,11 +290,13 @@ class PlaquesImmatriculationSearch extends React.Component {
             style={styles.column}
             label=" "
             value={this.state.vehiculeNumImmatDiplo2}
-            onChangeText={text => this.setState({vehiculeNumImmatDiplo2: text})}
+            onChangeText={(text) =>
+              this.setState({vehiculeNumImmatDiplo2: text})
+            }
           />
         </View>
 
-        <View style={{flexDirection: 'row', margin: 10}}>
+        <View style={styles.itemPickerContainer}>
           <BadrItemsPicker
             style={styles.column}
             label={translate(
@@ -315,7 +321,7 @@ class PlaquesImmatriculationSearch extends React.Component {
             style={styles.column}
             label=" "
             value={this.state.vehiculeNumImmatRem1}
-            onChangeText={text => this.setState({vehiculeNumImmatRem1: text})}
+            onChangeText={(text) => this.setState({vehiculeNumImmatRem1: text})}
           />
           <Text>{' \t-\t '}</Text>
           <TextInput
@@ -323,7 +329,7 @@ class PlaquesImmatriculationSearch extends React.Component {
             style={styles.column}
             label=" "
             value={this.state.vehiculeNumImmatRem2}
-            onChangeText={text => this.setState({vehiculeNumImmatRem2: text})}
+            onChangeText={(text) => this.setState({vehiculeNumImmatRem2: text})}
           />
         </View>
       </Accordion>
@@ -340,7 +346,7 @@ class PlaquesImmatriculationSearch extends React.Component {
             style={styles.column}
             label={translate('referentiel.plaquesImm.numeroIdentifiant')}
             value={this.state.proprietaireNumeroIdentifiant}
-            onChangeText={text =>
+            onChangeText={(text) =>
               this.setState({proprietaireNumeroIdentifiant: text})
             }
           />
@@ -349,7 +355,7 @@ class PlaquesImmatriculationSearch extends React.Component {
             style={styles.column}
             label={translate('referentiel.plaquesImm.nomProprietaire')}
             value={this.state.proprietaireNom}
-            onChangeText={text => this.setState({proprietaireNom: text})}
+            onChangeText={(text) => this.setState({proprietaireNom: text})}
           />
         </View>
 
@@ -359,14 +365,14 @@ class PlaquesImmatriculationSearch extends React.Component {
             style={styles.column}
             label={translate('referentiel.plaquesImm.prenomProprietaire')}
             value={this.state.proprietairePrenom}
-            onChangeText={text => this.setState({proprietairePrenom: text})}
+            onChangeText={(text) => this.setState({proprietairePrenom: text})}
           />
           <TextInput
             mode="outlined"
             style={styles.column}
             label={translate('referentiel.plaquesImm.raisonSociale')}
             value={this.state.raisonSocial}
-            onChangeText={text => this.setState({raisonSocial: text})}
+            onChangeText={(text) => this.setState({raisonSocial: text})}
           />
         </View>
       </Accordion>
@@ -375,6 +381,7 @@ class PlaquesImmatriculationSearch extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  buttonIcon: {margin: 10, marginTop: 40},
   columnOne: {
     width: '100%',
     margin: 10,
@@ -392,6 +399,7 @@ const styles = StyleSheet.create({
     alignContent: 'space-around',
     margin: 10,
   },
+  itemPickerContainer: {flexDirection: 'row', margin: 10},
 });
 function mapStateToProps(state) {
   return {...state.plaquesImmReducer};

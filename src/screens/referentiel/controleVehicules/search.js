@@ -1,18 +1,14 @@
 import React from 'react';
-import {Text, View, ScrollView, StyleSheet} from 'react-native';
-import {Divider} from 'react-native-elements';
-import {TextInput, Headline, Subheading} from 'react-native-paper';
-
+import {View, ScrollView} from 'react-native';
+import {TextInput} from 'react-native-paper';
+import {Col, Row, Grid} from 'react-native-easy-grid';
 /**Custom Components */
-import {BadrTable, BadrButtonIcon, BadrItemsPicker} from '../../../components';
+import {BadrButtonIcon, BadrItemsPicker} from '../../../components';
 
 /** REDUX **/
 import {connect} from 'react-redux';
 import * as ConstantsControleVehicules from '../../../common/constants/referentiel/controleVehicules';
 import * as controleVehiculesAction from '../../../redux/actions/referentiel/controleVehicules';
-
-/** Storage **/
-import {loadParsed} from '../../../services/storage-service';
 
 /**Styling */
 import {CustomStyleSheet} from '../../../styles/index';
@@ -54,7 +50,7 @@ class ControleVehiculesSearch extends React.Component {
     return action;
   };
 
-  buildSearchControleVehiculesAction = login => {
+  buildSearchControleVehiculesAction = (login) => {
     var action = controleVehiculesAction.request({
       type: ConstantsControleVehicules.CONTROLE_VEHICULE_REQUEST,
       value: {
@@ -78,7 +74,6 @@ class ControleVehiculesSearch extends React.Component {
   }
 
   onStatusChanged = (v, i) => {
-    console.log(v);
     this.setState({status: v});
   };
 
@@ -92,7 +87,7 @@ class ControleVehiculesSearch extends React.Component {
               mode="outlined"
               label={translate('referentiel.controleVehicules.numeroChassis')}
               value={this.state.numeroChassis}
-              onChangeText={text => this.setState({numeroChassis: text})}
+              onChangeText={(text) => this.setState({numeroChassis: text})}
             />
 
             <TextInput
@@ -102,7 +97,7 @@ class ControleVehiculesSearch extends React.Component {
                 'referentiel.controleVehicules.numeroCarteGrise',
               )}
               value={this.state.numeroCarteGrise}
-              onChangeText={text => this.setState({numeroCarteGrise: text})}
+              onChangeText={(text) => this.setState({numeroCarteGrise: text})}
             />
           </View>
 
@@ -112,7 +107,7 @@ class ControleVehiculesSearch extends React.Component {
               mode="outlined"
               label={translate('referentiel.controleVehicules.matricule')}
               value={this.state.matricule}
-              onChangeText={text => this.setState({matricule: text})}
+              onChangeText={(text) => this.setState({matricule: text})}
             />
             <BadrItemsPicker
               style={CustomStyleSheet.column}
@@ -124,24 +119,37 @@ class ControleVehiculesSearch extends React.Component {
           </View>
         </View>
 
-        <View style={CustomStyleSheet.verticalActionsContainer}>
-          <BadrButtonIcon
-            onPress={() => this.handleSearch()}
-            icon="magnify"
-            loading={this.props.showProgress}
-            text={translate('transverse.rechercher')}
-          />
-          <BadrButtonIcon
-            onPress={() => this.handleClear()}
-            icon="autorenew"
-            style={{marginTop: 15}}
-            text={translate('transverse.retablir')}
-          />
-        </View>
+        <Grid>
+          <Row>
+            <Col size={20} />
+            <Col size={30}>
+              <BadrButtonIcon
+                onPress={() => this.handleSearch()}
+                icon="magnify"
+                style={styles.buttonIcon}
+                loading={this.props.showProgress}
+                text={translate('transverse.rechercher')}
+              />
+            </Col>
+            <Col size={30}>
+              <BadrButtonIcon
+                onPress={() => this.handleClear()}
+                icon="autorenew"
+                style={styles.buttonIcon}
+                text={translate('transverse.retablir')}
+              />
+            </Col>
+            <Col size={20} />
+          </Row>
+        </Grid>
       </ScrollView>
     );
   }
 }
+
+const styles = {
+  buttonIcon: {margin: 10, marginTop: 40},
+};
 
 function mapStateToProps(state) {
   return {...state.controleVehiculesReducer};

@@ -11,6 +11,7 @@ import _ from 'lodash';
 import * as InitApurementAction from '../../../../redux/actions/at/apurement';
 import * as CreateApurementAction from '../../../../redux/actions/at/createApurement';
 import * as ConstantsAt from '../../../../common/constants/at/at';
+
 /** Utils */
 import Utils from '../../../../common/util';
 
@@ -259,23 +260,39 @@ class Apurement extends React.Component {
     this.setState({showNouveauApur: false});
   };
 
+  onScreenReloaded = () => {
+    if (
+      this.props.initApurement &&
+      this.props.initApurement.data &&
+      this.props.initApurement.data.atEnteteVO
+    ) {
+      let verifierDelaiDepassementAction = InitApurementAction.verifierDepassementDelaiRequest(
+        {
+          type: ConstantsAt.VERIFIER_DELAI_DEPASSEMENT_REQUEST,
+          value: {
+            dateFinSaisieAT: this.props.initApurement.data.atEnteteVO
+              .dateFinSaisieAT,
+          },
+        },
+      );
+      this.props.actions.dispatch(verifierDelaiDepassementAction);
+    }
+  };
+
   componentDidMount = () => {
     this.componentsAapurer = [];
     Dimensions.addEventListener('change', () => {
       this.setState({screenWidth: Dimensions.get('screen').width});
     });
 
-    let verifierDelaiDepassementAction = InitApurementAction.verifierDepassementDelaiRequest(
-      {
-        type: ConstantsAt.VERIFIER_DELAI_DEPASSEMENT_IN_PROGRESS,
-        value: {
-          dateFinSaisieAT: this.props.initApurement.data.atEnteteVO
-            .dateFinSaisieAT,
-        },
-      },
-    );
-    this.props.actions.dispatch(verifierDelaiDepassementAction);
+    this._unsubscribe = this.props.navigation.addListener('focus', () => {
+      this.onScreenReloaded();
+    });
   };
+
+  componentWillUnmount() {
+    this._unsubscribe();
+  }
 
   buildMotif = () => {
     return this.state.selectedApurement.motifDateApur ? (
@@ -295,6 +312,7 @@ class Apurement extends React.Component {
   };
 
   render() {
+    console.log(this.props);
     const atVo = this.props.initApurement.data;
     return (
       <View style={styles.fabContainer}>
@@ -309,6 +327,7 @@ class Apurement extends React.Component {
             subtitle={translate('at.apurement.title')}
             icon="menu"
           />
+
           {this.props.initApurement.showProgress && (
             <BadrProgressBar width={this.state.screenWidth} />
           )}
