@@ -16,7 +16,7 @@ export function searchListeDeclaration(action, navigation) {
     )
       .then(response => {
         if (response) {
-          const data = JSON.parse(response.data);
+          const data = response.data;
           if (data && !data.dtoHeader.messagesErreur) {
             dispatch(searchListeDeclaration_success(data));
             /** Naviguer vers la vue suivant. */

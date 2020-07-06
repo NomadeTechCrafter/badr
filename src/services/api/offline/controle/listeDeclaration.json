@@ -1,0 +1,73 @@
+{
+  "dtoHeader": {
+    "userLogin": "YAMAGENT",
+    "fonctionnalite": "cf4011",
+    "module": "CONTROL_LIB",
+    "commande": "listeDeclaration",
+    "typeService": "SP"
+  },
+  "jsonVO": [
+    {
+      "identifiant": "151075",
+      "reference": "30907020160018538",
+      "dateCreationVersion": "11/11/2016 12:32",
+      "dateEnregVersion": "11/11/2016 12:32",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "150749",
+      "reference": "30901020160945656",
+      "dateCreationVersion": "04/11/2016 13:47",
+      "dateEnregVersion": "04/11/2016 13:44",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "150748",
+      "reference": "30901020160935436",
+      "dateCreationVersion": "04/11/2016 13:42",
+      "dateEnregVersion": "04/11/2016 13:40",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "150747",
+      "reference": "30901020160925464",
+      "dateCreationVersion": "04/11/2016 12:57",
+      "dateEnregVersion": "04/11/2016 12:12",
+      "numeroVersion": "0"
+    },
+{
+      "identifiant": "114560",
+      "reference": "30907020160955555",
+      "dateCreationVersion": "12/05/2016 09:15",
+      "dateEnregVersion": "12/05/2016 07:00",
+      "numeroVersion": "0",
+      "numVoyage": "1" },
+    {
+      "identifiant": "150737",
+      "reference": "30901020160934565",
+      "dateCreationVersion": "04/11/2016 11:27",
+      "dateEnregVersion": "04/11/2016 11:20",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "150446",
+      "reference": "30907020160018537",
+      "dateCreationVersion": "28/10/2016 17:09",
+      "dateEnregVersion": "28/10/2016 17:09",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "150264",
+      "reference": "30907020160018532",
+      "dateCreationVersion": "25/10/2016 17:47",
+      "dateEnregVersion": "25/10/2016 17:47",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "150057",
+      "reference": "30907020160968954",
+      "dateCreationVersion": "19/10/2016 10:26",
+      "dateEnregVersion": "19/10/2016 08:00",
+      "numeroVersion": "1"
+    }]
+}

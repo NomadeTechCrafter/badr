@@ -9,9 +9,13 @@ import {
   BadrErrorMessage,
   BadrInfoMessage,
   BadrProgressBar,
+  BadrLibelleBleu,
+  BadrLibelleNoir,
   Toolbar,
 } from '../../../components';
 import {Checkbox, TextInput, Text, RadioButton} from 'react-native-paper';
+import {Col, Row, Grid} from 'react-native-easy-grid';
+
 /**i18n */
 import {translate} from '../../../common/translations/i18n';
 import {CustomStyleSheet, primaryColor} from '../../../styles';
@@ -46,7 +50,7 @@ class RegimeInterne extends Component {
 
   componentDidMount() {
     console.log('componentDidMount ri:');
-    load('user').then(user => {
+    load('user').then((user) => {
       this.setState({login: JSON.parse(user).login});
     });
   }
@@ -68,7 +72,7 @@ class RegimeInterne extends Component {
     return documentAnnexeResultVO;
   };
 
-  sauvgarderValider = commande => {
+  sauvgarderValider = (commande) => {
     console.log('sauvgarderValider');
     var data = {
       idControle: this.state.declaration.idControle,
@@ -128,7 +132,7 @@ class RegimeInterne extends Component {
   };
 
   setChoiceDocAnnexe = (indexDocument, key) => {
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       declaration: {
         ...prevState.declaration,
         documentAnnexeResultVOs: this.toggleChoiceInList(indexDocument, key),
@@ -173,56 +177,88 @@ class RegimeInterne extends Component {
             <BadrInfoMessage message={this.props.successMessage} />
           )}
           {/* Référence déclaration */}
-          <CardBox style={styles.cardBoxInfoDum}>
-            <View style={styles.flexDirectionRow}>
-              <Text style={styles.libelleM}>
-                {translate('transverse.bureau')}
-              </Text>
-              <Text style={styles.libelleM}>
-                {translate('transverse.regime')}
-              </Text>
-              <Text style={styles.libelleM}>
-                {translate('transverse.annee')}
-              </Text>
-              <Text style={styles.libelleL}>
-                {translate('transverse.serie')}
-              </Text>
-              <Text style={styles.libelleS}>{translate('transverse.cle')}</Text>
-              <Text style={styles.libelleM}>
-                {translate('transverse.nVoyage')}
-              </Text>
-              <Text style={styles.libelleM}>
-                {translate('transverse.type')}
-              </Text>
-            </View>
-            <View style={styles.flexDirectionRow}>
-              <Text style={styles.libelleM}>
-                {this.state.refDeclaration.slice(0, 3)}
-              </Text>
-              <Text style={styles.libelleM}>
-                {this.state.refDeclaration.slice(3, 6)}
-              </Text>
-              <Text style={styles.libelleM}>
-                {this.state.refDeclaration.slice(6, 10)}
-              </Text>
-              <Text style={styles.libelleL}>
-                {this.state.refDeclaration.slice(10, 17)}
-              </Text>
-              <Text style={styles.libelleS}>{this.state.cle}</Text>
-              <Text style={styles.libelleM}>{this.state.numeroVoyage}</Text>
-              <Text style={styles.libelleM}>{this.state.typeRegime}</Text>
-            </View>
+          <CardBox noPadding={true}>
+            <Grid>
+              <Row style={CustomStyleSheet.whiteRow}>
+                <Col size={2}>
+                  <BadrLibelleBleu>
+                    {translate('transverse.bureau')}
+                  </BadrLibelleBleu>
+                </Col>
+                <Col size={2}>
+                  <BadrLibelleBleu>
+                    {translate('transverse.regime')}
+                  </BadrLibelleBleu>
+                </Col>
+                <Col size={2}>
+                  <BadrLibelleBleu>
+                    {translate('transverse.annee')}
+                  </BadrLibelleBleu>
+                </Col>
+                <Col size={2}>
+                  <BadrLibelleBleu>
+                    {translate('transverse.serie')}
+                  </BadrLibelleBleu>
+                </Col>
+                <Col size={1}>
+                  <BadrLibelleBleu>
+                    {translate('transverse.cle')}
+                  </BadrLibelleBleu>
+                </Col>
+                <Col size={1}>
+                  <BadrLibelleBleu>
+                    {translate('transverse.nVoyage')}
+                  </BadrLibelleBleu>
+                </Col>
+                <Col size={4}>
+                  <BadrLibelleBleu>
+                    {translate('transverse.type')}
+                  </BadrLibelleBleu>
+                </Col>
+              </Row>
+              <Row style={CustomStyleSheet.lightBlueRow}>
+                <Col size={2}>
+                  <BadrLibelleNoir>
+                    {this.state.refDeclaration.slice(0, 3)}
+                  </BadrLibelleNoir>
+                </Col>
+                <Col size={2}>
+                  <BadrLibelleNoir>
+                    {this.state.refDeclaration.slice(3, 6)}
+                  </BadrLibelleNoir>
+                </Col>
+                <Col size={2}>
+                  <BadrLibelleNoir>
+                    {this.state.refDeclaration.slice(6, 10)}
+                  </BadrLibelleNoir>
+                </Col>
+                <Col size={2}>
+                  <BadrLibelleNoir>
+                    {this.state.refDeclaration.slice(10, 17)}
+                  </BadrLibelleNoir>
+                </Col>
+                <Col size={1}>
+                  <BadrLibelleNoir>{this.state.cle}</BadrLibelleNoir>
+                </Col>
+                <Col size={1}>
+                  <BadrLibelleNoir>{this.state.numeroVoyage}</BadrLibelleNoir>
+                </Col>
+                <Col size={4}>
+                  <BadrLibelleBleu>{this.state.typeRegime}</BadrLibelleBleu>
+                </Col>
+              </Row>
+            </Grid>
           </CardBox>
 
           {/* Annotations */}
           <CardBox style={styles.cardBox}>
             <Accordion title={translate('controle.annotations')}>
               {this.state.declaration.annotation && (
-                <View style={styles.flexDirectionRow}>
-                  <Text style={styles.libelleM}>
+                <Row style={CustomStyleSheet.whiteRow}>
+                  <BadrLibelleNoir>
                     {this.state.declaration.annotation}
-                  </Text>
-                </View>
+                  </BadrLibelleNoir>
+                </Row>
               )}
             </Accordion>
           </CardBox>
@@ -230,141 +266,222 @@ class RegimeInterne extends Component {
           {/* Intervention */}
           <CardBox style={styles.cardBox}>
             <Accordion title={translate('controle.intervention')}>
-              <View style={styles.flexDirectionRow}>
-                <Text style={styles.libelleM}>
-                  {translate('controle.version')}
-                </Text>
-                <Text style={styles.libelleL}>
-                  {translate('controle.typeIntervention')}
-                </Text>
-                <Text style={styles.libelleM}>
-                  {translate('controle.date')}
-                </Text>
-                <Text style={styles.libelleM}>
-                  {translate('controle.acteur')}
-                </Text>
-                <Text style={styles.libelleL}>
-                  {translate('controle.commentaire')}
-                </Text>
-              </View>
-
-              {this.state.declaration.autreAnnotationVOs &&
-                this.state.declaration.autreAnnotationVOs.map((item, index) => (
-                  <View style={styles.flexDirectionRow} key={index}>
-                    <Text style={styles.libelleM}>{item.numeroVersion}</Text>
-                    <Text style={styles.libelleL}>{item.intervention}</Text>
-                    <Text style={styles.libelleM}>{item.dateIntervention}</Text>
-                    <Text style={styles.libelleM}>{item.acteur}</Text>
-                    <Text style={styles.libelleL}>{item.commentaire}</Text>
-                  </View>
-                ))}
+              <Grid>
+                <Row style={CustomStyleSheet.whiteRow}>
+                  <Col size={2}>
+                    <BadrLibelleBleu>
+                      {translate('controle.version')}
+                    </BadrLibelleBleu>
+                  </Col>
+                  <Col size={2}>
+                    <BadrLibelleBleu>
+                      {' '}
+                      {translate('controle.typeIntervention')}
+                    </BadrLibelleBleu>
+                  </Col>
+                  <Col size={2}>
+                    <BadrLibelleBleu>
+                      {' '}
+                      {translate('controle.date')}
+                    </BadrLibelleBleu>
+                  </Col>
+                  <Col size={2}>
+                    <BadrLibelleBleu>
+                      {translate('controle.acteur')}
+                    </BadrLibelleBleu>
+                  </Col>
+                  <Col size={2}>
+                    <BadrLibelleBleu>
+                      {translate('controle.commentaire')}
+                    </BadrLibelleBleu>
+                  </Col>
+                </Row>
+                {this.state.declaration.autreAnnotationVOs &&
+                  this.state.declaration.autreAnnotationVOs.map(
+                    (item, index) => (
+                      <Row style={CustomStyleSheet.lightBlueRow} key={index}>
+                        <Col size={2}>
+                          <BadrLibelleNoir>
+                            {item.numeroVersion}
+                          </BadrLibelleNoir>
+                        </Col>
+                        <Col size={2}>
+                          <BadrLibelleNoir>{item.intervention}</BadrLibelleNoir>
+                        </Col>
+                        <Col size={2}>
+                          <BadrLibelleNoir>
+                            {item.dateIntervention}
+                          </BadrLibelleNoir>
+                        </Col>
+                        <Col size={2}>
+                          <BadrLibelleNoir>{item.acteur}</BadrLibelleNoir>
+                        </Col>
+                        <Col size={2}>
+                          <BadrLibelleNoir>{item.commentaire}</BadrLibelleNoir>
+                        </Col>
+                      </Row>
+                    ),
+                  )}
+              </Grid>
             </Accordion>
           </CardBox>
 
           {/* Liste des Docs exigibles */}
           <CardBox style={styles.cardBox}>
             <Accordion title={translate('controle.listDocExigible')}>
-              <View style={styles.flexDirectionRow}>
-                <Text style={styles.libelleM}>{translate('controle.doc')}</Text>
-                <Text style={styles.libelleM}>
-                  {translate('controle.portee')}
-                </Text>
-                <Text style={styles.libelleM}>
-                  {translate('controle.nArticle')}
-                </Text>
-                <Text style={styles.libelleM}>
-                  {translate('controle.reconnu')}
-                </Text>
-                <Text style={styles.libelleM}>
-                  {translate('controle.consignation')}
-                </Text>
-                <Text style={styles.libelleL}>
-                  {translate('controle.decision')}
-                </Text>
-              </View>
-              {this.state.declaration.documentAnnexeResultVOs &&
-                this.state.declaration.documentAnnexeResultVOs.map(
-                  (item, index) => (
-                    <View style={styles.flexDirectionRow} key={index}>
-                      <Text style={styles.libelleM}>
-                        {item.documentAnnexe.libelle}
-                      </Text>
-                      <Text style={styles.libelleM}>
-                        {item.documentAnnexe.portee}
-                      </Text>
-                      <Text style={styles.libelleM}>
-                        {item.documentAnnexe.numeroOrdreArticle}
-                      </Text>
-                      <Checkbox
-                        color={primaryColor}
-                        status={
-                          item.documentAnnexe.reconnu ? 'checked' : 'unchecked'
-                        }
-                        disabled={this.state.isConsultation}
-                        onPress={() => {
-                          this.setChoiceDocAnnexe(index, RECONNU);
-                        }}
-                      />
-                      <Checkbox
-                        color={primaryColor}
-                        status={
-                          item.documentAnnexe.demandeConsignation
-                            ? 'checked'
-                            : 'unchecked'
-                        }
-                        disabled={
-                          this.state.isConsultation ||
-                          !item.documentAnnexe.impactFiscal
-                        }
-                        onPress={() => {
-                          this.setChoiceDocAnnexe(index, DEMANDE_CONSIGNATION);
-                        }}
-                      />
-                      <Text style={styles.libelleL}>{item.decisionMCI}</Text>
-                    </View>
-                  ),
-                )}
+              <Grid>
+                <Row style={CustomStyleSheet.whiteRow}>
+                  <Col size={3}>
+                    <BadrLibelleBleu>
+                      {translate('controle.doc')}
+                    </BadrLibelleBleu>
+                  </Col>
+                  <Col size={1}>
+                    <BadrLibelleBleu>
+                      {translate('controle.portee')}
+                    </BadrLibelleBleu>
+                  </Col>
+                  <Col size={1}>
+                    <BadrLibelleBleu>
+                      {translate('controle.nArticle')}
+                    </BadrLibelleBleu>
+                  </Col>
+                  <Col size={1}>
+                    <BadrLibelleBleu>
+                      {translate('controle.reconnu')}
+                    </BadrLibelleBleu>
+                  </Col>
+                  <Col size={1}>
+                    <BadrLibelleBleu>
+                      {translate('controle.consignation')}
+                    </BadrLibelleBleu>
+                  </Col>
+                  <Col size={1}>
+                    <BadrLibelleBleu>
+                      {translate('controle.decision')}
+                    </BadrLibelleBleu>
+                  </Col>
+                </Row>
+
+                {this.state.declaration.documentAnnexeResultVOs &&
+                  this.state.declaration.documentAnnexeResultVOs.map(
+                    (item, index) => (
+                      <Row
+                        key={index}
+                        style={
+                          index % 2 === 0
+                            ? CustomStyleSheet.lightBlueRow
+                            : CustomStyleSheet.whiteRow
+                        }>
+                        <Col size={3}>
+                          <BadrLibelleNoir>
+                            {item.documentAnnexe.libelle}
+                          </BadrLibelleNoir>
+                        </Col>
+                        <Col size={1}>
+                          <BadrLibelleNoir>
+                            {item.documentAnnexe.portee}
+                          </BadrLibelleNoir>
+                        </Col>
+                        <Col size={1}>
+                          <BadrLibelleNoir>
+                            {item.documentAnnexe.numeroOrdreArticle}
+                          </BadrLibelleNoir>
+                        </Col>
+                        <Col size={1}>
+                          <Checkbox
+                            color={primaryColor}
+                            status={
+                              item.documentAnnexe.reconnu
+                                ? 'checked'
+                                : 'unchecked'
+                            }
+                            disabled={this.state.isConsultation}
+                            onPress={() => {
+                              this.setChoiceDocAnnexe(index, RECONNU);
+                            }}
+                          />
+                        </Col>
+                        <Col size={1}>
+                          <Checkbox
+                            color={primaryColor}
+                            status={
+                              item.documentAnnexe.demandeConsignation
+                                ? 'checked'
+                                : 'unchecked'
+                            }
+                            disabled={
+                              this.state.isConsultation ||
+                              !item.documentAnnexe.impactFiscal
+                            }
+                            onPress={() => {
+                              this.setChoiceDocAnnexe(
+                                index,
+                                DEMANDE_CONSIGNATION,
+                              );
+                            }}
+                          />
+                        </Col>
+                        <Col size={1}>
+                          <BadrLibelleNoir>{item.decisionMCI}</BadrLibelleNoir>
+                        </Col>
+                      </Row>
+                    ),
+                  )}
+              </Grid>
             </Accordion>
           </CardBox>
 
           {/* Redressement opéré */}
           <CardBox style={styles.cardBox}>
             <Accordion title={translate('controle.redressementOperes')}>
-              <View>
+              <Grid>
                 {!_.isEmpty(this.state.declaration.redressement) && (
-                  <View>
-                    <Text>{this.state.declaration.redressement}</Text>
-                  </View>
+                  <Row style={CustomStyleSheet.whiteRow}>
+                    <BadrLibelleNoir>
+                      {this.state.declaration.redressement}
+                    </BadrLibelleNoir>
+                  </Row>
                 )}
                 {!_.isEmpty(this.state.compteRendu) && (
-                  <View>
-                    <Text>{this.state.compteRendu}</Text>
-                  </View>
+                  <Row style={CustomStyleSheet.whiteRow}>
+                    <BadrLibelleNoir>{this.state.compteRendu}</BadrLibelleNoir>
+                  </Row>
                 )}
-                <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+                <Row
+                  style={[
+                    CustomStyleSheet.whiteRow,
+                    {justifyContent: 'center'},
+                  ]}>
                   <BadrButton
                     onPress={this.genererCompteRendu}
                     disabled={this.state.isConsultation}
                     text={translate('controle.genererCompte')}
                   />
-                </View>
-              </View>
+                </Row>
+              </Grid>
             </Accordion>
           </CardBox>
 
           {/* Observation */}
           <CardBox style={styles.cardBox}>
             <Accordion title={translate('controle.observation')}>
-              <View>
-                <TextInput
-                  placeholder={translate('controle.votreObservation')}
-                  value={this.state.declaration.observation}
-                  multiline={true}
-                  numberOfLines={6}
-                  disabled={this.state.isConsultation}
-                  onChangeText={text => this.setState({observation: text})}
-                />
-              </View>
+              <Grid>
+                <Row>
+                  <Col>
+                    <TextInput
+                      placeholder={translate('controle.votreObservation')}
+                      value={this.state.declaration.observation}
+                      multiline={true}
+                      numberOfLines={6}
+                      disabled={this.state.isConsultation}
+                      onChangeText={(text) =>
+                        this.setState({observation: text})
+                      }
+                    />
+                  </Col>
+                </Row>
+              </Grid>
             </Accordion>
           </CardBox>
 
@@ -372,9 +489,13 @@ class RegimeInterne extends Component {
           <CardBox style={styles.cardBox}>
             <Accordion title={translate('controle.historiqueCompteRendu')}>
               {this.state.declaration.historiqueCompte && (
-                <View>
-                  <Text>{this.state.declaration.historiqueCompte}</Text>
-                </View>
+                <Grid>
+                  <Row style={CustomStyleSheet.whiteRow}>
+                    <BadrLibelleNoir>
+                      {this.state.declaration.historiqueCompte}
+                    </BadrLibelleNoir>
+                  </Row>
+                </Grid>
               )}
             </Accordion>
           </CardBox>
@@ -386,7 +507,7 @@ class RegimeInterne extends Component {
                 style={{flexDirection: 'column'}}
                 pointerEvents={this.state.isConsultation ? 'none' : 'auto'}>
                 <RadioButton.Group
-                  onValueChange={value =>
+                  onValueChange={(value) =>
                     this.setState({decisionControle: value})
                   }
                   value={this.state.decisionControle}>
@@ -499,9 +620,6 @@ const styles = {
   actionBtn: {width: 100},
 };
 
-const mapStateToProps = state => ({...state.regimeInterneReducer});
+const mapStateToProps = (state) => ({...state.regimeInterneReducer});
 
-export default connect(
-  mapStateToProps,
-  null,
-)(RegimeInterne);
+export default connect(mapStateToProps, null)(RegimeInterne);

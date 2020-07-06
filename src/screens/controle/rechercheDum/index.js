@@ -46,7 +46,7 @@ class RechecheDum extends Component {
         type: Constants.RECHERCHEDUM_LISTDECLARATION_REQUEST,
         value: {
           login: Session.getInstance().getLogin(),
-          typeControle: this.typeControle,
+          typeControle: this.props.route.params.typeControle,
         },
       },
       this.props.navigation,
