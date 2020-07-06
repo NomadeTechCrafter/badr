@@ -13,6 +13,7 @@ import {Session} from '../../../common/session';
 const localStore = {
   rechercheEchangeMetVehicule: require('../offline/rechercheEchangeMetVehicule.json'),
   initControlerDedRI: require('../offline/controle/initControleDedRI.json'),
+  listeDeclaration: require('../offline/controle/listeDeclaration.json'),
   getCmbOperateur: require('../offline/referential/getCmbOperateur.json'),
   getRegimByCode: require('../offline/referential/getRegimByCode.json'),
   initDelivrerMlv: require('../offline/mainLevee/initDelivrerMlv.json'),

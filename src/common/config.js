@@ -3,6 +3,6 @@ module.exports = {
   LOGIN_API: '/rest/api/login',
   LOGOUT_API: '/rest/api/logout',
   PROCESS_API: '/rest/api/process',
-  remote: true,
+  remote: false,
   bootstrapRoute: 'Home',
 };

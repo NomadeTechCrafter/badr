@@ -6,7 +6,7 @@ import {translate} from '../../../common/translations/i18n';
 
 import * as data from '../../../services/api/offline/controle/dataInitControle.json';
 export function request(action, navigation, successRedirection) {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(action);
     dispatch(inProgress(action));
     ControleApi.initControler(
@@ -14,13 +14,15 @@ export function request(action, navigation, successRedirection) {
       action.value.commande,
       action.value.data,
     )
-      .then(response => {
+      .then((response) => {
+        console.log(response);
         if (response) {
           // const data = JSON.parse(response.data);
           //const data = response.data;
 
           if (data && !data.dtoHeader.messagesErreur) {
             console.log('data', data);
+            console.log('successRedirection', successRedirection);
             dispatch(success(data));
             /** Naviguer vers la vue suivant. */
             navigation.navigate(successRedirection, {
@@ -37,7 +39,7 @@ export function request(action, navigation, successRedirection) {
           dispatch(failed(translate('errors.technicalIssue')));
         }
       })
-      .catch(e => {
+      .catch((e) => {
         console.log('in action request catch', e);
         dispatch(failed(translate('errors.technicalIssue')));
       });
