@@ -19,10 +19,7 @@ export function request(action, navigation) {
     AtApi.initApurement(action.value.reference)
       .then((response) => {
         if (response) {
-          console.log('PARSE');
           const data = response.data;
-          console.log('DATTTT');
-          console.log(data);
           if (
             data &&
             (data.dtoHeader.messagesErreur == null ||
@@ -210,15 +207,30 @@ export function failedAuto(data) {
 export function verifierDepassementDelaiRequest(action) {
   return (dispatch) => {
     dispatch(action);
-    AtApi.verifierDepassementDelai(action.value.dateFinSaisieAT).then(
-      (vddResponse) => {
+    dispatch(verifierDepassementDelaiInprogress(action));
+    AtApi.verifierDepassementDelai(action.value.dateFinSaisieAT)
+      .then((vddResponse) => {
+        console.log('@@@@@@ VERIFIER DEPASSEMENT DELAI @@@@@@');
+        console.log(vddResponse.data.jsonVO);
+        console.log('JSON : ');
+        console.log(vddResponse);
         if (!vddResponse.data.jsonVO) {
           dispatch(verifierDepassementDelaiSuccess(vddResponse.data.jsonVO));
         } else {
-          dispatch(verifierDepassementDelaiFailed(vddResponse.data.jsonVO));
+          dispatch(verifierDepassementDelaiFailed(vddResponse.data));
         }
-      },
-    );
+      })
+      .catch((e) => {
+        console.log(e);
+        dispatch(failed(translate('errors.technicalIssue')));
+      });
+  };
+}
+
+export function verifierDepassementDelaiInprogress(data) {
+  return {
+    type: Constants.VERIFIER_DELAI_DEPASSEMENT_IN_PROGRESS,
+    value: data,
   };
 }
 
@@ -231,7 +243,7 @@ export function verifierDepassementDelaiSuccess(data) {
 
 export function verifierDepassementDelaiFailed(data) {
   return {
-    type: Constants.VERIFIER_DELAI_DEPASSEMENT__FAILED,
+    type: Constants.VERIFIER_DELAI_DEPASSEMENT_FAILED,
     value: data,
   };
 }
@@ -248,6 +260,7 @@ export default {
   failedAuto,
   inProgressAuto,
   verifierDepassementDelaiRequest,
+  verifierDepassementDelaiInprogress,
   verifierDepassementDelaiSuccess,
   verifierDepassementDelaiFailed,
 };

@@ -1,31 +1,25 @@
 import React from 'react';
 
-import {View, Text, ScrollView, Dimensions} from 'react-native';
+import {View, Dimensions} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 
 import {translate} from '../../../common/translations/i18n';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 
-import {primaryColor, accentColor} from '../../../styles/index';
+import {primaryColor} from '../../../styles/index';
 
 import ControleVehiculesSearch from './search';
 import ControleVehiculesResult from './result';
 
 /**Custom Components */
-import {
-  BadrProgressBar,
-  BadrCircleProgressBar,
-  Toolbar,
-} from '../../../components';
+import {BadrProgressBar, Toolbar} from '../../../components';
 
 /** REDUX **/
 import {connect} from 'react-redux';
 
 const Tab = createMaterialTopTabNavigator();
-/** CONSTANTS **/
-const screenWidth = Dimensions.get('window').width;
 
+/** CONSTANTS **/
 function ResultScreen({route, navigation}) {
   return <ControleVehiculesResult navigation={navigation} route={route} />;
 }
@@ -41,15 +35,14 @@ class ControleVehicules extends React.Component {
 
   render() {
     return (
-      <View style={{width: '100%', height: '100%'}}>
+      <View style={styles.container}>
         <Toolbar
           navigation={this.props.navigation}
           icon="menu"
           title={translate('referentiel.controleVehicules.title')}
           subtitle={translate('referentiel.controleVehicules.subTitle')}
         />
-        {this.props.showProgress && <BadrProgressBar width={screenWidth} />}
-        {/* {this.props.showProgress && <BadrCircleProgressBar size={30} />} */}
+        {this.props.showProgress && <BadrProgressBar circle={false} />}
         <NavigationContainer independent={true}>
           <Tab.Navigator
             initialLayout={{height: Dimensions.get('window').height}}
@@ -76,6 +69,10 @@ class ControleVehicules extends React.Component {
   }
 }
 
+const styles = {
+  container: {width: '100%', height: '100%'},
+};
+
 function mapStateToProps(state) {
   return {...state.controleVehiculesReducer};
 }
@@ -87,7 +84,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(ControleVehicules);
+export default connect(mapStateToProps, mapDispatchToProps)(ControleVehicules);

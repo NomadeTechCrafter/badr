@@ -32,7 +32,6 @@ import Utils from '../../../common/util';
 /** Inmemory session */
 import {Session} from '../../../common/session';
 
-import * as QrConstants from '../../../common/constants/components/qrCode';
 import * as QrCodeAction from '../../../redux/actions/components/qrCode';
 
 class MainMenu extends React.Component {
@@ -47,13 +46,11 @@ class MainMenu extends React.Component {
   }
 
   componentDidMount() {
-    console.log('-----------> ' + Session.getInstance().getLogin());
-    console.log(this.props.menuReducer.menuList.length);
     this.fetchMenu();
     if (this.props.navigation) {
       this.props.navigation.toggleDrawer();
     }
-    console.log(Session.getInstance().getSessionId(true));
+    console.log('SessionId=' + Session.getInstance().getSessionId(true));
   }
 
   fetchMenu = (predicate) => {
@@ -189,7 +186,6 @@ const styles = {
 };
 
 const mapStateToProps = (state) => {
-  console.log({...state.menuReducer, ...state.qrCodeReducer});
   return {
     menuReducer: {...state.menuReducer},
     qrCodeReducer: {...state.qrCodeReducer},
