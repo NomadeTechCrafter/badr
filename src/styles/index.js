@@ -31,6 +31,9 @@ const CustomStyleSheet = StyleSheet.create({
   badrButton: {
     ...Buttons.badrButton,
   },
+  badrButtonDisabled: {
+    ...Buttons.badrButtonDisabled,
+  },
   badrButtonIcon: {
     ...Buttons.badrButtonIcon,
   },

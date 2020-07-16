@@ -1,5 +1,6 @@
 import {loginButton as loginButtonSize} from './size';
-import {primaryBackgroundColor} from './colors';
+import {primaryBackgroundColor, buttonBackgroundColorDisabled} from './colors';
+
 import {loginButton as loginButtonShape} from './shape';
 import {loginButton as loginButtonAlignment} from './alignment';
 import {loginButton as loginButtonSpacing} from './spacing';
@@ -22,9 +23,16 @@ export const badrButton = {
   ...loginButtonSize,
 };
 
+export const badrButtonDisabled = {
+  ...buttonBackgroundColorDisabled,
+  ...loginButtonAlignment,
+  ...loginButtonShape,
+  ...loginButtonSize,
+};
+
 export const badrButtonIcon = {
   ...primaryBackgroundColor,
   ...loginButtonShape,
   ...badrButtonIconSize,
-  ...badrButtonIconSpacing
+  ...badrButtonIconSpacing,
 };

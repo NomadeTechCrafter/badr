@@ -1,4 +1,3 @@
-
 import {loginInput as loginInputSize} from './size';
 import {inputsBackgroundColor} from './colors';
 import {loginInput as loginInputShape} from './shape';
@@ -10,5 +9,5 @@ export const loginInput = {
   ...loginInputSize,
   ...loginInputShape,
   ...loginInputAlignment,
-  ...loginInputSpacing
+  ...loginInputSpacing,
 };

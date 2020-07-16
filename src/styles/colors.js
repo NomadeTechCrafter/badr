@@ -2,6 +2,11 @@ export const primaryBackgroundColor = {
   backgroundColor: '#009ab2',
 };
 
+export const buttonBackgroundColorDisabled = {
+  color: 'black',
+  backgroundColor: 'red',
+};
+
 export const inputsBackgroundColor = {
   backgroundColor: '#f1f1f1',
 };
@@ -53,14 +58,14 @@ export const menuHeader = {
 };
 
 export const libelleBleu = {
-    color: '#006acd'
+  color: '#006acd',
 };
 export const libelleNoir = {
-    color: '#444'
+  color: '#444',
 };
 export const lightBlueRow = {
-    backgroundColor: '#f0f5f9'
+  backgroundColor: '#f0f5f9',
 };
 export const whiteRow = {
-    backgroundColor: 'white'
+  backgroundColor: 'white',
 };

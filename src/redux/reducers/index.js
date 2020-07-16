@@ -1,4 +1,7 @@
 import {combineReducers} from 'redux';
+
+import loginReducer from '../../hab/login/state/reducers/loginReducer';
+
 import authReducer from './hab/auth';
 import smsVerifyReducer from './hab/smsVerify';
 import confirmConnexionReducer from './hab/confirmConnexion';
@@ -33,6 +36,7 @@ import genericReducer from './generic';
  * combine all reducer
  */
 const allReducers = combineReducers({
+  loginReducer,
   authReducer,
   smsVerifyReducer,
   confirmConnexionReducer,

@@ -10,7 +10,7 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
-import Login from './screens/hab/login';
+import Login from './hab/login/ui/loginScreen';
 import SmsVerify from './screens/hab/smsVerify';
 import Home from './screens/hab/home';
 import Profile from './screens/hab/profile';
