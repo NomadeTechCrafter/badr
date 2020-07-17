@@ -1,6 +1,6 @@
 /** React Components */
 import React from 'react';
-import {View, Dimensions, ScrollView} from 'react-native';
+import {View, ScrollView} from 'react-native';
 
 /** REDUX **/
 import {connect} from 'react-redux';

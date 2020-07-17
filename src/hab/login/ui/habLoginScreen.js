@@ -75,7 +75,7 @@ class Login extends React.Component {
   render() {
     return (
       <ScrollView style={style.container}>
-        {this.props.showProgress && <SmartLoader />}
+        {/* {this.props.showProgress && <SmartLoader />} */}
 
         <View style={style.loginBlock}>
           <BadrLoginHeader />

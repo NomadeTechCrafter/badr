@@ -1,4 +1,4 @@
-import {CustomStyleSheet} from '../../../styles/index';
+import {CustomStyleSheet} from '../../styles/index';
 import React from 'react';
 import {Image, View} from 'react-native';
 
