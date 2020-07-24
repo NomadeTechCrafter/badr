@@ -13,26 +13,23 @@ import {
   getDeviceName,
 } from 'react-native-device-info';
 
-import style from '../style/loginStyle';
+import style from '../style/habLoginStyle';
 /**ACTIONS */
-import * as LoginConstants from '../state/loginConstants';
-import * as authAction from '../state/actions/loginAction';
+import * as LoginConstants from '../state/habLoginConstants';
+import * as authAction from '../state/actions/habLoginAction';
 
 /** i18n **/
-import {translate} from '../../../common/translations/i18n';
-
-/** Storage **/
-import {loadParsed} from '../../../services/storage-service';
+import {translate} from '../../../commons/i18n';
 
 /** Custom Components */
 import {
   BadrLoginHeader,
-  BadrProgressBar,
   BadrErrorMessage,
 } from '../../../components';
 
 /** Inmemory session */
-import {Session} from '../../../common/session';
+import {loadParsed} from '../../../commons/services/async-storage/storage-service';
+import {CommonSession} from '../../../commons/services/session/commonSession';
 
 class Login extends React.Component {
   state = {
@@ -44,25 +41,26 @@ class Login extends React.Component {
     this.props.login(this.state.login, this.state.password);
   };
 
-  setDeviceInformations = () => {
-    Session.getInstance().setSystemVersion(getSystemVersion());
-    Session.getInstance().setModel(getModel());
+  setDeviceInformation = () => {
+    CommonSession.getInstance().setSystemVersion(getSystemVersion());
+    CommonSession.getInstance().setModel(getModel());
     getAndroidId().then((value) => {
-      Session.getInstance().setDeviceId(value);
+      CommonSession.getInstance().setDeviceId(value);
     });
     getManufacturer().then((value) => {
-      Session.getInstance().setManufacturer(value);
+      CommonSession.getInstance().setManufacturer(value);
     });
     getDeviceName().then((value) => {
-      Session.getInstance().setDeviceName(value);
+      CommonSession.getInstance().setDeviceName(value);
     });
   };
 
   componentDidMount() {
-    this.setDeviceInformations();
-    this.loadOldUserIfExist();
+    this.setDeviceInformation();
+    this.loadOldUserIfExist().then(() => console.log('user loaded with no errors.'));
     this.props.initialize();
   }
+
   loadOldUserIfExist = async () => {
     let user = await loadParsed('user');
     if (user) {
@@ -72,16 +70,17 @@ class Login extends React.Component {
   onLoginChanged = (text) => {
     this.setState({login: text.toUpperCase()});
   };
+
   render() {
     return (
       <ScrollView style={style.container}>
         {/* {this.props.showProgress && <SmartLoader />} */}
 
         <View style={style.loginBlock}>
-          <BadrLoginHeader />
+          <BadrLoginHeader/>
           <View style={style.textInputContainer}>
             <TextInput
-              value={this.props.value}
+              value={this.state.login}
               autoCapitalize="characters"
               style={style.textInput}
               placeholder={translate('login.userName')}
@@ -107,7 +106,7 @@ class Login extends React.Component {
             {translate('connexion')}
           </Button>
           {!this.props.loggedIn && this.props.errorMessage != null && (
-            <BadrErrorMessage message={this.props.errorMessage} />
+            <BadrErrorMessage message={this.props.errorMessage}/>
           )}
         </View>
       </ScrollView>
@@ -115,45 +114,12 @@ class Login extends React.Component {
   }
 }
 
-const styles = StyleSheet.create({
-  modalBackground: {
-    flex: 1,
-    alignItems: 'center',
-    flexDirection: 'column',
-    justifyContent: 'space-around',
-    backgroundColor: '#00000040',
-  },
-  activityIndicatorHolder: {
-    backgroundColor: '#FFFFFF',
-    height: 100,
-    width: 100,
-    borderRadius: 10,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-around',
-  },
-});
-
-const SmartLoader = (props) => {
-  const {isLoading} = props;
-  return (
-    <Modal
-      transparent
-      animationType={'none'}
-      visible={isLoading}
-      onRequestClose={() => {}}>
-      <BadrProgressBar />
-      <View style={styles.modalBackground}></View>
-    </Modal>
-  );
-};
-
 const mapStateToProps = (state) => ({...state.loginReducer});
 
 const mapDispatchToProps = (dispatch, props) => {
   return {
     login: (login, password) => {
-      var action = authAction.request(
+      let action = authAction.request(
         {
           type: LoginConstants.AUTH_LOGIN_REQUEST,
           value: {login: login, pwd: password},
@@ -163,7 +129,7 @@ const mapDispatchToProps = (dispatch, props) => {
       dispatch(action);
     },
     initialize: () => {
-      var action = authAction.init({
+      let action = authAction.init({
         type: LoginConstants.LOGIN_INIT,
         value: {},
       });

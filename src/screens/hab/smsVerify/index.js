@@ -20,18 +20,18 @@ import * as SmsVerifyActionCreators from '../../../redux/actions/hab/smsVerify';
 import * as Constants from '../../../common/constants/hab/smsVerify';
 
 /**i18n */
-import {translate} from '../../../common/translations/i18n';
+import {translate} from '../../../commons/i18n';
 
 /**Styling */
 import {CustomStyleSheet} from '../../../styles/index';
 
 /** Inmemory session */
-import {Session} from '../../../common/session';
+import {CommonSession} from '../../../commons/services/session/commonSession';
 
 class SmsVerify extends React.Component {
   state = {
     code: '',
-    login: Session.getInstance().getLogin(),
+    login: CommonSession.getInstance().getLogin(),
   };
 
   onConfirmerClicked = () => {

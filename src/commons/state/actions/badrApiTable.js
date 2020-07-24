@@ -51,9 +51,3 @@ export function inProgress(action) {
   };
 }
 
-export default {
-  request,
-  success,
-  failed,
-  inProgress,
-};

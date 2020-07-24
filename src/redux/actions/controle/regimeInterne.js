@@ -3,7 +3,7 @@ import ControleApi from '../../../services/api/controle-api';
 import * as Constants from '../../../common/constants/controle/regimeInterne';
 
 /**i18n */
-import {translate} from '../../../common/translations/i18n';
+import {translate} from '../../../commons/i18n';
 
 export function validateSave(action, navigation) {
   return dispatch => {

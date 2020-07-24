@@ -10,7 +10,7 @@ import {connect} from 'react-redux';
 import * as Constants from '../../../common/constants/controle/listDeclarationDum';
 
 /**i18n */
-import {translate} from '../../../common/translations/i18n';
+import {translate} from '../../../commons/i18n';
 
 import * as RechecheDumAction from '../../../redux/actions/controle/listDeclarationDum';
 import {CopyPaste} from '../../../components';

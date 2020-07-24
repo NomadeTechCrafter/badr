@@ -5,7 +5,7 @@ import {Col, Row, Grid} from 'react-native-easy-grid';
 import {Paragraph, Caption} from 'react-native-paper';
 import {connect} from 'react-redux';
 import {BadrTable, CardBox, Accordion} from '../../../';
-import {translate} from '../../../../common/translations/i18n';
+import {translate} from '../../../../commons/i18n';
 import * as Constants from '../../../../common/constants/controle/BAD';
 import * as BadActions from '../../../../redux/actions/controle/BAD';
 

@@ -9,7 +9,7 @@ import * as Constants from '../../../common/constants/hab/auth';
 import * as authAction from '../../../redux/actions/hab/auth';
 
 /** i18n **/
-import {translate} from '../../../common/translations/i18n';
+import {translate} from '../../../commons/i18n';
 
 /** STYLING **/
 import {CustomStyleSheet} from '../../../styles/index';
@@ -30,7 +30,7 @@ import {
 import {remote, bootstrapRoute} from '../../../common/config';
 
 /** Inmemory session */
-import {Session} from '../../../common/session';
+import {CommonSession} from '../../../commons/services/session/commonSession';
 
 /** Device informations */
 import {
@@ -60,17 +60,17 @@ class Login extends React.Component {
 
   setDeviceInformations = () => {
     getAndroidId().then((value) => {
-      Session.getInstance().setDeviceId(value);
+      CommonSession.getInstance().setDeviceId(value);
     });
     getManufacturer().then((value) => {
-      Session.getInstance().setManufacturer(value);
+      CommonSession.getInstance().setManufacturer(value);
     });
-    Session.getInstance().setSystemVersion(getSystemVersion());
+    CommonSession.getInstance().setSystemVersion(getSystemVersion());
 
-    Session.getInstance().setModel(getModel());
+    CommonSession.getInstance().setModel(getModel());
 
     getDeviceName().then((value) => {
-      Session.getInstance().setDeviceName(value);
+      CommonSession.getInstance().setDeviceName(value);
     });
   };
 

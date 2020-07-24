@@ -27,7 +27,7 @@ import {
 } from 'react-native-paper';
 import {Col, Row, Grid} from 'react-native-easy-grid';
 /**i18n */
-import {translate} from '../../../common/translations/i18n';
+import {translate} from '../../../commons/i18n';
 import {CustomStyleSheet, primaryColor} from '../../../styles';
 import _ from 'lodash';
 

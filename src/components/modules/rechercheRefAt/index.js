@@ -5,7 +5,7 @@ import {HelperText, TextInput, Button} from 'react-native-paper';
 import {Col, Row, Grid} from 'react-native-easy-grid';
 import {connect} from 'react-redux';
 /**i18n */
-import {translate} from '../../../common/translations/i18n';
+import {translate} from '../../../commons/i18n';
 import {CustomStyleSheet} from '../../../styles';
 import {Container} from '../../';
 import * as InitApurementAction from '../../../redux/actions/at/apurement';

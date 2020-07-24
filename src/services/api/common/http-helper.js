@@ -8,7 +8,7 @@ import {
 import * as axios from 'axios';
 
 /** Inmemory session */
-import {Session} from '../../../common/session';
+import {CommonSession} from '../../../commons/services/session/commonSession';
 
 const localStore = {
   rechercheEchangeMetVehicule: require('../offline/rechercheEchangeMetVehicule.json'),
@@ -41,11 +41,11 @@ export default class HttpHelper {
     console.log('_____________*** *** ***_________________');
     console.log(response.headers['session_id']);
     console.log('_____________*** *** ***_________________');
-    Session.getInstance().setSessionId(response.headers['session_id']);
-    console.log('Session.getInstance().getSessionId(true)');
-    console.log(Session.getInstance().getSessionId(true));
-    console.log('Session.getInstance().getSessionId(false)');
-    console.log(Session.getInstance().getSessionId(false));
+    CommonSession.getInstance().setSessionId(response.headers['session_id']);
+    console.log('CommonSession.getInstance().getSessionId(true)');
+    console.log(CommonSession.getInstance().getSessionId(true));
+    console.log('CommonSession.getInstance().getSessionId(false)');
+    console.log(CommonSession.getInstance().getSessionId(false));
     return response;
   }
 
@@ -57,7 +57,7 @@ export default class HttpHelper {
     if (remote) {
       let response = await instance.post(PROCESS_API, JSON.stringify(object), {
         withCredentials: true,
-        Cookie: Session.getInstance().getSessionId(true),
+        Cookie: CommonSession.getInstance().getSessionId(true),
       });
       return response;
     } else {

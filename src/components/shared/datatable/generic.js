@@ -4,7 +4,7 @@ import {DataTable} from 'react-native-paper';
 import {FAB} from 'react-native-paper';
 
 /** i18n **/
-import {translate} from '../../../common/translations/i18n';
+import {translate} from '../../../commons/i18n';
 
 /** Custom Style **/
 import {CustomStyleSheet} from '../../../styles/index';

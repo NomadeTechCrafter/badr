@@ -3,7 +3,7 @@ import {View} from 'react-native';
 
 /**Custom Components */
 import {BadrApiTable, DetailBAD} from '../../../components';
-import {translate} from '../../../common/translations/i18n';
+import {translate} from '../../../commons/i18n';
 
 export default class BAD extends React.Component {
   constructor(props) {

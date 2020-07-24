@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {View} from 'react-native';
 import {RechercheRefDum, Toolbar} from '../../../components';
 /**i18n */
-import {translate} from '../../../common/translations/i18n';
+import {translate} from '../../../commons/i18n';
 
 class RechecheMLV extends Component {
   render() {

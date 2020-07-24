@@ -5,7 +5,7 @@ import TransverseApi from '../../../services/api/transverse-api';
 import * as Constants from '../../../common/constants/generic';
 
 /** i18n */
-import {translate} from '../../../common/translations/i18n';
+import {translate} from '../../../commons/i18n';
 
 export function request(action) {
   return (dispatch) => {

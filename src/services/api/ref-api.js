@@ -1,7 +1,7 @@
 import HttpHelper from './common/http-helper';
 
 /** Inmemory session */
-import {Session} from '../../common/session';
+import {CommonSession} from '../../commons/services/session/commonSession';
 
 export default class RefApi {
   static rechercheEchangeMetVehicule = async (
@@ -12,7 +12,7 @@ export default class RefApi {
   ) => {
     const data = {
       dtoHeader: {
-        userLogin: Session.getInstance().getLogin(),
+        userLogin: CommonSession.getInstance().getLogin(),
         fonctionnalite: 'cf6153',
         module: 'REF_LIB',
         commande: 'rechercheEchangeMetVehicule',
@@ -29,7 +29,7 @@ export default class RefApi {
   static findVehiculeVoleByParameter = async (rechercheObject) => {
     const data = {
       dtoHeader: {
-        userLogin: Session.getInstance().getLogin(),
+        userLogin: CommonSession.getInstance().getLogin(),
         fonctionnalite: 'cf6153',
         module: 'MCV_LIB',
         commande: 'findVehiculeVoleByParameter',

@@ -13,13 +13,13 @@ import * as AnnoncesAction from '../../../redux/actions/generic';
 import {connect} from 'react-redux';
 
 /** i18n **/
-import {translate} from '../../../common/translations/i18n';
+import {translate} from '../../../commons/i18n';
 
 /**Custom Components */
 import {Toolbar, BadrInfoMessage, BadrProgressBar} from '../../../components';
 
 /** Inmemory session */
-import {Session} from '../../../common/session';
+import {CommonSession} from '../../../commons/services/session/commonSession';
 class WelcomeScreen extends React.Component {
   componentDidMount() {
     this.fetchAnnonces();
@@ -35,7 +35,7 @@ class WelcomeScreen extends React.Component {
         command: 'getListeAnnonces',
         typeService: 'SP',
         jsonVO: {
-          listProfilsCoche: Session.getInstance().getProfiles(),
+          listProfilsCoche: CommonSession.getInstance().getProfiles(),
         },
       },
     });
@@ -53,8 +53,8 @@ class WelcomeScreen extends React.Component {
         <Toolbar
           navigation={this.props.navigation}
           icon="menu"
-          title={translate('welcome.title')}
-          subtitle={translate('welcome.subTitle')}
+          title={translate('annonces.title')}
+          subtitle={translate('annonces.subTitle')}
         />
         {this.props.showProgress && <BadrProgressBar />}
         <View style={styles.container}>

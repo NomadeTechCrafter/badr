@@ -1,6 +1,6 @@
 import HttpHelper from './common/http-helper';
 /** Inmemory session */
-import {Session} from '../../common/session';
+import {CommonSession} from '../../commons/services/session/commonSession';
 
 import Utils from '../../common/util';
 
@@ -9,7 +9,7 @@ export default class AtApi {
     console.log('Start initApurement');
     const data = {
       dtoHeader: {
-        userLogin: Session.getInstance().getLogin(),
+        userLogin: CommonSession.getInstance().getLogin(),
         fonctionnalite: 'cf9005',
         module: 'AT',
         commande: 'initApurerAT',
@@ -30,7 +30,7 @@ export default class AtApi {
   static initApurerAutoAT = async (reference) => {
     const data = {
       dtoHeader: {
-        userLogin: Session.getInstance().getLogin(),
+        userLogin: CommonSession.getInstance().getLogin(),
         fonctionnalite: 'cf9005',
         module: 'AT',
         commande: 'initApurerAutoAT',
@@ -76,7 +76,7 @@ export default class AtApi {
     console.log(apurementVO);
     const data = {
       dtoHeader: {
-        userLogin: Session.getInstance().getLogin(),
+        userLogin: CommonSession.getInstance().getLogin(),
         fonctionnalite: 'cf9005',
         module: 'AT',
         commande: 'apurerAT',
@@ -117,13 +117,13 @@ export default class AtApi {
     }
     let apurAutoData = {
       admissionTemporaireVO: apurementVO,
-      bureau: Session.getInstance().getCodeBureau(),
-      arrondissement: Session.getInstance().getCodeArrondissement(),
+      bureau: CommonSession.getInstance().getCodeBureau(),
+      arrondissement: CommonSession.getInstance().getCodeArrondissement(),
     };
 
     const data = {
       dtoHeader: {
-        userLogin: Session.getInstance().getLogin(),
+        userLogin: CommonSession.getInstance().getLogin(),
         fonctionnalite: 'cf9005',
         module: 'AT',
         commande: 'apurerAutoAT',
@@ -142,7 +142,7 @@ export default class AtApi {
   static verifierDepassementDelai = async (dateFinSaisieAT) => {
     const data = {
       dtoHeader: {
-        userLogin: Session.getInstance().getLogin(),
+        userLogin: CommonSession.getInstance().getLogin(),
         fonctionnalite: 'cf9005',
         module: 'AT',
         commande: 'verifierDepassementDelai',

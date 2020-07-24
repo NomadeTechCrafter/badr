@@ -3,7 +3,7 @@ import TransverseApi from '../../../services/api/transverse-api';
 import * as Constants from '../../../common/constants/mainLevee/listeDeclarationsMLV';
 
 /**i18n */
-import {translate} from '../../../common/translations/i18n';
+import {translate} from '../../../commons/i18n';
 
 const MODULE = 'MLV_LIB';
 const TYPE_SERVICE = 'SP';

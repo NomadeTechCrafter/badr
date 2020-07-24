@@ -4,7 +4,7 @@ import {View, ImageBackground, Text, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {accentColor} from '../../../styles/index';
 /** i18n **/
-import {translate} from '../../../common/translations/i18n';
+import {translate} from '../../../commons/i18n';
 
 export default class MenuHeader extends React.Component {
   constructor(props) {

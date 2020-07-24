@@ -2,7 +2,7 @@ import ControleApi from '../../../services/api/controle-api';
 
 import * as Constants from '../../../common/constants/controle/listDeclarationDum';
 /**i18n */
-import {translate} from '../../../common/translations/i18n';
+import {translate} from '../../../commons/i18n';
 
 import * as data from '../../../services/api/offline/controle/dataInitControle.json';
 export function request(action, navigation, successRedirection) {

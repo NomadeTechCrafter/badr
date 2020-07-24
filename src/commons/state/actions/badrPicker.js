@@ -1,5 +1,5 @@
-import TransverseApi from '../../../services/api/transverse-api';
 import * as Constants from '../../../common/constants/components/badrPicker';
+import TransverseApi from '../../services/api/transverse-api';
 
 export function request(action) {
   return (dispatch) => {

@@ -3,9 +3,9 @@ import * as Constants from '../../../common/constants/at/at';
 import _ from 'lodash';
 
 /** Inmemory session */
-import {Session} from '../../../common/session';
+import {CommonSession} from '../../../commons/services/session/commonSession';
 /** i18n */
-import {translate} from '../../../common/translations/i18n';
+import {translate} from '../../../commons/i18n';
 
 const initialState = {
   showProgress: false,
@@ -217,12 +217,12 @@ const prepareConfirm = (incomingValue, state) => {
   }
   let newApurementVO = {
     bureauApur: {
-      code: Session.getInstance().getCodeBureau(),
-      libelle: Session.getInstance().getNomBureauDouane(),
+      code: CommonSession.getInstance().getCodeBureau(),
+      libelle: CommonSession.getInstance().getNomBureauDouane(),
     },
     arrondApur: {
-      code: Session.getInstance().getCodeArrondissement(),
-      libelle: Session.getInstance().getLibelleArrondissement(),
+      code: CommonSession.getInstance().getCodeArrondissement(),
+      libelle: CommonSession.getInstance().getLibelleArrondissement(),
     },
     typeComposApur: allTypes,
     dateApurement: incomingValue.dateApurement,

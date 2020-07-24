@@ -7,7 +7,7 @@ import {Checkbox} from 'react-native-paper';
 import {primaryColor} from '../../../styles/index';
 
 /** i18n **/
-import {translate} from '../../../common/translations/i18n';
+import {translate} from '../../../commons/i18n';
 
 /** Custom Style **/
 import {CustomStyleSheet} from '../../../styles/index';

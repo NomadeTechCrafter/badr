@@ -19,10 +19,10 @@ import * as confirmCnxAction from '../../../redux/actions/hab/confirmCnx';
 /** STYLING **/
 import {CustomStyleSheet} from '../../../styles/index';
 
-import {translate} from '../../../common/translations/i18n';
+import {translate} from '../../../commons/i18n';
 
 /** Inmemory session */
-import {Session} from '../../../common/session';
+import {CommonSession} from '../../../commons/services/session/commonSession';
 
 class Profile extends React.Component {
   constructor(props) {
@@ -91,15 +91,15 @@ class Profile extends React.Component {
         this.state.selectedArrondissement,
       );
       /** Update Inmemory session */
-      Session.getInstance().setCodeBureau(this.state.selectedBureau);
-      Session.getInstance().setNomBureauDouane(this.state.nomBureauDouane);
-      Session.getInstance().setCodeArrondissement(
+      CommonSession.getInstance().setCodeBureau(this.state.selectedBureau);
+      CommonSession.getInstance().setNomBureauDouane(this.state.nomBureauDouane);
+      CommonSession.getInstance().setCodeArrondissement(
         this.state.selectedArrondissement,
       );
-      Session.getInstance().setLibelleArrondissement(
+      CommonSession.getInstance().setLibelleArrondissement(
         this.state.selectedArrondissementLibelle,
       );
-      Session.getInstance().setProfiles(this.state.selectedProfiles);
+      CommonSession.getInstance().setProfiles(this.state.selectedProfiles);
 
       this.props.actions.dispatch(action);
     } else {

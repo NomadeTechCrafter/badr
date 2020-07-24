@@ -8,11 +8,12 @@ import {connect} from 'react-redux';
 import {BadrProgressBar} from '../';
 
 const Stack = createStackNavigator();
+
 class BadrStackNavigator extends React.Component {
   render = () => {
     return (
       <View style={styles.container}>
-        {this.props.showProgress && <SmartLoader visible={true} />}
+        {this.props.showProgress && <BadrLoader visible={true}/>}
         <NavigationContainer>
           <Stack.Navigator>{this.props.children}</Stack.Navigator>
         </NavigationContainer>
@@ -21,31 +22,32 @@ class BadrStackNavigator extends React.Component {
   };
 }
 
-const SmartLoader = (props) => {
+const BadrLoader = (props) => {
   const {isLoading} = props;
   return (
     <Modal
       transparent
       animationType={'none'}
       visible={isLoading}
-      onRequestClose={() => {}}>
-      <BadrProgressBar />
-      <View style={styles.modalBackground}></View>
+      onRequestClose={() => {
+      }}>
+      <BadrProgressBar/>
+      <View style={styles.modalBackground}>
+        <BadrProgressBar circle={true}/>
+      </View>
     </Modal>
   );
 };
 
 const mapStateToProps = (state) => {
-  console.log('--------- BEGIN -------------');
   let reducerHasLoading = _.pickBy(state, {showProgress: true});
   if (reducerHasLoading) {
-    let nextProps = reducerHasLoading[_.keys(reducerHasLoading)[0]];
-    if (_.keys(reducerHasLoading)[0]) {
-      console.log(nextProps);
+    const target = _.keys(reducerHasLoading)[0];
+    let nextProps = reducerHasLoading[target];
+    if (target) {
       return {...nextProps};
     }
   }
-  console.log('--------- END -------------');
   return {...state};
 };
 

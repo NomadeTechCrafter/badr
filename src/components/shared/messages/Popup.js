@@ -3,7 +3,7 @@ import {Text, View} from 'react-native';
 import {Banner} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import {translate} from '../../../common/translations/i18n';
+import {translate} from '../../../commons/i18n';
 
 import {primaryColor, warnColor, errorColor} from '../../../styles/index';
 

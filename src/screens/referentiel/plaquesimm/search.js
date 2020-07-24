@@ -4,7 +4,7 @@ import {TextInput} from 'react-native-paper';
 import {Divider} from 'react-native-elements';
 
 /** i18n **/
-import {translate} from '../../../common/translations/i18n';
+import {translate} from '../../../commons/i18n';
 
 /** REDUX **/
 import {connect} from 'react-redux';
@@ -15,7 +15,7 @@ import {Col, Row, Grid} from 'react-native-easy-grid';
 import {CustomStyleSheet} from '../../../styles/index';
 
 /** Inmemory session */
-import {Session} from '../../../common/session';
+import {CommonSession} from '../../../commons/services/session/commonSession';
 
 /**Custom Components */
 import {
@@ -30,7 +30,7 @@ const initialState = {
   messageVisibility: false,
   message: '',
   messageType: '',
-  login: Session.getInstance().getLogin(),
+  login: CommonSession.getInstance().getLogin(),
   vehiculeNumChassis: '',
   vehiculeNumImmat1: '',
   vehiculeNumImmat2: '',

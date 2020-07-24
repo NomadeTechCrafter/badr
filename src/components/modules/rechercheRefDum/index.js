@@ -11,7 +11,7 @@ import {
   Paragraph,
 } from 'react-native-paper';
 /**i18n */
-import {translate} from '../../../common/translations/i18n';
+import {translate} from '../../../commons/i18n';
 import {CustomStyleSheet, primaryColor} from '../../../styles';
 import _ from 'lodash';
 

@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import {ScrollView, View} from 'react-native';
 import {RechercheRefDum, Toolbar, BadrButtonIcon} from '../../../components';
 /**i18n */
-import {translate} from '../../../common/translations/i18n';
-import {Session} from '../../../common/session';
+import {translate} from '../../../commons/i18n';
+import {CommonSession} from '../../../commons/services/session/commonSession';
 import {connect} from 'react-redux';
 import * as Constants from '../../../common/constants/controle/rechercheDum';
 import * as RechecheDumAction from '../../../redux/actions/controle/rechercheDum';
@@ -45,7 +45,7 @@ class RechecheDum extends Component {
       {
         type: Constants.RECHERCHEDUM_LISTDECLARATION_REQUEST,
         value: {
-          login: Session.getInstance().getLogin(),
+          login: CommonSession.getInstance().getLogin(),
           typeControle: this.typeControle,
         },
       },

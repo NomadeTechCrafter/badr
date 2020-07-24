@@ -18,7 +18,7 @@ import {connect} from 'react-redux';
 import * as Constants from '../../../common/constants/components/badrPicker';
 import * as badrPickerAction from '../../../redux/actions/components/badrPicker';
 
-import {translate} from '../../../common/translations/i18n';
+import {translate} from '../../../commons/i18n';
 
 class BadrPickerChecker extends React.Component {
   constructor(props) {

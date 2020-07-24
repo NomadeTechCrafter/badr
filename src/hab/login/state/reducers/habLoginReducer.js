@@ -1,5 +1,5 @@
 /** Constants */
-import * as Constants from '../loginConstants';
+import * as Constants from '../habLoginConstants';
 
 const initialState = {
   user: null,

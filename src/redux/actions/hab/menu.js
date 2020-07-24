@@ -5,7 +5,7 @@ import * as Constants from '../../../common/constants/hab/menu';
 import {loadParsed} from '../../../services/storage-service';
 
 /** i18n */
-import {translate} from '../../../common/translations/i18n';
+import {translate} from '../../../commons/i18n';
 
 export function request(action) {
   return (dispatch) => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import {View} from 'react-native';
 import {Text} from 'react-native-paper';
-import {translate} from '../../../../common/translations/i18n';
+import {translate} from '../../../../commons/i18n';
 import {CardSection} from '../../../../components';
 export class InfoCommon extends React.Component {
   render() {

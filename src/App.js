@@ -9,6 +9,7 @@
 import React from 'react';
 
 import {createStackNavigator} from '@react-navigation/stack';
+
 const Stack = createStackNavigator();
 
 import {BadrStackNavigator} from './commons/component';
@@ -18,17 +19,18 @@ import {Provider} from 'react-redux';
 import {createStore, applyMiddleware, compose} from 'redux';
 import allReducers from './redux/reducers';
 import thunk from 'redux-thunk';
+
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
   allReducers,
   composeEnhancers(applyMiddleware(thunk)),
 );
 import Login from './hab/login/ui/habLoginScreen';
-import SmsVerify from './screens/hab/smsVerify';
-import Home from './screens/hab/home';
-import Profile from './screens/hab/profile';
+import HabProfileScreen from './hab/smsVerify/ui/habSmsVerifyScreen';
+import Profile from './hab/profile/ui/habProfileScreen';
 
-//import VuEmbarque from './screens/ecorexport/vuEmbarque/vuEmbarque';
+import Home from './screens/hab/home';
+
 import {primaryColor, accentColor} from './styles/index';
 
 import {Provider as PaperProvider, DefaultTheme} from 'react-native-paper';
@@ -54,10 +56,10 @@ export default class App extends React.Component {
               component={Login}
             />
             <Stack.Screen
-              name="SmsVerify"
+              name="HabProfileScreen"
               options={{headerShown: true}}
               mode="modal"
-              component={SmsVerify}
+              component={HabProfileScreen}
             />
             <Stack.Screen
               name="Home"

@@ -1,7 +1,7 @@
 /**
   InMemory session obtained as a singleton way
  */
-export class Session {
+export class CommonSession {
   static myInstance = null;
 
   _login = '';
@@ -32,11 +32,11 @@ export class Session {
   _userObject = {};
 
   /**
-   * @returns {Session}
+   * @returns {CommonSession}
    */
   static getInstance() {
-    if (Session.myInstance == null) {
-      Session.myInstance = new Session();
+    if (CommonSession.myInstance == null) {
+      CommonSession.myInstance = new CommonSession();
     }
 
     return this.myInstance;

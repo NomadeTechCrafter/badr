@@ -1,23 +1,23 @@
 /** API Services */
-import LoginApi from '../../service/api/loginApi';
+import HabLoginApi from '../../service/api/habLoginApi';
 
 /** Constants */
-import * as Constants from '../loginConstants';
+import * as Constants from '../habLoginConstants';
 
 /**i18n */
-import {translate} from '../../../../common/translations/i18n';
+import {translate} from '../../../../commons/i18n';
 
 /** Storage */
-import {saveStringified} from '../../../../services/storage-service';
+import {saveStringified} from '../../../../commons/services/async-storage/storage-service';
 
 /** Inmemory session */
-import {Session} from '../../../../common/session';
+import {CommonSession} from '../../../../commons/services/session/commonSession';
 
 export function request(action, navigation) {
   return (dispatch) => {
     dispatch(action);
     dispatch(inProgress(action));
-    LoginApi.login(action.value.login, action.value.pwd)
+    HabLoginApi.login(action.value.login, action.value.pwd)
       .then((data) => {
         if (data) {
           if (data.statutConnexion === '1') {
@@ -25,7 +25,7 @@ export function request(action, navigation) {
             /** Saving the user login into the local storage */
             saveStringified('user', data).then(() => data.login);
             /** Saving the user login into the global in-memory session */
-            Session.getInstance().setLogin(data.login);
+            CommonSession.getInstance().setLogin(data.login);
             /** Naviguer vers la vue suivant. */
             navigation.navigate('SmsVerify', {login: action.value.login});
           } else {
@@ -45,7 +45,7 @@ export function requestLogout(action, navigation) {
   return (dispatch) => {
     dispatch(action);
     dispatch(inProgressLogout(action));
-    LoginApi.logout()
+    HabLoginApi.logout()
       .then((data) => {
         if (data) {
           dispatch(successLogout(translate('errors.technicalIssue')));
