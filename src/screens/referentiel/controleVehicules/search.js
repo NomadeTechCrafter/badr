@@ -17,13 +17,13 @@ import {CustomStyleSheet} from '../../../styles/index';
 import {translate} from '../../../commons/i18n';
 
 /** Inmemory session */
-import {CommonSession} from '../../../commons/services/session/commonSession';
+import {Session} from '../../../commons/services/session/Session';
 
 class ControleVehiculesSearch extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      login: CommonSession.getInstance().getLogin(),
+      login: Session.getInstance().getLogin(),
       status: '',
       numeroChassis: '',
       numeroCarteGrise: '',

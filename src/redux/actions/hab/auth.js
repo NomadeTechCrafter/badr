@@ -11,7 +11,7 @@ import {translate} from '../../../commons/i18n';
 import {saveStringified} from '../../../services/storage-service';
 
 /** Inmemory session */
-import {CommonSession} from '../../../commons/services/session/commonSession';
+import {Session} from '../../../commons/services/session/Session';
 
 export function request(action, navigation) {
   return (dispatch) => {
@@ -25,7 +25,7 @@ export function request(action, navigation) {
             /** Saving the user login into the local storage */
             saveStringified('user', data).then(() => data.login);
             /** Saving the user login into the global in-memory session */
-            CommonSession.getInstance().setLogin(data.login);
+            Session.getInstance().setLogin(data.login);
             /** Naviguer vers la vue suivant. */
             navigation.navigate('SmsVerify', {login: action.value.login});
           } else {

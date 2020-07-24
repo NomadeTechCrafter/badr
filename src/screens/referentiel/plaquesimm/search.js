@@ -15,7 +15,7 @@ import {Col, Row, Grid} from 'react-native-easy-grid';
 import {CustomStyleSheet} from '../../../styles/index';
 
 /** Inmemory session */
-import {CommonSession} from '../../../commons/services/session/commonSession';
+import {Session} from '../../../commons/services/session/Session';
 
 /**Custom Components */
 import {
@@ -30,7 +30,7 @@ const initialState = {
   messageVisibility: false,
   message: '',
   messageType: '',
-  login: CommonSession.getInstance().getLogin(),
+  login: Session.getInstance().getLogin(),
   vehiculeNumChassis: '',
   vehiculeNumImmat1: '',
   vehiculeNumImmat2: '',

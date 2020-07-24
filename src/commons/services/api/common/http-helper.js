@@ -8,7 +8,7 @@ import {
 import * as axios from 'axios';
 
 /** Inmemory session */
-import {Session} from '../../session/commonSession';
+import {Session} from '../../session/Session';
 import localStore from '../local-data';
 
 const instance = axios.create({
@@ -32,9 +32,9 @@ export default class HttpHelper {
     console.log(response.headers['session_id']);
     console.log('_____________*** *** ***_________________');
     Session.getInstance().setSessionId(response.headers['session_id']);
-    console.log('CommonSession.getInstance().getSessionId(true)');
+    console.log('Session.getInstance().getSessionId(true)');
     console.log(Session.getInstance().getSessionId(true));
-    console.log('CommonSession.getInstance().getSessionId(false)');
+    console.log('Session.getInstance().getSessionId(false)');
     console.log(Session.getInstance().getSessionId(false));
     return response;
   }

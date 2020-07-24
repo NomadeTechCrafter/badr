@@ -10,7 +10,7 @@ import {saveStringified} from '../../../services/storage-service';
 import {translate} from '../../../commons/i18n';
 
 /** Inmemory session */
-import {CommonSession} from '../../../commons/services/session/commonSession';
+import {Session} from '../../../commons/services/session/Session';
 
 function doAsyncStorageOperations(data) {
   /** Saving the listFonctionnaliteVOs for menu usage */
@@ -24,7 +24,7 @@ function doAsyncStorageOperations(data) {
     codeUOR: data.codeUOR,
   };
 
-  CommonSession.getInstance().setUserObject(user);
+  Session.getInstance().setUserObject(user);
   /** Saving user information in the local storage */
   saveStringified('user', user).then(() => user);
 }

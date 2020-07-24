@@ -5,10 +5,11 @@ import fr from '../../common/translations/fr';
 /**
  1) Import all translation modules imports
  */
-import loginTranslations from '../../hab/login/i18n/habLoginTranslate';
-import smsVerifyTranslations from '../../hab/smsVerify/i18n/habSmsVerifyTranslate';
-import profileTranslations from '../../hab/profile/i18n/habProfileTranslate';
-import annoncesTranslations from '../../hab/annonces/i18n/habAnnoncesTranslate';
+import loginTranslations from '../../modules/hab/login/i18n/habLoginTranslate';
+import smsVerifyTranslations from '../../modules/hab/smsVerify/i18n/habSmsVerifyTranslate';
+import profileTranslations from '../../modules/hab/profile/i18n/habProfileTranslate';
+import annoncesTranslations from '../../modules/hab/annonces/i18n/habAnnoncesTranslate';
+import atTranslations from '../../modules/at/apurement/i18n/atApurementTranslate';
 import commonTranslations from '../i18n/common';
 
 const locales = RNLocalize.getLocales();
@@ -21,7 +22,7 @@ I18n.fallbacks = true;
 /**
  2) Add here all translation modules imports
  */
-let combined = {...commonTranslations, ...annoncesTranslations, ...loginTranslations, ...smsVerifyTranslations, ...profileTranslations};
+let combined = {...commonTranslations, ...annoncesTranslations, ...loginTranslations, ...smsVerifyTranslations, ...profileTranslations, ...atTranslations};
 I18n.translations = {
   fr: combined,
 };

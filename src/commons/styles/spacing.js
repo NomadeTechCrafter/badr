@@ -34,12 +34,11 @@ export const card = {
 };
 
 export const badrPicker = {
-  margin: 0,
-  padding: 10,
 };
 
 export const badrPickerTitle = {
   marginBottom: 10,
+  paddingLeft: 10,
 };
 
 export const menuHeader = {

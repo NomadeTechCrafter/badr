@@ -1,7 +1,7 @@
 import HttpHelper from './common/http-helper';
 
 /** Inmemory session */
-import {CommonSession} from '../../commons/services/session/commonSession';
+import {Session} from '../../commons/services/session/Session';
 
 const WS_MODULE_PARAM = 'CONTROL_LIB';
 export default class ControleApi {
@@ -101,7 +101,7 @@ export default class ControleApi {
   static getDetailBAD = async (data) => {
     const _data = {
       dtoHeader: {
-        userLogin: CommonSession.getInstance().getLogin(),
+        userLogin: Session.getInstance().getLogin(),
         fonctionnalite: 'cf6153',
         module: WS_MODULE_PARAM,
         commande: 'getDetailBAD',

@@ -3,7 +3,7 @@ import {ScrollView, View} from 'react-native';
 import {RechercheRefDum, Toolbar, BadrButtonIcon} from '../../../components';
 /**i18n */
 import {translate} from '../../../commons/i18n';
-import {CommonSession} from '../../../commons/services/session/commonSession';
+import {Session} from '../../../commons/services/session/Session';
 import {connect} from 'react-redux';
 import * as Constants from '../../../common/constants/controle/rechercheDum';
 import * as RechecheDumAction from '../../../redux/actions/controle/rechercheDum';
@@ -45,7 +45,7 @@ class RechecheDum extends Component {
       {
         type: Constants.RECHERCHEDUM_LISTDECLARATION_REQUEST,
         value: {
-          login: CommonSession.getInstance().getLogin(),
+          login: Session.getInstance().getLogin(),
           typeControle: this.typeControle,
         },
       },

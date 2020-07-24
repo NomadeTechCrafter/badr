@@ -26,12 +26,12 @@ import {translate} from '../../../commons/i18n';
 import {CustomStyleSheet} from '../../../styles/index';
 
 /** Inmemory session */
-import {CommonSession} from '../../../commons/services/session/commonSession';
+import {Session} from '../../../commons/services/session/Session';
 
 class SmsVerify extends React.Component {
   state = {
     code: '',
-    login: CommonSession.getInstance().getLogin(),
+    login: Session.getInstance().getLogin(),
   };
 
   onConfirmerClicked = () => {

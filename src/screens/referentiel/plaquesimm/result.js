@@ -7,7 +7,7 @@ import {DataTable} from 'react-native-paper';
 import {CustomStyleSheet} from '../../../styles/index';
 
 /** Inmemory session */
-import {CommonSession} from '../../../commons/services/session/commonSession';
+import {Session} from '../../../commons/services/session/Session';
 
 /** i18n **/
 import {translate} from '../../../commons/i18n';

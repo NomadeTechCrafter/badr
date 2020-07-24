@@ -30,7 +30,7 @@ import {buildRouteWithParams} from '../../../common/routing';
 import Utils from '../../../common/util';
 
 /** Inmemory session */
-import {CommonSession} from '../../../commons/services/session/commonSession';
+import {Session} from '../../../commons/services/session/Session';
 
 import * as QrCodeAction from '../../../redux/actions/components/qrCode';
 
@@ -38,10 +38,10 @@ class MainMenu extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      login: CommonSession.getInstance().getLogin(),
-      fullname: Utils.buildUserFullname(CommonSession.getInstance().getUserObject()),
-      bureau: CommonSession.getInstance().getNomBureauDouane(),
-      arrondissement: CommonSession.getInstance().getLibelleArrondissement(),
+      login: Session.getInstance().getLogin(),
+      fullname: Utils.buildUserFullname(Session.getInstance().getUserObject()),
+      bureau: Session.getInstance().getNomBureauDouane(),
+      arrondissement: Session.getInstance().getLibelleArrondissement(),
     };
   }
 
@@ -50,7 +50,7 @@ class MainMenu extends React.Component {
     if (this.props.navigation) {
       this.props.navigation.toggleDrawer();
     }
-    console.log('SessionId=' + CommonSession.getInstance().getSessionId(true));
+    console.log('SessionId=' + Session.getInstance().getSessionId(true));
   }
 
   fetchMenu = (predicate) => {
@@ -66,11 +66,11 @@ class MainMenu extends React.Component {
   openIntent = async (route, id) => {
     return await Linking.openURL(
       'badrio://ma.adii.badrmobile?login=' +
-        CommonSession.getInstance().getLogin() +
+        Session.getInstance().getLogin() +
         '&route=' +
         route.screen,
       '&fonctionalite=' + id,
-      '&sessionId=' + CommonSession.getInstance().getSessionId(true),
+      '&sessionId=' + Session.getInstance().getSessionId(true),
     );
   };
 

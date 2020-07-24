@@ -2,6 +2,7 @@ import * as Constants from '../../../common/constants/components/badrPicker';
 
 const initialState = {
   picker: {
+    showProgress : false,
     empty: {
       loaded: false,
       data: [],
@@ -16,6 +17,7 @@ export default (state = initialState, action) => {
   };
   switch (action.type) {
     case Constants.BADRPICKER_REQUEST:
+      nextState.showProgress = true;
       nextState.picker[action.value.command] = {
         loaded: false,
         errorMessage: '',
@@ -32,7 +34,9 @@ export default (state = initialState, action) => {
       };
       return nextState;
     case Constants.BADRPICKER_SUCCESS:
+      nextState.showProgress = false;
       nextState.picker[action.value.command] = {
+        showProgress : false,
         loaded: true,
         errorMessage: '',
         displayError: false,
@@ -40,7 +44,9 @@ export default (state = initialState, action) => {
       };
       return nextState;
     case Constants.BADRPICKER_FAILED:
+      nextState.showProgress = false;
       nextState.picker[action.value.command] = {
+        showProgress : false,
         loaded: false,
         errorMessage: 'Erreur lors du chargement du composant : <BADR_PICKER>',
         displayError: false,

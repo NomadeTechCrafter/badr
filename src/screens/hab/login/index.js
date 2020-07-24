@@ -30,7 +30,7 @@ import {
 import {remote, bootstrapRoute} from '../../../common/config';
 
 /** Inmemory session */
-import {CommonSession} from '../../../commons/services/session/commonSession';
+import {Session} from '../../../commons/services/session/Session';
 
 /** Device informations */
 import {
@@ -60,17 +60,17 @@ class Login extends React.Component {
 
   setDeviceInformations = () => {
     getAndroidId().then((value) => {
-      CommonSession.getInstance().setDeviceId(value);
+      Session.getInstance().setDeviceId(value);
     });
     getManufacturer().then((value) => {
-      CommonSession.getInstance().setManufacturer(value);
+      Session.getInstance().setManufacturer(value);
     });
-    CommonSession.getInstance().setSystemVersion(getSystemVersion());
+    Session.getInstance().setSystemVersion(getSystemVersion());
 
-    CommonSession.getInstance().setModel(getModel());
+    Session.getInstance().setModel(getModel());
 
     getDeviceName().then((value) => {
-      CommonSession.getInstance().setDeviceName(value);
+      Session.getInstance().setDeviceName(value);
     });
   };
 

@@ -25,11 +25,10 @@ const store = createStore(
   allReducers,
   composeEnhancers(applyMiddleware(thunk)),
 );
-import Login from './hab/login/ui/habLoginScreen';
-import HabProfileScreen from './hab/smsVerify/ui/habSmsVerifyScreen';
-import Profile from './hab/profile/ui/habProfileScreen';
-
-import Home from './screens/hab/home';
+import Login from './modules/hab/login/ui/habLoginScreen';
+import HabProfileScreen from './modules/hab/profile/ui/habProfileScreen';
+import Home from './modules/hab/home/ui/habHomeScreen';
+import SmsVerifyScreen from './modules/hab/smsVerify/ui/habSmsVerifyScreen';
 
 import {primaryColor, accentColor} from './styles/index';
 
@@ -56,8 +55,13 @@ export default class App extends React.Component {
               component={Login}
             />
             <Stack.Screen
-              name="HabProfileScreen"
-              options={{headerShown: true}}
+              name="SmsVerify"
+              options={{headerShown: false}}
+              component={SmsVerifyScreen}
+            />
+            <Stack.Screen
+              name="Profile"
+              options={{headerShown: false}}
               mode="modal"
               component={HabProfileScreen}
             />
@@ -65,11 +69,6 @@ export default class App extends React.Component {
               name="Home"
               options={{headerShown: false}}
               component={Home}
-            />
-            <Stack.Screen
-              name="Profile"
-              options={{headerShown: false}}
-              component={Profile}
             />
           </BadrStackNavigator>
         </Provider>

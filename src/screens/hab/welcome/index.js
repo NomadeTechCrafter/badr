@@ -19,7 +19,7 @@ import {translate} from '../../../commons/i18n';
 import {Toolbar, BadrInfoMessage, BadrProgressBar} from '../../../components';
 
 /** Inmemory session */
-import {CommonSession} from '../../../commons/services/session/commonSession';
+import {Session} from '../../../commons/services/session/Session';
 class WelcomeScreen extends React.Component {
   componentDidMount() {
     this.fetchAnnonces();
@@ -35,7 +35,7 @@ class WelcomeScreen extends React.Component {
         command: 'getListeAnnonces',
         typeService: 'SP',
         jsonVO: {
-          listProfilsCoche: CommonSession.getInstance().getProfiles(),
+          listProfilsCoche: Session.getInstance().getProfiles(),
         },
       },
     });
@@ -53,8 +53,8 @@ class WelcomeScreen extends React.Component {
         <Toolbar
           navigation={this.props.navigation}
           icon="menu"
-          title={translate('annonces.title')}
-          subtitle={translate('annonces.subTitle')}
+          title={translate('apurement.title')}
+          subtitle={translate('apurement.subTitle')}
         />
         {this.props.showProgress && <BadrProgressBar />}
         <View style={styles.container}>
@@ -62,7 +62,7 @@ class WelcomeScreen extends React.Component {
             <BadrInfoMessage
               message={
                 this.props.data && this.props.data.length > 0
-                  ? translate('annonce.annonces')
+                  ? translate('annonce.apurement')
                   : translate('annonce.aucune_annonce')
               }
             />

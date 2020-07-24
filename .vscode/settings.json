@@ -1481,8 +1481,8 @@
 
   // Preferred path ending for auto imports.
   //  - auto: Use project settings to select a default.
-  //  - minimal: Shorten `./component/commonSession.js` to `./component`.
-  //  - index: Shorten `./component/commonSession.js` to `./component/index`
+  //  - minimal: Shorten `./component/Session.js` to `./component`.
+  //  - index: Shorten `./component/Session.js` to `./component/index`
   //  - js: Do not shorten path endings; include the `.js` extension.
   "javascript.preferences.importModuleSpecifierEnding": "auto",
 
@@ -1614,8 +1614,8 @@
 
   // Preferred path ending for auto imports.
   //  - auto: Use project settings to select a default.
-  //  - minimal: Shorten `./component/commonSession.js` to `./component`.
-  //  - index: Shorten `./component/commonSession.js` to `./component/index`
+  //  - minimal: Shorten `./component/Session.js` to `./component`.
+  //  - index: Shorten `./component/Session.js` to `./component/index`
   //  - js: Do not shorten path endings; include the `.js` extension.
   "typescript.preferences.importModuleSpecifierEnding": "auto",
 

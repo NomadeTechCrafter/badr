@@ -4,7 +4,7 @@ export const loginButton = {
 };
 
 export const loginInput = {
-  width: 280,
+  width: '50%',
   height: 50,
 };
 

@@ -28,7 +28,7 @@ const Drawer = createDrawerNavigator();
 const deltaScreen = Dimensions.get('window').width / 4;
 
 /** Inmemory session */
-import {CommonSession} from '../../../commons/services/session/commonSession';
+import {Session} from '../../../commons/services/session/Session';
 
 export default class Home extends React.Component {
   constructor(props) {
@@ -40,7 +40,7 @@ export default class Home extends React.Component {
 
   componentDidMount() {
     console.log('Displaying in memory session values ====> ');
-    console.log(CommonSession.getInstance().getNom);
+    console.log(Session.getInstance().getNom);
   }
 
   render() {

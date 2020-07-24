@@ -22,7 +22,7 @@ import {CustomStyleSheet} from '../../../styles/index';
 import {translate} from '../../../commons/i18n';
 
 /** Inmemory session */
-import {CommonSession} from '../../../commons/services/session/commonSession';
+import {Session} from '../../../commons/services/session/Session';
 
 class Profile extends React.Component {
   constructor(props) {
@@ -91,15 +91,15 @@ class Profile extends React.Component {
         this.state.selectedArrondissement,
       );
       /** Update Inmemory session */
-      CommonSession.getInstance().setCodeBureau(this.state.selectedBureau);
-      CommonSession.getInstance().setNomBureauDouane(this.state.nomBureauDouane);
-      CommonSession.getInstance().setCodeArrondissement(
+      Session.getInstance().setCodeBureau(this.state.selectedBureau);
+      Session.getInstance().setNomBureauDouane(this.state.nomBureauDouane);
+      Session.getInstance().setCodeArrondissement(
         this.state.selectedArrondissement,
       );
-      CommonSession.getInstance().setLibelleArrondissement(
+      Session.getInstance().setLibelleArrondissement(
         this.state.selectedArrondissementLibelle,
       );
-      CommonSession.getInstance().setProfiles(this.state.selectedProfiles);
+      Session.getInstance().setProfiles(this.state.selectedProfiles);
 
       this.props.actions.dispatch(action);
     } else {

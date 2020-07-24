@@ -1,10 +1,10 @@
 import {combineReducers} from 'redux';
 
-import loginReducer from '../../hab/login/state/reducers/habLoginReducer';
-import smsVerifyReducer from '../../hab/smsVerify/state/reducers/habSmsVerifyReducer';
-import confirmConnexionReducer from '../../hab/profile/state/reducers/habProfileReducer';
+import loginReducer from '../../modules/hab/login/state/reducers/habLoginReducer';
+import smsVerifyReducer from '../../modules/hab/smsVerify/state/reducers/habSmsVerifyReducer';
+import confirmConnexionReducer from '../../modules/hab/profile/state/reducers/habProfileReducer';
 import genericReducer from '../../commons/state/reducers/genericReducer';
-import menuReducer from '../../hab/mainMenu/state/reducers/habMainMenuReducer';
+import menuReducer from '../../modules/hab/mainMenu/state/reducers/habMainMenuReducer';
 
 
 import plaquesImmReducer from './referentiel/plaquesImm';

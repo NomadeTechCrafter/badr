@@ -3,7 +3,7 @@ import * as Constants from '../../../common/constants/at/at';
 import _ from 'lodash';
 
 /** Inmemory session */
-import {CommonSession} from '../../../commons/services/session/commonSession';
+import {Session} from '../../../commons/services/session/Session';
 /** i18n */
 import {translate} from '../../../commons/i18n';
 
@@ -217,12 +217,12 @@ const prepareConfirm = (incomingValue, state) => {
   }
   let newApurementVO = {
     bureauApur: {
-      code: CommonSession.getInstance().getCodeBureau(),
-      libelle: CommonSession.getInstance().getNomBureauDouane(),
+      code: Session.getInstance().getCodeBureau(),
+      libelle: Session.getInstance().getNomBureauDouane(),
     },
     arrondApur: {
-      code: CommonSession.getInstance().getCodeArrondissement(),
-      libelle: CommonSession.getInstance().getLibelleArrondissement(),
+      code: Session.getInstance().getCodeArrondissement(),
+      libelle: Session.getInstance().getLibelleArrondissement(),
     },
     typeComposApur: allTypes,
     dateApurement: incomingValue.dateApurement,
