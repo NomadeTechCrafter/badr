@@ -21,7 +21,8 @@ export default {
       'Veuillez saisir le code de vérification que vous avez reçu par SMS (compose de 6 chiffres)',
     confirm: 'Confirmer',
     codeCorrect: 'Code correct',
-    codeIncorrect: 'La vérification a échouée. Merci de vérifier le code introduit.',
+    codeIncorrect:
+      'La vérification a échouée. Merci de vérifier le code introduit.',
     codePlaceholder: '6 chiffres reçus par SMS',
   },
   profile: {
@@ -227,6 +228,8 @@ export default {
         apurementOK: 'S40003 : AT Apurée avec succés',
       },
       mandatory: {
+        fields:
+          'Merci de saisir tous les champs obligatoires puis séléctionner au moins un composant à apurer.',
         dateApurement: 'La date apurement est une donnée obligatoire.',
       },
       title: 'Apurement',

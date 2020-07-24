@@ -173,7 +173,7 @@ class Apurement extends React.Component {
   };
 
   confirmer = () => {
-    if (this.state.dateApurement) {
+    if (this.state.dateApurement && this.componentsAapurer.length > 0) {
       this.setState({
         errorMessage: null,
       });
@@ -200,7 +200,7 @@ class Apurement extends React.Component {
     } else {
       this.scroll.scrollTo({x: 0, y: 0, animated: true});
       this.setState({
-        errorMessage: translate('at.apurement.mandatory.dateApurement'),
+        errorMessage: translate('at.apurement.mandatory.fields'),
       });
     }
   };
@@ -237,7 +237,6 @@ class Apurement extends React.Component {
   onComposantSelected = () => {};
 
   onDateApurementChanged = (date) => {
-    console.log(Utils.isSameThanNow(date, 'DD/MM/YYYY'));
     if (!Utils.isSameThanNow(date, 'DD/MM/YYYY')) {
       this.setState({showMotif: true});
     } else {
@@ -257,6 +256,13 @@ class Apurement extends React.Component {
     });
     this.props.actions.dispatch(apurerAction);
     this.setState({showNouveauApur: false});
+  };
+
+  onExportateurChanged = (text) => {
+    this.setState({exportateur: text});
+  };
+  onMotifTextChanged = (text) => {
+    this.setState({motif: text});
   };
 
   onScreenReloaded = () => {
@@ -288,23 +294,6 @@ class Apurement extends React.Component {
   componentWillUnmount() {
     this._unsubscribe();
   }
-
-  buildMotif = () => {
-    return this.state.selectedApurement.motifDateApur ? (
-      <TextInput
-        disabled="true"
-        multiline={true}
-        numberOfLines={4}
-        style={styles.textInputsStyle}
-        underlineColor={primaryColor}
-        mode="outlined"
-        value={this.state.selectedApurement.motifDateApur}
-        label={translate('at.apurement.motif')}
-      />
-    ) : (
-      <View />
-    );
-  };
 
   render() {
     console.log(this.props);
@@ -400,245 +389,74 @@ class Apurement extends React.Component {
                 )}
               {this.state.showNouveauApur && (
                 <CardBox style={styles.cardBox}>
-                  <CardsWithTitle title={translate('at.apurement.title')}>
-                    <View>
-                      <Row size={100}>
-                        <Col size={50}>
-                          <TextInput
-                            style={styles.textInputsStyle}
-                            mode="outlined"
-                            value={
-                              this.props.initApurement.data.atEnteteVO
-                                .bureauEntree.libelle
-                            }
-                            disabled="true"
-                            label={translate('at.apurement.bureauApurement')}
-                          />
-                        </Col>
-                        <Col size={50}>
-                          <TextInput
-                            style={styles.textInputsStyle}
-                            underlineColor={primaryColor}
-                            mode="outlined"
-                            value={
-                              this.props.initApurement.data.atEnteteVO
-                                .arrondEntree.libelle
-                            }
-                            disabled="true"
-                            label={translate('at.apurement.arrondApurement')}
-                          />
-                        </Col>
-                      </Row>
+                  <AtForm
+                    readonly={false}
+                    onDateApurementChanged={this.onDateApurementChanged}
+                    bureauApur={
+                      this.props.initApurement.data.atEnteteVO.bureauEntree
+                        .libelle
+                    }
+                    arrondApur={
+                      this.props.initApurement.data.atEnteteVO.arrondEntree
+                        .libelle
+                    }
+                    motifDateApur={this.state.motif}
+                    onMotifTextChanged={this.onMotifTextChanged}
+                    showMotif={this.state.showMotif}
+                    exportateur={this.state.exportateur}
+                    onExportateurChanged={this.onExportateurChanged}
+                  />
+                  <AtComposants
+                    onRef={(ref) => (this.badrComposantsTable = ref)}
+                    rows={this.props.initApurement.data.composantsApures}
+                    cols={this.composantTablesCols}
+                    onItemSelected={this.onComposantSelected}
+                    totalElements={
+                      this.props.initApurement.data.composantsApures
+                        ? this.props.initApurement.data.composantsApures.length
+                        : 0
+                    }
+                  />
 
-                      <Row>
-                        <Col size={50}>
-                          <BadrDatePicker
-                            dateFormat="DD/MM/YYYY"
-                            onDateChanged={this.onDateApurementChanged}
-                            inputStyle={styles.textInputsStyle}
-                          />
-                        </Col>
-                        <Col size={50} />
-                      </Row>
-
-                      <Row>
-                        <Col size={100}>
-                          {this.state.showMotif && (
-                            <TextInput
-                              multiline={true}
-                              numberOfLines={4}
-                              style={styles.textInputsStyle}
-                              underlineColor={primaryColor}
-                              mode="outlined"
-                              value={this.state.motif}
-                              onChangeText={(text) =>
-                                this.setState({motif: text})
-                              }
-                              label={translate('at.apurement.motif')}
-                            />
-                          )}
-                        </Col>
-                      </Row>
-
-                      <Row size={100}>
-                        <Col size={50}>
-                          <TextInput
-                            style={styles.textInputsStyle}
-                            underlineColor={primaryColor}
-                            mode="outlined"
-                            value={translate('at.apurement.reexportation')}
-                            disabled="true"
-                            label={translate('at.apurement.mode')}
-                          />
-                        </Col>
-                        <Col size={50}>
-                          <TextInput
-                            style={styles.textInputsStyle}
-                            underlineColor={primaryColor}
-                            mode="outlined"
-                            onChangeText={(text) =>
-                              this.setState({exportateur: text})
-                            }
-                            value={this.state.exportateur}
-                            label={translate('at.apurement.exportateur')}
-                          />
-                        </Col>
-                      </Row>
-                    </View>
-                  </CardsWithTitle>
-                  <CardsWithTitle
-                    title={translate('at.apurement.titleTableauCompo')}>
-                    <View style={styles.flexDirectionRow}>
-                      <BadrTable
-                        onRef={(ref) => (this.badrComposantsTable = ref)}
-                        hasId={true}
-                        id="idComposant"
-                        rows={this.props.initApurement.data.composantsApures}
-                        cols={this.composantTablesCols}
-                        onItemSelected={this.onComposantSelected}
-                        totalElements={
-                          this.props.initApurement.data.composantsApures
-                            ? this.props.initApurement.data.composantsApures
-                                .length
-                            : 0
-                        }
-                        maxResultsPerPage={5}
-                        paginate={true}
-                      />
-                    </View>
-                  </CardsWithTitle>
-                  <View style={styles.actionsContainer}>
-                    <Row size={4}>
-                      <Col />
-                      <Col>
-                        <Button
-                          onPress={() => this.confirmer()}
-                          icon="check"
-                          mode="contained"
-                          style={styles.btnActions}>
-                          {translate('transverse.confirmer')}
-                        </Button>
-                      </Col>
-                      <Col size={1}>
-                        <Button
-                          onPress={() => this.abandonner()}
-                          icon="autorenew"
-                          mode="contained"
-                          style={styles.btnActions}>
-                          {translate('transverse.abandonner')}
-                        </Button>
-                      </Col>
-                      <Col />
-                    </Row>
-                  </View>
+                  <AtConfirmBlock
+                    onConfirmer={this.confirmer}
+                    onAbondonner={this.abandonner}
+                  />
                 </CardBox>
               )}
 
               {this.state.consulterApur && (
                 <CardBox style={styles.cardBox}>
-                  <CardsWithTitle title={translate('at.apurement.title')}>
-                    <View>
-                      <Row size={100}>
-                        <Col size={50}>
-                          <TextInput
-                            style={styles.textInputsStyle}
-                            mode="outlined"
-                            value={
-                              this.state.selectedApurement.bureauApur.libelle
-                            }
-                            disabled="true"
-                            label={translate('at.apurement.bureauApurement')}
-                          />
-                        </Col>
-                        <Col size={50}>
-                          <TextInput
-                            style={styles.textInputsStyle}
-                            underlineColor={primaryColor}
-                            mode="outlined"
-                            value={
-                              this.state.selectedApurement.arrondApur.libelle
-                            }
-                            disabled="true"
-                            label={translate('at.apurement.arrondApurement')}
-                          />
-                        </Col>
-                      </Row>
-
-                      <Row>
-                        <Col size={50}>
-                          <TextInput
-                            style={styles.textInputsStyle}
-                            underlineColor={primaryColor}
-                            mode="outlined"
-                            value={this.state.selectedApurement.dateApurement}
-                            label={translate('at.apurement.dateApurement')}
-                            disabled="true"
-                          />
-                        </Col>
-                        <Col size={50} />
-                      </Row>
-
-                      <Row>
-                        <Col size={100}>
-                          <View>{this.buildMotif()}</View>
-                        </Col>
-                      </Row>
-
-                      <Row size={100}>
-                        <Col size={50}>
-                          <TextInput
-                            style={styles.textInputsStyle}
-                            underlineColor={primaryColor}
-                            mode="outlined"
-                            value={translate('at.apurement.reexportation')}
-                            disabled="true"
-                            label={translate('at.apurement.mode')}
-                          />
-                        </Col>
-                        <Col size={50}>
-                          <TextInput
-                            style={styles.textInputsStyle}
-                            underlineColor={primaryColor}
-                            mode="outlined"
-                            disabled="true"
-                            value={
-                              this.state.selectedApurement
-                                .apurementComposantVOs &&
-                              this.state.selectedApurement.apurementComposantVOs
-                                .length > 0
-                                ? this.state.selectedApurement
-                                    .apurementComposantVOs[0].exportateur
-                                : ''
-                            }
-                            label={translate('at.apurement.exportateur')}
-                          />
-                        </Col>
-                      </Row>
-                    </View>
-                  </CardsWithTitle>
-                  <CardsWithTitle
-                    title={translate('at.apurement.titleTableauCompo')}>
-                    <View style={styles.flexDirectionRow}>
-                      <BadrTable
-                        onRef={(ref) => (this.badrComposantsTable = ref)}
-                        hasId={true}
-                        id="idComposant"
-                        rows={
-                          this.state.selectedApurement.apurementComposantVOs
-                        }
-                        cols={this.composantTablesColsConsult}
-                        onItemSelected={() => {}}
-                        totalElements={
-                          this.state.selectedApurement.apurementComposantVOs
-                            ? this.state.selectedApurement.apurementComposantVOs
-                                .length
-                            : 0
-                        }
-                        maxResultsPerPage={5}
-                        paginate={true}
-                      />
-                    </View>
-                  </CardsWithTitle>
+                  <AtForm
+                    readonly={true}
+                    bureauApur={this.state.selectedApurement.bureauApur.libelle}
+                    arrondApur={this.state.selectedApurement.arrondApur.libelle}
+                    dateApurement={this.state.selectedApurement.dateApurement}
+                    motifDateApur={this.state.selectedApurement.motifDateApur}
+                    showMotif={
+                      this.state.selectedApurement.motifDateApur !== null
+                    }
+                    exportateur={
+                      this.state.selectedApurement.apurementComposantVOs &&
+                      this.state.selectedApurement.apurementComposantVOs
+                        .length > 0
+                        ? this.state.selectedApurement.apurementComposantVOs[0]
+                            .exportateur
+                        : ''
+                    }
+                  />
+                  <AtComposants
+                    onRef={(ref) => (this.badrComposantsTable = ref)}
+                    rows={this.state.selectedApurement.apurementComposantVOs}
+                    cols={this.composantTablesColsConsult}
+                    onItemSelected={() => {}}
+                    totalElements={
+                      this.state.selectedApurement.apurementComposantVOs
+                        ? this.state.selectedApurement.apurementComposantVOs
+                            .length
+                        : 0
+                    }
+                  />
                 </CardBox>
               )}
             </Container>
@@ -682,6 +500,192 @@ function mapDispatchToProps(dispatch) {
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Apurement);
+
+const AtConfirmBlock = (props) => {
+  return (
+    <View style={styles.actionsContainer}>
+      <Row size={4}>
+        <Col />
+        <Col>
+          <Button
+            onPress={() => props.onConfirmer()}
+            icon="check"
+            mode="contained"
+            style={styles.btnActions}>
+            {translate('transverse.confirmer')}
+          </Button>
+        </Col>
+        <Col size={1}>
+          <Button
+            onPress={() => props.onAbandonner()}
+            icon="autorenew"
+            mode="contained"
+            style={styles.btnActions}>
+            {translate('transverse.abandonner')}
+          </Button>
+        </Col>
+        <Col />
+      </Row>
+    </View>
+  );
+};
+
+const AtComposants = (props) => {
+  return (
+    <CardsWithTitle title={translate('at.apurement.titleTableauCompo')}>
+      <View style={styles.flexDirectionRow}>
+        <BadrTable
+          onRef={props.onRef}
+          hasId={true}
+          id="idComposant"
+          rows={props.rows}
+          cols={props.cols}
+          onItemSelected={props.onComposantSelected}
+          totalElements={props.totalElements}
+          maxResultsPerPage={5}
+          paginate={true}
+        />
+      </View>
+    </CardsWithTitle>
+  );
+};
+
+const AtForm = (props) => {
+  return (
+    <CardsWithTitle title={translate('at.apurement.title')}>
+      <View>
+        <Row size={100}>
+          <Col size={50}>
+            <TextInput
+              style={styles.textInputsStyle}
+              mode="outlined"
+              value={props.bureauApur}
+              disabled="true"
+              label={translate('at.apurement.bureauApurement')}
+            />
+          </Col>
+          <Col size={50}>
+            <TextInput
+              style={styles.textInputsStyle}
+              underlineColor={primaryColor}
+              mode="outlined"
+              value={props.arrondApur}
+              disabled="true"
+              label={translate('at.apurement.arrondApurement')}
+            />
+          </Col>
+        </Row>
+
+        <Row>
+          <Col size={50}>
+            {props.readonly && (
+              <TextInput
+                style={styles.textInputsStyle}
+                underlineColor={primaryColor}
+                mode="outlined"
+                value={props.dateApurement}
+                label={translate('at.apurement.dateApurement')}
+                disabled={props.readonly}
+              />
+            )}
+            {!props.readonly && (
+              <BadrDatePicker
+                dateFormat="DD/MM/YYYY"
+                onDateChanged={props.onDateApurementChanged}
+                inputStyle={styles.textInputsStyle}
+              />
+            )}
+          </Col>
+          <Col size={50} />
+        </Row>
+
+        <Row>
+          <Col size={100}>
+            <View>
+              {props.showMotif ? (
+                buildMotif(
+                  props.readonly,
+                  props.motifDateApur,
+                  props.onMotifTextChanged,
+                )
+              ) : (
+                <></>
+              )}
+            </View>
+          </Col>
+        </Row>
+
+        <Row size={100}>
+          <Col size={50}>
+            <TextInput
+              style={styles.textInputsStyle}
+              underlineColor={primaryColor}
+              mode="outlined"
+              value={translate('at.apurement.reexportation')}
+              disabled={props.readonly}
+              label={translate('at.apurement.mode')}
+            />
+          </Col>
+          <Col size={50}>
+            {props.readonly && (
+              <TextInput
+                style={styles.textInputsStyle}
+                underlineColor={primaryColor}
+                mode="outlined"
+                disabled={props.readonly}
+                value={props.exportateur}
+                label={translate('at.apurement.exportateur')}
+              />
+            )}
+            {!props.readonly && (
+              <TextInput
+                style={styles.textInputsStyle}
+                underlineColor={primaryColor}
+                mode="outlined"
+                onChangeText={(text) => props.onExportateurChanged(text)}
+                value={props.exportateur}
+                label={translate('at.apurement.exportateur')}
+              />
+            )}
+          </Col>
+        </Row>
+      </View>
+    </CardsWithTitle>
+  );
+};
+
+const buildMotif = (readonly, motifDateApur, onMotifTextChanged) => {
+  let motifComponent = <></>;
+  if (motifDateApur && readonly) {
+    motifComponent = (
+      <TextInput
+        disabled={readonly}
+        multiline={true}
+        numberOfLines={4}
+        style={styles.textInputsStyle}
+        underlineColor={primaryColor}
+        mode="outlined"
+        value={motifDateApur}
+        label={translate('at.apurement.motif')}
+      />
+    );
+  } else if (!readonly) {
+    motifComponent = (
+      <TextInput
+        disabled={readonly}
+        multiline={true}
+        numberOfLines={4}
+        style={styles.textInputsStyle}
+        underlineColor={primaryColor}
+        mode="outlined"
+        onChangeText={(text) => onMotifTextChanged(text)}
+        value={motifDateApur}
+        label={translate('at.apurement.motif')}
+      />
+    );
+  }
+  return motifComponent;
+};
 
 const styles = {
   fabContainer: {
