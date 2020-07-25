@@ -17,6 +17,7 @@ import * as Alignment from './alignment';
 import {StyleSheet} from 'react-native';
 
 export const primaryColor = '#009ab2';
+export const primaryColorRgba = '0, 154, 178';
 export const accentColor = '#FFFFFF';
 export const warnColor = '#ffcc00';
 export const errorColor = 'red';

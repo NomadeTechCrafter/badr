@@ -105,7 +105,6 @@ class CreerApurement extends React.Component {
           title={translate('at.title')}
           subtitle={translate('at.apurement.subTitleAction')}
         />
-        {this.props.showProgress && <BadrProgressBar/>}
         {this.props.errorMessage != null && (
           <View style={styles.messages}>
             <BadrErrorMessage

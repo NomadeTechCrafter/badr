@@ -310,7 +310,6 @@ class Apurement extends React.Component {
   };
 
   render() {
-    console.log(this.props);
     const atVo = this.props.initApurement.data;
     return (
       <View style={styles.fabContainer}>
@@ -326,7 +325,6 @@ class Apurement extends React.Component {
             icon="menu"
           />
 
-          {this.props.initApurement.showProgress && <BadrProgressBar/>}
           {atVo != null && atVo.atEnteteVO != null && (
             <Container>
               {this.props.initApurement.errorMessage != null && (

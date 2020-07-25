@@ -139,6 +139,7 @@ export default {
     subTitle: "Écran D'accueil",
   },
   transverse: {
+    inprogress : 'Veuillez patienter...',
     bureau: 'Bureau',
     regime: 'Régime',
     annee: 'Année',

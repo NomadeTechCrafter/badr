@@ -18,7 +18,7 @@ import {connect} from 'react-redux';
 
 /**ACTIONS */
 import * as Constants from '../../../constants/components/badrPicker';
-import * as badrPickerAction from '../../../state/actions/badrPicker';
+import * as badrPickerAction from '../../../state/actions/badrPickerChecker';
 
 import {translate} from '../../../i18n';
 
@@ -37,7 +37,7 @@ class BadrPickerChecker extends React.Component {
 
   fetchData = (params) => {
     let action = badrPickerAction.request({
-      type: Constants.BADRPICKER_REQUEST,
+      type: Constants.BADRPICKER_CHECKER_REQUEST,
       value: {
         module: this.props.module,
         command: this.props.command,

@@ -48,13 +48,12 @@ class habAnnoncesScreen extends React.Component {
           title={translate('annonce.title')}
           subtitle={translate('annonce.subTitle')}
         />
-        {this.props.showProgress && <BadrProgressBar />}
         <View style={styles.container}>
           {!this.props.showProgress && (
             <BadrInfoMessage
               message={
                 this.props.data && this.props.data.length > 0
-                  ? translate('annonce.apurement')
+                  ? translate('annonce.annonces')
                   : translate('annonce.aucune_annonce')
               }
             />

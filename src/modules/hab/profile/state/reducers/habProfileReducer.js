@@ -3,7 +3,7 @@ import * as Constants from '../habProfileConstants';
 
 const initialState = {
   confirmed: false,
-  showProgressConfirmCnx: false,
+  showProgress: false,
   displayError: false,
 };
 
@@ -16,16 +16,16 @@ export default (state = initialState, action) => {
     case Constants.CONFIRMCNX_REQUEST:
       nextState.displayError = false;
       nextState.correct = false;
-      nextState.showProgressConfirmCnx = true;
+      nextState.showProgress = true;
       return nextState;
     case Constants.CONFIRMCNX_IN_PROGRESS:
       return nextState;
     case Constants.CONFIRMCNX_SUCCESS:
-      nextState.showProgressConfirmCnx = false;
+      nextState.showProgress = false;
       nextState.confirmed = true;
       return nextState;
     case Constants.CONFIRMCNX_FAILED:
-      nextState.showProgressConfirmCnx = false;
+      nextState.showProgress = false;
       nextState.cofirmed = false;
       nextState.displayError = true;
       nextState.errorMessage = action.value;
@@ -33,7 +33,7 @@ export default (state = initialState, action) => {
     case Constants.CONFIRMCNX_INIT:
       return initialState;
     default:
-      nextState.showProgressConfirmCnx = false;
+      nextState.showProgress = false;
       return initialState;
   }
 };

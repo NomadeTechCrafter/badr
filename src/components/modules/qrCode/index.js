@@ -1,8 +1,6 @@
 'use strict';
 import React from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {ActivityIndicator, Colors} from 'react-native-paper';
-import QRCodeScanner from 'react-native-qrcode-scanner';
+import {Text, View} from 'react-native';
 /** redux */
 import {connect} from 'react-redux';
 import * as Constants from '../../../common/constants/components/qrCode';

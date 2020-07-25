@@ -10,8 +10,8 @@ import menuReducer from '../../modules/hab/mainMenu/state/reducers/habMainMenuRe
 import plaquesImmReducer from './referentiel/plaquesImm';
 import controleVehiculesReducer from './referentiel/controleVehicules';
 import badReducer from './controle/BAD';
-import badrPickerReducer from './components/badrPicker';
-import badrPickerCheckerReducer from './components/badrPickerChecker';
+import badrPickerReducer from '../../commons/state/reducers/badrPicker';
+import badrPickerCheckerReducer from '../../commons/state/reducers/badrPickerChecker';
 
 import qrCodeReducer from './components/qrCode';
 import badrApiTable from './components/badrApiTable';

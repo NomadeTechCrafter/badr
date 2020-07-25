@@ -1,19 +1,33 @@
 import React from 'react';
-import {View, StyleSheet, Modal} from 'react-native';
+import {View, StyleSheet, ImageBackground, ActivityIndicator} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import _ from 'lodash';
-import {connect} from 'react-redux';
-
-import {BadrProgressBar} from '../../index';
 
 const Stack = createStackNavigator();
+import _ from 'lodash';
+import {connect} from 'react-redux';
+import {primaryColor, primaryColorRgba, accentColor} from '../../../styles';
+import Spinner from 'react-native-loading-spinner-overlay';
+import {translate} from '../../../i18n';
+
 
 class BadrStackNavigator extends React.Component {
+
   render = () => {
     return (
       <View style={styles.container}>
-        {this.props.showProgress && <BadrLoader visible={true}/>}
+        {this.props.showProgress &&
+        <Spinner
+          visible={true}
+          cancelable={false}
+          animation="fade"
+          color={accentColor}
+          overlayColor={'rgba(' + primaryColorRgba + ',0.80)'}
+          textStyle={styles.spinnerTextStyle}
+          textContent={translate('transverse.inprogress')}
+          textStyle={{color : accentColor, fontSize : 20, fontWeight : 'normal'}}
+        />
+        }
         <NavigationContainer>
           <Stack.Navigator>{this.props.children}</Stack.Navigator>
         </NavigationContainer>
@@ -21,23 +35,6 @@ class BadrStackNavigator extends React.Component {
     );
   };
 }
-
-const BadrLoader = (props) => {
-  const {isLoading} = props;
-  return (
-    <Modal
-      transparent
-      animationType={'none'}
-      visible={isLoading}
-      onRequestClose={() => {
-      }}>
-      <BadrProgressBar/>
-      <View style={styles.modalBackground}>
-        <BadrProgressBar circle={true}/>
-      </View>
-    </Modal>
-  );
-};
 
 const mapStateToProps = (state) => {
   let reducerHasLoading = _.pickBy(state, {showProgress: true});
@@ -55,6 +52,9 @@ export default connect(mapStateToProps, null)(BadrStackNavigator);
 
 const styles = StyleSheet.create({
   container: {flex: 1},
+  spinnerTextStyle: {
+    color: primaryColor,
+  },
   modalBackground: {
     flex: 1,
     alignItems: 'center',
