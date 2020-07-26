@@ -1,24 +1,5 @@
 const mapping = {
-  '3072': {screen: 'RechercheDum', params: {typeControle: 'RI'}},
-  '3064': {screen: 'RechercheDum', params: {typeControle: 'AC'}},
-  '3086': {screen: 'RechercheDum', params: {typeControle: 'TR'}},
-  '823': {screen: 'PlaquesImmatriculation', params: {}},
-  '5971': {screen: 'RechecheMLV', params: {}},
-  '597111': {screen: 'RechecheMLV', params: {qr: true}},
-  '4096': {screen: 'ControleVehicules', params: {}},
   '9005': {screen: 'CreerApurement', params: {qr: true}},
-  '1201': {
-    screen: 'RechercheEcorImport',
-    params: {typeEcorImport: 'EnleverMarchandise'},
-  },
-  '1203': {
-    screen: 'RechercheEcorImport',
-    params: {typeEcorImport: 'EnleverMarchandiseParPesage'},
-  },
-};
-
-const rnMapping = {
-  '110001': {screen: 'T6bis', params: {}},
 };
 
 const ionicMapping = {
@@ -42,15 +23,11 @@ const buildIonicRoute = (code) => {
   return ionicMapping[code];
 };
 
-const buildRnRoute = (code) => {
-  return rnMapping[code];
-};
-
 const buildRouteWithParams = (code) => {
-  console.log('code ==> ' + code);
-  return mapping[code] && mapping[code].screen
-    ? {screen: mapping[code].screen, params: mapping[code].params}
-    : buildIonicRoute(code);
+  if (mapping[code] && mapping[code].screen) {
+    return {screen: mapping[code].screen, params: mapping[code].params};
+  }
+  return mapping[code];
 };
 
-export {buildRouteWithParams, buildRoute, buildRnRoute};
+export {buildRouteWithParams, buildRoute};

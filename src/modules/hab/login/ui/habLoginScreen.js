@@ -53,6 +53,7 @@ class Login extends React.Component {
     getDeviceName().then((value) => {
       Session.getInstance().setDeviceName(value);
     });
+    Session.getInstance().setPlatform('Android');
   };
 
   componentDidMount() {

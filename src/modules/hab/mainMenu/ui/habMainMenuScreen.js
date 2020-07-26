@@ -52,7 +52,7 @@ class habMainMenuScreen extends React.Component {
   }
 
   fetchMenu = (predicate) => {
-    var action = menuAction.request({
+    let action = menuAction.request({
       type: Constants.MENU_REQUEST,
       value: {
         predicate: predicate,
@@ -61,40 +61,39 @@ class habMainMenuScreen extends React.Component {
     this.props.dispatch(action);
   };
 
-  openIntent = async (route, id) => {
-    return await Linking.openURL(
-      'badrio://ma.adii.badrmobile?login=' + Session.getInstance().getLogin() +
-      '&route=' + route.screen,
-      '&fonctionalite=' + id,
-      '&password=' + Session.getInstance().getSessionId(true),
-      '&profiles=' + Session.getInstance().getSessionId(true),
-      '&bureau=' + Session.getInstance().getSessionId(true),
-      '&codeBureau=' + Session.getInstance().getSessionId(true),
-      '&arrondissement=' + Session.getInstance().getSessionId(true),
-      '&codeArrondissement=' + Session.getInstance().getSessionId(true),
-      '&uuid=' + Session.getInstance().getSessionId(true),
-      '&manifacturer=' + Session.getInstance().getSessionId(true),
-      '&model=' + Session.getInstance().getSessionId(true),
-      '&platform=' + Session.getInstance().getSessionId(true),
-      '&version=' + Session.getInstance().getSessionId(true),
-      '&codeSmsVerify=' + Session.getInstance().getSessionId(true)
-
-    );
+  openIntent = async ( id) => {
+    let url = `badrio://ma.adii.badrmobile?login=${Session.getInstance().getLogin()}
+      &route=${id}
+      &fonctionalite=${id}
+      &password=${Session.getInstance().getPassword()}
+      &profiles=${JSON.stringify(Session.getInstance().getProfiles())}
+      &bureau=${Session.getInstance().getNomBureauDouane()}
+      &codeBureau=${Session.getInstance().getCodeBureau()}
+      &arrondissement=${Session.getInstance().getLibelleArrondissement()}
+      &codeArrondissement=${Session.getInstance().getCodeArrondissement()}
+      &uuid=${Session.getInstance().getDeviceId()}
+      &manifacturer=${Session.getInstance().getManufacturer()}
+      &model=${Session.getInstance().getModel()}
+      &platform=${Session.getInstance().getPlatform()}
+      &version=${Session.getInstance().getSystemVersion()}
+      &codeSmsVerify=${Session.getInstance().getCodeSmsVerify()}`;
+    console.log(url);
+    return await Linking.openURL(url);
   };
 
   onItemSelected = (item) => {
     if (this.props.navigation) {
       let route = buildRouteWithParams(item.id);
+      console.log(route);
       if (route) {
         if (route.params.qr) {
           Zxing.default.showQrReader(this.onBarcodeRead);
-          this.props.navigation.navigate(route.screen, route.params);
-        } else if (route.screen.includes('app2.')) {
-          this.openIntent(route, item.id).then((resp) => {
-          });
-        } else {
-          this.props.navigation.navigate(route.screen, route.params);
         }
+        this.props.navigation.navigate(route.screen, route.params);
+      } else {
+        this.openIntent(item.id).then((resp) => {
+          console.log(resp);
+        });
       }
     }
   };
@@ -134,6 +133,7 @@ class habMainMenuScreen extends React.Component {
   };
 
   render() {
+    console.log(Session.getInstance().getProfiles().join());
     return (
       <View style={CustomStyleSheet.menuContainer}>
         <MenuHeader

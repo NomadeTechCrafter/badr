@@ -26,6 +26,7 @@ export function request(action, navigation) {
             saveStringified('user', data).then(() => data.login);
             /** Saving the user login into the global in-memory session */
             Session.getInstance().setLogin(data.login);
+            Session.getInstance().setPassword(action.value.pwd);
             /** Naviguer vers la vue suivant. */
             navigation.navigate('SmsVerify', {login: action.value.login});
           } else {

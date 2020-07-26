@@ -2,6 +2,7 @@
 import {translate} from '../../../../../commons/i18n';
 import * as Constants from '../habSmsVerifyConstants';
 import HabSmsVerifyApi from '../../service/api/habSmsVerifyApi';
+import {Session} from '../../../../../commons/services/session/Session';
 
 export function request(action, navigation) {
   console.log('action===< ');
@@ -14,6 +15,7 @@ export function request(action, navigation) {
         const jsonVO = response.data.jsonVO;
         if (jsonVO.connexion && jsonVO.connexion === 'true') {
           dispatch(success(jsonVO));
+          Session.getInstance().setCodeSmsVerify(action.value.code);
           navigation.navigate('Profile', {});
         } else if (jsonVO.connexion && jsonVO.connexion === 'false') {
           dispatch(failed(translate('smsVerify.codeIncorrect')));

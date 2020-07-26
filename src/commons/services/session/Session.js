@@ -5,6 +5,8 @@ export class Session {
   static myInstance = null;
 
   _login = '';
+  _password = '';
+  _codeSmsVerify = '';
   _codeBureau = '';
   _nomBureauDouane = '';
   _libelleArrondissement = '';
@@ -38,7 +40,6 @@ export class Session {
     if (Session.myInstance === null) {
       Session.myInstance = new Session();
     }
-    console.log(`this.myInstance ===== ${this.myInstance}`);
     return this.myInstance;
   }
 
@@ -48,6 +49,22 @@ export class Session {
 
   setLogin(login) {
     this._login = login;
+  }
+
+  getPassword() {
+    return this._password;
+  }
+
+  setPassword(password) {
+    this._password = password;
+  }
+
+  getCodeSmsVerify() {
+    return this._codeSmsVerify;
+  }
+
+  setCodeSmsVerify(codeSmsVerify) {
+    this._codeSmsVerify = codeSmsVerify;
   }
 
   getSessionId(withKey) {
@@ -144,4 +161,15 @@ export class Session {
   setDeviceName(deviceName) {
     this._deviceName = deviceName;
   }
+
+
+  getPlatform() {
+    return this._platform;
+  }
+
+  setPlatform(platform) {
+    this._platform = platform;
+  }
+
+
 }
