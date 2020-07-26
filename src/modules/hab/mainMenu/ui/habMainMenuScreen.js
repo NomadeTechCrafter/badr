@@ -63,24 +63,35 @@ class habMainMenuScreen extends React.Component {
 
   openIntent = async (route, id) => {
     return await Linking.openURL(
-      'badrio://ma.adii.badrmobile?login=' +
-      Session.getInstance().getLogin() +
-      '&route=' +
-      route.screen,
+      'badrio://ma.adii.badrmobile?login=' + Session.getInstance().getLogin() +
+      '&route=' + route.screen,
       '&fonctionalite=' + id,
-      '&sessionId=' + Session.getInstance().getSessionId(true),
+      '&password=' + Session.getInstance().getSessionId(true),
+      '&profiles=' + Session.getInstance().getSessionId(true),
+      '&bureau=' + Session.getInstance().getSessionId(true),
+      '&codeBureau=' + Session.getInstance().getSessionId(true),
+      '&arrondissement=' + Session.getInstance().getSessionId(true),
+      '&codeArrondissement=' + Session.getInstance().getSessionId(true),
+      '&uuid=' + Session.getInstance().getSessionId(true),
+      '&manifacturer=' + Session.getInstance().getSessionId(true),
+      '&model=' + Session.getInstance().getSessionId(true),
+      '&platform=' + Session.getInstance().getSessionId(true),
+      '&version=' + Session.getInstance().getSessionId(true),
+      '&codeSmsVerify=' + Session.getInstance().getSessionId(true)
+
     );
   };
 
   onItemSelected = (item) => {
     if (this.props.navigation) {
       let route = buildRouteWithParams(item.id);
-      if (route.params.qr) {
-        Zxing.default.showQrReader(this.onBarcodeRead);
-        this.props.navigation.navigate(route.screen, route.params);
-      } else {
-        if (route.screen.includes('app2.')) {
-          this.openIntent(route, item.id).then((resp) => {});
+      if (route) {
+        if (route.params.qr) {
+          Zxing.default.showQrReader(this.onBarcodeRead);
+          this.props.navigation.navigate(route.screen, route.params);
+        } else if (route.screen.includes('app2.')) {
+          this.openIntent(route, item.id).then((resp) => {
+          });
         } else {
           this.props.navigation.navigate(route.screen, route.params);
         }
@@ -140,7 +151,7 @@ class habMainMenuScreen extends React.Component {
                 source={require('../../../../assets/images/agent.png')}
               />
             </Col>
-            <Col />
+            <Col/>
           </Grid>
         </MenuHeader>
         <LinearGradient
