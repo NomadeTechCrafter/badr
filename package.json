@@ -37,6 +37,7 @@
     "react-native-dropdown-autocomplete": "^1.0.18",
     "react-native-easy-grid": "^0.2.2",
     "react-native-elements": "^1.2.7",
+    "react-native-exit-app": "^1.1.0",
     "react-native-fab": "^1.0.16",
     "react-native-final-tree-view": "^2.0.3",
     "react-native-gesture-handler": "^1.6.1",

@@ -5,7 +5,6 @@ import {translate} from '../../../../../commons/i18n';
 import {
   BadrErrorMessage,
   BadrInfoMessage,
-  BadrProgressBar,
   RechercheRefAt,
   Toolbar,
   BadrDialog,
@@ -13,6 +12,8 @@ import {
 import * as CreateApurementAction from '../../state/actions/atApurementCreateAction';
 import * as InitApurementAction from '../../state/actions/atApurementInitAction';
 import * as ConstantsAt from '../../state/atApurementConstants';
+
+import {Session} from '../../../../../commons/services/session/Session';
 
 const initialState = {
   reference: '',
@@ -97,6 +98,7 @@ class CreerApurement extends React.Component {
   };
 
   render() {
+    console.log(JSON.stringify(Session.getInstance()));
     return (
       <ScrollView>
         <Toolbar

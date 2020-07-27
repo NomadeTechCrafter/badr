@@ -2,6 +2,7 @@
 import * as Constants from '../../constants/generic';
 
 const initialState = {
+  refresh: false,
   showProgress: false,
   errorMessage: '',
   displayError: false,
@@ -15,6 +16,7 @@ export default (state = initialState, action) => {
   };
   switch (action.type) {
     case Constants.GENERIC_REQUEST:
+      nextState.refresh = false;
       nextState.displayError = false;
       nextState.errorMessage = null;
       nextState.showProgress = true;
@@ -31,6 +33,12 @@ export default (state = initialState, action) => {
       nextState.showProgress = false;
       nextState.displayError = true;
       nextState.errorMessage = action.value;
+      return nextState;
+    case Constants.GENERIC_REFRESH:
+      nextState.refresh = true;
+      return nextState;
+    case Constants.GENERIC_INIT_REFRESH:
+      nextState.refresh = false;
       return nextState;
     case Constants.GENERIC_INIT:
       return initialState;

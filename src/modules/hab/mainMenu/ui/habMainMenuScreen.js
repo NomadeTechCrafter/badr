@@ -5,11 +5,15 @@ import {View, ScrollView, Linking, Image} from 'react-native';
 
 import {Col, Grid} from 'react-native-easy-grid';
 import {primaryColor, accentColor} from '../../../../styles';
-
+import RNExitApp from 'react-native-exit-app';
 import * as Zxing from '../../../../native/zxing';
 
 /** Custom Components */
-import {BadrTree, BadrTreeItem, MenuHeader} from '../../../../commons/component';
+import {
+  BadrTree,
+  BadrTreeItem,
+  MenuHeader,
+} from '../../../../commons/component';
 
 /** REDUX **/
 import {connect} from 'react-redux';
@@ -30,7 +34,6 @@ import Utils from '../../../../commons/utils/util';
 
 /** Inmemory session */
 import {Session} from '../../../../commons/services/session/Session';
-
 
 class habMainMenuScreen extends React.Component {
   constructor(props) {
@@ -61,7 +64,7 @@ class habMainMenuScreen extends React.Component {
     this.props.dispatch(action);
   };
 
-  openIntent = async ( id) => {
+  openIntent = async (id) => {
     let url = `badrio://ma.adii.badrmobile?login=${Session.getInstance().getLogin()}
       &route=${id}
       &fonctionalite=${id}
@@ -92,7 +95,7 @@ class habMainMenuScreen extends React.Component {
         this.props.navigation.navigate(route.screen, route.params);
       } else {
         this.openIntent(item.id).then((resp) => {
-          console.log(resp);
+          RNExitApp.exitApp();
         });
       }
     }
@@ -114,7 +117,7 @@ class habMainMenuScreen extends React.Component {
   };
 
   logout = () => {
-    var action = authAction.requestLogout(
+    let action = authAction.requestLogout(
       {
         type: LoginConstants.AUTH_LOGOUT_REQUEST,
         value: {},
@@ -151,7 +154,7 @@ class habMainMenuScreen extends React.Component {
                 source={require('../../../../assets/images/agent.png')}
               />
             </Col>
-            <Col/>
+            <Col />
           </Grid>
         </MenuHeader>
         <LinearGradient

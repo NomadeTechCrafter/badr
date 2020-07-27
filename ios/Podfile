@@ -89,6 +89,8 @@ target 'Badr' do
 
   pod 'react-native-webview', :path => '../node_modules/react-native-webview'
 
+  pod 'RNExitApp', :path => '../node_modules/react-native-exit-app'
+
   target 'BadrTests' do
     inherit! :complete
     # Pods for testing

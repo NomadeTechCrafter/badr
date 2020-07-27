@@ -5,7 +5,7 @@ import smsVerifyReducer from '../../modules/hab/smsVerify/state/reducers/habSmsV
 import confirmConnexionReducer from '../../modules/hab/profile/state/reducers/habProfileReducer';
 import genericReducer from '../../commons/state/reducers/genericReducer';
 import menuReducer from '../../modules/hab/mainMenu/state/reducers/habMainMenuReducer';
-
+import autoLoginReducer from '../../commons/state/reducers/autoLoginReducer';
 
 import plaquesImmReducer from './referentiel/plaquesImm';
 import controleVehiculesReducer from './referentiel/controleVehicules';
@@ -38,6 +38,7 @@ const allReducers = combineReducers({
   smsVerifyReducer,
   confirmConnexionReducer,
   menuReducer,
+  autoLoginReducer,
   badrPickerReducer,
   badrPickerCheckerReducer,
   badrApiTable,

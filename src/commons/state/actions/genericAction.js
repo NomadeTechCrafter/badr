@@ -1,4 +1,3 @@
-
 /**Constants */
 import * as Constants from '../../constants/generic';
 
@@ -27,6 +26,12 @@ export function request(action) {
         console.log(e);
         dispatch(failed(translate('errors.technicalIssue')));
       });
+  };
+}
+
+export function refresh(action) {
+  return (dispatch) => {
+    dispatch(action);
   };
 }
 

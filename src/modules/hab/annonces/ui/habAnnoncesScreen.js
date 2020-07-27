@@ -12,11 +12,16 @@ import * as Constants from '../../../../commons/constants/generic';
 import * as AnnoncesAction from '../../../../commons/state/actions/genericAction';
 
 /**Custom Components */
-import {Toolbar, BadrInfoMessage, BadrProgressBar} from '../../../../commons/component';
+import {Toolbar, BadrInfoMessage} from '../../../../commons/component';
 
 /** Inmemory session */
 import {Session} from '../../../../commons/services/session/Session';
 import {translate} from '../../../../commons/i18n';
+
+import * as Zxing from '../../../../native/zxing';
+
+import * as qrCodeAction from '../../../../commons/state/actions/qrCode';
+import * as qrCodeConstants from '../../../../commons/constants/components/qrCode';
 
 class habAnnoncesScreen extends React.Component {
   componentDidMount() {
@@ -37,6 +42,37 @@ class habAnnoncesScreen extends React.Component {
       },
     });
     this.props.dispatch(action);
+  };
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.refresh) {
+      let action = AnnoncesAction.refresh({
+        type: Constants.GENERIC_INIT_REFRESH,
+        value: {},
+      });
+
+      /**
+       * n'afficher que la partie AT coté RN
+       */
+      this.props.dispatch(action);
+      Zxing.default.showQrReader(this.onBarcodeRead);
+      this.props.navigation.navigate('CreerApurement', {qr: true});
+    }
+  }
+
+  onBarcodeRead = (data) => {
+    if (data) {
+      let action = qrCodeAction.request({
+        type: qrCodeConstants.QRCODE_REQUEST,
+        value: {
+          module: 'DED_LIB',
+          command: 'ded.lireCodeQr',
+          typeService: 'SP',
+          param: data,
+        },
+      });
+      this.props.dispatch(action);
+    }
   };
 
   render() {
@@ -73,7 +109,6 @@ class habAnnoncesScreen extends React.Component {
     );
   }
 }
-
 
 const mapStateToProps = (state) => ({...state.genericReducer});
 export default connect(mapStateToProps, null)(habAnnoncesScreen);
