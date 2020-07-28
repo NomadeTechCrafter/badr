@@ -8,8 +8,8 @@ import {connect} from 'react-redux';
 /** Screens */
 import WelcomeScreen from '../../annonces/ui/habAnnoncesScreen';
 import MainMenu from '../../mainMenu/ui/habMainMenuScreen';
-import CreerApurement from '../../../at/apurement/ui/creerApurement';
-import Apurement from '../../../at/apurement/ui/ongletAt/apurement';
+import CreerApurement from '../../../at/apurement/ui/creerApurement/AtApurementScreen';
+import Apurement from '../../../at/apurement/ui/ongletAt/apurement/AtCreateApurementScreen';
 import {ScanQrCode} from '../../../../commons/component';
 
 /**ACTIONS */

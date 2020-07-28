@@ -4,7 +4,7 @@ import {TextInput, Button} from 'react-native-paper';
 import {connect} from 'react-redux';
 import {Col, Row} from 'react-native-easy-grid';
 
-import {InfoCommon} from '../common';
+import {InfoCommon} from '../common/AtInfoCommonScreen';
 import {translate} from '../../../../../../commons/i18n/I18nHelper';
 import _ from 'lodash';
 import {CustomStyleSheet, primaryColor} from '../../../../../../commons/styles';
