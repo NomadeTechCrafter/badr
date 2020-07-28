@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {connect} from 'react-redux';
-import * as Constants from '../../../constants/components/autoComplete';
-import * as AutoCompleteAction from '../../../state/actions/autoComplete';
+import * as Constants from '../../../constants/components/AutoCompleteConstants';
+import * as AutoCompleteAction from '../../../state/actions/AutoCompleteAction';
 
 import {Autocomplete} from 'react-native-dropdown-autocomplete';
 

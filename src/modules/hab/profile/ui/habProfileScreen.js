@@ -15,7 +15,7 @@ import {CustomStyleSheet} from '../../../../commons/styles';
 
 /** Inmemory session */
 import {Session} from '../../../../commons/services/session/Session';
-import {translate} from '../../../../commons/i18n';
+import {translate} from '../../../../commons/i18n/I18nHelper';
 import BadrProgressBar from '../../../../commons/component/shared/progressbars/BadrProgressBar';
 import BadrErrorMessage from '../../../../commons/component/shared/messages/Error';
 import BadrPicker from '../../../../commons/component/shared/pickers/BadrPicker';

@@ -17,7 +17,7 @@ import {connect} from 'react-redux';
 import * as SmsVerifyActionCreators from '../state/actions/habSmsVerifyAction';
 import * as Constants from '../state/habSmsVerifyConstants';
 import {CustomStyleSheet} from '../../../../commons/styles';
-import {translate} from '../../../../commons/i18n';
+import {translate} from '../../../../commons/i18n/I18nHelper';
 import {Session} from '../../../../commons/services/session/Session';
 
 class HabSmsVerifyScreen extends React.Component {
@@ -73,16 +73,6 @@ class HabSmsVerifyScreen extends React.Component {
 
           {!this.props.correct && this.props.displayError && (
             <BadrErrorMessage message={this.props.errorMessage} />
-          )}
-
-          {!this.props.confirmed && this.props.showProgressConfirmCnx && (
-            <BadrInfoMessage
-              message={translate('info.smsVerify.confirmConnexionPending')}
-            />
-          )}
-
-          {!this.props.correct && this.props.showProgress && (
-            <BadrInfoMessage message={translate('info.pleasewait')} />
           )}
         </View>
       </ScrollView>

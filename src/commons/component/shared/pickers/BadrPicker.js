@@ -8,14 +8,14 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import {connect} from 'react-redux';
 
 /**ACTIONS */
-import * as Constants from '../../../constants/components/badrPicker';
-import * as badrPickerAction from '../../../state/actions/badrPicker';
+import * as Constants from '../../../constants/components/BadrPickerConstants';
+import * as badrPickerAction from '../../../state/actions/BadrPickerAction';
 
 import {primaryColor} from '../../../styles';
 
-import {translate} from '../../../i18n';
+import {translate} from '../../../i18n/I18nHelper';
 /** STORAGE **/
-import {save} from '../../../services/async-storage/storage-service';
+import {save} from '../../../services/async-storage/StorageService';
 
 console.disableYellowBox = true;
 

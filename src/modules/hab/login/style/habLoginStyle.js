@@ -1,11 +1,12 @@
 import {StyleSheet} from 'react-native';
+import {accentColor} from '../../../../commons/styles';
 
 const style = {
-  container: {flex: 1},
+  container: {flex: 1, backgroundColor: accentColor},
   loginBlock: {
     justifyContent: 'center',
     alignItems: 'center',
-    paddingTop: 5,
+    paddingTop: 15,
   },
   textInputContainer: {
     borderRadius: 10,

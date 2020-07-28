@@ -19,13 +19,13 @@ import * as LoginConstants from '../state/habLoginConstants';
 import * as authAction from '../state/actions/habLoginAction';
 
 /** i18n **/
-import {translate} from '../../../../commons/i18n';
+import {translate} from '../../../../commons/i18n/I18nHelper';
 
 /** Custom Components */
-import {BadrLoginHeader, BadrErrorMessage} from '../../../../components';
+import {BadrLoginHeader, BadrErrorMessage} from '../../../../commons/component';
 
 /** Inmemory session */
-import {loadParsed} from '../../../../commons/services/async-storage/storage-service';
+import {loadParsed} from '../../../../commons/services/async-storage/StorageService';
 import {Session} from '../../../../commons/services/session/Session';
 import AutoLoginProcess from '../../../../commons/component/modules/autoLogin/AutoLoginProcess';
 

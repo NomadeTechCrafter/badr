@@ -8,7 +8,7 @@ import _ from 'lodash';
 import {connect} from 'react-redux';
 import {primaryColor, primaryColorRgba, accentColor} from '../../../styles';
 import Spinner from 'react-native-loading-spinner-overlay';
-import {translate} from '../../../i18n';
+import {translate} from '../../../i18n/I18nHelper';
 
 
 class BadrStackNavigator extends React.Component {

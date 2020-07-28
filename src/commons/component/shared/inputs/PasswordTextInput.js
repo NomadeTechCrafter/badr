@@ -1,7 +1,7 @@
 import React from 'react';
 import {TextInput, View} from 'react-native';
 import {CustomStyleSheet} from '../../../styles';
-import {translate} from '../../../i18n';
+import {translate} from '../../../i18n/I18nHelper';
 
 export default class PasswordTextInput extends React.Component {
   render() {

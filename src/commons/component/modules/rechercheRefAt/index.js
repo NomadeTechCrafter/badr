@@ -10,8 +10,8 @@ import {Container} from '../../';
 import * as InitApurementAction from '../../../../modules/at/apurement/state/actions/atApurementInitAction';
 import * as ConstantsAt from '../../../../modules/at/apurement/state/atApurementConstants';
 /** Utils */
-import Utils from '../../../utils/util';
-import {translate} from '../../../i18n';
+import Utils from '../../../utils/Util';
+import {translate} from '../../../i18n/I18nHelper';
 
 class RechecheRefAt extends Component {
   constructor(props) {

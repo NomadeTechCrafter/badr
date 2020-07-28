@@ -13,8 +13,8 @@ import Apurement from '../../../at/apurement/ui/ongletAt/apurement';
 import {ScanQrCode} from '../../../../commons/component';
 
 /**ACTIONS */
-import * as Constants from '../../../../commons/constants/generic';
-import * as GenericAction from '../../../../commons/state/actions/genericAction';
+import * as Constants from '../../../../commons/constants/generic/GenericConstants';
+import * as GenericAction from '../../../../commons/state/actions/GenericAction';
 
 /** Drawer navigation */
 import {createDrawerNavigator} from '@react-navigation/drawer';

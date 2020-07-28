@@ -1,5 +1,5 @@
 import {Session} from '../../../../../commons/services/session/Session';
-import HttpHelper from '../../../../../commons/services/api/common/http-helper';
+import HttpHelper from '../../../../../commons/services/api/common/HttpHelper';
 
 export default class HabSmsVerifyApi {
   static verify = async (code) => {

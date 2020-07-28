@@ -3,7 +3,7 @@ import React from 'react';
 import {View, ImageBackground, Text, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 /** i18n **/
-import {translate} from '../../../i18n';
+import {translate} from '../../../i18n/I18nHelper';
 
 export default class MenuHeader extends React.Component {
   constructor(props) {

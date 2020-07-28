@@ -17,10 +17,10 @@ import {primaryColor} from '../../../styles';
 import {connect} from 'react-redux';
 
 /**ACTIONS */
-import * as Constants from '../../../constants/components/badrPicker';
-import * as badrPickerAction from '../../../state/actions/badrPickerChecker';
+import * as Constants from '../../../constants/components/BadrPickerConstants';
+import * as badrPickerAction from '../../../state/actions/BadrPickerCheckerAction';
 
-import {translate} from '../../../i18n';
+import {translate} from '../../../i18n/I18nHelper';
 
 class BadrPickerChecker extends React.Component {
   constructor(props) {

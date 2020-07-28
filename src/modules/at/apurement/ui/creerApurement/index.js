@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, ScrollView} from 'react-native';
 import {connect} from 'react-redux';
-import {translate} from '../../../../../commons/i18n';
+import {translate} from '../../../../../commons/i18n/I18nHelper';
 import {
   BadrErrorMessage,
   BadrInfoMessage,

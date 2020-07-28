@@ -4,9 +4,8 @@ import LinearGradient from 'react-native-linear-gradient';
 import {View, ScrollView, Linking, Image} from 'react-native';
 
 import {Col, Grid} from 'react-native-easy-grid';
-import {primaryColor, accentColor} from '../../../../styles';
 import RNExitApp from 'react-native-exit-app';
-import * as Zxing from '../../../../native/zxing';
+import * as Zxing from '../../../../commons/native/zxing';
 
 /** Custom Components */
 import {
@@ -19,18 +18,18 @@ import {
 import {connect} from 'react-redux';
 import * as menuAction from '../state/actions/habMainMenuAction';
 import * as Constants from '../state/habMainMenuConstants';
-import * as qrCodeAction from '../../../../commons/state/actions/qrCode';
-import * as qrCodeConstants from '../../../../commons/constants/components/qrCode';
+import * as qrCodeAction from '../../../../commons/state/actions/QrCodeAction';
+import * as qrCodeConstants from '../../../../commons/constants/components/QrCodeConstants';
 import * as authAction from '../../login/state/actions/habLoginAction';
 import * as LoginConstants from '../../login/state/habLoginConstants';
 
 /** STYLING **/
-import {CustomStyleSheet} from '../../../../commons/styles';
+import {CustomStyleSheet,primaryColor, accentColor} from '../../../../commons/styles';
 
-import {buildRouteWithParams} from '../../../../commons/routing';
+import {buildRouteWithParams} from '../../../../commons/Routing';
 
 /** Utils */
-import Utils from '../../../../commons/utils/util';
+import Utils from '../../../../commons/utils/Util';
 
 /** Inmemory session */
 import {Session} from '../../../../commons/services/session/Session';

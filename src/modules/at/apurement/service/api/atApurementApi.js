@@ -1,8 +1,8 @@
-import HttpHelper from '../../../../../commons/services/api/common/http-helper';
+import HttpHelper from '../../../../../commons/services/api/common/HttpHelper';
 /** Inmemory session */
 import {Session} from '../../../../../commons/services/session/Session';
 
-import Utils from '../../../../../commons/utils/util';
+import Utils from '../../../../../commons/utils/Util';
 
 export default class AtApurementApi {
   static initApurement = async (reference) => {

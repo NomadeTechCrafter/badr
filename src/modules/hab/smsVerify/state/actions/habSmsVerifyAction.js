@@ -1,5 +1,5 @@
 /** i18n */
-import {translate} from '../../../../../commons/i18n';
+import {translate} from '../../../../../commons/i18n/I18nHelper';
 import * as Constants from '../habSmsVerifyConstants';
 import HabSmsVerifyApi from '../../service/api/habSmsVerifyApi';
 import {Session} from '../../../../../commons/services/session/Session';

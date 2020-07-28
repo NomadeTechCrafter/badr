@@ -5,12 +5,12 @@ import * as Constants from '../habProfileConstants';
 import HabProfileApi from '../../service/api/habProfileApi';
 
 /** Storage  */
-import {saveStringified} from '../../../../../commons/services/async-storage/storage-service';
+import {saveStringified} from '../../../../../commons/services/async-storage/StorageService';
 
 /** Inmemory session */
 import {Session} from '../../../../../commons/services/session/Session';
 /** i18n */
-import {translate} from '../../../../../commons/i18n';
+import {translate} from '../../../../../commons/i18n/I18nHelper';
 
 export function request(action, navigation) {
   return (dispatch) => {

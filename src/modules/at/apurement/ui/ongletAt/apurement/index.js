@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import {Col, Row} from 'react-native-easy-grid';
 
 import {InfoCommon} from '../common';
-import {translate} from '../../../../../../commons/i18n';
+import {translate} from '../../../../../../commons/i18n/I18nHelper';
 import _ from 'lodash';
 import {CustomStyleSheet, primaryColor} from '../../../../../../commons/styles';
 import * as CreateApurementAction from '../../../state/actions/atApurementCreateAction';
@@ -13,7 +13,7 @@ import * as InitApurementAction from '../../../state/actions/atApurementInitActi
 import * as ConstantsAt from '../../../state/atApurementConstants';
 
 /** Utils */
-import Utils from '../../../../../../commons/utils/util';
+import Utils from '../../../../../../commons/utils/Util';
 
 import {
   Toolbar,

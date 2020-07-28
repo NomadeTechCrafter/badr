@@ -14,10 +14,10 @@ import {
   getSystemVersion,
 } from 'react-native-device-info';
 /** Device informations */
-import {saveStringified} from '../../../services/async-storage/storage-service';
+import {saveStringified} from '../../../services/async-storage/StorageService';
 
-import * as AutoLoginConstants from '../../../../commons/constants/components/autoLogin';
-import * as autoLoginActions from '../../../../commons/state/actions/autoLoginAction';
+import * as AutoLoginConstants from '../../../constants/components/AutoLoginConstants';
+import * as autoLoginActions from '../../../state/actions/AutoLoginAction';
 
 class AutoLoginProcess extends React.Component {
   constructor(props) {

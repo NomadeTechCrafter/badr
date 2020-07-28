@@ -1,5 +1,5 @@
 import React from 'react';
-import {primaryColor, accentColor} from '../../../../styles';
+import {primaryColor, accentColor} from '../../../styles';
 import {Button, Dialog, Paragraph, Portal} from 'react-native-paper';
 class BadrDialog extends React.Component {
   render() {

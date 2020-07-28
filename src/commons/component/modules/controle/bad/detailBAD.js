@@ -5,9 +5,9 @@ import {Col, Row, Grid} from 'react-native-easy-grid';
 import {Paragraph, Caption} from 'react-native-paper';
 import {connect} from 'react-redux';
 import {BadrTable, CardBox, Accordion} from '../../../';
-import * as Constants from '../../../../constants/controle/BAD';
+import * as Constants from '../../../../constants/controle/BadConstants';
 import * as BadActions from '../../../../redux/actions/controle/BAD';
-import {translate} from '../../../../i18n';
+import {translate} from '../../../../i18n/I18nHelper';
 
 class DetailBAD extends React.Component {
   constructor(props) {

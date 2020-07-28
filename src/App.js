@@ -17,7 +17,7 @@ import {BadrStackNavigator} from './commons/component';
 /** REDUX */
 import {Provider} from 'react-redux';
 import {createStore, applyMiddleware, compose} from 'redux';
-import allReducers from './redux/reducers';
+import allReducers from './commons/state/Store';
 import thunk from 'redux-thunk';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -30,7 +30,7 @@ import HabProfileScreen from './modules/hab/profile/ui/habProfileScreen';
 import Home from './modules/hab/home/ui/habHomeScreen';
 import SmsVerifyScreen from './modules/hab/smsVerify/ui/habSmsVerifyScreen';
 
-import {primaryColor, accentColor} from './styles/index';
+import {primaryColor, accentColor} from './commons/styles';
 
 import {Provider as PaperProvider, DefaultTheme} from 'react-native-paper';
 

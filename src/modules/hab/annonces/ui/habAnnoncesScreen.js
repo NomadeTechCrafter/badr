@@ -8,20 +8,20 @@ import {connect} from 'react-redux';
 import styles from '../style/habAnnoncesStyle';
 
 /**ACTIONS */
-import * as Constants from '../../../../commons/constants/generic';
-import * as AnnoncesAction from '../../../../commons/state/actions/genericAction';
+import * as Constants from '../../../../commons/constants/generic/GenericConstants';
+import * as AnnoncesAction from '../../../../commons/state/actions/GenericAction';
 
 /**Custom Components */
 import {Toolbar, BadrInfoMessage} from '../../../../commons/component';
 
 /** Inmemory session */
 import {Session} from '../../../../commons/services/session/Session';
-import {translate} from '../../../../commons/i18n';
+import {translate} from '../../../../commons/i18n/I18nHelper';
 
-import * as Zxing from '../../../../native/zxing';
+import * as Zxing from '../../../../commons/native/zxing';
 
-import * as qrCodeAction from '../../../../commons/state/actions/qrCode';
-import * as qrCodeConstants from '../../../../commons/constants/components/qrCode';
+import * as qrCodeAction from '../../../../commons/state/actions/QrCodeAction';
+import * as qrCodeConstants from '../../../../commons/constants/components/QrCodeConstants';
 
 class habAnnoncesScreen extends React.Component {
   componentDidMount() {

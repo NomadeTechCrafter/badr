@@ -1,7 +1,7 @@
 import {CustomStyleSheet} from '../../../styles';
 import React from 'react';
 import {TextInput, View} from 'react-native';
-import {translate} from '../../../i18n';
+import {translate} from '../../../i18n/I18nHelper';
 
 export default class LoginTextInput extends React.Component {
   constructor(props) {

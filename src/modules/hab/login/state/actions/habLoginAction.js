@@ -5,10 +5,10 @@ import HabLoginApi from '../../service/api/habLoginApi';
 import * as Constants from '../habLoginConstants';
 
 /**i18n */
-import {translate} from '../../../../../commons/i18n';
+import {translate} from '../../../../../commons/i18n/I18nHelper';
 
 /** Storage */
-import {saveStringified} from '../../../../../commons/services/async-storage/storage-service';
+import {saveStringified} from '../../../../../commons/services/async-storage/StorageService';
 
 /** Inmemory session */
 import {Session} from '../../../../../commons/services/session/Session';

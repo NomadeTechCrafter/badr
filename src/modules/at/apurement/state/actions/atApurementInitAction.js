@@ -5,7 +5,7 @@ import AtApurementApi from '../../service/api/atApurementApi';
 import * as Constants from '../atApurementConstants';
 
 import * as CreateApurementAction from './atApurementCreateAction';
-import {translate} from '../../../../../commons/i18n';
+import {translate} from '../../../../../commons/i18n/I18nHelper';
 /**
   Initialisation manuelle
  */

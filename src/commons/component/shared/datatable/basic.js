@@ -5,11 +5,10 @@ import {DataTable} from 'react-native-paper';
 import {Checkbox} from 'react-native-paper';
 
 /** Custom Style **/
-import {CustomStyleSheet} from '../../../styles';
-import {primaryColor} from '../../../../styles';
+import {CustomStyleSheet, primaryColor} from '../../../styles';
 
 /** i18n **/
-import {translate} from '../../../i18n';
+import {translate} from '../../../i18n/I18nHelper';
 
 /** Loadash */
 import _ from 'lodash';

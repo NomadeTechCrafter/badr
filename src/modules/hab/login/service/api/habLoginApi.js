@@ -1,4 +1,4 @@
-import HttpHelper from '../../../../../services/api/common/http-helper';
+import HttpHelper from '../../../../../commons/services/api/common/HttpHelper';
 import {Session} from '../../../../../commons/services/session/Session';
 
 export default class HabLoginApi {
