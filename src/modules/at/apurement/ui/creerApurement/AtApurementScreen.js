@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, ScrollView} from 'react-native';
+import {View, ScrollView, StyleSheet} from 'react-native';
 import {connect} from 'react-redux';
 import {translate} from '../../../../../commons/i18n/I18nHelper';
 import {
@@ -141,7 +141,7 @@ class CreerApurement extends React.Component {
   }
 }
 
-const styles = {
+const styles = StyleSheet.create({
   messages: {},
   centerErrorMsg: {
     width: '100%',
@@ -153,7 +153,7 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
   },
-};
+});
 
 function mapStateToProps(state) {
   return {...state.initApurementReducer};

@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, ScrollView} from 'react-native';
+import {View, ScrollView, StyleSheet} from 'react-native';
 import {TextInput, Button} from 'react-native-paper';
 import {connect} from 'react-redux';
 import {Col, Row} from 'react-native-easy-grid';
@@ -20,7 +20,6 @@ import {
   Container,
   CardBox,
   Accordion,
-  BadrProgressBar,
   BadrErrorMessage,
   BadrInfoMessage,
   BadrTable,
@@ -686,7 +685,7 @@ function mapDispatchToProps(dispatch) {
 
 export default connect(mapStateToProps, mapDispatchToProps)(Apurement);
 
-const styles = {
+const styles = StyleSheet.create({
   fabContainer: {
     height: '100%',
     // flex: 1,
@@ -721,4 +720,4 @@ const styles = {
   textInputsStyle: {
     padding: 10,
   },
-};
+});

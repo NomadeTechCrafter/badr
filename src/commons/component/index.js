@@ -38,5 +38,5 @@ export {default as BadrDatePicker} from './shared/datePicker';
 export {default as BadrDialog} from './shared/dialog';
 export {default as BadrNumericTextInput} from './shared/inputs/numericTextInput';
 
-export {default as RechercheRefAt} from './modules/rechercheRefAt';
-export {default as ScanQrCode} from './modules/qrCode';
+export {default as RechercheRefAt} from './modules/rechercheRefAt/RechercheRefAt';
+export {default as ScanQrCode} from './modules/qrCode/QrCodeScanner';

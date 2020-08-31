@@ -1,5 +1,10 @@
 import React from 'react';
-import {View, StyleSheet, ImageBackground, ActivityIndicator} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  ImageBackground,
+  ActivityIndicator,
+} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
@@ -10,24 +15,22 @@ import {primaryColor, primaryColorRgba, accentColor} from '../../../styles';
 import Spinner from 'react-native-loading-spinner-overlay';
 import {translate} from '../../../i18n/I18nHelper';
 
-
 class BadrStackNavigator extends React.Component {
-
   render = () => {
     return (
       <View style={styles.container}>
-        {this.props.showProgress &&
-        <Spinner
-          visible={true}
-          cancelable={false}
-          animation="fade"
-          color={accentColor}
-          overlayColor={'rgba(' + primaryColorRgba + ',0.80)'}
-          textStyle={styles.spinnerTextStyle}
-          textContent={translate('transverse.inprogress')}
-          textStyle={{color : accentColor, fontSize : 20, fontWeight : 'normal'}}
-        />
-        }
+        {this.props.showProgress && (
+          <Spinner
+            visible={true}
+            cancelable={false}
+            animation="fade"
+            color={accentColor}
+            overlayColor={'rgba(' + primaryColorRgba + ',0.80)'}
+            textStyle={styles.spinnerTextStyle}
+            textContent={translate('transverse.inprogress')}
+            textStyle={{color: accentColor, fontSize: 20, fontWeight: 'normal'}}
+          />
+        )}
         <NavigationContainer>
           <Stack.Navigator>{this.props.children}</Stack.Navigator>
         </NavigationContainer>

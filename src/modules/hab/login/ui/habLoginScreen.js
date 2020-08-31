@@ -37,6 +37,23 @@ class Login extends React.Component {
     autoLoginParam: {},
   };
 
+  /*
+   Constructor
+  */
+  constructor(props) {
+    super(props);
+  }
+
+  /*
+   componentDidMount Initialization
+   */
+  componentDidMount() {
+    this.setDeviceInformation();
+    this.loadOldUserIfExist().then(() => {});
+    this.props.initialize();
+    this.initAutoLoginParameters().then(()=> {});
+  }
+
   handleLogin = () => {
     this.props.login(this.state.login, this.state.password);
   };
@@ -56,20 +73,9 @@ class Login extends React.Component {
     Session.getInstance().setPlatform('Android');
   };
 
-  componentDidMount() {
-    this.setDeviceInformation();
-    this.loadOldUserIfExist().then(() =>
-      console.log('user loaded with no errors.'),
-    );
-    this.props.initialize();
-
-    this.initAutoLoginParameters();
-  }
-
   initAutoLoginParameters = async () => {
     const initialUrl = await Linking.getInitialURL();
     let params = this.extractUrlParams(initialUrl);
-    console.log(`params ==== ${JSON.stringify(params)}`);
     if (Object.keys(params).length > 0) {
       this.setState({startAutoLogin: true, autoLoginParam: params});
     }
@@ -104,8 +110,6 @@ class Login extends React.Component {
   };
 
   render() {
-    console.log('this.state.startAutoLogin');
-    console.log(this.state.startAutoLogin);
     return (
       <ScrollView style={style.container}>
         {/* {this.props.showProgress && <SmartLoader />} */}

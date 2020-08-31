@@ -1,8 +1,8 @@
 /** React Components */
 import React from 'react';
-import {View, ScrollView, StyleSheet} from 'react-native';
+import {View, ScrollView} from 'react-native';
 
-import style from '../style/habLoginStyle';
+import style from '../style/habProfileStyle';
 
 /** REDUX **/
 import {connect} from 'react-redux';
@@ -23,6 +23,9 @@ import BadrPickerChecker from '../../../../commons/component/shared/pickers/Badr
 import BadrFloatingButton from '../../../../commons/component/shared/buttons/BadrFloatingButton';
 
 class habProfileScreen extends React.Component {
+  /*
+     Constructor
+  */
   constructor(props) {
     super(props);
     this.state = {
@@ -33,6 +36,11 @@ class habProfileScreen extends React.Component {
       selectedArrondissementLibelle: '',
       selectedProfiles: [],
     };
+  }
+  /*
+  componentDidMount Initialization
+  */
+  componentDidMount() {
   }
 
   buildConfirmConnexionAction = (

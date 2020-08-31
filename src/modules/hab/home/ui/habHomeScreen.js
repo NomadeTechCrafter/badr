@@ -23,12 +23,20 @@ const Drawer = createDrawerNavigator();
 const deltaScreen = Dimensions.get('window').width / 4;
 
 class habHomeScreen extends React.Component {
+
+  /*
+    Constructor
+   */
   constructor(props) {
     super(props);
     this.state = {
       login: '',
     };
   }
+
+  /*
+   componentDidMount Initialization
+   */
   componentDidMount() {
     if (this.props.route.params && this.props.route.params.fromIonic) {
       // this.props.navigation.navigate('CreerApurement', {qr: true});

@@ -1,5 +1,5 @@
 import React from 'react';
-import {View} from 'react-native';
+import {StyleSheet, View,StyleSheet} from 'react-native';
 import {Text} from 'react-native-paper';
 import {CardSection} from '../../../../../../commons/component';
 import {translate} from '../../../../../../commons/i18n/I18nHelper';
@@ -80,7 +80,7 @@ const containerRow = {
   elevation: 2,
 };
 
-const styles = {
+const styles = StyleSheet.create({
   CardSectionInfo: {
     flexDirection: 'column',
     borderRadius: 6,
@@ -124,4 +124,4 @@ const styles = {
     ...libelleVal,
     flex: 3,
   },
-};
+});

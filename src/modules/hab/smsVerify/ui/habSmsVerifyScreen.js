@@ -21,10 +21,28 @@ import {translate} from '../../../../commons/i18n/I18nHelper';
 import {Session} from '../../../../commons/services/session/Session';
 
 class HabSmsVerifyScreen extends React.Component {
-  state = {
-    code: '',
-    login: Session.getInstance().getLogin(),
-  };
+
+  /*
+     Constructor
+  */
+  constructor(props) {
+    super(props);
+    this.state = {
+      code: '',
+      login: Session.getInstance().getLogin(),
+    };
+  }
+
+  /*
+  componentDidMount Initialization
+ */
+  componentDidMount() {
+    let action = SmsVerifyActionCreators.init({
+      type: Constants.SMSVERIFY_INIT,
+      value: {},
+    });
+    this.props.dispatch(action);
+  }
 
   onConfirmClicked = () => {
     let action = SmsVerifyActionCreators.request(
@@ -40,14 +58,6 @@ class HabSmsVerifyScreen extends React.Component {
   handleTextChanged = (text) => {
     this.setState({smsCode: text});
   };
-
-  componentDidMount() {
-    let action = SmsVerifyActionCreators.init({
-      type: Constants.SMSVERIFY_INIT,
-      value: {},
-    });
-    this.props.dispatch(action);
-  }
 
   render = () => {
     return (
