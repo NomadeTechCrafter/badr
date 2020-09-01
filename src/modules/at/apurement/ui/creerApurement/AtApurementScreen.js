@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, ScrollView} from 'react-native';
+import {View, ScrollView, StyleSheet} from 'react-native';
 import {connect} from 'react-redux';
 import {translate} from '../../../../../commons/i18n/I18nHelper';
 import {
@@ -12,8 +12,6 @@ import {
 import * as CreateApurementAction from '../../state/actions/atApurementCreateAction';
 import * as InitApurementAction from '../../state/actions/atApurementInitAction';
 import * as ConstantsAt from '../../state/atApurementConstants';
-
-import {Session} from '../../../../../commons/services/session/Session';
 
 const initialState = {
   reference: '',
@@ -28,7 +26,7 @@ class CreerApurement extends React.Component {
     this.state = {...initialState};
   }
 
-  _showDialog = (message, data) => {
+  showDialog = (message, data) => {
     this.setState({
       dialogVisibility: true,
       dialogMessage: message,
@@ -36,21 +34,21 @@ class CreerApurement extends React.Component {
     });
   };
 
-  _hideDialog = () => this.setState({dialogVisibility: false});
+  hideDialog = () => this.setState({dialogVisibility: false});
 
   componentDidMount() {
     this.state = {...initialState};
-    this._unsubscribe = this.props.navigation.addListener('focus', () => {
+    this.unsubscribe = this.props.navigation.addListener('focus', () => {
       this.onScreenReloaded();
     });
   }
 
   componentWillUnmount() {
-    this._unsubscribe();
+    this.unsubscribe();
   }
 
   onScreenReloaded = () => {
-    var action = InitApurementAction.init({
+    let action = InitApurementAction.init({
       type: ConstantsAt.INIT_APUR_INIT,
       value: {},
     });
@@ -58,7 +56,7 @@ class CreerApurement extends React.Component {
   };
 
   apurManuelle = (reference) => {
-    var action = InitApurementAction.request(
+    let action = InitApurementAction.request(
       {
         type: ConstantsAt.INIT_APUR_REQUEST,
         value: {
@@ -71,7 +69,7 @@ class CreerApurement extends React.Component {
   };
 
   apurAutomatique = (reference) => {
-    var action = InitApurementAction.requestAuto(
+    let action = InitApurementAction.requestAuto(
       {
         type: ConstantsAt.INIT_APURAUTO_REQUEST,
         value: {
@@ -84,7 +82,7 @@ class CreerApurement extends React.Component {
   };
 
   confirmApurAutomatique = () => {
-    var action = CreateApurementAction.requestAutomatique(
+    let action = CreateApurementAction.requestAutomatique(
       {
         type: ConstantsAt.CREATE_APURAUTO_REQUEST,
         value: {
@@ -94,11 +92,10 @@ class CreerApurement extends React.Component {
       this,
     );
     this.props.actions.dispatch(action);
-    this._hideDialog();
+    this.hideDialog();
   };
 
   render() {
-    console.log(JSON.stringify(Session.getInstance()));
     return (
       <ScrollView>
         <Toolbar
@@ -141,7 +138,7 @@ class CreerApurement extends React.Component {
   }
 }
 
-const styles = {
+const styles = StyleSheet.create({
   messages: {},
   centerErrorMsg: {
     width: '100%',
@@ -153,7 +150,7 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
   },
-};
+});
 
 function mapStateToProps(state) {
   return {...state.initApurementReducer};

@@ -1,4 +1,4 @@
-import * as Constants from '../../constants/components/AutoLoginConstants';
+import * as Constants from '../../../constants/components/AutoLoginConstants';
 
 const initialState = {
   showProgress: false,

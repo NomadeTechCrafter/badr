@@ -5,7 +5,7 @@ import {Image, View} from 'react-native';
 const buildHeader = (style, img) => {
   return (
     <View>
-      <Image style={{}} source={require('../../../../assets/images/logo.jpg')}/>
+      <Image style={{}} source={require('../../../../assets/images/badrDouanesHeader.jpg')}/>
       <Image style={style} source={img}/>
     </View>
   );
@@ -19,7 +19,7 @@ export default class BadrLoginHeader extends React.Component {
   render() {
     return buildHeader(
       CustomStyleSheet.loginHeaderImage,
-      require('../../../../assets/images/badr.png'),
+      require('../../../../assets/images/badrHeader.png'),
     );
   }
 }

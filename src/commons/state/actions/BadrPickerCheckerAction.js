@@ -1,5 +1,6 @@
 import TransverseApi from '../../services/api/TransverseApi';
 import * as Constants from '../../constants/components/BadrPickerConstants';
+import translate from '../../i18n/I18nHelper';
 
 export function request(action) {
   return dispatch => {
@@ -16,11 +17,11 @@ export function request(action) {
           action.value.payload = data.jsonVO;
           dispatch(success(action));
         } else {
-          dispatch(failed({value: 'error while getting data'}));
+          dispatch(failed({value:response.dtoHeader.messagesErreur}));
         }
       })
       .catch(e => {
-        dispatch(failed({value: 'error while getting data'}));
+        dispatch(failed({value: translate('errors.technicalIssue')}));
       });
   };
 }

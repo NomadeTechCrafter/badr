@@ -113,7 +113,7 @@ export default class BadrDatePicker extends React.Component {
                       )
                     : ''
                 }
-                label="Date apurement"
+                label={this.props.labelDate}
                 style={this.props.inputStyle}
               />
             </TouchableOpacity>
@@ -145,7 +145,7 @@ export default class BadrDatePicker extends React.Component {
                             )
                           : ''
                       }
-                      label="Séléction une heure"
+                      label={this.props.labelHeure}
                       style={this.props.inputStyle}
                     />
                   </TouchableOpacity>

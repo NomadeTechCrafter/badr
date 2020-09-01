@@ -24,7 +24,8 @@ import * as authAction from '../../login/state/actions/habLoginAction';
 import * as LoginConstants from '../../login/state/habLoginConstants';
 
 /** STYLING **/
-import {CustomStyleSheet,primaryColor, accentColor} from '../../../../commons/styles';
+import {CustomStyleSheet, primaryColor, accentColor} from '../../../../commons/styles';
+import style from '../style/habMainMenuStyle';
 
 import {buildRouteWithParams} from '../../../../commons/Routing';
 
@@ -35,6 +36,9 @@ import Utils from '../../../../commons/utils/Util';
 import {Session} from '../../../../commons/services/session/Session';
 
 class habMainMenuScreen extends React.Component {
+  /*
+   Constructor
+ */
   constructor(props) {
     super(props);
     this.state = {
@@ -44,13 +48,14 @@ class habMainMenuScreen extends React.Component {
       arrondissement: Session.getInstance().getLibelleArrondissement(),
     };
   }
-
+  /*
+   componentDidMount Initialization
+   */
   componentDidMount() {
     this.fetchMenu();
     if (this.props.navigation) {
       this.props.navigation.toggleDrawer();
     }
-    console.log('SessionId=' + Session.getInstance().getSessionId(true));
   }
 
   fetchMenu = (predicate) => {
@@ -79,14 +84,12 @@ class habMainMenuScreen extends React.Component {
       &platform=${Session.getInstance().getPlatform()}
       &version=${Session.getInstance().getSystemVersion()}
       &codeSmsVerify=${Session.getInstance().getCodeSmsVerify()}`;
-    console.log(url);
     return await Linking.openURL(url);
   };
 
   onItemSelected = (item) => {
     if (this.props.navigation) {
       let route = buildRouteWithParams(item.id);
-      console.log(route);
       if (route) {
         if (route.params.qr) {
           Zxing.default.showQrReader(this.onBarcodeRead);
@@ -149,11 +152,11 @@ class habMainMenuScreen extends React.Component {
           <Grid>
             <Col>
               <Image
-                style={styles.agentImageStyle}
-                source={require('../../../../assets/images/agent.png')}
+                style={style.agentImageStyle}
+                source={require('../../../../assets/images/badrAgentIcon.png')}
               />
             </Col>
-            <Col />
+            <Col/>
           </Grid>
         </MenuHeader>
         <LinearGradient
@@ -161,7 +164,7 @@ class habMainMenuScreen extends React.Component {
           start={{x: 0, y: 0}}
           locations={[0, 0.04, 0.05, 0.07]}
           end={{x: 0, y: 1}}>
-          <ScrollView style={styles.scrollViewStyle}>
+          <ScrollView style={style.scrollViewStyle}>
             <BadrTree
               getCollapsedNodeHeight={() => 60}
               data={this.props.menuReducer.menuList}
@@ -183,18 +186,6 @@ class habMainMenuScreen extends React.Component {
     );
   }
 }
-
-const styles = {
-  scrollViewStyle: {zIndex: -1, marginTop: 20, marginBottom: 200},
-  agentImageStyle: {
-    width: 100,
-    height: 100,
-    paddingBottom: 30,
-    marginTop: -10,
-    position: 'absolute',
-    zIndex: 1,
-  },
-};
 
 const mapStateToProps = (state) => {
   return {

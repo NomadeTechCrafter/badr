@@ -3,17 +3,21 @@ import HttpHelper from '../../../../../commons/services/api/common/HttpHelper';
 import {Session} from '../../../../../commons/services/session/Session';
 
 import Utils from '../../../../../commons/utils/Util';
+import {AT_MODULE} from '../../../../../commons/constants/at/At';
+import {
+  TYPE_SERVICE_SP,
+  TYPE_SERVICE_UC,
+} from '../../../../../commons/constants/GlobalConstants';
 
-export default class AtApurementApi {
+class AtApurementApi {
   static initApurement = async (reference) => {
-    console.log('Start initApurement');
     const data = {
       dtoHeader: {
         userLogin: Session.getInstance().getLogin(),
         fonctionnalite: 'cf9005',
-        module: 'AT',
+        module: AT_MODULE,
         commande: 'initApurerAT',
-        typeService: 'UC',
+        typeService: TYPE_SERVICE_UC,
       },
       jsonVO: {
         referenceAT: {
@@ -23,7 +27,6 @@ export default class AtApurementApi {
       },
     };
     let response = await HttpHelper.process(data);
-    console.log(response);
     return response;
   };
 
@@ -32,9 +35,9 @@ export default class AtApurementApi {
       dtoHeader: {
         userLogin: Session.getInstance().getLogin(),
         fonctionnalite: 'cf9005',
-        module: 'AT',
+        module: AT_MODULE,
         commande: 'initApurerAutoAT',
-        typeService: 'UC',
+        typeService: TYPE_SERVICE_UC,
         motif: null,
         messagesInfo: null,
         messagesErreur: null,
@@ -73,14 +76,13 @@ export default class AtApurementApi {
         delete apurement.modeApur;
       });
     }
-    console.log(apurementVO);
     const data = {
       dtoHeader: {
         userLogin: Session.getInstance().getLogin(),
         fonctionnalite: 'cf9005',
-        module: 'AT',
+        module: AT_MODULE,
         commande: 'apurerAT',
-        typeService: 'UC',
+        typeService: TYPE_SERVICE_UC,
         motif: null,
         messagesInfo: null,
         messagesErreur: null,
@@ -88,7 +90,6 @@ export default class AtApurementApi {
       jsonVO: apurementVO,
     };
     const response = await HttpHelper.process(data);
-    console.log(response);
     return response;
   };
 
@@ -125,9 +126,9 @@ export default class AtApurementApi {
       dtoHeader: {
         userLogin: Session.getInstance().getLogin(),
         fonctionnalite: 'cf9005',
-        module: 'AT',
+        module: AT_MODULE,
         commande: 'apurerAutoAT',
-        typeService: 'SP',
+        typeService: TYPE_SERVICE_SP,
         motif: null,
         messagesInfo: null,
         messagesErreur: null,
@@ -135,7 +136,6 @@ export default class AtApurementApi {
       jsonVO: apurAutoData,
     };
     let response = await HttpHelper.process(data);
-    console.log('>>>>>>>>>>>>> apurerAutoAT >>>>> OK >>>>>>>>>>>>>>>>>>');
     return response;
   };
 
@@ -144,9 +144,9 @@ export default class AtApurementApi {
       dtoHeader: {
         userLogin: Session.getInstance().getLogin(),
         fonctionnalite: 'cf9005',
-        module: 'AT',
+        module: AT_MODULE,
         commande: 'verifierDepassementDelai',
-        typeService: 'SP',
+        typeService: TYPE_SERVICE_SP,
         motif: null,
         messagesInfo: null,
         messagesErreur: null,
@@ -156,3 +156,5 @@ export default class AtApurementApi {
     return await HttpHelper.process(data);
   };
 }
+
+export default AtApurementApi;

@@ -1,8 +1,8 @@
 /** React Components */
 import React from 'react';
-import {View, ScrollView, StyleSheet} from 'react-native';
+import {View, ScrollView} from 'react-native';
 
-import style from '../style/habLoginStyle';
+import style from '../style/habProfileStyle';
 
 /** REDUX **/
 import {connect} from 'react-redux';
@@ -17,12 +17,15 @@ import {CustomStyleSheet} from '../../../../commons/styles';
 import {Session} from '../../../../commons/services/session/Session';
 import {translate} from '../../../../commons/i18n/I18nHelper';
 import BadrProgressBar from '../../../../commons/component/shared/progressbars/BadrProgressBar';
-import BadrErrorMessage from '../../../../commons/component/shared/messages/Error';
+import BadrErrorMessage from '../../../../commons/component/shared/messages/BadrError';
 import BadrPicker from '../../../../commons/component/shared/pickers/BadrPicker';
 import BadrPickerChecker from '../../../../commons/component/shared/pickers/BadrPickerChecker';
 import BadrFloatingButton from '../../../../commons/component/shared/buttons/BadrFloatingButton';
 
 class habProfileScreen extends React.Component {
+  /*
+     Constructor
+  */
   constructor(props) {
     super(props);
     this.state = {
@@ -33,6 +36,12 @@ class habProfileScreen extends React.Component {
       selectedArrondissementLibelle: '',
       selectedProfiles: [],
     };
+    console.log(Session.getInstance().getGeoCoords())
+  }
+  /*
+  componentDidMount Initialization
+  */
+  componentDidMount() {
   }
 
   buildConfirmConnexionAction = (

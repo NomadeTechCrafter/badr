@@ -4,12 +4,11 @@ import HTML from 'react-native-render-html';
 
 /** REDUX **/
 import {connect} from 'react-redux';
-
-import styles from '../style/habAnnoncesStyle';
-
 /**ACTIONS */
 import * as Constants from '../../../../commons/constants/generic/GenericConstants';
 import * as AnnoncesAction from '../../../../commons/state/actions/GenericAction';
+
+import styles from '../style/habAnnoncesStyle';
 
 /**Custom Components */
 import {Toolbar, BadrInfoMessage} from '../../../../commons/component';
@@ -24,6 +23,17 @@ import * as qrCodeAction from '../../../../commons/state/actions/QrCodeAction';
 import * as qrCodeConstants from '../../../../commons/constants/components/QrCodeConstants';
 
 class habAnnoncesScreen extends React.Component {
+
+  /*
+    Constructor
+   */
+  constructor(props) {
+    super(props);
+  }
+
+  /*
+   componentDidMount Initialization
+   */
   componentDidMount() {
     this.fetchAnnonces();
     this.props.navigation.openDrawer();

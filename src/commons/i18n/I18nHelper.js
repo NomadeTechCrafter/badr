@@ -4,12 +4,12 @@ import * as RNLocalize from 'react-native-localize';
 /**
  1) Import all translation modules imports
  */
-import loginTranslations from '../../modules/hab/login/i18n/habLoginTranslate';
-import smsVerifyTranslations from '../../modules/hab/smsVerify/i18n/habSmsVerifyTranslate';
-import profileTranslations from '../../modules/hab/profile/i18n/habProfileTranslate';
-import annoncesTranslations from '../../modules/hab/annonces/i18n/habAnnoncesTranslate';
-import atTranslations from '../../modules/at/apurement/i18n/atApurementTranslate';
-import commonTranslations from './common/CommonTranslations';
+import loginTranslations from '../../modules/hab/login/i18n/habLoginTranslateFr';
+import smsVerifyTranslations from '../../modules/hab/smsVerify/i18n/habSmsVerifyTranslateFr';
+import profileTranslations from '../../modules/hab/profile/i18n/habProfileTranslateFr';
+import annoncesTranslations from '../../modules/hab/annonces/i18n/habAnnoncesTranslateFr';
+import atTranslations from '../../modules/at/apurement/i18n/atApurementTranslateFr';
+import commonTranslations from './common/CommonTranslationsFr';
 
 const locales = RNLocalize.getLocales();
 

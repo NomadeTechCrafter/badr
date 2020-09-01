@@ -33,7 +33,6 @@ export function request(action, navigation) {
         }
       })
       .catch((e) => {
-        console.log(e);
         dispatch(failed(translate('errors.technicalIssue')));
       });
   };
@@ -116,13 +115,8 @@ export function requestAuto(action, componentInstance) {
               data.jsonVO.atEnteteVO.dateFinSaisieAT,
               // mock it to get depassement '17/10/2019',
             ).then((vddResponse) => {
-              console.log('------______________________');
-              console.log('------______________________');
-              console.log(vddResponse.status);
-              console.log('------______________________');
-              console.log('------______________________');
               if (vddResponse && vddResponse.data.jsonVO) {
-                componentInstance._showDialog(
+                componentInstance.showDialog(
                   vddResponse.data.dtoHeader.messagesErreur +
                     '\n ' +
                     translate(
@@ -132,8 +126,6 @@ export function requestAuto(action, componentInstance) {
                 );
               } else if (!vddResponse.data.jsonVO) {
                 /**apurer at */
-                console.log('--__--__--__');
-                console.log(data.jsonVO);
                 let reqAutoAction = CreateApurementAction.requestAutomatique(
                   {
                     type: Constants.CREATE_APURAUTO_REQUEST,
@@ -168,7 +160,6 @@ export function requestAuto(action, componentInstance) {
         }
       })
       .catch((e) => {
-        console.log(e);
         dispatch(failed(translate('errors.technicalIssue')));
       });
   };
@@ -208,10 +199,6 @@ export function verifierDepassementDelaiRequest(action) {
     dispatch(verifierDepassementDelaiInprogress(action));
     AtApurementApi.verifierDepassementDelai(action.value.dateFinSaisieAT)
       .then((vddResponse) => {
-        console.log('@@@@@@ VERIFIER DEPASSEMENT DELAI @@@@@@');
-        console.log(vddResponse.data.jsonVO);
-        console.log('JSON : ');
-        console.log(vddResponse);
         if (!vddResponse.data.jsonVO) {
           dispatch(verifierDepassementDelaiSuccess(vddResponse.data.jsonVO));
         } else {
@@ -219,7 +206,6 @@ export function verifierDepassementDelaiRequest(action) {
         }
       })
       .catch((e) => {
-        console.log(e);
         dispatch(failed(translate('errors.technicalIssue')));
       });
   };

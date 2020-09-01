@@ -13,7 +13,7 @@ import localStore from '../local-data';
 
 const instance = axios.create({
   baseURL: SERVER_URL,
-  timeout: 1000,
+  timeout: 40000,
   headers: {
     'Content-Type': 'application/json;charset=utf-8',
     Connection: 'keep-alive',
@@ -27,15 +27,7 @@ export default class HttpHelper {
     let response = await instance.post(LOGIN_API, JSON.stringify(user), {
       withCredentials: true,
     });
-    console.log(response.headers);
-    console.log('_____________*** *** ***_________________');
-    console.log(response.headers['session_id']);
-    console.log('_____________*** *** ***_________________');
     Session.getInstance().setSessionId(response.headers['session_id']);
-    console.log('Session.getInstance().getSessionId(true)');
-    console.log(Session.getInstance().getSessionId(true));
-    console.log('Session.getInstance().getSessionId(false)');
-    console.log(Session.getInstance().getSessionId(false));
     return response;
   }
 
@@ -51,7 +43,6 @@ export default class HttpHelper {
       });
       return response;
     } else {
-      console.log('Api local data :', localStore[object.dtoHeader.commande]);
       return {
         data: localStore[object.dtoHeader.commande],
       };

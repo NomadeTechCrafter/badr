@@ -4,34 +4,36 @@
 export class Session {
   static myInstance = null;
 
-  _login = '';
-  _password = '';
-  _codeSmsVerify = '';
-  _codeBureau = '';
-  _nomBureauDouane = '';
-  _libelleArrondissement = '';
-  _codeArrondissement = '';
-  _profiles = [];
+  login = '';
+  password = '';
+  codeSmsVerify = '';
+  codeBureau = '';
+  nomBureauDouane = '';
+  libelleArrondissement = '';
+  codeArrondissement = '';
+  profiles = [];
+  geoCoords;
 
   /**
     Device information
    */
-  _deviceId = '';
-  _deviceName = '';
-  _model = '';
-  _manufacturer = '';
-  _systemVersion = '';
+  deviceId = '';
+  deviceName = '';
+  model = '';
+  manufacturer = '';
+  systemVersion = '';
+  platform = '';
 
   /**
     session
    */
 
-  _sessionId = '';
+  sessionId = '';
 
   /**
     @returns { login | nomAgent │ prenomAgent | codeUOR }
    */
-  _userObject = {};
+  userObject = {};
 
   /**
    * @returns {Session}
@@ -44,131 +46,140 @@ export class Session {
   }
 
   getLogin() {
-    return this._login;
+    return this.login;
   }
 
   setLogin(login) {
-    this._login = login;
+    this.login = login;
   }
 
+  getGeoCoords() {
+    return this.geoCoords;
+  }
+
+  setGeoCoords(geoCoords) {
+    this.geoCoords = geoCoords;
+  }
+
+
   getPassword() {
-    return this._password;
+    return this.password;
   }
 
   setPassword(password) {
-    this._password = password;
+    this.password = password;
   }
 
   getCodeSmsVerify() {
-    return this._codeSmsVerify;
+    return this.codeSmsVerify;
   }
 
   setCodeSmsVerify(codeSmsVerify) {
-    this._codeSmsVerify = codeSmsVerify;
+    this.codeSmsVerify = codeSmsVerify;
   }
 
   getSessionId(withKey) {
-    return withKey ? 'JSESSIONID=' + this._sessionId : this._sessionId;
+    return withKey ? 'JSESSIONID=' + this.sessionId : this.sessionId;
   }
 
   setSessionId(sessionId) {
-    this._sessionId = sessionId;
+    this.sessionId = sessionId;
   }
 
   getCodeBureau() {
-    return this._codeBureau;
+    return this.codeBureau;
   }
 
   setCodeBureau(codeBureau) {
-    this._codeBureau = codeBureau;
+    this.codeBureau = codeBureau;
   }
 
   getNomBureauDouane() {
-    return this._nomBureauDouane;
+    return this.nomBureauDouane;
   }
 
   setNomBureauDouane(nomBureauDouane) {
-    this._nomBureauDouane = nomBureauDouane;
+    this.nomBureauDouane = nomBureauDouane;
   }
 
   getCodeArrondissement() {
-    return this._codeArrondissement;
+    return this.codeArrondissement;
   }
 
   setCodeArrondissement(codeArrondissement) {
-    this._codeArrondissement = codeArrondissement;
+    this.codeArrondissement = codeArrondissement;
   }
 
   getLibelleArrondissement() {
-    return this._libelleArrondissement;
+    return this.libelleArrondissement;
   }
   setLibelleArrondissement(libelleArrondissement) {
-    this._libelleArrondissement = libelleArrondissement;
+    this.libelleArrondissement = libelleArrondissement;
   }
 
   getProfiles() {
-    return this._profiles;
+    return this.profiles;
   }
 
   setProfiles(profiles) {
-    this._profiles = profiles;
+    this.profiles = profiles;
   }
 
   getUserObject() {
-    return this._userObject;
+    return this.userObject;
   }
 
   setUserObject(userObject) {
-    this._userObject = userObject;
+    this.userObject = userObject;
   }
 
   getDeviceId() {
-    return this._deviceId;
+    return this.deviceId;
   }
 
   setDeviceId(deviceId) {
-    this._deviceId = deviceId;
+    this.deviceId = deviceId;
   }
 
   getManufacturer() {
-    return this._manufacturer;
+    return this.manufacturer;
   }
 
   setManufacturer(manufacturer) {
-    this._manufacturer = manufacturer;
+    this.manufacturer = manufacturer;
   }
 
   getModel() {
-    return this._model;
+    return this.model;
   }
 
   setModel(model) {
-    this._model = model;
+    this.model = model;
   }
 
   getSystemVersion() {
-    return this._systemVersion;
+    return this.systemVersion;
   }
 
   setSystemVersion(systemVersion) {
-    this._systemVersion = systemVersion;
+    this.systemVersion = systemVersion;
   }
 
   getDeviceName() {
-    return this._deviceName;
+    return this.deviceName;
   }
 
   setDeviceName(deviceName) {
-    this._deviceName = deviceName;
+    this.deviceName = deviceName;
   }
 
 
   getPlatform() {
-    return this._platform;
+    return this.platform;
   }
 
   setPlatform(platform) {
-    this._platform = platform;
+    this.platform = platform;
   }
 
 

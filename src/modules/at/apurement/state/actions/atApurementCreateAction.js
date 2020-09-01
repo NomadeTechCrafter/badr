@@ -16,7 +16,6 @@ export function requestManuel(action) {
     dispatch(inProgressManuel(action));
     AtApurementApi.apurerAT(action.value.atVO)
       .then((response) => {
-        console.log(response.headers);
         if (response) {
           const data = response.data;
           if (
@@ -33,7 +32,6 @@ export function requestManuel(action) {
         }
       })
       .catch((e) => {
-        console.log(e);
         dispatch(failedManuel(translate('errors.technicalIssue')));
       });
   };
@@ -84,7 +82,6 @@ export function requestAutomatique(action) {
     dispatch(inProgressAutomatique(action));
     AtApurementApi.apurerAutoAT(action.value.atVO)
       .then((response) => {
-        console.log(response);
         if (response) {
           const data = response.data;
           if (
@@ -101,7 +98,6 @@ export function requestAutomatique(action) {
         }
       })
       .catch((e) => {
-        console.log(e);
         dispatch(failedAutomatique(translate('errors.technicalIssue')));
       });
   };

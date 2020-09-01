@@ -35,6 +35,8 @@ import java.util.*;
 import javax.net.ssl.*;
 import java.security.cert.CertificateException;
 
+import com.agontuk.RNFusedLocation.RNFusedLocationPackage;
+
 import com.badr.zxing.ZxingPackage;
 
 public class MainApplication extends Application implements ReactApplication {
@@ -52,6 +54,7 @@ public class MainApplication extends Application implements ReactApplication {
           List<ReactPackage> packages = new PackageList(this).getPackages();
           // Packages that cannot be autolinked yet can be added manually here, for example:
           packages.add(new ZxingPackage());
+          //packages.add(new RNFusedLocationPackage());
           return packages;
         }
 
@@ -137,7 +140,7 @@ public class MainApplication extends Application implements ReactApplication {
                         return new java.security.cert.X509Certificate[]{};
                     }
                 }
-              };    
+              };
 
                   // Install the all-trusting trust manager
                 SSLContext sslContext = null;
@@ -147,7 +150,7 @@ public class MainApplication extends Application implements ReactApplication {
                 } catch(Exception e) {
 
                 }
-               
+
                 // Create an ssl socket factory with our all-trusting manager
                 final SSLSocketFactory sslSocketFactory = sslContext.getSocketFactory();
 
