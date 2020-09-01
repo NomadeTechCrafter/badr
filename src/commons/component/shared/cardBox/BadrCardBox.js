@@ -2,7 +2,7 @@ import React from 'react';
 import {View} from 'react-native';
 import {scale} from 'react-native-size-matters';
 
-const CardBox = (props) => {
+const BadrCardBox = (props) => {
   let {boxShadow, defaultStyle} = styles;
   return (
     <View
@@ -44,4 +44,4 @@ const styles = {
   },
 };
 
-export default CardBox;
+export default BadrCardBox;

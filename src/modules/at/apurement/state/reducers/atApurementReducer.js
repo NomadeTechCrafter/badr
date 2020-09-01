@@ -162,8 +162,6 @@ export default (state = initialState, action) => {
     case Constants.VERIFIER_DELAI_DEPASSEMENT_FAILED:
       nextState.showProgress = false;
       nextState.displayError = true;
-      console.log('######## VERIFIER_DELAI_DEPASSEMENT_FAILED #############');
-      console.log(action.value.dtoHeader);
       if (action.value.dtoHeader) {
         nextState.errorMessage = action.value.dtoHeader.messagesErreur;
       } else {
@@ -186,8 +184,6 @@ const prepareConfirm = (incomingValue, state) => {
   const motif = incomingValue.motif;
   let selectedApurements = [];
   let allTypes = '';
-  console.log('COMPOSANT A APURER ::::::::: ');
-  console.log(listComposants);
   if (listComposants && listComposants.length > 0) {
     let iteration = 0;
     listComposants.forEach((composant) => {
@@ -200,8 +196,6 @@ const prepareConfirm = (incomingValue, state) => {
         typeComposant: composant.typeComposant,
         informationAffichee: composant.informationAffichee,
       };
-      console.log('  CREATION DU COMPOSANT ::::::::: ');
-      console.log(newComponent);
       selectedApurements.push(newComponent);
       _.remove(state.data.composantsApures, {
         idComposant: composant.idComposant,
@@ -231,8 +225,6 @@ const prepareConfirm = (incomingValue, state) => {
   if (!state.data.apurementVOs) {
     state.data.apurementVOs = [];
   }
-  console.log('  APUREMENT CREE ::::::::: ');
-  console.log(newApurementVO);
   state.data.apurementVOs.push(newApurementVO);
 };
 
@@ -284,13 +276,16 @@ const buildVehiculeVOs = (admissionTempVO, listeIdDejaApure) => {
   admissionTempVO.vehiculeVOs.forEach(function (value, key) {
     if (listeIdDejaApure.indexOf(value.idComposant) === -1) {
       value.selected = false;
-      value.typeComposant = 'Vehicule';
+      value.typeComposant = translate('vehicule');
       value.informationAffichee =
-        'Matricule : ' +
+        translate('matricule') +
         value.matricule +
-        ' / Pays : ' +
+        translate('pays') +
         value.paysMatricule.libelle;
-      value.modeApurementComposant = {code: '001', libelle: 'Réexportation'};
+      value.modeApurementComposant = {
+        code: '001',
+        libelle: translate('reexportation'),
+      };
       admissionTempVO.composantsApures.push(value);
     }
   });
@@ -300,9 +295,12 @@ const buildRemorqueVOs = (admissionTempVO, listeIdDejaApure) => {
   admissionTempVO.remorqueVOs.forEach(function (value, key) {
     if (listeIdDejaApure.indexOf(value.idComposant) === -1) {
       value.selected = false;
-      value.typeComposant = 'Remorque';
-      value.informationAffichee = 'Type : ' + value.type.libelle;
-      value.modeApurementComposant = {code: '001', libelle: 'Réexportation'};
+      value.typeComposant = translate('remorque');
+      value.informationAffichee = translate('type') + value.type.libelle;
+      value.modeApurementComposant = {
+        code: '001',
+        libelle: translate('reexportation'),
+      };
       admissionTempVO.composantsApures.push(value);
     }
   });
@@ -314,13 +312,16 @@ const buildMotoQuadVOs = (admissionTempVO, listeIdDejaApure) => {
       value.selected = false;
       var informationAffichee = '';
       if (value.matricule !== '') {
-        informationAffichee = 'Matricule : ' + value.matricule;
+        informationAffichee = translate('matricule') + value.matricule;
       } else {
-        informationAffichee = 'Matricule : ' + value.numChassis;
+        informationAffichee = translate('matricule') + value.numChassis;
       }
-      value.typeComposant = 'Moto / Quad';
+      value.typeComposant = translate('motoQuad');
       value.informationAffichee = informationAffichee;
-      value.modeApurementComposant = {code: '001', libelle: 'Réexportation'};
+      value.modeApurementComposant = {
+        code: '001',
+        libelle: translate('reexportation'),
+      };
       admissionTempVO.composantsApures.push(value);
     }
   });
@@ -329,9 +330,12 @@ const buildJetskyVOs = (admissionTempVO, listeIdDejaApure) => {
   admissionTempVO.jetSkiVOs.forEach(function (value, key) {
     if (listeIdDejaApure.indexOf(value.idComposant) === -1) {
       value.selected = false;
-      value.typeComposant = 'Jet Ski';
-      value.informationAffichee = 'Série : ' + value.serie;
-      value.modeApurementComposant = {code: '001', libelle: 'Réexportation'};
+      value.typeComposant = translate('jetsky');
+      value.informationAffichee = translate('serie') + value.serie;
+      value.modeApurementComposant = {
+        code: '001',
+        libelle: translate('reexportation'),
+      };
       admissionTempVO.composantsApures.push(value);
     }
   });
@@ -341,13 +345,16 @@ const buildBateauPlaisanceVOs = (admissionTempVO, listeIdDejaApure) => {
   admissionTempVO.bateauPlaisanceVOs.forEach(function (value, key) {
     if (listeIdDejaApure.indexOf(value.idComposant) === -1) {
       value.selected = false;
-      value.typeComposant = 'Bateau de plaisance';
+      value.typeComposant = translate('bateauPlaisance');
       value.informationAffichee =
-        'Matricule : ' +
+        translate('matricule') +
         value.matricule +
-        ' / Pays : ' +
+        translate('pays') +
         value.pavillion.libelle;
-      value.modeApurementComposant = {code: '001', libelle: 'Réexportation'};
+      value.modeApurementComposant = {
+        code: '001',
+        libelle: translate('reexportation'),
+      };
       admissionTempVO.composantsApures.push(value);
     }
   });
@@ -357,9 +364,12 @@ const buildPneumatiqueVos = (admissionTempVO, listeIdDejaApure) => {
   admissionTempVO.pneumatiqueVOs.forEach(function (value, key) {
     if (listeIdDejaApure.indexOf(value.idComposant) === -1) {
       value.selected = false;
-      value.typeComposant = 'Pneumatique';
-      value.informationAffichee = 'Série : ' + value.serie;
-      value.modeApurementComposant = {code: '001', libelle: 'Réexportation'};
+      value.typeComposant = translate('pneumatique');
+      value.informationAffichee = translate('serie') + value.serie;
+      value.modeApurementComposant = {
+        code: '001',
+        libelle: translate('reexportation'),
+      };
       admissionTempVO.composantsApures.push(value);
     }
   });
@@ -369,9 +379,12 @@ const buildKartingVOs = (admissionTempVO, listeIdDejaApure) => {
   admissionTempVO.kartingVOs.forEach(function (value, key) {
     if (listeIdDejaApure.indexOf(value.idComposant) === -1) {
       value.selected = false;
-      value.typeComposant = 'Karting';
-      value.informationAffichee = 'Série : ' + value.serie;
-      value.modeApurementComposant = {code: '001', libelle: 'Réexportation'};
+      value.typeComposant = translate('karting');
+      value.informationAffichee = translate('serie') + value.serie;
+      value.modeApurementComposant = {
+        code: '001',
+        libelle: translate('reexportation'),
+      };
       admissionTempVO.composantsApures.push(value);
     }
   });
@@ -381,9 +394,12 @@ const buildArmeVos = (admissionTempVO, listeIdDejaApure) => {
   admissionTempVO.armeVOs.forEach(function (value, key) {
     if (listeIdDejaApure.indexOf(value.idComposant) === -1) {
       value.selected = false;
-      value.typeComposant = 'Arme';
-      value.informationAffichee = 'Série : ' + value.serie;
-      value.modeApurementComposant = {code: '001', libelle: 'Réexportation'};
+      value.typeComposant = translate('arme');
+      value.informationAffichee = translate('serie') + value.serie;
+      value.modeApurementComposant = {
+        code: '001',
+        libelle: translate('reexportation'),
+      };
       admissionTempVO.composantsApures.push(value);
     }
   });
@@ -393,9 +409,14 @@ const buildDronesVos = (admissionTempVO, listeIdDejaApure) => {
   admissionTempVO.droneVOs.forEach(function (value, key) {
     if (listeIdDejaApure.indexOf(value.idComposant) === -1) {
       value.selected = false;
-      value.typeComposant = value.drone ? 'Drone' : 'Engin volant';
-      value.informationAffichee = 'Série : ' + value.serie;
-      value.modeApurementComposant = {code: '001', libelle: 'Réexportation'};
+      value.typeComposant = value.drone
+        ? translate('drone')
+        : translate('enginVolant');
+      value.informationAffichee = translate('serie') + value.serie;
+      value.modeApurementComposant = {
+        code: '001',
+        libelle: translate('reexportation'),
+      };
       admissionTempVO.composantsApures.push(value);
     }
   });
@@ -405,12 +426,15 @@ const buildMarchandiseVos = (admissionTempVO, listeIdDejaApure) => {
   admissionTempVO.marchandiseVOs.forEach(function (value, key) {
     if (listeIdDejaApure.indexOf(value.idComposant) === -1) {
       value.selected = false;
-      value.typeComposant = 'Marchandise';
+      value.typeComposant = translate('marchandise');
       value.informationAffichee =
-        'Désignation : ' +
+        translate('designation') +
         value.designation +
-        (value.nature ? ' / Nature : ' + value.nature.libelle : '');
-      value.modeApurementComposant = {code: '001', libelle: 'Réexportation'};
+        (value.nature ? translate('nature') + value.nature.libelle : '');
+      value.modeApurementComposant = {
+        code: '001',
+        libelle: translate('reexportation'),
+      };
       admissionTempVO.composantsApures.push(value);
     }
   });

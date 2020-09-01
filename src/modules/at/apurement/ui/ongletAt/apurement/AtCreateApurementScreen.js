@@ -4,7 +4,7 @@ import {TextInput, Button} from 'react-native-paper';
 import {connect} from 'react-redux';
 import {Col, Row} from 'react-native-easy-grid';
 
-import {InfoCommon} from '../common/AtInfoCommonScreen';
+import InfoCommon from '../common/AtInfoCommonScreen';
 import {translate} from '../../../../../../commons/i18n/I18nHelper';
 import _ from 'lodash';
 import {CustomStyleSheet, primaryColor} from '../../../../../../commons/styles';
@@ -28,118 +28,129 @@ import {
   BadrActionButton,
 } from '../../../../../../commons/component';
 
-const buildComposantsColumns = (reference, actions) => {
-  return actions
-    ? [
+class Apurement extends React.Component {
+  /**
+   * Constructor
+   */
+  constructor(props) {
+    super(props);
+    this.state = {
+      showNouveauApur: false,
+      consulterApur: false,
+      exportateur: '',
+      dateApurement: '',
+      showMotif: false,
+      motif: '',
+      errorMessage: null,
+      selectedApurement: {},
+    };
+    this.componentsAapurer = [];
+    this.composantTablesCols = this.buildComposantsColumns(true);
+    this.composantTablesColsConsult = this.buildComposantsColumns(false);
+    this.apurementsCols = this.buildApurementsColumns();
+  }
+
+  /**
+   * This function build the components datatable headers labels and actions.
+   * the reference is considered as the current component instance
+   */
+  buildComposantsColumns = (actions) => {
+    return actions
+      ? [
+          {
+            code: 'typeComposant',
+            libelle: translate('at.apurement.typeComposant'),
+            width: 160,
+          },
+          {
+            code: 'informationAffichee',
+            libelle: translate('at.apurement.informationAffichee'),
+            width: 380,
+          },
+          {
+            code: 'modeApurementComposant.libelle',
+            libelle: translate('at.apurement.modeApurement'),
+            width: 160,
+          },
+          {
+            code: '',
+            libelle: translate('at.apurement.selectionner'),
+            width: 200,
+            component: 'checkbox',
+            action: (row, index) => this.onComponentChecked(row, index),
+          },
+        ]
+      : [
+          {
+            code: 'typeComposant',
+            libelle: translate('at.apurement.typeComposant'),
+            width: 140,
+          },
+          {
+            code: 'informationAffichee',
+            libelle: translate('at.apurement.informationAffichee'),
+            width: 550,
+          },
+          {
+            code: 'modeApur.libelle',
+            libelle: translate('at.apurement.modeApurement'),
+            width: 150,
+          },
+        ];
+  };
+
+  /**
+   * This function build the apurement datatable headers labels and actions.
+   *  the reference is considered as the current component instance
+   */
+  buildApurementsColumns = () => {
+    return [
       {
-        code: 'typeComposant',
+        code: 'bureauApur.libelle',
+        libelle: translate('at.apurement.bureauApurement'),
+        width: 150,
+      },
+      {
+        code: 'arrondApur.libelle',
+        libelle: translate('at.apurement.arrondApurement'),
+        width: 180,
+      },
+      {
+        code: 'typeComposApur',
         libelle: translate('at.apurement.typeComposant'),
-        width: 160,
+        width: 240,
       },
       {
-        code: 'informationAffichee',
-        libelle: translate('at.apurement.informationAffichee'),
-        width: 380,
-      },
-      {
-        code: 'modeApurementComposant.libelle',
-        libelle: translate('at.apurement.modeApurement'),
-        width: 160,
+        code: 'dateApurement',
+        libelle: translate('at.apurement.dateApurement'),
+        width: 100,
       },
       {
         code: '',
-        libelle: translate('at.apurement.selectionner'),
-        width: 200,
-        component: 'checkbox',
-        action: (row, index) => reference.onComponentChecked(row, index),
-      },
-    ]
-    : [
-      {
-        code: 'typeComposant',
-        libelle: translate('at.apurement.typeComposant'),
-        width: 140,
+        libelle: '',
+        width: 50,
+        component: 'button',
+        icon: 'eye',
+        action: (row, index) => {
+          this.consulter(row);
+        },
       },
       {
-        code: 'informationAffichee',
-        libelle: translate('at.apurement.informationAffichee'),
-        width: 550,
-      },
-      {
-        code: 'modeApur.libelle',
-        libelle: translate('at.apurement.modeApurement'),
-        width: 150,
+        code: '',
+        libelle: '',
+        width: 50,
+        component: 'button',
+        icon: 'delete-outline',
+        attrCondition: 'idApurement',
+        action: (row, index) => this.onApurementDeleted(row, index),
       },
     ];
-};
-
-const buildApurementsColumns = (reference) => {
-  return [
-    {
-      code: 'bureauApur.libelle',
-      libelle: translate('at.apurement.bureauApurement'),
-      width: 150,
-    },
-    {
-      code: 'arrondApur.libelle',
-      libelle: translate('at.apurement.arrondApurement'),
-      width: 180,
-    },
-    {
-      code: 'typeComposApur',
-      libelle: translate('at.apurement.typeComposant'),
-      width: 240,
-    },
-    {
-      code: 'dateApurement',
-      libelle: translate('at.apurement.dateApurement'),
-      width: 100,
-    },
-    {
-      code: '',
-      libelle: '',
-      width: 50,
-      component: 'button',
-      icon: 'eye',
-      action: (row, index) => {
-        reference.consulter(row);
-      },
-    },
-    {
-      code: '',
-      libelle: '',
-      width: 50,
-      component: 'button',
-      icon: 'delete-outline',
-      attrCondition: 'idApurement',
-      action: (row, index) => reference.onApurementDeleted(row, index),
-    },
-  ];
-};
-
-class Apurement extends React.Component {
-  defaultState = {
-    showNouveauApur: false,
-    consulterApur: false,
-    exportateur: '',
-    dateApurement: '',
-    showMotif: false,
-    motif: '',
-    errorMessage: null,
-    selectedApurement: {},
   };
 
-  constructor(props) {
-    super(props);
-    this.state = this.defaultState;
-    this.componentsAapurer = [];
-    this.composantTablesCols = buildComposantsColumns(this, true);
-    this.composantTablesColsConsult = buildComposantsColumns(this, false);
-    this.apurementsCols = buildApurementsColumns(this);
-  }
-
+  /**
+   * Fired to view data of the selected AT item (form + Components)
+   */
   consulter = (row) => {
-    console.log(row);
     this.setState({
       selectedApurement: row,
       consulterApur: true,
@@ -147,12 +158,16 @@ class Apurement extends React.Component {
     });
   };
 
+  /**
+   * Fired when each component is checked or unchecked,
+   * the components states are handled by redux not locally.
+   */
   onComponentChecked = (row, index) => {
     if (this.state.dateApurement) {
       let item = this.props.initApurement.data.composantsApures[index];
       item.id = index + 1;
       if (item && item.selected) {
-        let result = _.filter(this.componentsAapurer, function(val) {
+        let result = _.filter(this.componentsAapurer, function (val) {
           return val.idComposant === item.idComposant;
         });
         if (result.length === 0) {
@@ -172,7 +187,11 @@ class Apurement extends React.Component {
     }
   };
 
-  confirmer = () => {
+  /**
+   * Fired to prepare AT components before confirming the AT.
+   * The list of AT items are handled by redux not by a local state.
+   */
+  prepareConfirmAT = () => {
     if (this.state.dateApurement) {
       this.setState({
         errorMessage: null,
@@ -205,6 +224,9 @@ class Apurement extends React.Component {
     }
   };
 
+  /**
+   * Fired when the apurement is deleted from the datatable with a given index.
+   */
   onApurementDeleted = (row, index) => {
     let actionRemove = InitApurementAction.remove({
       type: ConstantsAt.PREPARE_APUR_REMOVE,
@@ -218,6 +240,9 @@ class Apurement extends React.Component {
     }
   };
 
+  /**
+   * Fired when the a new apurement is initialized for creation.
+   */
   nouveauApurement = () => {
     this.setState({
       consulterApur: false,
@@ -230,15 +255,16 @@ class Apurement extends React.Component {
     this.props.actions.dispatch(actionClearMsg);
   };
 
+  /**
+   * Fired when the cancel button is clicked. To show or hide the form block
+   */
   abandonner = () => {
     this.setState({showNouveauApur: false, consulterApur: false});
   };
 
-  onComposantSelected = () => {
-  };
+  onComposantSelected = () => {};
 
   onDateApurementChanged = (date) => {
-    console.log(Utils.isSameThanNow(date, 'DD/MM/YYYY'));
     if (!Utils.isSameThanNow(date, 'DD/MM/YYYY')) {
       this.setState({showMotif: true});
     } else {
@@ -247,9 +273,9 @@ class Apurement extends React.Component {
     this.setState({dateApurement: date});
   };
 
-  onApurementSelected = (apurement) => {
-  };
-
+  /**
+    Fired when the confirm button is clicked.
+   */
   handleConfirmATButton = () => {
     let apurerAction = CreateApurementAction.requestManuel({
       type: ConstantsAt.CREATE_APUR_REQUEST,
@@ -261,6 +287,10 @@ class Apurement extends React.Component {
     this.setState({showNouveauApur: false});
   };
 
+  /**
+   * Method fired each time the screen is visible to check the 'depassement de delai'
+   * the componentDidMount lifecycle method do not handle this issue => Called only at the first time when component is created.
+   * */
   onScreenReloaded = () => {
     if (
       this.props.initApurement &&
@@ -282,13 +312,13 @@ class Apurement extends React.Component {
 
   componentDidMount = () => {
     this.componentsAapurer = [];
-    this._unsubscribe = this.props.navigation.addListener('focus', () => {
+    this.unsubscribe = this.props.navigation.addListener('focus', () => {
       this.onScreenReloaded();
     });
   };
 
   componentWillUnmount() {
-    this._unsubscribe();
+    this.unsubscribe();
   }
 
   buildMotif = () => {
@@ -304,12 +334,12 @@ class Apurement extends React.Component {
         label={translate('at.apurement.motif')}
       />
     ) : (
-      <View/>
+      <View />
     );
   };
 
   render() {
-    const atVo = this.props.initApurement.data;
+    const atVo: any = this.props.initApurement.data;
     return (
       <View style={styles.fabContainer}>
         <ScrollView
@@ -343,7 +373,7 @@ class Apurement extends React.Component {
 
               {this.state.errorMessage != null && (
                 <View style={styles.messages}>
-                  <BadrErrorMessage message={this.state.errorMessage}/>
+                  <BadrErrorMessage message={this.state.errorMessage} />
                 </View>
               )}
 
@@ -383,21 +413,21 @@ class Apurement extends React.Component {
                 </Accordion>
               </CardBox>
               {!this.state.showNouveauApur &&
-              atVo.atEnteteVO &&
-              atVo.atEnteteVO.etatAt &&
-              atVo.atEnteteVO.etatAt.code !== '005' &&
-              atVo.composantsApures &&
-              atVo.composantsApures.length > 0 && (
-                <View style={styles.actionsContainer}>
-                  <Button
-                    onPress={() => this.nouveauApurement()}
-                    icon="plus"
-                    mode="contained"
-                    style={styles.btnActions}>
-                    {translate('transverse.nouveau')}
-                  </Button>
-                </View>
-              )}
+                atVo.atEnteteVO &&
+                atVo.atEnteteVO.etatAt &&
+                atVo.atEnteteVO.etatAt.code !== '005' &&
+                atVo.composantsApures &&
+                atVo.composantsApures.length > 0 && (
+                  <View style={styles.actionsContainer}>
+                    <Button
+                      onPress={() => this.nouveauApurement()}
+                      icon="plus"
+                      mode="contained"
+                      style={styles.btnActions}>
+                      {translate('transverse.nouveau')}
+                    </Button>
+                  </View>
+                )}
               {this.state.showNouveauApur && (
                 <CardBox style={styles.cardBox}>
                   <CardsWithTitle title={translate('at.apurement.title')}>
@@ -433,12 +463,13 @@ class Apurement extends React.Component {
                       <Row>
                         <Col size={50}>
                           <BadrDatePicker
+                            labelDate={translate('at.apurement.dateApurement')}
                             dateFormat="DD/MM/YYYY"
                             onDateChanged={this.onDateApurementChanged}
                             inputStyle={styles.textInputsStyle}
                           />
                         </Col>
-                        <Col size={50}/>
+                        <Col size={50} />
                       </Row>
 
                       <Row>
@@ -499,7 +530,7 @@ class Apurement extends React.Component {
                         totalElements={
                           this.props.initApurement.data.composantsApures
                             ? this.props.initApurement.data.composantsApures
-                              .length
+                                .length
                             : 0
                         }
                         maxResultsPerPage={5}
@@ -509,10 +540,10 @@ class Apurement extends React.Component {
                   </CardsWithTitle>
                   <View style={styles.actionsContainer}>
                     <Row size={4}>
-                      <Col/>
+                      <Col />
                       <Col>
                         <Button
-                          onPress={() => this.confirmer()}
+                          onPress={() => this.prepareConfirmAT()}
                           icon="check"
                           mode="contained"
                           style={styles.btnActions}>
@@ -528,7 +559,7 @@ class Apurement extends React.Component {
                           {translate('transverse.abandonner')}
                         </Button>
                       </Col>
-                      <Col/>
+                      <Col />
                     </Row>
                   </View>
                 </CardBox>
@@ -575,7 +606,7 @@ class Apurement extends React.Component {
                             disabled="true"
                           />
                         </Col>
-                        <Col size={50}/>
+                        <Col size={50} />
                       </Row>
 
                       <Row>
@@ -607,7 +638,7 @@ class Apurement extends React.Component {
                               this.state.selectedApurement.apurementComposantVOs
                                 .length > 0
                                 ? this.state.selectedApurement
-                                  .apurementComposantVOs[0].exportateur
+                                    .apurementComposantVOs[0].exportateur
                                 : ''
                             }
                             label={translate('at.apurement.exportateur')}
@@ -627,12 +658,11 @@ class Apurement extends React.Component {
                           this.state.selectedApurement.apurementComposantVOs
                         }
                         cols={this.composantTablesColsConsult}
-                        onItemSelected={() => {
-                        }}
+                        onItemSelected={() => {}}
                         totalElements={
                           this.state.selectedApurement.apurementComposantVOs
                             ? this.state.selectedApurement.apurementComposantVOs
-                              .length
+                                .length
                             : 0
                         }
                         maxResultsPerPage={5}
@@ -688,8 +718,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(Apurement);
 const styles = StyleSheet.create({
   fabContainer: {
     height: '100%',
-    // flex: 1,
-    // justifyContent: 'flex-end',
   },
   badrActionsStyle: {justifyContent: 'flex-end'},
   messages: {justifyContent: 'center', alignItems: 'center'},

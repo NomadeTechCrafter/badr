@@ -118,7 +118,7 @@ class BadrApiTable extends React.Component {
   };
 
   scrollMore = () => {
-    this._horizontalScrollView.scrollTo({
+    this.horizontalScrollView.scrollTo({
       x: screenWidth,
     });
   };
@@ -162,7 +162,7 @@ class BadrApiTable extends React.Component {
       <View>
         <ScrollView
           ref={(node) => {
-            this._horizontalScrollView = node;
+            this.horizontalScrollView = node;
           }}
           key="horizontalScrollView"
           horizontal={true}>

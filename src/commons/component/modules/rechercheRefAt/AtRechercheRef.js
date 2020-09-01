@@ -54,7 +54,7 @@ class RechecheRefAt extends Component {
     this.initRechercheAt();
   };
 
-  _hasErrors = (field) => {
+  hasErrors = (field) => {
     return this.state.showErrorMsg && _.isEmpty(this.state[field]);
   };
 
@@ -117,7 +117,7 @@ class RechecheRefAt extends Component {
           <View style={styles.containerInputs}>
             <View>
               <TextInput
-                error={this._hasErrors('bureau')}
+                error={this.hasErrors('bureau')}
                 maxLength={3}
                 keyboardType={'number-pad'}
                 value={this.state.bureau}
@@ -134,7 +134,7 @@ class RechecheRefAt extends Component {
               <HelperText
                 type="error"
                 padding="none"
-                visible={this._hasErrors('bureau')}>
+                visible={this.hasErrors('bureau')}>
                 {translate('errors.donneeObligatoire', {
                   champ: translate('transverse.bureau'),
                 })}
@@ -143,7 +143,7 @@ class RechecheRefAt extends Component {
 
             <View>
               <TextInput
-                error={this._hasErrors('annee')}
+                error={this.hasErrors('annee')}
                 maxLength={4}
                 keyboardType={'number-pad'}
                 value={this.state.annee}
@@ -160,7 +160,7 @@ class RechecheRefAt extends Component {
               <HelperText
                 type="error"
                 padding="none"
-                visible={this._hasErrors('annee')}>
+                visible={this.hasErrors('annee')}>
                 {translate('errors.donneeObligatoire', {
                   champ: translate('transverse.annee'),
                 })}
@@ -169,7 +169,7 @@ class RechecheRefAt extends Component {
 
             <View>
               <TextInput
-                error={this._hasErrors('numero')}
+                error={this.hasErrors('numero')}
                 maxLength={3}
                 keyboardType={'number-pad'}
                 value={this.state.numero}
@@ -186,7 +186,7 @@ class RechecheRefAt extends Component {
               <HelperText
                 type="error"
                 padding="none"
-                visible={this._hasErrors('numero')}>
+                visible={this.hasErrors('numero')}>
                 {translate('errors.donneeObligatoire', {
                   champ: translate('transverse.numero'),
                 })}
@@ -195,7 +195,7 @@ class RechecheRefAt extends Component {
 
             <View>
               <TextInput
-                error={this._hasErrors('serie')}
+                error={this.hasErrors('serie')}
                 maxLength={7}
                 keyboardType={'number-pad'}
                 value={this.state.serie}
@@ -212,7 +212,7 @@ class RechecheRefAt extends Component {
               <HelperText
                 type="error"
                 padding="none"
-                visible={this._hasErrors('serie')}>
+                visible={this.hasErrors('serie')}>
                 {translate('errors.donneeObligatoire', {
                   champ: translate('transverse.serie'),
                 })}

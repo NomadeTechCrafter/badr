@@ -87,7 +87,7 @@ export default class BadrTable extends React.Component {
   };
 
   scrollMore = () => {
-    this._horizontalScrollView.scrollTo({x: screenWidth});
+    this.horizontalScrollView.scrollTo({x: screenWidth});
   };
 
   buildDataTable = () => {
@@ -98,7 +98,7 @@ export default class BadrTable extends React.Component {
       <View>
         <ScrollView
           ref={(node) => {
-            this._horizontalScrollView = node;
+            this.horizontalScrollView = node;
           }}
           key="horizontalScrollView"
           horizontal={true}>

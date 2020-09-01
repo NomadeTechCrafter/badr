@@ -2,7 +2,7 @@ import React from 'react';
 import {Session} from '../../../services/session/Session';
 import {connect} from 'react-redux';
 import * as AutoLoginConstants from '../../../constants/components/AutoLoginConstants';
-import * as autoLoginActions from '../../../state/actions/AutoLoginAction';
+import * as autoLoginActions from '../../../ionic/state/actions/AutoLoginAction';
 
 class AutoLoginProcess extends React.Component {
   constructor(props) {

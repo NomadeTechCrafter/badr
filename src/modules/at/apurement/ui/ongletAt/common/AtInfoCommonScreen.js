@@ -1,13 +1,12 @@
 import React from 'react';
-import {StyleSheet, View,StyleSheet} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {Text} from 'react-native-paper';
 import {CardSection} from '../../../../../../commons/component';
 import {translate} from '../../../../../../commons/i18n/I18nHelper';
-export class InfoCommon extends React.Component {
+class InfoCommon extends React.Component {
   render() {
     return (
       <View>
-        {/* Référence AT */}
         <CardSection style={styles.CardSectionInfo}>
           <View style={styles.containerLibRow}>
             <Text style={styles.libelleTitleM}>
@@ -125,3 +124,5 @@ const styles = StyleSheet.create({
     flex: 3,
   },
 });
+
+export default InfoCommon;

@@ -4,7 +4,7 @@ import {Picker} from '@react-native-community/picker';
 
 import {translate} from '../../../i18n/I18nHelper';
 
-export default class AlphabetPicker extends React.Component {
+export default class BadrAlphabetPicker extends React.Component {
   state = {
     letter: '',
   };

@@ -11,6 +11,10 @@ export default {
     annonces: 'Annonces',
     aucune_annonce: 'Aucune annonce pour le moment.',
   },
+  geo : {
+    "notgranted" : "Vous ne possédez pas une permission relative à la géolocalisation.",
+    "error" : "Le processus de géolocalisation n'a pas pu être terminé."
+  },
   login: {
     userName: "Nom d'utilisateur",
     password: 'Mot de pass',
@@ -139,6 +143,7 @@ export default {
     subTitle: "Écran D'accueil",
   },
   transverse: {
+    anonymoususer : 'Anonymous',
     inprogress : 'Veuillez patienter...',
     bureau: 'Bureau',
     regime: 'Régime',

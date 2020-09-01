@@ -1,6 +1,6 @@
 import AutoLoginApi from '../../services/api/AutoLoginApi';
-import * as Constants from '../../constants/components/AutoLoginConstants';
-import {Session} from '../../services/session/Session';
+import * as Constants from '../../../constants/components/AutoLoginConstants';
+import {Session} from '../../../services/session/Session';
 
 export function request(action, navigation) {
   return (dispatch) => {

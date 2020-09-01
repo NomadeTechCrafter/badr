@@ -26,7 +26,7 @@ class CreerApurement extends React.Component {
     this.state = {...initialState};
   }
 
-  _showDialog = (message, data) => {
+  showDialog = (message, data) => {
     this.setState({
       dialogVisibility: true,
       dialogMessage: message,
@@ -34,16 +34,16 @@ class CreerApurement extends React.Component {
     });
   };
 
-  _hideDialog = () => this.setState({dialogVisibility: false});
+  hideDialog = () => this.setState({dialogVisibility: false});
 
   componentDidMount() {
     this.state = {...initialState};
-    this._unsubscribe = this.props.navigation.addListener('focus', () => {
+    this.unsubscribe = this.props.navigation.addListener('focus', () => {
       this.onScreenReloaded();
     });
   }
   componentWillUnmount() {
-    this._unsubscribe();
+    this.unsubscribe();
   }
   onScreenReloaded = () => {
     var action = InitApurementAction.init({
@@ -90,7 +90,7 @@ class CreerApurement extends React.Component {
       this,
     );
     this.props.actions.dispatch(action);
-    this._hideDialog();
+    this.hideDialog();
   };
 
   render() {

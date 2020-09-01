@@ -3,7 +3,7 @@ import React from 'react';
 import {TextInput, View} from 'react-native';
 import {translate} from '../../../i18n/I18nHelper';
 
-export default class LoginTextInput extends React.Component {
+export default class BadrLoginTextInput extends React.Component {
   constructor(props) {
     super(props);
   }

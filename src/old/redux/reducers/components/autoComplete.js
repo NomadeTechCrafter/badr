@@ -18,7 +18,7 @@ export default (state = initialState, action) => {
     case Constants.AUTOCOMPLETE_IN_PROGRESS:
       return nextState;
     case Constants.AUTOCOMPLETE_SUCCESS:
-      console.log('in reducer success', action.value.data);
+      console.log('in reducers success', action.value.data);
       nextState.data = action.value.data;
       nextState.loaded = true;
       return nextState;

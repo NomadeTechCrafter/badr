@@ -153,7 +153,7 @@ class habMainMenuScreen extends React.Component {
             <Col>
               <Image
                 style={style.agentImageStyle}
-                source={require('../../../../assets/images/agent.png')}
+                source={require('../../../../assets/images/badrAgentIcon.png')}
               />
             </Col>
             <Col/>

@@ -3,7 +3,7 @@ import {TextInput, View} from 'react-native';
 import {CustomStyleSheet} from '../../../styles';
 import {translate} from '../../../i18n/I18nHelper';
 
-export default class PasswordTextInput extends React.Component {
+export default class BadrPasswordTextInput extends React.Component {
   render() {
     return (
       <View style={CustomStyleSheet.badrInput}>

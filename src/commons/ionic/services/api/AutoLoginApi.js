@@ -1,4 +1,4 @@
-import {Session} from '../session/Session';
+import {Session} from '../../../services/session/Session';
 import {
   getAndroidId,
   getDeviceName,
@@ -6,10 +6,10 @@ import {
   getModel,
   getSystemVersion,
 } from 'react-native-device-info';
-import {saveStringified} from '../async-storage/StorageService';
-import HabLoginApi from '../../../modules/hab/login/service/api/habLoginApi';
-import HabSmsVerifyApi from '../../../modules/hab/smsVerify/service/api/habSmsVerifyApi';
-import HabProfileApi from '../../../modules/hab/mainMenu/service/api/habProfileApi';
+import {saveStringified} from '../../../services/async-storage/StorageService';
+import HabLoginApi from '../../../../modules/hab/login/service/api/habLoginApi';
+import HabSmsVerifyApi from '../../../../modules/hab/smsVerify/service/api/habSmsVerifyApi';
+import HabProfileApi from '../../../../modules/hab/mainMenu/service/api/habProfileApi';
 
 export default class AutoLoginApi {
   constructor(

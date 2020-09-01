@@ -1,5 +1,24 @@
 export default {
   at: {
+    composants: {
+      vehicule: 'Vehicule',
+      matricule: 'Matricule : ',
+      pays: ' / Pays : ',
+      reexportation: 'Réexportation',
+      remorque: 'Remorque',
+      type: 'Type : ',
+      motoQuad: 'Moto / Quad',
+      jetsky: 'Jet Ski',
+      bateauPlaisance: 'Bateau de plaisance',
+      pneumatique: 'Pneumatique',
+      karting: 'Karting',
+      arme: 'Arme',
+      drone: 'Drone',
+      enginVolant: 'Engin volant',
+      marchandise: 'Marchandise',
+      designation: 'Désignation : ',
+      nature: ' / Nature : ',
+    },
     verifierDepassementDelai: {
       message: 'Le délai est dépassé.',
     },

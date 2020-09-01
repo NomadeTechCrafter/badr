@@ -139,7 +139,7 @@ class MainMenu extends React.Component {
             <Col>
               <Image
                 style={styles.agentImageStyle}
-                source={require('../../../../assets/images/agent.png')}
+                source={require('../../../../assets/images/badrAgentIcon.png')}
               />
             </Col>
             <Col />

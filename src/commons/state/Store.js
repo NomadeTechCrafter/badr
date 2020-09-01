@@ -5,7 +5,7 @@ import smsVerifyReducer from '../../modules/hab/smsVerify/state/reducers/habSmsV
 import confirmConnexionReducer from '../../modules/hab/profile/state/reducers/habProfileReducer';
 import genericReducer from './reducers/GenericReducer';
 import menuReducer from '../../modules/hab/mainMenu/state/reducers/habMainMenuReducer';
-import autoLoginReducer from './reducers/AutoLoginReducer';
+import autoLoginReducer from '../ionic/state/reducers/AutoLoginReducer';
 import badrPickerReducer from './reducers/BadrPickerReducer';
 import badrPickerCheckerReducer from './reducers/BadrPickerCheckerReducer';
 import qrCodeReducer from './reducers/QrCodeReducer';
@@ -14,7 +14,7 @@ import initApurementReducer from '../../modules/at/apurement/state/reducers/atAp
 
 
 /**
- * combine all reducer
+ * combine all reducers
  */
 const allReducers = combineReducers({
   loginReducer,

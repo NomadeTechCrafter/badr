@@ -2,7 +2,7 @@ import React from 'react';
 import {View} from 'react-native';
 import {scale} from 'react-native-size-matters';
 
-const CardSection = (props) => {
+const BadrCardSection = (props) => {
   return <View style={[styles.container, props.style]}>{props.children}</View>;
 };
 
@@ -15,4 +15,4 @@ const styles = {
   },
 };
 
-export default CardSection;
+export default BadrCardSection;

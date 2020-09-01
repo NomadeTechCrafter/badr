@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import {Dimensions} from 'react-native';
 import moment from 'moment';
+import translate from '../i18n/I18nHelper';
 
 export default class Utils {
   static deepDelete = (obj, keysToOmit) => {
@@ -26,7 +27,7 @@ export default class Utils {
     if (user.nomAgent && user.prenomAgent) {
       return user.nomAgent.concat(' ').concat(user.prenomAgent);
     }
-    return 'Anonymous';
+    return translate('transverse.anonymoususer');
   };
 
   static isSameThanNow = (date, dateFormat) => {
