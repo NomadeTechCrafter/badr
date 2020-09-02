@@ -16,7 +16,6 @@ export default (state = initialState, action) => {
   };
   switch (action.type) {
     case Constants.SMSVERIFY_REQUEST:
-      console.log('request...');
       nextState.displayError = false;
       nextState.correct = false;
       nextState.errorMessage = null;
@@ -32,7 +31,6 @@ export default (state = initialState, action) => {
       nextState.showProgress = false;
       return nextState;
     case Constants.SMSVERIFY_FAILED:
-      console.log(action);
       nextState.showProgress = false;
       nextState.correct = false;
       nextState.displayError = true;

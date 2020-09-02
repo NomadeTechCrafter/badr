@@ -36,13 +36,11 @@ class habProfileScreen extends React.Component {
       selectedArrondissementLibelle: '',
       selectedProfiles: [],
     };
-    console.log(Session.getInstance().getGeoCoords())
   }
   /*
   componentDidMount Initialization
   */
-  componentDidMount() {
-  }
+  componentDidMount() {}
 
   buildConfirmConnexionAction = (
     navigation,
@@ -69,7 +67,6 @@ class habProfileScreen extends React.Component {
       selectedArrondissement: selectedValue,
       selectedArrondissementLibelle: item.libelle,
     });
-    console.log(item);
   };
 
   handleBureauChanged = (selectedValue, selectedIndex, item) => {
@@ -80,12 +77,9 @@ class habProfileScreen extends React.Component {
       selectedArrondissement: '',
     });
     this.comboArrondissements.refresh(selectedValue, this.comboBureaux);
-    console.log(item);
   };
 
-  handleOnConfirmProfils = (items) => {
-    console.log(items);
-  };
+  handleOnConfirmProfils = (items) => {};
 
   handleOnProfilItemsChanged = (items) => {
     this.setState({selectedProfiles: items});
@@ -117,12 +111,9 @@ class habProfileScreen extends React.Component {
   };
 
   render() {
-    console.log(this.props);
     return (
       <View style={style.container}>
-        {this.props.confirmConnexionReducer.showProgress && (
-          <BadrProgressBar/>
-        )}
+        {this.props.confirmConnexionReducer.showProgress && <BadrProgressBar />}
         <ScrollView>
           <View>
             {this.props.confirmConnexionReducer.displayError && (
