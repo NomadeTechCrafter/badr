@@ -27,6 +27,7 @@ import {
   BadrDatePicker,
   BadrActionButton,
 } from '../../../../../../commons/component';
+import moment from 'moment';
 
 class Apurement extends React.Component {
   /**
@@ -38,7 +39,7 @@ class Apurement extends React.Component {
       showNouveauApur: false,
       consulterApur: false,
       exportateur: '',
-      dateApurement: '',
+      dateApurement: moment(new Date()).format('DD/MM/YYYY'),
       showMotif: false,
       motif: '',
       errorMessage: null,
@@ -212,7 +213,7 @@ class Apurement extends React.Component {
         this.setState({
           showNouveauApur: false,
           exportateur: '',
-          dateApurement: '',
+          dateApurement: moment(new Date()).format('DD/MM/YYYY'),
           motif: '',
         });
       } else {
@@ -473,6 +474,7 @@ class Apurement extends React.Component {
                         <Col size={50}>
                           <BadrDatePicker
                             labelDate={translate('at.apurement.dateApurement')}
+                            value={new Date()}
                             dateFormat="DD/MM/YYYY"
                             onDateChanged={this.onDateApurementChanged}
                             inputStyle={styles.textInputsStyle}
