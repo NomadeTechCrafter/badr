@@ -1,17 +1,17 @@
 import _ from 'lodash';
-import React, {Component} from 'react';
-import {View} from 'react-native';
-import {HelperText, TextInput, Button} from 'react-native-paper';
-import {Col, Row, Grid} from 'react-native-easy-grid';
-import {connect} from 'react-redux';
+import React, { Component } from 'react';
+import { View } from 'react-native';
+import { HelperText, TextInput, Button } from 'react-native-paper';
+import { Col, Row, Grid } from 'react-native-easy-grid';
+import { connect } from 'react-redux';
 /**i18n */
-import {CustomStyleSheet} from '../../../styles';
-import {Container} from '../../';
+import { CustomStyleSheet } from '../../../styles';
+import { Container } from '../../';
 import * as InitApurementAction from '../../../../modules/at/apurement/state/actions/atApurementInitAction';
 import * as ConstantsAt from '../../../../modules/at/apurement/state/atApurementConstants';
 /** Utils */
 import Utils from '../../../utils/Util';
-import {translate} from '../../../i18n/I18nHelper';
+import { translate } from '../../../i18n/I18nHelper';
 
 class RechecheRefAt extends Component {
   constructor(props) {
@@ -59,7 +59,7 @@ class RechecheRefAt extends Component {
   };
 
   afficherErreurMsg = () => {
-    this.setState({showErrorMsg: true});
+    this.setState({ showErrorMsg: true });
   };
 
   addZeros = (input) => {
@@ -73,7 +73,7 @@ class RechecheRefAt extends Component {
 
   onChangeInput = (input) => {
     let keyImput = _.keys(input)[0];
-    this.setState({[keyImput]: input[keyImput].replace(/[^0-9]/g, '')});
+    this.setState({ [keyImput]: input[keyImput].replace(/[^0-9]/g, '') });
   };
 
   getReferenceAt = () =>
@@ -108,7 +108,7 @@ class RechecheRefAt extends Component {
     }
   };
 
-  handleConfirmATButton = () => {};
+  handleConfirmATButton = () => { };
 
   render() {
     return (
@@ -122,7 +122,7 @@ class RechecheRefAt extends Component {
                 keyboardType={'number-pad'}
                 value={this.state.bureau}
                 label={translate('transverse.bureau')}
-                onChangeText={(val) => this.onChangeInput({bureau: val})}
+                onChangeText={(val) => this.onChangeInput({ bureau: val })}
                 onEndEditing={(event) =>
                   this.addZeros({
                     bureau: event.nativeEvent.text,
@@ -148,7 +148,7 @@ class RechecheRefAt extends Component {
                 keyboardType={'number-pad'}
                 value={this.state.annee}
                 label={translate('transverse.annee')}
-                onChangeText={(val) => this.onChangeInput({annee: val})}
+                onChangeText={(val) => this.onChangeInput({ annee: val })}
                 onEndEditing={(event) => {
                   this.addZeros({
                     annee: event.nativeEvent.text,
@@ -174,7 +174,7 @@ class RechecheRefAt extends Component {
                 keyboardType={'number-pad'}
                 value={this.state.numero}
                 label={translate('transverse.numero')}
-                onChangeText={(val) => this.onChangeInput({numero: val})}
+                onChangeText={(val) => this.onChangeInput({ numero: val })}
                 onEndEditing={(event) =>
                   this.addZeros({
                     numero: event.nativeEvent.text,
@@ -200,7 +200,7 @@ class RechecheRefAt extends Component {
                 keyboardType={'number-pad'}
                 value={this.state.serie}
                 label={translate('transverse.serie')}
-                onChangeText={(val) => this.onChangeInput({serie: val})}
+                onChangeText={(val) => this.onChangeInput({ serie: val })}
                 onEndEditing={(event) =>
                   this.addZeros({
                     serie: event.nativeEvent.text,
@@ -229,7 +229,7 @@ class RechecheRefAt extends Component {
                   compact="true"
                   onPress={this.apurManuelle}
                   style={styles.btnConfirmer}>
-                  {translate('at.apurement.manuelle')}
+                  {translate('at.apurement.normale')}
                 </Button>
               </Col>
               <Col style={styles.column} size={35}>
@@ -275,14 +275,14 @@ const styles = {
     alignItems: 'center',
     marginTop: 20,
   },
-  cleHelperMsg: {width: 150},
+  cleHelperMsg: { width: 150 },
   containerBtn: {
     flexDirection: 'row',
     justifyContent: 'center',
     marginTop: 10,
   },
-  column: {padding: 10},
-  gridContainer: {paddingRight: 25, paddingLeft: 25, width: '100%'},
+  column: { padding: 10 },
+  gridContainer: { paddingRight: 25, paddingLeft: 25, width: '100%' },
   btnConfirmer: {
     color: '#FFF',
     padding: 5,
@@ -295,8 +295,8 @@ const styles = {
 
 const mapStateToProps = (state) => {
   let clonedState = {
-    initApurementReducer: {...state.initApurementReducer},
-    qrCodeReducer: {...state.qrCodeReducer},
+    initApurementReducer: { ...state.initApurementReducer },
+    qrCodeReducer: { ...state.qrCodeReducer },
   };
   return clonedState;
 };
