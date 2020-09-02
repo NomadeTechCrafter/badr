@@ -1,45 +1,33 @@
 import {CustomStyleSheet} from '../../../styles';
 import React from 'react';
+import {StyleSheet} from 'react-native';
 import {Button} from 'react-native-paper';
-
-const buildButton = (
-  style,
-  onPress,
-  text,
-  icon,
-  loading,
-  disabled,
-  compact,
-) => {
-  return (
-    <Button
-      onPress={onPress}
-      mode="contained"
-      icon={icon}
-      dark={true}
-      loading={loading}
-      compact={compact}
-      labelStyle={{color: 'white'}}
-      disabled={disabled}
-      style={style}>
-      {text}
-    </Button>
-  );
-};
 
 export default class BadrButtonIcon extends React.Component {
   constructor(props) {
     super(props);
   }
   render() {
-    return buildButton(
-      this.props.style ? this.props.style : CustomStyleSheet.badrButtonIcon,
-      this.props.onPress,
-      this.props.text,
-      this.props.icon,
-      this.props.loading,
-      this.props.disabled,
-      this.props.compact,
+    return (
+      <Button
+        onPress={this.props.onPress}
+        mode="contained"
+        icon={this.props.icon}
+        dark={true}
+        loading={this.props.loading}
+        compact={this.props.compact}
+        labelStyle={styles.whiteColor}
+        disabled={this.props.compact}
+        style={
+          this.props.style ? this.props.style : CustomStyleSheet.badrButtonIcon
+        }>
+        {this.props.text}
+      </Button>
     );
   }
 }
+const styles = StyleSheet.create({
+  whiteColor: {
+    color: 'white',
+  },
+});

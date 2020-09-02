@@ -1,21 +1,21 @@
+/** RN Components **/
 import React, {Component} from 'react';
 import {View} from 'react-native';
-import {Container, BadrErrorMessage, BadrButtonIcon} from '../../';
-
+import {BadrButtonIcon, BadrErrorMessage, Container} from '../../';
 import {
-  TextInput,
   Button,
-  HelperText,
   Checkbox,
-  TouchableRipple,
+  HelperText,
   Paragraph,
+  TextInput,
+  TouchableRipple,
 } from 'react-native-paper';
+import {CustomStyleSheet, primaryColor} from '../../../styles';
+import {load} from '../../../services/storage-service';
+import _ from 'lodash';
 /**i18n */
 import {translate} from '../../../commons/i18n';
-import {CustomStyleSheet, primaryColor} from '../../../styles';
-import _ from 'lodash';
-
-import {load} from '../../../services/storage-service';
+/** REDUX **/
 import {connect} from 'react-redux';
 import * as Constants from '../../../common/constants/components/rechercheRefDum';
 import * as RechecheDumAction from '../../../redux/actions/components/rechercheDum';
@@ -52,7 +52,7 @@ class RechecheRefDum extends Component {
     this.loadRefDumFormScanQrCode();
   }
 
-  //load Dum Reference from scan Qrcode
+  /*load Dum Reference from scan Qrcode*/
   loadRefDumFormScanQrCode = () => {
     if (this.props.routeParams && this.props.routeParams.refDeclaration) {
       const {refDeclaration} = this.props.routeParams;
@@ -82,7 +82,6 @@ class RechecheRefDum extends Component {
     }
   };
   retablir = () => {
-    console.log('retablir');
     this.setState({...this.defaultState});
   };
   initWSData = (referenceDed) => {
@@ -107,7 +106,6 @@ class RechecheRefDum extends Component {
   };
 
   confirmer = () => {
-    console.log('confirmer', this.props.successRedirection);
     this.setState({showErrorMsg: true});
     if (this.state.regime && this.state.serie) {
       this.state.cleValide = this.cleDUM(this.state.regime, this.state.serie);
@@ -137,7 +135,6 @@ class RechecheRefDum extends Component {
           this.props.successRedirection,
         );
         this.props.dispatch(action);
-        console.log('dispatch fired !!');
       }
     }
   };
@@ -150,12 +147,9 @@ class RechecheRefDum extends Component {
 
   cleDUM = function (regime, serie) {
     let alpha = 'ABCDEFGHJKLMNPRSTUVWXYZ';
-    /*while (serie.length < 6) {
-        serie = '0' + serie;
-      }*/
     if (serie.length > 6) {
       let firstSerie = serie.substring(0, 1);
-      if (firstSerie == '0') {
+      if (firstSerie === '0') {
         serie = serie.substring(1, 7);
       }
     }
@@ -277,8 +271,8 @@ class RechecheRefDum extends Component {
           </View>
         </View>
 
-        <View style={{flexDirection: 'row'}}>
-          <View style={{alignItems: 'flex-end', flex: 1}}>
+        <View style={styles.flexRow}>
+          <View style={styles.alignEnd}>
             <TextInput
               error={this.isCleValide('cle')}
               maxLength={1}
@@ -298,7 +292,7 @@ class RechecheRefDum extends Component {
               })}
             </HelperText>
           </View>
-          <View style={{alignItems: 'flex-start', flex: 1}}>
+          <View style={styles.alignStart}>
             <TextInput
               keyboardType={'number-pad'}
               value={this.state.numeroVoyage}
@@ -311,7 +305,7 @@ class RechecheRefDum extends Component {
         </View>
 
         {this.props.module === 'MLV_LIB' && (
-          <View style={{flexDirection: 'row'}}>
+          <View style={styles.flexRow}>
             <TouchableRipple
               onPress={() => {
                 this.setState({
@@ -335,7 +329,7 @@ class RechecheRefDum extends Component {
               </View>
             </TouchableRipple>
             <Button
-              style={{width: 100}}
+              style={styles.BtnWidth}
               icon="plus-box-outline"
               mode="text"
               compact={true}
@@ -401,6 +395,18 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'space-between',
   },
+  flexRow: {
+    flexDirection: 'row',
+  },
+  alignStart: {
+    alignItems: 'flex-start',
+    flex: 1,
+  },
+  alignEnd: {
+    alignItems: 'flex-end',
+    flex: 1,
+  },
+  BtnWidth: {width: 100},
 };
 
 const mapStateToProps = (state) => ({...state.rechercheRefDumReducer});

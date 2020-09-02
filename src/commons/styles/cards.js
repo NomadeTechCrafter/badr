@@ -11,5 +11,5 @@ export const badrCard = {
   ...cardShape,
   ...cardSize,
   ...cardColors,
-  ...cardCalligraphy
+  ...cardCalligraphy,
 };

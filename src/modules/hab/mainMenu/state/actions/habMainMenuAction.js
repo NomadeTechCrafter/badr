@@ -1,7 +1,7 @@
 /**Constants */
 import * as Constants from '../habMainMenuConstants';
 /** Storage  */
-import {loadParsed} from '../../../../../commons/services/async-storage/StorageService';
+import {load} from '../../../../../commons/services/async-storage/StorageService';
 /** i18n */
 import {translate} from '../../../../../commons/i18n/I18nHelper';
 
@@ -9,7 +9,7 @@ export function request(action) {
   return (dispatch) => {
     dispatch(action);
     dispatch(inProgress(action));
-    loadParsed('listFonctionnaliteVOs')
+    load('listFonctionnaliteVOs', true)
       .then((data) => {
         if (data) {
           action.value.payload = data;

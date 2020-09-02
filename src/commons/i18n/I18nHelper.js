@@ -21,9 +21,16 @@ I18n.fallbacks = true;
 /**
  2) Add here all translation modules imports
  */
-let combined = {...commonTranslations, ...annoncesTranslations, ...loginTranslations, ...smsVerifyTranslations, ...profileTranslations, ...atTranslations};
+let combined = {
+  ...commonTranslations,
+  ...annoncesTranslations,
+  ...loginTranslations,
+  ...smsVerifyTranslations,
+  ...profileTranslations,
+  ...atTranslations,
+};
 I18n.translations = {
-  fr: combined
+  fr: combined,
 };
 
 //export default I18n;

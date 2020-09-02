@@ -1,7 +1,7 @@
 import React from 'react';
 import {Text} from 'react-native';
 
-export default class NumeroPlaqueRemorque extends React.Component {
+export default class NumeroPlaqueRemorqueDiplo extends React.Component {
   render() {
     return (
       <Text>

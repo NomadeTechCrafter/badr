@@ -26,7 +26,6 @@ class RechecheRefAt extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    // if (nextProps.qrCodeReducer !== this.props.qrCodeReducer) {
     if (this.props.qrCodeReducer.value && this.props.qrCodeReducer.value.data) {
       this.setState({
         bureau: this.props.qrCodeReducer.value.data.slice(0, 3),
@@ -35,11 +34,9 @@ class RechecheRefAt extends Component {
         serie: this.props.qrCodeReducer.value.data.slice(10, 17),
       });
     }
-    // }
   }
 
   componentDidMount() {
-    console.log('componentDidMount FIls');
     this.retablir();
   }
 
@@ -66,7 +63,7 @@ class RechecheRefAt extends Component {
     let keyImput = _.keys(input)[0];
     if (input[keyImput] !== '') {
       this.setState({
-        [keyImput]: _.padStart(input[keyImput], input['maxLength'], '0'),
+        [keyImput]: _.padStart(input[keyImput], input.maxLength, '0'),
       });
     }
   };

@@ -29,9 +29,9 @@ export default class HttpHelper {
     });
     console.log(response.headers);
     console.log('_____________*** *** ***_________________');
-    console.log(response.headers['session_id']);
+    console.log(response.headers.session_id);
     console.log('_____________*** *** ***_________________');
-    Session.getInstance().setSessionId(response.headers['session_id']);
+    Session.getInstance().setSessionId(response.headers.session_id);
     console.log('Session.getInstance().getSessionId(true)');
     console.log(Session.getInstance().getSessionId(true));
     console.log('Session.getInstance().getSessionId(false)');

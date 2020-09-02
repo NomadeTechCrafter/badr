@@ -25,7 +25,7 @@ import {translate} from '../../../../commons/i18n/I18nHelper';
 import {BadrLoginHeader, BadrErrorMessage} from '../../../../commons/component';
 
 /** Inmemory session */
-import {loadParsed} from '../../../../commons/services/async-storage/StorageService';
+import {load} from '../../../../commons/services/async-storage/StorageService';
 import {Session} from '../../../../commons/services/session/Session';
 import AutoLoginProcess from '../../../../commons/component/modules/autoLogin/AutoLoginProcess';
 
@@ -76,7 +76,7 @@ class Login extends React.Component {
   };
 
   loadOldUserIfExist = async () => {
-    let user = await loadParsed('user');
+    let user = await load('user', true);
     if (user) {
       this.setState({login: user.login});
     }
@@ -104,8 +104,6 @@ class Login extends React.Component {
   };
 
   render() {
-    console.log('this.state.startAutoLogin');
-    console.log(this.state.startAutoLogin);
     return (
       <ScrollView style={style.container}>
         {/* {this.props.showProgress && <SmartLoader />} */}

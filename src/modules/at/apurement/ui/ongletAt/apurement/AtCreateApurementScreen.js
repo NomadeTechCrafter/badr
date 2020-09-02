@@ -20,7 +20,6 @@ import {
   Container,
   CardBox,
   Accordion,
-  BadrProgressBar,
   BadrErrorMessage,
   BadrInfoMessage,
   BadrTable,
@@ -32,46 +31,46 @@ import {
 const buildComposantsColumns = (reference, actions) => {
   return actions
     ? [
-      {
-        code: 'typeComposant',
-        libelle: translate('at.apurement.typeComposant'),
-        width: 160,
-      },
-      {
-        code: 'informationAffichee',
-        libelle: translate('at.apurement.informationAffichee'),
-        width: 380,
-      },
-      {
-        code: 'modeApurementComposant.libelle',
-        libelle: translate('at.apurement.modeApurement'),
-        width: 160,
-      },
-      {
-        code: '',
-        libelle: translate('at.apurement.selectionner'),
-        width: 200,
-        component: 'checkbox',
-        action: (row, index) => reference.onComponentChecked(row, index),
-      },
-    ]
+        {
+          code: 'typeComposant',
+          libelle: translate('at.apurement.typeComposant'),
+          width: 160,
+        },
+        {
+          code: 'informationAffichee',
+          libelle: translate('at.apurement.informationAffichee'),
+          width: 380,
+        },
+        {
+          code: 'modeApurementComposant.libelle',
+          libelle: translate('at.apurement.modeApurement'),
+          width: 160,
+        },
+        {
+          code: '',
+          libelle: translate('at.apurement.selectionner'),
+          width: 200,
+          component: 'checkbox',
+          action: (row, index) => reference.onComponentChecked(row, index),
+        },
+      ]
     : [
-      {
-        code: 'typeComposant',
-        libelle: translate('at.apurement.typeComposant'),
-        width: 140,
-      },
-      {
-        code: 'informationAffichee',
-        libelle: translate('at.apurement.informationAffichee'),
-        width: 550,
-      },
-      {
-        code: 'modeApur.libelle',
-        libelle: translate('at.apurement.modeApurement'),
-        width: 150,
-      },
-    ];
+        {
+          code: 'typeComposant',
+          libelle: translate('at.apurement.typeComposant'),
+          width: 140,
+        },
+        {
+          code: 'informationAffichee',
+          libelle: translate('at.apurement.informationAffichee'),
+          width: 550,
+        },
+        {
+          code: 'modeApur.libelle',
+          libelle: translate('at.apurement.modeApurement'),
+          width: 150,
+        },
+      ];
 };
 
 const buildApurementsColumns = (reference) => {
@@ -140,7 +139,6 @@ class Apurement extends React.Component {
   }
 
   consulter = (row) => {
-    console.log(row);
     this.setState({
       selectedApurement: row,
       consulterApur: true,
@@ -153,7 +151,7 @@ class Apurement extends React.Component {
       let item = this.props.initApurement.data.composantsApures[index];
       item.id = index + 1;
       if (item && item.selected) {
-        let result = _.filter(this.componentsAapurer, function(val) {
+        let result = _.filter(this.componentsAapurer, function (val) {
           return val.idComposant === item.idComposant;
         });
         if (result.length === 0) {
@@ -235,20 +233,15 @@ class Apurement extends React.Component {
     this.setState({showNouveauApur: false, consulterApur: false});
   };
 
-  onComposantSelected = () => {
-  };
+  onComposantSelected = () => {};
 
   onDateApurementChanged = (date) => {
-    console.log(Utils.isSameThanNow(date, 'DD/MM/YYYY'));
     if (!Utils.isSameThanNow(date, 'DD/MM/YYYY')) {
       this.setState({showMotif: true});
     } else {
       this.setState({showMotif: false});
     }
     this.setState({dateApurement: date});
-  };
-
-  onApurementSelected = (apurement) => {
   };
 
   handleConfirmATButton = () => {
@@ -305,7 +298,7 @@ class Apurement extends React.Component {
         label={translate('at.apurement.motif')}
       />
     ) : (
-      <View/>
+      <View />
     );
   };
 
@@ -344,7 +337,7 @@ class Apurement extends React.Component {
 
               {this.state.errorMessage != null && (
                 <View style={styles.messages}>
-                  <BadrErrorMessage message={this.state.errorMessage}/>
+                  <BadrErrorMessage message={this.state.errorMessage} />
                 </View>
               )}
 
@@ -384,21 +377,21 @@ class Apurement extends React.Component {
                 </Accordion>
               </CardBox>
               {!this.state.showNouveauApur &&
-              atVo.atEnteteVO &&
-              atVo.atEnteteVO.etatAt &&
-              atVo.atEnteteVO.etatAt.code !== '005' &&
-              atVo.composantsApures &&
-              atVo.composantsApures.length > 0 && (
-                <View style={styles.actionsContainer}>
-                  <Button
-                    onPress={() => this.nouveauApurement()}
-                    icon="plus"
-                    mode="contained"
-                    style={styles.btnActions}>
-                    {translate('transverse.nouveau')}
-                  </Button>
-                </View>
-              )}
+                atVo.atEnteteVO &&
+                atVo.atEnteteVO.etatAt &&
+                atVo.atEnteteVO.etatAt.code !== '005' &&
+                atVo.composantsApures &&
+                atVo.composantsApures.length > 0 && (
+                  <View style={styles.actionsContainer}>
+                    <Button
+                      onPress={() => this.nouveauApurement()}
+                      icon="plus"
+                      mode="contained"
+                      style={styles.btnActions}>
+                      {translate('transverse.nouveau')}
+                    </Button>
+                  </View>
+                )}
               {this.state.showNouveauApur && (
                 <CardBox style={styles.cardBox}>
                   <CardsWithTitle title={translate('at.apurement.title')}>
@@ -439,7 +432,7 @@ class Apurement extends React.Component {
                             inputStyle={styles.textInputsStyle}
                           />
                         </Col>
-                        <Col size={50}/>
+                        <Col size={50} />
                       </Row>
 
                       <Row>
@@ -500,7 +493,7 @@ class Apurement extends React.Component {
                         totalElements={
                           this.props.initApurement.data.composantsApures
                             ? this.props.initApurement.data.composantsApures
-                              .length
+                                .length
                             : 0
                         }
                         maxResultsPerPage={5}
@@ -510,7 +503,7 @@ class Apurement extends React.Component {
                   </CardsWithTitle>
                   <View style={styles.actionsContainer}>
                     <Row size={4}>
-                      <Col/>
+                      <Col />
                       <Col>
                         <Button
                           onPress={() => this.confirmer()}
@@ -529,7 +522,7 @@ class Apurement extends React.Component {
                           {translate('transverse.abandonner')}
                         </Button>
                       </Col>
-                      <Col/>
+                      <Col />
                     </Row>
                   </View>
                 </CardBox>
@@ -576,7 +569,7 @@ class Apurement extends React.Component {
                             disabled="true"
                           />
                         </Col>
-                        <Col size={50}/>
+                        <Col size={50} />
                       </Row>
 
                       <Row>
@@ -608,7 +601,7 @@ class Apurement extends React.Component {
                               this.state.selectedApurement.apurementComposantVOs
                                 .length > 0
                                 ? this.state.selectedApurement
-                                  .apurementComposantVOs[0].exportateur
+                                    .apurementComposantVOs[0].exportateur
                                 : ''
                             }
                             label={translate('at.apurement.exportateur')}
@@ -628,12 +621,11 @@ class Apurement extends React.Component {
                           this.state.selectedApurement.apurementComposantVOs
                         }
                         cols={this.composantTablesColsConsult}
-                        onItemSelected={() => {
-                        }}
+                        onItemSelected={() => {}}
                         totalElements={
                           this.state.selectedApurement.apurementComposantVOs
                             ? this.state.selectedApurement.apurementComposantVOs
-                              .length
+                                .length
                             : 0
                         }
                         maxResultsPerPage={5}

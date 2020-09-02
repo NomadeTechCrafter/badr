@@ -1,6 +1,6 @@
 import HttpHelper from '../../../../../commons/services/api/common/HttpHelper';
 import {Session} from '../../../../../commons/services/session/Session';
-
+import {TYPE_SERVICE_SP, MODULE_HAB} from '../../../../../commons/Config';
 export default class HabAnnoncesApi {
   static confirmConnexion = async (
     codeBureau,
@@ -11,9 +11,9 @@ export default class HabAnnoncesApi {
       dtoHeader: {
         userLogin: Session.getInstance().getLogin(),
         fonctionnalite: 'cf4011',
-        module: 'HAB_LIB',
+        module: MODULE_HAB,
         commande: 'confirmerConnexionAgent',
-        typeService: 'SP',
+        typeService: TYPE_SERVICE_SP,
       },
       jsonVO: {
         codeArrondissement: codeArrondissement,

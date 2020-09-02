@@ -1,19 +1,21 @@
 import HttpHelper from '../../../../../commons/services/api/common/HttpHelper';
 /** Inmemory session */
 import {Session} from '../../../../../commons/services/session/Session';
-
 import Utils from '../../../../../commons/utils/Util';
-
+import {
+  TYPE_SERVICE_UC,
+  TYPE_SERVICE_SP,
+  MODULE_AT,
+} from '../../../../../commons/Config';
 export default class AtApurementApi {
   static initApurement = async (reference) => {
-    console.log('Start initApurement');
     const data = {
       dtoHeader: {
         userLogin: Session.getInstance().getLogin(),
         fonctionnalite: 'cf9005',
-        module: 'AT',
+        module: MODULE_AT,
         commande: 'initApurerAT',
-        typeService: 'UC',
+        typeService: TYPE_SERVICE_UC,
       },
       jsonVO: {
         referenceAT: {
@@ -32,9 +34,9 @@ export default class AtApurementApi {
       dtoHeader: {
         userLogin: Session.getInstance().getLogin(),
         fonctionnalite: 'cf9005',
-        module: 'AT',
+        module: MODULE_AT,
         commande: 'initApurerAutoAT',
-        typeService: 'UC',
+        typeService: TYPE_SERVICE_UC,
         motif: null,
         messagesInfo: null,
         messagesErreur: null,
@@ -78,9 +80,9 @@ export default class AtApurementApi {
       dtoHeader: {
         userLogin: Session.getInstance().getLogin(),
         fonctionnalite: 'cf9005',
-        module: 'AT',
+        module: MODULE_AT,
         commande: 'apurerAT',
-        typeService: 'UC',
+        typeService: TYPE_SERVICE_UC,
         motif: null,
         messagesInfo: null,
         messagesErreur: null,
@@ -125,9 +127,9 @@ export default class AtApurementApi {
       dtoHeader: {
         userLogin: Session.getInstance().getLogin(),
         fonctionnalite: 'cf9005',
-        module: 'AT',
+        module: MODULE_AT,
         commande: 'apurerAutoAT',
-        typeService: 'SP',
+        typeService: TYPE_SERVICE_SP,
         motif: null,
         messagesInfo: null,
         messagesErreur: null,
@@ -135,7 +137,6 @@ export default class AtApurementApi {
       jsonVO: apurAutoData,
     };
     let response = await HttpHelper.process(data);
-    console.log('>>>>>>>>>>>>> apurerAutoAT >>>>> OK >>>>>>>>>>>>>>>>>>');
     return response;
   };
 
@@ -144,9 +145,9 @@ export default class AtApurementApi {
       dtoHeader: {
         userLogin: Session.getInstance().getLogin(),
         fonctionnalite: 'cf9005',
-        module: 'AT',
+        module: MODULE_AT,
         commande: 'verifierDepassementDelai',
-        typeService: 'SP',
+        typeService: TYPE_SERVICE_SP,
         motif: null,
         messagesInfo: null,
         messagesErreur: null,

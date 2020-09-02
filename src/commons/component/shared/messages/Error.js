@@ -3,20 +3,6 @@ import {View, Text, TouchableOpacity} from 'react-native';
 import _ from 'lodash';
 import * as Animatable from 'react-native-animatable';
 import {CustomStyleSheet} from '../../../styles';
-const buildError = (message, onClose) => {
-  return message ? (
-    <View style={styles.containerStyle}>
-      <Text>{!Array.isArray(message) ? message : _.join(message, '\n\n')}</Text>
-      <View style={styles.closeBtnStyle}>
-        <TouchableOpacity onPress={onClose}>
-          <Text style={styles.closeBtnTextStyle}>Fermer</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
-  ) : (
-    <View />
-  );
-};
 
 class BadrErrorMessage extends React.Component {
   constructor(props) {
@@ -37,7 +23,22 @@ class BadrErrorMessage extends React.Component {
         easing="ease-out"
         iterationCount={this.props.pulse ? 'infinite' : 1}
         style={[this.props.style, styles.textStyle]}>
-        {buildError(this.props.message, this.onClose)}
+        {this.props.message ? (
+          <View style={styles.containerStyle}>
+            <Text>
+              {!Array.isArray(this.props.message)
+                ? this.props.message
+                : _.join(this.props.message, '\n\n')}
+            </Text>
+            <View style={styles.closeBtnStyle}>
+              <TouchableOpacity onPress={this.onClose}>
+                <Text style={styles.closeBtnTextStyle}>Fermer</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        ) : (
+          <View />
+        )}
       </Animatable.View>
     ) : (
       <View />

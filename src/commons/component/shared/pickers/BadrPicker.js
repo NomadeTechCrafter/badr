@@ -30,9 +30,6 @@ class BadrPicker extends React.Component {
     };
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
-  }
-
   refresh = (params, caller) => {
     this.caller = caller;
     this.caller.disable();
@@ -84,8 +81,8 @@ class BadrPicker extends React.Component {
       save(this.props.storeWithKey, itemValue.toString());
       if (this.props.storeLibelleWithKey) {
         let selectedItem = this.props.picker[this.props.command].items[
-        itemIndex - 1
-          ];
+          itemIndex - 1
+        ];
         if (selectedItem) {
           save(
             this.props.storeWithKey
@@ -107,7 +104,7 @@ class BadrPicker extends React.Component {
       <View style={(styles.container, {...this.props.style})}>
         {this.props.toggle && (
           <TouchableOpacity
-            style={(styles.toggleStyle)}
+            style={styles.toggleStyle}
             onPress={() => this.toggleExpand()}>
             <Text style={this.props.titleStyle}>{this.props.title}</Text>
             <Icon
@@ -154,7 +151,7 @@ class BadrPicker extends React.Component {
                 })}
               </Picker>
             ) : (
-              <BadrCircleProgressBar size={30}/>
+              <BadrCircleProgressBar size={30} />
             )}
           </View>
         )}

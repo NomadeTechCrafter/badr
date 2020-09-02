@@ -7,7 +7,6 @@ import {View, Text, ScrollView} from 'react-native';
 import {
   BadrTextInput,
   BadrErrorMessage,
-  BadrInfoMessage,
   BadrButton,
   BadrProgressBar,
 } from '../../../../commons/component';

@@ -16,7 +16,7 @@ import _ from 'lodash';
 import {BadrCircleProgressBar} from '../../index';
 
 /** Storage **/
-import {loadParsed} from '../../../services/async-storage/StorageService';
+import {load} from '../../../services/async-storage/StorageService';
 /** REDUX **/
 import {connect} from 'react-redux';
 import * as ConstantsBadrApiTable from '../../../constants/components/BadrApiTableConstants';
@@ -33,7 +33,7 @@ class BadrApiTable extends React.Component {
   }
 
   loadUser = async () => {
-    let user = await loadParsed('user');
+    let user = await load('user', true);
     if (user) {
       this.setState({login: user.login});
       this.loadMore(user.login);

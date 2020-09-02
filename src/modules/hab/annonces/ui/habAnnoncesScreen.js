@@ -95,15 +95,14 @@ class habAnnoncesScreen extends React.Component {
             />
           )}
           {this.props.data &&
-          this.props.data.map((item) => {
-            console.log(item.libelleInformation);
-            return (
-              <HTML
-                html={item.libelleInformation}
-                imagesMaxWidth={Dimensions.get('window').width}
-              />
-            );
-          })}
+            this.props.data.map((item) => {
+              return (
+                <HTML
+                  html={item.libelleInformation}
+                  imagesMaxWidth={Dimensions.get('window').width}
+                />
+              );
+            })}
         </View>
       </ScrollView>
     );

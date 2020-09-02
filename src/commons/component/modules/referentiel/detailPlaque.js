@@ -3,9 +3,10 @@ import {View} from 'react-native';
 
 import {primaryColor} from '../../../styles/index';
 
-import {Paragraph, Caption} from 'react-native-paper';
+import {Caption, Paragraph} from 'react-native-paper';
 
-import {NumeroPlaqueRemorque, NumeroPlaqueDiplo, NumeroPlaque} from '../../';
+import NumeroPlaque from './numeroPlaque';
+import NumeroPlaqueRemorqueDiplo from './numeroPlaqueRemorqueDiplo';
 
 export default class DetailPlaque extends React.Component {
   render() {
@@ -77,7 +78,7 @@ export default class DetailPlaque extends React.Component {
                 N° Immatriculation diplomatique
               </Caption>
               <Paragraph>
-                <NumeroPlaqueDiplo
+                <NumeroPlaqueRemorqueDiplo
                   numero1={this.props.data.vehiculeNumImmatDiplo1}
                   numero2={this.props.data.vehiculeNumImmatDiplo2}
                 />
@@ -100,7 +101,7 @@ export default class DetailPlaque extends React.Component {
                 N° Immatriculation remorque
               </Caption>
               <Paragraph>
-                <NumeroPlaqueRemorque
+                <NumeroPlaqueRemorqueDiplo
                   numero1={this.props.data.vehiculeNumImmatRem1}
                   numero2={this.props.data.vehiculeNumImmatRem2}
                 />

@@ -33,8 +33,7 @@ export const card = {
   padding: 10,
 };
 
-export const badrPicker = {
-};
+export const badrPicker = {};
 
 export const badrPickerTitle = {
   marginBottom: 10,

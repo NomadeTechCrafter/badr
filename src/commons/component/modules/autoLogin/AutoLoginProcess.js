@@ -1,21 +1,8 @@
+/** RN Components **/
 import React from 'react';
-import HabLoginApi from '../../../../modules/hab/login/service/api/habLoginApi';
-import HabSmsVerifyApi from '../../../../modules/hab/smsVerify/service/api/habSmsVerifyApi';
-import HabProfileApi from '../../../../modules/hab/profile/service/api/habProfileApi';
 import {Session} from '../../../services/session/Session';
-
+/** REDUX **/
 import {connect} from 'react-redux';
-
-import {
-  getAndroidId,
-  getDeviceName,
-  getManufacturer,
-  getModel,
-  getSystemVersion,
-} from 'react-native-device-info';
-/** Device informations */
-import {saveStringified} from '../../../services/async-storage/StorageService';
-
 import * as AutoLoginConstants from '../../../constants/components/AutoLoginConstants';
 import * as autoLoginActions from '../../../state/actions/AutoLoginAction';
 
@@ -25,7 +12,6 @@ class AutoLoginProcess extends React.Component {
   }
 
   connect = async () => {
-    console.log('connecting ...');
     return await this.shortAuth();
   };
 
@@ -34,13 +20,13 @@ class AutoLoginProcess extends React.Component {
   };
 
   componentDidMount = () => {
-    console.log('this.props.usr');
-    console.log(this.props.usr);
+    /** charger les infos du user connecté **/
     Session.getInstance().setLogin(this.props.usr);
     Session.getInstance().setPassword(this.props.password);
     Session.getInstance().setCodeSmsVerify(this.props.smsCode);
     Session.getInstance().setCodeBureau(this.props.bureauCode);
     Session.getInstance().setCodeArrondissement(this.props.arrondissementCode);
+    /** auto login action pour gerer la cohabitation RN Ionic**/
     let action = autoLoginActions.request(
       {
         type: AutoLoginConstants.AUTOLOGIN_REQUEST,

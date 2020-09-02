@@ -12,7 +12,6 @@ import qrCodeReducer from './reducers/QrCodeReducer';
 import badrApiTable from './reducers/BadrApiTableReducer';
 import initApurementReducer from '../../modules/at/apurement/state/reducers/atApurementReducer';
 
-
 /**
  * combine all reducer
  */

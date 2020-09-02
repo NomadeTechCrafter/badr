@@ -21,7 +21,7 @@ export default (state = initialState, action) => {
   };
   switch (action.type) {
     case Constants.BADRPICKER_CHECKER_REQUEST:
-      nextState.showProgress  = true;
+      nextState.showProgress = true;
       nextState.picker[action.value.command] = {
         loaded: false,
         errorMessage: '',
@@ -30,7 +30,7 @@ export default (state = initialState, action) => {
       };
       return nextState;
     case Constants.BADRPICKER_CHECKER_IN_PROGRESS:
-      nextState.showProgress  = true;
+      nextState.showProgress = true;
       nextState.picker[action.value.command] = {
         loaded: false,
         errorMessage: '',
@@ -39,7 +39,7 @@ export default (state = initialState, action) => {
       };
       return nextState;
     case Constants.BADRPICKER_CHECKER_SUCCESS:
-      nextState.showProgress  = false;
+      nextState.showProgress = false;
       nextState.picker[action.value.command] = {
         loaded: true,
         errorMessage: '',
@@ -55,7 +55,7 @@ export default (state = initialState, action) => {
         'Séléctionnez tous';
       return nextState;
     case Constants.BADRPICKER_CHECKER_FAILED:
-      nextState.showProgress  = false;
+      nextState.showProgress = false;
       nextState.picker[action.value.command] = {
         loaded: false,
         errorMessage: 'Erreur lors du chargement du composant : <BADR_PICKER>',

@@ -1,22 +1,20 @@
 import {Session} from '../../../../../commons/services/session/Session';
 import HttpHelper from '../../../../../commons/services/api/common/HttpHelper';
+import {TYPE_SERVICE_SP, MODULE_HAB} from '../../../../../commons/Config';
 
 export default class HabSmsVerifyApi {
   static verify = async (code) => {
-    console.log('---------->');
-    console.log(Session.getInstance());
     const data = {
       dtoHeader: {
         userLogin: Session.getInstance().getLogin(),
         fonctionnalite: 'cf4011',
-        module: 'HAB_LIB',
+        module: MODULE_HAB,
         commande: 'verifierCodeGenere',
-        typeService: 'SP',
+        typeService: TYPE_SERVICE_SP,
       },
       jsonVO: {
         code: code,
         device_id: Session.getInstance().getDeviceId(),
-        // device_id: MOCKED_DEVICES_ID[Session.getInstance().getLogin()],
         device_manufacturer: Session.getInstance().getManufacturer(),
         device_model: Session.getInstance().getModel(),
         os: 'Android',
@@ -28,7 +26,6 @@ export default class HabSmsVerifyApi {
       },
     };
     const response = await HttpHelper.process(data);
-    console.log(response);
     return response;
   };
 }
