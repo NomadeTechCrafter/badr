@@ -5,13 +5,11 @@ import HabSmsVerifyApi from '../../service/api/habSmsVerifyApi';
 import {Session} from '../../../../../commons/services/session/Session';
 
 export function request(action, navigation) {
-  console.log('action===< ');
   return (dispatch) => {
     dispatch(action);
     dispatch(inProgress(action));
     HabSmsVerifyApi.verify(action.value.code)
       .then((response) => {
-        console.log(response);
         const jsonVO = response.data.jsonVO;
         if (jsonVO.connexion && jsonVO.connexion === 'true') {
           dispatch(success(jsonVO));
@@ -20,12 +18,10 @@ export function request(action, navigation) {
         } else if (jsonVO.connexion && jsonVO.connexion === 'false') {
           dispatch(failed(translate('smsVerify.codeIncorrect')));
         } else {
-          console.log(response);
           dispatch(failed(translate('errors.technicalIssue')));
         }
       })
       .catch((e) => {
-        console.log(e);
         dispatch(failed(translate('errors.technicalIssue')));
       });
   };

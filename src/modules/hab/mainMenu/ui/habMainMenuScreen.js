@@ -24,7 +24,11 @@ import * as authAction from '../../login/state/actions/habLoginAction';
 import * as LoginConstants from '../../login/state/habLoginConstants';
 
 /** STYLING **/
-import {CustomStyleSheet, primaryColor, accentColor} from '../../../../commons/styles';
+import {
+  CustomStyleSheet,
+  primaryColor,
+  accentColor,
+} from '../../../../commons/styles';
 import style from '../style/habMainMenuStyle';
 
 import {buildRouteWithParams} from '../../../../commons/Routing';
@@ -138,7 +142,6 @@ class habMainMenuScreen extends React.Component {
   };
 
   render() {
-    console.log(Session.getInstance().getProfiles().join());
     return (
       <View style={CustomStyleSheet.menuContainer}>
         <MenuHeader
@@ -156,7 +159,7 @@ class habMainMenuScreen extends React.Component {
                 source={require('../../../../assets/images/badrAgentIcon.png')}
               />
             </Col>
-            <Col/>
+            <Col />
           </Grid>
         </MenuHeader>
         <LinearGradient

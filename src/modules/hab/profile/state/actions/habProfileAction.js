@@ -33,7 +33,6 @@ export function request(action, navigation) {
       })
       .catch((e) => {
         dispatch(failed(translate('errors.technicalIssue')));
-        console.log(e);
       });
   };
 }
