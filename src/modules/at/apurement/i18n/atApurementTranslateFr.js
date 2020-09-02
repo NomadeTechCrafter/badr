@@ -44,7 +44,7 @@ export default {
       },
       mandatory: {
         dateApurement: 'La date apurement est une donnée obligatoire.',
-        selectedComponent: 'Vous devez séléctionner au moins un composant.',
+        selectedComponent: 'Veuillez selectionner au moins un composant.',
       },
       title: 'Apurement',
       subTitleAction: 'Créer Apurement',
