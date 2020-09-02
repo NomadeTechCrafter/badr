@@ -1,4 +1,4 @@
-import {Session} from '../../../../../commons/services/session/Session';
+import { Session } from '../../../../../commons/services/session/Session';
 import HttpHelper from '../../../../../commons/services/api/common/HttpHelper';
 import packageJson from '../../../../../../package.json';
 

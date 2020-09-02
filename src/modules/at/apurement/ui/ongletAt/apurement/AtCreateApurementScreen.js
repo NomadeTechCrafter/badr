@@ -58,6 +58,13 @@ class Apurement extends React.Component {
     return actions
       ? [
           {
+            code: '',
+            libelle: translate('at.apurement.selectionner'),
+            width: 100,
+            component: 'checkbox',
+            action: (row, index) => this.onComponentChecked(row, index),
+          },
+          {
             code: 'typeComposant',
             libelle: translate('at.apurement.typeComposant'),
             width: 160,
@@ -72,13 +79,6 @@ class Apurement extends React.Component {
             libelle: translate('at.apurement.modeApurement'),
             width: 160,
           },
-          {
-            code: '',
-            libelle: translate('at.apurement.selectionner'),
-            width: 200,
-            component: 'checkbox',
-            action: (row, index) => this.onComponentChecked(row, index),
-          },
         ]
       : [
           {
@@ -89,7 +89,7 @@ class Apurement extends React.Component {
           {
             code: 'informationAffichee',
             libelle: translate('at.apurement.informationAffichee'),
-            width: 550,
+            width: 450,
           },
           {
             code: 'modeApur.libelle',
@@ -105,26 +105,6 @@ class Apurement extends React.Component {
    */
   buildApurementsColumns = () => {
     return [
-      {
-        code: 'bureauApur.libelle',
-        libelle: translate('at.apurement.bureauApurement'),
-        width: 150,
-      },
-      {
-        code: 'arrondApur.libelle',
-        libelle: translate('at.apurement.arrondApurement'),
-        width: 180,
-      },
-      {
-        code: 'typeComposApur',
-        libelle: translate('at.apurement.typeComposant'),
-        width: 240,
-      },
-      {
-        code: 'dateApurement',
-        libelle: translate('at.apurement.dateApurement'),
-        width: 100,
-      },
       {
         code: '',
         libelle: '',
@@ -143,6 +123,26 @@ class Apurement extends React.Component {
         icon: 'delete-outline',
         attrCondition: 'idApurement',
         action: (row, index) => this.onApurementDeleted(row, index),
+      },
+      {
+        code: 'bureauApur.libelle',
+        libelle: translate('at.apurement.bureauApurement'),
+        width: 150,
+      },
+      {
+        code: 'arrondApur.libelle',
+        libelle: translate('at.apurement.arrondApurement'),
+        width: 180,
+      },
+      {
+        code: 'typeComposApur',
+        libelle: translate('at.apurement.typeComposantApure'),
+        width: 240,
+      },
+      {
+        code: 'dateApurement',
+        libelle: translate('at.apurement.dateApurement'),
+        width: 100,
       },
     ];
   };
@@ -274,7 +274,7 @@ class Apurement extends React.Component {
   };
 
   /**
-    Fired when the confirm button is clicked.
+   Fired when the confirm button is clicked.
    */
   handleConfirmATButton = () => {
     let apurerAction = CreateApurementAction.requestManuel({
@@ -407,7 +407,7 @@ class Apurement extends React.Component {
                       totalElements={0}
                       maxResultsPerPage={5}
                       paginate={true}
-                      hasId={true}
+                      hasId={false}
                     />
                   </View>
                 </Accordion>
@@ -522,7 +522,7 @@ class Apurement extends React.Component {
                     <View style={styles.flexDirectionRow}>
                       <BadrTable
                         onRef={(ref) => (this.badrComposantsTable = ref)}
-                        hasId={true}
+                        hasId={false}
                         id="idComposant"
                         rows={this.props.initApurement.data.composantsApures}
                         cols={this.composantTablesCols}
@@ -652,7 +652,7 @@ class Apurement extends React.Component {
                     <View style={styles.flexDirectionRow}>
                       <BadrTable
                         onRef={(ref) => (this.badrComposantsTable = ref)}
-                        hasId={true}
+                        hasId={false}
                         id="idComposant"
                         rows={
                           this.state.selectedApurement.apurementComposantVOs
@@ -670,6 +670,21 @@ class Apurement extends React.Component {
                       />
                     </View>
                   </CardsWithTitle>
+                  <View style={styles.actionsContainer}>
+                    <Row size={3}>
+                      <Col />
+                      <Col size={1}>
+                        <Button
+                          onPress={() => this.abandonner()}
+                          icon="autorenew"
+                          mode="contained"
+                          style={styles.btnActions}>
+                          {translate('transverse.abandonner')}
+                        </Button>
+                      </Col>
+                      <Col />
+                    </Row>
+                  </View>
                 </CardBox>
               )}
             </Container>
