@@ -13,7 +13,7 @@ export {default as BadrModal} from './shared/modal/BadrModal';
 export {default as Card} from './shared/cards/BadrCard';
 export {default as CardSection} from './shared/cards/BadrCardSection';
 export {default as Container} from './shared/container/Container';
-export {default as CardBox} from './shared/cardBox/BadrCardBox';
+export {default as CardBox} from './shared/cards/BadrCardBox';
 export {default as CardsWithTitle} from './shared/cards/BadrCardWithTile';
 export {default as Accordion} from './shared/accordion/Accordion';
 export {default as Toolbar} from './shared/toolbar/BadrToolbar';

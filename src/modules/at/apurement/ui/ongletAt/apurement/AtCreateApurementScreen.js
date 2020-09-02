@@ -208,20 +208,24 @@ class Apurement extends React.Component {
           },
         });
         this.props.actions.dispatch(actionPrepare);
+        this.componentsAapurer = [];
+        this.setState({
+          showNouveauApur: false,
+          exportateur: '',
+          dateApurement: '',
+          motif: '',
+        });
+      } else {
+        this.setState({
+          errorMessage: translate('at.apurement.mandatory.selectedComponent'),
+        });
       }
-      this.componentsAapurer = [];
-      this.setState({
-        showNouveauApur: false,
-        exportateur: '',
-        dateApurement: '',
-        motif: '',
-      });
     } else {
-      this.scroll.scrollTo({x: 0, y: 0, animated: true});
       this.setState({
         errorMessage: translate('at.apurement.mandatory.dateApurement'),
       });
     }
+    this.scroll.scrollTo({x: 0, y: 0, animated: true});
   };
 
   /**
@@ -373,7 +377,12 @@ class Apurement extends React.Component {
 
               {this.state.errorMessage != null && (
                 <View style={styles.messages}>
-                  <BadrErrorMessage message={this.state.errorMessage} />
+                  <BadrErrorMessage
+                    onClose={() => {
+                      this.setState({errorMessage: ''});
+                    }}
+                    message={this.state.errorMessage}
+                  />
                 </View>
               )}
 

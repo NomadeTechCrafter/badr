@@ -37,7 +37,10 @@ class BadrErrorMessage extends React.Component {
         easing="ease-out"
         iterationCount={this.props.pulse ? 'infinite' : 1}
         style={[this.props.style, styles.textStyle]}>
-        {buildError(this.props.message, this.onClose)}
+        {buildError(
+          this.props.message,
+          this.props.onClose ? this.props.onClose : this.onClose,
+        )}
       </Animatable.View>
     ) : (
       <View />
