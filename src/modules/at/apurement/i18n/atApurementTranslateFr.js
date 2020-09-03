@@ -43,6 +43,7 @@ export default {
         apurementOK: 'S40003 : AT Apurée avec succés',
       },
       mandatory: {
+        motif: 'Le motif est une donnée obligatoire.',
         dateApurement: 'La date apurement est une donnée obligatoire.',
         selectedComponent: 'Veuillez selectionner au moins un composant.',
       },
