@@ -1,19 +1,22 @@
 import React from 'react';
-import {View, ScrollView, StyleSheet} from 'react-native';
-import {TextInput, Button} from 'react-native-paper';
-import {connect} from 'react-redux';
-import {Col, Row} from 'react-native-easy-grid';
+import { View, ScrollView, StyleSheet } from 'react-native';
+import { TextInput, Button } from 'react-native-paper';
+import { connect } from 'react-redux';
+import { Col, Row } from 'react-native-easy-grid';
 
 import InfoCommon from '../common/AtInfoCommonScreen';
-import {translate} from '../../../../../../commons/i18n/I18nHelper';
+import { translate } from '../../../../../../commons/i18n/I18nHelper';
 import _ from 'lodash';
-import {CustomStyleSheet, primaryColor} from '../../../../../../commons/styles';
+import { CustomStyleSheet, primaryColor } from '../../../../../../commons/styles';
 import * as CreateApurementAction from '../../../state/actions/atApurementCreateAction';
 import * as InitApurementAction from '../../../state/actions/atApurementInitAction';
 import * as ConstantsAt from '../../../state/atApurementConstants';
 
 /** Utils */
 import Utils from '../../../../../../commons/utils/Util';
+import moment from 'moment';
+/** Inmemory session */
+import { Session } from '../../../../../../commons/services/session/Session';
 
 import {
   Toolbar,
@@ -44,6 +47,8 @@ class Apurement extends React.Component {
       motif: '',
       errorMessage: null,
       selectedApurement: {},
+      bureauApur: Session.getInstance().getNomBureauDouane(),
+      arrondApur: Session.getInstance().getLibelleArrondissement(),
     };
     this.componentsAapurer = [];
     this.composantTablesCols = this.buildComposantsColumns(true);
@@ -58,46 +63,46 @@ class Apurement extends React.Component {
   buildComposantsColumns = (actions) => {
     return actions
       ? [
-          {
-            code: '',
-            libelle: translate('at.apurement.selectionner'),
-            width: 100,
-            component: 'checkbox',
-            action: (row, index) => this.onComponentChecked(row, index),
-          },
-          {
-            code: 'typeComposant',
-            libelle: translate('at.apurement.typeComposant'),
-            width: 160,
-          },
-          {
-            code: 'informationAffichee',
-            libelle: translate('at.apurement.informationAffichee'),
-            width: 380,
-          },
-          {
-            code: 'modeApurementComposant.libelle',
-            libelle: translate('at.apurement.modeApurement'),
-            width: 160,
-          },
-        ]
+        {
+          code: '',
+          libelle: translate('at.apurement.selectionner'),
+          width: 100,
+          component: 'checkbox',
+          action: (row, index) => this.onComponentChecked(row, index),
+        },
+        {
+          code: 'typeComposant',
+          libelle: translate('at.apurement.typeComposant'),
+          width: 160,
+        },
+        {
+          code: 'informationAffichee',
+          libelle: translate('at.apurement.informationAffichee'),
+          width: 380,
+        },
+        {
+          code: 'modeApurementComposant.libelle',
+          libelle: translate('at.apurement.modeApurement'),
+          width: 160,
+        },
+      ]
       : [
-          {
-            code: 'typeComposant',
-            libelle: translate('at.apurement.typeComposant'),
-            width: 140,
-          },
-          {
-            code: 'informationAffichee',
-            libelle: translate('at.apurement.informationAffichee'),
-            width: 450,
-          },
-          {
-            code: 'modeApur.libelle',
-            libelle: translate('at.apurement.modeApurement'),
-            width: 150,
-          },
-        ];
+        {
+          code: 'typeComposant',
+          libelle: translate('at.apurement.typeComposant'),
+          width: 140,
+        },
+        {
+          code: 'informationAffichee',
+          libelle: translate('at.apurement.informationAffichee'),
+          width: 450,
+        },
+        {
+          code: 'modeApur.libelle',
+          libelle: translate('at.apurement.modeApurement'),
+          width: 150,
+        },
+      ];
   };
 
   /**
@@ -181,7 +186,7 @@ class Apurement extends React.Component {
       }
     } else {
       this.badrComposantsTable.clearSelection();
-      this.scroll.scrollTo({x: 0, y: 0, animated: true});
+      this.scroll.scrollTo({ x: 0, y: 0, animated: true });
       this.setState({
         errorMessage: translate('at.apurement.mandatory.dateApurement'),
       });
@@ -197,36 +202,42 @@ class Apurement extends React.Component {
       this.setState({
         errorMessage: null,
       });
-      this.badrComposantsTable.clearSelection();
-      if (this.componentsAapurer && this.componentsAapurer.length > 0) {
-        let actionPrepare = InitApurementAction.confirm({
-          type: ConstantsAt.PREPARE_APUR_CONFIRM,
-          value: {
-            listComposantAapurer: this.componentsAapurer,
-            exportateur: this.state.exportateur,
-            dateApurement: this.state.dateApurement,
-            motif: this.state.motif,
-          },
-        });
-        this.props.actions.dispatch(actionPrepare);
-        this.componentsAapurer = [];
+      if (this.state.showMotif && !this.state.motif) {
         this.setState({
-          showNouveauApur: false,
-          exportateur: '',
-          dateApurement: moment(new Date()).format('DD/MM/YYYY'),
-          motif: '',
+          errorMessage: translate('at.apurement.mandatory.motif'),
         });
       } else {
-        this.setState({
-          errorMessage: translate('at.apurement.mandatory.selectedComponent'),
-        });
+        this.badrComposantsTable.clearSelection();
+        if (this.componentsAapurer && this.componentsAapurer.length > 0) {
+          let actionPrepare = InitApurementAction.confirm({
+            type: ConstantsAt.PREPARE_APUR_CONFIRM,
+            value: {
+              listComposantAapurer: this.componentsAapurer,
+              exportateur: this.state.exportateur,
+              dateApurement: this.state.dateApurement,
+              motif: this.state.motif,
+            },
+          });
+          this.props.actions.dispatch(actionPrepare);
+          this.componentsAapurer = [];
+          this.setState({
+            showNouveauApur: false,
+            exportateur: '',
+            dateApurement: moment(new Date()).format('DD/MM/YYYY'),
+            motif: '',
+          });
+        } else {
+          this.setState({
+            errorMessage: translate('at.apurement.mandatory.selectedComponent'),
+          });
+        }
       }
     } else {
       this.setState({
         errorMessage: translate('at.apurement.mandatory.dateApurement'),
       });
     }
-    this.scroll.scrollTo({x: 0, y: 0, animated: true});
+    this.scroll.scrollTo({ x: 0, y: 0, animated: true });
   };
 
   /**
@@ -241,7 +252,7 @@ class Apurement extends React.Component {
     });
     this.props.actions.dispatch(actionRemove);
     if (JSON.stringify(this.state.selectedApurement) === JSON.stringify(row)) {
-      this.setState({consulterApur: false, showNouveauApur: false});
+      this.setState({ consulterApur: false, showNouveauApur: false });
     }
   };
 
@@ -252,6 +263,8 @@ class Apurement extends React.Component {
     this.setState({
       consulterApur: false,
       showNouveauApur: true,
+      motif: null,
+      showMotif: false,
     });
     let actionClearMsg = CreateApurementAction.clearMsgManuel({
       type: ConstantsAt.CREATE_APUR_CLEAR_MSG,
@@ -264,18 +277,18 @@ class Apurement extends React.Component {
    * Fired when the cancel button is clicked. To show or hide the form block
    */
   abandonner = () => {
-    this.setState({showNouveauApur: false, consulterApur: false});
+    this.setState({ showNouveauApur: false, consulterApur: false });
   };
 
-  onComposantSelected = () => {};
+  onComposantSelected = () => { };
 
   onDateApurementChanged = (date) => {
     if (!Utils.isSameThanNow(date, 'DD/MM/YYYY')) {
-      this.setState({showMotif: true});
+      this.setState({ showMotif: true });
     } else {
-      this.setState({showMotif: false});
+      this.setState({ showMotif: false });
     }
-    this.setState({dateApurement: date});
+    this.setState({ dateApurement: date });
   };
 
   /**
@@ -289,7 +302,7 @@ class Apurement extends React.Component {
       },
     });
     this.props.actions.dispatch(apurerAction);
-    this.setState({showNouveauApur: false});
+    this.setState({ showNouveauApur: false });
   };
 
   /**
@@ -339,8 +352,8 @@ class Apurement extends React.Component {
         label={translate('at.apurement.motif')}
       />
     ) : (
-      <View />
-    );
+        <View />
+      );
   };
 
   render() {
@@ -380,7 +393,7 @@ class Apurement extends React.Component {
                 <View style={styles.messages}>
                   <BadrErrorMessage
                     onClose={() => {
-                      this.setState({errorMessage: ''});
+                      this.setState({ errorMessage: '' });
                     }}
                     message={this.state.errorMessage}
                   />
@@ -447,10 +460,7 @@ class Apurement extends React.Component {
                           <TextInput
                             style={styles.textInputsStyle}
                             mode="outlined"
-                            value={
-                              this.props.initApurement.data.atEnteteVO
-                                .bureauEntree.libelle
-                            }
+                            value={this.state.bureauApur}
                             disabled="true"
                             label={translate('at.apurement.bureauApurement')}
                           />
@@ -460,10 +470,7 @@ class Apurement extends React.Component {
                             style={styles.textInputsStyle}
                             underlineColor={primaryColor}
                             mode="outlined"
-                            value={
-                              this.props.initApurement.data.atEnteteVO
-                                .arrondEntree.libelle
-                            }
+                            value={this.state.arrondApur}
                             disabled="true"
                             label={translate('at.apurement.arrondApurement')}
                           />
@@ -476,6 +483,7 @@ class Apurement extends React.Component {
                             labelDate={translate('at.apurement.dateApurement')}
                             value={new Date()}
                             dateFormat="DD/MM/YYYY"
+                            value={new Date()}
                             onDateChanged={this.onDateApurementChanged}
                             inputStyle={styles.textInputsStyle}
                           />
@@ -494,7 +502,7 @@ class Apurement extends React.Component {
                               mode="outlined"
                               value={this.state.motif}
                               onChangeText={(text) =>
-                                this.setState({motif: text})
+                                this.setState({ motif: text })
                               }
                               label={translate('at.apurement.motif')}
                             />
@@ -519,7 +527,7 @@ class Apurement extends React.Component {
                             underlineColor={primaryColor}
                             mode="outlined"
                             onChangeText={(text) =>
-                              this.setState({exportateur: text})
+                              this.setState({ exportateur: text })
                             }
                             value={this.state.exportateur}
                             label={translate('at.apurement.exportateur')}
@@ -541,7 +549,7 @@ class Apurement extends React.Component {
                         totalElements={
                           this.props.initApurement.data.composantsApures
                             ? this.props.initApurement.data.composantsApures
-                                .length
+                              .length
                             : 0
                         }
                         maxResultsPerPage={5}
@@ -646,10 +654,10 @@ class Apurement extends React.Component {
                             value={
                               this.state.selectedApurement
                                 .apurementComposantVOs &&
-                              this.state.selectedApurement.apurementComposantVOs
-                                .length > 0
+                                this.state.selectedApurement.apurementComposantVOs
+                                  .length > 0
                                 ? this.state.selectedApurement
-                                    .apurementComposantVOs[0].exportateur
+                                  .apurementComposantVOs[0].exportateur
                                 : ''
                             }
                             label={translate('at.apurement.exportateur')}
@@ -669,11 +677,11 @@ class Apurement extends React.Component {
                           this.state.selectedApurement.apurementComposantVOs
                         }
                         cols={this.composantTablesColsConsult}
-                        onItemSelected={() => {}}
+                        onItemSelected={() => { }}
                         totalElements={
                           this.state.selectedApurement.apurementComposantVOs
                             ? this.state.selectedApurement.apurementComposantVOs
-                                .length
+                              .length
                             : 0
                         }
                         maxResultsPerPage={5}
@@ -727,13 +735,13 @@ class Apurement extends React.Component {
 
 function mapStateToProps(state) {
   const combinedState = {
-    initApurement: {...state.initApurementReducer},
+    initApurement: { ...state.initApurementReducer },
   };
   return combinedState;
 }
 
 function mapDispatchToProps(dispatch) {
-  let actions = {dispatch};
+  let actions = { dispatch };
   return {
     actions,
   };
@@ -745,9 +753,9 @@ const styles = StyleSheet.create({
   fabContainer: {
     height: '100%',
   },
-  badrActionsStyle: {justifyContent: 'flex-end'},
-  messages: {justifyContent: 'center', alignItems: 'center'},
-  btnActions: {margin: 2},
+  badrActionsStyle: { justifyContent: 'flex-end' },
+  messages: { justifyContent: 'center', alignItems: 'center' },
+  btnActions: { margin: 2 },
   actionsContainer: {
     width: '100%',
     justifyContent: 'center',
