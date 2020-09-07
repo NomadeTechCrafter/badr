@@ -30,9 +30,10 @@ export default (state = initialState, action) => {
     case Constants.QRCODE_FAILED:
       console.log('--> QRCODE failed...');
       nextState.showProgress = false;
-      nextState.errorMessage = action.value.data.dtoHeader
-        ? action.value.data.dtoHeader.messagesErreur
-        : action.value;
+      nextState.errorMessage =
+        action.value.data && action.value.data.dtoHeader
+          ? action.value.data.dtoHeader.messagesErreur
+          : action.value;
       return nextState;
     case Constants.QRCODE_INIT:
       return initialState;

@@ -129,7 +129,7 @@ class CreerApurement extends React.Component {
           confirmMessage={translate('at.apurementauto.confirmDialog.oui')}
           cancelMessage={translate('at.apurementauto.confirmDialog.non')}
           dialogMessage={this.state.dialogMessage}
-          onCancel={this._hideDialog}
+          onCancel={this.hideDialog}
           onOk={this.confirmApurAutomatique}
           dialogVisibility={this.state.dialogVisibility}
         />
