@@ -6,7 +6,7 @@ import {Col, Row, Grid} from 'react-native-easy-grid';
 import {connect} from 'react-redux';
 /**i18n */
 import {CustomStyleSheet} from '../../../styles';
-import {Container} from '../../';
+import {BadrErrorMessage, Container} from '../../';
 import * as InitApurementAction from '../../../../modules/at/apurement/state/actions/atApurementInitAction';
 import * as ConstantsAt from '../../../../modules/at/apurement/state/atApurementConstants';
 /** Utils */
@@ -114,11 +114,25 @@ class RechecheRefAt extends Component {
 
   handleConfirmATButton = () => {};
 
+  onCloseMessageError = () => {
+    this.retablir();
+  };
+
   render() {
+    console.log('============');
+    console.log(this.props.qrCodeReducer);
+    console.log('============');
     return (
       <View style={styles.fabContainer}>
         <Container style={styles.container}>
           <View style={styles.containerInputs}>
+            {this.props.qrCodeReducer &&
+              this.props.qrCodeReducer.errorMessage && (
+                <BadrErrorMessage
+                  onClose={this.onCloseMessageError}
+                  message={this.props.qrCodeReducer.errorMessage}
+                />
+              )}
             <View>
               <TextInput
                 error={this.hasErrors('bureau')}

@@ -1,5 +1,6 @@
 import TransverseApi from '../../services/api/TransverseApi';
 import * as Constants from '../../constants/components/QrCodeConstants';
+import translate from '../../i18n/I18nHelper';
 
 export function request(action) {
   return (dispatch) => {
@@ -17,11 +18,11 @@ export function request(action) {
           action.value.data = data.jsonVO;
           dispatch(success(action));
         } else {
-          dispatch(failed({value: 'error while getting data'}));
+          dispatch(failed({value: translate('qr.at_invalide')}));
         }
       })
       .catch((e) => {
-        dispatch(failed({value: 'error while getting data'}));
+        dispatch(failed({value: translate('qr.at_invalide')}));
       });
   };
 }
