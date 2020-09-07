@@ -11,9 +11,10 @@ export default {
     annonces: 'Annonces',
     aucune_annonce: 'Aucune annonce pour le moment.',
   },
-  geo : {
-    "notgranted" : "Vous ne possédez pas une permission relative à la géolocalisation.",
-    "error" : "Le processus de géolocalisation n'a pas pu être terminé."
+  geo: {
+    notgranted:
+      'Vous ne possédez pas une permission relative à la géolocalisation.',
+    error: "Le processus de géolocalisation n'a pas pu être terminé.",
   },
   login: {
     userName: "Nom d'utilisateur",
@@ -25,7 +26,8 @@ export default {
       'Veuillez saisir le code de vérification que vous avez reçu par SMS (compose de 6 chiffres)',
     confirm: 'Confirmer',
     codeCorrect: 'Code correct',
-    codeIncorrect: 'La vérification a échouée. Merci de vérifier le code introduit.',
+    codeIncorrect:
+      'La vérification a échouée. Merci de vérifier le code introduit.',
     codePlaceholder: '6 chiffres reçus par SMS',
   },
   profile: {
@@ -143,8 +145,8 @@ export default {
     subTitle: "Écran D'accueil",
   },
   transverse: {
-    anonymoususer : 'Anonymous',
-    inprogress : 'Veuillez patienter...',
+    anonymoususer: 'Anonymous',
+    inprogress: 'Veuillez patienter...',
     bureau: 'Bureau',
     regime: 'Régime',
     annee: 'Année',
@@ -208,51 +210,9 @@ export default {
       numeroCarteGrise: 'N° Carte grise',
     },
   },
-  at: {
-    verifierDepassementDelai: {
-      message: 'Le délai est dépassé.',
-    },
-    title: 'Admission Temporaire',
-    statut: 'Statut',
-    dateCreation: 'Date création',
-    dateEnregistrement: 'Date enregistrement',
-    version: 'Version',
-    apurementauto: {
-      confirmDialog: {
-        info: 'Admission temporaire automatique',
-        oui: 'Oui',
-        non: 'Non',
-        confirmApurMessage: 'Voulez-vous apurer cette admission temporaire?',
-      },
-    },
-    apurement: {
-      actions: {
-        apurer: 'APURER',
-      },
-      msg: {
-        apurementOK: 'S40003 : AT Apurée avec succés',
-      },
-      mandatory: {
-        dateApurement: 'La date apurement est une donnée obligatoire.',
-      },
-      title: 'Apurement',
-      subTitleAction: 'Créer Apurement',
-      manuelle: 'Manuelle',
-      automatique: 'Automatique',
-      titleTableau: 'Tableau des apurements AT',
-      bureauApurement: 'Bureau Apurement',
-      arrondApurement: 'Arrondissement Apurement',
-      dateApurement: 'Date Apurement',
-      mode: 'Mode',
-      motif: 'Motif Apurement',
-      exportateur: 'Exportateur',
-      reexportation: 'Réexportation',
-      titleTableauCompo: 'Liste des composants à apurer',
-      typeComposant: 'Type composant',
-      informationAffichee: 'Information affichée',
-      modeApurement: 'Mode apurement',
-      selectionner: 'Selectionner',
-    },
+  qr: {
+    at_invalide:
+      "QR Code invalide merci de vérifier l'AT en saisissant sa référence",
   },
   loremIpsum1:
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque mi lectus, placerat mattis nulla ut, molestie consequat libero. Praesent ut dui ac elit pellentesque imperdiet eu a augue. Morbi ante velit, posuere sed orci ut, venenatis accumsan sapien. Vivamus sed luctus libero. Donec mattis condimentum turpis, sit amet consectetur ligula.',
