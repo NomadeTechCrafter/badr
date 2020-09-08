@@ -14,7 +14,6 @@ export function request(action) {
       .then((response) => {
         const data = response.data;
         if (data && data.jsonVO) {
-          console.log('action qrcode :', data.jsonVO);
           action.value.data = data.jsonVO;
           dispatch(success(action));
         } else {
