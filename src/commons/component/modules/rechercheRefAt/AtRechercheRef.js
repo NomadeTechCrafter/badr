@@ -34,10 +34,13 @@ class RechecheRefAt extends Component {
         numero: this.props.qrCodeReducer.value.data.slice(7, 10),
         serie: this.props.qrCodeReducer.value.data.slice(10, 17),
       });
-    } else {
-      console.log('-------------------');
-      console.log(this.props.qrCodeReducer);
-      console.log('-------------------');
+    } else if (this.props.qrCodeReducer) {
+      this.setState({
+        bureau: '',
+        annee: '',
+        numero: '',
+        serie: '',
+      });
     }
     // }
   }
@@ -119,9 +122,9 @@ class RechecheRefAt extends Component {
   };
 
   render() {
-    console.log('============');
-    console.log(this.props.qrCodeReducer);
-    console.log('============');
+    if (this.props.qrCodeReducer.errorMessage) {
+      //this.clearFields();
+    }
     return (
       <View style={styles.fabContainer}>
         <Container style={styles.container}>

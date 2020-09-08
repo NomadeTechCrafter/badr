@@ -13,6 +13,7 @@ export default (state = initialState, action) => {
   };
   switch (action.type) {
     case Constants.QRCODE_REQUEST:
+      nextState.qrData = {};
       nextState.showProgress = true;
       nextState.errorMessage = null;
       console.log('--> QRCODE request...');
@@ -30,6 +31,7 @@ export default (state = initialState, action) => {
     case Constants.QRCODE_FAILED:
       console.log('--> QRCODE failed...');
       nextState.showProgress = false;
+      nextState.qrData = {};
       nextState.errorMessage =
         action.value.data && action.value.data.dtoHeader
           ? action.value.data.dtoHeader.messagesErreur
