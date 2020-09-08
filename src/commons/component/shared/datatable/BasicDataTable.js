@@ -90,6 +90,18 @@ export default class BadrTable extends React.Component {
     this.horizontalScrollView.scrollTo({x: screenWidth});
   };
 
+  showMultipleValues = (row, code) => {
+    if (code && code.includes(',')) {
+      let result = '';
+      let cols = code.split(',');
+      cols.forEach((col) => {
+        result += ' ' + String(_.get(row, col));
+      });
+      return result;
+    }
+    return String(_.get(row, code));
+  };
+
   buildDataTable = () => {
     const pageCount = Math.ceil(
       this.props.totalElements / this.props.maxResultsPerPage,
@@ -182,8 +194,8 @@ export default class BadrTable extends React.Component {
                           </View>
                         ) : (
                           <DataTable.Cell style={{width: column.width}}>
-                            {_.get(row, column.code) != null
-                              ? String(_.get(row, column.code))
+                            {this.showMultipleValues(row, column.code) != null
+                              ? this.showMultipleValues(row, column.code)
                               : ''}
                           </DataTable.Cell>
                         );
