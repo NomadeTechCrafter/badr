@@ -3,6 +3,13 @@ import {StyleSheet, View} from 'react-native';
 import {Text} from 'react-native-paper';
 import {CardSection} from '../../../../../../commons/component';
 import {translate} from '../../../../../../commons/i18n/I18nHelper';
+import {
+  accentColor,
+  atShadowColor,
+  blueLabelColor,
+  darkGrayColor,
+  lightWhiteColor,
+} from '../../../../../../commons/styles';
 class InfoCommon extends React.Component {
   render() {
     return (
@@ -57,19 +64,19 @@ class InfoCommon extends React.Component {
 
 const libelleTitle = {
   fontSize: 14,
-  color: '#006acd',
+  color: blueLabelColor,
 };
 
 const libelleVal = {
   fontSize: 14,
-  color: '#444444',
+  color: darkGrayColor,
 };
 
 const containerRow = {
   flexDirection: 'row',
   padding: 10,
   borderRadius: 6,
-  shadowColor: 'rgba(59,59,59,0.04)',
+  shadowColor: atShadowColor,
   shadowOffset: {
     width: 0,
     height: 0,
@@ -88,16 +95,16 @@ const styles = StyleSheet.create({
   },
   CardSectionValInfoAt: {
     flexDirection: 'column',
-    backgroundColor: '#f0f5f9',
+    backgroundColor: lightWhiteColor,
   },
   containerLibRow: {
     ...containerRow,
     marginBottom: 5,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: accentColor,
   },
   containerValRow: {
     ...containerRow,
-    backgroundColor: '#f0f5f9',
+    backgroundColor: lightWhiteColor,
   },
   libelleTitleS: {
     ...libelleTitle,
