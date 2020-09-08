@@ -482,7 +482,6 @@ class Apurement extends React.Component {
                             labelDate={translate('at.apurement.dateApurement')}
                             value={new Date()}
                             dateFormat="DD/MM/YYYY"
-                            value={new Date()}
                             onDateChanged={this.onDateApurementChanged}
                             inputStyle={styles.textInputsStyle}
                           />

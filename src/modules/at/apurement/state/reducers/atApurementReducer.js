@@ -2,9 +2,9 @@
 import * as Constants from '../atApurementConstants';
 import _ from 'lodash';
 /** Inmemory session */
-import { Session } from '../../../../../commons/services/session/Session';
+import {Session} from '../../../../../commons/services/session/Session';
 /** i18n */
-import { translate } from '../../../../../commons/i18n/I18nHelper';
+import {translate} from '../../../../../commons/i18n/I18nHelper';
 
 const initialState = {
   showProgress: false,

@@ -22,6 +22,11 @@ export const accentColor = '#FFFFFF';
 export const warnColor = '#ffcc00';
 export const errorColor = 'red';
 
+export const blueLabelColor = '#006acd';
+export const lightWhiteColor = '#f0f5f9';
+export const darkGrayColor = '#444444';
+export const atShadowColor = 'rgba(59,59,59,0.04)';
+
 const CustomStyleSheet = StyleSheet.create({
   badrCardText: {
     ...Texts.cardText,
