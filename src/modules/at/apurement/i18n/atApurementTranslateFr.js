@@ -1,6 +1,7 @@
 export default {
   at: {
     composants: {
+      serie: 'Serie : ',
       vehicule: 'Vehicule',
       matricule: 'Matricule : ',
       pays: ' / Pays : ',
