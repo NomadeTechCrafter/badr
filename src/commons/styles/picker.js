@@ -18,7 +18,7 @@ export const badrPicker = {
 
 export const badrPickerTitle = {
   ...badrPickerTitleCalligraphy,
-  ...badrPickerTitleColors ,
+  ...badrPickerTitleColors,
   ...badrPickerTitleSize,
-  ...badrPickerTitleSpacing
+  ...badrPickerTitleSpacing,
 };

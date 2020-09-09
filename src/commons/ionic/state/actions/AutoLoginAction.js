@@ -18,10 +18,8 @@ export function request(action, navigation) {
     )
       .shortAuth()
       .then(() => {
-        console.log(action.value);
         console.log(JSON.stringify(Session.getInstance()));
         dispatch(success(action.value));
-        console.log(navigation);
         if (navigation) {
           navigation.navigate('Home', {fromIonic: true});
         }

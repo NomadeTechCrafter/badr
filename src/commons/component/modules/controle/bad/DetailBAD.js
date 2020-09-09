@@ -1,12 +1,15 @@
+/** RN Components **/
 import React from 'react';
 import {View} from 'react-native';
 import {primaryColor} from '../../../../styles/index';
-import {Col, Row, Grid} from 'react-native-easy-grid';
-import {Paragraph, Caption} from 'react-native-paper';
+import {Col, Grid, Row} from 'react-native-easy-grid';
+import {Caption, Paragraph} from 'react-native-paper';
+import {Accordion, BadrTable, CardBox} from '../../../';
+/** REDUX **/
 import {connect} from 'react-redux';
-import {BadrTable, CardBox, Accordion} from '../../../';
 import * as Constants from '../../../../constants/controle/BadConstants';
 import * as BadActions from '../../../../redux/actions/controle/BAD';
+/**i18n */
 import {translate} from '../../../../i18n/I18nHelper';
 
 class DetailBAD extends React.Component {
@@ -24,8 +27,6 @@ class DetailBAD extends React.Component {
         reflot: this.props.data.referenceLot,
         lieuChargement: this.props.data.lieuChargement,
       };
-      console.log('Detail BAD with params : ');
-      console.log(actionParam);
       let action = BadActions.request({
         type: Constants.DETAIL_BAD_REQUEST,
         value: actionParam,
@@ -293,7 +294,7 @@ class DetailBAD extends React.Component {
     ) : (
       <View />
     );
-  }
+  };
 }
 
 const mapStateToProps = (state) => {

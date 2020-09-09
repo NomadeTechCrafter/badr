@@ -1,12 +1,11 @@
-import {lightBlueRow,whiteRow} from './colors';
+import {lightBlueRow, whiteRow} from './colors';
 import {gridRow} from './spacing';
 
 export const gridLightBlueRow = {
-    ...lightBlueRow,
-    ...gridRow
+  ...lightBlueRow,
+  ...gridRow,
 };
 export const gridWhiteRow = {
-    ...whiteRow,
-    ...gridRow
+  ...whiteRow,
+  ...gridRow,
 };
-

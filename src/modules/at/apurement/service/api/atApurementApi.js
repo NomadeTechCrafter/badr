@@ -1,7 +1,6 @@
 import HttpHelper from '../../../../../commons/services/api/common/HttpHelper';
 /** Inmemory session */
 import {Session} from '../../../../../commons/services/session/Session';
-
 import Utils from '../../../../../commons/utils/Util';
 import {AT_MODULE} from '../../../../../commons/constants/at/At';
 import {
@@ -9,7 +8,7 @@ import {
   TYPE_SERVICE_UC,
 } from '../../../../../commons/constants/GlobalConstants';
 
-class AtApurementApi {
+export default class AtApurementApi {
   static initApurement = async (reference) => {
     const data = {
       dtoHeader: {
@@ -156,5 +155,3 @@ class AtApurementApi {
     return await HttpHelper.process(data);
   };
 }
-
-export default AtApurementApi;

@@ -9,7 +9,6 @@ export const loginHeaderImage = {
   ...loginHeaderImageSpacing,
 };
 
-
 export const menuUserImage = {
   ...menuUserImageSize,
   ...menuUserImageSpacing,

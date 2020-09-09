@@ -19,10 +19,6 @@ const buildRoute = (code) => {
   return mapping[code].screen ? mapping[code].screen : DEFAULT_SCREEN;
 };
 
-const buildIonicRoute = (code) => {
-  return ionicMapping[code];
-};
-
 const buildRouteWithParams = (code) => {
   if (mapping[code] && mapping[code].screen) {
     return {screen: mapping[code].screen, params: mapping[code].params};

@@ -1,7 +1,8 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {Text, View, StyleSheet} from 'react-native';
 import {Divider} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import {primaryBackgroundColor} from '../../../styles/colors';
 
 function getIndicator(isExpanded, hasChildrenNodes) {
   if (!hasChildrenNodes) {
@@ -16,8 +17,8 @@ function getIndicator(isExpanded, hasChildrenNodes) {
 class BadrTreeItem extends React.Component {
   render() {
     return (
-      <View style={{height: 60}}>
-        <Divider style={{backgroundColor: '#009ab2'}} />
+      <View style={styles.ViewHeight}>
+        <Divider style={primaryBackgroundColor} />
         <Text
           style={{
             paddingTop: 20,
@@ -36,4 +37,9 @@ class BadrTreeItem extends React.Component {
   }
 }
 
+const styles = StyleSheet.create({
+  ViewHeight: {
+    height: 60,
+  },
+});
 export default BadrTreeItem;

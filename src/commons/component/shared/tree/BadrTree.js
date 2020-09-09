@@ -50,10 +50,10 @@ class BadrTree extends React.Component {
     }
   }
 
-  hasChildrenNodes = node =>
+  hasChildrenNodes = (node) =>
     get(node, `${this.props.childrenKey}.length`, 0) > 0;
 
-  isExpanded = id => {
+  isExpanded = (id) => {
     if (this.props.isNodeExpanded !== noop) {
       return this.props.isNodeExpanded(id);
     } else {
@@ -67,11 +67,11 @@ class BadrTree extends React.Component {
     }),
   });
 
-  collapseNode = id => this.setState(this.updateNodeKeyById(id, false));
+  collapseNode = (id) => this.setState(this.updateNodeKeyById(id, false));
 
-  expandNode = id => this.setState(this.updateNodeKeyById(id, true));
+  expandNode = (id) => this.setState(this.updateNodeKeyById(id, true));
 
-  toggleCollapse = id => {
+  toggleCollapse = (id) => {
     const method = this.isExpanded(id) ? 'collapseNode' : 'expandNode';
 
     this[method](id);
@@ -90,7 +90,7 @@ class BadrTree extends React.Component {
   Node = ({nodes, level}) => {
     const NodeComponent = this.Node;
 
-    return nodes.map(node => {
+    return nodes.map((node) => {
       const isExpanded = this.isExpanded(node[this.props.idKey]);
       const hasChildrenNodes = this.hasChildrenNodes(node);
       const shouldRenderLevel = hasChildrenNodes && isExpanded;

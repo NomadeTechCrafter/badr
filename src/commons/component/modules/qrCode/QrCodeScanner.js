@@ -40,7 +40,6 @@ class ScanQrCode extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state.qrCodeReducer);
   return {...state.qrCodeReducer};
 };
 

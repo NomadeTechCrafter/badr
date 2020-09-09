@@ -48,7 +48,7 @@ class BadrStackNavigator extends React.Component {
             overlayColor={'rgba(' + primaryColorRgba + ',0.80)'}
             textStyle={styles.spinnerTextStyle}
             textContent={translate('transverse.inprogress')}
-            textStyle={{color: accentColor, fontSize: 20, fontWeight: 'normal'}}
+            textStyle={[styles.spinnerTextStyle, styles.textStyle]}
           />
         )}
         <NavigationContainer>
@@ -99,5 +99,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-around',
   },
-  footerText : {textAlign : 'center'}
+  footerText : {textAlign : 'center'},
+  textStyle: {
+    color: accentColor,
+    fontSize: 20,
+    fontWeight: 'normal',
+  },
 });

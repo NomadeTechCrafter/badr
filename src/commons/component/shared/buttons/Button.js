@@ -2,25 +2,19 @@ import {CustomStyleSheet} from '../../../styles';
 import React from 'react';
 import {Text, TouchableOpacity} from 'react-native';
 
-const buildButton = (style, onPress, text, textStyle, disabled) => {
-  return (
-    <TouchableOpacity style={style} onPress={onPress} disabled={disabled}>
-      <Text style={textStyle}>{text}</Text>
-    </TouchableOpacity>
-  );
-};
-
 export default class BadrButton extends React.Component {
   constructor(props) {
     super(props);
   }
+
   render() {
-    return buildButton(
-      [CustomStyleSheet.badrButton, this.props.style],
-      this.props.onPress,
-      this.props.text,
-      CustomStyleSheet.badrButtonText,
-      this.props.disabled,
+    return (
+      <TouchableOpacity
+        style={[CustomStyleSheet.badrButton, this.props.style]}
+        onPress={this.props.onPress}
+        disabled={this.props.disabled}>
+        <Text style={CustomStyleSheet.badrButtonText}>{this.props.text}</Text>
+      </TouchableOpacity>
     );
   }
 }

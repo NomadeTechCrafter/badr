@@ -16,20 +16,16 @@ export default (state = initialState, action) => {
       nextState.qrData = {};
       nextState.showProgress = true;
       nextState.errorMessage = null;
-      console.log('--> QRCODE request...');
       return nextState;
     case Constants.QRCODE_IN_PROGRESS:
       nextState.showProgress = true;
-      console.log('--> QRCODE in progress...');
       return nextState;
     case Constants.QRCODE_SUCCESS:
-      console.log('--> QRCODE success...', nextState);
       nextState.showProgress = false;
       nextState.errorMessage = null;
       nextState.qrData = action.value.data;
       return nextState;
     case Constants.QRCODE_FAILED:
-      console.log('--> QRCODE failed...');
       nextState.showProgress = false;
       nextState.qrData = {};
       nextState.errorMessage =

@@ -1,5 +1,7 @@
+/** RN Components **/
 import React from 'react';
 import {Session} from '../../../services/session/Session';
+/** REDUX **/
 import {connect} from 'react-redux';
 import * as AutoLoginConstants from '../../../constants/components/AutoLoginConstants';
 import * as autoLoginActions from '../../../ionic/state/actions/AutoLoginAction';
@@ -18,11 +20,13 @@ class AutoLoginProcess extends React.Component {
   };
 
   componentDidMount = () => {
+    /** charger les infos du user connecté **/
     Session.getInstance().setLogin(this.props.usr);
     Session.getInstance().setPassword(this.props.password);
     Session.getInstance().setCodeSmsVerify(this.props.smsCode);
     Session.getInstance().setCodeBureau(this.props.bureauCode);
     Session.getInstance().setCodeArrondissement(this.props.arrondissementCode);
+    /** auto login action pour gerer la cohabitation RN Ionic**/
     let action = autoLoginActions.request(
       {
         type: AutoLoginConstants.AUTOLOGIN_REQUEST,

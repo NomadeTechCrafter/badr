@@ -32,9 +32,6 @@ class BadrPickerChecker extends React.Component {
     };
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
-  }
-
   fetchData = (params) => {
     let action = badrPickerAction.request({
       type: Constants.BADRPICKER_CHECKER_REQUEST,
@@ -66,12 +63,12 @@ class BadrPickerChecker extends React.Component {
     const {color, fontSize, ...styles} = flat;
     let iconComponent;
     const iconColor = '#009ab2';
-    const Search = <Icon size={15} color={iconColor} name="search"/>;
-    const Down = <Icon size={15} color={iconColor} name="caret-down"/>;
-    const Up = <Icon size={15} color={iconColor} name="caret-up"/>;
-    const Close = <Icon size={15} color={iconColor} name="close"/>;
-    const Check = <Icon size={15} color={iconColor} name="check"/>;
-    const Cancel = <Icon size={15} color={iconColor} name="search"/>;
+    const Search = <Icon size={15} color={iconColor} name="search" />;
+    const Down = <Icon size={15} color={iconColor} name="caret-down" />;
+    const Up = <Icon size={15} color={iconColor} name="caret-up" />;
+    const Close = <Icon size={15} color={iconColor} name="close" />;
+    const Check = <Icon size={15} color={iconColor} name="check" />;
+    const Cancel = <Icon size={15} color={iconColor} name="search" />;
     switch (name) {
       case 'search':
         iconComponent = Search;
@@ -107,7 +104,7 @@ class BadrPickerChecker extends React.Component {
       <View style={(styles.container, {...this.props.style})}>
         {this.props.toggle && (
           <TouchableOpacity
-            style={(styles.toggleTitle)}
+            style={styles.toggleTitle}
             onPress={() => this.toggleExpand()}>
             <Text style={this.props.titleStyle}>{this.props.title}</Text>
             <Icon
@@ -120,9 +117,7 @@ class BadrPickerChecker extends React.Component {
         )}
 
         {!this.props.toggle && (
-          <Text style={(styles.toggleTextTitle)}>
-            {this.props.title}
-          </Text>
+          <Text style={styles.toggleTextTitle}>{this.props.title}</Text>
         )}
 
         {this.state.expanded && (
@@ -176,7 +171,7 @@ class BadrPickerChecker extends React.Component {
               </ScrollView>
             ) : (
               <View style={styles.progressbarStyle}>
-                <BadrCircleProgressBar size={30}/>
+                <BadrCircleProgressBar size={30} />
               </View>
             )}
           </View>

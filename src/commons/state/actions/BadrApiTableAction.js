@@ -14,7 +14,6 @@ export function request(action) {
     )
       .then((response) => {
         const data = response.data;
-        console.log(data);
         if (data && data.jsonVO) {
           action.value.payload = data.jsonVO;
           dispatch(success(action));
@@ -23,7 +22,6 @@ export function request(action) {
         }
       })
       .catch((e) => {
-        console.log(e);
         dispatch(failed({value: 'error while getting data'}));
       });
   };
@@ -50,4 +48,3 @@ export function inProgress(action) {
     value: action.value,
   };
 }
-

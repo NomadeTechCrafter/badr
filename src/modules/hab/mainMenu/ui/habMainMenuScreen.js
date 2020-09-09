@@ -71,7 +71,7 @@ class habMainMenuScreen extends React.Component {
     });
     this.props.dispatch(action);
   };
-
+  /**lancer intent sur l'application Ionic avec le chargment du data requise */
   openIntent = async (id) => {
     let url = `badrio://ma.adii.badrmobile?login=${Session.getInstance().getLogin()}
       &route=${id}
@@ -106,7 +106,7 @@ class habMainMenuScreen extends React.Component {
       }
     }
   };
-
+  /** action de lecture de QrCode*/
   onBarcodeRead = (data) => {
     if (data) {
       let action = qrCodeAction.request({

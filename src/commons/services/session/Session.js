@@ -173,7 +173,6 @@ export class Session {
     this.deviceName = deviceName;
   }
 
-
   getPlatform() {
     return this.platform;
   }
@@ -181,6 +180,4 @@ export class Session {
   setPlatform(platform) {
     this.platform = platform;
   }
-
-
 }

@@ -14,7 +14,6 @@ export const loginContainer = {
   ...loginComponentSpacing,
 };
 
-
 export const loadingIndicator = {
   ...loadingIndicatorAlignment,
   ...loadingIndicatorSpacing,
