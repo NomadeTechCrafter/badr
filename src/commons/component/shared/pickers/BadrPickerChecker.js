@@ -12,7 +12,7 @@ import {BadrCircleProgressBar} from '../../index';
 import _ from 'lodash';
 
 import {primaryColor} from '../../../styles';
-
+import {darkGris, primaryBackgroundColor} from '../../../styles/colors';
 /** REDUX **/
 import {connect} from 'react-redux';
 
@@ -62,7 +62,7 @@ class BadrPickerChecker extends React.Component {
     const flat = StyleSheet.flatten(style);
     const {color, fontSize, ...styles} = flat;
     let iconComponent;
-    const iconColor = '#009ab2';
+    const iconColor = primaryBackgroundColor;
     const Search = <Icon size={15} color={iconColor} name="search" />;
     const Down = <Icon size={15} color={iconColor} name="caret-down" />;
     const Up = <Icon size={15} color={iconColor} name="caret-up" />;
@@ -111,7 +111,7 @@ class BadrPickerChecker extends React.Component {
               style={this.props.titleStyle}
               name={this.state.expanded ? 'minus-square' : 'plus-square'}
               size={30}
-              color={'#5E5E5E'}
+              color={darkGris}
             />
           </TouchableOpacity>
         )}

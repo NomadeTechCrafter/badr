@@ -10,6 +10,7 @@ export {default as BadrErrorMessage} from './shared/messages/BadrError';
 export {default as BadrInfoMessage} from './shared/messages/BadrInfo';
 export {default as BadrPopup} from './shared/messages/BadrPopup';
 export {default as BadrModal} from './shared/modal/BadrModal';
+export {default as BadrToast} from './shared/messages/BadrToast';
 export {default as Card} from './shared/cards/BadrCard';
 export {default as CardSection} from './shared/cards/BadrCardSection';
 export {default as Container} from './shared/container/Container';

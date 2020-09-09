@@ -3,22 +3,36 @@ import {View, Text, StyleSheet} from 'react-native';
 import {connect} from 'react-redux';
 import * as Constants from '../../../constants/components/AutoCompleteConstants';
 import * as AutoCompleteAction from '../../../state/actions/AutoCompleteAction';
-
+import {
+  TYPE_SERVICE_SP,
+  MODULE_REF,
+  AUTOCOMPLETE_MIN_CHARACTERS,
+  AUTOCOMPLETE_LIST_NB_ELEMENTS,
+} from '../../../../commons/Config';
 import {Autocomplete} from 'react-native-dropdown-autocomplete';
 
 class BadrAutoComplete extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      minimumCharacters: props.minimumCharacters
+        ? props.minimumCharacters
+        : AUTOCOMPLETE_MIN_CHARACTERS,
+      listNbElements: props.listNbElements
+        ? props.listNbElements
+        : AUTOCOMPLETE_LIST_NB_ELEMENTS,
+    };
   }
   handleChangeInput = (params) => {
-    if (params.length > 3) {
+    if (params.length > this.state.minimumCharacters) {
       let action = AutoCompleteAction.request({
         type: Constants.AUTOCOMPLETE_REQUEST,
         value: {
-          module: 'REF_LIB',
+          module: MODULE_REF,
           command: this.props.command,
-          typeService: 'SP',
+          typeService: TYPE_SERVICE_SP,
           param: params,
+          nbElements: this.state.listNbElements,
         },
       });
       this.props.dispatch(action);
@@ -29,8 +43,6 @@ class BadrAutoComplete extends Component {
   };
 
   render() {
-    console.log('new render', this.props.data);
-    //let combData = this.props.data ? this.props.data : [] ;
     return (
       <View style={styles.autocompletesContainer}>
         <Text> {this.props.libelle} </Text>
@@ -42,7 +54,7 @@ class BadrAutoComplete extends Component {
           spinnerStyle={styles.spinnerStyle}
           inputContainerStyle={styles.inputContainer}
           pickerStyle={styles.pickerStyle}
-          minimumCharactersCount={3}
+          minimumCharactersCount={this.state.minimumCharacters}
           highlightText
           valueExtractor={(item) => item.libelle}
           rightContent

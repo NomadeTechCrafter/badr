@@ -1,9 +1,12 @@
 import {
   SERVER_URL,
+  BACK_OFFICE_BASE_URL,
   LOGIN_API,
   PROCESS_API,
   LOGOUT_API,
   remote,
+  SEND_STATS,
+  SEND_CRASH,
 } from '../../../Config';
 import * as axios from 'axios';
 
@@ -21,7 +24,10 @@ const instance = axios.create({
     Host: 'badr4.douane.gov.ma',
   },
 });
-
+const instanceBO = axios.create({
+  baseURL: BACK_OFFICE_BASE_URL,
+  timeout: 1000,
+});
 export default class HttpHelper {
   static async login(user) {
     let response = await instance.post(LOGIN_API, JSON.stringify(user), {
@@ -46,6 +52,35 @@ export default class HttpHelper {
       return {
         data: localStore[object.dtoHeader.commande],
       };
+    }
+  }
+  static async sendStats(module, action, details = '') {
+    if (remote) {
+      const data = {
+        module: module,
+        action: action,
+        details: details,
+        session_id: Session.getInstance().getSessionIdBO(),
+      };
+      let response = await instanceBO.post(SEND_STATS, JSON.stringify(data), {
+        withCredentials: true,
+      });
+      return response;
+    }
+  }
+  static async sendCrash(errorUrl, errorMessage, stackTrace, cause) {
+    if (remote) {
+      const data = {
+        session_id: Session.getInstance().getSessionIdBO(),
+        errorUrl: errorUrl,
+        errorMessage: errorMessage,
+        stackTrace: stackTrace,
+        cause: cause,
+      };
+      let response = await instanceBO.post(SEND_CRASH, JSON.stringify(data), {
+        withCredentials: true,
+      });
+      return response;
     }
   }
 }

@@ -5,7 +5,7 @@ import {TouchableOpacity, View} from 'react-native';
 
 function noop() {}
 
-class BadrTree extends React.Component {
+export default class BadrTree extends React.Component {
   static propTypes = {
     data: PropTypes.array.isRequired,
     renderNode: PropTypes.func.isRequired,
@@ -134,5 +134,3 @@ class BadrTree extends React.Component {
     return <this.Node nodes={this.props.data} level={0} />;
   }
 }
-
-export default BadrTree;

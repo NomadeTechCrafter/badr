@@ -14,7 +14,7 @@ function getIndicator(isExpanded, hasChildrenNodes) {
   }
 }
 
-class BadrTreeItem extends React.Component {
+export default class BadrTreeItem extends React.Component {
   render() {
     return (
       <View style={styles.ViewHeight}>
@@ -42,4 +42,3 @@ const styles = StyleSheet.create({
     height: 60,
   },
 });
-export default BadrTreeItem;

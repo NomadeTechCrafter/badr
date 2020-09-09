@@ -3,7 +3,7 @@ import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {Picker} from '@react-native-community/picker';
 import {BadrCircleProgressBar} from '../../index';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
+import {darkGris} from '../../../styles/colors';
 /** REDUX **/
 import {connect} from 'react-redux';
 
@@ -111,7 +111,7 @@ class BadrPicker extends React.Component {
               style={this.props.titleStyle}
               name={this.state.expanded ? 'minus-square' : 'plus-square'}
               size={30}
-              color={'#5E5E5E'}
+              color={darkGris}
             />
           </TouchableOpacity>
         )}

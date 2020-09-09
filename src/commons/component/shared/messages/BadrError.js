@@ -4,7 +4,7 @@ import _ from 'lodash';
 import * as Animatable from 'react-native-animatable';
 import {CustomStyleSheet} from '../../../styles';
 
-class BadrErrorMessage extends React.Component {
+export default class BadrErrorMessage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -70,4 +70,3 @@ const styles = {
 };
 
 BadrErrorMessage = Animatable.createAnimatableComponent(BadrErrorMessage);
-export default BadrErrorMessage;

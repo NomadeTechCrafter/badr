@@ -12,7 +12,7 @@ const messageTypes = {
   undefined: {name: 'info-circle', color: primaryColor},
 };
 
-class BadrPopup extends React.Component {
+export default class BadrPopup extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -70,5 +70,3 @@ class BadrPopup extends React.Component {
     );
   }
 }
-
-export default BadrPopup;

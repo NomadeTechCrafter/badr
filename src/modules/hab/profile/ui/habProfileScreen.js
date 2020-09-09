@@ -21,7 +21,7 @@ import BadrErrorMessage from '../../../../commons/component/shared/messages/Badr
 import BadrPicker from '../../../../commons/component/shared/pickers/BadrPicker';
 import BadrPickerChecker from '../../../../commons/component/shared/pickers/BadrPickerChecker';
 import BadrFloatingButton from '../../../../commons/component/shared/buttons/BadrFloatingButton';
-
+import HttpHelper from '../../../../commons/services/api/common/HttpHelper';
 class habProfileScreen extends React.Component {
   /*
      Constructor
@@ -37,11 +37,12 @@ class habProfileScreen extends React.Component {
       selectedProfiles: [],
     };
   }
-  /*
-  componentDidMount Initialization
-  */
-  componentDidMount() {}
-
+    /*
+    componentDidMount Initialization
+    */
+  componentDidMount() {
+    HttpHelper.sendStats('user', 'profile').then(console.log('send stats'));
+  }
   buildConfirmConnexionAction = (
     navigation,
     codeBureau,

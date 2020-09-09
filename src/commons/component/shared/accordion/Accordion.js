@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {View, TouchableOpacity, Text, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-
+import {darkGris} from '../../../styles/colors';
 export default class Accordion extends Component {
   constructor(props) {
     super(props);
@@ -23,7 +23,7 @@ export default class Accordion extends Component {
               this.state.expanded ? 'keyboard-arrow-up' : 'keyboard-arrow-down'
             }
             size={30}
-            color={'#5E5E5E'}
+            color={darkGris}
           />
         </TouchableOpacity>
         {this.state.expanded && (

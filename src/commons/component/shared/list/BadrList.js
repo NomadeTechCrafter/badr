@@ -27,6 +27,7 @@ export default class BadrList extends React.Component {
           style={this.props.style}
           nestedScrollEnabled={true}
           data={this.props.data}
+          ListHeaderComponent={this.props.ListHeaderComponent}
           renderItem={({item, index, separators}) => (
             <TouchableHighlight
               key={item}
@@ -43,6 +44,7 @@ export default class BadrList extends React.Component {
               </View>
             </TouchableHighlight>
           )}
+          ListFooterComponent={this.props.ListFooterComponent}
         />
       </SafeAreaView>
     );

@@ -14,6 +14,7 @@ export function request(action, navigation) {
         if (jsonVO.connexion && jsonVO.connexion === 'true') {
           dispatch(success(jsonVO));
           Session.getInstance().setCodeSmsVerify(action.value.code);
+          Session.getInstance().setSessionIdBO(jsonVO.session_id);
           navigation.navigate('Profile', {});
         } else if (jsonVO.connexion && jsonVO.connexion === 'false') {
           dispatch(failed(translate('smsVerify.codeIncorrect')));
