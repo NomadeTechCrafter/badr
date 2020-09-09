@@ -58,9 +58,7 @@ class Login extends React.Component {
 
   componentDidMount() {
     this.setDeviceInformation();
-    this.loadOldUserIfExist().then(() =>
-      console.log('user loaded with no errors.'),
-    );
+    this.loadOldUserIfExist();
     this.props.initialize();
 
     this.initAutoLoginParameters();
@@ -69,7 +67,6 @@ class Login extends React.Component {
   initAutoLoginParameters = async () => {
     const initialUrl = await Linking.getInitialURL();
     let params = this.extractUrlParams(initialUrl);
-    console.log(`params ==== ${JSON.stringify(params)}`);
     if (Object.keys(params).length > 0) {
       this.setState({startAutoLogin: true, autoLoginParam: params});
     }

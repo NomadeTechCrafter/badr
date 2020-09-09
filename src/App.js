@@ -14,6 +14,8 @@ const Stack = createStackNavigator();
 
 import {BadrStackNavigator} from './commons/component';
 
+import {RootSiblingParent} from 'react-native-root-siblings';
+
 /** REDUX */
 import {Provider} from 'react-redux';
 import {createStore, applyMiddleware, compose} from 'redux';
@@ -46,33 +48,35 @@ const theme = {
 export default class App extends React.Component {
   render() {
     return (
-      <PaperProvider theme={theme}>
-        <Provider store={store}>
-          <BadrStackNavigator>
-            <Stack.Screen
-              name="Login"
-              options={{headerShown: false}}
-              component={Login}
-            />
-            <Stack.Screen
-              name="SmsVerify"
-              options={{headerShown: false}}
-              component={SmsVerifyScreen}
-            />
-            <Stack.Screen
-              name="Profile"
-              options={{headerShown: false}}
-              mode="modal"
-              component={HabProfileScreen}
-            />
-            <Stack.Screen
-              name="Home"
-              options={{headerShown: false}}
-              component={Home}
-            />
-          </BadrStackNavigator>
-        </Provider>
-      </PaperProvider>
+      <RootSiblingParent>
+        <PaperProvider theme={theme}>
+          <Provider store={store}>
+            <BadrStackNavigator>
+              <Stack.Screen
+                name="Login"
+                options={{headerShown: false}}
+                component={Login}
+              />
+              <Stack.Screen
+                name="SmsVerify"
+                options={{headerShown: false}}
+                component={SmsVerifyScreen}
+              />
+              <Stack.Screen
+                name="Profile"
+                options={{headerShown: false}}
+                mode="modal"
+                component={HabProfileScreen}
+              />
+              <Stack.Screen
+                name="Home"
+                options={{headerShown: false}}
+                component={Home}
+              />
+            </BadrStackNavigator>
+          </Provider>
+        </PaperProvider>
+      </RootSiblingParent>
     );
   }
 }

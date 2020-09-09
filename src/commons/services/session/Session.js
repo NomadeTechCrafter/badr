@@ -27,7 +27,7 @@ export class Session {
    */
 
   _sessionId = '';
-
+  _sessionIdBO = '';
   /**
     @returns { login | nomAgent │ prenomAgent | codeUOR }
    */
@@ -73,6 +73,13 @@ export class Session {
 
   setSessionId(sessionId) {
     this._sessionId = sessionId;
+  }
+
+  getSessionIdBO() {
+    return this._sessionIdBO;
+  }
+  setSessionIdBO(sessionIdBO) {
+    this._sessionIdBO = sessionIdBO;
   }
 
   getCodeBureau() {

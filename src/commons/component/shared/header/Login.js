@@ -8,11 +8,17 @@ export default class BadrLoginHeader extends React.Component {
   }
 
   render() {
-      return (
-          <View>
-            <Image style={{}} source={require('../../../../assets/images/logo.jpg')}/>
-            <Image style={CustomStyleSheet.loginHeaderImage} source={require('../../../../assets/images/badr.png')}/>
-          </View>
-      );
+    return (
+      <View>
+        <Image
+          style={{}}
+          source={require('../../../../assets/images/logo.jpg')}
+        />
+        <Image
+          style={CustomStyleSheet.loginHeaderImage}
+          source={require('../../../../assets/images/badr.png')}
+        />
+      </View>
+    );
   }
 }

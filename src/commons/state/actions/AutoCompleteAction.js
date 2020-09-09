@@ -1,6 +1,7 @@
 import TransverseApi from '../../services/api/TransverseApi';
 import * as Constants from '../../constants/components/AutoCompleteConstants';
-
+/** Loadash */
+import _ from 'lodash';
 export function request(action) {
   return (dispatch) => {
     dispatch(inProgress(action));
@@ -13,7 +14,10 @@ export function request(action) {
       .then((response) => {
         const data = response.data;
         if (data && data.jsonVO) {
-          action.value.data = data.jsonVO;
+          action.value.data =
+            action.value.nbElements === -1
+              ? data.jsonVO
+              : _.take(data.jsonVO, action.value.nbElements);
           dispatch(success(action));
         } else {
           dispatch(failed({value: 'error while getting data'}));

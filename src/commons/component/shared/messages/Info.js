@@ -3,7 +3,7 @@ import {Text} from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import {CustomStyleSheet} from '../../../styles';
 
-class BadrInfoMessage extends React.Component {
+export default class BadrInfoMessage extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -21,7 +21,6 @@ class BadrInfoMessage extends React.Component {
 }
 
 BadrInfoMessage = Animatable.createAnimatableComponent(BadrInfoMessage);
-export default BadrInfoMessage;
 
 const styles = {
   animatableStyle: {

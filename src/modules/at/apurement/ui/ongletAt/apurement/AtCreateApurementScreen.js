@@ -358,7 +358,6 @@ class Apurement extends React.Component {
                 <Accordion
                   expanded={true}
                   title={translate('at.apurement.titleTableau')}>
-                  {/* {this.state.declaration.annotation && ( */}
                   <View style={styles.flexDirectionRow}>
                     <BadrTable
                       id="idComposantApures"

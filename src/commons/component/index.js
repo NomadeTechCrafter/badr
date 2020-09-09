@@ -9,6 +9,7 @@ export {default as BadrActionButton} from './shared/buttons/BadrActionButton';
 export {default as BadrErrorMessage} from './shared/messages/Error';
 export {default as BadrInfoMessage} from './shared/messages/Info';
 export {default as BadrPopup} from './shared/messages/Popup';
+export {default as BadrToast} from './shared/messages/Toast';
 export {default as BadrModal} from './shared/modal/BadrModal';
 export {default as Card} from './shared/cards';
 export {default as CardSection} from './shared/cardSection';
