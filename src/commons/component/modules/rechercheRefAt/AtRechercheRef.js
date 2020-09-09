@@ -26,19 +26,24 @@ class RechecheRefAt extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.qrCodeReducer.value && this.props.qrCodeReducer.value.data) {
+    if (
+      nextProps.qrCodeReducer.value &&
+      nextProps.qrCodeReducer.value.data &&
+      !nextProps.qrCodeReducer.qrFailed
+    ) {
       this.setState({
         bureau: this.props.qrCodeReducer.value.data.slice(0, 3),
         annee: this.props.qrCodeReducer.value.data.slice(3, 7),
         numero: this.props.qrCodeReducer.value.data.slice(7, 10),
         serie: this.props.qrCodeReducer.value.data.slice(10, 17),
       });
-    } else if (this.props.qrCodeReducer) {
+    } else if (nextProps.qrCodeReducer && nextProps.qrCodeReducer.qrFailed) {
       this.setState({
         bureau: '',
         annee: '',
         numero: '',
         serie: '',
+        showErrorMsg: false,
       });
     }
   }
@@ -119,9 +124,6 @@ class RechecheRefAt extends Component {
   };
 
   render() {
-    if (this.props.qrCodeReducer.errorMessage) {
-      //this.clearFields();
-    }
     return (
       <View style={styles.fabContainer}>
         <Container style={styles.container}>

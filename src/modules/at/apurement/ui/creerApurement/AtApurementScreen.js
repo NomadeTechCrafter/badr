@@ -47,12 +47,16 @@ class CreerApurement extends React.Component {
     this.unsubscribe();
   }
 
-  onScreenReloaded = () => {
+  initApurement = () => {
     let action = InitApurementAction.init({
       type: ConstantsAt.INIT_APUR_INIT,
       value: {},
     });
     this.props.actions.dispatch(action);
+  };
+
+  onScreenReloaded = () => {
+    this.initApurement();
   };
 
   apurManuelle = (reference) => {
