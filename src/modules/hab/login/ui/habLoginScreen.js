@@ -51,7 +51,7 @@ class Login extends React.Component {
     this.setDeviceInformation();
     this.loadOldUserIfExist().then(() => {});
     this.props.initialize();
-    this.initAutoLoginParameters().then(()=> {});
+    this.initAutoLoginParameters().then(() => {});
   }
 
   handleLogin = () => {

@@ -31,7 +31,10 @@ export default class BadrErrorMessage extends React.Component {
                 : _.join(this.props.message, '\n\n')}
             </Text>
             <View style={styles.closeBtnStyle}>
-              <TouchableOpacity onPress={ this.props.onClose ? this.props.onClose : this.onClose}>
+              <TouchableOpacity
+                onPress={
+                  this.props.onClose ? this.props.onClose : this.onClose
+                }>
                 <Text style={styles.closeBtnTextStyle}>Fermer</Text>
               </TouchableOpacity>
             </View>

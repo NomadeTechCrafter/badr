@@ -37,7 +37,7 @@ class habProfileScreen extends React.Component {
       selectedProfiles: [],
     };
   }
-    /*
+  /*
     componentDidMount Initialization
     */
   componentDidMount() {

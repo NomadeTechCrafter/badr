@@ -1,7 +1,7 @@
 import React from 'react';
 
 /** React Components */
-import {View, Text, ScrollView,PermissionsAndroid} from 'react-native';
+import {View, Text, ScrollView} from 'react-native';
 
 /** Custom Components */
 import {
@@ -21,7 +21,6 @@ import {Session} from '../../../../commons/services/session/Session';
 import {GeoFinder} from '../../../../commons/services/geo-location/GeoFinder';
 import RNShake from 'react-native-shake';
 class HabSmsVerifyScreen extends React.Component {
-
   /*
      Constructor
   */
@@ -35,7 +34,7 @@ class HabSmsVerifyScreen extends React.Component {
 
   componentWillMount() {
     RNShake.addEventListener('ShakeEvent', () => {
-      GeoFinder.synchronizeGeoPosition().then(()=> {});
+      GeoFinder.synchronizeGeoPosition().then(() => {});
     });
   }
 
@@ -47,8 +46,7 @@ class HabSmsVerifyScreen extends React.Component {
   componentDidMount Initialization
  */
   componentDidMount() {
-    GeoFinder.synchronizeGeoPosition().then(()=> {});
-
+    GeoFinder.synchronizeGeoPosition().then(() => {});
 
     let action = SmsVerifyActionCreators.init({
       type: Constants.SMSVERIFY_INIT,

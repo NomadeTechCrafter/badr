@@ -33,7 +33,7 @@ export {default as MenuHeader} from './shared/header/MenuHeader';
 export {default as CopyPaste} from './shared/container/CopyPaste';
 export {default as BadrAutoComplete} from './shared/autoComplete';
 export {default as BadrList} from './shared/list/BadrList';
-export {default as BadrLibelle} from './shared/text/libelle';$
+export {default as BadrLibelle} from './shared/text/libelle';
 export {default as BadrDatePicker} from './shared/datePicker/BadrDatePicker';
 export {default as BadrDialog} from './shared/dialog/BadrDialog';
 export {default as BadrNumericTextInput} from './shared/inputs/BadrNumericTextInput';

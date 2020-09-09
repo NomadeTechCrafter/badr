@@ -61,7 +61,6 @@ export class Session {
     this.geoCoords = geoCoords;
   }
 
-
   getPassword() {
     return this.password;
   }
