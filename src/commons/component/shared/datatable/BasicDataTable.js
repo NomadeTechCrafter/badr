@@ -1,11 +1,11 @@
 import React from 'react';
 import {Text, View, ScrollView, Dimensions} from 'react-native';
-import {IconButton} from 'react-native-paper';
+import {DefaultTheme, IconButton, ThemeProvider} from 'react-native-paper';
 import {DataTable} from 'react-native-paper';
 import {Checkbox} from 'react-native-paper';
 
 /** Custom Style **/
-import {CustomStyleSheet, primaryColor} from '../../../styles';
+import {dataTableStyles, CustomStyleSheet, primaryColor} from '../../../styles';
 
 /** i18n **/
 import {translate} from '../../../i18n/I18nHelper';
@@ -15,7 +15,6 @@ import _ from 'lodash';
 
 const FIRST_PAGINATION_SEPARATOR = ' / ';
 const SECOND_PAGINATION_SEPARATOR = ' - ';
-const screenWidth = Dimensions.get('window').width;
 
 export default class BadrTable extends React.Component {
   constructor(props) {
@@ -86,20 +85,40 @@ export default class BadrTable extends React.Component {
     }
   };
 
-  scrollMore = () => {
-    this.horizontalScrollView.scrollTo({x: screenWidth});
-  };
-
   showMultipleValues = (row, code) => {
     if (code && code.includes(',')) {
       let result = '';
       let cols = code.split(',');
       cols.forEach((col) => {
-        result += ' ' + String(_.get(row, col));
+        let colVal = col;
+        if (col && col.includes(':')) {
+          colVal = col.split(':')[1];
+          let colLabel = col.split(':')[0];
+          result +=
+            ' ' + translate(colLabel) + ' : ' + String(_.get(row, colVal));
+        } else {
+          result += ' ' + String(_.get(row, col));
+        }
       });
       return result;
     }
     return String(_.get(row, code));
+  };
+
+  buildCellChildren = (row, column) => {
+    return (
+      <View
+        style={{
+          ...dataTableStyles.dataTableItemStyle,
+          width: column.width,
+        }}>
+        <Text>
+          {this.showMultipleValues(row, column.code) != null
+            ? this.showMultipleValues(row, column.code)
+            : ''}
+        </Text>
+      </View>
+    );
   };
 
   buildDataTable = () => {
@@ -107,26 +126,38 @@ export default class BadrTable extends React.Component {
       this.props.totalElements / this.props.maxResultsPerPage,
     );
     return (
-      <View>
+      <View style={{width: '100%'}}>
         <ScrollView
+          style={{width: '100%'}}
           ref={(node) => {
             this.horizontalScrollView = node;
           }}
           key="horizontalScrollView"
           horizontal={true}>
-          <ScrollView key="verticalScrollView">
-            <DataTable style={this.props.fullWidth ? {width: screenWidth} : {}}>
+          <ScrollView key="verticalScrollView" style={{width: '100%'}}>
+            <DataTable style={{width: '100%'}}>
               <DataTable.Header>
                 {this.props.hasId && (
-                  <DataTable.Title style={styles.datatableTitle}>
+                  <DataTable.Title
+                    style={styles.datatableTitle}
+                    numberOfLines={2}>
                     ID
                   </DataTable.Title>
                 )}
 
                 {this.props.cols.map((column, index) => (
-                  <DataTable.Title style={{width: column.width}}>
-                    {column.libelle}
-                  </DataTable.Title>
+                  <DataTable.Title
+                    style={{
+                      color: primaryColor,
+                      width: column.width,
+                    }}
+                    numberOfLines={2}
+                    theme={DefaultTheme}
+                    children={
+                      <Text style={dataTableStyles.dataTableHeaderStyle}>
+                        {column.libelle}
+                      </Text>
+                    }></DataTable.Title>
                 ))}
               </DataTable.Header>
 
@@ -193,11 +224,7 @@ export default class BadrTable extends React.Component {
                               )}
                           </View>
                         ) : (
-                          <DataTable.Cell style={{width: column.width}}>
-                            {this.showMultipleValues(row, column.code) != null
-                              ? this.showMultipleValues(row, column.code)
-                              : ''}
-                          </DataTable.Cell>
+                          this.buildCellChildren(row, column)
                         );
                       })}
                     </DataTable.Row>

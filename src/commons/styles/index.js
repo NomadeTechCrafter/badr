@@ -27,6 +27,22 @@ export const lightWhiteColor = '#f0f5f9';
 export const darkGrayColor = '#444444';
 export const atShadowColor = 'rgba(59,59,59,0.04)';
 
+export const dataTableStyles = StyleSheet.create({
+  dataTableItemStyle: {
+    flex: 1,
+    paddingTop: 12,
+    flexWrap: 'wrap',
+    flexDirection: 'row',
+    paddingBottom: 15,
+    flexShrink: 1,
+  },
+  dataTableHeaderStyle: {
+    fontWeight: 'bold',
+    color: primaryColor,
+    fontSize: 12,
+  },
+});
+
 const CustomStyleSheet = StyleSheet.create({
   badrCardText: {
     ...Texts.cardText,
