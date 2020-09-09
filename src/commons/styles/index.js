@@ -32,12 +32,14 @@ export const dataTableStyles = StyleSheet.create({
     flex: 1,
     paddingTop: 12,
     flexWrap: 'wrap',
+    flexDirection: 'row',
+    paddingBottom: 15,
     flexShrink: 1,
   },
   dataTableHeaderStyle: {
     fontWeight: 'bold',
-    color: blueLabelColor,
-    fontSize: 17,
+    color: primaryColor,
+    fontSize: 12,
   },
 });
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import {Text, View, ScrollView, Dimensions} from 'react-native';
-import {IconButton} from 'react-native-paper';
+import {DefaultTheme, IconButton, ThemeProvider} from 'react-native-paper';
 import {DataTable} from 'react-native-paper';
 import {Checkbox} from 'react-native-paper';
 
@@ -90,7 +90,15 @@ export default class BadrTable extends React.Component {
       let result = '';
       let cols = code.split(',');
       cols.forEach((col) => {
-        result += ' ' + String(_.get(row, col));
+        let colVal = col;
+        if (col && col.includes(':')) {
+          colVal = col.split(':')[1];
+          let colLabel = col.split(':')[0];
+          result +=
+            ' ' + translate(colLabel) + ' : ' + String(_.get(row, colVal));
+        } else {
+          result += ' ' + String(_.get(row, col));
+        }
       });
       return result;
     }
@@ -100,7 +108,10 @@ export default class BadrTable extends React.Component {
   buildCellChildren = (row, column) => {
     return (
       <View
-        style={{...dataTableStyles.dataTableItemStyle, width: column.width}}>
+        style={{
+          ...dataTableStyles.dataTableItemStyle,
+          width: column.width,
+        }}>
         <Text>
           {this.showMultipleValues(row, column.code) != null
             ? this.showMultipleValues(row, column.code)
@@ -137,12 +148,16 @@ export default class BadrTable extends React.Component {
                 {this.props.cols.map((column, index) => (
                   <DataTable.Title
                     style={{
-                      ...dataTableStyles.dataTableHeaderStyle,
+                      color: primaryColor,
                       width: column.width,
                     }}
-                    numberOfLines={2}>
-                    {column.libelle}
-                  </DataTable.Title>
+                    numberOfLines={2}
+                    theme={DefaultTheme}
+                    children={
+                      <Text style={dataTableStyles.dataTableHeaderStyle}>
+                        {column.libelle}
+                      </Text>
+                    }></DataTable.Title>
                 ))}
               </DataTable.Header>
 
