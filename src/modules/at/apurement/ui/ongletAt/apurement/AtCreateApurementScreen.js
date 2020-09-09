@@ -135,8 +135,7 @@ class Apurement extends React.Component {
         width: 150,
       },
       {
-        code:
-          'at.apurement.bureauApurement:bureauApur.libelle,at.apurement.arrondApurement:arrondApur.libelle',
+        code: 'arrondApur.libelle',
         libelle: translate('at.apurement.arrondApurement'),
         width: 180,
       },
