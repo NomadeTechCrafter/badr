@@ -1,6 +1,6 @@
 /** React Components */
 import React from 'react';
-import {View, ScrollView, TextInput, Linking} from 'react-native';
+import {View, ScrollView, TextInput, Linking, Alert} from 'react-native';
 import {Button} from 'react-native-paper';
 /** REDUX **/
 import {connect} from 'react-redux';
@@ -54,8 +54,8 @@ class Login extends React.Component {
     this.initAutoLoginParameters().then(() => {});
   }
 
-  handleLogin = () => {
-    this.props.login(this.state.login, this.state.password);
+  handleLogin = (forcerConnexion) => {
+    this.props.login(this.state.login, this.state.password, forcerConnexion);
   };
 
   setDeviceInformation = () => {
@@ -108,7 +108,6 @@ class Login extends React.Component {
     }
     return params;
   };
-
   render() {
     return (
       <ScrollView style={style.container}>
@@ -139,12 +138,32 @@ class Login extends React.Component {
             loading={this.props.showProgress}
             mode="contained"
             style={style.loginButton}
-            onPress={this.handleLogin}>
+            onPress={() => this.handleLogin(false)}>
             {translate('connexion')}
           </Button>
-          {!this.props.loggedIn && this.props.errorMessage != null && (
-            <BadrErrorMessage message={this.props.errorMessage} />
-          )}
+          {!this.props.loggedIn &&
+            this.props.errorMessage != null &&
+            this.props.errorMessage !== '2' && (
+              <BadrErrorMessage message={this.props.errorMessage} />
+            )}
+          {!this.props.loggedIn &&
+            this.props.errorMessage === '2' &&
+            Alert.alert(
+              translate('alreadyLogged.title'),
+              translate('alreadyLogged.message'),
+              [
+                {
+                  text: translate('alreadyLogged.cancel'),
+                  onPress: () => {},
+                  style: translate('alreadyLogged.cancel'),
+                },
+                {
+                  text: translate('alreadyLogged.connect'),
+                  onPress: () => this.handleLogin(true),
+                },
+              ],
+              {cancelable: false},
+            )}
         </View>
         {this.state.startAutoLogin && (
           <AutoLoginProcess
@@ -168,11 +187,15 @@ const mapStateToProps = (state) => ({...state.loginReducer});
 
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    login: (login, password) => {
+    login: (login, password, forcerConnexion) => {
       let action = authAction.request(
         {
           type: LoginConstants.AUTH_LOGIN_REQUEST,
-          value: {login: login, pwd: password},
+          value: {
+            login: login,
+            pwd: password,
+            forcerConnexion: forcerConnexion,
+          },
         },
         props.navigation,
       );

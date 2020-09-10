@@ -7,6 +7,7 @@ const initialState = {
   errorMessage: '',
   code: null,
   displayError: false,
+  infoMessage: '',
 };
 
 export default (state = initialState, action) => {
@@ -39,6 +40,30 @@ export default (state = initialState, action) => {
     case Constants.SMSVERIFY_INIT:
       nextState.showProgress = false;
       return initialState;
+    case Constants.GENERERCODESMS_REQUEST:
+      nextState.displayError = false;
+      nextState.correct = false;
+      nextState.errorMessage = null;
+      nextState.infoMessage = null;
+      nextState.showProgress = true;
+      return nextState;
+    case Constants.GENERERCODESMS_IN_PROGRESS:
+      nextState.showProgress = true;
+      return nextState;
+    case Constants.GENERERCODESMS_SUCCESS:
+      nextState.displayError = false;
+      nextState.errorMessage = null;
+      nextState.correct = true;
+      nextState.infoMessage = action.value;
+      nextState.showProgress = false;
+      return nextState;
+    case Constants.GENERERCODESMS_FAILED:
+      nextState.showProgress = false;
+      nextState.displayError = true;
+      nextState.correct = false;
+      nextState.errorMessage = action.value;
+      nextState.infoMessage = null;
+      return nextState;
     default:
       nextState.showProgress = true;
       return initialState;

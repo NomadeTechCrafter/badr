@@ -7,5 +7,8 @@ export default {
     codeIncorrect:
       'La vérification a échouée. Merci de vérifier le code introduit.',
     codePlaceholder: '6 chiffres reçus par SMS',
+    renvoyerCode: 'Reenvoyer le code',
+    sucessCodeGenerated: 'Veuilley saisir le code à envoyer par SMS',
+    errorCodeGenerated: 'aucun code à envoyer par SMS',
   },
 };

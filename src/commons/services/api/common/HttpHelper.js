@@ -13,7 +13,7 @@ import * as axios from 'axios';
 /** Inmemory session */
 import {Session} from '../../session/Session';
 import localStore from '../local-data';
-
+import {useNavigation} from '@react-navigation/native';
 const instance = axios.create({
   baseURL: SERVER_URL,
   timeout: 40000,
@@ -33,7 +33,7 @@ export default class HttpHelper {
     let response = await instance.post(LOGIN_API, JSON.stringify(user), {
       withCredentials: true,
     });
-    Session.getInstance().setSessionId(response.headers['session_id']);
+    Session.getInstance().setSessionId(response.headers.session_id);
     return response;
   }
 
@@ -43,17 +43,35 @@ export default class HttpHelper {
 
   static async process(object) {
     if (remote) {
-      let response = await instance.post(PROCESS_API, JSON.stringify(object), {
-        withCredentials: true,
-        Cookie: Session.getInstance().getSessionId(true),
-      });
-      return response;
+      try {
+        let response = await instance.post(
+          PROCESS_API,
+          JSON.stringify(object),
+          {
+            withCredentials: true,
+            Cookie: Session.getInstance().getSessionId(true),
+          },
+        );
+        return response;
+      } catch (error) {
+        if (error.response && error.response.status === 403) {
+          const navigation = useNavigation();
+          navigation.navigate('Login', {});
+        } else if (error.request) {
+          // The request was made but no response was receivedjs
+          console.log('error.request', error.request);
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          console.log('Error', error.message);
+        }
+      }
     } else {
       return {
         data: localStore[object.dtoHeader.commande],
       };
     }
   }
+
   static async sendStats(module, action, details = '') {
     if (remote) {
       const data = {
