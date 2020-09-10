@@ -17,7 +17,11 @@ export function request(action, navigation) {
   return (dispatch) => {
     dispatch(action);
     dispatch(inProgress(action));
-    HabLoginApi.login(action.value.login, action.value.pwd)
+    HabLoginApi.login(
+      action.value.login,
+      action.value.pwd,
+      action.value.forcerConnexion,
+    )
       .then((data) => {
         if (data) {
           if (data.statutConnexion === '1') {
@@ -29,6 +33,9 @@ export function request(action, navigation) {
             Session.getInstance().setPassword(action.value.pwd);
             /** Naviguer vers la vue suivant. */
             navigation.navigate('SmsVerify', {login: action.value.login});
+          } else if (data.statutConnexion === '2') {
+            /** pour afficher msg de confirmation de connx. */
+            dispatch(failed(data));
           } else {
             dispatch(failed(data));
           }

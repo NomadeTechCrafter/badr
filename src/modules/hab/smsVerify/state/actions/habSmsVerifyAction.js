@@ -55,3 +55,41 @@ export function failed(data) {
     value: data,
   };
 }
+export function requestGenererCodeSms(action, navigation) {
+  return (dispatch) => {
+    dispatch(action);
+    dispatch(inProgressGenererCodeSms(action));
+    HabSmsVerifyApi.genererCodeSms()
+      .then((response) => {
+        const jsonVO = response.data.jsonVO;
+        if (jsonVO) {
+          dispatch(successGenererCodeSms(jsonVO));
+        } else {
+          dispatch(failedGenererCodeSms(translate('smsVerify.technicalIssue')));
+        }
+      })
+      .catch((e) => {
+        dispatch(failedGenererCodeSms(translate('errors.technicalIssue')));
+      });
+  };
+}
+export function inProgressGenererCodeSms(action) {
+  return {
+    type: Constants.GENERERCODESMS_IN_PROGRESS,
+    value: action.value,
+  };
+}
+
+export function successGenererCodeSms(data) {
+  return {
+    type: Constants.GENERERCODESMS_SUCCESS,
+    value: data,
+  };
+}
+
+export function failedGenererCodeSms(data) {
+  return {
+    type: Constants.GENERERCODESMS_FAILED,
+    value: data,
+  };
+}

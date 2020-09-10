@@ -33,4 +33,21 @@ export default class HabSmsVerifyApi {
     const response = await HttpHelper.process(data);
     return response;
   };
+  static genererCodeSms = async () => {
+    const data = {
+      dtoHeader: {
+        userLogin: Session.getInstance().getLogin(),
+        fonctionnalite: 'cf4011',
+        module: MODULE_HAB,
+        commande: 'genererCodeAleatoire',
+        typeService: TYPE_SERVICE_SP,
+        motif: null,
+        messagesInfo: null,
+        messagesErreur: null,
+      },
+      jsonVO: '',
+    };
+    const response = await HttpHelper.process(data);
+    return response;
+  };
 }

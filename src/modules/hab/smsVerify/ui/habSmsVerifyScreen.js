@@ -7,6 +7,7 @@ import {View, Text, ScrollView} from 'react-native';
 import {
   BadrTextInput,
   BadrErrorMessage,
+  BadrInfoMessage,
   BadrButton,
   BadrProgressBar,
 } from '../../../../commons/component';
@@ -66,6 +67,17 @@ class HabSmsVerifyScreen extends React.Component {
     this.props.dispatch(action);
   };
 
+  onRenvoyerCodeClicked = () => {
+    let action = SmsVerifyActionCreators.requestGenererCodeSms(
+      {
+        type: Constants.GENERERCODESMS_REQUEST,
+        value: {},
+      },
+      this.props.navigation,
+    );
+    this.props.dispatch(action);
+  };
+
   handleTextChanged = (text) => {
     this.setState({smsCode: text});
   };
@@ -91,9 +103,17 @@ class HabSmsVerifyScreen extends React.Component {
             onPress={this.onConfirmClicked}
             text={translate('smsVerify.confirm')}
           />
-
+          <BadrButton
+            onPress={this.onRenvoyerCodeClicked}
+            text={translate('smsVerify.renvoyerCode')}
+          />
           {!this.props.correct && this.props.displayError && (
             <BadrErrorMessage message={this.props.errorMessage} />
+          )}
+          {this.props.correct && this.props.infoMessage && (
+            <BadrInfoMessage
+              message={translate('smsVerify.errorCodeGenerated')}
+            />
           )}
         </View>
       </ScrollView>

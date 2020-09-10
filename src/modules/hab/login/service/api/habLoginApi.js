@@ -2,11 +2,11 @@ import HttpHelper from '../../../../../commons/services/api/common/HttpHelper';
 import {Session} from '../../../../../commons/services/session/Session';
 
 export default class HabLoginApi {
-  static login = async (login, pwd) => {
+  static login = async (login, pwd, forcerConnexion = false) => {
     const response = await HttpHelper.login({
       login: login,
       password: pwd,
-      forcerConnexion: true,
+      forcerConnexion: forcerConnexion,
     });
     return response && response.data ? response.data : {};
   };

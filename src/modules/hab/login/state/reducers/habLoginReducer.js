@@ -33,6 +33,9 @@ export default (state = initialState, action) => {
         nextState.errorMessage = action.value.messagesRetour
           ? JSON.stringify(action.value.messagesRetour[0])
           : action.value;
+      } else if (action.value.statutConnexion === '2') {
+        /** pour afficher msg de confirmation de connx. */
+        nextState.errorMessage = '2';
       } else {
         nextState.errorMessage = action.value;
       }
