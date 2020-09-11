@@ -65,8 +65,12 @@ export default {
       typeComposant: 'Type composant',
       typeComposantApure: 'Types Composants Apurés',
       informationAffichee: 'Information affichée',
+      informationApurement: 'Information apurement',
       modeApurement: 'Mode apurement',
       selectionner: 'Selectionner',
+      administartion: 'Administartion',
+      type: 'Type',
+      reference: 'Réference',
     },
   },
 };

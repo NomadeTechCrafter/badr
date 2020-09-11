@@ -97,8 +97,8 @@ class Apurement extends React.Component {
             width: 450,
           },
           {
-            code: 'modeApur.libelle',
-            libelle: translate('at.apurement.modeApurement'),
+            code: 'infoApurement',
+            libelle: translate('at.apurement.informationApurement'),
             width: 150,
           },
         ];
@@ -156,6 +156,20 @@ class Apurement extends React.Component {
    * Fired to view data of the selected AT item (form + Components)
    */
   consulter = (row) => {
+    row.apurementComposantVOs.forEach((composant) => {
+      composant.infoApurement = translate('at.apurement.mode')+' : ' + composant.modeApur.libelle;
+      if (composant.exportateur) {
+        composant.infoApurement = composant.infoApurement + ' '+translate('at.apurement.exportateur')+' : ' + composant.exportateur; 
+      } else if (composant.administartionApur) {
+        composant.infoApurement = composant.infoApurement + ' ' + translate('at.apurement.administartion')+' : ' + composant.administartionApur.libelle;
+      } else if (composant.typeAbandon) {
+        composant.infoApurement = composant.infoApurement + ' ' + translate('at.apurement.type')+' : ' + composant.typeAbandon;
+      } else if (composant.referenceDec) {
+        composant.infoApurement = composant.infoApurement + ' ' + translate('at.apurement.reference')+' : ' + composant.referenceDec;
+      } else if (composant.modeApur.code === '002') {
+        composant.infoApurement = composant.infoApurement + ' ' + translate('at.apurement.reference')+' : ' + composant.refAtTransfert;
+      } 
+    });
     this.setState({
       selectedApurement: row,
       consulterApur: true,
@@ -628,37 +642,6 @@ class Apurement extends React.Component {
                       <Row>
                         <Col size={100}>
                           <View>{this.buildMotif()}</View>
-                        </Col>
-                      </Row>
-
-                      <Row size={100}>
-                        <Col size={50}>
-                          <TextInput
-                            style={styles.textInputsStyle}
-                            underlineColor={primaryColor}
-                            mode="outlined"
-                            value={translate('at.apurement.reexportation')}
-                            disabled="true"
-                            label={translate('at.apurement.mode')}
-                          />
-                        </Col>
-                        <Col size={50}>
-                          <TextInput
-                            style={styles.textInputsStyle}
-                            underlineColor={primaryColor}
-                            mode="outlined"
-                            disabled="true"
-                            value={
-                              this.state.selectedApurement
-                                .apurementComposantVOs &&
-                              this.state.selectedApurement.apurementComposantVOs
-                                .length > 0
-                                ? this.state.selectedApurement
-                                    .apurementComposantVOs[0].exportateur
-                                : ''
-                            }
-                            label={translate('at.apurement.exportateur')}
-                          />
                         </Col>
                       </Row>
                     </View>

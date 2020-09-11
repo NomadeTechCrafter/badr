@@ -63,6 +63,7 @@ export default class AtApurementApi {
       'ref',
       'id',
       'informationAffichee',
+      'infoApurement',
       'typeComposant',
       'composantsApures',
       'modeApurementComposant',
