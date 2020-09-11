@@ -1,5 +1,5 @@
 module.exports = {
-  SERVER_URL: 'https://badr4.douane.gov.ma/badr',
+  SERVER_URL: 'https://192.168.251.171/badr',
   BACK_OFFICE_BASE_URL: 'https://bomobile-recette.douane.gov.ma/BadrMobile/api',
   LOGIN_API: '/rest/api/login',
   LOGOUT_API: '/rest/api/logout',
