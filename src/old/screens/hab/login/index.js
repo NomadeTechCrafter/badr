@@ -19,12 +19,12 @@ import {loadParsed} from '../../../services/storage-service';
 
 /** Custom Components */
 import {
-  LoginTextInput,
-  PasswordTextInput,
-  BadrLoginHeader,
-  BadrProgressBar,
-  BadrErrorMessage,
-  BadrButton,
+  ComBadrLoginTextInputComp,
+  ComBadrPasswordTextInputComp,
+  ComBadrLoginHeaderComp,
+  ComBadrProgressBarComp,
+  ComBadrErrorMessageComp,
+  ComBadrButtonComp,
 } from '../../../components';
 
 import {remote, bootstrapRoute} from '../../../common/config';
@@ -102,23 +102,23 @@ class Login extends React.Component {
   render() {
     return (
       <ScrollView style={CustomStyleSheet.whiteContainer}>
-        {this.props.showProgress && <BadrProgressBar />}
+        {this.props.showProgress && <ComBadrProgressBarComp />}
         <View style={CustomStyleSheet.centerContainer}>
-          <BadrLoginHeader />
-          <LoginTextInput
+          <ComBadrLoginHeaderComp />
+          <ComBadrLoginTextInputComp
             value={this.state.login}
             onChangeText={(text) => this.onLoginChanged(text)}
           />
-          <PasswordTextInput
+          <ComBadrPasswordTextInputComp
             onChangeText={(text) => this.setState({password: text})}
             value={this.state.password}
           />
-          <BadrButton
+          <ComBadrButtonComp
             onPress={this.handleLogin}
             text={translate('login.connexion')}
           />
           {!this.props.loggedIn && this.props.errorMessage != null && (
-            <BadrErrorMessage message={this.props.errorMessage} />
+            <ComBadrErrorMessageComp message={this.props.errorMessage} />
           )}
         </View>
       </ScrollView>

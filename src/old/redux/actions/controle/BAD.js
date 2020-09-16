@@ -13,15 +13,10 @@ export function request(action) {
     ControleApi.getDetailBAD(action.value)
       .then((response) => {
         if (response) {
-          console.log('####################################');
-          console.log(response);
-          console.log('####################################');
           const data = response.data.jsonVO;
           if (data) {
-            console.log('SUCCESSSSSS');
             dispatch(success(data));
           } else {
-            console.log('ERROR');
             dispatch(failed(data));
           }
         } else {

@@ -3,7 +3,7 @@ import {View, ScrollView, StyleSheet} from 'react-native';
 import {TextInput, Button, Divider} from 'react-native-paper';
 import {Col, Row} from 'react-native-easy-grid';
 
-import {Accordion} from '../../../components';
+import {ComAccordionComp} from '../../../components';
 
 export default class PlaquesImmatriculationFormationSearch extends React.Component {
   constructor(props) {
@@ -20,7 +20,7 @@ export default class PlaquesImmatriculationFormationSearch extends React.Compone
   render = () => {
     return (
       <ScrollView>
-        <Accordion expanded={true} title="Recherche">
+        <ComAccordionComp expanded={true} title="Recherche">
           <Row>
             <Col>
               <TextInput
@@ -42,7 +42,7 @@ export default class PlaquesImmatriculationFormationSearch extends React.Compone
             </Col>
             <Col size={20} />
           </Row>
-        </Accordion>
+        </ComAccordionComp>
       </ScrollView>
     );
   };

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {ScrollView, View} from 'react-native';
-import {RechercheRefDum, Toolbar, BadrButtonIcon} from '../../../components';
+import {RechercheRefDum, ComBadrToolbarComp, ComBadrButtonIconComp} from '../../../components';
 /**i18n */
 import {translate} from '../../../../commons/i18n/I18nHelper';
 import {Session} from '../../../../commons/services/session/Session';
@@ -61,7 +61,7 @@ class RechecheDum extends Component {
     let infoControle = this.getInfoControle();
     return (
       <ScrollView>
-        <Toolbar
+        <ComBadrToolbarComp
           navigation={this.props.navigation}
           title={translate('controle.title')}
           subtitle={infoControle.subtitle}
@@ -79,7 +79,7 @@ class RechecheDum extends Component {
         </View>
 
         <View style={styles.listDeclarationStyle}>
-          <BadrButtonIcon
+          <ComBadrButtonIconComp
             onPress={() => this.listDeclarationSearch()}
             icon="magnify"
             loading={this.props.showProgress}

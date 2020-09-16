@@ -11,7 +11,7 @@ import * as AnnoncesAction from '../../../../commons/state/actions/GenericAction
 import styles from '../style/habAnnoncesStyle';
 
 /**Custom Components */
-import {Toolbar, BadrInfoMessage} from '../../../../commons/component';
+import {ComBadrToolbarComp, ComBadrInfoMessageComp} from '../../../../commons/component';
 
 /** Inmemory session */
 import {Session} from '../../../../commons/services/session/Session';
@@ -87,7 +87,7 @@ class habAnnoncesScreen extends React.Component {
   render() {
     return (
       <ScrollView>
-        <Toolbar
+        <ComBadrToolbarComp
           navigation={this.props.navigation}
           icon="menu"
           title={translate('annonce.title')}
@@ -95,7 +95,7 @@ class habAnnoncesScreen extends React.Component {
         />
         <View style={styles.container}>
           {!this.props.showProgress && (
-            <BadrInfoMessage
+            <ComBadrInfoMessageComp
               message={
                 this.props.data && this.props.data.length > 0
                   ? translate('annonce.annonces')

@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {Text} from 'react-native-paper';
-import {CardSection} from '../../../../../../commons/component';
+import {ComBadrCardSectionComp} from '../../../../../../commons/component';
 import {translate} from '../../../../../../commons/i18n/I18nHelper';
 import {
   accentColor,
@@ -9,12 +9,12 @@ import {
   blueLabelColor,
   darkGrayColor,
   lightWhiteColor,
-} from '../../../../../../commons/styles';
+} from '../../../../../../commons/styles/theme';
 class InfoCommon extends React.Component {
   render() {
     return (
       <View>
-        <CardSection style={styles.CardSectionInfo}>
+        <ComBadrCardSectionComp style={styles.CardSectionInfo}>
           <View style={styles.containerLibRow}>
             <Text style={styles.libelleTitleM}>
               {translate('transverse.bureau')}
@@ -37,9 +37,9 @@ class InfoCommon extends React.Component {
             <Text style={styles.libelleValL}>{this.props.serie}</Text>
             <Text style={styles.libelleValM}>{this.props.etat}</Text>
           </View>
-        </CardSection>
+        </ComBadrCardSectionComp>
         {/* Dates creation, enreg AT */}
-        <CardSection style={styles.CardSectionInfo}>
+        <ComBadrCardSectionComp style={styles.CardSectionInfo}>
           <View style={styles.containerLibRow}>
             <Text style={styles.libelleTitleL}>
               {translate('at.dateCreation')}
@@ -56,7 +56,7 @@ class InfoCommon extends React.Component {
             </Text>
             <Text style={styles.libelleValS}>{this.props.numVersion}</Text>
           </View>
-        </CardSection>
+        </ComBadrCardSectionComp>
       </View>
     );
   }

@@ -19,12 +19,12 @@ import {Session} from '../../../../commons/services/session/Session';
 
 /**Custom Components */
 import {
-  Accordion,
-  BadrButtonIcon,
-  BadrPopup,
-  AlphabetPicker,
-  BadrItemsPicker,
-} from '../../../components';
+  ComAccordionComp,
+  ComBadrButtonIconComp,
+  ComBadrPopupComp,
+  ComBadrAlphabetPickerComp,
+  ComBadrItemsPickerComp,
+} from '../../../../commons/component';
 
 const initialState = {
   messageVisibility: false,
@@ -171,7 +171,7 @@ class PlaquesImmatriculationSearch extends React.Component {
           onLayout={(event) => {
             this.layout = event.nativeEvent.layout;
           }}>
-          <BadrPopup
+          <ComBadrPopupComp
             message={this.state.message}
             type={this.state.messageType}
             visible={this.state.messageVisibility}
@@ -192,7 +192,7 @@ class PlaquesImmatriculationSearch extends React.Component {
             <Row>
               <Col size={20} />
               <Col size={30}>
-                <BadrButtonIcon
+                <ComBadrButtonIconComp
                   onPress={() => this.handleSearch()}
                   icon="magnify"
                   style={styles.buttonIcon}
@@ -201,7 +201,7 @@ class PlaquesImmatriculationSearch extends React.Component {
                 />
               </Col>
               <Col size={30}>
-                <BadrButtonIcon
+                <ComBadrButtonIconComp
                   onPress={() => this.handleClear()}
                   icon="autorenew"
                   style={styles.buttonIcon}
@@ -218,14 +218,14 @@ class PlaquesImmatriculationSearch extends React.Component {
 
   accordionOne = () => {
     return (
-      <Accordion title={translate('referentiel.plaquesImm.searchByNumChassis')}>
+      <ComAccordionComp title={translate('referentiel.plaquesImm.searchByNumChassis')}>
         <TextInput
           mode="outlined"
           label={translate('referentiel.plaquesImm.numeroChassis')}
           value={this.state.vehiculeNumChassis}
           onChangeText={(text) => this.setState({vehiculeNumChassis: text})}
         />
-      </Accordion>
+      </ComAccordionComp>
     );
   };
 
@@ -236,7 +236,7 @@ class PlaquesImmatriculationSearch extends React.Component {
 
   accordionTwo = () => {
     return (
-      <Accordion
+      <ComAccordionComp
         title={translate('referentiel.plaquesImm.searchByNumImmNormal')}>
         <View style={styles.row}>
           <TextInput
@@ -248,7 +248,7 @@ class PlaquesImmatriculationSearch extends React.Component {
           />
 
           <Text>{' \t-\t '}</Text>
-          <AlphabetPicker
+          <ComBadrAlphabetPickerComp
             selectedValue={this.state.vehiculeNumImmat2}
             items={ConstantsPlaquesImm.alphabetAr}
             onValueChanged={(v, i) => this.onAlphabetPickerChanged(v, i)}
@@ -262,7 +262,7 @@ class PlaquesImmatriculationSearch extends React.Component {
             onChangeText={(text) => this.setState({vehiculeNumImmat3: text})}
           />
         </View>
-      </Accordion>
+      </ComAccordionComp>
     );
   };
 
@@ -272,7 +272,7 @@ class PlaquesImmatriculationSearch extends React.Component {
 
   accordionThree = () => {
     return (
-      <Accordion
+      <ComAccordionComp
         title={translate('referentiel.plaquesImm.searchByNumImmDiplo')}>
         <View style={styles.row}>
           <TextInput
@@ -297,7 +297,7 @@ class PlaquesImmatriculationSearch extends React.Component {
         </View>
 
         <View style={styles.itemPickerContainer}>
-          <BadrItemsPicker
+          <ComBadrItemsPickerComp
             style={styles.column}
             label={translate(
               'referentiel.plaquesImm.choose_categoryDiplomatique',
@@ -307,13 +307,13 @@ class PlaquesImmatriculationSearch extends React.Component {
             onValueChanged={(v, i) => this.onCategoryDiploPickerChanged(v, i)}
           />
         </View>
-      </Accordion>
+      </ComAccordionComp>
     );
   };
 
   accordionFour = () => {
     return (
-      <Accordion
+      <ComAccordionComp
         title={translate('referentiel.plaquesImm.searchByNumImmRemorque')}>
         <View style={styles.row}>
           <TextInput
@@ -332,13 +332,13 @@ class PlaquesImmatriculationSearch extends React.Component {
             onChangeText={(text) => this.setState({vehiculeNumImmatRem2: text})}
           />
         </View>
-      </Accordion>
+      </ComAccordionComp>
     );
   };
 
   accordionFive = () => {
     return (
-      <Accordion
+      <ComAccordionComp
         title={translate('referentiel.plaquesImm.searchByIdentitePropr')}>
         <View style={styles.row}>
           <TextInput
@@ -375,7 +375,7 @@ class PlaquesImmatriculationSearch extends React.Component {
             onChangeText={(text) => this.setState({raisonSocial: text})}
           />
         </View>
-      </Accordion>
+      </ComAccordionComp>
     );
   };
 }

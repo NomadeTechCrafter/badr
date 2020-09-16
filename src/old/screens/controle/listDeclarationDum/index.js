@@ -13,7 +13,7 @@ import * as Constants from '../../../common/constants/controle/listDeclarationDu
 import {translate} from '../../../../commons/i18n/I18nHelper';
 
 import * as RechecheDumAction from '../../../redux/actions/controle/listDeclarationDum';
-import {CopyPaste} from '../../../components';
+import {ComCopyPasteComp} from '../../../components';
 
 class ListDeclarationDum extends React.Component {
   constructor(props) {
@@ -131,24 +131,24 @@ class ListDeclarationDum extends React.Component {
                     onPress={() => this.onItemSelected(item)}>
                     <DataTable.Cell
                       style={{width: 300}}
-                      children={<CopyPaste value={item.reference} />}
+                      children={<ComCopyPasteComp value={item.reference} />}
                     />
                     <DataTable.Cell
                       style={{width: 150}}
-                      children={<CopyPaste value={item.numVoyage} />}
+                      children={<ComCopyPasteComp value={item.numVoyage} />}
                     />
                     <DataTable.Cell
                       style={{width: 150}}
-                      children={<CopyPaste value={item.numeroVersion} />}
+                      children={<ComCopyPasteComp value={item.numeroVersion} />}
                     />
                     <DataTable.Cell
                       style={{width: 200}}
-                      children={<CopyPaste value={item.dateCreationVersion} />}
+                      children={<ComCopyPasteComp value={item.dateCreationVersion} />}
                     />
 
                     <DataTable.Cell
                       style={{width: 200}}
-                      children={<CopyPaste value={item.dateEnregVersion} />}
+                      children={<ComCopyPasteComp value={item.dateEnregVersion} />}
                     />
                   </DataTable.Row>
                 ))

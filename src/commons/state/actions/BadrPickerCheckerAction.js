@@ -17,10 +17,10 @@ export function request(action) {
           action.value.payload = data.jsonVO;
           dispatch(success(action));
         } else {
-          dispatch(failed({value:response.dtoHeader.messagesErreur}));
+          dispatch(failed({value: response.dtoHeader.messagesErreur}));
         }
       })
-      .catch(e => {
+      .catch((e) => {
         dispatch(failed({value: translate('errors.technicalIssue')}));
       });
   };

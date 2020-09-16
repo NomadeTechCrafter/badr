@@ -1,5 +1,5 @@
 const localStore = {
-  rechercheEchangeMetVehicule: require('./rechercheEchangeMetVehicule.json'),
+  rechercheEchangeMetVehicule: require('./referential/rechercheEchangeMetVehicule.json'),
   initControlerDedRI: require('./controle/initControleDedRI.json'),
   getCmbOperateur: require('./referential/getCmbOperateur.json'),
   getRegimByCode: require('./referential/getRegimByCode.json'),

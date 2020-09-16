@@ -12,7 +12,7 @@ import ControleVehiculesSearch from './search';
 import ControleVehiculesResult from './result';
 
 /**Custom Components */
-import {BadrProgressBar, Toolbar} from '../../../components';
+import {ComBadrProgressBarComp, ComBadrToolbarComp} from '../../../components';
 
 /** REDUX **/
 import {connect} from 'react-redux';
@@ -36,13 +36,13 @@ class ControleVehicules extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Toolbar
+        <ComBadrToolbarComp
           navigation={this.props.navigation}
           icon="menu"
           title={translate('referentiel.controleVehicules.title')}
           subtitle={translate('referentiel.controleVehicules.subTitle')}
         />
-        {this.props.showProgress && <BadrProgressBar circle={false} />}
+        {this.props.showProgress && <ComBadrProgressBarComp circle={false} />}
         <NavigationContainer independent={true}>
           <Tab.Navigator
             initialLayout={{height: Dimensions.get('window').height}}

@@ -5,22 +5,24 @@ import Geolocation from 'react-native-geolocation-service';
 import translate from '../../i18n/I18nHelper';
 
 export class GeoFinder {
-
   static synchronizeGeoPosition = async () => {
-    const grantedRequest = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
-    if ('granted' !== grantedRequest) {
+    const grantedRequest = await PermissionsAndroid.request(
+      PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+    );
+    if (grantedRequest !== 'granted') {
       ToastAndroid.show(translate('geo.notgranted'), ToastAndroid.SHORT);
     } else {
-       Geolocation.getCurrentPosition((response) =>{
-        console.log('result ok')
+      Geolocation.getCurrentPosition(
+        (response) => {
           //ToastAndroid.show(`(${response.coords.longitude}, ${response.coords.latitude})` , ToastAndroid.SHORT);
           Session.getInstance().setGeoCoords(response.coords);
-        },(error) => {
+        },
+        (error) => {
           // See error code charts below.
           ToastAndroid.show(translate('geo.error'), ToastAndroid.SHORT);
         },
-        { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 });
+        {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
+      );
     }
-  }
-
+  };
 }

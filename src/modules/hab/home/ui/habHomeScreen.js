@@ -10,7 +10,7 @@ import WelcomeScreen from '../../annonces/ui/habAnnoncesScreen';
 import MainMenu from '../../mainMenu/ui/habMainMenuScreen';
 import CreerApurement from '../../../at/apurement/ui/creerApurement/AtApurementScreen';
 import Apurement from '../../../at/apurement/ui/ongletAt/apurement/AtCreateApurementScreen';
-import {ScanQrCode} from '../../../../commons/component';
+import {ComQrCodeScannerComp} from '../../../../commons/component';
 
 /**ACTIONS */
 import * as Constants from '../../../../commons/constants/generic/GenericConstants';
@@ -23,7 +23,6 @@ const Drawer = createDrawerNavigator();
 const deltaScreen = Dimensions.get('window').width / 4;
 
 class habHomeScreen extends React.Component {
-
   /*
     Constructor
    */
@@ -76,8 +75,8 @@ class habHomeScreen extends React.Component {
           options={{headerShown: false}}
         />
         <Drawer.Screen
-          name="ScanQrCode"
-          component={ScanQrCode}
+          name="ComQrCodeScannerComp"
+          component={ComQrCodeScannerComp}
           options={{headerShown: false}}
         />
       </Drawer.Navigator>

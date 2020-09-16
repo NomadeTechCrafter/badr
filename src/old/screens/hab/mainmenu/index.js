@@ -9,7 +9,7 @@ import {primaryColor, accentColor} from '../../../styles/index';
 import * as Zxing from '../../../../commons/native/zxing';
 
 /** Custom Components */
-import {BadrTree, BadrTreeItem, MenuHeader} from '../../../components';
+import {ComBadrTreeComp, ComBadrTreeItemComp, ComMenuHeaderComp} from '../../../components';
 
 /** REDUX **/
 import {connect} from 'react-redux';
@@ -127,7 +127,7 @@ class MainMenu extends React.Component {
   render() {
     return (
       <View style={CustomStyleSheet.menuContainer}>
-        <MenuHeader
+        <ComMenuHeaderComp
           showProgress={this.props.menuReducer.showProgress}
           onLogout={this.logout}
           onGoHome={this.goHome}
@@ -144,20 +144,20 @@ class MainMenu extends React.Component {
             </Col>
             <Col />
           </Grid>
-        </MenuHeader>
+        </ComMenuHeaderComp>
         <LinearGradient
           colors={[primaryColor, accentColor, accentColor, accentColor]}
           start={{x: 0, y: 0}}
           locations={[0, 0.04, 0.05, 0.07]}
           end={{x: 0, y: 1}}>
           <ScrollView style={styles.scrollViewStyle}>
-            <BadrTree
+            <ComBadrTreeComp
               getCollapsedNodeHeight={() => 60}
               data={this.props.menuReducer.menuList}
               onItemSelected={(item) => this.onItemSelected(item)}
               renderNode={({node, level, isExpanded, hasChildrenNodes}) => {
                 return (
-                  <BadrTreeItem
+                  <ComBadrTreeItemComp
                     node={node}
                     level={level}
                     isExpanded={isExpanded}

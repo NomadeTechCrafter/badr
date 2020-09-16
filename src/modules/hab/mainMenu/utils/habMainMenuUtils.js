@@ -9,7 +9,7 @@ export default class habMainMenuUtils {
       mappedArr[arrElem.id] = arrElem;
       mappedArr[arrElem.id].children = [];
     }
-    for (let id in mappedArr) {
+    for (var id in mappedArr) {
       if (mappedArr.hasOwnProperty(id)) {
         mappedElem = mappedArr[id];
         if (mappedElem.parent && mappedElem.parent) {

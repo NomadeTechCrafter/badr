@@ -2,21 +2,22 @@ import React from 'react';
 
 /** React Components */
 import {View, Text, ScrollView} from 'react-native';
+import style from '../style/habSmsVerifyStyle';
 
 /** Custom Components */
 import {
-  BadrTextInput,
-  BadrErrorMessage,
-  BadrInfoMessage,
-  BadrButton,
-  BadrProgressBar,
+  ComBadrTextInputComp,
+  ComBadrErrorMessageComp,
+  ComBadrInfoMessageComp,
+  ComBadrButtonComp,
+  ComBadrProgressBarComp,
 } from '../../../../commons/component';
 
 /** REDUX **/
 import {connect} from 'react-redux';
 import * as SmsVerifyActionCreators from '../state/actions/habSmsVerifyAction';
 import * as Constants from '../state/habSmsVerifyConstants';
-import {CustomStyleSheet} from '../../../../commons/styles';
+import {CustomStyleSheet} from '../../../../commons/styles/theme';
 import {translate} from '../../../../commons/i18n/I18nHelper';
 import {Session} from '../../../../commons/services/session/Session';
 import {GeoFinder} from '../../../../commons/services/geo-location/GeoFinder';
@@ -86,32 +87,33 @@ class HabSmsVerifyScreen extends React.Component {
     return (
       <ScrollView style={CustomStyleSheet.whiteContainer}>
         {(this.props.showProgress || this.props.showProgressConfirmCnx) && (
-          <BadrProgressBar />
+          <ComBadrProgressBarComp />
         )}
         <Text style={CustomStyleSheet.centeredText}>
           {translate('smsVerify.message')}
         </Text>
         <View style={CustomStyleSheet.centerContainer}>
-          <BadrTextInput
+          <ComBadrTextInputComp
             maxLength={6}
             keyboardType="numeric"
             placeholder={translate('smsVerify.codePlaceholder')}
             onChangeText={(text) => this.setState({code: text})}
             value={this.state.code}
           />
-          <BadrButton
+          <ComBadrButtonComp
             onPress={this.onConfirmClicked}
             text={translate('smsVerify.confirm')}
           />
-          <BadrButton
+          <ComBadrButtonComp
+            style={style.btnSmsCode}
             onPress={this.onRenvoyerCodeClicked}
             text={translate('smsVerify.renvoyerCode')}
           />
           {!this.props.correct && this.props.displayError && (
-            <BadrErrorMessage message={this.props.errorMessage} />
+            <ComBadrErrorMessageComp message={this.props.errorMessage} />
           )}
           {this.props.correct && this.props.infoMessage && (
-            <BadrInfoMessage
+            <ComBadrInfoMessageComp
               message={translate('smsVerify.errorCodeGenerated')}
             />
           )}

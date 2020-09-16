@@ -5,11 +5,11 @@ import {View, Text, Dimensions, ScrollView} from 'react-native';
 
 /** Custom Components */
 import {
-  BadrTextInput,
-  BadrErrorMessage,
-  BadrInfoMessage,
-  BadrButton,
-  BadrProgressBar,
+  ComBadrTextInputComp,
+  ComBadrErrorMessageComp,
+  ComBadrInfoMessageComp,
+  ComBadrButtonComp,
+  ComBadrProgressBarComp,
 } from '../../../components';
 
 /** REDUX **/
@@ -61,36 +61,36 @@ class SmsVerify extends React.Component {
     return (
       <ScrollView style={CustomStyleSheet.whiteContainer}>
         {(this.props.showProgress || this.props.showProgressConfirmCnx) && (
-          <BadrProgressBar />
+          <ComBadrProgressBarComp />
         )}
         <Text style={CustomStyleSheet.centeredText}>
           {translate('smsVerify.message')}
         </Text>
         <View style={CustomStyleSheet.centerContainer}>
-          <BadrTextInput
+          <ComBadrTextInputComp
             maxLength={6}
             keyboardType="numeric"
             placeholder={translate('smsVerify.codePlaceholder')}
             onChangeText={(text) => this.setState({code: text})}
             value={this.state.code}
           />
-          <BadrButton
+          <ComBadrButtonComp
             onPress={this.onConfirmerClicked}
             text={translate('smsVerify.confirm')}
           />
 
           {!this.props.correct && this.props.displayError && (
-            <BadrErrorMessage message={this.props.errorMessage} />
+            <ComBadrErrorMessageComp message={this.props.errorMessage} />
           )}
 
           {!this.props.confirmed && this.props.showProgressConfirmCnx && (
-            <BadrInfoMessage
+            <ComBadrInfoMessageComp
               message={translate('info.smsVerify.confirmConnexionPending')}
             />
           )}
 
           {!this.props.correct && this.props.showProgress && (
-            <BadrInfoMessage message={translate('info.pleasewait')} />
+            <ComBadrInfoMessageComp message={translate('info.pleasewait')} />
           )}
         </View>
       </ScrollView>

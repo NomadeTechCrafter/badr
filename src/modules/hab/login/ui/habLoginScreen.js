@@ -4,15 +4,6 @@ import {View, ScrollView, TextInput, Linking, Alert} from 'react-native';
 import {Button} from 'react-native-paper';
 /** REDUX **/
 import {connect} from 'react-redux';
-/** Device informations */
-import {
-  getAndroidId,
-  getManufacturer,
-  getSystemVersion,
-  getModel,
-  getDeviceName,
-} from 'react-native-device-info';
-
 import style from '../style/habLoginStyle';
 /**ACTIONS */
 import * as LoginConstants from '../state/habLoginConstants';
@@ -22,12 +13,13 @@ import * as authAction from '../state/actions/habLoginAction';
 import {translate} from '../../../../commons/i18n/I18nHelper';
 
 /** Custom Components */
-import {BadrLoginHeader, BadrErrorMessage} from '../../../../commons/component';
+import {ComBadrLoginHeaderComp, ComBadrErrorMessageComp} from '../../../../commons/component';
 
 /** Inmemory session */
 import {load} from '../../../../commons/services/async-storage/StorageService';
-import {Session} from '../../../../commons/services/session/Session';
-import AutoLoginProcess from '../../../../commons/component/modules/autoLogin/AutoLoginProcess';
+import AutoLoginProcess from '../../../../commons/component/modules/autoLogin/ComAutoLoginProcessComp';
+/** Utils */
+import Utils from '../../../../commons/utils/Util';
 
 class Login extends React.Component {
   state = {
@@ -48,7 +40,7 @@ class Login extends React.Component {
    componentDidMount Initialization
    */
   componentDidMount() {
-    this.setDeviceInformation();
+    Utils.setDeviceInformation();
     this.loadOldUserIfExist().then(() => {});
     this.props.initialize();
     this.initAutoLoginParameters().then(() => {});
@@ -56,21 +48,6 @@ class Login extends React.Component {
 
   handleLogin = (forcerConnexion) => {
     this.props.login(this.state.login, this.state.password, forcerConnexion);
-  };
-
-  setDeviceInformation = () => {
-    Session.getInstance().setSystemVersion(getSystemVersion());
-    Session.getInstance().setModel(getModel());
-    getAndroidId().then((value) => {
-      Session.getInstance().setDeviceId(value);
-    });
-    getManufacturer().then((value) => {
-      Session.getInstance().setManufacturer(value);
-    });
-    getDeviceName().then((value) => {
-      Session.getInstance().setDeviceName(value);
-    });
-    Session.getInstance().setPlatform('Android');
   };
 
   initAutoLoginParameters = async () => {
@@ -113,13 +90,13 @@ class Login extends React.Component {
       <ScrollView style={style.container}>
         {/* {this.props.showProgress && <SmartLoader />} */}
         <View style={style.loginBlock}>
-          <BadrLoginHeader />
+          <ComBadrLoginHeaderComp />
           <View style={style.textInputContainer}>
             <TextInput
               value={this.state.login}
               autoCapitalize="characters"
               style={style.textInput}
-              placeholder={translate('login.userName')}
+              placeholder={translate('userName')}
               onChangeText={(text) => this.onLoginChanged(text)}
               secureTextEntry={false}
             />
@@ -130,7 +107,7 @@ class Login extends React.Component {
               style={style.textInput}
               autoCapitalize="none"
               secureTextEntry={true}
-              placeholder={translate('login.password')}
+              placeholder={translate('password')}
               onChangeText={(text) => this.setState({password: text})}
             />
           </View>
@@ -144,7 +121,7 @@ class Login extends React.Component {
           {!this.props.loggedIn &&
             this.props.errorMessage != null &&
             this.props.errorMessage !== '2' && (
-              <BadrErrorMessage message={this.props.errorMessage} />
+              <ComBadrErrorMessageComp message={this.props.errorMessage} />
             )}
           {!this.props.loggedIn &&
             this.props.errorMessage === '2' &&

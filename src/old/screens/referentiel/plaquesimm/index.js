@@ -12,7 +12,7 @@ import PlaquesImmatriculationSearch from './search';
 import PlaquesImmatriculationResult from './result';
 
 /**Custom Components */
-import {BadrProgressBar, Toolbar} from '../../../components';
+import {ComBadrProgressBarComp, ComBadrToolbarComp} from '../../../components';
 
 /** REDUX **/
 import {connect} from 'react-redux';
@@ -35,14 +35,14 @@ class PlaquesImmatriculation extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Toolbar
+        <ComBadrToolbarComp
           navigation={this.props.navigation}
           icon="menu"
           title={translate('referentiel.plaquesImm.title')}
           subtitle={translate('referentiel.plaquesImm.subTitle')}
         />
-        {this.props.showProgress && <BadrProgressBar />}
-        {/* {this.props.showProgress && <BadrCircleProgressBar size={30} />} */}
+        {this.props.showProgress && <ComBadrProgressBarComp />}
+        {/* {this.props.showProgress && <ComBadrCircleProgressBarComp size={30} />} */}
         <NavigationContainer independent={true}>
           <Tab.Navigator
             initialLayout={{height: Dimensions.get('window').height}}

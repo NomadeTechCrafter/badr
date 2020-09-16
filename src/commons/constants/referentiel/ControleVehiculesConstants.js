@@ -8,8 +8,3 @@ export const CONTROLE_VEHICULE_IN_PROGRESS =
   '[CONTROLE_VEHICULE] CONTROLE_VEHICULE_IN_PROGRESS';
 export const CONTROLE_VEHICULE_INIT =
   '[CONTROLE_VEHICULE] CONTROLE_VEHICULE_INIT';
-
-export const status = [
-  {code: 'VALIDE', libelle: 'Valide'},
-  {code: 'ANNULE', libelle: 'Annulée'},
-];
