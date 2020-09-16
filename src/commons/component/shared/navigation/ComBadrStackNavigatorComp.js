@@ -6,7 +6,11 @@ import packageJson from '../../../../../package.json';
 const Stack = createStackNavigator();
 import _ from 'lodash';
 import {connect} from 'react-redux';
-import {primaryColor, primaryColorRgba, accentColor} from '../../../styles/theme';
+import {
+  primaryColor,
+  primaryColorRgba,
+  accentColor,
+} from '../../../styles/theme';
 import Spinner from 'react-native-loading-spinner-overlay';
 import {translate} from '../../../i18n/I18nHelper';
 

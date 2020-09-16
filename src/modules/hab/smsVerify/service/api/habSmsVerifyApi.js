@@ -18,7 +18,7 @@ export default class HabSmsVerifyApi {
         device_id: Session.getInstance().getDeviceId(),
         device_manufacturer: Session.getInstance().getManufacturer(),
         device_model: Session.getInstance().getModel(),
-        os: 'Android',
+        os: Session.getInstance().getPlatform(),
         os_version: Session.getInstance().getSystemVersion(),
         app_version: packageJson.version,
         device_name: Session.getInstance().getDeviceName(),

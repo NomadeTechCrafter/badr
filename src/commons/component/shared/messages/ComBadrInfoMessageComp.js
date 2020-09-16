@@ -20,7 +20,9 @@ export default class ComBadrInfoMessageComp extends React.Component {
   }
 }
 
-ComBadrInfoMessageComp = Animatable.createAnimatableComponent(ComBadrInfoMessageComp);
+ComBadrInfoMessageComp = Animatable.createAnimatableComponent(
+  ComBadrInfoMessageComp,
+);
 
 const styles = {
   animatableStyle: {

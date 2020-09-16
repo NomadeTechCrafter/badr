@@ -113,7 +113,9 @@ class habProfileScreen extends React.Component {
   render() {
     return (
       <View style={style.container}>
-        {this.props.confirmConnexionReducer.showProgress && <ComBadrProgressBarComp />}
+        {this.props.confirmConnexionReducer.showProgress && (
+          <ComBadrProgressBarComp />
+        )}
         <ScrollView>
           <View>
             {this.props.confirmConnexionReducer.displayError && (

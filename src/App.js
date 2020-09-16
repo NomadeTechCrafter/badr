@@ -21,7 +21,7 @@ import {Provider} from 'react-redux';
 import {createStore, applyMiddleware, compose} from 'redux';
 import allReducers from './commons/state/Store';
 import thunk from 'redux-thunk';
-import setGlobalHandler from './commons/services/exceptionHandler/GlobalErrorHandler'
+import setGlobalHandler from './commons/services/exceptionHandler/GlobalErrorHandler';
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
   allReducers,
@@ -33,7 +33,7 @@ import Home from './modules/hab/home/ui/habHomeScreen';
 import SmsVerifyScreen from './modules/hab/smsVerify/ui/habSmsVerifyScreen';
 
 import {primaryColor, accentColor} from './commons/styles/theme';
-
+import OfflineAlert from './commons/services/offlineHandler/OfflineAlert';
 import {Provider as PaperProvider, DefaultTheme} from 'react-native-paper';
 
 const theme = {
@@ -45,7 +45,7 @@ const theme = {
   },
 };
 
-//setGlobalHandler();
+setGlobalHandler();
 
 export default class App extends React.Component {
   render() {
@@ -53,6 +53,7 @@ export default class App extends React.Component {
       <RootSiblingParent>
         <PaperProvider theme={theme}>
           <Provider store={store}>
+            <OfflineAlert />
             <ComBadrStackNavigatorComp>
               <Stack.Screen
                 name="Login"

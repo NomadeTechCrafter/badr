@@ -3,7 +3,10 @@ import {View, ScrollView} from 'react-native';
 import {TextInput} from 'react-native-paper';
 import {Col, Row, Grid} from 'react-native-easy-grid';
 /**Custom Components */
-import {ComBadrButtonIconComp, ComBadrItemsPickerComp} from '../../../components';
+import {
+  ComBadrButtonIconComp,
+  ComBadrItemsPickerComp,
+} from '../../../components';
 
 /** REDUX **/
 import {connect} from 'react-redux';

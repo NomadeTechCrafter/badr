@@ -1,11 +1,15 @@
 import React from 'react';
-import {Text, View, ScrollView, Dimensions} from 'react-native';
-import {DefaultTheme, IconButton, ThemeProvider} from 'react-native-paper';
+import {Text, View, ScrollView, StyleSheet} from 'react-native';
+import {DefaultTheme, IconButton} from 'react-native-paper';
 import {DataTable} from 'react-native-paper';
 import {Checkbox} from 'react-native-paper';
 
 /** Custom Style **/
-import {dataTableStyles, CustomStyleSheet, primaryColor} from '../../../styles/theme';
+import {
+  dataTableStyles,
+  CustomStyleSheet,
+  primaryColor,
+} from '../../../styles/theme';
 
 /** i18n **/
 import {translate} from '../../../i18n/I18nHelper';
@@ -126,16 +130,16 @@ export default class ComBasicDataTableComp extends React.Component {
       this.props.totalElements / this.props.maxResultsPerPage,
     );
     return (
-      <View style={{width: '100%'}}>
+      <View style={styles.width100}>
         <ScrollView
-          style={{width: '100%'}}
+          style={styles.width100}
           ref={(node) => {
             this.horizontalScrollView = node;
           }}
           key="horizontalScrollView"
           horizontal={true}>
-          <ScrollView key="verticalScrollView" style={{width: '100%'}}>
-            <DataTable style={{width: '100%'}}>
+          <ScrollView key="verticalScrollView" style={styles.width100}>
+            <DataTable style={styles.width100}>
               <DataTable.Header>
                 {this.props.hasId && (
                   <DataTable.Title
@@ -157,7 +161,8 @@ export default class ComBasicDataTableComp extends React.Component {
                       <Text style={dataTableStyles.dataTableHeaderStyle}>
                         {column.libelle}
                       </Text>
-                    }></DataTable.Title>
+                    }
+                  />
                 ))}
               </DataTable.Header>
 
@@ -246,8 +251,9 @@ export default class ComBasicDataTableComp extends React.Component {
   };
 }
 
-const styles = {
+const styles = StyleSheet.create({
   datatableCell: {width: 50},
   pagination: {alignSelf: 'flex-start'},
   datatableTitle: {width: 50},
-};
+  width100: {width: '100%'},
+});

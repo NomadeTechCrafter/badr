@@ -214,4 +214,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ComBadrPickerCheckerComp);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(ComBadrPickerCheckerComp);

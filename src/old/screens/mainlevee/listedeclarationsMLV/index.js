@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import {View, StyleSheet, ScrollView} from 'react-native';
-import {ComBadrToolbarComp, ComBadrAutoCompleteComp} from '../../../../commons/component';
+import {
+  ComBadrToolbarComp,
+  ComBadrAutoCompleteComp,
+} from '../../../../commons/component';
 import {Button, DataTable} from 'react-native-paper';
 /**i18n */
 import {translate} from '../../../../commons/i18n/I18nHelper';
@@ -66,7 +69,7 @@ class ListDeclarationMLV extends Component {
         />
 
         <ComBadrAutoCompleteComp
-          onRef={ref => (this.CmbRegimByCode = ref)}
+          onRef={(ref) => (this.CmbRegimByCode = ref)}
           libelle="Regime"
           key="CmbRegimByCode"
           handleSelectItem={(item, id) => this.handleRegimeChanged(item, id)}
@@ -74,7 +77,7 @@ class ListDeclarationMLV extends Component {
         />
 
         <ComBadrAutoCompleteComp
-          onRef={ref => (this.CmbOperateur = ref)}
+          onRef={(ref) => (this.CmbOperateur = ref)}
           libelle="Operateur"
           key="CmbOperateur"
           handleSelectItem={(item, id) => this.handleOperateurChanged(item, id)}
@@ -180,9 +183,6 @@ const styles = StyleSheet.create({
     padding: 5,
   },
 });
-const mapStateToProps = state => ({...state.listeDeclarationsMLVReducer});
+const mapStateToProps = (state) => ({...state.listeDeclarationsMLVReducer});
 
-export default connect(
-  mapStateToProps,
-  null,
-)(ListDeclarationMLV);
+export default connect(mapStateToProps, null)(ListDeclarationMLV);

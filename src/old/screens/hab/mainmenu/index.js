@@ -9,7 +9,11 @@ import {primaryColor, accentColor} from '../../../styles/index';
 import * as Zxing from '../../../../commons/native/zxing';
 
 /** Custom Components */
-import {ComBadrTreeComp, ComBadrTreeItemComp, ComMenuHeaderComp} from '../../../components';
+import {
+  ComBadrTreeComp,
+  ComBadrTreeItemComp,
+  ComMenuHeaderComp,
+} from '../../../components';
 
 /** REDUX **/
 import {connect} from 'react-redux';

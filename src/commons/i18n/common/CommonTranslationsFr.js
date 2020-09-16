@@ -22,6 +22,12 @@ export default {
       'Le nombre de scellé doit être numérique et de longueur 8! ',
     numScelleExisteDeja: 'Le nombre de scellé existe déjà',
     autoCompleteErr: 'Erreur lors du chargement du composant autocomplete',
+    noConnxTitle: 'Pas de connexion internet',
+    noConnxContent:
+      'veuillez vérifier votre connexion Internet et essayer à nouveau',
+    alertErrorTitle: 'Unexpected error occurred',
+    alertErrorContent:
+      'We have captured this issue and it will be fixed in next release. Sorry for this inconvenient.',
   },
   info: {
     pleasewait: 'Veuillez pateinter...',

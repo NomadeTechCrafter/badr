@@ -29,7 +29,6 @@ export const atShadowColor = 'rgba(59,59,59,0.04)';
 export const darkGris = '#5E5E5E';
 export const lightGris = '#ececec';
 
-
 export const dataTableStyles = StyleSheet.create({
   dataTableItemStyle: {
     flex: 1,

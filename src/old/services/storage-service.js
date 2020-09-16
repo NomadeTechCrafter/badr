@@ -8,7 +8,7 @@ export const saveStringified = async (key, value) => {
   return AsyncStorage.setItem(key, JSON.stringify(value));
 };
 
-export const load = async key => {
+export const load = async (key) => {
   const value = await AsyncStorage.getItem(key);
   if (value !== null) {
     return value;
@@ -16,7 +16,7 @@ export const load = async key => {
   return '';
 };
 
-export const loadParsed = async key => {
+export const loadParsed = async (key) => {
   const value = await AsyncStorage.getItem(key);
   if (value !== null) {
     return JSON.parse(value);
