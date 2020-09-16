@@ -14,12 +14,12 @@ import {translate} from '../../../../commons/i18n/I18nHelper';
 
 /**Custom Components */
 import {
-  NumeroPlaque,
+  ComNumeroPlaqueComp,
   NumeroPlaqueDiplo,
   NumeroPlaqueRemorque,
-  BadrModal,
+  ComBadrModalComp,
   DetailPlaque,
-  CopyPaste,
+  ComCopyPasteComp,
 } from '../../../components';
 
 /** REDUX **/
@@ -137,7 +137,7 @@ class PlaquesImmatriculationResult extends React.Component {
                     onPress={() => this.onItemSelected(item)}>
                     <DataTable.Cell
                       style={styles.datatableTitle}
-                      children={<CopyPaste value={item.vehiculeNumChassis} />}
+                      children={<ComCopyPasteComp value={item.vehiculeNumChassis} />}
                     />
                     <DataTable.Cell style={styles.datatableTitle}>
                       {item.proprietaireNom} {item.proprietaireNom} {'('}{' '}
@@ -146,7 +146,7 @@ class PlaquesImmatriculationResult extends React.Component {
                     <DataTable.Cell
                       style={styles.datatableTitle}
                       children={
-                        <NumeroPlaque numero={item.vehiculeNumImmatComplet} />
+                        <ComNumeroPlaqueComp numero={item.vehiculeNumImmatComplet} />
                       }
                     />
                     <DataTable.Cell
@@ -205,11 +205,11 @@ class PlaquesImmatriculationResult extends React.Component {
                 )}
             </DataTable>
 
-            <BadrModal
+            <ComBadrModalComp
               visible={this.state.showDetail}
               onDismiss={this.onDismiss}>
               <DetailPlaque data={this.state.item} />
-            </BadrModal>
+            </ComBadrModalComp>
           </ScrollView>
         )}
       </ScrollView>

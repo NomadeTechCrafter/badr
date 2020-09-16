@@ -1,6 +1,6 @@
 export default {
   userName: "Nom d'utilisateur",
-  password: 'Mot de pass',
+  password: 'Mot de passe',
   connexion: 'Connexion',
   alreadyLogged: {
     title: 'Déjà connecté',

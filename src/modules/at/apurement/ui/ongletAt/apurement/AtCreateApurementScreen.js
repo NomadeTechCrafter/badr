@@ -7,7 +7,10 @@ import {Col, Row} from 'react-native-easy-grid';
 import InfoCommon from '../common/AtInfoCommonScreen';
 import {translate} from '../../../../../../commons/i18n/I18nHelper';
 import _ from 'lodash';
-import {CustomStyleSheet, primaryColor} from '../../../../../../commons/styles';
+import {
+  CustomStyleSheet,
+  primaryColor,
+} from '../../../../../../commons/styles/theme';
 import * as CreateApurementAction from '../../../state/actions/atApurementCreateAction';
 import * as InitApurementAction from '../../../state/actions/atApurementInitAction';
 import * as ConstantsAt from '../../../state/atApurementConstants';
@@ -18,16 +21,16 @@ import Utils from '../../../../../../commons/utils/Util';
 import {Session} from '../../../../../../commons/services/session/Session';
 
 import {
-  Toolbar,
-  Container,
-  CardBox,
-  Accordion,
-  BadrErrorMessage,
-  BadrInfoMessage,
-  BadrTable,
-  CardsWithTitle,
-  BadrDatePicker,
-  BadrActionButton,
+  ComBadrToolbarComp,
+  ComContainerComp,
+  ComBadrCardBoxComp,
+  ComAccordionComp,
+  ComBadrErrorMessageComp,
+  ComBadrInfoMessageComp,
+  ComBasicDataTableComp,
+  ComBadrCardWithTileComp,
+  ComBadrDatePickerComp,
+  ComBadrActionButtonComp,
 } from '../../../../../../commons/component';
 import moment from 'moment';
 
@@ -377,7 +380,7 @@ class Apurement extends React.Component {
           ref={(c) => {
             this.scroll = c;
           }}>
-          <Toolbar
+          <ComBadrToolbarComp
             back={true}
             navigation={this.props.navigation}
             title={translate('at.title')}
@@ -386,17 +389,17 @@ class Apurement extends React.Component {
           />
 
           {atVo != null && atVo.atEnteteVO != null && (
-            <Container>
+            <ComContainerComp>
               {this.props.initApurement.errorMessage != null && (
                 <View style={styles.messages}>
-                  <BadrErrorMessage
+                  <ComBadrErrorMessageComp
                     message={this.props.initApurement.errorMessage}
                   />
                 </View>
               )}
               {this.props.initApurement.successMessage != null && (
                 <View>
-                  <BadrInfoMessage
+                  <ComBadrInfoMessageComp
                     message={this.props.initApurement.successMessage}
                   />
                 </View>
@@ -404,7 +407,7 @@ class Apurement extends React.Component {
 
               {this.state.errorMessage != null && (
                 <View style={styles.messages}>
-                  <BadrErrorMessage
+                  <ComBadrErrorMessageComp
                     onClose={() => {
                       this.setState({errorMessage: ''});
                     }}
@@ -426,12 +429,12 @@ class Apurement extends React.Component {
               />
 
               {/* Apurements */}
-              <CardBox style={styles.cardBox}>
-                <Accordion
+              <ComBadrCardBoxComp style={styles.cardBox}>
+                <ComAccordionComp
                   expanded={true}
                   title={translate('at.apurement.titleTableau')}>
                   <View style={styles.flexDirectionRow}>
-                    <BadrTable
+                    <ComBasicDataTableComp
                       id="idComposantApures"
                       rows={
                         this.props.initApurement.data.apurementVOs
@@ -445,8 +448,8 @@ class Apurement extends React.Component {
                       hasId={false}
                     />
                   </View>
-                </Accordion>
-              </CardBox>
+                </ComAccordionComp>
+              </ComBadrCardBoxComp>
               {!this.state.showNouveauApur &&
                 atVo.atEnteteVO &&
                 atVo.atEnteteVO.etatAt &&
@@ -464,8 +467,9 @@ class Apurement extends React.Component {
                   </View>
                 )}
               {this.state.showNouveauApur && (
-                <CardBox style={styles.cardBox}>
-                  <CardsWithTitle title={translate('at.apurement.title')}>
+                <ComBadrCardBoxComp style={styles.cardBox}>
+                  <ComBadrCardWithTileComp
+                    title={translate('at.apurement.title')}>
                     <View>
                       <Row size={100}>
                         <Col size={50}>
@@ -491,7 +495,7 @@ class Apurement extends React.Component {
 
                       <Row>
                         <Col size={50}>
-                          <BadrDatePicker
+                          <ComBadrDatePickerComp
                             labelDate={translate('at.apurement.dateApurement')}
                             value={new Date()}
                             dateFormat="DD/MM/YYYY"
@@ -546,11 +550,11 @@ class Apurement extends React.Component {
                         </Col>
                       </Row>
                     </View>
-                  </CardsWithTitle>
-                  <CardsWithTitle
+                  </ComBadrCardWithTileComp>
+                  <ComBadrCardWithTileComp
                     title={translate('at.apurement.titleTableauCompo')}>
                     <View style={styles.flexDirectionRow}>
-                      <BadrTable
+                      <ComBasicDataTableComp
                         onRef={(ref) => (this.badrComposantsTable = ref)}
                         hasId={false}
                         id="idComposant"
@@ -567,7 +571,7 @@ class Apurement extends React.Component {
                         paginate={true}
                       />
                     </View>
-                  </CardsWithTitle>
+                  </ComBadrCardWithTileComp>
                   <View style={styles.actionsContainer}>
                     <Row size={4}>
                       <Col />
@@ -592,12 +596,13 @@ class Apurement extends React.Component {
                       <Col />
                     </Row>
                   </View>
-                </CardBox>
+                </ComBadrCardBoxComp>
               )}
 
               {this.state.consulterApur && (
-                <CardBox style={styles.cardBox}>
-                  <CardsWithTitle title={translate('at.apurement.title')}>
+                <ComBadrCardBoxComp style={styles.cardBox}>
+                  <ComBadrCardWithTileComp
+                    title={translate('at.apurement.title')}>
                     <View>
                       <Row size={100}>
                         <Col size={50}>
@@ -645,11 +650,11 @@ class Apurement extends React.Component {
                         </Col>
                       </Row>
                     </View>
-                  </CardsWithTitle>
-                  <CardsWithTitle
+                  </ComBadrCardWithTileComp>
+                  <ComBadrCardWithTileComp
                     title={translate('at.apurement.titleTableauCompo')}>
                     <View style={styles.flexDirectionRow}>
-                      <BadrTable
+                      <ComBasicDataTableComp
                         onRef={(ref) => (this.badrComposantsTable = ref)}
                         hasId={false}
                         id="idComposant"
@@ -668,7 +673,7 @@ class Apurement extends React.Component {
                         paginate={true}
                       />
                     </View>
-                  </CardsWithTitle>
+                  </ComBadrCardWithTileComp>
                   <View style={styles.actionsContainer}>
                     <Row size={3}>
                       <Col />
@@ -684,12 +689,12 @@ class Apurement extends React.Component {
                       <Col />
                     </Row>
                   </View>
-                </CardBox>
+                </ComBadrCardBoxComp>
               )}
-            </Container>
+            </ComContainerComp>
           )}
         </ScrollView>
-        <BadrActionButton
+        <ComBadrActionButtonComp
           style={styles.badrActionsStyle}
           visible={
             atVo.atEnteteVO &&

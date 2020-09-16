@@ -2,20 +2,20 @@ import React, {Component} from 'react';
 import {View, Dimensions} from 'react-native';
 
 import {
-  Container,
-  CardBox,
-  Accordion,
-  BadrButton,
-  BadrErrorMessage,
-  BadrInfoMessage,
-  BadrProgressBar,
-  Toolbar,
-  BadrList,
+  ComContainerComp,
+  ComBadrCardBoxComp,
+  ComAccordionComp,
+  ComBadrButtonComp,
+  ComBadrErrorMessageComp,
+  ComBadrInfoMessageComp,
+  ComBadrProgressBarComp,
+  ComBadrToolbarComp,
+  ComBadrListComp,
   BadrLibelleBleu,
   BadrLibelleNoir,
-  BadrNumericTextInput,
-  BadrPopup,
-  BadrTable,
+  ComBadrNumericTextInputComp,
+  ComBadrPopupComp,
+  ComBasicDataTableComp,
 } from '../../../components';
 import {
   Checkbox,
@@ -157,31 +157,31 @@ class EnleverMarchandise extends Component {
     const {enleverMarchandiseVO} = this.state;
     return (
       <View style={CustomStyleSheet.fullContainer}>
-        <Toolbar
+        <ComBadrToolbarComp
           navigation={this.props.navigation}
           title={translate('ecorimport.title')}
           subtitle={translate('ecorimport.enleverMarchandise.title')}
           icon="menu"
         />
-        <Container
+        <ComContainerComp
           ContainerRef={(ref) => {
             this.scrollViewRef = ref;
           }}>
-          {this.props.showProgress && <BadrProgressBar />}
-          <BadrPopup
+          {this.props.showProgress && <ComBadrProgressBarComp />}
+          <ComBadrPopupComp
             message={this.state.message}
             type={this.state.messageType}
             visible={this.state.messageVisibility}
             onClosePressed={this.onCloseMessagesPressed}
           />
           {this.props.errorMessage != null && (
-            <BadrErrorMessage message={this.props.errorMessage} />
+            <ComBadrErrorMessageComp message={this.props.errorMessage} />
           )}
           {this.props.successMessage != null && (
-            <BadrInfoMessage message={this.props.successMessage} />
+            <ComBadrInfoMessageComp message={this.props.successMessage} />
           )}
           {/* Référence déclaration */}
-          <CardBox noPadding={true}>
+          <ComBadrCardBoxComp noPadding={true}>
             <Grid>
               <Row style={CustomStyleSheet.whiteRow}>
                 <Col size={2}>
@@ -264,11 +264,11 @@ class EnleverMarchandise extends Component {
                 </Col>
               </Row>
             </Grid>
-          </CardBox>
+          </ComBadrCardBoxComp>
 
           {/* Déclaration en Détail */}
-          <CardBox style={styles.cardBox}>
-            <Accordion title={translate('ecorimport.declarationDetail.title')}>
+          <ComBadrCardBoxComp style={styles.cardBox}>
+            <ComAccordionComp title={translate('ecorimport.declarationDetail.title')}>
               <Grid>
                 <Row style={CustomStyleSheet.lightBlueRow}>
                   <Col>
@@ -352,12 +352,12 @@ class EnleverMarchandise extends Component {
                   <Col size={2} />
                 </Row>
               </Grid>
-            </Accordion>
-          </CardBox>
+            </ComAccordionComp>
+          </ComBadrCardBoxComp>
 
           {/* Déclaration en Mainlevée */}
-          <CardBox style={styles.cardBox}>
-            <Accordion title={translate('ecorimport.mainlevee.title')}>
+          <ComBadrCardBoxComp style={styles.cardBox}>
+            <ComAccordionComp title={translate('ecorimport.mainlevee.title')}>
               <Grid>
                 <Row style={CustomStyleSheet.whiteRow}>
                   <Col>
@@ -442,17 +442,17 @@ class EnleverMarchandise extends Component {
                   </Col>
                 </Row>
               </Grid>
-            </Accordion>
-          </CardBox>
+            </ComAccordionComp>
+          </ComBadrCardBoxComp>
 
           {/* Liste des Enlevements Effectues */}
-          <CardBox style={styles.cardBox}>
-            <Accordion
+          <ComBadrCardBoxComp style={styles.cardBox}>
+            <ComAccordionComp
               title={translate(
                 'ecorimport.enleverMarchandise.listeEnlevementsEffectues.title',
               )}>
               <View>
-                <BadrTable
+                <ComBasicDataTableComp
                   ref="_listeEnlevement"
                   id="listeEnlevement"
                   rows={enleverMarchandiseVO.refMarchandiseEnlevee}
@@ -469,12 +469,12 @@ class EnleverMarchandise extends Component {
                   paginate={true}
                 />
               </View>
-            </Accordion>
-          </CardBox>
+            </ComAccordionComp>
+          </ComBadrCardBoxComp>
 
           {/* Déclaration Sommaire */}
-          <CardBox style={styles.cardBox}>
-            <Accordion
+          <ComBadrCardBoxComp style={styles.cardBox}>
+            <ComAccordionComp
               title={translate('ecorimport.declarationSommaire.title')}>
               <Grid>
                 <Row style={CustomStyleSheet.whiteRow}>
@@ -491,7 +491,7 @@ class EnleverMarchandise extends Component {
                     </BadrLibelleNoir>
                   </Col>
                   <Col>
-                    <BadrButton
+                    <ComBadrButtonComp
                       style={styles.actionBtn}
                       onPress={() => {
                         this.sauvgarderValider('sauvegarderRI');
@@ -564,12 +564,12 @@ class EnleverMarchandise extends Component {
                   </Col>
                 </Row>
               </Grid>
-            </Accordion>
-          </CardBox>
+            </ComAccordionComp>
+          </ComBadrCardBoxComp>
 
           {/* Lot de dedouanement */}
-          <CardBox style={styles.cardBox}>
-            <Accordion title={translate('ecorimport.lotDedouanement.title')}>
+          <ComBadrCardBoxComp style={styles.cardBox}>
+            <ComAccordionComp title={translate('ecorimport.lotDedouanement.title')}>
               <Grid>
                 <Row style={CustomStyleSheet.lightBlueRow}>
                   <Col>
@@ -616,14 +616,14 @@ class EnleverMarchandise extends Component {
                   </Col>
                 </Row>
               </Grid>
-            </Accordion>
-          </CardBox>
+            </ComAccordionComp>
+          </ComBadrCardBoxComp>
 
           {/* Actions */}
           <View
             style={styles.containerActionBtn}
             pointerEvents={this.state.isConsultation ? 'none' : 'auto'}>
-            <BadrButton
+            <ComBadrButtonComp
               style={styles.actionBtn}
               onPress={() => {
                 this.sauvgarderValider('sauvegarderRI');
@@ -631,7 +631,7 @@ class EnleverMarchandise extends Component {
               text={translate('mainlevee.validerMainlevee')}
               disabled={this.state.decisionControle ? false : true}
             />
-            <BadrButton
+            <ComBadrButtonComp
               style={styles.actionBtn}
               onPress={() => {
                 this.sauvgarderValider('validerRI');
@@ -640,7 +640,7 @@ class EnleverMarchandise extends Component {
               disabled={this.state.decisionControle ? false : true}
             />
           </View>
-        </Container>
+        </ComContainerComp>
       </View>
     );
   }

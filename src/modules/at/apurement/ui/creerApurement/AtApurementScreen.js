@@ -3,11 +3,11 @@ import {View, ScrollView, StyleSheet} from 'react-native';
 import {connect} from 'react-redux';
 import {translate} from '../../../../../commons/i18n/I18nHelper';
 import {
-  BadrErrorMessage,
-  BadrInfoMessage,
-  RechercheRefAt,
-  Toolbar,
-  BadrDialog,
+  ComBadrErrorMessageComp,
+  ComBadrInfoMessageComp,
+  ComAtRechercheRefComp,
+  ComBadrToolbarComp,
+  ComBadrDialogComp,
 } from '../../../../../commons/component';
 import * as CreateApurementAction from '../../state/actions/atApurementCreateAction';
 import * as InitApurementAction from '../../state/actions/atApurementInitAction';
@@ -102,7 +102,7 @@ class CreerApurement extends React.Component {
   render() {
     return (
       <ScrollView>
-        <Toolbar
+        <ComBadrToolbarComp
           navigation={this.props.navigation}
           icon="menu"
           title={translate('at.title')}
@@ -110,7 +110,7 @@ class CreerApurement extends React.Component {
         />
         {this.props.errorMessage != null && (
           <View style={styles.messages}>
-            <BadrErrorMessage
+            <ComBadrErrorMessageComp
               style={styles.centerErrorMsg}
               message={this.props.errorMessage}
             />
@@ -118,17 +118,17 @@ class CreerApurement extends React.Component {
         )}
         {this.props.messageInfo != null && (
           <View style={styles.messages}>
-            <BadrInfoMessage
+            <ComBadrInfoMessageComp
               style={styles.centerInfoMsg}
               message={this.props.messageInfo}
             />
           </View>
         )}
-        <RechercheRefAt
+        <ComAtRechercheRefComp
           onApurManuelle={(reference) => this.apurManuelle(reference)}
           onApurAutomatique={(reference) => this.apurAutomatique(reference)}
         />
-        <BadrDialog
+        <ComBadrDialogComp
           title={translate('at.apurementauto.confirmDialog.info')}
           confirmMessage={translate('at.apurementauto.confirmDialog.oui')}
           cancelMessage={translate('at.apurementauto.confirmDialog.non')}

@@ -1,6 +1,8 @@
+import Config from 'react-native-config';
 module.exports = {
-  SERVER_URL: 'https://badr4.douane.gov.ma/badr',
-  BACK_OFFICE_BASE_URL: 'https://bomobile-recette.douane.gov.ma/BadrMobile/api',
+  HOST: Config.HOST,
+  BASE_SERVER_URL: Config.SERVER_URL,
+  BACK_OFFICE_BASE_URL: Config.BACK_OFFICE_BASE_URL,
   LOGIN_API: '/rest/api/login',
   LOGOUT_API: '/rest/api/logout',
   PROCESS_API: '/rest/api/process',

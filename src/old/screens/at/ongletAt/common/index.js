@@ -2,13 +2,14 @@ import React from 'react';
 import {View} from 'react-native';
 import {Text} from 'react-native-paper';
 import {translate} from '../../../../../commons/i18n/I18nHelper';
-import {CardSection} from '../../../../components';
+import {accentColor, lightWhiteColor, blueLabelColor} from '../../../../../commons/styles/theme';
+import {ComBadrCardSectionComp} from '../../../../components';
 export class InfoCommon extends React.Component {
   render() {
     return (
       <View>
         {/* Référence AT */}
-        <CardSection style={styles.CardSectionInfo}>
+        <ComBadrCardSectionComp style={styles.CardSectionInfo}>
           <View style={styles.containerLibRow}>
             <Text style={styles.libelleTitleM}>
               {translate('transverse.bureau')}
@@ -31,9 +32,9 @@ export class InfoCommon extends React.Component {
             <Text style={styles.libelleValL}>{this.props.serie}</Text>
             <Text style={styles.libelleValM}>{this.props.etat}</Text>
           </View>
-        </CardSection>
+        </ComBadrCardSectionComp>
         {/* Dates creation, enreg AT */}
-        <CardSection style={styles.CardSectionInfo}>
+        <ComBadrCardSectionComp style={styles.CardSectionInfo}>
           <View style={styles.containerLibRow}>
             <Text style={styles.libelleTitleL}>
               {translate('at.dateCreation')}
@@ -50,7 +51,7 @@ export class InfoCommon extends React.Component {
             </Text>
             <Text style={styles.libelleValS}>{this.props.numVersion}</Text>
           </View>
-        </CardSection>
+        </ComBadrCardSectionComp>
       </View>
     );
   }
@@ -58,7 +59,7 @@ export class InfoCommon extends React.Component {
 
 const libelleTitle = {
   fontSize: 14,
-  color: '#006acd',
+  color: blueLabelColor,
 };
 
 const libelleVal = {
@@ -89,16 +90,16 @@ const styles = {
   },
   CardSectionValInfoAt: {
     flexDirection: 'column',
-    backgroundColor: '#f0f5f9',
+    backgroundColor: lightWhiteColor,
   },
   containerLibRow: {
     ...containerRow,
     marginBottom: 5,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: accentColor,
   },
   containerValRow: {
     ...containerRow,
-    backgroundColor: '#f0f5f9',
+    backgroundColor: lightWhiteColor,
   },
   libelleTitleS: {
     ...libelleTitle,

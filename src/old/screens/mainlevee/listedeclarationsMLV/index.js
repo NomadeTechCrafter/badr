@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {View, StyleSheet, ScrollView} from 'react-native';
-import {Toolbar, BadrAutoComplete} from '../../../components';
+import {ComBadrToolbarComp, ComBadrAutoCompleteComp} from '../../../../commons/component';
 import {Button, DataTable} from 'react-native-paper';
 /**i18n */
 import {translate} from '../../../../commons/i18n/I18nHelper';
@@ -58,14 +58,14 @@ class ListDeclarationMLV extends Component {
     }
     return (
       <View>
-        <Toolbar
+        <ComBadrToolbarComp
           navigation={this.props.navigation}
           title={translate('mainlevee.title')}
           subtitle={translate('mainlevee.delivrerMainlevee.title')}
           icon="menu"
         />
 
-        <BadrAutoComplete
+        <ComBadrAutoCompleteComp
           onRef={ref => (this.CmbRegimByCode = ref)}
           libelle="Regime"
           key="CmbRegimByCode"
@@ -73,7 +73,7 @@ class ListDeclarationMLV extends Component {
           command="getRegimByCode"
         />
 
-        <BadrAutoComplete
+        <ComBadrAutoCompleteComp
           onRef={ref => (this.CmbOperateur = ref)}
           libelle="Operateur"
           key="CmbOperateur"

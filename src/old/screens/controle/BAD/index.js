@@ -2,7 +2,7 @@ import React from 'react';
 import {View} from 'react-native';
 
 /**Custom Components */
-import {BadrApiTable, DetailBAD} from '../../../components';
+import {ComGenericDataTableComp, DetailBAD} from '../../../../commons/component';
 import {translate} from '../../../../commons/i18n/I18nHelper';
 
 export default class BAD extends React.Component {
@@ -31,7 +31,7 @@ export default class BAD extends React.Component {
   render() {
     return (
       <View>
-        <BadrApiTable
+        <ComGenericDataTableComp
           module="CONTROL_LIB"
           command="listePreapurements"
           typeService="SP"

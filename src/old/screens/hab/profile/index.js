@@ -4,12 +4,12 @@ import {View, ScrollView, StyleSheet, Dimensions} from 'react-native';
 
 /**Custom Components */
 import {
-  BadrPickerChecker,
-  BadrPicker,
-  BadrFloatingButton,
-  BadrProgressBar,
-  BadrErrorMessage,
-} from '../../../components';
+  ComBadrPickerCheckerComp,
+  ComBadrPickerComp,
+  ComBadrFloatingButtonComp,
+  ComBadrProgressBarComp,
+  ComBadrErrorMessageComp,
+} from '../../../../commons/component';
 
 /** REDUX **/
 import {connect} from 'react-redux';
@@ -111,18 +111,18 @@ class Profile extends React.Component {
     return (
       <View style={styles.container}>
         {this.props.confirmConnexionReducer.showProgressConfirmCnx && (
-          <BadrProgressBar />
+          <ComBadrProgressBarComp />
         )}
         <ScrollView>
           <View>
             {this.props.confirmConnexionReducer.displayError && (
-              <BadrErrorMessage
+              <ComBadrErrorMessageComp
                 message={this.props.confirmConnexionReducer.errorMessage}
               />
             )}
           </View>
 
-          <BadrPicker
+          <ComBadrPickerComp
             onRef={(ref) => (this.comboBureaux = ref)}
             key="bureau"
             style={CustomStyleSheet.badrPicker}
@@ -141,7 +141,7 @@ class Profile extends React.Component {
             storeLibelleWithKey="nomBureauDouane"
           />
 
-          <BadrPicker
+          <ComBadrPickerComp
             onRef={(ref) => (this.comboArrondissements = ref)}
             style={CustomStyleSheet.badrPicker}
             titleStyle={CustomStyleSheet.badrPickerTitle}
@@ -164,7 +164,7 @@ class Profile extends React.Component {
             storeLibelleWithKey="libelle"
           />
 
-          <BadrPickerChecker
+          <ComBadrPickerCheckerComp
             key="profil"
             title={translate('profile.listeProfils')}
             titleStyle={CustomStyleSheet.badrPickerTitle}
@@ -183,7 +183,7 @@ class Profile extends React.Component {
           />
         </ScrollView>
 
-        <BadrFloatingButton
+        <ComBadrFloatingButtonComp
           visible={
             this.state.selectedBureauIndex > 0 &&
             this.state.selectedProfiles.length > 0

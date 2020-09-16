@@ -1,6 +1,6 @@
 import React from 'react';
 import {View} from 'react-native';
-import {BadrApiTable} from '../../../components';
+import {ComGenericDataTableComp} from '../../../components';
 
 const buildCols = () => {
   return [
@@ -21,7 +21,7 @@ export default class PlaquesImmatriculationFormationResult extends React.Compone
   render = () => {
     return (
       <View>
-        <BadrApiTable
+        <ComGenericDataTableComp
           id="vehiculeNumChassis"
           module="REF_LIB"
           command="rechercheEchangeMetVehicule"

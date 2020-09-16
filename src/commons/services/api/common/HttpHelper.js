@@ -1,5 +1,6 @@
 import {
-  SERVER_URL,
+  HOST,
+  BASE_SERVER_URL,
   BACK_OFFICE_BASE_URL,
   LOGIN_API,
   PROCESS_API,
@@ -15,13 +16,13 @@ import {Session} from '../../session/Session';
 import localStore from '../local-data';
 import {useNavigation} from '@react-navigation/native';
 const instance = axios.create({
-  baseURL: SERVER_URL,
+  baseURL: BASE_SERVER_URL,
   timeout: 40000,
   headers: {
     'Content-Type': 'application/json;charset=utf-8',
     Connection: 'keep-alive',
     Accept: '*/*',
-    Host: 'badr4.douane.gov.ma',
+    Host: HOST,
   },
 });
 const instanceBO = axios.create({
@@ -54,7 +55,9 @@ export default class HttpHelper {
         );
         return response;
       } catch (error) {
+        console.log('error.response', error.response);
         if (error.response && error.response.status === 403) {
+          console.log('error.response 403');
           const navigation = useNavigation();
           navigation.navigate('Login', {});
         } else if (error.request) {

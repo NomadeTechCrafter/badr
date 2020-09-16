@@ -3,12 +3,12 @@ import {View, ScrollView} from 'react-native';
 import {connect} from 'react-redux';
 import {translate} from '../../../../commons/i18n/I18nHelper';
 import {
-  BadrErrorMessage,
-  BadrInfoMessage,
-  BadrProgressBar,
-  RechercheRefAt,
-  Toolbar,
-  BadrDialog,
+  ComBadrErrorMessageComp,
+  ComBadrInfoMessageComp,
+  ComBadrProgressBarComp,
+  ComAtRechercheRefComp,
+  ComBadrToolbarComp,
+  ComBadrDialogComp,
 } from '../../../components';
 import * as CreateApurementAction from '../../../redux/actions/at/createApurement';
 import * as InitApurementAction from '../../../redux/actions/at/apurement';
@@ -96,16 +96,16 @@ class CreerApurement extends React.Component {
   render() {
     return (
       <ScrollView>
-        <Toolbar
+        <ComBadrToolbarComp
           navigation={this.props.navigation}
           icon="menu"
           title={translate('at.title')}
           subtitle={translate('at.apurement.subTitleAction')}
         />
-        {this.props.showProgress && <BadrProgressBar />}
+        {this.props.showProgress && <ComBadrProgressBarComp />}
         {this.props.errorMessage != null && (
           <View style={styles.messages}>
-            <BadrErrorMessage
+            <ComBadrErrorMessageComp
               style={styles.centerErrorMsg}
               message={this.props.errorMessage}
             />
@@ -113,17 +113,17 @@ class CreerApurement extends React.Component {
         )}
         {this.props.messageInfo != null && (
           <View style={styles.messages}>
-            <BadrInfoMessage
+            <ComBadrInfoMessageComp
               style={styles.centerInfoMsg}
               message={this.props.messageInfo}
             />
           </View>
         )}
-        <RechercheRefAt
+        <ComAtRechercheRefComp
           onApurManuelle={(reference) => this.apurManuelle(reference)}
           onApurAutomatique={(reference) => this.apurAutomatique(reference)}
         />
-        <BadrDialog
+        <ComBadrDialogComp
           title={translate('at.apurementauto.confirmDialog.info')}
           confirmMessage={translate('at.apurementauto.confirmDialog.oui')}
           cancelMessage={translate('at.apurementauto.confirmDialog.non')}

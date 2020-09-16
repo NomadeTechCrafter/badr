@@ -2,7 +2,7 @@ import React from 'react';
 import {View} from 'react-native';
 
 /**Custom Components */
-import {BadrTable} from '../../../components';
+import {ComBasicDataTableComp} from '../../../components';
 
 /** REDUX **/
 import {connect} from 'react-redux';
@@ -38,7 +38,7 @@ class ControleVehiculesResult extends React.Component {
     console.log(this.props.data.length);
     return (
       <View>
-        <BadrTable
+        <ComBasicDataTableComp
           ref="_badrTable"
           id="numeroChassis"
           rows={this.props.data}

@@ -19,7 +19,7 @@ import ACVP from '../../controle/ACVP';
 import RechecheMLV from '../../mainlevee/rechercheMLV';
 import ListDeclarationMLV from '../../mainlevee/listedeclarationsMLV';
 import DelivrerMLV from '../../mainlevee/delivrerMLV';
-import {ScanQrCode} from '../../../components';
+import {ComQrCodeScannerComp} from '../../../components';
 
 /** Drawer navigation */
 import {createDrawerNavigator} from '@react-navigation/drawer';
@@ -90,8 +90,8 @@ export default class Home extends React.Component {
           options={{headerShown: false}}
         />
         <Drawer.Screen
-          name="ScanQrCode"
-          component={ScanQrCode}
+          name="ComQrCodeScannerComp"
+          component={ComQrCodeScannerComp}
           options={{headerShown: false}}
         />
 

@@ -7,7 +7,7 @@ const initialState = {
   errorMessage: '',
   code: null,
   displayError: false,
-  infoMessage: '',
+  infoMessage: null,
 };
 
 export default (state = initialState, action) => {
@@ -20,6 +20,7 @@ export default (state = initialState, action) => {
       nextState.displayError = false;
       nextState.correct = false;
       nextState.errorMessage = null;
+      nextState.infoMessage = null;
       nextState.code = null;
       nextState.showProgress = true;
       return nextState;
@@ -27,6 +28,7 @@ export default (state = initialState, action) => {
       return nextState;
     case Constants.SMSVERIFY_SUCCESS:
       nextState.errorMessage = null;
+      nextState.infoMessage = null;
       nextState.correct = true;
       nextState.code = action.value.code;
       nextState.showProgress = false;
@@ -35,6 +37,7 @@ export default (state = initialState, action) => {
       nextState.showProgress = false;
       nextState.correct = false;
       nextState.displayError = true;
+      nextState.infoMessage = null;
       nextState.errorMessage = action.value;
       return nextState;
     case Constants.SMSVERIFY_INIT:

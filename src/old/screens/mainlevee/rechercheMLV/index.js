@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {View} from 'react-native';
-import {RechercheRefDum, Toolbar} from '../../../components';
+import {RechercheRefDum, ComBadrToolbarComp} from '../../../components';
 /**i18n */
 import {translate} from '../../../../commons/i18n/I18nHelper';
 
@@ -8,7 +8,7 @@ class RechecheMLV extends Component {
   render() {
     return (
       <View>
-        <Toolbar
+        <ComBadrToolbarComp
           navigation={this.props.navigation}
           title={translate('mainlevee.title')}
           subtitle={translate('mainlevee.delivrerMainlevee.title')}

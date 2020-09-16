@@ -2,20 +2,20 @@ import React, {Component} from 'react';
 import {View, Dimensions} from 'react-native';
 
 import {
-  Container,
-  CardBox,
-  Accordion,
-  BadrButton,
-  BadrErrorMessage,
-  BadrInfoMessage,
-  BadrProgressBar,
-  Toolbar,
-  BadrList,
+  ComContainerComp,
+  ComBadrCardBoxComp,
+  ComAccordionComp,
+  ComBadrButtonComp,
+  ComBadrErrorMessageComp,
+  ComBadrInfoMessageComp,
+  ComBadrProgressBarComp,
+  ComBadrToolbarComp,
+  ComBadrListComp,
   BadrLibelleBleu,
   BadrLibelleNoir,
-  BadrNumericTextInput,
-  BadrPopup,
-} from '../../../components';
+  ComBadrNumericTextInputComp,
+  ComBadrPopupComp,
+} from '../../../../commons/component';
 import {
   Checkbox,
   TextInput,
@@ -269,31 +269,31 @@ class DelivrerMLV extends Component {
     } = this.state;
     return (
       <View style={CustomStyleSheet.fullContainer}>
-        <Toolbar
+        <ComBadrToolbarComp
           navigation={this.props.navigation}
           title={translate('mainlevee.title')}
           subtitle={translate('mainlevee.delivrerMainlevee.title')}
           icon="menu"
         />
-        <Container
+        <ComContainerComp
           ContainerRef={(ref) => {
             this.scrollViewRef = ref;
           }}>
-          {this.props.showProgress && <BadrProgressBar />}
-          <BadrPopup
+          {this.props.showProgress && <ComBadrProgressBarComp />}
+          <ComBadrPopupComp
             message={this.state.message}
             type={this.state.messageType}
             visible={this.state.messageVisibility}
             onClosePressed={this.onCloseMessagesPressed}
           />
           {this.props.errorMessage != null && (
-            <BadrErrorMessage message={this.props.errorMessage} />
+            <ComBadrErrorMessageComp message={this.props.errorMessage} />
           )}
           {this.props.successMessage != null && (
-            <BadrInfoMessage message={this.props.successMessage} />
+            <ComBadrInfoMessageComp message={this.props.successMessage} />
           )}
           {/* Référence déclaration */}
-          <CardBox noPadding={true}>
+          <ComBadrCardBoxComp noPadding={true}>
             <Grid>
               <Row style={CustomStyleSheet.whiteRow}>
                 <Col size={2}>
@@ -391,7 +391,7 @@ class DelivrerMLV extends Component {
                 <Col size={2} />
               </Row>
             </Grid>
-          </CardBox>
+          </ComBadrCardBoxComp>
 
           <View style={styles.flexDirectionRow}>
             <Text style={styles.libelleL}>
@@ -400,8 +400,8 @@ class DelivrerMLV extends Component {
           </View>
 
           {/* Annotations */}
-          <CardBox style={styles.cardBox}>
-            <Accordion
+          <ComBadrCardBoxComp style={styles.cardBox}>
+            <ComAccordionComp
               title={translate(
                 'mainlevee.delivrerMainlevee.annotations.title',
               )}>
@@ -410,12 +410,12 @@ class DelivrerMLV extends Component {
                   {delivrerMainleveeVO.annotationsControle}
                 </BadrLibelleNoir>
               </Row>
-            </Accordion>
-          </CardBox>
+            </ComAccordionComp>
+          </ComBadrCardBoxComp>
 
           {/* Liste des Docs exigibles */}
-          <CardBox noPadding={true}>
-            <Accordion
+          <ComBadrCardBoxComp noPadding={true}>
+            <ComAccordionComp
               title={translate(
                 'mainlevee.delivrerMainlevee.listeDocumentsExigibles.title',
               )}>
@@ -534,24 +534,24 @@ class DelivrerMLV extends Component {
                     </Row>
                   ))}
               </Grid>
-            </Accordion>
-          </CardBox>
+            </ComAccordionComp>
+          </ComBadrCardBoxComp>
 
           {/* Redressement opéré */}
-          <CardBox style={styles.cardBox}>
-            <Accordion
+          <ComBadrCardBoxComp style={styles.cardBox}>
+            <ComAccordionComp
               title={translate(
                 'mainlevee.delivrerMainlevee.redressementOperes.title',
               )}>
               <Row style={CustomStyleSheet.whiteRow}>
                 <Text>{delivrerMainleveeVO.redressementsOperes}</Text>
               </Row>
-            </Accordion>
-          </CardBox>
+            </ComAccordionComp>
+          </ComBadrCardBoxComp>
 
           {/* Motivations */}
-          <CardBox style={styles.cardBox}>
-            <Accordion
+          <ComBadrCardBoxComp style={styles.cardBox}>
+            <ComAccordionComp
               title={translate(
                 'mainlevee.delivrerMainlevee.motivations.title',
               )}>
@@ -560,12 +560,12 @@ class DelivrerMLV extends Component {
                   {delivrerMainleveeVO.motifForcerMLV}
                 </Text>
               </Row>
-            </Accordion>
-          </CardBox>
+            </ComAccordionComp>
+          </ComBadrCardBoxComp>
 
           {/* Décision */}
-          <CardBox style={styles.cardBox}>
-            <Accordion
+          <ComBadrCardBoxComp style={styles.cardBox}>
+            <ComAccordionComp
               title={translate('mainlevee.delivrerMainlevee.decision.title')}>
               <Grid>
                 <Row style={CustomStyleSheet.whiteRow}>
@@ -625,12 +625,12 @@ class DelivrerMLV extends Component {
                   </Col>
                 </Row>
               </Grid>
-            </Accordion>
-          </CardBox>
+            </ComAccordionComp>
+          </ComBadrCardBoxComp>
 
           {/* Constation de la marchandise */}
-          <CardBox style={styles.cardBox}>
-            <Accordion
+          <ComBadrCardBoxComp style={styles.cardBox}>
+            <ComAccordionComp
               title={translate(
                 'mainlevee.delivrerMainlevee.constationMarchandise.title',
               )}>
@@ -664,12 +664,12 @@ class DelivrerMLV extends Component {
                   </Col>
                 </Row>
               </Grid>
-            </Accordion>
-          </CardBox>
+            </ComAccordionComp>
+          </ComBadrCardBoxComp>
 
           {/* Annotations Avec Pesage */}
-          <CardBox noPadding={true}>
-            <Accordion
+          <ComBadrCardBoxComp noPadding={true}>
+            <ComAccordionComp
               title={translate(
                 'mainlevee.delivrerMainlevee.annotations.title',
               )}>
@@ -714,12 +714,12 @@ class DelivrerMLV extends Component {
                   </TouchableRipple>
                 </Row>
               </Grid>
-            </Accordion>
-          </CardBox>
+            </ComAccordionComp>
+          </ComBadrCardBoxComp>
 
           {/* Informations ECOR */}
-          <CardBox noPadding={true}>
-            <Accordion
+          <ComBadrCardBoxComp noPadding={true}>
+            <ComAccordionComp
               title={translate(
                 'mainlevee.delivrerMainlevee.informationsEcor.title',
               )}>
@@ -746,7 +746,7 @@ class DelivrerMLV extends Component {
                   </Col>
                   <Col size={1} />
                   <Col size={1}>
-                    <BadrNumericTextInput
+                    <ComBadrNumericTextInputComp
                       maxLength={8}
                       value={delivrerMainleveeVO.nombreDeScelles}
                       label={translate(
@@ -772,7 +772,7 @@ class DelivrerMLV extends Component {
                     </BadrLibelleBleu>
                   </Col>
                   <Col size={2}>
-                    <BadrNumericTextInput
+                    <ComBadrNumericTextInputComp
                       onRef={(input) => {
                         this.generateurNumScelleDu = input;
                       }}
@@ -788,7 +788,7 @@ class DelivrerMLV extends Component {
                   </Col>
                   <Col size={1} />
                   <Col size={2}>
-                    <BadrNumericTextInput
+                    <ComBadrNumericTextInputComp
                       onRef={(input) => {
                         this.generateurNumScelleAu = input;
                       }}
@@ -816,7 +816,7 @@ class DelivrerMLV extends Component {
                 <Row
                   style={[CustomStyleSheet.whiteRow, styles.rowListNumScelle]}>
                   <Col size={5}>
-                    <BadrNumericTextInput
+                    <ComBadrNumericTextInputComp
                       onRef={(input) => {
                         this.numeroScelleInput = input;
                       }}
@@ -848,7 +848,7 @@ class DelivrerMLV extends Component {
                   </Col>
                   <Col size={2} />
                   <Col size={5}>
-                    <BadrList
+                    <ComBadrListComp
                       data={listeNombreDeScelles}
                       onPressListItem={(index) =>
                         this.setState({selectedItemListScelle: index})
@@ -857,12 +857,12 @@ class DelivrerMLV extends Component {
                   </Col>
                 </Row>
               </Grid>
-            </Accordion>
-          </CardBox>
+            </ComAccordionComp>
+          </ComBadrCardBoxComp>
 
           {/* Dédouanement sur remorque */}
-          <CardBox noPadding={true}>
-            <Accordion
+          <ComBadrCardBoxComp noPadding={true}>
+            <ComAccordionComp
               title={translate(
                 'mainlevee.delivrerMainlevee.dedouanementRemorque.title',
               )}>
@@ -932,12 +932,12 @@ class DelivrerMLV extends Component {
                   <Col size={2} />
                 </Row>
               </Grid>
-            </Accordion>
-          </CardBox>
+            </ComAccordionComp>
+          </ComBadrCardBoxComp>
 
           {/* Transit */}
-          <CardBox noPadding={true}>
-            <Accordion
+          <ComBadrCardBoxComp noPadding={true}>
+            <ComAccordionComp
               title={translate('mainlevee.delivrerMainlevee.transit.title')}>
               <Grid>
                 <Row style={CustomStyleSheet.lightBlueRow}>
@@ -965,14 +965,14 @@ class DelivrerMLV extends Component {
                   <Col size={2} />
                 </Row>
               </Grid>
-            </Accordion>
-          </CardBox>
+            </ComAccordionComp>
+          </ComBadrCardBoxComp>
 
           {/* Actions */}
           <View
             style={styles.containerActionBtn}
             pointerEvents={this.state.isConsultation ? 'none' : 'auto'}>
-            <BadrButton
+            <ComBadrButtonComp
               style={styles.actionBtn}
               onPress={() => {
                 this.sauvgarderValider('sauvegarderRI');
@@ -980,7 +980,7 @@ class DelivrerMLV extends Component {
               text={translate('mainlevee.validerMainlevee')}
               disabled={this.state.decisionControle ? false : true}
             />
-            <BadrButton
+            <ComBadrButtonComp
               style={styles.actionBtn}
               onPress={() => {
                 this.sauvgarderValider('validerRI');
@@ -989,7 +989,7 @@ class DelivrerMLV extends Component {
               disabled={this.state.decisionControle ? false : true}
             />
           </View>
-        </Container>
+        </ComContainerComp>
       </View>
     );
   }

@@ -11,17 +11,16 @@ import * as ConstantsConfirmCnx from '../state/habProfileConstants';
 import * as confirmCnxAction from '../state/actions/habProfileAction';
 
 /** STYLING **/
-import {CustomStyleSheet} from '../../../../commons/styles';
+import {CustomStyleSheet} from '../../../../commons/styles/theme';
 
 /** Inmemory session */
 import {Session} from '../../../../commons/services/session/Session';
 import {translate} from '../../../../commons/i18n/I18nHelper';
-import BadrProgressBar from '../../../../commons/component/shared/progressbars/BadrProgressBar';
-import BadrErrorMessage from '../../../../commons/component/shared/messages/BadrError';
-import BadrPicker from '../../../../commons/component/shared/pickers/BadrPicker';
-import BadrPickerChecker from '../../../../commons/component/shared/pickers/BadrPickerChecker';
-import BadrFloatingButton from '../../../../commons/component/shared/buttons/BadrFloatingButton';
-import HttpHelper from '../../../../commons/services/api/common/HttpHelper';
+import ComBadrProgressBarComp from '../../../../commons/component/shared/progressbars/ComBadrProgressBarComp';
+import ComBadrErrorMessageComp from '../../../../commons/component/shared/messages/ComBadrErrorMessageComp';
+import ComBadrPickerComp from '../../../../commons/component/shared/pickers/ComBadrPickerComp';
+import ComBadrPickerCheckerComp from '../../../../commons/component/shared/pickers/ComBadrPickerCheckerComp';
+import ComBadrFloatingButtonComp from '../../../../commons/component/shared/buttons/ComBadrFloatingButtonComp';
 class habProfileScreen extends React.Component {
   /*
      Constructor
@@ -41,7 +40,7 @@ class habProfileScreen extends React.Component {
     componentDidMount Initialization
     */
   componentDidMount() {
-    HttpHelper.sendStats('user', 'profile').then(console.log('send stats'));
+    //HttpHelper.sendStats('user', 'profile').then(console.log('send stats'));
   }
   buildConfirmConnexionAction = (
     navigation,
@@ -114,17 +113,17 @@ class habProfileScreen extends React.Component {
   render() {
     return (
       <View style={style.container}>
-        {this.props.confirmConnexionReducer.showProgress && <BadrProgressBar />}
+        {this.props.confirmConnexionReducer.showProgress && <ComBadrProgressBarComp />}
         <ScrollView>
           <View>
             {this.props.confirmConnexionReducer.displayError && (
-              <BadrErrorMessage
+              <ComBadrErrorMessageComp
                 message={this.props.confirmConnexionReducer.errorMessage}
               />
             )}
           </View>
 
-          <BadrPicker
+          <ComBadrPickerComp
             toggle={true}
             onRef={(ref) => (this.comboBureaux = ref)}
             key="bureau"
@@ -144,7 +143,7 @@ class habProfileScreen extends React.Component {
             storeLibelleWithKey="nomBureauDouane"
           />
 
-          <BadrPicker
+          <ComBadrPickerComp
             toggle={true}
             onRef={(ref) => (this.comboArrondissements = ref)}
             style={CustomStyleSheet.badrPicker}
@@ -168,7 +167,7 @@ class habProfileScreen extends React.Component {
             storeLibelleWithKey="libelle"
           />
 
-          <BadrPickerChecker
+          <ComBadrPickerCheckerComp
             toggle={true}
             key="profil"
             title={translate('profile.listeProfils')}
@@ -188,7 +187,7 @@ class habProfileScreen extends React.Component {
           />
         </ScrollView>
 
-        <BadrFloatingButton
+        <ComBadrFloatingButtonComp
           visible={
             this.state.selectedBureauIndex > 0 &&
             this.state.selectedProfiles.length > 0

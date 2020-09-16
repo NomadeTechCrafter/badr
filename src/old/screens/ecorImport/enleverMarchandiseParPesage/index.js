@@ -2,19 +2,19 @@ import React, {Component} from 'react';
 import {View, Dimensions} from 'react-native';
 
 import {
-  Container,
-  CardBox,
-  Accordion,
-  BadrButton,
-  BadrErrorMessage,
-  BadrInfoMessage,
-  BadrProgressBar,
-  Toolbar,
-  BadrList,
+  ComContainerComp,
+  ComBadrCardBoxComp,
+  ComAccordionComp,
+  ComBadrButtonComp,
+  ComBadrErrorMessageComp,
+  ComBadrInfoMessageComp,
+  ComBadrProgressBarComp,
+  ComBadrToolbarComp,
+  ComBadrListComp,
   BadrLibelleBleu,
   BadrLibelleNoir,
-  BadrNumericTextInput,
-  BadrPopup,
+  ComBadrNumericTextInputComp,
+  ComBadrPopupComp,
 } from '../../../components';
 import {
   Checkbox,
@@ -136,31 +136,31 @@ class EnleverMarchandiseParPesage extends Component {
     } = this.state;
     return (
       <View style={CustomStyleSheet.fullContainer}>
-        <Toolbar
+        <ComBadrToolbarComp
           navigation={this.props.navigation}
           title={translate('mainlevee.title')}
           subtitle={translate('mainlevee.delivrerMainlevee.title')}
           icon="menu"
         />
-        <Container
+        <ComContainerComp
           ContainerRef={(ref) => {
             this.scrollViewRef = ref;
           }}>
-          {this.props.showProgress && <BadrProgressBar />}
-          <BadrPopup
+          {this.props.showProgress && <ComBadrProgressBarComp />}
+          <ComBadrPopupComp
             message={this.state.message}
             type={this.state.messageType}
             visible={this.state.messageVisibility}
             onClosePressed={this.onCloseMessagesPressed}
           />
           {this.props.errorMessage != null && (
-            <BadrErrorMessage message={this.props.errorMessage} />
+            <ComBadrErrorMessageComp message={this.props.errorMessage} />
           )}
           {this.props.successMessage != null && (
-            <BadrInfoMessage message={this.props.successMessage} />
+            <ComBadrInfoMessageComp message={this.props.successMessage} />
           )}
           {/* Référence déclaration */}
-          <CardBox noPadding={true}>
+          <ComBadrCardBoxComp noPadding={true}>
             <Grid>
               <Row style={CustomStyleSheet.whiteRow}>
                 <Col size={2}>
@@ -258,7 +258,7 @@ class EnleverMarchandiseParPesage extends Component {
                 <Col size={2} />
               </Row>
             </Grid>
-          </CardBox>
+          </ComBadrCardBoxComp>
 
           <View style={styles.flexDirectionRow}>
             <Text style={styles.libelleL}>
@@ -267,8 +267,8 @@ class EnleverMarchandiseParPesage extends Component {
           </View>
 
           {/* Annotations */}
-          <CardBox style={styles.cardBox}>
-            <Accordion
+          <ComBadrCardBoxComp style={styles.cardBox}>
+            <ComAccordionComp
               title={translate(
                 'mainlevee.delivrerMainlevee.annotations.title',
               )}>
@@ -277,14 +277,14 @@ class EnleverMarchandiseParPesage extends Component {
                   {delivrerMainleveeVO.annotationsControle}
                 </BadrLibelleNoir>
               </Row>
-            </Accordion>
-          </CardBox>
+            </ComAccordionComp>
+          </ComBadrCardBoxComp>
 
           {/* Actions */}
           <View
             style={styles.containerActionBtn}
             pointerEvents={this.state.isConsultation ? 'none' : 'auto'}>
-            <BadrButton
+            <ComBadrButtonComp
               style={styles.actionBtn}
               onPress={() => {
                 this.sauvgarderValider('sauvegarderRI');
@@ -292,7 +292,7 @@ class EnleverMarchandiseParPesage extends Component {
               text={translate('mainlevee.validerMainlevee')}
               disabled={this.state.decisionControle ? false : true}
             />
-            <BadrButton
+            <ComBadrButtonComp
               style={styles.actionBtn}
               onPress={() => {
                 this.sauvgarderValider('validerRI');
@@ -301,7 +301,7 @@ class EnleverMarchandiseParPesage extends Component {
               disabled={this.state.decisionControle ? false : true}
             />
           </View>
-        </Container>
+        </ComContainerComp>
       </View>
     );
   }

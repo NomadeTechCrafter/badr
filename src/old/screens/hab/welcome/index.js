@@ -16,7 +16,7 @@ import {connect} from 'react-redux';
 import {translate} from '../../../../commons/i18n/I18nHelper';
 
 /**Custom Components */
-import {Toolbar, BadrInfoMessage, BadrProgressBar} from '../../../components';
+import {ComBadrToolbarComp, ComBadrInfoMessageComp, ComBadrProgressBarComp} from '../../../components';
 
 /** Inmemory session */
 import {Session} from '../../../../commons/services/session/Session';
@@ -50,16 +50,16 @@ class WelcomeScreen extends React.Component {
     console.log('<<<<<<<<<<<<<<<<');
     return (
       <ScrollView>
-        <Toolbar
+        <ComBadrToolbarComp
           navigation={this.props.navigation}
           icon="menu"
           title={translate('apurement.title')}
           subtitle={translate('apurement.subTitle')}
         />
-        {this.props.showProgress && <BadrProgressBar />}
+        {this.props.showProgress && <ComBadrProgressBarComp />}
         <View style={styles.container}>
           {!this.props.showProgress && (
-            <BadrInfoMessage
+            <ComBadrInfoMessageComp
               message={
                 this.props.data && this.props.data.length > 0
                   ? translate('annonce.apurement')

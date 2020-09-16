@@ -3,13 +3,13 @@ import {View, Dimensions} from 'react-native';
 
 import {
   Container,
-  CardBox,
-  Accordion,
-  BadrButton,
-  BadrErrorMessage,
-  BadrInfoMessage,
-  BadrProgressBar,
-  Toolbar,
+  ComBadrCardBoxComp,
+  ComAccordionComp,
+  ComBadrButtonComp,
+  ComBadrErrorMessageComp,
+  ComBadrInfoMessageComp,
+  ComBadrProgressBarComp,
+  ComBadrToolbarComp,
 } from '../../../components';
 import {Checkbox, TextInput, Text, RadioButton} from 'react-native-paper';
 /**i18n */
@@ -162,22 +162,22 @@ class RegimeTransit extends Component {
   render() {
     return (
       <View>
-        <Toolbar
+        <ComBadrToolbarComp
           navigation={this.props.navigation}
           title="Contrôle"
           subtitle="Régime transit"
           icon="menu"
         />
         <Container>
-          {this.props.showProgress && <BadrProgressBar />}
+          {this.props.showProgress && <ComBadrProgressBarComp />}
           {this.props.errorMessage != null && (
-            <BadrErrorMessage message={this.props.errorMessage} />
+            <ComBadrErrorMessageComp message={this.props.errorMessage} />
           )}
           {this.props.successMessage != null && (
-            <BadrInfoMessage message={this.props.successMessage} />
+            <ComBadrInfoMessageComp message={this.props.successMessage} />
           )}
           {/* Référence déclaration */}
-          <CardBox style={styles.cardBoxInfoDum}>
+          <ComBadrCardBoxComp style={styles.cardBoxInfoDum}>
             <View style={styles.flexDirectionRow}>
               <Text style={styles.libelleM}>
                 {translate('transverse.bureau')}
@@ -216,11 +216,11 @@ class RegimeTransit extends Component {
               <Text style={styles.libelleM}>{this.state.numeroVoyage}</Text>
               <Text style={styles.libelleM}>{this.state.typeRegime}</Text>
             </View>
-          </CardBox>
+          </ComBadrCardBoxComp>
 
           {/* Annotations */}
-          <CardBox style={styles.cardBox}>
-            <Accordion title={translate('controle.annotations')}>
+          <ComBadrCardBoxComp style={styles.cardBox}>
+            <ComAccordionComp title={translate('controle.annotations')}>
               {this.state.declaration.annotation && (
                 <View style={styles.flexDirectionRow}>
                   <Text style={styles.libelleM}>
@@ -228,12 +228,12 @@ class RegimeTransit extends Component {
                   </Text>
                 </View>
               )}
-            </Accordion>
-          </CardBox>
+            </ComAccordionComp>
+          </ComBadrCardBoxComp>
 
           {/* Intervention */}
-          <CardBox style={styles.cardBox}>
-            <Accordion title={translate('controle.intervention')}>
+          <ComBadrCardBoxComp style={styles.cardBox}>
+            <ComAccordionComp title={translate('controle.intervention')}>
               <View style={styles.flexDirectionRow}>
                 <Text style={styles.libelleM}>
                   {translate('controle.version')}
@@ -262,12 +262,12 @@ class RegimeTransit extends Component {
                     <Text style={styles.libelleL}>{item.commentaire}</Text>
                   </View>
                 ))}
-            </Accordion>
-          </CardBox>
+            </ComAccordionComp>
+          </ComBadrCardBoxComp>
 
           {/* Liste des Docs exigibles */}
-          <CardBox style={styles.cardBox}>
-            <Accordion title={translate('controle.listDocExigible')}>
+          <ComBadrCardBoxComp style={styles.cardBox}>
+            <ComAccordionComp title={translate('controle.listDocExigible')}>
               <View style={styles.flexDirectionRow}>
                 <Text style={styles.libelleM}>{translate('controle.doc')}</Text>
                 <Text style={styles.libelleM}>
@@ -324,12 +324,12 @@ class RegimeTransit extends Component {
                     </View>
                   ),
                 )}
-            </Accordion>
-          </CardBox>
+            </ComAccordionComp>
+          </ComBadrCardBoxComp>
 
           {/* Redressement opéré */}
-          <CardBox style={styles.cardBox}>
-            <Accordion title={translate('controle.redressementOperes')}>
+          <ComBadrCardBoxComp style={styles.cardBox}>
+            <ComAccordionComp title={translate('controle.redressementOperes')}>
               <View>
                 {!_.isEmpty(this.state.declaration.redressement) && (
                   <View>
@@ -342,19 +342,19 @@ class RegimeTransit extends Component {
                   </View>
                 )}
                 <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-                  <BadrButton
+                  <ComBadrButtonComp
                     onPress={this.genererCompteRendu}
                     disabled={this.state.isConsultation}
                     text={translate('controle.genererCompte')}
                   />
                 </View>
               </View>
-            </Accordion>
-          </CardBox>
+            </ComAccordionComp>
+          </ComBadrCardBoxComp>
 
           {/* Observation */}
-          <CardBox style={styles.cardBox}>
-            <Accordion title={translate('controle.observation')}>
+          <ComBadrCardBoxComp style={styles.cardBox}>
+            <ComAccordionComp title={translate('controle.observation')}>
               <View>
                 <TextInput
                   placeholder={translate('controle.votreObservation')}
@@ -365,23 +365,23 @@ class RegimeTransit extends Component {
                   onChangeText={(text) => this.setState({observation: text})}
                 />
               </View>
-            </Accordion>
-          </CardBox>
+            </ComAccordionComp>
+          </ComBadrCardBoxComp>
 
           {/* Historique des comptes rendu de contrôle */}
-          <CardBox style={styles.cardBox}>
-            <Accordion title={translate('controle.historiqueCompteRendu')}>
+          <ComBadrCardBoxComp style={styles.cardBox}>
+            <ComAccordionComp title={translate('controle.historiqueCompteRendu')}>
               {this.state.declaration.historiqueCompte && (
                 <View>
                   <Text>{this.state.declaration.historiqueCompte}</Text>
                 </View>
               )}
-            </Accordion>
-          </CardBox>
+            </ComAccordionComp>
+          </ComBadrCardBoxComp>
 
           {/* Décision */}
-          <CardBox style={styles.cardBox}>
-            <Accordion title={translate('controle.decision')}>
+          <ComBadrCardBoxComp style={styles.cardBox}>
+            <ComAccordionComp title={translate('controle.decision')}>
               <View
                 style={{flexDirection: 'column'}}
                 pointerEvents={this.state.isConsultation ? 'none' : 'auto'}>
@@ -419,14 +419,14 @@ class RegimeTransit extends Component {
                   </View>
                 </RadioButton.Group>
               </View>
-            </Accordion>
-          </CardBox>
+            </ComAccordionComp>
+          </ComBadrCardBoxComp>
 
           {/* Actions */}
           <View
             style={styles.containerActionBtn}
             pointerEvents={this.state.isConsultation ? 'none' : 'auto'}>
-            <BadrButton
+            <ComBadrButtonComp
               style={{width: 100}}
               onPress={() => {
                 this.sauvgarderValider('sauvegarderRI');
@@ -434,7 +434,7 @@ class RegimeTransit extends Component {
               text={translate('controle.sauvegarder')}
               disabled={this.state.decisionControle ? false : true}
             />
-            <BadrButton
+            <ComBadrButtonComp
               style={{width: 100}}
               onPress={() => {
                 this.sauvgarderValider('validerRI');
@@ -442,7 +442,7 @@ class RegimeTransit extends Component {
               text={translate('controle.validerControle')}
               disabled={this.state.decisionControle ? false : true}
             />
-            <BadrButton
+            <ComBadrButtonComp
               style={{width: 100}}
               text={translate('controle.redresserDeclaration')}
             />

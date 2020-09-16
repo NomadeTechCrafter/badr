@@ -1,15 +1,10 @@
 import {Session} from '../../../services/session/Session';
-import {
-  getAndroidId,
-  getDeviceName,
-  getManufacturer,
-  getModel,
-  getSystemVersion,
-} from 'react-native-device-info';
 import {saveStringified} from '../../../services/async-storage/StorageService';
 import HabLoginApi from '../../../../modules/hab/login/service/api/habLoginApi';
 import HabSmsVerifyApi from '../../../../modules/hab/smsVerify/service/api/habSmsVerifyApi';
-import HabProfileApi from '../../../../modules/hab/mainMenu/service/api/habProfileApi';
+import HabProfileApi from '../../../../modules/hab/profile/service/api/habProfileApi';
+/** Utils */
+import Utils from '../../../../commons/utils/Util';
 
 export default class AutoLoginApi {
   constructor(
@@ -35,21 +30,6 @@ export default class AutoLoginApi {
   shortAuth = async () => {
     console.log(this.usr, this.password, this.bureau);
     return await this.shortConnect(this.password, this.usr);
-  };
-
-  setDeviceInformation = () => {
-    Session.getInstance().setSystemVersion(getSystemVersion());
-    Session.getInstance().setModel(getModel());
-    getAndroidId().then((value) => {
-      Session.getInstance().setDeviceId(value);
-    });
-    getManufacturer().then((value) => {
-      Session.getInstance().setManufacturer(value);
-    });
-    getDeviceName().then((value) => {
-      Session.getInstance().setDeviceName(value);
-    });
-    Session.getInstance().setPlatform('Android');
   };
 
   shortConnect = async () => {
@@ -80,7 +60,7 @@ export default class AutoLoginApi {
 
   shortVerifySms = async () => {
     console.log('2) SMS START');
-    this.setDeviceInformation();
+    Utils.setDeviceInformation();
     return await HabSmsVerifyApi.verify(this.smsCode)
       .then((response) => {
         const jsonVO = response.data.jsonVO;
@@ -145,8 +125,6 @@ export default class AutoLoginApi {
   };
 
   doAsyncStorageOperations = (data) => {
-    console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>> saving features...');
-    console.log(data);
     /** Saving the listFonctionnaliteVOs for menu usage */
     saveStringified('listFonctionnaliteVOs', data.listFonctionnaliteVOs).then(
       () => data.listFonctionnaliteVOs,

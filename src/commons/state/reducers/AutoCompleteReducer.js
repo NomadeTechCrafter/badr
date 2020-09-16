@@ -1,4 +1,5 @@
 import * as Constants from '../../constants/components/AutoCompleteConstants';
+import {translate} from '../../i18n/I18nHelper';
 
 const initialState = {
   loaded: false,
@@ -23,8 +24,7 @@ export default (state = initialState, action) => {
       return nextState;
     case Constants.AUTOCOMPLETE_FAILED:
       nextState.loaded = true;
-      nextState.errorMessage =
-        'Erreur lors du chargement du composant autocomplete';
+      nextState.errorMessage = translate('errors.autoCompleteErr');
       return nextState;
     case Constants.AUTOCOMPLETE_INIT:
       return initialState;

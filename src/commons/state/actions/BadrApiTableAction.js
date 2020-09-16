@@ -12,10 +12,10 @@ export function request(action) {
       action.value.offset,
       action.value.pageSize,
     )
-      .then((response) => {
-        const data = response.data;
-        if (data && data.jsonVO) {
-          action.value.payload = data.jsonVO;
+      .then((rep) => {
+        const res = rep.data;
+        if (res && res.jsonVO) {
+          action.value.payload = res.jsonVO;
           dispatch(success(action));
         } else {
           dispatch(failed({value: 'error while getting data'}));

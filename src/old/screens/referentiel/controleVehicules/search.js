@@ -3,7 +3,7 @@ import {View, ScrollView} from 'react-native';
 import {TextInput} from 'react-native-paper';
 import {Col, Row, Grid} from 'react-native-easy-grid';
 /**Custom Components */
-import {BadrButtonIcon, BadrItemsPicker} from '../../../components';
+import {ComBadrButtonIconComp, ComBadrItemsPickerComp} from '../../../components';
 
 /** REDUX **/
 import {connect} from 'react-redux';
@@ -109,7 +109,7 @@ class ControleVehiculesSearch extends React.Component {
               value={this.state.matricule}
               onChangeText={(text) => this.setState({matricule: text})}
             />
-            <BadrItemsPicker
+            <ComBadrItemsPickerComp
               style={CustomStyleSheet.column}
               label={translate('referentiel.controleVehicules.choose_status')}
               selectedValue={this.state.status}
@@ -123,7 +123,7 @@ class ControleVehiculesSearch extends React.Component {
           <Row>
             <Col size={20} />
             <Col size={30}>
-              <BadrButtonIcon
+              <ComBadrButtonIconComp
                 onPress={() => this.handleSearch()}
                 icon="magnify"
                 style={styles.buttonIcon}
@@ -132,7 +132,7 @@ class ControleVehiculesSearch extends React.Component {
               />
             </Col>
             <Col size={30}>
-              <BadrButtonIcon
+              <ComBadrButtonIconComp
                 onPress={() => this.handleClear()}
                 icon="autorenew"
                 style={styles.buttonIcon}
