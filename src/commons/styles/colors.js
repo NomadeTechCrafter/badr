@@ -72,4 +72,3 @@ export const whiteRow = {
 export const darkGris = {
   backgroundColor: '#5E5E5E',
 };
-

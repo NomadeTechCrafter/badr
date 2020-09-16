@@ -1,26 +1,32 @@
-import { setJSExceptionHandler } from 'react-native-exception-handler'
-import { Alert } from 'react-native'
-
-export default setGlobalHandler = () => {
-    const errorHandler = (e, isFatal) => {
-        if (isFatal) {
-            const errorString = `Error: ${(isFatal) ? 'Fatal:' : ''} ${e.name} ${e.message}`
-            Alert.alert(
-                'Unexpected error occurred',
-                `
-        ${errorString}
-        We have captured this issue and it will be fixed in next release. Sorry for this inconvenient.`,
-                [{
-                    text: 'Ok',
-                    onPress: () => {
-                    }
-                }]
-            )
-        } else {
-            console.log(e)
-        }
+import {setJSExceptionHandler} from 'react-native-exception-handler';
+import {Alert, BackHandler} from 'react-native';
+import HttpHelper from '../../services/api/common/HttpHelper';
+import {translate} from '../../i18n/I18nHelper';
+const setGlobalHandler = () => {
+  const errorHandler = (e, isFatal) => {
+    if (isFatal) {
+      const errorString = `Error: ${isFatal ? 'Fatal:' : ''} ${e.name} ${
+        e.message
+      }`;
+      Alert.alert(
+        translate('errors.alertErrorTitle'),
+        errorString + translate('errors.alertErrorContent'),
+        [
+          {
+            text: 'Ok',
+            onPress: () => {
+              BackHandler.exitApp();
+            },
+          },
+        ],
+      );
+      HttpHelper.sendCrash(e.name, e.name, e.message, errorString);
+    } else {
+      console.log('errorHandler', e);
     }
+  };
 
-    setJSExceptionHandler(errorHandler, true)
-    //Patrick: Set true to enable it in DEBUG mode. Otherwise, it only works in release mode
-}
+  setJSExceptionHandler(errorHandler, true);
+  //Set true to enable it in DEBUG mode. Otherwise, it only works in release mode
+};
+export default setGlobalHandler;

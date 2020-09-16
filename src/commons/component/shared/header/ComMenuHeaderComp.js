@@ -1,6 +1,12 @@
 import {CustomStyleSheet, accentColor} from '../../../styles/theme';
 import React from 'react';
-import {View, ImageBackground, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import {
+  View,
+  ImageBackground,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 /** i18n **/
 import {translate} from '../../../i18n/I18nHelper';

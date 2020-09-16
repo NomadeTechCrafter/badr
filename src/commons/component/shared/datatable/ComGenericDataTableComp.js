@@ -256,4 +256,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ComGenericDataTableComp);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(ComGenericDataTableComp);

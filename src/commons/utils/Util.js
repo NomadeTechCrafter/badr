@@ -9,6 +9,7 @@ import {
   getManufacturer,
   getModel,
   getSystemVersion,
+  getSystemName,
 } from 'react-native-device-info';
 export default class Utils {
   static deepDelete = (obj, keysToOmit) => {
@@ -89,6 +90,6 @@ export default class Utils {
     getDeviceName().then((value) => {
       Session.getInstance().setDeviceName(value);
     });
-    Session.getInstance().setPlatform('Android');
+    Session.getInstance().setPlatform(getSystemName());
   };
 }

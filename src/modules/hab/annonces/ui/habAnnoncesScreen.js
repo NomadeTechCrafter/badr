@@ -11,7 +11,10 @@ import * as AnnoncesAction from '../../../../commons/state/actions/GenericAction
 import styles from '../style/habAnnoncesStyle';
 
 /**Custom Components */
-import {ComBadrToolbarComp, ComBadrInfoMessageComp} from '../../../../commons/component';
+import {
+  ComBadrToolbarComp,
+  ComBadrInfoMessageComp,
+} from '../../../../commons/component';
 
 /** Inmemory session */
 import {Session} from '../../../../commons/services/session/Session';

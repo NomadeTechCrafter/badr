@@ -13,7 +13,10 @@ import * as authAction from '../state/actions/habLoginAction';
 import {translate} from '../../../../commons/i18n/I18nHelper';
 
 /** Custom Components */
-import {ComBadrLoginHeaderComp, ComBadrErrorMessageComp} from '../../../../commons/component';
+import {
+  ComBadrLoginHeaderComp,
+  ComBadrErrorMessageComp,
+} from '../../../../commons/component';
 
 /** Inmemory session */
 import {load} from '../../../../commons/services/async-storage/StorageService';

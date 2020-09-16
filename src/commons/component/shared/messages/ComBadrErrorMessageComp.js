@@ -72,4 +72,6 @@ const styles = {
   closeBtnTextStyle: {color: 'red'},
 };
 
-ComBadrErrorMessageComp = Animatable.createAnimatableComponent(ComBadrErrorMessageComp);
+ComBadrErrorMessageComp = Animatable.createAnimatableComponent(
+  ComBadrErrorMessageComp,
+);

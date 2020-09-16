@@ -8,7 +8,7 @@ import {translate} from '../../../../commons/i18n/I18nHelper';
 const WS_MODULE_PARAM = 'MLV_LIB';
 const WS_TYPESERVICE_PARAM = 'UC';
 export function validerMLV(action, navigation) {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(action);
     dispatch(inProgress(action));
 
@@ -18,7 +18,7 @@ export function validerMLV(action, navigation) {
       WS_TYPESERVICE_PARAM,
       action.value.data,
     )
-      .then(response => {
+      .then((response) => {
         if (response) {
           const data = response.data;
           if (
@@ -34,7 +34,7 @@ export function validerMLV(action, navigation) {
           dispatch(failed(translate('errors.technicalIssue')));
         }
       })
-      .catch(e => {
+      .catch((e) => {
         console.log('in action request catch', e);
         dispatch(failed(translate('errors.technicalIssue')));
       });

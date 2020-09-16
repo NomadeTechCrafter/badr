@@ -55,9 +55,7 @@ export default class HttpHelper {
         );
         return response;
       } catch (error) {
-        console.log('error.response', error.response);
         if (error.response && error.response.status === 403) {
-          console.log('error.response 403');
           const navigation = useNavigation();
           navigation.navigate('Login', {});
         } else if (error.request) {
@@ -67,6 +65,12 @@ export default class HttpHelper {
           // Something happened in setting up the request that triggered an Error
           console.log('Error', error.message);
         }
+        this.sendCrash(
+          error.response.status,
+          error.message,
+          error.message,
+          error.response,
+        );
       }
     } else {
       return {

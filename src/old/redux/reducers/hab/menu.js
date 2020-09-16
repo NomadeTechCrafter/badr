@@ -2,8 +2,6 @@
 import * as Constants from '../../../common/constants/hab/menu';
 /** Utils */
 import Utils from '../../../common/util';
-/** Loadash */
-import _ from 'lodash';
 
 const initialState = {
   menuList: [],
