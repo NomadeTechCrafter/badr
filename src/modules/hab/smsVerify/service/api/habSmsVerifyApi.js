@@ -1,5 +1,6 @@
 import {Session} from '../../../../../commons/services/session/Session';
 import HttpHelper from '../../../../../commons/services/api/common/HttpHelper';
+import Utils from '../../../../../commons/utils/Util';
 import packageJson from '../../../../../../package.json';
 import {TYPE_SERVICE_SP, MODULE_HAB} from '../../../../../commons/Config';
 
@@ -21,7 +22,7 @@ export default class HabSmsVerifyApi {
         os: Session.getInstance().getPlatform(),
         os_version: Session.getInstance().getSystemVersion(),
         app_version: packageJson.version,
-        device_name: Session.getInstance().getDeviceName(),
+        device_name: Utils.slugify(Session.getInstance().getDeviceName()),
         lng: Session.getInstance().getGeoCoords()
           ? Session.getInstance().getGeoCoords().longitude
           : '',

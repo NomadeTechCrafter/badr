@@ -1,7 +1,11 @@
 /** RN Components **/
 import React, {Component} from 'react';
 import {View} from 'react-native';
-import {ComBadrButtonIconComp, ComBadrErrorMessageComp, ComContainerComp} from '../../../../commons/component/index';
+import {
+  ComBadrButtonIconComp,
+  ComBadrErrorMessageComp,
+  ComContainerComp,
+} from '../../../../commons/component/index';
 import {
   Button,
   Checkbox,
@@ -10,7 +14,11 @@ import {
   TextInput,
   TouchableRipple,
 } from 'react-native-paper';
-import {CustomStyleSheet, primaryColor, accentColor} from '../../../../commons/styles/theme';
+import {
+  CustomStyleSheet,
+  primaryColor,
+  accentColor,
+} from '../../../../commons/styles/theme';
 import {load} from '../../../services/storage-service';
 import _ from 'lodash';
 /**i18n */

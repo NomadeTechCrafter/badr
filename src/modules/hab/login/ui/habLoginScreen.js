@@ -16,6 +16,7 @@ import {translate} from '../../../../commons/i18n/I18nHelper';
 import {
   ComBadrLoginHeaderComp,
   ComBadrErrorMessageComp,
+  ComBadrInfoMessageComp,
 } from '../../../../commons/component';
 
 /** Inmemory session */
@@ -144,6 +145,9 @@ class Login extends React.Component {
               ],
               {cancelable: false},
             )}
+          {this.props.route.params && this.props.route.params.msg && (
+            <ComBadrInfoMessageComp message={this.props.route.params.msg} />
+          )}
         </View>
         {this.state.startAutoLogin && (
           <AutoLoginProcess

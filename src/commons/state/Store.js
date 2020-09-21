@@ -1,5 +1,9 @@
-import {combineReducers} from 'redux';
-
+/** Redux Store & middleware */
+import {applyMiddleware, combineReducers, compose, createStore} from 'redux';
+import thunk from 'redux-thunk';
+import {customMiddleware} from '../services/middleware/customMiddleware';
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+/** Reducers */
 import loginReducer from '../../modules/hab/login/state/reducers/habLoginReducer';
 import smsVerifyReducer from '../../modules/hab/smsVerify/state/reducers/habSmsVerifyReducer';
 import confirmConnexionReducer from '../../modules/hab/profile/state/reducers/habProfileReducer';
@@ -28,5 +32,12 @@ const allReducers = combineReducers({
   initApurementReducer,
   genericReducer,
 });
+/**
+ * store creation
+ */
+const store = createStore(
+  allReducers,
+  composeEnhancers(applyMiddleware(thunk, customMiddleware)),
+);
 
-export default allReducers;
+export default store;

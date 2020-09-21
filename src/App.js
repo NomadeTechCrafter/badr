@@ -15,18 +15,11 @@ const Stack = createStackNavigator();
 import {ComBadrStackNavigatorComp} from './commons/component';
 
 import {RootSiblingParent} from 'react-native-root-siblings';
-
 /** REDUX */
 import {Provider} from 'react-redux';
-import {createStore, applyMiddleware, compose} from 'redux';
-import allReducers from './commons/state/Store';
-import thunk from 'redux-thunk';
+import store from './commons/state/Store';
 import setGlobalHandler from './commons/services/exceptionHandler/GlobalErrorHandler';
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(
-  allReducers,
-  composeEnhancers(applyMiddleware(thunk)),
-);
+
 import Login from './modules/hab/login/ui/habLoginScreen';
 import HabProfileScreen from './modules/hab/profile/ui/habProfileScreen';
 import Home from './modules/hab/home/ui/habHomeScreen';

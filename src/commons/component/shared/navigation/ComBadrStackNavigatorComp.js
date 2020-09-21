@@ -13,6 +13,7 @@ import {
 } from '../../../styles/theme';
 import Spinner from 'react-native-loading-spinner-overlay';
 import {translate} from '../../../i18n/I18nHelper';
+import {navigationRef} from '../../../utils/RootNavigation';
 
 class ComBadrStackNavigatorComp extends React.Component {
   buildHeader = () => {
@@ -49,7 +50,7 @@ class ComBadrStackNavigatorComp extends React.Component {
             textStyle={[styles.spinnerTextStyle, styles.textStyle]}
           />
         )}
-        <NavigationContainer>
+        <NavigationContainer ref={navigationRef}>
           <Stack.Navigator>{this.props.children}</Stack.Navigator>
         </NavigationContainer>
         <View>{this.buildFooter()}</View>
