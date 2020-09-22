@@ -1,8 +1,8 @@
 import React from 'react';
 import {Text, View, StyleSheet} from 'react-native';
 import * as Progress from 'react-native-progress';
-import {CustomStyleSheet, primaryColor} from '../../../styles/theme';
-import {translate} from '../../../i18n/I18nHelper';
+import {CustomStyleSheet, primaryColor} from '../../../styles/ComThemeStyle';
+import {translate} from '../../../i18n/ComI18nHelper';
 
 export default class ComBadrCircleProgressBarComp extends React.Component {
   constructor(props) {

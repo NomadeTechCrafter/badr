@@ -1,6 +1,6 @@
 import React from 'react';
 import {TextInput} from 'react-native-paper';
-import {CustomStyleSheet} from '../../../styles/theme';
+import {CustomStyleSheet} from '../../../styles/ComThemeStyle';
 
 export default class ComBadrNumericTextInputComp extends React.Component {
   constructor(props) {

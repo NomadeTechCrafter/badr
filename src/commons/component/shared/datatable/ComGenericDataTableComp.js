@@ -4,10 +4,10 @@ import {DataTable} from 'react-native-paper';
 import {FAB} from 'react-native-paper';
 
 /** i18n **/
-import {translate} from '../../../i18n/I18nHelper';
+import {translate} from '../../../i18n/ComI18nHelper';
 
 /** Custom Style **/
-import {CustomStyleSheet, primaryColor} from '../../../styles/theme';
+import {CustomStyleSheet, primaryColor} from '../../../styles/ComThemeStyle';
 
 /** Loadash */
 import _ from 'lodash';
@@ -16,11 +16,11 @@ import _ from 'lodash';
 import {ComBadrCircleProgressBarComp} from '../../index';
 
 /** Storage **/
-import {load} from '../../../services/async-storage/StorageService';
+import {load} from '../../../services/async-storage/ComStorageService';
 /** REDUX **/
 import {connect} from 'react-redux';
-import * as ConstantsBadrApiTable from '../../../constants/components/BadrApiTableConstants';
-import * as badrApiAction from '../../../state/actions/BadrApiTableAction';
+import * as ConstantsBadrApiTable from '../../../constants/components/ComBadrApiTableConstants';
+import * as badrApiAction from '../../../state/actions/ComBadrApiTableAction';
 
 const FIRST_PAGINATION_SEPARATOR = ' / ';
 const SECOND_PAGINATION_SEPARATOR = ' - ';

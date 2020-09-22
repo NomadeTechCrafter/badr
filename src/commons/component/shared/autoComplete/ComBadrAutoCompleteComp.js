@@ -1,14 +1,14 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {connect} from 'react-redux';
-import * as Constants from '../../../constants/components/AutoCompleteConstants';
-import * as AutoCompleteAction from '../../../state/actions/AutoCompleteAction';
+import * as Constants from '../../../constants/components/ComAutoCompleteConstants';
+import * as AutoCompleteAction from '../../../state/actions/ComAutoCompleteAction';
 import {
   TYPE_SERVICE_SP,
   MODULE_REF,
   AUTOCOMPLETE_MIN_CHARACTERS,
   AUTOCOMPLETE_LIST_NB_ELEMENTS,
-} from '../../../../commons/Config';
+} from '../../../Config';
 import {Autocomplete} from 'react-native-dropdown-autocomplete';
 
 class ComBadrAutoCompleteComp extends Component {

@@ -5,13 +5,13 @@ import HabLoginApi from '../../service/api/habLoginApi';
 import * as Constants from '../habLoginConstants';
 
 /**i18n */
-import {translate} from '../../../../../commons/i18n/I18nHelper';
+import {translate} from '../../../../../commons/i18n/ComI18nHelper';
 
 /** Storage */
-import {saveStringified} from '../../../../../commons/services/async-storage/StorageService';
+import {saveStringified} from '../../../../../commons/services/async-storage/ComStorageService';
 
 /** Inmemory session */
-import {Session} from '../../../../../commons/services/session/Session';
+import {ComSessionService} from '../../../../../commons/services/session/ComSessionService';
 
 export function request(action, navigation) {
   return (dispatch) => {
@@ -29,8 +29,8 @@ export function request(action, navigation) {
             /** Saving the user login into the local storage */
             saveStringified('user', data).then(() => data.login);
             /** Saving the user login into the global in-memory session */
-            Session.getInstance().setLogin(data.login);
-            Session.getInstance().setPassword(action.value.pwd);
+            ComSessionService.getInstance().setLogin(data.login);
+            ComSessionService.getInstance().setPassword(action.value.pwd);
             /** Naviguer vers la vue suivant. */
             navigation.navigate('SmsVerify', {login: action.value.login});
           } else if (data.statutConnexion === '2') {

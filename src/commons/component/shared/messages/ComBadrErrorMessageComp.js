@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import _ from 'lodash';
 import * as Animatable from 'react-native-animatable';
-import {CustomStyleSheet} from '../../../styles/theme';
+import {CustomStyleSheet} from '../../../styles/ComThemeStyle';
 
 export default class ComBadrErrorMessageComp extends React.Component {
   constructor(props) {

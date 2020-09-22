@@ -5,12 +5,12 @@ import * as Constants from '../habProfileConstants';
 import HabProfileApi from '../../service/api/habProfileApi';
 
 /** Storage  */
-import {saveStringified} from '../../../../../commons/services/async-storage/StorageService';
+import {saveStringified} from '../../../../../commons/services/async-storage/ComStorageService';
 
 /** Inmemory session */
-import {Session} from '../../../../../commons/services/session/Session';
+import {ComSessionService} from '../../../../../commons/services/session/ComSessionService';
 /** i18n */
-import {translate} from '../../../../../commons/i18n/I18nHelper';
+import {translate} from '../../../../../commons/i18n/ComI18nHelper';
 
 export function request(action, navigation) {
   return (dispatch) => {
@@ -49,7 +49,7 @@ function doAsyncStorageOperations(data) {
     codeUOR: data.codeUOR,
   };
 
-  Session.getInstance().setUserObject(user);
+  ComSessionService.getInstance().setUserObject(user);
   /** Saving user information in the local storage */
   saveStringified('user', user).then(() => user);
 }

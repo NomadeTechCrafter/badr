@@ -2,8 +2,11 @@ import React from 'react';
 import {View} from 'react-native';
 
 /**Custom Components */
-import {ComGenericDataTableComp, DetailBAD} from '../../../../commons/component';
-import {translate} from '../../../../commons/i18n/I18nHelper';
+import {
+  ComGenericDataTableComp,
+  DetailBAD,
+} from '../../../../commons/component';
+import {translate} from '../../../../commons/i18n/ComI18nHelper';
 
 export default class BAD extends React.Component {
   constructor(props) {

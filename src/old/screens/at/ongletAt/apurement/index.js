@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, ScrollView} from 'react-native';
 import {TextInput, Button} from 'react-native-paper';
-import {translate} from '../../../../../commons/i18n/I18nHelper';
+import {translate} from '../../../../../commons/i18n/ComI18nHelper';
 import {primaryColor} from '../../../../styles/index';
 import {CustomStyleSheet} from '../../../../styles';
 import {InfoCommon} from '../common';

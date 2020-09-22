@@ -1,9 +1,13 @@
 import React, {Component} from 'react';
 import {ScrollView, View} from 'react-native';
-import {RechercheRefDum, ComBadrToolbarComp, ComBadrButtonIconComp} from '../../../components';
+import {
+  RechercheRefDum,
+  ComBadrToolbarComp,
+  ComBadrButtonIconComp,
+} from '../../../components';
 /**i18n */
-import {translate} from '../../../../commons/i18n/I18nHelper';
-import {Session} from '../../../../commons/services/session/Session';
+import {translate} from '../../../../commons/i18n/ComI18nHelper';
+import {ComSessionService} from '../../../../commons/services/session/ComSessionService';
 import {connect} from 'react-redux';
 import * as Constants from '../../../common/constants/controle/rechercheDum';
 import * as RechecheDumAction from '../../../redux/actions/controle/rechercheDum';
@@ -45,7 +49,7 @@ class RechecheDum extends Component {
       {
         type: Constants.RECHERCHEDUM_LISTDECLARATION_REQUEST,
         value: {
-          login: Session.getInstance().getLogin(),
+          login: ComSessionService.getInstance().getLogin(),
           typeControle: this.typeControle,
         },
       },

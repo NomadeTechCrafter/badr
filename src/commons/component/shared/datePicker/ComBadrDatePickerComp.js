@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, TouchableOpacity} from 'react-native';
-import {primaryColor} from '../../../styles/theme';
+import {primaryColor} from '../../../styles/ComThemeStyle';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 import {TextInput} from 'react-native-paper';

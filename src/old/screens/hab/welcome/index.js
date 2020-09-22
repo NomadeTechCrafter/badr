@@ -13,13 +13,17 @@ import * as AnnoncesAction from '../../../redux/actions/generic';
 import {connect} from 'react-redux';
 
 /** i18n **/
-import {translate} from '../../../../commons/i18n/I18nHelper';
+import {translate} from '../../../../commons/i18n/ComI18nHelper';
 
 /**Custom Components */
-import {ComBadrToolbarComp, ComBadrInfoMessageComp, ComBadrProgressBarComp} from '../../../components';
+import {
+  ComBadrToolbarComp,
+  ComBadrInfoMessageComp,
+  ComBadrProgressBarComp,
+} from '../../../components';
 
 /** Inmemory session */
-import {Session} from '../../../../commons/services/session/Session';
+import {ComSessionService} from '../../../../commons/services/session/ComSessionService';
 class WelcomeScreen extends React.Component {
   componentDidMount() {
     this.fetchAnnonces();
@@ -35,7 +39,7 @@ class WelcomeScreen extends React.Component {
         command: 'getListeAnnonces',
         typeService: 'SP',
         jsonVO: {
-          listProfilsCoche: Session.getInstance().getProfiles(),
+          listProfilsCoche: ComSessionService.getInstance().getProfiles(),
         },
       },
     });

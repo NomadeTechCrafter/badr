@@ -3,7 +3,7 @@ import React from 'react';
 import {View, Dimensions} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 
-import {translate} from '../../../../commons/i18n/I18nHelper';
+import {translate} from '../../../../commons/i18n/ComI18nHelper';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 
 import {primaryColor} from '../../../styles/index';

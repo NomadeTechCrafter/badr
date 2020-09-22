@@ -1,12 +1,12 @@
 import TransverseApi from '../../../services/api/transverse-api';
 import * as Constants from '../../../common/constants/mainLevee/rechercheMLV';
 /**i18n */
-import {translate} from '../../../../commons/i18n/I18nHelper';
+import {translate} from '../../../../commons/i18n/ComI18nHelper';
 
 const MODULE = 'MLV_LIB';
 const TYPE_SERVICE = 'SP';
 export function request(action, navigation, successRedirection) {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(action);
     dispatch(inProgress(action));
     TransverseApi.doProcess(
@@ -15,7 +15,7 @@ export function request(action, navigation, successRedirection) {
       TYPE_SERVICE,
       action.value.data,
     )
-      .then(response => {
+      .then((response) => {
         if (response) {
           const data = response.data;
           if (data && !data.dtoHeader.messagesErreur) {
@@ -36,7 +36,7 @@ export function request(action, navigation, successRedirection) {
           dispatch(failed(translate('errors.technicalIssue')));
         }
       })
-      .catch(e => {
+      .catch((e) => {
         console.log('in action request catch', e);
         dispatch(failed(translate('errors.technicalIssue')));
       });

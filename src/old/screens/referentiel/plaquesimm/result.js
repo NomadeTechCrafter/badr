@@ -7,10 +7,10 @@ import {DataTable} from 'react-native-paper';
 import {CustomStyleSheet} from '../../../styles/index';
 
 /** Inmemory session */
-import {Session} from '../../../../commons/services/session/Session';
+import {ComSessionService} from '../../../../commons/services/session/ComSessionService';
 
 /** i18n **/
-import {translate} from '../../../../commons/i18n/I18nHelper';
+import {translate} from '../../../../commons/i18n/ComI18nHelper';
 
 /**Custom Components */
 import {
@@ -137,7 +137,9 @@ class PlaquesImmatriculationResult extends React.Component {
                     onPress={() => this.onItemSelected(item)}>
                     <DataTable.Cell
                       style={styles.datatableTitle}
-                      children={<ComCopyPasteComp value={item.vehiculeNumChassis} />}
+                      children={
+                        <ComCopyPasteComp value={item.vehiculeNumChassis} />
+                      }
                     />
                     <DataTable.Cell style={styles.datatableTitle}>
                       {item.proprietaireNom} {item.proprietaireNom} {'('}{' '}
@@ -146,7 +148,9 @@ class PlaquesImmatriculationResult extends React.Component {
                     <DataTable.Cell
                       style={styles.datatableTitle}
                       children={
-                        <ComNumeroPlaqueComp numero={item.vehiculeNumImmatComplet} />
+                        <ComNumeroPlaqueComp
+                          numero={item.vehiculeNumImmatComplet}
+                        />
                       }
                     />
                     <DataTable.Cell

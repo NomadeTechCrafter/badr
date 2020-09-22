@@ -10,7 +10,7 @@ import {connect} from 'react-redux';
 import * as Constants from '../../../common/constants/controle/listDeclarationDum';
 
 /**i18n */
-import {translate} from '../../../../commons/i18n/I18nHelper';
+import {translate} from '../../../../commons/i18n/ComI18nHelper';
 
 import * as RechecheDumAction from '../../../redux/actions/controle/listDeclarationDum';
 import {ComCopyPasteComp} from '../../../components';
@@ -62,7 +62,7 @@ class ListDeclarationDum extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {}
 
-  onItemSelected = item => {
+  onItemSelected = (item) => {
     console.log('selection item declaration', this.props.successRedirection);
     this.setState({showErrorMsg: true});
     if (this.state.regime && this.state.serie) {
@@ -125,7 +125,7 @@ class ListDeclarationDum extends React.Component {
                 </DataTable.Title>
               </DataTable.Header>
               {rows ? (
-                rows.map(item => (
+                rows.map((item) => (
                   <DataTable.Row
                     key={item.reference}
                     onPress={() => this.onItemSelected(item)}>
@@ -143,12 +143,16 @@ class ListDeclarationDum extends React.Component {
                     />
                     <DataTable.Cell
                       style={{width: 200}}
-                      children={<ComCopyPasteComp value={item.dateCreationVersion} />}
+                      children={
+                        <ComCopyPasteComp value={item.dateCreationVersion} />
+                      }
                     />
 
                     <DataTable.Cell
                       style={{width: 200}}
-                      children={<ComCopyPasteComp value={item.dateEnregVersion} />}
+                      children={
+                        <ComCopyPasteComp value={item.dateEnregVersion} />
+                      }
                     />
                   </DataTable.Row>
                 ))
@@ -174,7 +178,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(ListDeclarationDum);
+export default connect(mapStateToProps, mapDispatchToProps)(ListDeclarationDum);

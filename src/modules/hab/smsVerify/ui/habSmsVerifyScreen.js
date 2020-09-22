@@ -17,10 +17,10 @@ import {
 import {connect} from 'react-redux';
 import * as SmsVerifyActionCreators from '../state/actions/habSmsVerifyAction';
 import * as Constants from '../state/habSmsVerifyConstants';
-import {CustomStyleSheet} from '../../../../commons/styles/theme';
-import {translate} from '../../../../commons/i18n/I18nHelper';
-import {Session} from '../../../../commons/services/session/Session';
-import {GeoFinder} from '../../../../commons/services/geo-location/GeoFinder';
+import {CustomStyleSheet} from '../../../../commons/styles/ComThemeStyle';
+import {translate} from '../../../../commons/i18n/ComI18nHelper';
+import {ComSessionService} from '../../../../commons/services/session/ComSessionService';
+import {ComGeoFinderService} from '../../../../commons/services/geo-location/ComGeoFinderService';
 import RNShake from 'react-native-shake';
 class HabSmsVerifyScreen extends React.Component {
   /*
@@ -30,13 +30,13 @@ class HabSmsVerifyScreen extends React.Component {
     super(props);
     this.state = {
       code: '',
-      login: Session.getInstance().getLogin(),
+      login: ComSessionService.getInstance().getLogin(),
     };
   }
 
   componentWillMount() {
     RNShake.addEventListener('ShakeEvent', () => {
-      GeoFinder.synchronizeGeoPosition().then(() => {});
+      ComGeoFinderService.synchronizeGeoPosition().then(() => {});
     });
   }
 
@@ -48,7 +48,7 @@ class HabSmsVerifyScreen extends React.Component {
   componentDidMount Initialization
  */
   componentDidMount() {
-    GeoFinder.synchronizeGeoPosition().then(() => {});
+    ComGeoFinderService.synchronizeGeoPosition().then(() => {});
 
     let action = SmsVerifyActionCreators.init({
       type: Constants.SMSVERIFY_INIT,

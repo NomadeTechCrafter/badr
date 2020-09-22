@@ -5,7 +5,7 @@ import AtApi from '../../../services/api/at-api';
 import * as Constants from '../../../common/constants/at/at';
 
 /** i18n */
-import {translate} from '../../../../commons/i18n/I18nHelper';
+import {translate} from '../../../../commons/i18n/ComI18nHelper';
 
 import * as CreateApurementAction from './createApurement';
 /**

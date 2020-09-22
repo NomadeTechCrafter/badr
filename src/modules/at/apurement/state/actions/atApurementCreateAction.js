@@ -4,7 +4,7 @@ import AtApurementApi from '../../service/api/atApurementApi';
 
 /**Constants */
 import * as Constants from '../atApurementConstants';
-import {translate} from '../../../../../commons/i18n/I18nHelper';
+import {translate} from '../../../../../commons/i18n/ComI18nHelper';
 
 /**
  Création manuelle

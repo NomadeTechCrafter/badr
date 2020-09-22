@@ -1,5 +1,5 @@
-import HttpHelper from '../../../../../commons/services/api/common/HttpHelper';
-import {Session} from '../../../../../commons/services/session/Session';
+import ComHttpHelperApi from '../../../../../commons/services/api/common/ComHttpHelperApi';
+import {ComSessionService} from '../../../../../commons/services/session/ComSessionService';
 import {TYPE_SERVICE_SP, MODULE_HAB} from '../../../../../commons/Config';
 export default class HabProfileApi {
   static confirmConnexion = async (
@@ -9,7 +9,7 @@ export default class HabProfileApi {
   ) => {
     const data = {
       dtoHeader: {
-        userLogin: Session.getInstance().getLogin(),
+        userLogin: ComSessionService.getInstance().getLogin(),
         fonctionnalite: 'cf4011',
         module: MODULE_HAB,
         commande: 'confirmerConnexionAgent',
@@ -21,6 +21,6 @@ export default class HabProfileApi {
         listProfilsCoche: listeProfilCoche,
       },
     };
-    return await HttpHelper.process(data);
+    return await ComHttpHelperApi.process(data);
   };
 }

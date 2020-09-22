@@ -1,9 +1,9 @@
-import HttpHelper from '../../../../../commons/services/api/common/HttpHelper';
-import {Session} from '../../../../../commons/services/session/Session';
+import ComHttpHelperApi from '../../../../../commons/services/api/common/ComHttpHelperApi';
+import {ComSessionService} from '../../../../../commons/services/session/ComSessionService';
 
 export default class HabLoginApi {
   static login = async (login, pwd, forcerConnexion = false) => {
-    const response = await HttpHelper.login({
+    const response = await ComHttpHelperApi.login({
       login: login,
       password: pwd,
       forcerConnexion: forcerConnexion,
@@ -13,8 +13,8 @@ export default class HabLoginApi {
 
   static logout = async () => {
     const data = {
-      login: Session.getInstance().getLogin(),
+      login: ComSessionService.getInstance().getLogin(),
     };
-    return await HttpHelper.logout(data);
+    return await ComHttpHelperApi.logout(data);
   };
 }

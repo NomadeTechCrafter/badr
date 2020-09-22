@@ -3,10 +3,10 @@ import React from 'react';
 import {Text, View} from 'react-native';
 /** redux */
 import {connect} from 'react-redux';
-import * as Constants from '../../../constants/components/QrCodeConstants';
-import * as QrCodeAction from '../../../state/actions/QrCodeAction';
+import * as Constants from '../../../constants/components/ComQrCodeConstants';
+import * as QrCodeAction from '../../../state/actions/ComQrCodeAction';
 
-import * as Zxing from '../../../native/zxing';
+import * as Zxing from '../../../native/ComZxingNative';
 
 class ComQrCodeScannerComp extends React.Component {
   constructor(props) {

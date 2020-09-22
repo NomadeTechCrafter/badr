@@ -7,7 +7,11 @@ import {
   StyleSheet,
   SafeAreaView,
 } from 'react-native';
-import {primaryColor, lightWhiteColor, darkGris} from '../../../styles/theme';
+import {
+  primaryColor,
+  lightWhiteColor,
+  darkGris,
+} from '../../../styles/ComThemeStyle';
 
 export default class ComBadrListComp extends React.Component {
   constructor(props) {

@@ -1,8 +1,8 @@
 import React from 'react';
 import {View} from 'react-native';
 
-import {primaryColor} from '../../../styles/theme';
-import {translate} from '../../../i18n/I18nHelper';
+import {primaryColor} from '../../../styles/ComThemeStyle';
+import {translate} from '../../../i18n/ComI18nHelper';
 import {Caption, Paragraph} from 'react-native-paper';
 
 import ComNumeroPlaqueComp from './ComNumeroPlaqueComp';

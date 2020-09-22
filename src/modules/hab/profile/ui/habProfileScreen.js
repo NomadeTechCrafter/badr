@@ -11,11 +11,11 @@ import * as ConstantsConfirmCnx from '../state/habProfileConstants';
 import * as confirmCnxAction from '../state/actions/habProfileAction';
 
 /** STYLING **/
-import {CustomStyleSheet} from '../../../../commons/styles/theme';
+import {CustomStyleSheet} from '../../../../commons/styles/ComThemeStyle';
 
 /** Inmemory session */
-import {Session} from '../../../../commons/services/session/Session';
-import {translate} from '../../../../commons/i18n/I18nHelper';
+import {ComSessionService} from '../../../../commons/services/session/ComSessionService';
+import {translate} from '../../../../commons/i18n/ComI18nHelper';
 import ComBadrProgressBarComp from '../../../../commons/component/shared/progressbars/ComBadrProgressBarComp';
 import ComBadrErrorMessageComp from '../../../../commons/component/shared/messages/ComBadrErrorMessageComp';
 import ComBadrPickerComp from '../../../../commons/component/shared/pickers/ComBadrPickerComp';
@@ -94,15 +94,17 @@ class habProfileScreen extends React.Component {
         this.state.selectedArrondissement,
       );
       /** Update Inmemory session */
-      Session.getInstance().setCodeBureau(this.state.selectedBureau);
-      Session.getInstance().setNomBureauDouane(this.state.nomBureauDouane);
-      Session.getInstance().setCodeArrondissement(
+      ComSessionService.getInstance().setCodeBureau(this.state.selectedBureau);
+      ComSessionService.getInstance().setNomBureauDouane(
+        this.state.nomBureauDouane,
+      );
+      ComSessionService.getInstance().setCodeArrondissement(
         this.state.selectedArrondissement,
       );
-      Session.getInstance().setLibelleArrondissement(
+      ComSessionService.getInstance().setLibelleArrondissement(
         this.state.selectedArrondissementLibelle,
       );
-      Session.getInstance().setProfiles(this.state.selectedProfiles);
+      ComSessionService.getInstance().setProfiles(this.state.selectedProfiles);
 
       this.props.actions.dispatch(action);
     } else {

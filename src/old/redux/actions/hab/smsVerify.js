@@ -5,7 +5,7 @@ import HabApi from '../../../services/api/hab-api';
 import * as Constants from '../../../common/constants/hab/smsVerify';
 
 /** i18n */
-import {translate} from '../../../../commons/i18n/I18nHelper';
+import {translate} from '../../../../commons/i18n/ComI18nHelper';
 
 export function request(action, navigation) {
   return (dispatch) => {

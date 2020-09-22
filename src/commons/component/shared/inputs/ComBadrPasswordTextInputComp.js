@@ -1,7 +1,7 @@
 import React from 'react';
 import {TextInput, View} from 'react-native';
-import {CustomStyleSheet} from '../../../styles/theme';
-import {translate} from '../../../i18n/I18nHelper';
+import {CustomStyleSheet} from '../../../styles/ComThemeStyle';
+import {translate} from '../../../i18n/ComI18nHelper';
 
 export default class ComBadrPasswordTextInputComp extends React.Component {
   render() {

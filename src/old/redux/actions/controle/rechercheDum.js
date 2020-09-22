@@ -3,18 +3,18 @@ import ControleApi from '../../../services/api/controle-api';
 import * as Constants from '../../../common/constants/controle/rechercheDum';
 
 /**i18n */
-import {translate} from '../../../../commons/i18n/I18nHelper';
+import {translate} from '../../../../commons/i18n/ComI18nHelper';
 
 // Search List Declaration Dum
 export function searchListeDeclaration(action, navigation) {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(action);
     dispatch(searchListeDeclaration_inProgress(action));
     ControleApi.getDataListDeclaration(
       action.value.login,
       action.value.typeControle,
     )
-      .then(response => {
+      .then((response) => {
         if (response) {
           const data = JSON.parse(response.data);
           if (data && !data.dtoHeader.messagesErreur) {
@@ -34,7 +34,7 @@ export function searchListeDeclaration(action, navigation) {
           );
         }
       })
-      .catch(e => {
+      .catch((e) => {
         console.log('in action request catch', e);
         dispatch(
           searchListeDeclaration_failed(translate('errors.technicalIssue')),

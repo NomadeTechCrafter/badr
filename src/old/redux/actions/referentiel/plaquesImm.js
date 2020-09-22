@@ -5,7 +5,7 @@ import RefApi from '../../../services/api/ref-api';
 import * as Constants from '../../../common/constants/referentiel/plaquesImm';
 
 /** i18n */
-import {translate} from '../../../../commons/i18n/I18nHelper';
+import {translate} from '../../../../commons/i18n/ComI18nHelper';
 
 export function request(action) {
   return (dispatch) => {

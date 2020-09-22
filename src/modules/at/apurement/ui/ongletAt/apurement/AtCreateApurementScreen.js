@@ -5,20 +5,20 @@ import {connect} from 'react-redux';
 import {Col, Row} from 'react-native-easy-grid';
 
 import InfoCommon from '../common/AtInfoCommonScreen';
-import {translate} from '../../../../../../commons/i18n/I18nHelper';
+import {translate} from '../../../../../../commons/i18n/ComI18nHelper';
 import _ from 'lodash';
 import {
   CustomStyleSheet,
   primaryColor,
-} from '../../../../../../commons/styles/theme';
+} from '../../../../../../commons/styles/ComThemeStyle';
 import * as CreateApurementAction from '../../../state/actions/atApurementCreateAction';
 import * as InitApurementAction from '../../../state/actions/atApurementInitAction';
 import * as ConstantsAt from '../../../state/atApurementConstants';
 
 /** Utils */
-import Utils from '../../../../../../commons/utils/Util';
+import ComUtils from '../../../../../../commons/utils/ComUtils';
 /** Inmemory session */
-import {Session} from '../../../../../../commons/services/session/Session';
+import {ComSessionService} from '../../../../../../commons/services/session/ComSessionService';
 
 import {
   ComBadrToolbarComp,
@@ -49,8 +49,8 @@ class Apurement extends React.Component {
       motif: '',
       errorMessage: null,
       selectedApurement: {},
-      bureauApur: Session.getInstance().getNomBureauDouane(),
-      arrondApur: Session.getInstance().getLibelleArrondissement(),
+      bureauApur: ComSessionService.getInstance().getNomBureauDouane(),
+      arrondApur: ComSessionService.getInstance().getLibelleArrondissement(),
     };
     this.componentsAapurer = [];
     this.composantTablesCols = this.buildComposantsColumns(true);
@@ -160,18 +160,44 @@ class Apurement extends React.Component {
    */
   consulter = (row) => {
     row.apurementComposantVOs.forEach((composant) => {
-      composant.infoApurement = translate('at.apurement.mode')+' : ' + composant.modeApur.libelle;
+      composant.infoApurement =
+        translate('at.apurement.mode') + ' : ' + composant.modeApur.libelle;
       if (composant.exportateur) {
-        composant.infoApurement = composant.infoApurement + ' '+translate('at.apurement.exportateur')+' : ' + composant.exportateur; 
+        composant.infoApurement =
+          composant.infoApurement +
+          ' ' +
+          translate('at.apurement.exportateur') +
+          ' : ' +
+          composant.exportateur;
       } else if (composant.administartionApur) {
-        composant.infoApurement = composant.infoApurement + ' ' + translate('at.apurement.administartion')+' : ' + composant.administartionApur.libelle;
+        composant.infoApurement =
+          composant.infoApurement +
+          ' ' +
+          translate('at.apurement.administartion') +
+          ' : ' +
+          composant.administartionApur.libelle;
       } else if (composant.typeAbandon) {
-        composant.infoApurement = composant.infoApurement + ' ' + translate('at.apurement.type')+' : ' + composant.typeAbandon;
+        composant.infoApurement =
+          composant.infoApurement +
+          ' ' +
+          translate('at.apurement.type') +
+          ' : ' +
+          composant.typeAbandon;
       } else if (composant.referenceDec) {
-        composant.infoApurement = composant.infoApurement + ' ' + translate('at.apurement.reference')+' : ' + composant.referenceDec;
+        composant.infoApurement =
+          composant.infoApurement +
+          ' ' +
+          translate('at.apurement.reference') +
+          ' : ' +
+          composant.referenceDec;
       } else if (composant.modeApur.code === '002') {
-        composant.infoApurement = composant.infoApurement + ' ' + translate('at.apurement.reference')+' : ' + composant.refAtTransfert;
-      } 
+        composant.infoApurement =
+          composant.infoApurement +
+          ' ' +
+          translate('at.apurement.reference') +
+          ' : ' +
+          composant.refAtTransfert;
+      }
     });
     this.setState({
       selectedApurement: row,
@@ -299,7 +325,7 @@ class Apurement extends React.Component {
   onComposantSelected = () => {};
 
   onDateApurementChanged = (date) => {
-    if (!Utils.isSameThanNow(date, 'DD/MM/YYYY')) {
+    if (!ComUtils.isSameThanNow(date, 'DD/MM/YYYY')) {
       this.setState({showMotif: true});
     } else {
       this.setState({showMotif: false});

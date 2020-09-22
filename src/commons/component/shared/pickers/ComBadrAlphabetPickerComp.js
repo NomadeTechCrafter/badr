@@ -2,7 +2,7 @@ import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import {Picker} from '@react-native-community/picker';
 
-import {translate} from '../../../i18n/I18nHelper';
+import {translate} from '../../../i18n/ComI18nHelper';
 
 export default class ComBadrAlphabetPickerComp extends React.Component {
   state = {

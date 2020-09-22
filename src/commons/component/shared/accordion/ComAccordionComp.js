@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {View, TouchableOpacity, Text, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {darkGris, lightGris} from '../../../styles/theme';
+import {darkGris, lightGris} from '../../../styles/ComThemeStyle';
 export default class ComAccordionComp extends Component {
   constructor(props) {
     super(props);

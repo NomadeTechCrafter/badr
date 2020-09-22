@@ -1,10 +1,10 @@
 /** RN Components **/
 import React from 'react';
-import {Session} from '../../../services/session/Session';
+import {ComSessionService} from '../../../services/session/ComSessionService';
 /** REDUX **/
 import {connect} from 'react-redux';
-import * as AutoLoginConstants from '../../../constants/components/AutoLoginConstants';
-import * as autoLoginActions from '../../../ionic/state/actions/AutoLoginAction';
+import * as AutoLoginConstants from '../../../constants/components/ComAutoLoginConstants';
+import * as autoLoginActions from '../../../ionic/state/actions/ComAutoLoginAction';
 
 class ComAutoLoginProcessComp extends React.Component {
   constructor(props) {
@@ -21,11 +21,13 @@ class ComAutoLoginProcessComp extends React.Component {
 
   componentDidMount = () => {
     /** charger les infos du user connecté **/
-    Session.getInstance().setLogin(this.props.usr);
-    Session.getInstance().setPassword(this.props.password);
-    Session.getInstance().setCodeSmsVerify(this.props.smsCode);
-    Session.getInstance().setCodeBureau(this.props.bureauCode);
-    Session.getInstance().setCodeArrondissement(this.props.arrondissementCode);
+    ComSessionService.getInstance().setLogin(this.props.usr);
+    ComSessionService.getInstance().setPassword(this.props.password);
+    ComSessionService.getInstance().setCodeSmsVerify(this.props.smsCode);
+    ComSessionService.getInstance().setCodeBureau(this.props.bureauCode);
+    ComSessionService.getInstance().setCodeArrondissement(
+      this.props.arrondissementCode,
+    );
     /** auto login action pour gerer la cohabitation RN Ionic**/
     let action = autoLoginActions.request(
       {

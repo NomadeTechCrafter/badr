@@ -1,6 +1,6 @@
 import React from 'react';
 import {Text} from 'react-native';
-import {CustomStyleSheet} from '../../../styles/theme';
+import {CustomStyleSheet} from '../../../styles/ComThemeStyle';
 
 export default class ComBadrLibelleComp extends React.Component {
   constructor(props) {

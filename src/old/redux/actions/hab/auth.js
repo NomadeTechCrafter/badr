@@ -5,13 +5,13 @@ import HabApi from '../../../services/api/hab-api';
 import * as Constants from '../../../common/constants/hab/auth';
 
 /**i18n */
-import {translate} from '../../../../commons/i18n/I18nHelper';
+import {translate} from '../../../../commons/i18n/ComI18nHelper';
 
 /** Storage */
 import {saveStringified} from '../../../services/storage-service';
 
 /** Inmemory session */
-import {Session} from '../../../../commons/services/session/Session';
+import {ComSessionService} from '../../../../commons/services/session/ComSessionService';
 
 export function request(action, navigation) {
   return (dispatch) => {
@@ -25,7 +25,7 @@ export function request(action, navigation) {
             /** Saving the user login into the local storage */
             saveStringified('user', data).then(() => data.login);
             /** Saving the user login into the global in-memory session */
-            Session.getInstance().setLogin(data.login);
+            ComSessionService.getInstance().setLogin(data.login);
             /** Naviguer vers la vue suivant. */
             navigation.navigate('SmsVerify', {login: action.value.login});
           } else {

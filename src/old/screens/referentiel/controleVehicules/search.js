@@ -17,16 +17,16 @@ import * as controleVehiculesAction from '../../../redux/actions/referentiel/con
 import {CustomStyleSheet} from '../../../styles/index';
 
 /** i18n **/
-import {translate} from '../../../../commons/i18n/I18nHelper';
+import {translate} from '../../../../commons/i18n/ComI18nHelper';
 
 /** Inmemory session */
-import {Session} from '../../../../commons/services/session/Session';
+import {ComSessionService} from '../../../../commons/services/session/ComSessionService';
 
 class ControleVehiculesSearch extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      login: Session.getInstance().getLogin(),
+      login: ComSessionService.getInstance().getLogin(),
       status: '',
       numeroChassis: '',
       numeroCarteGrise: '',

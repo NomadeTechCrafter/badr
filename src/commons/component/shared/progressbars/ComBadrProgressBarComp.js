@@ -1,6 +1,6 @@
 import React from 'react';
 import * as Progress from 'react-native-progress';
-import {primaryColor} from '../../../styles/theme';
+import {primaryColor} from '../../../styles/ComThemeStyle';
 
 export default class ComBadrProgressBarComp extends React.Component {
   constructor(props) {
