@@ -2,8 +2,12 @@ import React from 'react';
 import {Text, View} from 'react-native';
 import {Banner} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {translate} from '../../../i18n/I18nHelper';
-import {primaryColor, warnColor, errorColor} from '../../../styles/theme';
+import {translate} from '../../../i18n/ComI18nHelper';
+import {
+  primaryColor,
+  warnColor,
+  errorColor,
+} from '../../../styles/ComThemeStyle';
 
 const messageTypes = {
   error: {name: 'exclamation-triangle', color: errorColor},

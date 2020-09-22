@@ -2,11 +2,11 @@ import ControleApi from '../../../services/api/controle-api';
 
 import * as Constants from '../../../common/constants/controle/listDeclarationDum';
 /**i18n */
-import {translate} from '../../../../commons/i18n/I18nHelper';
+import {translate} from '../../../../commons/i18n/ComI18nHelper';
 
 import * as data from '../../../services/api/offline/controle/dataInitControle.json';
 export function request(action, navigation, successRedirection) {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(action);
     dispatch(inProgress(action));
     ControleApi.initControler(
@@ -14,7 +14,7 @@ export function request(action, navigation, successRedirection) {
       action.value.commande,
       action.value.data,
     )
-      .then(response => {
+      .then((response) => {
         if (response) {
           // const data = JSON.parse(response.data);
           //const data = response.data;
@@ -37,7 +37,7 @@ export function request(action, navigation, successRedirection) {
           dispatch(failed(translate('errors.technicalIssue')));
         }
       })
-      .catch(e => {
+      .catch((e) => {
         console.log('in action request catch', e);
         dispatch(failed(translate('errors.technicalIssue')));
       });

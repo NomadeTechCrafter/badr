@@ -6,7 +6,7 @@ import {View, ScrollView, Linking, Image} from 'react-native';
 import {Col, Grid} from 'react-native-easy-grid';
 import {primaryColor, accentColor} from '../../../styles/index';
 
-import * as Zxing from '../../../../commons/native/zxing';
+import * as Zxing from '../../../../commons/native/ComZxingNative';
 
 /** Custom Components */
 import {
@@ -34,7 +34,7 @@ import {buildRouteWithParams} from '../../../common/routing';
 import Utils from '../../../common/util';
 
 /** Inmemory session */
-import {Session} from '../../../../commons/services/session/Session';
+import {ComSessionService} from '../../../../commons/services/session/ComSessionService';
 
 import * as QrCodeAction from '../../../redux/actions/components/qrCode';
 
@@ -42,10 +42,12 @@ class MainMenu extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      login: Session.getInstance().getLogin(),
-      fullname: Utils.buildUserFullname(Session.getInstance().getUserObject()),
-      bureau: Session.getInstance().getNomBureauDouane(),
-      arrondissement: Session.getInstance().getLibelleArrondissement(),
+      login: ComSessionService.getInstance().getLogin(),
+      fullname: Utils.buildUserFullname(
+        ComSessionService.getInstance().getUserObject(),
+      ),
+      bureau: ComSessionService.getInstance().getNomBureauDouane(),
+      arrondissement: ComSessionService.getInstance().getLibelleArrondissement(),
     };
   }
 
@@ -54,7 +56,9 @@ class MainMenu extends React.Component {
     if (this.props.navigation) {
       this.props.navigation.toggleDrawer();
     }
-    console.log('SessionId=' + Session.getInstance().getSessionId(true));
+    console.log(
+      'SessionId=' + ComSessionService.getInstance().getSessionId(true),
+    );
   }
 
   fetchMenu = (predicate) => {
@@ -70,11 +74,11 @@ class MainMenu extends React.Component {
   openIntent = async (route, id) => {
     return await Linking.openURL(
       'badrio://ma.adii.badrmobile?login=' +
-        Session.getInstance().getLogin() +
+        ComSessionService.getInstance().getLogin() +
         '&route=' +
         route.screen,
       '&fonctionalite=' + id,
-      '&sessionId=' + Session.getInstance().getSessionId(true),
+      '&sessionId=' + ComSessionService.getInstance().getSessionId(true),
     );
   };
 

@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {CustomStyleSheet} from '../../../../commons/styles/theme';
+import {CustomStyleSheet} from '../../../../commons/styles/ComThemeStyle';
 
 const styles = {
   container: {

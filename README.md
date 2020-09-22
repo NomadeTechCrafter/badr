@@ -23,22 +23,20 @@ npx react-native run-android
 ```
 
 
-## 3rd party Libraries
+## Main 3rd party Libraries
 
 - react, react native
 - react-navigation/native, react-navigation/bottom-tabs, react-navigation/stack
 - react-native-device-info
 - react-native-x-carousel
-- react-native-orientation-locker"
-
-## Data
-The json files containing the data for each screens could be found as the following :
-
-- /data/02A_intro.json : the data of the intro screen
-- /data/02A_innovation_center.json : the innovation center data of the discovery screen
-- /data/02A_latest_news.json : the latest news of the discovery screen
-- /data/03_innovation_center_detail.json : the innovation center detail screen
-- /data/04_innovation_center_virtual_tour.json : the virtual tour screen
+- react-native-orientation-locker
+- react-native-camera
+- react-native-config
+- react-native-easy-grid
+- redux
+- lodash
+- i18n-js
+- moment
 
 ## Build And Run
 ### iOS

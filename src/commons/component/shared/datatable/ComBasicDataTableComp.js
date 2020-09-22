@@ -9,10 +9,10 @@ import {
   dataTableStyles,
   CustomStyleSheet,
   primaryColor,
-} from '../../../styles/theme';
+} from '../../../styles/ComThemeStyle';
 
 /** i18n **/
-import {translate} from '../../../i18n/I18nHelper';
+import {translate} from '../../../i18n/ComI18nHelper';
 
 /** Loadash */
 import _ from 'lodash';

@@ -3,10 +3,10 @@ import ControleApi from '../../../services/api/controle-api';
 import * as Constants from '../../../common/constants/controle/regimeInterne';
 
 /**i18n */
-import {translate} from '../../../../commons/i18n/I18nHelper';
+import {translate} from '../../../../commons/i18n/ComI18nHelper';
 
 export function validateSave(action, navigation) {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(action);
     dispatch(inProgress(action));
 
@@ -15,7 +15,7 @@ export function validateSave(action, navigation) {
       action.value.commande,
       action.value.data,
     )
-      .then(response => {
+      .then((response) => {
         if (response) {
           const data = JSON.parse(response.data);
           if (
@@ -31,7 +31,7 @@ export function validateSave(action, navigation) {
           dispatch(failed(translate('errors.technicalIssue')));
         }
       })
-      .catch(e => {
+      .catch((e) => {
         console.log('in action request catch', e);
         dispatch(failed(translate('errors.technicalIssue')));
       });
@@ -60,12 +60,12 @@ export function failed(data) {
 }
 
 export function genererCR(action) {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(action);
     dispatch(genererCR_inProgress(action));
 
     ControleApi.genererCompteRendu(action.value.login, action.value.data)
-      .then(response => {
+      .then((response) => {
         if (response) {
           const data = JSON.parse(response.data);
           if (
@@ -81,7 +81,7 @@ export function genererCR(action) {
           dispatch(genererCR_failed(translate('errors.technicalIssue')));
         }
       })
-      .catch(e => {
+      .catch((e) => {
         console.log('in action request catch', e);
         dispatch(genererCR_failed(translate('errors.technicalIssue')));
       });

@@ -2,7 +2,7 @@ import React from 'react';
 import {Text, View, StyleSheet} from 'react-native';
 import {Divider} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {primaryBackgroundColor} from '../../../styles/colors';
+import {primaryBackgroundColor} from '../../../styles/ComColorsStyle';
 
 export default class ComBadrTreeItemComp extends React.Component {
   getIndicator = (isExpanded, hasChildrenNodes) => {

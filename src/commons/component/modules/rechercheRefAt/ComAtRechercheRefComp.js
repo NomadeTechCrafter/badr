@@ -3,16 +3,16 @@ import React, {Component} from 'react';
 import {View, StyleSheet} from 'react-native';
 import {HelperText, TextInput, Button} from 'react-native-paper';
 import {Col, Row, Grid} from 'react-native-easy-grid';
-import {accentColor} from '../../../styles/theme';
+import {accentColor} from '../../../styles/ComThemeStyle';
 import {connect} from 'react-redux';
 /**i18n */
-import {CustomStyleSheet} from '../../../styles/theme';
+import {CustomStyleSheet} from '../../../styles/ComThemeStyle';
 import {ComBadrErrorMessageComp, ComContainerComp} from '../../';
 import * as InitApurementAction from '../../../../modules/at/apurement/state/actions/atApurementInitAction';
 import * as ConstantsAt from '../../../../modules/at/apurement/state/atApurementConstants';
 /** Utils */
-import Utils from '../../../utils/Util';
-import {translate} from '../../../i18n/I18nHelper';
+import ComUtils from '../../../utils/ComUtils';
+import {translate} from '../../../i18n/ComI18nHelper';
 
 class ComAtRechercheRefComp extends Component {
   constructor(props) {
@@ -87,7 +87,7 @@ class ComAtRechercheRefComp extends Component {
   };
 
   getReferenceAt = () =>
-    Utils.concatReference(
+    ComUtils.concatReference(
       this.state.bureau,
       this.state.annee,
       this.state.numero,

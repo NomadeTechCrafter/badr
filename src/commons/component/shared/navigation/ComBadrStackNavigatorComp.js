@@ -10,9 +10,9 @@ import {
   primaryColor,
   primaryColorRgba,
   accentColor,
-} from '../../../styles/theme';
+} from '../../../styles/ComThemeStyle';
 import Spinner from 'react-native-loading-spinner-overlay';
-import {translate} from '../../../i18n/I18nHelper';
+import {translate} from '../../../i18n/ComI18nHelper';
 
 class ComBadrStackNavigatorComp extends React.Component {
   buildHeader = () => {

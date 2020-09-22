@@ -6,7 +6,7 @@ import {
 } from '../../../../commons/component';
 import {Button, DataTable} from 'react-native-paper';
 /**i18n */
-import {translate} from '../../../../commons/i18n/I18nHelper';
+import {translate} from '../../../../commons/i18n/ComI18nHelper';
 import {connect} from 'react-redux';
 import * as Constants from '../../../common/constants/mainLevee/listeDeclarationsMLV';
 import * as listeDeclarationsMLVAction from '../../../redux/actions/mainLevee/listeDeclarationsMLV';

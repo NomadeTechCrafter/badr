@@ -5,8 +5,8 @@ import HTML from 'react-native-render-html';
 /** REDUX **/
 import {connect} from 'react-redux';
 /**ACTIONS */
-import * as Constants from '../../../../commons/constants/generic/GenericConstants';
-import * as AnnoncesAction from '../../../../commons/state/actions/GenericAction';
+import * as Constants from '../../../../commons/constants/generic/ComGenericConstants';
+import * as AnnoncesAction from '../../../../commons/state/actions/ComGenericAction';
 
 import styles from '../style/habAnnoncesStyle';
 
@@ -17,13 +17,13 @@ import {
 } from '../../../../commons/component';
 
 /** Inmemory session */
-import {Session} from '../../../../commons/services/session/Session';
-import {translate} from '../../../../commons/i18n/I18nHelper';
+import {ComSessionService} from '../../../../commons/services/session/ComSessionService';
+import {translate} from '../../../../commons/i18n/ComI18nHelper';
 
-import * as Zxing from '../../../../commons/native/zxing';
+import * as Zxing from '../../../../commons/native/ComZxingNative';
 
-import * as qrCodeAction from '../../../../commons/state/actions/QrCodeAction';
-import * as qrCodeConstants from '../../../../commons/constants/components/QrCodeConstants';
+import * as qrCodeAction from '../../../../commons/state/actions/ComQrCodeAction';
+import * as qrCodeConstants from '../../../../commons/constants/components/ComQrCodeConstants';
 
 class habAnnoncesScreen extends React.Component {
   /*
@@ -49,7 +49,7 @@ class habAnnoncesScreen extends React.Component {
         command: 'getListeAnnonces',
         typeService: 'SP',
         jsonVO: {
-          listProfilsCoche: Session.getInstance().getProfiles(),
+          listProfilsCoche: ComSessionService.getInstance().getProfiles(),
         },
       },
     });

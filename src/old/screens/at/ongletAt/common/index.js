@@ -1,8 +1,12 @@
 import React from 'react';
 import {View} from 'react-native';
 import {Text} from 'react-native-paper';
-import {translate} from '../../../../../commons/i18n/I18nHelper';
-import {accentColor, lightWhiteColor, blueLabelColor} from '../../../../../commons/styles/theme';
+import {translate} from '../../../../../commons/i18n/ComI18nHelper';
+import {
+  accentColor,
+  lightWhiteColor,
+  blueLabelColor,
+} from '../../../../../commons/styles/ComThemeStyle';
 import {ComBadrCardSectionComp} from '../../../../components';
 export class InfoCommon extends React.Component {
   render() {

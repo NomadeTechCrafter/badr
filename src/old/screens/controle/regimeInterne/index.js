@@ -13,7 +13,7 @@ import {
 } from '../../../components';
 import {Checkbox, TextInput, Text, RadioButton} from 'react-native-paper';
 /**i18n */
-import {translate} from '../../../../commons/i18n/I18nHelper';
+import {translate} from '../../../../commons/i18n/ComI18nHelper';
 import {CustomStyleSheet, primaryColor} from '../../../styles';
 import _ from 'lodash';
 
@@ -370,7 +370,8 @@ class RegimeInterne extends Component {
 
           {/* Historique des comptes rendu de contrôle */}
           <ComBadrCardBoxComp style={styles.cardBox}>
-            <ComAccordionComp title={translate('controle.historiqueCompteRendu')}>
+            <ComAccordionComp
+              title={translate('controle.historiqueCompteRendu')}>
               {this.state.declaration.historiqueCompte && (
                 <View>
                   <Text>{this.state.declaration.historiqueCompte}</Text>

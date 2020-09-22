@@ -11,16 +11,16 @@ import SectionedMultiSelect from 'react-native-sectioned-multi-select';
 import {ComBadrCircleProgressBarComp} from '../../index';
 import _ from 'lodash';
 
-import {primaryColor} from '../../../styles/theme';
-import {darkGris, primaryBackgroundColor} from '../../../styles/colors';
+import {primaryColor} from '../../../styles/ComThemeStyle';
+import {darkGris, primaryBackgroundColor} from '../../../styles/ComColorsStyle';
 /** REDUX **/
 import {connect} from 'react-redux';
 
 /**ACTIONS */
-import * as Constants from '../../../constants/components/BadrPickerConstants';
-import * as badrPickerAction from '../../../state/actions/BadrPickerCheckerAction';
+import * as Constants from '../../../constants/components/ComBadrPickerConstants';
+import * as badrPickerAction from '../../../state/actions/ComBadrPickerCheckerAction';
 
-import {translate} from '../../../i18n/I18nHelper';
+import {translate} from '../../../i18n/ComI18nHelper';
 
 class ComBadrPickerCheckerComp extends React.Component {
   constructor(props) {

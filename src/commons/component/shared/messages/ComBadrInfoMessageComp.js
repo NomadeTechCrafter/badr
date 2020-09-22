@@ -1,7 +1,7 @@
 import React from 'react';
 import {Text} from 'react-native';
 import * as Animatable from 'react-native-animatable';
-import {CustomStyleSheet} from '../../../styles/theme';
+import {CustomStyleSheet} from '../../../styles/ComThemeStyle';
 
 export default class ComBadrInfoMessageComp extends React.Component {
   constructor(props) {

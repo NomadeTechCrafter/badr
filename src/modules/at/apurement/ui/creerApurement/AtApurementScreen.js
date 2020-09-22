@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, ScrollView, StyleSheet} from 'react-native';
 import {connect} from 'react-redux';
-import {translate} from '../../../../../commons/i18n/I18nHelper';
+import {translate} from '../../../../../commons/i18n/ComI18nHelper';
 import {
   ComBadrErrorMessageComp,
   ComBadrInfoMessageComp,

@@ -1,8 +1,8 @@
 /** i18n */
-import {translate} from '../../../../../commons/i18n/I18nHelper';
+import {translate} from '../../../../../commons/i18n/ComI18nHelper';
 import * as Constants from '../habSmsVerifyConstants';
 import HabSmsVerifyApi from '../../service/api/habSmsVerifyApi';
-import {Session} from '../../../../../commons/services/session/Session';
+import {ComSessionService} from '../../../../../commons/services/session/ComSessionService';
 
 export function request(action, navigation) {
   return (dispatch) => {
@@ -13,8 +13,8 @@ export function request(action, navigation) {
         const jsonVO = response.data.jsonVO;
         if (jsonVO.connexion && jsonVO.connexion === 'true') {
           dispatch(success(jsonVO));
-          Session.getInstance().setCodeSmsVerify(action.value.code);
-          Session.getInstance().setSessionIdBO(jsonVO.session_id);
+          ComSessionService.getInstance().setCodeSmsVerify(action.value.code);
+          ComSessionService.getInstance().setSessionIdBO(jsonVO.session_id);
           navigation.navigate('Profile', {});
         } else if (jsonVO.connexion && jsonVO.connexion === 'false') {
           dispatch(failed(translate('smsVerify.codeIncorrect')));

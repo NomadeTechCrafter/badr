@@ -10,7 +10,7 @@ import * as LoginConstants from '../state/habLoginConstants';
 import * as authAction from '../state/actions/habLoginAction';
 
 /** i18n **/
-import {translate} from '../../../../commons/i18n/I18nHelper';
+import {translate} from '../../../../commons/i18n/ComI18nHelper';
 
 /** Custom Components */
 import {
@@ -19,10 +19,10 @@ import {
 } from '../../../../commons/component';
 
 /** Inmemory session */
-import {load} from '../../../../commons/services/async-storage/StorageService';
+import {load} from '../../../../commons/services/async-storage/ComStorageService';
 import AutoLoginProcess from '../../../../commons/component/modules/autoLogin/ComAutoLoginProcessComp';
 /** Utils */
-import Utils from '../../../../commons/utils/Util';
+import ComUtils from '../../../../commons/utils/ComUtils';
 
 class Login extends React.Component {
   state = {
@@ -43,7 +43,7 @@ class Login extends React.Component {
    componentDidMount Initialization
    */
   componentDidMount() {
-    Utils.setDeviceInformation();
+    ComUtils.setDeviceInformation();
     this.loadOldUserIfExist().then(() => {});
     this.props.initialize();
     this.initAutoLoginParameters().then(() => {});

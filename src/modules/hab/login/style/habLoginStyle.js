@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {accentColor, lightGris} from '../../../../commons/styles/theme';
+import {accentColor, lightGris} from '../../../../commons/styles/ComThemeStyle';
 const style = {
   container: {flex: 1, backgroundColor: accentColor},
   loginBlock: {

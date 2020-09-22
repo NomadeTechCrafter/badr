@@ -1,7 +1,7 @@
-import {CustomStyleSheet} from '../../../styles/theme';
+import {CustomStyleSheet} from '../../../styles/ComThemeStyle';
 import React from 'react';
 import {TextInput, View} from 'react-native';
-import {translate} from '../../../i18n/I18nHelper';
+import {translate} from '../../../i18n/ComI18nHelper';
 
 export default class ComBadrLoginTextInputComp extends React.Component {
   constructor(props) {

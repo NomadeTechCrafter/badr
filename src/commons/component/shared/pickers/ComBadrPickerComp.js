@@ -3,19 +3,19 @@ import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {Picker} from '@react-native-community/picker';
 import {ComBadrCircleProgressBarComp} from '../../index';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {darkGris} from '../../../styles/theme';
+import {darkGris} from '../../../styles/ComThemeStyle';
 /** REDUX **/
 import {connect} from 'react-redux';
 
 /**ACTIONS */
-import * as Constants from '../../../constants/components/BadrPickerConstants';
-import * as badrPickerAction from '../../../state/actions/BadrPickerAction';
+import * as Constants from '../../../constants/components/ComBadrPickerConstants';
+import * as badrPickerAction from '../../../state/actions/ComBadrPickerAction';
 
-import {primaryColor} from '../../../styles/theme';
+import {primaryColor} from '../../../styles/ComThemeStyle';
 
-import {translate} from '../../../i18n/I18nHelper';
+import {translate} from '../../../i18n/ComI18nHelper';
 /** STORAGE **/
-import {save} from '../../../services/async-storage/StorageService';
+import {save} from '../../../services/async-storage/ComStorageService';
 
 console.disableYellowBox = true;
 

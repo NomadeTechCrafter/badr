@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, ScrollView, TouchableOpacity, StyleSheet} from 'react-native';
 import {Modal, Portal, Text} from 'react-native-paper';
-import {primaryColor} from '../../../styles/theme';
+import {primaryColor} from '../../../styles/ComThemeStyle';
 
 export default class ComBadrModalComp extends React.Component {
   render() {

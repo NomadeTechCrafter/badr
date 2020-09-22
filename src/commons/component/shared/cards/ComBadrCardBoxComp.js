@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import {scale} from 'react-native-size-matters';
-import {accentColor, atShadowColor} from '../../../styles/theme';
+import {accentColor, atShadowColor} from '../../../styles/ComThemeStyle';
 const ComBadrCardBoxComp = (props) => {
   let {boxShadow, defaultStyle} = styles;
   return (

@@ -1,7 +1,7 @@
 import HttpHelper from './common/http-helper';
 
 /** Inmemory session */
-import {Session} from '../../../commons/services/session/Session';
+import {ComSessionService} from '../../../commons/services/session/ComSessionService';
 
 /**
 Uncomment this block to use mocked device id.
@@ -27,7 +27,7 @@ export default class HabApi {
   static verify = async (code) => {
     const data = {
       dtoHeader: {
-        userLogin: Session.getInstance().getLogin(),
+        userLogin: ComSessionService.getInstance().getLogin(),
         fonctionnalite: 'cf4011',
         module: 'HAB_LIB',
         commande: 'verifierCodeGenere',
@@ -35,14 +35,14 @@ export default class HabApi {
       },
       jsonVO: {
         code: code,
-        device_id: Session.getInstance().getDeviceId(),
+        device_id: ComSessionService.getInstance().getDeviceId(),
         // device_id: MOCKED_DEVICES_ID[Session.getInstance().getLogin()],
-        device_manufacturer: Session.getInstance().getManufacturer(),
-        device_model: Session.getInstance().getModel(),
+        device_manufacturer: ComSessionService.getInstance().getManufacturer(),
+        device_model: ComSessionService.getInstance().getModel(),
         os: 'Android',
-        os_version: Session.getInstance().getSystemVersion(),
+        os_version: ComSessionService.getInstance().getSystemVersion(),
         app_version: '2.3',
-        device_name: Session.getInstance().getDeviceName(),
+        device_name: ComSessionService.getInstance().getDeviceName(),
         lng: '150.644',
         lat: '-34.397',
       },
@@ -58,7 +58,7 @@ export default class HabApi {
   ) => {
     const data = {
       dtoHeader: {
-        userLogin: Session.getInstance().getLogin(),
+        userLogin: ComSessionService.getInstance().getLogin(),
         fonctionnalite: 'cf4011',
         module: 'HAB_LIB',
         commande: 'confirmerConnexionAgent',
@@ -75,7 +75,7 @@ export default class HabApi {
 
   static logout = async () => {
     const data = {
-      login: Session.getInstance().getLogin(),
+      login: ComSessionService.getInstance().getLogin(),
     };
     return await HttpHelper.logout(data);
   };

@@ -7,10 +7,10 @@ import * as Constants from '../../../common/constants/hab/confirmConnexion';
 import {saveStringified} from '../../../services/storage-service';
 
 /** i18n */
-import {translate} from '../../../../commons/i18n/I18nHelper';
+import {translate} from '../../../../commons/i18n/ComI18nHelper';
 
 /** Inmemory session */
-import {Session} from '../../../../commons/services/session/Session';
+import {ComSessionService} from '../../../../commons/services/session/ComSessionService';
 
 function doAsyncStorageOperations(data) {
   /** Saving the listFonctionnaliteVOs for menu usage */
@@ -24,7 +24,7 @@ function doAsyncStorageOperations(data) {
     codeUOR: data.codeUOR,
   };
 
-  Session.getInstance().setUserObject(user);
+  ComSessionService.getInstance().setUserObject(user);
   /** Saving user information in the local storage */
   saveStringified('user', user).then(() => user);
 }

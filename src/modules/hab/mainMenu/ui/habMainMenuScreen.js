@@ -5,7 +5,7 @@ import {View, ScrollView, Linking, Image} from 'react-native';
 
 import {Col, Grid} from 'react-native-easy-grid';
 import RNExitApp from 'react-native-exit-app';
-import * as Zxing from '../../../../commons/native/zxing';
+import * as Zxing from '../../../../commons/native/ComZxingNative';
 
 /** Custom Components */
 import {
@@ -18,8 +18,8 @@ import {
 import {connect} from 'react-redux';
 import * as menuAction from '../state/actions/habMainMenuAction';
 import * as Constants from '../state/habMainMenuConstants';
-import * as qrCodeAction from '../../../../commons/state/actions/QrCodeAction';
-import * as qrCodeConstants from '../../../../commons/constants/components/QrCodeConstants';
+import * as qrCodeAction from '../../../../commons/state/actions/ComQrCodeAction';
+import * as qrCodeConstants from '../../../../commons/constants/components/ComQrCodeConstants';
 import * as authAction from '../../login/state/actions/habLoginAction';
 import * as LoginConstants from '../../login/state/habLoginConstants';
 
@@ -28,16 +28,16 @@ import {
   CustomStyleSheet,
   primaryColor,
   accentColor,
-} from '../../../../commons/styles/theme';
+} from '../../../../commons/styles/ComThemeStyle';
 import style from '../style/habMainMenuStyle';
 
 import {buildRouteWithParams} from '../../../../commons/Routing';
 
 /** Utils */
-import Utils from '../../../../commons/utils/Util';
+import ComUtils from '../../../../commons/utils/ComUtils';
 
 /** Inmemory session */
-import {Session} from '../../../../commons/services/session/Session';
+import {ComSessionService} from '../../../../commons/services/session/ComSessionService';
 
 class habMainMenuScreen extends React.Component {
   /*
@@ -46,10 +46,12 @@ class habMainMenuScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      login: Session.getInstance().getLogin(),
-      fullname: Utils.buildUserFullname(Session.getInstance().getUserObject()),
-      bureau: Session.getInstance().getNomBureauDouane(),
-      arrondissement: Session.getInstance().getLibelleArrondissement(),
+      login: ComSessionService.getInstance().getLogin(),
+      fullname: ComUtils.buildUserFullname(
+        ComSessionService.getInstance().getUserObject(),
+      ),
+      bureau: ComSessionService.getInstance().getNomBureauDouane(),
+      arrondissement: ComSessionService.getInstance().getLibelleArrondissement(),
     };
   }
   /*
@@ -73,21 +75,21 @@ class habMainMenuScreen extends React.Component {
   };
   /**lancer intent sur l'application Ionic avec le chargment du data requise */
   openIntent = async (id) => {
-    let url = `badrio://ma.adii.badrmobile?login=${Session.getInstance().getLogin()}
+    let url = `badrio://ma.adii.badrmobile?login=${ComSessionService.getInstance().getLogin()}
       &route=${id}
       &fonctionalite=${id}
-      &password=${Session.getInstance().getPassword()}
-      &profiles=${JSON.stringify(Session.getInstance().getProfiles())}
-      &bureau=${Session.getInstance().getNomBureauDouane()}
-      &codeBureau=${Session.getInstance().getCodeBureau()}
-      &arrondissement=${Session.getInstance().getLibelleArrondissement()}
-      &codeArrondissement=${Session.getInstance().getCodeArrondissement()}
-      &uuid=${Session.getInstance().getDeviceId()}
-      &manifacturer=${Session.getInstance().getManufacturer()}
-      &model=${Session.getInstance().getModel()}
-      &platform=${Session.getInstance().getPlatform()}
-      &version=${Session.getInstance().getSystemVersion()}
-      &codeSmsVerify=${Session.getInstance().getCodeSmsVerify()}`;
+      &password=${ComSessionService.getInstance().getPassword()}
+      &profiles=${JSON.stringify(ComSessionService.getInstance().getProfiles())}
+      &bureau=${ComSessionService.getInstance().getNomBureauDouane()}
+      &codeBureau=${ComSessionService.getInstance().getCodeBureau()}
+      &arrondissement=${ComSessionService.getInstance().getLibelleArrondissement()}
+      &codeArrondissement=${ComSessionService.getInstance().getCodeArrondissement()}
+      &uuid=${ComSessionService.getInstance().getDeviceId()}
+      &manifacturer=${ComSessionService.getInstance().getManufacturer()}
+      &model=${ComSessionService.getInstance().getModel()}
+      &platform=${ComSessionService.getInstance().getPlatform()}
+      &version=${ComSessionService.getInstance().getSystemVersion()}
+      &codeSmsVerify=${ComSessionService.getInstance().getCodeSmsVerify()}`;
     return await Linking.openURL(url);
   };
 

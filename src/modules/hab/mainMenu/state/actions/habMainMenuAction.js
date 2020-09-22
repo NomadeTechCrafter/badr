@@ -1,9 +1,9 @@
 /**Constants */
 import * as Constants from '../habMainMenuConstants';
 /** Storage  */
-import {load} from '../../../../../commons/services/async-storage/StorageService';
+import {load} from '../../../../../commons/services/async-storage/ComStorageService';
 /** i18n */
-import {translate} from '../../../../../commons/i18n/I18nHelper';
+import {translate} from '../../../../../commons/i18n/ComI18nHelper';
 
 export function request(action) {
   return (dispatch) => {

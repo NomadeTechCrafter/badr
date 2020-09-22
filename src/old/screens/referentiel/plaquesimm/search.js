@@ -4,7 +4,7 @@ import {TextInput} from 'react-native-paper';
 import {Divider} from 'react-native-elements';
 
 /** i18n **/
-import {translate} from '../../../../commons/i18n/I18nHelper';
+import {translate} from '../../../../commons/i18n/ComI18nHelper';
 
 /** REDUX **/
 import {connect} from 'react-redux';
@@ -15,7 +15,7 @@ import {Col, Row, Grid} from 'react-native-easy-grid';
 import {CustomStyleSheet} from '../../../styles/index';
 
 /** Inmemory session */
-import {Session} from '../../../../commons/services/session/Session';
+import {ComSessionService} from '../../../../commons/services/session/ComSessionService';
 
 /**Custom Components */
 import {
@@ -30,7 +30,7 @@ const initialState = {
   messageVisibility: false,
   message: '',
   messageType: '',
-  login: Session.getInstance().getLogin(),
+  login: ComSessionService.getInstance().getLogin(),
   vehiculeNumChassis: '',
   vehiculeNumImmat1: '',
   vehiculeNumImmat2: '',
@@ -218,7 +218,8 @@ class PlaquesImmatriculationSearch extends React.Component {
 
   accordionOne = () => {
     return (
-      <ComAccordionComp title={translate('referentiel.plaquesImm.searchByNumChassis')}>
+      <ComAccordionComp
+        title={translate('referentiel.plaquesImm.searchByNumChassis')}>
         <TextInput
           mode="outlined"
           label={translate('referentiel.plaquesImm.numeroChassis')}

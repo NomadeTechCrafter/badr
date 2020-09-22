@@ -1,18 +1,18 @@
-import HttpHelper from '../../../../../commons/services/api/common/HttpHelper';
+import ComHttpHelperApi from '../../../../../commons/services/api/common/ComHttpHelperApi';
 /** Inmemory session */
-import {Session} from '../../../../../commons/services/session/Session';
-import Utils from '../../../../../commons/utils/Util';
-import {AT_MODULE} from '../../../../../commons/constants/at/At';
+import {ComSessionService} from '../../../../../commons/services/session/ComSessionService';
+import ComUtils from '../../../../../commons/utils/ComUtils';
+import {AT_MODULE} from '../../state/atApurementConstants';
 import {
   TYPE_SERVICE_SP,
   TYPE_SERVICE_UC,
-} from '../../../../../commons/constants/GlobalConstants';
+} from '../../../../../commons/constants/ComGlobalConstants';
 
 export default class AtApurementApi {
   static initApurement = async (reference) => {
     const data = {
       dtoHeader: {
-        userLogin: Session.getInstance().getLogin(),
+        userLogin: ComSessionService.getInstance().getLogin(),
         fonctionnalite: 'cf9005',
         module: AT_MODULE,
         commande: 'initApurerAT',
@@ -25,14 +25,14 @@ export default class AtApurementApi {
         },
       },
     };
-    let response = await HttpHelper.process(data);
+    let response = await ComHttpHelperApi.process(data);
     return response;
   };
 
   static initApurerAutoAT = async (reference) => {
     const data = {
       dtoHeader: {
-        userLogin: Session.getInstance().getLogin(),
+        userLogin: ComSessionService.getInstance().getLogin(),
         fonctionnalite: 'cf9005',
         module: AT_MODULE,
         commande: 'initApurerAutoAT',
@@ -48,11 +48,11 @@ export default class AtApurementApi {
         },
       },
     };
-    return await HttpHelper.process(data);
+    return await ComHttpHelperApi.process(data);
   };
 
   static apurerAT = async (apurementVO) => {
-    apurementVO = Utils.deepDelete(apurementVO, [
+    apurementVO = ComUtils.deepDelete(apurementVO, [
       'defaultConverter',
       'showDropDown',
       'disableAutoComplete',
@@ -78,7 +78,7 @@ export default class AtApurementApi {
     }
     const data = {
       dtoHeader: {
-        userLogin: Session.getInstance().getLogin(),
+        userLogin: ComSessionService.getInstance().getLogin(),
         fonctionnalite: 'cf9005',
         module: AT_MODULE,
         commande: 'apurerAT',
@@ -89,12 +89,12 @@ export default class AtApurementApi {
       },
       jsonVO: apurementVO,
     };
-    const response = await HttpHelper.process(data);
+    const response = await ComHttpHelperApi.process(data);
     return response;
   };
 
   static apurerAutoAT = async (apurementVO) => {
-    apurementVO = Utils.deepDelete(apurementVO, [
+    apurementVO = ComUtils.deepDelete(apurementVO, [
       'defaultConverter',
       'showDropDown',
       'disableAutoComplete',
@@ -118,13 +118,13 @@ export default class AtApurementApi {
     }
     let apurAutoData = {
       admissionTemporaireVO: apurementVO,
-      bureau: Session.getInstance().getCodeBureau(),
-      arrondissement: Session.getInstance().getCodeArrondissement(),
+      bureau: ComSessionService.getInstance().getCodeBureau(),
+      arrondissement: ComSessionService.getInstance().getCodeArrondissement(),
     };
 
     const data = {
       dtoHeader: {
-        userLogin: Session.getInstance().getLogin(),
+        userLogin: ComSessionService.getInstance().getLogin(),
         fonctionnalite: 'cf9005',
         module: AT_MODULE,
         commande: 'apurerAutoAT',
@@ -135,14 +135,14 @@ export default class AtApurementApi {
       },
       jsonVO: apurAutoData,
     };
-    let response = await HttpHelper.process(data);
+    let response = await ComHttpHelperApi.process(data);
     return response;
   };
 
   static verifierDepassementDelai = async (dateFinSaisieAT) => {
     const data = {
       dtoHeader: {
-        userLogin: Session.getInstance().getLogin(),
+        userLogin: ComSessionService.getInstance().getLogin(),
         fonctionnalite: 'cf9005',
         module: AT_MODULE,
         commande: 'verifierDepassementDelai',
@@ -153,6 +153,6 @@ export default class AtApurementApi {
       },
       jsonVO: dateFinSaisieAT,
     };
-    return await HttpHelper.process(data);
+    return await ComHttpHelperApi.process(data);
   };
 }

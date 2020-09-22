@@ -1,4 +1,4 @@
-import {CustomStyleSheet, accentColor} from '../../../styles/theme';
+import {CustomStyleSheet, accentColor} from '../../../styles/ComThemeStyle';
 import React from 'react';
 import {
   View,
@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 /** i18n **/
-import {translate} from '../../../i18n/I18nHelper';
+import {translate} from '../../../i18n/ComI18nHelper';
 
 export default class ComMenuHeaderComp extends React.Component {
   constructor(props) {

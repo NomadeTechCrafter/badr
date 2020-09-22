@@ -3,7 +3,7 @@ import TransverseApi from '../../../services/api/transverse-api';
 import * as Constants from '../../../common/constants/mainLevee/delivrerMLV';
 
 /**i18n */
-import {translate} from '../../../../commons/i18n/I18nHelper';
+import {translate} from '../../../../commons/i18n/ComI18nHelper';
 
 const WS_MODULE_PARAM = 'MLV_LIB';
 const WS_TYPESERVICE_PARAM = 'UC';

@@ -2,7 +2,7 @@ import React from 'react';
 import {View} from 'react-native';
 import ActionButton from 'react-native-action-button';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {primaryColor, accentColor} from '../../../styles/theme';
+import {primaryColor, accentColor} from '../../../styles/ComThemeStyle';
 
 export default class ComBadrActionButtonComp extends React.Component {
   constructor(props) {

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {darkGris, lightGris} from '../../../styles/theme';
+import {darkGris, lightGris} from '../../../styles/ComThemeStyle';
 export default class ComBadrCardWithTileComp extends Component {
   constructor(props) {
     super(props);

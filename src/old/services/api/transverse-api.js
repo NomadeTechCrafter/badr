@@ -1,6 +1,6 @@
 import HttpHelper from './common/http-helper';
 /** Inmemory session */
-import {Session} from '../../../commons/services/session/Session';
+import {ComSessionService} from '../../../commons/services/session/ComSessionService';
 export default class TransverseApi {
   static doProcess = async (
     _module,
@@ -12,7 +12,7 @@ export default class TransverseApi {
   ) => {
     const data = {
       dtoHeader: {
-        userLogin: Session.getInstance().getLogin(),
+        userLogin: ComSessionService.getInstance().getLogin(),
         fonctionnalite: 'cf4011',
         module: _module,
         commande: _command,
