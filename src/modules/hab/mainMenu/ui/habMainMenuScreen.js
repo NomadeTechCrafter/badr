@@ -38,6 +38,7 @@ import ComUtils from '../../../../commons/utils/ComUtils';
 
 /** Inmemory session */
 import {ComSessionService} from '../../../../commons/services/session/ComSessionService';
+import habLoginApi from '../../login/service/api/habLoginApi';
 
 class habMainMenuScreen extends React.Component {
   /*
@@ -103,7 +104,9 @@ class habMainMenuScreen extends React.Component {
         this.props.navigation.navigate(route.screen, route.params);
       } else {
         this.openIntent(item.id).then((resp) => {
-          RNExitApp.exitApp();
+          habLoginApi.logout().then((logoutResponse) => {
+            RNExitApp.exitApp();
+          });
         });
       }
     }
