@@ -33,12 +33,13 @@ export {default as ComMenuHeaderComp} from './shared/header/ComMenuHeaderComp';
 export {default as ComCopyPasteComp} from './shared/container/ComCopyPasteComp';
 export {default as ComBadrAutoCompleteComp} from './shared/autoComplete/ComBadrAutoCompleteComp';
 export {default as ComBadrListComp} from './shared/list/ComBadrListComp';
-export {default as ComBadrLibelleComp} from './shared/text/ComBadrLibelleComp';
 export {default as ComBadrDatePickerComp} from './shared/datePicker/ComBadrDatePickerComp';
 export {default as ComBadrDialogComp} from './shared/dialog/ComBadrDialogComp';
 export {default as ComBadrNumericTextInputComp} from './shared/inputs/ComBadrNumericTextInputComp';
 export {default as ComBadrDualListBoxComp} from './shared/dualList/ComBadrDualListBoxComp'
 export {default as ComBadrCheckboxTreeComp} from './shared/checkboxTree/ComBadrCheckboxTreeComp'
+export {default as ComBadrKeyValueComp} from './shared/text/ComBadrKeyValueComp';
+export {default as ComBadrTouchableButtonComp} from './shared/buttons/ComBadrTouchableButtonComp';
 
 export {default as ComAtRechercheRefComp} from './modules/rechercheRefAt/ComAtRechercheRefComp';
 export {default as ComQrCodeScannerComp} from './modules/qrCode/ComQrCodeScannerComp';

@@ -13,6 +13,7 @@ import Apurement from '../../../at/apurement/ui/ongletAt/apurement/AtCreateApure
 import {ComQrCodeScannerComp} from '../../../../commons/component';
 import BloquerOperateur from '../../../referentiel/operateursEconomiques/ui/bloquerOperateur/refBloquerOperateurScreen';
 import DebloquerOperateur from '../../../referentiel/operateursEconomiques/ui/debloquerOperateur/refDebloquerOperateurScreen';
+import DedRedressementScreen from '../../../dedouanement/redressement/ui/DedRedressementScreen';
 
 /**ACTIONS */
 import * as Constants from '../../../../commons/constants/generic/ComGenericConstants';
@@ -74,6 +75,11 @@ class habHomeScreen extends React.Component {
         <Drawer.Screen
           name="Apurement"
           component={Apurement}
+          options={{headerShown: false}}
+        />
+        <Drawer.Screen
+          name="DedRedressement"
+          component={DedRedressementScreen}
           options={{headerShown: false}}
         />
         <Drawer.Screen

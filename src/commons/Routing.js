@@ -1,5 +1,6 @@
 const mapping = {
   '9005': {screen: 'CreerApurement', params: {qr: true}},
+  '2052': {screen: 'DedRedressement', params: {qr: false}},
 };
 
 const DEFAULT_SCREEN = 'ionic';

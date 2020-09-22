@@ -31,13 +31,23 @@ class ComBadrAutoCompleteComp extends Component {
           module: MODULE_REF,
           command: this.props.command,
           typeService: TYPE_SERVICE_SP,
-          param: params,
+          param: this.prepareParams(params),
           nbElements: this.state.listNbElements,
         },
       });
       this.props.dispatch(action);
     }
   };
+
+  prepareParams = (params) => {
+    if (this.props.paramName) {
+      let object = {};
+      object[this.props.paramName] = params;
+      return object;
+    }
+    return params;
+  };
+
   handleSelectItem = (item, id) => {
     console.log('item', item, 'id', id);
   };
@@ -49,9 +59,10 @@ class ComBadrAutoCompleteComp extends Component {
         <Autocomplete
           ref={this.props.onRef}
           key={this.props.key}
-          initialValue={this.props.initialValue}
-          placeholder={this.props.placeholder}
-          handleSelectItem={(item, id) => this.props.handleSelectItem(item, id)}
+          handleSelectItem={(item, id) => {
+            this.props.handleSelectItem(item, id);
+            this.handleAutoCompleteBureauChanged();
+          }}
           style={styles.input}
           spinnerStyle={styles.spinnerStyle}
           inputContainerStyle={styles.inputContainer}

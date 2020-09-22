@@ -78,7 +78,7 @@ class ComBadrPickerComp extends React.Component {
 
   onValueChanged = (itemValue, itemIndex) => {
     if (this.props.storeWithKey && itemIndex > 0) {
-      save(this.props.storeWithKey, itemValue.toString());
+      save(this.props.storeWithKey, itemValue.toString()).then(() => {});
       if (this.props.storeLibelleWithKey) {
         let selectedItem = this.props.picker[this.props.command].items[
           itemIndex - 1
@@ -89,11 +89,17 @@ class ComBadrPickerComp extends React.Component {
               .concat('_')
               .concat(this.props.storeLibelleWithKey),
             selectedItem[this.props.storeLibelleWithKey],
-          );
+          ).then(() => {});
+          this.props.onValueChange(itemValue, itemIndex, selectedItem);
         }
-        this.props.onValueChange(itemValue, itemIndex, selectedItem);
       }
+    } else {
+      let selectedItem = this.props.picker[this.props.command].items[
+        itemIndex - 1
+      ];
+      this.props.onValueChange(itemValue, itemIndex, selectedItem);
     }
+
     this.setState({selectedValue: itemValue});
   };
 
