@@ -26,7 +26,7 @@ const setGlobalHandler = () => {
     }
   };
 
-  setJSExceptionHandler(errorHandler, true);
+  setJSExceptionHandler(errorHandler, false);
   //Set true to enable it in DEBUG mode. Otherwise, it only works in release mode
 };
 export default setGlobalHandler;

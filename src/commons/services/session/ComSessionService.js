@@ -13,7 +13,7 @@ export class ComSessionService {
   codeArrondissement = '';
   profiles = [];
   geoCoords;
-
+  fonctionalite = '';
   /**
     Device information
    */
@@ -185,5 +185,13 @@ export class ComSessionService {
 
   setPlatform(platform) {
     this.platform = platform;
+  }
+
+  getFonctionalite() {
+    return this.fonctionalite;
+  }
+
+  setFonctionalite(fonctionalite) {
+    this.fonctionalite = fonctionalite;
   }
 }

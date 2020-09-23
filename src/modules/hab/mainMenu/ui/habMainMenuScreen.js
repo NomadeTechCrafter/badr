@@ -96,6 +96,9 @@ class habMainMenuScreen extends React.Component {
   onItemSelected = (item) => {
     if (this.props.navigation) {
       let route = buildRouteWithParams(item.id);
+      ComSessionService.getInstance().setFonctionalite(
+        item.fon_VAR_CODEFONCTIONALITE,
+      );
       if (route) {
         if (route.params.qr) {
           Zxing.default.showQrReader(this.onBarcodeRead);
