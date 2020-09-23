@@ -1,7 +1,7 @@
 /** Redux Store & middleware */
 import {applyMiddleware, combineReducers, compose, createStore} from 'redux';
 import thunk from 'redux-thunk';
-import {customMiddleware} from '../services/middleware/customMiddleware';
+import {comCustomMiddlewareService} from '../services/middleware/ComCustomMiddlewareService';
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 /** Reducers */
 import loginReducer from '../../modules/hab/login/state/reducers/habLoginReducer';
@@ -37,7 +37,7 @@ const allReducers = combineReducers({
  */
 const store = createStore(
   allReducers,
-  composeEnhancers(applyMiddleware(thunk, customMiddleware)),
+  composeEnhancers(applyMiddleware(thunk, comCustomMiddlewareService)),
 );
 
 export default store;

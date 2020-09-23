@@ -3,7 +3,7 @@ import HabLoginApi from '../../service/api/habLoginApi';
 
 /** Constants */
 import * as Constants from '../habLoginConstants';
-import * as GenericConstants from '../../../../../commons/constants/generic/GenericConstants';
+import * as GenericConstants from '../../../../../commons/constants/generic/ComGenericConstants';
 /**i18n */
 import {translate} from '../../../../../commons/i18n/ComI18nHelper';
 

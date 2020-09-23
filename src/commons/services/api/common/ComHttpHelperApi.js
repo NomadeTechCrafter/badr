@@ -1,5 +1,6 @@
 import {
   HOST,
+  HOST_BO,
   BASE_SERVER_URL,
   BACK_OFFICE_BASE_URL,
   LOGIN_API,
@@ -14,11 +15,8 @@ import store from '../../../../commons/state/Store';
 /** Inmemory session */
 import {ComSessionService} from '../../session/ComSessionService';
 import localStore from '../local-data/ComLocalDataService';
-import {useNavigation} from '@react-navigation/native';
-import {Session} from '../../session/Session';
-import localStore from '../local-data';
-import * as GenericAction from '../../../state/actions/GenericAction';
-import * as Constants from '../../../constants/generic/GenericConstants';
+import * as GenericAction from '../../../state/actions/ComGenericAction';
+import * as Constants from '../../../constants/generic/ComGenericConstants';
 const instance = axios.create({
   baseURL: BASE_SERVER_URL,
   timeout: 40000,
@@ -36,7 +34,7 @@ const instanceBO = axios.create({
     'Content-Type': 'application/json;charset=utf-8',
     Connection: 'keep-alive',
     Accept: '*/*',
-    Host: 'bomobile-recette.douane.gov.ma',
+    Host: HOST_BO,
   },
 });
 export default class ComHttpHelperApi {

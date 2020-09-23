@@ -1,13 +1,12 @@
-import * as Constants from '../../constants/generic/GenericConstants';
+import * as Constants from '../../constants/generic/ComGenericConstants';
 import * as authAction from '../../../modules/hab/login/state/actions/habLoginAction';
 import * as LoginConstants from '../../../modules/hab/login/state/habLoginConstants';
-import * as RootNavigation from '../../utils/RootNavigation';
-import HttpHelper from '../../services/api/common/HttpHelper';
+import * as RootNavigation from '../../utils/ComRootNavigationUtils';
+import ComHttpHelperApi from '../../services/api/common/ComHttpHelperApi';
 
 import store from '../../state/Store';
 
-export const customMiddleware = (store) => (next) => (action) => {
-  //console.log('Middleware triggered:', action);
+export const comCustomMiddlewareService = (store) => (next) => (action) => {
   if (action.type === Constants.GENERIC_CATCH_API) {
     let error = action.value.data;
     console.log('customMiddleware GENERIC_CATCH_API ');
@@ -28,7 +27,7 @@ export const customMiddleware = (store) => (next) => (action) => {
   next(action);
 };
 const sendCrash = async (error) => {
-  return await HttpHelper.sendCrash(
+  return await ComHttpHelperApi.sendCrash(
     error.response.status,
     error.message,
     error.message,

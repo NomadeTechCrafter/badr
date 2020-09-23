@@ -13,7 +13,7 @@ import {
 } from '../../../styles/ComThemeStyle';
 import Spinner from 'react-native-loading-spinner-overlay';
 import {translate} from '../../../i18n/ComI18nHelper';
-import {navigationRef} from '../../../utils/RootNavigation';
+import {navigationRef} from '../../../utils/ComRootNavigationUtils';
 
 class ComBadrStackNavigatorComp extends React.Component {
   buildHeader = () => {

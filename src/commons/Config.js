@@ -1,6 +1,7 @@
 import Config from 'react-native-config';
 module.exports = {
   HOST: Config.HOST,
+  HOST_BO: Config.HOST_BO,
   BASE_SERVER_URL: Config.SERVER_URL,
   BACK_OFFICE_BASE_URL: Config.BACK_OFFICE_BASE_URL,
   LOGIN_API: '/rest/api/login',
