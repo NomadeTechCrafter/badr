@@ -1,5 +1,6 @@
 import {ComSessionService} from '../../../../../commons/services/session/ComSessionService';
 import ComHttpHelperApi from '../../../../../commons/services/api/common/ComHttpHelperApi';
+import Utils from '../../../../../commons/utils/Util';
 import packageJson from '../../../../../../package.json';
 import {TYPE_SERVICE_SP, MODULE_HAB} from '../../../../../commons/Config';
 
@@ -21,7 +22,7 @@ export default class HabSmsVerifyApi {
         os: ComSessionService.getInstance().getPlatform(),
         os_version: ComSessionService.getInstance().getSystemVersion(),
         app_version: packageJson.version,
-        device_name: ComSessionService.getInstance().getDeviceName(),
+        device_name: Utils.slugify(ComSessionService.getInstance().getDeviceName()),
         lng: ComSessionService.getInstance().getGeoCoords()
           ? ComSessionService.getInstance().getGeoCoords().longitude
           : '',

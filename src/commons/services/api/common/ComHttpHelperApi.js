@@ -10,11 +10,15 @@ import {
   SEND_CRASH,
 } from '../../../Config';
 import * as axios from 'axios';
-
+import store from '../../../../commons/state/Store';
 /** Inmemory session */
 import {ComSessionService} from '../../session/ComSessionService';
 import localStore from '../local-data/ComLocalDataService';
 import {useNavigation} from '@react-navigation/native';
+import {Session} from '../../session/Session';
+import localStore from '../local-data';
+import * as GenericAction from '../../../state/actions/GenericAction';
+import * as Constants from '../../../constants/generic/GenericConstants';
 const instance = axios.create({
   baseURL: BASE_SERVER_URL,
   timeout: 40000,
@@ -28,6 +32,12 @@ const instance = axios.create({
 const instanceBO = axios.create({
   baseURL: BACK_OFFICE_BASE_URL,
   timeout: 1000,
+  headers: {
+    'Content-Type': 'application/json;charset=utf-8',
+    Connection: 'keep-alive',
+    Accept: '*/*',
+    Host: 'bomobile-recette.douane.gov.ma',
+  },
 });
 export default class ComHttpHelperApi {
   static async login(user) {
@@ -55,22 +65,13 @@ export default class ComHttpHelperApi {
         );
         return response;
       } catch (error) {
-        if (error.response && error.response.status === 403) {
-          const navigation = useNavigation();
-          navigation.navigate('Login', {});
-        } else if (error.request) {
-          // The request was made but no response was receivedjs
-          console.log('error.request', error.request);
-        } else {
-          // Something happened in setting up the request that triggered an Error
-          console.log('Error', error.message);
-        }
-        this.sendCrash(
-          error.response.status,
-          error.message,
-          error.message,
-          error.response,
-        );
+        console.log('---catch error in Api Call--');
+        /**Dispatch Action :GENERIC_CATCH_API to custom Middleware*/
+        let action = GenericAction.refresh({
+          type: Constants.GENERIC_CATCH_API,
+          value: {data: error},
+        });
+        store.dispatch(action);
       }
     } else {
       return {
@@ -78,7 +79,6 @@ export default class ComHttpHelperApi {
       };
     }
   }
-
   static async sendStats(module, action, details = '') {
     if (remote) {
       const data = {
@@ -95,17 +95,25 @@ export default class ComHttpHelperApi {
   }
   static async sendCrash(errorUrl, errorMessage, stackTrace, cause) {
     if (remote) {
-      const data = {
+      const dataApi = {
         session_id: ComSessionService.getInstance().getSessionIdBO(),
         errorUrl: errorUrl,
         errorMessage: errorMessage,
         stackTrace: stackTrace,
         cause: cause,
       };
-      let response = await instanceBO.post(SEND_CRASH, JSON.stringify(data), {
-        withCredentials: true,
-      });
-      return response;
+      try {
+        const response = await instanceBO.post(
+          SEND_CRASH,
+          JSON.stringify(dataApi),
+          {
+            withCredentials: true,
+          },
+        );
+        return response;
+      } catch (e) {
+        console.log('error sendcrah', e.message);
+      }
     }
   }
 }

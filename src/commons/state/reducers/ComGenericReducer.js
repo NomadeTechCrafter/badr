@@ -37,6 +37,10 @@ export default (state = initialState, action) => {
     case Constants.GENERIC_REFRESH:
       nextState.refresh = true;
       return nextState;
+    case Constants.GENERIC_CATCH_API:
+      nextState.refresh = true;
+      nextState.data = action.value;
+      return nextState;
     case Constants.GENERIC_INIT_REFRESH:
       nextState.refresh = false;
       return nextState;

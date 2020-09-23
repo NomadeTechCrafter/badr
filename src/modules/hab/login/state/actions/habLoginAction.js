@@ -3,7 +3,7 @@ import HabLoginApi from '../../service/api/habLoginApi';
 
 /** Constants */
 import * as Constants from '../habLoginConstants';
-
+import * as GenericConstants from '../../../../../commons/constants/generic/GenericConstants';
 /**i18n */
 import {translate} from '../../../../../commons/i18n/ComI18nHelper';
 
@@ -56,8 +56,11 @@ export function requestLogout(action, navigation) {
     HabLoginApi.logout()
       .then((data) => {
         if (data) {
-          dispatch(successLogout(translate('errors.technicalIssue')));
-          navigation.navigate('Login', {});
+          dispatch(successLogout(data));
+          /** navigate to login screen  if the api call return 403  */
+          action.value.isFrom === GenericConstants.GENERIC_CATCH_API
+            ? navigation.navigate('Login', {msg: action.value.msg})
+            : navigation.navigate('Login', {});
         } else {
           dispatch(failedLogout(translate('errors.technicalIssue')));
         }
