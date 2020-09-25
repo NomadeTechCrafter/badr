@@ -1,7 +1,8 @@
 import React from 'react';
-import {View} from 'react-native';
+import {View, Text} from 'react-native';
 import {
   ComAccordionComp,
+  ComBadrAutoCompleteChipsComp,
   ComBadrAutoCompleteComp,
   ComBadrKeyValueComp,
   ComBadrPickerComp,
@@ -10,6 +11,7 @@ import styles from '../../../style/DedRedressementStyle';
 import {Checkbox} from 'react-native-paper';
 import {primaryColor} from '../../../../../../commons/styles/theme';
 import DedRedressementRow from '../../common/DedRedressementRow';
+import ComBadrLibelleComp from '../../../../../../commons/component/shared/text/ComBadrLibelleComp';
 
 class DedRedressementEnteteInfoBlock extends React.Component {
   constructor(props) {
@@ -55,32 +57,20 @@ class DedRedressementEnteteInfoBlock extends React.Component {
           </DedRedressementRow>
 
           <DedRedressementRow zebra={true}>
-            <ComBadrKeyValueComp
-              libelle="Bureau d'entrée / Sortie"
-              children={
-                <ComBadrPickerComp
-                  onRef={(ref) => (this.comboBureaux = ref)}
-                  key="bureauEntreeSortie"
-                  style={{
-                    flex: 1,
-                    marginLeft: -80,
-                  }}
-                  titleStyle={{flex: 1}}
-                  cle="codeBureau"
-                  libelle="nomBureauDouane"
-                  module="REF_LIB"
-                  command="getListeBureaux"
-                  onValueChange={(selectedValue, selectedIndex, item) => {
-                    this.handleBureauChanged(
-                      selectedValue,
-                      selectedIndex,
-                      item,
-                    );
-                  }}
-                  param=""
-                  typeService="SP"
-                />
+            <ComBadrAutoCompleteChipsComp
+              label={
+                <ComBadrLibelleComp withColor={true}>
+                  Bureau d'entrée
+                </ComBadrLibelleComp>
               }
+              onRef={(ref) => (this.refBureau = ref)}
+              code="code"
+              libelle="libelle"
+              command="getCmbBureau"
+              paramName="codeBureau"
+              onDemand={true}
+              searchZoneFirst={false}
+              onValueChange={this.handleBureauChipsChanged}
             />
           </DedRedressementRow>
 
@@ -148,6 +138,16 @@ class DedRedressementEnteteInfoBlock extends React.Component {
     );
   }
 
+  handleBureauChipsChanged = (item) => {
+    this.setState({
+      selectedBureau: item.code,
+      nomBureauDouane: item.libelle,
+      selectedArrondissement: '',
+    });
+    this.comboArrondissements.refresh(item.code, this.refBureau);
+    this.comboLieuStockage.refresh({codeBureau: item.code}, this.comboBureaux);
+  };
+
   handleBureauChanged = (selectedValue, selectedIndex, item) => {
     this.setState({
       selectedBureau: selectedValue,
@@ -156,7 +156,7 @@ class DedRedressementEnteteInfoBlock extends React.Component {
       selectedArrondissement: '',
     });
     console.log(selectedValue);
-    this.comboArrondissements.refresh(selectedValue, this.comboBureaux);
+    this.comboArrondissements.refresh(selectedValue, this.refBureau);
     this.comboLieuStockage.refresh(
       {codeBureau: selectedValue},
       this.comboBureaux,

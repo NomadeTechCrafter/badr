@@ -20,7 +20,7 @@ class ComBadrKeyValueComp extends React.Component {
 
   buildLibelle = () => {
     return this.props.libelle ? (
-      <Col size={2}>
+      <Col size={this.props.libelleSize ? this.props.libelleSize : 1.5}>
         <KeyComp
           style={this.props.style}
           libelle={this.props.libelle}></KeyComp>
@@ -39,7 +39,7 @@ class ComBadrKeyValueComp extends React.Component {
     ) : (
       <View style={{flex: 1, flexDirection: 'row'}}>
         {this.buildLibelle()}
-        <Col size={2}>{this.buildValue()}</Col>
+        <Col size={3}>{this.buildValue()}</Col>
       </View>
     );
   }
@@ -52,9 +52,12 @@ class KeyComp extends React.Component {
 
   render() {
     return (
-      <Text style={{...CustomStyleSheet.badrLibelleBleu, ...this.props.style}}>
-        {this.props.libelle}
-      </Text>
+      <View style={{padding: 10}}>
+        <Text
+          style={{...CustomStyleSheet.badrLibelleBleu, ...this.props.style}}>
+          {this.props.libelle}
+        </Text>
+      </View>
     );
   }
 }
@@ -65,7 +68,11 @@ class ValueComp extends React.Component {
   }
 
   render() {
-    return <Text>{this.props.value}</Text>;
+    return (
+      <View style={{padding: 10}}>
+        <Text>{this.props.value}</Text>
+      </View>
+    );
   }
 }
 

@@ -5,6 +5,7 @@ import DedRedressementEnteteVersionBlock from './blocks/DedRedressementEnteteVer
 import DedRedressementEnteteInfoBlock from './blocks/DedRedressementEnteteInfoBlock';
 import DedRedressementEnteteDeclarantOpeBlock from './blocks/DedRedressementEnteteDeclarantOpeBlock';
 import DedRedressementEnteteFacturePaiementBlock from './blocks/DedRedressementEnteteFacturePaiementBlock';
+import {ComBadrAutoCompleteChipsComp} from '../../../../../commons/component';
 
 class DedRedressementEnteteScreen extends React.Component {
   constructor(props) {

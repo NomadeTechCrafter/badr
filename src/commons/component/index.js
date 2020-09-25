@@ -32,6 +32,7 @@ export {default as ComBadrLoginHeaderComp} from './shared/header/ComBadrLoginHea
 export {default as ComMenuHeaderComp} from './shared/header/ComMenuHeaderComp';
 export {default as ComCopyPasteComp} from './shared/container/ComCopyPasteComp';
 export {default as ComBadrAutoCompleteComp} from './shared/autoComplete/ComBadrAutoCompleteComp';
+export {default as ComBadrAutoCompleteChipsComp} from './shared/autoComplete/ComBadrAutoCompleteChipsComp';
 export {default as ComBadrListComp} from './shared/list/ComBadrListComp';
 export {default as ComBadrDatePickerComp} from './shared/datePicker/ComBadrDatePickerComp';
 export {default as ComBadrDialogComp} from './shared/dialog/ComBadrDialogComp';

@@ -17,6 +17,7 @@ import {
   ComBadrLoginHeaderComp,
   ComBadrErrorMessageComp,
   ComBadrInfoMessageComp,
+  ComBadrAutoCompleteChipsComp,
 } from '../../../../commons/component';
 
 /** Inmemory session */
@@ -89,6 +90,7 @@ class Login extends React.Component {
     }
     return params;
   };
+
   render() {
     return (
       <ScrollView style={style.container}>

@@ -1,7 +1,6 @@
 import React from 'react';
-import {View, ScrollView, Dimensions} from 'react-native';
+import {Dimensions, ScrollView, View} from 'react-native';
 import HTML from 'react-native-render-html';
-
 /** REDUX **/
 import {connect} from 'react-redux';
 /**ACTIONS */
@@ -9,7 +8,6 @@ import * as Constants from '../../../../commons/constants/generic/ComGenericCons
 import * as AnnoncesAction from '../../../../commons/state/actions/ComGenericAction';
 
 import styles from '../style/habAnnoncesStyle';
-
 /**Custom Components */
 import {
   ComBadrToolbarComp,

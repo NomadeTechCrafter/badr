@@ -32,7 +32,9 @@ class ComBadrPickerComp extends React.Component {
 
   refresh = (params, caller) => {
     this.caller = caller;
-    this.caller.disable();
+    if (this.caller) {
+      this.caller.disable();
+    }
     this.fetchData(params);
   };
 

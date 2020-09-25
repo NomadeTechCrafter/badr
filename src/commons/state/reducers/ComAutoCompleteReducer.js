@@ -17,6 +17,7 @@ export default (state = initialState, action) => {
       nextState.data = [];
       return nextState;
     case Constants.AUTOCOMPLETE_IN_PROGRESS:
+      nextState.loaded = false;
       return nextState;
     case Constants.AUTOCOMPLETE_SUCCESS:
       nextState.data = action.value.data;

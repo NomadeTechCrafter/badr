@@ -7,8 +7,9 @@ import {
   ComBadrKeyValueComp,
 } from '../../../../../../commons/component';
 import DedRedressementRow from '../../common/DedRedressementRow';
-import {TextInput, Subheading} from 'react-native-paper';
+import {TextInput, Subheading, Checkbox} from 'react-native-paper';
 import ComBadrLibelleComp from '../../../../../../commons/component/shared/text/ComBadrLibelleComp';
+import {primaryColor} from '../../../../../../commons/styles/theme';
 
 class DedRedressementEnteteFacturePaiementBlock extends React.Component {
   constructor(props) {
@@ -35,11 +36,46 @@ class DedRedressementEnteteFacturePaiementBlock extends React.Component {
               <Text style={styles.headingText}>Facture</Text>
             </DedRedressementRow>
 
-            <DedRedressementRow></DedRedressementRow>
+            <DedRedressementRow>
+              <ComBadrKeyValueComp
+                libelle="Conditions de livraison"
+                children={<ComBadrItemsPickerComp items={[]} label="" />}
+              />
+            </DedRedressementRow>
+            <DedRedressementRow zebra={true}>
+              <ComBadrKeyValueComp
+                libelle="Montant total"
+                children={<TextInput type="flat" label="" value="" />}
+              />
+            </DedRedressementRow>
+            <DedRedressementRow>
+              <ComBadrKeyValueComp
+                libelle="Devise"
+                children={<TextInput type="flat" label="" value="" />}
+              />
+              <ComBadrKeyValueComp
+                libelleSize={3}
+                libelle="Taux de change"
+                value="0.00"
+              />
+            </DedRedressementRow>
           </View>
           <View style={styles.container}>
             <DedRedressementRow zebra={true}>
               <Text style={styles.headingText}>Totaux</Text>
+            </DedRedressementRow>
+
+            <DedRedressementRow>
+              <ComBadrKeyValueComp
+                libelle="Montant fret"
+                libelleSize={3}
+                children={<TextInput type="flat" label="" value="" />}
+              />
+              <ComBadrKeyValueComp
+                libelleSize={2}
+                libelle="Poids net total"
+                value="0.00"
+              />
             </DedRedressementRow>
           </View>
 

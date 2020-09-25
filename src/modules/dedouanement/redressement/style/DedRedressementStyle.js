@@ -1,6 +1,7 @@
 import {StyleSheet} from 'react-native';
 import {
   darkGrayColor,
+  lightBlue,
   lightGris,
   lightWhiteColor,
   primaryColor,
