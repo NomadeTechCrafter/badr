@@ -7,7 +7,6 @@ import {translate} from '../../../../commons/i18n/ComI18nHelper';
 class RechercheEcorImport extends Component {
   getInfoEcorImport = () => {
     let typeEcorImport = 'EnleverMarchandise'; //this.props.route.params.typeEcorImport;
-    console.log('  getSuccessRedirectionScreen', typeEcorImport);
     switch (typeEcorImport) {
       case 'EnleverMarchandise':
         return {

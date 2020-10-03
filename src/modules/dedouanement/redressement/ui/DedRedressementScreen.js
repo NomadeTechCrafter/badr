@@ -1,5 +1,5 @@
 import React from 'react';
-import {Dimensions, View} from 'react-native';
+import {BackHandler, Dimensions, View} from 'react-native';
 /** Drawer navigation */
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import DedRedressementEnteteScreen from './entete/DedRedressementEnteteScreen';
@@ -12,24 +12,22 @@ function EnteteScreen({route, navigation}) {
   return <DedRedressementEnteteScreen navigation={navigation} route={route} />;
 }
 function ArticlesScreen({route, navigation}) {
-  return <DedRedressementEnteteScreen navigation={navigation} route={route} />;
+  return <></>;
 }
 
 class DedRedressementScreen extends React.Component {
   constructor(props) {
     super(props);
   }
-  componentDidMount() {
-    /**
-     * You are beautiful Mr Zaouine !
-     */
-  }
+
+  componentDidMount() {}
+
+  componentWillUnmount() {}
 
   render() {
     return (
-      <NavigationContainer independent={true}>
+      <View style={{flex: 1}}>
         <Tab.Navigator
-          initialLayout={{height: Dimensions.get('window').height}}
           swipeEnabled={false}
           tabBarOptions={{
             scrollEnabled: true,
@@ -45,7 +43,7 @@ class DedRedressementScreen extends React.Component {
               borderColor: primaryColor,
             },
           }}>
-          <Tab.Screen name="Entete" component={EnteteScreen} />
+          <Tab.Screen name="Entete" component={EnteteScreen} options={{}} />
           <Tab.Screen name="Caution" component={ArticlesScreen} />
           <Tab.Screen name="Articles" component={ArticlesScreen} />
           <Tab.Screen name="Preapurement DS" component={ArticlesScreen} />
@@ -61,7 +59,7 @@ class DedRedressementScreen extends React.Component {
           <Tab.Screen name="Documents" component={ArticlesScreen} />
           <Tab.Screen name="Info" component={ArticlesScreen} />
         </Tab.Navigator>
-      </NavigationContainer>
+      </View>
     );
   }
 }

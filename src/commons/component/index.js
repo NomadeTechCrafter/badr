@@ -42,5 +42,9 @@ export {default as ComBadrCheckboxTreeComp} from './shared/checkboxTree/ComBadrC
 export {default as ComBadrKeyValueComp} from './shared/text/ComBadrKeyValueComp';
 export {default as ComBadrTouchableButtonComp} from './shared/buttons/ComBadrTouchableButtonComp';
 
+export {default as ComBadrListDialogComp} from './shared/dialog/ComBadrListDialogComp';
+
+export {default as ComRedressementRechercheRefComp} from './modules/rechercheRefDum/ComRedressementRechercheRefComp';
+
 export {default as ComAtRechercheRefComp} from './modules/rechercheRefAt/ComAtRechercheRefComp';
 export {default as ComQrCodeScannerComp} from './modules/qrCode/ComQrCodeScannerComp';

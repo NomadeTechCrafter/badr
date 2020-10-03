@@ -17,7 +17,6 @@ export function requestManuel(action) {
     dispatch(inProgressManuel(action));
     AtApi.apurerAT(action.value.atVO)
       .then((response) => {
-        console.log(response.headers);
         if (response) {
           const data = response.data;
           if (

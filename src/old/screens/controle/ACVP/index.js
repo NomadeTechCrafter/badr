@@ -132,7 +132,6 @@ class ACVP extends Component {
   }
 
   render() {
-    console.log(this.props);
     return (
       <View style={CustomStyleSheet.fullContainer}>
         <ComBadrToolbarComp

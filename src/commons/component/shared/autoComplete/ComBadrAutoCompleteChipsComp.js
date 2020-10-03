@@ -1,5 +1,12 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet, Alert, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Alert,
+  TouchableOpacity,
+  ScrollView,
+} from 'react-native';
 import {connect} from 'react-redux';
 import * as Constants from '../../../constants/components/AutoCompleteConstants';
 import * as AutoCompleteAction from '../../../state/actions/AutoCompleteAction';
@@ -14,12 +21,13 @@ import {
 import {Chip, TextInput} from 'react-native-paper';
 import {primaryColor} from '../../../styles/theme';
 import {Icon} from 'react-native-elements';
-import {ComBadrCircleProgressBarComp} from '../../index';
+import {ComBadrCircleProgressBarComp, ComBadrListDialogComp} from '../../index';
 
 class ComBadrAutoCompleteChipsComp extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      maxItems: this.props.maxItems ? this.props.maxItems : 5,
       items: [],
       firstTime: true,
       selected: props.selected ? props.selected : {},
@@ -105,7 +113,7 @@ class ComBadrAutoCompleteChipsComp extends Component {
             <TextInput
               mode="flat"
               label={this.props.placeholder}
-              value={this.state.selected.libelle}
+              value={this.state.selected[this.props.libelle]}
               onChangeText={(text) => this.handleChangeInput(text)}
             />
           </View>
@@ -117,9 +125,10 @@ class ComBadrAutoCompleteChipsComp extends Component {
   disable = () => {};
 
   renderItems = (items) => {
+    let _items = _.sortBy(items, this.props.code ? this.props.code : 'code');
     return (
-      items &&
-      items.length > 0 &&
+      _items &&
+      _items.length > 0 &&
       this.state.showItems &&
       this.props.loaded && (
         <View
@@ -140,24 +149,59 @@ class ComBadrAutoCompleteChipsComp extends Component {
             }}>
             <Icon color={primaryColor} name="close" />
           </TouchableOpacity>
-          {_.sortBy(items, this.props.code ? this.props.code : 'code').map(
-            (item) => {
-              return (
-                <Chip
-                  mode="outlined"
-                  style={{margin: 10, borderColor: primaryColor}}
-                  height={30}
-                  key={item[this.props.code ? this.props.code : 'code']}
-                  onPress={() => {
-                    this.setState({selected: item, showItems: false});
-                    if (this.props.onValueChange) {
-                      this.props.onValueChange(item);
-                    }
-                  }}>
-                  {item[this.props.libelle ? this.props.libelle : 'libelle']}
-                </Chip>
-              );
-            },
+          {_.sortBy(
+            _.take(_items, this.state.maxItems),
+            this.props.code ? this.props.code : 'code',
+          ).map((item) => {
+            return (
+              <Chip
+                mode="outlined"
+                style={{margin: 10, borderColor: primaryColor}}
+                height={30}
+                key={item[this.props.code ? this.props.code : 'code']}
+                onPress={() => {
+                  this.setState({selected: item, showItems: false});
+                  if (this.props.onValueChange) {
+                    this.props.onValueChange(item);
+                  }
+                }}>
+                {item[this.props.libelle ? this.props.libelle : 'libelle']}
+              </Chip>
+            );
+          })}
+
+          {this.state.maxItems < _items.length && (
+            <Chip
+              onPress={() => {
+                this.setState({
+                  showAutoCompleteChips: true,
+                  autoCompleteItems: _items,
+                  autoCompleteTitle: this.props.title,
+                });
+              }}>
+              Afficher plus...
+            </Chip>
+          )}
+
+          {this.state.showAutoCompleteChips && (
+            <ComBadrListDialogComp
+              visible={this.state.showAutoCompleteChips}
+              libelle={this.props.libelle}
+              items={_items}
+              onSelect={(item) => {
+                this.setState({
+                  selected: item,
+                  showItems: false,
+                  showAutoCompleteChips: false,
+                });
+                if (this.props.onValueChange) {
+                  this.props.onValueChange(item);
+                }
+              }}
+              onClose={() => {
+                this.setState({showAutoCompleteChips: false});
+              }}
+            />
           )}
         </View>
       )

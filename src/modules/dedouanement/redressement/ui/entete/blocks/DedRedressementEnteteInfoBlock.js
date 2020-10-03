@@ -64,9 +64,10 @@ class DedRedressementEnteteInfoBlock extends React.Component {
                 </ComBadrLibelleComp>
               }
               onRef={(ref) => (this.refBureau = ref)}
-              code="code"
-              libelle="libelle"
-              command="getCmbBureau"
+              code="codeBureau"
+              maxItems={3}
+              libelle="nomBureauDouane"
+              command="getListeBureaux"
               paramName="codeBureau"
               onDemand={true}
               searchZoneFirst={false}
@@ -77,6 +78,7 @@ class DedRedressementEnteteInfoBlock extends React.Component {
           <DedRedressementRow>
             <ComBadrKeyValueComp
               libelle="Lieu de stockage"
+              libelleSize={3}
               children={
                 <ComBadrPickerComp
                   onRef={(ref) => (this.comboLieuStockage = ref)}
@@ -107,6 +109,7 @@ class DedRedressementEnteteInfoBlock extends React.Component {
           <DedRedressementRow zebra={true}>
             <ComBadrKeyValueComp
               libelle="Arrondissement"
+              libelleSize={3}
               children={
                 <ComBadrPickerComp
                   onRef={(ref) => (this.comboArrondissements = ref)}
@@ -119,7 +122,7 @@ class DedRedressementEnteteInfoBlock extends React.Component {
                   cle="code"
                   libelle="libelle"
                   module="REF_LIB"
-                  command="getArrondissementsByAgentAndBureau"
+                  command="getArrondissementByBureau"
                   onValueChange={(selectedValue, selectedIndex, item) =>
                     this.handleArrondissementChanged(
                       selectedValue,
@@ -140,12 +143,15 @@ class DedRedressementEnteteInfoBlock extends React.Component {
 
   handleBureauChipsChanged = (item) => {
     this.setState({
-      selectedBureau: item.code,
-      nomBureauDouane: item.libelle,
+      selectedBureau: item['codeBureau'],
+      nomBureauDouane: item['nomBureauDouane'],
       selectedArrondissement: '',
     });
-    this.comboArrondissements.refresh(item.code, this.refBureau);
-    this.comboLieuStockage.refresh({codeBureau: item.code}, this.comboBureaux);
+    this.comboArrondissements.refresh(item['codeBureau'], this.refBureau);
+    this.comboLieuStockage.refresh(
+      {codeBureau: item['codeBureau']},
+      this.comboBureaux,
+    );
   };
 
   handleBureauChanged = (selectedValue, selectedIndex, item) => {
@@ -155,7 +161,6 @@ class DedRedressementEnteteInfoBlock extends React.Component {
       nomBureauDouane: item.nomBureauDouane,
       selectedArrondissement: '',
     });
-    console.log(selectedValue);
     this.comboArrondissements.refresh(selectedValue, this.refBureau);
     this.comboLieuStockage.refresh(
       {codeBureau: selectedValue},

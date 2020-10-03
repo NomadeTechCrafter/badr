@@ -28,7 +28,6 @@ class WelcomeScreen extends React.Component {
   componentDidMount() {
     this.fetchAnnonces();
     this.props.navigation.openDrawer();
-    console.log(this.props.navigation);
   }
 
   fetchAnnonces = () => {
@@ -49,9 +48,6 @@ class WelcomeScreen extends React.Component {
   onItemSelected = (item) => {};
 
   render() {
-    console.log('<<<<<<<<<<<<<');
-    console.log(this.props.data);
-    console.log('<<<<<<<<<<<<<<<<');
     return (
       <ScrollView>
         <ComBadrToolbarComp

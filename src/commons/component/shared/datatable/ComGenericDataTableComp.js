@@ -156,8 +156,6 @@ class ComGenericDataTableComp extends React.Component {
       return col.width;
     });
 
-    console.log(data);
-
     return (
       <View>
         <ScrollView

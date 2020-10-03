@@ -56,9 +56,6 @@ class MainMenu extends React.Component {
     if (this.props.navigation) {
       this.props.navigation.toggleDrawer();
     }
-    console.log(
-      'SessionId=' + ComSessionService.getInstance().getSessionId(true),
-    );
   }
 
   fetchMenu = (predicate) => {

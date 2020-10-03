@@ -105,6 +105,7 @@ class habAnnoncesScreen extends React.Component {
             />
           )}
           {this.props.data &&
+            this.props.data.length > 0 &&
             this.props.data.map((item) => {
               return (
                 <HTML

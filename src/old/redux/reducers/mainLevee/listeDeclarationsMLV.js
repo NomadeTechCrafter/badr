@@ -14,18 +14,14 @@ export default (state = initialState, action) => {
     case Constants.MAINLEVEE_LISTEDECLARATIONS_REQUEST:
       nextState.showProgress = true;
       nextState.errorMessage = null;
-      console.log('--> MAINLEVEE_LISTEDECLARATIONS request...');
       return nextState;
     case Constants.MAINLEVEE_LISTEDECLARATIONS_IN_PROGRESS:
-      console.log('--> MAINLEVEE_LISTEDECLARATIONS in progress...');
       return nextState;
     case Constants.MAINLEVEE_LISTEDECLARATIONS_SUCCESS:
-      console.log('--> MAINLEVEE_LISTEDECLARATIONS success...', nextState);
       nextState.showProgress = false;
       nextState.errorMessage = null;
       return nextState;
     case Constants.MAINLEVEE_LISTEDECLARATIONS_FAILED:
-      console.log('--> MAINLEVEE_LISTEDECLARATIONS failed...');
       nextState.showProgress = false;
       nextState.errorMessage = action.value.dtoHeader
         ? action.value.dtoHeader.messagesErreur

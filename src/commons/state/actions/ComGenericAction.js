@@ -23,7 +23,6 @@ export function request(action) {
         }
       })
       .catch((e) => {
-        console.log(e);
         dispatch(failed(translate('errors.technicalIssue')));
       });
   };

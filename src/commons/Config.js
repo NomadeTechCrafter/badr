@@ -17,5 +17,5 @@ module.exports = {
   AUTOCOMPLETE_MIN_CHARACTERS: 3,
   AUTOCOMPLETE_LIST_NB_ELEMENTS: -1,
   remote: true,
-  bootstrapRoute: 'Home',
+  bootstrapRoute: 'DedRedressementRecherche',
 };

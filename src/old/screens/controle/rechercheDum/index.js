@@ -21,7 +21,6 @@ class RechecheDum extends Component {
 
   getInfoControle = () => {
     let typeControle = this.props.route.params.typeControle;
-    console.log('  getSuccessRedirectionScreen', typeControle);
     switch (typeControle) {
       case 'RI':
         return {

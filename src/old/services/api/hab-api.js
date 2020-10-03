@@ -20,7 +20,6 @@ export default class HabApi {
       password: pwd,
       forcerConnexion: true,
     });
-    console.log(response);
     return response && response.data ? response.data : {};
   };
 

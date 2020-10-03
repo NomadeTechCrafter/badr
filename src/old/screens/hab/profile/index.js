@@ -62,7 +62,6 @@ class Profile extends React.Component {
       selectedArrondissement: selectedValue,
       selectedArrondissementLibelle: item.libelle,
     });
-    console.log(item);
   };
 
   handleBureauChanged = (selectedValue, selectedIndex, item) => {
@@ -73,7 +72,6 @@ class Profile extends React.Component {
       selectedArrondissement: '',
     });
     this.comboArrondissements.refresh(selectedValue, this.comboBureaux);
-    console.log(item);
   };
 
   handleOnConfirmProfils = (items) => {};

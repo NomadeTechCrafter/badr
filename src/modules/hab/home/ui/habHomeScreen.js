@@ -21,9 +21,15 @@ import * as GenericAction from '../../../../commons/state/actions/ComGenericActi
 
 /** Drawer navigation */
 import {createDrawerNavigator} from '@react-navigation/drawer';
+import DedRedressementRecherche from '../../../dedouanement/redressement/ui/DedRechercheRedressementScreen';
+import DedRedressementEnteteScreen from '../../../dedouanement/redressement/ui/entete/DedRedressementEnteteScreen';
 
 const Drawer = createDrawerNavigator();
 const deltaScreen = Dimensions.get('window').width / 4;
+
+function DedRedressementRechercheScreen({route, navigation}) {
+  return <DedRedressementRecherche navigation={navigation} route={route} />;
+}
 
 class habHomeScreen extends React.Component {
   /*
@@ -78,10 +84,11 @@ class habHomeScreen extends React.Component {
           options={{headerShown: false}}
         />
         <Drawer.Screen
-          name="DedRedressement"
-          component={DedRedressementScreen}
+          name="DedRechercheRedressement"
+          component={DedRedressementRechercheScreen}
           options={{headerShown: false}}
         />
+
         <Drawer.Screen
           name="ComQrCodeScannerComp"
           component={ComQrCodeScannerComp}

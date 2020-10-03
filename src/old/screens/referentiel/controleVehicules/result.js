@@ -20,13 +20,9 @@ class ControleVehiculesResult extends React.Component {
     ];
   }
 
-  onItemSelected = (row) => {
-    console.log(row);
-  };
+  onItemSelected = (row) => {};
 
-  componentDidMount() {
-    console.log('init...');
-  }
+  componentDidMount() {}
 
   componentDidUpdate() {
     if (this.props.route.params.first) {
@@ -35,7 +31,6 @@ class ControleVehiculesResult extends React.Component {
   }
 
   render() {
-    console.log(this.props.data.length);
     return (
       <View>
         <ComBasicDataTableComp

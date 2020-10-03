@@ -28,7 +28,6 @@ export default class ComAutoLoginApi {
   }
 
   shortAuth = async () => {
-    console.log(this.usr, this.password, this.bureau);
     return await this.shortConnect(this.password, this.usr);
   };
 

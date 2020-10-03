@@ -33,7 +33,6 @@ export function request(action, navigation) {
   return (dispatch) => {
     dispatch(action);
     dispatch(inProgress(action));
-    console.log('confirmer connexion ...');
     HabApi.confirmConnexion(
       action.value.codeBureau,
       action.value.listeProfilCoche,

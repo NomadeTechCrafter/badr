@@ -39,8 +39,7 @@ export default class Home extends React.Component {
   }
 
   componentDidMount() {
-    console.log('Displaying in memory session values ====> ');
-    console.log(ComSessionService.getInstance().getNom);
+    console.log(Session.getInstance().getNom);
   }
 
   render() {

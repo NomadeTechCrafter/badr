@@ -17,6 +17,10 @@ import qrCodeReducer from './reducers/ComQrCodeReducer';
 import badrApiTable from './reducers/ComBadrApiTableReducer';
 import initApurementReducer from '../../modules/at/apurement/state/reducers/atApurementReducer';
 import refOperateursEconomiquesReducer from '../../modules/referentiel/operateursEconomiques/state/reducers/refOperateursEconomiquesReducer';
+import dedRedressementInitReducer from '../../modules/dedouanement/redressement/state/reducers/DedRedressementInitReducer';
+
+import referentielReducer from './reducers/ReferentielReducer';
+import consulterDumReducer from './reducers/ConsulterDumReducer';
 
 /**
  * combine all reducers
@@ -27,7 +31,6 @@ const allReducers = combineReducers({
   confirmConnexionReducer,
   menuReducer,
   autoLoginReducer,
-  autoCompleteReducer,
   badrPickerReducer,
   badrPickerCheckerReducer,
   badrApiTable,
@@ -35,6 +38,10 @@ const allReducers = combineReducers({
   initApurementReducer,
   refOperateursEconomiquesReducer,
   genericReducer,
+  autoCompleteReducer,
+  dedRedressementInitReducer,
+  referentielReducer,
+  consulterDumReducer,
 });
 /**
  * store creation

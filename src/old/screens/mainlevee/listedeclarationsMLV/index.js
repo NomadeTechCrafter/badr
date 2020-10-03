@@ -39,11 +39,9 @@ class ListDeclarationMLV extends Component {
                     this.props.successRedirection,*/,
       );
       this.props.dispatch(action);
-      console.log('dispatch fired !!');
     }
   };
   retablir = () => {
-    console.log('retablir');
     this.setState({...this.defaultState});
     this.CmbRegimByCode.clearInput();
     this.CmbOperateur.clearInput();

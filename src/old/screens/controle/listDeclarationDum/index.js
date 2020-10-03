@@ -63,7 +63,6 @@ class ListDeclarationDum extends React.Component {
   componentDidUpdate(prevProps, prevState) {}
 
   onItemSelected = (item) => {
-    console.log('selection item declaration', this.props.successRedirection);
     this.setState({showErrorMsg: true});
     if (this.state.regime && this.state.serie) {
       this.state.cleValide = this.cleDUM(this.state.regime, this.state.serie);
@@ -92,7 +91,6 @@ class ListDeclarationDum extends React.Component {
           (this.props.successRedirection = this.getSuccessRedirectionScreen()),
         );
         this.props.dispatch(action);
-        console.log('dispatch fired !!');
       }
     }
   };

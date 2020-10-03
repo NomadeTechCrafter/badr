@@ -92,9 +92,7 @@ class DelivrerMLV extends Component {
     return documentAnnexeResultVO;
   };
   validerMainLevee = () => {
-    console.log('validerMainLevee');
     var data = this.state.delivrerMainleveeVO;
-    console.log('data----', data);
     var action = DelivrerMLVAction.validerMLV(
       {
         type: Constants.DELIVRERMLV_VALIDERMLV_REQUEST,
@@ -105,7 +103,6 @@ class DelivrerMLV extends Component {
       this.props.navigation,
     );
     this.props.dispatch(action);
-    console.log('dispatch fired !!');
   };
 
   showMessages = (type, message) => {

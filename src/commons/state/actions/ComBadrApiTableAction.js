@@ -35,7 +35,6 @@ export function success(action) {
 }
 
 export function failed(action) {
-  console.log(action.value);
   return {
     type: Constants.BADR_APITABLE_FAILED,
     value: action.value,

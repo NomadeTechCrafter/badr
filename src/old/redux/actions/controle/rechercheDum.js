@@ -35,7 +35,6 @@ export function searchListeDeclaration(action, navigation) {
         }
       })
       .catch((e) => {
-        console.log('in action request catch', e);
         dispatch(
           searchListeDeclaration_failed(translate('errors.technicalIssue')),
         );

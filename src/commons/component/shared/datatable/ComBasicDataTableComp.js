@@ -36,7 +36,6 @@ export default class ComBasicDataTableComp extends React.Component {
       checkedItems.push({checked: false});
     });
     this.setState({checkedItems: checkedItems});
-    console.log('clear selection ...');
   };
 
   changeCurrentPage = (page) => {
@@ -54,7 +53,6 @@ export default class ComBasicDataTableComp extends React.Component {
   };
 
   reset = () => {
-    console.log('reset fired');
     this.setState({offset: 0, currentPage: 0});
   };
 
@@ -210,7 +208,6 @@ export default class ComBasicDataTableComp extends React.Component {
                                   };
                                   this.setState({checkedItems: items});
                                   row.selected = items[index].checked;
-                                  console.log(row.selected);
                                   column.action(row, index);
                                 }}
                               />

@@ -10,6 +10,7 @@ import {
   darkGrayColor,
   lightWhiteColor,
 } from '../../../../../commons/styles/theme';
+import {getAnnee, getBureau, getRegime, getSerie} from '../../utils/DedUtils';
 
 class DedRedressementInfoCommon extends React.Component {
   render() {
@@ -40,12 +41,20 @@ class DedRedressementInfoCommon extends React.Component {
             </Text>
           </View>
           <View style={styles.containerValRow}>
-            <Text style={styles.libelleValM}>{this.props.bureau}</Text>
-            <Text style={styles.libelleValM}>{this.props.regime}</Text>
-            <Text style={styles.libelleValL}>{this.props.annee}</Text>
-            <Text style={styles.libelleValL}>{this.props.serie}</Text>
-            <Text style={styles.libelleValM}>{this.props.cle}</Text>
-            <Text style={styles.libelleValL}>{this.props.nVoyage}</Text>
+            <Text style={styles.libelleValM}>
+              {getBureau(this.props.data.jsonVO.reference)}
+            </Text>
+            <Text style={styles.libelleValM}>
+              {getRegime(this.props.data.jsonVO.reference)}
+            </Text>
+            <Text style={styles.libelleValL}>
+              {getAnnee(this.props.data.jsonVO.reference)}
+            </Text>
+            <Text style={styles.libelleValL}>
+              {getSerie(this.props.data.jsonVO.reference)}
+            </Text>
+            <Text style={styles.libelleValM}>{this.props.data.cle}</Text>
+            <Text style={styles.libelleValL}>{this.props.data.nVoyage}</Text>
             <Text style={styles.libelleValL}>{this.props.type}</Text>
           </View>
         </ComBadrCardSectionComp>

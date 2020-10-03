@@ -43,7 +43,6 @@ class RegimeTransit extends Component {
   }
 
   componentDidMount() {
-    console.log('componentDidMount ri:');
     load('user').then((user) => {
       this.setState({login: JSON.parse(user).login});
     });
@@ -67,7 +66,6 @@ class RegimeTransit extends Component {
   };
 
   sauvgarderValider = (commande) => {
-    console.log('sauvgarderValider');
     var data = {
       idControle: this.state.declaration.idControle,
       idDed: this.state.declaration.idDed,
@@ -77,7 +75,6 @@ class RegimeTransit extends Component {
       decisions: this.state.decisionControle,
       numeroVersionCourante: this.state.numeroVersionCourante,
     };
-    console.log('data----', data);
     var action = RegimeTransitAction.validateSave(
       {
         type: Constants.REGIMETRANSIT_VALIDATESAVE_REQUEST,
@@ -90,7 +87,6 @@ class RegimeTransit extends Component {
       this.props.navigation,
     );
     this.props.dispatch(action);
-    console.log('dispatch fired !!');
   };
 
   genererCompteRendu = () => {
@@ -110,7 +106,6 @@ class RegimeTransit extends Component {
       this.props.navigation,
     );
     this.props.dispatch(action);
-    console.log('dispatch fired !!');
   };
   //toggleChoice for field RECONNU && DEMANDE_CONSIGNATION
   toggleChoiceInList = (indexDocument, key) => {
@@ -122,7 +117,6 @@ class RegimeTransit extends Component {
       var otherKey = key === RECONNU ? DEMANDE_CONSIGNATION : RECONNU;
       listDoc[indexDocument].documentAnnexe[otherKey] = false;
     }
-    console.log('toggleChoiceInList :', listDoc);
     return listDoc;
   };
 
@@ -134,10 +128,6 @@ class RegimeTransit extends Component {
         documentAnnexeResultVOs: this.toggleChoiceInList(indexDocument, key),
       },
     }));
-    console.log(
-      'setChoiceForReconnu :',
-      this.state.declaration.documentAnnexeResultVOs,
-    );
   };
 
   static getDerivedStateFromProps(props, state) {

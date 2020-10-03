@@ -15,18 +15,14 @@ export default (state = initialState, action) => {
     case Constants.MAINLEVEE_RECHERCHEDECLARATION_REQUEST:
       nextState.showProgress = true;
       nextState.errorMessage = null;
-      console.log('--> initControle request...');
       return nextState;
     case Constants.MAINLEVEE_RECHERCHEDECLARATION_IN_PROGRESS:
-      console.log('--> initControle in progress...');
       return nextState;
     case Constants.MAINLEVEE_RECHERCHEDECLARATION_SUCCESS:
-      console.log('--> initControle success...', nextState);
       nextState.showProgress = false;
       nextState.errorMessage = null;
       return nextState;
     case Constants.MAINLEVEE_RECHERCHEDECLARATION_FAILED:
-      console.log('--> initControle failed...');
       nextState.showProgress = false;
       nextState.errorMessage = action.value.dtoHeader
         ? action.value.dtoHeader.messagesErreur

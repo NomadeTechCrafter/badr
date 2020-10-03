@@ -118,11 +118,6 @@ export function requestAuto(action, componentInstance) {
               data.jsonVO.atEnteteVO.dateFinSaisieAT,
               // mock it to get depassement '17/10/2019',
             ).then((vddResponse) => {
-              console.log('------______________________');
-              console.log('------______________________');
-              console.log(vddResponse.status);
-              console.log('------______________________');
-              console.log('------______________________');
               if (vddResponse && vddResponse.data.jsonVO) {
                 componentInstance._showDialog(
                   vddResponse.data.dtoHeader.messagesErreur +
@@ -210,10 +205,6 @@ export function verifierDepassementDelaiRequest(action) {
     dispatch(verifierDepassementDelaiInprogress(action));
     AtApi.verifierDepassementDelai(action.value.dateFinSaisieAT)
       .then((vddResponse) => {
-        console.log('@@@@@@ VERIFIER DEPASSEMENT DELAI @@@@@@');
-        console.log(vddResponse.data.jsonVO);
-        console.log('JSON : ');
-        console.log(vddResponse);
         if (!vddResponse.data.jsonVO) {
           dispatch(verifierDepassementDelaiSuccess(vddResponse.data.jsonVO));
         } else {
@@ -221,7 +212,6 @@ export function verifierDepassementDelaiRequest(action) {
         }
       })
       .catch((e) => {
-        console.log(e);
         dispatch(failed(translate('errors.technicalIssue')));
       });
   };

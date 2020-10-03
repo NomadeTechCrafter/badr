@@ -32,7 +32,6 @@ export function validateSave(action, navigation) {
         }
       })
       .catch((e) => {
-        console.log('in action request catch', e);
         dispatch(failed(translate('errors.technicalIssue')));
       });
   };
@@ -82,7 +81,6 @@ export function genererCR(action) {
         }
       })
       .catch((e) => {
-        console.log('in action request catch', e);
         dispatch(genererCR_failed(translate('errors.technicalIssue')));
       });
   };

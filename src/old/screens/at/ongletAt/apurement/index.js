@@ -307,7 +307,6 @@ class Apurement extends React.Component {
   };
 
   render() {
-    console.log(this.props);
     const atVo = this.props.initApurement.data;
     return (
       <View style={styles.fabContainer}>

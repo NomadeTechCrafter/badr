@@ -27,6 +27,7 @@ class DedRedressementEnteteDeclarantOpeBlock extends React.Component {
             <DedRedressementRow>
               <ComBadrKeyValueComp libelle="Code" />
               <ComBadrKeyValueComp
+                libelleSize={3}
                 libelle="N° Répertoire"
                 children={<TextInput type="flat" label="" value="" />}
               />
@@ -56,7 +57,7 @@ class DedRedressementEnteteDeclarantOpeBlock extends React.Component {
 
         <DedRedressementRow>
           <ComBadrKeyValueComp libelle="N° R.C" />
-          <ComBadrKeyValueComp libelle="Centre R.C" />
+          <ComBadrKeyValueComp libelleSize={2} libelle="Centre R.C" />
         </DedRedressementRow>
 
         <DedRedressementRow zebra={true}>

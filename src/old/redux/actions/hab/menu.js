@@ -9,7 +9,6 @@ import {translate} from '../../../../commons/i18n/ComI18nHelper';
 
 export function request(action) {
   return (dispatch) => {
-    console.log('reloading menu...');
     dispatch(action);
     dispatch(inProgress(action));
     loadParsed('listFonctionnaliteVOs')
@@ -28,7 +27,6 @@ export function request(action) {
 }
 
 export function inProgress(action) {
-  console.log('inprogress...');
   return {
     type: Constants.MENU_IN_PROGRESS,
     value: action.value,
@@ -43,7 +41,6 @@ export function init(action) {
 }
 
 export function success(data) {
-  console.log('sucess...');
   return {
     type: Constants.MENU_SUCCESS,
     value: data,
@@ -51,7 +48,6 @@ export function success(data) {
 }
 
 export function failed(data) {
-  console.log('failed...');
   return {
     type: Constants.MENU_FAILED,
     value: data,

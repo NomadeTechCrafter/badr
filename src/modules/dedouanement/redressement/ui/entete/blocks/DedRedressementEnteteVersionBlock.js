@@ -8,6 +8,7 @@ import {
 import styles from '../../../style/DedRedressementStyle';
 import ComBadrLibelleComp from '../../../../../../commons/component/shared/text/ComBadrLibelleComp';
 import DedRedressementRow from '../../common/DedRedressementRow';
+import {getValueByPath} from '../../../utils/DedUtils';
 
 class DedRedressementEnteteVersionBlock extends React.Component {
   constructor(props) {
@@ -19,26 +20,48 @@ class DedRedressementEnteteVersionBlock extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <ComAccordionComp title="Versions" expanded={false}>
+        <ComAccordionComp title="Versions" expanded={true}>
           <DedRedressementRow zebra={true}>
-            <ComBadrKeyValueComp libelle="Type : " value="" />
-            <ComBadrKeyValueComp libelle="N° : " value="" />
+            <ComBadrKeyValueComp
+              libelle="Type : "
+              value={getValueByPath('typeVersion', this.props.data)}
+            />
+            <ComBadrKeyValueComp
+              libelle="N° : "
+              value={getValueByPath('numeroVersion', this.props.data)}
+            />
           </DedRedressementRow>
           <DedRedressementRow>
-            <ComBadrKeyValueComp libelle="Mode d'acquisition : " value="" />
+            <ComBadrKeyValueComp
+              libelleSize={4}
+              libelle="Mode d'acquisition : "
+              value={getValueByPath('modeAcquisition', this.props.data)}
+            />
             <ComBadrKeyValueComp
               libelle="Statut : "
               children={
-                <ComBadrTouchableButtonComp
-                  text="Commentaires"
-                  style={styles.touchableButtonStyle}
-                />
+                <View>
+                  <ComBadrLibelleComp style={{padding: 10}}>
+                    {getValueByPath('statut', this.props.data)}
+                  </ComBadrLibelleComp>
+                  <ComBadrTouchableButtonComp
+                    text="Commentaires"
+                    style={styles.touchableButtonStyle}
+                  />
+                </View>
               }
             />
           </DedRedressementRow>
           <DedRedressementRow zebra={true}>
-            <ComBadrKeyValueComp libelle="Code initiateur : " value="" />
-            <ComBadrKeyValueComp libelle="Nom : " value="" />
+            <ComBadrKeyValueComp
+              libelleSize={3}
+              libelle="Code initiateur : "
+              value={getValueByPath('codeInitiateur', this.props.data)}
+            />
+            <ComBadrKeyValueComp
+              libelle="Nom : "
+              value={getValueByPath('nomInitiateur', this.props.data)}
+            />
           </DedRedressementRow>
 
           <DedRedressementRow>
@@ -56,16 +79,24 @@ class DedRedressementEnteteVersionBlock extends React.Component {
             <ComBadrLibelleComp withColor={true}>
               Date de création
             </ComBadrLibelleComp>
-            <ComBadrLibelleComp style={styles.versionInitialStyle} />
-            <ComBadrLibelleComp style={styles.versionEnCoursStyle} />
+            <ComBadrLibelleComp style={styles.versionInitialStyle}>
+              {getValueByPath('dateCreation_VI', this.props.data)}
+            </ComBadrLibelleComp>
+            <ComBadrLibelleComp style={styles.versionEnCoursStyle}>
+              {getValueByPath('dateCreation_VC', this.props.data)}
+            </ComBadrLibelleComp>
           </DedRedressementRow>
 
           <DedRedressementRow>
             <ComBadrLibelleComp withColor={true}>
               Date de d'enregistrement
             </ComBadrLibelleComp>
-            <ComBadrLibelleComp style={styles.versionInitialStyle} />
-            <ComBadrLibelleComp style={styles.versionEnCoursStyle} />
+            <ComBadrLibelleComp style={styles.versionInitialStyle}>
+              {getValueByPath('dateEnregistrement_VI', this.props.data)}
+            </ComBadrLibelleComp>
+            <ComBadrLibelleComp style={styles.versionEnCoursStyle}>
+              {getValueByPath('dateEnregistrement_VC', this.props.data)}
+            </ComBadrLibelleComp>
           </DedRedressementRow>
 
           <DedRedressementRow zebra={true}>

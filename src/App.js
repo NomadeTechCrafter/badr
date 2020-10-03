@@ -13,7 +13,6 @@ import {createStackNavigator} from '@react-navigation/stack';
 const Stack = createStackNavigator();
 
 import {ComBadrStackNavigatorComp} from './commons/component';
-
 import {RootSiblingParent} from 'react-native-root-siblings';
 /** REDUX */
 import {Provider} from 'react-redux';
@@ -28,7 +27,9 @@ import SmsVerifyScreen from './modules/hab/smsVerify/ui/habSmsVerifyScreen';
 import {primaryColor, accentColor} from './commons/styles/ComThemeStyle';
 import ComOfflineAlertService from './commons/services/offlineHandler/ComOfflineAlertService';
 import {Provider as PaperProvider, DefaultTheme} from 'react-native-paper';
-
+import {remote, bootstrapRoute} from './commons/Config';
+import DedRedressementScreen from './modules/dedouanement/redressement/ui/DedRedressementScreen';
+import DedRedressementRecherche from './modules/dedouanement/redressement/ui/DedRechercheRedressementScreen';
 const theme = {
   ...DefaultTheme,
   colors: {
@@ -38,9 +39,10 @@ const theme = {
   },
 };
 
-setGlobalHandler();
-
+//setGlobalHandler();
 export default class App extends React.Component {
+  componentDidMount() {}
+
   render() {
     return (
       <RootSiblingParent>
@@ -48,11 +50,26 @@ export default class App extends React.Component {
           <Provider store={store}>
             <ComOfflineAlertService />
             <ComBadrStackNavigatorComp>
+              {remote ? (
+                <Stack.Screen
+                  name="Login"
+                  options={{headerShown: false}}
+                  component={Login}
+                />
+              ) : (
+                <Stack.Screen
+                  name={bootstrapRoute}
+                  options={{headerShown: false}}
+                  component={DedRedressementRecherche}
+                />
+              )}
+
               <Stack.Screen
-                name="Login"
+                name="DedRedressementScreen"
                 options={{headerShown: false}}
-                component={Login}
+                component={DedRedressementScreen}
               />
+
               <Stack.Screen
                 name="SmsVerify"
                 options={{headerShown: false}}

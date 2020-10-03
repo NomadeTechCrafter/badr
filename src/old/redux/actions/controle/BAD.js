@@ -9,7 +9,6 @@ export function request(action) {
   return (dispatch) => {
     dispatch(action);
     dispatch(inProgress(action));
-    console.log(action.value);
     ControleApi.getDetailBAD(action.value)
       .then((response) => {
         if (response) {
@@ -24,7 +23,6 @@ export function request(action) {
         }
       })
       .catch((e) => {
-        console.log('in action request catch', e);
         dispatch(failed(translate('errors.technicalIssue')));
       });
   };

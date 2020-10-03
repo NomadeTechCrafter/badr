@@ -14,20 +14,16 @@ export function request(action, navigation) {
     HabApi.verify(action.value.code)
       .then((response) => {
         const jsonVO = response.data.jsonVO;
-        console.log('-------------------');
-        console.log(jsonVO.connexion);
         if (jsonVO.connexion && jsonVO.connexion === 'true') {
           dispatch(success(jsonVO));
           navigation.navigate('Profile', {});
         } else if (jsonVO.connexion && jsonVO.connexion === 'false') {
           dispatch(failed(translate('smsVerify.codeIncorrect')));
         } else {
-          console.log(response);
           dispatch(failed(translate('errors.technicalIssue')));
         }
       })
       .catch((e) => {
-        console.log(e);
         dispatch(failed(translate('errors.technicalIssue')));
       });
   };

@@ -73,7 +73,7 @@ class habProfileScreen extends React.Component {
     this.setState({
       selectedBureau: selectedValue,
       selectedBureauIndex: selectedIndex,
-      nomBureauDouane: item.nomBureauDouane,
+      nomBureauDouane: item ? item.nomBureauDouane : '',
       selectedArrondissement: '',
     });
     this.comboArrondissements.refresh(selectedValue, this.comboBureaux);

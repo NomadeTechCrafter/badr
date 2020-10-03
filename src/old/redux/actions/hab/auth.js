@@ -29,7 +29,6 @@ export function request(action, navigation) {
             /** Naviguer vers la vue suivant. */
             navigation.navigate('SmsVerify', {login: action.value.login});
           } else {
-            console.log(data);
             dispatch(failed(data));
           }
         } else {
@@ -37,7 +36,6 @@ export function request(action, navigation) {
         }
       })
       .catch((e) => {
-        console.log(e);
         dispatch(failed(translate('errors.technicalIssue')));
       });
   };
@@ -51,14 +49,12 @@ export function requestLogout(action, navigation) {
       .then((data) => {
         if (data) {
           dispatch(successLogout(translate('errors.technicalIssue')));
-          console.log('LOGOUT [OK]');
           navigation.navigate('Login', {});
         } else {
           dispatch(failedLogout(translate('errors.technicalIssue')));
         }
       })
       .catch((e) => {
-        console.log(e);
         dispatch(failedLogout(translate('errors.technicalIssue')));
       });
   };

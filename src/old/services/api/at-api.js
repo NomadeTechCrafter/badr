@@ -6,7 +6,6 @@ import Utils from '../../common/util';
 
 export default class AtApi {
   static initApurement = async (reference) => {
-    console.log('Start initApurement');
     const data = {
       dtoHeader: {
         userLogin: ComSessionService.getInstance().getLogin(),
@@ -23,7 +22,6 @@ export default class AtApi {
       },
     };
     let response = await HttpHelper.process(data);
-    console.log(response);
     return response;
   };
 
@@ -73,7 +71,6 @@ export default class AtApi {
         delete apurement.modeApur;
       });
     }
-    console.log(apurementVO);
     const data = {
       dtoHeader: {
         userLogin: ComSessionService.getInstance().getLogin(),
@@ -88,7 +85,6 @@ export default class AtApi {
       jsonVO: apurementVO,
     };
     const response = await HttpHelper.process(data);
-    console.log(response);
     return response;
   };
 
@@ -135,7 +131,6 @@ export default class AtApi {
       jsonVO: apurAutoData,
     };
     let response = await HttpHelper.process(data);
-    console.log('>>>>>>>>>>>>> apurerAutoAT >>>>> OK >>>>>>>>>>>>>>>>>>');
     return response;
   };
 

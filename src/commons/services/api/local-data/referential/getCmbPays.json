@@ -1,0 +1,113 @@
+{
+    "dtoHeader": {
+        "userLogin": "YASAG",
+        "fonctionnalite": "cf4011",
+        "module": "REF_LIB",
+        "commande": "getCmbPays",
+        "typeService": "SP",
+        "motif": null,
+        "messagesInfo": null,
+        "messagesErreur": null
+    },
+    "jsonVO": [
+        {
+            "code": "MO",
+            "libelle": "MACAO(MO)",
+            "actif": false,
+            "showDropDown": false,
+            "disableAutoComplete": true,
+            "onFocus": "",
+            "disabled": false
+        },
+        {
+            "code": "MG",
+            "libelle": "MADAGASCAR(MG)",
+            "actif": false,
+            "showDropDown": false,
+            "disableAutoComplete": true,
+            "onFocus": "",
+            "disabled": false
+        },
+        {
+            "code": "MY",
+            "libelle": "MALAISIE(MY)",
+            "actif": false,
+            "showDropDown": false,
+            "disableAutoComplete": true,
+            "onFocus": "",
+            "disabled": false
+        },
+        {
+            "code": "MW",
+            "libelle": "MALAWI(MW)",
+            "actif": false,
+            "showDropDown": false,
+            "disableAutoComplete": true,
+            "onFocus": "",
+            "disabled": false
+        },
+        {
+            "code": "MV",
+            "libelle": "MALDIVES(MV)",
+            "actif": false,
+            "showDropDown": false,
+            "disableAutoComplete": true,
+            "onFocus": "",
+            "disabled": false
+        },
+        {
+            "code": "ML",
+            "libelle": "MALI(ML)",
+            "actif": false,
+            "showDropDown": false,
+            "disableAutoComplete": true,
+            "onFocus": "",
+            "disabled": false
+        },
+        {
+            "code": "MT",
+            "libelle": "MALTE(MT)",
+            "actif": false,
+            "showDropDown": false,
+            "disableAutoComplete": true,
+            "onFocus": "",
+            "disabled": false
+        },
+        {
+            "code": "MA",
+            "libelle": "MAROC(MA)",
+            "actif": false,
+            "showDropDown": false,
+            "disableAutoComplete": true,
+            "onFocus": "",
+            "disabled": false
+        },
+        {
+            "code": "MQ",
+            "libelle": "MARTINIQUE(MQ)",
+            "actif": false,
+            "showDropDown": false,
+            "disableAutoComplete": true,
+            "onFocus": "",
+            "disabled": false
+        },
+        {
+            "code": "MR",
+            "libelle": "MAURITANIE(MR)",
+            "actif": false,
+            "showDropDown": false,
+            "disableAutoComplete": true,
+            "onFocus": "",
+            "disabled": false
+        },
+        {
+            "code": "YT",
+            "libelle": "MAYOTTE(YT)",
+            "actif": false,
+            "showDropDown": false,
+            "disableAutoComplete": true,
+            "onFocus": "",
+            "disabled": false
+        }
+    ]
+}

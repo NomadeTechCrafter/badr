@@ -38,7 +38,6 @@ export default class RefApi {
       jsonVO: rechercheObject,
     };
     let response = await HttpHelper.process(data);
-    console.log(response);
     return response;
   };
 }

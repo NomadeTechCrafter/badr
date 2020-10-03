@@ -101,7 +101,6 @@ class PlaquesImmatriculationResult extends React.Component {
     let rows = [];
     if (this.props.value && this.props.value.resultBean) {
       rows = this.props.value.resultBean.rows;
-      console.log(rows);
       pageCount = Math.round(
         this.props.value.totalNumberOfResult / MAX_RESULTS_PER_PAGE,
       );

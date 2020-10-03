@@ -17,9 +17,7 @@ export default class BAD extends React.Component {
     };
   }
 
-  componentDidMount = () => {
-    console.log(this.props.data);
-  };
+  componentDidMount = () => {};
 
   onItemSelected = (item) => {};
 

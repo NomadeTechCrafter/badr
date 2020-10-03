@@ -20,7 +20,6 @@ export function request(action, navigation, successRedirection) {
           //const data = response.data;
 
           if (data && !data.dtoHeader.messagesErreur) {
-            console.log('data', data);
             dispatch(success(data));
             /** Naviguer vers la vue suivant. */
             navigation.navigate(successRedirection, {
@@ -38,7 +37,6 @@ export function request(action, navigation, successRedirection) {
         }
       })
       .catch((e) => {
-        console.log('in action request catch', e);
         dispatch(failed(translate('errors.technicalIssue')));
       });
   };

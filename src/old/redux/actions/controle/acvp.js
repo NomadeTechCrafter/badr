@@ -32,7 +32,6 @@ export function validateSave(action, navigation) {
         }
       })
       .catch((e) => {
-        console.log('in action request catch', e);
         dispatch(failed(translate('errors.technicalIssue')));
       });
   };
