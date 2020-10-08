@@ -17,25 +17,25 @@ export default class ComBadrDatePickerComp extends React.Component {
       showDate: false,
       showTime: false,
       dateValue: props.value ? props.value : '',
-      timeValue: '',
+      timeValue: props.timeValue ? props.timeValue : '',
       mode: 'date',
     };
   }
 
-  onTimeChange = (event, selectedDate) => {
+  onTimeChange = (event, selectedTime) => {
     this.setState({
-      timeValue: selectedDate,
+      timeValue: selectedTime,
       showTime: false,
       showDate: false,
     });
-    this.props.onTimeChange(
-      moment(selectedDate).format(
+    this.props.onTimeChanged(
+      moment(selectedTime).format(
         this.props.heureFormat ? this.props.heureFormat : 'HH:mm',
       ),
     );
   };
 
-  onChange = (event, selectedDate) => {
+  onDateChange = (event, selectedDate) => {
     this.setState({
       dateValue: selectedDate,
       showTime: false,
@@ -79,7 +79,7 @@ export default class ComBadrDatePickerComp extends React.Component {
             mode={'date'}
             is24Hour={true}
             display={this.props.display ? this.props.display : 'default'}
-            onChange={this.onChange}
+            onChange={this.onDateChange}
           />
         )}
 
@@ -99,7 +99,9 @@ export default class ComBadrDatePickerComp extends React.Component {
 
         <Row>
           <Col size={94}>
-            <TouchableOpacity onPress={() => this.showDatepicker()}>
+            <TouchableOpacity onPress={() => this.showDatepicker()}
+                              hitSlop={{top: 30, bottom: 30, left: 30, right: 30}}
+                              disabled={this.props.readonly}>
               <TextInput
                 disabled="true"
                 underlineColor={primaryColor}
@@ -127,11 +129,13 @@ export default class ComBadrDatePickerComp extends React.Component {
             />
           </Col>
 
-          {this.props.onTimeChange && (
+          {this.props.onTimeChanged && (
             <Col size={50}>
               <Row>
                 <Col size={80}>
-                  <TouchableOpacity onPress={this.showTimepicker}>
+                  <TouchableOpacity onPress={this.showTimepicker}
+                                    hitSlop={{top: 30, bottom: 30, left: 30, right: 30}}
+                                    disabled={this.props.readonly}>
                     <TextInput
                       disabled="true"
                       underlineColor={primaryColor}
@@ -151,16 +155,16 @@ export default class ComBadrDatePickerComp extends React.Component {
                   </TouchableOpacity>
                 </Col>
 
-                <Col size={20}>
-                  <Icon
-                    name="clock-o"
-                    style={styles.iconInput}
-                    color={primaryColor}
-                    size={18}
-                  />
-                </Col>
+                  <Col size={20}>
+                      <Icon
+                          name="clock-o"
+                          style={styles.iconInput}
+                          color={primaryColor}
+                          size={18}
+                      />
+                  </Col>
               </Row>
-            </Col>
+              </Col>
           )}
         </Row>
       </View>

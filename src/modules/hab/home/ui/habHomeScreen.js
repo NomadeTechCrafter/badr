@@ -11,6 +11,8 @@ import MainMenu from '../../mainMenu/ui/habMainMenuScreen';
 import CreerApurement from '../../../at/apurement/ui/creerApurement/AtApurementScreen';
 import Apurement from '../../../at/apurement/ui/ongletAt/apurement/AtCreateApurementScreen';
 import {ComQrCodeScannerComp} from '../../../../commons/component';
+import BloquerOperateur from '../../../referentiel/operateursEconomiques/ui/bloquerOperateur/refBloquerOperateurScreen';
+import DebloquerOperateur from '../../../referentiel/operateursEconomiques/ui/debloquerOperateur/refDebloquerOperateurScreen';
 
 /**ACTIONS */
 import * as Constants from '../../../../commons/constants/generic/ComGenericConstants';
@@ -79,6 +81,18 @@ class habHomeScreen extends React.Component {
           component={ComQrCodeScannerComp}
           options={{headerShown: false}}
         />
+
+          <Drawer.Screen
+              name="BloquerOperateur"
+              component={BloquerOperateur}
+              options={{headerShown: false}}
+          />
+
+          <Drawer.Screen
+              name="DebloquerOperateur"
+              component={DebloquerOperateur}
+              options={{headerShown: false}}
+          />
       </Drawer.Navigator>
     );
   }

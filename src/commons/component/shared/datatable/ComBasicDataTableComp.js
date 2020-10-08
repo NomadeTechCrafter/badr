@@ -106,7 +106,7 @@ export default class ComBasicDataTableComp extends React.Component {
       });
       return result;
     }
-    return String(_.get(row, code));
+    return String(_.has(row, code)) === 'true' ? String(_.get(row, code)) : '';
   };
 
   buildCellChildren = (row, column) => {
