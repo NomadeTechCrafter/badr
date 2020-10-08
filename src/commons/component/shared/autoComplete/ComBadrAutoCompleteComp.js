@@ -49,6 +49,8 @@ class ComBadrAutoCompleteComp extends Component {
         <Autocomplete
           ref={this.props.onRef}
           key={this.props.key}
+          initialValue={this.props.initialValue}
+          placeholder={this.props.placeholder}
           handleSelectItem={(item, id) => this.props.handleSelectItem(item, id)}
           style={styles.input}
           spinnerStyle={styles.spinnerStyle}

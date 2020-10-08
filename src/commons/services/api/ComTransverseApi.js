@@ -13,7 +13,7 @@ export default class ComTransverseApi {
     const data = {
       dtoHeader: {
         userLogin: ComSessionService.getInstance().getLogin(),
-        fonctionnalite: ComSessionService.getInstance().setFonctionalite(),
+        fonctionnalite: ComSessionService.getInstance().getFonctionalite() ? ComSessionService.getInstance().getFonctionalite() : ComSessionService.getInstance().setFonctionalite(),
         module: _module,
         commande: _command,
         typeService: _typeService,
