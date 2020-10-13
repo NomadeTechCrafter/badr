@@ -3,6 +3,7 @@ import {View, Text} from 'react-native';
 import styles from '../../../style/DedRedressementStyle';
 import {
   ComAccordionComp,
+  ComBadrAutoCompleteChipsComp,
   ComBadrItemsPickerComp,
   ComBadrKeyValueComp,
 } from '../../../../../../commons/component';
@@ -21,15 +22,14 @@ class DedRedressementEnteteFacturePaiementBlock extends React.Component {
 
   componentDidMount() {}
 
-  render() {
-    /* let conditions = getValueByPath(
-      'dedDumSectionEnteteVO.conditionLivraison',
-      this.props.data,
-    );*/
+  handleDeviseChipsChanged = (devise) => {};
 
+  handleModePaiementChanged = (mode) => {};
+
+  render() {
     return (
       <View style={styles.container}>
-        <ComAccordionComp title="Facture et paiement" expanded={false}>
+        <ComAccordionComp title="Facture et paiement" expanded={true}>
           <View style={styles.container}>
             <DedRedressementRow zebra={true}>
               <Text style={styles.headingText}>Facture</Text>
@@ -40,31 +40,18 @@ class DedRedressementEnteteFacturePaiementBlock extends React.Component {
                 libelle="Conditions de livraison"
                 children={
                   <ComBadrReferentielPickerComp
-                    onRef={(ref) => (this.combo1 = ref)}
-                    onValueChanged={(value) => {
-                      if (this.combo2) this.combo2.refresh(value, this.combo1);
+                    disabled={true}
+                    selected={{
+                      code: getValueByPath(
+                        'dedDumSectionEnteteVO.conditionLivraison',
+                        this.props.data,
+                      ),
                     }}
-                    selectedValue={{}}
-                    command="getListeBureaux"
-                    code="codeBureau"
-                    libelle="nomBureauDouane"
-                    params={{codeBureau: '308'}}
-                  />
-                }
-              />
-            </DedRedressementRow>
-
-            <DedRedressementRow>
-              <ComBadrKeyValueComp
-                libelle="Conditions de livraison"
-                children={
-                  <ComBadrReferentielPickerComp
                     onRef={(ref) => (this.combo2 = ref)}
-                    selectedValue={{}}
-                    command="getCmbLieuStockageParBureau"
+                    command="getCmbIncoterm"
+                    typeService="SP"
                     code="code"
                     libelle="libelle"
-                    params={{codeBureau: '308'}}
                   />
                 }
               />
@@ -73,19 +60,49 @@ class DedRedressementEnteteFacturePaiementBlock extends React.Component {
             <DedRedressementRow zebra={true}>
               <ComBadrKeyValueComp
                 libelle="Montant total"
-                children={<TextInput type="flat" label="" value="" />}
+                children={
+                  <TextInput
+                    type="flat"
+                    disabled={true}
+                    label=""
+                    value={getValueByPath(
+                      'dedDumSectionEnteteVO.montantTotal',
+                      this.props.data,
+                    )}
+                  />
+                }
               />
               <ComBadrKeyValueComp />
             </DedRedressementRow>
             <DedRedressementRow>
               <ComBadrKeyValueComp
                 libelle="Devise"
-                children={<TextInput type="flat" label="" value="" />}
+                children={
+                  <ComBadrAutoCompleteChipsComp
+                    onRef={(ref) => (this.refDevise = ref)}
+                    code="code"
+                    disabled={true}
+                    selected={getValueByPath(
+                      'dedDumSectionEnteteVO.deviseLibelle',
+                      this.props.data,
+                    )}
+                    maxItems={3}
+                    libelle="libelle"
+                    command="getCmbDevise"
+                    paramName="libelleDevise"
+                    onDemand={true}
+                    searchZoneFirst={false}
+                    onValueChange={this.handleDeviseChipsChanged}
+                  />
+                }
               />
               <ComBadrKeyValueComp
                 libelleSize={3}
                 libelle="Taux de change"
-                value="0.00"
+                value={getValueByPath(
+                  'dedDumSectionEnteteVO.tauxChange',
+                  this.props.data,
+                )}
               />
             </DedRedressementRow>
           </View>
@@ -98,12 +115,25 @@ class DedRedressementEnteteFacturePaiementBlock extends React.Component {
               <ComBadrKeyValueComp
                 libelle="Montant fret"
                 libelleSize={3}
-                children={<TextInput type="flat" label="" value="" />}
+                children={
+                  <TextInput
+                    type="flat"
+                    label=""
+                    disabled={true}
+                    value={getValueByPath(
+                      'dedDumSectionEnteteVO.montantFret',
+                      this.props.data,
+                    )}
+                  />
+                }
               />
               <ComBadrKeyValueComp
                 libelleSize={2}
                 libelle="Poids net total"
-                value="0.00"
+                value={getValueByPath(
+                  'dedDumSectionEnteteVO.poidsNetTotal',
+                  this.props.data,
+                )}
               />
             </DedRedressementRow>
 
@@ -111,12 +141,32 @@ class DedRedressementEnteteFacturePaiementBlock extends React.Component {
               <ComBadrKeyValueComp
                 libelle="Montant assurance"
                 libelleSize={3}
-                children={<TextInput type="flat" label="" value="" />}
+                children={
+                  <TextInput
+                    type="flat"
+                    disabled={true}
+                    label=""
+                    value={getValueByPath(
+                      'dedDumSectionEnteteVO.montantAssurance',
+                      this.props.data,
+                    )}
+                  />
+                }
               />
               <ComBadrKeyValueComp
                 libelleSize={2}
                 libelle="Poids brut total"
-                children={<TextInput type="flat" label="" value="" />}
+                children={
+                  <TextInput
+                    disabled={true}
+                    type="flat"
+                    label=""
+                    value={getValueByPath(
+                      'dedDumSectionEnteteVO.poidsBrutTotal',
+                      this.props.data,
+                    )}
+                  />
+                }
               />
             </DedRedressementRow>
 
@@ -124,12 +174,25 @@ class DedRedressementEnteteFacturePaiementBlock extends React.Component {
               <ComBadrKeyValueComp
                 libelle="Aconage et autres frais"
                 libelleSize={3}
-                children={<TextInput type="flat" label="" value="" />}
+                children={
+                  <TextInput
+                    type="flat"
+                    label=""
+                    disabled={true}
+                    value={getValueByPath(
+                      'dedDumSectionEnteteVO.montantAutresFrais',
+                      this.props.data,
+                    )}
+                  />
+                }
               />
               <ComBadrKeyValueComp
                 libelleSize={2}
                 libelle="Valeur Totale declarée"
-                value="0.00"
+                value={getValueByPath(
+                  'dedDumSectionEnteteVO.valeurTotaleDeclaree',
+                  this.props.data,
+                )}
               />
             </DedRedressementRow>
           </View>
@@ -142,12 +205,62 @@ class DedRedressementEnteteFacturePaiementBlock extends React.Component {
             <DedRedressementRow>
               <ComBadrKeyValueComp
                 libelle="Mode"
-                children={<ComBadrItemsPickerComp items={[]} label="" />}
+                children={
+                  <ComBadrReferentielPickerComp
+                    disabled={true}
+                    selected={{
+                      code: getValueByPath(
+                        'dedDumSectionEnteteVO.modePaiement',
+                        this.props.data,
+                      ),
+                    }}
+                    onRef={(ref) => (this.comboModePaiement = ref)}
+                    command="getCmbModePaiement"
+                    onValueChanged={this.handleModePaiementChanged}
+                    typeService="SP"
+                    code="code"
+                    libelle="libelle"
+                  />
+                }
               />
               <ComBadrKeyValueComp
                 libelleSize={3}
                 libelle="Crédit d'enlevement"
-                children={<ComBadrItemsPickerComp items={[]} label="" />}
+                children={
+                  <ComBadrReferentielPickerComp
+                    disabled={true}
+                    selected={{
+                      code: getValueByPath(
+                        'dedDumSectionEnteteVO.numero',
+                        this.props.data,
+                      ),
+                    }}
+                    onRef={(ref) => (this.comboCreditEnlevements = ref)}
+                    command="ded.loadCreditEnlevement"
+                    module="DED_LIB"
+                    onValueChanged={this.handleModePaiementChanged}
+                    typeService="SP"
+                    code="code"
+                    libelle="libelle"
+                    params={{
+                      codeDeclarant: getValueByPath(
+                        'dedDumSectionEnteteVO.codeDeclarant',
+                        this.props.data,
+                      ),
+                      idOperateurEngage: getValueByPath(
+                        'dedDumSectionEnteteVO.idOperateurEngage',
+                        this.props.data,
+                      ),
+                      cde:
+                        'null-' +
+                        getValueByPath(
+                          'dedDumSectionEnteteVO.modePaiement',
+                          this.props.data,
+                        ) +
+                        '-null',
+                    }}
+                  />
+                }
               />
             </DedRedressementRow>
           </View>

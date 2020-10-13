@@ -1,5 +1,11 @@
 /**Constants */
-import * as Constants from '../../constants/generic/GenericConstants';
+import {
+  GENERIC_DED_FAILED,
+  GENERIC_DED_IN_PROGRESS,
+  GENERIC_DED_INIT,
+  GENERIC_DED_REQUEST,
+  GENERIC_DED_SUCCESS,
+} from '../DedRedressementConstants';
 
 const initialState = {
   showProgress: false,
@@ -18,15 +24,15 @@ export default (state = initialState, action) => {
     value: action.value,
   };
   switch (action.type) {
-    case Constants.GENERIC_REF_REQUEST:
+    case GENERIC_DED_REQUEST:
       nextState.showProgress = true;
       nextState.picker[action.value.command] = {showProgress: true};
       return nextState;
-    case Constants.GENERIC_REF_IN_PROGRESS:
+    case GENERIC_DED_IN_PROGRESS:
       nextState.showProgress = true;
       nextState.picker[action.value.command] = {showProgress: true};
       return nextState;
-    case Constants.GENERIC_REF_SUCCESS:
+    case GENERIC_DED_SUCCESS:
       nextState.showProgress = false;
       nextState.picker[action.value.command] = {
         data: action.value.data,
@@ -34,16 +40,15 @@ export default (state = initialState, action) => {
         showProgress: false,
       };
       return nextState;
-    case Constants.GENERIC_REF_FAILED:
+    case GENERIC_DED_FAILED:
       nextState.showProgress = false;
       nextState.picker[action.value.command] = {
-        data: [],
         errorMessage: action.value.data,
         displayError: true,
         showProgress: false,
       };
       return nextState;
-    case Constants.GENERIC_REF_INIT:
+    case GENERIC_DED_INIT:
       nextState.picker[action.value.command] = {
         data: [],
         errorMessage: {},

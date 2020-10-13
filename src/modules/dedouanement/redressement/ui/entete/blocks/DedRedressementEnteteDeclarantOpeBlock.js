@@ -8,6 +8,8 @@ import {
 import DedRedressementRow from '../../common/DedRedressementRow';
 import {TextInput, Subheading} from 'react-native-paper';
 import ComBadrLibelleComp from '../../../../../../commons/component/shared/text/ComBadrLibelleComp';
+import {getValueByPath, getValueByPaths} from '../../../utils/DedUtils';
+import {pre} from 'react-native-render-html/src/HTMLRenderers';
 
 class DedRedressementEnteteDeclarantOpeBlock extends React.Component {
   constructor(props) {
@@ -19,36 +21,96 @@ class DedRedressementEnteteDeclarantOpeBlock extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <ComAccordionComp title="Déclarant (Opérateur)">
+        <ComAccordionComp title="Déclarant (Opérateur)" expanded={true}>
           <View style={styles.container}>
             <DedRedressementRow zebra={true}>
               <Text style={styles.headingText}>Déclarant (Opérateur)</Text>
             </DedRedressementRow>
             <DedRedressementRow>
-              <ComBadrKeyValueComp libelle="Code" />
+              <ComBadrKeyValueComp
+                libelle="Code"
+                value={getValueByPath(
+                  'dedDumSectionEnteteVO.codeDeclarant',
+                  this.props.data,
+                )}
+              />
               <ComBadrKeyValueComp
                 libelleSize={3}
                 libelle="N° Répertoire"
-                children={<TextInput type="flat" label="" value="" />}
+                children={
+                  <TextInput
+                    type="flat"
+                    label=""
+                    disabled={true}
+                    value={getValueByPath(
+                      'dedDumSectionEnteteVO.numeroRepertoire',
+                      this.props.data,
+                    )}
+                  />
+                }
               />
             </DedRedressementRow>
 
             <DedRedressementRow zebra={true}>
-              <ComBadrKeyValueComp libelle="Nom ou raison sociale" />
+              <ComBadrKeyValueComp
+                libelle="Nom ou raison sociale"
+                value={getValueByPath(
+                  'dedDumSectionEnteteVO.nomDeclarant',
+                  this.props.data,
+                )}
+              />
             </DedRedressementRow>
           </View>
 
-          {this.buildOperateurBlock('Expediteur / Exportateur / Cédant')}
-          {this.buildOperateurBlock('Destinataire, Importateur / Cessionaire')}
+          {this.buildOperateurBlock(
+            'Expediteur / Exportateur / Cédant',
+            'dedDumSectionEnteteVO.codeCentreRCExpediteur',
+            'dedDumSectionEnteteVO.nomCentreRC',
+            'dedDumSectionEnteteVO.ifuExpediteur',
+            'dedDumSectionEnteteVO.nomOperateurExpediteurR',
+            'dedDumSectionEnteteVO.nomOperateurExpediteurS',
+            'dedDumSectionEnteteVO.adresseOperateurExpediteurR',
+            'dedDumSectionEnteteVO.adresseOperateurExpediteurS',
+            'dedDumSectionEnteteVO.preIfuExpediteur',
+          )}
+          {this.buildOperateurBlock(
+            'Destinataire, Importateur / Cessionaire',
+            'dedDumSectionEnteteVO.codeCentreRCDestinataire',
+            'dedDumSectionEnteteVO.nomCentreRCDestinataire',
+            'dedDumSectionEnteteVO.ifuDestinataire',
+            'dedDumSectionEnteteVO.nomOperateurDestinataireR',
+            'dedDumSectionEnteteVO.nomOperateurDestinataireS',
+            'dedDumSectionEnteteVO.adresseOperateurDestinataireR',
+            'dedDumSectionEnteteVO.adresseOperateurDestinataireS',
+            'dedDumSectionEnteteVO.preIfuDestinataire',
+          )}
           {this.buildOperateurBlock(
             "Operateur pour lequel est engagé l'opération",
+            'dedDumSectionEnteteVO.codeCentreRCOperateurPourLequel',
+            'dedDumSectionEnteteVO.nomCentreRCOperateurPourLequel',
+            'dedDumSectionEnteteVO.ifuOperateurPourLequel',
+            'dedDumSectionEnteteVO.nomOperateurPourLequel',
+            'dedDumSectionEnteteVO.nomOperateurPourLequel',
+            'dedDumSectionEnteteVO.adresseOperateurPourLequel',
+            'dedDumSectionEnteteVO.adresseOperateurPourLequel',
+            'dedDumSectionEnteteVO.preIfuDestinataire',
           )}
         </ComAccordionComp>
       </View>
     );
   }
 
-  buildOperateurBlock = (title) => {
+  buildOperateurBlock = (
+    title,
+    numRC,
+    nomRC,
+    ifu,
+    nomOpeExpR,
+    nomOpeExpS,
+    adressOpeExpR,
+    adressOpeExpS,
+    preIfu,
+  ) => {
     return (
       <View style={styles.container}>
         <DedRedressementRow zebra={true}>
@@ -56,25 +118,60 @@ class DedRedressementEnteteDeclarantOpeBlock extends React.Component {
         </DedRedressementRow>
 
         <DedRedressementRow>
-          <ComBadrKeyValueComp libelle="N° R.C" />
-          <ComBadrKeyValueComp libelleSize={2} libelle="Centre R.C" />
+          <ComBadrKeyValueComp
+            libelleSize={1}
+            libelle="N° R.C"
+            value={getValueByPath(numRC, this.props.data)}
+          />
+          <ComBadrKeyValueComp
+            libelleSize={1}
+            libelle="Centre R.C"
+            value={getValueByPath(nomRC, this.props.data)}
+          />
         </DedRedressementRow>
 
         <DedRedressementRow zebra={true}>
-          <ComBadrKeyValueComp libelle="IFU" />
+          <ComBadrKeyValueComp
+            libelleSize={1}
+            libelle="IFU"
+            value={
+              getValueByPath(preIfu, this.props.data)
+                ? getValueByPath(ifu, this.props.data)
+                : ''
+            }
+          />
+          <ComBadrKeyValueComp />
         </DedRedressementRow>
 
         <DedRedressementRow>
           <ComBadrKeyValueComp
             libelle="Nom ou raison sociale"
-            children={<TextInput type="flat" label="" value="" />}
+            children={
+              <TextInput
+                type="flat"
+                label=""
+                disabled={true}
+                value={getValueByPaths(nomOpeExpR, nomOpeExpS, this.props.data)}
+              />
+            }
           />
         </DedRedressementRow>
 
         <DedRedressementRow zebra={true}>
           <ComBadrKeyValueComp
             libelle="Adresse complète"
-            children={<TextInput type="flat" label="" value="" />}
+            children={
+              <TextInput
+                type="flat"
+                label=""
+                disabled={true}
+                value={getValueByPaths(
+                  adressOpeExpR,
+                  adressOpeExpS,
+                  this.props.data,
+                )}
+              />
+            }
           />
         </DedRedressementRow>
       </View>

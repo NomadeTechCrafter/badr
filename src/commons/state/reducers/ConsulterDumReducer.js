@@ -33,7 +33,7 @@ export default (state = initialState, action) => {
     case Constants.GENERIC_FAILED:
       nextState.showProgress = false;
       nextState.displayError = true;
-      nextState.errorMessage = action.value;
+      nextState.errorMessage = action.value.data;
       return nextState;
     case Constants.GENERIC_REFRESH:
       nextState.refresh = true;

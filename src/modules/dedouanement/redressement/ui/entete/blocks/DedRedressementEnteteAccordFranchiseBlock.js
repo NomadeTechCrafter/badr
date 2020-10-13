@@ -8,6 +8,8 @@ import {
 } from '../../../../../../commons/component';
 import DedRedressementRow from '../../common/DedRedressementRow';
 import {TextInput} from 'react-native-paper';
+import {getValueByPath} from '../../../utils/DedUtils';
+import ComBadrReferentielPickerComp from '../../../../../../commons/component/shared/pickers/ComBadrReferentielPickerComp';
 
 class DedRedressementEnteteAccordFranchiseBlock extends React.Component {
   constructor(props) {
@@ -16,15 +18,36 @@ class DedRedressementEnteteAccordFranchiseBlock extends React.Component {
 
   componentDidMount() {}
 
+  handleAccordChanged = (accord) => {};
+
   render() {
     return (
       <View style={styles.container}>
-        <ComAccordionComp title="Accord et Franchise" expanded={false}>
+        <ComAccordionComp title="Accord et Franchise" expanded={true}>
           <View style={styles.container}>
-            <DedRedressementRow zebra={true}>
+            <DedRedressementRow>
               <ComBadrKeyValueComp
                 libelle="Code accord"
-                children={<ComBadrItemsPickerComp items={[]} label="" />}
+                libelleSize={3}
+                children={
+                  <ComBadrReferentielPickerComp
+                    selected={{
+                      code: getValueByPath(
+                        'dedDumSectionEnteteVO.codeAccord',
+                        this.props.data,
+                      ),
+                    }}
+                    onRef={(ref) => (this.comboAccords = ref)}
+                    command="getCmbAccord"
+                    onValueChanged={this.handleAccordChanged}
+                    code="code"
+                    libelle="libelle"
+                    params={{
+                      codeAccord: '',
+                      libelleAccord: '',
+                    }}
+                  />
+                }
               />
             </DedRedressementRow>
 

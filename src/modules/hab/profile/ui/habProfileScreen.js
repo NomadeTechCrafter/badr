@@ -65,7 +65,7 @@ class habProfileScreen extends React.Component {
   handleArrondissementChanged = (selectedValue, selectedIndex, item) => {
     this.setState({
       selectedArrondissement: selectedValue,
-      selectedArrondissementLibelle: item.libelle,
+      selectedArrondissementLibelle: item ? item.libelle : '',
     });
   };
 

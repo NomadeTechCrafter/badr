@@ -4,12 +4,12 @@ import styles from '../../../style/DedRedressementStyle';
 import {
   ComAccordionComp,
   ComBadrAutoCompleteChipsComp,
-  ComBadrItemsPickerComp,
   ComBadrKeyValueComp,
 } from '../../../../../../commons/component';
 import DedRedressementRow from '../../common/DedRedressementRow';
 import {TextInput} from 'react-native-paper';
-import ComBadrLibelleComp from '../../../../../../commons/component/shared/text/ComBadrLibelleComp';
+import {getValueByPath} from '../../../utils/DedUtils';
+import ComBadrReferentielPickerComp from '../../../../../../commons/component/shared/pickers/ComBadrReferentielPickerComp';
 
 class DedRedressementEnteteLocalisationMarchandiseBlock extends React.Component {
   constructor(props) {
@@ -18,27 +18,39 @@ class DedRedressementEnteteLocalisationMarchandiseBlock extends React.Component 
 
   componentDidMount() {}
 
+  handlePaysProvChipsChanged = (pays) => {};
+
+  handlePaysOrigineChipsChanged = (pays) => {};
+
+  handlePaysDestinationTransChipsChanged = (pays) => {};
+
+  handleLieuStockageChanged = (pays) => {};
   render() {
     return (
       <View style={styles.container}>
         <ComAccordionComp
           title="Localisation de la marchandise"
-          expanded={false}>
+          expanded={true}>
           <View style={styles.container}>
             <DedRedressementRow zebra={true}>
               <ComBadrKeyValueComp
                 libelle="Pays de provenance"
                 children={
                   <ComBadrAutoCompleteChipsComp
-                    label={
-                      <ComBadrLibelleComp>Choix du pays</ComBadrLibelleComp>
-                    }
+                    disabled={true}
+                    onRef={(ref) => (this.refPaysProv = ref)}
                     code="code"
+                    selected={getValueByPath(
+                      'dedDumSectionEnteteVO.paysProvenanceOuDestinationLibelle',
+                      this.props.data,
+                    )}
+                    maxItems={3}
                     libelle="libelle"
                     command="getCmbPays"
+                    paramName="libellePays"
                     onDemand={true}
                     searchZoneFirst={false}
-                    onValueChange={this.handleBureauChipsChanged}
+                    onValueChange={this.handlePaysProvChipsChanged}
                   />
                 }
               />
@@ -47,7 +59,17 @@ class DedRedressementEnteteLocalisationMarchandiseBlock extends React.Component 
             <DedRedressementRow>
               <ComBadrKeyValueComp
                 libelle="Référence de la déclaration d'export"
-                children={<TextInput type="flat" label="" value="" />}
+                children={
+                  <TextInput
+                    disabled={true}
+                    type="flat"
+                    label=""
+                    value={getValueByPath(
+                      'dedDumSectionEnteteVO.referenceDeclarationExport',
+                      this.props.data,
+                    )}
+                  />
+                }
               />
             </DedRedressementRow>
             <DedRedressementRow zebra={true}>
@@ -55,15 +77,20 @@ class DedRedressementEnteteLocalisationMarchandiseBlock extends React.Component 
                 libelle="Pays d'origine"
                 children={
                   <ComBadrAutoCompleteChipsComp
-                    label={
-                      <ComBadrLibelleComp>Choix du pays</ComBadrLibelleComp>
-                    }
+                    disabled={true}
+                    onRef={(ref) => (this.refPaysOrigine = ref)}
                     code="code"
+                    selected={getValueByPath(
+                      'dedDumSectionEnteteVO.paysOrigineLibelle',
+                      this.props.data,
+                    )}
+                    maxItems={3}
                     libelle="libelle"
                     command="getCmbPays"
+                    paramName="libellePays"
                     onDemand={true}
                     searchZoneFirst={false}
-                    onValueChange={this.handleBureauChipsChanged}
+                    onValueChange={this.handlePaysOrigineChipsChanged}
                   />
                 }
               />
@@ -74,15 +101,20 @@ class DedRedressementEnteteLocalisationMarchandiseBlock extends React.Component 
                 libelle="Pays de destination"
                 children={
                   <ComBadrAutoCompleteChipsComp
-                    label={
-                      <ComBadrLibelleComp>Choix du pays</ComBadrLibelleComp>
-                    }
+                    disabled={true}
+                    onRef={(ref) => (this.refPaysDestinationTrans = ref)}
                     code="code"
+                    selected={getValueByPath(
+                      'dedDumSectionEnteteVO.paysDestinationTransbordementLibelle',
+                      this.props.data,
+                    )}
+                    maxItems={3}
                     libelle="libelle"
                     command="getCmbPays"
+                    paramName="libellePays"
                     onDemand={true}
                     searchZoneFirst={false}
-                    onValueChange={this.handleBureauChipsChanged}
+                    onValueChange={this.handlePaysDestinationTransChipsChanged}
                   />
                 }
               />
@@ -91,11 +123,51 @@ class DedRedressementEnteteLocalisationMarchandiseBlock extends React.Component 
             <DedRedressementRow zebra={true}>
               <ComBadrKeyValueComp
                 libelle="Lieu de stockage"
-                children={<ComBadrItemsPickerComp items={[]} label="" />}
+                children={
+                  <ComBadrReferentielPickerComp
+                    key="lieuStockage"
+                    disabled={true}
+                    selected={{
+                      code: getValueByPath(
+                        'dedDumSectionEnteteVO.lieuStockageLocalisation',
+                        this.props.data,
+                      ),
+                    }}
+                    module="REF_LIB"
+                    onRef={(ref) => (this.comboLieuStockage = ref)}
+                    command="getCmbLieuStockageParBureau"
+                    onValueChange={(selectedValue, selectedIndex, item) =>
+                      this.handleLieuStockageChanged(
+                        selectedValue,
+                        selectedIndex,
+                        item,
+                      )
+                    }
+                    params={{
+                      codeBureau: getValueByPath(
+                        'dedDumSectionEnteteVO.refBureauDedouanement',
+                        this.props.data,
+                      ),
+                    }}
+                    typeService="SP"
+                    code="code"
+                    libelle="libelle"
+                  />
+                }
               />
               <ComBadrKeyValueComp
                 libelle="Date de voyage"
-                children={<TextInput type="flat" label="" value="" />}
+                children={
+                  <TextInput
+                    type="flat"
+                    disabled={true}
+                    label=""
+                    value={getValueByPath(
+                      'dedDumSectionEnteteVO.dateVoyage',
+                      this.props.data,
+                    )}
+                  />
+                }
               />
             </DedRedressementRow>
           </View>

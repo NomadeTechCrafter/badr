@@ -8,11 +8,17 @@ import {
   GENERIC_REF_REQUEST,
 } from '../../../constants/generic/GenericConstants';
 import referentielReducer from '../../../state/reducers/ReferentielReducer';
+import {pre} from 'react-native-render-html/src/HTMLRenderers';
+import {ComBadrProgressBarComp} from '../../index';
 
 class ComBadrReferentielPickerComp extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {item: {}, disabled: false, dependent: props.dependent};
+    this.state = {
+      disabled: props.disabled,
+      dependent: props.dependent,
+      selected: {},
+    };
   }
 
   refresh = (params, caller) => {
@@ -44,6 +50,7 @@ class ComBadrReferentielPickerComp extends React.Component {
       value: {
         command: this.props.command,
         jsonVO: params,
+        module: this.props.module,
       },
     });
     this.props.dispatch(action);
@@ -70,6 +77,14 @@ class ComBadrReferentielPickerComp extends React.Component {
     }
   }
 
+  buildEmptyDataBlock = (data) => {
+    return data && data.length === 0 ? (
+      <></>
+    ) : (
+      <ComBadrProgressBarComp circle={true} />
+    );
+  };
+
   render() {
     let data = [];
     if (
@@ -81,17 +96,26 @@ class ComBadrReferentielPickerComp extends React.Component {
     }
     this.disableCallerIfPending(data);
 
+    let selectedValue = {};
+    if (this.props.selected) {
+      if (this.props.code === '.') {
+        selectedValue = this.props.selected;
+      } else {
+        selectedValue = this.props.selected[this.props.code];
+      }
+    }
+
     return (
       <View style={this.props.style}>
-        {data && data.length > 0 && (
+        {data && data.length > 0 ? (
           <Picker
-            selectedValue={this.state.item}
+            selectedValue={selectedValue}
             mode="dropdown"
             enabled={!this.state.disabled}
             onValueChange={(itemValue, itemIndex) => {
-              this.setState({item: itemValue});
-              if (this.props.onValueChanged) {
-                this.props.onValueChanged(itemValue, itemIndex);
+              if (this.props.onValueChanged && data[itemIndex - 1]) {
+                this.props.onValueChanged(data[itemIndex - 1], itemIndex);
+                this.setState({selected: data[itemIndex - 1]});
               }
             }}>
             <Picker.Item
@@ -99,15 +123,18 @@ class ComBadrReferentielPickerComp extends React.Component {
               value={'default_item'}
               key={'default_item'}
             />
-            {data !== null &&
-              data.map((item, index) => (
-                <Picker.Item
-                  key={item[this.props.code]}
-                  label={item[this.props.libelle]}
-                  value={item[this.props.code]}
-                />
-              ))}
+            {data.map((item, index) => (
+              <Picker.Item
+                key={this.props.code === '.' ? item : item[this.props.code]}
+                label={
+                  this.props.libelle === '.' ? item : item[this.props.libelle]
+                }
+                value={this.props.code === '.' ? item : item[this.props.code]}
+              />
+            ))}
           </Picker>
+        ) : (
+          this.buildEmptyDataBlock(data)
         )}
       </View>
     );

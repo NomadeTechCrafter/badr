@@ -2,17 +2,64 @@ import React from 'react';
 import {BackHandler, Dimensions, View} from 'react-native';
 /** Drawer navigation */
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import DedRedressementEnteteScreen from './entete/DedRedressementEnteteScreen';
-import {NavigationContainer} from '@react-navigation/native';
 import {primaryColor} from '../../../../commons/styles/theme';
+import DedRedressementCautionScreen from './caution/DedRedressementCautionScreen';
+import DedRedressementEnteteScreen from './entete/DedRedressementEnteteScreen';
+import DedRedressementArticlesScreen from './articles/DedRedressementArticlesScreen';
+import DedRedressementPreapurementDsScreen from './preapurementDS/DedRedressementPreapurementDsScreen';
+import DedRedressementDemandeDiverseScreen from './demandesDiverses/DedRedressementDemandeDiverseScreen';
+import DedRedressementImputationTitreChangeScreen from './imputationsTitresChange/DedRedressementImputationTitreChangeScreen';
+import DedRedressementImputationCompteREDScreen from './imputationsCompteRED/DedRedressementImputationCompteREDScreen';
 
 const Tab = createMaterialTopTabNavigator();
 
 function EnteteScreen({route, navigation}) {
   return <DedRedressementEnteteScreen navigation={navigation} route={route} />;
 }
+function CautionScreen({route, navigation}) {
+  return <DedRedressementCautionScreen navigation={navigation} route={route} />;
+}
+
 function ArticlesScreen({route, navigation}) {
-  return <></>;
+  return (
+    <DedRedressementArticlesScreen navigation={navigation} route={route} />
+  );
+}
+
+function PreapurementDsScreen({route, navigation}) {
+  return (
+    <DedRedressementPreapurementDsScreen
+      navigation={navigation}
+      route={route}
+    />
+  );
+}
+
+function DemandeDiverseScreen({route, navigation}) {
+  return (
+    <DedRedressementDemandeDiverseScreen
+      navigation={navigation}
+      route={route}
+    />
+  );
+}
+
+function ImputationTitreChangeScreen({route, navigation}) {
+  return (
+    <DedRedressementImputationTitreChangeScreen
+      navigation={navigation}
+      route={route}
+    />
+  );
+}
+
+function ImputationCompteREDScreen({route, navigation}) {
+  return (
+    <DedRedressementImputationCompteREDScreen
+      navigation={navigation}
+      route={route}
+    />
+  );
 }
 
 class DedRedressementScreen extends React.Component {
@@ -28,7 +75,7 @@ class DedRedressementScreen extends React.Component {
     return (
       <View style={{flex: 1}}>
         <Tab.Navigator
-          swipeEnabled={false}
+          swipeEnabled={true}
           tabBarOptions={{
             scrollEnabled: true,
             labelStyle: {fontSize: 14, fontWeight: 'bold'},
@@ -43,21 +90,19 @@ class DedRedressementScreen extends React.Component {
               borderColor: primaryColor,
             },
           }}>
-          <Tab.Screen name="Entete" component={EnteteScreen} options={{}} />
-          <Tab.Screen name="Caution" component={ArticlesScreen} />
-          <Tab.Screen name="Articles" component={ArticlesScreen} />
-          <Tab.Screen name="Preapurement DS" component={ArticlesScreen} />
+          <Tab.Screen name="Entete" component={EnteteScreen} />
+          <Tab.Screen name="Caution" component={CautionScreen} />
+          <Tab.Screen name="Article" component={ArticlesScreen} />
+          <Tab.Screen name="PreapurementsDS" component={PreapurementDsScreen} />
+          <Tab.Screen name="DemandeDiverse" component={DemandeDiverseScreen} />
           <Tab.Screen
-            name="Imputation titre de change"
-            component={ArticlesScreen}
+            name="ImputationTitreChange"
+            component={ImputationTitreChangeScreen}
           />
           <Tab.Screen
-            name="Importation Compte RED"
-            component={ArticlesScreen}
+            name="ImputationCompteRED"
+            component={ImputationCompteREDScreen}
           />
-          <Tab.Screen name="Demandes Diverses" component={ArticlesScreen} />
-          <Tab.Screen name="Documents" component={ArticlesScreen} />
-          <Tab.Screen name="Info" component={ArticlesScreen} />
         </Tab.Navigator>
       </View>
     );

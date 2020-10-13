@@ -5,6 +5,7 @@ import * as Constants from '../../constants/generic/GenericConstants';
 import {translate} from '../../i18n/I18nHelper';
 import TransverseApi from '../../services/api/TransverseApi';
 import {AT_MODULE} from '../../constants/at/At';
+import {getValueByPath} from '../../../modules/dedouanement/redressement/utils/DedUtils';
 
 export function request(action, navigation) {
   return (dispatch) => {
@@ -17,14 +18,22 @@ export function request(action, navigation) {
       action.value.jsonVO,
     )
       .then((response) => {
-        console.log(response);
-        if (response && response.data && response.data.jsonVO) {
+        const messagesErreurs = getValueByPath(
+          'data.dtoHeader.messagesErreur',
+          response,
+        );
+        if (
+          response &&
+          response.data &&
+          response.data.jsonVO &&
+          !messagesErreurs
+        ) {
           dispatch(success(response.data.jsonVO, action.value));
           navigation.navigate('DedRedressementScreen', {
-            searchData: action.value.jsonVO,
+            searchData: action.value ? action.value.jsonVO : {},
           });
         } else {
-          dispatch(failed(translate('errors.technicalIssue')));
+          dispatch(failed(messagesErreurs, action.value));
         }
       })
       .catch((e) => {

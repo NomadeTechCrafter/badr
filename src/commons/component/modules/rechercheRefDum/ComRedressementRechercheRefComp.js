@@ -6,18 +6,11 @@ import {
   ComBadrErrorMessageComp,
   ComContainerComp,
 } from '../../../../commons/component/index';
+import {Button, Checkbox, HelperText, TextInput} from 'react-native-paper';
 import {
-  Button,
-  Checkbox,
-  HelperText,
-  Paragraph,
-  TextInput,
-  TouchableRipple,
-} from 'react-native-paper';
-import {
+  accentColor,
   CustomStyleSheet,
   primaryColor,
-  accentColor,
 } from '../../../../commons/styles/theme';
 import _ from 'lodash';
 /**i18n */
@@ -30,7 +23,6 @@ import {
 } from '../../../../old/common/constants/generic';
 
 import * as ConsulterDumAction from '../../../state/actions/ConsulterDumAction';
-import {load} from '../../../services/async-storage/StorageService';
 
 class ComRedressementRechercheRefComp extends Component {
   defaultState = {
@@ -44,6 +36,7 @@ class ComRedressementRechercheRefComp extends Component {
     numeroVoyage: '',
     showErrorMsg: false,
     sousReservePaiementMLV: false,
+    enregistree: false,
   };
 
   constructor(props) {
@@ -98,18 +91,18 @@ class ComRedressementRechercheRefComp extends Component {
       this.state.cleValide = this.cleDUM(this.state.regime, this.state.serie);
 
       if (this.state.cle === this.state.cleValide) {
-        var referenceDed =
+        let referenceDed =
           this.state.bureau +
           this.state.regime +
           this.state.annee +
           this.state.serie;
-        var action = ConsulterDumAction.request(
+        let action = ConsulterDumAction.request(
           {
             type: GENERIC_REQUEST,
             value: {
               jsonVO: {
                 reference: referenceDed,
-                enregistre: true,
+                enregistre: this.state.enregistree,
               },
               cle: this.state.cle,
             },
@@ -303,6 +296,20 @@ class ComRedressementRechercheRefComp extends Component {
             {translate('transverse.retablir')}
           </Button>
         </View>
+
+        <View style={styles.enregistreeStyle}>
+          <Checkbox.Item
+            status={this.state.enregistree ? 'checked' : 'unchecked'}
+            label={translate('transverse.enregistree')}
+            color={primaryColor}
+            onPress={() => {
+              if (this.props.onEnregistree) {
+                this.props.onEnregistree(!this.state.enregistree);
+              }
+              this.setState({enregistree: !this.state.enregistree});
+            }}
+          />
+        </View>
       </ComContainerComp>
     );
   }
@@ -312,18 +319,15 @@ const styles = {
   container: {
     justifyContent: 'center',
     alignItems: 'center',
-    paddingTop: 0,
   },
   containerInputs: {
     flexDirection: 'column',
     alignItems: 'center',
-    marginTop: 20,
   },
   cleHelperMsg: {width: 150},
   containerBtn: {
     flexDirection: 'row',
     justifyContent: 'center',
-    marginTop: 10,
   },
   btnConfirmer: {
     color: accentColor,
@@ -351,6 +355,7 @@ const styles = {
     flex: 1,
   },
   BtnWidth: {width: 100},
+  enregistreeStyle: {padding: 20},
 };
 
 const mapStateToProps = (state) => ({...state.consulterDumReducer});

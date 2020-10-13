@@ -10,7 +10,13 @@ import {
   darkGrayColor,
   lightWhiteColor,
 } from '../../../../../commons/styles/theme';
-import {getAnnee, getBureau, getRegime, getSerie} from '../../utils/DedUtils';
+import {
+  getAnnee,
+  getBureau,
+  getRegime,
+  getSerie,
+  getValueByPath,
+} from '../../utils/DedUtils';
 
 class DedRedressementInfoCommon extends React.Component {
   render() {
@@ -39,23 +45,46 @@ class DedRedressementInfoCommon extends React.Component {
             <Text style={styles.libelleTitleL}>
               {translate('transverse.type')}
             </Text>
+            <Text style={styles.libelleTitleL}>
+              {translate('dedouanement.transverse.libelleRegime')}
+            </Text>
           </View>
           <View style={styles.containerValRow}>
             <Text style={styles.libelleValM}>
-              {getBureau(this.props.data.jsonVO.reference)}
+              {getBureau(
+                getValueByPath('reference', this.props.searchData.jsonVO),
+              )}
             </Text>
             <Text style={styles.libelleValM}>
-              {getRegime(this.props.data.jsonVO.reference)}
+              {getRegime(
+                getValueByPath('reference', this.props.searchData.jsonVO),
+              )}
             </Text>
             <Text style={styles.libelleValL}>
-              {getAnnee(this.props.data.jsonVO.reference)}
+              {getAnnee(
+                getValueByPath('reference', this.props.searchData.jsonVO),
+              )}
             </Text>
             <Text style={styles.libelleValL}>
-              {getSerie(this.props.data.jsonVO.reference)}
+              {getSerie(
+                getValueByPath('reference', this.props.searchData.jsonVO),
+              )}
             </Text>
-            <Text style={styles.libelleValM}>{this.props.data.cle}</Text>
-            <Text style={styles.libelleValL}>{this.props.data.nVoyage}</Text>
-            <Text style={styles.libelleValL}>{this.props.type}</Text>
+            <Text style={styles.libelleValM}>
+              {getValueByPath('cle', this.props.searchData)}
+            </Text>
+            <Text style={styles.libelleValL}>
+              {getValueByPath('nVoyage', this.props.searchData)}
+            </Text>
+            <Text style={styles.libelleValL}>
+              {getValueByPath(
+                'dedReferenceVO.libelleSupportDeclaratif',
+                this.props.data,
+              )}
+            </Text>
+            <Text style={styles.libelleValL}>
+              {getValueByPath('dedReferenceVO.libelleRegime', this.props.data)}
+            </Text>
           </View>
         </ComBadrCardSectionComp>
       </View>

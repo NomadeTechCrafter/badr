@@ -19,6 +19,8 @@ import initApurementReducer from '../../modules/at/apurement/state/reducers/atAp
 import refOperateursEconomiquesReducer from '../../modules/referentiel/operateursEconomiques/state/reducers/refOperateursEconomiquesReducer';
 import dedRedressementInitReducer from '../../modules/dedouanement/redressement/state/reducers/DedRedressementInitReducer';
 
+import genericDedReducer from '../../modules/dedouanement/redressement/state/reducers/DedReducer';
+
 import referentielReducer from './reducers/ReferentielReducer';
 import consulterDumReducer from './reducers/ConsulterDumReducer';
 
@@ -42,6 +44,7 @@ const allReducers = combineReducers({
   dedRedressementInitReducer,
   referentielReducer,
   consulterDumReducer,
+  genericDedReducer,
 });
 /**
  * store creation

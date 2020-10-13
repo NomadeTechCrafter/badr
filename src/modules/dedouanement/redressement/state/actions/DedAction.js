@@ -1,19 +1,21 @@
 /**Constants */
-import * as Constants from '../../constants/generic/GenericConstants';
-
 /** i18n */
-import {translate} from '../../i18n/I18nHelper';
-import TransverseApi from '../../services/api/TransverseApi';
-import {AT_MODULE} from '../../constants/at/At';
+import {
+  GENERIC_DED_FAILED,
+  GENERIC_DED_IN_PROGRESS,
+  GENERIC_DED_SUCCESS,
+} from '../DedRedressementConstants';
+import translate from '../../../../../commons/i18n/I18nHelper';
+import TransverseApi from '../../../../../old/services/api/transverse-api';
 
 export function request(action) {
   return (dispatch) => {
     dispatch(action);
     dispatch(inProgress(action));
     TransverseApi.doProcess(
-      action.value.module ? action.value.module : 'REF_LIB',
+      'DED_LIB',
       action.value.command,
-      'SP',
+      action.value.typeService,
       action.value.jsonVO,
     )
       .then((response) => {
@@ -35,7 +37,7 @@ export function request(action) {
 
 export function inProgress(action) {
   return {
-    type: Constants.GENERIC_REF_IN_PROGRESS,
+    type: GENERIC_DED_IN_PROGRESS,
     value: action.value,
   };
 }
@@ -49,7 +51,7 @@ export function init(action) {
 
 export function success(data, command) {
   return {
-    type: Constants.GENERIC_REF_SUCCESS,
+    type: GENERIC_DED_SUCCESS,
     value: {
       command: command,
       data: data,
@@ -59,7 +61,7 @@ export function success(data, command) {
 
 export function failed(data, command) {
   return {
-    type: Constants.GENERIC_REF_FAILED,
+    type: GENERIC_DED_FAILED,
     value: {
       command: command,
       data: data,

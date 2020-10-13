@@ -25,7 +25,7 @@ class ComBadrPickerComp extends React.Component {
     this.state = {
       picker: null,
       expanded: true,
-      disabled: false,
+      disabled: props.disabled,
       selectedValue: this.props.selectedValue,
     };
   }
@@ -134,10 +134,14 @@ class ComBadrPickerComp extends React.Component {
           <View style={styles.expandedContainer}>
             {pickerData && pickerData.items && pickerData.loaded ? (
               <Picker
-                enabled={!this.state.disabled}
+                enabled={!this.state.disabled || !this.props.disabled}
                 mode="dropdown"
                 textStyle={styles.pickerTextStyle}
-                selectedValue={this.state.selectedValue}
+                selectedValue={
+                  this.props.selected
+                    ? this.props.selected
+                    : this.state.selectedValue
+                }
                 onValueChange={(itemValue, itemIndex) =>
                   this.onValueChanged(itemValue, itemIndex)
                 }>

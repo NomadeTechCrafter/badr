@@ -12,8 +12,8 @@ export const loginButton = {
 };
 
 export const loginHeaderImage = {
-  marginTop: 50,
-  marginBottom: 50,
+  marginTop: 10,
+  marginBottom: 20,
 };
 
 export const loginComponent = {};

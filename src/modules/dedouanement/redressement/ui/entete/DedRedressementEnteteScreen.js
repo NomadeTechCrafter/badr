@@ -10,6 +10,7 @@ import DedRedressementEnteteDocumentPrecedentBlock from './blocks/DedRedressemen
 import DedRedressementEnteteAccordFranchiseBlock from './blocks/DedRedressementEnteteAccordFranchiseBlock';
 import DedRedressementEnteteTransbordementBlock from './blocks/DedRedressementEnteteTransbordementBlock';
 import {connect} from 'react-redux';
+import {getValueByPath} from '../../utils/DedUtils';
 
 class DedRedressementEnteteScreen extends React.Component {
   constructor(props) {
@@ -17,10 +18,7 @@ class DedRedressementEnteteScreen extends React.Component {
   }
 
   componentDidMount() {
-    console.log('******');
-    //console.log(this.props.data.typeDeclarationParam);
-    console.log(this.props.data.dedDumSectionEnteteVO);
-    console.log('******');
+    console.log('ENTETE IS LOADING...');
   }
 
   render() {
@@ -29,21 +27,65 @@ class DedRedressementEnteteScreen extends React.Component {
         {this.props.data && (
           <View style={{flex: 1}}>
             <DedRedressementInfoCommon
-              data={this.props.searchData}
-              type={this.props.data.typeDeclarationParam}
+              searchData={this.props.searchData}
+              data={this.props.data}
             />
-            <DedRedressementEnteteVersionBlock data={this.props.data} />
-            <DedRedressementEnteteInfoBlock data={this.props.data} />
-            <DedRedressementEnteteDeclarantOpeBlock data={this.props.data} />
-            <DedRedressementEnteteFacturePaiementBlock data={this.props.data} />
+            <DedRedressementEnteteVersionBlock
+              data={this.props.data}
+              dedDumSectionEnteteVO={getValueByPath(
+                'dedDumSectionEnteteVO',
+                this.props.data,
+              )}
+            />
+            <DedRedressementEnteteInfoBlock
+              data={this.props.data}
+              dedDumSectionEnteteVO={getValueByPath(
+                'dedDumSectionEnteteVO',
+                this.props.data,
+              )}
+            />
+            <DedRedressementEnteteDeclarantOpeBlock
+              data={this.props.data}
+              dedDumSectionEnteteVO={getValueByPath(
+                'dedDumSectionEnteteVO',
+                this.props.data,
+              )}
+            />
+            <DedRedressementEnteteFacturePaiementBlock
+              data={this.props.data}
+              dedDumSectionEnteteVO={getValueByPath(
+                'dedDumSectionEnteteVO',
+                this.props.data,
+              )}
+            />
             <DedRedressementEnteteLocalisationMarchandiseBlock
               data={this.props.data}
+              dedDumSectionEnteteVO={getValueByPath(
+                'dedDumSectionEnteteVO',
+                this.props.data,
+              )}
             />
             <DedRedressementEnteteDocumentPrecedentBlock
               data={this.props.data}
+              dedDumSectionEnteteVO={getValueByPath(
+                'dedDumSectionEnteteVO',
+                this.props.data,
+              )}
             />
-            <DedRedressementEnteteAccordFranchiseBlock data={this.props.data} />
-            <DedRedressementEnteteTransbordementBlock data={this.props.data} />
+            <DedRedressementEnteteAccordFranchiseBlock
+              data={this.props.data}
+              dedDumSectionEnteteVO={getValueByPath(
+                'dedDumSectionEnteteVO',
+                this.props.data,
+              )}
+            />
+            <DedRedressementEnteteTransbordementBlock
+              data={this.props.data}
+              dedDumSectionEnteteVO={getValueByPath(
+                'dedDumSectionEnteteVO',
+                this.props.data,
+              )}
+            />
           </View>
         )}
       </ScrollView>
@@ -52,8 +94,6 @@ class DedRedressementEnteteScreen extends React.Component {
 }
 
 function mapStateToProps(state) {
-  console.log('receiving data ...');
-  console.log(state.consulterDumReducer);
   return {...state.consulterDumReducer};
 }
 

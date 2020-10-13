@@ -29,8 +29,8 @@ const styles = {
     borderColor: lightGris,
   },
   headingText: {color: primaryColor, fontSize: 15},
-  versionInitialStyle: {paddingLeft: 100},
-  versionEnCoursStyle: {paddingLeft: 100},
+  versionInitialStyle: {paddingLeft: 50, marginLeft: 10},
+  versionEnCoursStyle: {paddingLeft: 50, marginLeft: 10},
   touchableButtonStyle: {width: 120, height: 50, margin: 5},
   rtlCheckboxLabelStyle: {fontSize: 17, color: darkGrayColor, marginLeft: -40},
 };

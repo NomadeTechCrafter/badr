@@ -9,9 +9,8 @@ export default class ComBadrLoginHeaderComp extends React.Component {
 
   render() {
     return (
-      <View>
+      <View style={{alignItems: 'center'}}>
         <Image
-          style={{}}
           source={require('../../../../assets/images/badrDouanesHeader.jpg')}
         />
         <Image

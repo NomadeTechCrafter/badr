@@ -29,6 +29,7 @@ class ComBadrAutoCompleteChipsComp extends Component {
     this.state = {
       maxItems: this.props.maxItems ? this.props.maxItems : 5,
       items: [],
+      edited: false,
       firstTime: true,
       selected: props.selected ? props.selected : {},
       showItems: false,
@@ -40,6 +41,7 @@ class ComBadrAutoCompleteChipsComp extends Component {
   handleChangeInput = (params) => {
     if (!this.props.onDemand) {
       this.setState({
+        edited: true,
         showItems: true,
         firstTime: false,
         selected: {},
@@ -55,6 +57,7 @@ class ComBadrAutoCompleteChipsComp extends Component {
     } else if (params) {
       this.setState({
         showItems: true,
+        edited: true,
         selected: {},
         keyword: params,
         firstTime: false,
@@ -98,7 +101,13 @@ class ComBadrAutoCompleteChipsComp extends Component {
             <TextInput
               mode="flat"
               label={this.props.placeholder}
-              value={this.state.selected.libelle}
+              value={
+                this.props.selected && !this.state.edited
+                  ? this.props.selected
+                  : this.state.selected[
+                      this.props.libelle ? this.props.libelle : 'libelle'
+                    ]
+              }
               onChangeText={(text) => this.handleChangeInput(text)}
             />
           </View>
@@ -111,9 +120,18 @@ class ComBadrAutoCompleteChipsComp extends Component {
           <View style={{flex: 1}}>
             {this.props.label}
             <TextInput
+              disabled={this.props.disabled}
               mode="flat"
-              label={this.props.placeholder}
-              value={this.state.selected[this.props.libelle]}
+              label={
+                this.props.placeholder
+                  ? this.props.placeholder
+                  : 'Rechercher...'
+              }
+              value={
+                this.props.selected && !this.state.edited
+                  ? this.props.selected
+                  : this.state.selected[this.props.libelle]
+              }
               onChangeText={(text) => this.handleChangeInput(text)}
             />
           </View>
@@ -160,6 +178,7 @@ class ComBadrAutoCompleteChipsComp extends Component {
                 height={30}
                 key={item[this.props.code ? this.props.code : 'code']}
                 onPress={() => {
+                  console.log(item);
                   this.setState({selected: item, showItems: false});
                   if (this.props.onValueChange) {
                     this.props.onValueChange(item);

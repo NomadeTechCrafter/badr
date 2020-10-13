@@ -92,6 +92,7 @@ class Login extends React.Component {
   };
 
   render() {
+    console.log(this.props);
     return (
       <ScrollView style={style.container}>
         {/* {this.props.showProgress && <SmartLoader />} */}

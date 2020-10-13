@@ -1,5 +1,7 @@
 import React from 'react';
 import {primaryColor, accentColor} from '../../../styles/ComThemeStyle';
+import {View} from 'react-native';
+import {primaryColor, accentColor} from '../../../styles/theme';
 import {Button, Dialog, Paragraph, Portal} from 'react-native-paper';
 export default class ComBadrDialogComp extends React.Component {
   render() {
@@ -13,6 +15,9 @@ export default class ComBadrDialogComp extends React.Component {
             {this.props.title}
           </Dialog.Title>
           <Dialog.Content style={styles.contentStyle}>
+            {this.props.children && (
+              <View style={{width: '100%'}}>{this.props.children}</View>
+            )}
             <Paragraph style={styles.messageParagraph}>
               {this.props.dialogMessage}
             </Paragraph>

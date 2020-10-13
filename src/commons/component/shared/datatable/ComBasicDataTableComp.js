@@ -87,7 +87,7 @@ export default class ComBasicDataTableComp extends React.Component {
     }
   };
 
-  showMultipleValues = (row, code) => {
+  showValues = (row, code, render) => {
     if (code && code.includes(',')) {
       let result = '';
       let cols = code.split(',');
@@ -103,8 +103,11 @@ export default class ComBasicDataTableComp extends React.Component {
         }
       });
       return result;
+    } else if (code && render) {
+      return render(row);
     }
-    return String(_.has(row, code)) === 'true' ? String(_.get(row, code)) : '';
+    //return String(_.has(row, code)) === 'true' ? String(_.get(row, code)) : '';
+    return String(_.get(row, code) ? _.get(row, code) : '');
   };
 
   buildCellChildren = (row, column) => {
@@ -115,8 +118,8 @@ export default class ComBasicDataTableComp extends React.Component {
           width: column.width,
         }}>
         <Text>
-          {this.showMultipleValues(row, column.code) != null
-            ? this.showMultipleValues(row, column.code)
+          {this.showValues(row, column.code) != null
+            ? this.showValues(row, column.code, column.render)
             : ''}
         </Text>
       </View>

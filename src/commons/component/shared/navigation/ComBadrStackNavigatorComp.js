@@ -3,6 +3,7 @@ import {View, Text, StyleSheet} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import packageJson from '../../../../../package.json';
+
 const Stack = createStackNavigator();
 import _ from 'lodash';
 import {connect} from 'react-redux';

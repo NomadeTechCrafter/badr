@@ -11,6 +11,7 @@ import annoncesTranslations from '../../modules/hab/annonces/i18n/habAnnoncesTra
 import atTranslations from '../../modules/at/apurement/i18n/atApurementTranslateFr';
 import refOperateursEconomiquesTranslations from '../../modules/referentiel/operateursEconomiques/i18n/refOperateursEconomiquesTranslateFr';
 import commonTranslations from './common/ComTranslationsFr';
+import dedouanementTranslateFr from '../../modules/dedouanement/redressement/i18n/dedouanementTranslateFr';
 
 const locales = RNLocalize.getLocales();
 
@@ -30,6 +31,7 @@ let combined = {
     ...profileTranslations,
     ...atTranslations,
     ...refOperateursEconomiquesTranslations,
+  ...dedouanementTranslateFr,
 };
 I18n.translations = {
   fr: combined,

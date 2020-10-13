@@ -23,6 +23,7 @@ export function request(action, navigation) {
       action.value.forcerConnexion,
     )
       .then((data) => {
+        console.log(data);
         if (data) {
           if (data.statutConnexion === '1') {
             dispatch(success(data));
