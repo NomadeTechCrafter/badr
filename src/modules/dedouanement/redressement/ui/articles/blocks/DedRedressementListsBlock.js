@@ -3,13 +3,33 @@ import {View} from 'react-native';
 import styles from '../../../style/DedRedressementStyle';
 import {
   ComAccordionComp,
+  ComBadrDetailAccordion,
   ComBasicDataTableComp,
 } from '../../../../../../commons/component';
 import {getValueByPath} from '../../../utils/DedUtils';
+import DedRedressementDetailArticleContenantBlock from './DedRedressementDetailArticleContenantBlock';
+import DedRedressementDetailArticleMarchandiseBlock from './DedRedressementDetailArticleMarchandiseBlock';
+import DedRedressementDetailArticleValeurQuantiteBlock from './DedRedressementDetailArticleValeurQuantiteBlock';
+import DedRedressementDetailArticleAccordFranchiseBlocK from './DedRedressementDetailArticleAccordFranchiseBlock';
+import {Divider} from 'react-native-paper';
+import DedRedressementDetailArticleOrigineBlock from './DedRedressementDetailArticleOrigineBlock';
+import DedRedressementDetailArticleTypeReconnaissanceBlock from './DedRedressementDetailArticleTypeReconnaissanceBlock';
+import DedRedressementDetailArticleLiquidationBlock from './DedRedressementDetailArticleLiquidationBlock';
 
 class DedRedressementListsBlock extends React.Component {
-  buildArticlesCols = () => {
+  buildArticlesCols = (conteste) => {
     return [
+      {
+        code: '',
+        libelle: '',
+        width: 100,
+        component: 'button',
+        icon: 'eye',
+        action: (row, index) =>
+          conteste
+            ? this.onArticleContesteSelected(row, index)
+            : this.onArticleSelected(row, index),
+      },
       {code: 'numeroOrdre', libelle: 'Unité', width: 100},
       {code: 'typeContenant', libelle: 'Code contenants', width: 120},
       {code: 'nombreContenants', libelle: 'Nombre contenants', width: 120},
@@ -21,12 +41,21 @@ class DedRedressementListsBlock extends React.Component {
     ];
   };
 
+  onArticleSelected = (article) => {
+    this.setState({selectedArticle: article});
+  };
+
+  onArticleContesteSelected = (article) => {
+    this.setState({selectedArticleConteste: article});
+  };
+
   constructor(props) {
     super(props);
     this.state = {
       articlesContestes: [],
       articles: [],
-      articlesCols: this.buildArticlesCols(),
+      articlesCols: this.buildArticlesCols(false),
+      articlesContesteCols: this.buildArticlesCols(true),
     };
   }
 
@@ -53,6 +82,59 @@ class DedRedressementListsBlock extends React.Component {
     this.splitArticlesArrays();
   }
 
+  onArticleSelectedClosed = () => {
+    this.setState({selectedArticle: null});
+  };
+
+  onArticleContesteSelectedClosed = () => {
+    this.setState({selectedArticleConteste: null});
+  };
+
+  getDetailAccordion = (selectedArticle, onArticleSelectedClosed) => {
+    return (
+      <ComBadrDetailAccordion
+        onClose={onArticleSelectedClosed}
+        visible={selectedArticle !== null}>
+        <DedRedressementDetailArticleContenantBlock
+          article={
+            selectedArticle
+          }></DedRedressementDetailArticleContenantBlock>
+        <DedRedressementDetailArticleMarchandiseBlock
+          data={this.props.data}
+          article={
+            selectedArticle
+          }></DedRedressementDetailArticleMarchandiseBlock>
+        <DedRedressementDetailArticleValeurQuantiteBlock
+          article={
+            selectedArticle
+          }></DedRedressementDetailArticleValeurQuantiteBlock>
+        <DedRedressementDetailArticleAccordFranchiseBlocK
+          codeAccord={getValueByPath(
+            'dedDumSectionEnteteVO.codeAccord',
+            this.props.data,
+          )}
+          codeFranchise={getValueByPath(
+            'dedDumSectionEnteteVO.codeFranchise',
+            this.props.data,
+          )}
+          article={
+            selectedArticle
+          }></DedRedressementDetailArticleAccordFranchiseBlocK>
+
+        <DedRedressementDetailArticleOrigineBlock
+          article={selectedArticle}></DedRedressementDetailArticleOrigineBlock>
+        <DedRedressementDetailArticleTypeReconnaissanceBlock
+          article={
+            selectedArticle
+          }></DedRedressementDetailArticleTypeReconnaissanceBlock>
+        <DedRedressementDetailArticleLiquidationBlock
+          article={
+            selectedArticle
+          }></DedRedressementDetailArticleLiquidationBlock>
+      </ComBadrDetailAccordion>
+    );
+  };
+
   render() {
     return (
       <View style={styles.container}>
@@ -67,7 +149,14 @@ class DedRedressementListsBlock extends React.Component {
             maxResultsPerPage={5}
             paginate={true}
           />
+          {this.state.selectedArticle &&
+            this.getDetailAccordion(
+              this.state.selectedArticle,
+              this.onArticleSelectedClosed,
+            )}
         </ComAccordionComp>
+
+        <Divider />
 
         <ComAccordionComp
           title={`Articles contestés : ${this.state.articlesContestes.length}`}
@@ -75,11 +164,16 @@ class DedRedressementListsBlock extends React.Component {
           <ComBasicDataTableComp
             hasId={true}
             rows={this.state.articlesContestes}
-            cols={this.state.articlesCols}
+            cols={this.state.articlesContesteCols}
             totalElements={this.state.articles.length}
             maxResultsPerPage={5}
             paginate={true}
           />
+          {this.state.selectedArticleConteste &&
+            this.getDetailAccordion(
+              this.state.selectedArticleConteste,
+              this.onArticleContesteSelectedClosed,
+            )}
         </ComAccordionComp>
       </View>
     );

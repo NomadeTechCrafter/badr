@@ -1,6 +1,6 @@
 /** React Components */
 import React from 'react';
-import {View, ScrollView, TextInput, Linking, Alert} from 'react-native';
+import {Alert, Linking, ScrollView, TextInput, View} from 'react-native';
 import {Button} from 'react-native-paper';
 /** REDUX **/
 import {connect} from 'react-redux';
@@ -8,7 +8,6 @@ import style from '../style/habLoginStyle';
 /**ACTIONS */
 import * as LoginConstants from '../state/habLoginConstants';
 import * as authAction from '../state/actions/habLoginAction';
-
 /** i18n **/
 import {translate} from '../../../../commons/i18n/ComI18nHelper';
 
@@ -19,7 +18,6 @@ import {
   ComBadrInfoMessageComp,
   ComBadrAutoCompleteChipsComp,
 } from '../../../../commons/component';
-
 /** Inmemory session */
 import {load} from '../../../../commons/services/async-storage/ComStorageService';
 import AutoLoginProcess from '../../../../commons/component/modules/autoLogin/ComAutoLoginProcessComp';
