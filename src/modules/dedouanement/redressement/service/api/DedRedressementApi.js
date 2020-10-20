@@ -51,4 +51,32 @@ export default class DedRedressementApi {
     let response = await HttpHelper.process(data);
     return response;
   };
+
+
+  static isPreapurementDSAccessible = async (userlogin, codeRegime, categorie, codeBureau, identifiant, sessionID) => {
+  const data = {
+          "dtoHeader": {
+            "userLogin": userlogin,
+            "fonctionnalite": transverseService.getfonctionalite(),
+            "module": "DED_LIB",
+            "commande": "ded.isPreapurementDSAccessible",
+            "typeService": "SP",
+            "motif": null,
+            "messagesInfo": null,
+            "messagesErreur": null
+          }
+          , "jsonVO": {
+            "codeRegime": codeRegime,
+            "categorie": categorie,
+            "codeBureau": codeBureau,
+            "identifiant": identifiant,
+            "readOnlyAcces": "false",
+            "redressement": "true"
+          }
+    };
+    let response = await HttpHelper.process(data);
+    return response;
+
+}
+
 }

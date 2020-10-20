@@ -91,7 +91,16 @@ class DedRedressementScreen extends React.Component {
             },
           }}>
           <Tab.Screen name="Entete" component={EnteteScreen} />
-          <Tab.Screen name="Caution" component={CautionScreen} />
+          <Tab.Screen
+            name="Caution"
+            component={CautionScreen}
+            listeners={{
+              tabPress: (e) => {
+                // Prevent default action
+                e.preventDefault();
+              },
+            }}
+          />
           <Tab.Screen name="Article" component={ArticlesScreen} />
           <Tab.Screen name="PreapurementsDS" component={PreapurementDsScreen} />
           <Tab.Screen name="DemandeDiverse" component={DemandeDiverseScreen} />
