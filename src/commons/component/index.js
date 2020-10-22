@@ -39,6 +39,7 @@ export {default as ComBadrDialogComp} from './shared/dialog/ComBadrDialogComp';
 export {default as ComBadrNumericTextInputComp} from './shared/inputs/ComBadrNumericTextInputComp';
 export {default as ComBadrDualListBoxComp} from './shared/dualList/ComBadrDualListBoxComp'
 export {default as ComBadrCheckboxTreeComp} from './shared/checkboxTree/ComBadrCheckboxTreeComp'
+export {default as ComBadrCameraComp} from './shared/camera/ComBadrCameraComp'
 
 export {default as ComAtRechercheRefComp} from './modules/rechercheRefAt/ComAtRechercheRefComp';
 export {default as ComQrCodeScannerComp} from './modules/qrCode/ComQrCodeScannerComp';

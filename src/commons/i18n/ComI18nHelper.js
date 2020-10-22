@@ -10,6 +10,7 @@ import profileTranslations from '../../modules/hab/profile/i18n/habProfileTransl
 import annoncesTranslations from '../../modules/hab/annonces/i18n/habAnnoncesTranslateFr';
 import atTranslations from '../../modules/at/apurement/i18n/atApurementTranslateFr';
 import refOperateursEconomiquesTranslations from '../../modules/referentiel/operateursEconomiques/i18n/refOperateursEconomiquesTranslateFr';
+import ctrlReconnaissanceTranslations from '../../modules/controle/reconnaissance/i18n/ctrlReconnaissanceTranslateFr';
 import commonTranslations from './common/ComTranslationsFr';
 
 const locales = RNLocalize.getLocales();
@@ -30,6 +31,7 @@ let combined = {
     ...profileTranslations,
     ...atTranslations,
     ...refOperateursEconomiquesTranslations,
+    ...ctrlReconnaissanceTranslations,
 };
 I18n.translations = {
   fr: combined,
