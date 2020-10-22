@@ -17,6 +17,7 @@ import qrCodeReducer from './reducers/ComQrCodeReducer';
 import badrApiTable from './reducers/ComBadrApiTableReducer';
 import initApurementReducer from '../../modules/at/apurement/state/reducers/atApurementReducer';
 import refOperateursEconomiquesReducer from '../../modules/referentiel/operateursEconomiques/state/reducers/refOperateursEconomiquesReducer';
+import ctrlReconnaissanceReducer from '../../modules/controle/reconnaissance/state/reducers/ctrlReconnaissanceReducer';
 
 /**
  * combine all reducers
@@ -34,6 +35,7 @@ const allReducers = combineReducers({
   qrCodeReducer,
   initApurementReducer,
   refOperateursEconomiquesReducer,
+  ctrlReconnaissanceReducer,
   genericReducer,
 });
 /**

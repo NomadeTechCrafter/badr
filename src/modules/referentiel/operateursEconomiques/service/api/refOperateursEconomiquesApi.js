@@ -48,8 +48,6 @@ export default class RefOperateursEconomiquesApi {
             jsonVO: blocageVo,
         };
 
-        console.log(JSON.stringify(data));
-
         data = Utils.deepDelete(data, [
             '$$hashKey',
             'root',
