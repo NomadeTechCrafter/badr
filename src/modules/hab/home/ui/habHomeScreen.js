@@ -13,6 +13,9 @@ import Apurement from '../../../at/apurement/ui/ongletAt/apurement/AtCreateApure
 import {ComQrCodeScannerComp} from '../../../../commons/component';
 import BloquerOperateur from '../../../referentiel/operateursEconomiques/ui/bloquerOperateur/refBloquerOperateurScreen';
 import DebloquerOperateur from '../../../referentiel/operateursEconomiques/ui/debloquerOperateur/refDebloquerOperateurScreen';
+import AjouterReconnaissance from '../../../controle/reconnaissance/ui/ajouterReconnaissance/ctrlAjouterReconnaissanceScreen';
+import ModifierReconnaissance from '../../../controle/reconnaissance/ui/modifierReconnaissance/ctrlModifierReconnaissanceScreen';
+import AnnulerReconnaissance from '../../../controle/reconnaissance/ui/annulerReconnaissance/ctrlAnnulerReconnaissanceScreen';
 
 /**ACTIONS */
 import * as Constants from '../../../../commons/constants/generic/ComGenericConstants';
@@ -96,17 +99,43 @@ class habHomeScreen extends React.Component {
           options={{headerShown: false}}
         />
 
-        <Drawer.Screen
+
+          <Drawer.Screen
+              name="DebloquerOperateur"
+              component={DebloquerOperateur}
+              options={{headerShown: false}}
+          />
+
+          <Drawer.Screen
+              name="AjouterReconnaissance"
+              component={AjouterReconnaissance}
+              options={{headerShown: false}}
+          />
+
+          <Drawer.Screen
+              name="ModifierReconnaissance"
+              component={ModifierReconnaissance}
+              options={{headerShown: false}}
+          />
+
+          <Drawer.Screen
+              name="AnnulerReconnaissance"
+              component={AnnulerReconnaissance}
+              options={{headerShown: false}}
+          />
+
+          <Drawer.Screen
           name="RefControleVehicule"
           component={RefControleVehiculeMainScreen}
           options={{headerShown: false}}
-        />
+          />
 
-        <Drawer.Screen
+         <Drawer.Screen
           name="RefPlaquesImm"
           component={RefPlaquesImmMainScreen}
           options={{headerShown: false}}
         />
+
       </Drawer.Navigator>
     );
   }

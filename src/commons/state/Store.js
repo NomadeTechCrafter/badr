@@ -19,6 +19,8 @@ import initApurementReducer from '../../modules/at/apurement/state/reducers/atAp
 import refOperateursEconomiquesReducer from '../../modules/referentiel/operateursEconomiques/state/reducers/refOperateursEconomiquesReducer';
 import controleVehiculesReducer from '../../modules/referentiel/controleVehicules/state/reducers/refControleVehiculeReducer';
 import plaquesImmReducer from '../../modules/referentiel/plaquesImmatriculation/state/reducers/refPlaquesImmReducer';
+import ctrlReconnaissanceReducer from '../../modules/controle/reconnaissance/state/reducers/ctrlReconnaissanceReducer';
+
 /**
  * combine all reducers
  */
@@ -35,6 +37,7 @@ const allReducers = combineReducers({
   qrCodeReducer,
   initApurementReducer,
   refOperateursEconomiquesReducer,
+  ctrlReconnaissanceReducer,
   genericReducer,
   controleVehiculesReducer,
   plaquesImmReducer,
