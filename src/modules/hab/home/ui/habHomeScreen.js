@@ -20,6 +20,8 @@ import * as GenericAction from '../../../../commons/state/actions/ComGenericActi
 
 /** Drawer navigation */
 import {createDrawerNavigator} from '@react-navigation/drawer';
+import RefControleVehiculeMainScreen from '../../../referentiel/controleVehicules/ui/refControleVehiculeMainScreen';
+import RefPlaquesImmMainScreen from '../../../referentiel/plaquesImmatriculation/ui/refPlaquesImmMainScreen';
 
 const Drawer = createDrawerNavigator();
 const deltaScreen = Dimensions.get('window').width / 4;
@@ -82,17 +84,29 @@ class habHomeScreen extends React.Component {
           options={{headerShown: false}}
         />
 
-          <Drawer.Screen
-              name="BloquerOperateur"
-              component={BloquerOperateur}
-              options={{headerShown: false}}
-          />
+        <Drawer.Screen
+          name="BloquerOperateur"
+          component={BloquerOperateur}
+          options={{headerShown: false}}
+        />
 
-          <Drawer.Screen
-              name="DebloquerOperateur"
-              component={DebloquerOperateur}
-              options={{headerShown: false}}
-          />
+        <Drawer.Screen
+          name="DebloquerOperateur"
+          component={DebloquerOperateur}
+          options={{headerShown: false}}
+        />
+
+        <Drawer.Screen
+          name="RefControleVehicule"
+          component={RefControleVehiculeMainScreen}
+          options={{headerShown: false}}
+        />
+
+        <Drawer.Screen
+          name="RefPlaquesImm"
+          component={RefPlaquesImmMainScreen}
+          options={{headerShown: false}}
+        />
       </Drawer.Navigator>
     );
   }

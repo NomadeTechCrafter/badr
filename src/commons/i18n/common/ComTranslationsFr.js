@@ -60,6 +60,7 @@ export default {
       nChassis: 'N° chassis',
       nImmNormale: 'N° Immatriculation normale',
       nImmDiplomatique: 'N° Immatriculation diplomatique',
+      vehiculeCodeTypeImmatDiplo: 'Type Immatriculation diplomatique',
       nImmremorque: 'N° Immatriculation remorque',
       nImmAntetieur: 'N° Immatriculation antétieur',
       typeUsage: 'Type usage',

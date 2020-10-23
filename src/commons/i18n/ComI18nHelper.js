@@ -11,6 +11,8 @@ import annoncesTranslations from '../../modules/hab/annonces/i18n/habAnnoncesTra
 import atTranslations from '../../modules/at/apurement/i18n/atApurementTranslateFr';
 import refOperateursEconomiquesTranslations from '../../modules/referentiel/operateursEconomiques/i18n/refOperateursEconomiquesTranslateFr';
 import commonTranslations from './common/ComTranslationsFr';
+import refControleVehiculeTranslateFr from '../../modules/referentiel/controleVehicules/i18n/refControleVehiculeTranslateFr';
+import refPlaquesImmTranslateFr from '../../modules/referentiel/plaquesImmatriculation/i18n/refPlaquesImmTranslateFr';
 
 const locales = RNLocalize.getLocales();
 
@@ -23,13 +25,15 @@ I18n.fallbacks = true;
  2) Add here all translation modules imports
  */
 let combined = {
-    ...commonTranslations,
-    ...annoncesTranslations,
-    ...loginTranslations,
-    ...smsVerifyTranslations,
-    ...profileTranslations,
-    ...atTranslations,
-    ...refOperateursEconomiquesTranslations,
+  ...commonTranslations,
+  ...annoncesTranslations,
+  ...loginTranslations,
+  ...smsVerifyTranslations,
+  ...profileTranslations,
+  ...atTranslations,
+  ...refOperateursEconomiquesTranslations,
+  ...refControleVehiculeTranslateFr,
+  ...refPlaquesImmTranslateFr,
 };
 I18n.translations = {
   fr: combined,

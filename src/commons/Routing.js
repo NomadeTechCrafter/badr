@@ -1,5 +1,9 @@
 const mapping = {
   '9005': {screen: 'CreerApurement', params: {qr: true}},
+  '4096': {screen: 'RefControleVehicule', params: {}},
+  '823': {screen: 'RefPlaquesImm', params: {}},
+  '767': {screen: 'BloquerOperateur', params: {}},
+  '42997': {screen: 'BloquerOperateur', params: {}},
 };
 
 const DEFAULT_SCREEN = 'ionic';

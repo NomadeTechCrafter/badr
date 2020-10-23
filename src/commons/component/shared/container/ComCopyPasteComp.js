@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, Clipboard, ToastAndroid} from 'react-native';
+import {Text, Clipboard, ToastAndroid, TouchableOpacity} from 'react-native';
 
 export default class ComCopyPasteComp extends React.Component {
   writeToClipboard = async (text) => {
@@ -13,9 +13,11 @@ export default class ComCopyPasteComp extends React.Component {
 
   render() {
     return (
-      <Text onLongPress={() => this.writeToClipboard(this.props.value)}>
-        {this.props.value}
-      </Text>
+      <TouchableOpacity onPress={this.props.onPress}>
+        <Text onLongPress={() => this.writeToClipboard(this.props.value)}>
+          {this.props.value}
+        </Text>
+      </TouchableOpacity>
     );
   }
 }
