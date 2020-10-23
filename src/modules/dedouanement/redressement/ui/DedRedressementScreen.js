@@ -2,7 +2,7 @@ import React from 'react';
 import {BackHandler, Dimensions, View} from 'react-native';
 /** Drawer navigation */
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import {primaryColor} from '../../../../commons/styles/theme';
+import {primaryColor} from '../../../../commons/styles/ComThemeStyle';
 import DedRedressementCautionScreen from './caution/DedRedressementCautionScreen';
 import DedRedressementEnteteScreen from './entete/DedRedressementEnteteScreen';
 import DedRedressementArticlesScreen from './articles/DedRedressementArticlesScreen';

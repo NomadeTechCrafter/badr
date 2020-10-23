@@ -1,4 +1,4 @@
-import {CustomStyleSheet, primaryColor} from '../../../styles/theme';
+import {CustomStyleSheet, primaryColor} from '../../../styles/ComThemeStyle';
 import React from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 

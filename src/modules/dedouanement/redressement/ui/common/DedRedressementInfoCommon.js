@@ -2,14 +2,14 @@ import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {Text} from 'react-native-paper';
 import {ComBadrCardSectionComp} from '../../../../../commons/component';
-import {translate} from '../../../../../commons/i18n/I18nHelper';
+import {translate} from '../../../../../commons/i18n/ComI18nHelper';
 import {
   accentColor,
   atShadowColor,
   blueLabelColor,
   darkGrayColor,
   lightWhiteColor,
-} from '../../../../../commons/styles/theme';
+} from '../../../../../commons/styles/ComThemeStyle';
 import {
   getAnnee,
   getBureau,

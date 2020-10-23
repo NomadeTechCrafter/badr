@@ -11,10 +11,10 @@ import {
   accentColor,
   CustomStyleSheet,
   primaryColor,
-} from '../../../../commons/styles/theme';
+} from '../../../styles/ComThemeStyle';
 import _ from 'lodash';
 /**i18n */
-import {translate} from '../../../i18n/I18nHelper';
+import {translate} from '../../../i18n/ComI18nHelper';
 /** REDUX **/
 import {connect} from 'react-redux';
 import {

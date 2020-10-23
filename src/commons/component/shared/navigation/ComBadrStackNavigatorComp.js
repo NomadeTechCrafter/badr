@@ -48,7 +48,7 @@ class ComBadrStackNavigatorComp extends React.Component {
             color={accentColor}
             overlayColor={'rgba(' + primaryColorRgba + ',0.80)'}
             textContent={translate('transverse.inprogress')}
-            textStyle={[styles.spinnerTextStyle, styles.textStyle]}
+            textStyle={styles.spinnerTextStyle}
           />
         )}
         <NavigationContainer ref={navigationRef}>
@@ -77,7 +77,9 @@ export default connect(mapStateToProps, null)(ComBadrStackNavigatorComp);
 const styles = StyleSheet.create({
   container: {flex: 1},
   spinnerTextStyle: {
-    color: primaryColor,
+    color: accentColor,
+    fontSize: 20,
+    fontWeight: 'normal',
   },
   modalBackground: {
     flex: 1,

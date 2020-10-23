@@ -6,7 +6,7 @@ import * as ReferentielAction from '../../../state/actions/ReferentielAction';
 import {
   GENERIC_REF_INIT,
   GENERIC_REF_REQUEST,
-} from '../../../constants/generic/GenericConstants';
+} from '../../../constants/generic/ComGenericConstants';
 import referentielReducer from '../../../state/reducers/ReferentielReducer';
 import {pre} from 'react-native-render-html/src/HTMLRenderers';
 import {ComBadrProgressBarComp} from '../../index';

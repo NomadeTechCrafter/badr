@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text} from 'react-native';
 import {Row, Col} from 'react-native-easy-grid';
-import {primaryColor, CustomStyleSheet} from '../../../styles/theme';
+import {primaryColor, CustomStyleSheet} from '../../../styles/ComThemeStyle';
 
 class ComBadrKeyValueComp extends React.Component {
   constructor(props) {
@@ -14,16 +14,14 @@ class ComBadrKeyValueComp extends React.Component {
     return this.props.children ? (
       this.props.children
     ) : (
-      <ValueComp value={this.props.value}></ValueComp>
+      <ValueComp value={this.props.value} />
     );
   };
 
   buildLibelle = () => {
     return this.props.libelle ? (
       <Col size={this.props.libelleSize ? this.props.libelleSize : 1.5}>
-        <KeyComp
-          style={this.props.style}
-          libelle={this.props.libelle}></KeyComp>
+        <KeyComp style={this.props.style} libelle={this.props.libelle} />
       </Col>
     ) : (
       <></>

@@ -5,7 +5,7 @@ import {
   lightGris,
   lightWhiteColor,
   primaryColor,
-} from '../../../../commons/styles/theme';
+} from '../../../../commons/styles/ComThemeStyle';
 
 const styles = {
   row: {flexDirection: 'row', padding: 10, margin: 10},

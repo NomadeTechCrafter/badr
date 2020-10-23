@@ -12,6 +12,9 @@ import atTranslations from '../../modules/at/apurement/i18n/atApurementTranslate
 import refOperateursEconomiquesTranslations from '../../modules/referentiel/operateursEconomiques/i18n/refOperateursEconomiquesTranslateFr';
 import commonTranslations from './common/ComTranslationsFr';
 import dedouanementTranslateFr from '../../modules/dedouanement/redressement/i18n/dedouanementTranslateFr';
+import controleRechrcheDumTranslateFr from '../../modules/controle/rechercheDum/i18n/controleRechrcheDumTranslateFr';
+import mainLeveeTranslateFr from '../../old/screens/mainlevee/i18/mainLeveeTranslateFr';
+import ecorImportTranslateFr from '../../old/screens/ecorImport/i18/ecorImportTranslateFr';
 
 const locales = RNLocalize.getLocales();
 
@@ -24,14 +27,17 @@ I18n.fallbacks = true;
  2) Add here all translation modules imports
  */
 let combined = {
-    ...commonTranslations,
-    ...annoncesTranslations,
-    ...loginTranslations,
-    ...smsVerifyTranslations,
-    ...profileTranslations,
-    ...atTranslations,
-    ...refOperateursEconomiquesTranslations,
+  ...commonTranslations,
+  ...annoncesTranslations,
+  ...loginTranslations,
+  ...smsVerifyTranslations,
+  ...profileTranslations,
+  ...atTranslations,
+  ...refOperateursEconomiquesTranslations,
   ...dedouanementTranslateFr,
+  ...controleRechrcheDumTranslateFr,
+  ...mainLeveeTranslateFr,
+  ...ecorImportTranslateFr,
 };
 I18n.translations = {
   fr: combined,

@@ -8,11 +8,11 @@ import {
 } from '../../../../../../commons/component';
 import styles from '../../../style/DedRedressementStyle';
 import {Checkbox} from 'react-native-paper';
-import {primaryColor} from '../../../../../../commons/styles/theme';
+import {primaryColor} from '../../../../../../commons/styles/ComThemeStyle';
 import DedRedressementRow from '../../common/DedRedressementRow';
 import ComBadrLibelleComp from '../../../../../../commons/component/shared/text/ComBadrLibelleComp';
 import {getValueByPath} from '../../../utils/DedUtils';
-import {Session} from '../../../../../../commons/services/session/Session';
+import {ComSessionService} from '../../../../../../commons/services/session/ComSessionService';
 
 class DedRedressementEnteteInfoBlock extends React.Component {
   constructor(props) {
@@ -44,7 +44,8 @@ class DedRedressementEnteteInfoBlock extends React.Component {
                       : 'unchecked'
                   }
                   disabled={true}
-                  color={primaryColor}></Checkbox>
+                  color={primaryColor}
+                />
               }
             />
             <ComBadrKeyValueComp
@@ -62,7 +63,8 @@ class DedRedressementEnteteInfoBlock extends React.Component {
                       : 'unchecked'
                   }
                   disabled={true}
-                  color={primaryColor}></Checkbox>
+                  color={primaryColor}
+                />
               }
             />
           </DedRedressementRow>
@@ -146,7 +148,9 @@ class DedRedressementEnteteInfoBlock extends React.Component {
                       item,
                     )
                   }
-                  param={{codeBureau: Session.getInstance().getCodeBureau()}}
+                  param={{
+                    codeBureau: ComSessionService.getInstance().getCodeBureau(),
+                  }}
                   typeService="SP"
                 />
               }
@@ -159,13 +163,13 @@ class DedRedressementEnteteInfoBlock extends React.Component {
 
   isActivehandleBureauChipsChanged = (item) => {
     this.setState({
-      selectedBureau: item['codeBureau'],
-      nomBureauDouane: item['nomBureauDouane'],
+      selectedBureau: item.codeBureau,
+      nomBureauDouane: item.nomBureauDouane,
       selectedArrondissement: '',
     });
-    this.comboArrondissements.refresh(item['codeBureau'], this.refBureau);
+    this.comboArrondissements.refresh(item.codeBureau, this.refBureau);
     this.comboLieuStockage.refresh(
-      {codeBureau: item['codeBureau']},
+      {codeBureau: item.codeBureau},
       this.comboBureaux,
     );
   };

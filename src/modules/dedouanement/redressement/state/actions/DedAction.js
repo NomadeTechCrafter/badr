@@ -5,7 +5,7 @@ import {
   GENERIC_DED_IN_PROGRESS,
   GENERIC_DED_SUCCESS,
 } from '../DedRedressementConstants';
-import translate from '../../../../../commons/i18n/I18nHelper';
+import translate from '../../../../../commons/i18n/ComI18nHelper';
 import TransverseApi from '../../../../../old/services/api/transverse-api';
 
 export function request(action) {

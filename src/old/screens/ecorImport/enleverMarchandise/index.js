@@ -16,7 +16,7 @@ import {
   ComBadrNumericTextInputComp,
   ComBadrPopupComp,
   ComBasicDataTableComp,
-} from '../../../components';
+} from '../../../../commons/component';
 import {
   Checkbox,
   TextInput,
@@ -29,7 +29,10 @@ import {
 import {Col, Row, Grid} from 'react-native-easy-grid';
 /**i18n */
 import {translate} from '../../../../commons/i18n/ComI18nHelper';
-import {CustomStyleSheet, primaryColor} from '../../../styles';
+import {
+  CustomStyleSheet,
+  primaryColor,
+} from '../../../../commons/styles/ComThemeStyle';
 import _ from 'lodash';
 
 import {load} from '../../../services/storage-service';

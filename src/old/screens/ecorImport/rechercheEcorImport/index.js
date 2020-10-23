@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import {View} from 'react-native';
-import {RechercheRefDum, ComBadrToolbarComp} from '../../../components';
+import {
+  RechercheRefDum,
+  ComBadrToolbarComp,
+} from '../../../../commons/component';
 /**i18n */
 import {translate} from '../../../../commons/i18n/ComI18nHelper';
 

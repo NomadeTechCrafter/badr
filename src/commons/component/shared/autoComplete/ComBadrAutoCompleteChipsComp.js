@@ -8,18 +8,18 @@ import {
   ScrollView,
 } from 'react-native';
 import {connect} from 'react-redux';
-import * as Constants from '../../../constants/components/AutoCompleteConstants';
-import * as AutoCompleteAction from '../../../state/actions/AutoCompleteAction';
+import * as Constants from '../../../constants/components/ComAutoCompleteConstants';
+import * as AutoCompleteAction from '../../../state/actions/ComAutoCompleteAction';
 import _ from 'lodash';
 import {
   TYPE_SERVICE_SP,
   MODULE_REF,
   AUTOCOMPLETE_MIN_CHARACTERS,
   AUTOCOMPLETE_LIST_NB_ELEMENTS,
-} from '../../../../commons/Config';
+} from '../../../Config';
 
 import {Chip, TextInput} from 'react-native-paper';
-import {primaryColor} from '../../../styles/theme';
+import {primaryColor} from '../../../styles/ComThemeStyle';
 import {Icon} from 'react-native-elements';
 import {ComBadrCircleProgressBarComp, ComBadrListDialogComp} from '../../index';
 

@@ -18,7 +18,10 @@ import badrApiTable from './reducers/ComBadrApiTableReducer';
 import initApurementReducer from '../../modules/at/apurement/state/reducers/atApurementReducer';
 import refOperateursEconomiquesReducer from '../../modules/referentiel/operateursEconomiques/state/reducers/refOperateursEconomiquesReducer';
 import dedRedressementInitReducer from '../../modules/dedouanement/redressement/state/reducers/DedRedressementInitReducer';
-
+import rechercheRefDumReducer from './reducers/rechercheDum';
+import controleRechercheRefDumReducer from '../../modules/controle/rechercheDum/state/reducers/controleRechercheRefDumReducer';
+import controleRechercheDumReducer from '../../modules/controle/rechercheDum/state/reducers/controleRechercheDumReducer';
+import controleListDeclarationDumReducer from '../../modules/controle/listDeclarationDum/state/reducers/controleListDeclarationDumReducer';
 import genericDedReducer from '../../modules/dedouanement/redressement/state/reducers/DedReducer';
 
 import referentielReducer from './reducers/ReferentielReducer';
@@ -45,6 +48,10 @@ const allReducers = combineReducers({
   referentielReducer,
   consulterDumReducer,
   genericDedReducer,
+  rechercheRefDumReducer,
+  controleRechercheRefDumReducer,
+  controleRechercheDumReducer,
+  controleListDeclarationDumReducer,
 });
 /**
  * store creation

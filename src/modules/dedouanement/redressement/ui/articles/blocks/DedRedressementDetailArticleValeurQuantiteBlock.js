@@ -13,7 +13,7 @@ import {
   TextInput,
   Checkbox,
 } from 'react-native-paper';
-import {primaryColor} from '../../../../../../commons/styles/theme';
+import {primaryColor} from '../../../../../../commons/styles/ComThemeStyle';
 import {getValueByPath} from '../../../utils/DedUtils';
 
 export default class DedRedressementDetailArticleValeurQuantiteBlock extends React.Component {

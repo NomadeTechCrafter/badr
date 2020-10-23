@@ -12,7 +12,7 @@ import {
   TextInput,
   Checkbox,
 } from 'react-native-paper';
-import {primaryColor} from '../../../../../../commons/styles/theme';
+import {primaryColor} from '../../../../../../commons/styles/ComThemeStyle';
 import {getValueByPath} from '../../../utils/DedUtils';
 import ComBadrReferentielPickerComp from '../../../../../../commons/component/shared/pickers/ComBadrReferentielPickerComp';
 

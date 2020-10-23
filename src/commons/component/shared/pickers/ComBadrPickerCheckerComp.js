@@ -12,7 +12,7 @@ import {ComBadrCircleProgressBarComp} from '../../index';
 import _ from 'lodash';
 
 import {primaryColor} from '../../../styles/ComThemeStyle';
-import {darkGris, primaryBackgroundColor} from '../../../styles/ComColorsStyle';
+import {darkGris} from '../../../styles/ComColorsStyle';
 /** REDUX **/
 import {connect} from 'react-redux';
 
@@ -62,7 +62,7 @@ class ComBadrPickerCheckerComp extends React.Component {
     const flat = StyleSheet.flatten(style);
     const {color, fontSize, ...styles} = flat;
     let iconComponent;
-    const iconColor = primaryBackgroundColor;
+    const iconColor = primaryColor;
     const Search = <Icon size={15} color={iconColor} name="search" />;
     const Down = <Icon size={15} color={iconColor} name="caret-down" />;
     const Up = <Icon size={15} color={iconColor} name="caret-up" />;

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {View, TouchableOpacity, Text, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {darkGris, lightBlue, lightGris} from '../../../styles/theme';
+import {darkGris, lightBlue, lightGris} from '../../../styles/ComThemeStyle';
 import {lightBlue50} from 'react-native-paper/src/styles/colors';
 export default class ComBadrDetailAccordion extends Component {
   constructor(props) {
@@ -19,7 +19,7 @@ export default class ComBadrDetailAccordion extends Component {
     return this.props.visible ? (
       <View style={styles.container}>
         <View style={styles.row}>
-          <Text></Text>
+          <Text />
           <TouchableOpacity
             onPress={() => {
               this.props.onClose();

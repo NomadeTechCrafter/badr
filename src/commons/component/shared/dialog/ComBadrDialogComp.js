@@ -1,7 +1,6 @@
 import React from 'react';
 import {primaryColor, accentColor} from '../../../styles/ComThemeStyle';
 import {View} from 'react-native';
-import {primaryColor, accentColor} from '../../../styles/theme';
 import {Button, Dialog, Paragraph, Portal} from 'react-native-paper';
 export default class ComBadrDialogComp extends React.Component {
   render() {

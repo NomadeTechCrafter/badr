@@ -14,7 +14,12 @@ import {ComQrCodeScannerComp} from '../../../../commons/component';
 import BloquerOperateur from '../../../referentiel/operateursEconomiques/ui/bloquerOperateur/refBloquerOperateurScreen';
 import DebloquerOperateur from '../../../referentiel/operateursEconomiques/ui/debloquerOperateur/refDebloquerOperateurScreen';
 import DedRedressementScreen from '../../../dedouanement/redressement/ui/DedRedressementScreen';
-
+import controleRechercheDumScreen from '../../../controle/rechercheDum/ui/controleRechercheDumScreen';
+import controleListDecalarationDumScreen from '../../../controle/listDeclarationDum/ui/controleListDecalarationDumScreen';
+import RechecheMLV from '../../../../old/screens/mainlevee/rechercheMLV';
+import ListDeclarationMLV from '../../../../old/screens/mainlevee/listedeclarationsMLV';
+import DelivrerMLV from '../../../../old/screens/mainlevee/delivrerMLV';
+import RechercheEcorImport from '../../../../old/screens/ecorImport/rechercheEcorImport';
 /**ACTIONS */
 import * as Constants from '../../../../commons/constants/generic/ComGenericConstants';
 import * as GenericAction from '../../../../commons/state/actions/ComGenericAction';
@@ -88,24 +93,55 @@ class habHomeScreen extends React.Component {
           component={DedRedressementRechercheScreen}
           options={{headerShown: false}}
         />
+        <Drawer.Screen
+          name="controleRechercheDumScreen"
+          component={controleRechercheDumScreen}
+          options={{headerShown: false}}
+        />
+        <Drawer.Screen
+          name="controleListDecalarationDumScreen"
+          component={controleListDecalarationDumScreen}
+          options={{headerShown: false}}
+        />
+        <Drawer.Screen
+          name="RechecheMLV"
+          component={RechecheMLV}
+          options={{headerShown: false}}
+        />
 
+        <Drawer.Screen
+          name="DelivrerMLV"
+          component={DelivrerMLV}
+          options={{headerShown: false}}
+        />
+
+        <Drawer.Screen
+          name="ListDeclarationMLV"
+          component={ListDeclarationMLV}
+          options={{headerShown: false}}
+        />
+        <Drawer.Screen
+          name="RechercheEcorImport"
+          component={RechercheEcorImport}
+          options={{headerShown: false}}
+        />
         <Drawer.Screen
           name="ComQrCodeScannerComp"
           component={ComQrCodeScannerComp}
           options={{headerShown: false}}
         />
 
-          <Drawer.Screen
-              name="BloquerOperateur"
-              component={BloquerOperateur}
-              options={{headerShown: false}}
-          />
+        <Drawer.Screen
+          name="BloquerOperateur"
+          component={BloquerOperateur}
+          options={{headerShown: false}}
+        />
 
-          <Drawer.Screen
-              name="DebloquerOperateur"
-              component={DebloquerOperateur}
-              options={{headerShown: false}}
-          />
+        <Drawer.Screen
+          name="DebloquerOperateur"
+          component={DebloquerOperateur}
+          options={{headerShown: false}}
+        />
       </Drawer.Navigator>
     );
   }

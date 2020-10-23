@@ -11,7 +11,7 @@ import ComBadrLibelleComp from '../../../../../../commons/component/shared/text/
 import DedRedressementRow from '../../common/DedRedressementRow';
 import {getValueByPath} from '../../../utils/DedUtils';
 import {Col, Row} from 'react-native-easy-grid';
-import {lightGris} from '../../../../../../commons/styles/theme';
+import {lightGris} from '../../../../../../commons/styles/ComThemeStyle';
 import {request} from '../../../state/actions/DedAction';
 import {
   GENERIC_DED_INIT,
@@ -184,7 +184,7 @@ class DedRedressementEnteteVersionBlock extends React.Component {
 
           <DedRedressementRow>
             <Row>
-              <Col></Col>
+              <Col />
               <Col>
                 <ComBadrLibelleComp style={styles.versionInitialStyle}>
                   Version initiale

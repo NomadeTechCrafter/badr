@@ -1,5 +1,5 @@
 /**Constants */
-import * as Constants from '../../constants/generic/GenericConstants';
+import * as Constants from '../../constants/generic/ComGenericConstants';
 
 const initialState = {
   showProgress: false,

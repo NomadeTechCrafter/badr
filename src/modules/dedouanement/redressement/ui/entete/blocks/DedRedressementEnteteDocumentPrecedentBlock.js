@@ -7,7 +7,7 @@ import {
   ComBadrKeyValueComp,
 } from '../../../../../../commons/component';
 import DedRedressementRow from '../../common/DedRedressementRow';
-import translate from '../../../../../../commons/i18n/I18nHelper';
+import translate from '../../../../../../commons/i18n/ComI18nHelper';
 import {getValueByPath} from '../../../utils/DedUtils';
 import {TextInput} from 'react-native-paper';
 

@@ -13,7 +13,7 @@ import {
   RadioButton,
   TextInput,
 } from 'react-native-paper';
-import {primaryColor} from '../../../../../../commons/styles/theme';
+import {primaryColor} from '../../../../../../commons/styles/ComThemeStyle';
 import {getValueByPath} from '../../../utils/DedUtils';
 import {request} from '../../../state/actions/DedAction';
 import {
@@ -180,7 +180,8 @@ class DedRedressementDetailArticleMarchandiseBlock extends React.Component {
                         disabled={true}
                         status={
                           this.props.article.paiement ? 'checked' : 'unchecked'
-                        }></RadioButton>
+                        }
+                      />
                     }
                   />
                   <ComBadrKeyValueComp
@@ -192,7 +193,8 @@ class DedRedressementDetailArticleMarchandiseBlock extends React.Component {
                         disabled={true}
                         status={
                           !this.props.article.paiement ? 'checked' : 'unchecked'
-                        }></RadioButton>
+                        }
+                      />
                     }
                   />
 
@@ -208,7 +210,8 @@ class DedRedressementDetailArticleMarchandiseBlock extends React.Component {
                           getValueByPath('occasion', this.props.article)
                             ? 'checked'
                             : 'unchecked'
-                        }></Checkbox>
+                        }
+                      />
                     }
                   />
                 </View>

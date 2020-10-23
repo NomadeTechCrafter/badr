@@ -1,7 +1,7 @@
 /**Constants */
 import * as Constants from '../DedRedressementConstants';
 /** i18n */
-import {translate} from '../../../../../commons/i18n/I18nHelper';
+import {translate} from '../../../../../commons/i18n/ComI18nHelper';
 
 const initialState = {
   showProgress: false,

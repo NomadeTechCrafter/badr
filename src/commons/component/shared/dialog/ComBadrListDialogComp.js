@@ -1,6 +1,6 @@
 import React from 'react';
 import {ScrollView, Text, TouchableOpacity, View} from 'react-native';
-import {accentColor, primaryColor} from '../../../styles/theme';
+import {accentColor, primaryColor} from '../../../styles/ComThemeStyle';
 import {Button, Dialog, Divider, Portal} from 'react-native-paper';
 
 export default class ComBadrListDialogComp extends React.Component {

@@ -1,10 +1,9 @@
 /**Constants */
-import * as Constants from '../../constants/generic/GenericConstants';
+import * as Constants from '../../constants/generic/ComGenericConstants';
 
 /** i18n */
-import {translate} from '../../i18n/I18nHelper';
-import TransverseApi from '../../services/api/TransverseApi';
-import {AT_MODULE} from '../../constants/at/At';
+import {translate} from '../../i18n/ComI18nHelper';
+import TransverseApi from '../../services/api/ComTransverseApi';
 
 export function request(action) {
   return (dispatch) => {
