@@ -13,6 +13,15 @@ const mapping = {
     screen: 'RechercheEcorImport',
     params: {typeEcorImport: 'EnleverMarchandiseParPesage'},
   },
+
+  // '767': {screen: 'BloquerOperateur', params: {}},
+  // '42997': {screen: 'DebloquerOperateur', params: {}},
+  // '306011': {screen: 'AjouterReconnaissance', params: {}},
+  // '306012': {screen: 'ModifierReconnaissance', params: {}},
+  // '306013': {screen: 'AnnulerReconnaissance', params: {}},
+  //  '4096': {screen: 'RefControleVehicule', params: {}},
+  //  '823': {screen: 'RefPlaquesImm', params: {}},
+
 };
 
 const DEFAULT_SCREEN = 'ionic';

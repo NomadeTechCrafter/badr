@@ -20,6 +20,10 @@ import RechecheMLV from '../../../../old/screens/mainlevee/rechercheMLV';
 import ListDeclarationMLV from '../../../../old/screens/mainlevee/listedeclarationsMLV';
 import DelivrerMLV from '../../../../old/screens/mainlevee/delivrerMLV';
 import RechercheEcorImport from '../../../../old/screens/ecorImport/rechercheEcorImport';
+import AjouterReconnaissance from '../../../controle/reconnaissance/ui/ajouterReconnaissance/ctrlAjouterReconnaissanceScreen';
+import ModifierReconnaissance from '../../../controle/reconnaissance/ui/modifierReconnaissance/ctrlModifierReconnaissanceScreen';
+import AnnulerReconnaissance from '../../../controle/reconnaissance/ui/annulerReconnaissance/ctrlAnnulerReconnaissanceScreen';
+
 /**ACTIONS */
 import * as Constants from '../../../../commons/constants/generic/ComGenericConstants';
 import * as GenericAction from '../../../../commons/state/actions/ComGenericAction';
@@ -28,6 +32,8 @@ import * as GenericAction from '../../../../commons/state/actions/ComGenericActi
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import DedRedressementRecherche from '../../../dedouanement/redressement/ui/DedRechercheRedressementScreen';
 import DedRedressementEnteteScreen from '../../../dedouanement/redressement/ui/entete/DedRedressementEnteteScreen';
+import RefControleVehiculeMainScreen from '../../../referentiel/controleVehicules/ui/refControleVehiculeMainScreen';
+import RefPlaquesImmMainScreen from '../../../referentiel/plaquesImmatriculation/ui/refPlaquesImmMainScreen';
 
 const Drawer = createDrawerNavigator();
 const deltaScreen = Dimensions.get('window').width / 4;
@@ -142,6 +148,37 @@ class habHomeScreen extends React.Component {
           component={DebloquerOperateur}
           options={{headerShown: false}}
         />
+
+          <Drawer.Screen
+              name="AjouterReconnaissance"
+              component={AjouterReconnaissance}
+              options={{headerShown: false}}
+          />
+
+          <Drawer.Screen
+              name="ModifierReconnaissance"
+              component={ModifierReconnaissance}
+              options={{headerShown: false}}
+          />
+
+          <Drawer.Screen
+              name="AnnulerReconnaissance"
+              component={AnnulerReconnaissance}
+              options={{headerShown: false}}
+          />
+
+          <Drawer.Screen
+          name="RefControleVehicule"
+          component={RefControleVehiculeMainScreen}
+          options={{headerShown: false}}
+          />
+
+         <Drawer.Screen
+          name="RefPlaquesImm"
+          component={RefPlaquesImmMainScreen}
+          options={{headerShown: false}}
+        />
+
       </Drawer.Navigator>
     );
   }

@@ -26,6 +26,9 @@ import genericDedReducer from '../../modules/dedouanement/redressement/state/red
 
 import referentielReducer from './reducers/ReferentielReducer';
 import consulterDumReducer from './reducers/ConsulterDumReducer';
+import controleVehiculesReducer from '../../modules/referentiel/controleVehicules/state/reducers/refControleVehiculeReducer';
+import plaquesImmReducer from '../../modules/referentiel/plaquesImmatriculation/state/reducers/refPlaquesImmReducer';
+import ctrlReconnaissanceReducer from '../../modules/controle/reconnaissance/state/reducers/ctrlReconnaissanceReducer';
 
 /**
  * combine all reducers
@@ -36,14 +39,15 @@ const allReducers = combineReducers({
   confirmConnexionReducer,
   menuReducer,
   autoLoginReducer,
+  autoCompleteReducer,
   badrPickerReducer,
   badrPickerCheckerReducer,
   badrApiTable,
   qrCodeReducer,
   initApurementReducer,
   refOperateursEconomiquesReducer,
+  ctrlReconnaissanceReducer,
   genericReducer,
-  autoCompleteReducer,
   dedRedressementInitReducer,
   referentielReducer,
   consulterDumReducer,
@@ -52,6 +56,8 @@ const allReducers = combineReducers({
   controleRechercheRefDumReducer,
   controleRechercheDumReducer,
   controleListDeclarationDumReducer,
+  controleVehiculesReducer,
+  plaquesImmReducer,
 });
 /**
  * store creation

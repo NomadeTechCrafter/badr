@@ -34,6 +34,7 @@ export {default as ComCopyPasteComp} from './shared/container/ComCopyPasteComp';
 export {default as ComBadrAutoCompleteComp} from './shared/autoComplete/ComBadrAutoCompleteComp';
 export {default as ComBadrAutoCompleteChipsComp} from './shared/autoComplete/ComBadrAutoCompleteChipsComp';
 export {default as ComBadrListComp} from './shared/list/ComBadrListComp';
+export {default as ComBadrLibelleComp} from './shared/text/ComBadrLibelleComp';
 export {default as ComBadrDatePickerComp} from './shared/datePicker/ComBadrDatePickerComp';
 export {default as ComBadrDialogComp} from './shared/dialog/ComBadrDialogComp';
 export {default as ComBadrNumericTextInputComp} from './shared/inputs/ComBadrNumericTextInputComp';
@@ -49,5 +50,11 @@ export {default as RechercheRefDum} from './modules/rechercheRefDum/RechercheRef
 export {default as ComRedressementRechercheRefComp} from './modules/rechercheRefDum/ComRedressementRechercheRefComp';
 export {default as ComControleRechercheRefComp} from './modules/rechercheRefDum/ComControleRechercheRefComp';
 
+export {default as ComBadrCameraComp} from './shared/camera/ComBadrCameraComp';
+
 export {default as ComAtRechercheRefComp} from './modules/rechercheRefAt/ComAtRechercheRefComp';
 export {default as ComQrCodeScannerComp} from './modules/qrCode/ComQrCodeScannerComp';
+
+export {default as ComNumeroPlaqueRemorqueDiploComp} from './modules/referentiel/ComNumeroPlaqueRemorqueDiploComp';
+export {default as ComNumeroPlaqueComp} from './modules/referentiel/ComNumeroPlaqueComp';
+export {default as ComDetailPlaqueComp} from './modules/referentiel/ComDetailPlaqueComp';
