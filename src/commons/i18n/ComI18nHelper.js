@@ -37,13 +37,13 @@ let combined = {
   ...profileTranslations,
   ...atTranslations,
   ...refOperateursEconomiquesTranslations,
+  ...ctrlReconnaissanceTranslations,
+  ...refControleVehiculeTranslateFr,
+  ...refPlaquesImmTranslateFr,
   ...dedouanementTranslateFr,
   ...controleRechrcheDumTranslateFr,
   ...mainLeveeTranslateFr,
   ...ecorImportTranslateFr,
-    ctrlReconnaissanceTranslations,
-    ...refControleVehiculeTranslateFr,
-    ...refPlaquesImmTranslateFr,
 };
 I18n.translations = {
   fr: combined,

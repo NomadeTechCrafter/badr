@@ -149,36 +149,35 @@ class habHomeScreen extends React.Component {
           options={{headerShown: false}}
         />
 
-          <Drawer.Screen
-              name="AjouterReconnaissance"
-              component={AjouterReconnaissance}
-              options={{headerShown: false}}
-          />
+        <Drawer.Screen
+          name="AjouterReconnaissance"
+          component={AjouterReconnaissance}
+          options={{headerShown: false}}
+        />
 
-          <Drawer.Screen
-              name="ModifierReconnaissance"
-              component={ModifierReconnaissance}
-              options={{headerShown: false}}
-          />
+        <Drawer.Screen
+          name="ModifierReconnaissance"
+          component={ModifierReconnaissance}
+          options={{headerShown: false}}
+        />
 
-          <Drawer.Screen
-              name="AnnulerReconnaissance"
-              component={AnnulerReconnaissance}
-              options={{headerShown: false}}
-          />
+        <Drawer.Screen
+          name="AnnulerReconnaissance"
+          component={AnnulerReconnaissance}
+          options={{headerShown: false}}
+        />
 
-          <Drawer.Screen
+        <Drawer.Screen
           name="RefControleVehicule"
           component={RefControleVehiculeMainScreen}
           options={{headerShown: false}}
-          />
+        />
 
-         <Drawer.Screen
+        <Drawer.Screen
           name="RefPlaquesImm"
           component={RefPlaquesImmMainScreen}
           options={{headerShown: false}}
         />
-
       </Drawer.Navigator>
     );
   }

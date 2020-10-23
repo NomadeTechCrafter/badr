@@ -21,7 +21,6 @@ const mapping = {
   // '306013': {screen: 'AnnulerReconnaissance', params: {}},
   //  '4096': {screen: 'RefControleVehicule', params: {}},
   //  '823': {screen: 'RefPlaquesImm', params: {}},
-
 };
 
 const DEFAULT_SCREEN = 'ionic';
