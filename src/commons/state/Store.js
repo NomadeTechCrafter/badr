@@ -17,6 +17,8 @@ import qrCodeReducer from './reducers/ComQrCodeReducer';
 import badrApiTable from './reducers/ComBadrApiTableReducer';
 import initApurementReducer from '../../modules/at/apurement/state/reducers/atApurementReducer';
 import refOperateursEconomiquesReducer from '../../modules/referentiel/operateursEconomiques/state/reducers/refOperateursEconomiquesReducer';
+import controleVehiculesReducer from '../../modules/referentiel/controleVehicules/state/reducers/refControleVehiculeReducer';
+import plaquesImmReducer from '../../modules/referentiel/plaquesImmatriculation/state/reducers/refPlaquesImmReducer';
 import ctrlReconnaissanceReducer from '../../modules/controle/reconnaissance/state/reducers/ctrlReconnaissanceReducer';
 
 /**
@@ -37,6 +39,8 @@ const allReducers = combineReducers({
   refOperateursEconomiquesReducer,
   ctrlReconnaissanceReducer,
   genericReducer,
+  controleVehiculesReducer,
+  plaquesImmReducer,
 });
 /**
  * store creation

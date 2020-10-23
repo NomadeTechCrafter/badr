@@ -12,6 +12,8 @@ import atTranslations from '../../modules/at/apurement/i18n/atApurementTranslate
 import refOperateursEconomiquesTranslations from '../../modules/referentiel/operateursEconomiques/i18n/refOperateursEconomiquesTranslateFr';
 import ctrlReconnaissanceTranslations from '../../modules/controle/reconnaissance/i18n/ctrlReconnaissanceTranslateFr';
 import commonTranslations from './common/ComTranslationsFr';
+import refControleVehiculeTranslateFr from '../../modules/referentiel/controleVehicules/i18n/refControleVehiculeTranslateFr';
+import refPlaquesImmTranslateFr from '../../modules/referentiel/plaquesImmatriculation/i18n/refPlaquesImmTranslateFr';
 
 const locales = RNLocalize.getLocales();
 
@@ -32,6 +34,8 @@ let combined = {
     ...atTranslations,
     ...refOperateursEconomiquesTranslations,
     ...ctrlReconnaissanceTranslations,
+    ...refControleVehiculeTranslateFr,
+    ...refPlaquesImmTranslateFr,
 };
 I18n.translations = {
   fr: combined,
