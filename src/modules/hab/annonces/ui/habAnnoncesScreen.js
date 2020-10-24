@@ -10,10 +10,9 @@ import * as AnnoncesAction from '../../../../commons/state/actions/ComGenericAct
 import styles from '../style/habAnnoncesStyle';
 /**Custom Components */
 import {
-  ComBadrToolbarComp,
   ComBadrInfoMessageComp,
+  ComBadrToolbarComp,
 } from '../../../../commons/component';
-
 /** Inmemory session */
 import {ComSessionService} from '../../../../commons/services/session/ComSessionService';
 import {translate} from '../../../../commons/i18n/ComI18nHelper';

@@ -128,7 +128,7 @@ export default class ComBasicDataTableComp extends React.Component {
 
   buildDataTable = () => {
     const pageCount = Math.ceil(
-      this.props.totalElements / this.props.maxResultsPerPage,
+      this.props.rows.length / this.props.maxResultsPerPage,
     );
     return (
       <View style={styles.width100}>
@@ -176,7 +176,7 @@ export default class ComBasicDataTableComp extends React.Component {
                     : this.props.rows
                   ).map((row, index) => (
                     <DataTable.Row
-                      key={row[this.props.id]}
+                      key={row[this.props?.id]}
                       onPress={() => {
                         if (this.props.onItemSelected) {
                           this.props.onItemSelected(row);
