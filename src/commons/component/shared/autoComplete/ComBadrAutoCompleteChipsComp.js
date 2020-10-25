@@ -228,8 +228,6 @@ class ComBadrAutoCompleteChipsComp extends Component {
   };
 }
 
-const styles = StyleSheet.create({});
-
 const mapStateToProps = (state) => ({...state.autoCompleteReducer});
 
 export default connect(mapStateToProps, null)(ComBadrAutoCompleteChipsComp);
