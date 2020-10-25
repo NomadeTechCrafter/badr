@@ -10,8 +10,12 @@ import * as AnnoncesAction from '../../../../commons/state/actions/ComGenericAct
 import styles from '../style/habAnnoncesStyle';
 /**Custom Components */
 import {
+  ComBadrAutoCompleteChipsComp,
+  ComBadrCrudDataTableComp,
   ComBadrInfoMessageComp,
+  ComBadrKeyValueComp,
   ComBadrToolbarComp,
+  ComBadrLibelleComp,
 } from '../../../../commons/component';
 /** Inmemory session */
 import {ComSessionService} from '../../../../commons/services/session/ComSessionService';
@@ -21,6 +25,7 @@ import * as Zxing from '../../../../commons/native/ComZxingNative';
 
 import * as qrCodeAction from '../../../../commons/state/actions/ComQrCodeAction';
 import * as qrCodeConstants from '../../../../commons/constants/components/ComQrCodeConstants';
+import {Button} from 'react-native-paper';
 
 class habAnnoncesScreen extends React.Component {
   /*
