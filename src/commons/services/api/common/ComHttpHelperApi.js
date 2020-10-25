@@ -61,6 +61,7 @@ export default class ComHttpHelperApi {
             Cookie: ComSessionService.getInstance().getSessionId(true),
           },
         );
+        console.log('reponse WS', response);
         return response;
       } catch (error) {
         console.log('---catch error in Api Call--');

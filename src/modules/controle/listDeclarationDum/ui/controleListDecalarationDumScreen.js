@@ -1,19 +1,22 @@
 import React from 'react';
 
-import {ScrollView} from 'react-native';
+import {ScrollView, View} from 'react-native';
 
 import {DataTable} from 'react-native-paper';
 
 import {connect} from 'react-redux';
 
 /**ACTIONS */
-import * as Constants from '../state/controleListDeclarationDumConstants';
+import * as Constants from '../../rechercheDum/state/controleRechercheRefDumConstants';
 
 /**i18n */
 import {translate} from '../../../../commons/i18n/ComI18nHelper';
 
-import * as RechecheDumAction from '../state/actions/controleListDeclarationDumAction';
-import {ComCopyPasteComp} from '../../../../commons/component';
+import * as RechecheRefDumAction from '../../rechercheDum/state/actions/controleRechercheRefDumAction';
+import {
+  ComBasicDataTableComp,
+  ComCopyPasteComp,
+} from '../../../../commons/component';
 
 class controleListDecalarationDumScreen extends React.Component {
   constructor(props) {
@@ -35,6 +38,33 @@ class controleListDecalarationDumScreen extends React.Component {
       item: {},
       listeDeclaration: props.route.params.listeDeclaration,
     };
+    this.cols = [
+      {
+        code: 'reference',
+        libelle: translate('controle.declaration'),
+        width: 300,
+      },
+      {
+        code: 'numVoyage',
+        libelle: translate('controle.nVoyage'),
+        width: 150,
+      },
+      {
+        code: 'numeroVersion',
+        libelle: translate('controle.version'),
+        width: 150,
+      },
+      {
+        code: 'dateCreationVersion',
+        libelle: translate('controle.dateCreation'),
+        width: 200,
+      },
+      {
+        code: 'dateEnregVersion',
+        libelle: translate('controle.dateEnregistrement'),
+        width: 200,
+      },
+    ];
     //this.typeControle ='RI'; //(props.route.params.typeControle) ? props.route.params.typeControle : 'RI';
   }
   getSuccessRedirectionScreen = () => {
@@ -63,45 +93,47 @@ class controleListDecalarationDumScreen extends React.Component {
   componentDidUpdate(prevProps, prevState) {}
 
   onItemSelected = (item) => {
-    this.setState({showErrorMsg: true});
-    if (this.state.regime && this.state.serie) {
-      this.state.cleValide = this.cleDUM(this.state.regime, this.state.serie);
-
-      if (this.state.cle === this.state.cleValide) {
-        /*var referenceDed =
-          this.state.bureau +
-          this.state.regime +
-          this.state.annee +
-          this.state.serie;*/
-        var data = {
-          referenceDed: item.reference,
-          numeroVoyage: item.numVoyage,
-        };
-        var action = RechecheDumAction.request(
-          {
-            type: Constants.LISTDECLARATION_REQUEST,
-            value: {
-              login: this.state.login,
-              commande: this.getCommandeScreen(),
-              data: data,
-              cle: this.state.cle,
-            },
-          },
-          this.props.navigation,
-          (this.props.successRedirection = this.getSuccessRedirectionScreen()),
-        );
-        this.props.dispatch(action);
-      }
-    }
+    var data = {
+      referenceDed: item.reference,
+      numeroVoyage: item.numVoyage,
+    };
+    var action = RechecheRefDumAction.request(
+      {
+        type: Constants.RECHERCHEREFDUM_REQUEST,
+        value: {
+          login: this.state.login,
+          commande: this.getCommandeScreen(),
+          data: data,
+          cle: this.state.cle,
+        },
+      },
+      this.props.navigation,
+      (this.props.successRedirection = this.getSuccessRedirectionScreen()),
+    );
+    this.props.dispatch(action);
   };
 
   render() {
     let rows = [];
+    let totalElements = 0;
     if (this.state.listeDeclaration) {
       rows = this.state.listeDeclaration;
     }
     return (
-      <ScrollView horizontal={true}>
+      <View>
+        <ComBasicDataTableComp
+          ref="_badrTable"
+          id="listeDeclarationControle"
+          rows={rows}
+          cols={this.cols}
+          onItemSelected={(row) => this.onItemSelected(row)}
+          totalElements={rows.length}
+          maxResultsPerPage={10}
+          paginate={true}
+          showProgress={this.props.showProgress}
+        />
+      </View>
+      /*      <ScrollView horizontal={true}>
         {!this.props.showProgress && (
           <ScrollView>
             <DataTable>
@@ -160,7 +192,7 @@ class controleListDecalarationDumScreen extends React.Component {
             </DataTable>
           </ScrollView>
         )}
-      </ScrollView>
+      </ScrollView>*/
     );
   }
 }

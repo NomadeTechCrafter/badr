@@ -30,6 +30,8 @@ import {Provider as PaperProvider, DefaultTheme} from 'react-native-paper';
 import {remote, bootstrapRoute} from './commons/Config';
 import DedRedressementScreen from './modules/dedouanement/redressement/ui/DedRedressementScreen';
 import DedRedressementRecherche from './modules/dedouanement/redressement/ui/DedRechercheRedressementScreen';
+import controleRechercheDumScreen from './modules/controle/rechercheDum/ui/controleRechercheDumScreen';
+import ControleRegimeInterneScreen from './modules/controle/regimeInterne/ui/controleRegimeInterneScreen';
 const theme = {
   ...DefaultTheme,
   colors: {
@@ -58,18 +60,21 @@ export default class App extends React.Component {
                 />
               ) : (
                 <Stack.Screen
-                  name={bootstrapRoute}
+                  name="test"
                   options={{headerShown: false}}
-                  component={DedRedressementRecherche}
+                  component={controleRechercheDumScreen}
                 />
               )}
-
+              <Stack.Screen
+                name="ControleRegimeInterneScreen"
+                options={{headerShown: false}}
+                component={ControleRegimeInterneScreen}
+              />
               <Stack.Screen
                 name="DedRedressementScreen"
                 options={{headerShown: false}}
                 component={DedRedressementScreen}
               />
-
               <Stack.Screen
                 name="SmsVerify"
                 options={{headerShown: false}}

@@ -58,5 +58,6 @@ const styles = StyleSheet.create({
   },
   child: {
     flexDirection: 'column',
+    padding: 10,
   },
 });

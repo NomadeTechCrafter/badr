@@ -16,6 +16,9 @@ import DebloquerOperateur from '../../../referentiel/operateursEconomiques/ui/de
 import DedRedressementScreen from '../../../dedouanement/redressement/ui/DedRedressementScreen';
 import controleRechercheDumScreen from '../../../controle/rechercheDum/ui/controleRechercheDumScreen';
 import controleListDecalarationDumScreen from '../../../controle/listDeclarationDum/ui/controleListDecalarationDumScreen';
+import ControleACVPScreen from '../../../controle/ACVP/ui/controleACVPScreen';
+import ControleRegimeInterneScreen from '../../../controle/regimeInterne/ui/controleRegimeInterneScreen';
+import ControleRegimeTransitScreen from '../../../controle/regimeTransit/ui/controleRegimeTransitScreen';
 import RechecheMLV from '../../../../old/screens/mainlevee/rechercheMLV';
 import ListDeclarationMLV from '../../../../old/screens/mainlevee/listedeclarationsMLV';
 import DelivrerMLV from '../../../../old/screens/mainlevee/delivrerMLV';
@@ -107,6 +110,21 @@ class habHomeScreen extends React.Component {
         <Drawer.Screen
           name="controleListDecalarationDumScreen"
           component={controleListDecalarationDumScreen}
+          options={{headerShown: false}}
+        />
+        <Drawer.Screen
+          name="ControleRegimeInterneScreen"
+          component={ControleRegimeInterneScreen}
+          options={{headerShown: false}}
+        />
+        <Drawer.Screen
+          name="ControleRegimeTransitScreen"
+          component={ControleRegimeTransitScreen}
+          options={{headerShown: false}}
+        />
+        <Drawer.Screen
+          name="ControleACVPScreen"
+          component={ControleACVPScreen}
           options={{headerShown: false}}
         />
         <Drawer.Screen

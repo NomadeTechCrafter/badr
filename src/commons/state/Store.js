@@ -22,6 +22,9 @@ import rechercheRefDumReducer from './reducers/rechercheDum';
 import controleRechercheRefDumReducer from '../../modules/controle/rechercheDum/state/reducers/controleRechercheRefDumReducer';
 import controleRechercheDumReducer from '../../modules/controle/rechercheDum/state/reducers/controleRechercheDumReducer';
 import controleListDeclarationDumReducer from '../../modules/controle/listDeclarationDum/state/reducers/controleListDeclarationDumReducer';
+import controleACVPReducer from '../../modules/controle/ACVP/state/reducers/controleACVPReducer';
+import controleRegimeTransitReducer from '../../modules/controle/regimeTransit/state/reducers/controleRegimeTransitReducer';
+import controleRegimeInterneReducer from '../../modules/controle/regimeInterne/state/reducers/controleRegimeInterneReducer';
 import genericDedReducer from '../../modules/dedouanement/redressement/state/reducers/DedReducer';
 
 import referentielReducer from './reducers/ReferentielReducer';
@@ -56,6 +59,9 @@ const allReducers = combineReducers({
   controleRechercheRefDumReducer,
   controleRechercheDumReducer,
   controleListDeclarationDumReducer,
+  controleRegimeTransitReducer,
+  controleRegimeInterneReducer,
+  controleACVPReducer,
   controleVehiculesReducer,
   plaquesImmReducer,
 });
