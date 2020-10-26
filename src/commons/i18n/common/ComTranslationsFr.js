@@ -95,6 +95,8 @@ export default {
     dateEnregistrement: "Date d'enregistrement",
     type: 'Type',
     Ok: 'Ok',
+    autre: 'Autre',
+    ajouter: 'Ajouter',
     confirmer: 'Confirmer',
     valider: 'Valider',
     retablir: 'Rétablir',
