@@ -73,6 +73,26 @@ class CtrlReconnaissanceSearchComponent extends React.Component {
     confirm = () => {
         this.displayErrorMessage();
 
+        this.completeWithZeros({
+            bureau: this.state.bureau,
+            maxLength: 3,
+        });
+
+        this.completeWithZeros({
+            regime: this.state.regime,
+            maxLength: 3,
+        });
+
+        this.completeWithZeros({
+            annee: this.state.annee,
+            maxLength: 4,
+        });
+
+        this.completeWithZeros({
+            serie: this.state.serie,
+            maxLength: 7,
+        });
+
         let reference = this.state.bureau + this.state.regime + this.state.annee + this.state.serie;
         if (reference && reference.length === 17) {
             let validCleDum = this.cleDum(this.state.regime, this.state.serie);

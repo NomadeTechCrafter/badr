@@ -13,6 +13,8 @@ import com.oblador.vectoricons.VectorIconsPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.reactnativecommunity.picker.RNCPickerPackage;
 import com.reactcommunity.rnlocalize.RNLocalizePackage;
+import com.rnfs.RNFSPackage;
+import com.vinzscam.reactnativefileviewer.RNFileViewerPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
