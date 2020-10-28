@@ -30,6 +30,7 @@ import controleVehiculesReducer from '../../modules/referentiel/controleVehicule
 import plaquesImmReducer from '../../modules/referentiel/plaquesImmatriculation/state/reducers/refPlaquesImmReducer';
 import ctrlReconnaissanceReducer from '../../modules/controle/reconnaissance/state/reducers/ctrlReconnaissanceReducer';
 import enqCompteRenduReducer from '../../modules/enquetes/compteRendu/state/reducers/enqCompteRenduReducer';
+import ctrlControleApresScannerReducer from '../../modules/controle/controleApresScanner/state/reducers/ctrlControleApresScannerReducer';
 
 import crudDatatableReducer from '../state/reducers/ComCrudDataTableReducer';
 /**
@@ -50,6 +51,7 @@ const allReducers = combineReducers({
   refOperateursEconomiquesReducer,
   ctrlReconnaissanceReducer,
   enqCompteRenduReducer,
+  ctrlControleApresScannerReducer,
   genericReducer,
   dedRedressementInitReducer,
   referentielReducer,

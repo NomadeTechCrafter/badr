@@ -12,6 +12,7 @@ import atTranslations from '../../modules/at/apurement/i18n/atApurementTranslate
 import refOperateursEconomiquesTranslations from '../../modules/referentiel/operateursEconomiques/i18n/refOperateursEconomiquesTranslateFr';
 import ctrlReconnaissanceTranslations from '../../modules/controle/reconnaissance/i18n/ctrlReconnaissanceTranslateFr';
 import enqCompteRenduTranslations from '../../modules/enquetes/compteRendu/i18n/enqCompteRenduTranslateFr';
+import ctrlControleApresScannerTranslations from '../../modules/controle/controleApresScanner/i18n/ctrlControleApresScannerTranslateFr';
 import commonTranslations from './common/ComTranslationsFr';
 import dedouanementTranslateFr from '../../modules/dedouanement/redressement/i18n/dedouanementTranslateFr';
 import controleRechrcheDumTranslateFr from '../../modules/controle/rechercheDum/i18n/controleRechrcheDumTranslateFr';
@@ -40,6 +41,7 @@ let combined = {
   ...refOperateursEconomiquesTranslations,
   ...ctrlReconnaissanceTranslations,
   ...enqCompteRenduTranslations,
+  ...ctrlControleApresScannerTranslations,
   ...refControleVehiculeTranslateFr,
   ...refPlaquesImmTranslateFr,
   ...dedouanementTranslateFr,
