@@ -26,6 +26,7 @@ import AnnulerReconnaissance from '../../../controle/reconnaissance/ui/annulerRe
 import CreerCompteRenduMission from '../../../enquetes/compteRendu/ui/creerCompteRenduMission/enqCreerCompteRenduMissionScreen';
 import ModifierCompteRenduMission from '../../../enquetes/compteRendu/ui/modifierCompteRenduMission/enqModifierCompteRenduMissionScreen';
 import ValiderCompteRenduMission from '../../../enquetes/compteRendu/ui/validerCompteRenduMission/enqValiderCompteRenduMissionScreen';
+import ControleApresScanner from '../../../controle/controleApresScanner/ui/controleApresScanner/ctrlControleApresScannerScreen';
 
 /**ACTIONS */
 import * as Constants from '../../../../commons/constants/generic/ComGenericConstants';
@@ -185,6 +186,12 @@ class habHomeScreen extends React.Component {
           <Drawer.Screen
               name="ValiderCompteRenduMission"
               component={ValiderCompteRenduMission}
+              options={{headerShown: false}}
+          />
+
+          <Drawer.Screen
+              name="ControleApresScanner"
+              component={ControleApresScanner}
               options={{headerShown: false}}
           />
 

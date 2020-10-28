@@ -56,8 +56,8 @@ class CtrlReconnaissanceCoreComponent extends React.Component {
             photoList[index].urlPhoto = markPhotoUrl(value.urlPhoto);
 
             if (value.content != null) {
-                $scope.recVO.photoList[index].contentBase64 = value.content;
-                $scope.recVO.photoList[index].content = null;
+                photoList[index].contentBase64 = value.content;
+                photoList[index].content = null;
             }
         });
 
