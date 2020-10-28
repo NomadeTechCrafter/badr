@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Dimensions} from 'react-native';
+import {View, Dimensions, SafeAreaView, FlatList, TouchableOpacity} from 'react-native';
 
 import {
   ComContainerComp,
@@ -11,10 +11,11 @@ import {
   ComBadrProgressBarComp,
   ComBadrToolbarComp,
   ComBadrListComp,
-  BadrLibelleBleu,
-  BadrLibelleNoir,
+  ComBadrLibelleComp,
   ComBadrNumericTextInputComp,
   ComBadrPopupComp,
+  ComBasicDataTableComp,
+  ComBadrDualListBoxComp,
 } from '../../../../commons/component';
 import {
   Checkbox,
@@ -38,11 +39,12 @@ import {load} from '../../../services/storage-service';
 import {connect} from 'react-redux';
 import * as Constants from '../../../common/constants/mainLevee/delivrerMLV';
 import * as DelivrerMLVAction from '../../../redux/actions/mainLevee/delivrerMLV';
+import style from '../../../../modules/controle/controleApresScanner/style/ctrlControleApresScannerStyle';
 
 const RECONNU = 'reconnu';
 const DEMANDE_CONSIGNATION = 'demandeConsignation';
 
-class DelivrerMLV extends Component {
+class DelivrerMLV extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -68,8 +70,34 @@ class DelivrerMLV extends Component {
       message: '',
       messageType: '',
       selectedItemListScelle: '',
+      includeScelles: false,
     };
     this.numeroScelle = '';
+
+    let conteneurs = [];
+    for (let i = 0; i < this.state.delivrerMainleveeVO.conteneurs.length; i++) {
+      var conteneur = this.state.delivrerMainleveeVO.conteneurs[i];
+      conteneurs.push({
+        "code": i,
+        "libelle": conteneur,
+        "actif": false,
+        "disabled": false
+      });
+    }
+
+    let conteneursCibles = [];
+    for (let j = conteneurs.length; j < conteneurs.length + this.state.delivrerMainleveeVO.conteneursCibles.length; j++) {
+      var conteneurCible = this.state.delivrerMainleveeVO.conteneursCibles[j - conteneurs.length];
+      conteneursCibles.push({
+        "code": j,
+        "libelle": conteneurCible,
+        "actif": false,
+        "disabled": true
+      });
+    }
+
+    this.state.conteneurs = conteneurs;
+    this.state.conteneursCibles = conteneursCibles;
   }
 
   componentDidMount() {
@@ -261,6 +289,63 @@ class DelivrerMLV extends Component {
     }
   };
 
+  buildD17D20TableColumns = () => {
+    return [
+      {
+        code: 'referenceEnregistrement',
+        libelle: translate('mainlevee.delivrerMainlevee.listeD17D20.reference'),
+        width: 290,
+      },
+      {
+        code: 'dateCreation',
+        libelle: translate('mainlevee.delivrerMainlevee.listeD17D20.dateCreation'),
+        width: 290,
+      },
+      {
+        code: 'numeroVersionCourante',
+        libelle: translate('mainlevee.delivrerMainlevee.listeD17D20.numeroVersion'),
+        width: 290,
+      },
+    ];
+  };
+
+  buildApurementD17D20TableColumns = () => {
+    return [
+      {
+        code: 'referenceEnregistrement',
+        libelle: translate('mainlevee.delivrerMainlevee.listeDeclarationsApurementD17D20.reference'),
+        width: 290,
+      },
+      {
+        code: 'dateCreation',
+        libelle: translate('mainlevee.delivrerMainlevee.listeDeclarationsApurementD17D20.dateCreation'),
+        width: 290,
+      },
+      {
+        code: 'numeroVersionCourante',
+        libelle: translate('mainlevee.delivrerMainlevee.listeDeclarationsApurementD17D20.numeroVersion'),
+        width: 290,
+      },
+    ];
+  };
+
+  renderBoxItem = ({item}) => {
+    const itemStyle = item === this.state.selectedScelle ? styles.selectedBoxItem : styles.boxItem;
+    const itemTextStyle = item === this.state.selectedScelle ? styles.selectedBoxItemText : styles.boxItemText;
+
+    return (
+        <View style={itemStyle}>
+          <TouchableOpacity disabled={this.state.isConsultation}
+                            onPress={() => this.setState({
+                              ...this.state,
+                              selectedScelle: item,
+                            })}>
+            <Text style={itemTextStyle}>{item}</Text>
+          </TouchableOpacity>
+        </View>
+    );
+  };
+
   render() {
     const {
       delivrerMainleveeVO,
@@ -297,45 +382,45 @@ class DelivrerMLV extends Component {
             <Grid>
               <Row style={CustomStyleSheet.whiteRow}>
                 <Col size={2}>
-                  <BadrLibelleBleu>
+                  <ComBadrLibelleComp withColor={true}>
                     {translate('transverse.bureau')}
-                  </BadrLibelleBleu>
+                  </ComBadrLibelleComp>
                 </Col>
                 <Col size={2}>
-                  <BadrLibelleBleu>
+                  <ComBadrLibelleComp withColor={true}>
                     {translate('transverse.regime')}
-                  </BadrLibelleBleu>
+                  </ComBadrLibelleComp>
                 </Col>
                 <Col size={2}>
-                  <BadrLibelleBleu>
+                  <ComBadrLibelleComp withColor={true}>
                     {translate('transverse.annee')}
-                  </BadrLibelleBleu>
+                  </ComBadrLibelleComp>
                 </Col>
                 <Col size={2}>
-                  <BadrLibelleBleu>
+                  <ComBadrLibelleComp withColor={true}>
                     {translate('transverse.serie')}
-                  </BadrLibelleBleu>
+                  </ComBadrLibelleComp>
                 </Col>
                 <Col size={1}>
-                  <BadrLibelleBleu>
+                  <ComBadrLibelleComp withColor={true}>
                     {translate('transverse.cle')}
-                  </BadrLibelleBleu>
+                  </ComBadrLibelleComp>
                 </Col>
                 <Col size={1}>
-                  <BadrLibelleBleu>
+                  <ComBadrLibelleComp withColor={true}>
                     {translate('transverse.nVoyage')}
-                  </BadrLibelleBleu>
+                  </ComBadrLibelleComp>
                 </Col>
                 <Col size={4}>
-                  <BadrLibelleBleu>
+                  <ComBadrLibelleComp withColor={true}>
                     {translate('mainlevee.refDroitTaxGaran')}
-                  </BadrLibelleBleu>
+                  </ComBadrLibelleComp>
                 </Col>
                 <Col size={2}>
                   {delivrerMainleveeVO.liquidation === 'non' ? (
-                    <BadrLibelleBleu>
+                    <ComBadrLibelleComp withColor={true}>
                       {delivrerMainleveeVO.liquidation}
-                    </BadrLibelleBleu>
+                    </ComBadrLibelleComp>
                   ) : (
                     <Button mode="text">
                       {delivrerMainleveeVO.liquidation}
@@ -345,48 +430,48 @@ class DelivrerMLV extends Component {
               </Row>
               <Row style={CustomStyleSheet.lightBlueRow}>
                 <Col size={2}>
-                  <BadrLibelleNoir>
+                  <ComBadrLibelleComp withColor={false}>
                     {this.state.refDeclaration.slice(0, 3)}
-                  </BadrLibelleNoir>
+                  </ComBadrLibelleComp>
                 </Col>
                 <Col size={2}>
-                  <BadrLibelleNoir>
+                  <ComBadrLibelleComp withColor={false}>
                     {this.state.refDeclaration.slice(3, 6)}
-                  </BadrLibelleNoir>
+                  </ComBadrLibelleComp>
                 </Col>
                 <Col size={2}>
-                  <BadrLibelleNoir>
+                  <ComBadrLibelleComp withColor={false}>
                     {this.state.refDeclaration.slice(6, 10)}
-                  </BadrLibelleNoir>
+                  </ComBadrLibelleComp>
                 </Col>
                 <Col size={2}>
-                  <BadrLibelleNoir>
+                  <ComBadrLibelleComp withColor={false}>
                     {this.state.refDeclaration.slice(10, 17)}
-                  </BadrLibelleNoir>
+                  </ComBadrLibelleComp>
                 </Col>
                 <Col size={1}>
-                  <BadrLibelleNoir>{this.state.cle}</BadrLibelleNoir>
+                  <ComBadrLibelleComp withColor={false}>{this.state.cle}</ComBadrLibelleComp>
                 </Col>
                 <Col size={1}>
-                  <BadrLibelleNoir>{this.state.numeroVoyage}</BadrLibelleNoir>
+                  <ComBadrLibelleComp withColor={false}>{this.state.numeroVoyage}</ComBadrLibelleComp>
                 </Col>
                 <Col size={4}>
-                  <BadrLibelleBleu>
+                  <ComBadrLibelleComp withColor={true}>
                     {translate('mainlevee.refPaiementAmend')}
-                  </BadrLibelleBleu>
+                  </ComBadrLibelleComp>
                 </Col>
                 <Col size={2}>
-                  <BadrLibelleNoir>
+                  <ComBadrLibelleComp withColor={false}>
                     {delivrerMainleveeVO.paiement}
-                  </BadrLibelleNoir>
+                  </ComBadrLibelleComp>
                 </Col>
               </Row>
               <Row style={CustomStyleSheet.whiteRow}>
                 <Col size={10} />
                 <Col size={4}>
-                  <BadrLibelleBleu>
+                  <ComBadrLibelleComp withColor={true}>
                     {translate('mainlevee.mainleveeSousReservePaiement')}
-                  </BadrLibelleBleu>
+                  </ComBadrLibelleComp>
                 </Col>
                 <Col size={2} />
               </Row>
@@ -406,9 +491,9 @@ class DelivrerMLV extends Component {
                 'mainlevee.delivrerMainlevee.annotations.title',
               )}>
               <Row style={CustomStyleSheet.whiteRow}>
-                <BadrLibelleNoir>
+                <ComBadrLibelleComp withColor={false}>
                   {delivrerMainleveeVO.annotationsControle}
-                </BadrLibelleNoir>
+                </ComBadrLibelleComp>
               </Row>
             </ComAccordionComp>
           </ComBadrCardBoxComp>
@@ -422,53 +507,53 @@ class DelivrerMLV extends Component {
               <Grid>
                 <Row style={CustomStyleSheet.whiteRow}>
                   <Col size={3}>
-                    <BadrLibelleBleu>
+                    <ComBadrLibelleComp withColor={true}>
                       {translate(
                         'mainlevee.delivrerMainlevee.listeDocumentsExigibles.documentAnnexe',
                       )}
-                    </BadrLibelleBleu>
+                    </ComBadrLibelleComp>
                   </Col>
                   <Col size={1}>
-                    <BadrLibelleBleu>
+                    <ComBadrLibelleComp withColor={true}>
                       {translate(
                         'mainlevee.delivrerMainlevee.listeDocumentsExigibles.portee',
                       )}
-                    </BadrLibelleBleu>
+                    </ComBadrLibelleComp>
                   </Col>
                   <Col size={1}>
-                    <BadrLibelleBleu>
+                    <ComBadrLibelleComp withColor={true}>
                       {translate(
                         'mainlevee.delivrerMainlevee.listeDocumentsExigibles.numArticle',
                       )}
-                    </BadrLibelleBleu>
+                    </ComBadrLibelleComp>
                   </Col>
                   <Col size={1}>
-                    <BadrLibelleBleu>
+                    <ComBadrLibelleComp withColor={true}>
                       {translate(
                         'mainlevee.delivrerMainlevee.listeDocumentsExigibles.reconnu',
                       )}
-                    </BadrLibelleBleu>
+                    </ComBadrLibelleComp>
                   </Col>
                   <Col size={1}>
-                    <BadrLibelleBleu>
+                    <ComBadrLibelleComp withColor={true}>
                       {translate(
                         'mainlevee.delivrerMainlevee.listeDocumentsExigibles.dConsignation',
                       )}
-                    </BadrLibelleBleu>
+                    </ComBadrLibelleComp>
                   </Col>
                   <Col size={1}>
-                    <BadrLibelleBleu>
+                    <ComBadrLibelleComp withColor={true}>
                       {translate(
                         'mainlevee.delivrerMainlevee.listeDocumentsExigibles.laisserPasser',
                       )}
-                    </BadrLibelleBleu>
+                    </ComBadrLibelleComp>
                   </Col>
                   <Col size={2}>
-                    <BadrLibelleBleu>
+                    <ComBadrLibelleComp withColor={true}>
                       {translate(
                         'mainlevee.delivrerMainlevee.listeDocumentsExigibles.decisionOrganismeControle',
                       )}
-                    </BadrLibelleBleu>
+                    </ComBadrLibelleComp>
                   </Col>
                 </Row>
 
@@ -482,13 +567,13 @@ class DelivrerMLV extends Component {
                           : CustomStyleSheet.whiteRow
                       }>
                       <Col size={3}>
-                        <BadrLibelleNoir>{item.docAnnexe}</BadrLibelleNoir>
+                        <ComBadrLibelleComp withColor={false}>{item.docAnnexe}</ComBadrLibelleComp>
                       </Col>
                       <Col size={1}>
-                        <BadrLibelleNoir>{item.portee}</BadrLibelleNoir>
+                        <ComBadrLibelleComp withColor={false}>{item.portee}</ComBadrLibelleComp>
                       </Col>
                       <Col size={1}>
-                        <BadrLibelleNoir>{item.narticle}</BadrLibelleNoir>
+                        <ComBadrLibelleComp withColor={false}>{item.narticle}</ComBadrLibelleComp>
                       </Col>
                       <Col size={1}>
                         <Checkbox
@@ -527,9 +612,9 @@ class DelivrerMLV extends Component {
                         />
                       </Col>
                       <Col size={2}>
-                        <BadrLibelleNoir>
+                        <ComBadrLibelleComp withColor={false}>
                           {item.decisionOrgControle}
-                        </BadrLibelleNoir>
+                        </ComBadrLibelleComp>
                       </Col>
                     </Row>
                   ))}
@@ -637,30 +722,30 @@ class DelivrerMLV extends Component {
               <Grid>
                 <Row style={CustomStyleSheet.lightBlueRow}>
                   <Col>
-                    <BadrLibelleBleu>
+                    <ComBadrLibelleComp withColor={true}>
                       {translate(
                         'mainlevee.delivrerMainlevee.constationMarchandise.numeroBulletinReception',
                       )}
-                    </BadrLibelleBleu>
+                    </ComBadrLibelleComp>
                   </Col>
                   <Col>
-                    <BadrLibelleNoir>
+                    <ComBadrLibelleComp withColor={false}>
                       {delivrerMainleveeVO.numeroBulletinReception}
-                    </BadrLibelleNoir>
+                    </ComBadrLibelleComp>
                   </Col>
                 </Row>
                 <Row style={CustomStyleSheet.whiteRow}>
                   <Col>
-                    <BadrLibelleBleu>
+                    <ComBadrLibelleComp withColor={true}>
                       {translate(
                         'mainlevee.delivrerMainlevee.constationMarchandise.etatChargement',
                       )}
-                    </BadrLibelleBleu>
+                    </ComBadrLibelleComp>
                   </Col>
                   <Col>
-                    <BadrLibelleNoir>
+                    <ComBadrLibelleComp withColor={false}>
                       {delivrerMainleveeVO.etatChargement}
-                    </BadrLibelleNoir>
+                    </ComBadrLibelleComp>
                   </Col>
                 </Row>
               </Grid>
@@ -724,138 +809,209 @@ class DelivrerMLV extends Component {
                 'mainlevee.delivrerMainlevee.informationsEcor.title',
               )}>
               <Grid>
-                <Row style={CustomStyleSheet.whiteRow}>
-                  <Col size={1}>
-                    <TextInput
-                      mode={'outlined'}
-                      maxLength={8}
-                      value={delivrerMainleveeVO.numeroPince}
-                      label={translate(
-                        'mainlevee.delivrerMainlevee.informationsEcor.numeroPince',
-                      )}
-                      style={CustomStyleSheet.badrInputHeight}
-                      onChangeText={(text) =>
-                        this.setState({
-                          delivrerMainleveeVO: {
-                            ...this.state.delivrerMainleveeVO,
-                            numeroPince: text,
-                          },
-                        })
-                      }
-                    />
-                  </Col>
-                  <Col size={1} />
-                  <Col size={1}>
-                    <ComBadrNumericTextInputComp
-                      maxLength={8}
-                      value={delivrerMainleveeVO.nombreDeScelles}
-                      label={translate(
-                        'mainlevee.delivrerMainlevee.informationsEcor.nombreScelles',
-                      )}
-                      onChangeBadrInput={(text) =>
-                        this.setState({
-                          delivrerMainleveeVO: {
-                            ...this.state.delivrerMainleveeVO,
-                            nombreDeScelles: text,
-                          },
-                        })
-                      }
-                    />
-                  </Col>
-                </Row>
                 <Row style={CustomStyleSheet.lightBlueRow}>
-                  <Col size={5}>
-                    <BadrLibelleBleu>
-                      {translate(
-                        'mainlevee.delivrerMainlevee.informationsEcor.generateurScelle',
-                      )}
-                    </BadrLibelleBleu>
+                  <Col size={30}>
+                    <ComBadrLibelleComp withColor={true}>
+                      {translate('mainlevee.delivrerMainlevee.informationsEcor.scellesConfirmationEntree',)}
+                    </ComBadrLibelleComp>
                   </Col>
-                  <Col size={2}>
-                    <ComBadrNumericTextInputComp
-                      onRef={(input) => {
-                        this.generateurNumScelleDu = input;
-                      }}
-                      maxLength={8}
-                      value={this.state.generateurNumScelleDu}
-                      label={translate('transverse.du')}
-                      onChangeBadrInput={(text) =>
-                        this.setState({
-                          generateurNumScelleDu: text,
-                        })
-                      }
-                    />
-                  </Col>
-                  <Col size={1} />
-                  <Col size={2}>
-                    <ComBadrNumericTextInputComp
-                      onRef={(input) => {
-                        this.generateurNumScelleAu = input;
-                      }}
-                      maxLength={8}
-                      value={generateurNumScelleAu}
-                      label={translate('transverse.au')}
-                      onChangeBadrInput={(text) =>
-                        this.setState({
-                          generateurNumScelleAu: text,
-                        })
-                      }
-                    />
-                  </Col>
-                  <Col size={2} />
-                  <Col size={1}>
-                    <Button
-                      mode="contained"
-                      compact="true"
-                      onPress={this.genererNumeroScelle}>
-                      {translate('transverse.Ok')}
-                    </Button>
-                  </Col>
-                  <Col size={2} />
-                </Row>
-                <Row
-                  style={[CustomStyleSheet.whiteRow, styles.rowListNumScelle]}>
-                  <Col size={5}>
-                    <ComBadrNumericTextInputComp
-                      onRef={(input) => {
-                        this.numeroScelleInput = input;
-                      }}
-                      maxLength={8}
-                      value={this.numeroScelle}
-                      label={translate(
-                        'mainlevee.delivrerMainlevee.informationsEcor.numeroScelle',
-                      )}
-                      onChangeBadrInput={(text) => {
-                        this.numeroScelle = text;
-                      }}
-                    />
-                  </Col>
-                  <Col size={2} />
 
-                  <Col size={1}>
-                    <Button
-                      onPress={this.addNumeroScelle}
-                      icon="plus-box"
-                      mode="contained"
-                      compact="true"
-                    />
-                    <Button
-                      onPress={this.deleteNumeroScelle}
-                      icon="delete"
-                      mode="contained"
-                      compact="true"
-                    />
-                  </Col>
-                  <Col size={2} />
-                  <Col size={5}>
-                    <ComBadrListComp
-                      data={listeNombreDeScelles}
-                      onPressListItem={(index) =>
-                        this.setState({selectedItemListScelle: index})
-                      }
-                    />
+                  <Col size={70} style={styles.boxContainer}>
+                    <SafeAreaView style={styles.boxSafeArea}>
+                      {(delivrerMainleveeVO.scellesConfirmationEntree == null || delivrerMainleveeVO.scellesConfirmationEntree.size === 0) && (
+                          <Text style={styles.boxItemText}>Aucun élément</Text>
+                      )}
+
+                      {(delivrerMainleveeVO.scellesConfirmationEntree != null && delivrerMainleveeVO.scellesConfirmationEntree.size !== 0) && (
+                          <FlatList
+                              data={Object.values(delivrerMainleveeVO.scellesConfirmationEntree)}
+                              renderItem={(item) => this.renderBoxItem(item)}
+                              keyExtractor={item => item}
+                              nestedScrollEnabled={true}
+                          />
+                      )}
+                    </SafeAreaView>
                   </Col>
                 </Row>
+
+                <Row style={CustomStyleSheet.whiteRow}>
+                  <Col size={30}>
+                    <ComBadrLibelleComp withColor={true}>
+                      {translate('mainlevee.delivrerMainlevee.informationsEcor.nouveauxScelles',)}
+                    </ComBadrLibelleComp>
+                  </Col>
+
+                  <Col size={3}>
+                    <RadioButton
+                        value={this.state.includeScelles === true ? 'true' : 'false'}
+                        status={this.state.includeScelles === true ? 'checked' : 'unchecked'}
+                        onPress={() => this.setState({
+                          ...this.state,
+                          includeScelles: true,
+                        })}/>
+                  </Col>
+
+                  <Col size={10} style={style.labelContainer}>
+                    <Text style={style.labelTextStyle}>
+                      {translate('mainlevee.delivrerMainlevee.informationsEcor.oui')}
+                    </Text>
+                  </Col>
+
+                  <Col size={3}>
+                    <RadioButton
+                        value={this.state.includeScelles === false ? 'true' : 'false'}
+                        status={this.state.includeScelles === false ? 'checked' : 'unchecked'}
+                        onPress={() => this.setState({
+                          ...this.state,
+                          includeScelles: false,
+                        })}/>
+                  </Col>
+
+                  <Col size={10} style={style.labelContainer}>
+                    <Text style={style.labelTextStyle}>
+                      {translate('mainlevee.delivrerMainlevee.informationsEcor.non')}
+                    </Text>
+                  </Col>
+
+                  <Col size={40}/>
+                </Row>
+
+                {this.state.includeScelles && (
+                    <View>
+                      <Row style={CustomStyleSheet.whiteRow}>
+                        <Col size={1}>
+                          <TextInput
+                              mode={'outlined'}
+                              maxLength={8}
+                              value={delivrerMainleveeVO.numeroPince}
+                              label={translate(
+                                  'mainlevee.delivrerMainlevee.informationsEcor.numeroPince',
+                              )}
+                              style={CustomStyleSheet.badrInputHeight}
+                              onChangeText={(text) =>
+                                  this.setState({
+                                    delivrerMainleveeVO: {
+                                      ...this.state.delivrerMainleveeVO,
+                                      numeroPince: text,
+                                    },
+                                  })
+                              }
+                          />
+                        </Col>
+                        <Col size={1} />
+                        <Col size={1}>
+                          <ComBadrNumericTextInputComp
+                              maxLength={8}
+                              value={delivrerMainleveeVO.nombreDeScelles}
+                              label={translate(
+                                  'mainlevee.delivrerMainlevee.informationsEcor.nombreScelles',
+                              )}
+                              onChangeBadrInput={(text) =>
+                                  this.setState({
+                                    delivrerMainleveeVO: {
+                                      ...this.state.delivrerMainleveeVO,
+                                      nombreDeScelles: text,
+                                    },
+                                  })
+                              }
+                          />
+                        </Col>
+                      </Row>
+                      <Row style={CustomStyleSheet.lightBlueRow}>
+                        <Col size={5}>
+                          <ComBadrLibelleComp withColor={true}>
+                            {translate(
+                                'mainlevee.delivrerMainlevee.informationsEcor.generateurScelle',
+                            )}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col size={2}>
+                          <ComBadrNumericTextInputComp
+                              onRef={(input) => {
+                                this.generateurNumScelleDu = input;
+                              }}
+                              maxLength={8}
+                              value={this.state.generateurNumScelleDu}
+                              label={translate('transverse.du')}
+                              onChangeBadrInput={(text) =>
+                                  this.setState({
+                                    generateurNumScelleDu: text,
+                                  })
+                              }
+                          />
+                        </Col>
+                        <Col size={1} />
+                        <Col size={2}>
+                          <ComBadrNumericTextInputComp
+                              onRef={(input) => {
+                                this.generateurNumScelleAu = input;
+                              }}
+                              maxLength={8}
+                              value={generateurNumScelleAu}
+                              label={translate('transverse.au')}
+                              onChangeBadrInput={(text) =>
+                                  this.setState({
+                                    generateurNumScelleAu: text,
+                                  })
+                              }
+                          />
+                        </Col>
+                        <Col size={2} />
+                        <Col size={1}>
+                          <Button
+                              mode="contained"
+                              compact="true"
+                              onPress={this.genererNumeroScelle}>
+                            {translate('transverse.Ok')}
+                          </Button>
+                        </Col>
+                        <Col size={2} />
+                      </Row>
+                      <Row
+                          style={[CustomStyleSheet.whiteRow, styles.rowListNumScelle]}>
+                        <Col size={5}>
+                          <ComBadrNumericTextInputComp
+                              onRef={(input) => {
+                                this.numeroScelleInput = input;
+                              }}
+                              maxLength={8}
+                              value={this.numeroScelle}
+                              label={translate(
+                                  'mainlevee.delivrerMainlevee.informationsEcor.numeroScelle',
+                              )}
+                              onChangeBadrInput={(text) => {
+                                this.numeroScelle = text;
+                              }}
+                          />
+                        </Col>
+                        <Col size={2} />
+
+                        <Col size={1}>
+                          <Button
+                              onPress={this.addNumeroScelle}
+                              icon="plus-box"
+                              mode="contained"
+                              compact="true"
+                          />
+                          <Button
+                              onPress={this.deleteNumeroScelle}
+                              icon="delete"
+                              mode="contained"
+                              compact="true"
+                          />
+                        </Col>
+                        <Col size={2} />
+                        <Col size={5}>
+                          <ComBadrListComp
+                              data={listeNombreDeScelles}
+                              onPressListItem={(index) =>
+                                  this.setState({selectedItemListScelle: index})
+                              }
+                          />
+                        </Col>
+                      </Row>
+                    </View>
+                )}
               </Grid>
             </ComAccordionComp>
           </ComBadrCardBoxComp>
@@ -968,6 +1124,77 @@ class DelivrerMLV extends Component {
             </ComAccordionComp>
           </ComBadrCardBoxComp>
 
+          {/* Conteneurs */}
+          <ComBadrCardBoxComp noPadding={true}>
+            <ComAccordionComp
+                title={translate('mainlevee.delivrerMainlevee.conteneurs.title')}>
+              <Grid>
+                <Row style={CustomStyleSheet.lightBlueRow} size={100}>
+                  <Col size={30}>
+                    <ComBadrLibelleComp withColor={true}>
+                      {translate('mainlevee.delivrerMainlevee.conteneurs.conteneursCibles',)}
+                    </ComBadrLibelleComp>
+                  </Col>
+
+                  <Col size={70}>
+                    <ComBadrDualListBoxComp
+                        style={style.dualListContainer}
+                        available={this.state.conteneurs}
+                        selected={this.state.conteneursCibles}
+                        readonly={this.state.isConsultation}
+                    />
+                  </Col>
+                </Row>
+              </Grid>
+            </ComAccordionComp>
+          </ComBadrCardBoxComp>
+
+          {/* Liste des D17/D20 */}
+          <ComBadrCardBoxComp noPadding={true}>
+            <ComAccordionComp
+                title={translate('mainlevee.delivrerMainlevee.listeD17D20.title')}>
+              <Grid>
+                <Row style={CustomStyleSheet.lightBlueRow} size={100}>
+                  <Col size={100}>
+                    <ComBasicDataTableComp
+                        onRef={(ref) => (this.d17d20Table = ref)}
+                        id="d17d20Table"
+                        hasId={false}
+                        rows={delivrerMainleveeVO.declarationsTryptique ? delivrerMainleveeVO.declarationsTryptique : []}
+                        cols={this.buildD17D20TableColumns()}
+                        totalElements={delivrerMainleveeVO.declarationsTryptique ? delivrerMainleveeVO.declarationsTryptique.length : 0}
+                        maxResultsPerPage={5}
+                        paginate={true}
+                    />
+                  </Col>
+                </Row>
+              </Grid>
+            </ComAccordionComp>
+          </ComBadrCardBoxComp>
+
+          {/* Liste des déclarations d'apurement D17/D20 */}
+          <ComBadrCardBoxComp noPadding={true}>
+            <ComAccordionComp
+                title={translate('mainlevee.delivrerMainlevee.listeDeclarationsApurementD17D20.title')}>
+              <Grid>
+                <Row style={CustomStyleSheet.lightBlueRow} size={100}>
+                  <Col size={100}>
+                    <ComBasicDataTableComp
+                        onRef={(ref) => (this.apurementd17d20Table = ref)}
+                        id="apurementd17d20Table"
+                        hasId={false}
+                        rows={delivrerMainleveeVO.declarationsApurementTryptique ? delivrerMainleveeVO.declarationsApurementTryptique : []}
+                        cols={this.buildApurementD17D20TableColumns()}
+                        totalElements={delivrerMainleveeVO.declarationsApurementTryptique ? delivrerMainleveeVO.declarationsApurementTryptique.length : 0}
+                        maxResultsPerPage={5}
+                        paginate={true}
+                    />
+                  </Col>
+                </Row>
+              </Grid>
+            </ComAccordionComp>
+          </ComBadrCardBoxComp>
+
           {/* Actions */}
           <View
             style={styles.containerActionBtn}
@@ -1053,6 +1280,42 @@ const styles = {
   },
   rowListNumScelle: {
     height: 170,
+  },
+  boxContainer: {
+    backgroundColor: '#ebecf3',
+    borderRadius: 4,
+  },
+  boxSafeArea: {
+    margin: '5%',
+    height: 200,
+    borderRadius: 4,
+  },
+  boxItem: {
+    backgroundColor: '#ffffff',
+    marginVertical: 2,
+    height: 32,
+    borderRadius: 4,
+    justifyContent: 'center',
+  },
+  boxItemText: {
+    paddingLeft: '4%',
+    color: '#000000',
+  },
+  selectedBoxItem: {
+    backgroundColor: '#009ab2',
+    marginVertical: 2,
+    height: 32,
+    borderRadius: 4,
+    justifyContent: 'center',
+  },
+  selectedBoxItemText: {
+    paddingLeft: '4%',
+    color: '#ffffff',
+  },
+  dualListContainer: {
+    borderRadius: 10,
+    width: '50%',
+    paddingBottom: 30,
   },
 };
 

@@ -41,7 +41,8 @@ export default class ComBadrDualListBoxComp extends React.Component {
 
         return (
             <View style={itemStyle}>
-                <TouchableOpacity onPress={() => this.setState({selectedCode: item.code, selectedBox: box})}>
+                <TouchableOpacity onPress={() => this.setState({selectedCode: item.code, selectedBox: box})}
+                                  disabled={item.disabled}>
                     <Text style={itemTextStyle}>{item.libelle}</Text>
                 </TouchableOpacity>
             </View>
