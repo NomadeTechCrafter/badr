@@ -1,6 +1,14 @@
 import React from 'react';
 
-import {FlatList, Image, ScrollView, Text, View} from 'react-native';
+import {
+    FlatList,
+    Image,
+    PermissionsAndroid,
+    Platform,
+    ScrollView,
+    Text,
+    View,
+} from 'react-native';
 import {Button} from 'react-native-elements';
 import Modal from 'react-native-modal';
 import {HelperText, TextInput} from 'react-native-paper';
@@ -17,6 +25,7 @@ import {translate} from '../../../../commons/i18n/ComI18nHelper';
 import style from '../style/ctrlReconnaissanceStyle';
 
 import _ from 'lodash';
+import RNFetchBlob from 'rn-fetch-blob';
 
 import * as Constants from '../state/ctrlReconnaissanceConstants';
 
@@ -178,6 +187,33 @@ class CtrlReconnaissanceCoreComponent extends React.Component {
         });
     };
 
+    downloadPicture = async (picture) => {
+        try {
+            const granted = await PermissionsAndroid.request(
+                PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+                {
+                    title: 'External Storage Permission',
+                    message: 'L\'application a besoin des permissions nécessaires pour procéder.' ,
+                    buttonNeutral: 'Demander ultérieurement',
+                    buttonNegative: 'Annuler',
+                    buttonPositive: 'OK',
+                },
+            );
+            if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+                RNFetchBlob.fs.writeFile(RNFetchBlob.fs.dirs.DownloadDir + '/' + picture.urlPhoto, picture.contentBase64, 'base64').then(() => {
+                    if (Platform.OS === 'android') {
+                        RNFetchBlob.android.actionViewIntent(RNFetchBlob.fs.dirs.DownloadDir + '/' + picture.url, 'image/jpeg');
+                    } else {
+                        RNFetchBlob.ios.previewDocument(RNFetchBlob.fs.dirs.DownloadDir + '/' + picture.url);
+                    }
+                });            } else {
+                console.log('External storage permission denied');
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
     cleDum = (regime, serie) => {
         let alpha = 'ABCDEFGHJKLMNPRSTUVWXYZ';
 
@@ -214,8 +250,19 @@ class CtrlReconnaissanceCoreComponent extends React.Component {
                 <Button
                     type={''}
                     icon={{
+                        name: 'image',
+                        size: 20,
+                        color: 'black',
+                    }}
+                    onPress={() => this.downloadPicture(item.item)}
+                    disabled={this.state.readonly}
+                />
+
+                <Button
+                    type={''}
+                    icon={{
                         name: 'delete',
-                        size: 12,
+                        size: 20,
                         color: 'black',
                     }}
                     onPress={() => this.onRemovePicture(item.item)}
