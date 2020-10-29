@@ -33,6 +33,7 @@ import controleVehiculesReducer from '../../modules/referentiel/controleVehicule
 import plaquesImmReducer from '../../modules/referentiel/plaquesImmatriculation/state/reducers/refPlaquesImmReducer';
 import ctrlReconnaissanceReducer from '../../modules/controle/reconnaissance/state/reducers/ctrlReconnaissanceReducer';
 
+import crudDatatableReducer from '../state/reducers/ComCrudDataTableReducer';
 /**
  * combine all reducers
  */
@@ -64,6 +65,7 @@ const allReducers = combineReducers({
   controleACVPReducer,
   controleVehiculesReducer,
   plaquesImmReducer,
+  crudDatatableReducer,
 });
 /**
  * store creation

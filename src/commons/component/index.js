@@ -58,3 +58,5 @@ export {default as ComQrCodeScannerComp} from './modules/qrCode/ComQrCodeScanner
 export {default as ComNumeroPlaqueRemorqueDiploComp} from './modules/referentiel/ComNumeroPlaqueRemorqueDiploComp';
 export {default as ComNumeroPlaqueComp} from './modules/referentiel/ComNumeroPlaqueComp';
 export {default as ComDetailPlaqueComp} from './modules/referentiel/ComDetailPlaqueComp';
+
+export {default as ComBadrCrudDataTableComp} from './shared/datatable/ComBadrCrudDataTableComp';

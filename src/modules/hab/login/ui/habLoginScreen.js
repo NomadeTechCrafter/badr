@@ -10,13 +10,11 @@ import * as LoginConstants from '../state/habLoginConstants';
 import * as authAction from '../state/actions/habLoginAction';
 /** i18n **/
 import {translate} from '../../../../commons/i18n/ComI18nHelper';
-
 /** Custom Components */
 import {
-  ComBadrLoginHeaderComp,
   ComBadrErrorMessageComp,
   ComBadrInfoMessageComp,
-  ComBadrAutoCompleteChipsComp,
+  ComBadrLoginHeaderComp,
 } from '../../../../commons/component';
 /** Inmemory session */
 import {load} from '../../../../commons/services/async-storage/ComStorageService';

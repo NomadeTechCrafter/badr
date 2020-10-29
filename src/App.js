@@ -51,8 +51,8 @@ export default class App extends React.Component {
   render() {
     return (
       <RootSiblingParent>
-        <PaperProvider theme={theme}>
-          <Provider store={store}>
+        <Provider store={store}>
+          <PaperProvider theme={theme}>
             <ComOfflineAlertService />
             <ComBadrStackNavigatorComp>
               {remote ? (
@@ -100,8 +100,8 @@ export default class App extends React.Component {
                 component={Home}
               />
             </ComBadrStackNavigatorComp>
-          </Provider>
-        </PaperProvider>
+          </PaperProvider>
+        </Provider>
       </RootSiblingParent>
     );
   }
