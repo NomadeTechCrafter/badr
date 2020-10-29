@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View} from 'react-native';
 import {connect} from 'react-redux';
 import {
   ComBadrKeyValueComp,
@@ -9,13 +9,13 @@ import {
 import {Button, TextInput} from 'react-native-paper';
 import {
   createItem,
-  synchronize,
   deleteItem,
   showCreateItem,
-  updateItem,
   showUpdateItem,
+  synchronize,
+  updateItem,
 } from '../../../state/actions/ComCrudDataTableAction';
-import {Col, Row} from 'react-native-easy-grid';
+import translate from '../../../i18n/ComI18nHelper';
 
 class ComBadrCrudDataTableComp extends React.Component {
   constructor(props) {
@@ -78,7 +78,7 @@ class ComBadrCrudDataTableComp extends React.Component {
           maxResultsPerPage={10}
         />
         <Button style={{padding: 10}} onPress={this.onShowNewItem} icon="plus">
-          New item
+          {translate('components.crud.addNewItem')}
         </Button>
 
         <ComBadrModalComp

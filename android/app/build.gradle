@@ -196,6 +196,11 @@ android {
 
 dependencies {
     compile project(':react-native-exception-handler')
+    compile project(':react-native-fs')
+    compile project(':react-native-file-viewer')
+
+    implementation project(':rn-fetch-blob')
+
     implementation fileTree(dir: "libs", include: ["*.jar"])
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules

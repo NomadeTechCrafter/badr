@@ -39,6 +39,9 @@ export default {
     },
   },
   components: {
+    crud: {
+      addNewItem: 'Ajouter',
+    },
     pickerchecker: {
       default_value: 'Choisissez une valeur',
       selected: 'Sélectionnés',
@@ -89,9 +92,11 @@ export default {
     nVoyage: 'n°Voy',
     version: 'Version',
     dateCreation: 'Date de création',
-    dateEnregistrement: 'Date d\'enregistrement',
+    dateEnregistrement: "Date d'enregistrement",
     type: 'Type',
     Ok: 'Ok',
+    autre: 'Autre',
+    ajouter: 'Ajouter',
     confirmer: 'Confirmer',
     valider: 'Valider',
     retablir: 'Rétablir',
@@ -118,7 +123,7 @@ export default {
     lieuChargement: 'Lieu de chargement',
     referenceLot: 'Référence Lot',
     nature: 'Nature',
-    totalEnregistrements: 'Nombre d\'enregistrements : ',
+    totalEnregistrements: "Nombre d'enregistrements : ",
   },
   qr: {
     at_invalide:

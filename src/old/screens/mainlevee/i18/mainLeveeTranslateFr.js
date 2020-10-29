@@ -56,6 +56,10 @@ export default {
       },
       informationsEcor: {
         title: 'Informations ECOR',
+        scellesConfirmationEntree: 'Scellés confirmation entrée',
+        nouveauxScelles: 'Nouveaux scellés',
+        oui: 'Oui',
+        non: 'Non',
         numeroPince: 'Numéro Pince',
         nombreScelles: 'Nombre de Scellés',
         generateurScelle: 'Génerateur de numéros de scellés ',
@@ -71,6 +75,22 @@ export default {
         title: 'Transit',
         delaiAcheminement: "Délai d'acheminement",
         enHeure: 'h',
+      },
+      conteneurs: {
+        title: 'Conteneurs',
+        conteneursCibles: 'Conteneurs Cibles',
+      },
+      listeD17D20: {
+        title: 'Liste des D17/D20',
+        reference: 'Référence',
+        dateCreation: 'Date de création',
+        numeroVersion: 'Numéro de version',
+      },
+      listeDeclarationsApurementD17D20: {
+        title: 'Liste des déclarations d\'apurement D17/D20',
+        reference: 'Référence',
+        dateCreation: 'Date de création',
+        numeroVersion: 'Numéro de version',
       },
     },
   },

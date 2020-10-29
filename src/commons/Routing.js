@@ -19,6 +19,10 @@ const mapping = {
   '306011': {screen: 'AjouterReconnaissance', params: {}},
   '306012': {screen: 'ModifierReconnaissance', params: {}},
   '306013': {screen: 'AnnulerReconnaissance', params: {}},
+  '14000010': {screen: 'CreerCompteRenduMission', params: {}},
+  '14000011': {screen: 'ModifierCompteRenduMission', params: {}},
+  '14000012': {screen: 'ValiderCompteRenduMission', params: {}},
+  '30661': {screen: 'ControleApresScanner', params: {}},
   '4096': {screen: 'RefControleVehicule', params: {}},
   '823': {screen: 'RefPlaquesImm', params: {}},
 };
