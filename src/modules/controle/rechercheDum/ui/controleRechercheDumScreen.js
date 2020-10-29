@@ -19,7 +19,7 @@ class controleRechercheDumScreen extends Component {
   }
 
   getInfoControle = () => {
-    let typeControle = 'RI'; //this.props.route.params.typeControle;
+    let typeControle = this.props.route.params.typeControle;
     switch (typeControle) {
       case 'RI':
         return {
@@ -48,7 +48,7 @@ class controleRechercheDumScreen extends Component {
         type: Constants.RECHERCHEDUM_LISTDECLARATION_REQUEST,
         value: {
           login: ComSessionService.getInstance().getLogin(),
-          typeControle: 'RI', //this.props.route.params.typeControle,
+          typeControle: this.props.route.params.typeControle,
           offset: 0,
           pageSize: 100,
         },

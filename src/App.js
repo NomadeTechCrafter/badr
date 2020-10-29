@@ -32,6 +32,9 @@ import DedRedressementScreen from './modules/dedouanement/redressement/ui/DedRed
 import DedRedressementRecherche from './modules/dedouanement/redressement/ui/DedRechercheRedressementScreen';
 import controleRechercheDumScreen from './modules/controle/rechercheDum/ui/controleRechercheDumScreen';
 import ControleRegimeInterneScreen from './modules/controle/regimeInterne/ui/controleRegimeInterneScreen';
+import RechercheEcorImport from './old/screens/ecorImport/rechercheEcorImport';
+import EnleverMarchandise from './old/screens/ecorImport/enleverMarchandise';
+
 const theme = {
   ...DefaultTheme,
   colors: {
@@ -62,13 +65,18 @@ export default class App extends React.Component {
                 <Stack.Screen
                   name="test"
                   options={{headerShown: false}}
-                  component={controleRechercheDumScreen}
+                  component={DedRedressementRecherche}
                 />
               )}
               <Stack.Screen
                 name="ControleRegimeInterneScreen"
                 options={{headerShown: false}}
                 component={ControleRegimeInterneScreen}
+              />
+              <Stack.Screen
+                name="EnleverMarchandise"
+                options={{headerShown: false}}
+                component={EnleverMarchandise}
               />
               <Stack.Screen
                 name="DedRedressementScreen"

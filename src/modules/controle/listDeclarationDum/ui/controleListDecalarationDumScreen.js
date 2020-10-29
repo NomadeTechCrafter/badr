@@ -2,19 +2,20 @@ import React from 'react';
 
 import {ScrollView, View} from 'react-native';
 
-import {DataTable} from 'react-native-paper';
-
 import {connect} from 'react-redux';
 
 /**ACTIONS */
+import * as RechecheRefDumAction from '../../rechercheDum/state/actions/controleRechercheRefDumAction';
 import * as Constants from '../../rechercheDum/state/controleRechercheRefDumConstants';
 
 /**i18n */
 import {translate} from '../../../../commons/i18n/ComI18nHelper';
 
-import * as RechecheRefDumAction from '../../rechercheDum/state/actions/controleRechercheRefDumAction';
 import {
+  ComBadrErrorMessageComp,
+  ComBadrToolbarComp,
   ComBasicDataTableComp,
+  ComControleRechercheRefComp,
   ComCopyPasteComp,
 } from '../../../../commons/component';
 
@@ -65,20 +66,23 @@ class controleListDecalarationDumScreen extends React.Component {
         width: 200,
       },
     ];
+    console.info('in constructor', props.route.params.typeControle);
     //this.typeControle ='RI'; //(props.route.params.typeControle) ? props.route.params.typeControle : 'RI';
   }
-  getSuccessRedirectionScreen = () => {
-    switch (this.state.typeControle) {
+
+  /*getSuccessRedirectionScreen = () => {
+    switch (this.props.route.params.typeControle) {
       case 'RI':
-        return 'RegimeInterne';
+        return 'ControleRegimeInterneScreen';
       case 'AC':
-        return 'ACVP';
+        return 'ControleACVPScreen';
       case 'TR':
-        return 'RegimeTransit';
+        return 'ControleRegimeTransitScreen';
     }
   };
+
   getCommandeScreen = () => {
-    switch (this.state.typeControle) {
+    switch (this.props.route.params.typeControle) {
       case 'RI':
         return 'initControlerDedRI';
       case 'AC':
@@ -86,11 +90,39 @@ class controleListDecalarationDumScreen extends React.Component {
       case 'TR':
         return 'initControlerDedTR';
     }
+  };*/
+
+  getInfoControle = () => {
+    let typeControle = this.props.route.params.typeControle;
+    switch (typeControle) {
+      case 'RI':
+        return {
+          successRedirectionScreen: 'ControleRegimeInterneScreen',
+          subtitle: translate('controle.RI'),
+          commande: 'initControlerDedRI',
+        };
+      case 'AC':
+        return {
+          successRedirectionScreen: 'ControleACVPScreen',
+          subtitle: translate('controle.ACVP'),
+          commande: 'initControlerDedACVP',
+        };
+      case 'TR':
+        return {
+          successRedirectionScreen: 'ControleRegimeTransitScreen',
+          subtitle: translate('controle.regimeTransite'),
+          commande: 'initControlerDedTR',
+        };
+    }
   };
 
-  componentDidMount() {}
+  componentDidMount() {
+    console.info('-------componentDidMount-------');
+  }
 
-  componentDidUpdate(prevProps, prevState) {}
+  componentDidUpdate(prevProps, prevState) {
+    console.info('-------componentDidUpdate-------');
+  }
 
   onItemSelected = (item) => {
     var data = {
@@ -102,25 +134,40 @@ class controleListDecalarationDumScreen extends React.Component {
         type: Constants.RECHERCHEREFDUM_REQUEST,
         value: {
           login: this.state.login,
-          commande: this.getCommandeScreen(),
+          commande: this.getInfoControle().commande,
+          module: 'CONTROL_LIB',
+          typeService: 'UC',
           data: data,
+          referenceDed: item.reference,
           cle: this.state.cle,
         },
       },
       this.props.navigation,
-      (this.props.successRedirection = this.getSuccessRedirectionScreen()),
+      this.getInfoControle().successRedirectionScreen,
     );
-    this.props.dispatch(action);
+    this.props.actions.dispatch(action);
   };
 
   render() {
     let rows = [];
-    let totalElements = 0;
-    if (this.state.listeDeclaration) {
-      rows = this.state.listeDeclaration;
+    console.info(
+      '-------render List-------',
+      this.props.route.params.listeDeclaration.length,
+    );
+    if (this.props.route.params.listeDeclaration) {
+      rows = this.props.route.params.listeDeclaration;
     }
     return (
       <View>
+        <ComBadrToolbarComp
+          navigation={this.props.navigation}
+          title={translate('controle.title')}
+          subtitle={this.getInfoControle().subtitle}
+          icon="menu"
+        />
+        {this.props.errorMessage != null && (
+          <ComBadrErrorMessageComp message={this.props.errorMessage} />
+        )}
         <ComBasicDataTableComp
           ref="_badrTable"
           id="listeDeclarationControle"
@@ -133,72 +180,12 @@ class controleListDecalarationDumScreen extends React.Component {
           showProgress={this.props.showProgress}
         />
       </View>
-      /*      <ScrollView horizontal={true}>
-        {!this.props.showProgress && (
-          <ScrollView>
-            <DataTable>
-              <DataTable.Header>
-                <DataTable.Title style={{width: 300}}>
-                  {translate('controle.declaration')}
-                </DataTable.Title>
-                <DataTable.Title style={{width: 150}}>
-                  {translate('controle.nVoyage')}
-                </DataTable.Title>
-                <DataTable.Title style={{width: 150}}>
-                  {translate('controle.version')}
-                </DataTable.Title>
-                <DataTable.Title style={{width: 200}}>
-                  {translate('controle.dateCreation')}
-                </DataTable.Title>
-                <DataTable.Title style={{width: 200}}>
-                  {translate('controle.dateEnregistrement')}
-                </DataTable.Title>
-              </DataTable.Header>
-              {rows ? (
-                rows.map((item) => (
-                  <DataTable.Row
-                    key={item.reference}
-                    onPress={() => this.onItemSelected(item)}>
-                    <DataTable.Cell
-                      style={{width: 300}}
-                      children={<ComCopyPasteComp value={item.reference} />}
-                    />
-                    <DataTable.Cell
-                      style={{width: 150}}
-                      children={<ComCopyPasteComp value={item.numVoyage} />}
-                    />
-                    <DataTable.Cell
-                      style={{width: 150}}
-                      children={<ComCopyPasteComp value={item.numeroVersion} />}
-                    />
-                    <DataTable.Cell
-                      style={{width: 200}}
-                      children={
-                        <ComCopyPasteComp value={item.dateCreationVersion} />
-                      }
-                    />
-
-                    <DataTable.Cell
-                      style={{width: 200}}
-                      children={
-                        <ComCopyPasteComp value={item.dateEnregVersion} />
-                      }
-                    />
-                  </DataTable.Row>
-                ))
-              ) : (
-                <DataTable.Row />
-              )}
-            </DataTable>
-          </ScrollView>
-        )}
-      </ScrollView>*/
     );
   }
 }
 
 function mapStateToProps(state) {
-  return {...state.controleListDeclarationDumReducer};
+  return {...state.controleRechercheRefDumReducer};
 }
 
 function mapDispatchToProps(dispatch) {

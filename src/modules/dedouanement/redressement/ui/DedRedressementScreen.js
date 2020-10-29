@@ -10,6 +10,7 @@ import DedRedressementPreapurementDsScreen from './preapurementDS/DedRedressemen
 import DedRedressementDemandeDiverseScreen from './demandesDiverses/DedRedressementDemandeDiverseScreen';
 import DedRedressementImputationTitreChangeScreen from './imputationsTitresChange/DedRedressementImputationTitreChangeScreen';
 import DedRedressementImputationCompteREDScreen from './imputationsCompteRED/DedRedressementImputationCompteREDScreen';
+import DedRedressementDocumentsScreen from './documents/DedRedressementDocumentsScreen';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -62,6 +63,12 @@ function ImputationCompteREDScreen({route, navigation}) {
   );
 }
 
+function DocumentsScreen({route, navigation}) {
+  return (
+    <DedRedressementDocumentsScreen navigation={navigation} route={route} />
+  );
+}
+
 class DedRedressementScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -76,6 +83,8 @@ class DedRedressementScreen extends React.Component {
       <View style={{flex: 1}}>
         <Tab.Navigator
           swipeEnabled={true}
+          lazy={true}
+          optimizationsEnabled={true}
           tabBarOptions={{
             scrollEnabled: true,
             labelStyle: {fontSize: 14, fontWeight: 'bold'},
@@ -112,6 +121,7 @@ class DedRedressementScreen extends React.Component {
             name="ImputationCompteRED"
             component={ImputationCompteREDScreen}
           />
+          <Tab.Screen name="Documents" component={DocumentsScreen} />
         </Tab.Navigator>
       </View>
     );
