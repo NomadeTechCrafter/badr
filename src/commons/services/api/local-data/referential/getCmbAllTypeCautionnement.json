@@ -1,0 +1,186 @@
+{
+    "dtoHeader": {
+        "userLogin": "YASAG",
+        "fonctionnalite": "cf4011",
+        "module": "REF_LIB",
+        "commande": "getCmbAllTypeCautionnement",
+        "typeService": "SP",
+        "motif": null,
+        "messagesInfo": null,
+        "messagesErreur": null
+    },
+    "jsonVO": [
+        {
+            "code": "01",
+            "libelle": "Bancaire",
+            "actif": false,
+            "showDropDown": false,
+            "disableAutoComplete": true,
+            "onFocus": "",
+            "disabled": false
+        },
+        {
+            "code": "02",
+            "libelle": "Mixte",
+            "actif": false,
+            "showDropDown": false,
+            "disableAutoComplete": true,
+            "onFocus": "",
+            "disabled": false
+        },
+        {
+            "code": "03",
+            "libelle": "Sur engagement des entreprises exportatrices",
+            "actif": false,
+            "showDropDown": false,
+            "disableAutoComplete": true,
+            "onFocus": "",
+            "disabled": false
+        },
+        {
+            "code": "04",
+            "libelle": "Global pêche",
+            "actif": false,
+            "showDropDown": false,
+            "disableAutoComplete": true,
+            "onFocus": "",
+            "disabled": false
+        },
+        {
+            "code": "05",
+            "libelle": "Global industrie",
+            "actif": false,
+            "showDropDown": false,
+            "disableAutoComplete": true,
+            "onFocus": "",
+            "disabled": false
+        },
+        {
+            "code": "06",
+            "libelle": "Mutuel",
+            "actif": false,
+            "showDropDown": false,
+            "disableAutoComplete": true,
+            "onFocus": "",
+            "disabled": false
+        },
+        {
+            "code": "07",
+            "libelle": "Dispense",
+            "actif": false,
+            "showDropDown": false,
+            "disableAutoComplete": true,
+            "onFocus": "",
+            "disabled": false
+        },
+        {
+            "code": "08",
+            "libelle": "Consignation",
+            "actif": false,
+            "showDropDown": false,
+            "disableAutoComplete": true,
+            "onFocus": "",
+            "disabled": false
+        },
+        {
+            "code": "09",
+            "libelle": "Dispense au profit des donneurs d'ordre",
+            "actif": false,
+            "showDropDown": false,
+            "disableAutoComplete": true,
+            "onFocus": "",
+            "disabled": false
+        },
+        {
+            "code": "10",
+            "libelle": "Moral",
+            "actif": false,
+            "showDropDown": false,
+            "disableAutoComplete": true,
+            "onFocus": "",
+            "disabled": false
+        },
+        {
+            "code": "11",
+            "libelle": "Sur engagement personnel",
+            "actif": false,
+            "showDropDown": false,
+            "disableAutoComplete": true,
+            "onFocus": "",
+            "disabled": false
+        },
+        {
+            "code": "C",
+            "libelle": "Caution CCM",
+            "actif": false,
+            "showDropDown": false,
+            "disableAutoComplete": true,
+            "onFocus": "",
+            "disabled": false
+        },
+        {
+            "code": "99",
+            "libelle": "99",
+            "actif": false,
+            "showDropDown": false,
+            "disableAutoComplete": true,
+            "onFocus": "",
+            "disabled": false
+        },
+        {
+            "code": "12",
+            "libelle": "Sur engagement zone franche",
+            "actif": false,
+            "showDropDown": false,
+            "disableAutoComplete": true,
+            "onFocus": "",
+            "disabled": false
+        },
+        {
+            "code": "C1",
+            "libelle": "lib c1",
+            "actif": false,
+            "showDropDown": false,
+            "disableAutoComplete": true,
+            "onFocus": "",
+            "disabled": false
+        },
+        {
+            "code": "52",
+            "libelle": "caution",
+            "actif": false,
+            "showDropDown": false,
+            "disableAutoComplete": true,
+            "onFocus": "",
+            "disabled": false
+        },
+        {
+            "code": "EE",
+            "libelle": "EEFF",
+            "actif": false,
+            "showDropDown": false,
+            "disableAutoComplete": true,
+            "onFocus": "",
+            "disabled": false
+        },
+        {
+            "code": "77",
+            "libelle": "77",
+            "actif": false,
+            "showDropDown": false,
+            "disableAutoComplete": true,
+            "onFocus": "",
+            "disabled": false
+        },
+        {
+            "code": "CF",
+            "libelle": "test type c",
+            "actif": false,
+            "showDropDown": false,
+            "disableAutoComplete": true,
+            "onFocus": "",
+            "disabled": false
+        }
+    ]
+}
+

@@ -1,0 +1,54 @@
+{
+  "dtoHeader": {
+    "userLogin": "YAMAGENT",
+    "fonctionnalite": "cf4011",
+    "module": "DED_LIB",
+    "commande": "ded.getTraceSignatureDUM",
+    "typeService": "SP",
+    "motif": null,
+    "messagesInfo": null,
+    "messagesErreur": null
+  },
+  "jsonVO": [
+    [
+      {
+        "date_signature": "05-10-2017 13.03.00",
+        "qualite_signataire": "CEDANT",
+        "ident_signataire": "J276296",
+        "numeroTransaction": "3499"
+      },
+      {
+        "date_signature": "05-10-2017 13.12.06",
+        "qualite_signataire": "SOUMISSIONNAIRE",
+        "ident_signataire": "J276296",
+        "numeroTransaction": "3499"
+      },
+      {
+        "date_signature": "05-10-2017 13.12.09",
+        "qualite_signataire": "DECLARANT",
+        "ident_signataire": "J276296",
+        "numeroTransaction": "3499"
+      }
+    ],
+    [
+      {
+        "date_signature": "05-10-2017 13.03.02",
+        "qualite_signataire": "CEDANT2",
+        "ident_signataire": "J276296",
+        "numeroTransaction": "3499"
+      },
+      {
+        "date_signature": "05-10-2017 13.12.11",
+        "qualite_signataire": "SOUMISSIONNAIRE2",
+        "ident_signataire": "J276296",
+        "numeroTransaction": "3499"
+      },
+      {
+        "date_signature": "05-10-2017 13.12.15",
+        "qualite_signataire": "DECLARANT2",
+        "ident_signataire": "J276296",
+        "numeroTransaction": "3499"
+      }
+    ]
+  ]
+}

@@ -61,7 +61,6 @@ export default class HttpHelper {
       });
       return response;
     } else {
-      console.log('Api local data :', localStore[object.dtoHeader.commande]);
       return {
         data: localStore[object.dtoHeader.commande],
       };

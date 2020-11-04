@@ -10,22 +10,25 @@ import {
   ComBadrInfoMessageComp,
   ComBadrProgressBarComp,
   ComBadrToolbarComp,
-} from '../../../components';
+} from '../../../../commons/component';
 import {Checkbox, TextInput, Text, RadioButton} from 'react-native-paper';
 /**i18n */
 import {translate} from '../../../../commons/i18n/ComI18nHelper';
-import {CustomStyleSheet, primaryColor} from '../../../styles';
+import {
+  CustomStyleSheet,
+  primaryColor,
+} from '../../../../commons/styles/ComThemeStyle';
 import _ from 'lodash';
 
-import {load} from '../../../services/storage-service';
+import {load} from '../../../../commons/services/async-storage/ComStorageService';
 import {connect} from 'react-redux';
-import * as Constants from '../../../common/constants/controle/regimeInterne';
-import * as RegimeInterneAction from '../../../redux/actions/controle/regimeInterne';
+import * as Constants from '../state/controleRegimeInterneConstants';
+import * as RegimeInterneAction from '../state/controleRegimeInterneConstants';
 
 const screenHeight = Dimensions.get('window').height;
 const RECONNU = 'reconnu';
 const DEMANDE_CONSIGNATION = 'demandeConsignation';
-class RegimeInterne extends Component {
+class ControleRegimeInterneScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -500,6 +503,6 @@ const styles = {
   actionBtn: {width: 100},
 };
 
-const mapStateToProps = (state) => ({...state.regimeInterneReducer});
+const mapStateToProps = (state) => ({...state.controleRegimeInterneReducer});
 
-export default connect(mapStateToProps, null)(RegimeInterne);
+export default connect(mapStateToProps, null)(ControleRegimeInterneScreen);

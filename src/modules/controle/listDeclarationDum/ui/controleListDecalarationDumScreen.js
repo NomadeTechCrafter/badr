@@ -1,19 +1,23 @@
 import React from 'react';
 
-import {ScrollView} from 'react-native';
-
-import {DataTable} from 'react-native-paper';
+import {ScrollView, View} from 'react-native';
 
 import {connect} from 'react-redux';
 
 /**ACTIONS */
-import * as Constants from '../state/controleListDeclarationDumConstants';
+import * as RechecheRefDumAction from '../../rechercheDum/state/actions/controleRechercheRefDumAction';
+import * as Constants from '../../rechercheDum/state/controleRechercheRefDumConstants';
 
 /**i18n */
 import {translate} from '../../../../commons/i18n/ComI18nHelper';
 
-import * as RechecheDumAction from '../state/actions/controleListDeclarationDumAction';
-import {ComCopyPasteComp} from '../../../../commons/component';
+import {
+  ComBadrErrorMessageComp,
+  ComBadrToolbarComp,
+  ComBasicDataTableComp,
+  ComControleRechercheRefComp,
+  ComCopyPasteComp,
+} from '../../../../commons/component';
 
 class controleListDecalarationDumScreen extends React.Component {
   constructor(props) {
@@ -35,20 +39,50 @@ class controleListDecalarationDumScreen extends React.Component {
       item: {},
       listeDeclaration: props.route.params.listeDeclaration,
     };
+    this.cols = [
+      {
+        code: 'reference',
+        libelle: translate('controle.declaration'),
+        width: 300,
+      },
+      {
+        code: 'numVoyage',
+        libelle: translate('controle.nVoyage'),
+        width: 150,
+      },
+      {
+        code: 'numeroVersion',
+        libelle: translate('controle.version'),
+        width: 150,
+      },
+      {
+        code: 'dateCreationVersion',
+        libelle: translate('controle.dateCreation'),
+        width: 200,
+      },
+      {
+        code: 'dateEnregVersion',
+        libelle: translate('controle.dateEnregistrement'),
+        width: 200,
+      },
+    ];
+    console.info('in constructor', props.route.params.typeControle);
     //this.typeControle ='RI'; //(props.route.params.typeControle) ? props.route.params.typeControle : 'RI';
   }
-  getSuccessRedirectionScreen = () => {
-    switch (this.state.typeControle) {
+
+  /*getSuccessRedirectionScreen = () => {
+    switch (this.props.route.params.typeControle) {
       case 'RI':
-        return 'RegimeInterne';
+        return 'ControleRegimeInterneScreen';
       case 'AC':
-        return 'ACVP';
+        return 'ControleACVPScreen';
       case 'TR':
-        return 'RegimeTransit';
+        return 'ControleRegimeTransitScreen';
     }
   };
+
   getCommandeScreen = () => {
-    switch (this.state.typeControle) {
+    switch (this.props.route.params.typeControle) {
       case 'RI':
         return 'initControlerDedRI';
       case 'AC':
@@ -56,117 +90,102 @@ class controleListDecalarationDumScreen extends React.Component {
       case 'TR':
         return 'initControlerDedTR';
     }
+  };*/
+
+  getInfoControle = () => {
+    let typeControle = this.props.route.params.typeControle;
+    switch (typeControle) {
+      case 'RI':
+        return {
+          successRedirectionScreen: 'ControleRegimeInterneScreen',
+          subtitle: translate('controle.RI'),
+          commande: 'initControlerDedRI',
+        };
+      case 'AC':
+        return {
+          successRedirectionScreen: 'ControleACVPScreen',
+          subtitle: translate('controle.ACVP'),
+          commande: 'initControlerDedACVP',
+        };
+      case 'TR':
+        return {
+          successRedirectionScreen: 'ControleRegimeTransitScreen',
+          subtitle: translate('controle.regimeTransite'),
+          commande: 'initControlerDedTR',
+        };
+    }
   };
 
-  componentDidMount() {}
+  componentDidMount() {
+    console.info('-------componentDidMount-------');
+  }
 
-  componentDidUpdate(prevProps, prevState) {}
+  componentDidUpdate(prevProps, prevState) {
+    console.info('-------componentDidUpdate-------');
+  }
 
   onItemSelected = (item) => {
-    this.setState({showErrorMsg: true});
-    if (this.state.regime && this.state.serie) {
-      this.state.cleValide = this.cleDUM(this.state.regime, this.state.serie);
-
-      if (this.state.cle === this.state.cleValide) {
-        /*var referenceDed =
-          this.state.bureau +
-          this.state.regime +
-          this.state.annee +
-          this.state.serie;*/
-        var data = {
+    var data = {
+      referenceDed: item.reference,
+      numeroVoyage: item.numVoyage,
+    };
+    var action = RechecheRefDumAction.request(
+      {
+        type: Constants.RECHERCHEREFDUM_REQUEST,
+        value: {
+          login: this.state.login,
+          commande: this.getInfoControle().commande,
+          module: 'CONTROL_LIB',
+          typeService: 'UC',
+          data: data,
           referenceDed: item.reference,
-          numeroVoyage: item.numVoyage,
-        };
-        var action = RechecheDumAction.request(
-          {
-            type: Constants.LISTDECLARATION_REQUEST,
-            value: {
-              login: this.state.login,
-              commande: this.getCommandeScreen(),
-              data: data,
-              cle: this.state.cle,
-            },
-          },
-          this.props.navigation,
-          (this.props.successRedirection = this.getSuccessRedirectionScreen()),
-        );
-        this.props.dispatch(action);
-      }
-    }
+          cle: this.state.cle,
+        },
+      },
+      this.props.navigation,
+      this.getInfoControle().successRedirectionScreen,
+    );
+    this.props.actions.dispatch(action);
   };
 
   render() {
     let rows = [];
-    if (this.state.listeDeclaration) {
-      rows = this.state.listeDeclaration;
+    console.info(
+      '-------render List-------',
+      this.props.route.params.listeDeclaration.length,
+    );
+    if (this.props.route.params.listeDeclaration) {
+      rows = this.props.route.params.listeDeclaration;
     }
     return (
-      <ScrollView horizontal={true}>
-        {!this.props.showProgress && (
-          <ScrollView>
-            <DataTable>
-              <DataTable.Header>
-                <DataTable.Title style={{width: 300}}>
-                  {translate('controle.declaration')}
-                </DataTable.Title>
-                <DataTable.Title style={{width: 150}}>
-                  {translate('controle.nVoyage')}
-                </DataTable.Title>
-                <DataTable.Title style={{width: 150}}>
-                  {translate('controle.version')}
-                </DataTable.Title>
-                <DataTable.Title style={{width: 200}}>
-                  {translate('controle.dateCreation')}
-                </DataTable.Title>
-                <DataTable.Title style={{width: 200}}>
-                  {translate('controle.dateEnregistrement')}
-                </DataTable.Title>
-              </DataTable.Header>
-              {rows ? (
-                rows.map((item) => (
-                  <DataTable.Row
-                    key={item.reference}
-                    onPress={() => this.onItemSelected(item)}>
-                    <DataTable.Cell
-                      style={{width: 300}}
-                      children={<ComCopyPasteComp value={item.reference} />}
-                    />
-                    <DataTable.Cell
-                      style={{width: 150}}
-                      children={<ComCopyPasteComp value={item.numVoyage} />}
-                    />
-                    <DataTable.Cell
-                      style={{width: 150}}
-                      children={<ComCopyPasteComp value={item.numeroVersion} />}
-                    />
-                    <DataTable.Cell
-                      style={{width: 200}}
-                      children={
-                        <ComCopyPasteComp value={item.dateCreationVersion} />
-                      }
-                    />
-
-                    <DataTable.Cell
-                      style={{width: 200}}
-                      children={
-                        <ComCopyPasteComp value={item.dateEnregVersion} />
-                      }
-                    />
-                  </DataTable.Row>
-                ))
-              ) : (
-                <DataTable.Row />
-              )}
-            </DataTable>
-          </ScrollView>
+      <View>
+        <ComBadrToolbarComp
+          navigation={this.props.navigation}
+          title={translate('controle.title')}
+          subtitle={this.getInfoControle().subtitle}
+          icon="menu"
+        />
+        {this.props.errorMessage != null && (
+          <ComBadrErrorMessageComp message={this.props.errorMessage} />
         )}
-      </ScrollView>
+        <ComBasicDataTableComp
+          ref="_badrTable"
+          id="listeDeclarationControle"
+          rows={rows}
+          cols={this.cols}
+          onItemSelected={(row) => this.onItemSelected(row)}
+          totalElements={rows.length}
+          maxResultsPerPage={10}
+          paginate={true}
+          showProgress={this.props.showProgress}
+        />
+      </View>
     );
   }
 }
 
 function mapStateToProps(state) {
-  return {...state.controleListDeclarationDumReducer};
+  return {...state.controleRechercheRefDumReducer};
 }
 
 function mapDispatchToProps(dispatch) {

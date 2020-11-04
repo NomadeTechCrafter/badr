@@ -6,12 +6,13 @@ import {
   GENERIC_DED_SUCCESS,
 } from '../DedRedressementConstants';
 import translate from '../../../../../commons/i18n/ComI18nHelper';
-import TransverseApi from '../../../../../old/services/api/transverse-api';
+import TransverseApi from '../../../../../commons/services/api/ComTransverseApi';
 
 export function request(action) {
   return (dispatch) => {
     dispatch(action);
     dispatch(inProgress(action));
+    console.log('----dedAction Action', action);
     TransverseApi.doProcess(
       'DED_LIB',
       action.value.command,

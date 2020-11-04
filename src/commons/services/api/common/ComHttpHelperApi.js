@@ -61,6 +61,7 @@ export default class ComHttpHelperApi {
             Cookie: ComSessionService.getInstance().getSessionId(true),
           },
         );
+        // console.log('reponse WS', response);
         return response;
       } catch (error) {
         console.log('---catch error in Api Call--');
@@ -72,6 +73,11 @@ export default class ComHttpHelperApi {
         store.dispatch(action);
       }
     } else {
+      console.log('----reponse dtoHeader.commande', object.dtoHeader.commande);
+      /*console.log(
+        '----reponse WS local',
+        localStore[object.dtoHeader.commande],
+      );*/
       return {
         data: localStore[object.dtoHeader.commande],
       };

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {View, TouchableOpacity, Text, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {darkGris, lightGris} from '../../../styles/ComThemeStyle';
+import {darkGris, lightGris, primaryColor} from '../../../styles/ComThemeStyle';
 export default class ComAccordionComp extends Component {
   constructor(props) {
     super(props);
@@ -16,8 +16,14 @@ export default class ComAccordionComp extends Component {
       <View style={styles.container}>
         <TouchableOpacity
           style={styles.row}
-          onPress={() => this.toggleExpand()}>
+          onPress={() => this.toggleExpand()}
+          disabled={this.props.disable}>
           <Text style={[styles.title, styles.font]}>{this.props.title}</Text>
+          {this.props.extraFieldKey && (
+            <Text style={[styles.titleExtrafield]}>
+              {this.props.extraFieldKey} : {this.props.extraFieldValue}
+            </Text>
+          )}
           <Icon
             name={
               this.state.expanded ? 'keyboard-arrow-up' : 'keyboard-arrow-down'
@@ -47,6 +53,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: darkGris,
   },
+  titleExtrafield: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: primaryColor,
+  },
   row: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -58,5 +69,6 @@ const styles = StyleSheet.create({
   },
   child: {
     flexDirection: 'column',
+    padding: 10,
   },
 });

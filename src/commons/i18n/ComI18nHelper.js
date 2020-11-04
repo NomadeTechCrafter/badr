@@ -20,6 +20,7 @@ import mainLeveeTranslateFr from '../../old/screens/mainlevee/i18/mainLeveeTrans
 import ecorImportTranslateFr from '../../old/screens/ecorImport/i18/ecorImportTranslateFr';
 import refControleVehiculeTranslateFr from '../../modules/referentiel/controleVehicules/i18n/refControleVehiculeTranslateFr';
 import refPlaquesImmTranslateFr from '../../modules/referentiel/plaquesImmatriculation/i18n/refPlaquesImmTranslateFr';
+import actifTranslateFr from '../../old/common/translations/actif/actifTranslateFr';
 
 const locales = RNLocalize.getLocales();
 
@@ -48,6 +49,7 @@ let combined = {
   ...controleRechrcheDumTranslateFr,
   ...mainLeveeTranslateFr,
   ...ecorImportTranslateFr,
+  ...actifTranslateFr,
 };
 I18n.translations = {
   fr: combined,

@@ -22,6 +22,7 @@ export default class TransverseApi {
       },
       jsonVO: _jsonVO,
     };
+    console.log('---doProcess Api', data);
     let response = await HttpHelper.process(data);
     return response;
   };

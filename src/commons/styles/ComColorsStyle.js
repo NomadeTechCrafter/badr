@@ -47,6 +47,9 @@ export const card = {
 export const badrPicker = {
   borderColor: '#009ab2',
 };
+export const badrItemPicker = {
+  borderColor: '#009ab2',
+};
 
 export const badrPickerTitle = {
   backgroundColor: '#009ab2',

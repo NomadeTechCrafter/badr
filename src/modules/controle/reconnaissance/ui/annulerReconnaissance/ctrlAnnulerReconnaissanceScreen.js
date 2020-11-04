@@ -47,7 +47,7 @@ class AnnulerReconnaissance extends React.Component {
                 <ComBadrToolbarComp
                     navigation={this.props.navigation}
                     icon="menu"
-                    title={translate('controle.reconnaissance.annulerReconnaissance.title')}
+                    title={translate('reconnaissance.annulerReconnaissance.title')}
                 />
 
                 {(this.props.searchMode || this.props.resultsMode) && (

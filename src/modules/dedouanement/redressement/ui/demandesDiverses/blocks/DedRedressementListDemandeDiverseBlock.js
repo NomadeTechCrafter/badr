@@ -3,19 +3,31 @@ import {View} from 'react-native';
 import styles from '../../../style/DedRedressementStyle';
 import {
   ComAccordionComp,
+  ComBadrDetailAccordion,
   ComBasicDataTableComp,
 } from '../../../../../../commons/component';
 import {cleDS, getValueByPath} from '../../../utils/DedUtils';
 import _ from 'lodash';
+import DedRedressementDetailDemandeBlock from '../blocks/DedRedressementDetailDemandeBlock';
 
 class DedRedressementListDemandeDiverseBlock extends React.Component {
   buildDemandesCols = () => {
     return [
+      {
+        code: '',
+        libelle: '',
+        width: 100,
+        component: 'button',
+        icon: 'eye',
+        action: (row, index) => this.onArticleSelected(row, index),
+      },
       {code: 'libelleDemande', libelle: 'Demande', width: 250},
       {code: 'parametres', libelle: 'Données paramétres ', width: 300},
     ];
   };
-
+  onArticleSelected = (demande) => {
+    this.setState({selectedDemande: demande});
+  };
   constructor(props) {
     super(props);
     this.state = {
@@ -36,6 +48,19 @@ class DedRedressementListDemandeDiverseBlock extends React.Component {
       ),
     });
   };
+  onDemandeSelectedClosed = () => {
+    this.setState({selectedDemande: null});
+  };
+
+  getDetailAccordion = (selectedDemande) => {
+    return (
+      <ComBadrDetailAccordion
+        onClose={this.onDemandeSelectedClosed}
+        visible={selectedDemande !== null}>
+        <DedRedressementDetailDemandeBlock demande={selectedDemande} />
+      </ComBadrDetailAccordion>
+    );
+  };
 
   render() {
     return (
@@ -52,6 +77,8 @@ class DedRedressementListDemandeDiverseBlock extends React.Component {
             maxResultsPerPage={5}
             paginate={true}
           />
+          {this.state.selectedDemande &&
+            this.getDetailAccordion(this.state.selectedDemande)}
         </ComAccordionComp>
       </View>
     );

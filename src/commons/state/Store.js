@@ -22,6 +22,9 @@ import rechercheRefDumReducer from './reducers/rechercheDum';
 import controleRechercheRefDumReducer from '../../modules/controle/rechercheDum/state/reducers/controleRechercheRefDumReducer';
 import controleRechercheDumReducer from '../../modules/controle/rechercheDum/state/reducers/controleRechercheDumReducer';
 import controleListDeclarationDumReducer from '../../modules/controle/listDeclarationDum/state/reducers/controleListDeclarationDumReducer';
+import controleACVPReducer from '../../modules/controle/ACVP/state/reducers/controleACVPReducer';
+import controleRegimeTransitReducer from '../../modules/controle/regimeTransit/state/reducers/controleRegimeTransitReducer';
+import controleRegimeInterneReducer from '../../modules/controle/regimeInterne/state/reducers/controleRegimeInterneReducer';
 import genericDedReducer from '../../modules/dedouanement/redressement/state/reducers/DedReducer';
 
 import referentielReducer from './reducers/ReferentielReducer';
@@ -33,6 +36,16 @@ import enqCompteRenduReducer from '../../modules/enquetes/compteRendu/state/redu
 import ctrlControleApresScannerReducer from '../../modules/controle/controleApresScanner/state/reducers/ctrlControleApresScannerReducer';
 
 import crudDatatableReducer from '../state/reducers/ComCrudDataTableReducer';
+
+import enteteReducer from '../../old/redux/reducers/actifs/rapport/creation/entete';
+import saisieReducer from '../../old/redux/reducers/actifs/rapport/creation/saisie';
+import creationReducer from '../../old/redux/reducers/actifs/rapport/creation/creation';
+
+import detailsreducer from '../../old/redux/reducers/actifs/rapport/creation/details';
+import recherchereducer from '../../old/redux/reducers/actifs/rapport/recherche/recherche';
+import consultationreducer from '../../old/redux/reducers/actifs/rapport/consultation/consultation';
+
+import EcorImportReducer from '../../old/redux/reducers/ecorImport/EcorImportReducer';
 /**
  * combine all reducers
  */
@@ -61,9 +74,19 @@ const allReducers = combineReducers({
   controleRechercheRefDumReducer,
   controleRechercheDumReducer,
   controleListDeclarationDumReducer,
+  controleRegimeTransitReducer,
+  controleRegimeInterneReducer,
+  controleACVPReducer,
   controleVehiculesReducer,
   plaquesImmReducer,
   crudDatatableReducer,
+  enteteReducer,
+  detailsreducer,
+  recherchereducer,
+  consultationreducer,
+  saisieReducer,
+  creationReducer,
+  EcorImportReducer,
 });
 /**
  * store creation

@@ -148,7 +148,7 @@ export default class ComBasicDataTableComp extends React.Component {
                   <DataTable.Title
                     style={styles.datatableTitle}
                     numberOfLines={2}>
-                    ID
+                    {this.props.libelleIdCol ? this.props.libelleIdCol : 'ID'}
                   </DataTable.Title>
                 )}
 
@@ -206,6 +206,33 @@ export default class ComBasicDataTableComp extends React.Component {
                                 }
                                 onPress={() => {
                                   let items = this.state.checkedItems;
+                                  items[index] = {
+                                    checked: items[index]
+                                      ? !items[index].checked
+                                      : false,
+                                  };
+                                  this.setState({checkedItems: items});
+                                  row.selected = items[index].checked;
+                                  column.action(row, index);
+                                }}
+                              />
+                            )}
+                            {column.component === 'radio' && (
+                              <Checkbox
+                                color={primaryColor}
+                                status={
+                                  this.state.checkedItems &&
+                                  this.state.checkedItems.length > 0 &&
+                                  this.state.checkedItems[index] &&
+                                  this.state.checkedItems[index].checked
+                                    ? 'checked'
+                                    : 'unchecked'
+                                }
+                                onPress={() => {
+                                  let items = this.state.checkedItems;
+                                  items.forEach((item) => {
+                                    item.checked = false;
+                                  });
                                   items[index] = {
                                     checked: items[index]
                                       ? !items[index].checked

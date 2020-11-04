@@ -10,7 +10,7 @@ import DedRedressementRow from '../../common/DedRedressementRow';
 import {Checkbox, RadioButton, TextInput} from 'react-native-paper';
 import ComBadrReferentielPickerComp from '../../../../../../commons/component/shared/pickers/ComBadrReferentielPickerComp';
 import {getValueByPath} from '../../../utils/DedUtils';
-
+import _ from 'lodash';
 import {request} from '../../../state/actions/DedAction';
 import {
   GENERIC_DED_INIT,
@@ -30,33 +30,52 @@ class DedRedressementCautionBlock extends React.Component {
     };
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    if (
+      !_.isNil(this.props.data.dedDumSectionCautionVO) &&
+      !_.isNil(this.props.data.dedDumSectionCautionVO.typeCaution)
+    ) {
+      this.initSectionsToShow(
+        this.props.data.dedDumSectionCautionVO.typeCaution,
+        this.props.data.dedDumSectionCautionVO.numDecision,
+      );
+      this.setState({
+        cautionVo: this.props.data.dedDumSectionCautionVO,
+      });
+    }
+  }
 
-  initSectionsToShow(typeCautionSelected) {
+  initSectionsToShow(typeCautionSelected, numDecision) {
     this.setState({
       isBanque: typeCautionSelected === '01',
       isMixte: typeCautionSelected === '02',
       isConsignation: typeCautionSelected === '08',
       isGlobalIndustrie: typeCautionSelected === '05',
     });
+    this.handleDecisionChangedCau(numDecision);
   }
+  getCodeValiditeStatus = (codeValidite) => {
+    if (codeValidite === '0') {
+      return 'Illimite dans le temps';
+    } else if (codeValidite === '1') {
+      return 'Limitée une durée de';
+    } else {
+      return 'Limitée une operation';
+    }
+  };
 
   refreshCombo = (source, target, params) => {
-    if (target) target.refresh(params, source);
+    if (target) {
+      target.refresh(params, source);
+    }
   };
 
   render() {
-    if (this.props.genericReducer) {
-      /*console.log('------------ generic reducer----------');
-      console.log(
-        this.extractCommandData(
-          'ded.getDecisionCautionVO',
-          'genericDedReducer',
-        ),
-      );
-      console.log('------------ generic reducer----------');
-      */
-    }
+    let decisionCautionVO = this.extractCommandData(
+      'ded.getDecisionCautionVO',
+      'genericDedReducer',
+    );
+
     return (
       <View style={styles.container}>
         <ComAccordionComp title="Caution bancaire" expanded={true}>
@@ -75,12 +94,18 @@ class DedRedressementCautionBlock extends React.Component {
                 libelle="Type caution"
                 children={
                   <ComBadrReferentielPickerComp
+                    disabled={true}
                     onRef={(ref) => (this.typeCautioCombo = ref)}
                     onValueChanged={(value, index) => {
                       this.setState({selectedCautionType: value});
                       this.initSectionsToShow(value.code);
                     }}
-                    selectedValue={this.state.selectedCautionType}
+                    selected={{
+                      code: getValueByPath(
+                        'dedDumSectionCautionVO.typeCaution',
+                        this.props.data,
+                      ),
+                    }}
                     command="getCmbAllTypeCautionnement"
                     typeService="SP"
                     code="code"
@@ -97,22 +122,25 @@ class DedRedressementCautionBlock extends React.Component {
           {this.state.isMixte && (
             <View>
               <View style={styles.container}>
+                {this.buildCautionBancaireBlock(null, null, decisionCautionVO)}
+              </View>
+              {/*<View style={styles.container}>
                 <ComBadrKeyValueComp
                   libelleSize={12}
                   libelle="Banque"
                   rtl={true}
-                  children={<RadioButton />}
+                  children={<RadioButton disabled={true} />}
                 />
                 {this.buildBanqueBlock()}
-              </View>
+              </View>*/}
               <View style={styles.container}>
                 <ComBadrKeyValueComp
                   libelleSize={12}
                   libelle="Consignation"
                   rtl={true}
-                  children={<RadioButton />}
+                  children={<RadioButton disabled={true} />}
                 />
-                {this.buildConsignationBlock(true)}
+                {this.buildConsignationBlock(true, decisionCautionVO)}
               </View>
             </View>
           )}
@@ -120,7 +148,7 @@ class DedRedressementCautionBlock extends React.Component {
           {/*Caution consignation*/}
           {this.state.isConsignation && (
             <View style={styles.container}>
-              {this.buildConsignationBlock(false)}
+              {this.buildConsignationBlock(false, decisionCautionVO)}
             </View>
           )}
 
@@ -182,12 +210,28 @@ class DedRedressementCautionBlock extends React.Component {
    * Build blocks
    */
 
-  buildCautionBancaireBlock = (libelleBanque, hideValidites) => {
+  buildCautionBancaireBlock = (
+    libelleBanque,
+    hideValidites,
+    decisionCautionVO,
+  ) => {
     return (
       <View style={styles.container}>
         <View>
           <DedRedressementRow>
             <ComBadrKeyValueComp
+              libelle="Numéro décision"
+              libelleSize={3}
+              children={
+                <TextInput
+                  type="flat"
+                  label=""
+                  disabled={true}
+                  value={getValueByPath('numDecision', this.state.cautionVo)}
+                />
+              }
+            />
+            {/*<ComBadrKeyValueComp
               libelle="Numéro décision"
               libelleSize={3}
               children={
@@ -208,11 +252,18 @@ class DedRedressementCautionBlock extends React.Component {
                   }}
                 />
               }
-            />
+            />*/}
             <ComBadrKeyValueComp
               libelle="Date de création"
               libelleSize={3}
-              value=""
+              children={
+                <TextInput
+                  type="flat"
+                  label=""
+                  disabled={true}
+                  value={getValueByPath('data.dateCreation', decisionCautionVO)}
+                />
+              }
             />
           </DedRedressementRow>
 
@@ -220,12 +271,35 @@ class DedRedressementCautionBlock extends React.Component {
             <ComBadrKeyValueComp
               libelle="Validité"
               libelleSize={3}
-              children={<TextInput />}
+              children={
+                <TextInput
+                  type="flat"
+                  label=""
+                  disabled={true}
+                  value={this.getCodeValiditeStatus(
+                    getValueByPath('data.validite', decisionCautionVO),
+                  )}
+                />
+              }
             />
             <ComBadrKeyValueComp
               libelle="Statut d'utilisation"
               libelleSize={3}
-              value=""
+              children={
+                <TextInput
+                  type="flat"
+                  label=""
+                  disabled={true}
+                  value={
+                    getValueByPath(
+                      'data.statutUtilisation',
+                      decisionCautionVO,
+                    ) === 'true'
+                      ? 'Utilisée'
+                      : 'Non utilisée'
+                  }
+                />
+              }
             />
           </DedRedressementRow>
 
@@ -233,12 +307,38 @@ class DedRedressementCautionBlock extends React.Component {
             <ComBadrKeyValueComp
               libelle="Date d'écheance"
               libelleSize={3}
-              value=""
+              children={
+                <TextInput
+                  type="flat"
+                  label=""
+                  disabled={true}
+                  value={getValueByPath('data.dateEcheance', decisionCautionVO)}
+                />
+              }
             />
             <ComBadrKeyValueComp
               libelle="Statut d'écheance"
               libelleSize={3}
-              value=""
+              children={
+                <TextInput
+                  type="flat"
+                  label=""
+                  disabled={true}
+                  value={
+                    getValueByPath('data.statutEcheance', decisionCautionVO) ===
+                    'true'
+                      ? 'échue'
+                      : 'Non échue'
+                  }
+                />
+              }
+            />
+          </DedRedressementRow>
+          <DedRedressementRow>
+            <ComBadrKeyValueComp
+              libelle="Date d'écheance"
+              libelleSize={1}
+              value={getValueByPath('data.statut', decisionCautionVO)}
             />
           </DedRedressementRow>
         </View>
@@ -251,7 +351,7 @@ class DedRedressementCautionBlock extends React.Component {
     );
   };
 
-  buildConsignationBlock = (banque) => {
+  buildConsignationBlock = (banque, decisionCautionVO) => {
     return (
       <View>
         {!banque && (
@@ -259,47 +359,132 @@ class DedRedressementCautionBlock extends React.Component {
             <DedRedressementRow>
               <ComBadrKeyValueComp
                 libelle="Numéro décision"
+                libelleSize={3}
                 children={
-                  <ComBadrReferentielPickerComp
-                    onRef={(ref) => (this.numeroDecisionConsign = ref)}
-                    onValueChanged={this.handleDecisionChangedConsignation}
-                    selected={this.state.selectedDecisioConsignation}
-                    command="ded.getListDecisionCautionNonResiliees"
-                    typeService="SP"
-                    module="DED_LIB"
-                    code="."
-                    libelle="."
-                    params={{
-                      numeroRC: this.getCentreRC(),
-                      numeroCentreRC: this.getNumeroCentreRC(),
-                      typeCaution: this.state.selectedCautionType.code,
-                      codeEtatResilie: '004',
-                    }}
+                  <TextInput
+                    type="flat"
+                    label=""
+                    disabled={true}
+                    value={getValueByPath('numDecision', this.state.cautionVo)}
                   />
                 }
               />
-              <ComBadrKeyValueComp libelleSize={3} libelle="Date de création" />
+              {/*<ComBadrKeyValueComp
+              libelle="Numéro décision"
+              libelleSize={3}
+              children={
+                <ComBadrReferentielPickerComp
+                  onRef={(ref) => (this.numeroDecisionCauBanCombo = ref)}
+                  onValueChanged={this.handleDecisionChangedCau}
+                  selected={this.state.selectedDecisionCauBanc}
+                  command="ded.getListDecisionCautionNonResiliees"
+                  typeService="SP"
+                  module="DED_LIB"
+                  code="."
+                  libelle="."
+                  params={{
+                    numeroRC: this.getCentreRC(),
+                    numeroCentreRC: this.getNumeroCentreRC(),
+                    typeCaution: this.state.selectedCautionType.code,
+                    codeEtatResilie: '004',
+                  }}
+                />
+              }
+            />*/}
+              <ComBadrKeyValueComp
+                libelle="Date de création"
+                libelleSize={3}
+                children={
+                  <TextInput
+                    type="flat"
+                    label=""
+                    disabled={true}
+                    value={getValueByPath(
+                      'data.dateCreation',
+                      decisionCautionVO,
+                    )}
+                  />
+                }
+              />
             </DedRedressementRow>
 
             <DedRedressementRow zebra={true}>
               <ComBadrKeyValueComp
                 libelle="Validité"
-                children={<TextInput />}
+                libelleSize={3}
+                children={
+                  <TextInput
+                    type="flat"
+                    label=""
+                    disabled={true}
+                    value={this.getCodeValiditeStatus(
+                      getValueByPath('data.validite', decisionCautionVO),
+                    )}
+                  />
+                }
               />
               <ComBadrKeyValueComp
-                libelleSize={3}
                 libelle="Statut d'utilisation"
+                libelleSize={3}
+                children={
+                  <TextInput
+                    type="flat"
+                    label=""
+                    disabled={true}
+                    value={
+                      getValueByPath(
+                        'data.statutUtilisation',
+                        decisionCautionVO,
+                      ) === 'true'
+                        ? 'Utilisée'
+                        : 'Non utilisée'
+                    }
+                  />
+                }
               />
             </DedRedressementRow>
 
             <DedRedressementRow>
               <ComBadrKeyValueComp
+                libelle="Date d'écheance"
                 libelleSize={3}
-                libelle="Date d'écheances'"
+                children={
+                  <TextInput
+                    type="flat"
+                    label=""
+                    disabled={true}
+                    value={getValueByPath(
+                      'data.dateEcheance',
+                      decisionCautionVO,
+                    )}
+                  />
+                }
               />
               <ComBadrKeyValueComp
+                libelle="Statut d'écheance"
                 libelleSize={3}
-                libelle="Statut d'écheances"
+                children={
+                  <TextInput
+                    type="flat"
+                    label=""
+                    disabled={true}
+                    value={
+                      getValueByPath(
+                        'data.statutEcheance',
+                        decisionCautionVO,
+                      ) === 'true'
+                        ? 'échue'
+                        : 'Non échue'
+                    }
+                  />
+                }
+              />
+            </DedRedressementRow>
+            <DedRedressementRow>
+              <ComBadrKeyValueComp
+                libelle="Date d'écheance"
+                libelleSize={1}
+                value={getValueByPath('data.statut', decisionCautionVO)}
               />
             </DedRedressementRow>
           </View>
@@ -313,24 +498,31 @@ class DedRedressementCautionBlock extends React.Component {
           />
         )}
         <DedRedressementRow zebra={true}>
-          <ComBadrKeyValueComp libelle="Numéro" libelleSize={3} value="" />
           <ComBadrKeyValueComp
+            libelle="Numéro Consignation"
+            libelleSize={3}
+            value={getValueByPath('numeroConsigantion', this.state.cautionVo)}
+          />
+          {/*<ComBadrKeyValueComp
             libelle="Date de création"
             libelleSize={3}
             value=""
-          />
+          />*/}
         </DedRedressementRow>
 
         <DedRedressementRow>
           <ComBadrKeyValueComp
             libelle="Date d'ordonnoncement"
             libelleSize={3}
-            value=""
+            value={getValueByPath(
+              'dateHeureOrdonnancementConsigantion',
+              this.state.cautionVo,
+            )}
           />
           <ComBadrKeyValueComp
             libelle="Montant (En Dhs)"
             libelleSize={3}
-            value=""
+            value={getValueByPath('montantConsigantion', this.state.cautionVo)}
           />
         </DedRedressementRow>
       </View>
@@ -346,12 +538,18 @@ class DedRedressementCautionBlock extends React.Component {
             libelleSize={1}
             children={
               <ComBadrAutoCompleteChipsComp
+                disabled={true}
                 onRef={(ref) => (this.refBanque = ref)}
                 maxItems={3}
                 command="getCmbBanque"
                 paramName="libelleBanque"
                 libelle="libelle"
-                selected={this.state.selectedBanque}
+                selected={
+                  getValueByPath('banqueLibelle', this.state.cautionVo) +
+                  '(' +
+                  getValueByPath('banque', this.state.cautionVo) +
+                  ')'
+                }
                 onDemand={true}
                 searchZoneFirst={false}
                 onValueChange={(item) => this.handleBanqueChanged(item)}
@@ -360,10 +558,10 @@ class DedRedressementCautionBlock extends React.Component {
           />
           <ComBadrKeyValueComp
             libelle="Agence"
-            libelleSize={2}
+            libelleSize={1}
             children={
-              <ComBadrReferentielPickerComp
-                selected={this.state.selectedAgence}
+              /*<ComBadrReferentielPickerComp
+                disabled={true}
                 onRef={(ref) => (this.refAgence = ref)}
                 command="getCmbAgenceBancaireParBanque"
                 params={{codeBanque: this.state.selectedBanque.code}}
@@ -372,6 +570,23 @@ class DedRedressementCautionBlock extends React.Component {
                 onValueChanged={(item) => {
                   this.handleAgenceChanged(item);
                 }}
+                selected={
+                  getValueByPath('agenceLibelle', this.state.cautionVo) +
+                  '(' +
+                  getValueByPath('agence', this.state.cautionVo) +
+                  ')'
+                }
+              />*/
+              <TextInput
+                type="flat"
+                label=""
+                disabled={true}
+                value={
+                  getValueByPath('agenceLibelle', this.state.cautionVo) +
+                  '(' +
+                  getValueByPath('agence', this.state.cautionVo) +
+                  ')'
+                }
               />
             }
           />
@@ -384,14 +599,34 @@ class DedRedressementCautionBlock extends React.Component {
               <ComBadrKeyValueComp
                 libelleSize={3}
                 libelle="Référence caution"
-                children={<TextInput type="flat" label="" value="" />}
+                children={
+                  <TextInput
+                    type="flat"
+                    label=""
+                    disabled={true}
+                    value={getValueByPath(
+                      'refCautionBanque',
+                      this.state.cautionVo,
+                    )}
+                  />
+                }
               />
             }
           />
           <ComBadrKeyValueComp
             libelle="Date d'attribution"
             libelleSize={3}
-            children={<TextInput type="flat" label="" value="" />}
+            children={
+              <TextInput
+                type="flat"
+                label=""
+                disabled={true}
+                value={getValueByPath(
+                  'dateAttributionBanque',
+                  this.state.cautionVo,
+                )}
+              />
+            }
           />
         </DedRedressementRow>
 
@@ -399,7 +634,14 @@ class DedRedressementCautionBlock extends React.Component {
           <ComBadrKeyValueComp
             libelle="Montant (En Dhs)"
             libelleSize={3}
-            children={<TextInput type="flat" label="" value="" />}
+            children={
+              <TextInput
+                type="flat"
+                label=""
+                disabled={true}
+                value={getValueByPath('montantBanque', this.state.cautionVo)}
+              />
+            }
           />
           <ComBadrKeyValueComp />
         </DedRedressementRow>
@@ -409,12 +651,15 @@ class DedRedressementCautionBlock extends React.Component {
             <ComBadrKeyValueComp
               libelleSize={4}
               libelle="Validité électronique de la caution"
-              value=""
+              value={getValueByPath('validiteCb', this.state.cautionVo)}
             />
             <ComBadrKeyValueComp
               libelleSize={4}
               libelle="Référence bancaire attribué"
-              value=""
+              value={getValueByPath(
+                'referenceCBAttribuee',
+                this.state.cautionVo,
+              )}
             />
           </DedRedressementRow>
         )}
@@ -433,10 +678,13 @@ class DedRedressementCautionBlock extends React.Component {
    */
 
   getNumeroCentreRC = () => {
+    console.log('---------  getNumeroCentreRC :');
+
     let dedDumSectionEnteteVO = getValueByPath(
       'dedDumSectionEnteteVO',
       this.props.data,
     );
+    console.log('---------  getNumeroCentreRC :', dedDumSectionEnteteVO);
     let numeroCRC = dedDumSectionEnteteVO.regimeExport
       ? dedDumSectionEnteteVO.codeCentreRCExpediteur
       : dedDumSectionEnteteVO.codeCentreRCDestinataire;
@@ -444,10 +692,12 @@ class DedRedressementCautionBlock extends React.Component {
   };
 
   getCentreRC = () => {
+    console.log('---------  getCentreRC :');
     let dedDumSectionEnteteVO = getValueByPath(
       'dedDumSectionEnteteVO',
       this.props.data,
     );
+    console.log('---------  getNumeroCentreRC :', dedDumSectionEnteteVO);
     const CRC = dedDumSectionEnteteVO.regimeExport
       ? dedDumSectionEnteteVO.justNumeroRC
       : dedDumSectionEnteteVO.justNumeroCentreRCDestinataire;
