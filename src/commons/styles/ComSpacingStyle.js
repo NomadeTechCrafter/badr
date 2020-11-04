@@ -7,6 +7,11 @@ export const loginInput = {
   padding: 20,
 };
 
+export const Input = {
+  marginBottom: 20,
+  padding: 20,
+};
+
 export const loginButton = {
   marginTop: 30,
 };

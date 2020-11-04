@@ -4,6 +4,7 @@ import {View} from 'react-native';
 import {
   ComBadrButtonIconComp,
   ComBadrErrorMessageComp,
+  ComBadrToolbarComp,
   ComContainerComp,
 } from '../../../../commons/component/index';
 import {Button, Checkbox, HelperText, TextInput} from 'react-native-paper';
@@ -26,11 +27,11 @@ import * as ConsulterDumAction from '../../../state/actions/ConsulterDumAction';
 
 class ComRedressementRechercheRefComp extends Component {
   defaultState = {
-    bureau: '309',
-    regime: '010',
-    annee: '2018',
-    serie: '0000020',
-    cle: 'M',
+    bureau: '',
+    regime: '',
+    annee: '',
+    serie: '',
+    cle: '',
     cleValide: '',
     login: '',
     numeroVoyage: '',
@@ -300,7 +301,7 @@ class ComRedressementRechercheRefComp extends Component {
         <View style={styles.enregistreeStyle}>
           <Checkbox.Item
             status={this.state.enregistree ? 'checked' : 'unchecked'}
-            label={translate('transverse.enregistree')}
+            label={translate('dedouanement.transverse.declarationEnreg')}
             color={primaryColor}
             onPress={() => {
               if (this.props.onEnregistree) {

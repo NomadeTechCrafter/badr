@@ -32,3 +32,13 @@ export const getRegime = (reference) => {
 export const getSerie = (reference) => {
   return reference ? reference.substring(10, 17) : '';
 };
+
+export const getCategorieDum = (typeDum, isSousDum) => {
+  if (typeDum == '01') {
+    return '1';
+  } else if (typeDum == '02') {
+    return isSousDum ? '4' : '2';
+  } else if (typeDum == '04') {
+    return '4';
+  }
+};

@@ -1,5 +1,11 @@
 import React from 'react';
-import {ComRedressementRechercheRefComp} from '../../../../commons/component';
+import {
+  ComBadrToolbarComp,
+  ComContainerComp,
+  ComRedressementRechercheRefComp,
+} from '../../../../commons/component';
+import {translate} from '../../../../commons/i18n/ComI18nHelper';
+import {View} from 'react-native';
 
 class DedRechercheRedressementScreen extends React.Component {
   constructor(props) {
@@ -9,7 +15,15 @@ class DedRechercheRedressementScreen extends React.Component {
 
   render() {
     return (
-      <ComRedressementRechercheRefComp navigation={this.props.navigation} />
+      <View>
+        <ComBadrToolbarComp
+          navigation={this.props.navigation}
+          icon="menu"
+          title={translate('dedouanement.title')}
+          subtitle={translate('dedouanement.subTitle')}
+        />
+        <ComRedressementRechercheRefComp navigation={this.props.navigation} />
+      </View>
     );
   }
 }

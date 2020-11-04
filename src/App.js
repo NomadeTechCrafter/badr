@@ -14,6 +14,7 @@ const Stack = createStackNavigator();
 
 import {ComBadrStackNavigatorComp} from './commons/component';
 import {RootSiblingParent} from 'react-native-root-siblings';
+
 /** REDUX */
 import {Provider} from 'react-redux';
 import setGlobalHandler from './commons/services/exceptionHandler/ComGlobalErrorHandlerService';
@@ -24,7 +25,11 @@ import HabProfileScreen from './modules/hab/profile/ui/habProfileScreen';
 import Home from './modules/hab/home/ui/habHomeScreen';
 import SmsVerifyScreen from './modules/hab/smsVerify/ui/habSmsVerifyScreen';
 
-import {primaryColor, accentColor} from './commons/styles/ComThemeStyle';
+import {
+  primaryColor,
+  accentColor,
+  PaperTheme,
+} from './commons/styles/ComThemeStyle';
 import ComOfflineAlertService from './commons/services/offlineHandler/ComOfflineAlertService';
 import {Provider as PaperProvider, DefaultTheme} from 'react-native-paper';
 import {remote, bootstrapRoute} from './commons/Config';
@@ -35,14 +40,13 @@ import ControleRegimeInterneScreen from './modules/controle/regimeInterne/ui/con
 import RechercheEcorImport from './old/screens/ecorImport/rechercheEcorImport';
 import EnleverMarchandise from './old/screens/ecorImport/enleverMarchandise';
 
-const theme = {
-  ...DefaultTheme,
-  colors: {
-    ...DefaultTheme.colors,
-    primary: primaryColor,
-    accent: accentColor,
-  },
-};
+//Actif
+import Recherche from './old/screens/actifs/rapport/recherche';
+import Creation from './old/screens/actifs/rapport/creation';
+import Entete from './old/screens/actifs/rapport/creation/entete';
+import Details from './old/screens/actifs/rapport/creation/details';
+import Saisie from './old/screens/actifs/rapport/creation/saisie';
+import Consultation from './old/screens/actifs/rapport/consultation';
 
 //setGlobalHandler();
 export default class App extends React.Component {
@@ -52,7 +56,7 @@ export default class App extends React.Component {
     return (
       <RootSiblingParent>
         <Provider store={store}>
-          <PaperProvider theme={theme}>
+          <PaperProvider theme={PaperTheme}>
             <ComOfflineAlertService />
             <ComBadrStackNavigatorComp>
               {remote ? (
@@ -98,6 +102,38 @@ export default class App extends React.Component {
                 name="Home"
                 options={{headerShown: false}}
                 component={Home}
+              />
+
+              {/* Actif Module*/}
+              <Stack.Screen
+                name="Recherche"
+                options={{headerShown: false}}
+                component={Recherche}
+              />
+              <Stack.Screen
+                name="Creation"
+                options={{headerShown: false}}
+                component={Creation}
+              />
+              <Stack.Screen
+                name="Entete"
+                options={{headerShown: false}}
+                component={Entete}
+              />
+              <Stack.Screen
+                name="Details"
+                options={{headerShown: false}}
+                component={Details}
+              />
+              <Stack.Screen
+                name="Saisie"
+                options={{headerShown: false}}
+                component={Saisie}
+              />
+              <Stack.Screen
+                name="Consultation"
+                options={{headerShown: false}}
+                component={Consultation}
               />
             </ComBadrStackNavigatorComp>
           </PaperProvider>

@@ -3,14 +3,24 @@ import {View} from 'react-native';
 import styles from '../../../style/DedRedressementStyle';
 import {
   ComAccordionComp,
+  ComBadrDetailAccordion,
   ComBasicDataTableComp,
 } from '../../../../../../commons/component';
 import {cleDS, getValueByPath} from '../../../utils/DedUtils';
 import _ from 'lodash';
+import DedRedressementDetailPreapDsBlock from '../blocks/DedRedressementDetailPreapDsBlock';
 
 class DedRedressementListsPreapBlock extends React.Component {
   buildPreapCols = () => {
     return [
+      {
+        code: '',
+        libelle: '',
+        width: 100,
+        component: 'button',
+        icon: 'eye',
+        action: (row, index) => this.onItemSelected(row, index),
+      },
       {code: 'typeDS', libelle: 'Type DS', width: 60},
       {
         code: 'render',
@@ -36,7 +46,9 @@ class DedRedressementListsPreapBlock extends React.Component {
       {code: 'nombreContenant', libelle: 'Nombre contenant', width: 60},
     ];
   };
-
+  onItemSelected = (selectedItem) => {
+    this.setState({selectedItem: selectedItem});
+  };
   constructor(props) {
     super(props);
     this.state = {
@@ -57,7 +69,19 @@ class DedRedressementListsPreapBlock extends React.Component {
       ),
     });
   };
+  onItemSelectedClosed = () => {
+    this.setState({selectedItem: null});
+  };
 
+  getDetailAccordion = (selectedItem) => {
+    return (
+      <ComBadrDetailAccordion
+        onClose={this.onItemSelectedClosed}
+        visible={selectedItem !== null}>
+        <DedRedressementDetailPreapDsBlock selectedItem={selectedItem} />
+      </ComBadrDetailAccordion>
+    );
+  };
   render() {
     return (
       <View style={styles.container}>
@@ -76,6 +100,8 @@ class DedRedressementListsPreapBlock extends React.Component {
             maxResultsPerPage={5}
             paginate={true}
           />
+          {this.state.selectedItem &&
+            this.getDetailAccordion(this.state.selectedItem)}
         </ComAccordionComp>
       </View>
     );

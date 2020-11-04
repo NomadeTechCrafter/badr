@@ -124,6 +124,8 @@ export default {
     referenceLot: 'Référence Lot',
     nature: 'Nature',
     totalEnregistrements: "Nombre d'enregistrements : ",
+    qte: 'Quantité',
+    reference: 'Réference',
   },
   qr: {
     at_invalide:

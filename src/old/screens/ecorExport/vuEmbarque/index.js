@@ -124,34 +124,34 @@ class VuEmbarque extends Component {
             <Grid>
               <Row style={CustomStyleSheet.whiteRow}>
                 <Col size={2}>
-                  <BadrLibelleBleu>
+                  <ComBadrLibelleComp withColor={true}>
                     {translate('transverse.bureau')}
-                  </BadrLibelleBleu>
+                  </ComBadrLibelleComp>
                 </Col>
                 <Col size={2}>
-                  <BadrLibelleBleu>
+                  <ComBadrLibelleComp withColor={true}>
                     {translate('transverse.regime')}
-                  </BadrLibelleBleu>
+                  </ComBadrLibelleComp>
                 </Col>
                 <Col size={2}>
-                  <BadrLibelleBleu>
+                  <ComBadrLibelleComp withColor={true}>
                     {translate('transverse.annee')}
-                  </BadrLibelleBleu>
+                  </ComBadrLibelleComp>
                 </Col>
                 <Col size={2}>
-                  <BadrLibelleBleu>
+                  <ComBadrLibelleComp withColor={true}>
                     {translate('transverse.serie')}
-                  </BadrLibelleBleu>
+                  </ComBadrLibelleComp>
                 </Col>
                 <Col size={1}>
-                  <BadrLibelleBleu>
+                  <ComBadrLibelleComp withColor={true}>
                     {translate('transverse.cle')}
-                  </BadrLibelleBleu>
+                  </ComBadrLibelleComp>
                 </Col>
                 <Col size={1}>
-                  <BadrLibelleBleu>
+                  <ComBadrLibelleComp withColor={true}>
                     {translate('transverse.nVoyage')}
-                  </BadrLibelleBleu>
+                  </ComBadrLibelleComp>
                 </Col>
               </Row>
               <Row style={CustomStyleSheet.lightBlueRow}>
@@ -191,9 +191,9 @@ class VuEmbarque extends Component {
               <Grid>
                 <Row style={CustomStyleSheet.whiteRow}>
                   <Col>
-                    <BadrLibelleBleu>
+                    <ComBadrLibelleComp withColor={true}>
                       {translate('ecorimport.declarationDetail.dateHeureEnreg')}
-                    </BadrLibelleBleu>
+                    </ComBadrLibelleComp>
                   </Col>
                   <Col>
                     <BadrLibelleNoir>
@@ -201,9 +201,9 @@ class VuEmbarque extends Component {
                     </BadrLibelleNoir>
                   </Col>
                   <Col>
-                    <BadrLibelleBleu>
+                    <ComBadrLibelleComp withColor={true}>
                       {translate('transverse.poidsBrut')}
-                    </BadrLibelleBleu>
+                    </ComBadrLibelleComp>
                   </Col>
                   <Col>
                     <BadrLibelleNoir>
@@ -213,9 +213,9 @@ class VuEmbarque extends Component {
                 </Row>
                 <Row style={CustomStyleSheet.lightBlueRow}>
                   <Col>
-                    <BadrLibelleBleu>
+                    <ComBadrLibelleComp withColor={true}>
                       {translate('ecorimport.declarationDetail.typeDed')}
-                    </BadrLibelleBleu>
+                    </ComBadrLibelleComp>
                   </Col>
                   <Col>
                     <BadrLibelleNoir>
@@ -223,9 +223,9 @@ class VuEmbarque extends Component {
                     </BadrLibelleNoir>
                   </Col>
                   <Col>
-                    <BadrLibelleBleu>
+                    <ComBadrLibelleComp withColor={true}>
                       {translate('transverse.poidsNet')}
-                    </BadrLibelleBleu>
+                    </ComBadrLibelleComp>
                   </Col>
                   <Col>
                     <BadrLibelleNoir>
@@ -235,11 +235,11 @@ class VuEmbarque extends Component {
                 </Row>
                 <Row style={CustomStyleSheet.whiteRow}>
                   <Col>
-                    <BadrLibelleBleu>
+                    <ComBadrLibelleComp withColor={true}>
                       {translate(
                         'ecorimport.declarationDetail.operateurDeclarant',
                       )}
-                    </BadrLibelleBleu>
+                    </ComBadrLibelleComp>
                   </Col>
                   <Col>
                     <BadrLibelleNoir>
@@ -247,9 +247,9 @@ class VuEmbarque extends Component {
                     </BadrLibelleNoir>
                   </Col>
                   <Col>
-                    <BadrLibelleBleu>
+                    <ComBadrLibelleComp withColor={true}>
                       {translate('ecorimport.nbreContenant')}
-                    </BadrLibelleBleu>
+                    </ComBadrLibelleComp>
                   </Col>
                   <Col>
                     <BadrLibelleNoir>
@@ -259,9 +259,9 @@ class VuEmbarque extends Component {
                 </Row>
                 <Row style={CustomStyleSheet.lightBlueRow}>
                   <Col>
-                    <BadrLibelleBleu>
+                    <ComBadrLibelleComp withColor={true}>
                       {translate('ecorimport.declarationDetail.valeurDeclaree')}
-                    </BadrLibelleBleu>
+                    </ComBadrLibelleComp>
                   </Col>
                   <Col>
                     <BadrLibelleNoir>
@@ -283,11 +283,11 @@ class VuEmbarque extends Component {
               <Grid>
                 <Row style={CustomStyleSheet.whiteRow}>
                   <Col>
-                    <BadrLibelleBleu>
+                    <ComBadrLibelleComp withColor={true}>
                       {translate(
                         'ecorexport.vuEmbarque.entreeMarchandise.dateHeureSorti',
                       )}
-                    </BadrLibelleBleu>
+                    </ComBadrLibelleComp>
                   </Col>
                   <Col>
                     <BadrLibelleNoir>
@@ -295,9 +295,9 @@ class VuEmbarque extends Component {
                     </BadrLibelleNoir>
                   </Col>
                   <Col>
-                    <BadrLibelleBleu>
+                    <ComBadrLibelleComp withColor={true}>
                       {translate('ecorexport.agentDouanier')}
-                    </BadrLibelleBleu>
+                    </ComBadrLibelleComp>
                   </Col>
                   <Col>
                     <BadrLibelleNoir>
@@ -308,11 +308,11 @@ class VuEmbarque extends Component {
                 </Row>
                 <Row style={CustomStyleSheet.lightBlueRow}>
                   <Col>
-                    <BadrLibelleBleu>
+                    <ComBadrLibelleComp withColor={true}>
                       {translate(
                         'ecorexport.vuEmbarque.entreeMarchandise.referenceDocument',
                       )}
-                    </BadrLibelleBleu>
+                    </ComBadrLibelleComp>
                   </Col>
                   <Col>
                     <BadrLibelleNoir>
@@ -331,11 +331,11 @@ class VuEmbarque extends Component {
               <Grid>
                 <Row style={CustomStyleSheet.whiteRow}>
                   <Col>
-                    <BadrLibelleBleu>
+                    <ComBadrLibelleComp withColor={true}>
                       {translate(
                         'ecorimport.mainlevee.dateValidationMainlevee',
                       )}
-                    </BadrLibelleBleu>
+                    </ComBadrLibelleComp>
                   </Col>
                   <Col>
                     <BadrLibelleNoir>
@@ -343,11 +343,11 @@ class VuEmbarque extends Component {
                     </BadrLibelleNoir>
                   </Col>
                   <Col>
-                    <BadrLibelleBleu>
+                    <ComBadrLibelleComp withColor={true}>
                       {translate(
                         'ecorimport.mainlevee.agentValidationMainlevee',
                       )}
-                    </BadrLibelleBleu>
+                    </ComBadrLibelleComp>
                   </Col>
                   <Col>
                     <BadrLibelleNoir>
@@ -358,11 +358,11 @@ class VuEmbarque extends Component {
                 </Row>
                 <Row style={CustomStyleSheet.lightBlueRow}>
                   <Col>
-                    <BadrLibelleBleu>
+                    <ComBadrLibelleComp withColor={true}>
                       {translate(
                         'ecorimport.mainlevee.dateDelivranceMainlevee',
                       )}
-                    </BadrLibelleBleu>
+                    </ComBadrLibelleComp>
                   </Col>
                   <Col>
                     <BadrLibelleNoir>
@@ -370,11 +370,11 @@ class VuEmbarque extends Component {
                     </BadrLibelleNoir>
                   </Col>
                   <Col>
-                    <BadrLibelleBleu>
+                    <ComBadrLibelleComp withColor={true}>
                       {translate(
                         'ecorimport.mainlevee.agentDelivranceMainlevee',
                       )}
-                    </BadrLibelleBleu>
+                    </ComBadrLibelleComp>
                   </Col>
                   <Col>
                     <BadrLibelleNoir>
@@ -396,9 +396,9 @@ class VuEmbarque extends Component {
               <Grid>
                 <Row style={CustomStyleSheet.whiteRow}>
                   <Col>
-                    <BadrLibelleBleu>
+                    <ComBadrLibelleComp withColor={true}>
                       {translate('ecorexport.dateHeure')}
-                    </BadrLibelleBleu>
+                    </ComBadrLibelleComp>
                   </Col>
                   <Col>
                     <BadrLibelleNoir>
@@ -406,9 +406,9 @@ class VuEmbarque extends Component {
                     </BadrLibelleNoir>
                   </Col>
                   <Col>
-                    <BadrLibelleBleu>
+                    <ComBadrLibelleComp withColor={true}>
                       {translate('ecorexport.agentDouanier')}
-                    </BadrLibelleBleu>
+                    </ComBadrLibelleComp>
                   </Col>
                   <Col>
                     <BadrLibelleNoir>
@@ -430,9 +430,9 @@ class VuEmbarque extends Component {
               <Grid>
                 <Row style={CustomStyleSheet.whiteRow}>
                   <Col>
-                    <BadrLibelleBleu>
+                    <ComBadrLibelleComp withColor={true}>
                       {translate('ecorexport.dateHeure')}
-                    </BadrLibelleBleu>
+                    </ComBadrLibelleComp>
                   </Col>
                   <Col>
                     <BadrLibelleNoir>
@@ -440,9 +440,9 @@ class VuEmbarque extends Component {
                     </BadrLibelleNoir>
                   </Col>
                   <Col>
-                    <BadrLibelleBleu>
+                    <ComBadrLibelleComp withColor={true}>
                       {translate('ecorexport.agentDouanier')}
-                    </BadrLibelleBleu>
+                    </ComBadrLibelleComp>
                   </Col>
                   <Col>
                     <BadrLibelleNoir>
@@ -464,9 +464,9 @@ class VuEmbarque extends Component {
               <Grid>
                 <Row style={CustomStyleSheet.whiteRow}>
                   <Col>
-                    <BadrLibelleBleu>
+                    <ComBadrLibelleComp withColor={true}>
                       {translate('ecorexport.dateHeure')}
-                    </BadrLibelleBleu>
+                    </ComBadrLibelleComp>
                   </Col>
                   <Col>
                     <BadrLibelleNoir>
@@ -474,9 +474,9 @@ class VuEmbarque extends Component {
                     </BadrLibelleNoir>
                   </Col>
                   <Col>
-                    <BadrLibelleBleu>
+                    <ComBadrLibelleComp withColor={true}>
                       {translate('ecorexport.agentDouanier')}
-                    </BadrLibelleBleu>
+                    </ComBadrLibelleComp>
                   </Col>
                   <Col>
                     <BadrLibelleNoir>
@@ -487,21 +487,21 @@ class VuEmbarque extends Component {
                 </Row>
                 <Row style={CustomStyleSheet.lightBlueRow}>
                   <Col>
-                    <BadrLibelleBleu>
+                    <ComBadrLibelleComp withColor={true}>
                       {translate(
                         'ecorexport.vuEmbarque.autorisationSuiteReverification.numeroPince',
                       )}
-                    </BadrLibelleBleu>
+                    </ComBadrLibelleComp>
                   </Col>
                   <Col>
                     <BadrLibelleNoir>{vuEmbarque.numeroPince}</BadrLibelleNoir>
                   </Col>
                   <Col>
-                    <BadrLibelleBleu>
+                    <ComBadrLibelleComp withColor={true}>
                       {translate(
                         'ecorexport.vuEmbarque.autorisationSuiteReverification.nombreScelles',
                       )}
-                    </BadrLibelleBleu>
+                    </ComBadrLibelleComp>
                   </Col>
                   <Col>
                     <BadrLibelleNoir>{vuEmbarque.nombreScelle}</BadrLibelleNoir>
@@ -510,16 +510,16 @@ class VuEmbarque extends Component {
               </Grid>
             </Accordion>
           </CardBox>
-         
+
           {/* Accordion Vu Embarquer */}
           <CardBox style={styles.cardBox}>
             <Accordion title={translate('ecorexport.vuEmbarque.title')}>
               <Grid>
                 <Row style={CustomStyleSheet.whiteRow}>
                   <Col>
-                    <BadrLibelleBleu>
+                    <ComBadrLibelleComp withColor={true}>
                       {translate('ecorexport.dateHeure')}
-                    </BadrLibelleBleu>
+                    </ComBadrLibelleComp>
                   </Col>
                   <Col>
                     <BadrDatePicker
@@ -530,9 +530,9 @@ class VuEmbarque extends Component {
                     />
                   </Col>
                   <Col>
-                    <BadrLibelleBleu>
+                    <ComBadrLibelleComp withColor={true}>
                       {translate('ecorexport.agentDouanier')}
-                    </BadrLibelleBleu>
+                    </ComBadrLibelleComp>
                   </Col>
                   <Col>
                     <BadrLibelleNoir>
@@ -543,20 +543,19 @@ class VuEmbarque extends Component {
                 </Row>
                 <Row style={CustomStyleSheet.lightBlueRow}>
                   <Col>
-                    <BadrLibelleBleu>
+                    <ComBadrLibelleComp withColor={true}>
                       {translate('ecorexport.vuEmbarque.navire')}
-                    </BadrLibelleBleu>
+                    </ComBadrLibelleComp>
                   </Col>
                   <Col size={2}>
-                    
-                      <BadrAutoComplete
-                        onRef={(ref) => (this.CmbMoyenTransport = ref)}
-                        key="CmbMoyenTransport"
-                        handleSelectItem={(item, id) =>
-                          this.handleCmbMoyenTransport(item, id)
-                        }
-                        command="getCmbMoyenTransport"
-                      />
+                    <BadrAutoComplete
+                      onRef={(ref) => (this.CmbMoyenTransport = ref)}
+                      key="CmbMoyenTransport"
+                      handleSelectItem={(item, id) =>
+                        this.handleCmbMoyenTransport(item, id)
+                      }
+                      command="getCmbMoyenTransport"
+                    />
                   </Col>
                 </Row>
               </Grid>
@@ -584,7 +583,7 @@ class VuEmbarque extends Component {
               disabled={this.state.decisionControle ? false : true}
             />
           </View>
-          </Container>
+        </Container>
       </View>
     );
   }

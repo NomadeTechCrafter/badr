@@ -33,6 +33,7 @@ export default class DedRedressementDetailArticleValeurQuantiteBlock extends Rea
               libelleSize={2}
               children={
                 <TextInput
+                  disabled={true}
                   type="flat"
                   label=""
                   value={getValueByPath('valeurDeclaree', this.props.article)}
@@ -59,6 +60,7 @@ export default class DedRedressementDetailArticleValeurQuantiteBlock extends Rea
               libelleSize={2}
               children={
                 <TextInput
+                  disabled={true}
                   type="flat"
                   label=""
                   value={getValueByPath('quantite', this.props.article)}
@@ -92,6 +94,7 @@ export default class DedRedressementDetailArticleValeurQuantiteBlock extends Rea
               libelleSize={2}
               children={
                 <TextInput
+                  disabled={true}
                   type="flat"
                   label=""
                   value={getValueByPath('poidsNet', this.props.article)}
@@ -106,6 +109,7 @@ export default class DedRedressementDetailArticleValeurQuantiteBlock extends Rea
               libelleSize={3}
               children={
                 <TextInput
+                  disabled={true}
                   type="flat"
                   label=""
                   value={getValueByPath(

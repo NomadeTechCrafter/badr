@@ -7,6 +7,10 @@ export const loginInput = {
   width: '50%',
   height: 50,
 };
+export const Input = {
+  width: 280,
+  height: 20,
+};
 
 export const loginHeaderImage = {
   width: 300,
@@ -52,6 +56,9 @@ export const largeInput = {
 
 export const badrButtonIcon = {
   width: 280,
+};
+export const InputSize = {
+  height: 20,
 };
 
 export const badrInputHeight = {

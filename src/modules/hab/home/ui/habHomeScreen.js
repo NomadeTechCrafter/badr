@@ -31,6 +31,12 @@ import ModifierCompteRenduMission from '../../../enquetes/compteRendu/ui/modifie
 import ValiderCompteRenduMission from '../../../enquetes/compteRendu/ui/validerCompteRenduMission/enqValiderCompteRenduMissionScreen';
 import ControleApresScanner from '../../../controle/controleApresScanner/ui/controleApresScanner/ctrlControleApresScannerScreen';
 
+import Entete from '../../../../old/screens/actifs/rapport/creation/entete';
+import Recherche from '../../../../old/screens/actifs/rapport/recherche';
+import Saisie from '../../../../old/screens/actifs/rapport/creation/saisie';
+import Details from '../../../../old/./screens/actifs/rapport/creation/details';
+import Consultation from '../../../../old/screens/actifs/rapport/consultation';
+import Creation from '../../../../old/screens/actifs/rapport/creation';
 /**ACTIONS */
 import * as Constants from '../../../../commons/constants/generic/ComGenericConstants';
 import * as GenericAction from '../../../../commons/state/actions/ComGenericAction';
@@ -159,59 +165,59 @@ class habHomeScreen extends React.Component {
           options={{headerShown: false}}
         />
 
-          <Drawer.Screen
-              name="BloquerOperateur"
-              component={BloquerOperateur}
-              options={{headerShown: false}}
-          />
+        <Drawer.Screen
+          name="BloquerOperateur"
+          component={BloquerOperateur}
+          options={{headerShown: false}}
+        />
 
-          <Drawer.Screen
-              name="DebloquerOperateur"
-              component={DebloquerOperateur}
-              options={{headerShown: false}}
-          />
+        <Drawer.Screen
+          name="DebloquerOperateur"
+          component={DebloquerOperateur}
+          options={{headerShown: false}}
+        />
 
-          <Drawer.Screen
-              name="AjouterReconnaissance"
-              component={AjouterReconnaissance}
-              options={{headerShown: false}}
-          />
+        <Drawer.Screen
+          name="AjouterReconnaissance"
+          component={AjouterReconnaissance}
+          options={{headerShown: false}}
+        />
 
-          <Drawer.Screen
-              name="ModifierReconnaissance"
-              component={ModifierReconnaissance}
-              options={{headerShown: false}}
-          />
+        <Drawer.Screen
+          name="ModifierReconnaissance"
+          component={ModifierReconnaissance}
+          options={{headerShown: false}}
+        />
 
-          <Drawer.Screen
-              name="AnnulerReconnaissance"
-              component={AnnulerReconnaissance}
-              options={{headerShown: false}}
-          />
+        <Drawer.Screen
+          name="AnnulerReconnaissance"
+          component={AnnulerReconnaissance}
+          options={{headerShown: false}}
+        />
 
-          <Drawer.Screen
-              name="CreerCompteRenduMission"
-              component={CreerCompteRenduMission}
-              options={{headerShown: false}}
-          />
+        <Drawer.Screen
+          name="CreerCompteRenduMission"
+          component={CreerCompteRenduMission}
+          options={{headerShown: false}}
+        />
 
-          <Drawer.Screen
-              name="ModifierCompteRenduMission"
-              component={ModifierCompteRenduMission}
-              options={{headerShown: false}}
-          />
+        <Drawer.Screen
+          name="ModifierCompteRenduMission"
+          component={ModifierCompteRenduMission}
+          options={{headerShown: false}}
+        />
 
-          <Drawer.Screen
-              name="ValiderCompteRenduMission"
-              component={ValiderCompteRenduMission}
-              options={{headerShown: false}}
-          />
+        <Drawer.Screen
+          name="ValiderCompteRenduMission"
+          component={ValiderCompteRenduMission}
+          options={{headerShown: false}}
+        />
 
-          <Drawer.Screen
-              name="ControleApresScanner"
-              component={ControleApresScanner}
-              options={{headerShown: false}}
-          />
+        <Drawer.Screen
+          name="ControleApresScanner"
+          component={ControleApresScanner}
+          options={{headerShown: false}}
+        />
 
         <Drawer.Screen
           name="RefControleVehicule"
@@ -223,6 +229,37 @@ class habHomeScreen extends React.Component {
           name="RefPlaquesImm"
           component={RefPlaquesImmMainScreen}
           options={{headerShown: false}}
+        />
+        {/* Actif Module*/}
+        <Drawer.Screen
+          name="Recherche"
+          options={{headerShown: false}}
+          component={Recherche}
+        />
+        <Drawer.Screen
+          name="Creation"
+          options={{headerShown: false}}
+          component={Creation}
+        />
+        <Drawer.Screen
+          name="Entete"
+          options={{headerShown: false}}
+          component={Entete}
+        />
+        <Drawer.Screen
+          name="Details"
+          options={{headerShown: false}}
+          component={Details}
+        />
+        <Drawer.Screen
+          name="Saisie"
+          options={{headerShown: false}}
+          component={Saisie}
+        />
+        <Drawer.Screen
+          name="Consultation"
+          options={{headerShown: false}}
+          component={Consultation}
         />
       </Drawer.Navigator>
     );

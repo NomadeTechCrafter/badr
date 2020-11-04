@@ -282,13 +282,13 @@ class DedRedressementEnteteVersionBlock extends React.Component {
             </Row>
           </DedRedressementRow>
 
-          {!this.isVersionCourante() && (
+          {/*{!this.isVersionCourante() && (
             <ComBadrTouchableButtonComp
               text="Version courante"
               style={styles.touchableButtonStyle}
               onPress={this.handleVersionCouranteClicked}
             />
-          )}
+          )}*/}
         </ComAccordionComp>
       </View>
     );

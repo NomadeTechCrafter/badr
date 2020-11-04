@@ -3,14 +3,24 @@ import {View} from 'react-native';
 import styles from '../../../style/DedRedressementStyle';
 import {
   ComAccordionComp,
+  ComBadrDetailAccordion,
   ComBasicDataTableComp,
 } from '../../../../../../commons/component';
 import {cleDS, getValueByPath} from '../../../utils/DedUtils';
 import _ from 'lodash';
+import DedRedressementDetailImputationTCPortnetBlock from '../blocks/DedRedressementDetailImputationTCPortnetBlock';
 
 class DedRedressementListImputationTitreChangePortnetBlock extends React.Component {
   buildPortnetImputationsCols = () => {
     return [
+      {
+        code: '',
+        libelle: '',
+        width: 100,
+        component: 'button',
+        icon: 'eye',
+        action: (row, index) => this.onItemSelected(row, index),
+      },
       {code: 'typeTitreChange', libelle: 'Type', width: 100},
       {code: 'banque', libelle: 'Banque ', width: 120},
       {code: 'quantiteImputee', libelle: 'Qté à importer', width: 100},
@@ -18,6 +28,24 @@ class DedRedressementListImputationTitreChangePortnetBlock extends React.Compone
       {code: 'valeurImputee', libelle: 'Valeur à imputer', width: 100},
       {code: 'devise', libelle: 'Devise', width: 60},
     ];
+  };
+  onItemSelected = (selectedItem) => {
+    this.setState({selectedItem: selectedItem});
+  };
+  onItemSelectedClosed = () => {
+    this.setState({selectedItem: null});
+  };
+
+  getDetailAccordion = (selectedItem) => {
+    return (
+      <ComBadrDetailAccordion
+        onClose={this.onItemSelectedClosed}
+        visible={selectedItem !== null}>
+        <DedRedressementDetailImputationTCPortnetBlock
+          selectedItem={selectedItem}
+        />
+      </ComBadrDetailAccordion>
+    );
   };
 
   constructor(props) {
@@ -45,7 +73,7 @@ class DedRedressementListImputationTitreChangePortnetBlock extends React.Compone
   loadManuelleList = () => {
     this.setState({
       portnetImputations: getValueByPath(
-        'dedDumSectionImpTitresVO.dedDumImpTitreFormVO',
+        'dedDumSectionImpTitresPortNetVO.dedDumImpTitrePortNetFormVO',
         this.props.data,
       ),
     });
@@ -73,6 +101,8 @@ class DedRedressementListImputationTitreChangePortnetBlock extends React.Compone
             maxResultsPerPage={5}
             paginate={true}
           />
+          {this.state.selectedItem &&
+            this.getDetailAccordion(this.state.selectedItem)}
         </ComAccordionComp>
       </View>
     );

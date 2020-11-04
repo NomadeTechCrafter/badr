@@ -36,6 +36,16 @@ import enqCompteRenduReducer from '../../modules/enquetes/compteRendu/state/redu
 import ctrlControleApresScannerReducer from '../../modules/controle/controleApresScanner/state/reducers/ctrlControleApresScannerReducer';
 
 import crudDatatableReducer from '../state/reducers/ComCrudDataTableReducer';
+
+import enteteReducer from '../../old/redux/reducers/actifs/rapport/creation/entete';
+import saisieReducer from '../../old/redux/reducers/actifs/rapport/creation/saisie';
+import creationReducer from '../../old/redux/reducers/actifs/rapport/creation/creation';
+
+import detailsreducer from '../../old/redux/reducers/actifs/rapport/creation/details';
+import recherchereducer from '../../old/redux/reducers/actifs/rapport/recherche/recherche';
+import consultationreducer from '../../old/redux/reducers/actifs/rapport/consultation/consultation';
+
+import EcorImportReducer from '../../old/redux/reducers/ecorImport/EcorImportReducer';
 /**
  * combine all reducers
  */
@@ -70,6 +80,13 @@ const allReducers = combineReducers({
   controleVehiculesReducer,
   plaquesImmReducer,
   crudDatatableReducer,
+  enteteReducer,
+  detailsreducer,
+  recherchereducer,
+  consultationreducer,
+  saisieReducer,
+  creationReducer,
+  EcorImportReducer,
 });
 /**
  * store creation
