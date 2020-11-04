@@ -1,6 +1,10 @@
 import _ from 'lodash';
 
 export const getValueByPath = (key, object, reducer) => {
+  if (key === 'dedDumSectionEnteteVO.typeDUM' || key === 'sousDum') {
+    //console.log('----getValueByPath--', JSON.stringify(object));
+  }
+
   return _.get(object, key)
     ? _.get(object, key)
     : _.get(object, reducer + '.data.' + key);

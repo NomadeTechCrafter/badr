@@ -47,7 +47,7 @@ class ModifierReconnaissance extends React.Component {
                 <ComBadrToolbarComp
                     navigation={this.props.navigation}
                     icon="menu"
-                    title={translate('controle.reconnaissance.modifierReconnaissance.title')}
+                    title={translate('reconnaissance.modifierReconnaissance.title')}
                 />
 
                 {(this.props.searchMode || this.props.resultsMode) && (

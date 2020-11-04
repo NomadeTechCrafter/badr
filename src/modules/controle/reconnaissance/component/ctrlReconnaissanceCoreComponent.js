@@ -384,7 +384,7 @@ class CtrlReconnaissanceCoreComponent extends React.Component {
                                     <Row size={100}>
                                         <Col size={30} style={style.labelContainer}>
                                             <Text style={style.labelTextStyle}>
-                                                {translate('controle.reconnaissance.core.commentaire')}
+                                                {translate('reconnaissance.core.commentaire')}
                                             </Text>
                                         </Col>
 
@@ -412,7 +412,7 @@ class CtrlReconnaissanceCoreComponent extends React.Component {
                                             <Row>
                                                 <Col style={style.labelContainer}>
                                                     <Text style={style.labelTextStyle}>
-                                                        {translate('controle.reconnaissance.core.nature')}
+                                                        {translate('reconnaissance.core.nature')}
                                                     </Text>
                                                 </Col>
 
@@ -427,7 +427,7 @@ class CtrlReconnaissanceCoreComponent extends React.Component {
                                         <Col size={70}>
                                             <TextInput
                                                 mode="outlined"
-                                                label={translate('controle.reconnaissance.core.nature')}
+                                                label={translate('reconnaissance.core.nature')}
                                                 value={this.state.reconnaissanceVo.nature}
                                                 maxLength={128}
                                                 onChangeText={(text) => this.setState({
@@ -444,7 +444,7 @@ class CtrlReconnaissanceCoreComponent extends React.Component {
                                                 type="error"
                                                 padding="none"
                                                 visible={this.hasErrors('descriptionVisite')}>
-                                                {translate('errors.donneeObligatoire', {champ: translate('controle.reconnaissance.core.nature')})}
+                                                {translate('errors.donneeObligatoire', {champ: translate('reconnaissance.core.nature')})}
                                             </HelperText>
                                         </Col>
                                     </Row>
@@ -454,7 +454,7 @@ class CtrlReconnaissanceCoreComponent extends React.Component {
                                             <Row>
                                                 <Col style={style.labelContainer}>
                                                     <Text style={style.labelTextStyle}>
-                                                        {translate('controle.reconnaissance.core.marque')}
+                                                        {translate('reconnaissance.core.marque')}
                                                     </Text>
                                                 </Col>
 
@@ -469,7 +469,7 @@ class CtrlReconnaissanceCoreComponent extends React.Component {
                                         <Col size={70}>
                                             <TextInput
                                                 mode="outlined"
-                                                label={translate('controle.reconnaissance.core.marque')}
+                                                label={translate('reconnaissance.core.marque')}
                                                 value={this.state.reconnaissanceVo.marque}
                                                 maxLength={128}
                                                 onChangeText={(text) => this.setState({
@@ -486,7 +486,7 @@ class CtrlReconnaissanceCoreComponent extends React.Component {
                                                 type="error"
                                                 padding="none"
                                                 visible={this.hasErrors('descriptionVisite')}>
-                                                {translate('errors.donneeObligatoire', {champ: translate('controle.reconnaissance.core.marque')})}
+                                                {translate('errors.donneeObligatoire', {champ: translate('reconnaissance.core.marque')})}
                                             </HelperText>
                                         </Col>
                                     </Row>
@@ -494,14 +494,14 @@ class CtrlReconnaissanceCoreComponent extends React.Component {
                                     <Row size={100}>
                                         <Col size={30} style={style.labelContainer}>
                                             <Text style={style.labelTextStyle}>
-                                                {translate('controle.reconnaissance.core.poids')}
+                                                {translate('reconnaissance.core.poids')}
                                             </Text>
                                         </Col>
 
                                         <Col size={70}>
                                             <TextInput
                                                 mode="outlined"
-                                                label={translate('controle.reconnaissance.core.poids')}
+                                                label={translate('reconnaissance.core.poids')}
                                                 value={this.state.reconnaissanceVo.poids}
                                                 keyboardType={'number-pad'}
                                                 maxLength={13}
@@ -525,7 +525,7 @@ class CtrlReconnaissanceCoreComponent extends React.Component {
                                             <Row>
                                                 <Col style={style.labelContainer}>
                                                     <Text style={style.labelTextStyle}>
-                                                        {translate('controle.reconnaissance.core.nombreColisIdentifies')}
+                                                        {translate('reconnaissance.core.nombreColisIdentifies')}
                                                     </Text>
                                                 </Col>
 
@@ -540,7 +540,7 @@ class CtrlReconnaissanceCoreComponent extends React.Component {
                                         <Col size={70}>
                                             <TextInput
                                                 mode="outlined"
-                                                label={translate('controle.reconnaissance.core.nombreColisIdentifies')}
+                                                label={translate('reconnaissance.core.nombreColisIdentifies')}
                                                 value={this.state.reconnaissanceVo.nbrColis}
                                                 keyboardType={'number-pad'}
                                                 maxLength={10}
@@ -561,7 +561,7 @@ class CtrlReconnaissanceCoreComponent extends React.Component {
                                                 type="error"
                                                 padding="none"
                                                 visible={this.hasErrors('descriptionVisite')}>
-                                                {translate('errors.donneeObligatoire', {champ: translate('controle.reconnaissance.core.nombreColisIdentifies')})}
+                                                {translate('errors.donneeObligatoire', {champ: translate('reconnaissance.core.nombreColisIdentifies')})}
                                             </HelperText>
                                         </Col>
                                     </Row>
@@ -571,7 +571,7 @@ class CtrlReconnaissanceCoreComponent extends React.Component {
                                             <Row>
                                                 <Col style={style.labelContainer}>
                                                     <Text style={style.labelTextStyle}>
-                                                        {translate('controle.reconnaissance.core.nombreColisVisites')}
+                                                        {translate('reconnaissance.core.nombreColisVisites')}
                                                     </Text>
                                                 </Col>
 
@@ -586,7 +586,7 @@ class CtrlReconnaissanceCoreComponent extends React.Component {
                                         <Col size={70}>
                                             <TextInput
                                                 mode="outlined"
-                                                label={translate('controle.reconnaissance.core.nombreColisVisites')}
+                                                label={translate('reconnaissance.core.nombreColisVisites')}
                                                 value={this.state.reconnaissanceVo.nombreColisVisite}
                                                 keyboardType={'number-pad'}
                                                 maxLength={10}
@@ -607,7 +607,7 @@ class CtrlReconnaissanceCoreComponent extends React.Component {
                                                 type="error"
                                                 padding="none"
                                                 visible={this.hasErrors('descriptionVisite')}>
-                                                {translate('errors.donneeObligatoire', {champ: translate('controle.reconnaissance.core.nombreColisVisites')})}
+                                                {translate('errors.donneeObligatoire', {champ: translate('reconnaissance.core.nombreColisVisites')})}
                                             </HelperText>
                                         </Col>
                                     </Row>
@@ -617,7 +617,7 @@ class CtrlReconnaissanceCoreComponent extends React.Component {
                                             <Row>
                                                 <Col style={style.labelContainer}>
                                                     <Text style={style.labelTextStyle}>
-                                                        {translate('controle.reconnaissance.core.description')}
+                                                        {translate('reconnaissance.core.description')}
                                                     </Text>
                                                 </Col>
 
@@ -634,7 +634,7 @@ class CtrlReconnaissanceCoreComponent extends React.Component {
                                                 multiline={true}
                                                 numberOfLines={4}
                                                 mode="outlined"
-                                                label={translate('controle.reconnaissance.core.description')}
+                                                label={translate('reconnaissance.core.description')}
                                                 value={this.state.reconnaissanceVo.descriptionVisite}
                                                 maxLength={4000}
                                                 onChangeText={(text) => this.setState({
@@ -651,7 +651,7 @@ class CtrlReconnaissanceCoreComponent extends React.Component {
                                                 type="error"
                                                 padding="none"
                                                 visible={this.hasErrors('descriptionVisite')}>
-                                                {translate('errors.donneeObligatoire', {champ: translate('controle.reconnaissance.core.description')})}
+                                                {translate('errors.donneeObligatoire', {champ: translate('reconnaissance.core.description')})}
                                             </HelperText>
                                         </Col>
                                     </Row>
@@ -662,7 +662,7 @@ class CtrlReconnaissanceCoreComponent extends React.Component {
 
                                             <Col size={20}>
                                                 <Button
-                                                    title={translate('controle.reconnaissance.core.addImage')}
+                                                    title={translate('reconnaissance.core.addImage')}
                                                     type={'solid'}
                                                     buttonStyle={style.buttonAction}
                                                     onPress={() => this.onAddPicture()}/>
@@ -752,7 +752,7 @@ class CtrlReconnaissanceCoreComponent extends React.Component {
                                    style={style.modalContainer}>
                                 <View>
                                     <Text style={style.modalMessage}>
-                                        {translate('controle.reconnaissance.core.removalModal.message')}
+                                        {translate('reconnaissance.core.removalModal.message')}
                                     </Text>
 
                                     <Button

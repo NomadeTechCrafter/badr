@@ -23,6 +23,11 @@ class DedRedressementDocumentsScreen extends React.Component {
       ),
       getValueByPath('sousDum', this.props, 'consulterDumReducer'),
     );
+    console.log('----is sous Dum -----', categorieDum);
+    console.log(
+      '----is sous Dum result-----',
+      categorieDum === '4' || categorieDum === '1',
+    );
     return categorieDum === '4' || categorieDum === '1';
   };
 
@@ -32,23 +37,20 @@ class DedRedressementDocumentsScreen extends React.Component {
       this.props,
       'consulterDumReducer',
     );
+    console.log(
+      '----is render DedRedressementDocumentsScreen -----',
+      dumSignee,
+    );
     return (
       <ScrollView>
-        {dumSignee === 'true' && (
-          <DedRedressementDeclarationSigneeBlock data={this.props.data} />
-        )}
         <DedRedressementDocumentsExigiblesBlock data={this.props.data} />
-        <DedRedressementDocumentsAnnexesBlock data={this.props.data} />
-        {this.isSousDumOrDumNormale() && (
-          <DedRedressementdDemandeChargementBlock data={this.props.data} />
-        )}
       </ScrollView>
     );
   }
 }
 
 function mapStateToProps(state) {
-  return {...state.consulterDumReducer};
+  return {...state};
 }
 
 export default connect(mapStateToProps, null)(DedRedressementDocumentsScreen);

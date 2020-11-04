@@ -147,7 +147,11 @@ class DedRedressementDocumentsExigiblesBlock extends React.Component {
     this.recupererDocumentsAnnexesDUM();
   }
   recupererDocumentsAnnexesDUM = () => {
-    let idDec = getValueByPath('dedReferenceVO.identifiant', this.props.data);
+    let idDec = getValueByPath(
+      'dedReferenceVO.identifiant',
+      this.props,
+      'consulterDumReducer',
+    );
     this.callRedux({
       command: 'ded.recupererDocumentsAnnexesDUM',
       typeService: 'SP',

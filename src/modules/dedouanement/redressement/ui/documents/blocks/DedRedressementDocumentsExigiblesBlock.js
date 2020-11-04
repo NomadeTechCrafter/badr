@@ -152,10 +152,15 @@ class DedRedressementDocumentsExigiblesBlock extends React.Component {
     this.getDocumentsExigiblesDUM();
   }
   getDocumentsExigiblesDUM = () => {
-    let idDec = getValueByPath('dedReferenceVO.identifiant', this.props.data);
+    let idDec = getValueByPath(
+      'dedReferenceVO.identifiant',
+      this.props,
+      'consulterDumReducer',
+    );
     let numVersion = getValueByPath(
       'dedReferenceVO.numeroVersionCourante',
-      this.props.data,
+      this.props,
+      'consulterDumReducer',
     );
     var data = {
       idDec: idDec,

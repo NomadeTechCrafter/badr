@@ -16,7 +16,8 @@ export default class ComAccordionComp extends Component {
       <View style={styles.container}>
         <TouchableOpacity
           style={styles.row}
-          onPress={() => this.toggleExpand()}>
+          onPress={() => this.toggleExpand()}
+          disabled={this.props.disable}>
           <Text style={[styles.title, styles.font]}>{this.props.title}</Text>
           {this.props.extraFieldKey && (
             <Text style={[styles.titleExtrafield]}>

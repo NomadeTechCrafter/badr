@@ -20,7 +20,6 @@ export function request(action) {
       action.value.jsonVO,
     )
       .then((response) => {
-        console.log('----dedAction rep', response);
         if (response && response.data && response.data.jsonVO) {
           dispatch(success(response.data.jsonVO, action.value.command));
         } else {
