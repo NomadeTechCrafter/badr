@@ -47,7 +47,7 @@ class AjouterReconnaissance extends React.Component {
                 <ComBadrToolbarComp
                     navigation={this.props.navigation}
                     icon="menu"
-                    title={translate('controle.reconnaissance.ajouterReconnaissance.title')}
+                    title={translate('reconnaissance.ajouterReconnaissance.title')}
                 />
 
                 {(this.props.searchMode || this.props.resultsMode) && (
