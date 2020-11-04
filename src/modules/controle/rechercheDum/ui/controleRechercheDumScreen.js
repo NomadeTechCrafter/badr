@@ -14,7 +14,6 @@ import * as RechecheDumAction from '../state/actions/controleRechercheDumAction'
 
 class controleRechercheDumScreen extends Component {
   subTitle = '';
-
   constructor(props) {
     super(props);
   }
@@ -24,19 +23,19 @@ class controleRechercheDumScreen extends Component {
     switch (typeControle) {
       case 'RI':
         return {
-          successRedirectionScreen: 'RegimeInterne',
+          successRedirectionScreen: 'ControleRegimeInterneScreen',
           subtitle: translate('controle.RI'),
           commande: 'initControlerDedRI',
         };
       case 'AC':
         return {
-          successRedirectionScreen: 'ACVP',
+          successRedirectionScreen: 'ControleACVPScreen',
           subtitle: translate('controle.ACVP'),
           commande: 'initControlerDedACVP',
         };
       case 'TR':
         return {
-          successRedirectionScreen: 'RegimeTransit',
+          successRedirectionScreen: 'ControleRegimeTransitScreen',
           subtitle: translate('controle.regimeTransite'),
           commande: 'initControlerDedTR',
         };
@@ -49,7 +48,9 @@ class controleRechercheDumScreen extends Component {
         type: Constants.RECHERCHEDUM_LISTDECLARATION_REQUEST,
         value: {
           login: ComSessionService.getInstance().getLogin(),
-          typeControle: this.typeControle,
+          typeControle: this.props.route.params.typeControle,
+          offset: 0,
+          pageSize: 100,
         },
       },
       this.props.navigation,

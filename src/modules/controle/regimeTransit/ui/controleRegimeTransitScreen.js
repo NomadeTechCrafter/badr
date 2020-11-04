@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {View, Dimensions} from 'react-native';
 
 import {
-  ComContainerComp,
+  Container,
   ComBadrCardBoxComp,
   ComAccordionComp,
   ComBadrButtonComp,
@@ -11,19 +11,19 @@ import {
   ComBadrProgressBarComp,
   ComBadrToolbarComp,
 } from '../../../../commons/component';
-
-import BAD from '../../BAD';
 import {Checkbox, TextInput, Text, RadioButton} from 'react-native-paper';
 /**i18n */
 import {translate} from '../../../../commons/i18n/ComI18nHelper';
-import {CustomStyleSheet} from '../../../styles';
 import _ from 'lodash';
-import {load} from '../../../services/storage-service';
-import {connect} from 'react-redux';
-import * as Constants from '../../../common/constants/controle/ACVP';
-import * as RegimeACVPAction from '../../../redux/actions/controle/acvp';
 
-class ACVP extends Component {
+import {load} from '../../../../commons/services/async-storage/ComStorageService';
+import {connect} from 'react-redux';
+import * as Constants from '../state/controleRegimeTransitConstants';
+import * as RegimeTransitAction from '../state/actions/controleRegimeTransitAction';
+
+const RECONNU = 'reconnu';
+const DEMANDE_CONSIGNATION = 'demandeConsignation';
+class RegimeTransit extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -33,7 +33,7 @@ class ACVP extends Component {
       cle: props.route.params.cle,
       numeroVoyage: props.route.params.numeroVoyage,
       declaration: props.route.params.declarationRI,
-      typeRegime: translate('controle.ACVP'),
+      typeRegime: translate('controle.regimeTransite'),
       decisionControle: props.route.params.declarationRI.decisionControle,
       observation: props.route.params.declarationRI.observation,
       numeroVersionCourante: 0,
@@ -65,8 +65,7 @@ class ACVP extends Component {
     return documentAnnexeResultVO;
   };
 
-  sauvgarder = (commande) => {
-    console.log('sauvgarder');
+  sauvgarderValider = (commande) => {
     var data = {
       idControle: this.state.declaration.idControle,
       idDed: this.state.declaration.idDed,
@@ -76,10 +75,9 @@ class ACVP extends Component {
       decisions: this.state.decisionControle,
       numeroVersionCourante: this.state.numeroVersionCourante,
     };
-    console.log('data----', data);
-    var action = RegimeACVPAction.validateSave(
+    var action = RegimeTransitAction.validateSave(
       {
-        type: Constants.ACVP_VALIDATESAVE_REQUEST,
+        type: Constants.REGIMETRANSIT_VALIDATESAVE_REQUEST,
         value: {
           login: this.state.login,
           commande: commande,
@@ -89,7 +87,6 @@ class ACVP extends Component {
       this.props.navigation,
     );
     this.props.dispatch(action);
-    console.log('dispatch fired !!');
   };
 
   genererCompteRendu = () => {
@@ -98,9 +95,9 @@ class ACVP extends Component {
       //numeroVersionBase: this.state.numeroVersionCourante,
       //numeroVersionCourante: this.state.numeroVersionCourante,
     };
-    var action = RegimeACVPAction.genererCR(
+    var action = RegimeTransitAction.genererCR(
       {
-        type: Constants.ACVP_VALIDATESAVE_REQUEST,
+        type: Constants.REGIMETRANSIT_VALIDATESAVE_REQUEST,
         value: {
           login: this.state.login,
           data: data,
@@ -109,7 +106,28 @@ class ACVP extends Component {
       this.props.navigation,
     );
     this.props.dispatch(action);
-    console.log('dispatch fired !!');
+  };
+  //toggleChoice for field RECONNU && DEMANDE_CONSIGNATION
+  toggleChoiceInList = (indexDocument, key) => {
+    let listDoc = this.state.declaration.documentAnnexeResultVOs;
+    if (listDoc[indexDocument].documentAnnexe[key]) {
+      listDoc[indexDocument].documentAnnexe[key] = false;
+    } else {
+      listDoc[indexDocument].documentAnnexe[key] = true;
+      var otherKey = key === RECONNU ? DEMANDE_CONSIGNATION : RECONNU;
+      listDoc[indexDocument].documentAnnexe[otherKey] = false;
+    }
+    return listDoc;
+  };
+
+  setChoiceForReconnu = (indexDocument, key) => {
+    this.setState((prevState) => ({
+      declaration: {
+        // object that we want to update
+        ...prevState.declaration, // keep all other key-value pairs
+        documentAnnexeResultVOs: this.toggleChoiceInList(indexDocument, key),
+      },
+    }));
   };
 
   static getDerivedStateFromProps(props, state) {
@@ -133,15 +151,14 @@ class ACVP extends Component {
 
   render() {
     return (
-      <View style={CustomStyleSheet.fullContainer}>
+      <View>
         <ComBadrToolbarComp
-          back={true}
           navigation={this.props.navigation}
           title="Contrôle"
-          subtitle={translate('controle.ACVP')}
+          subtitle="Régime transit"
           icon="menu"
         />
-        <ComContainerComp>
+        <Container>
           {this.props.showProgress && <ComBadrProgressBarComp />}
           {this.props.errorMessage != null && (
             <ComBadrErrorMessageComp message={this.props.errorMessage} />
@@ -279,7 +296,7 @@ class ACVP extends Component {
                         }
                         disabled={this.state.isConsultation}
                         onPress={() => {
-                          this.setState({checked: !this.state.checked});
+                          this.setChoiceForReconnu(index, RECONNU);
                         }}
                       />
                       <Checkbox
@@ -357,7 +374,7 @@ class ACVP extends Component {
           <ComBadrCardBoxComp style={styles.cardBox}>
             <ComAccordionComp title={translate('controle.decision')}>
               <View
-                style={styles.flexColumn}
+                style={{flexDirection: 'column'}}
                 pointerEvents={this.state.isConsultation ? 'none' : 'auto'}>
                 <RadioButton.Group
                   onValueChange={(value) =>
@@ -396,22 +413,6 @@ class ACVP extends Component {
             </ComAccordionComp>
           </ComBadrCardBoxComp>
 
-          <ComBadrCardBoxComp style={styles.cardBox}>
-            <ComAccordionComp title={translate('bad.title')}>
-              <View style={styles.flexColumn}>
-                <BAD
-                  idDeclaration={
-                    this.props.route &&
-                    this.props.route.params &&
-                    this.props.route.params.declarationRI
-                      ? this.props.route.params.declarationRI.idDed
-                      : -1
-                  }
-                />
-              </View>
-            </ComAccordionComp>
-          </ComBadrCardBoxComp>
-
           {/* Actions */}
           <View
             style={styles.containerActionBtn}
@@ -419,7 +420,7 @@ class ACVP extends Component {
             <ComBadrButtonComp
               style={{width: 100}}
               onPress={() => {
-                this.sauvgarder('sauvegarderRI');
+                this.sauvgarderValider('sauvegarderRI');
               }}
               text={translate('controle.sauvegarder')}
               disabled={this.state.decisionControle ? false : true}
@@ -427,7 +428,7 @@ class ACVP extends Component {
             <ComBadrButtonComp
               style={{width: 100}}
               onPress={() => {
-                this.sauvgarder('validerRI');
+                this.sauvgarderValider('validerRI');
               }}
               text={translate('controle.validerControle')}
               disabled={this.state.decisionControle ? false : true}
@@ -437,7 +438,7 @@ class ACVP extends Component {
               text={translate('controle.redresserDeclaration')}
             />
           </View>
-        </ComContainerComp>
+        </Container>
       </View>
     );
   }
@@ -486,9 +487,8 @@ const styles = {
   textRadio: {
     color: '#FFF',
   },
-  flexColumn: {flexDirection: 'column'},
 };
 
-const mapStateToProps = (state) => ({...state.acvpReducer});
+const mapStateToProps = (state) => ({...state.regimeTransitReducer});
 
-export default connect(mapStateToProps, null)(ACVP);
+export default connect(mapStateToProps, null)(RegimeTransit);

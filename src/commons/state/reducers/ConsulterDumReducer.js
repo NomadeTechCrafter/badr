@@ -23,6 +23,7 @@ export default (state = initialState, action) => {
       nextState.data = [];
       return nextState;
     case Constants.GENERIC_IN_PROGRESS:
+      nextState.showProgress = true;
       return nextState;
     case Constants.GENERIC_SUCCESS:
       nextState.errorMessage = null;

@@ -108,4 +108,17 @@ export default class ComUtils {
     }
     return str;
   };
+
+  //obj = regime+serie+annee
+  static cleDS = (obj) => {
+    var alpha = 'ABCDEFGHJKLMNPRSTUVWXYZ';
+    obj = obj % 23;
+    alpha = alpha.charAt(obj);
+    return alpha;
+  };
+  static getValueByPath = (key, object, reducer) => {
+    return _.get(object, key)
+      ? _.get(object, key)
+      : _.get(object, reducer + '.data.' + key);
+  };
 }

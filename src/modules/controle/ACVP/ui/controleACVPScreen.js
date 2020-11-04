@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {View, Dimensions} from 'react-native';
 
 import {
-  Container,
+  ComContainerComp,
   ComBadrCardBoxComp,
   ComAccordionComp,
   ComBadrButtonComp,
@@ -10,20 +10,20 @@ import {
   ComBadrInfoMessageComp,
   ComBadrProgressBarComp,
   ComBadrToolbarComp,
-} from '../../../components';
+} from '../../../../commons/component';
+
+import BAD from '../../BAD';
 import {Checkbox, TextInput, Text, RadioButton} from 'react-native-paper';
 /**i18n */
 import {translate} from '../../../../commons/i18n/ComI18nHelper';
+import {CustomStyleSheet} from '../../../../commons/styles/ComThemeStyle';
 import _ from 'lodash';
-
-import {load} from '../../../services/storage-service';
+import {load} from '../../../../commons/services/async-storage/ComStorageService';
 import {connect} from 'react-redux';
-import * as Constants from '../../../common/constants/controle/regimeTransit';
-import * as RegimeTransitAction from '../../../redux/actions/controle/regimeTransit';
+import * as Constants from '../state/controleACVPConstants';
+import * as RegimeACVPAction from '../state/actions/controleACVPAction';
 
-const RECONNU = 'reconnu';
-const DEMANDE_CONSIGNATION = 'demandeConsignation';
-class RegimeTransit extends Component {
+class ControleACVPScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -33,13 +33,14 @@ class RegimeTransit extends Component {
       cle: props.route.params.cle,
       numeroVoyage: props.route.params.numeroVoyage,
       declaration: props.route.params.declarationRI,
-      typeRegime: translate('controle.regimeTransite'),
+      typeRegime: translate('controle.ACVP'),
       decisionControle: props.route.params.declarationRI.decisionControle,
       observation: props.route.params.declarationRI.observation,
       numeroVersionCourante: 0,
       isConsultation: false,
       compteRendu: '',
     };
+    console.log('*****-', this.state.declaration);
   }
 
   componentDidMount() {
@@ -65,7 +66,8 @@ class RegimeTransit extends Component {
     return documentAnnexeResultVO;
   };
 
-  sauvgarderValider = (commande) => {
+  sauvgarder = (commande) => {
+    console.log('sauvgarder');
     var data = {
       idControle: this.state.declaration.idControle,
       idDed: this.state.declaration.idDed,
@@ -75,9 +77,10 @@ class RegimeTransit extends Component {
       decisions: this.state.decisionControle,
       numeroVersionCourante: this.state.numeroVersionCourante,
     };
-    var action = RegimeTransitAction.validateSave(
+    console.log('data----', data);
+    var action = RegimeACVPAction.validateSave(
       {
-        type: Constants.REGIMETRANSIT_VALIDATESAVE_REQUEST,
+        type: Constants.ACVP_VALIDATESAVE_REQUEST,
         value: {
           login: this.state.login,
           commande: commande,
@@ -87,6 +90,7 @@ class RegimeTransit extends Component {
       this.props.navigation,
     );
     this.props.dispatch(action);
+    console.log('dispatch fired !!');
   };
 
   genererCompteRendu = () => {
@@ -95,9 +99,9 @@ class RegimeTransit extends Component {
       //numeroVersionBase: this.state.numeroVersionCourante,
       //numeroVersionCourante: this.state.numeroVersionCourante,
     };
-    var action = RegimeTransitAction.genererCR(
+    var action = RegimeACVPAction.genererCR(
       {
-        type: Constants.REGIMETRANSIT_VALIDATESAVE_REQUEST,
+        type: Constants.ACVP_VALIDATESAVE_REQUEST,
         value: {
           login: this.state.login,
           data: data,
@@ -106,28 +110,7 @@ class RegimeTransit extends Component {
       this.props.navigation,
     );
     this.props.dispatch(action);
-  };
-  //toggleChoice for field RECONNU && DEMANDE_CONSIGNATION
-  toggleChoiceInList = (indexDocument, key) => {
-    let listDoc = this.state.declaration.documentAnnexeResultVOs;
-    if (listDoc[indexDocument].documentAnnexe[key]) {
-      listDoc[indexDocument].documentAnnexe[key] = false;
-    } else {
-      listDoc[indexDocument].documentAnnexe[key] = true;
-      var otherKey = key === RECONNU ? DEMANDE_CONSIGNATION : RECONNU;
-      listDoc[indexDocument].documentAnnexe[otherKey] = false;
-    }
-    return listDoc;
-  };
-
-  setChoiceForReconnu = (indexDocument, key) => {
-    this.setState((prevState) => ({
-      declaration: {
-        // object that we want to update
-        ...prevState.declaration, // keep all other key-value pairs
-        documentAnnexeResultVOs: this.toggleChoiceInList(indexDocument, key),
-      },
-    }));
+    console.log('dispatch fired !!');
   };
 
   static getDerivedStateFromProps(props, state) {
@@ -151,14 +134,15 @@ class RegimeTransit extends Component {
 
   render() {
     return (
-      <View>
+      <View style={CustomStyleSheet.fullContainer}>
         <ComBadrToolbarComp
+          back={true}
           navigation={this.props.navigation}
           title="Contrôle"
-          subtitle="Régime transit"
+          subtitle={translate('controle.ACVP')}
           icon="menu"
         />
-        <Container>
+        <ComContainerComp>
           {this.props.showProgress && <ComBadrProgressBarComp />}
           {this.props.errorMessage != null && (
             <ComBadrErrorMessageComp message={this.props.errorMessage} />
@@ -296,7 +280,7 @@ class RegimeTransit extends Component {
                         }
                         disabled={this.state.isConsultation}
                         onPress={() => {
-                          this.setChoiceForReconnu(index, RECONNU);
+                          this.setState({checked: !this.state.checked});
                         }}
                       />
                       <Checkbox
@@ -361,8 +345,9 @@ class RegimeTransit extends Component {
           {/* Historique des comptes rendu de contrôle */}
           <ComBadrCardBoxComp style={styles.cardBox}>
             <ComAccordionComp
+              disable={!(this.state.declaration.historiqueCompte.length > 0)}
               title={translate('controle.historiqueCompteRendu')}>
-              {this.state.declaration.historiqueCompte && (
+              {this.state.declaration.historiqueCompte.length > 0 && (
                 <View>
                   <Text>{this.state.declaration.historiqueCompte}</Text>
                 </View>
@@ -374,7 +359,7 @@ class RegimeTransit extends Component {
           <ComBadrCardBoxComp style={styles.cardBox}>
             <ComAccordionComp title={translate('controle.decision')}>
               <View
-                style={{flexDirection: 'column'}}
+                style={styles.flexColumn}
                 pointerEvents={this.state.isConsultation ? 'none' : 'auto'}>
                 <RadioButton.Group
                   onValueChange={(value) =>
@@ -413,6 +398,22 @@ class RegimeTransit extends Component {
             </ComAccordionComp>
           </ComBadrCardBoxComp>
 
+          <ComBadrCardBoxComp style={styles.cardBox}>
+            <ComAccordionComp title={translate('bad.title')}>
+              <View style={styles.flexColumn}>
+                <BAD
+                  idDeclaration={
+                    this.props.route &&
+                    this.props.route.params &&
+                    this.props.route.params.declarationRI
+                      ? this.props.route.params.declarationRI.idDed
+                      : -1
+                  }
+                />
+              </View>
+            </ComAccordionComp>
+          </ComBadrCardBoxComp>
+
           {/* Actions */}
           <View
             style={styles.containerActionBtn}
@@ -420,7 +421,7 @@ class RegimeTransit extends Component {
             <ComBadrButtonComp
               style={{width: 100}}
               onPress={() => {
-                this.sauvgarderValider('sauvegarderRI');
+                this.sauvgarder('sauvegarderRI');
               }}
               text={translate('controle.sauvegarder')}
               disabled={this.state.decisionControle ? false : true}
@@ -428,7 +429,7 @@ class RegimeTransit extends Component {
             <ComBadrButtonComp
               style={{width: 100}}
               onPress={() => {
-                this.sauvgarderValider('validerRI');
+                this.sauvgarder('validerRI');
               }}
               text={translate('controle.validerControle')}
               disabled={this.state.decisionControle ? false : true}
@@ -438,7 +439,7 @@ class RegimeTransit extends Component {
               text={translate('controle.redresserDeclaration')}
             />
           </View>
-        </Container>
+        </ComContainerComp>
       </View>
     );
   }
@@ -487,8 +488,9 @@ const styles = {
   textRadio: {
     color: '#FFF',
   },
+  flexColumn: {flexDirection: 'column'},
 };
 
-const mapStateToProps = (state) => ({...state.regimeTransitReducer});
+const mapStateToProps = (state) => ({...state.controleACVPReducer});
 
-export default connect(mapStateToProps, null)(RegimeTransit);
+export default connect(mapStateToProps, null)(ControleACVPScreen);

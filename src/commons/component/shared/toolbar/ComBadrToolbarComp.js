@@ -29,6 +29,7 @@ class ComBadrToolbarComp extends React.Component {
           title={this.props.title}
           subtitle={this.props.subtitle}
         />
+        {this.props.children}
       </Appbar.Header>
     );
   }

@@ -3,7 +3,7 @@
     "userLogin": "YAMAGENT",
     "fonctionnalite": "cf4011",
     "module": "DED_LIB",
-    "commande": "ded.RecupererDum",
+    "commande": "ded.",
     "typeService": "UC"
   },
   "jsonVO": {

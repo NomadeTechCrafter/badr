@@ -1,6 +1,10 @@
 import _ from 'lodash';
 
 export const getValueByPath = (key, object, reducer) => {
+  if (key === 'dedDumSectionEnteteVO.typeDUM' || key === 'sousDum') {
+    //console.log('----getValueByPath--', JSON.stringify(object));
+  }
+
   return _.get(object, key)
     ? _.get(object, key)
     : _.get(object, reducer + '.data.' + key);
@@ -31,4 +35,14 @@ export const getRegime = (reference) => {
 
 export const getSerie = (reference) => {
   return reference ? reference.substring(10, 17) : '';
+};
+
+export const getCategorieDum = (typeDum, isSousDum) => {
+  if (typeDum == '01') {
+    return '1';
+  } else if (typeDum == '02') {
+    return isSousDum ? '4' : '2';
+  } else if (typeDum == '04') {
+    return '4';
+  }
 };

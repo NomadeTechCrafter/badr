@@ -1,0 +1,13 @@
+{
+  "dtoHeader": {
+    "userLogin": "YAMAGENT",
+    "fonctionnalite": "cf4011",
+    "module": "DED_LIB",
+    "commande": "ded.isImputationTitresDeChangePortNetAccessible",
+    "typeService": "SP",
+    "motif": null,
+    "messagesInfo": null,
+    "messagesErreur": null
+  },
+  "jsonVO": true
+}

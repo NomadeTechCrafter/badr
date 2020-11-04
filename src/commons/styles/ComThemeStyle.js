@@ -15,6 +15,7 @@ import * as Spacing from './ComSpacingStyle';
 import * as Alignment from './ComAlignmentStyle';
 
 import {StyleSheet} from 'react-native';
+import {DefaultTheme} from 'react-native-paper';
 
 export const primaryColor = '#009ab2';
 export const primaryColorRgba = '0, 154, 178';
@@ -30,6 +31,14 @@ export const darkGris = '#5E5E5E';
 export const lightGris = '#ececec';
 export const lightBlue = '#f3f6ff';
 
+export const PaperTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: primaryColor,
+    accent: accentColor,
+  },
+};
 export const dataTableStyles = StyleSheet.create({
   dataTableItemStyle: {
     flex: 1,
@@ -70,6 +79,9 @@ const CustomStyleSheet = StyleSheet.create({
   },
   badrInput: {
     ...Inputs.loginInput,
+  },
+  Input: {
+    ...Inputs.Input,
   },
   badrText: {
     ...Texts.loginText,
@@ -136,7 +148,7 @@ const CustomStyleSheet = StyleSheet.create({
     ...Containers.verticalActionsContainer,
   },
   fullContainer: {
-    ...Alignment.fullContiner,
+    ...Alignment.fullContainer,
   },
   badrLibelleBleu: {
     ...Colors.libelleBleu,

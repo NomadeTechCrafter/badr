@@ -60,7 +60,7 @@ class RefControleVehiculeResultScreen extends React.Component {
           cols={this.cols}
           onItemSelected={this.onItemSelected}
           totalElements={this.props.data.length}
-          maxResultsPerPage={5}
+          maxResultsPerPage={10}
           paginate={true}
           showProgress={this.props.showProgress}
         />

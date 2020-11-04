@@ -23,3 +23,7 @@ export const badrPicker = {
   borderRadius: 5,
   borderWidth: 0.2,
 };
+
+export const Input = {
+  borderRadius: 10,
+};

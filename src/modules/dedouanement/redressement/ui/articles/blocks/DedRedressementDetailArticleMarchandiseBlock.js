@@ -98,6 +98,7 @@ class DedRedressementDetailArticleMarchandiseBlock extends React.Component {
               libelleSize={2}
               children={
                 <TextInput
+                  disabled={true}
                   type="flat"
                   label=""
                   value={getValueByPath('refNgp', this.props.article)}

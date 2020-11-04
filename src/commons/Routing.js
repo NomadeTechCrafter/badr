@@ -9,10 +9,10 @@ const mapping = {
     screen: 'RechercheEcorImport',
     params: {typeEcorImport: 'EnleverMarchandise'},
   },
-  '1203': {
+  /*'1203': {
     screen: 'RechercheEcorImport',
     params: {typeEcorImport: 'EnleverMarchandiseParPesage'},
-  },
+  },*/
 
   '767': {screen: 'BloquerOperateur', params: {}},
   '42997': {screen: 'DebloquerOperateur', params: {}},

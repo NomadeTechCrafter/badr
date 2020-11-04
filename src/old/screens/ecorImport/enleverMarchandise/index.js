@@ -11,11 +11,17 @@ import {
   ComBadrProgressBarComp,
   ComBadrToolbarComp,
   ComBadrListComp,
-  BadrLibelleBleu,
-  BadrLibelleNoir,
+  ComBadrLibelleComp,
   ComBadrNumericTextInputComp,
   ComBadrPopupComp,
   ComBasicDataTableComp,
+  ComBadrDatePickerComp,
+  ComBadrAutoCompleteComp,
+  ComBadrButtonIconComp,
+  ComBadrAlphabetPickerComp,
+  ComBadrModalComp,
+  ComBadrPickerComp,
+  ComBadrAutoCompleteChipsComp,
 } from '../../../../commons/component';
 import {
   Checkbox,
@@ -25,6 +31,7 @@ import {
   Paragraph,
   TouchableRipple,
   Button,
+  IconButton,
 } from 'react-native-paper';
 import {Col, Row, Grid} from 'react-native-easy-grid';
 /**i18n */
@@ -36,128 +43,226 @@ import {
 import _ from 'lodash';
 
 import {load} from '../../../services/storage-service';
+import {connect} from 'react-redux';
+import RechercheEcorImport from '../rechercheEcorImport';
+import rechercheRefDumReducer from '../../../../commons/state/reducers/rechercheDum';
+import style from '../../../../modules/referentiel/plaquesImmatriculation/style/refPlaquesImmStyle';
+import AddEnlevements from './addEnlevements';
+import {getValueByPath} from '../../../../modules/dedouanement/redressement/utils/DedUtils';
+import {
+  request,
+  requestModal,
+} from '../../../redux/actions/ecorImport/EcorImportAction';
+import {
+  GENERIC_ECI_INIT,
+  GENERIC_ECI_REQUEST,
+  GENERIC_CLOSE_MODAL,
+  GENERIC_OPEN_MODAL,
+} from '../../../common/constants/ecorImport/EcorImportConstants';
+import ComUtils from '../../../../commons/utils/ComUtils';
+import moment from 'moment';
 const screenHeight = Dimensions.get('window').height;
 
 class EnleverMarchandise extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      login: '',
-      checked: false,
       refDeclaration: props.route.params.refDeclaration,
       cle: props.route.params.cle,
       numeroVoyage: props.route.params.numeroVoyage,
       enleverMarchandiseVO: props.route.params.declarationRI,
-      typeRegime: translate('controle.regimeInterne'),
-      decisionControle: props.route.params.declarationRI.decisionControle,
-      observation: props.route.params.declarationRI.observation,
-      sousReservePaiementMLV: props.route.params.sousReservePaiementMLV,
-      numeroVersionCourante: 0,
-      isConsultation: false,
-      compteRendu: '',
-      generateurNumScelleAu: '',
-      generateurNumScelleDu: '',
-      messagesErreur: [],
-      listeNombreDeScelles: [],
-      messageVisibility: false,
-      message: '',
-      messageType: '',
-      selectedItemListScelle: '',
+      showEnlevements: false,
+      showPopUpLots: false,
+      listLotsCols: this.listLotsCols(),
+      listEquipementLotsCols: this.listEquipmentLotsCols(),
+      selectedLot: {},
+      newEcorItem: {},
     };
-    this.numeroScelle = '';
-
-    this.cols = [
-      {
-        code: [
-          'referenceDS.refBureauDouane.codeBureau',
-          'referenceDS.regime',
-          'referenceDS.anneeEnregistrement',
-          'referenceDS.numeroSerieEnregistrement',
-          'referenceDS.cle',
-          '-',
-        ],
-        libelle: translate('transverse.refDS'),
-        width: 250,
-      },
-      {
-        code: ['lieuChargement.descriptionLieuChargement', 'referenceLot', '.'],
-        libelle: translate('ecorimport.lotDedouanement.title'),
-        width: 250,
-      },
-      {
-        code: 'numeroBonSortie',
-        libelle: translate('ecorimport.enleverMarchandise.numBonSortie'),
-        width: 200,
-      },
-      {
-        code: 'nombreContenant',
-        libelle: translate(
-          'ecorimport.enleverMarchandise.listeEnlevementsEffectues.colis',
-        ),
-        width: 200,
-      },
-      {
-        code: 'dateHeureEnlevement',
-        libelle: translate(
-          'ecorimport.enleverMarchandise.listeEnlevementsEffectues.dateHeureEnlevement',
-        ),
-        width: 200,
-      },
-    ];
   }
 
   componentDidMount() {
-    console.log('componentDidMount DelivrerMLV:');
     load('user').then((user) => {
       this.setState({login: JSON.parse(user).login});
     });
   }
-
-  showMessages = (type, message) => {
-    this.scrollViewRef.scrollTo({y: 0, animated: true});
+  onCloseAddEnlevements = () => {
     this.setState({
-      messageVisibility: true,
-      message: message,
-      messageType: type,
+      showEnlevements: false,
     });
   };
-
-  onCloseMessagesPressed = () => {
-    this.setState({
-      messageVisibility: false,
-      message: '',
-      messageType: '',
-    });
-  };
-  onItemSelected = (row) => {
-    console.log(row);
-  };
-
-  onUpdate = (index) => {
-    console.log('update', index);
-  };
-
-  static getDerivedStateFromProps(props, state) {
-    if (
-      props.reponseData &&
-      props.reponseData.historiqueCompte &&
-      props.reponseData.historiqueCompte !== state.declaration.historiqueCompte
-    ) {
-      return {
-        declaration: {
-          // object that we want to update
-          ...state.declaration, // keep all other key-value pairs
-          historiqueCompte: props.reponseData.historiqueCompte, // update the value of specific key
-        },
-        isConsultation: true,
-      };
+  selectedLotChanged = (row, index) => {
+    if (row) {
+      this.setState({selectedLot: row});
     }
-    // Return null to indicate no change to state.
-    return null;
-  }
+  };
+  validerChoixLot = () => {
+    let lot = this.state.selectedLot;
+    let referenceDSTab = lot.referenceDS.split('-');
+    this.setState({
+      selectedLot: {
+        referenceLot: lot.referenceLot,
+        lieuChargement: {
+          codeLieuChargement: lot.codeLieuChargement,
+          descriptionLieuChargement: lot.lieuChargement,
+        },
+        refTypeDS: {
+          codeTypeDS: lot.codeTypeDS,
+          descriptionTypeDS: lot.typeDS,
+        },
+        referenceDS: {
+          refBureauDouane: {
+            codeBureau: referenceDSTab[0],
+            nomBureauDouane: '',
+          },
+          refTypeDS: {
+            codeTypeDS: lot.codeTypeDS,
+            descriptionTypeDS: lot.typeDS,
+          },
+          anneeEnregistrement: referenceDSTab[2],
+          regime: referenceDSTab[1],
+          numeroSerieEnregistrement: referenceDSTab[3],
+          cle: ComUtils.cleDS(
+            referenceDSTab[1] + referenceDSTab[3] + referenceDSTab[2],
+          ),
+        },
+        marque: lot.marques,
+        nature: lot.natureMarchandise,
+      },
+    });
+    this.getListeEquipementLots(lot);
+    this.onCloseModal();
+  };
+  listLotsCols = () => {
+    return [
+      {
+        code: '',
+        libelle: translate('at.apurement.selectionner'),
+        width: 100,
+        component: 'radio',
+        action: (row, index) => this.selectedLotChanged(row, index),
+      },
+      {
+        code: 'typeDS',
+        libelle: translate('transverse.typeDS'),
+        width: 80,
+      },
+      {
+        code: 'referenceDS',
+        libelle: translate('transverse.refDS'),
+        width: 200,
+      },
+      {
+        code: 'referenceLot',
+        libelle: translate('ecorimport.lotDedouanement.title'),
+        width: 150,
+      },
+      {
+        code: 'natureMarchandise',
+        libelle: translate('ecorimport.popUpListeLotApures.natureMarchandise'),
+        width: 150,
+      },
+      {
+        code: 'nombreColis',
+        libelle: translate('ecorimport.enleverMarchandise.nombreColis'),
+        width: 100,
+      },
+      {
+        code: 'marques',
+        libelle: translate('ecorimport.popUpListeLotApures.marques'),
+        width: 100,
+      },
+    ];
+  };
+  listEquipmentLotsCols = () => {
+    return [
+      {
+        code: '',
+        libelle: '',
+        width: 100,
+        component: 'checkbox',
+        action: (row, index) => this.selectedLotChanged(row, index),
+      },
+      {
+        code: 'identifiantEquipement',
+        libelle: translate('ecorimport.listeEquipementsLot.refEquipement'),
+        width: 200,
+      },
+      {
+        code: 'ligneLotVO.libelleTypeContenant',
+        libelle: translate('ecorimport.listeEquipementsLot.typeEquipement'),
+        width: 200,
+      },
+      {
+        code: 'tareEquipement',
+        libelle: translate('ecorimport.listeEquipementsLot.tareEquipement'),
+        width: 150,
+      },
+      {
+        code: '',
+        libelle: translate(
+          'ecorimport.listeEquipementsLot.dateHeureEnlevement',
+        ),
+        width: 200,
+      },
+    ];
+  };
+  getListeLotsApures = () => {
+    this.props.dispatch(requestModal({type: GENERIC_OPEN_MODAL, value: {}}));
+    let identifiant = getValueByPath(
+      'referenceDED.indentifiant',
+      this.state.enleverMarchandiseVO,
+    );
+    this.callRedux({
+      command: 'getLotsApures',
+      typeService: 'SP',
+      jsonVO: identifiant,
+    });
+  };
+  getListeEquipementLots = (selectedRow) => {
+    this.callRedux({
+      command: 'getEquipementsbyLot',
+      typeService: 'SP',
+      jsonVO: selectedRow,
+    });
+  };
+  validerAjout = () => {
+    this.setState({
+      ...this.state,
+      enleverMarchandiseVO: {
+        ...this.state.enleverMarchandiseVO,
+        refMarchandiseEnlevee: [
+          ...this.state.enleverMarchandiseVO.refMarchandiseEnlevee,
+          this.state.selectedLot,
+        ],
+      },
+    });
+  };
+  editEnlevement = (item, index) => {
+    this.setState({
+      selectedLot: this.state.enleverMarchandiseVO.refMarchandiseEnlevee[index],
+    });
+    this.setState({showEnlevements: true});
+  };
 
+  deleteEnlevement = (item, index) => {
+    let enleverMarchandiseVO = {...this.state.enleverMarchandiseVO};
+    enleverMarchandiseVO.refMarchandiseEnlevee.splice(index, 1);
+    this.setState({enleverMarchandiseVO: enleverMarchandiseVO});
+  };
+
+  componentDidUpdate(prevProps, prevState) {}
   render() {
     const {enleverMarchandiseVO} = this.state;
+    const {selectedLot} = this.state;
+
+    let lotsApures = this.extractCommandData(
+      'getLotsApures',
+      'EcorImportReducer',
+    );
+    let equipementsbyLot = this.extractCommandData(
+      'getEquipementsbyLot',
+      'EcorImportReducer',
+    );
     return (
       <View style={CustomStyleSheet.fullContainer}>
         <ComBadrToolbarComp
@@ -171,12 +276,7 @@ class EnleverMarchandise extends Component {
             this.scrollViewRef = ref;
           }}>
           {this.props.showProgress && <ComBadrProgressBarComp />}
-          <ComBadrPopupComp
-            message={this.state.message}
-            type={this.state.messageType}
-            visible={this.state.messageVisibility}
-            onClosePressed={this.onCloseMessagesPressed}
-          />
+
           {this.props.errorMessage != null && (
             <ComBadrErrorMessageComp message={this.props.errorMessage} />
           )}
@@ -188,467 +288,914 @@ class EnleverMarchandise extends Component {
             <Grid>
               <Row style={CustomStyleSheet.whiteRow}>
                 <Col size={2}>
-                  <BadrLibelleBleu>
+                  <ComBadrLibelleComp withColor={true}>
                     {translate('transverse.bureau')}
-                  </BadrLibelleBleu>
+                  </ComBadrLibelleComp>
                 </Col>
                 <Col size={2}>
-                  <BadrLibelleBleu>
+                  <ComBadrLibelleComp withColor={true}>
                     {translate('transverse.regime')}
-                  </BadrLibelleBleu>
+                  </ComBadrLibelleComp>
                 </Col>
                 <Col size={2}>
-                  <BadrLibelleBleu>
+                  <ComBadrLibelleComp withColor={true}>
                     {translate('transverse.annee')}
-                  </BadrLibelleBleu>
+                  </ComBadrLibelleComp>
                 </Col>
                 <Col size={2}>
-                  <BadrLibelleBleu>
+                  <ComBadrLibelleComp withColor={true}>
                     {translate('transverse.serie')}
-                  </BadrLibelleBleu>
+                  </ComBadrLibelleComp>
                 </Col>
                 <Col size={1}>
-                  <BadrLibelleBleu>
+                  <ComBadrLibelleComp withColor={true}>
                     {translate('transverse.cle')}
-                  </BadrLibelleBleu>
+                  </ComBadrLibelleComp>
                 </Col>
                 <Col size={1}>
-                  <BadrLibelleBleu>
+                  <ComBadrLibelleComp withColor={true}>
                     {translate('transverse.nVoyage')}
-                  </BadrLibelleBleu>
+                  </ComBadrLibelleComp>
                 </Col>
                 <Col size={4}>
-                  <BadrLibelleBleu>
+                  <ComBadrLibelleComp withColor={true}>
                     {translate('ecorimport.ouverture')}
-                  </BadrLibelleBleu>
+                  </ComBadrLibelleComp>
                 </Col>
                 <Col size={2}>
-                  <BadrLibelleBleu>
+                  <ComBadrLibelleComp withColor={true}>
                     {translate('ecorimport.cloture')}
-                  </BadrLibelleBleu>
+                  </ComBadrLibelleComp>
                 </Col>
               </Row>
               <Row style={CustomStyleSheet.lightBlueRow}>
                 <Col size={2}>
-                  <BadrLibelleNoir>
+                  <ComBadrLibelleComp>
                     {this.state.refDeclaration.slice(0, 3)}
-                  </BadrLibelleNoir>
+                  </ComBadrLibelleComp>
                 </Col>
                 <Col size={2}>
-                  <BadrLibelleNoir>
+                  <ComBadrLibelleComp>
                     {this.state.refDeclaration.slice(3, 6)}
-                  </BadrLibelleNoir>
+                  </ComBadrLibelleComp>
                 </Col>
                 <Col size={2}>
-                  <BadrLibelleNoir>
+                  <ComBadrLibelleComp>
                     {this.state.refDeclaration.slice(6, 10)}
-                  </BadrLibelleNoir>
+                  </ComBadrLibelleComp>
                 </Col>
                 <Col size={2}>
-                  <BadrLibelleNoir>
+                  <ComBadrLibelleComp>
                     {this.state.refDeclaration.slice(10, 17)}
-                  </BadrLibelleNoir>
+                  </ComBadrLibelleComp>
                 </Col>
                 <Col size={1}>
-                  <BadrLibelleNoir>{this.state.cle}</BadrLibelleNoir>
+                  <ComBadrLibelleComp>{this.state.cle}</ComBadrLibelleComp>
                 </Col>
                 <Col size={1}>
-                  <BadrLibelleNoir>{this.state.numeroVoyage}</BadrLibelleNoir>
+                  <ComBadrLibelleComp>
+                    {this.state.numeroVoyage}
+                  </ComBadrLibelleComp>
                 </Col>
                 <Col size={4}>
-                  <BadrLibelleNoir>
+                  <ComBadrLibelleComp>
                     {enleverMarchandiseVO.dateHeureDebut}
-                  </BadrLibelleNoir>
+                  </ComBadrLibelleComp>
                 </Col>
                 <Col size={2}>
-                  <BadrLibelleNoir>
+                  <ComBadrLibelleComp>
                     {enleverMarchandiseVO.dateHeureFin}
-                  </BadrLibelleNoir>
+                  </ComBadrLibelleComp>
                 </Col>
               </Row>
             </Grid>
           </ComBadrCardBoxComp>
 
-          {/* Déclaration en Détail */}
-          <ComBadrCardBoxComp style={styles.cardBox}>
-            <ComAccordionComp
-              title={translate('ecorimport.declarationDetail.title')}>
-              <Grid>
-                <Row style={CustomStyleSheet.lightBlueRow}>
-                  <Col>
-                    <BadrLibelleBleu>
-                      {translate('ecorimport.declarationDetail.dateHeureEnreg')}
-                    </BadrLibelleBleu>
-                  </Col>
-                  <Col>
-                    <BadrLibelleNoir>
-                      {enleverMarchandiseVO.refDedServices.dateEnregistrement}
-                    </BadrLibelleNoir>
-                  </Col>
-                  <Col>
-                    <BadrLibelleBleu>
-                      {translate('transverse.poidsBrut')}
-                    </BadrLibelleBleu>
-                  </Col>
-                  <Col>
-                    <BadrLibelleNoir>
-                      {enleverMarchandiseVO.refDedServices.poidsBruts}
-                    </BadrLibelleNoir>
-                  </Col>
-                </Row>
-                <Row style={CustomStyleSheet.whiteRow}>
-                  <Col>
-                    <BadrLibelleBleu>
-                      {translate('ecorimport.declarationDetail.typeDed')}
-                    </BadrLibelleBleu>
-                  </Col>
-                  <Col>
-                    <BadrLibelleNoir>
-                      {enleverMarchandiseVO.refDedServices.libelleTypeDED}
-                    </BadrLibelleNoir>
-                  </Col>
-                  <Col>
-                    <BadrLibelleBleu>
-                      {translate('transverse.poidsNet')}
-                    </BadrLibelleBleu>
-                  </Col>
-                  <Col>
-                    <BadrLibelleNoir>
-                      {enleverMarchandiseVO.refDedServices.poidsNet}
-                    </BadrLibelleNoir>
-                  </Col>
-                </Row>
-                <Row style={CustomStyleSheet.lightBlueRow}>
-                  <Col>
-                    <BadrLibelleBleu>
-                      {translate(
-                        'ecorimport.declarationDetail.operateurDeclarant',
-                      )}
-                    </BadrLibelleBleu>
-                  </Col>
-                  <Col>
-                    <BadrLibelleNoir>
-                      {enleverMarchandiseVO.refDedServices.operateurDeclarant}
-                    </BadrLibelleNoir>
-                  </Col>
-                  <Col>
-                    <BadrLibelleBleu>
-                      {translate('ecorimport.nbreContenant')}
-                    </BadrLibelleBleu>
-                  </Col>
-                  <Col>
-                    <BadrLibelleNoir>
-                      {enleverMarchandiseVO.refDedServices.nombreContenants}
-                    </BadrLibelleNoir>
-                  </Col>
-                </Row>
-                <Row style={CustomStyleSheet.whiteRow}>
-                  <Col size={1}>
-                    <BadrLibelleBleu>
-                      {translate('ecorimport.declarationDetail.valeurDeclaree')}
-                    </BadrLibelleBleu>
-                  </Col>
-                  <Col size={1}>
-                    <BadrLibelleNoir>
-                      {enleverMarchandiseVO.refDedServices.valeurDeclaree}
-                    </BadrLibelleNoir>
-                  </Col>
-                  <Col size={2} />
-                </Row>
-              </Grid>
-            </ComAccordionComp>
-          </ComBadrCardBoxComp>
-
-          {/* Déclaration en Mainlevée */}
-          <ComBadrCardBoxComp style={styles.cardBox}>
-            <ComAccordionComp title={translate('ecorimport.mainlevee.title')}>
-              <Grid>
-                <Row style={CustomStyleSheet.whiteRow}>
-                  <Col>
-                    <BadrLibelleBleu>
-                      {translate(
-                        'ecorimport.mainlevee.dateValidationMainlevee',
-                      )}
-                    </BadrLibelleBleu>
-                  </Col>
-                  <Col>
-                    <BadrLibelleNoir>
-                      {enleverMarchandiseVO.refMainlevee.dateValidation}
-                    </BadrLibelleNoir>
-                  </Col>
-                  <Col>
-                    <BadrLibelleBleu>
-                      {translate(
-                        'ecorimport.mainlevee.agentValidationMainlevee',
-                      )}
-                    </BadrLibelleBleu>
-                  </Col>
-                  <Col>
-                    <Row>
+          {!this.state.showEnlevements && (
+            <View>
+              {/* Accordion Déclaration en Détail*/}
+              <ComBadrCardBoxComp style={styles.cardBox}>
+                <ComAccordionComp
+                  title={translate('ecorimport.declarationDetail.title')}>
+                  <Grid>
+                    <Row style={CustomStyleSheet.lightBlueRow}>
                       <Col>
-                        <BadrLibelleNoir>
+                        <ComBadrLibelleComp>
+                          {translate(
+                            'ecorimport.declarationDetail.dateHeureEnreg',
+                          )}
+                        </ComBadrLibelleComp>
+                      </Col>
+                      <Col>
+                        <ComBadrLibelleComp>
+                          {
+                            enleverMarchandiseVO.refDedServices
+                              .dateEnregistrement
+                          }
+                        </ComBadrLibelleComp>
+                      </Col>
+                      <Col>
+                        <ComBadrLibelleComp>
+                          {translate('transverse.poidsBrut')}
+                        </ComBadrLibelleComp>
+                      </Col>
+                      <Col>
+                        <ComBadrLibelleComp>
+                          {enleverMarchandiseVO.refDedServices.poidsBruts}
+                        </ComBadrLibelleComp>
+                      </Col>
+                    </Row>
+                    <Row style={CustomStyleSheet.whiteRow}>
+                      <Col>
+                        <ComBadrLibelleComp>
+                          {translate('ecorimport.declarationDetail.typeDed')}
+                        </ComBadrLibelleComp>
+                      </Col>
+                      <Col>
+                        <ComBadrLibelleComp>
+                          {enleverMarchandiseVO.refDedServices.libelleTypeDED}
+                        </ComBadrLibelleComp>
+                      </Col>
+                      <Col>
+                        <ComBadrLibelleComp>
+                          {translate('transverse.poidsNet')}
+                        </ComBadrLibelleComp>
+                      </Col>
+                      <Col>
+                        <ComBadrLibelleComp>
+                          {enleverMarchandiseVO.refDedServices.poidsNet}
+                        </ComBadrLibelleComp>
+                      </Col>
+                    </Row>
+                    <Row style={CustomStyleSheet.lightBlueRow}>
+                      <Col>
+                        <ComBadrLibelleComp>
+                          {translate(
+                            'ecorimport.declarationDetail.operateurDeclarant',
+                          )}
+                        </ComBadrLibelleComp>
+                      </Col>
+                      <Col>
+                        <ComBadrLibelleComp>
+                          {
+                            enleverMarchandiseVO.refDedServices
+                              .operateurDeclarant
+                          }
+                        </ComBadrLibelleComp>
+                      </Col>
+                      <Col>
+                        <ComBadrLibelleComp>
+                          {translate('ecorimport.nbreContenant')}
+                        </ComBadrLibelleComp>
+                      </Col>
+                      <Col>
+                        <ComBadrLibelleComp>
+                          {enleverMarchandiseVO.refDedServices.nombreContenants}
+                        </ComBadrLibelleComp>
+                      </Col>
+                    </Row>
+                    <Row style={CustomStyleSheet.whiteRow}>
+                      <Col size={1}>
+                        <ComBadrLibelleComp>
+                          {translate(
+                            'ecorimport.declarationDetail.valeurDeclaree',
+                          )}
+                        </ComBadrLibelleComp>
+                      </Col>
+                      <Col size={1}>
+                        <ComBadrLibelleComp>
+                          {enleverMarchandiseVO.refDedServices.valeurDeclaree}
+                        </ComBadrLibelleComp>
+                      </Col>
+                      <Col size={2} />
+                    </Row>
+                  </Grid>
+                </ComAccordionComp>
+              </ComBadrCardBoxComp>
+              {/*Accordion Mainlevée*/}
+              <ComBadrCardBoxComp style={styles.cardBox}>
+                <ComAccordionComp
+                  title={translate('ecorimport.mainlevee.title')}>
+                  <Grid>
+                    <Row style={CustomStyleSheet.whiteRow}>
+                      <Col>
+                        <ComBadrLibelleComp withColor={true}>
+                          {translate(
+                            'ecorimport.mainlevee.dateValidationMainlevee',
+                          )}
+                        </ComBadrLibelleComp>
+                      </Col>
+                      <Col>
+                        <ComBadrLibelleComp>
+                          {enleverMarchandiseVO.refMainlevee.dateValidation}
+                        </ComBadrLibelleComp>
+                      </Col>
+                      <Col>
+                        <ComBadrLibelleComp withColor={true}>
+                          {translate(
+                            'ecorimport.mainlevee.agentValidationMainlevee',
+                          )}
+                        </ComBadrLibelleComp>
+                      </Col>
+                      <Col>
+                        <ComBadrLibelleComp>
                           {
                             enleverMarchandiseVO.refMainlevee.refAgentValidation
                               .nom
-                          }
-                        </BadrLibelleNoir>
-                      </Col>
-                      <Col>
-                        <BadrLibelleNoir>
+                          }{' '}
                           {
                             enleverMarchandiseVO.refMainlevee.refAgentValidation
                               .prenom
                           }
-                        </BadrLibelleNoir>
+                        </ComBadrLibelleComp>
                       </Col>
                     </Row>
-                  </Col>
-                </Row>
-                <Row style={CustomStyleSheet.lightBlueRow}>
-                  <Col>
-                    <BadrLibelleBleu>
-                      {translate(
-                        'ecorimport.mainlevee.dateDelivranceMainlevee',
-                      )}
-                    </BadrLibelleBleu>
-                  </Col>
-                  <Col>
-                    <BadrLibelleNoir>
-                      {enleverMarchandiseVO.refMainlevee.dateImpression}
-                    </BadrLibelleNoir>
-                  </Col>
-                  <Col>
-                    <BadrLibelleBleu>
-                      {translate(
-                        'ecorimport.mainlevee.agentDelivranceMainlevee',
-                      )}
-                    </BadrLibelleBleu>
-                  </Col>
-                  <Col>
-                    <Row>
+                    <Row style={CustomStyleSheet.lightBlueRow}>
                       <Col>
-                        <BadrLibelleNoir>
+                        <ComBadrLibelleComp withColor={true}>
+                          {translate(
+                            'ecorimport.mainlevee.dateDelivranceMainlevee',
+                          )}
+                        </ComBadrLibelleComp>
+                      </Col>
+                      <Col>
+                        <ComBadrLibelleComp>
+                          {enleverMarchandiseVO.refMainlevee.dateImpression}
+                        </ComBadrLibelleComp>
+                      </Col>
+                      <Col>
+                        <ComBadrLibelleComp withColor={true}>
+                          {translate(
+                            'ecorimport.mainlevee.agentDelivranceMainlevee',
+                          )}
+                        </ComBadrLibelleComp>
+                      </Col>
+                      <Col>
+                        <ComBadrLibelleComp>
                           {
                             enleverMarchandiseVO.refMainlevee.refAgentEdition
                               .nom
-                          }
-                        </BadrLibelleNoir>
-                      </Col>
-                      <Col>
-                        <BadrLibelleNoir>
+                          }{' '}
                           {
                             enleverMarchandiseVO.refMainlevee.refAgentEdition
                               .prenom
                           }
-                        </BadrLibelleNoir>
+                        </ComBadrLibelleComp>
                       </Col>
                     </Row>
-                  </Col>
-                </Row>
-              </Grid>
-            </ComAccordionComp>
-          </ComBadrCardBoxComp>
+                  </Grid>
+                </ComAccordionComp>
+              </ComBadrCardBoxComp>
+              {/*Accordion Liste des Enlevements Effectues*/}
+              <ComBadrCardBoxComp style={styles.cardBox}>
+                <ComAccordionComp
+                  title={translate(
+                    'ecorimport.enleverMarchandise.listeEnlevementsEffectues.title',
+                  )}>
+                  <Grid>
+                    <Row style={CustomStyleSheet.lightBlueRow}>
+                      <Col size={1}>
+                        <IconButton
+                          icon="plus"
+                          size={20}
+                          color={'white'}
+                          style={{backgroundColor: primaryColor}}
+                          onPress={() => {
+                            this.setState({showEnlevements: true});
+                          }}
+                        />
+                      </Col>
+                      <Col size={1}>
+                        <ComBadrLibelleComp withColor={true}>
+                          {translate('ecorimport.numLigne')}
+                        </ComBadrLibelleComp>
+                      </Col>
+                      <Col size={2}>
+                        <ComBadrLibelleComp withColor={true}>
+                          {translate('transverse.refDS')}
+                        </ComBadrLibelleComp>
+                      </Col>
+                      <Col size={2}>
+                        <ComBadrLibelleComp withColor={true}>
+                          {translate('ecorimport.lotDedouanement.title')}
+                        </ComBadrLibelleComp>
+                      </Col>
+                      <Col size={1}>
+                        <ComBadrLibelleComp withColor={true}>
+                          {translate(
+                            'ecorimport.enleverMarchandise.numBonSortie',
+                          )}
+                        </ComBadrLibelleComp>
+                      </Col>
+                      <Col size={1}>
+                        <ComBadrLibelleComp withColor={true}>
+                          {translate(
+                            'ecorimport.enleverMarchandise.listeEnlevementsEffectues.colis',
+                          )}
+                        </ComBadrLibelleComp>
+                      </Col>
+                      <Col size={2}>
+                        <ComBadrLibelleComp withColor={true}>
+                          {translate(
+                            'ecorimport.enleverMarchandise.listeEnlevementsEffectues.dateHeureEnlevement',
+                          )}
+                        </ComBadrLibelleComp>
+                      </Col>
+                      <Col size={1} />
+                    </Row>
+                    {enleverMarchandiseVO.refMarchandiseEnlevee.map(
+                      (item, index) => {
+                        return (
+                          <Row style={CustomStyleSheet.whiteRow}>
+                            <Col size={1} />
+                            <Col size={1}>
+                              <ComBadrLibelleComp>
+                                {index + 1}
+                              </ComBadrLibelleComp>
+                            </Col>
+                            <Col size={2}>
+                              <ComBadrLibelleComp>
+                                {_.join(
+                                  [
+                                    item.referenceDS.refBureauDouane.codeBureau,
+                                    item.referenceDS.regime,
+                                    item.referenceDS.anneeEnregistrement,
+                                    item.referenceDS.numeroSerieEnregistrement,
+                                    item.referenceDS.cle,
+                                  ],
+                                  '-',
+                                )}
+                              </ComBadrLibelleComp>
+                            </Col>
+                            <Col size={2}>
+                              <ComBadrLibelleComp>
+                                {_.join(
+                                  [
+                                    item.lieuChargement
+                                      .descriptionLieuChargement,
+                                    item.referenceLot,
+                                  ],
+                                  '.',
+                                )}
+                              </ComBadrLibelleComp>
+                            </Col>
+                            <Col size={1}>
+                              <ComBadrLibelleComp>
+                                {item.numeroBonSortie}
+                              </ComBadrLibelleComp>
+                            </Col>
+                            <Col size={1}>
+                              <ComBadrLibelleComp>
+                                {item.nombreContenant}
+                              </ComBadrLibelleComp>
+                            </Col>
+                            <Col size={2}>
+                              <ComBadrLibelleComp>
+                                {item.dateHeureEnlevement}
+                              </ComBadrLibelleComp>
+                            </Col>
+                            <Col size={1}>
+                              <Row>
+                                <IconButton
+                                  icon="pencil-outline"
+                                  color={'white'}
+                                  size={20}
+                                  style={{backgroundColor: primaryColor}}
+                                  onPress={() =>
+                                    this.editEnlevement(item, index)
+                                  }
+                                />
+                                <IconButton
+                                  icon="trash-can-outline"
+                                  color={'white'}
+                                  size={20}
+                                  style={{backgroundColor: primaryColor}}
+                                  onPress={() =>
+                                    this.deleteEnlevement(item, index)
+                                  }
+                                />
+                              </Row>
+                            </Col>
+                          </Row>
+                        );
+                      },
+                    )}
+                  </Grid>
+                </ComAccordionComp>
+              </ComBadrCardBoxComp>
+            </View>
+          )}
 
-          {/* Liste des Enlevements Effectues */}
-          <ComBadrCardBoxComp style={styles.cardBox}>
-            <ComAccordionComp
-              title={translate(
-                'ecorimport.enleverMarchandise.listeEnlevementsEffectues.title',
-              )}>
-              <View>
-                <ComBasicDataTableComp
-                  ref="_listeEnlevement"
-                  id="listeEnlevement"
-                  rows={enleverMarchandiseVO.refMarchandiseEnlevee}
-                  cols={this.cols}
-                  onItemSelected={this.onItemSelected}
-                  totalElements={
-                    enleverMarchandiseVO.refMarchandiseEnlevee.length
-                  }
-                  maxResultsPerPage={5}
-                  addAction={true}
-                  updateAction={true}
-                  onUpdate={this.onUpdate}
-                  deleteAction={true}
-                  paginate={true}
-                />
-              </View>
-            </ComAccordionComp>
-          </ComBadrCardBoxComp>
+          {this.state.showEnlevements && (
+            <View style={CustomStyleSheet.fullContainer}>
+              <ComContainerComp
+                ContainerRef={(ref) => {
+                  this.scrollViewRef = ref;
+                }}>
+                {this.props.showProgress && <ComBadrProgressBarComp />}
 
-          {/* Déclaration Sommaire */}
-          <ComBadrCardBoxComp style={styles.cardBox}>
-            <ComAccordionComp
-              title={translate('ecorimport.declarationSommaire.title')}>
-              <Grid>
-                <Row style={CustomStyleSheet.whiteRow}>
-                  <Col>
-                    <BadrLibelleBleu>
-                      {translate(
-                        'ecorimport.declarationSommaire.typeDeclaration',
-                      )}
-                    </BadrLibelleBleu>
-                  </Col>
-                  <Col>
-                    <BadrLibelleNoir>
-                      {/*itemEcor.referenceDS.refTypeDS.descriptionTypeDS*/}
-                    </BadrLibelleNoir>
-                  </Col>
-                  <Col>
-                    <ComBadrButtonComp
+                {this.props.errorMessage != null && (
+                  <ComBadrErrorMessageComp message={this.props.errorMessage} />
+                )}
+                {this.props.successMessage != null && (
+                  <ComBadrInfoMessageComp message={this.props.successMessage} />
+                )}
+
+                {/* Accordion Déclaration Sommaire */}
+                <ComBadrCardBoxComp style={styles.cardBox}>
+                  <ComAccordionComp
+                    title={translate('ecorimport.declarationSommaire.title')}>
+                    <Grid>
+                      <Row style={CustomStyleSheet.whiteRow}>
+                        <Col>
+                          <ComBadrLibelleComp withColor={true}>
+                            {translate(
+                              'ecorimport.declarationSommaire.typeDeclaration',
+                            )}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col>
+                          <ComBadrLibelleComp>
+                            {ComUtils.getValueByPath(
+                              'referenceDS.refTypeDS.descriptionTypeDS',
+                              selectedLot,
+                            )}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col>
+                          <ComBadrButtonIconComp
+                            onPress={this.getListeLotsApures}
+                            icon="file-eye"
+                            loading={this.props.showProgress}
+                            text={translate(
+                              'ecorimport.declarationSommaire.choisirLotDedouanement',
+                            )}
+                          />
+                        </Col>
+                      </Row>
+                      <Row style={CustomStyleSheet.lightBlueRow}>
+                        <Col size={2}>
+                          <ComBadrLibelleComp withColor={true}>
+                            {translate(
+                              'ecorimport.declarationSommaire.referenceDeclaration',
+                            )}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col size={2}>
+                          <ComBadrLibelleComp withColor={true}>
+                            {translate('transverse.bureau')}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col size={2}>
+                          <ComBadrLibelleComp withColor={true}>
+                            {translate('transverse.regime')}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col size={2}>
+                          <ComBadrLibelleComp withColor={true}>
+                            {translate('transverse.annee')}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col size={2}>
+                          <ComBadrLibelleComp withColor={true}>
+                            {translate('transverse.serie')}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col size={1}>
+                          <ComBadrLibelleComp withColor={true}>
+                            {translate('transverse.cle')}
+                          </ComBadrLibelleComp>
+                        </Col>
+                      </Row>
+                      <Row style={CustomStyleSheet.whiteRow}>
+                        <Col size={2} />
+                        <Col size={2}>
+                          <ComBadrLibelleComp>
+                            {ComUtils.getValueByPath(
+                              'referenceDS.refBureauDouane.codeBureau',
+                              selectedLot,
+                            )}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col size={2}>
+                          <ComBadrLibelleComp>
+                            {ComUtils.getValueByPath(
+                              'referenceDS.regime',
+                              selectedLot,
+                            )}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col size={2}>
+                          <ComBadrLibelleComp>
+                            {ComUtils.getValueByPath(
+                              'referenceDS.anneeEnregistrement',
+                              selectedLot,
+                            )}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col size={2}>
+                          <ComBadrLibelleComp>
+                            {ComUtils.getValueByPath(
+                              'referenceDS.numeroSerieEnregistrement',
+                              selectedLot,
+                            )}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col size={1}>
+                          <ComBadrLibelleComp>
+                            {ComUtils.getValueByPath(
+                              'referenceDS.cle',
+                              selectedLot,
+                            )}
+                          </ComBadrLibelleComp>
+                        </Col>
+                      </Row>
+                    </Grid>
+                  </ComAccordionComp>
+                </ComBadrCardBoxComp>
+
+                {/* Accordion Lot de dédouanement */}
+                <ComBadrCardBoxComp style={styles.cardBox}>
+                  <ComAccordionComp
+                    title={translate('ecorimport.lotDedouanement.title')}>
+                    <Grid>
+                      <Row style={CustomStyleSheet.whiteRow}>
+                        <Col size={1}>
+                          <ComBadrLibelleComp withColor={true}>
+                            {translate('transverse.lieuChargement')}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col size={3}>
+                          <ComBadrLibelleComp>
+                            {ComUtils.getValueByPath(
+                              'lieuChargement.descriptionLieuChargement',
+                              selectedLot,
+                            )}
+                          </ComBadrLibelleComp>
+                        </Col>
+                      </Row>
+                      <Row style={CustomStyleSheet.lightBlueRow}>
+                        <Col size={1}>
+                          <ComBadrLibelleComp withColor={true}>
+                            {translate('transverse.referenceLot')}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col size={3}>
+                          <ComBadrLibelleComp>
+                            {ComUtils.getValueByPath(
+                              'referenceLot',
+                              selectedLot,
+                            )}
+                          </ComBadrLibelleComp>
+                        </Col>
+                      </Row>
+                      <Row style={CustomStyleSheet.whiteRow}>
+                        <Col size={1}>
+                          <ComBadrLibelleComp withColor={true}>
+                            {translate('transverse.nature')}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col size={3}>
+                          <ComBadrLibelleComp>
+                            {ComUtils.getValueByPath('nature', selectedLot)}
+                          </ComBadrLibelleComp>
+                        </Col>
+                      </Row>
+                      <Row style={CustomStyleSheet.lightBlueRow}>
+                        <Col size={1}>
+                          <ComBadrLibelleComp withColor={true}>
+                            {translate('ecorimport.lotDedouanement.marque')}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col size={3}>
+                          <ComBadrLibelleComp>
+                            {ComUtils.getValueByPath('marque', selectedLot)}
+                          </ComBadrLibelleComp>
+                        </Col>
+                      </Row>
+                    </Grid>
+                  </ComAccordionComp>
+                </ComBadrCardBoxComp>
+
+                {/* Accordion Marchandises Enlevées */}
+                <ComBadrCardBoxComp style={styles.cardBox}>
+                  <ComAccordionComp
+                    title={translate('ecorimport.marchandisesEnlevees.title')}
+                    extraFieldKey={translate('ecorimport.agentEcoreur')}
+                    extraFieldValue={translate('ecorimport.agentEcoreur')}>
+                    <Grid>
+                      <Row style={CustomStyleSheet.whiteRow}>
+                        <Col size={2}>
+                          <ComBadrLibelleComp withColor={true}>
+                            {translate(
+                              'ecorimport.marchandisesEnlevees.lieuStockage',
+                            )}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col size={6}>
+                          <ComBadrPickerComp
+                            disabled={false}
+                            onRef={(ref) => (this.comboLieuStockage = ref)}
+                            style={{
+                              flex: 1,
+                              marginLeft: -80,
+                            }}
+                            titleStyle={{flex: 1}}
+                            key="lieuStockage"
+                            cle="code"
+                            libelle="libelle"
+                            module="REF_LIB"
+                            command="getCmbLieuStockageParBureau"
+                            typeService="SP"
+                            onValueChange={(
+                              selectedValue,
+                              selectedIndex,
+                              item,
+                            ) => {
+                              this.setState({
+                                ...this.state,
+                                selectedLot: {
+                                  ...this.state.selectedLot,
+                                  lieuStockage: {
+                                    codeLieuStockage: selectedValue,
+                                    descriptionLieuStockage: item.libelle,
+                                  },
+                                },
+                              });
+                            }}
+                            param={{
+                              codeBureau: enleverMarchandiseVO.referenceDED.referenceEnregistrement.substring(
+                                0,
+                                3,
+                              ),
+                            }}
+                          />
+                        </Col>
+                      </Row>
+                      <Row style={CustomStyleSheet.lightBlueRow}>
+                        <Col size={2}>
+                          <ComBadrLibelleComp withColor={true}>
+                            {translate(
+                              'ecorimport.enleverMarchandise.nombreColis',
+                            )}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col size={6}>
+                          <TextInput
+                            mode="outlined"
+                            style={style.columnThree}
+                            label=""
+                            value={selectedLot.nombreContenant}
+                            onChangeText={(text) =>
+                              this.setState({
+                                ...this.state,
+                                selectedLot: {
+                                  ...this.state.selectedLot,
+                                  nombreContenant: text,
+                                },
+                              })
+                            }
+                          />
+                        </Col>
+                      </Row>
+                      <Row style={CustomStyleSheet.whiteRow}>
+                        <Col size={2}>
+                          <ComBadrLibelleComp withColor={true}>
+                            {translate(
+                              'ecorimport.enleverMarchandise.numBonSortie',
+                            )}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col size={2}>
+                          <TextInput
+                            mode="outlined"
+                            style={style.columnThree}
+                            label=""
+                            value={selectedLot.numeroBonSortie}
+                            onChangeText={(text) =>
+                              this.setState({
+                                ...this.state,
+                                selectedLot: {
+                                  ...this.state.selectedLot,
+                                  numeroBonSortie: text,
+                                },
+                              })
+                            }
+                          />
+                        </Col>
+                        <Col size={2}>
+                          <ComBadrLibelleComp withColor={true}>
+                            {translate(
+                              'ecorimport.marchandisesEnlevees.delivrePar',
+                            )}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col size={2}>
+                          <ComBadrAutoCompleteChipsComp
+                            onRef={(ref) => (this.refDelivrePar = ref)}
+                            code="code"
+                            disabled={false}
+                            selected={''}
+                            maxItems={3}
+                            libelle="libelle"
+                            command="getCmbOperateur"
+                            onDemand={true}
+                            searchZoneFirst={false}
+                            onValueChange={(item) => {
+                              this.setState({
+                                ...this.state,
+                                selectedLot: {
+                                  ...this.state.selectedLot,
+                                  gestionnaireEnceinte: {
+                                    identifiantOperateur: item.code,
+                                    nomOperateur: item.libelle,
+                                  },
+                                },
+                              });
+                            }}
+                          />
+                        </Col>
+                      </Row>
+                      <Row style={CustomStyleSheet.lightBlueRow}>
+                        <Col size={2}>
+                          <ComBadrLibelleComp withColor={true}>
+                            {translate(
+                              'ecorimport.marchandisesEnlevees.immatriculationsVehicules',
+                            )}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col size={6}>
+                          <TextInput
+                            mode="outlined"
+                            style={style.columnThree}
+                            label=""
+                            value={selectedLot.immatriculationsVehicules}
+                            onChangeText={(text) =>
+                              this.setState({
+                                ...this.state,
+                                selectedLot: {
+                                  ...this.state.selectedLot,
+                                  immatriculationsVehicules: text,
+                                },
+                              })
+                            }
+                            numberOfLines={6}
+                          />
+                        </Col>
+                      </Row>
+                      <Row style={CustomStyleSheet.whiteRow}>
+                        <Col>
+                          <ComBadrDatePickerComp
+                            dateFormat="DD/MM/yyyy"
+                            heureFormat="HH:mm"
+                            value={
+                              this.state.dateFin
+                                ? moment(
+                                    selectedLot.dateEffectiveEnlevement,
+                                    'DD/MM/yyyy',
+                                    true,
+                                  )
+                                : ''
+                            }
+                            timeValue={
+                              this.state.heureFin
+                                ? moment(
+                                    selectedLot.heureEffectiveEnlevement,
+                                    'HH:mm:ss',
+                                    true,
+                                  )
+                                : ''
+                            }
+                            onDateChanged={(date) =>
+                              this.setState({
+                                ...this.state,
+                                selectedLot: {
+                                  ...this.state.selectedLot,
+                                  dateEffectiveEnlevement: date,
+                                },
+                              })
+                            }
+                            onTimeChanged={(time) =>
+                              this.setState({
+                                ...this.state,
+                                selectedLot: {
+                                  ...this.state.selectedLot,
+                                  heureEffectiveEnlevement: time,
+                                },
+                              })
+                            }
+                            labelDate={translate(
+                              'ecorimport.marchandisesEnlevees.dateEffectiveEnlevement',
+                            )}
+                            labelHeure={translate(
+                              'ecorimport.marchandisesEnlevees.heureEffectiveEnlevement',
+                            )}
+                            inputStyle={style.dateInputStyle}
+                            readonly={false}
+                          />
+                        </Col>
+                      </Row>
+                    </Grid>
+                  </ComAccordionComp>
+                </ComBadrCardBoxComp>
+
+                {/* Accordion liste des équipement du lot */}
+                {!_.isNil(equipementsbyLot) && !_.isNil(equipementsbyLot.data) && (
+                  <ComBadrCardBoxComp style={styles.cardBox}>
+                    <ComAccordionComp
+                      title={translate('ecorimport.listeEquipementsLot.title')}
+                      expanded={true}>
+                      <ComBasicDataTableComp
+                        rows={equipementsbyLot.data}
+                        cols={this.state.listEquipementLotsCols}
+                        totalElements={equipementsbyLot.data.length}
+                        maxResultsPerPage={10}
+                        paginate={true}
+                      />
+                    </ComAccordionComp>
+                  </ComBadrCardBoxComp>
+                )}
+                {/* Modal Lot Apures*/}
+                {!_.isNil(lotsApures) && !_.isNil(lotsApures.data) && (
+                  <ComBadrModalComp
+                    visible={this.props.EcorImportReducer.showListeLotsApures}
+                    onDismiss={this.onCloseModal}>
+                    <ComAccordionComp
+                      title={translate('ecorimport.popUpListeLotApures.title')}
+                      expanded={true}>
+                      <ComBasicDataTableComp
+                        rows={lotsApures.data}
+                        cols={this.state.listLotsCols}
+                        totalElements={lotsApures.data.length}
+                        maxResultsPerPage={10}
+                        paginate={true}
+                      />
+                      <ComBadrButtonIconComp
+                        onPress={this.validerChoixLot}
+                        icon="check-circle-outline"
+                        loading={this.props.showProgress}
+                        text={translate('transverse.valider')}
+                      />
+                    </ComAccordionComp>
+                  </ComBadrModalComp>
+                )}
+                {/* Actions */}
+                <Row>
+                  <Col size={1} />
+                  <Col size={1}>
+                    <ComBadrButtonIconComp
                       style={styles.actionBtn}
-                      onPress={() => {
-                        this.sauvgarderValider('sauvegarderRI');
-                      }}
-                      text={translate(
-                        'ecorimport.declarationSommaire.choisirLotDedouanement',
-                      )}
-                      disabled={this.state.decisionControle ? false : true}
+                      onPress={this.validerAjout}
+                      icon="check-circle-outline"
+                      loading={this.props.showProgress}
+                      text={translate('transverse.confirmer')}
                     />
                   </Col>
-                </Row>
-                <Row style={CustomStyleSheet.whiteRow}>
-                  <Col size={2}>
-                    <BadrLibelleBleu>
-                      {translate(
-                        'ecorimport.declarationSommaire.referenceDeclaration',
-                      )}
-                    </BadrLibelleBleu>
-                  </Col>
-                  <Col size={2}>
-                    <BadrLibelleBleu>
-                      {translate('transverse.bureau')}
-                    </BadrLibelleBleu>
-                  </Col>
-                  <Col size={2}>
-                    <BadrLibelleBleu>
-                      {translate('transverse.regime')}
-                    </BadrLibelleBleu>
-                  </Col>
-                  <Col size={2}>
-                    <BadrLibelleBleu>
-                      {translate('transverse.annee')}
-                    </BadrLibelleBleu>
-                  </Col>
-                  <Col size={2}>
-                    <BadrLibelleBleu>
-                      {translate('transverse.serie')}
-                    </BadrLibelleBleu>
+                  <Col size={1}>
+                    <ComBadrButtonIconComp
+                      style={styles.actionBtn}
+                      onPress={this.onCloseAddEnlevements}
+                      icon="restore"
+                      loading={this.props.showProgress}
+                      text={translate('transverse.retablir')}
+                    />
                   </Col>
                   <Col size={1}>
-                    <BadrLibelleBleu>
-                      {translate('transverse.cle')}
-                    </BadrLibelleBleu>
+                    <ComBadrButtonIconComp
+                      style={styles.actionBtn}
+                      onPress={this.onCloseAddEnlevements}
+                      icon="close-circle-outline"
+                      loading={this.props.showProgress}
+                      text={translate('transverse.quitter')}
+                    />
                   </Col>
+                  <Col size={1} />
                 </Row>
-                <Row style={CustomStyleSheet.lightBlueRow}>
-                  <Col size={2} />
-                  <Col size={2}>
-                    <BadrLibelleNoir>
-                      {this.state.refDeclaration.slice(0, 3)}
-                    </BadrLibelleNoir>
-                  </Col>
-                  <Col size={2}>
-                    <BadrLibelleNoir>
-                      {this.state.refDeclaration.slice(3, 6)}
-                    </BadrLibelleNoir>
-                  </Col>
-                  <Col size={2}>
-                    <BadrLibelleNoir>
-                      {this.state.refDeclaration.slice(6, 10)}
-                    </BadrLibelleNoir>
-                  </Col>
-                  <Col size={2}>
-                    <BadrLibelleNoir>
-                      {this.state.refDeclaration.slice(10, 17)}
-                    </BadrLibelleNoir>
-                  </Col>
-                  <Col size={1}>
-                    <BadrLibelleNoir>{this.state.cle}</BadrLibelleNoir>
-                  </Col>
-                </Row>
-              </Grid>
-            </ComAccordionComp>
-          </ComBadrCardBoxComp>
-
-          {/* Lot de dedouanement */}
-          <ComBadrCardBoxComp style={styles.cardBox}>
-            <ComAccordionComp
-              title={translate('ecorimport.lotDedouanement.title')}>
-              <Grid>
-                <Row style={CustomStyleSheet.lightBlueRow}>
-                  <Col>
-                    <BadrLibelleBleu>
-                      {translate('transverse.lieuChargement')}
-                    </BadrLibelleBleu>
-                  </Col>
-                  <Col>
-                    <BadrLibelleNoir>
-                      {/*itemEcor.lieuChargement.descriptionLieuChargement*/}
-                    </BadrLibelleNoir>
-                  </Col>
-                </Row>
-                <Row style={CustomStyleSheet.whiteRow}>
-                  <Col>
-                    <BadrLibelleBleu>
-                      {translate('transverse.referenceLot')}
-                    </BadrLibelleBleu>
-                  </Col>
-                  <Col>
-                    <BadrLibelleNoir>
-                      {/*itemEcor.referenceLot*/}
-                    </BadrLibelleNoir>
-                  </Col>
-                </Row>
-                <Row style={CustomStyleSheet.lightBlueRow}>
-                  <Col>
-                    <BadrLibelleBleu>
-                      {translate('transverse.nature')}
-                    </BadrLibelleBleu>
-                  </Col>
-                  <Col>
-                    <BadrLibelleNoir>{/*itemEcor.nature*/}</BadrLibelleNoir>
-                  </Col>
-                </Row>
-                <Row style={CustomStyleSheet.whiteRow}>
-                  <Col>
-                    <BadrLibelleBleu>
-                      {translate('ecorimport.lotDedouanement.marque')}
-                    </BadrLibelleBleu>
-                  </Col>
-                  <Col>
-                    <BadrLibelleNoir>{/*itemEcor.marque*/}</BadrLibelleNoir>
-                  </Col>
-                </Row>
-              </Grid>
-            </ComAccordionComp>
-          </ComBadrCardBoxComp>
-
-          {/* Actions */}
-          <View
-            style={styles.containerActionBtn}
-            pointerEvents={this.state.isConsultation ? 'none' : 'auto'}>
-            <ComBadrButtonComp
-              style={styles.actionBtn}
-              onPress={() => {
-                this.sauvgarderValider('sauvegarderRI');
-              }}
-              text={translate('mainlevee.validerMainlevee')}
-              disabled={this.state.decisionControle ? false : true}
-            />
-            <ComBadrButtonComp
-              style={styles.actionBtn}
-              onPress={() => {
-                this.sauvgarderValider('validerRI');
-              }}
-              text={translate('mainlevee.delivrerMainlevee.title')}
-              disabled={this.state.decisionControle ? false : true}
-            />
-          </View>
+              </ComContainerComp>
+            </View>
+          )}
         </ComContainerComp>
       </View>
     );
   }
+
+  callRedux = (jsonVO) => {
+    if (this.props.dispatch) {
+      this.props.dispatch(request({type: GENERIC_ECI_REQUEST, value: jsonVO}));
+    }
+  };
+  onCloseModal = () => {
+    this.props.dispatch(requestModal({type: GENERIC_CLOSE_MODAL, value: {}}));
+  };
+
+  init = () => {
+    this.props.dispatch(request({type: GENERIC_ECI_INIT, value: {}}));
+  };
+  extractCommandData = (command, reducerName) => {
+    return this.props[reducerName] && this.props[reducerName].picker
+      ? this.props[reducerName].picker[command]
+      : null;
+  };
 }
 
 const libelle = {
@@ -706,9 +1253,19 @@ const styles = {
   },
   actionBtn: {
     width: 200,
+    height: 50,
   },
   rowListNumScelle: {
     height: 170,
   },
+  borderCol: {
+    borderLeftColor: '#f1f1f1',
+    borderLeftWidth: 2,
+  },
 };
-export default EnleverMarchandise;
+
+function mapStateToProps(state) {
+  return {...state};
+}
+
+export default connect(mapStateToProps, null)(EnleverMarchandise);

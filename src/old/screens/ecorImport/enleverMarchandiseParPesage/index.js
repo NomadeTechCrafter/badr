@@ -167,45 +167,45 @@ class EnleverMarchandiseParPesage extends Component {
             <Grid>
               <Row style={CustomStyleSheet.whiteRow}>
                 <Col size={2}>
-                  <BadrLibelleBleu>
+                  <ComBadrLibelleComp withColor={true}>
                     {translate('transverse.bureau')}
-                  </BadrLibelleBleu>
+                  </ComBadrLibelleComp>
                 </Col>
                 <Col size={2}>
-                  <BadrLibelleBleu>
+                  <ComBadrLibelleComp withColor={true}>
                     {translate('transverse.regime')}
-                  </BadrLibelleBleu>
+                  </ComBadrLibelleComp>
                 </Col>
                 <Col size={2}>
-                  <BadrLibelleBleu>
+                  <ComBadrLibelleComp withColor={true}>
                     {translate('transverse.annee')}
-                  </BadrLibelleBleu>
+                  </ComBadrLibelleComp>
                 </Col>
                 <Col size={2}>
-                  <BadrLibelleBleu>
+                  <ComBadrLibelleComp withColor={true}>
                     {translate('transverse.serie')}
-                  </BadrLibelleBleu>
+                  </ComBadrLibelleComp>
                 </Col>
                 <Col size={1}>
-                  <BadrLibelleBleu>
+                  <ComBadrLibelleComp withColor={true}>
                     {translate('transverse.cle')}
-                  </BadrLibelleBleu>
+                  </ComBadrLibelleComp>
                 </Col>
                 <Col size={1}>
-                  <BadrLibelleBleu>
+                  <ComBadrLibelleComp withColor={true}>
                     {translate('transverse.nVoyage')}
-                  </BadrLibelleBleu>
+                  </ComBadrLibelleComp>
                 </Col>
                 <Col size={4}>
-                  <BadrLibelleBleu>
+                  <ComBadrLibelleComp withColor={true}>
                     {translate('mainlevee.refDroitTaxGaran')}
-                  </BadrLibelleBleu>
+                  </ComBadrLibelleComp>
                 </Col>
                 <Col size={2}>
                   {delivrerMainleveeVO.liquidation === 'non' ? (
-                    <BadrLibelleBleu>
+                    <ComBadrLibelleComp withColor={true}>
                       {delivrerMainleveeVO.liquidation}
-                    </BadrLibelleBleu>
+                    </ComBadrLibelleComp>
                   ) : (
                     <Button mode="text">
                       {delivrerMainleveeVO.liquidation}
@@ -241,9 +241,9 @@ class EnleverMarchandiseParPesage extends Component {
                   <BadrLibelleNoir>{this.state.numeroVoyage}</BadrLibelleNoir>
                 </Col>
                 <Col size={4}>
-                  <BadrLibelleBleu>
+                  <ComBadrLibelleComp withColor={true}>
                     {translate('mainlevee.refPaiementAmend')}
-                  </BadrLibelleBleu>
+                  </ComBadrLibelleComp>
                 </Col>
                 <Col size={2}>
                   <BadrLibelleNoir>
@@ -254,9 +254,9 @@ class EnleverMarchandiseParPesage extends Component {
               <Row style={CustomStyleSheet.whiteRow}>
                 <Col size={10} />
                 <Col size={4}>
-                  <BadrLibelleBleu>
+                  <ComBadrLibelleComp withColor={true}>
                     {translate('mainlevee.mainleveeSousReservePaiement')}
-                  </BadrLibelleBleu>
+                  </ComBadrLibelleComp>
                 </Col>
                 <Col size={2} />
               </Row>

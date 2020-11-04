@@ -1,0 +1,28 @@
+{
+  "dtoHeader": {
+    "userLogin": "YAMAGENT",
+    "fonctionnalite": "cf4011",
+    "module": "DED_LIB",
+    "commande": "ded.recupererListeAnnotations",
+    "typeService": "SP",
+    "motif": null,
+    "messagesInfo": null,
+    "messagesErreur": null
+  },
+  "jsonVO": [
+    {
+      "date": "25/08/2017 12:38",
+      "version": "0",
+      "agent": "TESTAG3",
+      "annotation": "OK",
+      "idPourRecherche": "0"
+    },
+    {
+      "date": "25/08/2017 12:38",
+      "version": "0",
+      "agent": "TESTAG3",
+      "annotation": "ok1",
+      "idPourRecherche": "0"
+    }
+  ]
+}

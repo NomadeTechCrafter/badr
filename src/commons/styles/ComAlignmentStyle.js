@@ -12,6 +12,9 @@ export const loginButton = {
 export const loginInput = {
   justifyContent: 'center',
 };
+export const Input = {
+  justifyContent: 'center',
+};
 
 export const loginComponent = {
   ...centerContainer,
@@ -57,6 +60,6 @@ export const verticalActionContainer = {
   justifyContent: 'center',
   alignItems: 'center',
 };
-export const fullContiner = {
+export const fullContainer = {
   flex: 1,
 };
