@@ -72,7 +72,7 @@ class CtrlReconnaissanceCoreComponent extends React.Component {
 
         this.state = {
             ...this.state,
-            readonly: this.props.mode === 'cancel',
+            readonly: this.props.mode === 'cancel' || this.props.readMode,
             bureau: bureau,
             regime: regime,
             annee: annee,
@@ -255,19 +255,21 @@ class CtrlReconnaissanceCoreComponent extends React.Component {
                         color: 'black',
                     }}
                     onPress={() => this.downloadPicture(item.item)}
-                    disabled={this.state.readonly}
+                    disabled={false}
                 />
 
-                <Button
-                    type={''}
-                    icon={{
-                        name: 'delete',
-                        size: 20,
-                        color: 'black',
-                    }}
-                    onPress={() => this.onRemovePicture(item.item)}
-                    disabled={this.state.readonly}
-                />
+                {!this.props.readMode && !this.state.readonly && (
+                    <Button
+                        type={''}
+                        icon={{
+                            name: 'delete',
+                            size: 20,
+                            color: 'black',
+                        }}
+                        onPress={() => this.onRemovePicture(item.item)}
+                        disabled={false}
+                    />
+                )}
             </View>
         );
     };
@@ -437,7 +439,7 @@ class CtrlReconnaissanceCoreComponent extends React.Component {
                                                         nature: text,
                                                     },
                                                 })}
-                                                disabled={this.state.readonly}
+                                                disabled={this.state.readonly || this.props.readMode}
                                             />
 
                                             <HelperText
@@ -479,7 +481,7 @@ class CtrlReconnaissanceCoreComponent extends React.Component {
                                                         marque: text,
                                                     },
                                                 })}
-                                                disabled={this.state.readonly}
+                                                disabled={this.state.readonly || this.props.readMode}
                                             />
 
                                             <HelperText
@@ -515,8 +517,13 @@ class CtrlReconnaissanceCoreComponent extends React.Component {
                                                         },
                                                     });
                                                 }}
-                                                disabled={this.state.readonly}
+                                                disabled={this.state.readonly || this.props.readMode}
                                             />
+
+                                            <HelperText
+                                                type="error"
+                                                padding="none"
+                                                visible={false}/>
                                         </Col>
                                     </Row>
 
@@ -554,7 +561,7 @@ class CtrlReconnaissanceCoreComponent extends React.Component {
                                                         },
                                                     });
                                                 }}
-                                                disabled={this.state.readonly}
+                                                disabled={this.state.readonly || this.props.readMode}
                                             />
 
                                             <HelperText
@@ -600,7 +607,7 @@ class CtrlReconnaissanceCoreComponent extends React.Component {
                                                         },
                                                     });
                                                 }}
-                                                disabled={this.state.readonly}
+                                                disabled={this.state.readonly || this.props.readMode}
                                             />
 
                                             <HelperText
@@ -644,7 +651,7 @@ class CtrlReconnaissanceCoreComponent extends React.Component {
                                                         descriptionVisite: text,
                                                     },
                                                 })}
-                                                disabled={this.state.readonly}
+                                                disabled={this.state.readonly || this.props.readMode}
                                             />
 
                                             <HelperText
@@ -656,7 +663,7 @@ class CtrlReconnaissanceCoreComponent extends React.Component {
                                         </Col>
                                     </Row>
 
-                                    {!this.state.readonly && (
+                                    {!this.state.readonly && !this.props.readMode && (
                                         <Row size={100}>
                                             <Col size={40}/>
 
@@ -683,7 +690,7 @@ class CtrlReconnaissanceCoreComponent extends React.Component {
                                         </Col>
                                     </Row>
 
-                                    {(this.props.mode === 'add' || this.props.mode === 'edit') && (
+                                    {!this.props.readMode && (this.props.mode === 'add' || this.props.mode === 'edit') && (
                                         <Row size={100}>
                                             <Col size={25}/>
 
@@ -709,7 +716,7 @@ class CtrlReconnaissanceCoreComponent extends React.Component {
                                         </Row>
                                     )}
 
-                                    {this.props.mode === 'cancel' && (
+                                    {!this.props.readMode && this.props.mode === 'cancel' && (
                                         <Row size={100}>
                                             <Col size={40}/>
 
