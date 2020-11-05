@@ -8,6 +8,7 @@ const initialState = {
     detailMode: false,
     infoMessage: null,
     errorMessage: null,
+    readMode: false,
     data: {
         init: {},
         confirm: {},
@@ -40,6 +41,7 @@ export default (state = initialState, action) => {
             }
             nextState.errorMessage = null;
             nextState.showProgress = false;
+            nextState.readMode = true;
             nextState.data.confirm = action.value;
             return nextState;
         case Constants.CONFIRM_RECONNAISSANCE_FAILED:
@@ -87,6 +89,7 @@ export default (state = initialState, action) => {
         case Constants.DETAIL_RECONNAISSANCE_REQUEST:
             nextState.infoMessage = null;
             nextState.errorMessage = null;
+            nextState.readMode = false;
             nextState.showProgress = true;
             nextState.data.detail = [];
             return nextState;
