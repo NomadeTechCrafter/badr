@@ -1,8 +1,9 @@
 
 import { StyleSheet } from 'react-native';
+import { accentColor } from '../../../../commons/styles/ComThemeStyle';
 
 
-const style = {
+const styles = {
     container: { width: '100%', height: '100%' },
     cardBox: {
         flexDirection: 'column',
@@ -15,11 +16,18 @@ const style = {
         alignItems: 'center',
         backgroundColor: '#009ab2',
         padding: 8,
-        width: 300,
     },
     textRadio: {
         color: '#fff',
     },
+    ComContainerCompBtn: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginTop: 10,
+    },
+    actionBtn: {
+        width: 100
+    }
 };
 
-export default StyleSheet.create(style);
+export default StyleSheet.create(styles);

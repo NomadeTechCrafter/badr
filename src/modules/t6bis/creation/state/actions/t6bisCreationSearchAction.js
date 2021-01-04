@@ -10,18 +10,12 @@ export function request(action) {
 
             .then((response) => {
                 const data = response.data;
-                console.log('date 1', data);
-                console.log(data && data.jsonVO);
+                console.log('data',data)
                 if (data && data.jsonVO) {
-                    console.log('Success');
-                    console.log(action);
-                    console.log(action.value);
-                    action.value = data.jsonVO;
                     console.log(data.jsonVO);
-                    console.log(action.value);
+                    action.value = data.jsonVO;
                     dispatch(success(action));
                 } else {
-                    console.log('failed');
                     dispatch(failed({ value: 'error while getting data' }));
                 }
             })
@@ -32,7 +26,6 @@ export function request(action) {
 }
 
 export function success(action) {
-    console.log('s');
     return {
         type: Constants.CREATION_T6BIS_ALL_TYPE_SUCCES,
         value: action.value,
@@ -47,12 +40,13 @@ export function failed(action) {
 }
 
 export function inProgress(action) {
-    console.log('dispatch');
     return {
         type: Constants.CREATION_T6BIS_ALL_TYPE_IN_PROGRESS,
         value: action.value,
     };
 }
+
+
 
 
 export default {

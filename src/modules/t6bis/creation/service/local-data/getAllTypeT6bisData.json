@@ -10,31 +10,42 @@
         ]
         
     },
-    "jsonVO":  [
-            {
-                "code": "01",
-                "libelle": "libelle 1"
-                
-            },
-            {
-                "code": "02",
-                "libelle": "libelle 2"
-                
-            },
-            {
-                "code": "03",
-                "libelle": "libelle 3"
-                
-            },
-            {
-                "code": "04",
-                "libelle": "libelle 4"
-                
-            },
-            {
-                "code": "05",
-                "libelle": "libelle 5"     
-            }
-            
-        ]
+    "jsonVO":  [ {  
+                    "code": "01",
+                    "libelle":"Marchandises et taxe de magasinage",
+                    "paiementTpeAutorise": true,
+                    "defaultConverter": {} 
+                },
+                {  
+                    "code": "02",
+                    "libelle":"Cyclomoteur <= 50cc",
+                    "paiementTpeAutorise": true,
+                    "defaultConverter": {} 
+                },
+                {  "code": "03",
+                   "libelle":"Taxe coordination",
+                   "paiementTpeAutorise": true,
+                   "defaultConverter": {} 
+                },
+                {  "code": "04",
+                   "libelle":"Contrainte par corps",
+                   "paiementTpeAutorise": true,
+                   "defaultConverter": {} 
+                },
+                {  "code": "05",
+                   "libelle":"Dépassement délai",
+                   "paiementTpeAutorise": true,
+                   "defaultConverter": {} 
+                },
+                {  "code": "06",
+                   "libelle":"Affaire change import",
+                   "paiementTpeAutorise": false,
+                   "defaultConverter": {} 
+                },
+                {  "code": "07",
+                   "libelle":"Amende transactionnelle (autres)",
+                   "paiementTpeAutorise": false,
+                   "defaultConverter": {} 
+                } 
+               ]
 }

@@ -1,20 +1,21 @@
 import React from 'react';
-
-import { View, Text } from 'react-native';
-
-import { connect } from 'react-redux';
-
-import { ComBadrCardBoxComp, ComBadrToolbarComp } from '../../../../../commons/component';
-import { translate } from '../../../../../commons/i18n/ComI18nHelper';
-
-import style from '../../style/t6bisCreationStyle';
-
-import * as t6bisCreationSearchAction from '../../state/actions/t6bisCreationSearchAction';
-
-import * as Constantes from '../../state/t6bisCreationConstants';
-
+import { Text, View } from 'react-native';
 import { RadioButton } from 'react-native-paper';
-import { FlatList } from 'react-native-gesture-handler';
+import { connect } from 'react-redux';
+import { ComBadrButtonComp, ComBadrToolbarComp } from '../../../../../commons/component';
+import { translate } from '../../../../../commons/i18n/ComI18nHelper';
+import { CustomStyleSheet } from '../../../../../commons/styles/ComThemeStyle';
+import * as t6bisCreationSearchAction from '../../state/actions/t6bisCreationSearchAction';
+import * as Constantes from '../../state/t6bisCreationConstants';
+import { ComSessionService } from '../../../../../commons/services/session/ComSessionService';
+import styles from '../../style/t6bisCreationStyle';
+
+
+
+
+
+
+
 class T6bisCreation extends React.Component {
 
 
@@ -22,9 +23,12 @@ class T6bisCreation extends React.Component {
         super(props);
         this.state = {
             selectedType: null,
-            listeType: []
+            listeType: [],
+            mode: null
         };
     }
+
+
 
     componentDidMount = async () => {
         let action = await t6bisCreationSearchAction.request({
@@ -48,57 +52,102 @@ class T6bisCreation extends React.Component {
         console.log('reset');
     };
 
+    valider = () => {
+        console.log('valider');
+
+        var parameters = {
+            "utilisateur": { "idActeur": ComSessionService.getInstance().getLogin(), "refBureau": { "codeBureau": ComSessionService.getInstance().getCodeBureau(), "refArrondissement": [] } },
+            "codeTypeT6bis": this.state.selectedType.code,
+            "bureauCourant": { "codeBureau": ComSessionService.getInstance().getCodeBureau(), "refArrondissement": [] }
+        };
+        console.log('parameters', parameters);
+    }
+
+    abandonner = () => {
+        console.log('abandonner');
+    }
+
     render() {
         let rows = [];
+        let types = [];
         if (this.props.value) {
-            rows = this.props.value  
-        } 
+            rows = this.props.value;
+            console.log('rows', rows);
+            rows.forEach((item) => {
+                console.log('item', item);
+                const _item = generateType(item);
+                if (_item) {
+                    types.push(_item);
+                }
+
+            });
+            console.log(types);
+
+
+        }
         return (
-            <View>
 
-                <View style={style.container}>
-                    <ComBadrToolbarComp
-                        navigation={this.props.navigation}
-                        icon="menu"
-                        title={translate('t6bisCreation.t6bisCreation.title')}
-                    />
+            <View style={styles.container}>
+                <ComBadrToolbarComp
+                    navigation={this.props.navigation}
+                    icon="menu"
+                    title={translate('t6bisCreation.t6bisCreation.title')}
+                />
+                <Text style={CustomStyleSheet.centeredText}>
+                    {translate('t6bisCreation.t6bisCreation.choixtype.title')}
+                </Text>
 
-                    {/* Décision */}
-                    <ComBadrCardBoxComp style={style.cardBox}>
+                {/* Décision */}
 
-                        <View
-                            style={style.flexColumn}
-                            pointerEvents='auto'>
-                            
-                            <RadioButton.Group
-                                onValueChange={(value) =>
-                                    this.setState({ selectedType: value })
-                                }
-                                value={this.state.selectedType}>
-                               
+                <View
+                    style={styles.flexColumn}
+                    pointerEvents='auto'>
 
-                                 {rows ? (
-                                    rows.map((item) => (
-                                        <View style={style.typeContainerRB}>
-                                            <Text style={style.textRadio}>
-                                                {item.libelle}
-                                            </Text>
-                                            <RadioButton
-                                                color={style.textRadio.color}
-                                                value={item.code}
-                                            />
-                                            </View>
-                                    ))) : (<Text style={style.textRadio}>{translate('t6bisCreation.t6bisCreation.liste.vide')}</Text>)}  
+                    <RadioButton.Group
+                        onValueChange={(value) =>
+                            this.setState({ selectedType: value })
+                        }
+                        value={this.state.selectedType}>
 
-                                 
 
-                            </RadioButton.Group>
-                        </View>
-                    </ComBadrCardBoxComp>
+                        {types ? (
+                            types.map((item) => (
+                                <View style={styles.typeContainerRB}>
+                                    <Text style={styles.textRadio}>
+                                        {item.libelle}
+                                    </Text>
+                                    <RadioButton
+                                        color={styles.textRadio.color}
+                                        value={item.code}
+                                    />
+                                </View>
+                            ))) : (<Text style={styles.textRadio}>{translate('t6bisCreation.t6bisCreation.liste.vide')}</Text>)}
+
+
+                    </RadioButton.Group>
                 </View>
+                { (this.state.selectedType) && (
+                    <View style={styles.ComContainerCompBtn}>
 
 
+                        <ComBadrButtonComp
+                            style={styles.actionBtn}
+                            onPress={() => {
+                                this.valider();
+                            }}
+                            text={translate('t6bisCreation.t6bisCreation.buttons.valider')}
+                        />
+                        <ComBadrButtonComp
+                            style={styles.actionBtn}
+                            onPress={() => {
+                                this.abandonner();
+                            }}
+                            text={translate('t6bisCreation.t6bisCreation.buttons.abandonner')}
+                        />
+                    </View>)}
             </View>
+
+
         );
     }
 }
@@ -116,7 +165,8 @@ function mapDispatchToProps(dispatch) {
 
 
 function getStateByMode(state) {
-    return $scope.mode === "update" ? (state + "_update") : state;
+    let mode;
+    return mode === "update" ? (state + "_update") : state;
 }
 
 function generateType(item) {
@@ -164,6 +214,7 @@ function generateType(item) {
             ]
         }
     }
+    console.log(_item)
     return _item;
 }
 

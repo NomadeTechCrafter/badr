@@ -8,18 +8,20 @@ import { ComSessionService } from '../../../../../commons/services/session/ComSe
 
 export default class T6bisCreationApi {
   static getAllTypeT6bis = async () => {
-    console.log('T6bisCreationApi 3' );
     const data = {
       dtoHeader: {
-        userLogin: ComSessionService.getInstance().getLogin(),
+        userLogin: ComSessionService.getInstance().getLogin() ? ComSessionService.getInstance().getLogin():'AD6202',
         fonctionnalite: 'cf110001',
         module: MODULE_T6BIS,
         commande: 'getAllTypeT6bis',
         typeService: TYPE_SERVICE_SP,
+        motif: null,
+        messagesInfo: null,
+        messagesErreur: null
+
       },
-      jsonVO: {},
+      jsonVO: '',
     };
-    console.log(data);
     return await ComHttpHelperApi.process(data);
   };
 

@@ -6,6 +6,10 @@ export default {
             },
             liste: { vide:"Aucun type n'est disponible" },
             title: 'Création une T6BIS',
+            buttons: {
+                valider: "Valider",
+                abandonner:"Abandonner"
+            }
         },
     },
 };
