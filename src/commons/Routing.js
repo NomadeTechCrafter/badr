@@ -24,7 +24,9 @@ const mapping = {
   '14000012': {screen: 'ValiderCompteRenduMission', params: {}},
   '30661': {screen: 'ControleApresScanner', params: {}},
   '4096': {screen: 'RefControleVehicule', params: {}},
-  '823': {screen: 'RefPlaquesImm', params: {}},
+  '823': { screen: 'RefPlaquesImm', params: {} },
+  /*T6bis creation*/
+  '110001': { screen: 'T6bisCreation', params: {} },
 };
 
 const DEFAULT_SCREEN = 'ionic';

@@ -44,5 +44,6 @@ const localStore = {
   getListeBureaux: require('./referential/getListeBureaux'),
   getCmbAllTypeCautionnement: require('./referential/getCmbAllTypeCautionnement.json'),
   'ded.getDecisionCautionVO': require('./dedouanement/caution/getDecisionCautionVO.json'),
+  getAllTypeT6bis: require('../../../../modules/t6bis/creation/service/local-data/getAllTypeT6bisData.json')
 };
 export default localStore;

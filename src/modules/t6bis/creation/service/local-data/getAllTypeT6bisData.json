@@ -1,0 +1,40 @@
+{
+    "dtoHeader": {
+        "userLogin": "AD6203",
+        "fonctionnalite": "cf110001",
+        "module": "T6BIS_LIB",
+        "commande": "getAllTypeT6bis",
+        "typeService": "SP",
+        "messagesInfo": [
+            "??? getAllTypeT6bis_MESSAGE_INFO ???"
+        ]
+        
+    },
+    "jsonVO":  [
+            {
+                "code": "01",
+                "libelle": "libelle 1"
+                
+            },
+            {
+                "code": "02",
+                "libelle": "libelle 2"
+                
+            },
+            {
+                "code": "03",
+                "libelle": "libelle 3"
+                
+            },
+            {
+                "code": "04",
+                "libelle": "libelle 4"
+                
+            },
+            {
+                "code": "05",
+                "libelle": "libelle 5"     
+            }
+            
+        ]
+}

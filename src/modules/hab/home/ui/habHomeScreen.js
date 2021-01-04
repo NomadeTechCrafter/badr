@@ -31,6 +31,10 @@ import ModifierCompteRenduMission from '../../../enquetes/compteRendu/ui/modifie
 import ValiderCompteRenduMission from '../../../enquetes/compteRendu/ui/validerCompteRenduMission/enqValiderCompteRenduMissionScreen';
 import ControleApresScanner from '../../../controle/controleApresScanner/ui/controleApresScanner/ctrlControleApresScannerScreen';
 
+/**T6bis */
+import T6bisCreation from '../../../t6bis/creation/ui/t6bisCreation/t6bisCreationScreen';
+
+
 import Entete from '../../../../old/screens/actifs/rapport/creation/entete';
 import Recherche from '../../../../old/screens/actifs/rapport/recherche';
 import Saisie from '../../../../old/screens/actifs/rapport/creation/saisie';
@@ -260,6 +264,12 @@ class habHomeScreen extends React.Component {
           name="Consultation"
           options={{headerShown: false}}
           component={Consultation}
+        />
+        {/* Module T6bis*/}
+        <Drawer.Screen
+          name="T6bisCreation"
+          component={T6bisCreation}
+          options={{ headerShown: false }}
         />
       </Drawer.Navigator>
     );
