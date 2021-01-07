@@ -27,7 +27,19 @@ const styles = {
     },
     actionBtn: {
         width: 100
+    },
+    messages: {},
+    centerErrorMsg: {
+        width: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    centerInfoMsg: {
+        width: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
     }
+
 };
 
 export default StyleSheet.create(styles);

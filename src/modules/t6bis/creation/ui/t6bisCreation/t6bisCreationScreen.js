@@ -2,12 +2,12 @@ import React from 'react';
 import { Text, View } from 'react-native';
 import { RadioButton } from 'react-native-paper';
 import { connect } from 'react-redux';
-import { ComBadrButtonComp, ComBadrToolbarComp } from '../../../../../commons/component';
+import { ComBadrButtonComp, ComBadrErrorMessageComp, ComBadrToolbarComp } from '../../../../../commons/component';
 import { translate } from '../../../../../commons/i18n/ComI18nHelper';
 import { CustomStyleSheet } from '../../../../../commons/styles/ComThemeStyle';
 import * as t6bisCreationSearchAction from '../../state/actions/t6bisCreationSearchAction';
+import t6bisInitForCreateAction from '../../state/actions/t6bisInitForCreateAction';
 import * as Constantes from '../../state/t6bisCreationConstants';
-import { ComSessionService } from '../../../../../commons/services/session/ComSessionService';
 import styles from '../../style/t6bisCreationStyle';
 
 
@@ -22,6 +22,7 @@ class T6bisCreation extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            selectedTypeCode: null,
             selectedType: null,
             listeType: [],
             mode: null
@@ -34,15 +35,14 @@ class T6bisCreation extends React.Component {
         let action = await t6bisCreationSearchAction.request({
             type: Constantes.CREATION_T6BIS_ALL_TYPE_REQUEST, value: null
         });
-        let result = this.props.actions.dispatch(action);
-        console.log(action, 'test');
-        console.log(result);
-        console.log('test', this.state);
-        console.log('componentDidMount');
+        this.props.actions.dispatch(action);
+       
 
     }
 
     componentWillUnmount() {
+        this.props.errorMessage = '';
+        this.props.errorInfo = '';
         console.log('componentWillUnmount');
     }
 
@@ -52,19 +52,31 @@ class T6bisCreation extends React.Component {
         console.log('reset');
     };
 
-    valider = () => {
+    valider = async () => {
         console.log('valider');
+        console.log(this.state.selectedTypeCode);
+        console.log('this.state.listeType', this.state.listeType);
+        var selectedTypeCodevar = this.state.selectedTypeCode;
+        this.state.selectedType = this.state.listeType.filter(function (type) {
+            return type.code == selectedTypeCodevar;
+        })[0];
+        console.log('this.state.selectedType',this.state.selectedType);
+        let action = await t6bisInitForCreateAction.request({
+            type: Constantes.T6BIS_INIT_FOR_CREATION_REQUEST,
+            value: {
+                codeType: this.state.selectedTypeCode,
+                selectedType: this.state.selectedType,
+                mode :'Creation'
+            }
+        }, this.props.navigation);
+        this.props.actions.dispatch(action);
 
-        var parameters = {
-            "utilisateur": { "idActeur": ComSessionService.getInstance().getLogin(), "refBureau": { "codeBureau": ComSessionService.getInstance().getCodeBureau(), "refArrondissement": [] } },
-            "codeTypeT6bis": this.state.selectedType.code,
-            "bureauCourant": { "codeBureau": ComSessionService.getInstance().getCodeBureau(), "refArrondissement": [] }
-        };
-        console.log('parameters', parameters);
+
     }
 
     abandonner = () => {
         console.log('abandonner');
+        this.props.navigation.navigate('Home', {});
     }
 
     render() {
@@ -73,15 +85,18 @@ class T6bisCreation extends React.Component {
         if (this.props.value) {
             rows = this.props.value;
             console.log('rows', rows);
-            rows.forEach((item) => {
-                console.log('item', item);
-                const _item = generateType(item);
-                if (_item) {
-                    types.push(_item);
-                }
+            if (rows && Array.isArray(rows)) {
+                rows.forEach((item) => {
+                    console.log('item', item);
+                    const _item = generateType(item);
+                    if (_item) {
+                        types.push(_item);
+                    }
 
-            });
-            console.log(types);
+                });
+                this.state.listeType = types;
+                console.log(types);
+            }
 
 
         }
@@ -93,6 +108,22 @@ class T6bisCreation extends React.Component {
                     icon="menu"
                     title={translate('t6bisCreation.t6bisCreation.title')}
                 />
+                {this.props.errorMessage != null && (
+                    <View style={styles.messages}>
+                        <ComBadrErrorMessageComp
+                            style={styles.centerErrorMsg}
+                            message={this.props.errorMessage}
+                        />
+                    </View>
+                )}
+                {this.props.messageInfo != null && (
+                    <View style={styles.messages}>
+                        <ComBadrInfoMessageComp
+                            style={styles.centerInfoMsg}
+                            message={this.props.messageInfo}
+                        />
+                    </View>
+                )}
                 <Text style={CustomStyleSheet.centeredText}>
                     {translate('t6bisCreation.t6bisCreation.choixtype.title')}
                 </Text>
@@ -105,9 +136,9 @@ class T6bisCreation extends React.Component {
 
                     <RadioButton.Group
                         onValueChange={(value) =>
-                            this.setState({ selectedType: value })
+                            this.setState({ selectedTypeCode: value })
                         }
-                        value={this.state.selectedType}>
+                        value={this.state.selectedTypeCode}>
 
 
                         {types ? (
@@ -126,7 +157,7 @@ class T6bisCreation extends React.Component {
 
                     </RadioButton.Group>
                 </View>
-                { (this.state.selectedType) && (
+                { (this.state.selectedTypeCode) && (
                     <View style={styles.ComContainerCompBtn}>
 
 

@@ -33,6 +33,7 @@ import ControleApresScanner from '../../../controle/controleApresScanner/ui/cont
 
 /**T6bis */
 import T6bisCreation from '../../../t6bis/creation/ui/t6bisCreation/t6bisCreationScreen';
+import T6bisGestion from '../../../t6bis/creation/ui/t6bisCreation/t6bisGestionScreen';
 
 
 import Entete from '../../../../old/screens/actifs/rapport/creation/entete';
@@ -51,6 +52,7 @@ import DedRedressementRecherche from '../../../dedouanement/redressement/ui/DedR
 import DedRedressementEnteteScreen from '../../../dedouanement/redressement/ui/entete/DedRedressementEnteteScreen';
 import RefControleVehiculeMainScreen from '../../../referentiel/controleVehicules/ui/refControleVehiculeMainScreen';
 import RefPlaquesImmMainScreen from '../../../referentiel/plaquesImmatriculation/ui/refPlaquesImmMainScreen';
+
 
 const Drawer = createDrawerNavigator();
 const deltaScreen = Dimensions.get('window').width / 4;
@@ -265,12 +267,18 @@ class habHomeScreen extends React.Component {
           options={{headerShown: false}}
           component={Consultation}
         />
-        {/* Module T6bis*/}
+        {/* Module T6bis start*/}
         <Drawer.Screen
           name="T6bisCreation"
           component={T6bisCreation}
           options={{ headerShown: false }}
         />
+        <Drawer.Screen
+          name="T6bisGestion"
+          component={T6bisGestion}
+          options={{ headerShown: false }}
+        />
+        {/* Module T6bis end*/}
       </Drawer.Navigator>
     );
   }

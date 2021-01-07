@@ -37,6 +37,9 @@ import DedRedressementScreen from './modules/dedouanement/redressement/ui/DedRed
 import DedRedressementRecherche from './modules/dedouanement/redressement/ui/DedRechercheRedressementScreen';
 import controleRechercheDumScreen from './modules/controle/rechercheDum/ui/controleRechercheDumScreen';
 import ControleRegimeInterneScreen from './modules/controle/regimeInterne/ui/controleRegimeInterneScreen';
+
+import T6bisCreation from './modules/t6bis/creation/ui/t6bisCreation/t6bisCreationScreen';
+import T6bisGestion from './modules/t6bis/creation/ui/t6bisCreation/t6bisGestionScreen';
 import RechercheEcorImport from './old/screens/ecorImport/rechercheEcorImport';
 import EnleverMarchandise from './old/screens/ecorImport/enleverMarchandise';
 
@@ -69,7 +72,7 @@ export default class App extends React.Component {
                 <Stack.Screen
                   name="test"
                   options={{headerShown: false}}
-                  component={controleRechercheDumScreen}
+                    component={controleRechercheDumScreen}
                 />
               )}
               <Stack.Screen
@@ -134,6 +137,11 @@ export default class App extends React.Component {
                 name="Consultation"
                 options={{headerShown: false}}
                 component={Consultation}
+              />
+              <Stack.Screen
+                name="T6bisGestion"
+                options={{ headerShown: false }}
+                component={T6bisGestion}
               />
             </ComBadrStackNavigatorComp>
           </PaperProvider>
