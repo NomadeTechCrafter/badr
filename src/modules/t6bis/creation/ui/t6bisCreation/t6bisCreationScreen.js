@@ -95,6 +95,7 @@ class T6bisCreation extends React.Component {
 
                 });
                 this.state.listeType = types;
+                console.log('types');
                 console.log(types);
             }
 
@@ -143,7 +144,7 @@ class T6bisCreation extends React.Component {
 
                         {types ? (
                             types.map((item) => (
-                                <View style={styles.typeContainerRB}>
+                                <View style={styles.typeContainerRB} key={item.code}>
                                     <Text style={styles.textRadio}>
                                         {item.libelle}
                                     </Text>

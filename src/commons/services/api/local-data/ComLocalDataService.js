@@ -45,6 +45,8 @@ const localStore = {
   getCmbAllTypeCautionnement: require('./referential/getCmbAllTypeCautionnement.json'),
   'ded.getDecisionCautionVO': require('./dedouanement/caution/getDecisionCautionVO.json'),
   getAllTypeT6bis: require('../../../../modules/t6bis/creation/service/local-data/getAllTypeT6bisData.json'),
-  T6bisInitForCreate: require('../../../../modules/t6bis/creation/service/local-data/t6bisInitForCreateData.json')
+  T6bisInitForCreate: require('../../../../modules/t6bis/creation/service/local-data/t6bisInitForCreateData.json'),
+  initT6bisEnteteSection: require('../../../../modules/t6bis/gestion/service/local-data/initT6bisEnteteSectionData.json'),
+  findIntervenant: require('../../../../modules/t6bis/gestion/service/local-data/findIntervenantData.json')
 };
 export default localStore;

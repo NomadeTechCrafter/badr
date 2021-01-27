@@ -23,6 +23,12 @@ const styles = {
         color: '#fff',
         backgroundColor: '#009ab2'
     },
+    labelContainer: {
+        justifyContent: 'center',
+    },
+    labelTextStyle: {
+        color: '#009ab2',
+    },
     ComContainerCompBtn: {
         flexDirection: 'row',
         justifyContent: 'center',
@@ -41,7 +47,8 @@ const styles = {
         width: '100%',
         justifyContent: 'center',
         alignItems: 'center',
-    }
+    },
+    row: { flexDirection: 'row', padding: 10, margin: 10 },
 
 };
 

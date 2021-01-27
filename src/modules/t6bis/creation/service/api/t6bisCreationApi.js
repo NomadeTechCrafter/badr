@@ -48,4 +48,25 @@ export default class T6bisCreationApi {
     return await ComHttpHelperApi.process(data);
   };
 
+  static initT6bisEnteteSection = async (codeType) => {
+    console.log('initT6bisEnteteSection');
+    const data = {
+      dtoHeader: {
+        userLogin: ComSessionService.getInstance().getLogin(),
+        fonctionnalite: T6BIS_CREATION_FONCTIONNALITE,
+        module: MODULE_T6BIS,
+        commande: 'initT6bisEnteteSection',
+        typeService: TYPE_SERVICE_UC,
+        motif: null,
+        messagesInfo: null,
+        messagesErreur: null,
+      },
+      t6bisMtmDto: {
+        codeTypeT6bis: codeType
+      },
+    };
+    console.log(data);
+    return await ComHttpHelperApi.process(data);
+  };
+
 }

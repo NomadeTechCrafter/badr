@@ -1,10 +1,8 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 import { connect } from 'react-redux';
-import { ComBadrToolbarComp } from '../../../../../commons/component';
-import { translate } from '../../../../../commons/i18n/ComI18nHelper';
-import { CustomStyleSheet } from '../../../../../commons/styles/ComThemeStyle';
-import styles from '../../style/t6bisCreationStyle';
+import translate from '../../../../../../commons/i18n/ComI18nHelper';
+import styles from '../../../style/t6bisGestionStyle';
 
 
 
@@ -12,14 +10,12 @@ import styles from '../../style/t6bisCreationStyle';
 
 
 
-class T6bisGestion extends React.Component {
+class T6bisTaxationGlobaleTab extends React.Component {
 
 
     constructor(props) {
         super(props);
         this.state = {
-            context: props.route.params.context,
-            mode: props.route.params.mode
         };
     }
 
@@ -49,16 +45,11 @@ class T6bisGestion extends React.Component {
         return (
 
             <View style={styles.container}>
-                <ComBadrToolbarComp
-                    navigation={this.props.navigation}
-                    icon="menu"
-                    title={translate('t6bisCreation.t6bisCreation.title')}
+                <Text
+                    value={translate('t6bisCreation.t6bisGestion.tabs.taxation.globale')}
                 />
-                <Text style={CustomStyleSheet.centeredText}>
-                    {translate('t6bisCreation.t6bisCreation.choixtype.title')}testddddddddd
-                </Text>
-
-                {/* Décision */}
+                 
+                
 
 
             </View>
@@ -84,4 +75,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
-)(T6bisGestion);
+)(T6bisTaxationGlobaleTab);

@@ -39,7 +39,7 @@ import controleRechercheDumScreen from './modules/controle/rechercheDum/ui/contr
 import ControleRegimeInterneScreen from './modules/controle/regimeInterne/ui/controleRegimeInterneScreen';
 
 import T6bisCreation from './modules/t6bis/creation/ui/t6bisCreation/t6bisCreationScreen';
-import T6bisGestion from './modules/t6bis/creation/ui/t6bisCreation/t6bisGestionScreen';
+import T6bisGestion from './modules/t6bis/gestion/ui/t6bisGestion/t6bisGestionScreen';
 import RechercheEcorImport from './old/screens/ecorImport/rechercheEcorImport';
 import EnleverMarchandise from './old/screens/ecorImport/enleverMarchandise';
 

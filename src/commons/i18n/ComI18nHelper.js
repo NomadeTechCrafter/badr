@@ -21,6 +21,7 @@ import ecorImportTranslateFr from '../../old/screens/ecorImport/i18/ecorImportTr
 import refControleVehiculeTranslateFr from '../../modules/referentiel/controleVehicules/i18n/refControleVehiculeTranslateFr';
 import refPlaquesImmTranslateFr from '../../modules/referentiel/plaquesImmatriculation/i18n/refPlaquesImmTranslateFr';
 import t6bisCreationTranslationsFr from '../../modules/t6bis/creation/i18n/t6bisCreationTranslateFr';
+import t6bisGestionTranslateFr from '../../modules/t6bis/gestion/i18n/t6bisGestionTranslateFr';
 import actifTranslateFr from '../../old/common/translations/actif/actifTranslateFr';
 
 const locales = RNLocalize.getLocales();
@@ -51,7 +52,8 @@ let combined = {
   ...mainLeveeTranslateFr,
   ...ecorImportTranslateFr,
   ...actifTranslateFr,
-  ...t6bisCreationTranslationsFr
+  ...t6bisCreationTranslationsFr,
+  ...t6bisGestionTranslateFr
 };
 I18n.translations = {
   fr: combined,

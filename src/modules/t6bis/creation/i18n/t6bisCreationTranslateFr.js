@@ -11,5 +11,19 @@ export default {
                 abandonner:"Abandonner"
             }
         },
+        t6bisGestion: {
+            
+            title: 'Création une T6BIS',
+            tabs: {
+                entete: "Entête",
+                articles: "Articles",
+                taxation: {
+                    manuelle: "Taxation manuelle",
+                    globale: "Taxation globale"
+                },
+                informations: "Informations",
+                historique: "Historique"
+            }
+        },
     },
 };
