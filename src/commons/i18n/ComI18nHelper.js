@@ -13,6 +13,7 @@ import refOperateursEconomiquesTranslations from '../../modules/referentiel/oper
 import ctrlReconnaissanceTranslations from '../../modules/controle/reconnaissance/i18n/ctrlReconnaissanceTranslateFr';
 import enqCompteRenduTranslations from '../../modules/enquetes/compteRendu/i18n/enqCompteRenduTranslateFr';
 import ctrlControleApresScannerTranslations from '../../modules/controle/controleApresScanner/i18n/ctrlControleApresScannerTranslateFr';
+import vuEmbTranslations from '../../modules/DeclarationD17D20/vuEmbarquer/i18n/vuEmbarquerTranslateFr';
 import commonTranslations from './common/ComTranslationsFr';
 import dedouanementTranslateFr from '../../modules/dedouanement/redressement/i18n/dedouanementTranslateFr';
 import controleRechrcheDumTranslateFr from '../../modules/controle/rechercheDum/i18n/controleRechrcheDumTranslateFr';
@@ -50,6 +51,7 @@ let combined = {
   ...mainLeveeTranslateFr,
   ...ecorImportTranslateFr,
   ...actifTranslateFr,
+  ...vuEmbTranslations,
 };
 I18n.translations = {
   fr: combined,

@@ -126,9 +126,18 @@ export default {
     totalEnregistrements: "Nombre d'enregistrements : ",
     qte: 'Quantité',
     reference: 'Réference',
+    libRegime: 'Libellé du régime',
   },
   qr: {
     at_invalide:
       "QR Code invalide merci de vérifier l'AT en saisissant sa référence",
+  },
+  tabs: {
+    entete: 'Entete',
+    connaissement: 'Connaissement',
+    declarationDetail: 'Déclaration en Détail',
+    etatChargement: 'Etat de chargement',
+    resultScanner: 'résultat scanner',
+    info: 'Info',
   },
 };
