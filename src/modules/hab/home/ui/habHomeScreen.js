@@ -10,6 +10,9 @@ import WelcomeScreen from '../../annonces/ui/habAnnoncesScreen';
 import MainMenu from '../../mainMenu/ui/habMainMenuScreen';
 import CreerApurement from '../../../at/apurement/ui/creerApurement/AtApurementScreen';
 import Apurement from '../../../at/apurement/ui/ongletAt/apurement/AtCreateApurementScreen';
+import VuEmbarquer from '../../../DeclarationD17D20/vuEmbarquer/ui/vuEmbarquer/VuEmbarquerScreen';
+import VuEmbListeDeclaration from '../../../DeclarationD17D20/vuEmbarquer/ui/vuEmbarquer/VuEmbListeDeclaration';
+
 import {ComQrCodeScannerComp} from '../../../../commons/component';
 import BloquerOperateur from '../../../referentiel/operateursEconomiques/ui/bloquerOperateur/refBloquerOperateurScreen';
 import DebloquerOperateur from '../../../referentiel/operateursEconomiques/ui/debloquerOperateur/refDebloquerOperateurScreen';
@@ -200,7 +203,7 @@ class habHomeScreen extends React.Component {
           component={CreerCompteRenduMission}
           options={{headerShown: false}}
         />
-
+        
         <Drawer.Screen
           name="ModifierCompteRenduMission"
           component={ModifierCompteRenduMission}
@@ -260,6 +263,17 @@ class habHomeScreen extends React.Component {
           name="Consultation"
           options={{headerShown: false}}
           component={Consultation}
+        />
+          {/* Fonc Vu embarquer */}
+        <Drawer.Screen
+          name="VuEmbarquer"
+          component={VuEmbarquer}
+          options={{headerShown: false}}
+        />
+        <Drawer.Screen
+          name="VuEmbListeDeclaration"
+          component={VuEmbListeDeclaration}
+          options={{headerShown: false}}
         />
       </Drawer.Navigator>
     );
