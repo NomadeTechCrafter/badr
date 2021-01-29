@@ -8,6 +8,7 @@ const initialState = {
   errorMessage: '',
   displayError: false,
   data: {},
+  success: false,
 };
 
 export default (state = initialState, action) => {
@@ -21,6 +22,7 @@ export default (state = initialState, action) => {
       nextState.messageInfo = null;
       nextState.errorMessage = null;
       nextState.data = {};
+      nextState.success = false;
       if (nextState.successMessage) {
         delete nextState.successMessage;
       }
@@ -33,11 +35,13 @@ export default (state = initialState, action) => {
       nextState.showProgress = false;
       nextState.data = action.value.jsonVO;
       nextState.messageInfo = action.value.dtoHeader.messagesInfo;
+      nextState.success = true;
       return nextState;
     case Constants.VU_EMB_CONFIRMER_FAILED:
       nextState.showProgress = false;
       nextState.displayError = true;
       nextState.messageInfo = null;
+      nextState.success = false;
       if (action.value.dtoHeader) {
         nextState.errorMessage = action.value.dtoHeader.messagesErreur
           ? action.value.dtoHeader.messagesErreur

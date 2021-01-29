@@ -6,6 +6,7 @@ export default {
     version: 'Version',
     modeAcquisition: "Mode d'acquisition",
     actionAnnuler: 'Annuler',
+    dateVuEmbObligatoire: 'Date et commentaire sont obligatoire',
 
     //Version
     type: 'Type',
