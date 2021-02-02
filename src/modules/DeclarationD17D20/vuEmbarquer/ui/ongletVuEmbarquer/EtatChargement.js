@@ -144,11 +144,10 @@ class VuEmbarquerEtatChargement extends React.Component {
               title={translate('vuEmbarquee.historique.title')}
               expanded>
               <Text style={styles.nombreResult}>
-                {translate('vuEmbarquee.versions.nbreVersions')} :
-                ???????????????
-                {/* <Text style={styles.libelle}>
-                  {'    ' + listDeclarationEnDouaneVO.length}
-                </Text> */}
+                {translate('vuEmbarquee.versions.nbreVersions')} :{' '}
+                {listDeclarationEnDouaneVO.length
+                  ? listDeclarationEnDouaneVO.length
+                  : 0}
               </Text>
               <ComBasicDataTableComp
                 badr
