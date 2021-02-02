@@ -187,6 +187,18 @@ class VuEmbarquerEntete extends React.Component {
     this.scrollViewRef.current.scrollTo({x: 0, y: 0, animated: true});
   };
 
+  getConducteurById = function (codeConducteur) {
+    const vctConducteurs = this.props.dataVo.vctConducteurs;
+
+    const conducteur = vctConducteurs.find(
+      (cond) => cond.code === codeConducteur,
+    );
+    if (conducteur) {
+      return conducteur.libelle;
+    }
+    return '';
+  };
+
   render() {
     const {enteteTrypVO, traceSignature, vctConducteurs} = this.props.dataVo;
     const {referenceEnregistrement} = this.props.dataVo.declarationTriptique;
@@ -420,13 +432,17 @@ class VuEmbarquerEntete extends React.Component {
                   <Text style={styles.libelleM}>
                     {translate('vuEmbarquee.dateMLV')} :
                   </Text>
-                  <Text style={styles.valueM}>???? </Text>
+                  <Text style={styles.valueM}>
+                    {this.props.dataVo.datePassage}
+                  </Text>
                 </View>
                 <View style={[styles.flexDirectionRow, styles.marg]}>
                   <Text style={styles.libelleS}>
                     {translate('vuEmbarquee.agent')} :
                   </Text>
-                  <Text style={styles.valueS}>????</Text>
+                  <Text style={styles.valueS}>
+                    {this.props.dataVo.agentPassage}
+                  </Text>
                 </View>
               </View>
             </Accordion>
@@ -462,19 +478,21 @@ class VuEmbarquerEntete extends React.Component {
                   <Text style={styles.libelleM}>
                     {translate('vuEmbarquee.conducteur')} :
                   </Text>
-                  <Text style={styles.valueM}>{vctConducteurs[0].libelle}</Text>
+                  <Text style={styles.valueM}>
+                    {this.getConducteurById(enteteTrypVO.idConducteur)}
+                  </Text>
                 </View>
                 <View style={[styles.flexDirectionRow, styles.marg]}>
                   <Text style={styles.libelleM}>
                     {translate('vuEmbarquee.conducteur2')} :
                   </Text>
-                  <Text style={styles.valueM}>{vctConducteurs[1].libelle}</Text>
+                  <Text style={styles.valueM}>{''}</Text>
                 </View>
                 <View style={[styles.flexDirectionRow, styles.marg]}>
                   <Text style={styles.libelleM}>
                     {translate('vuEmbarquee.conducteur3')} :
                   </Text>
-                  <Text style={styles.valueM}>{vctConducteurs[2].libelle}</Text>
+                  <Text style={styles.valueM}>{''}</Text>
                 </View>
                 <View style={[styles.flexDirectionRow, styles.marg]}>
                   <Text style={styles.libelleM}>
@@ -495,12 +513,12 @@ class VuEmbarquerEntete extends React.Component {
                   <Text style={styles.libelleM}>
                     {translate('vuEmbarquee.natureVehicule2')} :
                   </Text>
-                  <Text style={styles.valueM}>???? </Text>
+                  <Text style={styles.valueM}>{''}</Text>
 
                   <Text style={styles.libelleM}>
                     {translate('vuEmbarquee.vehicule2')} :
                   </Text>
-                  <Text style={styles.valueM}>???? </Text>
+                  <Text style={styles.valueM}>{''}</Text>
                 </View>
               </View>
             </Accordion>
