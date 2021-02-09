@@ -10,6 +10,8 @@ export const getValueByPath = (key, object) => {
 };
 
 
+
+
 export const getValueByPaths = (key1, key2, object) => {
   return _.get(object, key1) ? _.get(object, key1) : _.get(object, key2);
 };
@@ -27,7 +29,7 @@ export const hasAtLeastOneTaxationLine = (t6bis) => {
   if (t6bis && t6bis.listeArticleT6bis) {
     t6bis.listeArticleT6bis.forEach(function (current) {
       if (current) {
-        if ((current && current.listeT6bisLigneTaxation && current.listeT6bisLigneTaxation.length > 0) || (t6bis.listeT6bisLigneTaxation && t6bis.listeT6bisLigneTaxation.length > 0) || (t6bis.listeT6bisLigneTaxationGlobale && t6bis.listeT6bisLigneTaxationGlobale.length > 0)) {
+        if (( current.listeT6bisLigneTaxation && current.listeT6bisLigneTaxation.length > 0) || (t6bis.listeT6bisLigneTaxation && t6bis.listeT6bisLigneTaxation.length > 0) || (t6bis.listeT6bisLigneTaxationGlobale && t6bis.listeT6bisLigneTaxationGlobale.length > 0)) {
           hasIt = true;
         } else {
           hasIt = false;
@@ -39,7 +41,7 @@ export const hasAtLeastOneTaxationLine = (t6bis) => {
   return hasIt;
 }
 
-export const format = (date) => { 
+export const format = (date) => {
 
   return moment(date).format('DD/MM/YYYY HH:mm',)
 }
@@ -50,7 +52,7 @@ export const getState = (state) => {
   Object.keys(Constants.STATES).map((key, val) => {
     console.log(key, val);
     console.log(Constants.STATES[key]);
-    if (key === state) { 
+    if (key === state) {
       value = Constants.STATES[key];
     }
     console.log(value);
@@ -59,7 +61,7 @@ export const getState = (state) => {
 }
 
 export const validateCin = (cin) => {
-  console.log('validateCin**************************************************************************start');
+  console.log('validateCin**************************************************************************start', cin);
   if (cin) {
     var condition1 = cin.charAt(0).match(/[a-z]/i);
     console.log(condition1);
@@ -84,4 +86,103 @@ export const validateCin = (cin) => {
   return '';
 }
 
+export const stringEmpty = (string) => {
+  return (string != null && string.trim() != "");
+}
 
+export const isRedevableOperator = (codeTypeT6bis) => {
+  console.log('Constants.TYPE_T6BIS[2] ', Constants.TYPE_T6BIS[2])
+  console.log((codeTypeT6bis === Constants.TYPE_T6BIS[2].code));
+  return (codeTypeT6bis === Constants.TYPE_T6BIS[2].code);
+}
+
+export const isRedevableNonOperator = (codeTypeT6bis) => {
+  console.log((codeTypeT6bis === Constants.TYPE_T6BIS[0].code || codeTypeT6bis === Constants.TYPE_T6BIS[1].code || codeTypeT6bis === Constants.TYPE_T6BIS[3].code || codeTypeT6bis === Constants.TYPE_T6BIS[5].code || codeTypeT6bis === Constants.TYPE_T6BIS[6].code));
+  return (codeTypeT6bis === Constants.TYPE_T6BIS[0].code || codeTypeT6bis === Constants.TYPE_T6BIS[1].code || codeTypeT6bis === Constants.TYPE_T6BIS[3].code || codeTypeT6bis === Constants.TYPE_T6BIS[5].code || codeTypeT6bis === Constants.TYPE_T6BIS[6].code);
+}
+
+export const isMtm = (codeTypeT6bis) => {
+  return (codeTypeT6bis === Constants.TYPE_T6BIS[0].code);
+}
+export const isCm = (codeTypeT6bis) => {
+  return (codeTypeT6bis === Constants.TYPE_T6BIS[1].code);
+}
+export const isTaxeCoordination = (codeTypeT6bis) => {
+  return (codeTypeT6bis === Constants.TYPE_T6BIS[2].code);
+}
+export const isContrainteParCorps = (codeTypeT6bis) => {
+  return (codeTypeT6bis === Constants.TYPE_T6BIS[3].code);
+}
+export const isAffaireChange = (codeTypeT6bis) => {
+  return (codeTypeT6bis === Constants.TYPE_T6BIS[5].code);
+}
+
+export const isAmendeTransactionnelle = (codeTypeT6bis) => {
+  return (codeTypeT6bis === Constants.TYPE_T6BIS[6].code);
+}
+
+export const formatSerie = (numeroSerieAffaire) => {
+  if (numeroSerieAffaire && numeroSerieAffaire.length < 6) {
+    numeroSerieAffaire = numeroSerieAffaire.padStart(6, "0");
+  } else if (numeroSerieAffaire && numeroSerieAffaire.length > 6) {
+    numeroSerieAffaire = numeroSerieAffaire.substring(0, 6);
+  }
+  console.log('formatSerie : ', numeroSerieAffaire);
+  return numeroSerieAffaire;
+}
+
+export const formatNomenclature = function (codeNomenclature) {
+  var limit = 10;
+  if (
+
+    codeNomenclature &&
+    codeNomenclature.length < limit
+  ) {
+    return codeNomenclature
+      .toString()
+      .padStart(limit, "1");
+  }
+  else {
+    return codeNomenclature
+      .toString()
+      .substr(0, limit);
+  }
+
+};
+
+export const getCurrentArticle = (codeTypeT6bis,num=0) => {
+
+  
+  if (isMtm(codeTypeT6bis)) {
+    return {
+      id: num + 1,
+      numArticle: num + 1,
+      codeNomenclature: null,
+      natureMarchandise: null,
+      designation: null,
+      valeurTaxable: null,
+      montantFacture: null,
+      devise: null,
+      uniteQuantite: null,
+      isNew: true,
+      listeT6bisLigneTaxation: []
+    }
+  }
+  if (isCm(codeTypeT6bis)) {
+    return {
+      numArticle: 1,
+      marque: null,
+      modele: null,
+      cylindree: null,
+      numeroCadre: null,
+      numeroImmatriculation: null,
+      dateMiseCirculation: null,
+      valeurTaxable: null,
+      montantFacture: null,
+      devise: null,
+      isNew: true,
+      listeT6bisLigneTaxation: []
+    }
+  }
+  return null;
+}

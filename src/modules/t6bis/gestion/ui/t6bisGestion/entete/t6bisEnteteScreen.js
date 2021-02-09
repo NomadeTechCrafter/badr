@@ -1,9 +1,10 @@
 import React from 'react';
-import { ScrollView } from 'react-native-gesture-handler';
+import { ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import t6bisFindIntervenantAction from '../../../state/actions/t6bisFindIntervenantAction';
 import T6bisEnteteListBlocks from './blocks/t6bisEnteteListBlocks';
-import { CALLBACK_ENUMS } from './blocks/t6bisEnteteListBlocks';
+import * as T6BISConstantes from "../../../../utils/t6bisConstants";
+import * as Constantes from '../../../state/t6bisGestionConstants';
 
 
 
@@ -23,11 +24,24 @@ class T6bisEnteteTab extends React.Component {
 
     
 
-callbackHandler = (type, data) => {
+    callbackHandler = (type, data) => {
+        console.log(data);
+        console.log(type);
     switch (type) {
-        case CALLBACK_ENUMS.FIND_INTERVENANT_TASK: 
+        case T6BISConstantes.FIND_INTERVENANT_TASK: 
             this.props.dispatch(t6bisFindIntervenantAction.request(data));
-             break;
+            break;
+        case T6BISConstantes.UPDATE_INTERVENANT_TASK:
+            let dataToAction = {
+                type: Constantes.T6BIS_UPDATE_INTERVENANT_REQUEST,
+                value: {
+                    fieldsetcontext: data.fieldsetcontext
+                }
+            };
+
+            this.props.dispatch(t6bisUpdatePropsAction.request(dataToAction));
+            this.setState({ fieldsetcontext: data.fieldsetcontext});
+            break;
 
 
     } 
@@ -52,29 +66,25 @@ callbackHandler = (type, data) => {
 
 
     render() {
-        console.log('this.callbackHandler   ', this.callbackHandler);
-        console.log('this.state entet screen', this.state);
-        console.log('this.props entet screen', this.props);
-        console.log('this.route entet screen', this.route);
-        console.log('this.value entet screen', this.value);
-        console.log('this.props.t6bis entet screen', this.props.t6bis);
-        console.log('this.props.intervenants entet screen//////////////////////////////////////////////////////', this.props.identifiants);
-        console.log('this.props.t6bisEnteteData.mode entet screen***********************************************************', (this.props.t6bisEnteteData) ? this.props.t6bisEnteteData.mode : '');
+        
         let mode = (this.props.t6bisEnteteData) ? this.props.t6bisEnteteData.mode : '';
 
-        
-
+        console.log('fieldsetcontext ', this.state?.fieldsetcontext);
+        console.log("this.props               ", this.props);  
         return (
 
             <ScrollView>
-                <T6bisEnteteListBlocks t6bis={this.props.t6bis} mode={mode} identifiants={this.props.identifiants} callbackHandler={this.callbackHandler}/>
+                <T6bisEnteteListBlocks t6bis={this.props.t6bis} mode={mode}
+                    identifiants={this.props.identifiants}
+                    listmoyenpaiement={this.props.listmoyenpaiement}
+                    fieldsetcontext={this.state?.fieldsetcontext}
+                    callbackHandler={this.callbackHandler} />
             </ScrollView>
         );
     }
 }
 
 function mapStateToProps(state) {
-    console.log('state.t6bisGestionReducer', state.t6bisGestionReducer  );
     return { ...state.t6bisGestionReducer };
 }
 

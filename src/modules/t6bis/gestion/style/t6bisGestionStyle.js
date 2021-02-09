@@ -29,10 +29,17 @@ const styles = {
     labelTextStyle: {
         color: '#009ab2',
     },
+    valueTextStyle: {
+        color: '#000000'
+    },
     ComContainerCompBtn: {
         flexDirection: 'row',
         justifyContent: 'center',
         marginTop: 10,
+    },
+    containerActionBtn: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
     },
     actionBtn: {
         width: 100
@@ -48,7 +55,14 @@ const styles = {
         justifyContent: 'center',
         alignItems: 'center',
     },
-    row: { flexDirection: 'row', padding: 10, margin: 10 },
+    row: {
+        flexDirection: 'row',
+        padding: 10,
+        margin: 10
+    },
+    textInputsStyle: {
+        padding: 10,
+    },
 
 };
 

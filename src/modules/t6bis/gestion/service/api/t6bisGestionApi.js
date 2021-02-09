@@ -46,5 +46,7 @@ export default class T6bisGestiontionApi {
     console.log(data);
     return await ComHttpHelperApi.process(data);
   };
+  
+  
 
 }

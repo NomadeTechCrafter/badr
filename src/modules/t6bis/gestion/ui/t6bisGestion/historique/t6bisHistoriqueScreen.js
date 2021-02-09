@@ -1,9 +1,7 @@
 import React from 'react';
-import { Text } from 'react-native';
-import { View } from 'react-native';
+import { ScrollView } from 'react-native';
 import { connect } from 'react-redux';
-import translate from '../../../../../../commons/i18n/ComI18nHelper';
-import styles from '../../../style/t6bisGestionStyle';
+import T6bisHistoriqueListBlocks from './blocks/t6bisHistoriqueListBlocks';
 
 
 
@@ -22,13 +20,13 @@ class T6bisHistoriqueTab extends React.Component {
 
 
 
+
     componentDidMount = async () => {
-
-
+        console.log('TAXATIONGLOBALE IS LOADING...');
     }
 
     componentWillUnmount() {
-        console.log('componentWillUnmount');
+        console.log('TAXATIONGLOBALE componentWillUnmount');
     }
 
 
@@ -39,41 +37,29 @@ class T6bisHistoriqueTab extends React.Component {
 
 
 
+
     render() {
 
-        console.log('this.state', this.state);
+        let mode = (this.props.t6bisEnteteData) ? this.props.t6bisEnteteData.mode : '';
 
         return (
 
-            <View style={styles.container}>
-                <Text
-                    value={translate('t6bisCreation.t6bisGestion.tabs.historique')}
+            <ScrollView>
+                <T6bisHistoriqueListBlocks t6bis={this.props.t6bis} mode={mode}
+                    fieldsetcontext={this.props?.fieldsetcontext}
                 />
-                 
-                
-
-
-            </View>
-
-
+            </ScrollView>
         );
     }
 }
 
 function mapStateToProps(state) {
-    return { ...state.t6bisCreationReducer };
-}
-
-function mapDispatchToProps(dispatch) {
-    let actions = { dispatch };
-    return {
-        actions,
-    };
+    return { ...state.t6bisGestionReducer };
 }
 
 
 
 export default connect(
     mapStateToProps,
-    mapDispatchToProps,
+    null,
 )(T6bisHistoriqueTab);

@@ -1,9 +1,7 @@
 import React from 'react';
-import { Text } from 'react-native';
-import { View } from 'react-native';
+import { ScrollView } from 'react-native';
 import { connect } from 'react-redux';
-import { translate} from '../../../../../../commons/i18n/ComI18nHelper';
-import styles from '../../../style/t6bisGestionStyle';
+import T6bisTaxationManuelleListBlocks from './blocks/t6bisTaxationManuelleListBlocks';
 
 
 
@@ -22,13 +20,18 @@ class T6bisTaxationManuelleTab extends React.Component {
 
 
 
+    callbackHandler = (type, data) => {
+       
+    }
+
+
+
     componentDidMount = async () => {
-
-
+        console.log('TAXATIONMANUELLE IS LOADING...');
     }
 
     componentWillUnmount() {
-        console.log('componentWillUnmount');
+        console.log('TAXATIONMANUELLE componentWillUnmount');
     }
 
 
@@ -41,39 +44,32 @@ class T6bisTaxationManuelleTab extends React.Component {
 
     render() {
 
-        console.log('this.state', this.state);
+        let mode = (this.props.t6bisEnteteData) ? this.props.t6bisEnteteData.mode : '';
 
         return (
 
-            <View style={styles.container}>
-                <Text   
-                    value={translate('t6bisCreation.t6bisGestion.tabs.taxation.manuelle')}
-                />
-                 
-                
-
-
-            </View>
-
-
+            <ScrollView>
+                <T6bisTaxationManuelleListBlocks t6bis={this.props.t6bis} mode={mode}
+                    identifiants={this.props.identifiants}
+                    listmoyenpaiement={this.props.listmoyenpaiement}
+                    fieldsetcontext={this.props?.fieldsetcontext}
+                    currentArticle={this.props.currentArticle}
+                    callbackHandler={this.callbackHandler} />
+            </ScrollView>
         );
     }
 }
 
 function mapStateToProps(state) {
-    return { ...state.t6bisCreationReducer };
+    return { ...state.t6bisGestionReducer };
 }
 
-function mapDispatchToProps(dispatch) {
-    let actions = { dispatch };
-    return {
-        actions,
-    };
-}
+
+
 
 
 
 export default connect(
     mapStateToProps,
-    mapDispatchToProps,
+    null,
 )(T6bisTaxationManuelleTab);

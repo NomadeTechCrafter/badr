@@ -1,8 +1,7 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { ScrollView } from 'react-native';
 import { connect } from 'react-redux';
-import translate from '../../../../../../commons/i18n/ComI18nHelper';
-import styles from '../../../style/t6bisGestionStyle';
+import T6bisInfosCommunsBlock from '../common/t6bisInfosCommunsBlock';
 
 
 
@@ -22,12 +21,11 @@ class T6bisInformationsTab extends React.Component {
 
 
     componentDidMount = async () => {
-
-
+        console.log('T6BISINFORMATIONSTAB componentDidMount');
     }
 
     componentWillUnmount() {
-        console.log('componentWillUnmount');
+        console.log('T6BISINFORMATIONSTAB componentWillUnmount');
     }
 
 
@@ -40,39 +38,30 @@ class T6bisInformationsTab extends React.Component {
 
     render() {
 
-        console.log('this.state', this.state);
+        let mode = (this.props.t6bisEnteteData) ? this.props.t6bisEnteteData.mode : '';
 
+        console.log('T6BISINFORMATIONSTAB    fieldsetcontext ', this.props?.fieldsetcontext);
+        console.log("this.props               ", this.props);
         return (
 
-            <View style={styles.container}>
-                <Text
-                    value={translate('t6bisCreation.t6bisGestion.tabs.informations')}
-                />
-                 
-                
-
-
-            </View>
-
-
+            <ScrollView>
+                <T6bisInfosCommunsBlock t6bis={this.props.t6bis} mode={mode}
+                    identifiants={this.props.identifiants}
+                    
+                    fieldsetcontext={this.props?.fieldsetcontext}
+                     />
+            </ScrollView>
         );
     }
 }
 
 function mapStateToProps(state) {
-    return { ...state.t6bisCreationReducer };
-}
-
-function mapDispatchToProps(dispatch) {
-    let actions = { dispatch };
-    return {
-        actions,
-    };
+    return { ...state.t6bisGestionReducer };
 }
 
 
 
 export default connect(
     mapStateToProps,
-    mapDispatchToProps,
+    null,
 )(T6bisInformationsTab);

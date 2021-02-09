@@ -1,10 +1,10 @@
 import React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
-import { ComAccordionComp, ComBadrCardSectionComp } from '../../../../../../../commons/component';
-import translate from '../../../../../../../commons/i18n/ComI18nHelper';
-import { ComSessionService } from '../../../../../../../commons/services/session/ComSessionService';
-import { accentColor, atShadowColor, blueLabelColor, darkGrayColor, lightWhiteColor } from '../../../../../../../commons/styles/ComThemeStyle';
-import { getValueByPath, getSerie, getValueByPaths, format, getState} from "../../../../../utils/t6bisUtils";
+import { ComAccordionComp, ComBadrCardSectionComp } from '../../../../../../commons/component';
+import translate from '../../../../../../commons/i18n/ComI18nHelper';
+import { ComSessionService } from '../../../../../../commons/services/session/ComSessionService';
+import { accentColor, atShadowColor, blueLabelColor, darkGrayColor, lightWhiteColor } from '../../../../../../commons/styles/ComThemeStyle';
+import { getValueByPath, getSerie, getValueByPaths, format, getState} from "../../../../utils/t6bisUtils";
 
 
 
@@ -12,7 +12,7 @@ import { getValueByPath, getSerie, getValueByPaths, format, getState} from "../.
 
 
 
-class T6bisEnteteInfosCommunsBlock extends React.Component {
+class T6bisInfosCommunsBlock extends React.Component {
 
 
     constructor(props) {
@@ -42,22 +42,17 @@ class T6bisEnteteInfosCommunsBlock extends React.Component {
 
     render() {
 
-        console.log('this.state Informations communes', this.state);
-        console.log('this.props Informations communes', this.props);
-        console.log('this.props.t6bis Informations communes', this.props.t6bis);
-        console.log('this.props.mode Informations communes +++++++++++++++++++++++++++++++++++++++++++++++', this.props.mode);
         let t6bis = this.props.t6bis;
+        let fieldsetcontext = this.props.fieldsetcontext;
         let remplace6bis = getValueByPath('referenceT6BisRemplacee', t6bis);
-        console.log(t6bis)
-        // console.log(this.props.route.params.mode);
         let title = this.props.mode + '  ' + translate('t6bisGestion.tabs.entete.informationsCommunes');
         const userObject = ComSessionService.getInstance().getUserObject();
         let userName = userObject.prenomAgent + " " + userObject.nomAgent;
-        // title = this.props.route.params.context.mode + '  ' + title;
-        // console.log(this.props.route.params.mode);
         let dateCreation = getValueByPath('dateCreation', t6bis);
         title += '  ' + format(dateCreation);
-        console.log('title', title);
+        let nomIntervenant = (t6bis?.intervenantVO?.nomIntervenant) ? t6bis?.intervenantVO?.nomIntervenant:'';
+        let prenomIntervenant = (t6bis?.intervenantVO?.prenomIntervenant) ? t6bis?.intervenantVO?.prenomIntervenant: '';
+        let numeroDocumentIdentite = (t6bis?.intervenantVO?.numeroDocumentIdentite) ? t6bis?.intervenantVO?.numeroDocumentIdentite : '';
         return (
 
             <View>
@@ -153,10 +148,12 @@ class T6bisEnteteInfosCommunsBlock extends React.Component {
                                 {ComSessionService.getInstance().getLogin()}
                             </Text>
                             <Text style={styles.libelleValL}>
-                                {'NAN'}
+                                {(fieldsetcontext && fieldsetcontext?.operateur) ? fieldsetcontext?.operateur?.libelle : ''}
+                                {(!fieldsetcontext || !fieldsetcontext?.operateur) ? nomIntervenant + '  ' + prenomIntervenant : ''}
                             </Text>
                             <Text style={styles.libelleValL}>
-                                {'NAN'}
+                                {(fieldsetcontext && fieldsetcontext?.operateur) ? fieldsetcontext?.operateur?.code : ''}
+                                {(!fieldsetcontext || !fieldsetcontext?.operateur) ? numeroDocumentIdentite : ''}
                             </Text>
                         </View>
                     </ComBadrCardSectionComp>
@@ -251,4 +248,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default T6bisEnteteInfosCommunsBlock;
+export default T6bisInfosCommunsBlock;

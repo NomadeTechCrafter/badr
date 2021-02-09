@@ -78,8 +78,6 @@ export default (state = initialState, action) => {
       nextState.errorMessage = action.value;
       return nextState;
     default:
-      console.log('action.type', action.type);
-      console.log('initialState', initialState);
       nextState.showProgress = false;
       return initialState;
   }

@@ -47,6 +47,10 @@ const localStore = {
   getAllTypeT6bis: require('../../../../modules/t6bis/creation/service/local-data/getAllTypeT6bisData.json'),
   T6bisInitForCreate: require('../../../../modules/t6bis/creation/service/local-data/t6bisInitForCreateData.json'),
   initT6bisEnteteSection: require('../../../../modules/t6bis/gestion/service/local-data/initT6bisEnteteSectionData.json'),
-  findIntervenant: require('../../../../modules/t6bis/gestion/service/local-data/findIntervenantData.json')
+  findIntervenant: require('../../../../modules/t6bis/gestion/service/local-data/findIntervenantData.json'),
+  completeNatureMarchandise: require('../../../../modules/t6bis/gestion/service/local-data/completeNatureMarchandiseData.json'),
+  completeDeviseChangeCmb: require('../../../../modules/t6bis/gestion/service/local-data/completeDeviseChangeCmbData.json'),
+  completeUniteQte: require('../../../../modules/t6bis/gestion/service/local-data/completeUniteQteData.json'),
+  getListRubrique: require('../../../../modules/t6bis/gestion/service/local-data/getListRubriqueData.json')
 };
 export default localStore;
