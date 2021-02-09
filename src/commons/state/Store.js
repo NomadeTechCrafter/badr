@@ -27,6 +27,8 @@ import controleRegimeTransitReducer from '../../modules/controle/regimeTransit/s
 import controleRegimeInterneReducer from '../../modules/controle/regimeInterne/state/reducers/controleRegimeInterneReducer';
 import controleCommonReducer from '../../modules/controle/common/state/reducers/controleCommonReducer';
 import genericDedReducer from '../../modules/dedouanement/redressement/state/reducers/DedReducer';
+import vuEmbInitReducer from '../../modules/DeclarationD17D20/vuEmbarquer/state/reducers/vuEmbInitReducer';
+import vuEmbReducer from '../../modules/DeclarationD17D20/vuEmbarquer/state/reducers/vuEmbUcReducer';
 
 import referentielReducer from './reducers/ReferentielReducer';
 import consulterDumReducer from './reducers/ConsulterDumReducer';
@@ -97,6 +99,8 @@ const allReducers = combineReducers({
   liquidationRechercheRefDumReducer,
   liquidationReducer,
   ecorImportRechercheRefDumReducer,
+  vuEmbInitReducer,
+  vuEmbReducer,
 });
 /**
  * store creation

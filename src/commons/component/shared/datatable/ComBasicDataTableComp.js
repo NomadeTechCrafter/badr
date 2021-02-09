@@ -143,7 +143,8 @@ export default class ComBasicDataTableComp extends React.Component {
           horizontal={true}>
           <ScrollView key="verticalScrollView" style={styles.width100}>
             <DataTable style={styles.width100}>
-              <DataTable.Header>
+              <DataTable.Header
+                style={{backgroundColor: this.props.badr ? '#ecf0f1' : null}}>
                 {this.props.hasId && (
                   <DataTable.Title
                     style={styles.datatableTitle}
@@ -162,7 +163,12 @@ export default class ComBasicDataTableComp extends React.Component {
                     numberOfLines={2}
                     theme={DefaultTheme}
                     children={
-                      <Text style={dataTableStyles.dataTableHeaderStyle}>
+                      <Text
+                        style={
+                          this.props.badr
+                            ? dataTableStyles.dataTableHeaderStyle2
+                            : dataTableStyles.dataTableHeaderStyle
+                        }>
                         {column.libelle}
                       </Text>
                     }

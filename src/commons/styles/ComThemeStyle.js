@@ -53,6 +53,11 @@ export const dataTableStyles = StyleSheet.create({
     color: primaryColor,
     fontSize: 12,
   },
+  dataTableHeaderStyle2: {
+    fontWeight: 'bold',
+    color: '#006acd',
+    fontSize: 14,
+  },
 });
 
 const CustomStyleSheet = StyleSheet.create({

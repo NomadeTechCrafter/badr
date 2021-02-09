@@ -1,7 +1,12 @@
 import React, {Component} from 'react';
 import {View, TouchableOpacity, Text, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {darkGris, lightGris, primaryColor} from '../../../styles/ComThemeStyle';
+import {
+  darkGris,
+  lightGris,
+  primaryColor,
+  accentColor,
+} from '../../../styles/ComThemeStyle';
 export default class ComAccordionComp extends Component {
   constructor(props) {
     super(props);
@@ -15,21 +20,25 @@ export default class ComAccordionComp extends Component {
     return (
       <View style={styles.container}>
         <TouchableOpacity
-          style={styles.row}
-          onPress={() => this.toggleExpand()}
-          disabled={this.props.disable}>
-          <Text style={[styles.title, styles.font]}>{this.props.title}</Text>
-          {this.props.extraFieldKey && (
-            <Text style={[styles.titleExtrafield]}>
-              {this.props.extraFieldKey} : {this.props.extraFieldValue}
-            </Text>
-          )}
+          style={[
+            styles.row,
+            this.props.badr ? styles.rowPrimary : styles.rowLightGris,
+          ]}
+          onPress={() => this.toggleExpand()}>
+          <Text
+            style={[
+              styles.title,
+              styles.font,
+              this.props.badr ? styles.titleWhite : styles.titleGris,
+            ]}>
+            {this.props.title}
+          </Text>
           <Icon
+            color={this.props.badr ? accentColor : darkGris}
             name={
               this.state.expanded ? 'keyboard-arrow-up' : 'keyboard-arrow-down'
             }
             size={30}
-            color={darkGris}
           />
         </TouchableOpacity>
         {this.state.expanded && (
@@ -51,6 +60,8 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 14,
     fontWeight: 'bold',
+  },
+  titleGris: {
     color: darkGris,
   },
   titleExtrafield: {
@@ -58,14 +69,23 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: primaryColor,
   },
+  titleWhite: {
+    color: accentColor,
+  },
   row: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    height: 56,
     paddingLeft: 25,
     paddingRight: 18,
     alignItems: 'center',
+  },
+  rowLightGris: {
     backgroundColor: lightGris,
+    height: 56,
+  },
+  rowPrimary: {
+    backgroundColor: primaryColor,
+    height: 46,
   },
   child: {
     flexDirection: 'column',
