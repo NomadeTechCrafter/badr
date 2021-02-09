@@ -25,6 +25,7 @@ import controleListDeclarationDumReducer from '../../modules/controle/listDeclar
 import controleACVPReducer from '../../modules/controle/ACVP/state/reducers/controleACVPReducer';
 import controleRegimeTransitReducer from '../../modules/controle/regimeTransit/state/reducers/controleRegimeTransitReducer';
 import controleRegimeInterneReducer from '../../modules/controle/regimeInterne/state/reducers/controleRegimeInterneReducer';
+import controleCommonReducer from '../../modules/controle/common/state/reducers/controleCommonReducer';
 import genericDedReducer from '../../modules/dedouanement/redressement/state/reducers/DedReducer';
 
 import referentielReducer from './reducers/ReferentielReducer';
@@ -45,7 +46,12 @@ import detailsreducer from '../../old/redux/reducers/actifs/rapport/creation/det
 import recherchereducer from '../../old/redux/reducers/actifs/rapport/recherche/recherche';
 import consultationreducer from '../../old/redux/reducers/actifs/rapport/consultation/consultation';
 
-import EcorImportReducer from '../../old/redux/reducers/ecorImport/EcorImportReducer';
+import EcorImportReducer from '../../modules/ecorImport/enleverMarchandise/state/reducers/EcorImportReducer';
+import ecorImportRechercheRefDumReducer from '../../modules/ecorImport/rechercheEcorImport/state/reducers/ecorImportRechercheRefDumReducer';
+
+import liquidationRechercheRefDumReducer from '../../modules/liquidation/state/reducers/liquidationRechercheRefDumReducer';
+import liquidationReducer from '../../modules/liquidation/state/reducers/liquidationReducer';
+
 /**
  * combine all reducers
  */
@@ -77,6 +83,7 @@ const allReducers = combineReducers({
   controleRegimeTransitReducer,
   controleRegimeInterneReducer,
   controleACVPReducer,
+  controleCommonReducer,
   controleVehiculesReducer,
   plaquesImmReducer,
   crudDatatableReducer,
@@ -87,6 +94,9 @@ const allReducers = combineReducers({
   saisieReducer,
   creationReducer,
   EcorImportReducer,
+  liquidationRechercheRefDumReducer,
+  liquidationReducer,
+  ecorImportRechercheRefDumReducer,
 });
 /**
  * store creation

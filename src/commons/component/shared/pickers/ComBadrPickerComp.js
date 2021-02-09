@@ -4,6 +4,8 @@ import {Picker} from '@react-native-community/picker';
 import {ComBadrCircleProgressBarComp} from '../../index';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {darkGris} from '../../../styles/ComThemeStyle';
+/** Loadash */
+import _ from 'lodash';
 /** REDUX **/
 import {connect} from 'react-redux';
 
@@ -66,6 +68,9 @@ class ComBadrPickerComp extends React.Component {
 
   toggleExpand = () => {
     this.setState({expanded: !this.state.expanded});
+  };
+  clearInput = () => {
+    this.setState({selectedValue: ''});
   };
 
   disableCallerIfPending = (pickerData) => {
@@ -154,7 +159,14 @@ class ComBadrPickerComp extends React.Component {
                   const key = item[this.props.cle] + '_' + this.props.command;
                   return (
                     <Picker.Item
-                      label={item[this.props.libelle]}
+                      label={
+                        _.isArray(this.props.libelle)
+                          ? item[_.head(this.props.libelle)] +
+                            '(' +
+                            item[_.last(this.props.libelle)] +
+                            ')'
+                          : item[this.props.libelle]
+                      }
                       value={item[this.props.cle]}
                       key={key}>
                       <Text>Check</Text>

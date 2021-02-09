@@ -16,11 +16,13 @@ import ctrlControleApresScannerTranslations from '../../modules/controle/control
 import commonTranslations from './common/ComTranslationsFr';
 import dedouanementTranslateFr from '../../modules/dedouanement/redressement/i18n/dedouanementTranslateFr';
 import controleRechrcheDumTranslateFr from '../../modules/controle/rechercheDum/i18n/controleRechrcheDumTranslateFr';
+import controleBadTranslateFr from '../../modules/controle/BAD/i18n/controleBadTranslateFr';
 import mainLeveeTranslateFr from '../../old/screens/mainlevee/i18/mainLeveeTranslateFr';
 import ecorImportTranslateFr from '../../old/screens/ecorImport/i18/ecorImportTranslateFr';
 import refControleVehiculeTranslateFr from '../../modules/referentiel/controleVehicules/i18n/refControleVehiculeTranslateFr';
 import refPlaquesImmTranslateFr from '../../modules/referentiel/plaquesImmatriculation/i18n/refPlaquesImmTranslateFr';
 import actifTranslateFr from '../../old/common/translations/actif/actifTranslateFr';
+import liquidationTranslateFr from '../../modules/liquidation/i18n/liquidationTranslateFr';
 
 const locales = RNLocalize.getLocales();
 
@@ -45,11 +47,13 @@ let combined = {
   ...ctrlControleApresScannerTranslations,
   ...refControleVehiculeTranslateFr,
   ...refPlaquesImmTranslateFr,
+  ...controleBadTranslateFr,
   ...dedouanementTranslateFr,
   ...controleRechrcheDumTranslateFr,
   ...mainLeveeTranslateFr,
   ...ecorImportTranslateFr,
   ...actifTranslateFr,
+  ...liquidationTranslateFr,
 };
 I18n.translations = {
   fr: combined,

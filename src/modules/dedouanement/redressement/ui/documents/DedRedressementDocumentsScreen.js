@@ -43,7 +43,14 @@ class DedRedressementDocumentsScreen extends React.Component {
     );
     return (
       <ScrollView>
+        {dumSignee === 'true' && (
+          <DedRedressementDeclarationSigneeBlock data={this.props.data} />
+        )}
         <DedRedressementDocumentsExigiblesBlock data={this.props.data} />
+        <DedRedressementDocumentsAnnexesBlock data={this.props.data} />
+        {this.isSousDumOrDumNormale() === true && (
+          <DedRedressementdDemandeChargementBlock data={this.props.data} />
+        )}
       </ScrollView>
     );
   }

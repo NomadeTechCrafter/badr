@@ -1,9 +1,10 @@
 import * as Constants from '../controleRechercheRefDumConstants';
 
 const initialState = {
-  refDum: null,
   showProgress: false,
   errorMessage: null,
+  data: null,
+  refDeclaration: null,
 };
 
 export default (state = initialState, action) => {
@@ -21,6 +22,8 @@ export default (state = initialState, action) => {
     case Constants.RECHERCHEREFDUM_SUCCESS:
       nextState.showProgress = false;
       nextState.errorMessage = null;
+      nextState.data = action.value.data.jsonVO;
+      nextState.refDeclaration = action.value.refDeclaration;
       return nextState;
     case Constants.RECHERCHEREFDUM_FAILED:
       nextState.showProgress = false;

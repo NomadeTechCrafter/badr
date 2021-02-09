@@ -121,4 +121,22 @@ export default class ComUtils {
       ? _.get(object, key)
       : _.get(object, reducer + '.data.' + key);
   };
+
+  static cleDUM = (refDeclaration) => {
+    let alpha = 'ABCDEFGHJKLMNPRSTUVWXYZ';
+
+    let regime = refDeclaration.slice(3, 6);
+    let serie = refDeclaration.slice(10, 17);
+
+    if (serie.length > 6) {
+      let firstSerie = serie.substring(0, 1);
+      if (firstSerie == '0') {
+        serie = serie.substring(1, 7);
+      }
+    }
+    let obj = regime + serie;
+    let RS = obj % 23;
+    alpha = alpha.charAt(RS);
+    return alpha;
+  };
 }

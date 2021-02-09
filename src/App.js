@@ -37,8 +37,11 @@ import DedRedressementScreen from './modules/dedouanement/redressement/ui/DedRed
 import DedRedressementRecherche from './modules/dedouanement/redressement/ui/DedRechercheRedressementScreen';
 import controleRechercheDumScreen from './modules/controle/rechercheDum/ui/controleRechercheDumScreen';
 import ControleRegimeInterneScreen from './modules/controle/regimeInterne/ui/controleRegimeInterneScreen';
-import RechercheEcorImport from './old/screens/ecorImport/rechercheEcorImport';
-import EnleverMarchandise from './old/screens/ecorImport/enleverMarchandise';
+import ControleACVPScreen from './modules/controle/ACVP/ui/controleACVPScreen';
+import EcorImportRechercheScreen from './modules/ecorImport/rechercheEcorImport/ui/EcorImportRechercheScreen';
+import EcorImportEnleverMarchandiseScreen from './modules/ecorImport/enleverMarchandise/ui/EcorImportEnleverMarchandiseScreen';
+import LiquidationRechercheScreen from './modules/liquidation/ui/rechercheLiquidation/LiquidationRechercheScreen';
+import LiquidationHomeScreen from './modules/liquidation/ui/ongletsLiquidation/home/LiquidationHomeScreen';
 
 //Actif
 import Recherche from './old/screens/actifs/rapport/recherche';
@@ -69,7 +72,7 @@ export default class App extends React.Component {
                 <Stack.Screen
                   name="test"
                   options={{headerShown: false}}
-                  component={controleRechercheDumScreen}
+                  component={DedRedressementRecherche}
                 />
               )}
               <Stack.Screen
@@ -78,9 +81,14 @@ export default class App extends React.Component {
                 component={ControleRegimeInterneScreen}
               />
               <Stack.Screen
+                name="ControleACVPScreen"
+                options={{headerShown: false}}
+                component={ControleACVPScreen}
+              />
+              <Stack.Screen
                 name="EnleverMarchandise"
                 options={{headerShown: false}}
-                component={EnleverMarchandise}
+                component={EcorImportEnleverMarchandiseScreen}
               />
               <Stack.Screen
                 name="DedRedressementScreen"
@@ -134,6 +142,12 @@ export default class App extends React.Component {
                 name="Consultation"
                 options={{headerShown: false}}
                 component={Consultation}
+              />
+
+              <Stack.Screen
+                name="LiquidationHomeScreen"
+                component={LiquidationHomeScreen}
+                options={{headerShown: false}}
               />
             </ComBadrStackNavigatorComp>
           </PaperProvider>

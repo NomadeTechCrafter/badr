@@ -49,6 +49,7 @@ export {default as ComBadrListDialogComp} from './shared/dialog/ComBadrListDialo
 export {default as RechercheRefDum} from './modules/rechercheRefDum/RechercheRefDum';
 export {default as ComRedressementRechercheRefComp} from './modules/rechercheRefDum/ComRedressementRechercheRefComp';
 export {default as ComControleRechercheRefComp} from './modules/rechercheRefDum/ComControleRechercheRefComp';
+export {default as ComLiquidationRechercheRefComp} from './modules/rechercheRefDum/ComLiquidationRechercheRefComp';
 
 export {default as ComBadrCameraComp} from './shared/camera/ComBadrCameraComp';
 

@@ -38,6 +38,11 @@ class ComBadrAutoCompleteChipsComp extends Component {
         : AUTOCOMPLETE_LIST_NB_ELEMENTS,
     };
   }
+  componentDidMount() {
+    if (this.props.onRef) {
+      this.props.onRef(this);
+    }
+  }
   handleChangeInput = (params) => {
     if (!this.props.onDemand) {
       this.setState({
@@ -89,6 +94,10 @@ class ComBadrAutoCompleteChipsComp extends Component {
     return params;
   };
 
+  clearInput = () => {
+    this.setState({selected: {}});
+  };
+
   render() {
     return (
       <View style={{flex: 1, padding: 15}}>
@@ -102,7 +111,7 @@ class ComBadrAutoCompleteChipsComp extends Component {
               mode="flat"
               label={this.props.placeholder}
               value={
-                this.props.selected && !this.state.edited
+                !_.isEmpty(this.props.selected) && !this.state.edited
                   ? this.props.selected
                   : this.state.selected[
                       this.props.libelle ? this.props.libelle : 'libelle'

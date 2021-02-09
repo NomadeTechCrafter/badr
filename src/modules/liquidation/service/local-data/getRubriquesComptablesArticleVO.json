@@ -1,0 +1,471 @@
+{
+  "dtoHeader": {
+    "userLogin": "AD6025",
+    "fonctionnalite": "cf5213",
+    "module": "ALI_DEC",
+    "commande": "getRubriquesComptablesArticleVO",
+    "typeService": "SP"
+  },
+  "jsonVO": [
+    {
+      "codeDouane": "AUTREC",
+      "libelleAbrege": "Autres Recettes",
+      "adValorem": "false",
+      "refTypeRecette": [],
+      "vctNature": [],
+      "vctMoyenPaiement": [],
+      "codeRubriqueComptable": "242",
+      "defaultConverter": {}
+    },
+    {
+      "codeDouane": "000110",
+      "libelleAbrege": "DTS IMPORT NORMAL",
+      "adValorem": "true",
+      "refTypeRecette": [],
+      "vctNature": [],
+      "vctMoyenPaiement": [],
+      "codeRubriqueComptable": "5",
+      "defaultConverter": {}
+    },
+    {
+      "codeDouane": "000120",
+      "libelleAbrege": "DTS IMPORT ADDIT,",
+      "adValorem": "true",
+      "refTypeRecette": [],
+      "vctNature": [],
+      "vctMoyenPaiement": [],
+      "codeRubriqueComptable": "212",
+      "defaultConverter": {}
+    },
+    {
+      "codeDouane": "000130",
+      "libelleAbrege": "DTS IMPORT SPEC,",
+      "adValorem": "false",
+      "refTypeRecette": [],
+      "vctNature": [],
+      "vctMoyenPaiement": [],
+      "codeRubriqueComptable": "213",
+      "defaultConverter": {}
+    },
+    {
+      "codeDouane": "000203",
+      "libelleAbrege": "PFI 15%",
+      "adValorem": "true",
+      "refTypeRecette": [],
+      "vctNature": [],
+      "vctMoyenPaiement": [],
+      "codeRubriqueComptable": "9",
+      "defaultConverter": {}
+    },
+    {
+      "codeDouane": "000500",
+      "libelleAbrege": "TAXE UNIFORME",
+      "adValorem": "true",
+      "refTypeRecette": [],
+      "vctNature": [],
+      "vctMoyenPaiement": [],
+      "codeRubriqueComptable": "12",
+      "defaultConverter": {}
+    },
+    {
+      "codeDouane": "000605",
+      "libelleAbrege": "TAXE DE LUXE",
+      "adValorem": "false",
+      "refTypeRecette": [],
+      "vctNature": [],
+      "vctMoyenPaiement": [],
+      "codeRubriqueComptable": "266",
+      "defaultConverter": {}
+    },
+    {
+      "codeDouane": "001101",
+      "libelleAbrege": "TIC SUR LES VINS",
+      "adValorem": "false",
+      "refTypeRecette": [],
+      "vctNature": [],
+      "vctMoyenPaiement": [],
+      "codeRubriqueComptable": "29",
+      "defaultConverter": {}
+    },
+    {
+      "codeDouane": "001102",
+      "libelleAbrege": "TIC SUR LES ALCOOLS",
+      "adValorem": "false",
+      "refTypeRecette": [],
+      "vctNature": [],
+      "vctMoyenPaiement": [],
+      "codeRubriqueComptable": "30",
+      "defaultConverter": {}
+    },
+    {
+      "codeDouane": "001200",
+      "libelleAbrege": "TIC BIERES",
+      "adValorem": "false",
+      "refTypeRecette": [],
+      "vctNature": [],
+      "vctMoyenPaiement": [],
+      "codeRubriqueComptable": "31",
+      "defaultConverter": {}
+    },
+    {
+      "codeDouane": "001300",
+      "libelleAbrege": "TIC BOISSONS",
+      "adValorem": "false",
+      "refTypeRecette": [],
+      "vctNature": [],
+      "vctMoyenPaiement": [],
+      "codeRubriqueComptable": "32",
+      "defaultConverter": {}
+    },
+    {
+      "codeDouane": "001400",
+      "libelleAbrege": "TIC SUCRE PDS SUCRES",
+      "adValorem": "false",
+      "refTypeRecette": [],
+      "vctNature": [],
+      "vctMoyenPaiement": [],
+      "codeRubriqueComptable": "33",
+      "defaultConverter": {}
+    },
+    {
+      "codeDouane": "001500",
+      "libelleAbrege": "DTS ESSAI ET GARANT.",
+      "adValorem": "false",
+      "refTypeRecette": [],
+      "vctNature": [],
+      "vctMoyenPaiement": [],
+      "codeRubriqueComptable": "38",
+      "defaultConverter": {}
+    },
+    {
+      "codeDouane": "001600",
+      "libelleAbrege": "TIC CAOUTCHOUC",
+      "adValorem": "false",
+      "refTypeRecette": [],
+      "vctNature": [],
+      "vctMoyenPaiement": [],
+      "codeRubriqueComptable": "39",
+      "defaultConverter": {}
+    },
+    {
+      "codeDouane": "001701",
+      "libelleAbrege": "TIC FUEL",
+      "adValorem": "false",
+      "refTypeRecette": [],
+      "vctNature": [],
+      "vctMoyenPaiement": [],
+      "codeRubriqueComptable": "41",
+      "defaultConverter": {}
+    },
+    {
+      "codeDouane": "001702",
+      "libelleAbrege": "TIC PDS PETROLIERS",
+      "adValorem": "false",
+      "refTypeRecette": [],
+      "vctNature": [],
+      "vctMoyenPaiement": [],
+      "codeRubriqueComptable": "42",
+      "defaultConverter": {}
+    },
+    {
+      "codeDouane": "001703",
+      "libelleAbrege": "TIC HOUILLES",
+      "adValorem": "false",
+      "refTypeRecette": [],
+      "vctNature": [],
+      "vctMoyenPaiement": [],
+      "codeRubriqueComptable": "43",
+      "defaultConverter": {}
+    },
+    {
+      "codeDouane": "001704",
+      "libelleAbrege": "TIC BITUMES",
+      "adValorem": "false",
+      "refTypeRecette": [],
+      "vctNature": [],
+      "vctMoyenPaiement": [],
+      "codeRubriqueComptable": "44",
+      "defaultConverter": {}
+    },
+    {
+      "codeDouane": "001800",
+      "libelleAbrege": "TIC/TABAC MANUFACT.",
+      "adValorem": "false",
+      "refTypeRecette": [],
+      "vctNature": [],
+      "vctMoyenPaiement": [],
+      "codeRubriqueComptable": "51",
+      "defaultConverter": {}
+    },
+    {
+      "codeDouane": "002101",
+      "libelleAbrege": "TVA IMPORT PDS ENER.",
+      "adValorem": "true",
+      "refTypeRecette": [],
+      "vctNature": [],
+      "vctMoyenPaiement": [],
+      "codeRubriqueComptable": "60",
+      "defaultConverter": {}
+    },
+    {
+      "codeDouane": "002102",
+      "libelleAbrege": "TVA IMPORT VINS",
+      "adValorem": "true",
+      "refTypeRecette": [],
+      "vctNature": [],
+      "vctMoyenPaiement": [],
+      "codeRubriqueComptable": "61",
+      "defaultConverter": {}
+    },
+    {
+      "codeDouane": "002109",
+      "libelleAbrege": "TVA IMPORT AUTRE PDS",
+      "adValorem": "true",
+      "refTypeRecette": [],
+      "vctNature": [],
+      "vctMoyenPaiement": [],
+      "codeRubriqueComptable": "62",
+      "defaultConverter": {}
+    },
+    {
+      "codeDouane": "002201",
+      "libelleAbrege": "TVA INTER. PDS ENER.",
+      "adValorem": "false",
+      "refTypeRecette": [],
+      "vctNature": [],
+      "vctMoyenPaiement": [],
+      "codeRubriqueComptable": "64",
+      "defaultConverter": {}
+    },
+    {
+      "codeDouane": "002202",
+      "libelleAbrege": "TVA INTER. BIJOUT.",
+      "adValorem": "false",
+      "refTypeRecette": [],
+      "vctNature": [],
+      "vctMoyenPaiement": [],
+      "codeRubriqueComptable": "65",
+      "defaultConverter": {}
+    },
+    {
+      "codeDouane": "002209",
+      "libelleAbrege": "TVA INTER. AUTRES",
+      "adValorem": "false",
+      "refTypeRecette": [],
+      "vctNature": [],
+      "vctMoyenPaiement": [],
+      "codeRubriqueComptable": "67",
+      "defaultConverter": {}
+    },
+    {
+      "codeDouane": "002400",
+      "libelleAbrege": "TAXE SANIT. VEGETALE",
+      "adValorem": "false",
+      "refTypeRecette": [],
+      "vctNature": [],
+      "vctMoyenPaiement": [],
+      "codeRubriqueComptable": "70",
+      "defaultConverter": {}
+    },
+    {
+      "codeDouane": "002500",
+      "libelleAbrege": "TAXE VETERINAIRE",
+      "adValorem": "false",
+      "refTypeRecette": [],
+      "vctNature": [],
+      "vctMoyenPaiement": [],
+      "codeRubriqueComptable": "71",
+      "defaultConverter": {}
+    },
+    {
+      "codeDouane": "002902",
+      "libelleAbrege": "TAXE ALAMBICS",
+      "adValorem": "false",
+      "refTypeRecette": [],
+      "vctNature": [],
+      "vctMoyenPaiement": [],
+      "codeRubriqueComptable": "84",
+      "defaultConverter": {}
+    },
+    {
+      "codeDouane": "003600",
+      "libelleAbrege": "RDV FUMIGATION",
+      "adValorem": "false",
+      "refTypeRecette": [],
+      "vctNature": [],
+      "vctMoyenPaiement": [],
+      "codeRubriqueComptable": "96",
+      "defaultConverter": {}
+    },
+    {
+      "codeDouane": "003800",
+      "libelleAbrege": "TAXE D'ESTAMP/TAPIS",
+      "adValorem": "false",
+      "refTypeRecette": [],
+      "vctNature": [],
+      "vctMoyenPaiement": [],
+      "codeRubriqueComptable": "108",
+      "defaultConverter": {}
+    },
+    {
+      "codeDouane": "004100",
+      "libelleAbrege": "FDS DVLP. CRIN VGT.",
+      "adValorem": "false",
+      "refTypeRecette": [],
+      "vctNature": [],
+      "vctMoyenPaiement": [],
+      "codeRubriqueComptable": "124",
+      "defaultConverter": {}
+    },
+    {
+      "codeDouane": "004200",
+      "libelleAbrege": "FDS PDS ALIMENT.",
+      "adValorem": "false",
+      "refTypeRecette": [],
+      "vctNature": [],
+      "vctMoyenPaiement": [],
+      "codeRubriqueComptable": "125",
+      "defaultConverter": {}
+    },
+    {
+      "codeDouane": "004300",
+      "libelleAbrege": "FDS ROUTIER",
+      "adValorem": "false",
+      "refTypeRecette": [],
+      "vctNature": [],
+      "vctMoyenPaiement": [],
+      "codeRubriqueComptable": "126",
+      "defaultConverter": {}
+    },
+    {
+      "codeDouane": "004400",
+      "libelleAbrege": "FDS NAT. FORESTIER",
+      "adValorem": "true",
+      "refTypeRecette": [],
+      "vctNature": [],
+      "vctMoyenPaiement": [],
+      "codeRubriqueComptable": "127",
+      "defaultConverter": {}
+    },
+    {
+      "codeDouane": "004500",
+      "libelleAbrege": "FDS PROTECT. CHEPTEL",
+      "adValorem": "false",
+      "refTypeRecette": [],
+      "vctNature": [],
+      "vctMoyenPaiement": [],
+      "codeRubriqueComptable": "128",
+      "defaultConverter": {}
+    },
+    {
+      "codeDouane": "004600",
+      "libelleAbrege": "FDS DEVEL. AGRICOLE",
+      "adValorem": "false",
+      "refTypeRecette": [],
+      "vctNature": [],
+      "vctMoyenPaiement": [],
+      "codeRubriqueComptable": "129",
+      "defaultConverter": {}
+    },
+    {
+      "codeDouane": "004700",
+      "libelleAbrege": "FDS DT PAUVRES",
+      "adValorem": "false",
+      "refTypeRecette": [],
+      "vctNature": [],
+      "vctMoyenPaiement": [],
+      "codeRubriqueComptable": "130",
+      "defaultConverter": {}
+    },
+    {
+      "codeDouane": "004800",
+      "libelleAbrege": "FDS SOLIDARITE HABTA",
+      "adValorem": "false",
+      "refTypeRecette": [],
+      "vctNature": [],
+      "vctMoyenPaiement": [],
+      "codeRubriqueComptable": "131",
+      "defaultConverter": {}
+    },
+    {
+      "codeDouane": "004801",
+      "libelleAbrege": "taxe ecol/plasturgie",
+      "adValorem": "true",
+      "refTypeRecette": [],
+      "vctNature": [],
+      "vctMoyenPaiement": [],
+      "codeRubriqueComptable": "237",
+      "defaultConverter": {}
+    },
+    {
+      "codeDouane": "004900",
+      "libelleAbrege": "FONDS DES TABACS",
+      "adValorem": "false",
+      "refTypeRecette": [],
+      "vctNature": [],
+      "vctMoyenPaiement": [],
+      "codeRubriqueComptable": "132",
+      "defaultConverter": {}
+    },
+    {
+      "codeDouane": "004901",
+      "libelleAbrege": "fond appui coh.soc.",
+      "adValorem": "false",
+      "refTypeRecette": [],
+      "vctNature": [],
+      "vctMoyenPaiement": [],
+      "codeRubriqueComptable": "235",
+      "defaultConverter": {}
+    },
+    {
+      "codeDouane": "007214",
+      "libelleAbrege": "C.R.M.",
+      "adValorem": "false",
+      "refTypeRecette": [],
+      "vctNature": [],
+      "vctMoyenPaiement": [],
+      "codeRubriqueComptable": "167",
+      "defaultConverter": {}
+    },
+    {
+      "codeDouane": "007217",
+      "libelleAbrege": "TAXE F.P.E.I. EXP.",
+      "adValorem": "true",
+      "refTypeRecette": [],
+      "vctNature": [],
+      "vctMoyenPaiement": [],
+      "codeRubriqueComptable": "173",
+      "defaultConverter": {}
+    },
+    {
+      "codeDouane": "007220",
+      "libelleAbrege": "REC.P/C COMP.CHAR.LQ",
+      "adValorem": "true",
+      "refTypeRecette": [],
+      "vctNature": [],
+      "vctMoyenPaiement": [],
+      "codeRubriqueComptable": "223",
+      "defaultConverter": {}
+    },
+    {
+      "codeDouane": "010101",
+      "libelleAbrege": "libelle",
+      "adValorem": "false",
+      "refTypeRecette": [],
+      "vctNature": [],
+      "vctMoyenPaiement": [],
+      "codeRubriqueComptable": "1156",
+      "defaultConverter": {}
+    },
+    {
+      "codeDouane": "148",
+      "libelleAbrege": "test test rubrique h",
+      "adValorem": "true",
+      "refTypeRecette": [],
+      "vctNature": [],
+      "vctMoyenPaiement": [],
+      "codeRubriqueComptable": "1114",
+      "defaultConverter": {}
+    }
+  ]
+}

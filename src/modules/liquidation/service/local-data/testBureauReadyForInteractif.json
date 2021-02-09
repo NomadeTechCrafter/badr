@@ -1,0 +1,11 @@
+{
+  "dtoHeader": {
+    "userLogin": "AD6025",
+    "fonctionnalite": "cf5213",
+    "module": "ALI_DEC",
+    "commande": "testBureauReadyForInteractif",
+    "typeService": "SP"
+  },
+  "jsonVO": 0
+}
+

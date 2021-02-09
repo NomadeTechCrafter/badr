@@ -1,0 +1,56 @@
+{
+  "dtoHeader": {
+    "userLogin": "AD6025",
+    "fonctionnalite": "cf5202",
+    "module": "ALI_DEC",
+    "commande": "typesBordereau",
+    "typeService": "SP"
+  },
+  "jsonVO": [
+    {
+      "code": "01",
+      "libelle": "Comptant(01)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "02",
+      "libelle": "Crédit d'enlèvement(02)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "03",
+      "libelle": "Divers(03)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "04",
+      "libelle": "Franchise(04)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "05",
+      "libelle": "test(05)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    }
+  ]
+}

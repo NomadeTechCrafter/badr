@@ -17,6 +17,7 @@ export default (state = initialState, action) => {
   };
   switch (action.type) {
     case Constants.INIT_CONSULTATION_DUM_REQUEST:
+      nextState.showProgress = true;
       nextState.displayError = false;
       nextState.messageInfo = null;
       nextState.errorMessage = null;
