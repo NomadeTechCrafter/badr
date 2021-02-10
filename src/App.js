@@ -8,15 +8,15 @@
 
 import React from 'react';
 
-import {createStackNavigator} from '@react-navigation/stack';
+import { createStackNavigator } from '@react-navigation/stack';
 
 const Stack = createStackNavigator();
 
-import {ComBadrStackNavigatorComp} from './commons/component';
-import {RootSiblingParent} from 'react-native-root-siblings';
+import { ComBadrStackNavigatorComp } from './commons/component';
+import { RootSiblingParent } from 'react-native-root-siblings';
 
 /** REDUX */
-import {Provider} from 'react-redux';
+import { Provider } from 'react-redux';
 import setGlobalHandler from './commons/services/exceptionHandler/ComGlobalErrorHandlerService';
 import store from './commons/state/Store';
 
@@ -31,8 +31,8 @@ import {
   PaperTheme,
 } from './commons/styles/ComThemeStyle';
 import ComOfflineAlertService from './commons/services/offlineHandler/ComOfflineAlertService';
-import {Provider as PaperProvider, DefaultTheme} from 'react-native-paper';
-import {remote, bootstrapRoute} from './commons/Config';
+import { Provider as PaperProvider, DefaultTheme } from 'react-native-paper';
+import { remote, bootstrapRoute } from './commons/Config';
 import DedRedressementScreen from './modules/dedouanement/redressement/ui/DedRedressementScreen';
 import DedRedressementRecherche from './modules/dedouanement/redressement/ui/DedRechercheRedressementScreen';
 import controleRechercheDumScreen from './modules/controle/rechercheDum/ui/controleRechercheDumScreen';
@@ -42,6 +42,7 @@ import EcorImportRechercheScreen from './modules/ecorImport/rechercheEcorImport/
 import EcorImportEnleverMarchandiseScreen from './modules/ecorImport/enleverMarchandise/ui/EcorImportEnleverMarchandiseScreen';
 import LiquidationRechercheScreen from './modules/liquidation/ui/rechercheLiquidation/LiquidationRechercheScreen';
 import LiquidationHomeScreen from './modules/liquidation/ui/ongletsLiquidation/home/LiquidationHomeScreen';
+import EciConsultationBLSSearchScreen from './modules/ecorImport/eciConsultationBLS/ui/eciConsultationBLSMainScreen'
 
 //Actif
 import Recherche from './old/screens/actifs/rapport/recherche';
@@ -53,7 +54,7 @@ import Consultation from './old/screens/actifs/rapport/consultation';
 
 //setGlobalHandler();
 export default class App extends React.Component {
-  componentDidMount() {}
+  componentDidMount() { }
 
   render() {
     return (
@@ -65,89 +66,89 @@ export default class App extends React.Component {
               {remote ? (
                 <Stack.Screen
                   name="Login"
-                  options={{headerShown: false}}
+                  options={{ headerShown: false }}
                   component={Login}
                 />
               ) : (
-                <Stack.Screen
-                  name="test"
-                  options={{headerShown: false}}
-                  component={DedRedressementRecherche}
-                />
-              )}
+                  <Stack.Screen
+                    name="test"
+                    options={{ headerShown: false }}
+                    component={EciConsultationBLSSearchScreen}
+                  />
+                )}
               <Stack.Screen
                 name="ControleRegimeInterneScreen"
-                options={{headerShown: false}}
+                options={{ headerShown: false }}
                 component={ControleRegimeInterneScreen}
               />
               <Stack.Screen
                 name="ControleACVPScreen"
-                options={{headerShown: false}}
+                options={{ headerShown: false }}
                 component={ControleACVPScreen}
               />
               <Stack.Screen
                 name="EnleverMarchandise"
-                options={{headerShown: false}}
+                options={{ headerShown: false }}
                 component={EcorImportEnleverMarchandiseScreen}
               />
               <Stack.Screen
                 name="DedRedressementScreen"
-                options={{headerShown: false}}
+                options={{ headerShown: false }}
                 component={DedRedressementScreen}
               />
               <Stack.Screen
                 name="SmsVerify"
-                options={{headerShown: false}}
+                options={{ headerShown: false }}
                 component={SmsVerifyScreen}
               />
               <Stack.Screen
                 name="Profile"
-                options={{headerShown: false}}
+                options={{ headerShown: false }}
                 mode="modal"
                 component={HabProfileScreen}
               />
               <Stack.Screen
                 name="Home"
-                options={{headerShown: false}}
+                options={{ headerShown: false }}
                 component={Home}
               />
 
               {/* Actif Module*/}
               <Stack.Screen
                 name="Recherche"
-                options={{headerShown: false}}
+                options={{ headerShown: false }}
                 component={Recherche}
               />
               <Stack.Screen
                 name="Creation"
-                options={{headerShown: false}}
+                options={{ headerShown: false }}
                 component={Creation}
               />
               <Stack.Screen
                 name="Entete"
-                options={{headerShown: false}}
+                options={{ headerShown: false }}
                 component={Entete}
               />
               <Stack.Screen
                 name="Details"
-                options={{headerShown: false}}
+                options={{ headerShown: false }}
                 component={Details}
               />
               <Stack.Screen
                 name="Saisie"
-                options={{headerShown: false}}
+                options={{ headerShown: false }}
                 component={Saisie}
               />
               <Stack.Screen
                 name="Consultation"
-                options={{headerShown: false}}
+                options={{ headerShown: false }}
                 component={Consultation}
               />
 
               <Stack.Screen
                 name="LiquidationHomeScreen"
                 component={LiquidationHomeScreen}
-                options={{headerShown: false}}
+                options={{ headerShown: false }}
               />
             </ComBadrStackNavigatorComp>
           </PaperProvider>

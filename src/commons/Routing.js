@@ -14,7 +14,8 @@ const mapping = {
   '4096': { screen: 'RefControleVehicule', params: {} },
   '121711': { screen: 'EciConsultationBLS', params: {} },
   '823': {screen: 'RefPlaquesImm', params: {}},
-  '90025': {screen: 'VuEmbarqueScreen', params: {qr: true}},
+  '90025': { screen: 'VuEmbarqueScreen', params: { qr: true } },
+  '121711': { screen: 'EciConsultationBLS', params: {} },
 
   /*  '3086': {screen: 'controleRechercheDumScreen', params: {typeControle: 'TR'}},
     '2052': {screen: 'DedRechercheRedressement', params: {qr: false}},
