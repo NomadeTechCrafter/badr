@@ -25,7 +25,7 @@ const mapping = {
   '30661': {screen: 'ControleApresScanner', params: {}},
   '4096': {screen: 'RefControleVehicule', params: {}},
   '823': {screen: 'RefPlaquesImm', params: {}},
-  '90025': {screen: 'VuEmbarquer', params: {qr: true}},
+  '90025': {screen: 'VuEmbarqueScreen', params: {qr: true}},
 };
 
 const DEFAULT_SCREEN = 'ionic';

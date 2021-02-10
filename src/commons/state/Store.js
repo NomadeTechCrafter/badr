@@ -28,6 +28,7 @@ import controleRegimeInterneReducer from '../../modules/controle/regimeInterne/s
 import genericDedReducer from '../../modules/dedouanement/redressement/state/reducers/DedReducer';
 import vuEmbInitReducer from '../../modules/DeclarationD17D20/vuEmbarquer/state/reducers/vuEmbInitReducer';
 import vuEmbReducer from '../../modules/DeclarationD17D20/vuEmbarquer/state/reducers/vuEmbUcReducer';
+import vuEmbRefVH from '../../modules/DeclarationD17D20/vuEmbarquer/state/reducers/vuEmRefVhReducer';
 
 import referentielReducer from './reducers/ReferentielReducer';
 import consulterDumReducer from './reducers/ConsulterDumReducer';
@@ -91,6 +92,7 @@ const allReducers = combineReducers({
   EcorImportReducer,
   vuEmbInitReducer,
   vuEmbReducer,
+  vuEmbRefVH,
 });
 /**
  * store creation

@@ -47,12 +47,6 @@ class VuEmbarquer extends React.Component {
   render() {
     return (
       <ScrollView>
-        <ComBadrToolbarComp
-          navigation={this.props.navigation}
-          icon="menu"
-          title={translate('vuEmbarquee.title')}
-          subtitle={translate('vuEmbarquee.subTitleAction')}
-        />
         {this.props.errorMessage != null && this.props.errorMessage !== '' && (
           <View style={styles.messages}>
             <ComBadrErrorMessageComp

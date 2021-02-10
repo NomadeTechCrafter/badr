@@ -7,6 +7,7 @@ export default {
     modeAcquisition: "Mode d'acquisition",
     actionAnnuler: 'Annuler',
     dateVuEmbObligatoire: 'Date et commentaire sont obligatoire',
+    matriculeVehicule: 'Matricule Vehicule',
 
     //Version
     type: 'Type',
