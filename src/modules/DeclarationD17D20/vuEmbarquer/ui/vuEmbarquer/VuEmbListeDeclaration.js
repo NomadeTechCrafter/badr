@@ -70,7 +70,7 @@ class VuEmbListeDeclaration extends React.Component {
             <Tab.Screen
               name={translate('tabs.entete')}
               component={() => (
-                <VuEmbEntete dataVo={this.props.route.params.jsonVO} />
+                <VuEmbEntete dataVo={this.props.route.params.data.jsonVO} />
               )}
               //component={EnteteScreen}
             />
@@ -79,7 +79,7 @@ class VuEmbListeDeclaration extends React.Component {
               name={translate('tabs.declarationDetail')}
               component={() => (
                 <VuEmbarquerDecEnDetail
-                  dataVo={this.props.route.params.jsonVO}
+                  dataVo={this.props.route.params.data.jsonVO}
                 />
               )}
             />
@@ -87,7 +87,7 @@ class VuEmbListeDeclaration extends React.Component {
               name={translate('tabs.etatChargement')}
               component={() => (
                 <VuEmbarquerEtatChargement
-                  dataVo={this.props.route.params.jsonVO}
+                  dataVo={this.props.route.params.data.jsonVO}
                 />
               )}
             />
@@ -95,7 +95,7 @@ class VuEmbListeDeclaration extends React.Component {
             <Tab.Screen
               name={translate('tabs.info')}
               component={() => (
-                <VuEmbInfo dataVo={this.props.route.params.jsonVO} />
+                <VuEmbInfo dataVo={this.props.route.params.data.jsonVO} />
               )}
             />
           </Tab.Navigator>

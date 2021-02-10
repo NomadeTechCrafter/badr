@@ -1,9 +1,12 @@
-import * as Constants from '../vuEmbarquerConstants';
+/** API Services */
 
 import ComTransverseApi from '../../../../../commons/services/api/ComTransverseApi';
+
+/**Constants */
+import * as Constants from '../vuEmbarquerConstants';
 import {translate} from '../../../../../commons/i18n/ComI18nHelper';
 
-export function request(action, navigation, successRedirection) {
+export function request(action) {
   return (dispatch) => {
     dispatch(action);
     dispatch(inProgress(action));
@@ -22,11 +25,6 @@ export function request(action, navigation, successRedirection) {
               data.dtoHeader.messagesErreur.length === 0)
           ) {
             dispatch(success(data));
-            //navigation.navigate(successRedirection, data);
-            navigation.navigate('Home', {
-              screen: 'VuEmbListeDeclaration',
-              params: {data},
-            });
           } else {
             dispatch(failed(data));
           }
@@ -42,36 +40,22 @@ export function request(action, navigation, successRedirection) {
 
 export function inProgress(action) {
   return {
-    type: Constants.RECHERCHE_D17_DUM_IN_PROGRESS,
+    type: Constants.VU_EMB_RECH_BY_REF_VHN_PROGRESS,
     value: action.value,
-  };
-}
-
-export function init() {
-  return {
-    type: Constants.INIT_D17_DUM_REQUEST,
-    value: {},
   };
 }
 
 export function success(data) {
   return {
-    type: Constants.RECHERCHE_D17_DUM_SUCCESS,
+    type: Constants.VU_EMB_RECH_BY_REF_VH_SUCCESS,
     value: data,
   };
 }
 
 export function failed(data) {
   return {
-    type: Constants.RECHERCHE_D17_DUM_FAILED,
+    type: Constants.VU_EMB_RECH_BY_REF_VH_FAILED,
     value: data,
-  };
-}
-
-export function remove(data) {
-  return {
-    type: Constants.PREPARE_APUR_REMOVE,
-    value: {index: data.value.index},
   };
 }
 
@@ -80,5 +64,4 @@ export default {
   success,
   failed,
   inProgress,
-  remove,
 };
