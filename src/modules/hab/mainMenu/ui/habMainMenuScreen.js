@@ -91,21 +91,25 @@ class habMainMenuScreen extends React.Component {
       &platform=${ComSessionService.getInstance().getPlatform()}
       &version=${ComSessionService.getInstance().getSystemVersion()}
       &codeSmsVerify=${ComSessionService.getInstance().getCodeSmsVerify()}`;
+    console.log('switch to ionic App', url);
     return await Linking.openURL(url);
   };
 
   onItemSelected = (item) => {
     if (this.props.navigation) {
       let route = buildRouteWithParams(item.id);
+      console.log('onItemSelected route', route);
       ComSessionService.getInstance().setFonctionalite(
         item.fon_VAR_CODEFONCTIONALITE,
       );
       if (route) {
+          console.log('route RN', route);
         if (route.params.qr) {
           Zxing.default.showQrReader(this.onBarcodeRead);
         }
         this.props.navigation.navigate(route.screen, route.params);
       } else {
+          console.log('route IONIC', route);
         this.openIntent(item.id).then((resp) => {
           habLoginApi.logout().then((logoutResponse) => {
             RNExitApp.exitApp();

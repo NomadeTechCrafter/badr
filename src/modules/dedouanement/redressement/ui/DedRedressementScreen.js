@@ -1,8 +1,12 @@
 import React from 'react';
-import {BackHandler, Dimensions, View} from 'react-native';
+import {BackHandler, Dimensions, StyleSheet, View} from 'react-native';
 /** Drawer navigation */
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import {primaryColor} from '../../../../commons/styles/ComThemeStyle';
+import {
+  accentColor,
+  primaryColor,
+  primaryColorRgba,
+} from '../../../../commons/styles/ComThemeStyle';
 import DedRedressementCautionScreen from './caution/DedRedressementCautionScreen';
 import DedRedressementEnteteScreen from './entete/DedRedressementEnteteScreen';
 import DedRedressementArticlesScreen from './articles/DedRedressementArticlesScreen';
@@ -22,6 +26,8 @@ import consulterDumReducer from '../../../../commons/state/reducers/ConsulterDum
 
 import {getValueByPath, getCategorieDum} from '../utils/DedUtils';
 import _ from 'lodash';
+import Spinner from 'react-native-loading-spinner-overlay';
+import {translate} from '../../../../commons/i18n/ComI18nHelper';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -123,6 +129,7 @@ class DedRedressementScreen extends React.Component {
       this.setState({isImputationCompteRedVisible: false});
     }
   };
+
   isCautionAccessible = () => {
     let codeRegime = getValueByPath(
       'dedDumSectionEnteteVO.refRegime',
@@ -198,6 +205,7 @@ class DedRedressementScreen extends React.Component {
       readOnlyAcces: 'false',
       imputationTitresChangeAccessible: 'false',
     };
+
     this.callRedux({
       command: 'ded.isImputationCompteREDAccessible',
       typeService: 'SP',
@@ -228,6 +236,7 @@ class DedRedressementScreen extends React.Component {
         }
       }
     });
+    console.log('---isArticleAvecPaiementExist --- ', articleAvecPaiementExist);
     return articleAvecPaiementExist;
   };
 
@@ -275,77 +284,93 @@ class DedRedressementScreen extends React.Component {
       'ded.isImputationTitresDeChangeAccessible',
       'genericDedReducer',
     );
+
     return (
       <View style={{flex: 1}}>
-        <Tab.Navigator
-          swipeEnabled={true}
-          lazy={true}
-          optimizationsEnabled={true}
-          tabBarOptions={{
-            scrollEnabled: true,
-            labelStyle: {fontSize: 14, fontWeight: 'bold'},
-            showLabel: true,
-            allowFontScaling: true,
-            activeBackgroundColor: primaryColor,
-            activeTintColor: primaryColor,
-            inactiveTintColor: 'gray',
-            indicatorStyle: {
-              backgroundColor: primaryColor,
-              borderWidth: 2.5,
-              borderColor: primaryColor,
-            },
-          }}>
-          <Tab.Screen name="Entête" component={EnteteScreen} />
-          {this.state.isCautionVisible &&
-            isCautionAccessible &&
-            isCautionAccessible.data === true && (
+        {/* add test to fix the loading prob in document tab*/}
+        {!_.isNil(isCautionAccessible) &&
+        !_.isNil(isPreapurementDSAccessible) &&
+        !_.isNil(isImputationTitresDeChangeAccessible) &&
+        !_.isNil(isImputationCompteREDAccessible) &&
+        !_.isNil(isCautionAccessible.data) &&
+        !_.isNil(isPreapurementDSAccessible.data) &&
+        !_.isNil(isImputationTitresDeChangeAccessible.data) &&
+        !_.isNil(isImputationCompteREDAccessible.data) ? (
+          <Tab.Navigator
+            swipeEnabled={true}
+            lazy={true}
+            optimizationsEnabled={true}
+            tabBarOptions={{
+              scrollEnabled: true,
+              labelStyle: {fontSize: 14, fontWeight: 'bold'},
+              showLabel: true,
+              allowFontScaling: true,
+              activeBackgroundColor: primaryColor,
+              activeTintColor: primaryColor,
+              inactiveTintColor: 'gray',
+              indicatorStyle: {
+                backgroundColor: primaryColor,
+                borderWidth: 2.5,
+                borderColor: primaryColor,
+              },
+            }}>
+            <Tab.Screen name="Entête" component={EnteteScreen} />
+            {this.state.isCautionVisible && isCautionAccessible.data === true && (
               <Tab.Screen
                 name="Caution"
                 component={CautionScreen}
                 listeners={
                   {
                     /* tabPress: (e) => {
-                // Prevent default action
-                e.preventDefault();
-              },*/
+                      // Prevent default action
+                      e.preventDefault();
+                    },*/
                   }
                 }
               />
             )}
-          <Tab.Screen name="Articles" component={ArticlesScreen} />
-          {this.state.isPreapurementDSVisible &&
-            isPreapurementDSAccessible &&
-            isPreapurementDSAccessible === true && (
+            <Tab.Screen name="Articles" component={ArticlesScreen} />
+            {this.state.isPreapurementDSVisible &&
+              isPreapurementDSAccessible === true && (
+                <Tab.Screen
+                  name="Préapurements DS"
+                  component={PreapurementDsScreen}
+                />
+              )}
+            {this.state.isDemandesDiversesVisible && (
               <Tab.Screen
-                name="Préapurements DS"
-                component={PreapurementDsScreen}
+                name="Demandes Diverses"
+                component={DemandeDiverseScreen}
               />
             )}
-          {this.state.isDemandesDiversesVisible && (
-            <Tab.Screen
-              name="Demandes Diverses"
-              component={DemandeDiverseScreen}
-            />
-          )}
-          {this.state.isImputationTitreChangeVisible &&
-            isImputationTitresDeChangeAccessible &&
-            isImputationTitresDeChangeAccessible.data === true && (
-              <Tab.Screen
-                name="Imputation Titre Change"
-                component={ImputationTitreChangeScreen}
-              />
-            )}
-          {this.state.isImputationCompteRedVisible &&
-            isImputationCompteREDAccessible &&
-            isImputationCompteREDAccessible.data === true && (
-              <Tab.Screen
-                name="Imputation Compte RED"
-                component={ImputationCompteREDScreen}
-              />
-            )}
-          <Tab.Screen name="Documents" component={DocumentsScreen} />
-          <Tab.Screen name="Info" component={InfoScreen} />
-        </Tab.Navigator>
+            {this.state.isImputationTitreChangeVisible &&
+              isImputationTitresDeChangeAccessible.data === true && (
+                <Tab.Screen
+                  name="Imputation Titre Change"
+                  component={ImputationTitreChangeScreen}
+                />
+              )}
+            {this.state.isImputationCompteRedVisible &&
+              isImputationCompteREDAccessible.data === true && (
+                <Tab.Screen
+                  name="Imputation Compte RED"
+                  component={ImputationCompteREDScreen}
+                />
+              )}
+            <Tab.Screen name="Documents" component={DocumentsScreen} />
+            <Tab.Screen name="Info" component={InfoScreen} />
+          </Tab.Navigator>
+        ) : (
+          <Spinner
+            visible={true}
+            cancelable={false}
+            animation="fade"
+            color={accentColor}
+            overlayColor={'rgba(' + primaryColorRgba + ',0.80)'}
+            textContent={translate('transverse.inprogress')}
+            textStyle={styles.spinnerTextStyle}
+          />
+        )}
       </View>
     );
   }
@@ -374,3 +399,11 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, null)(DedRedressementScreen);
+
+const styles = StyleSheet.create({
+  spinnerTextStyle: {
+    color: accentColor,
+    fontSize: 20,
+    fontWeight: 'normal',
+  },
+});

@@ -1,0 +1,1011 @@
+import React, {Component} from 'react';
+import {Dimensions, View} from 'react-native';
+
+import {
+  ComAccordionComp,
+  ComBadrAutoCompleteChipsComp,
+  ComBadrButtonIconComp,
+  ComBadrCardBoxComp,
+  ComBadrDatePickerComp,
+  ComBadrErrorMessageComp,
+  ComBadrInfoMessageComp,
+  ComBadrLibelleComp,
+  ComBadrModalComp,
+  ComBadrPickerComp,
+  ComBadrProgressBarComp,
+  ComBadrToolbarComp,
+  ComBasicDataTableComp,
+  ComContainerComp,
+} from '../../../../commons/component';
+import {IconButton, TextInput, FAB} from 'react-native-paper';
+import {Col, Grid, Row} from 'react-native-easy-grid';
+/**i18n */
+import {translate} from '../../../../commons/i18n/ComI18nHelper';
+import {
+  CustomStyleSheet,
+  primaryColor,
+  accentColor,
+} from '../../../../commons/styles/ComThemeStyle';
+import _ from 'lodash';
+
+import {load} from '../../../../commons/services/async-storage/ComStorageService';
+import {connect} from 'react-redux';
+import style from '../../../../modules/referentiel/plaquesImmatriculation/style/refPlaquesImmStyle';
+import {getValueByPath} from '../../../../modules/dedouanement/redressement/utils/DedUtils';
+import {request, requestModal} from '../state/actions/EcorImportAction';
+import {
+  GENERIC_CLOSE_MODAL,
+  GENERIC_ECI_INIT,
+  GENERIC_ECI_REQUEST,
+  GENERIC_OPEN_MODAL,
+} from '../state/EcorImportConstants';
+import ComUtils from '../../../../commons/utils/ComUtils';
+import moment from 'moment';
+import {ComSessionService} from '../../../../commons/services/session/ComSessionService';
+
+import EciDeclarationEnDetailBlock from '../ui/blocks/EciDeclarationEnDetailBlock';
+import EciMainleveeBlock from '../ui/blocks/EciMainleveeBlock';
+import EciListEnlevementsEffectuesBlock from '../ui/blocks/EciListEnlevementsEffectuesBlock';
+import EciReferenceDeclarationBlock from '../ui/blocks/EciReferenceDeclarationBlock';
+const screenHeight = Dimensions.get('window').height;
+
+class EcorImportEnleverMarchandiseScreen extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      refDeclaration: props.route.params.refDeclaration,
+      cle: props.route.params.cle,
+      numeroVoyage: props.route.params.numeroVoyage,
+      enleverMarchandiseVO: props.route.params.declarationRI,
+      showEnlevements: false,
+      showPopUpLots: false,
+      listLotsCols: this.listLotsCols(),
+      listEquipementLotsCols: this.listEquipmentLotsCols(),
+      selectedLot: {},
+      newEcorItem: {},
+      IsChampsAddEnlevementsValid: true,
+      isActionMenuOpen: false,
+    };
+  }
+
+  componentDidMount() {
+    load('user').then((user) => {
+      this.setState({login: JSON.parse(user).login});
+    });
+  }
+  onCloseAddEnlevements = () => {
+    this.setState({
+      showEnlevements: false,
+    });
+  };
+  onRestAddEnlevements = () => {
+    this.comboLieuStockage.clearInput();
+
+    /*this.nombreContenant.clear();
+      this.numeroBonSortie.clear();*/
+    //this.comboLieuStockage.refresh({codeLieuStockage: ''}, null);
+    this.setState(
+      {
+        ...this.state,
+        selectedLot: {
+          ...this.state.selectedLot,
+          nombreContenant: '',
+          gestionnaireEnceinte: {
+            identifiantOperateur: '',
+            nomOperateur: '',
+          },
+          immatriculationsVehicules: '',
+          numeroBonSortie: '',
+          dateEffectiveEnlevement: '',
+          heureEffectiveEnlevement: '',
+        },
+      },
+      () => this.acOperateur.clearInput(),
+    );
+  };
+  selectedLotChanged = (row, index) => {
+    if (row) {
+      this.setState({selectedLot: row});
+    }
+  };
+  validerChoixLot = () => {
+    let lot = this.state.selectedLot;
+    let referenceDSTab = lot.referenceDS.split('-');
+    this.setState({
+      selectedLot: {
+        referenceLot: lot.referenceLot,
+        lieuChargement: {
+          codeLieuChargement: lot.codeLieuChargement,
+          descriptionLieuChargement: lot.lieuChargement,
+        },
+        referenceDS: {
+          refBureauDouane: {
+            codeBureau: referenceDSTab[0],
+            nomBureauDouane: '',
+          },
+          refTypeDS: {
+            codeTypeDS: lot.codeTypeDS,
+            descriptionTypeDS: lot.typeDS,
+          },
+          anneeEnregistrement: referenceDSTab[2],
+          regime: referenceDSTab[1],
+          numeroSerieEnregistrement: referenceDSTab[3],
+          cle: ComUtils.cleDS(
+            referenceDSTab[1] + referenceDSTab[3] + referenceDSTab[2],
+          ),
+        },
+        marque: lot.marques,
+        nature: lot.natureMarchandise,
+      },
+    });
+    this.getListeEquipementLots(lot);
+    this.onCloseModal();
+  };
+  listLotsCols = () => {
+    return [
+      {
+        code: '',
+        libelle: translate('at.apurement.selectionner'),
+        width: 100,
+        component: 'radio',
+        action: (row, index) => this.selectedLotChanged(row, index),
+      },
+      {
+        code: 'typeDS',
+        libelle: translate('transverse.typeDS'),
+        width: 80,
+      },
+      {
+        code: 'referenceDS',
+        libelle: translate('transverse.refDS'),
+        width: 200,
+      },
+      {
+        code: 'referenceLot',
+        libelle: translate('ecorimport.lotDedouanement.title'),
+        width: 150,
+      },
+      {
+        code: 'natureMarchandise',
+        libelle: translate('ecorimport.popUpListeLotApures.natureMarchandise'),
+        width: 150,
+      },
+      {
+        code: 'nombreColis',
+        libelle: translate('ecorimport.enleverMarchandise.nombreColis'),
+        width: 100,
+      },
+      {
+        code: 'marques',
+        libelle: translate('ecorimport.popUpListeLotApures.marques'),
+        width: 100,
+      },
+    ];
+  };
+  listEquipmentLotsCols = () => {
+    return [
+      {
+        code: '',
+        libelle: '',
+        width: 100,
+        component: 'checkbox',
+        action: (row, index) => this.selectedLotChanged(row, index),
+      },
+      {
+        code: 'identifiantEquipement',
+        libelle: translate('ecorimport.listeEquipementsLot.refEquipement'),
+        width: 200,
+      },
+      {
+        code: 'ligneLotVO.libelleTypeContenant',
+        libelle: translate('ecorimport.listeEquipementsLot.typeEquipement'),
+        width: 200,
+      },
+      {
+        code: 'tareEquipement',
+        libelle: translate('ecorimport.listeEquipementsLot.tareEquipement'),
+        width: 150,
+      },
+      {
+        code: '',
+        libelle: translate(
+          'ecorimport.listeEquipementsLot.dateHeureEnlevement',
+        ),
+        width: 200,
+      },
+    ];
+  };
+  getListeLotsApures = () => {
+    this.props.dispatch(requestModal({type: GENERIC_OPEN_MODAL, value: {}}));
+    let identifiant = getValueByPath(
+      'referenceDED.indentifiant',
+      this.state.enleverMarchandiseVO,
+    );
+    this.callRedux({
+      command: 'getLotsApures',
+      typeService: 'SP',
+      jsonVO: identifiant,
+    });
+  };
+  getListeEquipementLots = (selectedRow) => {
+    this.callRedux({
+      command: 'getEquipementsbyLot',
+      typeService: 'SP',
+      jsonVO: selectedRow,
+    });
+  };
+  validerAjout = () => {
+    console.log('valider Ajout');
+    let champsObligatoire = [
+      'lieuStockage',
+      'nombreContenant',
+      'numeroBonSortie',
+      'gestionnaireEnceinte',
+      'immatriculationsVehicules',
+      'dateEffectiveEnlevement',
+      'heureEffectiveEnlevement',
+    ];
+
+    if (this.testIsChampsValid(champsObligatoire) === true) {
+      console.log('IsChampsValid selectedLot', this.state.selectedLot);
+      let acteurInterneEnlevement = {
+        idActeur: ComSessionService.getInstance().getLogin(),
+        nom: ComSessionService.getInstance().getUserObject().nomAgent,
+        prenom: ComSessionService.getInstance().getUserObject().prenomAgent,
+        refBureau: {
+          codeBureau: ComSessionService.getInstance().getCodeBureau(),
+          nomBureauDouane: ComSessionService.getInstance().getNomBureauDouane(),
+        },
+      };
+      this.setState(
+        {
+          ...this.state,
+          showEnlevements: false,
+          enleverMarchandiseVO: {
+            ...this.state.enleverMarchandiseVO,
+            refMarchandiseEnlevee: [
+              ...this.state.enleverMarchandiseVO.refMarchandiseEnlevee,
+              {
+                ...this.state.selectedLot,
+                acteurInterneEnlevement: acteurInterneEnlevement,
+              },
+            ],
+          },
+        },
+        () =>
+          console.log(
+            'enleverMarchandiseVO',
+            JSON.stringify(this.state.enleverMarchandiseVO),
+          ),
+      );
+    }
+  };
+  testIsChampsValid = (champsObligatoire) => {
+    let isChampsValid = true;
+    _.forEach(champsObligatoire, (field) => {
+      console.log('champsObligatoire', field);
+      if (this.hasErrors(field)) {
+        this.setState({
+          ...this.state,
+          IsChampsAddEnlevementsValid: false,
+        });
+        isChampsValid = false;
+        return false;
+      }
+    });
+    return isChampsValid;
+  };
+  hasErrors = (field) => {
+    return _.isEmpty(this.state.selectedLot[field]);
+  };
+  addEnlevement = () => {
+    this.setState({showEnlevements: true});
+    this.setState({
+      selectedLot: {},
+    });
+  };
+  editEnlevement = (item, index) => {
+    this.setState(
+      {
+        selectedLot: this.state.enleverMarchandiseVO.refMarchandiseEnlevee[
+          index
+        ],
+      },
+      () =>
+        this.initEditEnlevement(
+          this.state.selectedLot.dateHeureEffectiveEnlevement,
+        ),
+    );
+    this.setState({showEnlevements: true});
+  };
+  initEditEnlevement = (dateHeureEffectiveEnlevement) => {
+    if (dateHeureEffectiveEnlevement) {
+      let tab = dateHeureEffectiveEnlevement.split(' ');
+      this.setState(
+        {
+          selectedLot: {
+            ...this.state.selectedLot,
+            dateEffectiveEnlevement: tab[0],
+            heureEffectiveEnlevement: tab[1],
+          },
+        },
+        () =>
+          console.log('selected---', JSON.stringify(this.state.selectedLot)),
+      );
+    }
+  };
+  deleteEnlevement = (item, index) => {
+    let enleverMarchandiseVO = {...this.state.enleverMarchandiseVO};
+    enleverMarchandiseVO.refMarchandiseEnlevee.splice(index, 1);
+    this.setState({enleverMarchandiseVO: enleverMarchandiseVO});
+  };
+
+  componentDidUpdate(prevProps, prevState) {}
+  onActionMenuStateChange = () => {
+    this.setState({isActionMenuOpen: !this.state.isActionMenuOpen});
+  };
+
+  confirmerEcor = () => {
+    console.log('confirmer ecor -----');
+    this.callRedux({
+      command: 'enleverMarchandise',
+      typeService: 'UC',
+      jsonVO: this.state.enleverMarchandiseVO,
+    });
+  };
+  render() {
+    const {
+      enleverMarchandiseVO,
+      refDeclaration,
+      cle,
+      numeroVoyage,
+      isActionMenuOpen,
+      selectedLot,
+    } = this.state;
+
+    let lotsApures = this.extractCommandData('getLotsApures');
+    let equipementsbyLot = this.extractCommandData('getEquipementsbyLot');
+
+    return (
+      <View style={CustomStyleSheet.fullContainer}>
+        <ComBadrToolbarComp
+          navigation={this.props.navigation}
+          title={translate('ecorimport.title')}
+          subtitle={translate('ecorimport.enleverMarchandise.title')}
+          icon="menu"
+        />
+        <ComContainerComp
+          ContainerRef={(ref) => {
+            this.scrollViewRef = ref;
+          }}>
+          {this.props.showProgress && <ComBadrProgressBarComp />}
+
+          {this.props.errorMessage !== null && (
+            <ComBadrErrorMessageComp message={this.props.errorMessage} />
+          )}
+          {!_.isEmpty(this.extractCommandData('enleverMarchandise')) &&
+            !_.isEmpty(
+              this.extractCommandData('enleverMarchandise').successMessage,
+            ) && (
+              <ComBadrInfoMessageComp
+                message={
+                  this.extractCommandData('enleverMarchandise').successMessage
+                }
+              />
+            )}
+          {/* Référence déclaration */}
+          <EciReferenceDeclarationBlock
+            enleverMarchandiseVO={enleverMarchandiseVO}
+            refDeclaration={refDeclaration}
+            cle={cle}
+            numeroVoyage={numeroVoyage}
+          />
+          {/* Affichge du bloc initiale */}
+          {!this.state.showEnlevements && (
+            <View>
+              {/* Accordion Déclaration en Détail*/}
+              <EciDeclarationEnDetailBlock
+                enleverMarchandiseVO={enleverMarchandiseVO}
+              />
+
+              {/*Accordion Mainlevée*/}
+              <EciMainleveeBlock enleverMarchandiseVO={enleverMarchandiseVO} />
+
+              {/*Accordion Liste des Enlevements Effectues*/}
+              <EciListEnlevementsEffectuesBlock
+                enleverMarchandiseVO={enleverMarchandiseVO}
+                addEnlevement={this.addEnlevement}
+                editEnlevement={(item, index) =>
+                  this.editEnlevement(item, index)
+                }
+                deleteEnlevement={(item, index) =>
+                  this.deleteEnlevement(item, index)
+                }
+              />
+            </View>
+          )}
+
+          {this.state.showEnlevements && (
+            <View style={CustomStyleSheet.fullContainer}>
+              <ComContainerComp
+                ContainerRef={(ref) => {
+                  this.scrollViewRef = ref;
+                }}>
+                {this.props.showProgress && <ComBadrProgressBarComp />}
+
+                {this.state.IsChampsAddEnlevementsValid === false && (
+                  <ComBadrErrorMessageComp
+                    message={translate('ecorimport.errorChampsObligatoire')}
+                  />
+                )}
+
+                {/* Accordion Déclaration Sommaire */}
+                <ComBadrCardBoxComp style={styles.cardBox}>
+                  <ComAccordionComp
+                    title={translate('ecorimport.declarationSommaire.title')}
+                    expanded={true}>
+                    <Grid>
+                      <Row style={CustomStyleSheet.whiteRow}>
+                        <Col>
+                          <ComBadrLibelleComp withColor={true}>
+                            {translate(
+                              'ecorimport.declarationSommaire.typeDeclaration',
+                            )}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col>
+                          <ComBadrLibelleComp>
+                            {ComUtils.getValueByPath(
+                              'referenceDS.refTypeDS.descriptionTypeDS',
+                              selectedLot,
+                            )}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col>
+                          <ComBadrButtonIconComp
+                            onPress={this.getListeLotsApures}
+                            icon="file-eye"
+                            loading={this.props.showProgress}
+                            text={translate(
+                              'ecorimport.declarationSommaire.choisirLotDedouanement',
+                            )}
+                          />
+                        </Col>
+                      </Row>
+                      <Row style={CustomStyleSheet.lightBlueRow}>
+                        <Col size={2}>
+                          <ComBadrLibelleComp withColor={true}>
+                            {translate(
+                              'ecorimport.declarationSommaire.referenceDeclaration',
+                            )}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col size={2}>
+                          <ComBadrLibelleComp withColor={true}>
+                            {translate('transverse.bureau')}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col size={2}>
+                          <ComBadrLibelleComp withColor={true}>
+                            {translate('transverse.regime')}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col size={2}>
+                          <ComBadrLibelleComp withColor={true}>
+                            {translate('transverse.annee')}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col size={2}>
+                          <ComBadrLibelleComp withColor={true}>
+                            {translate('transverse.serie')}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col size={1}>
+                          <ComBadrLibelleComp withColor={true}>
+                            {translate('transverse.cle')}
+                          </ComBadrLibelleComp>
+                        </Col>
+                      </Row>
+                      <Row style={CustomStyleSheet.whiteRow}>
+                        <Col size={2} />
+                        <Col size={2}>
+                          <ComBadrLibelleComp>
+                            {ComUtils.getValueByPath(
+                              'referenceDS.refBureauDouane.codeBureau',
+                              selectedLot,
+                            )}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col size={2}>
+                          <ComBadrLibelleComp>
+                            {ComUtils.getValueByPath(
+                              'referenceDS.regime',
+                              selectedLot,
+                            )}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col size={2}>
+                          <ComBadrLibelleComp>
+                            {ComUtils.getValueByPath(
+                              'referenceDS.anneeEnregistrement',
+                              selectedLot,
+                            )}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col size={2}>
+                          <ComBadrLibelleComp>
+                            {ComUtils.getValueByPath(
+                              'referenceDS.numeroSerieEnregistrement',
+                              selectedLot,
+                            )}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col size={1}>
+                          <ComBadrLibelleComp>
+                            {ComUtils.getValueByPath(
+                              'referenceDS.cle',
+                              selectedLot,
+                            )}
+                          </ComBadrLibelleComp>
+                        </Col>
+                      </Row>
+                    </Grid>
+                  </ComAccordionComp>
+                </ComBadrCardBoxComp>
+
+                {/* Accordion Lot de dédouanement */}
+                <ComBadrCardBoxComp style={styles.cardBox}>
+                  <ComAccordionComp
+                    title={translate('ecorimport.lotDedouanement.title')}
+                    expanded={true}>
+                    <Grid>
+                      <Row style={CustomStyleSheet.whiteRow}>
+                        <Col size={1}>
+                          <ComBadrLibelleComp withColor={true}>
+                            {translate('transverse.lieuChargement')}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col size={3}>
+                          <ComBadrLibelleComp>
+                            {ComUtils.getValueByPath(
+                              'lieuChargement.descriptionLieuChargement',
+                              selectedLot,
+                            )}
+                          </ComBadrLibelleComp>
+                        </Col>
+                      </Row>
+                      <Row style={CustomStyleSheet.lightBlueRow}>
+                        <Col size={1}>
+                          <ComBadrLibelleComp withColor={true}>
+                            {translate('transverse.referenceLot')}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col size={3}>
+                          <ComBadrLibelleComp>
+                            {ComUtils.getValueByPath(
+                              'referenceLot',
+                              selectedLot,
+                            )}
+                          </ComBadrLibelleComp>
+                        </Col>
+                      </Row>
+                      <Row style={CustomStyleSheet.whiteRow}>
+                        <Col size={1}>
+                          <ComBadrLibelleComp withColor={true}>
+                            {translate('transverse.nature')}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col size={3}>
+                          <ComBadrLibelleComp>
+                            {ComUtils.getValueByPath('nature', selectedLot)}
+                          </ComBadrLibelleComp>
+                        </Col>
+                      </Row>
+                      <Row style={CustomStyleSheet.lightBlueRow}>
+                        <Col size={1}>
+                          <ComBadrLibelleComp withColor={true}>
+                            {translate('ecorimport.lotDedouanement.marque')}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col size={3}>
+                          <ComBadrLibelleComp>
+                            {ComUtils.getValueByPath('marque', selectedLot)}
+                          </ComBadrLibelleComp>
+                        </Col>
+                      </Row>
+                    </Grid>
+                  </ComAccordionComp>
+                </ComBadrCardBoxComp>
+
+                {/* Accordion Marchandises Enlevées */}
+                <ComBadrCardBoxComp style={styles.cardBox}>
+                  <ComAccordionComp
+                    title={translate('ecorimport.marchandisesEnlevees.title')}
+                    extraFieldKey={translate('ecorimport.agentEcoreur')}
+                    extraFieldValue={translate('ecorimport.agentEcoreur')}
+                    expanded={true}>
+                    <Grid>
+                      <Row style={CustomStyleSheet.whiteRow}>
+                        <Col size={2}>
+                          <ComBadrLibelleComp withColor={true}>
+                            {translate(
+                              'ecorimport.marchandisesEnlevees.lieuStockage',
+                            )}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col size={6}>
+                          <ComBadrPickerComp
+                            disabled={false}
+                            onRef={(ref) => (this.comboLieuStockage = ref)}
+                            style={{
+                              flex: 1,
+                              marginLeft: -80,
+                            }}
+                            titleStyle={{flex: 1}}
+                            key="lieuStockage"
+                            cle="code"
+                            libelle="libelle"
+                            module="REF_LIB"
+                            command="getCmbLieuStockageParBureau"
+                            typeService="SP"
+                            selectedValue={ComUtils.getValueByPath(
+                              'lieuStockage.codeLieuStockage',
+                              selectedLot,
+                            )}
+                            onValueChange={(
+                              selectedValue,
+                              selectedIndex,
+                              item,
+                            ) => {
+                              this.setState({
+                                ...this.state,
+                                selectedLot: {
+                                  ...this.state.selectedLot,
+                                  lieuStockage: {
+                                    codeLieuStockage: selectedValue,
+                                    descriptionLieuStockage: item.libelle,
+                                  },
+                                },
+                              });
+                            }}
+                            param={{
+                              codeBureau: enleverMarchandiseVO.referenceDED.referenceEnregistrement.substring(
+                                0,
+                                3,
+                              ),
+                            }}
+                          />
+                        </Col>
+                      </Row>
+                      <Row style={CustomStyleSheet.lightBlueRow}>
+                        <Col size={2}>
+                          <ComBadrLibelleComp withColor={true}>
+                            {translate(
+                              'ecorimport.enleverMarchandise.nombreColis',
+                            )}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col size={6}>
+                          <TextInput
+                            mode="outlined"
+                            ref={(ref) => (this.nombreContenant = ref)}
+                            style={style.columnThree}
+                            label=""
+                            value={selectedLot.nombreContenant}
+                            onChangeText={(text) =>
+                              this.setState({
+                                ...this.state,
+                                selectedLot: {
+                                  ...this.state.selectedLot,
+                                  nombreContenant: text,
+                                },
+                              })
+                            }
+                          />
+                        </Col>
+                      </Row>
+                      <Row style={CustomStyleSheet.whiteRow}>
+                        <Col size={2}>
+                          <ComBadrLibelleComp withColor={true}>
+                            {translate(
+                              'ecorimport.enleverMarchandise.numBonSortie',
+                            )}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col size={2}>
+                          <TextInput
+                            ref={(ref) => (this.numeroBonSortie = ref)}
+                            mode="outlined"
+                            style={style.columnThree}
+                            label=""
+                            value={selectedLot.numeroBonSortie}
+                            onChangeText={(text) =>
+                              this.setState({
+                                ...this.state,
+                                selectedLot: {
+                                  ...this.state.selectedLot,
+                                  numeroBonSortie: text,
+                                },
+                              })
+                            }
+                          />
+                        </Col>
+                        <Col size={2}>
+                          <ComBadrLibelleComp withColor={true}>
+                            {translate(
+                              'ecorimport.marchandisesEnlevees.delivrePar',
+                            )}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col size={2}>
+                          <ComBadrAutoCompleteChipsComp
+                            onRef={(ref) => (this.acOperateur = ref)}
+                            code="code"
+                            disabled={false}
+                            selected={
+                              _.isEmpty(
+                                ComUtils.getValueByPath(
+                                  'gestionnaireEnceinte.nomOperateur',
+                                  selectedLot,
+                                ),
+                              )
+                                ? ''
+                                : ComUtils.getValueByPath(
+                                    'gestionnaireEnceinte.nomOperateur',
+                                    selectedLot,
+                                  ) +
+                                  '(' +
+                                  ComUtils.getValueByPath(
+                                    'gestionnaireEnceinte.identifiantOperateur',
+                                    selectedLot,
+                                  ) +
+                                  ')'
+                            }
+                            maxItems={3}
+                            libelle="libelle"
+                            command="getCmbOperateur"
+                            onDemand={true}
+                            searchZoneFirst={false}
+                            onValueChange={(item) => {
+                              this.setState({
+                                ...this.state,
+                                selectedLot: {
+                                  ...this.state.selectedLot,
+                                  gestionnaireEnceinte: {
+                                    identifiantOperateur: item.code,
+                                    nomOperateur: item.libelle,
+                                  },
+                                },
+                              });
+                            }}
+                          />
+                        </Col>
+                      </Row>
+                      <Row style={CustomStyleSheet.lightBlueRow}>
+                        <Col size={2}>
+                          <ComBadrLibelleComp withColor={true}>
+                            {translate(
+                              'ecorimport.marchandisesEnlevees.immatriculationsVehicules',
+                            )}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col size={6}>
+                          <TextInput
+                            mode="outlined"
+                            style={style.columnThree}
+                            label=""
+                            value={selectedLot.immatriculationsVehicules}
+                            onChangeText={(text) =>
+                              this.setState({
+                                ...this.state,
+                                selectedLot: {
+                                  ...this.state.selectedLot,
+                                  immatriculationsVehicules: text,
+                                },
+                              })
+                            }
+                            numberOfLines={6}
+                          />
+                        </Col>
+                      </Row>
+                      <Row style={CustomStyleSheet.whiteRow}>
+                        <Col>
+                          <ComBadrDatePickerComp
+                            dateFormat="DD/MM/yyyy"
+                            heureFormat="HH:mm"
+                            value={
+                              selectedLot.dateEffectiveEnlevement
+                                ? moment(
+                                    selectedLot.dateEffectiveEnlevement,
+                                    'DD/MM/yyyy',
+                                    true,
+                                  )
+                                : ''
+                            }
+                            timeValue={
+                              selectedLot.heureEffectiveEnlevement
+                                ? moment(
+                                    selectedLot.heureEffectiveEnlevement,
+                                    'HH:mm',
+                                    true,
+                                  )
+                                : ''
+                            }
+                            onDateChanged={(date) =>
+                              this.setState({
+                                ...this.state,
+                                selectedLot: {
+                                  ...this.state.selectedLot,
+                                  dateEffectiveEnlevement: date,
+                                },
+                              })
+                            }
+                            onTimeChanged={(time) =>
+                              this.setState({
+                                ...this.state,
+                                selectedLot: {
+                                  ...this.state.selectedLot,
+                                  heureEffectiveEnlevement: time,
+                                },
+                              })
+                            }
+                            labelDate={translate(
+                              'ecorimport.marchandisesEnlevees.dateEffectiveEnlevement',
+                            )}
+                            labelHeure={translate(
+                              'ecorimport.marchandisesEnlevees.heureEffectiveEnlevement',
+                            )}
+                            inputStyle={style.dateInputStyle}
+                            readonly={false}
+                          />
+                        </Col>
+                      </Row>
+                    </Grid>
+                  </ComAccordionComp>
+                </ComBadrCardBoxComp>
+
+                {/* Accordion liste des équipement du lot */}
+                {!_.isNil(equipementsbyLot) && !_.isNil(equipementsbyLot.data) && (
+                  <ComBadrCardBoxComp style={styles.cardBox}>
+                    <ComAccordionComp
+                      title={translate('ecorimport.listeEquipementsLot.title')}
+                      expanded={true}>
+                      <ComBasicDataTableComp
+                        rows={equipementsbyLot.data}
+                        cols={this.state.listEquipementLotsCols}
+                        totalElements={equipementsbyLot.data.length}
+                        maxResultsPerPage={10}
+                        paginate={true}
+                      />
+                    </ComAccordionComp>
+                  </ComBadrCardBoxComp>
+                )}
+                {/* Modal Lot Apures*/}
+                {!_.isNil(lotsApures) && !_.isNil(lotsApures.data) && (
+                  <ComBadrModalComp
+                    visible={this.props.showListeLotsApures}
+                    onDismiss={this.onCloseModal}>
+                    <ComAccordionComp
+                      title={translate('ecorimport.popUpListeLotApures.title')}
+                      expanded={true}>
+                      <ComBasicDataTableComp
+                        rows={lotsApures.data}
+                        cols={this.state.listLotsCols}
+                        totalElements={lotsApures.data.length}
+                        maxResultsPerPage={10}
+                        paginate={true}
+                      />
+                      <ComBadrButtonIconComp
+                        onPress={this.validerChoixLot}
+                        icon="check-circle-outline"
+                        loading={this.props.showProgress}
+                        text={translate('transverse.valider')}
+                      />
+                    </ComAccordionComp>
+                  </ComBadrModalComp>
+                )}
+                {/* Actions */}
+                <Row>
+                  <Col size={1} />
+                  <Col size={1}>
+                    <ComBadrButtonIconComp
+                      style={styles.actionBtn}
+                      onPress={this.validerAjout}
+                      icon="check-circle-outline"
+                      loading={this.props.showProgress}
+                      text={translate('transverse.confirmer')}
+                    />
+                  </Col>
+                  <Col size={1}>
+                    <ComBadrButtonIconComp
+                      style={styles.actionBtn}
+                      onPress={this.onRestAddEnlevements}
+                      icon="restore"
+                      loading={this.props.showProgress}
+                      text={translate('transverse.retablir')}
+                    />
+                  </Col>
+                  <Col size={1}>
+                    <ComBadrButtonIconComp
+                      style={styles.actionBtn}
+                      onPress={this.onCloseAddEnlevements}
+                      icon="close-circle-outline"
+                      loading={this.props.showProgress}
+                      text={translate('transverse.quitter')}
+                    />
+                  </Col>
+                  <Col size={1} />
+                </Row>
+              </ComContainerComp>
+            </View>
+          )}
+        </ComContainerComp>
+
+        <FAB.Group
+          open={isActionMenuOpen}
+          icon={isActionMenuOpen ? 'close' : 'plus'}
+          color={primaryColor}
+          actions={[
+            {
+              icon: 'check-bold',
+              label: 'Confirmer',
+              onPress: () => this.confirmerEcor(),
+            },
+            {
+              icon: 'cancel',
+              label: 'Abondonner',
+              onPress: () => console.log('Pressed email'),
+            },
+          ]}
+          onStateChange={() => this.onActionMenuStateChange()}
+          onPress={() => {
+            if (isActionMenuOpen) {
+              // do something if the speed dial is open
+            }
+          }}
+        />
+      </View>
+    );
+  }
+
+  callRedux = (jsonVO) => {
+    if (this.props.dispatch) {
+      this.props.dispatch(request({type: GENERIC_ECI_REQUEST, value: jsonVO}));
+    }
+  };
+  onCloseModal = () => {
+    this.props.dispatch(requestModal({type: GENERIC_CLOSE_MODAL, value: {}}));
+  };
+
+  init = () => {
+    this.props.dispatch(request({type: GENERIC_ECI_INIT, value: {}}));
+  };
+  extractCommandData = (command) => {
+    return this.props && this.props.picker ? this.props.picker[command] : null;
+  };
+}
+
+const libelle = {
+  fontSize: 14,
+  color: '#006acd',
+};
+
+const styles = {
+  cardBox: {
+    flexDirection: 'column',
+    padding: 0,
+  },
+  actionBtn: {
+    width: 200,
+    height: 50,
+  },
+};
+
+function mapStateToProps(state) {
+  return {...state.EcorImportReducer};
+}
+
+export default connect(
+  mapStateToProps,
+  null,
+)(EcorImportEnleverMarchandiseScreen);

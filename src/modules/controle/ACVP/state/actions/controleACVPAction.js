@@ -1,7 +1,7 @@
 import ControleApi from '../../service/api/controleACVPApi';
 
 import * as Constants from '../controleACVPConstants';
-
+import _ from 'lodash';
 /**i18n */
 import {translate} from '../../../../../commons/i18n/ComI18nHelper';
 
@@ -12,17 +12,13 @@ export function validateSave(action, navigation) {
 
     ControleApi.validateSaveAction(
       action.value.login,
-      action.value.commande,
+      action.value.commade,
       action.value.data,
     )
       .then((response) => {
         if (response) {
-          const data = JSON.parse(response.data);
-          if (
-            data &&
-            (data.dtoHeader.messagesErreur === null ||
-              data.dtoHeader.messagesErreur.length === 0)
-          ) {
+          const data = response.data;
+          if (data && _.isEmpty(data.dtoHeader.messagesErreur)) {
             dispatch(success(data));
           } else {
             dispatch(failed(data));
@@ -39,21 +35,21 @@ export function validateSave(action, navigation) {
 
 export function inProgress(action) {
   return {
-    type: Constants.REGIMEINTERNE_VALIDATESAVE_IN_PROGRESS,
+    type: Constants.ACVP_VALIDATESAVE_IN_PROGRESS,
     value: action.value,
   };
 }
 
 export function success(data) {
   return {
-    type: Constants.REGIMEINTERNE_VALIDATESAVE_SUCCESS,
+    type: Constants.ACVP_VALIDATESAVE_SUCCESS,
     value: data,
   };
 }
 
 export function failed(data) {
   return {
-    type: Constants.REGIMEINTERNE_VALIDATESAVE_FAILED,
+    type: Constants.ACVP_VALIDATESAVE_FAILED,
     value: data,
   };
 }
@@ -66,12 +62,8 @@ export function genererCR(action) {
     ControleApi.genererCompteRendu(action.value.login, action.value.data)
       .then((response) => {
         if (response) {
-          const data = JSON.parse(response.data);
-          if (
-            data &&
-            (data.dtoHeader.messagesErreur === null ||
-              data.dtoHeader.messagesErreur.length === 0)
-          ) {
+          const data = response.data;
+          if (data && _.isEmpty(data.dtoHeader.messagesErreur)) {
             dispatch(genererCR_success(data));
           } else {
             dispatch(genererCR_failed(data));
@@ -89,21 +81,21 @@ export function genererCR(action) {
 
 export function genererCR_inProgress(action) {
   return {
-    type: Constants.REGIMEINTERNE_GENERERCR_IN_PROGRESS,
+    type: Constants.ACVP_GENERERCR_IN_PROGRESS,
     value: action.value,
   };
 }
 
 export function genererCR_success(data) {
   return {
-    type: Constants.REGIMEINTERNE_GENERERCR_SUCCESS,
+    type: Constants.ACVP_GENERERCR_SUCCESS,
     value: data,
   };
 }
 
 export function genererCR_failed(data) {
   return {
-    type: Constants.REGIMEINTERNE_GENERERCR_FAILED,
+    type: Constants.ACVP_GENERERCR_FAILED,
     value: data,
   };
 }

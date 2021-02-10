@@ -3,10 +3,10 @@ import React from 'react';
 import {ScrollView, View} from 'react-native';
 
 import {connect} from 'react-redux';
-
+import ComUtils from '../../../../commons/utils/ComUtils';
 /**ACTIONS */
-import * as RechecheRefDumAction from '../../rechercheDum/state/actions/controleRechercheRefDumAction';
-import * as Constants from '../../rechercheDum/state/controleRechercheRefDumConstants';
+import * as RechecheRefDumAction from '../../common/state/actions/controleCommonRechercheRefDumAction';
+import * as Constants from '../../common/state/controleCommonConstants';
 
 /**i18n */
 import {translate} from '../../../../commons/i18n/ComI18nHelper';
@@ -37,7 +37,7 @@ class controleListDecalarationDumScreen extends React.Component {
       currentPage: 0,
       showDetail: false,
       item: {},
-      listeDeclaration: props.route.params.listeDeclaration,
+      listeDeclaration: props.data.listDeclaration,
     };
     this.cols = [
       {
@@ -70,30 +70,9 @@ class controleListDecalarationDumScreen extends React.Component {
     //this.typeControle ='RI'; //(props.route.params.typeControle) ? props.route.params.typeControle : 'RI';
   }
 
-  /*getSuccessRedirectionScreen = () => {
-    switch (this.props.route.params.typeControle) {
-      case 'RI':
-        return 'ControleRegimeInterneScreen';
-      case 'AC':
-        return 'ControleACVPScreen';
-      case 'TR':
-        return 'ControleRegimeTransitScreen';
-    }
-  };
-
-  getCommandeScreen = () => {
-    switch (this.props.route.params.typeControle) {
-      case 'RI':
-        return 'initControlerDedRI';
-      case 'AC':
-        return 'initControlerDedACVP';
-      case 'TR':
-        return 'initControlerDedTR';
-    }
-  };*/
-
   getInfoControle = () => {
     let typeControle = this.props.route.params.typeControle;
+    console.log('----getInfoControle---', typeControle);
     switch (typeControle) {
       case 'RI':
         return {
@@ -125,13 +104,14 @@ class controleListDecalarationDumScreen extends React.Component {
   }
 
   onItemSelected = (item) => {
+    console.log('----onItemSelected---', item);
     var data = {
       referenceDed: item.reference,
-      numeroVoyage: item.numVoyage,
+      numeroVoyage: item.numVoyage ? item.numVoyage : '',
     };
     var action = RechecheRefDumAction.request(
       {
-        type: Constants.RECHERCHEREFDUM_REQUEST,
+        type: Constants.INIT_CONTROLE_COMMUN_REQUEST,
         value: {
           login: this.state.login,
           commande: this.getInfoControle().commande,
@@ -139,7 +119,7 @@ class controleListDecalarationDumScreen extends React.Component {
           typeService: 'UC',
           data: data,
           referenceDed: item.reference,
-          cle: this.state.cle,
+          cle: ComUtils.cleDUM(item.reference),
         },
       },
       this.props.navigation,
@@ -150,12 +130,8 @@ class controleListDecalarationDumScreen extends React.Component {
 
   render() {
     let rows = [];
-    console.info(
-      '-------render List-------',
-      this.props.route.params.listeDeclaration.length,
-    );
-    if (this.props.route.params.listeDeclaration) {
-      rows = this.props.route.params.listeDeclaration;
+    if (this.props.data.listDeclaration) {
+      rows = this.props.data.listDeclaration;
     }
     return (
       <View>
@@ -185,7 +161,7 @@ class controleListDecalarationDumScreen extends React.Component {
 }
 
 function mapStateToProps(state) {
-  return {...state.controleRechercheRefDumReducer};
+  return {...state.controleCommonReducer};
 }
 
 function mapDispatchToProps(dispatch) {

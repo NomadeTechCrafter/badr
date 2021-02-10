@@ -1,0 +1,10 @@
+{
+  "dtoHeader": {
+    "userLogin": "AD6025",
+    "fonctionnalite": "cf5213",
+    "module": "ALI_DEC",
+    "commande": "getArticleLibelle",
+    "typeService": "SP"
+  },
+  "jsonVO": "M"
+}

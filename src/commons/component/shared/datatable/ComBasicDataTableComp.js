@@ -155,6 +155,7 @@ export default class ComBasicDataTableComp extends React.Component {
 
                 {this.props.cols.map((column, index) => (
                   <DataTable.Title
+                    key={index}
                     style={{
                       color: primaryColor,
                       width: column.width,
@@ -184,7 +185,7 @@ export default class ComBasicDataTableComp extends React.Component {
                     : this.props.rows
                   ).map((row, index) => (
                     <DataTable.Row
-                      key={row[this.props?.id]}
+                      key={row[this.props.id]}
                       onPress={() => {
                         if (this.props.onItemSelected) {
                           this.props.onItemSelected(row);
@@ -198,7 +199,7 @@ export default class ComBasicDataTableComp extends React.Component {
 
                       {this.props.cols.map((column, colindex) => {
                         return column.component ? (
-                          <View style={{width: column.width}}>
+                          <View style={{width: column.width}} key={colindex}>
                             {column.component === 'checkbox' && (
                               <Checkbox
                                 color={primaryColor}

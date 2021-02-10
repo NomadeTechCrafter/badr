@@ -1,0 +1,81 @@
+{
+  "dtoHeader": {
+    "userLogin": "AD6025",
+    "fonctionnalite": "cf5213",
+    "module": "ALI_DEC",
+    "commande": "getCreditParOperateur",
+    "typeService": "SP"
+  },
+  "jsonVO": [
+    {
+      "numeroCredit": "3529173",
+      "identifiantOperateur": "35291",
+      "delaiCreditEnlevement": "1",
+      "typeCreditEnlevement": true,
+      "ouvert": true
+    },
+    {
+      "numeroCredit": "3529161",
+      "identifiantOperateur": "35291",
+      "delaiCreditEnlevement": "2",
+      "typeCreditEnlevement": true,
+      "ouvert": true
+    },
+    {
+      "numeroCredit": "3529168",
+      "identifiantOperateur": "35291",
+      "delaiCreditEnlevement": "3",
+      "typeCreditEnlevement": true,
+      "ouvert": true
+    },
+    {
+      "numeroCredit": "3529167",
+      "identifiantOperateur": "35291",
+      "delaiCreditEnlevement": "10",
+      "typeCreditEnlevement": true,
+      "ouvert": true
+    },
+    {
+      "numeroCredit": "3529177",
+      "identifiantOperateur": "35291",
+      "delaiCreditEnlevement": "20",
+      "typeCreditEnlevement": true,
+      "ouvert": true
+    },
+    {
+      "numeroCredit": "352911",
+      "identifiantOperateur": "35291",
+      "delaiCreditEnlevement": "30",
+      "typeCreditEnlevement": true,
+      "ouvert": true
+    },
+    {
+      "numeroCredit": "3529176",
+      "identifiantOperateur": "35291",
+      "delaiCreditEnlevement": "45",
+      "typeCreditEnlevement": true,
+      "ouvert": true
+    },
+    {
+      "numeroCredit": "3529171",
+      "identifiantOperateur": "35291",
+      "delaiCreditEnlevement": "73",
+      "typeCreditEnlevement": true,
+      "ouvert": true
+    },
+    {
+      "numeroCredit": "3529170",
+      "identifiantOperateur": "35291",
+      "delaiCreditEnlevement": "77",
+      "typeCreditEnlevement": true,
+      "ouvert": true
+    },
+    {
+      "numeroCredit": "3529185",
+      "identifiantOperateur": "35291",
+      "delaiCreditEnlevement": "180",
+      "typeCreditEnlevement": true,
+      "ouvert": true
+    }
+  ]
+}

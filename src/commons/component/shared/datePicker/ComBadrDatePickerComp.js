@@ -13,6 +13,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 export default class ComBadrDatePickerComp extends React.Component {
   constructor(props) {
     super(props);
+    console.log('dateValuetimeValue', props.value, props.timeValue);
     this.state = {
       showDate: false,
       showTime: false,
@@ -99,16 +100,17 @@ export default class ComBadrDatePickerComp extends React.Component {
 
         <Row>
           <Col size={94}>
-            <TouchableOpacity onPress={() => this.showDatepicker()}
-                              hitSlop={{top: 30, bottom: 30, left: 30, right: 30}}
-                              disabled={this.props.readonly}>
+            <TouchableOpacity
+              onPress={() => this.showDatepicker()}
+              hitSlop={{top: 30, bottom: 30, left: 30, right: 30}}
+              disabled={this.props.readonly}>
               <TextInput
                 disabled="true"
                 underlineColor={primaryColor}
                 mode="outlined"
                 value={
-                  this.state.dateValue
-                    ? moment(this.state.dateValue).format(
+                  this.props.value
+                    ? moment(this.props.value).format(
                         this.props.dateFormat
                           ? this.props.dateFormat
                           : 'DD/MM/YYYY',
@@ -133,16 +135,17 @@ export default class ComBadrDatePickerComp extends React.Component {
             <Col size={50}>
               <Row>
                 <Col size={80}>
-                  <TouchableOpacity onPress={this.showTimepicker}
-                                    hitSlop={{top: 30, bottom: 30, left: 30, right: 30}}
-                                    disabled={this.props.readonly}>
+                  <TouchableOpacity
+                    onPress={this.showTimepicker}
+                    hitSlop={{top: 30, bottom: 30, left: 30, right: 30}}
+                    disabled={this.props.readonly}>
                     <TextInput
                       disabled="true"
                       underlineColor={primaryColor}
                       mode="outlined"
                       value={
-                        this.state.timeValue
-                          ? moment(this.state.timeValue).format(
+                        this.props.timeValue
+                          ? moment(this.props.timeValue).format(
                               this.props.heureFormat
                                 ? this.props.heureFormat
                                 : 'HH:mm',
@@ -155,16 +158,16 @@ export default class ComBadrDatePickerComp extends React.Component {
                   </TouchableOpacity>
                 </Col>
 
-                  <Col size={20}>
-                      <Icon
-                          name="clock-o"
-                          style={styles.iconInput}
-                          color={primaryColor}
-                          size={18}
-                      />
-                  </Col>
+                <Col size={20}>
+                  <Icon
+                    name="clock-o"
+                    style={styles.iconInput}
+                    color={primaryColor}
+                    size={18}
+                  />
+                </Col>
               </Row>
-              </Col>
+            </Col>
           )}
         </Row>
       </View>

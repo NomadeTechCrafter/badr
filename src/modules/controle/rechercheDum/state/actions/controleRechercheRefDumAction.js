@@ -17,11 +17,11 @@ export function request(action, navigation, successRedirection) {
     )
       .then((response) => {
         if (response) {
-          console.log('response', response);
+          // console.log('response', response);
           const data = response.data;
           if (data && !data.dtoHeader.messagesErreur) {
-            console.log('data', data);
-            dispatch(success(data));
+            //console.log('data', data);
+            dispatch(success(data, action.value.referenceDed));
             /** Naviguer vers la vue suivant. */
             navigation.navigate(successRedirection, {
               login: action.value.login,
@@ -52,10 +52,13 @@ export function inProgress(action) {
   };
 }
 
-export function success(data) {
+export function success(data, refDeclaration) {
   return {
     type: Constants.RECHERCHEREFDUM_SUCCESS,
-    value: data,
+    value: {
+      data: data,
+      refDeclaration: refDeclaration,
+    },
   };
 }
 

@@ -7,6 +7,7 @@ import {
 } from '../DedRedressementConstants';
 import translate from '../../../../../commons/i18n/ComI18nHelper';
 import TransverseApi from '../../../../../commons/services/api/ComTransverseApi';
+import _ from 'lodash';
 
 export function request(action) {
   return (dispatch) => {
@@ -20,7 +21,7 @@ export function request(action) {
       action.value.jsonVO,
     )
       .then((response) => {
-        if (response && response.data && response.data.jsonVO) {
+        if (response && response.data && !_.isNil(response.data.jsonVO)) {
           dispatch(success(response.data.jsonVO, action.value.command));
         } else {
           dispatch(

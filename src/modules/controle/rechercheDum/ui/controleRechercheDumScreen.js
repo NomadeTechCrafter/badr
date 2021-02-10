@@ -1,16 +1,16 @@
 import React, {Component} from 'react';
 import {ScrollView, View} from 'react-native';
 import {
-  ComControleRechercheRefComp,
   ComBadrToolbarComp,
   ComBadrButtonIconComp,
 } from '../../../../commons/component';
+import ComControleRechercheRefComp from '../../common/component/ControleCommonRechercheRefComp';
 /**i18n */
 import {translate} from '../../../../commons/i18n/ComI18nHelper';
 import {ComSessionService} from '../../../../commons/services/session/ComSessionService';
 import {connect} from 'react-redux';
-import * as Constants from '../state/controleRechercheDumConstants';
-import * as RechecheDumAction from '../state/actions/controleRechercheDumAction';
+import * as Constants from '../../common/state/controleCommonConstants';
+import * as ListDeclarationAction from '../../common/state/actions/controleCommonListDeclarationAction';
 
 class controleRechercheDumScreen extends Component {
   subTitle = '';
@@ -19,7 +19,7 @@ class controleRechercheDumScreen extends Component {
   }
 
   getInfoControle = () => {
-    let typeControle = this.props.route.params.typeControle;
+    let typeControle = 'AC'; // this.props.route.params.typeControle;
     switch (typeControle) {
       case 'RI':
         return {
@@ -43,9 +43,9 @@ class controleRechercheDumScreen extends Component {
   };
 
   listDeclarationSearchAction = () => {
-    return RechecheDumAction.searchListeDeclaration(
+    return ListDeclarationAction.searchListeDeclaration(
       {
-        type: Constants.RECHERCHEDUM_LISTDECLARATION_REQUEST,
+        type: Constants.LISTDECLARATION_CONTROLE_COMMUN_REQUEST,
         value: {
           login: ComSessionService.getInstance().getLogin(),
           typeControle: this.props.route.params.typeControle,
@@ -106,6 +106,6 @@ const styles = {
   },
 };
 
-const mapStateToProps = (state) => ({...state.controleRechercheDumReducer});
+const mapStateToProps = (state) => ({...state.controleCommonReducer});
 
 export default connect(mapStateToProps, null)(controleRechercheDumScreen);

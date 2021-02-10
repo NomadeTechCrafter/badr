@@ -1,0 +1,32 @@
+{
+  "dtoHeader": {
+    "userLogin": "AD6025",
+    "fonctionnalite": "cf5213",
+    "module": "ALI_DEC",
+    "commande": "getRefEnteteDeclarationEnDouane",
+    "typeService": "SP"
+  },
+  "jsonVO": {
+    "dontHandleLimitationOperateur": false,
+    "versionModifiee": true,
+    "insideEtude": false,
+    "insideRedressement": false,
+    "demandeModification": false,
+    "codeDeclarant": "35291",
+    "nomDeclarant": "OP DECLARANT T12",
+    "identifiantOperateurDestinataire": "35291",
+    "nomOperateurDestinataire": "OP DECLARANT T12",
+    "defaultConverter": {},
+    "callFromEC": false,
+    "revaliderEtude": false,
+    "dumFictiveParam": false,
+    "transfertOperateurParam": false,
+    "banqueConsign": false,
+    "createParam": false,
+    "banqueSaisie": false,
+    "transit": false,
+    "regimeExport": false,
+    "appelCouplageFromUC1": false,
+    "occasionnelle": false
+  }
+}
