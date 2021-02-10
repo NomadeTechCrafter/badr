@@ -21,7 +21,7 @@ const FIRST_PAGINATION_SEPARATOR = ' / ';
 const SECOND_PAGINATION_SEPARATOR = ' - ';
 
 export default class ComBasicDataTableComp extends React.Component {
-  constructor(props) {
+  constructor(props) { 
     super(props);
     let checkedItems = [];
     this.props.rows.forEach((element) => {
@@ -142,7 +142,7 @@ export default class ComBasicDataTableComp extends React.Component {
           key="horizontalScrollView"
           horizontal={true}>
           <ScrollView key="verticalScrollView" style={styles.width100}>
-            <DataTable style={styles.width100}>
+            <DataTable style={(styles.width100, {marginBottom: 20})}>
               <DataTable.Header
                 style={{backgroundColor: this.props.badr ? '#ecf0f1' : null}}>
                 {this.props.hasId && (
@@ -258,7 +258,7 @@ export default class ComBasicDataTableComp extends React.Component {
                                   color={
                                     column.color ? column.color : primaryColor
                                   }
-                                  size={20}
+                                  size={column.size ? column.size : 20}
                                   onPress={() => column.action(row, index)}
                                 />
                               )}
