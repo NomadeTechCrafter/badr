@@ -5,6 +5,7 @@ import t6bisFindIntervenantAction from '../../../state/actions/t6bisFindInterven
 import T6bisEnteteListBlocks from './blocks/t6bisEnteteListBlocks';
 import * as T6BISConstantes from "../../../../utils/t6bisConstants";
 import * as Constantes from '../../../state/t6bisGestionConstants';
+import { isRecherche } from '../../../../utils/t6bisUtils';
 
 
 
@@ -54,7 +55,7 @@ class T6bisEnteteTab extends React.Component {
     }
 
     componentWillUnmount() {
-        console.log('componentWillUnmount');
+        console.log('T6bisEnteteTab   componentWillUnmount');
     }
 
 
@@ -67,17 +68,19 @@ class T6bisEnteteTab extends React.Component {
 
     render() {
         
-        let mode = (this.props.t6bisEnteteData) ? this.props.t6bisEnteteData.mode : '';
+        
 
         console.log('fieldsetcontext ', this.state?.fieldsetcontext);
         console.log("this.props               ", this.props);  
         return (
 
             <ScrollView>
-                <T6bisEnteteListBlocks t6bis={this.props.t6bis} mode={mode}
+                <T6bisEnteteListBlocks t6bis={this.props.t6bis} mode={this.props.mode}
                     identifiants={this.props.identifiants}
                     listmoyenpaiement={this.props.listmoyenpaiement}
                     fieldsetcontext={this.state?.fieldsetcontext}
+                    listeRecap={this.props?.listeRecap}
+                    readOnly={isRecherche()}
                     callbackHandler={this.callbackHandler} />
             </ScrollView>
         );

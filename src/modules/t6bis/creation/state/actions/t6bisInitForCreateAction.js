@@ -1,3 +1,4 @@
+
 import * as Constants from '../t6bisCreationConstants';
 import T6bisCreationApi from '../../service/api/t6bisCreationApi';
 
@@ -22,7 +23,8 @@ export function request(action, navigation) {
                             selectedTab: action.value.selectedType.tabs[0],
                             tabs: action.value.selectedType.tabs
                         },
-                        mode: action.value.mode
+                        mode: action.value.mode,
+                        title: action.value.title
                     });
                 } else {
                     dispatch(failed({ value: data.jsonVO }));

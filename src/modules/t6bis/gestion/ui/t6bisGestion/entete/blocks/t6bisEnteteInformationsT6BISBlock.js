@@ -36,17 +36,17 @@ class T6bisEnteteInformationsT6BISBlock extends React.Component {
         return (
             <View>
                 {isMtm(codeTypeT6bis) && (
-                    <T6bisInformationsMtmSousBlock t6bis={this.props.t6bis} listmoyenpaiement={this.props.listmoyenpaiement} />)}
+                    <T6bisInformationsMtmSousBlock t6bis={this.props.t6bis} listmoyenpaiement={this.props.listmoyenpaiement} readOnly={this.props.readOnly}/>)}
                 {isCm(codeTypeT6bis) && (
-                    <T6bisInformationsCmSousBlock t6bis={this.props.t6bis} listmoyenpaiement={this.props.listmoyenpaiement} />)}
+                    <T6bisInformationsCmSousBlock t6bis={this.props.t6bis} listmoyenpaiement={this.props.listmoyenpaiement} readOnly={this.props.readOnly} />)}
                 {isTaxeCoordination(codeTypeT6bis) && (
-                    <T6bisInformationsTaxeCoordinationSousBlock t6bis={this.props.t6bis} fieldsetcontext={this.props.fieldsetcontext} listmoyenpaiement={this.props.listmoyenpaiement} />)}
+                    <T6bisInformationsTaxeCoordinationSousBlock t6bis={this.props.t6bis} fieldsetcontext={this.props.fieldsetcontext} listmoyenpaiement={this.props.listmoyenpaiement} readOnly={this.props.readOnly}/>)}
                 {isContrainteParCorps(codeTypeT6bis) && (
-                    <T6bisInformationsContainteCorpsSousBlock t6bis={this.props.t6bis} listmoyenpaiement={this.props.listmoyenpaiement} />)}
+                    <T6bisInformationsContainteCorpsSousBlock t6bis={this.props.t6bis} listmoyenpaiement={this.props.listmoyenpaiement} readOnly={this.props.readOnly}/>)}
                 {isAffaireChange(codeTypeT6bis) && (
-                    <T6bisInformationsAffaireChangeSousBlock t6bis={this.props.t6bis} listmoyenpaiement={this.props.listmoyenpaiement} />)}
+                    <T6bisInformationsAffaireChangeSousBlock t6bis={this.props.t6bis} listmoyenpaiement={this.props.listmoyenpaiement} readOnly={this.props.readOnly}/>)}
                 {isAmendeTransactionnelle(codeTypeT6bis) && (
-                    <T6bisInformationsAmendeTransactionnelleSousBlock t6bis={this.props.t6bis} listmoyenpaiement={this.props.listmoyenpaiement} />)}
+                    <T6bisInformationsAmendeTransactionnelleSousBlock t6bis={this.props.t6bis} listmoyenpaiement={this.props.listmoyenpaiement} readOnly={this.props.readOnly}/>)}
 
 
             </View>

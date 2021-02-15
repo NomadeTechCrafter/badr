@@ -18,14 +18,14 @@ class T6bisInformationsContainteCorpsSousBlock extends React.Component {
         super(props);
         this.state = {
             numeroTriptyque: this.props.t6bis?.numeroTriptyque,
-            typeMoyenPaiement: this.props.t6bis?.typeMoyenPaiement
+            typeMoyenPaiement: this.props.t6bis?.typeMoyenPaiement?.code
 
         };
     }
 
 
 
-  
+
 
 
 
@@ -57,9 +57,14 @@ class T6bisInformationsContainteCorpsSousBlock extends React.Component {
                         <Col size={130} style={styles.labelContainer}>
                             <TextInput
                                 mode="outlined"
+                                disabled={this.props.readOnly}
                                 label={translate('t6bisGestion.tabs.entete.informationst6bisBlock.containteCorps.referenceContainteCorps')}
                                 value={this.state.refContrainteCorps}
-                                onChangeText={(text) => this.setState({ refContrainteCorps: text })}
+                                onChangeText={(text) => {
+                                    this.setState({ refContrainteCorps: text });
+                                    this.props.t6bis.refContrainteCorps = text;
+                                }
+                                }
                             />
                         </Col>
 
@@ -82,17 +87,20 @@ class T6bisInformationsContainteCorpsSousBlock extends React.Component {
                         <Col size={130} style={styles.labelContainer}>
                             <ComBadrItemsPickerComp
                                 style={styles.labelTextStyle}
+                                disabled={this.props.readOnly}
                                 label={translate('t6bisGestion.tabs.entete.informationst6bisBlock.containteCorps.choisirElement')}
                                 selectedValue={this.state.typeMoyenPaiement}
                                 items={this.props.listmoyenpaiement}
-                                onValueChanged={(value, index) =>
-                                    this.setState({ typeMoyenPaiement: value.code })
+                                onValueChanged={(value, index) => {
+                                    this.setState({ typeMoyenPaiement: value.code });
+                                    this.props.t6bis.typeMoyenPaiement = value;
+                                }
                                 }
                             />
                         </Col>
                     </Row>
-                    
-                    
+
+
 
                 </View>
             </ComAccordionComp>

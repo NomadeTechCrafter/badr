@@ -27,6 +27,9 @@ const mapping = {
   '823': { screen: 'RefPlaquesImm', params: {} },
   /*T6bis creation*/
   '110001': { screen: 'T6bisCreation', params: {} },
+  '110002': { screen: 'T6bisRecherche', params: {} },
+  '110005': { screen: 'T6bisRecherche', params: {} },
+  '110007': { screen: 'T6bisRecherche', params: {} },
 };
 
 const DEFAULT_SCREEN = 'ionic';

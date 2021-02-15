@@ -26,7 +26,7 @@ class T6bisHistoriqueListBlocks extends React.Component {
     }
 
     componentWillUnmount() {
-        console.log('componentWillUnmount');
+        console.log('T6bisHistoriqueListBlocks componentWillUnmount');
     }
 
 

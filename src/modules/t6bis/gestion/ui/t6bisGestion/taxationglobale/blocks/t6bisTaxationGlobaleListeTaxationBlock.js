@@ -7,6 +7,8 @@ import translate from "../../../../../../../commons/i18n/ComI18nHelper";
 import { CustomStyleSheet } from '../../../../../../../commons/styles/ComThemeStyle';
 import styles from "../../../../style/t6bisGestionStyle";
 import _ from 'lodash';
+import { ADD_TAXATION_GLOBALE_TASK } from '../../../../../utils/t6bisConstants';
+import { isAffaireChange, isAmendeTransactionnelle, isCm, isContrainteParCorps, isMtm, isTaxeCoordination } from '../../../../../utils/t6bisUtils';
 
 
 
@@ -34,24 +36,24 @@ class T6bisTaxationGlobaleListeTaxationBlock extends React.Component {
                 libelle: translate('t6bisGestion.tabs.taxation.globale.rubriquesTable.montantActuel'),
                 width: 200,
             }
-            ,
-            {
-                code: 'isNew',
-                libelle: '',
-                width: 50,
-                component: 'button',
-                icon: 'pencil',
-                action: (row, index) =>
-                    this.updateItem(row, index)
-            }, {
-                code: '',
-                libelle: '',
-                width: 50,
-                component: 'button',
-                icon: 'delete-outline',
-                action: (row, index) =>
-                    this.removeItem(row, index)
-            }
+            /*  ,
+             {
+                 code: 'isNew',
+                 libelle: '',
+                 width: 50,
+                 component: 'button',
+                 icon: 'pencil',
+                 action: (row, index) =>
+                     this.updateItem(row, index)
+             }, {
+                 code: '',
+                 libelle: '',
+                 width: 50,
+                 component: 'button',
+                 icon: 'delete-outline',
+                 action: (row, index) =>
+                     this.removeItem(row, index)
+             } */
 
 
         ];
@@ -101,7 +103,29 @@ class T6bisTaxationGlobaleListeTaxationBlock extends React.Component {
 
     componentDidMount() {
 
-        console.log('T6bisArticlesListArticlesBlock componentWillmount');
+        if (!this.props.readOnly) {
+
+            this.cols.push(
+                {
+                    code: 'isNew',
+                    libelle: '',
+                    width: 50,
+                    component: 'button',
+                    icon: 'pencil',
+                    action: (row, index) =>
+                        this.updateItem(row, index)
+                });
+            this.cols.push({
+                code: '',
+                libelle: '',
+                width: 50,
+                component: 'button',
+                icon: 'delete-outline',
+                action: (row, index) =>
+                    this.removeItem(row, index)
+            });
+
+        }
     }
 
     componentDidUpdate() {
@@ -117,9 +141,29 @@ class T6bisTaxationGlobaleListeTaxationBlock extends React.Component {
     }
 
 
+    getCommandeByCodeType() {
+        if (this.props.t6bis && this.props.t6bis?.codeTypeT6bis) {
+            let codeTypeT6bis = this.props.t6bis.codeTypeT6bis;
+            if (isMtm(codeTypeT6bis) || isCm(codeTypeT6bis)) {
+                return "getListRubriqueMtmTaxationGlobale";
+            } else if (isTaxeCoordination(codeTypeT6bis)) {
+                return "getListRubriqueTaxeCoordination";
+            }
+            else if (isContrainteParCorps(codeTypeT6bis)) {
+                return "getListRubriqueContrainteParCorps";
+            } else if (isAffaireChange(codeTypeT6bis)) {
+                return "getListRubriqueAffaireChangeImport";
+            } else if (isAmendeTransactionnelle(codeTypeT6bis)) {
+                return "getListAmendeTransactionnelle";
+            }
+        }
+        return "getListRubrique";
+    }
 
     supprimerTout = () => {
         this.props.t6bis.listeT6bisLigneTaxationGlobale = [];
+        this.props.callbackHandler(ADD_TAXATION_GLOBALE_TASK, null);
+        this.comboRrubriqueTaxation.clearInput();
         this.setState({ errorMessage: null, ligne: { rubriqueTaxation: { code: null }, tauxTaxation: null, montantTaxation: null }, selectedIndex: -1 });
     }
     valider() {
@@ -130,17 +174,28 @@ class T6bisTaxationGlobaleListeTaxationBlock extends React.Component {
                 errorMessage: translate('t6bisGestion.tabs.taxation.globale.rubriqueBloc.msgErreurRequired')
             });
         } else {
+
+            let listFilter = this.props.t6bis.listeT6bisLigneTaxationGlobale.filter((elt) => elt.rubriqueTaxation.code == this.state.ligne.rubriqueTaxation.code)
+            if (listFilter && listFilter.length > 0) {
+                this.setState({
+                    errorMessage: translate('t6bisGestion.tabs.taxation.globale.rubriqueBloc.msgErreurLineAleadyExist')
+                });
+                return;
+            }
             if (this.state.selectedIndex == -1) {
                 this.props.t6bis.listeT6bisLigneTaxationGlobale.push(this.state.ligne);
             } else {
                 this.props.t6bis.listeT6bisLigneTaxationGlobale.splice(this.state.selectedIndex, 1, this.state.ligne);
             }
-
+            this.props.callbackHandler(ADD_TAXATION_GLOBALE_TASK, null);
+            this.comboRrubriqueTaxation.clearInput();
             this.setState({ ligne: { rubriqueTaxation: { code: null }, tauxTaxation: null, montantTaxation: null }, errorMessage: null, selectedIndex: -1 });
         }
     }
 
     retablir() {
+        this.props.callbackHandler(ADD_TAXATION_GLOBALE_TASK, null);
+        this.comboRrubriqueTaxation.clearInput();
         this.setState({ ligne: { rubriqueTaxation: { code: null }, tauxTaxation: null, montantTaxation: null }, errorMessage: null, selectedIndex: -1 });
     }
 
@@ -187,7 +242,7 @@ class T6bisTaxationGlobaleListeTaxationBlock extends React.Component {
                             </View>
                         </Col>
                     </Row>
-                    <Row size={200}>
+                    {(!this.props.readOnly) && (<Row size={200}>
                         <Col size={200} style={{ padding: 10 }}>
                             <View style={styles.ComContainerCompBtn}>
 
@@ -203,9 +258,9 @@ class T6bisTaxationGlobaleListeTaxationBlock extends React.Component {
                             </View>
                         </Col>
 
-                    </Row>
+                    </Row>)}
 
-                    <Row size={200}><Col>
+                    {(!this.props.readOnly) && (<Row size={200}><Col>
                         <View style={{ padding: 10 }}>
 
                             <Row size={200}>
@@ -223,7 +278,7 @@ class T6bisTaxationGlobaleListeTaxationBlock extends React.Component {
                                         libelle="libelle"
                                         module="REF_LIB"
                                         selectedValue={this.state.ligne.rubriqueTaxation?.code}
-                                        command="getListRubrique"
+                                        command={this.getCommandeByCodeType()}
                                         onValueChange={(itemValue, itemIndex, selectedItem) =>
                                             this.handleRubriqueTaxationChanged(itemValue, itemIndex, selectedItem)
                                         }
@@ -301,7 +356,7 @@ class T6bisTaxationGlobaleListeTaxationBlock extends React.Component {
 
                             </Row>
 
-                        </View></Col></Row>
+                        </View></Col></Row>)}
 
 
                 </View>

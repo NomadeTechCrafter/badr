@@ -99,6 +99,16 @@ export default {
                         choisirElement: 'choisir un élément',
                         typeMoyenPaiement: "Type moyen paiement"
                     }
+                },
+                motivation:'Motivation',
+                recapList: {
+                    title: 'Recapitulatif taxation',
+                    rubrique: 'Code ubrique',
+                    designation: 'Designation',
+                    montant: 'Montant (DH)',
+                    totalTaxationArticle: ' TOTAL T6BIS (DH) :'
+
+
                 }
             },
             articles: {
@@ -211,7 +221,8 @@ export default {
                         rubriqueTaxation: 'Rubrique',
                         tauxTaxation: 'Taux',
                         montantTaxation: 'Montant taxe',
-                        msgErreurRequired: 'Merci de rensigner tous les champs obligatoires.'
+                        msgErreurRequired: 'Merci de rensigner tous les champs obligatoires.',
+                        msgErreurLineAleadyExist:'La rubrique selectionnée existe déjà dans la liste'
                     }
                 },
             },
@@ -229,6 +240,21 @@ export default {
                     
                 }
             }
+        },
+        declarationDejaEnregistree: 'T6bis déja enregistrée.',
+        suppression: {
+            confirmDialog: {
+                info: 'Suppression déclaration T6BIS',
+                oui: 'Oui',
+                non: 'Non',
+                suppressionMessage: 'Voulez-vous supprimer la T6BIS?',
+            },
+        },
+        buttons: {
+            enregistrer: 'Enregistrer',
+            sauvegarder: 'Sauvegarder',
+            supprimer: 'Supprimer',
+            quitter: 'Quitter',
         }
 
     },

@@ -29,7 +29,7 @@ class T6bisInfosCommunsBlock extends React.Component {
     }
 
     componentWillUnmount() {
-        console.log('componentWillUnmount');
+        console.log('6bisInfosCommunsBlock componentWillUnmount');
     }
 
 
@@ -52,7 +52,7 @@ class T6bisInfosCommunsBlock extends React.Component {
         title += '  ' + format(dateCreation);
         let nomIntervenant = (t6bis?.intervenantVO?.nomIntervenant) ? t6bis?.intervenantVO?.nomIntervenant:'';
         let prenomIntervenant = (t6bis?.intervenantVO?.prenomIntervenant) ? t6bis?.intervenantVO?.prenomIntervenant: '';
-        let numeroDocumentIdentite = (t6bis?.intervenantVO?.numeroDocumentIdentite) ? t6bis?.intervenantVO?.numeroDocumentIdentite : '';
+        let numeroDocumentIdentite = (t6bis?.intervenantVO?.numeroDocumentIndentite) ? t6bis?.intervenantVO?.numeroDocumentIndentite : '';
         return (
 
             <View>

@@ -23,7 +23,7 @@ class T6bisEnteteRedevableBlock extends React.Component {
     }
 
     componentWillUnmount() {
-        console.log('componentWillUnmount');
+        console.log('T6bisEnteteRedevableBlock componentWillUnmount');
     }
 
 
@@ -59,9 +59,9 @@ class T6bisEnteteRedevableBlock extends React.Component {
                 
 
                     {isRedevableNonOperator(codeTypeT6bis) && (
-                        <T6bisEnteteRedevableSousBlock identifiants={this.props.identifiants} t6bis={this.props.t6bis} fieldsetcontext={this.props.fieldsetcontext} callbackHandler={this.viewCallBackHandler} />)}
+                    <T6bisEnteteRedevableSousBlock identifiants={this.props.identifiants} t6bis={this.props.t6bis} fieldsetcontext={this.props.fieldsetcontext} readOnly={this.props.readOnly} callbackHandler={this.viewCallBackHandler} />)}
                     {isRedevableOperator(codeTypeT6bis) && (
-                        <T6bisEnteteRedevableOpeSousBlock t6bis={this.props.t6bis} fieldsetcontext={this.props.fieldsetcontext} callbackHandler={this.viewCallBackHandler} />)}
+                    <T6bisEnteteRedevableOpeSousBlock t6bis={this.props.t6bis} fieldsetcontext={this.props.fieldsetcontext} readOnly={this.props.readOnly} callbackHandler={this.viewCallBackHandler} />)}
 
 
             </View>

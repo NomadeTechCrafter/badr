@@ -50,7 +50,7 @@ class T6bisEnteteRedevableOpeSousBlock extends React.Component {
     }
 
     componentWillUnmount() {
-        console.log('componentWillUnmount');
+        console.log('T6bisEnteteRedevableOpeSousBlock componentWillUnmount');
     }
 
 
@@ -61,8 +61,8 @@ class T6bisEnteteRedevableOpeSousBlock extends React.Component {
 
     confirmer = () => {
         console.log('confirmer', this.state.expanded);
-        console.log('confirmer', this.props.t6bis?.infoCompleted);
-        this.state.expanded = (this.props.t6bis?.infoCompleted) ? this.props.t6bis.infoCompleted : false;
+        console.log('confirmer', this.props?.infoCompleted);
+        this.state.expanded = (this.props?.infoCompleted) ? this.props.infoCompleted : false;
         console.log('confirmer', this.state.expanded);
     }
 
@@ -114,7 +114,7 @@ class T6bisEnteteRedevableOpeSousBlock extends React.Component {
                                     't6bisGestion.tabs.entete.redevableBlock.choisirValeur'
                                 )}
                                 code="code"
-                                disabled={false}
+                                disabled={this.props.readOnly}
                                 selected={this.state.acOperateur}
                                 maxItems={3}
                                 libelle="libelle"
@@ -128,7 +128,7 @@ class T6bisEnteteRedevableOpeSousBlock extends React.Component {
 
                     <Row size={100}>
                         <Col size={100}>
-                            {(!this.state.readonly) && (
+                            {(!this.props.readonly) && (
                                 <View style={styles.ComContainerCompBtn}>
 
 

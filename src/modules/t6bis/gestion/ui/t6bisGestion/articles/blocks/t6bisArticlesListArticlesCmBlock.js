@@ -44,7 +44,9 @@ class T6bisArticlesListArticlesCmBlock extends React.Component {
                 icon: 'pencil',
                 action: (row, index) =>
                     this.updateItem(row, index)
-            }, {
+            }
+            
+           /*  , {
                 code: '',
                 libelle: '',
                 width: 50,
@@ -52,7 +54,7 @@ class T6bisArticlesListArticlesCmBlock extends React.Component {
                 icon: 'delete-outline',
                 action: (row, index) =>
                    this.removeItem(row, index)
-            }
+            } */
 
 
         ];
@@ -79,7 +81,18 @@ class T6bisArticlesListArticlesCmBlock extends React.Component {
 
     componentDidMount() {
 
-        console.log('T6bisArticlesListArticlesBlock componentWillmount');
+        if (!this.props.readOnly) {
+            this.cols.push({
+                code: '',
+                libelle: '',
+                width: 50,
+                component: 'button',
+                icon: 'delete-outline',
+                action: (row, index) =>
+                    this.removeItem(row, index)
+            }
+            );
+        }
     }
 
     componentDidUpdate() {

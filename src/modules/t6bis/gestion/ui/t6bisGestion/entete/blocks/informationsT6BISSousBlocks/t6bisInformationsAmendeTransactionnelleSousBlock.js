@@ -21,14 +21,15 @@ class T6bisInformationsAmendeTransactionnelleSousBlock extends React.Component {
             bureauAffaire: this.props.t6bis?.bureauAffaire,
             anneeAffaire: this.props.t6bis?.anneeAffaire,
             numeroSerieAffaire: this.props.t6bis?.numeroSerieAffaire,
-            typeMoyenPaiement: this.props.t6bis?.typeMoyenPaiement
+            typeMoyenPaiement: this.props.t6bis?.typeMoyenPaiement?.code
 
         };
     }
 
 
     onBlurNumeroSerie(text) {
-        this.setState({ numeroSerieAffaire: formatSerie(text)});  
+        this.setState({ numeroSerieAffaire: formatSerie(text) });
+        this.props.t6bis.numeroSerieAffaire = formatSerie(text);
     }
 
 
@@ -45,7 +46,7 @@ class T6bisInformationsAmendeTransactionnelleSousBlock extends React.Component {
                 <View>
 
 
-                    
+
                     <Row size={200}>
                         <Col size={40} style={styles.labelContainer}>
                             <Text style={styles.labelTextStyle}>
@@ -62,10 +63,16 @@ class T6bisInformationsAmendeTransactionnelleSousBlock extends React.Component {
 
                         <Col size={160} style={styles.labelContainer}>
                             <TextInput
+
                                 mode="outlined"
+                                disabled={this.props.readOnly}
                                 label={translate('t6bisGestion.tabs.entete.informationst6bisBlock.amendeTransactionnelle.descriptifInfraction')}
                                 value={this.state.descriptifInfraction}
-                                onChangeText={(text) => this.setState({ descriptifInfraction: text })}
+                                onChangeText={(text) => {
+                                    this.setState({ descriptifInfraction: text });
+                                    this.props.t6bis.descriptifInfraction = text;
+                                
+                                }}
                             />
                         </Col>
 
@@ -76,33 +83,42 @@ class T6bisInformationsAmendeTransactionnelleSousBlock extends React.Component {
                             <Text style={styles.labelTextStyle}>
                                 {translate('t6bisGestion.tabs.entete.informationst6bisBlock.amendeTransactionnelle.referenceAffaire')}
                             </Text>
-                           
+
 
                         </Col>
 
                         <Col size={40} style={styles.labelContainer}>
                             <TextInput
                                 mode="outlined"
+                                disabled={this.props.readOnly}
                                 maxLength={3}
                                 label={translate('t6bisGestion.tabs.entete.informationst6bisBlock.amendeTransactionnelle.bureau')}
                                 value={this.state.bureauAffaire}
                                 keyboardType={'number-pad'}
-                                onChangeText={(text) => this.setState({ bureauAffaire: text })}
+                                onChangeText={(text) => {
+                                    this.setState({ bureauAffaire: text });
+                                    this.props.t6bis.bureauAffaire = text;
+                                }}
                             />
                         </Col>
                         <Col size={50} style={styles.labelContainer}>
                             <TextInput
                                 mode="outlined"
+                                disabled={this.props.readOnly}
                                 maxLength={4}
                                 label={translate('t6bisGestion.tabs.entete.informationst6bisBlock.amendeTransactionnelle.annee')}
                                 value={this.state.anneeAffaire}
                                 keyboardType={'number-pad'}
-                                onChangeText={(text) => this.setState({ anneeAffaire: text })}
+                                onChangeText={(text) => {
+                                    this.setState({ anneeAffaire: text });
+                                    this.props.t6bis.anneeAffaire = text;
+                                }}
                             />
                         </Col>
                         <Col size={70} style={styles.labelContainer}>
                             <TextInput
                                 mode="outlined"
+                                disabled={this.props.readOnly}
                                 label={translate('t6bisGestion.tabs.entete.informationst6bisBlock.amendeTransactionnelle.serie')}
                                 value={this.state.numeroSerieAffaire}
                                 keyboardType={'number-pad'}
@@ -129,17 +145,20 @@ class T6bisInformationsAmendeTransactionnelleSousBlock extends React.Component {
                         <Col size={160} style={styles.labelContainer}>
                             <ComBadrItemsPickerComp
                                 style={styles.labelTextStyle}
+                                disabled={this.props.readOnly}
                                 label={translate('t6bisGestion.tabs.entete.informationst6bisBlock.amendeTransactionnelle.choisirElement')}
                                 selectedValue={this.state.typeMoyenPaiement}
                                 items={this.props.listmoyenpaiement}
-                                onValueChanged={(value, index) =>
-                                    this.setState({ typeMoyenPaiement: value.code })
+                                onValueChanged={(value, index) => {
+                                    this.setState({ typeMoyenPaiement: value.code });
+                                    this.props.t6bis.typeMoyenPaiement = value;
+                                }
                                 }
                             />
                         </Col>
                     </Row>
-                    
-                    
+
+
 
                 </View>
             </ComAccordionComp>

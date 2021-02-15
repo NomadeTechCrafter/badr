@@ -43,10 +43,11 @@ class T6bisArticlesCurrentArticleCmBlock extends React.Component {
         }
     }
 
-    handleuniteQuantiteChanged = (unite) => {
+    handleUniteQuantiteChanged = (unite) => {
         this.setState({
             acUniteValue: unite,
-            currentArticle: { ...this.state.currentArticle, uniteQuantite: unite }
+			currentArticle: {
+                ...this.state.currentArticle, uniteQuantite: unite.code, libelleUnite: unite.libelle}
         });
 
 
@@ -90,7 +91,7 @@ class T6bisArticlesCurrentArticleCmBlock extends React.Component {
     };
 
     ajouter = () => {
-        if (!this.checkRequiredFields()) {
+        if (!this.checkRequiredFields()) {								 
             this.props.callbackHandler(T6BISConstantes.ADD_ARTCLE_CM_TASK, this.state.currentArticle);
         }
 
@@ -98,7 +99,7 @@ class T6bisArticlesCurrentArticleCmBlock extends React.Component {
     }
 
     modifier = () => {
-        if (!this.checkRequiredFields()) {
+        if (!this.checkRequiredFields()) {								 
             this.props.callbackHandler(T6BISConstantes.MODIFY_ARTCLE_CM_TASK, this.state.currentArticle);
         }
 
@@ -147,6 +148,9 @@ class T6bisArticlesCurrentArticleCmBlock extends React.Component {
 
     }
     
+	clearComboboxAutoComplete() {
+        this.comboDevise.clearInput();
+     }						  
 
     static getDerivedStateFromProps(props, state) {
         console.log('getDerivedStateFromProps--------------------props ', props);
@@ -195,6 +199,7 @@ class T6bisArticlesCurrentArticleCmBlock extends React.Component {
 
                         <Col size={60} style={styles.labelContainer}>
                             <TextInput
+                                disabled={this.props.readOnly}
                                 mode="outlined"
                                 label={translate('t6bisGestion.tabs.articles.articleBlock.cm.marque')}
                                 value={this.state.currentArticle?.marque}
@@ -218,6 +223,7 @@ class T6bisArticlesCurrentArticleCmBlock extends React.Component {
                         <Col size={60} style={styles.labelContainer}>
                             <TextInput
                                 mode="outlined"
+                                disabled={this.props.readOnly}
                                 label={translate('t6bisGestion.tabs.articles.articleBlock.cm.modele')}
                                 value={this.state.currentArticle?.modele}
                                 onChangeText={(text) => this.setState({
@@ -251,6 +257,7 @@ class T6bisArticlesCurrentArticleCmBlock extends React.Component {
                         <Col size={60} style={styles.labelContainer}>
                             <TextInput
                                 mode="outlined"
+                                disabled={this.props.readOnly}
                                 label={translate('t6bisGestion.tabs.articles.articleBlock.cm.cylindree')}
                                 maxLength={1}
                                 keyboardType={'phone-pad'}
@@ -280,6 +287,7 @@ class T6bisArticlesCurrentArticleCmBlock extends React.Component {
                         <Col size={60} style={styles.labelContainer}>
                             <TextInput
                                 mode="outlined"
+                                disabled={this.props.readOnly}
                                 label={translate('t6bisGestion.tabs.articles.articleBlock.cm.numeroCadre')}
                                 value={this.state.currentArticle?.numeroCadre}
                                 onChangeText={(text) => this.setState({
@@ -309,6 +317,7 @@ class T6bisArticlesCurrentArticleCmBlock extends React.Component {
                         <Col size={60} style={styles.labelContainer}>
                             <TextInput
                                 mode="outlined"
+                                disabled={this.props.readOnly}
                                 label={translate('t6bisGestion.tabs.articles.articleBlock.cm.numeroImmatriculation')}
                                 value={this.state.currentArticle?.numeroImmatriculation}
                                 onChangeText={(text) => this.setState({
@@ -329,8 +338,9 @@ class T6bisArticlesCurrentArticleCmBlock extends React.Component {
 
                         <Col size={60} style={styles.labelContainer}>
                             <ComBadrDatePickerComp
+                                disabled={this.props.readOnly}
                                 labelDate={translate('t6bisGestion.tabs.articles.articleBlock.cm.dateMiseCirculation')}
-                                value={this.state.currentArticle?.dateMiseEnCirculation}
+                                value={this.state.currentArticle.dateMiseEnCirculation}
                                 dateFormat="DD/MM/YYYY"
                                 onDateChanged={(text) => this.setState({
                                     currentArticle: {
@@ -338,7 +348,9 @@ class T6bisArticlesCurrentArticleCmBlock extends React.Component {
                                         dateMiseEnCirculation: text
                                     }
                                 })}
-                                inputStyle={styles.textInputsStyle} />
+                                inputStyle={styles.textInputsStyle}
+                                 
+                            />
                         </Col>
 
 
@@ -363,16 +375,21 @@ class T6bisArticlesCurrentArticleCmBlock extends React.Component {
 
                         <Col size={160} style={styles.labelContainer}>
                             <TextInput
+                                disabled={this.props.readOnly}
                                 mode="outlined"
                                 keyboardType={'number-pad'}
+                                maxLength={24}
                                 label={translate('t6bisGestion.tabs.articles.articleBlock.cm.valeurTaxable')}
                                 value={this.state.currentArticle?.valeurTaxable}
-                                onChangeText={(text) => this.setState({
-                                    currentArticle: {
-                                        ...this.state.currentArticle,
-                                        valeurTaxable: text
-                                    }
-                                })}
+                                onChangeText={(text) => {
+                                    text = text.replace(/[^0-9.]/g, '');
+                                    this.setState({
+                                        currentArticle: {
+                                            ...this.state.currentArticle,
+                                            valeurTaxable: text
+                                        }
+                                    }); 
+                                }}
                             />
                         </Col>
 
@@ -388,15 +405,21 @@ class T6bisArticlesCurrentArticleCmBlock extends React.Component {
 
                         <Col size={60} style={styles.labelContainer}>
                             <TextInput
+                                disabled={this.props.readOnly}
                                 mode="outlined"
+                                maxLength={24}
                                 label={translate('t6bisGestion.tabs.articles.articleBlock.cm.montantFacture')}
                                 value={this.state.currentArticle?.montantFacture}
-                                onChangeText={(text) => this.setState({
-                                    currentArticle: {
-                                        ...this.state.currentArticle,
-                                        montantFacture: text
-                                    }
-                                })}
+                                onChangeText={(text) => {
+                                    text = text.replace(/[^0-9.]/g, '');
+                                    this.setState({
+                                    
+                                        currentArticle: {
+                                            ...this.state.currentArticle,
+                                            montantFacture: text
+                                        }
+                                    });
+                                }}
                             />
                         </Col>
 
@@ -411,6 +434,7 @@ class T6bisArticlesCurrentArticleCmBlock extends React.Component {
                         </Col>
                         <Col size={60} style={styles.labelContainer}>
                             <ComBadrPickerComp
+                                disabled={this.props.readOnly}
                                 onRef={(ref) => (this.comboDevise = ref)}
                                 key="devise"
                                 style={CustomStyleSheet.badrPicker}
@@ -418,6 +442,8 @@ class T6bisArticlesCurrentArticleCmBlock extends React.Component {
                                 libelle="libelle"
                                 module="REF_LIB"
                                 command="completeDeviseChangeCmb"
+								selected={this.state.currentArticle?.devise}
+                                selectedValue={this.state.currentArticle?.devise}											
                                 onValueChange={(item) =>
                                     this.handleDeviseChanged(item)
                                 }
@@ -433,7 +459,7 @@ class T6bisArticlesCurrentArticleCmBlock extends React.Component {
 
 
                        
-                    <Row size={200}>
+                    {(!this.props.readOnly) && (<Row size={200}>
                         <Col size={200}>
 
                             <View style={styles.ComContainerCompBtn}>
@@ -457,7 +483,7 @@ class T6bisArticlesCurrentArticleCmBlock extends React.Component {
                                 
                             </View>
                         </Col>
-                    </Row>
+                    </Row>)}
 
 
                 </View>

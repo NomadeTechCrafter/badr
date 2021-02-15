@@ -7,6 +7,7 @@ import translate from "../../../../../../../commons/i18n/ComI18nHelper";
 import { CustomStyleSheet } from '../../../../../../../commons/styles/ComThemeStyle';
 import styles from "../../../../style/t6bisGestionStyle";
 import _ from 'lodash';
+import { ADD_TAXATION_ARTICLE_TASK } from '../../../../../utils/t6bisConstants';
 
 
 
@@ -40,7 +41,7 @@ class T6bisTaxationManuelleArticleTaxBlock extends React.Component {
                 libelle: translate('t6bisGestion.tabs.taxation.manuelle.rubriquesTable.montantTaxation'),
                 width: 150,
             }
-            ,
+            /* ,
             {
                 code: 'isNew',
                 libelle: '',
@@ -58,7 +59,7 @@ class T6bisTaxationManuelleArticleTaxBlock extends React.Component {
                 action: (row, index) =>
                     this.removeItem(row, index)
             }
-
+ */
 
         ];
     }
@@ -70,8 +71,8 @@ class T6bisTaxationManuelleArticleTaxBlock extends React.Component {
     updateItem = (row, index) => {
         console.log('updateItem row : ', row);
         console.log('updateItem index : ', index);
-        
-        this.setState({ ligne: row, selectedIndex:index});
+
+        this.setState({ ligne: row, selectedIndex: index });
 
     }
     removeItem = (row, index) => {
@@ -107,7 +108,29 @@ class T6bisTaxationManuelleArticleTaxBlock extends React.Component {
 
     componentDidMount() {
 
-        console.log('T6bisArticlesListArticlesBlock componentWillmount');
+        if (!this.props.readOnly) {
+
+            this.cols.push(
+                {
+                    code: 'isNew',
+                    libelle: '',
+                    width: 50,
+                    component: 'button',
+                    icon: 'pencil',
+                    action: (row, index) =>
+                        this.updateItem(row, index)
+                });
+            this.cols.push({
+                code: '',
+                libelle: '',
+                width: 50,
+                component: 'button',
+                icon: 'delete-outline',
+                action: (row, index) =>
+                    this.removeItem(row, index)
+            });
+
+        }
     }
 
     componentDidUpdate() {
@@ -122,14 +145,15 @@ class T6bisTaxationManuelleArticleTaxBlock extends React.Component {
         console.log('T6bisArticlesListArticlesBlock componentWillUnmount');
     }
 
-   
+
 
     supprimerTout = () => {
-        this.props.currentArticle.listeT6bisLigneTaxation=[];
+        this.props.currentArticle.listeT6bisLigneTaxation = [];
+        this.comboRrubriqueTaxation.clearInput();
         this.setState({ errorMessage: null, ligne: { rubriqueTaxation: { code: null }, tauxTaxation: null, montantTaxation: null }, selectedIndex: -1 });
     }
     valider() {
-             
+
 
         if (_.isEmpty(this.state.ligne?.rubriqueTaxation) || _.isEmpty(this.state.ligne?.tauxTaxation) || _.isEmpty(this.state.ligne?.montantTaxation)) {
             this.setState({ fieldRequired: true });
@@ -139,14 +163,17 @@ class T6bisTaxationManuelleArticleTaxBlock extends React.Component {
             } else {
                 this.props.currentArticle.listeT6bisLigneTaxation.splice(this.state.selectedIndex, 1, this.state.ligne);
             }
-
-            this.setState({ ligne: { rubriqueTaxation: { code: null }, tauxTaxation: null, montantTaxation: null }, errorMessage: null, selectedIndex: -1  });
+            this.props.callbackHandler(ADD_TAXATION_ARTICLE_TASK, this.props.currentArticle);
+            this.comboRrubriqueTaxation.clearInput();
+            this.setState({ ligne: { rubriqueTaxation: { code: null }, tauxTaxation: null, montantTaxation: null }, errorMessage: null, selectedIndex: -1 });
         }
     }
 
     retablir() {
-        this.setState({ ligne: { rubriqueTaxation: { code :null}, tauxTaxation: null, montantTaxation: null }, errorMessage: null, selectedIndex: -1  });
+        this.comboRrubriqueTaxation.clearInput();
+        this.setState({ ligne: { rubriqueTaxation: { code: null }, tauxTaxation: null, montantTaxation: null }, errorMessage: null, selectedIndex: -1 });
     }
+
 
 
 
@@ -274,10 +301,10 @@ class T6bisTaxationManuelleArticleTaxBlock extends React.Component {
                             </View>
                         </Col>
                     </Row>
-                    <Row size={200}>
+                    {(!this.props.readOnly) && (<Row size={200}>
                         <Col size={200} style={{ padding: 10 }}>
                             <View style={styles.ComContainerCompBtn}>
-                                
+
 
                                 <ComBadrButtonComp
                                     style={styles.actionBtn}
@@ -290,9 +317,9 @@ class T6bisTaxationManuelleArticleTaxBlock extends React.Component {
                             </View>
                         </Col>
 
-                    </Row>
+                    </Row>)}
 
-                    <Row size={200}><Col>
+                    {(!this.props.readOnly) && (<Row size={200}><Col>
                         <View style={{ padding: 10 }}>
 
                             <Row size={200}>
@@ -310,6 +337,7 @@ class T6bisTaxationManuelleArticleTaxBlock extends React.Component {
                                         libelle="libelle"
                                         module="REF_LIB"
                                         selectedValue={this.state.ligne.rubriqueTaxation?.code}
+                                        selected={this.state.ligne.rubriqueTaxation?.code}
                                         command="getListRubrique"
                                         onValueChange={(itemValue, itemIndex, selectedItem) =>
                                             this.handleRubriqueTaxationChanged(itemValue, itemIndex, selectedItem)
@@ -388,7 +416,8 @@ class T6bisTaxationManuelleArticleTaxBlock extends React.Component {
 
                             </Row>
 
-                        </View></Col></Row>
+                        </View>
+                    </Col></Row>)}
 
 
                 </View>

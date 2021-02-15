@@ -63,6 +63,12 @@ const styles = {
     textInputsStyle: {
         padding: 10,
     },
+    ComContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginTop: 10,
+    },
+    MontantLabel:{ fontSize: 16, fontWeight: 'bold' , color: '#009ab2'}
 
 };
 

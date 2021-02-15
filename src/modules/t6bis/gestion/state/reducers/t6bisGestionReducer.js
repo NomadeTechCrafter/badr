@@ -1,13 +1,13 @@
 
 /**Constants */
 import * as Constants from '../t6bisGestionConstants';
-import { getCurrentArticle, hasAtLeastOneTaxationLine } from "../../../utils/t6bisUtils";
+import { calculateTotalT6bis, getCurrentArticle, groupLignesByRubrique, groupLignesByRubriqueByArticle, hasAtLeastOneTaxationLine, isCm, isMtm } from "../../../utils/t6bisUtils";
+import { MODE_CREATION } from '../../../utils/t6bisConstants';
 
 const initialState = {
   confirmed: false,
   showProgress: false,
   displayError: false,
-  t6bisEnteteData: null,
   t6bis: null,
   identifiants: null,
   listmoyenpaiement: null,
@@ -23,10 +23,8 @@ export default (state = initialState, action) => {
     ...state,
     value: action.value,
   };
-  console.log('t6bisGestionReducer--action.type', action.type);
   switch (action.type) {
     case Constants.T6BIS_INIT_ENTETE_REQUEST:
-      console.log(Constants.T6BIS_INIT_FOR_CREATION_REQUEST);
       nextState.displayError = false;
       nextState.correct = false;
       nextState.showProgress = true;
@@ -36,11 +34,39 @@ export default (state = initialState, action) => {
     case Constants.T6BIS_INIT_ENTETE_SUCCES:
       nextState.showProgress = false;
       nextState.confirmed = true;
-      nextState.t6bisEnteteData = action.value;
-      nextState.t6bis = action.value.t6bisMtmDto;
+      nextState.mode = action.value.mode;
+      console.log()
+      if (action.value.mode === MODE_CREATION) {
+        nextState.t6bis = action.value.t6bisMtmDto;
+        nextState.currentArticle = getCurrentArticle(nextState.t6bis.codeTypeT6bis, 0);
+        nextState.recapCurrentArticleList = [];
+        nextState.listeRecap = [];
+      } else {
+        nextState.t6bis = action.value.t6bis;
+        console.log('-------------------------t6bis-----------------------------------------------------');
+        if (isMtm(action.value.t6bis.codeTypeT6bis) || isCm(action.value.t6bis.codeTypeT6bis)) {
+          console.log('-------------------------t6bis-----------------------------------------------------');
+          if (nextState.t6bis.listeArticleT6bis && nextState.t6bis.listeArticleT6bis.length>1) {
+            nextState.currentArticle = nextState.t6bis.listeArticleT6bis[0];
+            let recapCurrentArticleList = [];
+            groupLignesByRubriqueByArticle(nextState.t6bis, recapCurrentArticleList, nextState.currentArticle);
+            nextState.currentArticle.montantGlobalByArticle = calculateTotalT6bis(recapCurrentArticleList, nextState.t6bis);
+            nextState.recapCurrentArticleList = recapCurrentArticleList;
+          } else { nextState.currentArticle = getCurrentArticle(nextState.t6bis.codeTypeT6bis, 0);}
+          
+          let listeRecap = [];
+          console.log('-------------------------t6bis-----------------------------------------------------');
+          console.log(nextState.t6bis);
+
+          groupLignesByRubrique(nextState.t6bis, listeRecap);
+          nextState.t6bis.montantGlobal = calculateTotalT6bis(listeRecap, nextState.t6bis);
+          nextState.listeRecap = listeRecap;
+          console.log('nextState.t6bis', nextState.t6bis);
+          console.log('-------------------------t6bis-----------------------------------------------------');
+        }
+      }
       nextState.identifiants = action.value.listTypeIdentifiant;
       nextState.listmoyenpaiement = action.value.typeMoyenPaiementList;
-      nextState.currentArticle = getCurrentArticle(action.value.t6bisMtmDto.codeTypeT6bis);
       nextState.haslignetaxation = hasAtLeastOneTaxationLine(nextState.t6bis);
       return nextState;
     case Constants.T6BIS_INIT_ENTETE_FAILED:
@@ -57,24 +83,25 @@ export default (state = initialState, action) => {
       nextState.showProgress = true;
       nextState.infoCompleted = false;
       nextState.newIntervenant = false;
+      nextState.retourFindIntervenant = false;
       return nextState;
     case Constants.FIND_INTERVENANT_IN_PROGRESS:
       return nextState;
     case Constants.FIND_INTERVENANT_SUCCES:
       nextState.showProgress = false;
       nextState.confirmed = true;
-      nextState.t6bis.infoCompleted = true;
-      nextState.t6bis.newIntervenant = false;
-      nextState.t6bis.retourFindIntervenant = true;
+      nextState.infoCompleted = true;
+      nextState.newIntervenant = false;
+      nextState.retourFindIntervenant = true;
       startRedevableCompletion(nextState.t6bis, action.value);
       return nextState;
     case Constants.FIND_INTERVENANT_FAILED:
       console.log(Constants.T6BIS_INIT_ENTETE_FAILED);
       nextState.showProgress = false;
       nextState.cofirmed = false;
-      nextState.t6bis.infoCompleted = true;
-      nextState.t6bis.newIntervenant = true;
-      nextState.t6bis.retourFindIntervenant = true;
+      nextState.infoCompleted = true;
+      nextState.newIntervenant = true;
+      nextState.retourFindIntervenant = true;
       clearRedevableCompletion(nextState.t6bis);
       return nextState;
     case Constants.T6BIS_UPDATE_PROPS_REQUEST:
@@ -84,7 +111,6 @@ export default (state = initialState, action) => {
     case Constants.T6BIS_UPDATE_PROPS_SUCCES:
       nextState.t6bis.listeArticleT6bis = action.value.listeArticleT6bis;
       nextState.currentArticle = action.value.currentArticle;
-
       return nextState;
     case Constants.T6BIS_UPDATE_PROPS_FAILED:
       return nextState;
@@ -97,6 +123,93 @@ export default (state = initialState, action) => {
       return nextState;
     case Constants.T6BIS_UPDATE_INTERVENANT_FAILED:
       return nextState;
+    case Constants.T6BIS_GESTION_GET_UNITE_CODE_REQUEST:
+      return nextState;
+    case Constants.T6BIS_GESTION_GET_UNITE_CODE_IN_PROGRESS:
+      return nextState;
+    case Constants.T6BIS_GESTION_GET_UNITE_CODE_SUCCES:
+      nextState.acUniteValue = action.value.descriptionUniteMesure;
+      return nextState;
+    case Constants.T6BIS_GESTION_GET_UNITE_CODE_FAILED:
+      return nextState;
+    case Constants.T6BIS_ADD_TAXATION_ARTICLE_REQUEST:
+      return nextState;
+    case Constants.T6BIS_ADD_TAXATION_ARTICLE_IN_PROGRESS:
+      return nextState;
+    case Constants.T6BIS_ADD_TAXATION_ARTICLE_SUCCES:
+      console.log('-----------------------------------T6BIS_ADD_TAXATION_ARTICLE_SUCCES--------------------------------------------');
+      console.log(action.value);
+      console.log(nextState);
+      nextState.currentArticle = action.value.currentArticle;
+      let recapCurrentArticleList = [];
+      groupLignesByRubriqueByArticle(nextState.t6bis, recapCurrentArticleList, nextState.currentArticle);
+      nextState.currentArticle.montantGlobalByArticle = calculateTotalT6bis(recapCurrentArticleList, nextState.t6bis);
+      nextState.recapCurrentArticleList = recapCurrentArticleList;
+      let listeRecap = [];
+      groupLignesByRubrique(nextState.t6bis, listeRecap);
+      nextState.t6bis.montantGlobal = calculateTotalT6bis(listeRecap, nextState.t6bis);
+      nextState.listeRecap = listeRecap;
+      console.log('-----------------------------------T6BIS_ADD_TAXATION_ARTICLE_SUCCES--------------------------------------------');
+      return nextState;
+    case Constants.T6BIS_ADD_TAXATION_ARTICLE_FAILED:
+      return nextState;
+    case Constants.T6BIS_ADD_TAXATION_GLOBALE_REQUEST:
+      return nextState;
+    case Constants.T6BIS_ADD_TAXATION_GLOBALE_IN_PROGRESS:
+      return nextState;
+    case Constants.T6BIS_ADD_TAXATION_GLOBALE_SUCCES:
+
+      listeRecap = [];
+      groupLignesByRubrique(nextState.t6bis, listeRecap);
+      nextState.t6bis.montantGlobal = calculateTotalT6bis(listeRecap, nextState.t6bis);
+      nextState.listeRecap = listeRecap;
+      return nextState;
+    case Constants.T6BIS_ADD_TAXATION_GLOBALE_FAILED:
+      return nextState;
+    case Constants.T6BIS_SAUVEGARDER_REQUEST:
+      return nextState;
+    case Constants.T6BIS_SAUVEGARDER_IN_PROGRESS:
+      return nextState;
+    case Constants.T6BIS_SAUVEGARDER_SUCCES:
+      console.log('-----------------------------------T6BIS_SAUVEGARDER_SUCCES--------------------------------------------');
+      console.log(action.value);
+      console.log(nextState);
+      nextState.t6bis = action.value.t6bis;
+      if (action.value.t6bis) {
+        nextState.t6bis.listeArticleT6bis = action.value.tempListArticles;
+      }
+      console.log('-----------------------------------T6BIS_SAUVEGARDER_SUCCES--------------------------------------------');
+      return nextState;
+    case Constants.T6BIS_SAUVEGARDER_FAILED:
+      nextState.errorMessage = action.value;
+      return nextState;
+    case Constants.T6BIS_ENREGISTRER_REQUEST:
+      return nextState;
+    case Constants.T6BIS_ENREGISTRER_IN_PROGRESS:
+      return nextState;
+    case Constants.T6BIS_ENREGISTRER_SUCCES:
+      console.log('-----------------------------------T6BIS_ENREGISTRER_SUCCES--------------------------------------------');
+      console.log(action.value);
+      console.log(nextState);
+      nextState.t6bis = action.value.t6bis;
+      if (action.value.t6bis) {
+        nextState.t6bis.listeArticleT6bis = action.value.tempListArticles;
+      }
+      console.log('-----------------------------------T6BIS_ENREGISTRER_SUCCES--------------------------------------------');
+      return nextState;
+    case Constants.T6BIS_ENREGISTRER_FAILED:
+      nextState.errorMessage = action.value;
+      return nextState;
+    case Constants.T6BIS_SUPPRIMER_REQUEST:
+      return nextState;
+    case Constants.T6BIS_SUPPRIMER_IN_PROGRESS:
+      return nextState;
+    case Constants.T6BIS_SUPPRIMER_SUCCES:
+      return nextState;
+    case Constants.T6BIS_SUPPRIMER_FAILED:
+      nextState.errorMessage = action.value;
+      return nextState;
+
     default:
       return nextState ? nextState : initialState;
   }
@@ -117,8 +230,8 @@ const startRedevableCompletion = function (t6bis, redevableResponse) {
   t6bis.intervenantVO.typeIntervenant = redevableResponse.typeIntervenant;
   t6bis.intervenantVO.numeroOrdreIntervenant = redevableResponse.numeroOrdreIntervenant;
   t6bis.intervenantVO.refPaysPassPort = redevableResponse.refPaysPassPort;
-  t6bis.intervenantVO.typeIdentifiant = redevableResponse.identifiants.typeIdentifiant;
-  t6bis.intervenantVO.numeroDocumentIdentite = redevableResponse.identifiants.numeroDocumentIdentite;
+  t6bis.intervenantVO.refTypeDocumentIdentite = redevableResponse.identifiants.typeIdentifiant;
+  t6bis.intervenantVO.numeroDocumentIndentite = redevableResponse.identifiants.numeroDocumentIdentite;
   console.log('t6bis-----------------------', t6bis);
 }
 

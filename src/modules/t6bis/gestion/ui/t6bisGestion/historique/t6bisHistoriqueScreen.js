@@ -40,12 +40,12 @@ class T6bisHistoriqueTab extends React.Component {
 
     render() {
 
-        let mode = (this.props.t6bisEnteteData) ? this.props.t6bisEnteteData.mode : '';
+        
 
         return (
 
             <ScrollView>
-                <T6bisHistoriqueListBlocks t6bis={this.props.t6bis} mode={mode}
+                <T6bisHistoriqueListBlocks t6bis={this.props.t6bis} mode={this.props.mode}
                     fieldsetcontext={this.props?.fieldsetcontext}
                 />
             </ScrollView>

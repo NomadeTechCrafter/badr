@@ -34,7 +34,7 @@ class T6bisTaxationGlobaleListBlocks extends React.Component {
     }
 
     componentWillUnmount() {
-        console.log('componentWillUnmount');
+        console.log('T6bisTaxationGlobaleListBlocks componentWillUnmount');
     }
 
 
@@ -53,7 +53,7 @@ class T6bisTaxationGlobaleListBlocks extends React.Component {
 
                 <View style={{ flex: 1 }}>
                     <T6bisInfosCommunsBlock t6bis={this.props.t6bis} mode={this.props.mode} fieldsetcontext={this.props.fieldsetcontext} />
-                    <T6bisTaxationGlobaleListeTaxationBlock t6bis={this.props.t6bis} />
+                    <T6bisTaxationGlobaleListeTaxationBlock t6bis={this.props.t6bis} readOnly={this.props.readOnly} callbackHandler={this.viewCallBackHandler}/>
 
                 </View>
 

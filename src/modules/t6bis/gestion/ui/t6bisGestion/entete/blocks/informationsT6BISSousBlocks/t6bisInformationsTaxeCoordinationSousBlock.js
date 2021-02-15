@@ -26,19 +26,34 @@ class T6bisInformationsTaxeCoordinationSousBlock extends React.Component {
             dateSortie: (this.props.t6bis?.dateSortie) ? new Date(this.props.t6bis?.dateSortie) : '',
             ptc: this.props.t6bis?.ptc,
             acNationalite: this.props.fieldsetcontext?.paysOrigine.nomPays,
-            typeMoyenPaiement: this.props.t6bis?.typeMoyenPaiement
+            typeMoyenPaiement: this.props.t6bis?.typeMoyenPaiementµ?.code
 
         };
+    }
+
+    onChangeGenre(value) {
+
+        if (value?.code) {
+            this.setState({ genre: value.libelle, genreCode: value.code });
+            this.props.t6bis.genre = value.libelle;
+            this.props.t6bis.genreCode = value.code;
+        } else {
+            this.setState({ genre: null, genreCode: null });
+            this.props.t6bis.genre = null;
+            this.props.t6bis.genreCode = null;
+        }
     }
 
 
 
     onDateEntreeChanged = (date) => {
         this.setState({ dateEntree: date });
+        this.props.t6bis.dateEntree = date;
     }
 
     onDateSortieChanged = (date) => {
         this.setState({ dateSortie: date });
+        this.props.t6bis.dateSortie = date;
     }
 
     handlePaysChanged = (pays) => {
@@ -78,10 +93,14 @@ class T6bisInformationsTaxeCoordinationSousBlock extends React.Component {
 
                         <Col size={160} style={styles.labelContainer}>
                             <TextInput
+                                disabled={this.props.readOnly}
                                 mode="outlined"
                                 label={translate('t6bisGestion.tabs.entete.informationst6bisBlock.taxeCoordination.numeroTriptyque')}
                                 value={this.state.numeroTriptyque}
-                                onChangeText={(text) => this.setState({ numeroTriptyque: text })}
+                                onChangeText={(text) => {
+                                    this.setState({ numeroTriptyque: text });
+                                    this.props.t6bis.numeroTriptyque = text;
+                                }}
                             />
                         </Col>
 
@@ -103,12 +122,14 @@ class T6bisInformationsTaxeCoordinationSousBlock extends React.Component {
 
                         <Col size={160} style={styles.labelContainer}>
                             <ComBadrItemsPickerComp
+                                disabled={this.props.readOnly}
                                 style={styles.labelTextStyle}
                                 label={translate('t6bisGestion.tabs.entete.informationst6bisBlock.taxeCoordination.genre')}
                                 selectedValue={this.state.genreCode}
+                                selected={this.state.genreCode}
                                 items={TbisConstantes.GENRES}
-                                onValueChanged={(value, index) => (value?.code) ? this.setState({ genre: value.libelle, genreCode: value.code }) : this.setState({ genre: null, genreCode: null })}
-                            />
+                                onValueChanged={(value, index) => this.onChangeGenre(value)
+                                } />
                         </Col>
 
 
@@ -129,6 +150,7 @@ class T6bisInformationsTaxeCoordinationSousBlock extends React.Component {
 
                         <Col size={160} style={styles.labelContainer}>
                             <TextInput
+                                disabled={this.props.readOnly}
                                 mode="outlined"
                                 label={translate('t6bisGestion.tabs.entete.informationst6bisBlock.taxeCoordination.immatriculation')}
                                 value={this.state.immatriculation}
@@ -154,6 +176,7 @@ class T6bisInformationsTaxeCoordinationSousBlock extends React.Component {
 
                         <Col size={160} style={styles.labelContainer}>
                             <ComBadrDatePickerComp
+                                disabled={this.props.readOnly}
                                 labelDate={translate('t6bisGestion.tabs.entete.informationst6bisBlock.taxeCoordination.dateEntree')}
                                 value={this.state.dateEntree}
                                 dateFormat="DD/MM/YYYY"
@@ -180,6 +203,7 @@ class T6bisInformationsTaxeCoordinationSousBlock extends React.Component {
 
                         <Col size={160} style={styles.labelContainer}>
                             <ComBadrDatePickerComp
+                                disabled={this.props.readOnly}
                                 labelDate={translate('t6bisGestion.tabs.entete.informationst6bisBlock.taxeCoordination.dateSortie')}
                                 value={this.state.dateSortie}
                                 dateFormat="DD/MM/YYYY"
@@ -205,11 +229,15 @@ class T6bisInformationsTaxeCoordinationSousBlock extends React.Component {
 
                         <Col size={160} style={styles.labelContainer}>
                             <TextInput
+                                disabled={this.props.readOnly}
                                 mode="outlined"
                                 keyboardType={'number-pad'}
                                 label={translate('t6bisGestion.tabs.entete.informationst6bisBlock.taxeCoordination.poidsTotalEnChargePTC')}
                                 value={this.state.ptc}
-                                onChangeText={(text) => this.setState({ ptc: text })}
+                                onChangeText={(text) => {
+                                    this.setState({ ptc: text });
+                                    this.props.t6bis.ptc = text;
+                                }}
                             />
                         </Col>
 
@@ -233,6 +261,7 @@ class T6bisInformationsTaxeCoordinationSousBlock extends React.Component {
                         <Col size={160} style={styles.labelContainer}>
                             <ComBadrAutoCompleteChipsComp
                                 code="code"
+                                disabled={this.props.readOnly}
                                 placeholder={translate(
                                     't6bisGestion.tabs.entete.informationst6bisBlock.taxeCoordination.paysOrigine'
                                 )}
@@ -265,18 +294,23 @@ class T6bisInformationsTaxeCoordinationSousBlock extends React.Component {
                         </Col>
                         <Col size={160} style={styles.labelContainer}>
                             <ComBadrItemsPickerComp
+                                disabled={this.props.readOnly}
                                 style={styles.labelTextStyle}
                                 label={translate('t6bisGestion.tabs.entete.informationst6bisBlock.taxeCoordination.choisirElement')}
                                 selectedValue={this.state.typeMoyenPaiement}
+                                selected={this.state.typeMoyenPaiement}
                                 items={this.props.listmoyenpaiement}
-                                onValueChanged={(value, index) =>
-                                    this.setState({ typeMoyenPaiement: value.code })
+                                onValueChanged={(value, index) => {
+                                    this.setState({ typeMoyenPaiement: value.code });
+                                    this.props.t6bis.typeMoyenPaiement = value;
+                                }
+
                                 }
                             />
                         </Col>
                     </Row>
-                    
-                    
+
+
 
                 </View>
             </ComAccordionComp>

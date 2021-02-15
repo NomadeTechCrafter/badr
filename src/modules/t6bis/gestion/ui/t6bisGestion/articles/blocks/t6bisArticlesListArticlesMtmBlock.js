@@ -37,7 +37,7 @@ class T6bisArticlesListArticlesMtmBlock extends React.Component {
                 width: 120,
             },
             {
-                code: 'uniteQuantite.libelle',
+                code: 'uniteQuantite',
                 libelle: translate('t6bisGestion.tabs.articles.listeArticlesBlock.mtm.unite'),
                 width: 120,
             },
@@ -49,7 +49,9 @@ class T6bisArticlesListArticlesMtmBlock extends React.Component {
                 icon: 'pencil',
                 action: (row, index) =>
                     this.updateItem(row, index)
-            }, {
+            }
+            
+            /* , {
                 code: '',
                 libelle: '',
                 width: 50,
@@ -58,7 +60,7 @@ class T6bisArticlesListArticlesMtmBlock extends React.Component {
                 action: (row, index) =>
                    this.removeItem(row, index)
             }
-
+ */
 
         ];
     }
@@ -84,7 +86,18 @@ class T6bisArticlesListArticlesMtmBlock extends React.Component {
 
     componentDidMount() {
 
-        console.log('T6bisArticlesListArticlesBlock componentWillmount');
+        if (!this.props.readOnly) {
+            this.cols.push( {
+                code: '',
+                libelle: '',
+                width: 50,
+                component: 'button',
+                icon: 'delete-outline',
+                action: (row, index) =>
+                    this.removeItem(row, index)
+            }
+);
+        }
     }
 
     componentDidUpdate() {

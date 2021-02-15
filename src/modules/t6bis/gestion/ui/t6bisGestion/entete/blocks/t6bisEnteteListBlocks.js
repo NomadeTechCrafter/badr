@@ -5,6 +5,9 @@ import T6bisInfosCommunsBlock from '../../common/t6bisInfosCommunsBlock';
 import { CALLBACK_ENUMS } from './t6bisEnteteRedevableBlock';
 import T6bisEnteteRedevableBlock from './t6bisEnteteRedevableBlock';
 import T6bisEnteteInformationsT6BISBlock from './t6bisEnteteInformationsT6BISBlock';
+import T6bisRecapTaxationGlobaleBlock from './t6bisRecapTaxationGlobaleBlock';
+import T6bisRedressementBlock from './t6bisRedressementBlock';
+import { isRedressement } from '../../../../../utils/t6bisUtils';
 
 
 
@@ -40,7 +43,7 @@ class T6bisEnteteListBlocks extends React.Component {
     }
 
     componentWillUnmount() {
-        console.log('componentWillUnmount');
+        console.log('T6bisEnteteListBlocks componentWillUnmount');
     }
 
 
@@ -52,15 +55,20 @@ class T6bisEnteteListBlocks extends React.Component {
 
 
     render() {
-        console.log("this.props", this.props);
+        console.log("this.props-----------------------------------------------------------------------------------------", this.props);
         return (
 
             <ScrollView>
 
                 <View style={{ flex: 1 }}>
                     <T6bisInfosCommunsBlock t6bis={this.props.t6bis} mode={this.props.mode} fieldsetcontext={this.props.fieldsetcontext} />
-                    <T6bisEnteteRedevableBlock identifiants={this.props.identifiants} t6bis={this.props.t6bis} callbackHandler={this.viewCallBackHandler}/>
-                    <T6bisEnteteInformationsT6BISBlock t6bis={this.props.t6bis} fieldsetcontext={this.props.fieldsetcontext} listmoyenpaiement={this.props.listmoyenpaiement}/>
+                    <T6bisEnteteRedevableBlock identifiants={this.props.identifiants} t6bis={this.props.t6bis} callbackHandler={this.viewCallBackHandler} readOnly={this.props.readOnly}/>
+                    <T6bisEnteteInformationsT6BISBlock t6bis={this.props.t6bis} fieldsetcontext={this.props.fieldsetcontext} listmoyenpaiement={this.props.listmoyenpaiement} readOnly={this.props.readOnly} />
+
+                    
+                    {(this.props?.listeRecap && this.props?.listeRecap.length != 0) && (<T6bisRecapTaxationGlobaleBlock t6bis={this.props.t6bis} listeRecap={this.props.listeRecap} />)}
+                    {(isRedressement() || this.props.t6bis.referenceT6BisRemplacee) && (<T6bisRedressementBlock t6bis={this.props.t6bis}  />)}
+                    
 
                 </View>
 

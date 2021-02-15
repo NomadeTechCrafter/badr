@@ -6,7 +6,7 @@ import { TextInput } from 'react-native-paper';
 import { ComAccordionComp, ComBadrAutoCompleteChipsComp, ComBadrButtonComp, ComBadrItemsPickerComp } from '../../../../../../../../commons/component';
 import translate from '../../../../../../../../commons/i18n/ComI18nHelper';
 import * as T6BISConstantes from "../../../../../../utils/t6bisConstants";
-import { stringEmpty, validateCin } from "../../../../../../utils/t6bisUtils";
+import { isCreation, stringEmpty, validateCin } from "../../../../../../utils/t6bisUtils";
 import * as Constantes from '../../../../../state/t6bisGestionConstants';
 import styles from "../../../../../style/t6bisGestionStyle";
 
@@ -18,7 +18,7 @@ class T6bisEnteteRedevableSousBlock extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            intervenantVO: this.props?.intervenantVO ? this.props.intervenantVO : {
+            intervenantVO: !isCreation() && this.props.t6bis.intervenantVO ? this.props.t6bis.intervenantVO : {
                 adresse: "",
                 prenomIntervenant: ""
             },
@@ -52,7 +52,7 @@ class T6bisEnteteRedevableSousBlock extends React.Component {
     }
 
     componentWillUnmount() {
-        console.log('componentWillUnmount');
+        console.log('T6bisEnteteRedevableSousBlock componentWillUnmount');
     }
 
 
@@ -121,8 +121,8 @@ class T6bisEnteteRedevableSousBlock extends React.Component {
 
     confirmer = () => {
         console.log('confirmer', this.state.expanded);
-        console.log('confirmer', this.props.t6bis?.infoCompleted);
-        this.state.expanded = (this.props.t6bis?.infoCompleted) ? this.props.t6bis.infoCompleted : false;
+        console.log('confirmer', this.props?.infoCompleted);
+        this.state.expanded = (this.props?.infoCompleted) ? this.props.infoCompleted : false;
         console.log('confirmer', this.state.expanded);
     }
 
@@ -164,25 +164,43 @@ class T6bisEnteteRedevableSousBlock extends React.Component {
     }
 
     traiterRetourProps() {
-        if (this.props.t6bis?.retourFindIntervenant) {
+        console.log('TEST Yassine 15022021 out');
+        if (this.props?.retourFindIntervenant) {
+            console.log('TEST Yassine 15022021 in');
             this.state.intervenantVO = { ...this.state.intervenantVO, ...this.props.t6bis?.intervenantVO };
-            this.state.newIntervenant = this.props.t6bis?.newIntervenant;
-            this.props.t6bis.retourFindIntervenant = false;
+            this.state.newIntervenant = this.props?.newIntervenant;
+            this.props.retourFindIntervenant = false;
         }
+    }
+    static getDerivedStateFromProps(props, state) {
+        console.log('getDerivedStateFromProps----------15022021----------props ', props);
+        console.log('getDerivedStateFromProps---------15022021-----------state ', state);
+
+        if (
+            props.t6bis?.intervenantVO
+        ) {
+            return {
+                intervenantVO: { ...state.intervenantVO, ...props.t6bis?.intervenantVO },// update the value of specific key
+                newIntervenant : props.newIntervenant
+            };
+        }
+        // Return null to indicate no change to state.
+        return null;
     }
 
 
 
 
     render() {
-        this.traiterRetourProps();
+        //this.traiterRetourProps();
         console.log(this.state);
         console.log("this.props.t6bis.codeTypeT6bis : ", this.props.t6bis?.codeTypeT6bis);
+        console.log("this.state.intervenantVO : ", this.state.intervenantVO);
 
         return (
 
 
-            <ComAccordionComp title={translate('t6bisGestion.tabs.entete.redevableBlock.title')} expanded={this.state.expanded}>
+            <ComAccordionComp title={translate('t6bisGestion.tabs.entete.redevableBlock.title')} expanded={false}>
                 <View>
 
                     <Row size={200}>
@@ -194,6 +212,7 @@ class T6bisEnteteRedevableSousBlock extends React.Component {
                         </Col>
                         <Col size={70} style={styles.labelContainer}>
                             <ComBadrItemsPickerComp
+                                disabled={this.props.readOnly}
                                 style={styles.labelTextStyle}
                                 label={translate('t6bisGestion.tabs.entete.redevableBlock.typeIdentifiant')}
                                 selectedValue={this.state.intervenantVO.refTypeDocumentIdentite}
@@ -212,6 +231,7 @@ class T6bisEnteteRedevableSousBlock extends React.Component {
 
                         <Col size={70} style={styles.labelContainer}>
                             <TextInput
+                                disabled={this.props.readOnly}
                                 mode="outlined"
                                 label={translate('t6bisGestion.tabs.entete.redevableBlock.identifiant')}
                                 value={this.state.intervenantVO.numeroDocumentIndentite}
@@ -233,7 +253,7 @@ class T6bisEnteteRedevableSousBlock extends React.Component {
 
 
                             <ComBadrAutoCompleteChipsComp
-                                disabled={stringEmpty(this.state.intervenantVO.nationaliteFr) && !this.idNewIntervenant()}
+                                disabled={(stringEmpty(this.state.intervenantVO.adresse) && !this.idNewIntervenant()) || (this.props.readOnly)}
                                 code="code"
                                 placeholder={translate(
                                     't6bisGestion.tabs.entete.redevableBlock.nationalite'
@@ -262,7 +282,7 @@ class T6bisEnteteRedevableSousBlock extends React.Component {
                                 mode="outlined"
                                 label={translate('t6bisGestion.tabs.entete.redevableBlock.nom')}
                                 value={this.state.intervenantVO.nomIntervenant}
-                                disabled={stringEmpty(this.state.intervenantVO.nomIntervenant) && !this.idNewIntervenant()}
+                                disabled={(stringEmpty(this.state.intervenantVO.adresse) && !this.idNewIntervenant()) || (this.props.readOnly)}
                                 onChangeText={(text) =>
 
                                     (text) ? this.setState({
@@ -286,7 +306,7 @@ class T6bisEnteteRedevableSousBlock extends React.Component {
                                 mode="outlined"
                                 label={translate('t6bisGestion.tabs.entete.redevableBlock.prenom')}
                                 value={this.state.intervenantVO.prenomIntervenant}
-                                disabled={stringEmpty(this.state.intervenantVO.prenomIntervenant) && !this.idNewIntervenant()}
+                                disabled={(stringEmpty(this.state.intervenantVO.adresse) && !this.idNewIntervenant()) || (this.props.readOnly)}
                                 onChangeText={(text) =>
 
                                     (text) ? this.setState({
@@ -320,7 +340,7 @@ class T6bisEnteteRedevableSousBlock extends React.Component {
                                 mode="outlined"
                                 label={translate('t6bisGestion.tabs.entete.redevableBlock.adresse')}
                                 value={this.state.intervenantVO.adresse}
-                                disabled={stringEmpty(this.state.intervenantVO.adresse) && !this.idNewIntervenant()}
+                                disabled={(stringEmpty(this.state.intervenantVO.adresse) && !this.idNewIntervenant()) || (this.props.readOnly)}
                                 onChangeText={(text) =>
 
                                     this.setState({
@@ -337,7 +357,7 @@ class T6bisEnteteRedevableSousBlock extends React.Component {
 
                     </Row>
 
-                    <Row size={100}>
+                    {(!this.props.readOnly) && (<Row size={100}>
                         <Col size={100}>
                             {(!this.state.readonly) && (
                                 <View style={styles.ComContainerCompBtn}>
@@ -359,7 +379,7 @@ class T6bisEnteteRedevableSousBlock extends React.Component {
                                     />
                                 </View>)}
                         </Col>
-                    </Row>
+                    </Row>)}
 
 
                 </View>

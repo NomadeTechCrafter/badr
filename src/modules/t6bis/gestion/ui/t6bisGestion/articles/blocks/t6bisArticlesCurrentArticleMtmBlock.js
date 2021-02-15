@@ -39,14 +39,15 @@ class T6bisArticlesCurrentArticleMtmBlock extends React.Component {
                 }
 
             });
-            this.state.currentArticle.codeNomenclature = text;
+            this.state.currentArticle.codeNomenclature = formatNomenclature(text);
         }
     }
 
-    handleuniteQuantiteChanged = (unite) => {
+    handleUniteQuantiteChanged = (unite) => {
         this.setState({
             acUniteValue: unite,
-            currentArticle: { ...this.state.currentArticle, uniteQuantite: unite }
+            currentArticle: {
+                ...this.state.currentArticle, uniteQuantite: unite.code, libelleUnite: unite.libelle}
         });
 
 
@@ -91,6 +92,7 @@ class T6bisArticlesCurrentArticleMtmBlock extends React.Component {
 
     ajouter = () => {
         if (!this.checkRequiredFields()) {
+            this.clearComboboxAutoComplete();
             this.props.callbackHandler(T6BISConstantes.ADD_ARTCLE_MTM_TASK, this.state.currentArticle);
         }
 
@@ -99,6 +101,7 @@ class T6bisArticlesCurrentArticleMtmBlock extends React.Component {
 
     modifier = () => {
         if (!this.checkRequiredFields()) {
+            this.clearComboboxAutoComplete();
             this.props.callbackHandler(T6BISConstantes.MODIFY_ARTCLE_MTM_TASK, this.state.currentArticle);
         }
 
@@ -155,13 +158,21 @@ class T6bisArticlesCurrentArticleMtmBlock extends React.Component {
 
     }
     nouveau = () => {
-
+        this.clearComboboxAutoComplete(); 
         this.setState({
             errorMessage: null
         });
         this.props.callbackHandler(T6BISConstantes.NEW_ARTCLE_MTM_TASK, null);
 
     }
+
+    clearComboboxAutoComplete() {
+        this.comboNatureMarchandise.clearInput();
+        this.comboDevise.clearInput();
+        this.autoCompleteUnite.clearInput();
+     }
+
+
 
 
     static getDerivedStateFromProps(props, state) {
@@ -172,7 +183,9 @@ class T6bisArticlesCurrentArticleMtmBlock extends React.Component {
             props.currentArticle && props.currentArticle.id !== state.currentArticle.id
         ) {
             return {
+                
                 currentArticle: props.currentArticle// update the value of specific key
+                
             };
         }
         // Return null to indicate no change to state.
@@ -205,7 +218,9 @@ class T6bisArticlesCurrentArticleMtmBlock extends React.Component {
 
                         <Col size={60} style={styles.labelContainer}>
                             <TextInput
+                                disabled={this.props.readOnly}
                                 mode="outlined"
+                                maxLength={10}
                                 label={translate('t6bisGestion.tabs.articles.articleBlock.mtm.codeNomenclature')}
                                 value={this.state.currentArticle?.codeNomenclature}
                                 onEndEditing={(event) => this.handleCodeNomenclatureOnBlur(event.nativeEvent.text)}
@@ -229,12 +244,13 @@ class T6bisArticlesCurrentArticleMtmBlock extends React.Component {
                         <Col size={60} style={styles.labelContainer}>
                             <ComBadrPickerComp
                                 onRef={(ref) => (this.comboNatureMarchandise = ref)}
-                                key="natureMarchandise"
+                                disabled={this.props.readOnly}
                                 style={CustomStyleSheet.badrPicker}
                                 cle="code"
                                 libelle="libelle"
                                 module="REF_LIB"
                                 selectedValue={this.state.currentArticle?.natureMarchandise}
+                                selected={this.state.currentArticle?.natureMarchandise}
                                 command="completeNatureMarchandise"
                                 onValueChange={(itemValue, itemIndex, selectedItem) =>
                                     this.handleNatureMarchandiseChanged(itemValue, itemIndex, selectedItem)
@@ -262,6 +278,7 @@ class T6bisArticlesCurrentArticleMtmBlock extends React.Component {
                         <Col size={160} style={styles.labelContainer}>
                             <TextInput
                                 mode="outlined"
+                                disabled={this.props.readOnly}
                                 label={translate('t6bisGestion.tabs.articles.articleBlock.mtm.designation')}
                                 value={this.state.currentArticle?.designation}
                                 onChangeText={(text) => this.setState({
@@ -292,6 +309,7 @@ class T6bisArticlesCurrentArticleMtmBlock extends React.Component {
                         <Col size={160} style={styles.labelContainer}>
                             <TextInput
                                 mode="outlined"
+                                disabled={this.props.readOnly}
                                 keyboardType={'number-pad'}
                                 label={translate('t6bisGestion.tabs.articles.articleBlock.mtm.valeurTaxable')}
                                 value={this.state.currentArticle?.valeurTaxable}
@@ -322,6 +340,7 @@ class T6bisArticlesCurrentArticleMtmBlock extends React.Component {
                         <Col size={60} style={styles.labelContainer}>
                             <TextInput
                                 mode="outlined"
+                                disabled={this.props.readOnly}
                                 label={translate('t6bisGestion.tabs.articles.articleBlock.mtm.montantFacture')}
                                 value={this.state.currentArticle?.montantFacture}
                                 onChangeText={(text) => this.setState({
@@ -349,13 +368,15 @@ class T6bisArticlesCurrentArticleMtmBlock extends React.Component {
                         </Col>
                         <Col size={60} style={styles.labelContainer}>
                             <ComBadrPickerComp
+                                disabled={this.props.readOnly}
                                 onRef={(ref) => (this.comboDevise = ref)}
-                                key="devise"
                                 style={CustomStyleSheet.badrPicker}
                                 cle="code"
                                 libelle="libelle"
                                 module="REF_LIB"
                                 command="completeDeviseChangeCmb"
+                                selected={this.state.currentArticle?.devise}
+                                selectedValue={this.state.currentArticle?.devise}
                                 onValueChange={(item) =>
                                     this.handleDeviseChanged(item)
                                 }
@@ -383,6 +404,7 @@ class T6bisArticlesCurrentArticleMtmBlock extends React.Component {
                         <Col size={60} style={styles.labelContainer}>
                             <TextInput
                                 mode="outlined"
+                                disabled={this.props.readOnly}
                                 label={translate('t6bisGestion.tabs.articles.articleBlock.mtm.quantite')}
                                 keyboardType={'phone-pad'}
                                 value={this.state.currentArticle?.quantite}
@@ -405,21 +427,22 @@ class T6bisArticlesCurrentArticleMtmBlock extends React.Component {
                         </Col>
                         <Col size={60} style={styles.labelContainer}>
                             <ComBadrAutoCompleteChipsComp
+                                onRef={(ref) => (this.autoCompleteUnite = ref)}
                                 placeholder={translate(
                                     't6bisGestion.tabs.articles.articleBlock.mtm.choisirValeur'
                                 )}
                                 code="code"
-                                disabled={false}
-                                selected={this.state.acUniteValue}
+                                disabled={this.props.readOnly}
+                                selected={this.state.currentArticle.libelleUnite}
                                 maxItems={3}
                                 libelle="libelle"
                                 command="completeUniteQte"
                                 onDemand={true}
                                 searchZoneFirst={false}
-                                onValueChange={this.handleuniteQuantiteChanged} />
+                                onValueChange={this.handleUniteQuantiteChanged} />
                         </Col>
                     </Row>
-                    <Row size={200}>
+                    {(this.props.readOnly) && (<Row size={200}>
                         <Col size={200}>
 
                             <View style={styles.ComContainerCompBtn}>
@@ -449,7 +472,7 @@ class T6bisArticlesCurrentArticleMtmBlock extends React.Component {
                                 />
                             </View>
                         </Col>
-                    </Row>
+                    </Row>)}
 
 
                 </View>

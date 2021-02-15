@@ -38,14 +38,14 @@ class T6bisInformationsTab extends React.Component {
 
     render() {
 
-        let mode = (this.props.t6bisEnteteData) ? this.props.t6bisEnteteData.mode : '';
+        
 
         console.log('T6BISINFORMATIONSTAB    fieldsetcontext ', this.props?.fieldsetcontext);
         console.log("this.props               ", this.props);
         return (
 
             <ScrollView>
-                <T6bisInfosCommunsBlock t6bis={this.props.t6bis} mode={mode}
+                <T6bisInfosCommunsBlock t6bis={this.props.t6bis} mode={this.props.mode}
                     identifiants={this.props.identifiants}
                     
                     fieldsetcontext={this.props?.fieldsetcontext}

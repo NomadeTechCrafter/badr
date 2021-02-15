@@ -1,10 +1,11 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, ScrollView } from 'react-native';
 import { RadioButton } from 'react-native-paper';
 import { connect } from 'react-redux';
 import { ComBadrButtonComp, ComBadrErrorMessageComp, ComBadrToolbarComp } from '../../../../../commons/component';
 import { translate } from '../../../../../commons/i18n/ComI18nHelper';
 import { CustomStyleSheet } from '../../../../../commons/styles/ComThemeStyle';
+import { MODE_CREATION } from '../../../utils/t6bisConstants';
 import * as t6bisCreationSearchAction from '../../state/actions/t6bisCreationSearchAction';
 import t6bisInitForCreateAction from '../../state/actions/t6bisInitForCreateAction';
 import * as Constantes from '../../state/t6bisCreationConstants';
@@ -43,7 +44,7 @@ class T6bisCreation extends React.Component {
     componentWillUnmount() {
         this.props.errorMessage = '';
         this.props.errorInfo = '';
-        console.log('componentWillUnmount');
+        console.log('T6bisCreation         componentWillUnmount');
     }
 
 
@@ -66,7 +67,8 @@ class T6bisCreation extends React.Component {
             value: {
                 codeType: this.state.selectedTypeCode,
                 selectedType: this.state.selectedType,
-                mode :'Creation'
+                mode: MODE_CREATION,
+                title: translate('t6bisGestion.title') 
             }
         }, this.props.navigation);
         this.props.actions.dispatch(action);
@@ -79,11 +81,30 @@ class T6bisCreation extends React.Component {
         this.props.navigation.navigate('Home', {});
     }
 
+    static getDerivedStateFromProps(props, state) {
+        console.log('getDerivedStateFromProps--------------------props ', props);
+        console.log('getDerivedStateFromProps--------------------state ', state);
+
+        if (
+            props.types
+        ) {
+            return {
+
+                types: props.types// update the value of specific key
+
+            };
+        }
+       
+        // Return null to indicate no change to state.
+        return null;
+    }
+
     render() {
         let rows = [];
         let types = [];
-        if (this.props.value) {
-            rows = this.props.value;
+        console.log(this.props);
+        if (this.props.types) {
+            rows = this.props.types;
             console.log('rows', rows);
             if (rows && Array.isArray(rows)) {
                 rows.forEach((item) => {
@@ -103,7 +124,7 @@ class T6bisCreation extends React.Component {
         }
         return (
 
-            <View style={styles.container}>
+            <ScrollView style={styles.container}>
                 <ComBadrToolbarComp
                     navigation={this.props.navigation}
                     icon="menu"
@@ -142,8 +163,8 @@ class T6bisCreation extends React.Component {
                         value={this.state.selectedTypeCode}>
 
 
-                        {types ? (
-                            types.map((item) => (
+                        {this.state.types ? (
+                            this.state.types.map((item) => (
                                 <View style={styles.typeContainerRB} key={item.code}>
                                     <Text style={styles.textRadio}>
                                         {item.libelle}
@@ -177,7 +198,7 @@ class T6bisCreation extends React.Component {
                             text={translate('t6bisCreation.t6bisCreation.buttons.abandonner')}
                         />
                     </View>)}
-            </View>
+            </ScrollView>
 
 
         );

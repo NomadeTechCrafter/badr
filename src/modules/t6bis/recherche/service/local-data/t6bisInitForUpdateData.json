@@ -1,0 +1,142 @@
+{
+  "dtoHeader": {
+    "userLogin": "AD6202",
+    "fonctionnalite": "cf110002",
+    "module": "T6BIS_LIB",
+    "commande": "T6bisInitForUpdate",
+    "typeService": "UC",
+    "offset": 0,
+    "pageSize": 0,
+    "rowCount": 0,
+    "messagesInfo": ["T6bis initialisée avec succès."]
+  },
+  "jsonVO": 
+  {
+    "id": 4725,
+    "bureauCourant": {
+      "cable": false,
+      "codeBureau": "309",
+      "nomBureauDouane": "Casa port (309)",
+      "nomBureauDouaneArabe": "الدار البيضاء الميناء"
+    },
+    "annee": 2021,
+    "referenceEnregistrement": "30920210000003",
+    "referenceProvisoire": "30920210000003",
+    "utilisateur": {
+      "idActeur": "AD6202",
+      "nom": "NOM",
+      "numeroPaie": -1,
+      "prenom": "PRENOM",
+      "codeActeur": "AD6202",
+      "refGradeLib": ""
+    },
+    "enregistree": false,
+    "dateCreation": 1612969200000,
+    "dateEnregistrement": 1612969500000,
+    "etat": "ENREGISTRER",
+    "codeTypeT6bis": "01",
+    "libelleTypeT6Bis": "Marchandises et taxe de magasinage",
+    "intervenantVO": {
+      "numeroOrdreIntervenant": "266835",
+      "dateEffet": "10/02/2021 15:05:41",
+      "dateFin": "31/12/9999 00:00:00",
+      "nomIntervenant": "AHMED",
+      "prenomIntervenant": "MOHAMED",
+      "adresse": "SIDI",
+      "numeroDocumentIndentite": "A123456",
+      "refTypeIntervenant": "02",
+      "typeIntervenant": "Personne physique",
+      "refTypeDocumentIdentite": "04",
+      "retraite": false,
+      "dateNaissance": "",
+      "descTypeIntervenant": "Personne physique",
+      "descTypeDocumentIdentite": "AUTRE PERSONNE",
+      "statut": "valide",
+      "rechercheAnnules": false,
+      "rechercheValides": true,
+      "defaultConverter": {},
+      "idPourRecherche": "266835"
+    },
+    "listeT6bisLigneTaxationGlobale": [
+      {
+        "id": 2232,
+        "rubriqueTaxation": {
+          "code": "002901",
+          "libelle": "TAXE MAGASINAGE(002901)",
+          "actif": false,
+          "showDropDown": false,
+          "disableAutoComplete": true,
+          "onFocus": "",
+          "disabled": false
+        },
+        "tauxTaxation": "",
+        "montantTaxation": "1000.0",
+        "defaultConverter": {}
+      }
+    ],
+    "typeMoyenPaiement": {
+      "code": "01",
+      "libelle": "Espèce",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    "taxationPaiementEspece": 253,
+    "montantGlobal": 101253,
+    "interventions": [
+      {
+        "intervention": "Enregistrement",
+        "etatResultat": "Enregistrée",
+        "dateOperation": "10/02/2021 15:05",
+        "utilisateur": "NOM PRENOM(AD6202)"
+      }
+    ],
+    "actionModification": false,
+    "annulationT6bis": false,
+    "redressementFromActeTeransactionnel": false,
+    "dontCheckConditionTPE": false,
+    "numeroRecepisse": "100",
+    "immatriculationMoyenTransport": "1000",
+    "numeroVol": "1000",
+    "listeArticleT6bis": [
+      {
+        "id": 821,
+        "numArticle": 1,
+        "codeNomenclature": "9999999999",
+        "dateEffetNomenclature": 631152000000,
+        "natureMarchandise": "0465",
+        "libelleNatureMarchandise": "Accessoires pour ordinateurs (unité) ",
+        "designation": "designation",
+        "valeurTaxable": "10000.0",
+        "montantFacture": "1000.0",
+        "devise": "VEF",
+        "quantite": "100.0",
+        "uniteQuantite": "G9",
+        "libelleUnite": "ABCDEFGHIJKLMNOPQRS",
+        "totalTaxationArticle": 0,
+        "listeT6bisLigneTaxation": [
+          {
+            "id": 2233,
+            "rubriqueTaxation": {
+              "code": "000110",
+              "libelle": "DTS IMPORT NORMAL(000110)",
+              "actif": false,
+              "showDropDown": false,
+              "disableAutoComplete": true,
+              "onFocus": "",
+              "disabled": false
+            },
+            "tauxTaxation": "12.0",
+            "montantTaxation": "100000.0",
+            "defaultConverter": {}
+          }
+        ],
+        "defaultConverter": {}
+      }
+    ],
+    "defaultConverter": {},
+    "sauvegardee": false
+  }
+}

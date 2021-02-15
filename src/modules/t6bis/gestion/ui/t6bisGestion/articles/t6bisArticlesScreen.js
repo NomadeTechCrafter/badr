@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import * as T6BISConstantes from "../../../../utils/t6bisConstants";
 import * as t6bisUtils from '../../../../utils/t6bisUtils';
 import t6bisUpdatePropsAction from '../../../state/actions/t6bisUpdatePropsAction';
-import T6bisArticlesListBlocks from './blocks/t6bisArticlesListBlocks';
 import * as Constantes from '../../../state/t6bisGestionConstants';
+import T6bisArticlesListBlocks from './blocks/t6bisArticlesListBlocks';
 
 
 
@@ -20,7 +20,9 @@ class T6bisArticlesTab extends React.Component {
         super(props);
         this.state = {
             listeArticles: (this.props.t6bis.listeArticleT6bis) ? this.props.t6bis.listeArticleT6bis : [],
-            currentArticle: this.props.currentArticle
+            currentArticle: this.props.currentArticle,
+            recapCurrentArticleList: (this.props.recapCurrentArticleList) ? this.props.recapCurrentArticleList : [],
+            montantGlobalByArticle: (this.props.montantGlobalByArticle) ? this.props.montantGlobalByArticle : ""
         };
     }
 
@@ -51,7 +53,10 @@ class T6bisArticlesTab extends React.Component {
                 this.setState({
                     currentArticle: data
                 });
+                this.state.recapCurrentArticleList = [];
                 this.launchUpdateProps(this.state.listeArticles, data);
+                t6bisUtils.groupLignesByRubriqueByArticle(this.props.t6bis, this.state.recapCurrentArticleList,data);
+                this.setState({ montantGlobalByArticle: t6bisUtils.calculateTotalT6bis(this.state.recapCurrentArticleList, this.state.t6bis) });
                 break;
             case T6BISConstantes.NEW_ARTCLE_MTM_TASK:
                 article = this.getCurrentArticle();
@@ -122,12 +127,15 @@ class T6bisArticlesTab extends React.Component {
                 break;
             case T6BISConstantes.MODIFY_ARTCLE_CM_TASK:
                 let articleModifiedCM = data;
+                console.log(data);
                 let listeArticlesOriginalCM = this.state.listeArticles;
+                console.log(listeArticlesOriginalCM);
                 listeArticlesOriginalCM.splice(0, 1, articleModifiedCM);
+                console.log(listeArticlesOriginalCM);
                 this.setState({
-                    listeArticles: listeArticlesOriginal
+                    listeArticles: listeArticlesOriginalCM
                 });
-                this.launchUpdateProps(listeArticlesOriginal, data);
+                this.launchUpdateProps(listeArticlesOriginalCM, data);
                 break;
         }
         
@@ -136,9 +144,7 @@ class T6bisArticlesTab extends React.Component {
     }
 
     launchUpdateProps(listeArticles, currentArticle) {
-        console.log("-----------------------------------------------------------------start------------------------------------------------------------------------------------------------");
-        console.log("this.props               ", currentArticle);
-        console.log("-----------------------------------------------------------------end------------------------------------------------------------------------------------------------");
+    
         let dataToAction = {
             type: Constantes.T6BIS_UPDATE_PROPS_REQUEST,
             value: {
@@ -149,6 +155,18 @@ class T6bisArticlesTab extends React.Component {
 
         this.props.dispatch(t6bisUpdatePropsAction.request(dataToAction));
     }
+
+    /* getUniteByCode( currentArticle) {
+
+        let dataToAction = {
+            type: Constantes.T6BIS_GESTION_GET_UNITE_CODE_REQUEST,
+            value: {
+                codeUnite: currentArticle.uniteQuantite
+            }
+        };
+
+        this.props.dispatch(t6bisGetUniteByCodeAction.request(dataToAction));
+    } */
 
     getMaxNumArticle() {
         let num = 0;
@@ -168,10 +186,10 @@ class T6bisArticlesTab extends React.Component {
     componentDidMount = async () => {
 
 
-    }
+    }   
 
     componentWillUnmount() {
-        console.log('componentWillUnmount');
+        console.log('T6bisArticlesTab componentWillUnmount');
     }
 
 
@@ -186,18 +204,19 @@ class T6bisArticlesTab extends React.Component {
     render() {
 
         console.log('this.state T6bisArticlesScreen  *******************jkjkjd ', this.state);
-        let mode = (this.props.t6bisEnteteData) ? this.props.t6bisEnteteData.mode : '';
+        
         return (
 
             <ScrollView>
-                <T6bisArticlesListBlocks t6bis={this.props.t6bis} mode={mode}
+                <T6bisArticlesListBlocks t6bis={this.props.t6bis} mode={this.props.mode}
                     identifiants={this.props.identifiants}
                     listmoyenpaiement={this.props.listmoyenpaiement}
                     fieldsetcontext={this.props.fieldsetcontext}
                     listeArticles={this.state.listeArticles}
                     currentArticle={this.state.currentArticle}
-                    recapCurrentArticleList={this.state.currentArticle?.recapCurrentArticleList}
-                    montantGlobalByArticle={this.state.currentArticle?.montantGlobalByArticle}
+                    recapCurrentArticleList={this.state?.recapCurrentArticleList}
+                    montantGlobalByArticle={this.state?.montantGlobalByArticle}
+                    readOnly={t6bisUtils.isRecherche()}
                     callbackHandler={this.callbackHandler} />
             </ScrollView>
 
