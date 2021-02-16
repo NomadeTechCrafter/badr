@@ -19,6 +19,7 @@ module.exports = {
   MODULE_T6BIS: 'T6BIS_LIB',
   AUTOCOMPLETE_MIN_CHARACTERS: 3,
   AUTOCOMPLETE_LIST_NB_ELEMENTS: -1,
-  remote: false,
-  bootstrapRoute: 'test',
+  remote: true,
+  bootstrapRoute: 'Home',
 };
+  
