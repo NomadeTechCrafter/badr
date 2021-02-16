@@ -33,7 +33,8 @@ import ControleApresScanner from '../../../controle/controleApresScanner/ui/cont
 
 /**T6bis */
 import T6bisCreation from '../../../t6bis/creation/ui/t6bisCreation/t6bisCreationScreen';
-//import T6bisGestion from '../../../t6bis/creation/ui/t6bisCreation/t6bisGestionScreen';
+import T6bisRecherche from '../../../t6bis/recherche/ui/t6bisRechercheScreen';
+import T6bisGestion from '../../../t6bis/gestion/ui/t6bisGestion/t6bisGestionScreen';
 
 
 import Entete from '../../../../old/screens/actifs/rapport/creation/entete';
@@ -273,11 +274,16 @@ class habHomeScreen extends React.Component {
           component={T6bisCreation}
           options={{ headerShown: false }}
         />
-        {/* <Drawer.Screen
+         <Drawer.Screen
+          name="T6bisRecherche"
+          component={T6bisRecherche}
+          options={{ headerShown: false }}
+        />
+         <Drawer.Screen
           name="T6bisGestion"
           component={T6bisGestion}
           options={{ headerShown: false }}
-        /> */}
+        />
         {/* Module T6bis end*/}
       </Drawer.Navigator>
     );
