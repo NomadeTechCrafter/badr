@@ -59,7 +59,7 @@ export const TYPE_T6BIS = [{
 }
 ]
 
-export const GENRES = [{ code: "01", libelle: "Tracteur" }, { code: "02", libelle: "Remorque" }, { code: "03", libelle: "Ensemble routier" }];
+export const GENRES = [{ code: "Tracteur", libelle: "Tracteur" }, { code: "Remorque", libelle: "Remorque" }, { code: "Ensemble routier", libelle: "Ensemble routier" }];
 
 export const MODE_REDRESSEMENT = 'redressement';
 export const MODE_CREATION = 'creation';

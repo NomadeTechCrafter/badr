@@ -1,7 +1,7 @@
 
 /**Constants */
 import * as Constants from '../t6bisGestionConstants';
-import { calculateTotalT6bis, getCurrentArticle, groupLignesByRubrique, groupLignesByRubriqueByArticle, hasAtLeastOneTaxationLine, isCm, isMtm } from "../../../utils/t6bisUtils";
+import { calculateTotalT6bis, getCurrentArticle, groupLignesByRubrique, groupLignesByRubriqueByArticle, hasAtLeastOneTaxationLine, isCm, isCreation, isMtm } from "../../../utils/t6bisUtils";
 import { MODE_CREATION } from '../../../utils/t6bisConstants';
 
 const initialState = {
@@ -21,6 +21,8 @@ const initialState = {
 export default (state = initialState, action) => {
   let nextState = {
     ...state,
+    retourFindIntervenant: false,
+    errorMessage: null,
     value: action.value,
   };
   switch (action.type) {
@@ -41,36 +43,32 @@ export default (state = initialState, action) => {
         nextState.currentArticle = getCurrentArticle(nextState.t6bis.codeTypeT6bis, 0);
         nextState.recapCurrentArticleList = [];
         nextState.listeRecap = [];
+        nextState.fieldsetcontext = null;
+
       } else {
         nextState.t6bis = action.value.t6bis;
-        console.log('-------------------------t6bis-----------------------------------------------------');
         if (isMtm(action.value.t6bis.codeTypeT6bis) || isCm(action.value.t6bis.codeTypeT6bis)) {
-          console.log('-------------------------t6bis-----------------------------------------------------');
-          if (nextState.t6bis.listeArticleT6bis && nextState.t6bis.listeArticleT6bis.length>1) {
+          if (nextState.t6bis.listeArticleT6bis && nextState.t6bis.listeArticleT6bis.length >= 1) {
             nextState.currentArticle = nextState.t6bis.listeArticleT6bis[0];
             let recapCurrentArticleList = [];
             groupLignesByRubriqueByArticle(nextState.t6bis, recapCurrentArticleList, nextState.currentArticle);
-            nextState.currentArticle.montantGlobalByArticle = calculateTotalT6bis(recapCurrentArticleList, nextState.t6bis);
+            nextState.montantGlobalByArticle = calculateTotalT6bis(recapCurrentArticleList, nextState.t6bis);
             nextState.recapCurrentArticleList = recapCurrentArticleList;
-          } else { nextState.currentArticle = getCurrentArticle(nextState.t6bis.codeTypeT6bis, 0);}
-          
-          let listeRecap = [];
-          console.log('-------------------------t6bis-----------------------------------------------------');
-          console.log(nextState.t6bis);
+          } else { nextState.currentArticle = getCurrentArticle(nextState.t6bis.codeTypeT6bis, 0); }
 
-          groupLignesByRubrique(nextState.t6bis, listeRecap);
-          nextState.t6bis.montantGlobal = calculateTotalT6bis(listeRecap, nextState.t6bis);
-          nextState.listeRecap = listeRecap;
-          console.log('nextState.t6bis', nextState.t6bis);
-          console.log('-------------------------t6bis-----------------------------------------------------');
+
         }
+        let listeRecap = [];
+
+        groupLignesByRubrique(nextState.t6bis, listeRecap);
+        nextState.t6bis.montantGlobal = calculateTotalT6bis(listeRecap, nextState.t6bis);
+        nextState.listeRecap = listeRecap;
       }
       nextState.identifiants = action.value.listTypeIdentifiant;
       nextState.listmoyenpaiement = action.value.typeMoyenPaiementList;
       nextState.haslignetaxation = hasAtLeastOneTaxationLine(nextState.t6bis);
       return nextState;
     case Constants.T6BIS_INIT_ENTETE_FAILED:
-      console.log(Constants.T6BIS_INIT_ENTETE_FAILED);
       nextState.showProgress = false;
       nextState.cofirmed = false;
       nextState.displayError = true;
@@ -109,8 +107,11 @@ export default (state = initialState, action) => {
     case Constants.T6BIS_UPDATE_PROPS_IN_PROGRESS:
       return nextState;
     case Constants.T6BIS_UPDATE_PROPS_SUCCES:
+      console.log('                       T6BIS_UPDATE_PROPS_SUCCES                                          ');
+      console.log('                       T6BIS_UPDATE_PROPS_SUCCES                                          ',action.value);
       nextState.t6bis.listeArticleT6bis = action.value.listeArticleT6bis;
       nextState.currentArticle = action.value.currentArticle;
+      console.log('                       T6BIS_UPDATE_PROPS_SUCCES                                          ', nextState);
       return nextState;
     case Constants.T6BIS_UPDATE_PROPS_FAILED:
       return nextState;
@@ -137,9 +138,6 @@ export default (state = initialState, action) => {
     case Constants.T6BIS_ADD_TAXATION_ARTICLE_IN_PROGRESS:
       return nextState;
     case Constants.T6BIS_ADD_TAXATION_ARTICLE_SUCCES:
-      console.log('-----------------------------------T6BIS_ADD_TAXATION_ARTICLE_SUCCES--------------------------------------------');
-      console.log(action.value);
-      console.log(nextState);
       nextState.currentArticle = action.value.currentArticle;
       let recapCurrentArticleList = [];
       groupLignesByRubriqueByArticle(nextState.t6bis, recapCurrentArticleList, nextState.currentArticle);
@@ -149,7 +147,6 @@ export default (state = initialState, action) => {
       groupLignesByRubrique(nextState.t6bis, listeRecap);
       nextState.t6bis.montantGlobal = calculateTotalT6bis(listeRecap, nextState.t6bis);
       nextState.listeRecap = listeRecap;
-      console.log('-----------------------------------T6BIS_ADD_TAXATION_ARTICLE_SUCCES--------------------------------------------');
       return nextState;
     case Constants.T6BIS_ADD_TAXATION_ARTICLE_FAILED:
       return nextState;
@@ -171,14 +168,12 @@ export default (state = initialState, action) => {
     case Constants.T6BIS_SAUVEGARDER_IN_PROGRESS:
       return nextState;
     case Constants.T6BIS_SAUVEGARDER_SUCCES:
-      console.log('-----------------------------------T6BIS_SAUVEGARDER_SUCCES--------------------------------------------');
-      console.log(action.value);
-      console.log(nextState);
       nextState.t6bis = action.value.t6bis;
-      if (action.value.t6bis) {
-        nextState.t6bis.listeArticleT6bis = action.value.tempListArticles;
+      if (isCreation()) {
+        if ((isMtm() || isCm()) && action.value.t6bis) {
+          nextState.t6bis.listeArticleT6bis = action.value.tempListArticles;
+        }
       }
-      console.log('-----------------------------------T6BIS_SAUVEGARDER_SUCCES--------------------------------------------');
       return nextState;
     case Constants.T6BIS_SAUVEGARDER_FAILED:
       nextState.errorMessage = action.value;
@@ -188,14 +183,12 @@ export default (state = initialState, action) => {
     case Constants.T6BIS_ENREGISTRER_IN_PROGRESS:
       return nextState;
     case Constants.T6BIS_ENREGISTRER_SUCCES:
-      console.log('-----------------------------------T6BIS_ENREGISTRER_SUCCES--------------------------------------------');
-      console.log(action.value);
-      console.log(nextState);
       nextState.t6bis = action.value.t6bis;
-      if (action.value.t6bis) {
-        nextState.t6bis.listeArticleT6bis = action.value.tempListArticles;
+      if (isCreation()) {
+        if ((isMtm() || isCm()) && action.value.t6bis) {
+          nextState.t6bis.listeArticleT6bis = action.value.tempListArticles;
+        }
       }
-      console.log('-----------------------------------T6BIS_ENREGISTRER_SUCCES--------------------------------------------');
       return nextState;
     case Constants.T6BIS_ENREGISTRER_FAILED:
       nextState.errorMessage = action.value;
@@ -208,6 +201,15 @@ export default (state = initialState, action) => {
       return nextState;
     case Constants.T6BIS_SUPPRIMER_FAILED:
       nextState.errorMessage = action.value;
+      return nextState;
+    case Constants.T6BIS_GESTION_GET_CMB_OPERATEUR_BY_CODE_REQUEST:
+      return nextState;
+    case Constants.T6BIS_GESTION_GET_CMB_OPERATEUR_BY_CODE_IN_PROGRESS:
+      return nextState;
+    case Constants.T6BIS_GESTION_GET_CMB_OPERATEUR_BY_CODE_SUCCES:
+      nextState.fieldsetcontext = { operateur: action.value };
+      return nextState;
+    case Constants.T6BIS_GESTION_GET_CMB_OPERATEUR_BY_CODE_FAILED:
       return nextState;
 
     default:

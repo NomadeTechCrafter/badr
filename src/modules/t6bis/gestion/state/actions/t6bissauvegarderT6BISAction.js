@@ -1,3 +1,4 @@
+import { mapErrorsGestion } from '../../../utils/t6bisUtils';
 import T6bisGestiontionApi from '../../service/api/t6bisGestionApi';
 import * as Constants from '../t6bisGestionConstants';
 
@@ -19,7 +20,7 @@ export function request(action) {
                     
                     
                 } else {
-                    dispatch(failed({ value: data.jsonVO }));
+                    dispatch(failed({ value: mapErrorsGestion(data.jsonVO) }));
                 }
             })
             .catch((e) => {

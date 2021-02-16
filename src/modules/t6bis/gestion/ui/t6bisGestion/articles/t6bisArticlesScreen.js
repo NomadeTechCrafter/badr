@@ -22,7 +22,7 @@ class T6bisArticlesTab extends React.Component {
             listeArticles: (this.props.t6bis.listeArticleT6bis) ? this.props.t6bis.listeArticleT6bis : [],
             currentArticle: this.props.currentArticle,
             recapCurrentArticleList: (this.props.recapCurrentArticleList) ? this.props.recapCurrentArticleList : [],
-            montantGlobalByArticle: (this.props.montantGlobalByArticle) ? this.props.montantGlobalByArticle : ""
+            montantGlobalByArticle: (this.props.montantGlobalByArticle) ? this.props.montantGlobalByArticle : "0"
         };
     }
 
@@ -41,7 +41,10 @@ class T6bisArticlesTab extends React.Component {
         switch (type) {
             case T6BISConstantes.ADD_ARTCLE_MTM_TASK:
                 data.isNew = false;
+                console.log("                           16022021                        ***********                   ", this.state.listeArticles);
+                console.log("                           16022021                         ***********                  ", data);
                 this.state.listeArticles.push(data);
+                console.log("                           16022021                         ***********                  ", this.state.listeArticles);
                 article = this.getCurrentArticle();
                 this.setState({
                     currentArticle: article

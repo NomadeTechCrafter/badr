@@ -5,42 +5,56 @@ import styles from "../../../../../style/t6bisGestionStyle";
 import translate from '../../../../../../../../commons/i18n/ComI18nHelper';
 import { Col, Row } from 'react-native-easy-grid';
 import { HelperText, TextInput } from 'react-native-paper';
-import { stringEmpty } from '../../../../../../utils/t6bisUtils';
+import { isCreation, stringNotEmpty } from '../../../../../../utils/t6bisUtils';
 import * as TbisConstantes from '../../../../../../utils/t6bisConstants';
 
 
 
 
 
+const initialState =  {
+   numeroTriptyque: '',
+   genre: '',
+   genreCode: null,
+   immatriculation: '',
+   dateEntree:  "",
+   dateSortie:  '',
+   ptc:  '',
+   acNationalite: null,
+   typeMoyenPaiement:  ''
+};
 class T6bisInformationsTaxeCoordinationSousBlock extends React.Component {
-
 
     constructor(props) {
         super(props);
         this.state = {
-            numeroTriptyque: this.props.t6bis?.numeroTriptyque,
-            genre: this.props.t6bis?.genre,
-            genreCode: null,
-            immatriculation: this.props.t6bis?.immatriculation,
-            dateEntree: (this.props.t6bis?.dateEntree) ? new Date(this.props.t6bis?.dateEntree) : '',
-            dateSortie: (this.props.t6bis?.dateSortie) ? new Date(this.props.t6bis?.dateSortie) : '',
-            ptc: this.props.t6bis?.ptc,
-            acNationalite: this.props.fieldsetcontext?.paysOrigine.nomPays,
-            typeMoyenPaiement: this.props.t6bis?.typeMoyenPaiementµ?.code
+            numeroTriptyque: !isCreation()?this.props.t6bis?.numeroTriptyque:'',
+            genre: !isCreation() ? this.props.t6bis?.genre:'',
+            genreCode: !isCreation() ? this.props.t6bis?.genre : '',
+            immatriculation: !isCreation()?this.props.t6bis?.immatriculation:'',
+            dateEntree: !isCreation() ?(this.props.t6bis?.dateEntree) :"",
+            dateSortie: !isCreation() ? (this.props.t6bis?.dateSortie):'',
+            ptc: !isCreation() ? (this.props.t6bis?.ptc):'',
+            acNationalite: !isCreation() ? (this.props.t6bis?.paysOrigine):null,
+            typeMoyenPaiement: !isCreation() ? (this.props.t6bis?.typeMoyenPaiement?.code):''
 
         };
     }
+
+    componentDidMount =  () => {
+        this.state = initialState;
+        console.log('T6bisInformationsTaxeCoordinationSousBlock IS LOADING...');
+    }
+
 
     onChangeGenre(value) {
 
         if (value?.code) {
             this.setState({ genre: value.libelle, genreCode: value.code });
             this.props.t6bis.genre = value.libelle;
-            this.props.t6bis.genreCode = value.code;
         } else {
             this.setState({ genre: null, genreCode: null });
             this.props.t6bis.genre = null;
-            this.props.t6bis.genreCode = null;
         }
     }
 
@@ -70,14 +84,14 @@ class T6bisInformationsTaxeCoordinationSousBlock extends React.Component {
     render() {
 
         console.log('this.state Informations T6BIS  ', this.state);
-        console.log('this.props Informations T6BIS  ', this.props);
+        console.log('this.props Informations T6BIS 16022021--------------------yassine ', this.props);
 
         return (
             <ComAccordionComp title={translate('t6bisGestion.tabs.entete.informationst6bisBlock.taxeCoordination.title')} expanded={false}>
                 <View>
 
 
-                    <Row size={200}>
+                     <Row size={200}>
                         <Col size={40} style={styles.labelContainer}>
                             <Text style={styles.labelTextStyle}>
                                 {translate('t6bisGestion.tabs.entete.informationst6bisBlock.taxeCoordination.numeroTriptyque')}
@@ -85,7 +99,7 @@ class T6bisInformationsTaxeCoordinationSousBlock extends React.Component {
                             <HelperText
                                 type="error"
                                 padding="none"
-                                visible={!stringEmpty(this.state.numeroTriptyque)}>
+                                visible={!stringNotEmpty(this.state.numeroTriptyque)}>
                                 {translate('t6bisGestion.tabs.entete.informationst6bisBlock.taxeCoordination.valeurObligatoire')}
                             </HelperText>
 
@@ -106,7 +120,7 @@ class T6bisInformationsTaxeCoordinationSousBlock extends React.Component {
 
 
                     </Row>
-                    <Row size={200}>
+                      <Row size={200}>
                         <Col size={40} style={styles.labelContainer}>
                             <Text style={styles.labelTextStyle}>
                                 {translate('t6bisGestion.tabs.entete.informationst6bisBlock.taxeCoordination.genre')}
@@ -114,7 +128,7 @@ class T6bisInformationsTaxeCoordinationSousBlock extends React.Component {
                             <HelperText
                                 type="error"
                                 padding="none"
-                                visible={!stringEmpty(this.state.genre)}>
+                                visible={!stringNotEmpty(this.state.genre)}>
                                 {translate('t6bisGestion.tabs.entete.informationst6bisBlock.taxeCoordination.valeurObligatoire')}
                             </HelperText>
 
@@ -142,7 +156,7 @@ class T6bisInformationsTaxeCoordinationSousBlock extends React.Component {
                             <HelperText
                                 type="error"
                                 padding="none"
-                                visible={!stringEmpty(this.state.immatriculation)}>
+                                visible={!stringNotEmpty(this.state.immatriculation)}>
                                 {translate('t6bisGestion.tabs.entete.informationst6bisBlock.taxeCoordination.valeurObligatoire')}
                             </HelperText>
 
@@ -154,7 +168,10 @@ class T6bisInformationsTaxeCoordinationSousBlock extends React.Component {
                                 mode="outlined"
                                 label={translate('t6bisGestion.tabs.entete.informationst6bisBlock.taxeCoordination.immatriculation')}
                                 value={this.state.immatriculation}
-                                onChangeText={(text) => this.setState({ immatriculation: text })}
+                                onChangeText={(text) => {
+                                    this.setState({ immatriculation: text });
+                                    this.props.t6bis.immatriculation = text;
+                                }}
                             />
                         </Col>
 
@@ -168,7 +185,7 @@ class T6bisInformationsTaxeCoordinationSousBlock extends React.Component {
                             <HelperText
                                 type="error"
                                 padding="none"
-                                visible={!stringEmpty(this.state.dateEntree.toString())}>
+                                visible={!stringNotEmpty(this.state.dateEntree.toString())}>
                                 {translate('t6bisGestion.tabs.entete.informationst6bisBlock.taxeCoordination.valeurObligatoire')}
                             </HelperText>
 
@@ -195,7 +212,7 @@ class T6bisInformationsTaxeCoordinationSousBlock extends React.Component {
                             <HelperText
                                 type="error"
                                 padding="none"
-                                visible={!stringEmpty(this.state.dateSortie.toString())}>
+                                visible={!stringNotEmpty(this.state.dateSortie.toString())}>
                                 {translate('t6bisGestion.tabs.entete.informationst6bisBlock.taxeCoordination.valeurObligatoire')}
                             </HelperText>
 
@@ -213,7 +230,7 @@ class T6bisInformationsTaxeCoordinationSousBlock extends React.Component {
 
 
                     </Row>
-                    <Row size={200}>
+                   <Row size={200}>
                         <Col size={40} style={styles.labelContainer}>
                             <Text style={styles.labelTextStyle}>
                                 {translate('t6bisGestion.tabs.entete.informationst6bisBlock.taxeCoordination.poidsTotalEnChargePTC')}
@@ -221,7 +238,7 @@ class T6bisInformationsTaxeCoordinationSousBlock extends React.Component {
                             <HelperText
                                 type="error"
                                 padding="none"
-                                visible={!stringEmpty(this.state.ptc)}>
+                                visible={!stringNotEmpty(this.state.ptc)}>
                                 {translate('t6bisGestion.tabs.entete.informationst6bisBlock.taxeCoordination.valeurObligatoire')}
                             </HelperText>
 
@@ -252,7 +269,7 @@ class T6bisInformationsTaxeCoordinationSousBlock extends React.Component {
                             <HelperText
                                 type="error"
                                 padding="none"
-                                visible={!stringEmpty(this.state.acNationalite)}>
+                                visible={!stringNotEmpty(this.state.acNationalite)}>
                                 {translate('t6bisGestion.tabs.entete.informationst6bisBlock.taxeCoordination.valeurObligatoire')}
                             </HelperText>
 
@@ -277,7 +294,7 @@ class T6bisInformationsTaxeCoordinationSousBlock extends React.Component {
                         </Col>
 
 
-                    </Row>
+                                </Row>
 
                     <Row size={200}>
                         <Col size={40} style={styles.labelContainer}>
@@ -287,7 +304,7 @@ class T6bisInformationsTaxeCoordinationSousBlock extends React.Component {
                             <HelperText
                                 type="error"
                                 padding="none"
-                                visible={!stringEmpty(this.state.typeMoyenPaiement)}>
+                                visible={!stringNotEmpty(this.state.typeMoyenPaiement)}>
                                 {translate('t6bisGestion.tabs.entete.informationst6bisBlock.taxeCoordination.valeurObligatoire')}
                             </HelperText>
 
@@ -308,7 +325,7 @@ class T6bisInformationsTaxeCoordinationSousBlock extends React.Component {
                                 }
                             />
                         </Col>
-                    </Row>
+                    </Row> 
 
 
 

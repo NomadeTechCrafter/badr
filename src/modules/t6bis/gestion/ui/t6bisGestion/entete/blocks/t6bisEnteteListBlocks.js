@@ -27,12 +27,12 @@ class T6bisEnteteListBlocks extends React.Component {
     }
 
     viewCallBackHandler = (type, data) => {
-       
+
 
         // manipulate data if required, we have just one case, in case of many actions, we will use switch case
         this.props.callbackHandler(type, data);
-                
-        
+
+
     };
 
 
@@ -62,13 +62,14 @@ class T6bisEnteteListBlocks extends React.Component {
 
                 <View style={{ flex: 1 }}>
                     <T6bisInfosCommunsBlock t6bis={this.props.t6bis} mode={this.props.mode} fieldsetcontext={this.props.fieldsetcontext} />
-                    <T6bisEnteteRedevableBlock identifiants={this.props.identifiants} t6bis={this.props.t6bis} callbackHandler={this.viewCallBackHandler} readOnly={this.props.readOnly}/>
+                    <T6bisEnteteRedevableBlock newIntervenant={this.props?.newIntervenant} actions={this.props?.actions} fieldsetcontext={this.props.fieldsetcontext} 
+                        retourFindIntervenant={this.props?.retourFindIntervenant} identifiants={this.props.identifiants} t6bis={this.props.t6bis} callbackHandler={this.viewCallBackHandler} readOnly={this.props.readOnly} />
                     <T6bisEnteteInformationsT6BISBlock t6bis={this.props.t6bis} fieldsetcontext={this.props.fieldsetcontext} listmoyenpaiement={this.props.listmoyenpaiement} readOnly={this.props.readOnly} />
 
-                    
+
                     {(this.props?.listeRecap && this.props?.listeRecap.length != 0) && (<T6bisRecapTaxationGlobaleBlock t6bis={this.props.t6bis} listeRecap={this.props.listeRecap} />)}
-                    {(isRedressement() || this.props.t6bis.referenceT6BisRemplacee) && (<T6bisRedressementBlock t6bis={this.props.t6bis}  />)}
-                    
+                    {(isRedressement() || this.props.t6bis?.referenceT6BisRemplacee) && (<T6bisRedressementBlock t6bis={this.props.t6bis} />)}
+
 
                 </View>
 

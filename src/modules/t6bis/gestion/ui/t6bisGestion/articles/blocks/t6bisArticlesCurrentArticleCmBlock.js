@@ -7,7 +7,7 @@ import { ComAccordionComp, ComBadrButtonComp, ComBadrDatePickerComp, ComBadrErro
 import translate from "../../../../../../../commons/i18n/ComI18nHelper";
 import { CustomStyleSheet } from '../../../../../../../commons/styles/ComThemeStyle';
 import * as T6BISConstantes from "../../../../../utils/t6bisConstants";
-import { formatNomenclature, stringEmpty } from '../../../../../utils/t6bisUtils';
+import { formatNomenclature, stringNotEmpty } from '../../../../../utils/t6bisUtils';
 import styles from "../../../../style/t6bisGestionStyle";
 
 
@@ -190,7 +190,7 @@ class T6bisArticlesCurrentArticleCmBlock extends React.Component {
                             <HelperText
                                 type="error"
                                 padding="none"
-                                visible={!stringEmpty(this.state.currentArticle?.marque)}>
+                                visible={!stringNotEmpty(this.state.currentArticle?.marque)}>
                                 {translate('t6bisGestion.tabs.articles.articleBlock.cm.valeurObligatoire')}
                             </HelperText>
 
@@ -247,7 +247,7 @@ class T6bisArticlesCurrentArticleCmBlock extends React.Component {
                             <HelperText
                                 type="error"
                                 padding="none"
-                                visible={!stringEmpty(this.state.currentArticle?.cylindree)}>
+                                visible={!stringNotEmpty(this.state.currentArticle?.cylindree)}>
                                 {translate('t6bisGestion.tabs.articles.articleBlock.cm.valeurObligatoire')}
                             </HelperText>
 
@@ -277,7 +277,7 @@ class T6bisArticlesCurrentArticleCmBlock extends React.Component {
                             <HelperText
                                 type="error"
                                 padding="none"
-                                visible={!stringEmpty(this.state.currentArticle?.numeroCadre)}>
+                                visible={!stringNotEmpty(this.state.currentArticle?.numeroCadre)}>
                                 {translate('t6bisGestion.tabs.articles.articleBlock.cm.valeurObligatoire')}
                             </HelperText>
 
@@ -366,7 +366,7 @@ class T6bisArticlesCurrentArticleCmBlock extends React.Component {
                             <HelperText
                                 type="error"
                                 padding="none"
-                                visible={!stringEmpty(this.state.currentArticle?.valeurTaxable)}>
+                                visible={!stringNotEmpty(this.state.currentArticle?.valeurTaxable)}>
                                 {translate('t6bisGestion.tabs.articles.articleBlock.cm.valeurObligatoire')}
                             </HelperText>
 

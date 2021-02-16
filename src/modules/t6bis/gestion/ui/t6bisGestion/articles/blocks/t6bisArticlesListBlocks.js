@@ -59,6 +59,8 @@ class T6bisArticlesListBlocks extends React.Component {
     render() {
         console.log("T6bisArticlesListBlocks this.props---------------------------15022021----------------------------", this.props);
         let codeTypeT6bis = this.props.t6bis?.codeTypeT6bis;
+        let montantGlobalByArticle = this.props.t6bis?.montantGlobalByArticle;
+        console.log("T6bisArticlesListBlocks montantGlobalByArticle---------------------------15022021----------------------------", montantGlobalByArticle);
         return (
 
             <ScrollView>

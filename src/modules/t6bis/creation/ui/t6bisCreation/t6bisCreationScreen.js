@@ -25,7 +25,6 @@ class T6bisCreation extends React.Component {
         this.state = {
             selectedTypeCode: null,
             selectedType: null,
-            listeType: [],
             mode: null
         };
     }
@@ -163,8 +162,8 @@ class T6bisCreation extends React.Component {
                         value={this.state.selectedTypeCode}>
 
 
-                        {this.state.types ? (
-                            this.state.types.map((item) => (
+                        {this.state.listeType ? (
+                            this.state.listeType.map((item) => (
                                 <View style={styles.typeContainerRB} key={item.code}>
                                     <Text style={styles.textRadio}>
                                         {item.libelle}

@@ -37,6 +37,7 @@ import ctrlControleApresScannerReducer from '../../modules/controle/controleApre
 
 import t6bisCreationReducer from '../../modules/t6bis/creation/state/reducers/t6bisCreationReducer';
 import t6bisGestionReducer from '../../modules/t6bis/gestion/state/reducers/t6bisGestionReducer';
+import t6bisRechercheReducer from '../../modules/t6bis/recherche/state/reducers/t6bisRechercheReducer';
 
 import crudDatatableReducer from '../state/reducers/ComCrudDataTableReducer';
 
@@ -92,7 +93,7 @@ const allReducers = combineReducers({
   creationReducer,
   EcorImportReducer,
   t6bisCreationReducer,
-  t6bisGestionReducer
+  t6bisGestionReducer, t6bisRechercheReducer
 });
 /**
  * store creation

@@ -3,6 +3,7 @@ export default {
         
             
         title: 'Ecran de modification de la T6BIS',
+        redressmenttitle: 'Ecran de redressement de la T6BIS',
         fields: {
             referenceT6bis: "Référence T6BIS",
             bureau: "Bureau",

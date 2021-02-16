@@ -28,7 +28,8 @@ class T6bisRecherche extends React.Component {
         mode: t6bisConstants.MODE_UPDATE,
         bureau: ComSessionService.getInstance().getCodeBureau(),
         annee: null,
-        serie: '14',
+        serie: null,
+        title: isRedressement() ? translate('t6bisrecherche.redressmenttitle') : translate('t6bisrecherche.title'),
 
         t6bis: {
             enregistree: false,
@@ -43,8 +44,9 @@ class T6bisRecherche extends React.Component {
         this.state = this.defaultState;
     }
 
+
     componentDidMount() {
-       
+        this.setState({ title: isRedressement() ? translate('t6bisrecherche.redressmenttitle') : translate('t6bisrecherche.title') });
     }
 
 
@@ -88,13 +90,12 @@ class T6bisRecherche extends React.Component {
 
     valider = () => {
         console.log(this.state);
-        ComSessionService.getInstance().setFonctionalite(t6bisConstants.T6BIS_MODIFICATION_FONCTIONNALITE);
         if (isRedressement()) {
             console.log('Redressement');
             this.setState({ mode: t6bisConstants.MODE_REDRESSEMENT });
         } else {
             this.setState({ mode: t6bisConstants.MODE_UPDATE });
-         }
+        }
         this.completeTextInputFields();
         console.log(this.state);
         if (this.state.mode === 'redressement') {
@@ -113,8 +114,8 @@ class T6bisRecherche extends React.Component {
             annee: this.state.annee,
             bureauCourant: { ...this.state.t6bis.bureauCourant, codeBureau: this.state.bureau }
         }
-        let action=null
-        console.log('Redressement ---------------------------------------------------------15022021----------> ',this.state.t6bis);
+        let action = null
+        console.log('Redressement ---------------------------------------------------------15022021----------> ', this.state.t6bis);
         if (isRedressement()) {
             action = t6bisInitForRedresser.request({
                 type: Constantes.T6BIS_INIT_FOR_REDRESSER_REQUEST,
@@ -123,7 +124,7 @@ class T6bisRecherche extends React.Component {
                     mode: t6bisConstants.MODE_REDRESSEMENT
                 }
             }, this.props.navigation);
-         }
+        }
         else {
             action = t6bisInitForUpdateAction.request({
                 type: Constantes.T6BIS_INIT_FOR_UPDATE_REQUEST,
@@ -149,7 +150,7 @@ class T6bisRecherche extends React.Component {
                     <ComBadrToolbarComp
                         navigation={this.props.navigation}
                         icon="menu"
-                        title={translate('t6bisrecherche.title')}
+                        title={this.state.title}
                     />
                     {this.props.errorMessage != null && (
                         <View style={styles.messages}>
@@ -159,16 +160,17 @@ class T6bisRecherche extends React.Component {
                             />
                         </View>
                     )}
+                    <View>
+                        <Text style={styles.labelTextStyle}>
+                            {translate('t6bisrecherche.fields.referenceT6bis')}
+                        </Text>
+
+                    </View>
                     <View style={styles.ComContainerCompInputs}>
-                        <View>
-                            <Text style={styles.labelTextStyle}>
-                                {translate('t6bisrecherche.fields.referenceT6bis')}
-                            </Text>
-
-                        </View>
 
 
-                        <View style={{ width: 150, marginTop: 50 }}>
+
+                        <View style={{ width: 130, marginTop: 50 }}>
                             <TextInput
                                 error={this._hasErrors('bureau')}
                                 maxLength={3}
@@ -194,7 +196,7 @@ class T6bisRecherche extends React.Component {
                                 })}
                             </HelperText>
                         </View>
-                        <View style={{ width: 150, marginTop: 50 }}>
+                        <View style={{ width: 130, marginTop: 50 }}>
                             <TextInput
                                 error={this._hasErrors('annee')}
                                 maxLength={4}
@@ -219,7 +221,7 @@ class T6bisRecherche extends React.Component {
                             </HelperText>
 
                         </View>
-                        <View style={{ width: 150, marginTop: 50 }}>
+                        <View style={{ width: 130, marginTop: 50 }}>
                             <TextInput
                                 error={this._hasErrors('serie')}
                                 maxLength={7}

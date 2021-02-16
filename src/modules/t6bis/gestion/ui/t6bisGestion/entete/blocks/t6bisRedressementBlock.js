@@ -54,8 +54,8 @@ class T6bisRedressementBlock extends React.Component {
     };
 
 
-    onChangeTextCommentaireRedressement(text) {
-        setState({ t6bis: { ...this.state.t6bis, commentaireRedressement: text } });
+    onChangeTextCommentaireRedressement=(text) =>{
+        this.setState({ t6bis: { ...this.state.t6bis, commentaireRedressement: text } });
     }
 
     render() {

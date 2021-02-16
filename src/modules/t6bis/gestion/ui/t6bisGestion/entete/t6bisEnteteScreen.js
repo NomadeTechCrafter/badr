@@ -6,6 +6,7 @@ import T6bisEnteteListBlocks from './blocks/t6bisEnteteListBlocks';
 import * as T6BISConstantes from "../../../../utils/t6bisConstants";
 import * as Constantes from '../../../state/t6bisGestionConstants';
 import { isRecherche } from '../../../../utils/t6bisUtils';
+import t6bisUpdatePropsAction from '../../../state/actions/t6bisUpdatePropsAction';
 
 
 
@@ -30,7 +31,7 @@ class T6bisEnteteTab extends React.Component {
         console.log(type);
     switch (type) {
         case T6BISConstantes.FIND_INTERVENANT_TASK: 
-            this.props.dispatch(t6bisFindIntervenantAction.request(data));
+            this.props.actions.dispatch(t6bisFindIntervenantAction.request(data));
             break;
         case T6BISConstantes.UPDATE_INTERVENANT_TASK:
             let dataToAction = {
@@ -40,7 +41,7 @@ class T6bisEnteteTab extends React.Component {
                 }
             };
 
-            this.props.dispatch(t6bisUpdatePropsAction.request(dataToAction));
+            this.props.actions.dispatch(t6bisUpdatePropsAction.request(dataToAction));
             this.setState({ fieldsetcontext: data.fieldsetcontext});
             break;
 
@@ -65,6 +66,21 @@ class T6bisEnteteTab extends React.Component {
     };
 
 
+    static getDerivedStateFromProps(props, state) {
+        console.log('getDerivedStateFromProps----------15022021-----Yassine-----props ', props);
+        console.log('getDerivedStateFromProps---------15022021-----yassine------state ', state);
+
+        if (
+            props.fieldsetcontext 
+        ) {
+            return {
+                fieldsetcontext: { ...state.fieldsetcontext, ...props.fieldsetcontext },// update the value of specific key
+            };
+        }
+        // Return null to indicate no change to state.
+        return null;
+    }
+
 
     render() {
         
@@ -81,6 +97,9 @@ class T6bisEnteteTab extends React.Component {
                     fieldsetcontext={this.state?.fieldsetcontext}
                     listeRecap={this.props?.listeRecap}
                     readOnly={isRecherche()}
+                    actions={this.props?.actions}
+                    newIntervenant={this.props?.newIntervenant}
+                    retourFindIntervenant={this.props?.retourFindIntervenant}
                     callbackHandler={this.callbackHandler} />
             </ScrollView>
         );
@@ -93,9 +112,14 @@ function mapStateToProps(state) {
 
 
 
-
+function mapDispatchToProps(dispatch) {
+    let actions = { dispatch };
+    return {
+        actions,
+    };
+}
 
 export default connect(
     mapStateToProps,
-    null,
+    mapDispatchToProps,
 )(T6bisEnteteTab);

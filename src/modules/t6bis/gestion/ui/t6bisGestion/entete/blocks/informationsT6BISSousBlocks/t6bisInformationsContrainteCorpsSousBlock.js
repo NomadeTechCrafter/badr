@@ -4,7 +4,7 @@ import { Col, Row } from 'react-native-easy-grid';
 import { HelperText, TextInput } from 'react-native-paper';
 import { ComAccordionComp, ComBadrItemsPickerComp } from '../../../../../../../../commons/component';
 import translate from '../../../../../../../../commons/i18n/ComI18nHelper';
-import { stringEmpty } from '../../../../../../utils/t6bisUtils';
+import { stringNotEmpty } from '../../../../../../utils/t6bisUtils';
 import styles from "../../../../../style/t6bisGestionStyle";
 
 
@@ -17,7 +17,7 @@ class T6bisInformationsContainteCorpsSousBlock extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            numeroTriptyque: this.props.t6bis?.numeroTriptyque,
+            refContrainteCorps: this.props.t6bis?.refContrainteCorps,
             typeMoyenPaiement: this.props.t6bis?.typeMoyenPaiement?.code
 
         };
@@ -48,7 +48,7 @@ class T6bisInformationsContainteCorpsSousBlock extends React.Component {
                             <HelperText
                                 type="error"
                                 padding="none"
-                                visible={!stringEmpty(this.state.refContrainteCorps)}>
+                                visible={!stringNotEmpty(this.state.refContrainteCorps)}>
                                 {translate('t6bisGestion.tabs.entete.informationst6bisBlock.containteCorps.valeurObligatoire')}
                             </HelperText>
 
@@ -79,7 +79,7 @@ class T6bisInformationsContainteCorpsSousBlock extends React.Component {
                             <HelperText
                                 type="error"
                                 padding="none"
-                                visible={!stringEmpty(this.state.typeMoyenPaiement)}>
+                                visible={!stringNotEmpty(this.state.typeMoyenPaiement)}>
                                 {translate('t6bisGestion.tabs.entete.informationst6bisBlock.containteCorps.valeurObligatoire')}
                             </HelperText>
 
@@ -90,6 +90,7 @@ class T6bisInformationsContainteCorpsSousBlock extends React.Component {
                                 disabled={this.props.readOnly}
                                 label={translate('t6bisGestion.tabs.entete.informationst6bisBlock.containteCorps.choisirElement')}
                                 selectedValue={this.state.typeMoyenPaiement}
+                                selected={this.state.typeMoyenPaiement}
                                 items={this.props.listmoyenpaiement}
                                 onValueChanged={(value, index) => {
                                     this.setState({ typeMoyenPaiement: value.code });

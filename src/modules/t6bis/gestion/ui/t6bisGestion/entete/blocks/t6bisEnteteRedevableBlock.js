@@ -56,12 +56,13 @@ class T6bisEnteteRedevableBlock extends React.Component {
 
 
             <View>
-                
 
-                    {isRedevableNonOperator(codeTypeT6bis) && (
-                    <T6bisEnteteRedevableSousBlock identifiants={this.props.identifiants} t6bis={this.props.t6bis} fieldsetcontext={this.props.fieldsetcontext} readOnly={this.props.readOnly} callbackHandler={this.viewCallBackHandler} />)}
-                    {isRedevableOperator(codeTypeT6bis) && (
-                    <T6bisEnteteRedevableOpeSousBlock t6bis={this.props.t6bis} fieldsetcontext={this.props.fieldsetcontext} readOnly={this.props.readOnly} callbackHandler={this.viewCallBackHandler} />)}
+
+                {isRedevableNonOperator(codeTypeT6bis) && (
+                    <T6bisEnteteRedevableSousBlock identifiants={this.props.identifiants} newIntervenant={this.props?.newIntervenant}
+                        retourFindIntervenant={this.props?.retourFindIntervenant} t6bis={this.props.t6bis} fieldsetcontext={this.props.fieldsetcontext} readOnly={this.props.readOnly} callbackHandler={this.viewCallBackHandler} />)}
+                {isRedevableOperator(codeTypeT6bis) && (
+                    <T6bisEnteteRedevableOpeSousBlock t6bis={this.props.t6bis} actions={this.props?.actions} fieldsetcontext={this.props.fieldsetcontext} readOnly={this.props.readOnly} callbackHandler={this.viewCallBackHandler} />)}
 
 
             </View>

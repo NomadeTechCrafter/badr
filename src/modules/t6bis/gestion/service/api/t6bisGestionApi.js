@@ -68,6 +68,24 @@ export default class T6bisGestiontionApi {
     console.log(data);
     return await ComHttpHelperApi.process(data);
   };
+  static getCmbOperateurByCode = async (identifiant) => {
+    console.log('getCmbOperateurByCode');
+    const data = {
+      dtoHeader: {
+        userLogin: ComSessionService.getInstance().getLogin(),
+        fonctionnalite: ComSessionService.getInstance().getFonctionalite() ? ComSessionService.getInstance().getFonctionalite() : T6BIS_CREATION_FONCTIONNALITE,
+        module: MODULE_REF,
+        commande: 'getCmbOperateurByCode',
+        typeService: TYPE_SERVICE_SP,
+        motif: null,
+        messagesInfo: null,
+        messagesErreur: null,
+      },
+      jsonVO: identifiant
+    };
+    console.log(data);
+    return await ComHttpHelperApi.process(data);
+  };
   
   
   static sauvegarderT6BIS = async (cmd,t6bis) => {

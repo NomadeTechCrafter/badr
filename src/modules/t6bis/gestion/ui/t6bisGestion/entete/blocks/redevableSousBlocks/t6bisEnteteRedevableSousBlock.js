@@ -6,9 +6,10 @@ import { TextInput } from 'react-native-paper';
 import { ComAccordionComp, ComBadrAutoCompleteChipsComp, ComBadrButtonComp, ComBadrItemsPickerComp } from '../../../../../../../../commons/component';
 import translate from '../../../../../../../../commons/i18n/ComI18nHelper';
 import * as T6BISConstantes from "../../../../../../utils/t6bisConstants";
-import { isCreation, stringEmpty, validateCin } from "../../../../../../utils/t6bisUtils";
+import { isCreation, stringNotEmpty, validateCin } from "../../../../../../utils/t6bisUtils";
 import * as Constantes from '../../../../../state/t6bisGestionConstants';
 import styles from "../../../../../style/t6bisGestionStyle";
+import _ from 'lodash';
 
 
 
@@ -42,12 +43,12 @@ class T6bisEnteteRedevableSousBlock extends React.Component {
             }
         });
         this.state.intervenantVO.nationaliteFr = pays.code;
-        console.log('pays', pays);
+
         this.checkType();
     };
 
-    componentDidMount = async () => {
-
+    componentDidMount = () => {
+        console.log('this.state --------------------------------------------------------------------------------------- µµµµµµµµµµµµµµµµµµµµµµµ', this.state);
 
     }
 
@@ -173,15 +174,16 @@ class T6bisEnteteRedevableSousBlock extends React.Component {
         }
     }
     static getDerivedStateFromProps(props, state) {
-        console.log('getDerivedStateFromProps----------15022021----------props ', props);
-        console.log('getDerivedStateFromProps---------15022021-----------state ', state);
+        console.log('getDerivedStateFromProps----------15022021-----Yassine-----props ', props);
+        console.log('getDerivedStateFromProps---------15022021-----yassine------state ', state);
 
         if (
-            props.t6bis?.intervenantVO
+            props.t6bis.intervenantVO && !props?.newIntervenant
+            && props?.retourFindIntervenant
         ) {
             return {
                 intervenantVO: { ...state.intervenantVO, ...props.t6bis?.intervenantVO },// update the value of specific key
-                newIntervenant : props.newIntervenant
+                newIntervenant: props.newIntervenant
             };
         }
         // Return null to indicate no change to state.
@@ -253,7 +255,7 @@ class T6bisEnteteRedevableSousBlock extends React.Component {
 
 
                             <ComBadrAutoCompleteChipsComp
-                                disabled={(stringEmpty(this.state.intervenantVO.adresse) && !this.idNewIntervenant()) || (this.props.readOnly)}
+                                disabled={(stringNotEmpty(this.state.intervenantVO.adresse) && !this.idNewIntervenant()) || (this.props.readOnly)}
                                 code="code"
                                 placeholder={translate(
                                     't6bisGestion.tabs.entete.redevableBlock.nationalite'
@@ -282,7 +284,7 @@ class T6bisEnteteRedevableSousBlock extends React.Component {
                                 mode="outlined"
                                 label={translate('t6bisGestion.tabs.entete.redevableBlock.nom')}
                                 value={this.state.intervenantVO.nomIntervenant}
-                                disabled={(stringEmpty(this.state.intervenantVO.adresse) && !this.idNewIntervenant()) || (this.props.readOnly)}
+                                disabled={(stringNotEmpty(this.state.intervenantVO.adresse) && !this.idNewIntervenant()) || (this.props.readOnly)}
                                 onChangeText={(text) =>
 
                                     (text) ? this.setState({
@@ -306,7 +308,7 @@ class T6bisEnteteRedevableSousBlock extends React.Component {
                                 mode="outlined"
                                 label={translate('t6bisGestion.tabs.entete.redevableBlock.prenom')}
                                 value={this.state.intervenantVO.prenomIntervenant}
-                                disabled={(stringEmpty(this.state.intervenantVO.adresse) && !this.idNewIntervenant()) || (this.props.readOnly)}
+                                disabled={(stringNotEmpty(this.state.intervenantVO.adresse) && !this.idNewIntervenant()) || (this.props.readOnly)}
                                 onChangeText={(text) =>
 
                                     (text) ? this.setState({
@@ -327,6 +329,7 @@ class T6bisEnteteRedevableSousBlock extends React.Component {
                         <Col size={30} style={styles.labelContainer}>
                             <Text style={styles.labelTextStyle}>
                                 {translate('t6bisGestion.tabs.entete.redevableBlock.adresse')}
+                               
                             </Text>
 
 
@@ -340,7 +343,7 @@ class T6bisEnteteRedevableSousBlock extends React.Component {
                                 mode="outlined"
                                 label={translate('t6bisGestion.tabs.entete.redevableBlock.adresse')}
                                 value={this.state.intervenantVO.adresse}
-                                disabled={(stringEmpty(this.state.intervenantVO.adresse) && !this.idNewIntervenant()) || (this.props.readOnly)}
+                                disabled={(stringNotEmpty(this.state.intervenantVO.adresse) && !this.idNewIntervenant()) || (this.props.readOnly)}
                                 onChangeText={(text) =>
 
                                     this.setState({
@@ -359,25 +362,25 @@ class T6bisEnteteRedevableSousBlock extends React.Component {
 
                     {(!this.props.readOnly) && (<Row size={100}>
                         <Col size={100}>
-                            {(!this.state.readonly) && (
-                                <View style={styles.ComContainerCompBtn}>
+
+                            <View style={styles.ComContainerCompBtn}>
 
 
-                                    <ComBadrButtonComp
-                                        style={styles.actionBtn}
-                                        onPress={() => {
-                                            this.confirmer();
-                                        }}
-                                        text={translate('t6bisGestion.tabs.entete.buttons.confirmer')}
-                                    />
-                                    <ComBadrButtonComp
-                                        style={styles.actionBtn}
-                                        onPress={() => {
-                                            this.retablir();
-                                        }}
-                                        text={translate('t6bisGestion.tabs.entete.buttons.retablir')}
-                                    />
-                                </View>)}
+                                <ComBadrButtonComp
+                                    style={styles.actionBtn}
+                                    onPress={() => {
+                                        this.confirmer();
+                                    }}
+                                    text={translate('t6bisGestion.tabs.entete.buttons.confirmer')}
+                                />
+                                <ComBadrButtonComp
+                                    style={styles.actionBtn}
+                                    onPress={() => {
+                                        this.retablir();
+                                    }}
+                                    text={translate('t6bisGestion.tabs.entete.buttons.retablir')}
+                                />
+                            </View>
                         </Col>
                     </Row>)}
 

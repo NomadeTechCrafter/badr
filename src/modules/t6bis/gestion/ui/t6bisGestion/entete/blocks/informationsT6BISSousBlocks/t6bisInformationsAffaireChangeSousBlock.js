@@ -4,7 +4,7 @@ import { Col, Row } from 'react-native-easy-grid';
 import { HelperText, TextInput } from 'react-native-paper';
 import { ComAccordionComp, ComBadrItemsPickerComp } from '../../../../../../../../commons/component';
 import translate from '../../../../../../../../commons/i18n/ComI18nHelper';
-import { formatSerie, stringEmpty } from '../../../../../../utils/t6bisUtils';
+import { formatSerie, stringNotEmpty } from '../../../../../../utils/t6bisUtils';
 import styles from "../../../../../style/t6bisGestionStyle";
 
 
@@ -79,7 +79,7 @@ class T6bisInformationsAffaireChangeSousBlock extends React.Component {
                             <HelperText
                                 type="error"
                                 padding="none"
-                                visible={!stringEmpty(this.state.descriptifInfraction)}>
+                                visible={!stringNotEmpty(this.state.descriptifInfraction)}>
                                 {translate('t6bisGestion.tabs.entete.informationst6bisBlock.affaireChange.valeurObligatoire')}
                             </HelperText>
 
@@ -160,7 +160,7 @@ class T6bisInformationsAffaireChangeSousBlock extends React.Component {
                             <HelperText
                                 type="error"
                                 padding="none"
-                                visible={!stringEmpty(this.state.typeMoyenPaiement)}>
+                                visible={!stringNotEmpty(this.state.typeMoyenPaiement)}>
                                 {translate('t6bisGestion.tabs.entete.informationst6bisBlock.affaireChange.valeurObligatoire')}
                             </HelperText>
 

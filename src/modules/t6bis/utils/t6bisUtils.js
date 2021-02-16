@@ -88,7 +88,7 @@ export const validateCin = (cin) => {
   return '';
 }
 
-export const stringEmpty = (string) => {
+export const stringNotEmpty = (string) => {
   return (string != null && string.trim() != "");
 }
 
@@ -179,7 +179,7 @@ export const getCurrentArticle = (codeTypeT6bis, num = 0) => {
       cylindree: null,
       numeroCadre: null,
       numeroImmatriculation: null,
-      dateMiseCirculation: null,
+      dateMiseEnCirculation: null,
       valeurTaxable: null,
       montantFacture: null,
       devise: null,
@@ -366,6 +366,8 @@ export const prepareListArticlesMtm = function (tempListArticles, t6bis) {
   if (t6bis && t6bis.listeArticleT6bis) {
     t6bis.listeArticleT6bis.forEach(function (current) {
       tempListArticles.push({
+        id: current.id,
+        codeNomenclature: current.codeNomenclature,
         montantFacture: current.montantFacture,
         designation: current.designation,
         numArticle: current.numArticle,
@@ -389,13 +391,12 @@ export const prepareListArticlesMtm = function (tempListArticles, t6bis) {
       delete current.isNew;
       delete current.montantGlobalByArticle;
       delete current.recapCurrentArticleList;
-      console.log('current.recapCurrentArticleList------------------------------------------------------------', current?.recapCurrentArticleList);
       delete current.$$hashKey;
     });
   }
 }
 
-export const prepareListArticlesCm = function (tempListArticles) {
+export const prepareListArticlesCm = function (tempListArticles, t6bis) {
   if (t6bis && t6bis.listeArticleT6bis) {
     t6bis.listeArticleT6bis.forEach(function (current) {
       tempListArticles.push({
@@ -534,8 +535,8 @@ export const mapErrorsCreation = function (serverErros) {
 export const calculerMontantGlobal = function (t6bis) {
   if ((t6bis && !t6bis.montantGlobal) || t6bis.montantGlobal <= 0) {
     var listeRecap = [];
-    t6bisService.groupLignesByRubrique(t6bis, listeRecap);
-    t6bis.montantGlobal = t6bisService.calculateTotalT6bis(listeRecap, t6bis);
+    groupLignesByRubrique(t6bis, listeRecap);
+    t6bis.montantGlobal = calculateTotalT6bis(listeRecap, t6bis);
     console.log("Montant de la t6bis > ");
     console.log(t6bis.montantGlobal);
   }
@@ -556,4 +557,31 @@ export const isRedressement = () => {
 export const isRecherche = () => {
   return ComSessionService.getInstance().getFonctionalite() === Constants.T6BIS_RECHERCHE_FONCTIONNALITE;
 
+}
+
+export const mapErrorsGestion = function (errorsArray) {
+  var serverErros = {
+    "E1100029": "E1100029 : L'affaire est inexistante",
+    // "??? TECH_EXCEPTION ???": "TECH_EXCEPTION : Erreur technique",
+    "??? E1100010 ???": "E1100010 : Il faut ajouter au moins un article avec une taxation à la T6bis.",
+    "??? E1100011 ???": "E1100011 : Il faut ajouter au moins une taxation globale à la T6bis.",
+    "??? E1100012 ???": "E1100012 : Il faut renseigner le redevable.",
+    "??? E1100023 ???": "E1100023 : La date entrée doit être inférieure ou égal à la date système.",
+    "??? E1100024 ???": "E1100024 : La date de sortie doit être inférieure ou égal à la date système.",
+    "??? E1100032 ???": "E1100032 : Le montant global de T6BIS doit être supérieur à zéro.",
+    "??? E1100003 ???": "E1100003 : SUPPRESION : Vous ne pouvez pas supprimer une T6Bis déjà enregistrée.",
+    "??? AjouterIntervenantPrecondiitonManager.ARE-013 ???": "Il faut renseigner le redevable",
+    "??? E1100021 ???": "E1100021 : T6bis doit être crée par l’agent connecté.",
+    "??? E1100022 ???": "E1100022 : La quittance est déjà utilisée.",
+    "??? E1100023 ???": "E1100023 : La date entrée doit être inférieure ou égal à la date système.",
+    "??? E1100024 ???": "E1100024 : La date de sortie doit être inférieure ou égal à la date système.",
+    "??? E1100025 ???": "E1100025 : La date de sortie doit être  supérieure à la date d’entrée."
+  }
+  let messages = [];
+  errorsArray.forEach(function (error) {
+    if (serverErros[error]) {
+      messages.push(serverErros[error]);
+    }
+  });
+  return messages && messages.length > 0 ? messages : errorsArray;
 }

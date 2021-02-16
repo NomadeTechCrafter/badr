@@ -11,7 +11,6 @@ const styles = {
     ComContainerCompInputs: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginTop:50
         
     },
     cleHelperMsg: { width: 150 },

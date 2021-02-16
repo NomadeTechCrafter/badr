@@ -6,7 +6,7 @@ import styles from "../../../../style/t6bisGestionStyle";
 import translate from "../../../../../../../commons/i18n/ComI18nHelper";
 import { Col, Row } from 'react-native-easy-grid';
 import { HelperText, TextInput } from 'react-native-paper';
-import { formatNomenclature, stringEmpty } from '../../../../../utils/t6bisUtils';
+import { formatNomenclature, stringNotEmpty } from '../../../../../utils/t6bisUtils';
 import _ from 'lodash';
 import * as T6BISConstantes from "../../../../../utils/t6bisConstants";
 
@@ -236,7 +236,7 @@ class T6bisArticlesCurrentArticleMtmBlock extends React.Component {
                             <HelperText
                                 type="error"
                                 padding="none"
-                                visible={!stringEmpty(this.state.currentArticle?.natureMarchandise)}>
+                                visible={!stringNotEmpty(this.state.currentArticle?.natureMarchandise)}>
                                 {translate('t6bisGestion.tabs.articles.articleBlock.mtm.valeurObligatoire')}
                             </HelperText>
 
@@ -268,7 +268,7 @@ class T6bisArticlesCurrentArticleMtmBlock extends React.Component {
                             <HelperText
                                 type="error"
                                 padding="none"
-                                visible={!stringEmpty(this.state.currentArticle?.designation)}>
+                                visible={!stringNotEmpty(this.state.currentArticle?.designation)}>
                                 {translate('t6bisGestion.tabs.articles.articleBlock.mtm.valeurObligatoire')}
                             </HelperText>
 
@@ -299,7 +299,7 @@ class T6bisArticlesCurrentArticleMtmBlock extends React.Component {
                             <HelperText
                                 type="error"
                                 padding="none"
-                                visible={!stringEmpty(this.state.currentArticle?.valeurTaxable)}>
+                                visible={!stringNotEmpty(this.state.currentArticle?.valeurTaxable)}>
                                 {translate('t6bisGestion.tabs.articles.articleBlock.mtm.valeurObligatoire')}
                             </HelperText>
 
@@ -331,7 +331,7 @@ class T6bisArticlesCurrentArticleMtmBlock extends React.Component {
                             <HelperText
                                 type="error"
                                 padding="none"
-                                visible={!stringEmpty(this.state.currentArticle?.montantFacture)}>
+                                visible={!stringNotEmpty(this.state.currentArticle?.montantFacture)}>
                                 {translate('t6bisGestion.tabs.articles.articleBlock.mtm.valeurObligatoire')}
                             </HelperText>
 
@@ -361,7 +361,7 @@ class T6bisArticlesCurrentArticleMtmBlock extends React.Component {
                             <HelperText
                                 type="error"
                                 padding="none"
-                                visible={!stringEmpty(this.state.currentArticle?.devise)}>
+                                visible={!stringNotEmpty(this.state.currentArticle?.devise)}>
                                 {translate('t6bisGestion.tabs.articles.articleBlock.mtm.valeurObligatoire')}
                             </HelperText>
 
@@ -395,7 +395,7 @@ class T6bisArticlesCurrentArticleMtmBlock extends React.Component {
                             <HelperText
                                 type="error"
                                 padding="none"
-                                visible={!stringEmpty(this.state.currentArticle?.quantite)}>
+                                visible={!stringNotEmpty(this.state.currentArticle?.quantite)}>
                                 {translate('t6bisGestion.tabs.articles.articleBlock.mtm.valeurObligatoire')}
                             </HelperText>
 
@@ -442,7 +442,7 @@ class T6bisArticlesCurrentArticleMtmBlock extends React.Component {
                                 onValueChange={this.handleUniteQuantiteChanged} />
                         </Col>
                     </Row>
-                    {(this.props.readOnly) && (<Row size={200}>
+                    {(!this.props.readOnly) && (<Row size={200}>
                         <Col size={200}>
 
                             <View style={styles.ComContainerCompBtn}>

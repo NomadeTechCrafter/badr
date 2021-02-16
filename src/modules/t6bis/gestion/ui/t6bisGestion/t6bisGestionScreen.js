@@ -6,7 +6,7 @@ import { ComBadrButtonComp, ComBadrDialogComp, ComBadrErrorMessageComp, ComBadrI
 import { translate } from '../../../../../commons/i18n/ComI18nHelper';
 import { primaryColor } from '../../../../../commons/styles/ComThemeStyle';
 import { CMD_ENREGISTRER_T6BIS, CMD_SAUVEGARDER_T6BIS } from '../../../utils/t6bisConstants';
-import { calculerMontantGlobal, completer, deleteAttributes, getMessageValidation, isCm, isCreation, isMtm, preconditions, prepareListArticlesCm, prepareListArticlesMtm, validate } from '../../../utils/t6bisUtils';
+import { calculerMontantGlobal, completer, deleteAttributes, getMessageValidation, isCm, isCreation, isMtm, isRecherche, preconditions, prepareListArticlesCm, prepareListArticlesMtm, validate } from '../../../utils/t6bisUtils';
 import t6bisinitT6bisEnteteSectionAction from '../../state/actions/t6bisInitT6bisEnteteSectionAction';
 import t6bissauvegarderT6BISAction from '../../state/actions/t6bissauvegarderT6BISAction';
 import t6bissupprimerT6BISAction from '../../state/actions/t6bissupprimerT6BISAction';
@@ -18,6 +18,7 @@ import T6bisHistoriqueTab from './historique/t6bisHistoriqueScreen';
 import T6bisInformationsTab from './informations/t6bisInformationsScreen';
 import T6bisTaxationGlobaleTab from './taxationglobale/t6bisTaxationGlobaleScreen';
 import T6bisTaxationManuelleTab from './taxationmanuelle/t6bisTaxationManuelleScreen';
+import moment from 'moment';
 
 
 
@@ -119,7 +120,7 @@ class T6bisGestion extends React.Component {
     }
     lancerUC = (uc) => {
 
-        if (isCreation && this.props.t6bis && this.props.t6bis.dateEnregistrement) {
+        if (isCreation() && this.props.t6bis && this.props.t6bis.dateEnregistrement) {
             var messages = [translate('t6bisGestion.declarationDejaEnregistree')];
             this.setState({ errorMessage: messages });
         } else {
@@ -134,19 +135,26 @@ class T6bisGestion extends React.Component {
                 prepareListArticlesMtm(tempListArticles, this.props.t6bis);
             }
             else if (this.props.t6bis && this.props.t6bis?.codeTypeT6bis === '02') {
+                console.log('sauvgarder 2');
                 if (this.props.t6bis.listeArticleT6bis) {
+                    console.log('sauvgarder 3');
                     if (isCreation) {
+                        console.log('sauvgarder 4');
                         prepareListArticlesCm(tempListArticles, this.props.t6bis);
                     }
-                    this.props.t6bis.listeArticleT6bis.forEach(function (article) {
-                        article.dateMiseEnCirculation = moment(new Date(article.dateMiseEnCirculation)).format("dd/MM/yyyy");
-                    });
+                    console.log('sauvgarder 5');
+                    /* this.props.t6bis.listeArticleT6bis.forEach(function (article) {
+                       
+                        article.dateMiseEnCirculation = moment(new Date(article.dateMiseEnCirculation)).format("DD/MM/YYYY");
+                    }); */
+                    console.log('sauvgarder 6');
                 } else {
+                    console.log('sauvgarder 7');
                     this.props.t6bis.listeArticleT6bis = [];
                 }
             } else if (this.props.t6bis && this.props.t6bis?.codeTypeT6bis === '03') {
-                this.props.t6bis.dateEntree = moment(new Date(this.props.t6bis.dateEntree)).format("dd/MM/yyyy");
-                this.props.t6bis.dateSortie = moment(new Date(this.props.t6bis.dateSortie)).format("dd/MM/yyyy");
+                /* this.props.t6bis.dateEntree = moment(new Date(this.props.t6bis.dateEntree)).format("DD/MM/YYYY");
+                this.props.t6bis.dateSortie = moment(new Date(this.props.t6bis.dateSortie)).format("DD/MM/YYYY"); */
             }
             if (CMD_ENREGISTRER_T6BIS === uc) {
                 calculerMontantGlobal(this.props.t6bis);
@@ -319,7 +327,7 @@ class T6bisGestion extends React.Component {
                     </Tab.Navigator>)}
 
                 </View>
-                <View
+                {(!isRecherche()) && (<View
                     style={styles.containerActionBtn}
                     pointerEvents={this.state.isConsultation ? 'none' : 'auto'}>
                     <ComBadrButtonComp
@@ -353,7 +361,22 @@ class T6bisGestion extends React.Component {
 
 
 
-                </View>
+                </View>)}
+                {(isRecherche()) && (<View
+                    style={styles.containerActionBtn}
+                    pointerEvents={this.state.isConsultation ? 'none' : 'auto'}>
+                    
+                    <ComBadrButtonComp
+                        style={{ width: 100 }}
+                        onPress={() => {
+                            this.quitter();
+                        }}
+                        text={translate('t6bisGestion.buttons.quitter')}
+                    />
+
+
+
+                </View>)}
                 <ComBadrDialogComp
                     title={translate('t6bisGestion.suppression.confirmDialog.info')}
                     confirmMessage={translate('t6bisGestion.suppression.confirmDialog.oui')}

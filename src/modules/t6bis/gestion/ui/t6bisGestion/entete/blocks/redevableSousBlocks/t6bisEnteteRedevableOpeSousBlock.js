@@ -6,6 +6,8 @@ import styles from "../../../../../style/t6bisGestionStyle";
 import translate from '../../../../../../../../commons/i18n/ComI18nHelper';
 import { Col, Row } from 'react-native-easy-grid';
 import * as T6BISConstantes from "../../../../../../utils/t6bisConstants";
+import * as Constantes from '../../../../../state/t6bisGestionConstants';
+import * as T6bisGetCmbOperateurByCodeAction from '../../../../../state/actions/t6bisGetCmbOperateurByCodeAction';
 
 
 
@@ -44,10 +46,35 @@ class T6bisEnteteRedevableOpeSousBlock extends React.Component {
         );
 
     };
+    /* componentDidMount = () => {
+        console.log('componentDidMount ', this.props.t6bis?.identifiantOperateur)
+        if (this.props.t6bis?.identifiantOperateur) { 
+            let dataToAction = {
+                type: Constantes.T6BIS_GESTION_GET_CMB_OPERATEUR_BY_CODE_REQUEST,
+                value: {
+                    codeUnite: this.props.t6bis?.identifiantOperateur
+                }
+            };
+            console.log(this.props.actions);
+
+            this.props.actions.dispatch(T6bisGetCmbOperateurByCodeAction.request(dataToAction));
+        }
+
+
+
+    } */
     componentDidMount = async () => {
+        console.log('----------------------------------------------------------------------------------------16022021---          ----', this.props);
+        if (this.props.t6bis?.identifiantOperateur) {
+            let action = await T6bisGetCmbOperateurByCodeAction.request({
+                type: Constantes.T6BIS_GESTION_GET_CMB_OPERATEUR_BY_CODE_REQUEST, value: { idOperateur: this.props.t6bis?.identifiantOperateur }
+            });
+            this.props.actions.dispatch(action);
 
 
+        }
     }
+
 
     componentWillUnmount() {
         console.log('T6bisEnteteRedevableOpeSousBlock componentWillUnmount');
@@ -89,7 +116,9 @@ class T6bisEnteteRedevableOpeSousBlock extends React.Component {
 
     render() {
         console.log(this.state);
-        console.log("this.props.t6bis.codeTypeT6bis : ", this.props.t6bis?.codeTypeT6bis);
+        console.log("this.props.t6bis.codeTypeT6bis :                                               ", this.props.t6bis?.codeTypeT6bis);
+        console.log("this.props.t6bis.codeTypeT6bis :                                               ", this.props);
+        console.log("this.props.t6bis.codeTypeT6bis :                                               ", this.props.fieldsetcontext?.operateur);
 
         return (
 
@@ -115,7 +144,7 @@ class T6bisEnteteRedevableOpeSousBlock extends React.Component {
                                 )}
                                 code="code"
                                 disabled={this.props.readOnly}
-                                selected={this.state.acOperateur}
+                                selected={this.props.fieldsetcontext?.operateur?.libelle}
                                 maxItems={3}
                                 libelle="libelle"
                                 command="getCmbOperateur"
@@ -128,7 +157,7 @@ class T6bisEnteteRedevableOpeSousBlock extends React.Component {
 
                     <Row size={100}>
                         <Col size={100}>
-                            {(!this.props.readonly) && (
+                            {(!this.props.readOnly) && (
                                 <View style={styles.ComContainerCompBtn}>
 
 
