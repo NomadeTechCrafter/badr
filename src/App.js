@@ -76,7 +76,7 @@ export default class App extends React.Component {
                 <Stack.Screen
                   name="test"
                   options={{headerShown: false}}
-                    component={T6bisCreation}
+                  component={T6bisCreation}
                 />
               )}
               <Stack.Screen
@@ -155,7 +155,7 @@ export default class App extends React.Component {
               />
               <Stack.Screen
                 name="T6bisGestion"
-                options={{ headerShown: false }}
+                options={{headerShown: false}}
                 component={T6bisGestion}
               />
             </ComBadrStackNavigatorComp>

@@ -108,7 +108,8 @@ const allReducers = combineReducers({
   vuEmbReducer,
   vuEmbRefVH,
   t6bisCreationReducer,
-  t6bisGestionReducer, t6bisRechercheReducer
+  t6bisGestionReducer,
+  t6bisRechercheReducer,
 });
 /**
  * store creation
