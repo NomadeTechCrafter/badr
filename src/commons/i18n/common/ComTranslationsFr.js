@@ -141,5 +141,9 @@ export default {
     etatChargement: 'Etat de chargement',
     resultScanner: 'résultat scanner',
     info: 'Info',
+    vumEmb: {
+      rechByRef: 'Reference declaration',
+      rechByVH: 'Matricule vehicule',
+    },
   },
 };

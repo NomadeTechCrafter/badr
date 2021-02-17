@@ -13,6 +13,8 @@ const mapping = {
   '30661': {screen: 'ControleApresScanner', params: {}},
   '4096': {screen: 'RefControleVehicule', params: {}},
   '823': {screen: 'RefPlaquesImm', params: {}},
+  '90025': {screen: 'VuEmbarqueScreen', params: {qr: true}},
+
   /*  '3086': {screen: 'controleRechercheDumScreen', params: {typeControle: 'TR'}},
     '2052': {screen: 'DedRechercheRedressement', params: {qr: false}},
     '5971': {screen: 'RechecheMLV', params: {}},

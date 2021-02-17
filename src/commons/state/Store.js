@@ -29,6 +29,7 @@ import controleCommonReducer from '../../modules/controle/common/state/reducers/
 import genericDedReducer from '../../modules/dedouanement/redressement/state/reducers/DedReducer';
 import vuEmbInitReducer from '../../modules/DeclarationD17D20/vuEmbarquer/state/reducers/vuEmbInitReducer';
 import vuEmbReducer from '../../modules/DeclarationD17D20/vuEmbarquer/state/reducers/vuEmbUcReducer';
+import vuEmbRefVH from '../../modules/DeclarationD17D20/vuEmbarquer/state/reducers/vuEmRefVhReducer';
 
 import referentielReducer from './reducers/ReferentielReducer';
 import consulterDumReducer from './reducers/ConsulterDumReducer';
@@ -101,6 +102,7 @@ const allReducers = combineReducers({
   ecorImportRechercheRefDumReducer,
   vuEmbInitReducer,
   vuEmbReducer,
+  vuEmbRefVH,
 });
 /**
  * store creation

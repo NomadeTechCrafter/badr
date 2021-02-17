@@ -81,7 +81,7 @@ class VuEmbarquerEntete extends React.Component {
   }
 
   componentDidMount() {
-    //this.state = {...initialState};
+    // eslint-disable-next-line react/no-did-mount-set-state
     this.setState(initialState);
   }
 
@@ -200,7 +200,7 @@ class VuEmbarquerEntete extends React.Component {
   };
 
   render() {
-    const {enteteTrypVO, traceSignature, vctConducteurs} = this.props.dataVo;
+    const {enteteTrypVO, traceSignature} = this.props.dataVo;
     const {referenceEnregistrement} = this.props.dataVo.declarationTriptique;
 
     const renderDateVuEmb = () => {
@@ -601,7 +601,7 @@ class VuEmbarquerEntete extends React.Component {
                     value={this.state.commentaire}
                     onChangeText={(text) => this.setState({commentaire: text})}
                   />
-                  {/* <ComBadrTextInputComp 
+                  {/* <ComBadrTextInputComp
                   keyboardType="text"
                   placeholder={translate('vuEmbarquee.commentVuEmb')}
                   onChangeText={(text) => this.setState({commentaire: text})}
