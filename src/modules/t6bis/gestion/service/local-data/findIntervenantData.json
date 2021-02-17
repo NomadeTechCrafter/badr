@@ -1,0 +1,18 @@
+{
+  "dtoHeader": {
+    "userLogin": "AD6203",
+    "fonctionnalite": "cf110001",
+    "module": "T6BIS_LIB",
+    "commande": "initT6bisEnteteSection",
+    "typeService": "SP",
+    "messagesInfo": ["??? getAllTypeT6bis_MESSAGE_INFO ???"]
+  },
+  "jsonVO": {
+      "nomIntervenant": "LAGHOUAZI",
+      "prenomIntervenant": "Yassine",
+      "adresse": "Haysalam",
+      "typeIntervenant": "Type",
+      "numeroOrdreIntervenant": "200",
+      "refPaysPassPort": "212"     
+  }
+}

@@ -22,6 +22,9 @@ import mainLeveeTranslateFr from '../../old/screens/mainlevee/i18/mainLeveeTrans
 import ecorImportTranslateFr from '../../old/screens/ecorImport/i18/ecorImportTranslateFr';
 import refControleVehiculeTranslateFr from '../../modules/referentiel/controleVehicules/i18n/refControleVehiculeTranslateFr';
 import refPlaquesImmTranslateFr from '../../modules/referentiel/plaquesImmatriculation/i18n/refPlaquesImmTranslateFr';
+import t6bisCreationTranslationsFr from '../../modules/t6bis/creation/i18n/t6bisCreationTranslateFr';
+import t6bisGestionTranslateFr from '../../modules/t6bis/gestion/i18n/t6bisGestionTranslateFr';
+import t6bisRechercheTranslationsFr from '../../modules/t6bis/recherche/i18n/t6bisRechercheTranslateFr';
 import actifTranslateFr from '../../old/common/translations/actif/actifTranslateFr';
 import liquidationTranslateFr from '../../modules/liquidation/i18n/liquidationTranslateFr';
 
@@ -56,6 +59,9 @@ let combined = {
   ...actifTranslateFr,
   ...vuEmbTranslations,
   ...liquidationTranslateFr,
+  ...t6bisCreationTranslationsFr,
+  ...t6bisGestionTranslateFr,
+  ...t6bisRechercheTranslationsFr,
 };
 I18n.translations = {
   fr: combined,

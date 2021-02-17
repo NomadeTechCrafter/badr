@@ -1,0 +1,158 @@
+{
+  "dtoHeader": {
+    "userLogin": "AD6202",
+    "fonctionnalite": "cf110002",
+    "module": "T6BIS_LIB",
+    "commande": "T6bisInitForUpdate",
+    "typeService": "UC",
+    "offset": 0,
+    "pageSize": 0,
+    "rowCount": 0,
+    "messagesInfo": ["T6bis initialisée avec succès."]
+  },
+  "jsonVO": {
+    "id": 4745,
+    "bureauCourant": {
+      "cable": false,
+      "codeBureau": "309",
+      "nomBureauDouane": "Casa port (309)",
+      "nomBureauDouaneArabe": "الدار البيضاء الميناء"
+    },
+    "annee": 2021,
+    "referenceEnregistrement": "30920210000004",
+    "referenceProvisoire": "30920210000004",
+    "utilisateur": {
+      "idActeur": "AD6202",
+      "nom": "NOM",
+      "numeroPaie": -1,
+      "prenom": "PRENOM",
+      "codeActeur": "AD6202",
+      "refGradeLib": ""
+    },
+    "enregistree": false,
+    "dateCreation": 1613033100000,
+    "dateEnregistrement": 1613033100000,
+    "etat": "ENREGISTRER",
+    "codeTypeT6bis": "02",
+    "libelleTypeT6Bis": "Cyclomoteur <= 50cc",
+    "intervenantVO": {
+      "numeroOrdreIntervenant": "34368",
+      "dateEffet": "14/05/2007 00:00:00",
+      "dateFin": "12/01/3000 00:00:00",
+      "nomIntervenant": "alaoui",
+      "prenomIntervenant": "ismail",
+      "adresse": "salé",
+      "numeroDocumentIndentite": "A0123456",
+      "refTypeIntervenant": "02",
+      "typeIntervenant": "Personne physique",
+      "refTypeDocumentIdentite": "01",
+      "refPaysPassPort": "MA",
+      "resident": true,
+      "retraite": false,
+      "adresseAr": "Adresse",
+      "filiationAr": "النسب",
+      "lieuNaissance": "casa",
+      "nationaliteFr": "MAROC",
+      "nomAr": "الاسم العائلي",
+      "prenomAr": "الاسم الشخصي",
+      "sexe": "M",
+      "dateNaissance": "",
+      "paysFr": "MA",
+      "nbrRappelInteresse": "0",
+      "adresseEmail": "S.CHADLI@DOUANE.GOV.MA",
+      "descTypeIntervenant": "Personne physique",
+      "descTypeDocumentIdentite": "Numero C.I.N.",
+      "descPaysPassPort": "MAROC",
+      "descPaysFr": "MAROC",
+      "statut": "valide",
+      "rechercheAnnules": false,
+      "rechercheValides": true,
+      "defaultConverter": {},
+      "idPourRecherche": "34368"
+    },
+    "listeT6bisLigneTaxationGlobale": [
+      {
+        "id": 2236,
+        "rubriqueTaxation": {
+          "code": "002901",
+          "libelle": "TAXE MAGASINAGE(002901)",
+          "actif": false,
+          "showDropDown": false,
+          "disableAutoComplete": true,
+          "onFocus": "",
+          "disabled": false
+        },
+        "tauxTaxation": "",
+        "montantTaxation": "123456.0",
+        "defaultConverter": {}
+      }
+    ],
+    "typeMoyenPaiement": {
+      "code": "01",
+      "libelle": "Espèce",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    "taxationPaiementEspece": 559,
+    "montantGlobal": 224015,
+    "interventions": [
+      {
+        "intervention": "Enregistrement",
+        "etatResultat": "Enregistrée",
+        "dateOperation": "11/02/2021 08:45",
+        "utilisateur": "NOM PRENOM(AD6202)"
+      },
+      {
+        "intervention": "Sauvegarde",
+        "etatResultat": "Sauvegardée",
+        "dateOperation": "11/02/2021 08:45",
+        "utilisateur": "NOM PRENOM(AD6202)"
+      }
+    ],
+    "actionModification": false,
+    "annulationT6bis": false,
+    "redressementFromActeTeransactionnel": false,
+    "dontCheckConditionTPE": false,
+    "numeroRecepisse": "1245",
+    "immatriculationMoyenTransport": "test",
+    "listeArticleT6bis": [
+      {
+        "id": 823,
+        "numArticle": 1,
+        "valeurTaxable": "10.25",
+        "montantFacture": "152.3",
+        "devise": "ETB",
+        "totalTaxationArticle": 0,
+        "listeT6bisLigneTaxation": [
+          {
+            "id": 2237,
+            "rubriqueTaxation": {
+              "code": "AUTREC",
+              "libelle": "Autres Recettes(AUTREC)",
+              "actif": false,
+              "showDropDown": false,
+              "disableAutoComplete": true,
+              "onFocus": "",
+              "disabled": false
+            },
+            "tauxTaxation": "10.0",
+            "montantTaxation": "100000.0",
+            "defaultConverter": {}
+          }
+        ],
+        "marque": "test",
+        "modele": "test",
+        "cylindree": "1.0",
+        "numeroCadre": "1234563",
+        "numeroImmatriculation": "1524",
+        "dateMiseEnCirculation": "11/02/2021",
+        "defaultConverter": {}
+      }
+    ],
+    "defaultConverter": {},
+    "sauvegardee": false
+  }
+}

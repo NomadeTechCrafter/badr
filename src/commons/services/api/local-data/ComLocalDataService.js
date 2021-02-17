@@ -53,5 +53,17 @@ const localStore = {
   getRubriquesComptablesGlobalesVO: require('../../../../modules/liquidation/service/local-data/getRubriquesComptablesGlobalesVO.json'),
   liquiderTaxeGlobale: require('../../../../modules/liquidation/service/local-data/liquiderTaxeGlobale.json'),
   consignerTaxeGlobale: require('../../../../modules/liquidation/service/local-data/consignerTaxeGlobale.json'),
+  getAllTypeT6bis: require('../../../../modules/t6bis/creation/service/local-data/getAllTypeT6bisData.json'),
+  T6bisInitForCreate: require('../../../../modules/t6bis/creation/service/local-data/t6bisInitForCreateData.json'),
+  initT6bisEnteteSection: require('../../../../modules/t6bis/gestion/service/local-data/initT6bisEnteteSectionData.json'),
+  findIntervenant: require('../../../../modules/t6bis/gestion/service/local-data/findIntervenantData.json'),
+  completeNatureMarchandise: require('../../../../modules/t6bis/gestion/service/local-data/completeNatureMarchandiseData.json'),
+  completeDeviseChangeCmb: require('../../../../modules/t6bis/gestion/service/local-data/completeDeviseChangeCmbData.json'),
+  completeUniteQte: require('../../../../modules/t6bis/gestion/service/local-data/completeUniteQteData.json'),
+  getListRubrique: require('../../../../modules/t6bis/gestion/service/local-data/getListRubriqueData.json'),
+  T6bisInitForUpdate: require('../../../../modules/t6bis/recherche/service/local-data/t6bisInitForUpdateData2.json'),
+  getListRubriqueMtmTaxationGlobale: require('../../../../modules/t6bis/gestion/service/local-data/getListRubriqueMtmTaxationGlobaleData.json'),
+  T6bisInitForRedresser: require('../../../../modules/t6bis/recherche/service/local-data/t6bisInitForRedresserData.json'),
+  /* T6bisInitForUpdate: require('../../../../modules/t6bis/recherche/service/local-data/t6bisInitForUpdateDataError.json'), */
 };
 export default localStore;

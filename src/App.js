@@ -43,6 +43,10 @@ import EcorImportEnleverMarchandiseScreen from './modules/ecorImport/enleverMarc
 import LiquidationRechercheScreen from './modules/liquidation/ui/rechercheLiquidation/LiquidationRechercheScreen';
 import LiquidationHomeScreen from './modules/liquidation/ui/ongletsLiquidation/home/LiquidationHomeScreen';
 
+import T6bisCreation from './modules/t6bis/creation/ui/t6bisCreation/t6bisCreationScreen';
+import T6bisGestion from './modules/t6bis/gestion/ui/t6bisGestion/t6bisGestionScreen';
+import RechercheEcorImport from './old/screens/ecorImport/rechercheEcorImport';
+
 //Actif
 import Recherche from './old/screens/actifs/rapport/recherche';
 import Creation from './old/screens/actifs/rapport/creation';
@@ -72,7 +76,7 @@ export default class App extends React.Component {
                 <Stack.Screen
                   name="test"
                   options={{headerShown: false}}
-                  component={EcorImportRechercheScreen}
+                    component={T6bisCreation}
                 />
               )}
               <Stack.Screen
@@ -148,6 +152,11 @@ export default class App extends React.Component {
                 name="LiquidationHomeScreen"
                 component={LiquidationHomeScreen}
                 options={{headerShown: false}}
+              />
+              <Stack.Screen
+                name="T6bisGestion"
+                options={{ headerShown: false }}
+                component={T6bisGestion}
               />
             </ComBadrStackNavigatorComp>
           </PaperProvider>

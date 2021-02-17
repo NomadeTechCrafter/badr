@@ -27,6 +27,12 @@ const mapping = {
         params: {typeEcorImport: 'EnleverMarchandiseParPesage'},
     },
   '5202': {screen: 'LiquidationRechercheScreen', params: {qr: false}},*/
+
+  /*T6bis creation*/
+  '110001': { screen: 'T6bisCreation', params: {} },
+  '110002': { screen: 'T6bisRecherche', params: {} },
+  '110005': { screen: 'T6bisRecherche', params: {} },
+  '110007': { screen: 'T6bisRecherche', params: {} },
 };
 
 const ionicMapping = {};
