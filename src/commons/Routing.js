@@ -27,7 +27,6 @@ const mapping = {
         params: {typeEcorImport: 'EnleverMarchandiseParPesage'},
     },
   '5202': {screen: 'LiquidationRechercheScreen', params: {qr: false}},*/
-  '90025': {screen: 'VuEmbarquer', params: {}},
 };
 
 const ionicMapping = {};
