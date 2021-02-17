@@ -304,9 +304,7 @@ class RefPlaquesImmSearchScreen extends React.Component {
         <View style={style.itemPickerContainer}>
           <ComBadrItemsPickerComp
             style={style.column}
-            label={translate(
-              'referentiel.plaquesImm.choose_categoryDiplomatique',
-            )}
+            label={translate('plaquesImm.choose_categoryDiplomatique')}
             selectedValue={this.state.vehiculeCodeTypeImmatDiplo}
             items={categoryDiplomatique}
             onValueChanged={(v, i) => this.onCategoryDiploPickerChanged(v, i)}

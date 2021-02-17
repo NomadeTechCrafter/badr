@@ -4,7 +4,7 @@ const localStore = {
   verifierCodeGenere: require('../../../../modules/hab/smsVerify/service/local-data/habVerifierCodeGenereData.json'),
   initControlerDedRI: require('./controle/initControleDedRI.json'),
   initControlerDedACVP: require('./controle/initControlerDedACVP.json'),
-  initEnleverMarchandise: require('./ecorImport/enleverMarchandise.json'),
+  initEnleverMarchandise: require('./ecorImport/initEnleverMarchandise.json'),
   getLotsApures: require('./ecorImport/getLotsApures.json'),
   getCmbOperateur: require('./ecorImport/getCmbOperateur.json'),
   getEquipementsbyLot: require('./ecorImport/getEquipementsbyLot.json'),

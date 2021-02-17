@@ -4,6 +4,7 @@ import {
   ComBadrLibelleComp,
   ComAccordionComp,
 } from '../../../../../commons/component';
+import {View} from 'react-native';
 import {translate} from '../../../../../commons/i18n/ComI18nHelper';
 import {
   CustomStyleSheet,
@@ -28,13 +29,15 @@ export default class EciListEnlevementsEffectuesBlock extends React.Component {
           <Grid>
             <Row style={CustomStyleSheet.lightBlueRow}>
               <Col size={1}>
-                <IconButton
-                  icon="plus"
-                  size={20}
-                  color={'white'}
-                  style={{backgroundColor: primaryColor}}
-                  onPress={this.props.addEnlevement}
-                />
+                {!this.props.isConsultationMode && (
+                  <IconButton
+                    icon="plus"
+                    size={20}
+                    color={'white'}
+                    style={{backgroundColor: primaryColor}}
+                    onPress={this.props.addEnlevement}
+                  />
+                )}
               </Col>
               <Col size={1}>
                 <ComBadrLibelleComp withColor={true}>
@@ -121,20 +124,36 @@ export default class EciListEnlevementsEffectuesBlock extends React.Component {
                   </Col>
                   <Col size={1}>
                     <Row>
-                      <IconButton
-                        icon="pencil-outline"
-                        color={'white'}
-                        size={20}
-                        style={{backgroundColor: primaryColor}}
-                        onPress={() => this.props.editEnlevement(item, index)}
-                      />
-                      <IconButton
-                        icon="trash-can-outline"
-                        color={'white'}
-                        size={20}
-                        style={{backgroundColor: primaryColor}}
-                        onPress={() => this.props.deleteEnlevement(item, index)}
-                      />
+                      {this.props.isConsultationMode ? (
+                        <IconButton
+                          icon="eye-circle-outline"
+                          color={'white'}
+                          size={20}
+                          style={{backgroundColor: primaryColor}}
+                          onPress={() => this.props.editEnlevement(item, index)}
+                        />
+                      ) : (
+                        <Row>
+                          <IconButton
+                            icon="pencil-outline"
+                            color={'white'}
+                            size={20}
+                            style={{backgroundColor: primaryColor}}
+                            onPress={() =>
+                              this.props.editEnlevement(item, index)
+                            }
+                          />
+                          <IconButton
+                            icon="trash-can-outline"
+                            color={'white'}
+                            size={20}
+                            style={{backgroundColor: primaryColor}}
+                            onPress={() =>
+                              this.props.deleteEnlevement(item, index)
+                            }
+                          />
+                        </Row>
+                      )}
                     </Row>
                   </Col>
                 </Row>

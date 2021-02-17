@@ -16,6 +16,7 @@ import {
   ComBadrToolbarComp,
   ComBasicDataTableComp,
   ComContainerComp,
+  ComBadrDialogComp,
 } from '../../../../commons/component';
 import {IconButton, TextInput, FAB} from 'react-native-paper';
 import {Col, Grid, Row} from 'react-native-easy-grid';
@@ -58,6 +59,7 @@ class EcorImportEnleverMarchandiseScreen extends Component {
       numeroVoyage: props.route.params.numeroVoyage,
       enleverMarchandiseVO: props.route.params.declarationRI,
       showEnlevements: false,
+      isUpdateMode: false,
       showPopUpLots: false,
       listLotsCols: this.listLotsCols(),
       listEquipementLotsCols: this.listEquipmentLotsCols(),
@@ -65,6 +67,9 @@ class EcorImportEnleverMarchandiseScreen extends Component {
       newEcorItem: {},
       IsChampsAddEnlevementsValid: true,
       isActionMenuOpen: false,
+      suppDialogVisibility: false,
+      indexsSuppItem: null,
+      isConsultationMode: false,
     };
   }
 
@@ -78,30 +83,31 @@ class EcorImportEnleverMarchandiseScreen extends Component {
       showEnlevements: false,
     });
   };
+  hideSuppDialog = () => {
+    this.setState({
+      suppDialogVisibility: false,
+    });
+  };
   onRestAddEnlevements = () => {
     this.comboLieuStockage.clearInput();
-
+    //this.acOperateur.clearInput();
     /*this.nombreContenant.clear();
       this.numeroBonSortie.clear();*/
-    //this.comboLieuStockage.refresh({codeLieuStockage: ''}, null);
-    this.setState(
-      {
-        ...this.state,
-        selectedLot: {
-          ...this.state.selectedLot,
-          nombreContenant: '',
-          gestionnaireEnceinte: {
-            identifiantOperateur: '',
-            nomOperateur: '',
-          },
-          immatriculationsVehicules: '',
-          numeroBonSortie: '',
-          dateEffectiveEnlevement: '',
-          heureEffectiveEnlevement: '',
+    this.setState({
+      ...this.state,
+      selectedLot: {
+        ...this.state.selectedLot,
+        nombreContenant: '',
+        gestionnaireEnceinte: {
+          identifiantOperateur: '',
+          nomOperateur: '',
         },
+        immatriculationsVehicules: '',
+        numeroBonSortie: '',
+        dateEffectiveEnlevement: '',
+        heureEffectiveEnlevement: '',
       },
-      () => this.acOperateur.clearInput(),
-    );
+    });
   };
   selectedLotChanged = (row, index) => {
     if (row) {
@@ -280,6 +286,47 @@ class EcorImportEnleverMarchandiseScreen extends Component {
       );
     }
   };
+  validerUpdate = () => {
+    console.log('valider update');
+    let champsObligatoire = [
+      'lieuStockage',
+      'nombreContenant',
+      'numeroBonSortie',
+      'gestionnaireEnceinte',
+      'immatriculationsVehicules',
+      'dateEffectiveEnlevement',
+      'heureEffectiveEnlevement',
+    ];
+
+    if (this.testIsChampsValid(champsObligatoire) === true) {
+      const currentIndex = _.findIndex(
+        this.state.enleverMarchandiseVO.refMarchandiseEnlevee,
+        ['id', this.state.selectedLot.id],
+      );
+      console.log('currentIndex----', currentIndex);
+      const myNewArray = Object.assign(
+        [...this.state.enleverMarchandiseVO.refMarchandiseEnlevee],
+        {
+          [currentIndex]: this.state.selectedLot,
+        },
+      );
+      this.setState(
+        {
+          ...this.state,
+          showEnlevements: false,
+          enleverMarchandiseVO: {
+            ...this.state.enleverMarchandiseVO,
+            refMarchandiseEnlevee: myNewArray,
+          },
+        },
+        () =>
+          console.log(
+            'enleverMarchandiseVO after update',
+            JSON.stringify(this.state.enleverMarchandiseVO),
+          ),
+      );
+    }
+  };
   testIsChampsValid = (champsObligatoire) => {
     let isChampsValid = true;
     _.forEach(champsObligatoire, (field) => {
@@ -299,7 +346,7 @@ class EcorImportEnleverMarchandiseScreen extends Component {
     return _.isEmpty(this.state.selectedLot[field]);
   };
   addEnlevement = () => {
-    this.setState({showEnlevements: true});
+    this.setState({showEnlevements: true, isUpdateMode: false});
     this.setState({
       selectedLot: {},
     });
@@ -316,7 +363,7 @@ class EcorImportEnleverMarchandiseScreen extends Component {
           this.state.selectedLot.dateHeureEffectiveEnlevement,
         ),
     );
-    this.setState({showEnlevements: true});
+    this.setState({showEnlevements: true, isUpdateMode: true});
   };
   initEditEnlevement = (dateHeureEffectiveEnlevement) => {
     if (dateHeureEffectiveEnlevement) {
@@ -334,10 +381,16 @@ class EcorImportEnleverMarchandiseScreen extends Component {
       );
     }
   };
-  deleteEnlevement = (item, index) => {
+  deleteEnlevement = () => {
     let enleverMarchandiseVO = {...this.state.enleverMarchandiseVO};
-    enleverMarchandiseVO.refMarchandiseEnlevee.splice(index, 1);
-    this.setState({enleverMarchandiseVO: enleverMarchandiseVO});
+    enleverMarchandiseVO.refMarchandiseEnlevee.splice(
+      this.state.indexsSuppItem,
+      1,
+    );
+    this.setState({
+      enleverMarchandiseVO: enleverMarchandiseVO,
+      suppDialogVisibility: false,
+    });
   };
 
   componentDidUpdate(prevProps, prevState) {}
@@ -347,6 +400,7 @@ class EcorImportEnleverMarchandiseScreen extends Component {
 
   confirmerEcor = () => {
     console.log('confirmer ecor -----');
+    this.scrollViewRef.scrollTo({y: 0, animated: true});
     this.callRedux({
       command: 'enleverMarchandise',
       typeService: 'UC',
@@ -361,6 +415,7 @@ class EcorImportEnleverMarchandiseScreen extends Component {
       numeroVoyage,
       isActionMenuOpen,
       selectedLot,
+      isConsultationMode,
     } = this.state;
 
     let lotsApures = this.extractCommandData('getLotsApures');
@@ -414,22 +469,34 @@ class EcorImportEnleverMarchandiseScreen extends Component {
               {/*Accordion Liste des Enlevements Effectues*/}
               <EciListEnlevementsEffectuesBlock
                 enleverMarchandiseVO={enleverMarchandiseVO}
+                IsConsultationMode={isConsultationMode}
                 addEnlevement={this.addEnlevement}
                 editEnlevement={(item, index) =>
                   this.editEnlevement(item, index)
                 }
                 deleteEnlevement={(item, index) =>
-                  this.deleteEnlevement(item, index)
+                  this.setState({
+                    indexsSuppItem: index,
+                    suppDialogVisibility: true,
+                  })
                 }
               />
             </View>
           )}
-
+          <ComBadrDialogComp
+            title={translate('transverse.suppressionTitre')}
+            confirmMessage={translate('transverse.confirmer')}
+            cancelMessage={translate('transverse.annuler')}
+            dialogMessage={translate('transverse.supprimerLigne')}
+            onCancel={this.hideSuppDialog}
+            onOk={this.deleteEnlevement}
+            dialogVisibility={this.state.suppDialogVisibility}
+          />
           {this.state.showEnlevements && (
             <View style={CustomStyleSheet.fullContainer}>
               <ComContainerComp
                 ContainerRef={(ref) => {
-                  this.scrollViewRef = ref;
+                  this.scrollViewRefShowEnlevements = ref;
                 }}>
                 {this.props.showProgress && <ComBadrProgressBarComp />}
 
@@ -910,7 +977,11 @@ class EcorImportEnleverMarchandiseScreen extends Component {
                   <Col size={1}>
                     <ComBadrButtonIconComp
                       style={styles.actionBtn}
-                      onPress={this.validerAjout}
+                      onPress={
+                        this.state.isUpdateMode
+                          ? this.validerUpdate
+                          : this.validerAjout
+                      }
                       icon="check-circle-outline"
                       loading={this.props.showProgress}
                       text={translate('transverse.confirmer')}

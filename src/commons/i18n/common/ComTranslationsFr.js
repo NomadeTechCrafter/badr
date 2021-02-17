@@ -127,6 +127,8 @@ export default {
     qte: 'Quantité',
     reference: 'Réference',
     libRegime: 'Libellé du régime',
+    suppressionTitre: 'Suppression',
+    supprimerLigne: 'Voulez-vous supprimer cet élément?',
   },
   qr: {
     at_invalide:
