@@ -45,13 +45,13 @@ import t6bisRechercheReducer from '../../modules/t6bis/recherche/state/reducers/
 
 import crudDatatableReducer from '../state/reducers/ComCrudDataTableReducer';
 
-import enteteReducer from '../../old/redux/reducers/actifs/rapport/creation/entete';
-import saisieReducer from '../../old/redux/reducers/actifs/rapport/creation/saisie';
-import creationReducer from '../../old/redux/reducers/actifs/rapport/creation/creation';
+import enteteReducer from '../../modules/actifs/rapport/creation/state/reducers/actifsRapportEnteteReducer';
+import saisieReducer from '../../modules/actifs/rapport/creation/state/reducers/actifsRapportSaisieReducer';
+import creationReducer from '../../modules/actifs/rapport/creation/state/reducers/actifsRapportCreationReducer';
 
-import detailsreducer from '../../old/redux/reducers/actifs/rapport/creation/details';
-import recherchereducer from '../../old/redux/reducers/actifs/rapport/recherche/recherche';
-import consultationreducer from '../../old/redux/reducers/actifs/rapport/consultation/consultation';
+import detailsreducer from '../../modules/actifs/rapport/creation/state/reducers/actifsRapportDetailsReducer';
+import recherchereducer from '../../modules/actifs/rapport/recherche/state/reducers/actifsRapportRechercheReducer';
+import consultationreducer from '../../modules/actifs/rapport/recherche/state/reducers/actifsRapportRechercheReducer';
 
 import EcorImportReducer from '../../modules/ecorImport/enleverMarchandise/state/reducers/EcorImportReducer';
 import ecorImportRechercheRefDumReducer from '../../modules/ecorImport/rechercheEcorImport/state/reducers/ecorImportRechercheRefDumReducer';

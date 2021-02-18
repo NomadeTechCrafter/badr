@@ -55,6 +55,9 @@ import Details from './old/screens/actifs/rapport/creation/details';
 import Saisie from './old/screens/actifs/rapport/creation/saisie';
 import Consultation from './old/screens/actifs/rapport/consultation';
 
+import ActifsRapportCreationScreen from './modules/actifs/rapport/creation/ui/actifsRapportCreationScreen'; 
+import ActifsRapportRechercheScreen from './modules/actifs/rapport/recherche/ui/actifsRapportRechercheScreen'; 
+
 //setGlobalHandler();
 export default class App extends React.Component {
   componentDidMount() {}
@@ -76,7 +79,7 @@ export default class App extends React.Component {
                 <Stack.Screen
                   name="test"
                   options={{headerShown: false}}
-                  component={T6bisCreation}
+                    component={ActifsRapportRechercheScreen}
                 />
               )}
               <Stack.Screen
@@ -125,7 +128,7 @@ export default class App extends React.Component {
               <Stack.Screen
                 name="Creation"
                 options={{headerShown: false}}
-                component={Creation}
+                component={ActifsRapportCreationScreen}
               />
               <Stack.Screen
                 name="Entete"

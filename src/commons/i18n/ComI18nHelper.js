@@ -27,6 +27,8 @@ import t6bisGestionTranslateFr from '../../modules/t6bis/gestion/i18n/t6bisGesti
 import t6bisRechercheTranslationsFr from '../../modules/t6bis/recherche/i18n/t6bisRechercheTranslateFr';
 import actifTranslateFr from '../../old/common/translations/actif/actifTranslateFr';
 import liquidationTranslateFr from '../../modules/liquidation/i18n/liquidationTranslateFr';
+import actifsRapportConsultationTranslateFr from '../../modules/actifs/rapport/recherche/i18n/actifsRapportConsultationTranslateFr';
+import actifsRapportCreationTranslateFr from '../../modules/actifs/rapport/creation/i18n/actifsRapportCreationTranslateFr';
 
 const locales = RNLocalize.getLocales();
 
@@ -56,12 +58,14 @@ let combined = {
   ...controleRechrcheDumTranslateFr,
   ...mainLeveeTranslateFr,
   ...ecorImportTranslateFr,
-  ...actifTranslateFr,
+  //...actifTranslateFr,
   ...vuEmbTranslations,
   ...liquidationTranslateFr,
   ...t6bisCreationTranslationsFr,
   ...t6bisGestionTranslateFr,
   ...t6bisRechercheTranslationsFr,
+  ...actifsRapportConsultationTranslateFr,
+  ...actifsRapportCreationTranslateFr
 };
 I18n.translations = {
   fr: combined,
