@@ -59,11 +59,28 @@ export default (state = initialState, action) => {
         case CONSULTATION_TI_SUCCESS:
             nextState.errorMessage = null;
             nextState.showProgress = false;
-            const filtredBlocs = filterBlocs(action.value.consultationTI.datas);
-            //console.log(JSON.stringify(filtredBlocs));
-            nextState.myBlocs = filtredBlocs[0].sousBlocs;
-            nextState.leftBlocs = filtredBlocs[0].sousBlocs.map(b => b.title);
-            //console.log('filtredBlocs.sousBlocs[0].map(b => b.title) : ' + JSON.stringify(filtredBlocs[0].sousBlocs.map(b => b.title)));
+            let filtredBlocs = filterBlocs(action.value.consultationTI.datas);
+            console.log('+++++++++++++++++++++++++++++++++++++++++++++++ action.value.condition ++++++++++++++++++++++++++++++++++++++++++++++++');
+            console.log(JSON.stringify(action.value.condition));
+            console.log('+++++++++++++++++++++++++++++++++++++++++++++++ action.value.condition ++++++++++++++++++++++++++++++++++++++++++++++++');
+            filtredBlocs = filtredBlocs.filter(function (item) {
+                return item.condition === action.value.condition;
+            });
+            nextState.myBlocs = filtredBlocs;
+            //nextState.leftBlocs = filtredBlocs.sousBlocs.map(b => b.title);
+            nextState.descriptionFr = filterDescriptionFr(action.value.consultationTI.datas)
+            nextState.descriptionAr = filterDescriptionAr(action.value.consultationTI.datas)
+            console.log('=============================================================================================================');
+            console.log('----------------------------------------------- filtredBlocs ------------------------------------------------');
+            console.log(JSON.stringify(filtredBlocs));
+            console.log('----------------------------------------------- filtredBlocs ------------------------------------------------');
+            // console.log('+++++++++++++++++++++++++++++++++++++++++++++++ descriptionFr ++++++++++++++++++++++++++++++++++++++++++++++++');
+            // console.log(JSON.stringify(nextState.descriptionFr));
+            // console.log('+++++++++++++++++++++++++++++++++++++++++++++++ descriptionFr ++++++++++++++++++++++++++++++++++++++++++++++++');
+            // console.log('*********************************************** descriptionAr ************************************************');
+            // console.log(JSON.stringify(nextState.descriptionAr));
+            // console.log('*********************************************** descriptionAr ************************************************');
+            console.log('=============================================================================================================');
             return nextState;
         case CONSULTATION_TI_FAILED:
             nextState.showProgress = false;
@@ -84,7 +101,6 @@ export default (state = initialState, action) => {
 
 function filterBlocs(donnees) {
     let listBlocs = [];
-    // if ($scope.consultationTI) {
     for (var i = 0; i < donnees.length; i++) {
         if (donnees[i].name === 'bloc') {
             var bloc = new Object();
@@ -93,66 +109,272 @@ function filterBlocs(donnees) {
             bloc.condition = donnees[i].condition;
             bloc.sousBlocs = [];
 
-            // $scope.Accordion[bloc.title + bloc.condition] = false;
-
-
             for (var j = 0; j < donnees[i].datas.length; j++) {
-                if (donnees[i].datas[j].name === 'sousbloc-ig') {
-                    var sousBloc = new Object();
+                var sousBloc = new Object();
 
-                    sousBloc.title = donnees[i].datas[j].titre;
-                    sousBloc.sousBlocsLines = [];
+                sousBloc.title = donnees[i].datas[j].titre;
+                sousBloc.sousBlocsLines = [];
 
-                    for (var k = 0; k < donnees[i].datas[j].datas.length; k++) {
-                        if (donnees[i].datas[j].datas[k].name === 'sousblocig-infos') {
-                            for (var l = 0; l < donnees[i].datas[j].datas[k].datas.length; l++) {
-                                var sousBlocLigne = new Object();
-                                sousBlocLigne.libelle = donnees[i].datas[j].datas[k].datas[l].libelle;
+                for (var k = 0; k < donnees[i].datas[j].datas.length; k++) {
+                    if (donnees[i].datas[j].datas[k].name === 'sousbloc-contenu') {
+                        for (var l = 0; l < donnees[i].datas[j].datas[k].datas.length; l++) {
+                            var sousBlocLigne = new Object();
 
-                                for (var m = 0; m < donnees[i].datas[j].datas[k].datas[l].datas.length; m++) {
-                                    if (donnees[i].datas[j].datas[k].datas[l].datas[m].name === 'infoig-valeur') {
-                                        if (donnees[i].datas[j].datas[k].datas[l].datas[m].datas && donnees[i].datas[j].datas[k].datas[l].datas[m].datas.length > 0) {
+                            sousBlocLigne.libelle = donnees[i].datas[j].datas[k].datas[l].libelle;
+
+                            for (var m = 0; m < donnees[i].datas[j].datas[k].datas[l].datas.length; m++) {
+                                if (donnees[i].datas[j].datas[k].datas[l].datas[m].name === 'sousblocligne-valeur') {
+                                    if (donnees[i].datas[j].datas[k].datas[l].datas[m].datas && donnees[i].datas[j].datas[k].datas[l].datas[m].datas.length > 0) {
+
+                                        if (donnees[i].datas[j].datas[k].datas[l].datas[m].datas[0].name === 'propriete') {
                                             sousBlocLigne.valeur = donnees[i].datas[j].datas[k].datas[l].datas[m].datas[0].valeur;
-                                            if (!sousBlocLigne.valeur) {
-                                                sousBlocLigne.valeur = '';
-                                                for (var n = 0; n < donnees[i].datas[j].datas[k].datas[l].datas[m].datas[0].datas.length; n++) {
-                                                    if (donnees[i].datas[j].datas[k].datas[l].datas[m].datas[0].datas[n].name === 'elem') {
-                                                        sousBlocLigne.valeur += ',' + donnees[i].datas[j].datas[k].datas[l].datas[m].datas[0].datas[n].value;
-                                                    }
-                                                    else if (donnees[i].datas[j].datas[k].datas[l].datas[m].datas[0].datas[n].name === 'tableau') {
-                                                        for (var o = 0; o < donnees[i].datas[j].datas[k].datas[l].datas[m].datas[0].datas[n].datas.length; o++) {
-                                                            if (donnees[i].datas[j].datas[k].datas[l].datas[m].datas[0].datas[n].datas[o].name === 'tab-ligne') {
-                                                                for (var p = 0; p < donnees[i].datas[j].datas[k].datas[l].datas[m].datas[0].datas[n].datas[o].datas.length; p++) {
-                                                                    if (donnees[i].datas[j].datas[k].datas[l].datas[m].datas[0].datas[n].datas[o].datas[p].code === 'val') {
-                                                                        sousBlocLigne.valeur += ' ' + donnees[i].datas[j].datas[k].datas[l].datas[m].datas[0].datas[n].datas[o].datas[p].libelle;
-                                                                    }
-                                                                }
+                                        }
+                                        else {
+                                            for (var n = 0; n < donnees[i].datas[j].datas[k].datas[l].datas[m].datas.length; n++) {
+                                                for (var o = 0; o < donnees[i].datas[j].datas[k].datas[l].datas[m].datas[n].datas.length; o++) {
+                                                    if (donnees[i].datas[j].datas[k].datas[l].datas[m].datas[n].datas[o].name === 'elem-prop') {
+                                                        if (donnees[i].datas[j].datas[k].datas[l].datas[m].datas[n].datas[o].datas && donnees[i].datas[j].datas[k].datas[l].datas[m].datas[n].datas[o].datas.length > 0) {
+                                                            if (donnees[i].datas[j].datas[k].datas[l].datas[m].datas[n].datas[o].datas[0].valeur.trim() !== '') {
+                                                                sousBlocLigne.valeur = donnees[i].datas[j].datas[k].datas[l].datas[m].datas[n].datas[o].datas[0].valeur;
                                                             }
                                                         }
+
                                                     }
-                                                }
-                                                if (sousBlocLigne.valeur.length > 0) {
-                                                    sousBlocLigne.valeur = sousBlocLigne.valeur.substring(1);
                                                 }
                                             }
                                         }
+
                                     }
                                 }
-                                if (sousBlocLigne.valeur && sousBlocLigne.valeur != null && sousBlocLigne.valeur.trim() != '') {
-                                    sousBloc.sousBlocsLines.push(sousBlocLigne);
-                                }
                             }
+
+                            if (sousBlocLigne.valeur && sousBlocLigne.valeur != null && sousBlocLigne.valeur.trim() != '') {
+                                sousBloc.sousBlocsLines.push(sousBlocLigne);
+                            }
+
                         }
                     }
-                    if (sousBloc.sousBlocsLines && sousBloc.sousBlocsLines != null && sousBloc.sousBlocsLines.length > 0) {
-                        bloc.sousBlocs.push(sousBloc);
-                    }
                 }
+
+
+                if (sousBloc.sousBlocsLines && sousBloc.sousBlocsLines != null && sousBloc.sousBlocsLines.length > 0) {
+                    bloc.sousBlocs.push(sousBloc);
+                }
+
             }
 
             listBlocs.push(bloc);
         }
     }
-    // }
     return listBlocs;
+}
+
+function filterDescriptionFr(donnees) {
+    let descriptionFr = {
+        title: '',
+        listData: []
+    };
+    var objRespDescriptionFr = null;
+    for (var i = 0; i < donnees.length; i++) {
+        if (donnees[i].name === 'description-fr') {
+            objRespDescriptionFr = donnees[i];
+            break;
+        }
+    }
+    if (objRespDescriptionFr != null) {
+        descriptionFr.title = objRespDescriptionFr.descTitre;
+        for (var i = 0; i < objRespDescriptionFr.datas.length; i++) {
+            if (objRespDescriptionFr.datas[i].name === 'desc-ligne') {
+                var ligneDescFr = new Object();
+                for (var j = 0; j < objRespDescriptionFr.datas[i].datas.length; j++) {
+                    if (objRespDescriptionFr.datas[i].datas[j].name === 'codification') {
+                        var codification = new Object();
+                        codification.code4 = objRespDescriptionFr.datas[i].datas[j].proprieteValeurCode4.valeur;
+                        codification.code6 = objRespDescriptionFr.datas[i].datas[j].proprieteValeurCode6.valeur;
+                        codification.code8 = objRespDescriptionFr.datas[i].datas[j].proprieteValeurCode8.valeur;
+                        codification.code10 = objRespDescriptionFr.datas[i].datas[j].proprieteValeurCode10.valeur;
+                        codification.ingGrp = objRespDescriptionFr.datas[i].datas[j].proprieteValeurIndgrp.valeur;
+
+                        for (var k = 0; k < objRespDescriptionFr.datas[i].datas[j].datas.length; k++) {
+                            if (objRespDescriptionFr.datas[i].datas[j].datas[k].name === 'code10') {
+                                for (var l = 0; l < objRespDescriptionFr.datas[i].datas[j].datas[k].datas.length; l++) {
+                                    if (objRespDescriptionFr.datas[i].datas[j].datas[k].datas[l].name === 'desc-renvoi') {
+                                        if (objRespDescriptionFr.datas[i].datas[j].datas[k].datas[l].datas && objRespDescriptionFr.datas[i].datas[j].datas[k].datas[l].datas.length > 0) {
+                                            ligneDescFr.codificationRenvoi = objRespDescriptionFr.datas[i].datas[j].datas[k].datas[l].datas[0].valeur;
+                                        }
+                                    }
+                                }
+
+                            }
+                        }
+
+                        ligneDescFr.codification = codification;
+                    }
+                    else if (objRespDescriptionFr.datas[i].datas[j].name === 'designation') {
+                        for (var k = 0; k < objRespDescriptionFr.datas[i].datas[j].datas.length; k++) {
+                            if (objRespDescriptionFr.datas[i].datas[j].datas[k].name === 'desc-valeur') {
+                                if (objRespDescriptionFr.datas[i].datas[j].datas[k].datas && objRespDescriptionFr.datas[i].datas[j].datas[k].datas.length > 0) {
+                                    ligneDescFr.designation = objRespDescriptionFr.datas[i].datas[j].datas[k].datas[0].valeur;
+                                }
+                            }
+                            else if (objRespDescriptionFr.datas[i].datas[j].datas[k].name === 'desc-renvoi') {
+                                if (objRespDescriptionFr.datas[i].datas[j].datas[k].datas && objRespDescriptionFr.datas[i].datas[j].datas[k].datas.length > 0) {
+                                    ligneDescFr.designationRenvoi = objRespDescriptionFr.datas[i].datas[j].datas[k].datas[0].valeur;
+                                }
+                            }
+                        }
+                    }
+                    else if (objRespDescriptionFr.datas[i].datas[j].name === 'di') {
+                        for (var k = 0; k < objRespDescriptionFr.datas[i].datas[j].datas.length; k++) {
+                            if (objRespDescriptionFr.datas[i].datas[j].datas[k].name === 'desc-valeur') {
+                                if (objRespDescriptionFr.datas[i].datas[j].datas[k].datas && objRespDescriptionFr.datas[i].datas[j].datas[k].datas.length > 0) {
+                                    ligneDescFr.di = objRespDescriptionFr.datas[i].datas[j].datas[k].datas[0].valeur;
+                                }
+                            }
+                            else if (objRespDescriptionFr.datas[i].datas[j].datas[k].name === 'desc-renvoi') {
+                                if (objRespDescriptionFr.datas[i].datas[j].datas[k].datas && objRespDescriptionFr.datas[i].datas[j].datas[k].datas.length > 0) {
+                                    ligneDescFr.diRenvoi = objRespDescriptionFr.datas[i].datas[j].datas[k].datas[0].valeur;
+                                }
+                            }
+                        }
+                    }
+                    else if (objRespDescriptionFr.datas[i].datas[j].name === 'uqn') {
+                        for (var k = 0; k < objRespDescriptionFr.datas[i].datas[j].datas.length; k++) {
+                            if (objRespDescriptionFr.datas[i].datas[j].datas[k].name === 'desc-valeur') {
+                                if (objRespDescriptionFr.datas[i].datas[j].datas[k].datas && objRespDescriptionFr.datas[i].datas[j].datas[k].datas.length > 0) {
+                                    ligneDescFr.uqn = objRespDescriptionFr.datas[i].datas[j].datas[k].datas[0].valeur;
+                                }
+                            }
+                            else if (objRespDescriptionFr.datas[i].datas[j].datas[k].name === 'desc-renvoi') {
+                                if (objRespDescriptionFr.datas[i].datas[j].datas[k].datas && objRespDescriptionFr.datas[i].datas[j].datas[k].datas.length > 0) {
+                                    ligneDescFr.uqnRenvoi = objRespDescriptionFr.datas[i].datas[j].datas[k].datas[0].valeur;
+                                }
+                            }
+                        }
+                    }
+                    else if (objRespDescriptionFr.datas[i].datas[j].name === 'uc') {
+                        for (var k = 0; k < objRespDescriptionFr.datas[i].datas[j].datas.length; k++) {
+                            if (objRespDescriptionFr.datas[i].datas[j].datas[k].name === 'desc-valeur') {
+                                if (objRespDescriptionFr.datas[i].datas[j].datas[k].datas && objRespDescriptionFr.datas[i].datas[j].datas[k].datas.length > 0) {
+                                    ligneDescFr.uc = objRespDescriptionFr.datas[i].datas[j].datas[k].datas[0].valeur;
+                                }
+                            }
+                            else if (objRespDescriptionFr.datas[i].datas[j].datas[k].name === 'desc-renvoi') {
+                                if (objRespDescriptionFr.datas[i].datas[j].datas[k].datas && objRespDescriptionFr.datas[i].datas[j].datas[k].datas.length > 0) {
+                                    ligneDescFr.ucRenvoi = objRespDescriptionFr.datas[i].datas[j].datas[k].datas[0].valeur;
+                                }
+                            }
+                        }
+                    }
+                }
+                descriptionFr.listData.push(ligneDescFr);
+            }
+        }
+    }
+    return descriptionFr;
+}
+
+function filterDescriptionAr(donnees) {
+    let descriptionAr = {
+        title: '',
+        listData: []
+    };
+    var objRespDescriptionFr = null;
+    for (var i = 0; i < donnees.length; i++) {
+        if (donnees[i].name === 'description-ar') {
+            objRespDescriptionFr = donnees[i];
+            break;
+        }
+    }
+    if (objRespDescriptionFr != null) {
+        descriptionAr.title = objRespDescriptionFr.descTitre;
+        for (var i = 0; i < objRespDescriptionFr.datas.length; i++) {
+            if (objRespDescriptionFr.datas[i].name === 'desc-ligne') {
+                var ligneDescFr = new Object();
+                for (var j = 0; j < objRespDescriptionFr.datas[i].datas.length; j++) {
+                    if (objRespDescriptionFr.datas[i].datas[j].name === 'codification') {
+                        var codification = new Object();
+                        codification.code4 = objRespDescriptionFr.datas[i].datas[j].proprieteValeurCode4.valeur;
+                        codification.code6 = objRespDescriptionFr.datas[i].datas[j].proprieteValeurCode6.valeur;
+                        codification.code8 = objRespDescriptionFr.datas[i].datas[j].proprieteValeurCode8.valeur;
+                        codification.code10 = objRespDescriptionFr.datas[i].datas[j].proprieteValeurCode10.valeur;
+                        codification.ingGrp = objRespDescriptionFr.datas[i].datas[j].proprieteValeurIndgrp.valeur;
+
+                        for (var k = 0; k < objRespDescriptionFr.datas[i].datas[j].datas.length; k++) {
+                            if (objRespDescriptionFr.datas[i].datas[j].datas[k].name === 'code10') {
+                                for (var l = 0; l < objRespDescriptionFr.datas[i].datas[j].datas[k].datas.length; l++) {
+                                    if (objRespDescriptionFr.datas[i].datas[j].datas[k].datas[l].name === 'desc-renvoi') {
+                                        if (objRespDescriptionFr.datas[i].datas[j].datas[k].datas[l].datas && objRespDescriptionFr.datas[i].datas[j].datas[k].datas[l].datas.length > 0) {
+                                            ligneDescFr.codificationRenvoi = objRespDescriptionFr.datas[i].datas[j].datas[k].datas[l].datas[0].valeur;
+                                        }
+                                    }
+                                }
+
+                            }
+                        }
+
+                        ligneDescFr.codification = codification;
+                    }
+                    else if (objRespDescriptionFr.datas[i].datas[j].name === 'designation') {
+                        for (var k = 0; k < objRespDescriptionFr.datas[i].datas[j].datas.length; k++) {
+                            if (objRespDescriptionFr.datas[i].datas[j].datas[k].name === 'desc-valeur') {
+                                if (objRespDescriptionFr.datas[i].datas[j].datas[k].datas && objRespDescriptionFr.datas[i].datas[j].datas[k].datas.length > 0) {
+                                    ligneDescFr.designation = objRespDescriptionFr.datas[i].datas[j].datas[k].datas[0].valeur;
+                                }
+                            }
+                            else if (objRespDescriptionFr.datas[i].datas[j].datas[k].name === 'desc-renvoi') {
+                                if (objRespDescriptionFr.datas[i].datas[j].datas[k].datas && objRespDescriptionFr.datas[i].datas[j].datas[k].datas.length > 0) {
+                                    ligneDescFr.designationRenvoi = objRespDescriptionFr.datas[i].datas[j].datas[k].datas[0].valeur;
+                                }
+                            }
+                        }
+                    }
+                    else if (objRespDescriptionFr.datas[i].datas[j].name === 'di') {
+                        for (var k = 0; k < objRespDescriptionFr.datas[i].datas[j].datas.length; k++) {
+                            if (objRespDescriptionFr.datas[i].datas[j].datas[k].name === 'desc-valeur') {
+                                if (objRespDescriptionFr.datas[i].datas[j].datas[k].datas && objRespDescriptionFr.datas[i].datas[j].datas[k].datas.length > 0) {
+                                    ligneDescFr.di = objRespDescriptionFr.datas[i].datas[j].datas[k].datas[0].valeur;
+                                }
+                            }
+                            else if (objRespDescriptionFr.datas[i].datas[j].datas[k].name === 'desc-renvoi') {
+                                if (objRespDescriptionFr.datas[i].datas[j].datas[k].datas && objRespDescriptionFr.datas[i].datas[j].datas[k].datas.length > 0) {
+                                    ligneDescFr.diRenvoi = objRespDescriptionFr.datas[i].datas[j].datas[k].datas[0].valeur;
+                                }
+                            }
+                        }
+                    }
+                    else if (objRespDescriptionFr.datas[i].datas[j].name === 'uqn') {
+                        for (var k = 0; k < objRespDescriptionFr.datas[i].datas[j].datas.length; k++) {
+                            if (objRespDescriptionFr.datas[i].datas[j].datas[k].name === 'desc-valeur') {
+                                if (objRespDescriptionFr.datas[i].datas[j].datas[k].datas && objRespDescriptionFr.datas[i].datas[j].datas[k].datas.length > 0) {
+                                    ligneDescFr.uqn = objRespDescriptionFr.datas[i].datas[j].datas[k].datas[0].valeur;
+                                }
+                            }
+                            else if (objRespDescriptionFr.datas[i].datas[j].datas[k].name === 'desc-renvoi') {
+                                if (objRespDescriptionFr.datas[i].datas[j].datas[k].datas && objRespDescriptionFr.datas[i].datas[j].datas[k].datas.length > 0) {
+                                    ligneDescFr.uqnRenvoi = objRespDescriptionFr.datas[i].datas[j].datas[k].datas[0].valeur;
+                                }
+                            }
+                        }
+                    }
+                    else if (objRespDescriptionFr.datas[i].datas[j].name === 'uc') {
+                        for (var k = 0; k < objRespDescriptionFr.datas[i].datas[j].datas.length; k++) {
+                            if (objRespDescriptionFr.datas[i].datas[j].datas[k].name === 'desc-valeur') {
+                                if (objRespDescriptionFr.datas[i].datas[j].datas[k].datas && objRespDescriptionFr.datas[i].datas[j].datas[k].datas.length > 0) {
+                                    ligneDescFr.uc = objRespDescriptionFr.datas[i].datas[j].datas[k].datas[0].valeur;
+                                }
+                            }
+                            else if (objRespDescriptionFr.datas[i].datas[j].datas[k].name === 'desc-renvoi') {
+                                if (objRespDescriptionFr.datas[i].datas[j].datas[k].datas && objRespDescriptionFr.datas[i].datas[j].datas[k].datas.length > 0) {
+                                    ligneDescFr.ucRenvoi = objRespDescriptionFr.datas[i].datas[j].datas[k].datas[0].valeur;
+                                }
+                            }
+                        }
+                    }
+                }
+                descriptionAr.listData.push(ligneDescFr);
+            }
+        }
+    }
+    return descriptionAr;
 }

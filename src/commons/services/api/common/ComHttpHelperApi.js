@@ -52,9 +52,9 @@ export default class ComHttpHelperApi {
 
   static async process(object) {
     if (remote) {
-      console.log('----||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||----');
-      console.log(JSON.stringify(object));
-      console.log('----||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||----');
+      // console.log('----||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||----');
+      // console.log(JSON.stringify(object));
+      // console.log('----||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||----');
       try {
         let response = await instance.post(
           PROCESS_API,

@@ -10,8 +10,10 @@ const style = {
     row: { height: 28 },
     text: { textAlign: 'center' },
     datatableWidth: { width: '100%' },
+    datatableHeaderWidth: { textAlign: 'center', backgroundColor: '#00ffff'},
     datatableCellWidth: { width: 120 },
-    datatableCell: { width: 100 },
+    datatableCell: { width: 80 },
+    datatableCellMinWidth: { width: 30 },
     width100: { width: '100%' },
     textInputsStyle: {
         padding: 10,

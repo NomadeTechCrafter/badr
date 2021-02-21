@@ -54,6 +54,7 @@ const localStore = {
   liquiderTaxeGlobale: require('../../../../modules/liquidation/service/local-data/liquiderTaxeGlobale.json'),
   consignerTaxeGlobale: require('../../../../modules/liquidation/service/local-data/consignerTaxeGlobale.json'),
   getListInformationsConsultation: require('../../../../modules/tarifIntegre/tiConsultationIgTI/service/local-data/getListInformationsConsultation.json'),
-  consulterTI: require('../../../../modules/tarifIntegre/tiConsultationIgTI/service/local-data/consulterIgTI.json'),
+  getListFlux: require('../../../../modules/tarifIntegre/tiConsultationTI/service/local-data/getFlux.json'),
+  consulterTI: require('../../../../modules/tarifIntegre/tiConsultationTI/service/local-data/consulterTI.json'),
 };
 export default localStore;

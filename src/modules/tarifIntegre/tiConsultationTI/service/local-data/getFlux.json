@@ -1,9 +1,9 @@
 {
     "dtoHeader": {
-        "userLogin": "AD6202",
-        "fonctionnalite": "cf1103",
+        "userLogin": "AD6203",
+        "fonctionnalite": "cf1102",
         "module": "TI_LIB",
-        "commande": "getListInformationsConsultation",
+        "commande": "getListFlux",
         "typeService": "SP",
         "offset": 0,
         "pageSize": 0,
@@ -11,109 +11,76 @@
     },
     "jsonVO": [
         {
-            "code": "AB-I",
-            "libelle": "test ab import",
-            "dateEffet": 1199887386000,
-            "dateFin": 253402210800000,
-            "mode": "I"
+            "code": "A",
+            "libelle": "aaaaa vvvvv11",
+            "dateEffet": 1199891107000,
+            "dateFin": 253402214400000
         },
         {
-            "code": "AC_E",
-            "libelle": "Liste des accords",
-            "dateEffet": 1072911600000,
-            "dateFin": 253402210800000,
-            "mode": "E"
+            "code": "EXP",
+            "libelle": "Exportation",
+            "dateEffet": 1072915200000,
+            "dateFin": 253402214400000
         },
         {
-            "code": "AC_I",
-            "libelle": "Liste des accords",
-            "dateEffet": 1072911600000,
-            "dateFin": 253402210800000,
-            "mode": "I"
-        },
-        {
-            "code": "CODE1245",
-            "libelle": "Libellé",
+            "code": "FLU1",
+            "libelle": "Flux.",
             "dateEffet": 1340146800000,
-            "dateFin": 29348002800000,
-            "mode": "E"
+            "dateFin": 29348006400000
         },
         {
-            "code": "GF54",
-            "libelle": "information générale import",
-            "dateEffet": 1339974000000,
-            "dateFin": 29348002800000,
-            "mode": "I"
+            "code": "IMP",
+            "libelle": "Importation",
+            "dateEffet": 1072915260000,
+            "dateFin": 253373357520000
         },
         {
-            "code": "HJ12",
-            "libelle": "Information",
-            "dateEffet": 1338937200000,
-            "dateFin": 29348002800000,
-            "mode": "E"
-        },
-        {
-            "code": "I160413",
-            "libelle": "lib i160413",
-            "dateEffet": 1366066800000,
-            "dateFin": 29348002800000,
-            "mode": "I"
-        },
-        {
-            "code": "TA_E",
-            "libelle": "Liste des taxes",
-            "dateEffet": 1072911600000,
-            "dateFin": 253402210800000,
-            "mode": "E"
-        },
-        {
-            "code": "TA_I",
-            "libelle": "Liste des taxes",
-            "dateEffet": 1072911600000,
-            "dateFin": 253402210800000,
-            "mode": "I"
-        },
-        {
-            "code": "TES",
-            "libelle": "test test",
-            "dateEffet": 1202742620000,
-            "dateFin": 253402210800000,
-            "mode": "I"
-        },
-        {
-            "code": "TRFFFF",
-            "libelle": "trffff",
-            "dateEffet": 1363270332459,
-            "dateFin": 29348002800000,
-            "mode": "I"
+            "code": "INT",
+            "libelle": "Intérieur",
+            "dateEffet": 1072915200000,
+            "dateFin": 253402214400000
         },
         {
             "code": "10",
-            "libelle": "1010",
-            "dateEffet": 1362438000000,
-            "dateFin": 29348002800000,
-            "mode": "I"
+            "libelle": "10",
+            "dateEffet": 1362441600000,
+            "dateFin": 29348006400000
         },
         {
-            "code": "36",
-            "libelle": "36",
-            "dateEffet": 1277217443287,
-            "dateFin": 253402210800287,
-            "mode": "E"
+            "code": "159",
+            "libelle": "flux 159.",
+            "dateEffet": 1254997439607,
+            "dateFin": 253402214400254
         },
         {
-            "code": "4555",
-            "libelle": "ff",
-            "dateEffet": 1422313500000,
-            "dateFin": 253373353920000,
-            "mode": "I"
+            "code": "16",
+            "libelle": "f 1604..",
+            "dateEffet": 1366070400000,
+            "dateFin": 29348006400000
+        },
+        {
+            "code": "44",
+            "libelle": "444",
+            "dateEffet": 1422317100000,
+            "dateFin": 253373357520000
+        },
+        {
+            "code": "5555",
+            "libelle": "TEST TEST TEST",
+            "dateEffet": 1199872031000,
+            "dateFin": 253402214400000
+        },
+        {
+            "code": "77",
+            "libelle": "777",
+            "dateEffet": 1422316860000,
+            "dateFin": 29348006400000
         },
         {
             "code": "987",
-            "libelle": "infos gen 987",
-            "dateEffet": 1312247229000,
-            "dateFin": 29348046000000,
-            "mode": "E"
+            "libelle": "flux 987",
+            "dateEffet": 1312294075205,
+            "dateFin": 29348006400000
         }
     ]
 }

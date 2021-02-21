@@ -27,6 +27,7 @@ import _ from 'lodash';
 const initialState = {
 };
 
+
 class TiConsultationTIScreen extends React.Component {
     constructor(props) {
         super(props);
@@ -36,6 +37,7 @@ class TiConsultationTIScreen extends React.Component {
             codeIG: '',
             none: '',
             libelleIG: '',
+            positionTarifaire: '',
             igIsNotValid: false,
         };
     }
@@ -57,8 +59,8 @@ class TiConsultationTIScreen extends React.Component {
             type: CONSULTATION_TI_REQUEST,
             value: {
                 "consultationTypeAction": "consultation_cn",
-                "consultationTiMode": 'I', //this.props.route.params.modeConsultation,
-                "positionTarifaire": "",
+                "consultationTiMode": this.props.route.params.modeConsultation ? this.props.route.params.modeConsultation : 'I',
+                "positionTarifaire": this.state.positionTarifaire,
                 "fluxConsultationTI": this.state.codeIG,
                 "date": this.state.date
             }
@@ -85,6 +87,7 @@ class TiConsultationTIScreen extends React.Component {
             ...initialState,
             codeIG: '',
             libelleIG: '',
+            positionTarifaire: '',
             igIsNotValid: false,
         });
     }
@@ -110,35 +113,189 @@ class TiConsultationTIScreen extends React.Component {
         }
     };
 
-    renderSousBlocs = (bloc) => {
+    renderSousBlocs = (sousBloc) => {
         const items = [];
-        for (let sousBloc of bloc.sousBlocsLines) {
-            items.push(<DataTable.Row key={sousBloc.libelle}>
-                <DataTable.Cell style={style.datatableCellWidth}>{sousBloc.libelle}</DataTable.Cell>
-                <DataTable.Cell style={style.datatableCellWidth}>{sousBloc.valeur}</DataTable.Cell>
-            </DataTable.Row>);
+        for (let sousBlocsLine of sousBloc.sousBlocsLines) {
+            items.push(
+                <DataTable.Row key={sousBloc.title}>
+                    <DataTable.Cell style={style.datatableCellWidth}>{sousBlocsLine.libelle}</DataTable.Cell>
+                    <DataTable.Cell style={style.datatableCellWidth}>{sousBlocsLine.valeur}</DataTable.Cell>
+                </DataTable.Row>
+            );
         }
         return items;
     }
 
-    renderAccordians = () => {
+    renderAccordians = (sousBlocs) => {
+        const items = [];
+        for (let sousBloc of sousBlocs) {
+            items.push(
+                <DataTable.Row>
+                    <DataTable.Cell style={style.datatableCell}>{sousBloc.title}</DataTable.Cell>
+                    <DataTable.Cell style={style.datatableCell}>
+                        <DataTable>
+                            {this.renderSousBlocs(sousBloc)}
+                        </DataTable>
+                    </DataTable.Cell>
+                </DataTable.Row>);
+        }
+        return items;
+    }
+
+    renderBlocs = () => {
         const items = [];
         if (this.props.myBlocs) {
             for (let bloc of this.props.myBlocs) {
                 items.push(
                     <DataTable key={bloc.title} style={style.width100}>
-                        <DataTable.Row>
-                            <DataTable.Cell style={style.datatableCell}>{bloc.title}</DataTable.Cell>
-                            <DataTable.Cell style={style.datatableCell}>
-                                <DataTable>
-                                    {this.renderSousBlocs(bloc)}
-                                </DataTable>
-                            </DataTable.Cell>
-                        </DataTable.Row>
+                        <List.Accordion style={style.width100}
+                            title={bloc.title}>
+                            {this.renderAccordians(bloc.sousBlocs)}
+                        </List.Accordion>
                     </DataTable>
                 );
             }
         }
+        return items;
+    }
+
+    renderCodification = (codification) => {
+        const items = [];
+        items.push(
+            <DataTable.Row>
+                <DataTable.Cell style={style.datatableCellMinWidth}>
+                    {codification.ingGrp}
+                </DataTable.Cell>
+                <DataTable.Cell style={style.datatableCellMinWidth}>
+                    {codification.code4}
+                </DataTable.Cell>
+                <DataTable.Cell style={style.datatableCellMinWidth}>
+                    {codification.code6}
+                </DataTable.Cell>
+                <DataTable.Cell style={style.datatableCellMinWidth}>
+                    {codification.code8}
+                </DataTable.Cell>
+                <DataTable.Cell style={style.datatableCellMinWidth}>
+                    {codification.code10}
+                </DataTable.Cell>
+            </DataTable.Row>);
+        return items;
+    }
+
+    renderDescriptionFrDataTable = (listData) => {
+        const items = [];
+        for (let line of listData) {
+            items.push(
+                <DataTable style={style.width100}>
+                    <DataTable.Row>
+                        <DataTable.Cell style={style.datatableCell}>
+                            <DataTable>
+                                {this.renderCodification(line.codification)}
+                            </DataTable>
+                        </DataTable.Cell>
+                        <DataTable.Cell style={style.datatableCell}>
+                            {line.designation}
+                        </DataTable.Cell>
+                        <DataTable.Cell style={style.datatableCellMinWidth}>
+                            {line.di}
+                        </DataTable.Cell>
+                        <DataTable.Cell style={style.datatableCellMinWidth}>
+                            {line.uqn}
+                        </DataTable.Cell>
+                        <DataTable.Cell style={style.datatableCellMinWidth}>
+                            {line.uc}
+                        </DataTable.Cell>
+                    </DataTable.Row>
+                </DataTable>
+            );
+        }
+        return items;
+    }
+
+    renderDescriptionFr = () => {
+        const items = [];
+        items.push(
+            <List.Accordion style={style.width100}
+                title={this.props.descriptionFr.title}>
+                <DataTable.Header>
+                    <DataTable.Title>
+                        Codification
+                        </DataTable.Title>
+                    <DataTable.Title>
+                        Désignation des produits
+                        </DataTable.Title>
+                    <DataTable.Title>
+                        DI
+                        </DataTable.Title>
+                    <DataTable.Title>
+                        UQN
+                        </DataTable.Title>
+                    <DataTable.Title>
+                        UC
+                        </DataTable.Title>
+                </DataTable.Header>
+                {this.renderDescriptionFrDataTable(this.props.descriptionFr.listData)}
+            </List.Accordion>
+        );
+        return items;
+    }
+
+
+    renderDescriptionArDataTable = (listData) => {
+        const items = [];
+        for (let line of listData) {
+            items.push(
+                <DataTable style={style.width100}>
+                    <DataTable.Row>
+                        <DataTable.Cell style={style.datatableCellMinWidth}>
+                            {line.uc}
+                        </DataTable.Cell>
+                        <DataTable.Cell style={style.datatableCellMinWidth}>
+                            {line.uqn}
+                        </DataTable.Cell>
+                        <DataTable.Cell style={style.datatableCellMinWidth}>
+                            {line.di}
+                        </DataTable.Cell>
+                        <DataTable.Cell style={style.datatableCell}>
+                            {line.designation}
+                        </DataTable.Cell>
+                        <DataTable.Cell style={style.datatableCell}>
+                            <DataTable>
+                                {this.renderCodification(line.codification)}
+                            </DataTable>
+                        </DataTable.Cell>
+                    </DataTable.Row>
+                </DataTable>
+            );
+        }
+        return items;
+    }
+
+    renderDescriptionAr = () => {
+        const items = [];
+        items.push(
+            <List.Accordion style={style.width100}
+                title={this.props.descriptionAr.title}>
+                <DataTable.Header>
+                    <DataTable.Title>
+                        الوحدات التكميلية
+                        </DataTable.Title>
+                    <DataTable.Title>
+                        وحدة الكمية حسب المواصفة
+                        </DataTable.Title>
+                    <DataTable.Title>
+                        رسم الاستيراد
+                        </DataTable.Title>
+                    <DataTable.Title>
+                        نوع البضائع
+                        </DataTable.Title>
+                    <DataTable.Title>
+                        ترميز حسب النظام المنسق
+                        </DataTable.Title>
+                </DataTable.Header>
+                {this.renderDescriptionArDataTable(this.props.descriptionAr.listData)}
+            </List.Accordion>
+        );
         return items;
     }
 
@@ -162,7 +319,12 @@ class TiConsultationTIScreen extends React.Component {
                                 libelleSize={2}
                                 libelle={translate('consultationTI.positionTarifaire')}
                                 children={
-                                    <ComBadrNumericTextInputComp
+                                    <ComBadrNumericTextInputComp value={this.state.positionTarifaire}
+                                        onChangeBadrInput={(pt) =>
+                                            this.setState({
+                                                ...this.state,
+                                                positionTarifaire: pt,
+                                            })}
                                     />
                                 }
                             />
@@ -241,10 +403,10 @@ class TiConsultationTIScreen extends React.Component {
                             {(this.state.codeIG !== 0 && this.props.myBlocs && this.props.myBlocs.length > 0) && (
                                 <View style={style.width100} >
                                     <List.Section style={style.width100}>
-                                        <List.Accordion style={style.width100}
-                                            title={this.state.libelleIG}>
-                                            {this.renderAccordians()}
-                                        </List.Accordion></List.Section>
+                                        {this.renderDescriptionFr()}
+                                        {this.renderDescriptionAr()}
+                                        {this.renderBlocs()}
+                                    </List.Section>
                                 </View>
                             )}
                         </Col>

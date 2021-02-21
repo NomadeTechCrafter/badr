@@ -48,7 +48,7 @@ class TiConsultationIgTIScreen extends React.Component {
             type: CONSULTATION_IGTI_REQUEST,
             value: {
                 "consultationTypeAction": "consultation_ig",
-                "consultationTiMode": this.props.route.params.modeConsultation,
+                "consultationTiMode": this.props.route.params.modeConsultation ? this.props.route.params.modeConsultation : 'I',
                 "infosConsultationTI": this.state.codeIG,
             }
         });
