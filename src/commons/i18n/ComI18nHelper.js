@@ -24,6 +24,8 @@ import refControleVehiculeTranslateFr from '../../modules/referentiel/controleVe
 import refPlaquesImmTranslateFr from '../../modules/referentiel/plaquesImmatriculation/i18n/refPlaquesImmTranslateFr';
 import actifTranslateFr from '../../old/common/translations/actif/actifTranslateFr';
 import liquidationTranslateFr from '../../modules/liquidation/i18n/liquidationTranslateFr';
+import consultationIgTI from '../../modules/tarifIntegre/tiConsultationIgTI/i18n/tiConsultationIgTITranslateFr';
+import consultationTI from '../../modules/tarifIntegre/tiConsultationTI/i18n/tiConsultationTITranslateFr';
 
 const locales = RNLocalize.getLocales();
 
@@ -56,6 +58,8 @@ let combined = {
   ...actifTranslateFr,
   ...vuEmbTranslations,
   ...liquidationTranslateFr,
+  ...consultationIgTI,
+  ...consultationTI,
 };
 I18n.translations = {
   fr: combined,

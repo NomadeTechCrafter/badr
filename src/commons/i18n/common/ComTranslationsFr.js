@@ -127,6 +127,7 @@ export default {
     qte: 'Quantité',
     reference: 'Réference',
     libRegime: 'Libellé du régime',
+    choix: 'Choix',
   },
   qr: {
     at_invalide:

@@ -53,5 +53,7 @@ const localStore = {
   getRubriquesComptablesGlobalesVO: require('../../../../modules/liquidation/service/local-data/getRubriquesComptablesGlobalesVO.json'),
   liquiderTaxeGlobale: require('../../../../modules/liquidation/service/local-data/liquiderTaxeGlobale.json'),
   consignerTaxeGlobale: require('../../../../modules/liquidation/service/local-data/consignerTaxeGlobale.json'),
+  getListInformationsConsultation: require('../../../../modules/tarifIntegre/tiConsultationIgTI/service/local-data/getListInformationsConsultation.json'),
+  consulterTI: require('../../../../modules/tarifIntegre/tiConsultationIgTI/service/local-data/consulterIgTI.json'),
 };
 export default localStore;

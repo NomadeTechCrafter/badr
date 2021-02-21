@@ -50,6 +50,9 @@ import DedRedressementRecherche from '../../../dedouanement/redressement/ui/DedR
 import DedRedressementEnteteScreen from '../../../dedouanement/redressement/ui/entete/DedRedressementEnteteScreen';
 import RefControleVehiculeMainScreen from '../../../referentiel/controleVehicules/ui/refControleVehiculeMainScreen';
 import RefPlaquesImmMainScreen from '../../../referentiel/plaquesImmatriculation/ui/refPlaquesImmMainScreen';
+import ConsultationIgTIScreen from '../../../tarifIntegre/tiConsultationIgTI/ui/tiConsultationIgTIScreen';
+import ConsultationTIScreen from '../../../tarifIntegre/tiConsultationTI/ui/tiConsultationTIScreen';
+
 
 const Drawer = createDrawerNavigator();
 const deltaScreen = Dimensions.get('window').width / 4;
@@ -274,6 +277,18 @@ class habHomeScreen extends React.Component {
           name="VuEmbListeDeclaration"
           component={VuEmbListeDeclaration}
           options={{headerShown: false}}
+        />
+
+        <Drawer.Screen
+          name="ConsultationIgTIScreen"
+          component={ConsultationIgTIScreen}
+          options={{ headerShown: false }}
+        />
+
+        <Drawer.Screen
+          name="ConsultationTIScreen"
+          component={ConsultationTIScreen}
+          options={{ headerShown: false }}
         />
       </Drawer.Navigator>
     );

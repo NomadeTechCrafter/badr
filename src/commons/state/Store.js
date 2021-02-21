@@ -54,6 +54,8 @@ import ecorImportRechercheRefDumReducer from '../../modules/ecorImport/recherche
 
 import liquidationRechercheRefDumReducer from '../../modules/liquidation/state/reducers/liquidationRechercheRefDumReducer';
 import liquidationReducer from '../../modules/liquidation/state/reducers/liquidationReducer';
+import consultationIgTIReducer from '../../modules/tarifIntegre/tiConsultationIgTI/state/reducers/tiConsultationIgTIReducer';
+import consultationTIReducer from '../../modules/tarifIntegre/tiConsultationTI/state/reducers/tiConsultationTIReducer';
 
 /**
  * combine all reducers
@@ -103,6 +105,8 @@ const allReducers = combineReducers({
   vuEmbInitReducer,
   vuEmbReducer,
   vuEmbRefVH,
+  consultationIgTIReducer,
+  consultationTIReducer,
 });
 /**
  * store creation

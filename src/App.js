@@ -50,6 +50,8 @@ import Entete from './old/screens/actifs/rapport/creation/entete';
 import Details from './old/screens/actifs/rapport/creation/details';
 import Saisie from './old/screens/actifs/rapport/creation/saisie';
 import Consultation from './old/screens/actifs/rapport/consultation';
+import ConsultationIgTIScreen from './modules/tarifIntegre/tiConsultationIgTI/ui/tiConsultationIgTIScreen';
+import ConsultationTIScreen from './modules/tarifIntegre/tiConsultationTI/ui/tiConsultationTIScreen';
 
 //setGlobalHandler();
 export default class App extends React.Component {
@@ -72,7 +74,7 @@ export default class App extends React.Component {
                 <Stack.Screen
                   name="test"
                   options={{headerShown: false}}
-                  component={DedRedressementRecherche}
+                    component={ConsultationTIScreen}
                 />
               )}
               <Stack.Screen
