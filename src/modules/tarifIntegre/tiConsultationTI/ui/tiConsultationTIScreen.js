@@ -8,7 +8,6 @@ import {
     ComBadrErrorMessageComp,
     ComBadrItemsPickerComp,
     ComBadrKeyValueComp,
-    ComBadrLibelleComp,
     ComBadrNumericTextInputComp,
 } from '../../../../commons/component';
 /** REDUX **/
@@ -23,6 +22,7 @@ import translate from '../../../../commons/i18n/ComI18nHelper';
 import { DataTable, List } from 'react-native-paper';
 import { CONSULTATION_TI_REQUEST, INIT_CONSULTATION_TI_REQUEST } from '../state/tiConsultationTIConstants';
 import _ from 'lodash';
+import { remote } from '../../../../old/common/config';
 
 const initialState = {
 };
@@ -35,19 +35,14 @@ class TiConsultationTIScreen extends React.Component {
             ...initialState,
             date: new Date(),
             codeIG: '',
-            none: '',
+            none: false,
             libelleIG: '',
             positionTarifaire: '',
-            igIsNotValid: false,
+            errorMessage: '',
         };
     }
 
     buildInitConsultationTIAction = () => {
-        // if (this.props.route.params.modeConsultation === 'E') {
-        //     this.state = {
-        //         none: 'none',
-        //     };
-        // }
         let action = InitConsultationTIAction.request({
             type: INIT_CONSULTATION_TI_REQUEST,
         });
@@ -59,7 +54,7 @@ class TiConsultationTIScreen extends React.Component {
             type: CONSULTATION_TI_REQUEST,
             value: {
                 "consultationTypeAction": "consultation_cn",
-                "consultationTiMode": this.props.route.params.modeConsultation ? this.props.route.params.modeConsultation : 'I',
+                "consultationTiMode": !remote ? this.props.route.params.modeConsultation : 'I',
                 "positionTarifaire": this.state.positionTarifaire,
                 "fluxConsultationTI": this.state.codeIG,
                 "date": this.state.date
@@ -74,6 +69,11 @@ class TiConsultationTIScreen extends React.Component {
     };
 
     componentDidMount() {
+        if (!remote && this.props.route.params.modeConsultation === 'E') {
+            this.state = {
+                none: true,
+            };
+        }
         let action = this.buildInitConsultationTIAction();
         this.props.actions.dispatch(action);
     }
@@ -88,27 +88,44 @@ class TiConsultationTIScreen extends React.Component {
             codeIG: '',
             libelleIG: '',
             positionTarifaire: '',
-            igIsNotValid: false,
+            errorMessage: '',
+            date: new Date()
         });
+        this.positionTarifaireInput.clear();
     }
 
+    validate = () => {
+        let isValid = true;
+        if (_.isEmpty(this.state.positionTarifaire)) {
+            this.setState({
+                errorMessage: translate('consultationTI.ptChampObligatoire'),
+            });
+            isValid = false;
+        }
+
+        if (_.isEmpty(this.state.codeIG)) {
+            this.setState({
+                errorMessage: translate('consultationTI.fluxChampObligatoire'),
+            });
+            isValid = false;
+        }
+
+        if (!this.state.date) {
+            this.setState({
+                errorMessage: translate('consultationTI.dateChampObligatoire'),
+            });
+            isValid = false;
+        }
+        return isValid;
+    }
+
+
     handleSearch = () => {
-        if (!_.isEmpty(this.state.codeIG)) {
+        if (this.validate()) {
             let action = this.buildSearchConsultationTIAction();
             this.props.actions.dispatch(action);
             this.setState({
-                igIsNotValid: false,
-            });
-            // console.log('++++++++++++++++++++++++++++++++++++ Begin ++++++++++++++++++++++++++++++++++++++++++');
-            // console.log('this.props.leftBlocs : ' + JSON.stringify(this.props.leftBlocs));
-            // console.log('+++++++++++++++++++++++++++++++++++++ End ++++++++++++++++++++++++++++++++++++++ ');
-            // console.log('++++++++++++++++++++++++++++++++++++ Begin ++++++++++++++++++++++++++++++++++++++++++');
-            // console.log('this.props.myBlocs : ' + JSON.stringify(this.props.myBlocs));
-            // console.log('+++++++++++++++++++++++++++++++++++++ End ++++++++++++++++++++++++++++++++++++++ ');
-        } else {
-            this.handleClear();
-            this.setState({
-                igIsNotValid: true,
+                errorMessage: '',
             });
         }
     };
@@ -162,7 +179,7 @@ class TiConsultationTIScreen extends React.Component {
     renderCodification = (codification) => {
         const items = [];
         items.push(
-            <DataTable.Row>
+            <DataTable.Row key={codification.ingGrp}>
                 <DataTable.Cell style={style.datatableCellMinWidth}>
                     {codification.ingGrp}
                 </DataTable.Cell>
@@ -305,9 +322,19 @@ class TiConsultationTIScreen extends React.Component {
                 <Grid style={style.marginTop20}>
                     <Row size={5}>
                         <Col size={100}>
-                            {this.state.igIsNotValid && (
+                            {this.props.errorMessage != null && (
+                                <ComBadrErrorMessageComp message={this.props.errorMessage} />
+                            )}
+                        </Col>
+                    </Row>
+                    <Row size={5}>
+                        <Col size={100}>
+                            {!this.state.errorMessage != null && (
                                 <ComBadrErrorMessageComp
-                                    message={translate('consultationTI.igChampObligatoire')}
+                                    onClose={() => {
+                                        this.setState({ errorMessage: '' });
+                                    }}
+                                    message={this.state.errorMessage}
                                 />
                             )}
                         </Col>
@@ -320,6 +347,10 @@ class TiConsultationTIScreen extends React.Component {
                                 libelle={translate('consultationTI.positionTarifaire')}
                                 children={
                                     <ComBadrNumericTextInputComp value={this.state.positionTarifaire}
+
+                                        onRef={(input) => {
+                                            this.positionTarifaireInput = input;
+                                        }}
                                         onChangeBadrInput={(pt) =>
                                             this.setState({
                                                 ...this.state,
@@ -333,7 +364,7 @@ class TiConsultationTIScreen extends React.Component {
                     </Row>
                     <Row size={10}>
                         <Col size={5} />
-                        <Col size={90}>
+                        <Col size={90} pointerEvents={this.state.none ? 'none' : 'auto'}>
                             <ComBadrKeyValueComp
                                 libelleSize={2}
                                 libelle={translate('consultationTI.date')}

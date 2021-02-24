@@ -60,27 +60,12 @@ export default (state = initialState, action) => {
             nextState.errorMessage = null;
             nextState.showProgress = false;
             let filtredBlocs = filterBlocs(action.value.consultationTI.datas);
-            console.log('+++++++++++++++++++++++++++++++++++++++++++++++ action.value.condition ++++++++++++++++++++++++++++++++++++++++++++++++');
-            console.log(JSON.stringify(action.value.condition));
-            console.log('+++++++++++++++++++++++++++++++++++++++++++++++ action.value.condition ++++++++++++++++++++++++++++++++++++++++++++++++');
             filtredBlocs = filtredBlocs.filter(function (item) {
                 return item.condition === action.value.condition;
             });
             nextState.myBlocs = filtredBlocs;
-            //nextState.leftBlocs = filtredBlocs.sousBlocs.map(b => b.title);
             nextState.descriptionFr = filterDescriptionFr(action.value.consultationTI.datas)
             nextState.descriptionAr = filterDescriptionAr(action.value.consultationTI.datas)
-            console.log('=============================================================================================================');
-            console.log('----------------------------------------------- filtredBlocs ------------------------------------------------');
-            console.log(JSON.stringify(filtredBlocs));
-            console.log('----------------------------------------------- filtredBlocs ------------------------------------------------');
-            // console.log('+++++++++++++++++++++++++++++++++++++++++++++++ descriptionFr ++++++++++++++++++++++++++++++++++++++++++++++++');
-            // console.log(JSON.stringify(nextState.descriptionFr));
-            // console.log('+++++++++++++++++++++++++++++++++++++++++++++++ descriptionFr ++++++++++++++++++++++++++++++++++++++++++++++++');
-            // console.log('*********************************************** descriptionAr ************************************************');
-            // console.log(JSON.stringify(nextState.descriptionAr));
-            // console.log('*********************************************** descriptionAr ************************************************');
-            console.log('=============================================================================================================');
             return nextState;
         case CONSULTATION_TI_FAILED:
             nextState.showProgress = false;

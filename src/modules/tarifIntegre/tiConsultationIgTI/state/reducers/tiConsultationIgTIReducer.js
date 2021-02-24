@@ -67,10 +67,8 @@ export default (state = initialState, action) => {
             filtredBlocs = filtredBlocs.filter(function (item) {
                 return item.condition === action.value.condition;
             });
-            //console.log(JSON.stringify(filtredBlocs));
             nextState.myBlocs = filtredBlocs[0].sousBlocs;
             nextState.leftBlocs = filtredBlocs[0].sousBlocs.map(b => b.title);
-            //console.log('filtredBlocs.sousBlocs[0].map(b => b.title) : ' + JSON.stringify(filtredBlocs[0].sousBlocs.map(b => b.title)));
             return nextState;
         case CONSULTATION_IGTI_FAILED:
             nextState.showProgress = false;

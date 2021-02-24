@@ -85,12 +85,6 @@ class TiConsultationIgTIScreen extends React.Component {
             this.setState({
                 igIsNotValid: false,
             });
-            // console.log('++++++++++++++++++++++++++++++++++++ Begin ++++++++++++++++++++++++++++++++++++++++++');
-            // console.log('this.props.leftBlocs : ' + JSON.stringify(this.props.leftBlocs));
-            // console.log('+++++++++++++++++++++++++++++++++++++ End ++++++++++++++++++++++++++++++++++++++ ');
-            // console.log('++++++++++++++++++++++++++++++++++++ Begin ++++++++++++++++++++++++++++++++++++++++++');
-            // console.log('this.props.myBlocs : ' + JSON.stringify(this.props.myBlocs));
-            // console.log('+++++++++++++++++++++++++++++++++++++ End ++++++++++++++++++++++++++++++++++++++ ');
         } else {
             this.handleClear();
             this.setState({

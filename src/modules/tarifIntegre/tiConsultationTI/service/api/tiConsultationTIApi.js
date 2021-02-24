@@ -13,11 +13,6 @@ export default class TiConsultationTIApi {
             }
         };
         let response = await ComHttpHelperApi.process(data);
-        // console.log('-------------------------------------------');
-        // console.log('-------------------------------------------');
-        // console.log(JSON.stringify(response));
-        // console.log('-------------------------------------------');
-        // console.log('-------------------------------------------');
         return response;
     };
 
@@ -32,12 +27,6 @@ export default class TiConsultationTIApi {
             },
             jsonVO: voJson
         };
-
-        console.log('-------------------------------------------');
-        console.log('-------------------------------------------');
-        console.log(JSON.stringify(voJson));
-        console.log('-------------------------------------------');
-        console.log('-------------------------------------------');
         let response = await ComHttpHelperApi.process(data);
         return response;
     };

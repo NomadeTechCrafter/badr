@@ -3,6 +3,8 @@ export default {
     positionTarifaire: 'Position Tarifaire',
     date: 'Date',
     flux: 'Flux',
-    igChampObligatoire: 'Flux est une donnée obligatoire'
+    fluxChampObligatoire: 'Flux est une donnée obligatoire',
+    ptChampObligatoire: 'Position Tarifaire est une donnée obligatoire',
+    dateChampObligatoire: 'Date est une donnée obligatoire'
   },
 };

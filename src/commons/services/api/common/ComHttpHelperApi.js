@@ -52,9 +52,6 @@ export default class ComHttpHelperApi {
 
   static async process(object) {
     if (remote) {
-      // console.log('----||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||----');
-      // console.log(JSON.stringify(object));
-      // console.log('----||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||----');
       try {
         let response = await instance.post(
           PROCESS_API,
@@ -64,7 +61,6 @@ export default class ComHttpHelperApi {
             Cookie: ComSessionService.getInstance().getSessionId(true),
           },
         );
-         console.log('reponse WS', JSON.stringify(response));
         return response;
       } catch (error) {
         console.log('---catch error in Api Call--');
@@ -76,10 +72,8 @@ export default class ComHttpHelperApi {
         store.dispatch(action);
       }
     } else {
-      // console.log('----reponse dtoHeader.commande', object.dtoHeader.commande);
-      // console.log('---------------------------------------------------------------------------------------');
+      console.log('----reponse dtoHeader.commande', object.dtoHeader.commande);
       // console.log(localStore[object.dtoHeader.commande]);
-      // console.log('---------------------------------------------------------------------------------------');
       return {
         data: localStore[object.dtoHeader.commande],
       };

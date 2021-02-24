@@ -27,12 +27,6 @@ export default class TiConsultationIgTIApi {
             },
             jsonVO: voJson
         };
-
-        console.log('-------------------------------------------');
-        console.log('-------------------------------------------');
-        console.log(JSON.stringify(voJson));
-        console.log('-------------------------------------------');
-        console.log('-------------------------------------------');
         let response = await ComHttpHelperApi.process(data);
         return response;
     };
