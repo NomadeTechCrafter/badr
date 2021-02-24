@@ -166,6 +166,7 @@ export const getCurrentArticle = (codeTypeT6bis, num = 0) => {
       montantFacture: null,
       devise: null,
       uniteQuantite: null,
+      libelleUnite:null,
       quantite: null,
       isNew: true,
       listeT6bisLigneTaxation: []
