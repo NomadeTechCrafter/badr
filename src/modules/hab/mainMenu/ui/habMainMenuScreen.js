@@ -35,6 +35,7 @@ import {buildRouteWithParams} from '../../../../commons/Routing';
 
 /** Utils */
 import ComUtils from '../../../../commons/utils/ComUtils';
+import _ from 'lodash';
 
 /** Inmemory session */
 import {ComSessionService} from '../../../../commons/services/session/ComSessionService';
@@ -86,7 +87,11 @@ class habMainMenuScreen extends React.Component {
       &arrondissement=${ComSessionService.getInstance().getLibelleArrondissement()}
       &codeArrondissement=${ComSessionService.getInstance().getCodeArrondissement()}
       &uuid=${ComSessionService.getInstance().getDeviceId()}
-      &manifacturer=${ComSessionService.getInstance().getManufacturer()}
+      &manifacturer=${_.replace(
+        ComSessionService.getInstance().getManufacturer(),
+        '&',
+        '',
+      )}
       &model=${ComSessionService.getInstance().getModel()}
       &platform=${ComSessionService.getInstance().getPlatform()}
       &version=${ComSessionService.getInstance().getSystemVersion()}
@@ -103,13 +108,13 @@ class habMainMenuScreen extends React.Component {
         item.fon_VAR_CODEFONCTIONALITE,
       );
       if (route) {
-          console.log('route RN', route);
+        console.log('route RN', route);
         if (route.params.qr) {
           Zxing.default.showQrReader(this.onBarcodeRead);
         }
         this.props.navigation.navigate(route.screen, route.params);
       } else {
-          console.log('route IONIC', route);
+        console.log('route IONIC', route);
         this.openIntent(item.id).then((resp) => {
           habLoginApi.logout().then((logoutResponse) => {
             RNExitApp.exitApp();
