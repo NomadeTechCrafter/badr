@@ -14,7 +14,10 @@ const mapping = {
   '4096': {screen: 'RefControleVehicule', params: {}},
   '823': {screen: 'RefPlaquesImm', params: {}},
   '90025': {screen: 'VuEmbarqueScreen', params: {qr: true}},
-
+  '1201': {
+    screen: 'RechercheEcorImport',
+    params: {typeEcorImport: 'EnleverMarchandise'},
+  },
   /*  '3086': {screen: 'controleRechercheDumScreen', params: {typeControle: 'TR'}},
     '2052': {screen: 'DedRechercheRedressement', params: {qr: false}},
     '5971': {screen: 'RechecheMLV', params: {}},
@@ -28,11 +31,11 @@ const mapping = {
     },
   '5202': {screen: 'LiquidationRechercheScreen', params: {qr: false}},*/
 
-  /*T6bis creation*/
+  /*T6bis creation
   '110001': {screen: 'T6bisCreation', params: {}},
   '110002': {screen: 'T6bisRecherche', params: {}},
   '110005': {screen: 'T6bisRecherche', params: {}},
-  '110007': {screen: 'T6bisRecherche', params: {}},
+  '110007': {screen: 'T6bisRecherche', params: {}},*/
 };
 
 const ionicMapping = {};

@@ -1,6 +1,7 @@
 import ComHttpHelperApi from './common/ComHttpHelperApi';
 /** Inmemory session */
 import {ComSessionService} from '../session/ComSessionService';
+import _ from 'lodash';
 export default class ComTransverseApi {
   static doProcess = async (
     _module,
@@ -19,11 +20,12 @@ export default class ComTransverseApi {
         module: _module,
         commande: _command,
         typeService: _typeService,
-        offset: _offset,
-        pageSize: _pageSize,
+        offset: _.isEmpty(_offset) ? 0 : _offset,
+        pageSize: _.isEmpty(_pageSize) ? 0 : _pageSize,
       },
       jsonVO: _jsonVO,
     };
+    console.log('send data', data);
     let response = await ComHttpHelperApi.process(data);
     return response;
   };
