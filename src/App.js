@@ -47,6 +47,8 @@ import T6bisCreation from './modules/t6bis/creation/ui/t6bisCreation/t6bisCreati
 import T6bisGestion from './modules/t6bis/gestion/ui/t6bisGestion/t6bisGestionScreen';
 import RechercheEcorImport from './old/screens/ecorImport/rechercheEcorImport';
 
+import ConfirmationEntreeMainScreen from './modules/ecorExport/confirmationEntree/ui/ecorExpConfirmationEntreeMainScreen';
+
 //Actif
 import Recherche from './old/screens/actifs/rapport/recherche';
 import Creation from './old/screens/actifs/rapport/creation';
@@ -76,7 +78,7 @@ export default class App extends React.Component {
                 <Stack.Screen
                   name="test"
                   options={{headerShown: false}}
-                  component={T6bisCreation}
+                  component={ConfirmationEntreeMainScreen}
                 />
               )}
               <Stack.Screen

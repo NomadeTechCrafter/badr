@@ -26,6 +26,7 @@ import RechecheMLV from '../../../../old/screens/mainlevee/rechercheMLV';
 import ListDeclarationMLV from '../../../../old/screens/mainlevee/listedeclarationsMLV';
 import DelivrerMLV from '../../../../old/screens/mainlevee/delivrerMLV';
 import RechercheEcorImport from '../../../../old/screens/ecorImport/rechercheEcorImport';
+import EcorImportRechercheScreen from '../../../ecorImport/rechercheEcorImport/ui/EcorImportRechercheScreen';
 import AjouterReconnaissance from '../../../controle/reconnaissance/ui/ajouterReconnaissance/ctrlAjouterReconnaissanceScreen';
 import ModifierReconnaissance from '../../../controle/reconnaissance/ui/modifierReconnaissance/ctrlModifierReconnaissanceScreen';
 import AnnulerReconnaissance from '../../../controle/reconnaissance/ui/annulerReconnaissance/ctrlAnnulerReconnaissanceScreen';
@@ -164,7 +165,7 @@ class habHomeScreen extends React.Component {
         />
         <Drawer.Screen
           name="RechercheEcorImport"
-          component={RechercheEcorImport}
+          component={EcorImportRechercheScreen}
           options={{headerShown: false}}
         />
         <Drawer.Screen

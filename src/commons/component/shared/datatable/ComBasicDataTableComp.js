@@ -21,11 +21,11 @@ const FIRST_PAGINATION_SEPARATOR = ' / ';
 const SECOND_PAGINATION_SEPARATOR = ' - ';
 
 export default class ComBasicDataTableComp extends React.Component {
-  constructor(props) { 
+  constructor(props) {
     super(props);
     let checkedItems = [];
     this.props.rows.forEach((element) => {
-      checkedItems.push({checked: false});
+      checkedItems.push({checked: element.isRowSelected});
     });
     this.state = {currentPage: 0, offset: 0, checkedItems: checkedItems};
   }

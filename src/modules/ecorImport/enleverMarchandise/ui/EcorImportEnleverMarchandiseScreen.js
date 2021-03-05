@@ -17,6 +17,7 @@ import {
   ComBasicDataTableComp,
   ComContainerComp,
   ComBadrDialogComp,
+  ComBadrNumericTextInputComp,
 } from '../../../../commons/component';
 import {IconButton, TextInput, FAB} from 'react-native-paper';
 import {Col, Grid, Row} from 'react-native-easy-grid';
@@ -28,12 +29,12 @@ import {
   accentColor,
 } from '../../../../commons/styles/ComThemeStyle';
 import _ from 'lodash';
-
+import Utils from '../../../../commons/utils/ComUtils';
 import {load} from '../../../../commons/services/async-storage/ComStorageService';
 import {connect} from 'react-redux';
 import style from '../../../../modules/referentiel/plaquesImmatriculation/style/refPlaquesImmStyle';
 import {getValueByPath} from '../../../../modules/dedouanement/redressement/utils/DedUtils';
-import {request, requestModal} from '../state/actions/EcorImportAction';
+import {request, requestModal, init} from '../state/actions/EcorImportAction';
 import {
   GENERIC_CLOSE_MODAL,
   GENERIC_ECI_INIT,
@@ -112,6 +113,11 @@ class EcorImportEnleverMarchandiseScreen extends Component {
   selectedLotChanged = (row, index) => {
     if (row) {
       this.setState({selectedLot: row});
+    }
+  };
+  selectedEquipmentLotChanged = (row, index) => {
+    if (row) {
+      //this.setState({selectedLot: row});
     }
   };
   validerChoixLot = () => {
@@ -195,15 +201,15 @@ class EcorImportEnleverMarchandiseScreen extends Component {
         libelle: '',
         width: 100,
         component: 'checkbox',
-        action: (row, index) => this.selectedLotChanged(row, index),
+        action: (row, index) => this.selectedEquipmentLotChanged(row, index),
       },
       {
-        code: 'identifiantEquipement',
+        code: 'referenceEquipement',
         libelle: translate('ecorimport.listeEquipementsLot.refEquipement'),
         width: 200,
       },
       {
-        code: 'ligneLotVO.libelleTypeContenant',
+        code: 'typeEquipement',
         libelle: translate('ecorimport.listeEquipementsLot.typeEquipement'),
         width: 200,
       },
@@ -213,11 +219,14 @@ class EcorImportEnleverMarchandiseScreen extends Component {
         width: 150,
       },
       {
-        code: '',
+        code: 'render',
+        width: 200,
+        render: (row) => {
+          return this.state.selectedLot.dateHeureEnlevement;
+        },
         libelle: translate(
           'ecorimport.listeEquipementsLot.dateHeureEnlevement',
         ),
-        width: 200,
       },
     ];
   };
@@ -234,10 +243,17 @@ class EcorImportEnleverMarchandiseScreen extends Component {
     });
   };
   getListeEquipementLots = (selectedRow) => {
+    let data = Utils.deepDelete(selectedRow, [
+      '$$hashKey',
+      'isRowSelected',
+      'nombreColis',
+      'idLigne',
+      'selected',
+    ]);
     this.callRedux({
       command: 'getEquipementsbyLot',
       typeService: 'SP',
-      jsonVO: selectedRow,
+      jsonVO: data,
     });
   };
   validerAjout = () => {
@@ -346,8 +362,12 @@ class EcorImportEnleverMarchandiseScreen extends Component {
     return _.isEmpty(this.state.selectedLot[field]);
   };
   addEnlevement = () => {
-    this.setState({showEnlevements: true, isUpdateMode: false});
+    this.props.dispatch(
+      init({type: GENERIC_ECI_INIT, value: {command: 'getEquipementsbyLot'}}),
+    );
     this.setState({
+      showEnlevements: true,
+      isUpdateMode: false,
       selectedLot: {},
     });
   };
@@ -358,28 +378,54 @@ class EcorImportEnleverMarchandiseScreen extends Component {
           index
         ],
       },
-      () =>
-        this.initEditEnlevement(
-          this.state.selectedLot.dateHeureEffectiveEnlevement,
-        ),
+      () => this.initEditEnlevement(this.state.selectedLot),
     );
     this.setState({showEnlevements: true, isUpdateMode: true});
   };
-  initEditEnlevement = (dateHeureEffectiveEnlevement) => {
-    if (dateHeureEffectiveEnlevement) {
-      let tab = dateHeureEffectiveEnlevement.split(' ');
-      this.setState(
-        {
-          selectedLot: {
-            ...this.state.selectedLot,
-            dateEffectiveEnlevement: tab[0],
-            heureEffectiveEnlevement: tab[1],
-          },
+  initEditEnlevement = (selectedLot) => {
+    _.forEach(selectedLot.refEquipementEnleve, (equipement) => {
+      equipement.isRowSelected = true;
+    });
+
+    if (selectedLot.dateHeureEffectiveEnlevement) {
+      let tab = selectedLot.dateHeureEffectiveEnlevement.split(' ');
+      this.setState({
+        selectedLot: {
+          ...this.state.selectedLot,
+          dateEffectiveEnlevement: tab[0],
+          heureEffectiveEnlevement: tab[1],
         },
-        () =>
-          console.log('selected---', JSON.stringify(this.state.selectedLot)),
-      );
+      });
     }
+  };
+  chargerListeEquipementsLot = (selectedLot) => {
+    _.forEach(selectedLot.refEquipementEnleve, (equipement) => {
+      let equipementTemp = {
+        referenceEquipement: equipement.identifiantEquipement,
+        tareEquipement: equipement.tareEquipement,
+        dateHeureEnlevement: '',
+        typeEquipement: equipement.ligneLotVO.libelleTypeContenant,
+        //set row to not selected
+        selected: false,
+      };
+      if (this.testIfEquipementDisponible(equipement)) {
+        // $scope.itemEcor.refEquipementEnleve.push(equipement);
+      }
+    });
+  };
+  testIfEquipementDisponible = (equipement) => {
+    let res = true;
+    _.forEach(
+      this.state.enleverMarchandiseVO.refMarchandiseEnlevee,
+      (value) => {
+        _.forEach(value.refEquipementEnleve, (value) => {
+          if (value.referenceEquipement === equipement.referenceEquipement) {
+            res = false;
+          }
+        });
+      },
+    );
+    return res;
   };
   deleteEnlevement = () => {
     let enleverMarchandiseVO = {...this.state.enleverMarchandiseVO};
@@ -397,6 +443,26 @@ class EcorImportEnleverMarchandiseScreen extends Component {
   onActionMenuStateChange = () => {
     this.setState({isActionMenuOpen: !this.state.isActionMenuOpen});
   };
+  static getDerivedStateFromProps(nextProps, prevState) {
+    let getEquipementsbyLot =
+      nextProps.picker && nextProps.picker.getEquipementsbyLot
+        ? nextProps.picker.getEquipementsbyLot
+        : null;
+
+    if (
+      !_.isEmpty(getEquipementsbyLot) &&
+      prevState.selectedLot.refEquipementEnleve !== getEquipementsbyLot.data
+    ) {
+      console.log('getDerivedStateFromProps--- 2', getEquipementsbyLot.data);
+      return {
+        selectedLot: {
+          ...prevState.selectedLot,
+          refEquipementEnleve: getEquipementsbyLot.data,
+        },
+      };
+    }
+    return null;
+  }
 
   confirmerEcor = () => {
     console.log('confirmer ecor -----');
@@ -417,9 +483,13 @@ class EcorImportEnleverMarchandiseScreen extends Component {
       selectedLot,
       isConsultationMode,
     } = this.state;
-
+    console.log('in render selectedLot ', JSON.stringify(selectedLot));
     let lotsApures = this.extractCommandData('getLotsApures');
-    let equipementsbyLot = this.extractCommandData('getEquipementsbyLot');
+    /*console.log(
+      'equipementsbyLot----',
+      this.extractCommandData('getEquipementsbyLot'),
+    );*/
+    //let equipementsbyLot = this.extractCommandData('getEquipementsbyLot');
 
     return (
       <View style={CustomStyleSheet.fullContainer}>
@@ -694,7 +764,9 @@ class EcorImportEnleverMarchandiseScreen extends Component {
                     <Grid>
                       <Row style={CustomStyleSheet.whiteRow}>
                         <Col size={2}>
-                          <ComBadrLibelleComp withColor={true}>
+                          <ComBadrLibelleComp
+                            withColor={true}
+                            isRequired={true}>
                             {translate(
                               'ecorimport.marchandisesEnlevees.lieuStockage',
                             )}
@@ -746,20 +818,20 @@ class EcorImportEnleverMarchandiseScreen extends Component {
                       </Row>
                       <Row style={CustomStyleSheet.lightBlueRow}>
                         <Col size={2}>
-                          <ComBadrLibelleComp withColor={true}>
+                          <ComBadrLibelleComp
+                            withColor={true}
+                            isRequired={true}>
                             {translate(
                               'ecorimport.enleverMarchandise.nombreColis',
                             )}
                           </ComBadrLibelleComp>
                         </Col>
                         <Col size={6}>
-                          <TextInput
-                            mode="outlined"
+                          <ComBadrNumericTextInputComp
                             ref={(ref) => (this.nombreContenant = ref)}
-                            style={style.columnThree}
-                            label=""
+                            mode={'outlined'}
                             value={selectedLot.nombreContenant}
-                            onChangeText={(text) =>
+                            onChangeBadrInput={(text) =>
                               this.setState({
                                 ...this.state,
                                 selectedLot: {
@@ -773,7 +845,9 @@ class EcorImportEnleverMarchandiseScreen extends Component {
                       </Row>
                       <Row style={CustomStyleSheet.whiteRow}>
                         <Col size={2}>
-                          <ComBadrLibelleComp withColor={true}>
+                          <ComBadrLibelleComp
+                            withColor={true}
+                            isRequired={true}>
                             {translate(
                               'ecorimport.enleverMarchandise.numBonSortie',
                             )}
@@ -798,7 +872,9 @@ class EcorImportEnleverMarchandiseScreen extends Component {
                           />
                         </Col>
                         <Col size={2}>
-                          <ComBadrLibelleComp withColor={true}>
+                          <ComBadrLibelleComp
+                            withColor={true}
+                            isRequired={true}>
                             {translate(
                               'ecorimport.marchandisesEnlevees.delivrePar',
                             )}
@@ -850,7 +926,9 @@ class EcorImportEnleverMarchandiseScreen extends Component {
                       </Row>
                       <Row style={CustomStyleSheet.lightBlueRow}>
                         <Col size={2}>
-                          <ComBadrLibelleComp withColor={true}>
+                          <ComBadrLibelleComp
+                            withColor={true}
+                            isRequired={true}>
                             {translate(
                               'ecorimport.marchandisesEnlevees.immatriculationsVehicules',
                             )}
@@ -932,15 +1010,15 @@ class EcorImportEnleverMarchandiseScreen extends Component {
                 </ComBadrCardBoxComp>
 
                 {/* Accordion liste des équipement du lot */}
-                {!_.isNil(equipementsbyLot) && !_.isNil(equipementsbyLot.data) && (
+                {!_.isNil(selectedLot.refEquipementEnleve) && (
                   <ComBadrCardBoxComp style={styles.cardBox}>
                     <ComAccordionComp
                       title={translate('ecorimport.listeEquipementsLot.title')}
                       expanded={true}>
                       <ComBasicDataTableComp
-                        rows={equipementsbyLot.data}
+                        rows={selectedLot.refEquipementEnleve}
                         cols={this.state.listEquipementLotsCols}
-                        totalElements={equipementsbyLot.data.length}
+                        totalElements={selectedLot.refEquipementEnleve.length}
                         maxResultsPerPage={10}
                         paginate={true}
                       />
@@ -1053,6 +1131,11 @@ class EcorImportEnleverMarchandiseScreen extends Component {
   };
   extractCommandData = (command) => {
     return this.props && this.props.picker ? this.props.picker[command] : null;
+  };
+  static extractCommandDataFromProps = (nextProps, command) => {
+    return nextProps && nextProps.picker && nextProps.picker[command]
+      ? nextProps.picker[command]
+      : null;
   };
 }
 

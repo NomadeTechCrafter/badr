@@ -159,6 +159,26 @@ export default class EciListEnlevementsEffectuesBlock extends React.Component {
                 </Row>
               );
             })}
+            <Row>
+              <Col size={6} />
+              <Col size={1}>
+                <ComBadrLibelleComp withColor={true}>
+                  {translate('transverse.total')}
+                  {' : '}
+                </ComBadrLibelleComp>
+              </Col>
+              <Col size={1}>
+                <ComBadrLibelleComp withColor={true}>
+                  {_.sumBy(
+                    enleverMarchandiseVO.refMarchandiseEnlevee,
+                    function (o) {
+                      return _.parseInt(o.nombreContenant);
+                    },
+                  )}
+                </ComBadrLibelleComp>
+              </Col>
+              <Col size={3} />
+            </Row>
           </Grid>
         </ComAccordionComp>
       </ComBadrCardBoxComp>

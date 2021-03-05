@@ -7,6 +7,7 @@ export default {
     nbreContenant: 'Nombre contenant',
     agentEcoreur: 'Agent Ecoreur',
     aucunEquipEnleve: 'Aucun Equipement enlevé',
+    errorChampsObligatoire: 'Veuillez remplir tous les champs obligatoires (*)',
     declarationDetail: {
       title: 'Déclaration en détail',
       dateHeureEnreg: 'Date heure Enreg',
@@ -95,6 +96,5 @@ export default {
       title: 'Confirmation',
       content: 'Etes vous sûr de vouloir quitter cette page?',
     },
-    errorChampsObligatoire: 'Veuillez remplir tous les champs obligatoires (*)',
   },
 };
