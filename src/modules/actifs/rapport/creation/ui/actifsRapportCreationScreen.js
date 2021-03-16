@@ -4,16 +4,18 @@ import React, { Component } from 'react';
 import { Dimensions, View } from 'react-native';
 import { IconButton } from 'react-native-paper';
 import { connect } from 'react-redux';
-
-import * as Constants from '../state/actifsRapportCreationConstants';
-import * as enregistrerRS from '../state/actions/actifsRapportCreationEnregistrerRSAction';
-import AtifsRapportCreationDetailsTab from './details/actifsRapportCreationDetails';
-import AtifsRapportCreationSaisieTab from './saisie/actifsRapportCreationSaisieTab';
 import { ComBadrProgressBarComp, ComBadrToolbarComp } from '../../../../../commons/component';
 import { translate } from '../../../../../commons/i18n/ComI18nHelper';
-import { primaryColor } from '../../../../../commons/styles/ComThemeStyle';
 import { load } from '../../../../../commons/services/async-storage/ComStorageService';
+import { primaryColor } from '../../../../../commons/styles/ComThemeStyle';
+import * as Constants from '../state/actifsRapportCreationConstants';
+import * as enregistrerRS from '../state/actions/actifsRapportCreationEnregistrerRSAction';
+import actifsRapportCreationAvionsPriveesTab from './avionsPrivees/actifsRapportCreationAvionsPriveesTab';
+import AtifsRapportCreationDetailsTab from './details/actifsRapportCreationDetails';
+import ActifsRapportCreationEmbarcationsTab from './embarcations/actifsRapportCreationEmbarcationsTab';
 import ActifsRapportCreationEnteteTab from './entete/actifsRapportCreationEnteteTab';
+import AtifsRapportCreationSaisieTab from './saisie/actifsRapportCreationSaisieTab';
+
 
 
 const Tab = createMaterialTopTabNavigator();
@@ -24,18 +26,27 @@ const screenHeight = Dimensions.get('window').height;
 
 const screenWidth = Dimensions.get('window').width;
 
-function EnteteScreen({consultation, route, navigation}) {
+function EnteteScreen({ consultation, route, navigation }) {
   return (
     <ActifsRapportCreationEnteteTab consultation={consultation} navigation={navigation} route={route} />
   );
 }
 
-function DetailsScreen({route, navigation}) {
+function DetailsScreen({ route, navigation }) {
   return <AtifsRapportCreationDetailsTab navigation={navigation} route={route} />;
 }
 
-function SaisieScreen({route, navigation}) {
+function SaisieScreen({ route, navigation }) {
   return <AtifsRapportCreationSaisieTab navigation={navigation} route={route} />;
+}
+
+
+function embarcationsTab({ route, navigation }) {
+  return <ActifsRapportCreationEmbarcationsTab navigation={navigation} route={route} />;
+}
+
+function avionsPriveesTab({ route, navigation }) {
+  return <actifsRapportCreationAvionsPriveesTab navigation={navigation} route={route} />;
 }
 
 class ActifsRapportCreationScreen extends Component {
@@ -55,7 +66,7 @@ class ActifsRapportCreationScreen extends Component {
 
   componentDidMount = () => {
     load('rows').then((value) => {
-      this.setState({rows: JSON.parse(value)}, () => {
+      this.setState({ rows: JSON.parse(value) }, () => {
         console.log(this.state.rows.vehicules[0]);
       });
     });
@@ -67,7 +78,7 @@ class ActifsRapportCreationScreen extends Component {
   loadincident = () => {
     load('autreIncident').then((value) => {
       if (value) {
-        this.setState({autreIncident: value});
+        this.setState({ autreIncident: value });
       } else {
         console.log('no value');
       }
@@ -77,7 +88,7 @@ class ActifsRapportCreationScreen extends Component {
   loadTypeincident = () => {
     load('typeIncident').then((value) => {
       if (value) {
-        this.setState({typeIncident: value});
+        this.setState({ typeIncident: value });
       } else {
         console.log('no value');
       }
@@ -86,7 +97,7 @@ class ActifsRapportCreationScreen extends Component {
   loadDescription = () => {
     load('description').then((value) => {
       if (value) {
-        this.setState({description: value});
+        this.setState({ description: value });
       } else {
         console.log('no value');
       }
@@ -126,20 +137,60 @@ class ActifsRapportCreationScreen extends Component {
       versionRS: null,
       versionsRS: null,
     };
-    let data = {
-      jsonVO: rsAEnregistrer,
-    };
-    let action = enregistrerRS.request({
-      type: Constants.ACTIFS_CREATION_REQUEST,
-      value: {data: data},
+    console.log('--------------------------------rows navigationsMaritimes--------------------------------------------------');
+    console.log(this.state.rows.navigationsMaritimes);
+    load('navigationsMaritimes').then((value) => {
+      if (value) {
+        console.log(value);
+        rsAEnregistrer.navigationsMaritimes = value;
+        let data = {
+          jsonVO: rsAEnregistrer,
+        };
+        console.log(data);
+        let action = enregistrerRS.request({
+          type: Constants.ACTIFS_CREATION_REQUEST,
+          value: { data: data },
+        });
+        //this.props.dispatch(action);
+        console.log('dispatch fired !!');
+      } else {
+        console.log('no value');
+      }
     });
-    this.props.dispatch(action);
-    console.log('dispatch fired !!');
+    console.log('--------------------------------rows--------------------------------------------------');
+    console.log('--------------------------------rows navigationsMaritimes--------------------------------------------------');
+    console.log(this.state.rows.navigationsMaritimes);
+    load('navigationsMaritimes').then((value) => {
+      if (value) {
+        console.log(value);
+        rsAEnregistrer.navigationsMaritimes = value;
+        let data = {
+          jsonVO: rsAEnregistrer,
+        };
+        console.log(data);
+        let action = enregistrerRS.request({
+          type: Constants.ACTIFS_CREATION_REQUEST,
+          value: { data: data },
+        });
+        //this.props.dispatch(action);
+        console.log('dispatch fired !!');
+      } else {
+        console.log('no value');
+      }
+    });
+    console.log('--------------------------------rows--------------------------------------------------');
+
+
+
   };
 
   render() {
+
+    console.log('rows    :', this.state.rows);
+    console.log('rows    :', this.state.rows.maritime);
+    console.log(!this.state.rows.maritime && !this.state.rows.aerien);
     return (
-      <View style={{width: '100%', height: '100%'}}>
+      <View style={{ width: '100%', height: '100%' }}>
         <ComBadrToolbarComp
           navigation={this.props.navigation}
           icon="menu"
@@ -148,7 +199,7 @@ class ActifsRapportCreationScreen extends Component {
             icon="content-save-outline"
             size={30}
             color={primaryColor}
-            style={{backgroundColor: 'white'}}
+            style={{ backgroundColor: 'white' }}
             onPress={() => this.Enregister()}
           />
         </ComBadrToolbarComp>
@@ -156,46 +207,119 @@ class ActifsRapportCreationScreen extends Component {
           <ComBadrProgressBarComp width={screenWidth} />
         )}
         <NavigationContainer independent={true}>
-          <Tab.Navigator
-            initialLayout={{height: Dimensions.get('window').height}}
-            swipeEnabled={false}
-            tabBarOptions={{
-              labelStyle: {fontSize: 16, fontWeight: 'bold'},
-              showLabel: true,
-              allowFontScaling: true,
-              activeBackgroundColor: primaryColor,
-              activeTintColor: primaryColor,
-              inactiveTintColor: 'gray',
-              indicatorStyle: {
-                backgroundColor: primaryColor,
-                borderWidth: 2.5,
-                borderColor: primaryColor,
-              },
-            }}>
-            <Tab.Screen consultation={this.state.consultation} name="Entête">
-              {() => (
-                <ActifsRapportCreationEnteteTab
-                  consultation={this.state.consultation}
-                  row={this.state.row}
-                />
-              )}
-            </Tab.Screen>
-            <Tab.Screen name="Details">
-              {() => (
-                <AtifsRapportCreationDetailsTab
-                  consultation={this.state.consultation}
-                  row={this.state.row}
-                />
-              )}
-            </Tab.Screen>
-            <Tab.Screen name="Saisie" component={SaisieScreen} />
-          </Tab.Navigator>
+          {(!this.state.rows.maritime && !this.state.rows.aerien) && (
+            <Tab.Navigator
+              initialLayout={{ height: Dimensions.get('window').height }}
+              swipeEnabled={false}
+              tabBarOptions={{
+                labelStyle: { fontSize: 16, fontWeight: 'bold' },
+                showLabel: true,
+                allowFontScaling: true,
+                activeBackgroundColor: primaryColor,
+                activeTintColor: primaryColor,
+                inactiveTintColor: 'gray',
+                indicatorStyle: {
+                  backgroundColor: primaryColor,
+                  borderWidth: 2.5,
+                  borderColor: primaryColor,
+                },
+              }}>
+              <Tab.Screen consultation={this.state.consultation} name="Entête1">
+                {() => (
+                  <ActifsRapportCreationEnteteTab
+                    consultation={this.state.consultation}
+                    row={this.state.row}
+                  />
+                )}
+              </Tab.Screen>
+              <Tab.Screen name="Details">
+                {() => (
+                  <AtifsRapportCreationDetailsTab
+                    consultation={this.state.consultation}
+                    row={this.state.row}
+                  />
+                )}
+              </Tab.Screen>
+              <Tab.Screen name="Saisie" component={SaisieScreen} />
+            </Tab.Navigator>)}
+          {(this.state.rows.maritime) && (
+            <Tab.Navigator
+              initialLayout={{ height: Dimensions.get('window').height }}
+              swipeEnabled={false}
+              tabBarOptions={{
+                labelStyle: { fontSize: 16, fontWeight: 'bold' },
+                showLabel: true,
+                allowFontScaling: true,
+                activeBackgroundColor: primaryColor,
+                activeTintColor: primaryColor,
+                inactiveTintColor: 'gray',
+                indicatorStyle: {
+                  backgroundColor: primaryColor,
+                  borderWidth: 2.5,
+                  borderColor: primaryColor,
+                },
+              }}>
+              <Tab.Screen consultation={this.state.consultation} name="Entête2">
+                {() => (
+                  <ActifsRapportCreationEnteteTab
+                    consultation={this.state.consultation}
+                    row={this.state.row}
+                  />
+                )}
+              </Tab.Screen>
+              <Tab.Screen name="Details">
+                {() => (
+                  <AtifsRapportCreationDetailsTab
+                    consultation={this.state.consultation}
+                    row={this.state.row}
+                  />
+                )}
+              </Tab.Screen>
+              <Tab.Screen name="Saisie" component={SaisieScreen} />
+              <Tab.Screen name={translate('actifsCreation.embarcations.title')} component={embarcationsTab} />
+            </Tab.Navigator>)}
+          {(this.state.rows.aerien) && (
+            <Tab.Navigator
+              initialLayout={{ height: Dimensions.get('window').height }}
+              swipeEnabled={false}
+              tabBarOptions={{
+                labelStyle: { fontSize: 16, fontWeight: 'bold' },
+                showLabel: true,
+                allowFontScaling: true,
+                activeBackgroundColor: primaryColor,
+                activeTintColor: primaryColor,
+                inactiveTintColor: 'gray',
+                indicatorStyle: {
+                  backgroundColor: primaryColor,
+                  borderWidth: 2.5,
+                  borderColor: primaryColor,
+                },
+              }}>
+              <Tab.Screen consultation={this.state.consultation} name="Entête3">
+                {() => (
+                  <ActifsRapportCreationEnteteTab
+                    consultation={this.state.consultation}
+                    row={this.state.row}
+                  />
+                )}
+              </Tab.Screen>
+              <Tab.Screen name="Details">
+                {() => (
+                  <AtifsRapportCreationDetailsTab
+                    consultation={this.state.consultation}
+                    row={this.state.row}
+                  />
+                )}
+              </Tab.Screen>
+              <Tab.Screen name="Saisie" component={SaisieScreen} />
+              <Tab.Screen name={translate('actifsCreation.avionsPrivees.title')} component={avionsPriveesTab} />
+            </Tab.Navigator>)}
         </NavigationContainer>
       </View>
     );
   }
 }
 
-const mapStateToProps = (state) => ({...state.creationReducer});
+const mapStateToProps = (state) => ({ ...state.creationReducer });
 
 export default connect(mapStateToProps, null)(ActifsRapportCreationScreen);

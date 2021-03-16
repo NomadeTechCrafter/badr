@@ -33,7 +33,7 @@ const mapping = {
   '110002': {screen: 'T6bisRecherche', params: {}},
   '110005': {screen: 'T6bisRecherche', params: {}},
   '110007': { screen: 'T6bisRecherche', params: {} },
-  '9932': { screen: 'T6bisRecherche', params: {} },
+  '9932': { screen: 'ActifsRecherche', params: {} },
   
 };
 

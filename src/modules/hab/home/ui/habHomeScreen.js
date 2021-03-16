@@ -39,6 +39,10 @@ import T6bisCreation from '../../../t6bis/creation/ui/t6bisCreation/t6bisCreatio
 import T6bisRecherche from '../../../t6bis/recherche/ui/t6bisRechercheScreen';
 import T6bisGestion from '../../../t6bis/gestion/ui/t6bisGestion/t6bisGestionScreen';
 
+
+import ActifsRapportRechercheScreen from '../../../actifs/rapport/recherche/ui/actifsRapportRechercheScreen';
+
+
 import Entete from '../../../../old/screens/actifs/rapport/creation/entete';
 import Recherche from '../../../../old/screens/actifs/rapport/recherche';
 import Saisie from '../../../../old/screens/actifs/rapport/creation/saisie';
@@ -245,9 +249,9 @@ class habHomeScreen extends React.Component {
           component={Recherche}
         />
         <Drawer.Screen
-          name="Creation"
+          name="ActifsRecherche"
           options={{headerShown: false}}
-          component={Creation}
+          component={ActifsRapportRechercheScreen}
         />
         <Drawer.Screen
           name="Entete"
@@ -297,6 +301,7 @@ class habHomeScreen extends React.Component {
           options={{headerShown: false}}
         />
         {/* Module T6bis end*/}
+
       </Drawer.Navigator>
     );
   }

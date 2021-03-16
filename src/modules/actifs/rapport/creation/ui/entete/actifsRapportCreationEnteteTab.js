@@ -52,13 +52,15 @@ class ActifsRapportCreationEnteteTab extends Component {
   }
 
   componentDidMount() {
+    console.log('--------------------------------------------------ActifsRapportCreationEnteteTab---------------------------------------------------------start');
     this.Enregister();
+    console.log('--------------------------------------------------ActifsRapportCreationEnteteTab---------------------------------------------------------fin');
   }
 
   Enregister = () => {
-    let data = {
-      jsonVO: '3607',
-    };
+    console.log('this.props : ', this.props);
+    let data = this.props.row?.id;
+  
     let action = getOsById.request(
       {
         type: Constants.ACTIFS_ENTETE_REQUEST,
@@ -135,7 +137,7 @@ class ActifsRapportCreationEnteteTab extends Component {
         console.log('success');
       });
       const refPJ = this.props.value.jsonVO.refPJ;
-
+               
       res = refPJ.split('_');
     }
     datatable.push(rows);
@@ -288,7 +290,7 @@ class ActifsRapportCreationEnteteTab extends Component {
                     mode={'outlined'}
                     style={{height: 20, fontSize: 12, textAlignVertical: 'top'}}
                     disabled={true}
-                    value={rows.numero}
+                    value={''+rows.numero}
                     onChangeText={(text) => this.setState({NumeroOrder: text})}
                   />
                 </Col>

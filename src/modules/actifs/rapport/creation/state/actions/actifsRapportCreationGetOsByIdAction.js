@@ -8,6 +8,7 @@ export function request(action, navigation, successRedirection) {
   return (dispatch) => {
     dispatch(action);
     dispatch(inProgress(action));
+    console.log('navig success    getOsById action : ', action);
     TransverseApi.doProcess(
       MODULE,
       'getOsById',

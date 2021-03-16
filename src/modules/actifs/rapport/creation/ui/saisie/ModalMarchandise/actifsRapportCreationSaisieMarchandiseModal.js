@@ -1,4 +1,5 @@
 import {
+  ComBadrAutoCompleteChipsComp,
   ComBadrAutoCompleteComp,
   ComBadrButtonComp,
   ComBadrItemsPickerComp,
@@ -8,11 +9,11 @@ import {
   ComContainerComp,
 } from '../../../../../../../commons/component';
 //import {ComBadrModalComp} from '../../../../../../common/component/modal/ComBadrModalComp';
-import {View} from 'react-native';
-import {CustomStyleSheet} from '../../../../../../../commons/styles/ComThemeStyle';
-import {Text, TextInput} from 'react-native-paper';
-import {translate} from '../../../../../../../commons/i18n/ComI18nHelper';
-import {Col, Row} from 'react-native-easy-grid';
+import { View } from 'react-native';
+import { CustomStyleSheet } from '../../../../../../../commons/styles/ComThemeStyle';
+import { Text, TextInput } from 'react-native-paper';
+import { translate } from '../../../../../../../commons/i18n/ComI18nHelper';
+import { Col, Row } from 'react-native-easy-grid';
 import React from 'react';
 
 export default class ActifsRapportCreationSaisieMarchandiseModal extends React.Component {
@@ -24,19 +25,20 @@ export default class ActifsRapportCreationSaisieMarchandiseModal extends React.C
       show: false,
       add: false,
       selectedvalue: '',
+      natureMarchandiseSelected: '',
     };
   }
 
   onDismiss = () => {
-    this.setState({showDetail: false});
+    this.setState({ showDetail: false });
   };
 
   onChange = (event, selectedDate) => {
-    this.setState({date: selectedDate, show: false});
+    this.setState({ date: selectedDate, show: false });
   };
 
   showMode = (currentMode) => {
-    this.setState({show: true, mode: currentMode});
+    this.setState({ show: true, mode: currentMode });
   };
 
   addInput = () => {
@@ -44,7 +46,7 @@ export default class ActifsRapportCreationSaisieMarchandiseModal extends React.C
       <Col size={2}>
         <TextInput
           mode={'outlined'}
-          style={{height: 20, fontSize: 12}}
+          style={{ height: 20, fontSize: 12 }}
           disabled={false}
           value={this.props.autre}
           multiline={false}
@@ -55,7 +57,7 @@ export default class ActifsRapportCreationSaisieMarchandiseModal extends React.C
     );
   };
   handleOperateurChanged = (item, id) => {
-    this.setState({operateurCode: item.code});
+    this.setState({ operateurCode: item.code });
   };
   render() {
     return (
@@ -73,23 +75,38 @@ export default class ActifsRapportCreationSaisieMarchandiseModal extends React.C
               </ComBadrLibelleComp>
             </Col>
             <Col size={3}>
-              <ComBadrAutoCompleteComp
+              {/* <ComBadrAutoCompleteComp
                 placeholder={''}
                 onRef={(ref) => (this.code = ref)}
                 libelle=""
                 key="code"
                 handleSelectItem={this.props.handlenatureMarchnadise}
                 command="getNaturesMarchandise"
-                styleInput={{width: '100%', marginBottom: 30}}
-                //style={}
+                styleInput={{ width: '100%', marginBottom: 30 }}
+              //style={}
+              /> */}
+              <ComBadrAutoCompleteChipsComp
+                code="code"
+                disabled={this.props.readOnly}
+                placeholder={''}
+                selected={this.state.natureMarchandiseSelected}
+                maxItems={3}
+                libelle="libelle"
+                command="getNaturesMarchandise"
+                onDemand={true}
+                searchZoneFirst={false}
+                onValueChange={(item, index) => {
+                  this.setState({ natureMarchandiseSelected: item.libelle });
+                  this.props.handlenatureMarchnadise(item, index);
+                }}
               />
             </Col>
             <Col size={0.5} />
             <Col size={2}>
               <ComBadrButtonComp
-                style={{width: 90, height: 30}}
+                style={{ width: 90, height: 30 }}
                 onPress={() => {
-                  this.setState({add: true});
+                  this.setState({ add: true });
                 }}
                 text={translate('actifsCreation.saisie.autre')}
               />
@@ -103,16 +120,21 @@ export default class ActifsRapportCreationSaisieMarchandiseModal extends React.C
               </ComBadrLibelleComp>
             </Col>
             <Col size={8}>
-              {this.props.rows.length > 0 && (
+              {this.props.rows?.length > 0 && (
                 <ComBadrItemsPickerComp
-                  itemStyle={{fontSize: 12}}
-                  style={[{height: 20}, CustomStyleSheet.Input]}
-                  selectedValue={this.props.selectedvalue}
+                  itemStyle={{ fontSize: 12 }}
+                  style={[{ height: 20 }, CustomStyleSheet.Input]}
+                  selectedValue={this.state.selectedvalue}
                   label={translate('actifsCreation.saisie.choisirUnite')}
                   items={this.props.rows}
-                  onValueChanged={this.props.onValueChanged}
-                />
-              )}
+                  onValueChanged={(value, index) => {
+                    console.log('actifsCreation.saisie.choisirUnite : ', value);
+                    this.props.onValueChanged(value, index);
+                    this.setState({ selectedvalue: value.code });
+                  }
+                  }
+                />)}
+              
             </Col>
           </Row>
           <Row style={CustomStyleSheet.lightBlueRow}>
@@ -124,7 +146,7 @@ export default class ActifsRapportCreationSaisieMarchandiseModal extends React.C
             <Col size={3}>
               <ComBadrNumericTextInputComp
                 mode={'outlined'}
-                style={{height: 20, fontSize: 12}}
+                style={{ height: 20, fontSize: 12 }}
                 disabled={false}
                 value={this.props.Quantity}
                 multiline={false}
@@ -141,7 +163,7 @@ export default class ActifsRapportCreationSaisieMarchandiseModal extends React.C
             <Col size={2}>
               <ComBadrNumericTextInputComp
                 mode={'outlined'}
-                style={{height: 20, fontSize: 12}}
+                style={{ height: 20, fontSize: 12 }}
                 disabled={false}
                 value={this.props.valeur}
                 multiline={false}
@@ -154,16 +176,16 @@ export default class ActifsRapportCreationSaisieMarchandiseModal extends React.C
           <Row
             style={[
               CustomStyleSheet.whiteRow,
-              {justifyContent: 'space-between'},
+              { justifyContent: 'space-between' },
             ]}>
             <ComBadrButtonComp
-              style={{width: 100}}
+              style={{ width: 100 }}
               onPress={this.props.confirmer}
               text={translate('transverse.confirmer')}
             />
-            <View style={{width: 10}} />
+            <View style={{ width: 10 }} />
             <ComBadrButtonComp
-              style={{width: 100}}
+              style={{ width: 100 }}
               onPress={() => {
                 // this.Enregister()
               }}

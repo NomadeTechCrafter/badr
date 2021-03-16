@@ -51,7 +51,7 @@ import creationReducer from '../../modules/actifs/rapport/creation/state/reducer
 
 import detailsreducer from '../../modules/actifs/rapport/creation/state/reducers/actifsRapportDetailsReducer';
 import recherchereducer from '../../modules/actifs/rapport/recherche/state/reducers/actifsRapportRechercheReducer';
-import consultationreducer from '../../modules/actifs/rapport/recherche/state/reducers/actifsRapportRechercheReducer';
+import consultationreducer from '../../modules/actifs/rapport/consultation/state/reducers/actifsRapportConsultationReducer';
 
 import EcorImportReducer from '../../modules/ecorImport/enleverMarchandise/state/reducers/EcorImportReducer';
 import ecorImportRechercheRefDumReducer from '../../modules/ecorImport/rechercheEcorImport/state/reducers/ecorImportRechercheRefDumReducer';

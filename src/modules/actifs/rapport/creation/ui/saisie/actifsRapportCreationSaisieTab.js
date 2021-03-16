@@ -67,6 +67,7 @@ class AtifsRapportCreationSaisieTab extends Component {
   }
 
   componentDidMount() {
+    console.log('--AtifsRapportCreationSaisieTab  -------------------  componentDidMount');
     this.getUnitesMesure();
   }
 
@@ -168,13 +169,10 @@ class AtifsRapportCreationSaisieTab extends Component {
   };
 
   getUnitesMesure = () => {
-    let data = {
-      jsonVO: '',
-    };
     let action = getUnitesMesure.request(
       {
         type: Constants.ACTIFS_SAISIE_REQUEST,
-        value: {data: data},
+        value: {data: ''},
       } /*,
                     this.props.navigation,
                     this.props.successRedirection,*/,
@@ -208,6 +206,7 @@ class AtifsRapportCreationSaisieTab extends Component {
     );
   }
   confirmerMarchandise = () => {
+    console.log('confirmerMarchandise : ',this.state);
     this.state.editMarchandise
       ? this.editMarchandise()
       : this.state.dataMarchandise.push({
@@ -262,13 +261,13 @@ class AtifsRapportCreationSaisieTab extends Component {
         <Row style={CustomStyleSheet.whiteRow}>
           <Col size={2} />
           <Col size={2}>
-            <ComBadrLibelleComp>{item.NDM}</ComBadrLibelleComp>
+            <ComBadrLibelleComp>{item.NDM.libelle}</ComBadrLibelleComp>
           </Col>
           <Col size={2}>
             <ComBadrLibelleComp>{item.quantity}</ComBadrLibelleComp>
           </Col>
           <Col size={2}>
-            <ComBadrLibelleComp>{item.UM}</ComBadrLibelleComp>
+            <ComBadrLibelleComp>{item.UM.libelle}</ComBadrLibelleComp>
           </Col>
           <Col size={2}>
             <ComBadrLibelleComp>{item.V}</ComBadrLibelleComp>
@@ -362,10 +361,8 @@ class AtifsRapportCreationSaisieTab extends Component {
   };
 
   render() {
-    let rows = '';
-    if (this.props.value && this.props.value.jsonVO) {
-      rows = this.props.value.jsonVO;
-    }
+
+
     console.log('console.log(this.state.dataPV)', this.state.dataPV);
     return (
       <View style={CustomStyleSheet.fullContainer}>
@@ -524,9 +521,10 @@ class AtifsRapportCreationSaisieTab extends Component {
             Qunatity={this.state.quantity}
             autre={this.state.autre}
             valeur={this.state.valeur}
-            rows={rows}
+            rows={this.props.rows}
             onValueChanged={(item, index) => {
-              this.setState({selectedValue: item});
+              this.setState({ selectedValue: item }, () =>
+                console.log('selectedValue ======', this.state.selectedValue));
             }}
             selectedvalue={this.state.selectedValue}
             confirmer={this.confirmerMarchandise}
@@ -538,7 +536,7 @@ class AtifsRapportCreationSaisieTab extends Component {
             onDismiss={this.onDismiss}
             onValueChangeMTS={(item, index) => {
               this.setState({natureVehicule: item});
-              console.log('');
+              console.log('item',item);
             }}
             confirmer={this.confirmerMTS}
             onChangeValueMTS={(text) => this.setState({valeurMTS: text})}
@@ -559,6 +557,6 @@ const styles = {
   },
 };
 
-const mapStateToProps = (state) => ({ ...state.creationReducer});
+const mapStateToProps = (state) => ({ ...state.saisieReducer});
 
 export default connect(mapStateToProps, null)(AtifsRapportCreationSaisieTab);

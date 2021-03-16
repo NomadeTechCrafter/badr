@@ -9,6 +9,7 @@ export function request(action, navigation, successRedirection) {
   return (dispatch) => {
     dispatch(action);
     dispatch(inProgress(action));
+    console.log('getUnitesMesure :',action);
     TransverseApi.doProcess(
       MODULE,
       'getUnitesMesure',

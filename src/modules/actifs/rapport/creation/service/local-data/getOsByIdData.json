@@ -127,6 +127,68 @@
         "agentBrigade": "AD6003 AD6003 (AD6003)"
       }
     ],
+    "navigationsMaritimes": [
+      {
+        "id": 401,
+        "typeBateau": "plaisance",
+        "nomBateau": "yassine",
+        "immatriculation": "111220",
+        "couleur": "blanc",
+        "longueur": "11",
+        "profondeur": "12",
+        "tonnage": "11",
+        "numDeclaration": "112/112",
+        "dateDeclaration": 1614211200000,
+        "delivreePar": {
+          "idActeur": "JLKK",
+          "nom": "JLKK2",
+          "numeroPaie": -1,
+          "prenom": "222",
+          "refGradeLib": ""
+        },
+        "dateEntree": 1614160800000,
+        "motifAccostage": "1212121",
+        "portEntree": "12121",
+        "portAttache": "nice port",
+        "pavillon": "nice pavillon",
+        "provenance": {
+          "codePays": "FR",
+          "commentaire": "فرنسا",
+          "dateEffet": "2000-01-01",
+          "dateFin": "9999-12-31",
+          "nomPays": "FRANCE",
+          "prohibe": false,
+          "nomPaysAR": "فرنسا",
+          "nationalite": "FRANCE",
+          "nationaliteAR": "فرنسا"
+        },
+        "villeProvenance": "nice",
+        "destination": {
+          "codePays": "DE",
+          "dateEffet": "2000-01-01",
+          "dateFin": "9999-12-31",
+          "nomPays": "ALLEMAGNE",
+          "prohibe": false,
+          "nomPaysAR": "ألمانيا",
+          "nationalite": "ALLEMAGNE",
+          "nationaliteAR": "ألمانيا"
+        },
+        "villeDestination": "berlin",
+        "dateDepart": 1614250800000,
+        "dateDebutControle": 1614164400000,
+        "dateFinControle": 1614168000000,
+        "documentsVerifies": "document",
+        "observations": "observation",
+        "resultatControle": "controle executé",
+        "intervenants": [],
+        "heureEntree": "10:00",
+        "heureDeclaration": "00:00",
+        "heureDepart": "11:00",
+        "heureDebutControle": "11:00",
+        "heureFinControle": "12:00",
+        "defaultConverter": {}
+      }
+    ],
     "typeService": {
       "code": "5.1",
       "libelle": "Contrôle des marchandises",
@@ -155,6 +217,6 @@
     "libConfidentiel": "Non",
     "defaultConverter": {},
     "idPourRecherche": null,
-    "rapportExiste": false
+    "rapportExiste": true
   }
 }

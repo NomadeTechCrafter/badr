@@ -1,0 +1,365 @@
+{
+  "dtoHeader": {
+    "userLogin": "YAMAGENT",
+    "fonctionnalite": "cf9932",
+    "module": "GIB",
+    "commande": "getRsByIdOs",
+    "typeService": "SP"
+  },
+  "jsonVO": {
+    "pk": {
+      "id_RS": 2241,
+      "num_VERSION": 1
+    },
+    "dateEnregistrement": "2017-08-29 17:54:03.0",
+    "description": "fgfdg",
+    "dateFin": 1504036800000,
+    "motif": "gfbf",
+    "statut": "Courante",
+    "rapportService": {
+      "id": 2241,
+      "ordreService": {
+        "id": 3673,
+        "numero": 1,
+        "confidentiel": false,
+        "additif": false,
+        "dateDebut": "2017-08-29 10:00:00.0",
+        "dateFin": "2017-08-29 19:00:00.0",
+        "description": "ddddddddddddddddddddddd\r\ndssssssssssssssssssssssss\r\nsdsssssssssssssssssssssss",
+        "chefEquipe": {
+          "idActeur": "YAMAGENT",
+          "nom": "amdaou",
+          "numeroPaie": -1,
+          "prenom": "youssef",
+          "refGradeLib": ""
+        },
+        "vehicules": [
+          {
+            "id": 169,
+            "matricule": "mf48754",
+            "commentaire": "libelle",
+            "codeUO": "280",
+            "dateEffet": 1362658687000,
+            "dateFin": 253387561417000,
+            "ajouterAction": false,
+            "modifierAction": false,
+            "annule": false,
+            "statut": "Valide"
+          },
+          {
+            "id": 170,
+            "matricule": "mf654632",
+            "commentaire": "libelle ancien",
+            "codeUO": "280",
+            "dateEffet": 1362658857000,
+            "dateFin": 253387561417000,
+            "ajouterAction": false,
+            "modifierAction": false,
+            "annule": false,
+            "statut": "Valide"
+          },
+          {
+            "id": 171,
+            "matricule": "568977",
+            "commentaire": "ddd",
+            "codeUO": "280",
+            "dateEffet": 1363614761000,
+            "dateFin": 253390419055000,
+            "ajouterAction": false,
+            "modifierAction": false,
+            "annule": false,
+            "statut": "Valide"
+          },
+          {
+            "id": 191,
+            "matricule": "11111",
+            "commentaire": "testddddedzezezezzeze",
+            "codeUO": "280",
+            "dateEffet": 1366626661000,
+            "dateFin": 253390499226000,
+            "ajouterAction": false,
+            "modifierAction": false,
+            "annule": false,
+            "statut": "Valide"
+          }
+        ],
+        "agentsBrigade": [
+          {
+            "id": 16049,
+            "agent": {
+              "idActeur": "AD6004",
+              "nom": "AD6004",
+              "numeroPaie": -1,
+              "prenom": "AD6004",
+              "refGradeLib": ""
+            },
+            "agentBrigade": "AD6004 AD6004 (AD6004)"
+          },
+          {
+            "id": 16050,
+            "agent": {
+              "idActeur": "AD6005",
+              "nom": "AD6005",
+              "numeroPaie": -1,
+              "prenom": "AD6005",
+              "refGradeLib": ""
+            },
+            "agentBrigade": "AD6005 AD6005 (AD6005)"
+          },
+          {
+            "id": 16051,
+            "agent": {
+              "idActeur": "AD6006",
+              "nom": "AD6006",
+              "numeroPaie": -1,
+              "prenom": "AD6006",
+              "refGradeLib": ""
+            },
+            "agentBrigade": "AD6006 AD6006 (AD6006)"
+          },
+          {
+            "id": 16052,
+            "agent": {
+              "idActeur": "AD6007",
+              "nom": "AD6007",
+              "numeroPaie": -1,
+              "prenom": "AD6007",
+              "refGradeLib": ""
+            },
+            "agentBrigade": "AD6007 AD6007 (AD6007)"
+          },
+          {
+            "id": 16053,
+            "agent": {
+              "idActeur": "AD6008",
+              "nom": "AD6008",
+              "numeroPaie": -1,
+              "prenom": "AD6008",
+              "refGradeLib": ""
+            },
+            "agentBrigade": "AD6008 AD6008 (AD6008)"
+          }
+        ],
+        "typeService": {
+          "code": "3.3",
+          "libelle": "Contre-ecor",
+          "classeService": "R",
+          "categorie": {
+            "code": "3",
+            "libelle": "Surveillance dans les MEAD"
+          }
+        },
+        "heureDebut": "10:00",
+        "heureFin": "19:00",
+        "os_chefBrigade": false,
+        "ronde": false,
+        "maritime": false,
+        "aerien": false,
+        "uniteOrganisationnelle": "DIRECTION REGIONALE DE CASA PORT      (280)",
+        "refPJ": "280_2017_9029",
+        "journeeDu": "29/08/2017",
+        "libAdditif": "Non",
+        "libChefBrigade": "Non",
+        "libRonde": "Non",
+        "libMaritime": "Non",
+        "libAerien": "Non",
+        "libConfidentiel": "Non",
+        "defaultConverter": {},
+        "rapportExiste": true
+      }
+    },
+    "marchandisesVO": [
+      {
+        "id": 949,
+        "quantite": "1111",
+        "valeur": "111",
+        "uniteMesure": {
+          "codeUniteMesure": "002",
+          "descriptionUniteMesure": "NOMBRE"
+        },
+        "marque": {
+          "code": "28-11",
+          "libelle": "Ordinateurs (unité) "
+        },
+        "marqueToString": "Ordinateurs (unité) (28-11)",
+        "uniteMesureToString": "NOMBRE(002)"
+      },
+      {
+        "id": 950,
+        "quantite": "1212",
+        "valeur": "4545455",
+        "uniteMesure": {
+          "codeUniteMesure": "558",
+          "descriptionUniteMesure": "Unite Mesure amdaou test"
+        },
+        "marque": {
+          "code": "28-32",
+          "libelle": "ordinnateur portable "
+        },
+        "marqueToString": "ordinnateur portable (28-32)",
+        "uniteMesureToString": "Unite Mesure amdaou test(558)"
+      }
+    ],
+    "vehiculesSaisiVO": [
+      {
+        "id": 888,
+        "valeur": "1212",
+        "libelle": "gfgf",
+        "natureVehicule": {
+          "code": "3",
+          "libelle": "\tCamion"
+        },
+        "natureVehiculeToString": "\tCamion"
+      },
+      {
+        "id": 889,
+        "valeur": "444",
+        "libelle": "fgfg",
+        "natureVehicule": {
+          "code": "6",
+          "libelle": "\tEmbarcation"
+        },
+        "natureVehiculeToString": "\tEmbarcation"
+      }
+    ],
+    "typesIncident": [],
+    "typesIncidentSelect": [],
+    "dateEnregistrementV0": "2017-08-29 17:35:57.0",
+    "marchandise": {
+      "uniteMesure": {},
+      "marque": {},
+      "marqueToString": "null(null)",
+      "uniteMesureToString": "null(null)"
+    },
+    "vehiculeSaisi": {
+      "natureVehicule": {}
+    },
+    "pvSaisi": {},
+    "validations": [
+      {
+        "id": 628,
+        "commentaire": "RAs",
+        "dateValidation": 1514291548000,
+        "dateValidationString": "2017-12-26 12:32:28.0",
+        "agentValidation": {
+          "idActeur": "AD6004",
+          "nom": "AD6004",
+          "numeroPaie": -1,
+          "prenom": "AD6004",
+          "refGradeLib": ""
+        }
+      },
+      {
+        "commentaire": "",
+        "agentValidation": {
+          "idActeur": "AD6005",
+          "nom": "AD6005",
+          "numeroPaie": -1,
+          "prenom": "AD6005",
+          "refGradeLib": ""
+        }
+      },
+      {
+        "commentaire": "",
+        "agentValidation": {
+          "idActeur": "AD6006",
+          "nom": "AD6006",
+          "numeroPaie": -1,
+          "prenom": "AD6006",
+          "refGradeLib": ""
+        }
+      },
+      {
+        "commentaire": "",
+        "agentValidation": {
+          "idActeur": "AD6007",
+          "nom": "AD6007",
+          "numeroPaie": -1,
+          "prenom": "AD6007",
+          "refGradeLib": ""
+        }
+      },
+      {
+        "commentaire": "",
+        "agentValidation": {
+          "idActeur": "AD6008",
+          "nom": "AD6008",
+          "numeroPaie": -1,
+          "prenom": "AD6008",
+          "refGradeLib": ""
+        }
+      }
+    ],
+    "vehiculesSaisi": [
+      {
+        "id": 888,
+        "valeur": "1212",
+        "libelle": "gfgf",
+        "natureVehicule": {
+          "code": "3",
+          "libelle": "\tCamion"
+        },
+        "natureVehiculeToString": "\tCamion"
+      },
+      {
+        "id": 889,
+        "valeur": "444",
+        "libelle": "fgfg",
+        "natureVehicule": {
+          "code": "6",
+          "libelle": "\tEmbarcation"
+        },
+        "natureVehiculeToString": "\tEmbarcation"
+      }
+    ],
+    "pvsSaisi": [
+      {
+        "id": 2999,
+        "numPV": "4545",
+        "datePV": 1503964800000
+      },
+      {
+        "id": 3000,
+        "numPV": "1212",
+        "datePV": 1504051200000
+      }
+    ],
+    "marchandises": [
+      {
+        "id": 949,
+        "quantite": "1111",
+        "valeur": "111",
+        "uniteMesure": {
+          "codeUniteMesure": "002",
+          "descriptionUniteMesure": "NOMBRE"
+        },
+        "marque": {
+          "code": "28-11",
+          "libelle": "Ordinateurs (unité) "
+        },
+        "marqueToString": "Ordinateurs (unité) (28-11)",
+        "uniteMesureToString": "NOMBRE(002)"
+      },
+      {
+        "id": 950,
+        "quantite": "1212",
+        "valeur": "4545455",
+        "uniteMesure": {
+          "codeUniteMesure": "558",
+          "descriptionUniteMesure": "Unite Mesure amdaou test"
+        },
+        "marque": {
+          "code": "28-32",
+          "libelle": "ordinnateur portable "
+        },
+        "marqueToString": "ordinnateur portable (28-32)",
+        "uniteMesureToString": "Unite Mesure amdaou test(558)"
+      }
+    ],
+    "ajouterAction": false,
+    "modifierAction": false,
+    "validerAction": false,
+    "consulterAction": false,
+    "defaultConverter": {}
+  }
+}

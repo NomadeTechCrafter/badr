@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { Dimensions, View } from 'react-native';
 import { Col, Grid, Row } from 'react-native-easy-grid';
 import {
-  TextInput
+  Checkbox,
+  RadioButton,
+  TextInput, Text
 } from 'react-native-paper';
 import {
   ComBadrCardBoxComp,
@@ -46,6 +48,25 @@ class AtifsRapportCreationDetailsTab extends Component {
   handleOnConfirmIncidentType = (items) => { };
 
   render() {
+
+    let typesIncidents = '';
+    console.log('----------------------------------------------------------this.props.row : ', this.props.row);
+    if (this.props.row && this.props.row?.typesIncidentSelect) {
+      let typesIncidentSelect = this.props.row?.typesIncidentSelect;
+      for (
+        var i = 0;
+        i < typesIncidentSelect.length;
+        i++
+      ) {
+        if (i < typesIncidentSelect.length - 1) {
+          typesIncidents +=
+            typesIncidentSelect[i].libelle + "\n";
+        } else {
+          typesIncidents +=
+            typesIncidentSelect[i].libelle;
+        }
+      }
+    }
     return (
       <View style={CustomStyleSheet.fullContainer}>
         <ComContainerComp>
@@ -59,55 +80,44 @@ class AtifsRapportCreationDetailsTab extends Component {
             <ComBadrInfoMessageComp message={this.props.successMessage} />
           )}
           {/* Référence déclaration */}
-          <ComBadrCardBoxComp noPadding={true}>
-            <Grid>
-              {/*first row */}
-              <Row style={CustomStyleSheet.whiteRow}>
-                <Col size={4}>
-                  <ComBadrLibelleComp withColor={true}>
-                    {translate('actifsCreation.detail.natureIncidents')}
-                  </ComBadrLibelleComp>
-                </Col>
-                <Col size={8}>
-                  {this.props.consultation ? (
-                    <TextInput
-                      mode={'outlined'}
-                      style={[
-                        styles.textInputStyle,
-                        { backgroundColor: '#f7f7fa' },
-                      ]}
-                      disabled={true}
-                      value={''}
-                      multiline={false}
-                      numberOfLines={1}
-                      onChangeText={(text) => { }}
-                    />
-                  ) : (
-                      <ComBadrCardBoxComp>
-                        <ComBadrPickerComp
-                          onRef={(ref) => (this.code = ref)}
-                          key="code"
-                          titleStyle={CustomStyleSheet.badrPickerTitle}
-                          style={{ flex: 1 }}
-                          title={translate('actifsCreation.detail.natureIncidents')}
-                          cle="code"
-                          libelle="libelle"
-                          module="GIB"
-                          command="getNaturesIncident"
-                          onValueChange={(selectedValue, selectedIndex, item) => {
-                            // console.log("item", item)
-                          }}
-                          param={'this.state.value'}
-                          typeService="SP"
-                          storeWithKey="code"
-                          storeLibelleWithKey="code"
-                        />
-                      </ComBadrCardBoxComp>
-                    )}
-                </Col>
-              </Row>
+          {!this.props.consultation && (
+            <ComBadrCardBoxComp noPadding={true}>
+              <Grid>
+                {/*first row */}
 
-              {this.props.consultation ? null : (
+                <Row style={CustomStyleSheet.whiteRow}>
+                  <Col size={4}>
+                    <ComBadrLibelleComp withColor={true}>
+                      {translate('actifsCreation.detail.natureIncidents')}
+                    </ComBadrLibelleComp>
+                  </Col>
+                  <Col size={8}>
+
+                    <ComBadrCardBoxComp>
+                      <ComBadrPickerComp
+                        onRef={(ref) => (this.code = ref)}
+                        key="code"
+                        titleStyle={CustomStyleSheet.badrPickerTitle}
+                        style={{ flex: 1 }}
+                        title={translate('actifsCreation.detail.natureIncidents')}
+                        cle="code"
+                        libelle="libelle"
+                        module="GIB"
+                        command="getNaturesIncident"
+                        onValueChange={(selectedValue, selectedIndex, item) => {
+                          // console.log("item", item)
+                        }}
+                        param={'this.state.value'}
+                        typeService="SP"
+                        storeWithKey="code"
+                        storeLibelleWithKey="code"
+                      />
+                    </ComBadrCardBoxComp>
+
+
+                  </Col>
+                </Row>
+
                 <Row style={CustomStyleSheet.lightBlueRow}>
                   <Col size={4}>
                     <ComBadrLibelleComp withColor={true}>
@@ -145,63 +155,387 @@ class AtifsRapportCreationDetailsTab extends Component {
                     </Row>
                   </Col>
                 </Row>
-              )}
-              <Row style={CustomStyleSheet.lightBlueRow}>
-                <Col size={4}>
-                  <ComBadrLibelleComp withColor={true}>
-                    {translate('actifsCreation.detail.autresIncidents')}
-                  </ComBadrLibelleComp>
-                </Col>
-                <Col size={8} style={{ paddingRight: 5 }}>
-                  <TextInput
-                    mode={'outlined'}
-                    style={[
-                      styles.textInputStyle,
-                      { backgroundColor: '#f7f7fa' },
-                    ]}
-                    disabled={this.props.consultation}
-                    value={this.state.autreIncident}
-                    multiline={false}
-                    numberOfLines={1}
-                    onChangeText={(text) =>
-                      this.setState({ autreIncident: text }, () =>
-                        save('autreIncident', this.state.autreIncident),
-                      )
-                    }
-                  />
-                </Col>
-              </Row>
 
-              <Row style={CustomStyleSheet.whiteRow}>
-                <Col size={3}>
-                  <Row>
-                    <ComBadrLibelleComp style={{ paddingRight: 2 }}>
-                      {translate('actifsCreation.detail.descriptionRapport')}
+                <Row style={CustomStyleSheet.lightBlueRow}>
+                  <Col size={4}>
+                    <ComBadrLibelleComp withColor={true}>
+                      {translate('actifsCreation.detail.autresIncidents')}
                     </ComBadrLibelleComp>
-                  </Row>
-                </Col>
-                <Col size={6} style={{ paddingRight: 5 }}>
-                  <TextInput
-                    mode={'outlined'}
-                    textAlignVertical={'top'}
-                    style={[
-                      styles.multilineInputStyle,
-                      { backgroundColor: '#f7f7fa' },
-                    ]}
-                    disabled={this.props.consultation}
-                    value={this.state.descriptionRapport}
-                    multiline
-                    numberOfLines={20}
-                    onChangeText={(text) =>
-                      this.setState({ descriptionRapport: text }, () =>
-                        save('description', this.state.descriptionRapport),
-                      )
-                    }
-                  />
-                </Col>
-              </Row>
-            </Grid>
-          </ComBadrCardBoxComp>
+                  </Col>
+                  <Col size={8} style={{ paddingRight: 5 }}>
+                    <TextInput
+                      mode={'outlined'}
+                      style={[
+                        styles.textInputStyle,
+                        { backgroundColor: '#f7f7fa' },
+                      ]}
+                      disabled={this.props.consultation}
+                      value={this.state.autreIncident}
+                      multiline={false}
+                      numberOfLines={1}
+                      onChangeText={(text) =>
+                        this.setState({ autreIncident: text }, () =>
+                          save('autreIncident', this.state.autreIncident),
+                        )
+                      }
+                    />
+                  </Col>
+                </Row>
+
+                <Row style={CustomStyleSheet.whiteRow}>
+                  <Col size={3}>
+                    <Row>
+                      <ComBadrLibelleComp style={{ paddingRight: 2 }}>
+                        {translate('actifsCreation.detail.descriptionRapport')}
+                      </ComBadrLibelleComp>
+                    </Row>
+                  </Col>
+                  <Col size={6} style={{ paddingRight: 5 }}>
+                    <TextInput
+                      mode={'outlined'}
+                      textAlignVertical={'top'}
+                      style={[
+                        styles.multilineInputStyle,
+                        { backgroundColor: '#f7f7fa' },
+                      ]}
+                      disabled={this.props.consultation}
+                      value={this.state.descriptionRapport}
+                      multiline
+                      numberOfLines={20}
+                      onChangeText={(text) =>
+                        this.setState({ descriptionRapport: text }, () =>
+                          save('description', this.state.descriptionRapport),
+                        )
+                      }
+                    />
+                  </Col>
+                </Row>
+              </Grid>
+            </ComBadrCardBoxComp>)}
+          {(this.props.consultation) && (
+            <ComBadrCardBoxComp noPadding={true}>
+              <Grid>
+                <Row style={CustomStyleSheet.whiteRow}>
+                  <Col size={3}>
+                    <Row>
+                      <ComBadrLibelleComp style={{ paddingRight: 2 }}>
+                        {translate('actifsCreation.detail.osAvecSaisies')}
+                      </ComBadrLibelleComp>
+                    </Row>
+                  </Col>
+                  <Col size={6} style={{ paddingRight: 5 }}>
+                    <View style={styles.ComContainerCompCheckbox}>
+                      <View pointerEvents="none">
+                        <Checkbox
+                          color={primaryColor}
+                          disabled={true}
+                          status={
+                            this.props.row?.osAvecSaisie
+                              ? 'checked'
+                              : 'unchecked'
+                          }
+                        />
+                      </View>
+                    </View>
+                  </Col>
+                </Row>
+                <Row style={CustomStyleSheet.whiteRow}>
+                  <Col size={3}>
+                    <Row>
+                      <ComBadrLibelleComp style={{ paddingRight: 2 }}>
+                        {translate('actifsCreation.detail.osAvecIncidents')}
+                      </ComBadrLibelleComp>
+                    </Row>
+                  </Col>
+                  <Col size={6} style={{ paddingRight: 5 }}>
+                    <View style={styles.ComContainerCompCheckbox}>
+                      <View pointerEvents="none">
+                        <Checkbox
+                          color={primaryColor}
+                          disabled={true}
+                          status={
+                            this.props.row?.osAvecIncident
+                              ? 'checked'
+                              : 'unchecked'
+                          }
+                        />
+                      </View>
+                    </View>
+                  </Col>
+                </Row>
+                <Row style={CustomStyleSheet.whiteRow}>
+                  <Col size={3}>
+                    <Row>
+                      <ComBadrLibelleComp style={{ paddingRight: 2 }}>
+                        {translate('actifsCreation.detail.typesIncidents')}
+                      </ComBadrLibelleComp>
+                    </Row>
+                  </Col>
+                  <Col size={6} style={{ paddingRight: 5 }}>
+                    <TextInput
+                      mode={'outlined'}
+                      style={{
+                        fontSize: 12,
+                        backgroundColor: '#f7f7fa'
+                      }
+                      }
+                      disabled={true}
+                      value={typesIncidents}
+                      multiline={true}
+                      numberOfLines={4}
+
+                    />
+                  </Col>
+                </Row>
+                <Row style={CustomStyleSheet.whiteRow}>
+                  <Col size={3}>
+                    <Row>
+                      <ComBadrLibelleComp style={{ paddingRight: 2 }}>
+                        {translate('actifsCreation.detail.autresIncidents')}
+                      </ComBadrLibelleComp>
+                    </Row>
+                  </Col>
+                  <Col size={6} style={{ paddingRight: 5 }}>
+                    <TextInput
+                      mode={'outlined'}
+                      style={{
+                        fontSize: 12,
+                        backgroundColor: '#f7f7fa'
+                      }
+                      }
+                      disabled={true}
+                      value={this.props.row?.autreIncidents}
+                      multiline={true}
+                      numberOfLines={4}
+
+                    />
+                  </Col>
+                </Row>
+                <Row style={CustomStyleSheet.whiteRow}>
+                  <Col size={3}>
+                    <Row>
+                      <ComBadrLibelleComp style={{ paddingRight: 2 }}>
+                        {translate('actifsCreation.detail.coiffeInitiePar')}
+                      </ComBadrLibelleComp>
+                    </Row>
+                  </Col>
+                  <Col size={6} style={{ paddingRight: 5 }}>
+                    <RadioButton.Group disabled={true} value={this.props.row.coiffeInitiePar}>
+                      <View style={{ justifyContent: 'space-around' }}>
+                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                          <Text>{translate('actifsCreation.detail.officierControle')}</Text>
+                          <RadioButton value="OFFICIER_CONTROLE" color={primaryColor} />
+                        </View>
+                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                          <Text>{translate('actifsCreation.detail.chefSubdivision')}</Text>
+                          <RadioButton value="CHEF_SUBDIVISION" color={primaryColor} />
+                        </View>
+                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                          <Text>{translate('actifsCreation.detail.chefServiceCoordination')}</Text>
+                          <RadioButton value="CHEF_SERVICE_COORDINATION" color={primaryColor} />
+                        </View>
+                      </View>
+                    </RadioButton.Group>
+                  </Col>
+                </Row>
+                <Row style={CustomStyleSheet.whiteRow}>
+                  <Col size={3}>
+                    <Row>
+                      <ComBadrLibelleComp style={{ paddingRight: 2 }}>
+                        {translate('actifsCreation.detail.nomPrenom')}
+                      </ComBadrLibelleComp>
+                    </Row>
+                  </Col>
+                  <Col size={6} style={{ paddingRight: 5 }}>
+                    <TextInput
+                      mode={'outlined'}
+                      style={{
+                        fontSize: 12,
+                        backgroundColor: '#f7f7fa'
+                      }
+                      }
+                      disabled={true}
+                      value={''}
+                      multiline={false}
+
+                    />
+                  </Col>
+                </Row>
+                <Row style={CustomStyleSheet.whiteRow}>
+                  <Col size={3}>
+                    <Row>
+                      <ComBadrLibelleComp style={{ paddingRight: 2 }}>
+                        {translate('actifsCreation.detail.du')}
+                        
+                      </ComBadrLibelleComp>
+                    </Row>
+                  </Col>
+                  <Col size={1.2}>
+                    <TextInput
+                      mode={'outlined'}
+                      style={{
+                        fontSize: 12,
+                        backgroundColor: '#f7f7fa',
+                        paddingRight: 2
+                      }
+                      }
+                      disabled={true}
+                      value={this.props?.row?.dateDebut.slice(0, 10)}
+                      multiline={false}
+
+                    />
+                  </Col>
+                  <Col size={0.8}>
+                    <TextInput
+                      mode={'outlined'}
+                      style={{
+                        fontSize: 12,
+                        backgroundColor: '#f7f7fa'
+                      }
+                      }
+                      disabled={true}
+                      value={this.props?.row?.heureDebut}
+                      multiline={false}
+
+                    />
+                  </Col>
+                  <Col size={2}>
+                    <Row>
+                      <ComBadrLibelleComp style={{ paddingLeft: 15 }}>
+                        {translate('actifsCreation.detail.au')}
+                      </ComBadrLibelleComp>
+                    </Row>
+                  </Col>
+                  <Col size={1.2}>
+                    <TextInput
+                      mode={'outlined'}
+                      style={{
+                        fontSize: 12,
+                        backgroundColor: '#f7f7fa'
+                      }
+                      }
+                      disabled={true}
+                      value={this.props?.row?.dateFin.slice(0,10)}
+                      multiline={false}
+
+                    />
+                  </Col>
+                  <Col size={0.8}>
+                    <TextInput
+                      mode={'outlined'}
+                      style={{
+                        fontSize: 12,
+                        backgroundColor: '#f7f7fa'
+                      }
+                      }
+                      disabled={true}
+                      value={this.props?.row?.heureFin}
+                      multiline={false}
+
+                    />
+                  </Col>
+                </Row>
+                <Row style={CustomStyleSheet.whiteRow}>
+                  <Col size={3}>
+                    <Row>
+                      <ComBadrLibelleComp style={{ paddingRight: 2 }}>
+                        {translate('actifsCreation.detail.animateurConference')}
+                      </ComBadrLibelleComp>
+                    </Row>
+                  </Col>
+                  <Col size={6} style={{ paddingRight: 5 }}>
+                    <TextInput
+                      mode={'outlined'}
+                      style={{
+                        fontSize: 12,
+                        backgroundColor: '#f7f7fa'
+                      }
+                      }
+                      disabled={true}
+                      value={this.props.row?.animateur}
+                      multiline={true}
+                      numberOfLines={4}
+
+                    />
+                  </Col>
+                </Row>
+                <Row style={CustomStyleSheet.whiteRow}>
+                  <Col size={3}>
+                    <Row>
+                      <ComBadrLibelleComp style={{ paddingRight: 2 }}>
+                        {translate('actifsCreation.detail.qualiteAnimateur')}
+                      </ComBadrLibelleComp>
+                    </Row>
+                  </Col>
+                  <Col size={6} style={{ paddingRight: 5 }}>
+                    <TextInput
+                      mode={'outlined'}
+                      style={{
+                        fontSize: 12,
+                        backgroundColor: '#f7f7fa'
+                      }
+                      }
+                      disabled={true}
+                      value={this.props.row?.qualiteAnimateur}
+                      multiline={true}
+                      numberOfLines={4}
+
+                    />
+                  </Col>
+                </Row>
+                <Row style={CustomStyleSheet.whiteRow}>
+                  <Col size={3}>
+                    <Row>
+                      <ComBadrLibelleComp style={{ paddingRight: 2 }}>
+                        {translate('actifsCreation.detail.themesRetenus')}
+                      </ComBadrLibelleComp>
+                    </Row>
+                  </Col>
+                  <Col size={6} style={{ paddingRight: 5 }}>
+                    <TextInput
+                      mode={'outlined'}
+                      style={{
+                        fontSize: 12,
+                        backgroundColor: '#f7f7fa'
+                      }
+                      }
+                      disabled={true}
+                      value={this.props.row?.themeConference}
+                      multiline={true}
+                      numberOfLines={4}
+
+                    />
+                  </Col>
+                </Row>
+                <Row style={CustomStyleSheet.whiteRow}>
+                  <Col size={3}>
+                    <Row>
+                      <ComBadrLibelleComp style={{ paddingRight: 2 }}>
+                        {translate('actifsCreation.detail.descriptionRapport')}
+                      </ComBadrLibelleComp>
+                    </Row>
+                  </Col>
+                  <Col size={6} style={{ paddingRight: 5 }}>
+                    <TextInput
+                      mode={'outlined'}
+                      style={{
+                        fontSize: 12,
+                        backgroundColor: '#f7f7fa'
+                      }
+                      }
+                      disabled={true}
+                      value={this.props.row?.description}
+                      multiline={true}
+                      numberOfLines={4}
+
+                    />
+                  </Col>
+                </Row>
+              </Grid>
+            </ComBadrCardBoxComp>
+          )}
+
+
         </ComContainerComp>
       </View>
     );
@@ -228,6 +562,12 @@ const styles = {
     flexDirection: 'row',
     justifyContent: 'space-around',
   },
+  ComContainerCompCheckbox: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+
   libelleS: {
     ...libelle,
     flex: 1,

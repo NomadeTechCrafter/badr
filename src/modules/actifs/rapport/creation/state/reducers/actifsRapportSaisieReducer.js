@@ -20,7 +20,14 @@ export default (state = initialState, action) => {
       console.log('--> ACTIFS_SAISIE in progress...');
       return nextState;
     case Constants.ACTIFS_SAISIE_SUCCESS:
-      console.log('--> ACTIFS_SAISIE success...', nextState);
+      console.log('--> ACTIFS_SAISIE ---------------------------------------------------------success...', nextState);
+      console.log('--> ACTIFS_SAISIE ---------------------------------------------------------success...', action.value.jsonVO);
+      let rows = [];
+      action.value.jsonVO.forEach(element => {
+        rows.push({ code: element.codeUniteMesure, libelle: element.descriptionUniteMesure });
+      });
+
+      nextState.rows = rows;
       nextState.showProgress = false;
       nextState.errorMessage = null;
       return nextState;
@@ -34,6 +41,6 @@ export default (state = initialState, action) => {
 
     default:
       nextState.showProgress = false;
-      return initialState;
+      return nextState ? nextState : initialState;
   }
 };

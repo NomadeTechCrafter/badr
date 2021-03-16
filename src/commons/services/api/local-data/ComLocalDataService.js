@@ -30,8 +30,8 @@ const localStore = {
   'ded.isPreapurementDSAccessible': require('./dedouanement/accesOnglet/isPreapurementDSAccessible.json'),
   'ded.isImputationCompteREDAccessible': require('./dedouanement/accesOnglet/isImputationCompteREDAccessible.json'),
   'ded.isImputationTitresDeChangeAccessible': require('./dedouanement/accesOnglet/isImputationTitresDeChangeAccessible.json'),
-  getOsById: require('./actifs/rapportEntete.json'),
-  getOrdresService: require('./actifs/rapportrecherche.json'),
+  getOsById: require('../../../../modules/actifs/rapport/creation/service/local-data/getOsByIdData.json'), 
+  getOrdresService: require('../../../../modules/actifs/rapport/recherche/service/local-data/getOrdresServiceData.json'),
   getNaturesIncident: require('./actifs/dataNatureMarchandises.json'),
   getNaturesMarchandise: require('./actifs/dataNatureMarchandises.json'),
   getUnitesMesure: require('./actifs/dataUnitesMesure.json'),
@@ -64,6 +64,7 @@ const localStore = {
   T6bisInitForUpdate: require('../../../../modules/t6bis/recherche/service/local-data/t6bisInitForUpdateData2.json'),
   getListRubriqueMtmTaxationGlobale: require('../../../../modules/t6bis/gestion/service/local-data/getListRubriqueMtmTaxationGlobaleData.json'),
   T6bisInitForRedresser: require('../../../../modules/t6bis/recherche/service/local-data/t6bisInitForRedresserData.json'),
+  getCmbActeurs: require('../../../../modules/actifs/rapport/creation/service/local-data/getCmbActeursData.json'),
   /* T6bisInitForUpdate: require('../../../../modules/t6bis/recherche/service/local-data/t6bisInitForUpdateDataError.json'), */
 };
 export default localStore;

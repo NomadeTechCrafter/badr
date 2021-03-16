@@ -10,6 +10,7 @@ export function request(action, navigation, successRedirection) {
   return (dispatch) => {
     dispatch(action);
     dispatch(inProgress(action));
+    console.log('----------------------------------------------------------------action', action);
     TransverseApi.doProcess(
       MODULE,
       'getOrdresService',
@@ -20,7 +21,7 @@ export function request(action, navigation, successRedirection) {
         if (response) {
           const data = response.data;
           if (data && !data.dtoHeader.messagesErreur) {
-            console.log('data', data);
+            console.log('----------------------------------------------------------------data', data);
             dispatch(success(data));
             /** Naviguer vers la vue suivant. */
           } else {
@@ -31,7 +32,7 @@ export function request(action, navigation, successRedirection) {
         }
       })
       .catch((e) => {
-        console.log('in action request catch', e);
+        console.log('in action request catch+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++', e);
         dispatch(failed(translate('errors.technicalIssue')));
       });
   };
