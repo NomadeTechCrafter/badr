@@ -24,12 +24,21 @@ const mapping = {
   '14000012': {screen: 'ValiderCompteRenduMission', params: {}},
   '30661': {screen: 'ControleApresScanner', params: {}},
   '4096': {screen: 'RefControleVehicule', params: {}},
-  '823': { screen: 'RefPlaquesImm', params: {} },
+  '823': {screen: 'RefPlaquesImm', params: {}},
   /*T6bis creation*/
-  '110001': { screen: 'T6bisCreation', params: {} },
-  '110002': { screen: 'T6bisRecherche', params: {} },
-  '110005': { screen: 'T6bisRecherche', params: {} },
-  '110007': { screen: 'T6bisRecherche', params: {} },
+  '110001': {screen: 'T6bisCreation', params: {}},
+  '110002': {
+    screen: 'T6bisRecherche',
+    params: {title: 'Ecran Modification T6bis'},
+  },
+  '110005': {
+    screen: 'T6bisRecherche',
+    params: {title: 'Ecran Redressement T6bis'},
+  },
+  '110007': {
+    screen: 'T6bisRecherche',
+    params: {title: 'Ecran  Recherche T6BIS'},
+  },
 };
 
 const DEFAULT_SCREEN = 'ionic';
