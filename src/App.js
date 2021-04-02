@@ -42,6 +42,7 @@ import EcorImportRechercheScreen from './modules/ecorImport/rechercheEcorImport/
 import EcorImportEnleverMarchandiseScreen from './modules/ecorImport/enleverMarchandise/ui/EcorImportEnleverMarchandiseScreen';
 import LiquidationRechercheScreen from './modules/liquidation/ui/rechercheLiquidation/LiquidationRechercheScreen';
 import LiquidationHomeScreen from './modules/liquidation/ui/ongletsLiquidation/home/LiquidationHomeScreen';
+import EciConsultationBLSSearchScreen from './modules/ecorImport/eciConsultationBLS/ui/eciConsultationBLSMainScreen'
 
 import T6bisCreation from './modules/t6bis/creation/ui/t6bisCreation/t6bisCreationScreen';
 import T6bisGestion from './modules/t6bis/gestion/ui/t6bisGestion/t6bisGestionScreen';
@@ -73,12 +74,12 @@ export default class App extends React.Component {
                   component={Login}
                 />
               ) : (
-                <Stack.Screen
-                  name="test"
-                  options={{headerShown: false}}
-                  component={T6bisCreation}
-                />
-              )}
+                  <Stack.Screen
+                    name="test"
+                    options={{ headerShown: false }}
+                    component={EciConsultationBLSSearchScreen}
+                  />
+                )}
               <Stack.Screen
                 name="ControleRegimeInterneScreen"
                 options={{headerShown: false}}

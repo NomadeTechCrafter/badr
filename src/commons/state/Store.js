@@ -58,6 +58,7 @@ import ecorImportRechercheRefDumReducer from '../../modules/ecorImport/recherche
 
 import liquidationRechercheRefDumReducer from '../../modules/liquidation/state/reducers/liquidationRechercheRefDumReducer';
 import liquidationReducer from '../../modules/liquidation/state/reducers/liquidationReducer';
+import consultationBLSReducer from '../../modules/ecorImport/eciConsultationBLS/state/reducers/eciConsultationBLSReducer';
 
 /**
  * combine all reducers
@@ -110,6 +111,7 @@ const allReducers = combineReducers({
   t6bisCreationReducer,
   t6bisGestionReducer,
   t6bisRechercheReducer,
+  consultationBLSReducer,
 });
 /**
  * store creation
