@@ -74,9 +74,7 @@ export function init(action) {
     value: action.value,
   };
 }
-export function requestFindDumByEtatChargement(
-  action
-) {
+export function requestFindDumByEtatChargement(action) {
   console.log('requestFindDumByEtatChargement action');
   return (dispatch) => {
     dispatch(action);

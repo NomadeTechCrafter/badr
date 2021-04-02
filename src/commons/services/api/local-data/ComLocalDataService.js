@@ -69,5 +69,6 @@ const localStore = {
   initConfirmerEntree: require('../../../../modules/ecorExport/confirmationEntree/service/local-data/initConfirmerEntree.json'),
   findDumByEtatChargement: require('../../../../modules/ecorExport/confirmationEntree/service/local-data/findDumByEtatChargement.json'),
   recupererDumInfo: require('../../../../modules/ecorExport/confirmationEntree/service/local-data/recupererDumInfo.json'),
+  findDumByAmp: require('../../../../modules/ecorExport/confirmationEntree/service/local-data/findDumByAmp.json'),
 };
 export default localStore;

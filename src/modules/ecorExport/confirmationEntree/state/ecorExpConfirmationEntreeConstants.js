@@ -24,3 +24,8 @@ export const typeListe = [
   {code: 'etatChargement', libelle: 'Référence Etat de chargement'},
   {code: 'moyenT', libelle: 'Moyen de transport'},
 ];
+
+export const typeListeAmp = [
+  {code: 'immatriculation', libelle: 'Immatriculation'},
+  {code: 'numeroAmp', libelle: 'Numéro'},
+];

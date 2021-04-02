@@ -33,6 +33,9 @@ class ConfirmationEntreeRechercheScreen extends Component {
       typeListeEtatC: '',
       typeMoyenTEtatC: '',
       immatriculationEtatC: '',
+      typeListeAmp: '',
+      immatriculationAmp: '',
+      numeroAmp: '',
     };
   }
   onTypeListePickerChanged = (value, index) => {
@@ -44,6 +47,9 @@ class ConfirmationEntreeRechercheScreen extends Component {
   retablir = () => {
     console.log('retablir');
     //this.setState({...this.defaultState});
+  };
+  onTypeListeAmpPickerChanged = (value, index) => {
+    this.setState({typeListeAmp: value ? value.code : ''});
   };
 
   confirmer = () => {
@@ -65,6 +71,37 @@ class ConfirmationEntreeRechercheScreen extends Component {
             moyenTransport: this.state.typeMoyenTEtatC,
             modeTransport: null,
             idDed: null,
+          },
+        },
+      });
+      this.props.navigation.navigate('Resultat', {
+        login: this.state.login,
+        first: true,
+      });
+      this.props.dispatch(action);
+      console.log('dispatch fired !!');
+    }
+  };
+
+  confirmerAMP = () => {
+    console.log('confirmerAMP', this.props.successRedirection);
+    this.setState({showErrorMsg: true});
+    if (this.state.immatriculationAmp || this.state.numeroAmp) {
+      console.log('typeMoyenTEtatC immatriculationEtatC');
+
+      let action = RechecheDumAction.requestFindDumByEtatChargement({
+        type: Constants.INITCONFIRMATIONENTREE_ETATCHARGEMENT_REQUEST,
+        value: {
+          commande: 'findDumByAmp',
+          module: MODULE_ECOREXP,
+          typeService: TYPE_SERVICE_SP,
+          data: {
+            numero: this.state.numeroAmp !== '' ? this.state.numeroAmp : null,
+            numeroImmatriculation:
+              this.state.immatriculationAmp !== ''
+                ? this.state.immatriculationAmp
+                : null,
+            codeBureau: null,
           },
         },
       });
@@ -204,92 +241,71 @@ class ConfirmationEntreeRechercheScreen extends Component {
           <Col size={4}>
             <ComBadrItemsPickerComp
               label={translate('confirmationEntree.selectionnerElement')}
-              selectedValue={this.state.typeListeEtatC}
-              items={Constants.typeListe}
-              onValueChanged={(v, i) => this.onTypeListePickerChanged(v, i)}
+              selectedValue={this.state.typeListeAmp}
+              items={Constants.typeListeAmp}
+              onValueChanged={(v, i) => this.onTypeListeAmpPickerChanged(v, i)}
             />
           </Col>
           <Col size={2} />
         </Row>
-        {this.state.typeListeEtatC === 'moyenT' && (
-          <View>
-            <Row style={CustomStyleSheet.whiteRow}>
-              <Col size={2}>
-                <ComBadrLibelleComp withColor={true} isRequired={true}>
-                  {translate('confirmationEntree.typeMoyen')}
-                </ComBadrLibelleComp>
-              </Col>
-              <Col size={4}>
-                <ComBadrPickerComp
-                  disabled={false}
-                  onRef={(ref) => (this.combotMoyenTransport = ref)}
-                  key="typeMoyenT"
-                  cle="code"
-                  libelle="libelle"
-                  module="ECOREXP_LIB"
-                  command="getListMoyenTransport"
-                  typeService="SP"
-                  selectedValue={this.state.typeMoyenTEtatC}
-                  onValueChange={(selectedValue, selectedIndex, item) =>
-                    this.onMoyenTListePickerChanged(
-                      selectedValue,
-                      selectedIndex,
-                      item,
-                    )
-                  }
-                />
-              </Col>
-              <Col size={2} />
-            </Row>
-            <Row style={CustomStyleSheet.whiteRow}>
-              <Col size={2}>
-                <ComBadrLibelleComp withColor={true} isRequired={true}>
-                  {translate('confirmationEntree.immatriculation')}
-                </ComBadrLibelleComp>
-              </Col>
-              <Col size={4}>
-                <TextInput
-                  mode="outlined"
-                  value={this.state.immatriculationEtatC}
-                  onChangeText={(text) =>
-                    this.setState({immatriculationEtatC: text})
-                  }
-                />
-              </Col>
-              <Col size={2} />
-            </Row>
-            <Row style={CustomStyleSheet.whiteRow}>
-              <Col size={2} />
-              <Col size={2}>
-                <Button
-                  onPress={this.confirmer}
-                  icon="check"
-                  compact="true"
-                  mode="contained"
-                  loading={this.props.showProgress}>
-                  {translate('transverse.confirmer')}
-                </Button>
-              </Col>
-              <Col size={1} />
-              <Col size={2}>
-                <Button
-                  onPress={this.retablir}
-                  icon="autorenew"
-                  mode="contained">
-                  {translate('transverse.retablir')}
-                </Button>
-              </Col>
-              <Col size={2} />
-            </Row>
-          </View>
+        {this.state.typeListeAmp === 'immatriculation' && (
+          <Row style={CustomStyleSheet.whiteRow}>
+            <Col size={2}>
+              <ComBadrLibelleComp withColor={true} isRequired={true}>
+                {translate('confirmationEntree.immatriculation')}
+              </ComBadrLibelleComp>
+            </Col>
+            <Col size={4}>
+              <TextInput
+                mode="outlined"
+                value={this.state.immatriculationAmp}
+                onChangeText={(text) =>
+                  this.setState({immatriculationAmp: text})
+                }
+              />
+            </Col>
+            <Col size={2} />
+          </Row>
         )}
-        {this.state.typeListeEtatC === 'etatChargement' && (
-          <EcorExpRechercheParRefComp
-            commande="findDumByEtatChargement"
-            typeService="SP"
-            navigation={this.props.navigation}
-            routeParams={this.props.route.params}
-          />
+        {this.state.typeListeAmp === 'numeroAmp' && (
+          <Row style={CustomStyleSheet.whiteRow}>
+            <Col size={2}>
+              <ComBadrLibelleComp withColor={true} isRequired={true}>
+                {translate('confirmationEntree.numero')}
+              </ComBadrLibelleComp>
+            </Col>
+            <Col size={4}>
+              <TextInput
+                mode="outlined"
+                value={this.state.numeroAmp}
+                onChangeText={(text) => this.setState({numeroAmp: text})}
+              />
+            </Col>
+            <Col size={2} />
+          </Row>
+        )}
+        {(this.state.typeListeAmp === 'numeroAmp' ||
+          this.state.typeListeAmp === 'immatriculation') && (
+          <Row style={CustomStyleSheet.whiteRow}>
+            <Col size={2} />
+            <Col size={2}>
+              <Button
+                onPress={this.confirmerAMP}
+                icon="check"
+                compact="true"
+                mode="contained"
+                loading={this.props.showProgress}>
+                {translate('transverse.confirmer')}
+              </Button>
+            </Col>
+            <Col size={1} />
+            <Col size={2}>
+              <Button onPress={this.retablir} icon="autorenew" mode="contained">
+                {translate('transverse.retablir')}
+              </Button>
+            </Col>
+            <Col size={2} />
+          </Row>
         )}
       </ComAccordionComp>
     );

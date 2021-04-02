@@ -1,8 +1,9 @@
 import React from 'react';
-import {View} from 'react-native';
+import {View, ScrollView} from 'react-native';
 
 /**Custom Components */
 import {ComBasicDataTableComp} from '../../../../commons/component';
+import EcorExpInformationEcorComp from './../component/ecorExpInformationEcorComp';
 /** REDUX **/
 import {connect} from 'react-redux';
 import translate from '../../../../commons/i18n/ComI18nHelper';
@@ -53,17 +54,27 @@ class ConfirmationEntreeResultScreen extends React.Component {
   render() {
     return (
       <View>
-        <ComBasicDataTableComp
-          ref="_badrTable"
-          id="numeroChassis"
-          rows={this.props.data}
-          cols={this.cols}
-          onItemSelected={this.onItemSelected}
-          totalElements={this.props.data.length}
-          maxResultsPerPage={10}
-          paginate={true}
-          showProgress={this.props.showProgress}
-        />
+        <ScrollView
+          horizontal={false}
+          ref={(ref) => {
+            this.scrollViewRef = ref;
+          }}
+          onLayout={(event) => {
+            this.layout = event.nativeEvent.layout;
+          }}>
+          <ComBasicDataTableComp
+            ref="_badrTable"
+            id="numeroChassis"
+            rows={this.props.data}
+            cols={this.cols}
+            onItemSelected={this.onItemSelected}
+            totalElements={this.props.data.length}
+            maxResultsPerPage={10}
+            paginate={true}
+            showProgress={this.props.showProgress}
+          />
+          <EcorExpInformationEcorComp ecorInfo={this.props.data} />
+        </ScrollView>
       </View>
     );
   }
