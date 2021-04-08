@@ -53,6 +53,7 @@ class Login extends React.Component {
 
   initAutoLoginParameters = async () => {
     const initialUrl = await Linking.getInitialURL();
+    console.log('initAutoLoginParameters :' , initialUrl);
     let params = this.extractUrlParams(initialUrl);
     if (Object.keys(params).length > 0) {
       this.setState({startAutoLogin: true, autoLoginParam: params});

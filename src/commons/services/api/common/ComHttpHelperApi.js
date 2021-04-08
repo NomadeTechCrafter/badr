@@ -61,10 +61,10 @@ export default class ComHttpHelperApi {
             Cookie: ComSessionService.getInstance().getSessionId(true),
           },
         );
-        // console.log('reponse WS', response);
+        console.log('reponse WS', response.data);
         return response;
       } catch (error) {
-        console.log('---catch error in Api Call--');
+        console.log('---catch error in Api Call--' ,error.response);
         /**Dispatch Action :GENERIC_CATCH_API to custom Middleware*/
         let action = GenericAction.refresh({
           type: Constants.GENERIC_CATCH_API,

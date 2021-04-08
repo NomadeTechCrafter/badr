@@ -16,7 +16,7 @@ export default class ComTransverseApi {
         userLogin: ComSessionService.getInstance().getLogin(),
         fonctionnalite: ComSessionService.getInstance().getFonctionalite()
           ? ComSessionService.getInstance().getFonctionalite()
-          : ComSessionService.getInstance().setFonctionalite(),
+          : 'cf4011',
         module: _module,
         commande: _command,
         typeService: _typeService,

@@ -1,5 +1,5 @@
 const mapping = {
-  '9005': {screen: 'CreerApurement', params: {qr: true}},
+  '9005': {screen: 'CreerApurement', params: {qr: true}},/*
   '3064': {screen: 'controleRechercheDumScreen', params: {typeControle: 'AC'}},
   '3072': {screen: 'controleRechercheDumScreen', params: {typeControle: 'RI'}},
   '767': {screen: 'BloquerOperateur', params: {}},
@@ -17,7 +17,7 @@ const mapping = {
   '1201': {
     screen: 'RechercheEcorImport',
     params: {typeEcorImport: 'EnleverMarchandise'},
-  },
+  },*/
   /*  '3086': {screen: 'controleRechercheDumScreen', params: {typeControle: 'TR'}},
     '2052': {screen: 'DedRechercheRedressement', params: {qr: false}},
     '5971': {screen: 'RechecheMLV', params: {}},
