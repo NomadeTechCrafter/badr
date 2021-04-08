@@ -1,12 +1,11 @@
-
 /**Constants */
-import { mapErrorsCreation } from '../../../utils/t6bisUtils';
+import {mapErrorsCreation} from '../../../utils/t6bisUtils';
 import * as Constants from '../t6bisCreationConstants';
 
 const initialState = {
   confirmed: false,
   showProgress: false,
-  displayError: false
+  displayError: false,
 };
 
 export default (state = initialState, action) => {
@@ -16,7 +15,7 @@ export default (state = initialState, action) => {
   };
   switch (action.type) {
     case Constants.CREATION_T6BIS_ALL_TYPE_REQUEST:
-      console.log(Constants.CREATION_T6BIS_ALL_TYPE_REQUEST)
+      console.log(Constants.CREATION_T6BIS_ALL_TYPE_REQUEST);
       nextState.displayError = false;
       nextState.correct = false;
       nextState.showProgress = true;
@@ -28,8 +27,8 @@ export default (state = initialState, action) => {
       nextState.showProgress = false;
       nextState.confirmed = true;
       nextState.types = action.value;
-      console.log('action.value',action.value);
-     // items = action.value;
+      console.log('action.value', action.value);
+      // items = action.value;
       return nextState;
     case Constants.CREATION_T6BIS_ALL_TYPE_FAILED:
       nextState.showProgress = false;
@@ -57,6 +56,7 @@ export default (state = initialState, action) => {
       nextState.showProgress = false;
       nextState.cofirmed = false;
       nextState.displayError = true;
+      console.log(typeof action.value);
       nextState.errorMessage = mapErrorsCreation(action.value);
       return nextState;
     default:
