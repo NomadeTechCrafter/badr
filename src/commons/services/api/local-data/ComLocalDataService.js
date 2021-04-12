@@ -64,6 +64,6 @@ const localStore = {
   T6bisInitForUpdate: require('../../../../modules/t6bis/recherche/service/local-data/t6bisInitForUpdateData2.json'),
   getListRubriqueMtmTaxationGlobale: require('../../../../modules/t6bis/gestion/service/local-data/getListRubriqueMtmTaxationGlobaleData.json'),
   T6bisInitForRedresser: require('../../../../modules/t6bis/recherche/service/local-data/t6bisInitForRedresserData.json'),
-  /* T6bisInitForUpdate: require('../../../../modules/t6bis/recherche/service/local-data/t6bisInitForUpdateDataError.json'), */
+  recupererVersionAECVO: require('../../../../modules/pecEtatChargement/rechParRef/service/local-data/recupererVersionAECVO.json'),
 };
 export default localStore;

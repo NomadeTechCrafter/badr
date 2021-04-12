@@ -54,6 +54,7 @@ import Entete from './old/screens/actifs/rapport/creation/entete';
 import Details from './old/screens/actifs/rapport/creation/details';
 import Saisie from './old/screens/actifs/rapport/creation/saisie';
 import Consultation from './old/screens/actifs/rapport/consultation';
+import EtatChargement from './modules/pecEtatChargement/rechParRef/ui/pecEtatChargementMainScreen';
 
 //setGlobalHandler();
 export default class App extends React.Component {
@@ -76,7 +77,7 @@ export default class App extends React.Component {
                 <Stack.Screen
                   name="test"
                   options={{headerShown: false}}
-                  component={T6bisCreation}
+                  component={EtatChargement}
                 />
               )}
               <Stack.Screen

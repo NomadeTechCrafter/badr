@@ -55,7 +55,7 @@ import DedRedressementRecherche from '../../../dedouanement/redressement/ui/DedR
 import DedRedressementEnteteScreen from '../../../dedouanement/redressement/ui/entete/DedRedressementEnteteScreen';
 import RefControleVehiculeMainScreen from '../../../referentiel/controleVehicules/ui/refControleVehiculeMainScreen';
 import RefPlaquesImmMainScreen from '../../../referentiel/plaquesImmatriculation/ui/refPlaquesImmMainScreen';
-
+import PecEtatChargementMainScreen from '../../../pecEtatChargement/rechParRef/ui/pecEtatChargementMainScreen';
 const Drawer = createDrawerNavigator();
 const deltaScreen = Dimensions.get('window').width / 4;
 
@@ -275,6 +275,7 @@ class habHomeScreen extends React.Component {
           component={VuEmbarqueScreen}
           options={{headerShown: false}}
         />
+        PecEtatChargementMainScreen
         <Drawer.Screen
           name="VuEmbListeDeclaration"
           component={VuEmbListeDeclaration}
@@ -297,6 +298,13 @@ class habHomeScreen extends React.Component {
           options={{headerShown: false}}
         />
         {/* Module T6bis end*/}
+        {/* Fonc RechParRef EtatChargement */}
+        <Drawer.Screen
+          name="PecEtatChargementMainScreen"
+          component={PecEtatChargementMainScreen}
+          options={{headerShown: false}}
+        />
+        
       </Drawer.Navigator>
     );
   }

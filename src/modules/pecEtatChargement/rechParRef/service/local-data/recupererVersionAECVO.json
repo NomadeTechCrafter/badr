@@ -1,0 +1,207 @@
+{
+    "dtoHeader": {
+        "userLogin": "AD6203",
+        "fonctionnalite": "cf1101",
+        "module": "AEC_LIB",
+        "commande": "recupererVersionAECVO",
+        "typeService": "SP",
+        "offset": 0,
+        "pageSize": 0,
+        "rowCount": 0
+    },
+    "jsonVO": {
+        "refEtatVersion": {
+            "codeEtatVersion": "03",
+            "libelle": "Enregistree",
+            "defaultConverter": {}
+        },
+        "refModeAcquisition": {
+            "codeModeAcquisition": "01",
+            "libelle": "Interactif",
+            "defaultConverter": {}
+        },
+        "refDeclarant": {
+            "codeDeclarant": "DECLYAS",
+            "nom": "DELARANT SGHIR",
+            "prenom": "YASSINE",
+            "defaultConverter": {}
+        },
+        "refStatutVersion": {
+            "codeStatut": "01",
+            "libelle": "Acceptee",
+            "defaultConverter": {}
+        },
+        "refMoyenTransportAEC": [
+            {
+                "identifiantMoyenTransportAEC": "60789",
+                "refTypeContenant": {
+                    "codeTypeContenant": "005",
+                    "intitule": "CONTENEUR",
+                    "defaultConverter": {}
+                },
+                "refPaysImmatriculation": {
+                    "codePays": "FR",
+                    "nomPays": "FRANCE",
+                    "defaultConverter": {}
+                },
+                "numeroImmatriculation": "AAAA1234567",
+                "tareVehicule": "100.0",
+                "listScelleVOs": [],
+                "scelles": {},
+                "libelleNumeroSerie": "FRANCE<<>>CONTENEUR<<>>AAAA1234567<<>>100.0",
+                "codeNumeroSerie": "FR<<>>005<<>>AAAA1234567<<>>100.0",
+                "defaultConverter": {}
+            }
+        ],
+        "dateHeureCreation": "30/11/2020 19:19",
+        "dateHeureEnregistrement": "30/11/2020 19:19",
+        "numVoyage": "1234",
+        "dateHeureVoyage": "30/11/2020 21:00",
+        "bureauSortie": {
+            "codeBureau": "309",
+            "nomBureauDouane": "Casa port (309)",
+            "defaultConverter": {}
+        },
+        "transporteur": {
+            "identifiantOperateur": "1060",
+            "nomOperateur": "COMANAV",
+            "agrementPSATC": "",
+            "defaultConverter": {}
+        },
+        "navire": {
+            "codeMoyenTransport": "0007344",
+            "descriptionMoyenTransport": "CASABLANCA EXPRESS",
+            "refModeTransport": {
+                "codeModeTransport": "01",
+                "descriptionModeTransport": "MARITIME",
+                "defaultConverter": {}
+            },
+            "defaultConverter": {}
+        },
+        "refEtatChargement": {
+            "refModeTransport": {
+                "codeModeTransport": "01",
+                "descriptionModeTransport": "MARITIME",
+                "defaultConverter": {}
+            },
+            "refActeurInterneDepot": {
+                "idActeur": "SYSACTOR",
+                "nom": "Système",
+                "prenom": "Système",
+                "refBureau": {
+                    "codeBureau": "309",
+                    "nomBureauDouane": "Casa port (309)",
+                    "defaultConverter": {}
+                },
+                "defaultConverter": {}
+            },
+            "transporteur": {
+                "identifiantOperateur": "16688",
+                "nomOperateur": "BABYTEX TEST",
+                "agrementPSATC": "222222",
+                "defaultConverter": {}
+            },
+            "refBureauDouane": {
+                "codeBureau": "309",
+                "nomBureauDouane": "Casa port (309)",
+                "defaultConverter": {}
+            },
+            "regime": "001",
+            "dateHeureCreation": "30/11/2020 19:19",
+            "dateHeureEnregistrement": "30/11/2020 19:19",
+            "anneeCreation": "2020",
+            "anneeEnregistrement": "2020",
+            "numeroSerieProvisoire": "0000095",
+            "numeroSerieEnregistrement": "0000063",
+            "dateHeureDepot": "30/11/2020 21:30",
+            "dateHeureBAE": "",
+            "nombreScelles": "",
+            "dateHeureVuEmbarquer": "",
+            "refAgentCotation": {
+                "idActeur": "AD6209",
+                "nom": "AD6209",
+                "prenom": "AD6209",
+                "refBureau": {
+                    "codeBureau": "309",
+                    "nomBureauDouane": "Casa port (309)",
+                    "defaultConverter": {}
+                },
+                "defaultConverter": {}
+            },
+            "decisionSelectivite": "AC",
+            "imprimerBonAEmbarquer": false,
+            "refArrondissement": {
+                "libelle": "ARRONDISSEMENT I(309)",
+                "code": "309201",
+                "defaultConverter": {}
+            },
+            "cle": "C",
+            "defaultConverter": {}
+        },
+        "refMarchandisesSansDum": [],
+        "refDumEtatChargement": [
+            {
+                "refDeclarationEnDouane": {
+                    "referenceEnregistrement": "30906020200000182",
+                    "indentifiant": "505008",
+                    "cle": "P",
+                    "defaultConverter": {}
+                },
+                "refDedServices": {
+                    "dateEnregistrement": "30/11/2020 18:39",
+                    "operateurImportateurExportateur": "BABYTEX TEST",
+                    "valeurDeclaree": "200.0",
+                    "poidsBruts": "250.0",
+                    "poidsNet": "200.0",
+                    "nombreContenants": "2",
+                    "typeDeD": "DUM",
+                    "libelleTypeDED": "DUM",
+                    "numeroVoyage": "",
+                    "defaultConverter": {}
+                },
+                "typeModification": "A",
+                "annexee": "0",
+                "natureMarchandises": "AA",
+                "annexee_str": "false",
+                "isValide": "true",
+                "defaultConverter": {}
+            },
+            {
+                "refDeclarationEnDouane": {
+                    "referenceEnregistrement": "30906020200000183",
+                    "indentifiant": "505009",
+                    "cle": "R",
+                    "defaultConverter": {}
+                },
+                "refDedServices": {
+                    "dateEnregistrement": "30/11/2020 18:42",
+                    "operateurImportateurExportateur": "BABYTEX TEST",
+                    "valeurDeclaree": "200.0",
+                    "poidsBruts": "250.0",
+                    "poidsNet": "200.0",
+                    "nombreContenants": "2",
+                    "typeDeD": "DUM",
+                    "libelleTypeDED": "DUM",
+                    "numeroVoyage": "",
+                    "defaultConverter": {}
+                },
+                "typeModification": "A",
+                "annexee": "0",
+                "natureMarchandises": "BB",
+                "annexee_str": "false",
+                "isValide": "true",
+                "defaultConverter": {}
+            }
+        ],
+        "scellesConfirmationEntree": {
+            "33333332": "33333332",
+            "33333331": "33333331",
+            "33333330": "33333330"
+        },
+        "typeVersion": "Courante",
+        "numeroVersion": "0",
+        "annotationVOs": [],
+        "declarationsTryptique": [],
+        "defaultConverter": {}
+    }
+}
