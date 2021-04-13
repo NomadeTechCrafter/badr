@@ -28,6 +28,8 @@ import t6bisRechercheTranslationsFr from '../../modules/t6bis/recherche/i18n/t6b
 import actifTranslateFr from '../../old/common/translations/actif/actifTranslateFr';
 import liquidationTranslateFr from '../../modules/liquidation/i18n/liquidationTranslateFr';
 import eciConsultationBLSTranslateFr from '../../modules/ecorImport/eciConsultationBLS/i18n/eciConsultationBLSTranslateFr';
+import eciAppositionScellesRechercheTranslateFr from '../../modules/ecorImport/appositionScelles/recherche/i18n/eciAppositionScellesRechercheTranslateFr';
+import eciAppositionScellesTranslateFr from '../../modules/ecorImport/appositionScelles/apposition/i18n/eciAppositionScellesTranslateFr';
 
 const locales = RNLocalize.getLocales();
 
@@ -64,6 +66,8 @@ let combined = {
   ...t6bisGestionTranslateFr,
   ...t6bisRechercheTranslationsFr,
   ...eciConsultationBLSTranslateFr,
+  ...eciAppositionScellesRechercheTranslateFr,
+  ...eciAppositionScellesTranslateFr
 };
 I18n.translations = {
   fr: combined,

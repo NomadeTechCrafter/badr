@@ -43,6 +43,10 @@ const mapping = {
     screen: 'T6bisRecherche',
     params: {title: 'Ecran  Recherche T6BIS'},
   },
+  '1226': {
+    screen: 'ECIAppositionScellesRechercheScreen',
+    params: {},
+  },
 };
 
 const ionicMapping = {};
