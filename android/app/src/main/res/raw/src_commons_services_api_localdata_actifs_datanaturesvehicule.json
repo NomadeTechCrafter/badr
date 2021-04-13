@@ -1,0 +1,46 @@
+{
+  "dtoHeader": {
+    "userLogin": "AD6010",
+    "fonctionnalite": "cf9932",
+    "module": "GIB",
+    "commande": "getNaturesVehicule",
+    "typeService": "SP",
+    "motif": null,
+    "messagesInfo": null,
+    "messagesErreur": null
+  },
+  "jsonVO": [
+    {
+      "code": "1",
+      "libelle": "Train"
+    },
+    {
+      "code": "2",
+      "libelle": "\tAutocar"
+    },
+    {
+      "code": "3",
+      "libelle": "\tCamion"
+    },
+    {
+      "code": "4",
+      "libelle": "\tFourgon"
+    },
+    {
+      "code": "5",
+      "libelle": "\tVéhicule léger"
+    },
+    {
+      "code": "6",
+      "libelle": "\tEmbarcation"
+    },
+    {
+      "code": "7",
+      "libelle": "\tAéronef"
+    },
+    {
+      "code": "8",
+      "libelle": "\tAutres"
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "dtoHeader": {
+    "userLogin": "YAMAGENT",
+    "fonctionnalite": "cf4011",
+    "module": "DED_LIB",
+    "commande": "ded.getDecisionCautionVO",
+    "typeService": "SP"
+  },
+  "jsonVO": {
+    "adresseComplete": "",
+    "adresseDonneurOrdre": "",
+    "agenceCaution": "284",
+    "banqueCaution": "1",
+    "centreRc": "",
+    "codeDonneurOrdre": "",
+    "dateAttributionCaution": "12/02/2010",
+    "dateEcheance": "",
+    "ifu": "",
+    "montantCaution": "1.0E9",
+    "nom": "",
+    "nomDonneurOrdre": "",
+    "numeroRc": "",
+    "plafondEnCours": "0.0",
+    "plafondIllimite": "false",
+    "referenceCaution": "ref",
+    "statutEcheance": "false",
+    "statutUtilisation": "true",
+    "validite": "0",
+    "banqueCautionLibelle": "BMCE",
+    "agenceCautionLibelle": "B.M.C.E.            (AGADIR)",
+    "dateCreation": "16/05/2014",
+    "statut": "Valide",
+    "refDonneurOrdreEngageNotEmpty": false,
+    "versionDecisionCautionNotEmpty": true,
+    "refOperateurCautionNotEmpty": false
+  }
+}

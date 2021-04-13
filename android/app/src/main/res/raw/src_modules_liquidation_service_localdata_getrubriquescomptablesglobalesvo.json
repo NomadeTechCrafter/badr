@@ -1,0 +1,51 @@
+{
+  "dtoHeader": {
+    "userLogin": "AD6025",
+    "fonctionnalite": "cf5213",
+    "module": "ALI_DEC",
+    "commande": "getRubriquesComptablesGlobalesVO",
+    "typeService": "SP"
+  },
+  "jsonVO": [
+    {
+      "codeDouane": "000800",
+      "libelleAbrege": "TAXES TRPS PRIVES",
+      "adValorem": "false",
+      "refTypeRecette": [],
+      "vctNature": [],
+      "vctMoyenPaiement": [],
+      "codeRubriqueComptable": "22",
+      "defaultConverter": {}
+    },
+    {
+      "codeDouane": "002701",
+      "libelleAbrege": "REDV.INF.(AVEC D et T)",
+      "adValorem": "false",
+      "refTypeRecette": [],
+      "vctNature": [],
+      "vctMoyenPaiement": [],
+      "codeRubriqueComptable": "74",
+      "defaultConverter": {}
+    },
+    {
+      "codeDouane": "002901",
+      "libelleAbrege": "TAXE MAGASINAGE",
+      "adValorem": "false",
+      "refTypeRecette": [],
+      "vctNature": [],
+      "vctMoyenPaiement": [],
+      "codeRubriqueComptable": "83",
+      "defaultConverter": {}
+    },
+    {
+      "codeDouane": "006901",
+      "libelleAbrege": "RI SEGMA",
+      "adValorem": "false",
+      "refTypeRecette": [],
+      "vctNature": [],
+      "vctMoyenPaiement": [],
+      "codeRubriqueComptable": "233",
+      "defaultConverter": {}
+    }
+  ]
+}

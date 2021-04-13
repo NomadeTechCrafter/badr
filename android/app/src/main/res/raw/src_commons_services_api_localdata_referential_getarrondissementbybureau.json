@@ -1,0 +1,347 @@
+{
+  "dtoHeader": {
+    "userLogin": "YASAG",
+    "fonctionnalite": "cf4011",
+    "module": "REF_LIB",
+    "commande": "getArrondissementByBureau",
+    "typeService": "SP",
+    "motif": null,
+    "messagesInfo": null,
+    "messagesErreur": null
+  },
+  "jsonVO": [
+    {
+      "code": "309309",
+      "libelle": "arrondissement test casa port RED(309)(309309)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "309110",
+      "libelle": "NOUVEAU TERMINAL A CONTENEURS(309)(309110)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "309201",
+      "libelle": "ARRONDISSEMENT I(309)(309201)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "309202",
+      "libelle": "ARRONDISSEMENT II(309)(309202)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "309203",
+      "libelle": "ARRONDISSEMENT III(309)(309203)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "309204",
+      "libelle": "ARRONDISSEMENT IV(309)(309204)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "309205",
+      "libelle": "ARRONDISSEMENT V(309)(309205)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "309221",
+      "libelle": "ARRONDISSEMENT INVESTISSEMENT(309)(309221)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "309222",
+      "libelle": "OSCC(309)(309222)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "309231",
+      "libelle": "ARRONDISSEMENT VISITE A DOMICI(309)(309231)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "309232",
+      "libelle": "MAGASIN ONT(309)(309232)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "309234",
+      "libelle": "VALEUR-EN-DOUANE(309)(309234)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "309293",
+      "libelle": "TRADITRANS-STCMA(309)(309293)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "309294",
+      "libelle": "ZEGLERE-ELANTRANS(309)(309294)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "309301",
+      "libelle": "GESTION DES COMPTES(309)(309301)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "309302",
+      "libelle": "ASSAINISSEMENT(309)(309302)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "309303",
+      "libelle": "FOIRES ET EXPOSITIONS(309)(309303)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "309304",
+      "libelle": "ARRONDISSEMENT VI(309)(309304)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "309305",
+      "libelle": "EXPORTATIONS PAR REMORQUES(309)(309305)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "309306",
+      "libelle": "PRISE EN CHARGE MACHANDISES(309)(309306)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "309442",
+      "libelle": "ARRONDISSEMENT 2 EXP(309)(309442)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "309443",
+      "libelle": "ARRONDISSEMENT 6 NTC EXP(309)(309443)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "JHH",
+      "libelle": "JHH2(JHH)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "trt",
+      "libelle": "rtrt(trt)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "AR1",
+      "libelle": "Arrondissement 1(AR1)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "309001",
+      "libelle": "ARRONDISSEMENT Test test(309)(309001)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "309000",
+      "libelle": "arrondissement test RED(309)(309000)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "309548",
+      "libelle": "arrondissement XX(309)(309548)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "1991",
+      "libelle": "654(1991)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "aaaaa",
+      "libelle": "jjjj(aaaaa)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "xo",
+      "libelle": "jjj(xo)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "XO",
+      "libelle": "HH(XO)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "78",
+      "libelle": "REFONTE(78)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "ARR5",
+      "libelle": "ARR(ARR5)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "ARRT",
+      "libelle": "arrt test(ARRT)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "ZAQ",
+      "libelle": "zaq(ZAQ)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "ARR",
+      "libelle": "arr(ARR)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "dtoHeader": {
+    "userLogin": "TESTAG3",
+    "fonctionnalite": "cf4011",
+    "module": "DED_LIB",
+    "commande": "ded.recupererEstimationDroitsTaxes",
+    "typeService": "SP"
+  },
+  "jsonVO": [
+    {
+      "codeSousTaxe": "ST_RIN_002701_E_N_SP",
+      "detail": "",
+      "quantite": "100.0000",
+      "assiette": "1.000",
+      "montant": "100.0000",
+      "numeroOrdreArticle": "",
+      "codeTaxe": "T_RIN"
+    },
+    {
+      "codeSousTaxe": "ST_RI_SEGMA_006901_E_N_SP",
+      "detail": "",
+      "quantite": "50.0000",
+      "assiette": "1.000",
+      "montant": "50.0000",
+      "numeroOrdreArticle": "",
+      "codeTaxe": "T_RI_SEGMA"
+    },
+    {
+      "codeSousTaxe": "ST_DI_000110_I_N_AV",
+      "detail": "",
+      "quantite": "0.0250",
+      "assiette": "12000.000",
+      "montant": "300.0000",
+      "numeroOrdreArticle": "1",
+      "codeTaxe": "T_DI"
+    },
+    {
+      "codeSousTaxe": "ST_TPI_007217_I_N_AV",
+      "detail": "",
+      "quantite": "0.0025",
+      "assiette": "12000.000",
+      "montant": "30.0000",
+      "numeroOrdreArticle": "1",
+      "codeTaxe": "T_TPI"
+    },
+    {
+      "codeSousTaxe": "ST_TVA_002109_E_N_AV",
+      "detail": "",
+      "quantite": "0.2000",
+      "assiette": "12330.000",
+      "montant": "2466.0000",
+      "numeroOrdreArticle": "1",
+      "codeTaxe": "T_TVA"
+    }
+  ]
+}

@@ -12,7 +12,6 @@ const mapping = {
   '14000012': {screen: 'ValiderCompteRenduMission', params: {}},
   '30661': {screen: 'ControleApresScanner', params: {}},
   '4096': {screen: 'RefControleVehicule', params: {}},
-  '121711': {screen: 'EciConsultationBLS', params: {}},
   '823': {screen: 'RefPlaquesImm', params: {}},
   '90025': {screen: 'VuEmbarqueScreen', params: {qr: true}},
 
@@ -42,6 +41,10 @@ const mapping = {
   '110007': {
     screen: 'T6bisRecherche',
     params: {title: 'Ecran  Recherche T6BIS'},
+  },
+  '121711': {
+    screen: 'EciConsultationBLS',
+    params: { title: 'Ecran  Recherche Consultation BLS' }
   },
 };
 

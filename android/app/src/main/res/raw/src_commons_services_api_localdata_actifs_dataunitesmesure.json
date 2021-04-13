@@ -1,0 +1,68 @@
+{
+  "dtoHeader": {
+    "userLogin": "AD6010",
+    "fonctionnalite": "cf9932",
+    "module": "GIB",
+    "commande": "getUnitesMesure",
+    "typeService": "SP",
+    "motif": null,
+    "messagesInfo": null,
+    "messagesErreur": null
+  },
+  "jsonVO": [
+    {
+      "codeUniteMesure": "049",
+      "commentaire": null,
+      "dateEffet": "1990-01-01",
+      "dateFin": "9999-12-31",
+      "descriptionUniteMesure": "pièce",
+      "descriptionUniteMesureArabe": "&#1602;&#1591;&#1593;&#1577;",
+      "symbole": "pièce"
+    },
+    {
+      "codeUniteMesure": "050",
+      "commentaire": null,
+      "dateEffet": "1990-01-01",
+      "dateFin": "9999-12-31",
+      "descriptionUniteMesure": "tonne",
+      "descriptionUniteMesureArabe": "&#1591;&#1606;&#1591;&#1606;&#1591;&#1606;",
+      "symbole": "T"
+    },
+    {
+      "codeUniteMesure": "002",
+      "commentaire": null,
+      "dateEffet": "1990-01-01",
+      "dateFin": "9999-12-31",
+      "descriptionUniteMesure": "NOMBRE",
+      "descriptionUniteMesureArabe": "&#1593;&#1583; &#1583;",
+      "symbole": "NB"
+    },
+    {
+      "codeUniteMesure": "004",
+      "commentaire": null,
+      "dateEffet": "1990-01-01",
+      "dateFin": "9999-12-31",
+      "descriptionUniteMesure": "MILLE",
+      "descriptionUniteMesureArabe": "&#1575;&#1604;&#1601;",
+      "symbole": "MILLE"
+    },
+    {
+      "codeUniteMesure": "005",
+      "commentaire": null,
+      "dateEffet": "1990-01-01",
+      "dateFin": "9999-12-31",
+      "descriptionUniteMesure": "L",
+      "descriptionUniteMesureArabe": "&#1604;&#1578;&#1585;",
+      "symbole": "L"
+    },
+    {
+      "codeUniteMesure": "029",
+      "commentaire": "le kilogramme",
+      "dateEffet": "1990-01-01",
+      "dateFin": "9999-12-31",
+      "descriptionUniteMesure": "KG",
+      "descriptionUniteMesureArabe": "كيلوغرام",
+      "symbole": "KG"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+    "dtoHeader": {
+        "userLogin": "AD6203",
+        "fonctionnalite": "cf110001",
+        "module": "T6BIS_LIB",
+        "commande": "T6bisInitForCreate",
+        "typeService": "UC",
+        "offset": 0,
+        "pageSize": 0,
+        "rowCount": 0,
+        "messagesInfo": [
+            "T6bis initialisée avec succès."
+        ]
+        
+    }
+}
