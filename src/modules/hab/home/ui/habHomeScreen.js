@@ -50,6 +50,7 @@ import DedRedressementRecherche from '../../../dedouanement/redressement/ui/DedR
 import DedRedressementEnteteScreen from '../../../dedouanement/redressement/ui/entete/DedRedressementEnteteScreen';
 import RefControleVehiculeMainScreen from '../../../referentiel/controleVehicules/ui/refControleVehiculeMainScreen';
 import RefPlaquesImmMainScreen from '../../../referentiel/plaquesImmatriculation/ui/refPlaquesImmMainScreen';
+import ConsultationBLSMainScreen from '../../../ecorImport/eciConsultationBLS/ui/eciConsultationBLSMainScreen'
 
 const Drawer = createDrawerNavigator();
 const deltaScreen = Dimensions.get('window').width / 4;
@@ -277,7 +278,7 @@ class habHomeScreen extends React.Component {
         />
         <Drawer.Screen
           name="EciConsultationBLS"
-          component={eciConsultationBLSMainScreen}
+          component={ConsultationBLSMainScreen}
           options={{ headerShown: false }}
         />
       </Drawer.Navigator>
