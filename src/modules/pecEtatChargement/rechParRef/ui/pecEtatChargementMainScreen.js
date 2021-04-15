@@ -38,8 +38,8 @@ class PecEtatChargementMainScreen extends React.Component {
         <ComBadrToolbarComp
           navigation={this.props.navigation}
           icon="menu"
-          title={translate('controleVehicules.title')}
-          subtitle={translate('controleVehicules.subTitle')}
+          title={translate('etatChargement.title')}
+          subtitle={translate('etatChargement.subTitle')}
         />
 
         {this.props.showProgress && <ComBadrProgressBarComp circle={false} />}

@@ -27,6 +27,8 @@ import t6bisGestionTranslateFr from '../../modules/t6bis/gestion/i18n/t6bisGesti
 import t6bisRechercheTranslationsFr from '../../modules/t6bis/recherche/i18n/t6bisRechercheTranslateFr';
 import actifTranslateFr from '../../old/common/translations/actif/actifTranslateFr';
 import liquidationTranslateFr from '../../modules/liquidation/i18n/liquidationTranslateFr';
+import pecEtatChargementTranslateFr from '../../modules/pecEtatChargement/rechParRef/i18n/pecEtatChargementTranslateFr';
+
 
 const locales = RNLocalize.getLocales();
 
@@ -62,6 +64,7 @@ let combined = {
   ...t6bisCreationTranslationsFr,
   ...t6bisGestionTranslateFr,
   ...t6bisRechercheTranslationsFr,
+  ...pecEtatChargementTranslateFr,
 };
 I18n.translations = {
   fr: combined,
