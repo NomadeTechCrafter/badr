@@ -1,7 +1,7 @@
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
-import { Dimensions, View } from 'react-native';
+import { Dimensions, ScrollView, View } from 'react-native';
 import EtatChargementDeclarationDetail from './pecEtatChargementDeclarationDetail';
 
 /**Custom Components */
@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import { primaryColor } from '../../../../commons/styles/ComThemeStyle';
 import style from '../style/pecEtatChargementStyle';
 import { ComBadrProgressBarComp } from '../../../../commons/component';
+import translate from '../../../../commons/i18n/ComI18nHelper';
 const Tab = createMaterialTopTabNavigator();
 
 function Tab1({ route, navigation }) {
@@ -50,13 +51,17 @@ class PecEtatChargementResultScreen extends React.Component {
     render() {
         return (
             <View style={style.container}>
+                {/* <ScrollView key="horizontalScrollView" horizontal={true}> */}
+                {/* <View style={style.container}> */}
                 {this.props.showProgress && <ComBadrProgressBarComp circle={false} />}
                 <NavigationContainer independent={true}>
                     <Tab.Navigator
-                        initialLayout={{ height: Dimensions.get('window').height }}
-                        swipeEnabled={false}
+                        swipeEnabled={true}
+                        lazy={true}
+                        optimizationsEnabled={true}
                         tabBarOptions={{
-                            labelStyle: { fontSize: 16, fontWeight: 'bold' },
+                            scrollEnabled: true,
+                            labelStyle: { fontSize: 14, fontWeight: 'bold' },
                             showLabel: true,
                             allowFontScaling: true,
                             activeBackgroundColor: primaryColor,
@@ -72,8 +77,13 @@ class PecEtatChargementResultScreen extends React.Component {
                         <Tab.Screen name="Tab 2" component={Tab2} />
                         <Tab.Screen name="Tab 3" component={Tab3} />
                         <Tab.Screen name="Tab 4" component={Tab4} />
+                        <Tab.Screen name="Tab 22" component={Tab2} />
+                        <Tab.Screen name="Tab 32" component={Tab3} />
+                        <Tab.Screen name="Tab 42" component={Tab4} />
                     </Tab.Navigator>
                 </NavigationContainer>
+                {/* </View> */}
+                {/* </ScrollView> */}
             </View>
         );
     }
