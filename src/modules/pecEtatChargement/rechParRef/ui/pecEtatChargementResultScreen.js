@@ -13,7 +13,7 @@ import { ComBadrProgressBarComp } from '../../../../commons/component';
 import translate from '../../../../commons/i18n/ComI18nHelper';
 const Tab = createMaterialTopTabNavigator();
 
-function Tab1({ route, navigation }) {
+function declarationDetail({ route, navigation }) {
     return <EtatChargementDeclarationDetail navigation={navigation} route={route} />;
 }
 
@@ -40,9 +40,9 @@ class PecEtatChargementResultScreen extends React.Component {
     }
 
     componentDidUpdate() {
-        console.log('-------------------------3-------------------------');
-        console.log(JSON.stringify(this.props));
-        console.log('--------------------------3------------------------');
+        //     console.log('-------------------------3-------------------------');
+        //     console.log(JSON.stringify(this.props));
+        //     console.log('--------------------------3------------------------');
         if (this.props.route.params.first) {
             // this.refs._badrTable.reset();
         }
@@ -51,8 +51,6 @@ class PecEtatChargementResultScreen extends React.Component {
     render() {
         return (
             <View style={style.container}>
-                {/* <ScrollView key="horizontalScrollView" horizontal={true}> */}
-                {/* <View style={style.container}> */}
                 {this.props.showProgress && <ComBadrProgressBarComp circle={false} />}
                 <NavigationContainer independent={true}>
                     <Tab.Navigator
@@ -73,17 +71,13 @@ class PecEtatChargementResultScreen extends React.Component {
                                 borderColor: primaryColor,
                             },
                         }}>
-                        <Tab.Screen name={translate('transverse.retablir')} component={Tab1} />
-                        <Tab.Screen name="Tab 2" component={Tab2} />
-                        <Tab.Screen name="Tab 3" component={Tab3} />
-                        <Tab.Screen name="Tab 4" component={Tab4} />
-                        <Tab.Screen name="Tab 22" component={Tab2} />
-                        <Tab.Screen name="Tab 32" component={Tab3} />
-                        <Tab.Screen name="Tab 42" component={Tab4} />
+                        <Tab.Screen name={translate('etatChargement.enteteEtatChargement')} component={declarationDetail} />
+                        {/* <Tab.Screen name={translate('etatChargement.declarationDetail')} component={declarationDetail} />
+                        <Tab.Screen name={translate('etatChargement.marchandisesAutresDocuments')} component={declarationDetail} />
+                        <Tab.Screen name={translate('etatChargement.ecorage')} component={declarationDetail} />
+                        <Tab.Screen name={translate('etatChargement.infos')} component={declarationDetail} /> */}
                     </Tab.Navigator>
                 </NavigationContainer>
-                {/* </View> */}
-                {/* </ScrollView> */}
             </View>
         );
     }
