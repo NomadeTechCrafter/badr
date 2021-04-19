@@ -1,0 +1,238 @@
+{
+  "dtoHeader": {
+    "userLogin": "YAMAGENT",
+    "fonctionnalite": "cf1201",
+    "module": "ECI_LIB",
+    "commande": "initEnleverMarchandiseParPesage",
+    "typeService": "UC",
+    "messagesInfo": [
+      "??? InitEnleverMarchandiseParPesage_MESSAGE_INFO ???"
+    ]
+  },
+  "jsonVO": {
+    "dateHeureDebut": "21/11/2017",
+    "dateHeureFin": "",
+    "referenceDED": {
+      "referenceEnregistrement": "30901020170010154",
+      "indentifiant": "174993",
+      "defaultConverter": {},
+      "regime": "010"
+    },
+    "refMainlevee": {
+      "dateValidation": "08/11/2017 11:48",
+      "dateImpression": "08/11/2017 11:54",
+      "refAgentValidation": {
+        "idActeur": "TESTAG3",
+        "nom": "nom testag3",
+        "prenom": "prenom testag3",
+        "refBureau": {
+          "codeBureau": "309",
+          "nomBureauDouane": "Casa port (309)",
+          "defaultConverter": {}
+        },
+        "defaultConverter": {}
+      },
+      "refAgentEdition": {
+        "idActeur": "TESTAG3",
+        "nom": "nom testag3",
+        "prenom": "prenom testag3",
+        "refBureau": {
+          "codeBureau": "309",
+          "nomBureauDouane": "Casa port (309)",
+          "defaultConverter": {}
+        },
+        "defaultConverter": {}
+      },
+      "defaultConverter": {}
+    },
+    "refDedServices": {
+      "dateEnregistrement": "05/10/2017 14:09",
+      "operateurDeclarant": "OP DECLATANT T12",
+      "valeurDeclaree": "5000.0",
+      "poidsBruts": "10.0",
+      "poidsNet": "10.0",
+      "nombreContenants": "1",
+      "libelleTypeDED": "DUM",
+      "defaultConverter": {}
+    },
+    "nombreScelle": "",
+    "refMarchandiseEnlevee": [
+      {
+        "referenceLot": "REF1",
+        "nombreContenant": "1",
+        "immatriculationsVehicules": "matricule",
+        "numeroBonSortie": "123",
+        "dateHeureEnlevement": "27/11/2017 10:00",
+        "dateHeureEffectiveEnlevement": "27/11/2017 12:04",
+        "dateHeureAutorisationAcheminement": "",
+        "poidsBrutPesage": "",
+        "tarePesage": "",
+        "dateHeurePesage": "",
+        "dateHeureConteEcor": "",
+        "dateHeureArrivee": "",
+        "nature": "marque",
+        "marque": "nature",
+        "id": "681453",
+        "acteurInterneEnlevement": {
+          "idActeur": "TESTAG3",
+          "nom": "nom testag3",
+          "prenom": "prenom testag3",
+          "refBureau": {
+            "codeBureau": "309",
+            "nomBureauDouane": "Casa port (309)",
+            "defaultConverter": {}
+          },
+          "defaultConverter": {}
+        },
+        "acteurInternePesage": {
+          "refBureau": {
+            "defaultConverter": {}
+          },
+          "defaultConverter": {}
+        },
+        "acteurInterneContreEcor": {
+          "refBureau": {
+            "defaultConverter": {}
+          },
+          "defaultConverter": {}
+        },
+        "acteurInterneAutorisationAcheminement": {
+          "refBureau": {
+            "defaultConverter": {}
+          },
+          "defaultConverter": {}
+        },
+        "acteurInterneArrivee": {
+          "refBureau": {
+            "defaultConverter": {}
+          },
+          "defaultConverter": {}
+        },
+        "referenceDS": {
+          "identifiantDS": "449061",
+          "refBureauDouane": {
+            "codeBureau": "309",
+            "nomBureauDouane": "Casa port (309)",
+            "defaultConverter": {}
+          },
+          "refTypeDS": {
+            "codeTypeDS": "01",
+            "descriptionTypeDS": "DS",
+            "defaultConverter": {}
+          },
+          "anneeEnregistrement": "2017",
+          "regime": "000",
+          "numeroSerieEnregistrement": "9992222",
+          "cle": "N",
+          "defaultConverter": {}
+        },
+        "lieuChargement": {
+          "codeLieuChargement": "MACAS",
+          "descriptionLieuChargement": "CASABLANCA",
+          "defaultConverter": {}
+        },
+        "lieuStockage": {
+          "codeLieuStockage": "309306",
+          "descriptionLieuStockage": "MAGASIN F",
+          "refOperateur": {
+            "identifiantOperateur": "1",
+            "nomOperateur": "OP DOUANE",
+            "numeroRC": "0",
+            "agrementPSATC": "",
+            "refAdresse": {
+              "ligneAdresse": "1",
+              "adresse": ".",
+              "defaultConverter": {}
+            },
+            "defaultConverter": {}
+          },
+          "defaultConverter": {}
+        },
+        "gestionnaireEnceinte": {
+          "identifiantOperateur": "10814",
+          "nomOperateur": "ODEP",
+          "numeroRC": "47",
+          "agrementPSATC": "",
+          "refAdresse": {
+            "ligneAdresse": "13095",
+            "adresse": "BD DES ALMOHADES",
+            "defaultConverter": {}
+          },
+          "defaultConverter": {}
+        },
+        "autreDocument": {
+          "acteurInterneEnlevement": {
+            "refBureau": {
+              "defaultConverter": {}
+            },
+            "defaultConverter": {}
+          },
+          "acteurInterneCloture": {
+            "refBureau": {
+              "defaultConverter": {}
+            },
+            "defaultConverter": {}
+          },
+          "bureauEnlevement": {
+            "defaultConverter": {}
+          },
+          "operateurDeclarant": {
+            "refAdresse": {
+              "defaultConverter": {}
+            },
+            "defaultConverter": {}
+          },
+          "referenceDED": {
+            "defaultConverter": {}
+          },
+          "referenceDS": {
+            "refBureauDouane": {
+              "defaultConverter": {}
+            },
+            "refTypeDS": {
+              "defaultConverter": {}
+            },
+            "defaultConverter": {}
+          },
+          "refLieuChargement": {
+            "defaultConverter": {}
+          },
+          "refLieuStockage": {
+            "refOperateur": {
+              "refAdresse": {
+                "defaultConverter": {}
+              },
+              "defaultConverter": {}
+            },
+            "defaultConverter": {}
+          },
+          "gestionnaireEnceinte": {
+            "refAdresse": {
+              "defaultConverter": {}
+            },
+            "defaultConverter": {}
+          },
+          "refTypeDocument": {
+            "defaultConverter": {}
+          },
+          "refMoyenTransport": {
+            "refModeTransport": {
+              "defaultConverter": {}
+            },
+            "defaultConverter": {}
+          },
+          "refDedServices": {
+            "defaultConverter": {}
+          },
+          "defaultConverter": {}
+        },
+        "refEquipementEnleve": [],
+        "dateConteEcor": "",
+        "heureConteEcor": "",
+        "allRefEquipementEnleve": [],
+        "defaultConverter": {}
+      }
+    ],
+    "defaultConverter": {}
+  }
+}

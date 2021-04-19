@@ -1,0 +1,5257 @@
+{
+  "dtoHeader": {
+    "userLogin": "AD6203",
+    "fonctionnalite": "cf110001",
+    "module": "T6BIS_LIB",
+    "commande": "completeNatureMarchandise",
+    "typeService": "SP"
+  },
+  "jsonVO": [
+  {
+    "code": "0467",
+    "libelle": "Accessoires pour antennes paraboliques (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0465",
+    "libelle": "Accessoires pour ordinateurs (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0435",
+    "libelle": "Accessoires (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0525",
+    "libelle": "Aérosol d'insecticide ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0537",
+    "libelle": "Agenda ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0004",
+    "libelle": "Alcool et boissons alcoolisées (en vrac)",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0528",
+    "libelle": "allume charbon ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0529",
+    "libelle": "Allume gaz ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0531",
+    "libelle": "allumettes ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0032",
+    "libelle": "Amandes (kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0292",
+    "libelle": "Amandes (kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0433",
+    "libelle": "Amortisseurs ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0051",
+    "libelle": "anes et mulets ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0028",
+    "libelle": "Anis (kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0288",
+    "libelle": "Anis (kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0466",
+    "libelle": "Antennes paraboliques (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0392",
+    "libelle": "appareil de rasage électrique ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0471",
+    "libelle": "appareil de Téléphone fixe ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0474",
+    "libelle": "appareil photo ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0460",
+    "libelle": "Appareils photos (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0008",
+    "libelle": "Argent",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0589",
+    "libelle": "Armes blanche",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0497",
+    "libelle": "Armes de chasse (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0496",
+    "libelle": "Armes de guerre (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0406",
+    "libelle": "Assiette ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0517",
+    "libelle": "Assièttes ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0408",
+    "libelle": "Assortiment (Porte-sel, porte-poivre ,,,etc.) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0240",
+    "libelle": "assortiment pour salle de bain ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0109",
+    "libelle": "Attaches cheveux ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0444",
+    "libelle": "Autocaravane ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0443",
+    "libelle": "Autocars ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0387",
+    "libelle": "autocuiseur ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0264",
+    "libelle": "Autres épices (Kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0039",
+    "libelle": "Autres fruits secs (Kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0299",
+    "libelle": "Autres fruits secs (Kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0257",
+    "libelle": "Autres légumineuses (Kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0061",
+    "libelle": "autres liqueurs ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0501",
+    "libelle": "Autres munitions ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0049",
+    "libelle": "Autres préparations alimentaires (unité) anabolisants ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0271",
+    "libelle": "Autres produits à base de céréales (Kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0207",
+    "libelle": "Babouche(paire) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0231",
+    "libelle": "Baignoires (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0470",
+    "libelle": "Baladeurs ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0513",
+    "libelle": "balais ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0502",
+    "libelle": "Balance ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0504",
+    "libelle": "BALANCE DE CUISINE ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0506",
+    "libelle": "Balances éléctroniques ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0208",
+    "libelle": "Ballerine(paire) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0364",
+    "libelle": "Ballons (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0172",
+    "libelle": "Bas culotte femme ( unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0173",
+    "libelle": "Bas Culotte homme ( unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0171",
+    "libelle": "Bas (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0503",
+    "libelle": "BASCULE ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0431",
+    "libelle": "Batteries de 12 Volte\"HARZER\" ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0388",
+    "libelle": "Batteurs (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0362",
+    "libelle": "Baudruche ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0011",
+    "libelle": "Beurre et margarine (Kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0353",
+    "libelle": "Bibelots (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0446",
+    "libelle": "bicyclettes ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0232",
+    "libelle": "Bidets (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0571",
+    "libelle": "Bidons vides ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0056",
+    "libelle": "Bières (litre) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0417",
+    "libelle": "Bijouterie de fantaisie (y compris les pierres synthétiques) (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0416",
+    "libelle": "Bijouterie en métaux précieux (bagues, bracelets, boucles¿) (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0018",
+    "libelle": "Biscuits et gâteaux (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0278",
+    "libelle": "Biscuits et gâteaux (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0267",
+    "libelle": "Blé (Kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0163",
+    "libelle": "Body ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0003",
+    "libelle": "Boissons alcoolisées",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0065",
+    "libelle": "boissons énergitiques ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0002",
+    "libelle": "Boissons non alcoolisées",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0015",
+    "libelle": "Boite de mortadelle( kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0275",
+    "libelle": "Boite de mortadelle( kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0085",
+    "libelle": "Boites de comprimés (unités) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0024",
+    "libelle": "bonbons (kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0284",
+    "libelle": "bonbons (kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0023",
+    "libelle": "bonbons (sachet) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0283",
+    "libelle": "bonbons (sachet) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0193",
+    "libelle": "Bonnet (unite) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0202",
+    "libelle": "bottes ( paire) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0206",
+    "libelle": "Bottillons (paire) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0274",
+    "libelle": "Boudins de mortadelles(unite) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0395",
+    "libelle": "Bouteille isotherme ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0379",
+    "libelle": "Bouteilles à gaz ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0573",
+    "libelle": "bovins ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0530",
+    "libelle": "briquet ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0578",
+    "libelle": "Brise roches ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0107",
+    "libelle": "Brosse à dents ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0108",
+    "libelle": "Brosse pour cheveux ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0523",
+    "libelle": "Brosse pour peinture ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0339",
+    "libelle": "Brouette ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0310",
+    "libelle": "Câble coaxiaux ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0031",
+    "libelle": "cacahouète (kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0291",
+    "libelle": "cacahouète (kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0319",
+    "libelle": "Cadenas (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0355",
+    "libelle": "Cadres pour photos (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0258",
+    "libelle": "Café et succédanés (Kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0410",
+    "libelle": "cafetières ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0536",
+    "libelle": "Cahier ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0570",
+    "libelle": "CAISSES EN PLASTIQUE ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0458",
+    "libelle": "Caméras (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0367",
+    "libelle": "cannes à pèche ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0498",
+    "libelle": "Carabine ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0445",
+    "libelle": "Caravane tractée ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0229",
+    "libelle": "Carreaux (mo) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0351",
+    "libelle": "Cartable ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0488",
+    "libelle": "Carte GSM ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0487",
+    "libelle": "cartes mémoires ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0499",
+    "libelle": "Cartouches (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0181",
+    "libelle": "Casquettes (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0403",
+    "libelle": "Casseraul ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0495",
+    "libelle": "Cassette caméra ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0490",
+    "libelle": "Cassettes audio (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0489",
+    "libelle": "Cassettes vidéo (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0493",
+    "libelle": "CD-ROM (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0186",
+    "libelle": "Ceintures (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0407",
+    "libelle": "Cendrier ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0434",
+    "libelle": "chaîne de destribution pour voitures ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0452",
+    "libelle": "Chaînes HI-FI (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0533",
+    "libelle": "chaise ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0561",
+    "libelle": "Chaise roulante ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0183",
+    "libelle": "Châles (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0582",
+    "libelle": "chambre à air ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0430",
+    "libelle": "Chambres à air (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0572",
+    "libelle": "chameaux et dromadaires ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0482",
+    "libelle": "Chargeur de piles ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0478",
+    "libelle": "Chargeur de pilles ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0477",
+    "libelle": "chargeurs pour ordinateurs portables ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0485",
+    "libelle": "Chargeurs pour téléphones portables ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0325",
+    "libelle": "Charnière GF(unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0326",
+    "libelle": "Charnières PF(unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0381",
+    "libelle": "Chauffe-eaux ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0190",
+    "libelle": "Chaussettes enfant (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0189",
+    "libelle": "Chaussettes (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0205",
+    "libelle": "Chaussures de sport (godas)(paire) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0198",
+    "libelle": "Chaussures enfant (paire ) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0197",
+    "libelle": "Chaussures (paire) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0178",
+    "libelle": "Chaussures usagées (kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0155",
+    "libelle": "chemise de nuit ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0135",
+    "libelle": "Chemises (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0575",
+    "libelle": "chevaux, ânes et mulets ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0509",
+    "libelle": "Cheville en plastique ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0070",
+    "libelle": "Chira (kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0250",
+    "libelle": "Chocolat en poudre (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0248",
+    "libelle": "Chocolats (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0067",
+    "libelle": "Cigares (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0066",
+    "libelle": "Cigarettes (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0541",
+    "libelle": "ciseaux ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0204",
+    "libelle": "claquettes ( paire) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0494",
+    "libelle": "Clès USB ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0375",
+    "libelle": "Climatiseurs (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0081",
+    "libelle": "Cocaïne (kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0164",
+    "libelle": "Collants ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0520",
+    "libelle": "colle ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0262",
+    "libelle": "Colorant alimentaire (paquets) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0425",
+    "libelle": "Comprésseur ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0083",
+    "libelle": "comprimés Psy ( unités ) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0082",
+    "libelle": "Comprimés Psy (tablettes) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0022",
+    "libelle": "Confiseries (Kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0282",
+    "libelle": "Confiseries (Kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0021",
+    "libelle": "Confiture (kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0281",
+    "libelle": "Confiture (kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0374",
+    "libelle": "Congélateurs (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0026",
+    "libelle": "Conserves de fruits (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0286",
+    "libelle": "Conserves de fruits (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0025",
+    "libelle": "Conserves de légumes (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0285",
+    "libelle": "Conserves de légumes (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0016",
+    "libelle": "Conserves de poissons et de fruits de mer (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0276",
+    "libelle": "Conserves de poissons et de fruits de mer (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0273",
+    "libelle": "Conserves de viandes et abats (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0542",
+    "libelle": "Correcteur ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0120",
+    "libelle": "Costumes (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0104",
+    "libelle": "couche pour bébé et adulte ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0564",
+    "libelle": "Couches bébé (paquet) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0214",
+    "libelle": "Couettes (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0412",
+    "libelle": "Couscoussière ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0217",
+    "libelle": "Coussins (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0400",
+    "libelle": "Couteaux ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0212",
+    "libelle": "couvertures bébé(unités) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0211",
+    "libelle": "Couvertures fines ( unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0209",
+    "libelle": "Couvertures GF (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0210",
+    "libelle": "couvertures PF (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0213",
+    "libelle": "Couvre-lits (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0185",
+    "libelle": "Cravattes (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0539",
+    "libelle": "Crayon ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0249",
+    "libelle": "Crème de chocolat (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0118",
+    "libelle": "Crème de soin pour main (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0092",
+    "libelle": "Crèmes de rasage (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0117",
+    "libelle": "Crèmes de soin pour visage (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0328",
+    "libelle": "Cremones ( unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0508",
+    "libelle": "Crochets pour rideaux ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0402",
+    "libelle": "Cuillère ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0369",
+    "libelle": "Cuisinières (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0030",
+    "libelle": "cumin (kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0290",
+    "libelle": "cumin (kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0263",
+    "libelle": "Curcuma (Kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0111",
+    "libelle": "Curdon ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0247",
+    "libelle": "Dattes (Kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0157",
+    "libelle": "débardeur ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0078",
+    "libelle": "debris ( kg) b ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0095",
+    "libelle": "Dentifrices (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0091",
+    "libelle": "Déodorants (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0277",
+    "libelle": "Dérivées de céréales (pâtes alimentaires, semoule, farine ¿) (kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0017",
+    "libelle": "Dérivées de céréales (pâtes alimentaires,..)(kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0521",
+    "libelle": "désolvent ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0527",
+    "libelle": "Diffuseur éléctrique ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0312",
+    "libelle": "Disjoncteur ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0342",
+    "libelle": "Disque abrasif ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0491",
+    "libelle": "Disques (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0492",
+    "libelle": "Disquettes (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0315",
+    "libelle": "Douilles ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0215",
+    "libelle": "Draps (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0590",
+    "libelle": "Drone",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0100",
+    "libelle": "eau de javel ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0090",
+    "libelle": "Eau de toilette (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0064",
+    "libelle": "eau de vie (distillation artisanale) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0055",
+    "libelle": "Eaux minérales (litre) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0343",
+    "libelle": "Ebauche de clès ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0184",
+    "libelle": "Echarpes (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0396",
+    "libelle": "échelle domestique ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0461",
+    "libelle": "Ecouteurs (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0127",
+    "libelle": "ensemble bébé (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0125",
+    "libelle": "ensemble femme ( unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0126",
+    "libelle": "ensemble fille( unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0159",
+    "libelle": "ensemble pour enfant ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0161",
+    "libelle": "ensemble pour femme ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0160",
+    "libelle": "ensemble pour homme ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0162",
+    "libelle": "ensemble slip et soutien gorge ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0195",
+    "libelle": "Espardrilles enfants (paire) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0196",
+    "libelle": "Espardrilles femmes (paire) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0194",
+    "libelle": "Espardrilles hommes (paire) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0581",
+    "libelle": "essence ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0438",
+    "libelle": "Essuie-glace ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0234",
+    "libelle": "Eviers inox ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0116",
+    "libelle": "Fards (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0268",
+    "libelle": "Farine (Kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0580",
+    "libelle": "FENETRES EN BOIS ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0586",
+    "libelle": "Fer à béton ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0320",
+    "libelle": "Fermoirs (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0322",
+    "libelle": "Ferrures (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0389",
+    "libelle": "Fers à repasser (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0361",
+    "libelle": "Feux d'artifice (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0560",
+    "libelle": "Film en plastique ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0048",
+    "libelle": "flan ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0243",
+    "libelle": "Flan (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0358",
+    "libelle": "fleures artificielles ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0238",
+    "libelle": "flexible ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0182",
+    "libelle": "Foulards (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0401",
+    "libelle": "Fourchettes ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0441",
+    "libelle": "Fourgons ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0372",
+    "libelle": "Fours à micro-ondes (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0370",
+    "libelle": "Fours (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0397",
+    "libelle": "Friteuse ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0012",
+    "libelle": "Fromages (Kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0013",
+    "libelle": "fromages (unités) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0246",
+    "libelle": "Fruits frais (Kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0027",
+    "libelle": "Fruits secs (kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0287",
+    "libelle": "Fruits secs (kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0313",
+    "libelle": "Fusible ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0562",
+    "libelle": "Fusibles ( unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0170",
+    "libelle": "Gaines (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0512",
+    "libelle": "gants ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0187",
+    "libelle": "Gants (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0510",
+    "libelle": "Gaubelet ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0097",
+    "libelle": "gel de bain ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0119",
+    "libelle": "gel pour cheveux ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0192",
+    "libelle": "Gilets ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0060",
+    "libelle": "Gin ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0261",
+    "libelle": "Gingembre (Kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0535",
+    "libelle": "glacière ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0029",
+    "libelle": "Graine de sésame (kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0289",
+    "libelle": "Graine de sésame (kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0074",
+    "libelle": "Graines de kif (kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0036",
+    "libelle": "Graines de tournesol (kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0296",
+    "libelle": "Graines de tournesol (kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0398",
+    "libelle": "Gril et barbecue électrique ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0393",
+    "libelle": "Grille pain ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0386",
+    "libelle": "Hache viande ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0254",
+    "libelle": "Haricots secs (Kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0080",
+    "libelle": "Héroïne ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0554",
+    "libelle": "Horloge ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0317",
+    "libelle": "Hublots ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0272",
+    "libelle": "Huiles (litres) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0557",
+    "libelle": "Hydrocarbures (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0463",
+    "libelle": "Imprimantes (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0565",
+    "libelle": "Insecticide (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0344",
+    "libelle": "INSTRUMENT DE MESURE(metre linaire) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0473",
+    "libelle": "Interphone ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0318",
+    "libelle": "Interrupteurs ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0154",
+    "libelle": "jaquette ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0124",
+    "libelle": "jaquettes enfant ( unités) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0123",
+    "libelle": "jaquettes homme( unités) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0359",
+    "libelle": "Jouets (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0179",
+    "libelle": "Jouets usagés (kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0143",
+    "libelle": "Jupes (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0047",
+    "libelle": "jus de fruit en poudre ( sachet) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0052",
+    "libelle": "Jus (litre) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0044",
+    "libelle": "ketchup (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0071",
+    "libelle": "Kif en tige (kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0072",
+    "libelle": "kif et tabac moulus kg ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0073",
+    "libelle": "Kif moulu (kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0252",
+    "libelle": "Lait concentré en poudre (Kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0251",
+    "libelle": "Lait concentré liquide (Kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0113",
+    "libelle": "lame à raser jetable (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0341",
+    "libelle": "lame de scie ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0307",
+    "libelle": "Lampadaires (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0305",
+    "libelle": "Lampes (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0230",
+    "libelle": "Lavabos (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0481",
+    "libelle": "Lecteur de carte mémoire ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0469",
+    "libelle": "Lecteur DVD ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0480",
+    "libelle": "lecteur MP3 et 4 ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0245",
+    "libelle": "Légumes frais (kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0549",
+    "libelle": "lentille de contact ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0253",
+    "libelle": "Lentille (Kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0046",
+    "libelle": "Levures (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0053",
+    "libelle": "Limonade (litre) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0093",
+    "libelle": "Lotion ou crème après rasage (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0411",
+    "libelle": "Louche ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0437",
+    "libelle": "Lubrifiant ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0546",
+    "libelle": "Lunettes médicales ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0545",
+    "libelle": "Lunettes solaires ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0306",
+    "libelle": "Lustres (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0079",
+    "libelle": "Maajoune (kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0380",
+    "libelle": "Machine à coudre ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0422",
+    "libelle": "machine à coudre à usage domestique ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0421",
+    "libelle": "machine à coudre à usage industriel ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0378",
+    "libelle": "Machines à laver la vaisselle (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0377",
+    "libelle": "Machines à laver le linge (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0420",
+    "libelle": "Machines et machines outils (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0453",
+    "libelle": "Magnétoscopes (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0168",
+    "libelle": "Maillots de bain (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0266",
+    "libelle": "Maïs (Kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0515",
+    "libelle": "Manche ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0138",
+    "libelle": "Manteaux femmes (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0139",
+    "libelle": "Manteaux hommes (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0137",
+    "libelle": "Manteaux (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0409",
+    "libelle": "Marmite ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0423",
+    "libelle": "matériel de lavage à usage industriel et PPD ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0424",
+    "libelle": "matériel de repassage à usage industriel et PPD ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0365",
+    "libelle": "Matériels de sport (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0043",
+    "libelle": "mayonnaise (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0303",
+    "libelle": "mayonnaise (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0237",
+    "libelle": "Mécanisme chasse d'eau ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0088",
+    "libelle": "Médicaments vétérinaires ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0236",
+    "libelle": "Mélangeur ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0415",
+    "libelle": "métaux précieuxnon travaillé (kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0020",
+    "libelle": "Miel (Kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0280",
+    "libelle": "Miel (Kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0384",
+    "libelle": "Mixeurs (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0551",
+    "libelle": "Montre bracelet ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0553",
+    "libelle": "Montre murale ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0552",
+    "libelle": "Montre réveil ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0459",
+    "libelle": "Montres électroniques( unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0547",
+    "libelle": "Monture pour lunette ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0227",
+    "libelle": "Moquette (m) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0577",
+    "libelle": "Moteur pour zodiac ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0428",
+    "libelle": "Moteurs pour réfrigérateur ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0427",
+    "libelle": "Moteurs (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0447",
+    "libelle": "Motocycles ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0451",
+    "libelle": "motocycles plus de 49cm3 ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0101",
+    "libelle": "mouchoir en papier ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0102",
+    "libelle": "mouchoir en papier lingette ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0188",
+    "libelle": "Mouchoirs (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0041",
+    "libelle": "Moutarde (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0301",
+    "libelle": "Moutarde (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0218",
+    "libelle": "Nappes (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0569",
+    "libelle": "Narguilés (Chicha) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0035",
+    "libelle": "noisettes (kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0295",
+    "libelle": "noisettes (kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0034",
+    "libelle": "noix de cajou (kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0294",
+    "libelle": "noix de cajou (kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0033",
+    "libelle": "noix (kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0293",
+    "libelle": "noix (kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0486",
+    "libelle": "objectifs et zooms pour appareils photos ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0007",
+    "libelle": "Or",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0462",
+    "libelle": "Ordinateurs (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0483",
+    "libelle": "ordinnateur portable ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0216",
+    "libelle": "Oreillers (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0419",
+    "libelle": "Outils (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0574",
+    "libelle": "ovins et caprins ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0550",
+    "libelle": "Paire de jumelle ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0505",
+    "libelle": "PAISE PERSONNE ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0368",
+    "libelle": "Palme (paire) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0566",
+    "libelle": "Panier à roulettes ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0131",
+    "libelle": "Pantalons enfants(unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0130",
+    "libelle": "Pantalons filles(unités) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0129",
+    "libelle": "Pantalons (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0200",
+    "libelle": "pantoufles femme(paire) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0199",
+    "libelle": "pantoufles homme(paire) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0068",
+    "libelle": "papier à rouler le tabac ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0559",
+    "libelle": "Papier aluminium ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0103",
+    "libelle": "Papier hygienique, ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0191",
+    "libelle": "parapluies ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0532",
+    "libelle": "Parasol ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0089",
+    "libelle": "Parfums (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0526",
+    "libelle": "Pastille ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0057",
+    "libelle": "pastis ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0069",
+    "libelle": "Pâte de chicha ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0270",
+    "libelle": "Pattes alimentaires (Kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0149",
+    "libelle": "Peignoirs femme (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0150",
+    "libelle": "Peignoirs homme (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0148",
+    "libelle": "Peignoirs (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0518",
+    "libelle": "Peinture ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0336",
+    "libelle": "Pelle ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0475",
+    "libelle": "Pellicule ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0360",
+    "libelle": "Pétards (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0335",
+    "libelle": "Pic ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0442",
+    "libelle": "Pick-up ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0418",
+    "libelle": "Pièces de monnaie (devise) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0432",
+    "libelle": "Pièces détachées (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0414",
+    "libelle": "Pières précieuses ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0394",
+    "libelle": "Piétrain ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0558",
+    "libelle": "Piles (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0334",
+    "libelle": "Pioche ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0363",
+    "libelle": "Planches à voiles (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0316",
+    "libelle": "plaque photo-voltaique ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0516",
+    "libelle": "Plateau ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0413",
+    "libelle": "Plateau métallique ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0009",
+    "libelle": "Platine",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0468",
+    "libelle": "PlayStation ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0500",
+    "libelle": "Plomb (Kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0583",
+    "libelle": "Pneu neuf ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0584",
+    "libelle": "Pneu rechappé ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0585",
+    "libelle": "Pneu usagé ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0436",
+    "libelle": "Pneus à l'état neuf (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0429",
+    "libelle": "Pneus usagés (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0568",
+    "libelle": "Pochettes pour Play station portable ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0567",
+    "libelle": "Pochettes pour téléphone portable ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0327",
+    "libelle": "Poignets porte ( paire) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0255",
+    "libelle": "Pois cassés (Kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0256",
+    "libelle": "pois chiches(kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0260",
+    "libelle": "Poivre (Kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0019",
+    "libelle": "Pomme de terre frite(chips) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0279",
+    "libelle": "Pomme de terre frite(chips) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0330",
+    "libelle": "Pommelle ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0426",
+    "libelle": "Pompes à eau ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0242",
+    "libelle": "Porte brosse ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0241",
+    "libelle": "Porte savonnette ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0304",
+    "libelle": "Porte serviette ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0349",
+    "libelle": "Portefeuilles (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0579",
+    "libelle": "Portes en bois ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0454",
+    "libelle": "Postes-radios (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0045",
+    "libelle": "Potages (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0450",
+    "libelle": "PPD pour cycles et motocycles ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0555",
+    "libelle": "PPD POUR VEHICULES AUTOMOBILES, ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0399",
+    "libelle": "Presse fruit ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0385",
+    "libelle": "Presse légume ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0314",
+    "libelle": "Prise de courant ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0006",
+    "libelle": "Produits pétroliers",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0105",
+    "libelle": "protège slip ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0038",
+    "libelle": "Prunes séches (Kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0298",
+    "libelle": "Prunes séches (Kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0136",
+    "libelle": "Pulls (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0153",
+    "libelle": "pyjama ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0121",
+    "libelle": "pyjamas 1 pièce ( unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0122",
+    "libelle": "pyjamas 2 pièce ( unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0448",
+    "libelle": "Quads ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0037",
+    "libelle": "Raisins secs (Kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0297",
+    "libelle": "Raisins secs (Kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0311",
+    "libelle": "Rallonge électrique ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0366",
+    "libelle": "raquette ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0484",
+    "libelle": "recepteur univer avec télécommande ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0371",
+    "libelle": "Réchauds (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0115",
+    "libelle": "récil ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0373",
+    "libelle": "Réfrigérateurs (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0222",
+    "libelle": "Ribon pour rideau ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0221",
+    "libelle": "Rideaux (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0265",
+    "libelle": "Riz (Kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0142",
+    "libelle": "Robes fille (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0141",
+    "libelle": "Robes (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0235",
+    "libelle": "Robinet d'arrêt ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0233",
+    "libelle": "Robinets (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0383",
+    "libelle": "Robots (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0114",
+    "libelle": "Rouge à lèvres (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0522",
+    "libelle": "Rouleau pour peinture ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0201",
+    "libelle": "sabot (paire) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0544",
+    "libelle": "sac à dos pour PC portable ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0348",
+    "libelle": "Sacs à main (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0347",
+    "libelle": "Sacs de voyage (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0180",
+    "libelle": "sacs usagés ( kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0203",
+    "libelle": "sandales ( paire) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0042",
+    "libelle": "Sauces (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0302",
+    "libelle": "Sauces (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0099",
+    "libelle": "savon liquide ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0098",
+    "libelle": "savon poudre ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0094",
+    "libelle": "Savons (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0464",
+    "libelle": "Scanners (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0340",
+    "libelle": "scie ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0511",
+    "libelle": "Seaux ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0390",
+    "libelle": "Séchoirs (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0050",
+    "libelle": "SEL DE TABLE ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0269",
+    "libelle": "Semoule (Kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0333",
+    "libelle": "Serpe ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0514",
+    "libelle": "Serpillère ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0332",
+    "libelle": "Serrure a mortaiser ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0324",
+    "libelle": "Serrures armoires(unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0323",
+    "libelle": "Serrures porte (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0106",
+    "libelle": "serviette hygiénique ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0220",
+    "libelle": "Serviettes à bain ( unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0219",
+    "libelle": "Serviettes à main ( unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0096",
+    "libelle": "Shampoing (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0156",
+    "libelle": "shirt ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0239",
+    "libelle": "siphon ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0054",
+    "libelle": "Sirops (litre) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0086",
+    "libelle": "Sirops (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0167",
+    "libelle": "Slips femme (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0166",
+    "libelle": "Slips homme (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0165",
+    "libelle": "Slips (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0169",
+    "libelle": "Soutiens gorge (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0356",
+    "libelle": "Statuettes (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0538",
+    "libelle": "Stylos ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0147",
+    "libelle": "Survêments enfant (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0145",
+    "libelle": "Survêments femme (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0146",
+    "libelle": "Survêments homme(unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0144",
+    "libelle": "Survêments (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0076",
+    "libelle": "tabac feuille ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0075",
+    "libelle": "Tabac (kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0077",
+    "libelle": "tabac moulu ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0001",
+    "libelle": "Tabacs manufacturés",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0382",
+    "libelle": "Table de cuisine ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0357",
+    "libelle": "Tableaux (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0534",
+    "libelle": "tables ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0543",
+    "libelle": "Taille crayon ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0140",
+    "libelle": "Tailleurs (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0112",
+    "libelle": "Talc en poudre ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0337",
+    "libelle": "Taloche ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0226",
+    "libelle": "Tapis en laine(unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0225",
+    "libelle": "Tapis en soie (unités) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0224",
+    "libelle": "Tapis mecanique (FTS) (m) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0331",
+    "libelle": "Targette ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0158",
+    "libelle": "tee-shirt ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0472",
+    "libelle": "Téléphone portable ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0456",
+    "libelle": "Téléviseur ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0455",
+    "libelle": "Téléviseurs 14 pouces (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0563",
+    "libelle": "Tendeurs à gaz (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0391",
+    "libelle": "Tendeuse pour cheveux ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0259",
+    "libelle": "Thé (Kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0110",
+    "libelle": "Tige de couton ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0329",
+    "libelle": "Tirettes ( unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0223",
+    "libelle": "Tissu d'ameublement (Kg ou m) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0174",
+    "libelle": "Tissus d'habillement (Kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0176",
+    "libelle": "tissus épais (kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0175",
+    "libelle": "tissus (m) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0476",
+    "libelle": "Tonner pour imprimante ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0309",
+    "libelle": "Torche ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0228",
+    "libelle": "Torchon pour cuisine ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0152",
+    "libelle": "Tricots capuchon ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0151",
+    "libelle": "Tricots de peaux (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0134",
+    "libelle": "Tricots enfants( unités) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0133",
+    "libelle": "Tricots filles(unités) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0132",
+    "libelle": "Tricots (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0449",
+    "libelle": "Tricycle ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0352",
+    "libelle": "Trousse ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0540",
+    "libelle": "Trousse ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0338",
+    "libelle": "Truelle ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0524",
+    "libelle": "Tube ciliconne ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0084",
+    "libelle": "tube de dissolution ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0507",
+    "libelle": "Tuyaux à gaz ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0244",
+    "libelle": "¿ufs (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0346",
+    "libelle": "Valises (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0350",
+    "libelle": "Valisette Porte-maquillage (Samsonite) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0354",
+    "libelle": "Vases (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0440",
+    "libelle": "Véhicules (camions) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0439",
+    "libelle": "Véhicules de tourisme (voitures) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0308",
+    "libelle": "Veilleuses (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0376",
+    "libelle": "Ventilateurs (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0519",
+    "libelle": "vernis ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0404",
+    "libelle": "Verre à boire ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0405",
+    "libelle": "Verre à thé ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0548",
+    "libelle": "verre optique ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0321",
+    "libelle": "Verrous (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0128",
+    "libelle": "Vestes (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0177",
+    "libelle": "Vêtements usagés (Kg) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0479",
+    "libelle": "Vidéo projecteur ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0457",
+    "libelle": "Vidéos (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0058",
+    "libelle": "Vin ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0040",
+    "libelle": "Vinaigre (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0345",
+    "libelle": "vis ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0059",
+    "libelle": "vodka ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0062",
+    "libelle": "Whisky ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0014",
+    "libelle": "Yaourt (unité) ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "0576",
+    "libelle": "Zodiac ( pneumatique) avec plaques en metal ",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  },
+  {
+    "code": "9999",
+    "libelle": "Autre",
+    "actif": false,
+    "showDropDown": false,
+    "disableAutoComplete": true,
+    "onFocus": "",
+    "disabled": false
+  }
+]}

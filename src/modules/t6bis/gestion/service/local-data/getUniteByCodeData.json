@@ -1,0 +1,25 @@
+{
+  "dtoHeader": {
+    "userLogin": "AD6202",
+    "fonctionnalite": "cf110002",
+    "module": "REF_LIB",
+    "commande": "getUniteByCode",
+    "typeService": "SP",
+    "offset": 0,
+    "pageSize": 0,
+    "rowCount": 0
+  },
+  "jsonVO": {
+    "descriptionUniteMesure": "ABCDEFGHIJKLMNOPQRS",
+    "symbole": "ABCDEFGHIJ",
+    "descriptionUniteMesureArabe": "ااااانممخخناافع",
+    "dateFin": "31/12/9999",
+    "commentaire": "ABCDEFGHIJKLMNOPQRSTUCDEFGHIJKLMNOPQRSTUVWXYZA",
+    "dateEffet": "26/01/2016",
+    "codeUniteMesure": "G9",
+    "rechercheAnnules": false,
+    "rechercheValides": true,
+    "statut": "valide",
+    "defaultConverter": {}
+  }
+}

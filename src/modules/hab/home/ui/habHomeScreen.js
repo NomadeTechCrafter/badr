@@ -34,6 +34,11 @@ import ModifierCompteRenduMission from '../../../enquetes/compteRendu/ui/modifie
 import ValiderCompteRenduMission from '../../../enquetes/compteRendu/ui/validerCompteRenduMission/enqValiderCompteRenduMissionScreen';
 import ControleApresScanner from '../../../controle/controleApresScanner/ui/controleApresScanner/ctrlControleApresScannerScreen';
 
+/**T6bis */
+import T6bisCreation from '../../../t6bis/creation/ui/t6bisCreation/t6bisCreationScreen';
+import T6bisRecherche from '../../../t6bis/recherche/ui/t6bisRechercheScreen';
+import T6bisGestion from '../../../t6bis/gestion/ui/t6bisGestion/t6bisGestionScreen';
+
 import Entete from '../../../../old/screens/actifs/rapport/creation/entete';
 import Recherche from '../../../../old/screens/actifs/rapport/recherche';
 import Saisie from '../../../../old/screens/actifs/rapport/creation/saisie';
@@ -47,7 +52,6 @@ import * as GenericAction from '../../../../commons/state/actions/ComGenericActi
 /** Drawer navigation */
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import DedRedressementRecherche from '../../../dedouanement/redressement/ui/DedRechercheRedressementScreen';
-import DedRedressementEnteteScreen from '../../../dedouanement/redressement/ui/entete/DedRedressementEnteteScreen';
 import RefControleVehiculeMainScreen from '../../../referentiel/controleVehicules/ui/refControleVehiculeMainScreen';
 import RefPlaquesImmMainScreen from '../../../referentiel/plaquesImmatriculation/ui/refPlaquesImmMainScreen';
 import ConsultationBLSMainScreen from '../../../ecorImport/eciConsultationBLS/ui/eciConsultationBLSMainScreen'
@@ -281,6 +285,23 @@ class habHomeScreen extends React.Component {
           component={ConsultationBLSMainScreen}
           options={{ headerShown: false }}
         />
+        {/* Module T6bis start*/}
+        <Drawer.Screen
+          name="T6bisCreation"
+          component={T6bisCreation}
+          options={{headerShown: false}}
+        />
+        <Drawer.Screen
+          name="T6bisRecherche"
+          component={T6bisRecherche}
+          options={{headerShown: false}}
+        />
+        <Drawer.Screen
+          name="T6bisGestion"
+          component={T6bisGestion}
+          options={{headerShown: false}}
+        />
+        {/* Module T6bis end*/}
       </Drawer.Navigator>
     );
   }

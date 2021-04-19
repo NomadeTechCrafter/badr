@@ -1,0 +1,44 @@
+{
+  "dtoHeader": {
+    "userLogin": "YAMAGENT",
+    "fonctionnalite": "cf4011",
+    "module": "DED_LIB",
+    "commande": "ded.recupererListeDeclarationsCouplees",
+    "typeService": "SP",
+    "motif": null,
+    "messagesInfo": null,
+    "messagesErreur": null
+  },
+  "jsonVO": [
+    {
+      "strTypeDeclaration": "",
+      "strDecCodeBureau": "",
+      "strDecCodeRegime": "",
+      "strDecAnnee": "",
+      "strDecNumeroEnregistrement": "309-022-2017-0002696-Z",
+      "strDecCle": "",
+      "numLot": "",
+      "strReferenceLot": "",
+      "strLotCodeLieuChargement": "",
+      "strLotDescriptionLieuChargement": "",
+      "numeroLot": "",
+      "idLot": "",
+      "identifiantDS": "",
+      "typeVersion": "",
+      "strCodeBureau": "",
+      "strCodeRegime": "",
+      "strAnnee": "",
+      "strNumeroEnregistrement": "",
+      "strCle": "",
+      "descriptionModeTransport": "",
+      "descriptionTypeDS": "",
+      "strApurementCodeBureau": "",
+      "apurementAnneeApurement": null,
+      "apumentNumeroSerieApurement": null,
+      "poidsLot": null,
+      "annule": "Non",
+      "moyenTransport": null,
+      "dateArrivee": null
+    }
+  ]
+}

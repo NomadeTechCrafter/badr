@@ -94,8 +94,21 @@ class ComBadrAutoCompleteChipsComp extends Component {
     return params;
   };
 
-  clearInput = () => {
-    this.setState({selected: {}});
+  valueinput = () => {
+    if (!_.isEmpty(this.props.selected) && !this.state.edited) {
+      // chargement avec une valeur dans le props
+      return this.props.selected;
+    } else if (
+      // dans le cas du suppression du props
+      _.isEmpty(this.props.selected) &&
+      !_.isEmpty(this.state.selected[this.props.libelle])
+    ) {
+      return '';
+    } else {
+      return this.state.selected[
+        this.props.libelle ? this.props.libelle : 'libelle'
+      ];
+    }
   };
 
   render() {
@@ -111,7 +124,7 @@ class ComBadrAutoCompleteChipsComp extends Component {
               mode="flat"
               label={this.props.placeholder}
               value={
-                !_.isEmpty(this.props.selected) && !this.state.edited
+                this.props.selected && !this.state.edited
                   ? this.props.selected
                   : this.state.selected[
                       this.props.libelle ? this.props.libelle : 'libelle'
@@ -136,11 +149,7 @@ class ComBadrAutoCompleteChipsComp extends Component {
                   ? this.props.placeholder
                   : 'Rechercher...'
               }
-              value={
-                this.props.selected && !this.state.edited
-                  ? this.props.selected
-                  : this.state.selected[this.props.libelle]
-              }
+              value={this.valueinput()}
               onChangeText={(text) => this.handleChangeInput(text)}
             />
           </View>

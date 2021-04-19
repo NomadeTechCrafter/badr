@@ -1,0 +1,23 @@
+{
+  "dtoHeader": {
+    "userLogin": "AD6202",
+    "fonctionnalite": "cf110002",
+    "module": "REF_LIB",
+    "commande": "getListRubriqueMtmTaxationGlobale",
+    "typeService": "SP",
+    "offset": 0,
+    "pageSize": 0,
+    "rowCount": 0
+  },
+  "jsonVO": [
+    {
+      "code": "002901",
+      "libelle": "TAXE MAGASINAGE(002901)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    }
+  ]
+}

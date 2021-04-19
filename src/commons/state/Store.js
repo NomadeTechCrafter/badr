@@ -39,6 +39,10 @@ import ctrlReconnaissanceReducer from '../../modules/controle/reconnaissance/sta
 import enqCompteRenduReducer from '../../modules/enquetes/compteRendu/state/reducers/enqCompteRenduReducer';
 import ctrlControleApresScannerReducer from '../../modules/controle/controleApresScanner/state/reducers/ctrlControleApresScannerReducer';
 
+import t6bisCreationReducer from '../../modules/t6bis/creation/state/reducers/t6bisCreationReducer';
+import t6bisGestionReducer from '../../modules/t6bis/gestion/state/reducers/t6bisGestionReducer';
+import t6bisRechercheReducer from '../../modules/t6bis/recherche/state/reducers/t6bisRechercheReducer';
+
 import crudDatatableReducer from '../state/reducers/ComCrudDataTableReducer';
 
 import enteteReducer from '../../old/redux/reducers/actifs/rapport/creation/entete';
@@ -104,6 +108,9 @@ const allReducers = combineReducers({
   vuEmbInitReducer,
   vuEmbReducer,
   vuEmbRefVH,
+  t6bisCreationReducer,
+  t6bisGestionReducer,
+  t6bisRechercheReducer,
   consultationBLSReducer,
 });
 /**

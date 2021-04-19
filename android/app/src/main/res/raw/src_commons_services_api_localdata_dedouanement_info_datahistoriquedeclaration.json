@@ -1,0 +1,276 @@
+{
+  "dtoHeader": {
+    "userLogin": "YAMAGENT",
+    "fonctionnalite": "cf4011",
+    "module": "DED_LIB",
+    "commande": "ded.recupererHistoriqueDeclaration",
+    "typeService": "SP",
+    "motif": null,
+    "messagesInfo": null,
+    "messagesErreur": null
+  },
+  "jsonVO": [
+    {
+      "date": "22/08/2017 14:21",
+      "ver": "1",
+      "intervention": "Création",
+      "etatResultat": "Créée Provisoire",
+      "utilisateur": "BE841977",
+      "commentaire": "",
+      "idPourRecherche": "0"
+    },
+    {
+      "date": "22/08/2017 14:21",
+      "ver": "0",
+      "intervention": "Création",
+      "etatResultat": "Créée Provisoire",
+      "utilisateur": "BE841977",
+      "commentaire": "",
+      "idPourRecherche": "0"
+    },
+    {
+      "date": "22/08/2017 14:21",
+      "ver": "0",
+      "intervention": "Création",
+      "etatResultat": "Créée Provisoire",
+      "utilisateur": "BE841977",
+      "commentaire": "",
+      "idPourRecherche": "0"
+    },
+    {
+      "date": "22/08/2017 14:21",
+      "ver": "0",
+      "intervention": "Création",
+      "etatResultat": "Créée Provisoire",
+      "utilisateur": "BE841977",
+      "commentaire": "",
+      "idPourRecherche": "0"
+    },
+
+    {
+      "date": "22/08/2017 14:21",
+      "ver": "0",
+      "intervention": "Création",
+      "etatResultat": "Créée Provisoire",
+      "utilisateur": "BE841977",
+      "commentaire": "",
+      "idPourRecherche": "0"
+    },
+    {
+      "date": "22/08/2017 14:21",
+      "ver": "0",
+      "intervention": "Création",
+      "etatResultat": "Créée Provisoire",
+      "utilisateur": "BE841977",
+      "commentaire": "",
+      "idPourRecherche": "0"
+    },
+    {
+      "date": "22/08/2017 14:21",
+      "ver": "0",
+      "intervention": "Création",
+      "etatResultat": "Créée Provisoire",
+      "utilisateur": "BE841977",
+      "commentaire": "",
+      "idPourRecherche": "0"
+    },
+    {
+      "date": "22/08/2017 14:21",
+      "ver": "0",
+      "intervention": "Création",
+      "etatResultat": "Créée Provisoire",
+      "utilisateur": "BE841977",
+      "commentaire": "",
+      "idPourRecherche": "0"
+    },
+    {
+      "date": "22/08/2017 14:21",
+      "ver": "0",
+      "intervention": "Création",
+      "etatResultat": "Créée Provisoire",
+      "utilisateur": "BE841977",
+      "commentaire": "",
+      "idPourRecherche": "0"
+    },
+    {
+      "date": "22/08/2017 14:21",
+      "ver": "1",
+      "intervention": "Création",
+      "etatResultat": "Créée Provisoire",
+      "utilisateur": "BE841977",
+      "commentaire": "",
+      "idPourRecherche": "0"
+    },
+    {
+      "date": "22/08/2017 14:21",
+      "ver": "2",
+      "intervention": "Validation",
+      "etatResultat": "Validée",
+      "utilisateur": "BE841977",
+      "commentaire": "",
+      "idPourRecherche": "0"
+    },
+    {
+      "date": "22/08/2017 14:21",
+      "ver": "0",
+      "intervention": "Modification",
+      "etatResultat": "Créée Provisoire",
+      "utilisateur": "BE841977",
+      "commentaire": "",
+      "idPourRecherche": "0"
+    },
+    {
+      "date": "22/08/2017 14:21",
+      "ver": "0",
+      "intervention": "Validation",
+      "etatResultat": "Validée",
+      "utilisateur": "BE841977",
+      "commentaire": "",
+      "idPourRecherche": "0"
+    },
+    {
+      "date": "22/08/2017 14:21",
+      "ver": "0",
+      "intervention": "Enregistrement",
+      "etatResultat": "Enregistrée, acceptée",
+      "utilisateur": "BE841977",
+      "commentaire": "",
+      "idPourRecherche": "0"
+    },
+    {
+      "date": "22/08/2017 14:21",
+      "ver": "0",
+      "intervention": "Sélectivité Immédiate",
+      "etatResultat": "Enregistrée, acceptée",
+      "utilisateur": "AMR",
+      "commentaire": "Selectivité automatique: décision = TR null",
+      "idPourRecherche": "0"
+    },
+    {
+      "date": "28/08/2017 00:05",
+      "ver": "0",
+      "intervention": "Liquidation Automatique RI Périodique",
+      "etatResultat": "Enregistrée, acceptée",
+      "utilisateur": "SYSACTOR",
+      "commentaire": "Liquidation par Batch le 28/08/2017",
+      "idPourRecherche": "0"
+    },
+    {
+      "date": "22/08/2017 14:21",
+      "ver": "0",
+      "intervention": "Création",
+      "etatResultat": "Créée Provisoire",
+      "utilisateur": "BE841977",
+      "commentaire": "",
+      "idPourRecherche": "0"
+    },
+    {
+      "date": "22/08/2017 14:21",
+      "ver": "0",
+      "intervention": "Création",
+      "etatResultat": "Créée Provisoire",
+      "utilisateur": "BE841977",
+      "commentaire": "",
+      "idPourRecherche": "0"
+    },
+    {
+      "date": "22/08/2017 14:21",
+      "ver": "0",
+      "intervention": "Création",
+      "etatResultat": "Créée Provisoire",
+      "utilisateur": "BE841977",
+      "commentaire": "",
+      "idPourRecherche": "0"
+    },
+    {
+      "date": "22/08/2017 14:21",
+      "ver": "2",
+      "intervention": "Création",
+      "etatResultat": "Créée Provisoire",
+      "utilisateur": "BE841977",
+      "commentaire": "",
+      "idPourRecherche": "0"
+    },
+    {
+      "date": "22/08/2017 14:21",
+      "ver": "3",
+      "intervention": "Création",
+      "etatResultat": "Créée Provisoire",
+      "utilisateur": "BE841977",
+      "commentaire": "",
+      "idPourRecherche": "0"
+    },
+    {
+      "date": "22/08/2017 14:21",
+      "ver": "0",
+      "intervention": "Création",
+      "etatResultat": "Créée Provisoire",
+      "utilisateur": "BE841977",
+      "commentaire": "",
+      "idPourRecherche": "0"
+    },
+    {
+      "date": "22/08/2017 14:21",
+      "ver": "0",
+      "intervention": "Création",
+      "etatResultat": "Créée Provisoire",
+      "utilisateur": "BE841977",
+      "commentaire": "",
+      "idPourRecherche": "0"
+    },
+    {
+      "date": "22/08/2017 14:21",
+      "ver": "0",
+      "intervention": "Validation",
+      "etatResultat": "Validée",
+      "utilisateur": "BE841977",
+      "commentaire": "",
+      "idPourRecherche": "0"
+    },
+    {
+      "date": "22/08/2017 14:21",
+      "ver": "0",
+      "intervention": "Modification",
+      "etatResultat": "Créée Provisoire",
+      "utilisateur": "BE841977",
+      "commentaire": "",
+      "idPourRecherche": "0"
+    },
+    {
+      "date": "22/08/2017 14:21",
+      "ver": "0",
+      "intervention": "Validation",
+      "etatResultat": "Validée",
+      "utilisateur": "BE841977",
+      "commentaire": "",
+      "idPourRecherche": "0"
+    },
+    {
+      "date": "22/08/2017 14:21",
+      "ver": "0",
+      "intervention": "Enregistrement",
+      "etatResultat": "Enregistrée, acceptée",
+      "utilisateur": "BE841977",
+      "commentaire": "",
+      "idPourRecherche": "0"
+    },
+    {
+      "date": "22/08/2017 14:21",
+      "ver": "0",
+      "intervention": "Sélectivité Immédiate",
+      "etatResultat": "Enregistrée, acceptée",
+      "utilisateur": "AMR",
+      "commentaire": "Selectivité automatique: décision = TR null",
+      "idPourRecherche": "0"
+    },
+    {
+      "date": "28/08/2017 00:05",
+      "ver": "3",
+      "intervention": "Liquidation Automatique RI Périodique",
+      "etatResultat": "Enregistrée, acceptée",
+      "utilisateur": "SYSACTOR",
+      "commentaire": "Liquidation par Batch le 28/08/2017",
+      "idPourRecherche": "0"
+    }
+  ]
+}

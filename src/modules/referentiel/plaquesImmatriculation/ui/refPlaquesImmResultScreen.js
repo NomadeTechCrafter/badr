@@ -129,7 +129,7 @@ class PlaquesImmatriculationResult extends React.Component {
                       }
                     />
                     <DataTable.Cell style={style.datatableTitle}>
-                      {item.proprietaireNom} {item.proprietaireNom} {'('}{' '}
+                      {item.proprietaireNom} {item.proprietairePrenom} {'('}{' '}
                       {item.proprietaireNumeroIdentifiant} {')'}
                     </DataTable.Cell>
                     <DataTable.Cell

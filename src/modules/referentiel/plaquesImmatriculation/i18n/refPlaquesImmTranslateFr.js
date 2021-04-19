@@ -16,7 +16,7 @@ export default {
     searchByNumChassis: 'Par numéro de chassis',
     searchByNumImmNormal: "Par numéro d'immatriculation NORMALE",
     searchByNumImmDiplo: "Par numéro d'immatriculation DIPLOMATIQUE",
-    searchByNumImmRemorque: 'Par numéro dimmatriculation REMORQUE',
+    searchByNumImmRemorque: "Par numéro d'immatriculation REMORQUE",
     searchByIdentitePropr: 'Par identité du propriétaire',
     searchMandatoryFields: 'Merci de saisir au moins un critère de recherche.',
   },
