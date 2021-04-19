@@ -28,6 +28,9 @@ const value = {
 
 const style = {
   container: { width: '100%', height: '100%' },
+  centre: {
+    alignSelf: 'center',
+  },
   buttonIcon: { margin: 10, marginTop: 40 },
 
   referenceCardInfo: {

@@ -1,8 +1,9 @@
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
-import { Dimensions, ScrollView, View } from 'react-native';
+import { View } from 'react-native';
 import EtatChargementDeclarationDetail from './pecEtatChargementDeclarationDetail';
+import EtatChargementEntete from './pecEtatChargementEntete';
 
 /**Custom Components */
 /** REDUX **/
@@ -17,8 +18,8 @@ function declarationDetail({ route, navigation }) {
     return <EtatChargementDeclarationDetail navigation={navigation} route={route} />;
 }
 
-function Tab2({ route, navigation }) {
-    return <EtatChargementDeclarationDetail navigation={navigation} route={route} />;
+function enteteEtatChargement({ route, navigation }) {
+    return <EtatChargementEntete navigation={navigation} route={route} />;
 }
 
 function Tab3({ route, navigation }) {
@@ -71,7 +72,8 @@ class PecEtatChargementResultScreen extends React.Component {
                                 borderColor: primaryColor,
                             },
                         }}>
-                        <Tab.Screen name={translate('etatChargement.enteteEtatChargement')} component={declarationDetail} />
+                        <Tab.Screen name={translate('etatChargement.enteteEtatChargement')} component={enteteEtatChargement} />
+                        <Tab.Screen name={translate('etatChargement.declarationDetail')} component={declarationDetail} />
                         {/* <Tab.Screen name={translate('etatChargement.declarationDetail')} component={declarationDetail} />
                         <Tab.Screen name={translate('etatChargement.marchandisesAutresDocuments')} component={declarationDetail} />
                         <Tab.Screen name={translate('etatChargement.ecorage')} component={declarationDetail} />
