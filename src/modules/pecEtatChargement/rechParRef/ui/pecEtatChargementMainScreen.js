@@ -18,6 +18,7 @@ import EtatChargementSearch from './pecEtatChargementSearchScreen';
 import EtatChargementResult from './pecEtatChargementResultScreen';
 const Tab = createMaterialTopTabNavigator();
 
+
 /** CONSTANTS **/
 function ResultScreen({ route, navigation }) {
   return <EtatChargementResult navigation={navigation} route={route} />;
@@ -47,19 +48,21 @@ class PecEtatChargementMainScreen extends React.Component {
           <Tab.Navigator
             initialLayout={{ height: Dimensions.get('window').height }}
             swipeEnabled={false}
-            tabBarOptions={{
-              labelStyle: { fontSize: 16, fontWeight: 'bold' },
-              showLabel: true,
-              allowFontScaling: true,
-              activeBackgroundColor: primaryColor,
-              activeTintColor: primaryColor,
-              inactiveTintColor: 'gray',
-              indicatorStyle: {
-                backgroundColor: primaryColor,
-                borderWidth: 2.5,
-                borderColor: primaryColor,
-              },
-            }}>
+            tabBarOptions={
+              {
+                labelStyle: { fontSize: 16, fontWeight: 'bold' },
+                showLabel: true,
+                allowFontScaling: true,
+                activeBackgroundColor: primaryColor,
+                activeTintColor: primaryColor,
+                inactiveTintColor: 'gray',
+                indicatorStyle: {
+                  backgroundColor: primaryColor,
+                  borderWidth: 2.5,
+                  borderColor: primaryColor,
+                },
+              }
+            }>
             <Tab.Screen name="Recherche" component={SearchScreen} />
             <Tab.Screen name="Resultat" component={ResultScreen} />
           </Tab.Navigator>

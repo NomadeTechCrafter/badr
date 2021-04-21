@@ -90,7 +90,7 @@ const style = {
     flexDirection: 'row',
   },
   flexDirectionCol: {
-    flexDirection: 'col',
+    flexDirection: 'column',
   },
   margtb: {
       marginBottom: 10,
@@ -111,6 +111,8 @@ const style = {
     padding: 0,
     margin: 10,
   },
+  nombreResult: { margin: 20, marginVertical: 10, ...value },
+  libelle: { ...libelle },
 };
 
 

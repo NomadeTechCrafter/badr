@@ -110,7 +110,7 @@ class EtatChargementDeclarationDetail extends React.Component {
                             <Accordion
                                 badr
                                 title={translate('etatChargement.declarationDetail')}
-                                expanded>
+                                >
                                 <ComBasicDataTableComp
                                     badr
                                     onRef={(ref) => (this.badrComposantsTable = ref)}
@@ -129,119 +129,124 @@ class EtatChargementDeclarationDetail extends React.Component {
                                     paginate={true}
                                 />
                                 {this.state.selectedDum && (
-                                    <CardBox style={styles.cardBoxInfoDum}>
-                                        <View style={[styles.flexDirectionRow, styles.margtb]}>
-                                            <Text style={styles.libelleL}>
-                                                {translate('etatChargement.refDeD')}
-                                            </Text>
-                                            <Text style={styles.libelleM}>
-                                                {translate('transverse.bureau')}
-                                            </Text>
-                                            <Text style={styles.libelleM}>
-                                                {translate('transverse.regime')}
-                                            </Text>
-                                            <Text style={styles.libelleM}>
-                                                {translate('transverse.annee')}
-                                            </Text>
-                                            <Text style={styles.libelleM}>
-                                                {translate('transverse.serie')}
-                                            </Text>
-                                            <Text style={styles.libelleM}>{translate('transverse.cle')}</Text>
-                                            <Text style={styles.libelleL}>{translate('etatChargement.numeroVoyage')}</Text>
-                                        </View>
-                                        <View style={[styles.flexDirectionRow, styles.margtb]}>
-                                            <Text style={styles.valueL}>
-                                            </Text>
-                                            <Text style={styles.valueM}>
-                                                {this.state.selectedDum.refDeclarationEnDouane?.referenceEnregistrement?.slice(0, 3)}
-                                            </Text>
-                                            <Text style={styles.valueM}>
-                                                {this.state.selectedDum.refDeclarationEnDouane?.referenceEnregistrement?.slice(3, 6)}
-                                            </Text>
-                                            <Text style={styles.valueM}>
-                                                {this.state.selectedDum.refDeclarationEnDouane?.referenceEnregistrement?.slice(6, 10)}
-                                            </Text>
-                                            <Text style={styles.valueM}>
-                                                {this.state.selectedDum.refDeclarationEnDouane?.referenceEnregistrement?.slice(10, 17)}
-                                            </Text>
-                                            <Text style={styles.valueM}>
-                                                {this.cleDUM(
-                                                    this.state.selectedDum?.refDeclarationEnDouane?.referenceEnregistrement?.slice(3, 6),
-                                                    this.state.selectedDum?.refDeclarationEnDouane?.referenceEnregistrement?.slice(10, 17),
-                                                )}
-                                            </Text>
-                                            <Text style={styles.libelleL}>
-                                                {refDedServices?.numeroVoyage}
-                                            </Text>
-                                        </View>
-                                        <View style={[styles.flexDirectionRow, styles.margtb]}>
-                                            <Text style={styles.libelleS}>
-                                                {translate('etatChargement.dumAnnexee')}
-                                            </Text>
-                                            <Text style={styles.libelleS}>
-                                                {translate('etatChargement.natureMarch')}
-                                            </Text>
-                                            <Text style={styles.valueS}>
-                                                {this.state.selectedDum.natureMarchandises}
-                                            </Text>
-                                        </View>
-                                        <View style={[styles.flexDirectionCol, styles.margtb]}>
+                                    <Accordion
+                                        badr
+                                        title={translate('etatChargement.ligne')}
+                                        expanded>
+                                        <CardBox style={styles.cardBoxInfoDum}>
                                             <View style={[styles.flexDirectionRow, styles.margtb]}>
-                                                <Text style={styles.libelleM}>
-                                                    {translate('etatChargement.typeDeD')}
-                                                </Text>
-                                                <Text style={styles.valueM}>
-                                                    {refDedServices?.libelleTypeDED}
+                                                <Text style={styles.libelleL}>
+                                                    {translate('etatChargement.refDeD')}
                                                 </Text>
                                                 <Text style={styles.libelleM}>
-                                                    {translate('etatChargement.dateEnregistrement')}
+                                                    {translate('transverse.bureau')}
+                                                </Text>
+                                                <Text style={styles.libelleM}>
+                                                    {translate('transverse.regime')}
+                                                </Text>
+                                                <Text style={styles.libelleM}>
+                                                    {translate('transverse.annee')}
+                                                </Text>
+                                                <Text style={styles.libelleM}>
+                                                    {translate('transverse.serie')}
+                                                </Text>
+                                                <Text style={styles.libelleM}>{translate('transverse.cle')}</Text>
+                                                <Text style={styles.libelleL}>{translate('etatChargement.numeroVoyage')}</Text>
+                                            </View>
+                                            <View style={[styles.flexDirectionRow, styles.margtb]}>
+                                                <Text style={styles.valueL}>
                                                 </Text>
                                                 <Text style={styles.valueM}>
-                                                    {refDedServices?.dateEnregistrement}
+                                                    {this.state.selectedDum.refDeclarationEnDouane?.referenceEnregistrement?.slice(0, 3)}
+                                                </Text>
+                                                <Text style={styles.valueM}>
+                                                    {this.state.selectedDum.refDeclarationEnDouane?.referenceEnregistrement?.slice(3, 6)}
+                                                </Text>
+                                                <Text style={styles.valueM}>
+                                                    {this.state.selectedDum.refDeclarationEnDouane?.referenceEnregistrement?.slice(6, 10)}
+                                                </Text>
+                                                <Text style={styles.valueM}>
+                                                    {this.state.selectedDum.refDeclarationEnDouane?.referenceEnregistrement?.slice(10, 17)}
+                                                </Text>
+                                                <Text style={styles.valueM}>
+                                                    {this.cleDUM(
+                                                        this.state.selectedDum?.refDeclarationEnDouane?.referenceEnregistrement?.slice(3, 6),
+                                                        this.state.selectedDum?.refDeclarationEnDouane?.referenceEnregistrement?.slice(10, 17),
+                                                    )}
+                                                </Text>
+                                                <Text style={styles.libelleL}>
+                                                    {refDedServices?.numeroVoyage}
                                                 </Text>
                                             </View>
                                             <View style={[styles.flexDirectionRow, styles.margtb]}>
-                                                <Text style={styles.libelleM}>
-                                                    {translate('etatChargement.exportateur')}
+                                                <Text style={styles.libelleS}>
+                                                    {translate('etatChargement.dumAnnexee')}
                                                 </Text>
-                                                <Text style={styles.valueM}>
-                                                    {refDedServices?.operateurImportateurExportateur}
+                                                <Text style={styles.libelleS}>
+                                                    {translate('etatChargement.natureMarch')}
                                                 </Text>
-                                                <Text style={styles.libelleM}>
-                                                </Text>
-                                                <Text style={styles.valueM}>
-                                                </Text>
-                                            </View>
-                                            <View style={[styles.flexDirectionRow, styles.margtb]}>
-                                                <Text style={styles.libelleM}>
-                                                    {translate('etatChargement.poidsBrut')}
-                                                </Text>
-                                                <Text style={styles.valueM}>
-                                                    {refDedServices?.poidsBruts}
-                                                </Text>
-                                                <Text style={styles.libelleM}>
-                                                    {translate('etatChargement.poidsNet')}
-                                                </Text>
-                                                <Text style={styles.valueM}>
-                                                    {refDedServices?.poidsNet}
+                                                <Text style={styles.valueS}>
+                                                    {this.state.selectedDum.natureMarchandises}
                                                 </Text>
                                             </View>
-                                            <View style={[styles.flexDirectionRow, styles.margtb]}>
-                                                <Text style={styles.libelleM}>
-                                                    {translate('etatChargement.valDeclaree')}
-                                                </Text>
-                                                <Text style={styles.valueM}>
-                                                    {refDedServices?.valeurDeclaree}
-                                                </Text>
-                                                <Text style={styles.libelleM}>
-                                                    {translate('etatChargement.nbreContenant')}
-                                                </Text>
-                                                <Text style={styles.valueM}>
-                                                    {refDedServices?.nombreContenants}
-                                                </Text>
+                                            <View style={[styles.flexDirectionCol, styles.margtb]}>
+                                                <View style={[styles.flexDirectionRow, styles.margtb]}>
+                                                    <Text style={styles.libelleM}>
+                                                        {translate('etatChargement.typeDeD')}
+                                                    </Text>
+                                                    <Text style={styles.valueM}>
+                                                        {refDedServices?.libelleTypeDED}
+                                                    </Text>
+                                                    <Text style={styles.libelleM}>
+                                                        {translate('etatChargement.dateEnregistrement')}
+                                                    </Text>
+                                                    <Text style={styles.valueM}>
+                                                        {refDedServices?.dateEnregistrement}
+                                                    </Text>
+                                                </View>
+                                                <View style={[styles.flexDirectionRow, styles.margtb]}>
+                                                    <Text style={styles.libelleM}>
+                                                        {translate('etatChargement.exportateur')}
+                                                    </Text>
+                                                    <Text style={styles.valueM}>
+                                                        {refDedServices?.operateurImportateurExportateur}
+                                                    </Text>
+                                                    <Text style={styles.libelleM}>
+                                                    </Text>
+                                                    <Text style={styles.valueM}>
+                                                    </Text>
+                                                </View>
+                                                <View style={[styles.flexDirectionRow, styles.margtb]}>
+                                                    <Text style={styles.libelleM}>
+                                                        {translate('etatChargement.poidsBrut')}
+                                                    </Text>
+                                                    <Text style={styles.valueM}>
+                                                        {refDedServices?.poidsBruts}
+                                                    </Text>
+                                                    <Text style={styles.libelleM}>
+                                                        {translate('etatChargement.poidsNet')}
+                                                    </Text>
+                                                    <Text style={styles.valueM}>
+                                                        {refDedServices?.poidsNet}
+                                                    </Text>
+                                                </View>
+                                                <View style={[styles.flexDirectionRow, styles.margtb]}>
+                                                    <Text style={styles.libelleM}>
+                                                        {translate('etatChargement.valDeclaree')}
+                                                    </Text>
+                                                    <Text style={styles.valueM}>
+                                                        {refDedServices?.valeurDeclaree}
+                                                    </Text>
+                                                    <Text style={styles.libelleM}>
+                                                        {translate('etatChargement.nbreContenant')}
+                                                    </Text>
+                                                    <Text style={styles.valueM}>
+                                                        {refDedServices?.nombreContenants}
+                                                    </Text>
+                                                </View>
                                             </View>
-                                        </View>
-                                    </CardBox>
+                                        </CardBox>
+                                    </Accordion>
                                 )}
                             </Accordion>
                         </CardBox>

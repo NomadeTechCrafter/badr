@@ -15,15 +15,26 @@
             "libelle": "Enregistree",
             "defaultConverter": {}
         },
+        "refActeurInterne": {
+            "idActeur": "TESTAG1",
+            "nom": "nom testag1",
+            "prenom": "prenom testag1",
+            "refBureau": {
+                "codeBureau": "309",
+                "nomBureauDouane": "Casa port (309)",
+                "defaultConverter": {}
+            },
+            "defaultConverter": {}
+        },
         "refModeAcquisition": {
             "codeModeAcquisition": "01",
             "libelle": "Interactif",
             "defaultConverter": {}
         },
         "refDeclarant": {
-            "codeDeclarant": "DECLYAS",
-            "nom": "DELARANT SGHIR",
-            "prenom": "YASSINE",
+            "codeDeclarant": "TESTDECA",
+            "nom": "NOM TESTDECA",
+            "prenom": "PRENOM TESTDECA",
             "defaultConverter": {}
         },
         "refStatutVersion": {
@@ -33,10 +44,10 @@
         },
         "refMoyenTransportAEC": [
             {
-                "identifiantMoyenTransportAEC": "60789",
+                "identifiantMoyenTransportAEC": "60378",
                 "refTypeContenant": {
-                    "codeTypeContenant": "005",
-                    "intitule": "CONTENEUR",
+                    "codeTypeContenant": "254",
+                    "intitule": "CITERNE RECTANGULAIRE",
                     "defaultConverter": {}
                 },
                 "refPaysImmatriculation": {
@@ -44,33 +55,42 @@
                     "nomPays": "FRANCE",
                     "defaultConverter": {}
                 },
-                "numeroImmatriculation": "AAAA1234567",
-                "tareVehicule": "100.0",
-                "listScelleVOs": [],
-                "scelles": {},
-                "libelleNumeroSerie": "FRANCE<<>>CONTENEUR<<>>AAAA1234567<<>>100.0",
-                "codeNumeroSerie": "FR<<>>005<<>>AAAA1234567<<>>100.0",
+                "numeroImmatriculation": "3230",
+                "tareVehicule": "10.0",
+                "listScelleVOs": [
+                    {
+                        "reference": "36363636",
+                        "refOperateur": 35291,
+                        "descOperateur": "OP DECLARANT T12",
+                        "defaultConverter": {}
+                    }
+                ],
+                "scelles": {
+                    "36363636": "36363636"
+                },
+                "libelleNumeroSerie": "FRANCE<<>>CITERNE RECTANGULAIRE<<>>3230<<>>10.0",
+                "codeNumeroSerie": "FR<<>>254<<>>3230<<>>10.0",
                 "defaultConverter": {}
             }
         ],
-        "dateHeureCreation": "30/11/2020 19:19",
-        "dateHeureEnregistrement": "30/11/2020 19:19",
-        "numVoyage": "1234",
-        "dateHeureVoyage": "30/11/2020 21:00",
+        "dateHeureCreation": "09/07/2020 01:26",
+        "dateHeureEnregistrement": "09/07/2020 01:26",
+        "numVoyage": "1",
+        "dateHeureVoyage": "09/07/2020 12:00",
         "bureauSortie": {
             "codeBureau": "309",
             "nomBureauDouane": "Casa port (309)",
             "defaultConverter": {}
         },
         "transporteur": {
-            "identifiantOperateur": "1060",
-            "nomOperateur": "COMANAV",
+            "identifiantOperateur": "1114",
+            "nomOperateur": "TRANS WORLD KABEN",
             "agrementPSATC": "",
             "defaultConverter": {}
         },
         "navire": {
-            "codeMoyenTransport": "0007344",
-            "descriptionMoyenTransport": "CASABLANCA EXPRESS",
+            "codeMoyenTransport": "0010379",
+            "descriptionMoyenTransport": "NAVIGATOR MARS",
             "refModeTransport": {
                 "codeModeTransport": "01",
                 "descriptionModeTransport": "MARITIME",
@@ -79,15 +99,37 @@
             "defaultConverter": {}
         },
         "refEtatChargement": {
+            "refActeurInterneBAE": {
+                "idActeur": "AD6201",
+                "nom": "NOM",
+                "prenom": "PRENOM",
+                "refBureau": {
+                    "codeBureau": "309",
+                    "nomBureauDouane": "Casa port (309)",
+                    "defaultConverter": {}
+                },
+                "defaultConverter": {}
+            },
             "refModeTransport": {
                 "codeModeTransport": "01",
                 "descriptionModeTransport": "MARITIME",
                 "defaultConverter": {}
             },
             "refActeurInterneDepot": {
-                "idActeur": "SYSACTOR",
-                "nom": "Système",
-                "prenom": "Système",
+                "idActeur": "AD6201",
+                "nom": "NOM",
+                "prenom": "PRENOM",
+                "refBureau": {
+                    "codeBureau": "309",
+                    "nomBureauDouane": "Casa port (309)",
+                    "defaultConverter": {}
+                },
+                "defaultConverter": {}
+            },
+            "refActeurInterneVuEmbarquer": {
+                "idActeur": "AD6201",
+                "nom": "NOM",
+                "prenom": "PRENOM",
                 "refBureau": {
                     "codeBureau": "309",
                     "nomBureauDouane": "Casa port (309)",
@@ -96,9 +138,9 @@
                 "defaultConverter": {}
             },
             "transporteur": {
-                "identifiantOperateur": "16688",
-                "nomOperateur": "BABYTEX TEST",
-                "agrementPSATC": "222222",
+                "identifiantOperateur": "35291",
+                "nomOperateur": "OP DECLARANT T12",
+                "agrementPSATC": "",
                 "defaultConverter": {}
             },
             "refBureauDouane": {
@@ -107,20 +149,32 @@
                 "defaultConverter": {}
             },
             "regime": "001",
-            "dateHeureCreation": "30/11/2020 19:19",
-            "dateHeureEnregistrement": "30/11/2020 19:19",
+            "dateHeureCreation": "09/07/2020 01:26",
+            "dateHeureEnregistrement": "09/07/2020 01:26",
             "anneeCreation": "2020",
             "anneeEnregistrement": "2020",
-            "numeroSerieProvisoire": "0000095",
-            "numeroSerieEnregistrement": "0000063",
-            "dateHeureDepot": "30/11/2020 21:30",
-            "dateHeureBAE": "",
-            "nombreScelles": "",
+            "numeroSerieProvisoire": "0000060",
+            "numeroSerieEnregistrement": "0000033",
+            "dateHeureDepot": "09/07/2020 01:29",
+            "dateHeureBAE": "09/07/2020 01:30",
+            "nombreScelles": "0",
             "dateHeureVuEmbarquer": "",
+            "commentaireBonEmbarquement": "commentaire",
+            "refActeurInterneRecotation": {
+                "idActeur": "AD6201",
+                "nom": "NOM",
+                "prenom": "PRENOM",
+                "refBureau": {
+                    "codeBureau": "309",
+                    "nomBureauDouane": "Casa port (309)",
+                    "defaultConverter": {}
+                },
+                "defaultConverter": {}
+            },
             "refAgentCotation": {
-                "idActeur": "AD6209",
-                "nom": "AD6209",
-                "prenom": "AD6209",
+                "idActeur": "C427AG",
+                "nom": "test",
+                "prenom": "test",
                 "refBureau": {
                     "codeBureau": "309",
                     "nomBureauDouane": "Casa port (309)",
@@ -129,31 +183,82 @@
                 "defaultConverter": {}
             },
             "decisionSelectivite": "AC",
-            "imprimerBonAEmbarquer": false,
-            "refArrondissement": {
-                "libelle": "ARRONDISSEMENT I(309)",
-                "code": "309201",
+            "motifRecotation": "motif",
+            "refAgentRecotation": {
+                "idActeur": "AD6201",
+                "nom": "NOM",
+                "prenom": "PRENOM",
+                "refBureau": {
+                    "codeBureau": "309",
+                    "nomBureauDouane": "Casa port (309)",
+                    "defaultConverter": {}
+                },
                 "defaultConverter": {}
             },
-            "cle": "C",
+            "refArrondissementDepot": {
+                "libelle": "ARRONDISSEMENT II(309)",
+                "code": "309202",
+                "defaultConverter": {}
+            },
+            "refActeurInterneAnnulationVuEmbarquer": {
+                "idActeur": "AD6201",
+                "nom": "NOM",
+                "prenom": "PRENOM",
+                "refBureau": {
+                    "codeBureau": "309",
+                    "nomBureauDouane": "Casa port (309)",
+                    "defaultConverter": {}
+                },
+                "defaultConverter": {}
+            },
+            "imprimerBonAEmbarquer": false,
+            "refArrondissement": {
+                "libelle": "ARRONDISSEMENT II(309)",
+                "code": "309202",
+                "defaultConverter": {}
+            },
+            "cle": "R",
             "defaultConverter": {}
         },
-        "refMarchandisesSansDum": [],
+        "refMarchandisesSansDum": [
+            {
+                "document": "d2",
+                "refTypeDocument": {
+                    "codeDocument": "3",
+                    "nomDocument": "CARNET TIR",
+                    "defaultConverter": {}
+                },
+                "exportateur": {
+                    "identifiantOperateur": "35291",
+                    "nomOperateur": "OP DECLARANT T12",
+                    "agrementPSATC": "",
+                    "defaultConverter": {}
+                },
+                "poidsBrut": "1000.0",
+                "valeurDeclaree": "1000.000",
+                "nombreContenant": "1",
+                "typeModification": "I",
+                "numeroLigne": "",
+                "index": "",
+                "defaultConverter": {},
+                "marchandiseExist": false
+            }
+        ],
         "refDumEtatChargement": [
             {
                 "refDeclarationEnDouane": {
-                    "referenceEnregistrement": "30906020200000182",
-                    "indentifiant": "505008",
-                    "cle": "P",
+                    "referenceEnregistrement": "30906020200000108",
+                    "indentifiant": "208780",
+                    "cle": "J",
                     "defaultConverter": {}
                 },
                 "refDedServices": {
-                    "dateEnregistrement": "30/11/2020 18:39",
-                    "operateurImportateurExportateur": "BABYTEX TEST",
-                    "valeurDeclaree": "200.0",
-                    "poidsBruts": "250.0",
-                    "poidsNet": "200.0",
-                    "nombreContenants": "2",
+                    "dateEnregistrement": "09/07/2020 00:59",
+                    "operateurImportateurExportateur": "OP DECLARANT T12",
+                    "valeurDeclaree": "100000.0",
+                    "poidsBruts": "100000.0",
+                    "poidsNet": "100000.0",
+                    "nombreContenants": "1000",
                     "typeDeD": "DUM",
                     "libelleTypeDED": "DUM",
                     "numeroVoyage": "",
@@ -161,43 +266,13 @@
                 },
                 "typeModification": "A",
                 "annexee": "0",
-                "natureMarchandises": "AA",
-                "annexee_str": "false",
-                "isValide": "true",
-                "defaultConverter": {}
-            },
-            {
-                "refDeclarationEnDouane": {
-                    "referenceEnregistrement": "30906020200000183",
-                    "indentifiant": "505009",
-                    "cle": "R",
-                    "defaultConverter": {}
-                },
-                "refDedServices": {
-                    "dateEnregistrement": "30/11/2020 18:42",
-                    "operateurImportateurExportateur": "BABYTEX TEST",
-                    "valeurDeclaree": "200.0",
-                    "poidsBruts": "250.0",
-                    "poidsNet": "200.0",
-                    "nombreContenants": "2",
-                    "typeDeD": "DUM",
-                    "libelleTypeDED": "DUM",
-                    "numeroVoyage": "",
-                    "defaultConverter": {}
-                },
-                "typeModification": "A",
-                "annexee": "0",
-                "natureMarchandises": "BB",
+                "natureMarchandises": "nature",
                 "annexee_str": "false",
                 "isValide": "true",
                 "defaultConverter": {}
             }
         ],
-        "scellesConfirmationEntree": {
-            "33333332": "33333332",
-            "33333331": "33333331",
-            "33333330": "33333330"
-        },
+        "scellesConfirmationEntree": {},
         "typeVersion": "Courante",
         "numeroVersion": "0",
         "annotationVOs": [],

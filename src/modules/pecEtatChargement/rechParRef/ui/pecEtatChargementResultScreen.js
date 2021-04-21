@@ -1,9 +1,10 @@
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
-import { View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import EtatChargementDeclarationDetail from './pecEtatChargementDeclarationDetail';
 import EtatChargementEntete from './pecEtatChargementEntete';
+import EtatChargementMarchandisesAutresDocuments from './pecEtatChargementMarchandisesAutresDocuments';
 
 /**Custom Components */
 /** REDUX **/
@@ -22,13 +23,13 @@ function enteteEtatChargement({ route, navigation }) {
     return <EtatChargementEntete navigation={navigation} route={route} />;
 }
 
-function Tab3({ route, navigation }) {
-    return <EtatChargementDeclarationDetail navigation={navigation} route={route} />;
+function marchandisesAutresDocuments() {
+    return <EtatChargementMarchandisesAutresDocuments />;
 }
 
-function Tab4({ route, navigation }) {
-    return <EtatChargementDeclarationDetail navigation={navigation} route={route} />;
-}
+// function Tab4({ route, navigation }) {
+//     return <EtatChargementDeclarationDetail navigation={navigation} route={route} />;
+// }
 
 class PecEtatChargementResultScreen extends React.Component {
     constructor(props) {
@@ -74,10 +75,7 @@ class PecEtatChargementResultScreen extends React.Component {
                         }}>
                         <Tab.Screen name={translate('etatChargement.enteteEtatChargement')} component={enteteEtatChargement} />
                         <Tab.Screen name={translate('etatChargement.declarationDetail')} component={declarationDetail} />
-                        {/* <Tab.Screen name={translate('etatChargement.declarationDetail')} component={declarationDetail} />
-                        <Tab.Screen name={translate('etatChargement.marchandisesAutresDocuments')} component={declarationDetail} />
-                        <Tab.Screen name={translate('etatChargement.ecorage')} component={declarationDetail} />
-                        <Tab.Screen name={translate('etatChargement.infos')} component={declarationDetail} /> */}
+                        <Tab.Screen name={translate('etatChargement.marchandisesAutresDocuments')} component={marchandisesAutresDocuments} />
                     </Tab.Navigator>
                 </NavigationContainer>
             </View>

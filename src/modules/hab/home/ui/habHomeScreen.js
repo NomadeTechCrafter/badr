@@ -52,7 +52,6 @@ import * as GenericAction from '../../../../commons/state/actions/ComGenericActi
 /** Drawer navigation */
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import DedRedressementRecherche from '../../../dedouanement/redressement/ui/DedRechercheRedressementScreen';
-import DedRedressementEnteteScreen from '../../../dedouanement/redressement/ui/entete/DedRedressementEnteteScreen';
 import RefControleVehiculeMainScreen from '../../../referentiel/controleVehicules/ui/refControleVehiculeMainScreen';
 import RefPlaquesImmMainScreen from '../../../referentiel/plaquesImmatriculation/ui/refPlaquesImmMainScreen';
 import PecEtatChargementMainScreen from '../../../pecEtatChargement/rechParRef/ui/pecEtatChargementMainScreen';
@@ -298,6 +297,7 @@ class habHomeScreen extends React.Component {
           options={{headerShown: false}}
         />
         {/* Module T6bis end*/}
+        
         {/* Fonc RechParRef EtatChargement */}
         <Drawer.Screen
           name="PecEtatChargementMainScreen"
