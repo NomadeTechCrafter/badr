@@ -48,6 +48,7 @@ export default {
       dateHeureVoyage: 'Date Heure Voyage',
       navire: 'Navire',
       listeD17D20: 'Liste des D17/D20',
+      totaux: 'Totaux',
       nombreD17D20: 'Nombre des déclarations D17/D20:',
       choose_status: 'Choisissez un statut',
       numeroChassis: 'N° chassis',

@@ -86,6 +86,10 @@ const style = {
     ...value,
     flex: 3,
   },
+  valueXL: {
+    ...value,
+    flex: 5,
+  },
   flexDirectionRow: {
     flexDirection: 'row',
   },

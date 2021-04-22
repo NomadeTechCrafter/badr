@@ -10,6 +10,7 @@ import {
     ComBasicDataTableComp,
 } from '../../../../commons/component';
 import translate from "../../../../commons/i18n/ComI18nHelper";
+import { DataTable } from "react-native-paper";
 
 
 
@@ -101,6 +102,16 @@ class EtatChargementDeclarationDetail extends React.Component {
     render() {
         const listDeclarationDetail = this.props.data?.refDumEtatChargement;
         const refDedServices = this.state.selectedDum?.refDedServices;
+        let totauxNombreContenant = parseFloat(0);
+        listDeclarationDetail?.forEach(element => {
+            totauxNombreContenant += parseFloat(element?.refDedServices?.nombreContenants);
+        });
+        totauxNombreContenant = totauxNombreContenant.toFixed(1);
+        let totauxValeurDeclaree = parseFloat(0);
+        listDeclarationDetail?.forEach(element => {
+            totauxValeurDeclaree += parseFloat(element?.refDedServices?.valeurDeclaree);
+        });
+        totauxValeurDeclaree = totauxValeurDeclaree.toFixed(1);
         return (
             <View style={style.container}>
                 <ScrollView>
@@ -110,7 +121,7 @@ class EtatChargementDeclarationDetail extends React.Component {
                             <Accordion
                                 badr
                                 title={translate('etatChargement.declarationDetail')}
-                                >
+                            >
                                 <ComBasicDataTableComp
                                     badr
                                     onRef={(ref) => (this.badrComposantsTable = ref)}
@@ -128,6 +139,42 @@ class EtatChargementDeclarationDetail extends React.Component {
                                     maxResultsPerPage={5}
                                     paginate={true}
                                 />
+                                <View style={[styles.flexDirectionRow, styles.margtb]}>
+                                            <DataTable style={styles.table}>
+                                                <DataTable.Row>
+                                                    <DataTable.Cell style={{ width: 50 }}/>
+                                                    <DataTable.Cell
+                                                        style={{ width: 50 }}
+                                                        children={
+                                                            <Text style={styles.libelle}>
+                                                                {translate('etatChargement.totaux')}
+                                                            </Text>
+                                                        }
+                                                    />
+                                                    <DataTable.Cell style={{ width: 50 }}/>
+                                                    <DataTable.Cell
+                                                        style={{ width: 150 }}
+                                                        children={
+                                                            <Text style={styles.valueL}>
+                                                                {totauxNombreContenant}
+                                                            </Text>
+                                                        }
+                                                    />
+                                                    <DataTable.Cell style={{ width: 50 }}/>
+                                                    <DataTable.Cell style={{ width: 50 }}/>
+                                                    <DataTable.Cell style={{ width: 50 }}/>
+                                                    <DataTable.Cell
+                                                        style={{ width: 150 }}
+                                                        children={
+                                                            <Text style={styles.valueXL}>
+                                                                {totauxValeurDeclaree}
+                                                            </Text>
+                                                        }
+                                                    />
+                                                    <DataTable.Cell style={{ width: 50 }}/>
+                                                </DataTable.Row>
+                                            </DataTable>
+                                </View>
                                 {this.state.selectedDum && (
                                     <Accordion
                                         badr
