@@ -3,7 +3,9 @@ import ComHttpHelperApi from '../../../../../commons/services/api/common/ComHttp
 import { ComSessionService } from '../../../../../commons/services/session/ComSessionService';
 export default class PecEtatChargementApi {
     static consulterDumEtatChargement = async (rechercheObject) => {
+        console.log('============================================================');
         console.log(JSON.stringify(rechercheObject));
+        console.log('============================================================');
         const data = {
             dtoHeader: {
                 userLogin: ComSessionService.getInstance().getLogin(),
@@ -18,7 +20,9 @@ export default class PecEtatChargementApi {
             jsonVO:rechercheObject
         };
         let response = await ComHttpHelperApi.process(data);
+        console.log('============================================================');
         console.log(response);
+        console.log('============================================================');
         return response;
     };
 }

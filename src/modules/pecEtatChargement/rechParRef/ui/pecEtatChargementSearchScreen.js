@@ -67,7 +67,7 @@ class PecEtatChargementSearchScreen extends React.Component {
         if (reference && reference.length === 17) {
             let lValidCleDum = this.cleDum(reference);
             if (lValidCleDum === this.state.cle) {
-                let action = this.searchAction(reference);
+                let action = this.searchAction();
 
                 this.props.actions.dispatch(action);
             } else {
@@ -79,26 +79,16 @@ class PecEtatChargementSearchScreen extends React.Component {
         }
     };
 
-    searchAction = (reference) => {
+    searchAction = () => {
         let action = request(
             {
                 type: Constants.ETAT_CHARGEMENT_REQUEST,
                 value: {
-                    typeRecherche: '2',
-                    reference: reference,
-                    numeroVoyage: this.state.numeroVoyage,
-                    typeRechercheEtatChargement: this.state.typeRechercheEtatChargement,
-                    referenceDed: {
-                        codeBureauDouane: this.state.bureau,
-                        regime: this.state.regime,
-                        anneeEnregistrement: this.state.annee,
-                        numeroSerieEnregistrement: this.state.serie,
-                        numeroOrdreVoyage: this.state.numeroVoyage,
-                        cle: this.state.cle,
-                    },
-                    moyenTransport: this.state.moyenTransport,
-                    numeroImmatriculation: this.state.numeroImmatriculation,
-                    bureauAgentConnecte: ComSessionService.getInstance().getCodeBureau(),
+                    codeBureau: this.state.bureau,
+                    regime: this.state.regime,
+                    anneeEnregistrement: this.state.annee,
+                    numeroSerieEnregistrement: this.state.serie,
+                    cleIHM: this.state.cle,
                 },
             },
         );

@@ -274,7 +274,6 @@ class habHomeScreen extends React.Component {
           component={VuEmbarqueScreen}
           options={{headerShown: false}}
         />
-        PecEtatChargementMainScreen
         <Drawer.Screen
           name="VuEmbListeDeclaration"
           component={VuEmbListeDeclaration}

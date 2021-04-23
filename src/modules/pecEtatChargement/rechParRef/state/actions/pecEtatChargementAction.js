@@ -10,17 +10,7 @@ export function request(action) {
     return (dispatch) => {
         dispatch(action);
         dispatch(inProgress(action));
-        PecEtatChargementApi.consulterDumEtatChargement(
-            {
-                'typeRecherche': action.value.typeRecherche,
-                'reference': action.value.reference,
-                'numeroVoyage': action.value.numeroVoyage,
-                'typeRechercheEtatChargement': action.value.typeRechercheEtatChargement,
-                'referenceDed': action.value.referenceDed,
-                'moyenTransport': action.value.moyenTransport,
-                'numeroImmatriculation': action.value.numeroImmatriculation,
-                'bureauAgentConnecte': action.value.bureauAgentConnecte,
-            })
+        PecEtatChargementApi.consulterDumEtatChargement(action.value)
             .then((response) => {
                 if (response && response.data && response.data.jsonVO) {
                     dispatch(success(response.data.jsonVO));
