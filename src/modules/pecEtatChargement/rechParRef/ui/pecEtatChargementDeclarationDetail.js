@@ -30,6 +30,7 @@ class EtatChargementDeclarationDetail extends React.Component {
             this.selectedDum = {};
         }
     }
+    
     /**
    * This function build the components datatable headers labels and actions.
    * the reference is considered as the current component instance
@@ -78,9 +79,6 @@ class EtatChargementDeclarationDetail extends React.Component {
         this.setState({
             selectedDum: row,
         });
-        console.log('========================666664666===============================');
-        console.log(JSON.stringify(this.selectedDum));
-        console.log('========================666664666===============================');
     };
 
     cleDUM = function (regime, serie) {

@@ -28,10 +28,13 @@ const value = {
 
 const style = {
   container: { width: '100%', height: '100%' },
+  width90: { width: '90%', height: '70%'},
   centre: {
     alignSelf: 'center',
   },
   buttonIcon: { margin: 10, marginTop: 40 },
+  margtt: { margin: 10, marginTop: 60 },
+  margtr: {marginRight: 10 , marginTop: 0, marginBottom: 0},
 
   referenceCardInfo: {
     flexDirection: 'column',

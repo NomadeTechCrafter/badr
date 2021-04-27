@@ -1,10 +1,11 @@
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
-import { ScrollView, View } from 'react-native';
+import { View } from 'react-native';
 import EtatChargementDeclarationDetail from './pecEtatChargementDeclarationDetail';
 import EtatChargementEntete from './pecEtatChargementEntete';
 import EtatChargementMarchandisesAutresDocuments from './pecEtatChargementMarchandisesAutresDocuments';
+import EtatChargementEcorage from './pecEtatChargementEcorage';
 
 /**Custom Components */
 /** REDUX **/
@@ -27,9 +28,9 @@ function marchandisesAutresDocuments() {
     return <EtatChargementMarchandisesAutresDocuments />;
 }
 
-// function Tab4({ route, navigation }) {
-//     return <EtatChargementDeclarationDetail navigation={navigation} route={route} />;
-// }
+function ecorage({ route, navigation }) {
+    return <EtatChargementEcorage navigation={navigation} route={route} />;
+}
 
 class PecEtatChargementResultScreen extends React.Component {
     constructor(props) {
@@ -42,9 +43,6 @@ class PecEtatChargementResultScreen extends React.Component {
     }
 
     componentDidUpdate() {
-        //     console.log('-------------------------3-------------------------');
-        //     console.log(JSON.stringify(this.props));
-        //     console.log('--------------------------3------------------------');
         if (this.props.route.params.first) {
             // this.refs._badrTable.reset();
         }
@@ -76,6 +74,8 @@ class PecEtatChargementResultScreen extends React.Component {
                         <Tab.Screen name={translate('etatChargement.enteteEtatChargement')} component={enteteEtatChargement} />
                         <Tab.Screen name={translate('etatChargement.declarationDetail')} component={declarationDetail} />
                         <Tab.Screen name={translate('etatChargement.marchandisesAutresDocuments')} component={marchandisesAutresDocuments} />
+                        <Tab.Screen name={translate('etatChargement.ecorage')} component={ecorage} />
+                        
                     </Tab.Navigator>
                 </NavigationContainer>
             </View>
