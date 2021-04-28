@@ -14,7 +14,7 @@ import { DataTable, Checkbox } from "react-native-paper";
 
 
 
-class EtatChargementDeclarationDetail extends React.Component {
+class EtatChargementInfos extends React.Component {
     defaultState = {
         selectedDum: {},
     };
@@ -327,4 +327,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
-)(EtatChargementDeclarationDetail);
+)(EtatChargementInfos);

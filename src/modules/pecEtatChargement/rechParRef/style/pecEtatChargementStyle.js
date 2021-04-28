@@ -34,6 +34,7 @@ const style = {
   },
   buttonIcon: { margin: 10, marginTop: 40 },
   margtt: { margin: 10, marginTop: 60 },
+  marginTop8: { marginTop: 8},
   margtr: {marginRight: 10 , marginTop: 0, marginBottom: 0},
 
   referenceCardInfo: {

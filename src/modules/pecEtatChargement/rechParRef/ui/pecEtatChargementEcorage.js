@@ -67,13 +67,20 @@ class EtatChargementEcorage extends React.Component {
             newElement.refTypeContenant = element.refTypeContenant.intitule;
             newElement.numeroImmatriculation = element.numeroImmatriculation;
             newElement.tareVehicule = element.tareVehicule;
-            newElement.listScelles = element.listScelleVOs?.map(function(item) {
+            newElement.listScelles = element.listScelleVOs?.map(function (item) {
                 return item['reference'];
-              });;
+            });;
             newArray.push(newElement);
         });
 
         let etatChargement = this.props.data?.refEtatChargement;
+
+        let scellesConfirmationEntree = '';
+        const obj = this.props.data?.scellesConfirmationEntree;
+        for (const prop in obj) {
+            scellesConfirmationEntree += obj[prop] + '\n';
+        }
+
         return (
             <View style={style.container}>
                 <ScrollView>
@@ -116,7 +123,7 @@ class EtatChargementEcorage extends React.Component {
                                     <View style={[styles.flexDirectionCol, styles.margtb]}>
                                         <CardBox style={styles.cardBoxInfoDum}>
                                             <TextInput
-                                                value={this.props.data?.typeVersion}
+                                                value={scellesConfirmationEntree}
                                                 multiline={true}
                                                 numberOfLines={3}
                                                 disabled={true}

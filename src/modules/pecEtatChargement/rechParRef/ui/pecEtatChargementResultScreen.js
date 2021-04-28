@@ -6,6 +6,7 @@ import EtatChargementDeclarationDetail from './pecEtatChargementDeclarationDetai
 import EtatChargementEntete from './pecEtatChargementEntete';
 import EtatChargementMarchandisesAutresDocuments from './pecEtatChargementMarchandisesAutresDocuments';
 import EtatChargementEcorage from './pecEtatChargementEcorage';
+import EtatChargementInfos from './pecEtatChargementInfos'
 
 /**Custom Components */
 /** REDUX **/
@@ -30,6 +31,10 @@ function marchandisesAutresDocuments() {
 
 function ecorage({ route, navigation }) {
     return <EtatChargementEcorage navigation={navigation} route={route} />;
+}
+
+function infos({ route, navigation }) {
+    return <EtatChargementInfos navigation={navigation} route={route} />;
 }
 
 class PecEtatChargementResultScreen extends React.Component {
@@ -75,6 +80,7 @@ class PecEtatChargementResultScreen extends React.Component {
                         <Tab.Screen name={translate('etatChargement.declarationDetail')} component={declarationDetail} />
                         <Tab.Screen name={translate('etatChargement.marchandisesAutresDocuments')} component={marchandisesAutresDocuments} />
                         <Tab.Screen name={translate('etatChargement.ecorage')} component={ecorage} />
+                        <Tab.Screen name={translate('etatChargement.infos')} component={infos} />
                         
                     </Tab.Navigator>
                 </NavigationContainer>

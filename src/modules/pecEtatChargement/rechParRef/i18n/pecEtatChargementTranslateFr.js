@@ -1,7 +1,7 @@
 export default {
     etatChargement: {
-      title: 'Etat de Chargement',
-      subTitle: 'écran de recherche',
+      title: 'Réference Etat de Chargement',
+      subTitle: 'Filtres de recherche',
       enteteEtatChargement: 'Entête Etat de Chargement',
       declarationDetail: 'Déclaration en Détail',
       marchandisesAutresDocuments: 'Marchandises Autres Documents',
