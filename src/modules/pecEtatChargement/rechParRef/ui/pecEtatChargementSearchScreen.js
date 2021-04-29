@@ -17,8 +17,9 @@ import _ from 'lodash';
 
 import * as Constants from '../state/pecEtatChargementConstants';
 
-import { request } from '../state/actions/pecEtatChargementAction';
-import { ComSessionService } from '../../../../commons/services/session/ComSessionService';
+import EtatChargementAction from '../state/actions/pecEtatChargementAction';
+import HistEtatChargementAction from '../state/actions/pecHistoriqueEtatChargementAction';
+import VersionsEtatChargementAction from '../state/actions/pecVersionsEtatChargementAction';
 
 const initialState = {
     bureau: '309',
@@ -67,9 +68,13 @@ class PecEtatChargementSearchScreen extends React.Component {
         if (reference && reference.length === 17) {
             let lValidCleDum = this.cleDum(reference);
             if (lValidCleDum === this.state.cle) {
-                let action = this.searchAction();
+                const actionSearch = this.searchAction();
+                const actionHistorique = this.searchHistorique();
+                const actionVersions = this.searchVersions();
 
-                this.props.actions.dispatch(action);
+                this.props.actions.dispatch(actionSearch);
+                this.props.actions.dispatch(actionHistorique);
+                this.props.actions.dispatch(actionVersions);
             } else {
                 this.setState({
                     ...this.state,
@@ -80,7 +85,7 @@ class PecEtatChargementSearchScreen extends React.Component {
     };
 
     searchAction = () => {
-        let action = request(
+        let action = EtatChargementAction.request(
             {
                 type: Constants.ETAT_CHARGEMENT_REQUEST,
                 value: {
@@ -89,6 +94,46 @@ class PecEtatChargementSearchScreen extends React.Component {
                     anneeEnregistrement: this.state.annee,
                     numeroSerieEnregistrement: this.state.serie,
                     cleIHM: this.state.cle,
+                },
+            },
+        );
+
+        this.props.navigation.navigate('Resultat', {
+            login: this.state.login,
+            first: true,
+        });
+        return action
+    };
+
+    searchHistorique = () => {
+        let action = HistEtatChargementAction.request(
+            {
+                type: Constants.HISTORIQUE_ETAT_CHARGEMENT_REQUEST,
+                value: {
+                    bureau: this.state.bureau,
+                    regime: this.state.regime,
+                    annee: this.state.annee,
+                    serie: this.state.serie,
+                },
+            },
+        );
+
+        this.props.navigation.navigate('Resultat', {
+            login: this.state.login,
+            first: true,
+        });
+        return action
+    };
+
+    searchVersions = () => {
+        let action = VersionsEtatChargementAction.request(
+            {
+                type: Constants.VERSIONS_ETAT_CHARGEMENT_REQUEST,
+                value: {
+                    bureau: this.state.bureau,
+                    regime: this.state.regime,
+                    annee: this.state.annee,
+                    serie: this.state.serie,
                 },
             },
         );
