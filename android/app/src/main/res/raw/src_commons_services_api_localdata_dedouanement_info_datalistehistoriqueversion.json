@@ -1,0 +1,70 @@
+{
+  "dtoHeader": {
+    "userLogin": "YAMAGENT",
+    "fonctionnalite": "cf4011",
+    "module": "DED_LIB",
+    "commande": "ded.recupererListeHistoriqueVersion",
+    "typeService": "SP",
+    "motif": null,
+    "messagesInfo": null,
+    "messagesErreur": null
+  },
+  "jsonVO": [
+    {
+      "date": "06/06/2017 13:31",
+      "intervention": "Création",
+      "etatResultat": "Créée Provisoire",
+      "utilisateur": "TR1001DEC",
+      "commentaire": "",
+      "idPourRecherche": "06/06/2017 13:31"
+    },
+    {
+      "date": "06/06/2017 13:32",
+      "intervention": "Validation",
+      "etatResultat": "Validée",
+      "utilisateur": "TR1001DEC",
+      "commentaire": "",
+      "idPourRecherche": "06/06/2017 13:32"
+    },
+    {
+      "date": "06/06/2017 13:32",
+      "intervention": "Modification",
+      "etatResultat": "Créée Provisoire",
+      "utilisateur": "TR1001DEC",
+      "commentaire": "",
+      "idPourRecherche": "06/06/2017 13:32"
+    },
+    {
+      "date": "06/06/2017 13:32",
+      "intervention": "Validation",
+      "etatResultat": "Validée",
+      "utilisateur": "TR1001DEC",
+      "commentaire": "",
+      "idPourRecherche": "06/06/2017 13:32"
+    },
+    {
+      "date": "06/06/2017 13:32",
+      "intervention": "Enregistrement",
+      "etatResultat": "Enregistrée, acceptée",
+      "utilisateur": "TR1001DEC",
+      "commentaire": "",
+      "idPourRecherche": "06/06/2017 13:32"
+    },
+    {
+      "date": "06/06/2017 13:32",
+      "intervention": "Sélectivité Immédiate",
+      "etatResultat": "Enregistrée, acceptée",
+      "utilisateur": "AMR",
+      "commentaire": "Selectivité automatique: décision = AC null",
+      "idPourRecherche": "06/06/2017 13:32"
+    },
+    {
+      "date": "08/06/2017 00:09",
+      "intervention": "Liquidation Automatique RI Périodique",
+      "etatResultat": "Enregistrée, acceptée",
+      "utilisateur": "SYSACTOR",
+      "commentaire": "Liquidation par Batch le 08/06/2017",
+      "idPourRecherche": "08/06/2017 00:09"
+    }
+  ]
+}

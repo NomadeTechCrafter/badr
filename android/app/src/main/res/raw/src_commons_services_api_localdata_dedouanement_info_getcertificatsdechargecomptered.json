@@ -1,0 +1,53 @@
+{
+  "dtoHeader": {
+    "userLogin": "YAMAGENT",
+    "fonctionnalite": "cf4011",
+    "module": "DED_LIB",
+    "commande": "ded.getCertificatsDechargeCompteRED",
+    "typeService": "SP"
+  },
+  "jsonVO": [
+    {
+      "numero": "30902220170003463",
+      "libelleTypeCertificatDecharge": "Définitif",
+      "dateEnregistrement": "07/09/2017 19:00",
+      "statut": "Annulé",
+      "montantDesengage": "1000.0"
+    },
+    {
+      "numero": "30902220170003638",
+      "libelleTypeCertificatDecharge": "Définitif",
+      "dateEnregistrement": "20/09/2017 08:25",
+      "statut": "Annulé",
+      "montantDesengage": "1000.0"
+    },
+    {
+      "numero": "30902220170003639",
+      "libelleTypeCertificatDecharge": "Définitif",
+      "dateEnregistrement": "20/09/2017 08:45",
+      "statut": "Annulé",
+      "montantDesengage": "1000.0"
+    },
+    {
+      "numero": "30902220170003640",
+      "libelleTypeCertificatDecharge": "Définitif",
+      "dateEnregistrement": "20/09/2017 08:49",
+      "statut": "Annulé",
+      "montantDesengage": "1000.0"
+    },
+    {
+      "numero": "30902220170003641",
+      "libelleTypeCertificatDecharge": "Définitif",
+      "dateEnregistrement": "20/09/2017 08:54",
+      "statut": "Annulé",
+      "montantDesengage": "1000.0"
+    },
+    {
+      "numero": "30902220170003642",
+      "libelleTypeCertificatDecharge": "Définitif",
+      "dateEnregistrement": "20/09/2017 08:54",
+      "statut": "Enregistré",
+      "montantDesengage": "1000.0"
+    }
+  ]
+}

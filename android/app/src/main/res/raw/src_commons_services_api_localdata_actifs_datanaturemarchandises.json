@@ -1,0 +1,22 @@
+{
+  "dtoHeader": {
+    "userLogin": "AD6010",
+    "fonctionnalite": "cf9932",
+    "module": "GIB",
+    "commande": "getNaturesMarchandise",
+    "typeService": "SP",
+    "motif": null,
+    "messagesInfo": null,
+    "messagesErreur": null
+  },
+  "jsonVO": [
+    {
+      "code": "01-11",
+      "libelle": "chocolats (unité) "
+    },
+    {
+      "code": "01-13",
+      "libelle": "chocolat en poudre (unité) "
+    }
+  ]
+}

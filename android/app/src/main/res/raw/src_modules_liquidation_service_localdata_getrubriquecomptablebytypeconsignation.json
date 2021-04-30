@@ -1,0 +1,27 @@
+{
+  "dtoHeader":{
+    "userLogin":"AD6025",
+    "fonctionnalite":"cf5213",
+    "module":"ALI_DEC",
+    "commande":"getRubriqueComptableByTypeConsignation",
+    "typeService":"SP"
+  },
+  "jsonVO":{
+    "codeDouane":"007901",
+    "libelleAbrege":"CONSIGNATIONS REG.EC",
+    "adValorem":"null",
+    "refTypeRecette":[
+
+    ],
+    "vctNature":[
+
+    ],
+    "vctMoyenPaiement":[
+
+    ],
+    "codeRubriqueComptable":"191",
+    "defaultConverter":{
+
+    }
+  }
+}

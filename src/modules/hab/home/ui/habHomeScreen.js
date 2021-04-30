@@ -52,13 +52,12 @@ import * as GenericAction from '../../../../commons/state/actions/ComGenericActi
 /** Drawer navigation */
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import DedRedressementRecherche from '../../../dedouanement/redressement/ui/DedRechercheRedressementScreen';
-import DedRedressementEnteteScreen from '../../../dedouanement/redressement/ui/entete/DedRedressementEnteteScreen';
 import RefControleVehiculeMainScreen from '../../../referentiel/controleVehicules/ui/refControleVehiculeMainScreen';
 import RefPlaquesImmMainScreen from '../../../referentiel/plaquesImmatriculation/ui/refPlaquesImmMainScreen';
 import eciConsultationBLSMainScreen from '../../../ecorImport/eciConsultationBLS/ui/eciConsultationBLSMainScreen';
 import ECIAppositionScellesRechercheScreen from '../../../ecorImport/appositionScelles/recherche/ui/eciAppositionScellesRechercheScreen';
 import ECIAppositionScellesScreen from '../../../ecorImport/appositionScelles/apposition/ui/eciAppositionScellesScreen';
-
+import ConsultationBLSMainScreen from '../../../ecorImport/eciConsultationBLS/ui/eciConsultationBLSMainScreen';
 
 
 const Drawer = createDrawerNavigator();
@@ -287,7 +286,7 @@ class habHomeScreen extends React.Component {
         />
         <Drawer.Screen
           name="EciConsultationBLS"
-          component={eciConsultationBLSMainScreen}
+          component={ConsultationBLSMainScreen}
           options={{ headerShown: false }}
         />
         {/* Module T6bis start*/}
