@@ -54,11 +54,28 @@ export default class PecEtatChargementApi {
             jsonVO:rechercheObject
         };
         let response = await ComHttpHelperApi.process(data);
+        return response;
+    };
+
+    static consulterScannerDumEtatChargement = async (reference) => {
+        const data = {
+            dtoHeader: {
+                userLogin: ComSessionService.getInstance().getLogin(),
+                fonctionnalite: ComSessionService.getInstance().getFonctionalite(),
+                "module": "AEC_LIB",
+                "commande": "findResultatScannerByReferenceEtatChargement",
+                "typeService": "SP",
+                "motif": null,
+                "messagesInfo": null,
+                "messagesErreur": null
+            },
+            jsonVO:reference
+        };
+        let response = await ComHttpHelperApi.process(data);
         console.log('***********************************************************');
         console.log(JSON.stringify(response));
         console.log('***********************************************************');
         return response;
     };
-
-    
+        
 }

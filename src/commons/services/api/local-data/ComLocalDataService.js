@@ -67,6 +67,8 @@ const localStore = {
   recupererVersionAECVO: require('../../../../modules/pecEtatChargement/rechParRef/service/local-data/recupererVersionAECVO.json'),
   getListHistoriqueEtdc: require('../../../../modules/pecEtatChargement/rechParRef/service/local-data/getListHistoriqueEtdc.json'),
   getListVersionsEtdc: require('../../../../modules/pecEtatChargement/rechParRef/service/local-data/getListVersionsEtdc.json'),
+  findResultatScannerByReferenceEtatChargement: require('../../../../modules/pecEtatChargement/rechParRef/service/local-data/findResultatScannerByReferenceEtatChargement.json'),
+  
   
 };
 export default localStore;

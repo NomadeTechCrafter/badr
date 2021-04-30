@@ -20,6 +20,7 @@ import * as Constants from '../state/pecEtatChargementConstants';
 import EtatChargementAction from '../state/actions/pecEtatChargementAction';
 import HistEtatChargementAction from '../state/actions/pecHistoriqueEtatChargementAction';
 import VersionsEtatChargementAction from '../state/actions/pecVersionsEtatChargementAction';
+import ScannerEtatChargementAction from '../state/actions/pecScannerEtatChargementAction';
 
 const initialState = {
     bureau: '309',
@@ -28,9 +29,6 @@ const initialState = {
     serie: '63',
     cle: 'N',
     validCleDum: '',
-    numeroVoyage: '',
-    moyenTransport: '',
-    numeroImmatriculation: '',
     showErrorMessage: false,
 };
 
@@ -71,10 +69,12 @@ class PecEtatChargementSearchScreen extends React.Component {
                 const actionSearch = this.searchAction();
                 const actionHistorique = this.searchHistorique();
                 const actionVersions = this.searchVersions();
+                const actionScanner = this.searchScanner();
 
                 this.props.actions.dispatch(actionSearch);
                 this.props.actions.dispatch(actionHistorique);
                 this.props.actions.dispatch(actionVersions);
+                this.props.actions.dispatch(actionScanner);
             } else {
                 this.setState({
                     ...this.state,
@@ -97,7 +97,6 @@ class PecEtatChargementSearchScreen extends React.Component {
                 },
             },
         );
-
         this.props.navigation.navigate('Resultat', {
             login: this.state.login,
             first: true,
@@ -117,7 +116,6 @@ class PecEtatChargementSearchScreen extends React.Component {
                 },
             },
         );
-
         this.props.navigation.navigate('Resultat', {
             login: this.state.login,
             first: true,
@@ -137,7 +135,21 @@ class PecEtatChargementSearchScreen extends React.Component {
                 },
             },
         );
+        this.props.navigation.navigate('Resultat', {
+            login: this.state.login,
+            first: true,
+        });
+        return action
+    };
 
+    searchScanner = () => {
+        let action = ScannerEtatChargementAction.request(
+            {
+                type: Constants.SCANNER_ETAT_CHARGEMENT_REQUEST,
+                value: this.state.bureau + this.state.regime + this.state.annee + this.state.serie
+
+            },
+        );
         this.props.navigation.navigate('Resultat', {
             login: this.state.login,
             first: true,
