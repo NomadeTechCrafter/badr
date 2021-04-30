@@ -54,7 +54,11 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import DedRedressementRecherche from '../../../dedouanement/redressement/ui/DedRechercheRedressementScreen';
 import RefControleVehiculeMainScreen from '../../../referentiel/controleVehicules/ui/refControleVehiculeMainScreen';
 import RefPlaquesImmMainScreen from '../../../referentiel/plaquesImmatriculation/ui/refPlaquesImmMainScreen';
-import ConsultationBLSMainScreen from '../../../ecorImport/eciConsultationBLS/ui/eciConsultationBLSMainScreen'
+import eciConsultationBLSMainScreen from '../../../ecorImport/eciConsultationBLS/ui/eciConsultationBLSMainScreen';
+import ECIAppositionScellesRechercheScreen from '../../../ecorImport/appositionScelles/recherche/ui/eciAppositionScellesRechercheScreen';
+import ECIAppositionScellesScreen from '../../../ecorImport/appositionScelles/apposition/ui/eciAppositionScellesScreen';
+import ConsultationBLSMainScreen from '../../../ecorImport/eciConsultationBLS/ui/eciConsultationBLSMainScreen';
+
 
 const Drawer = createDrawerNavigator();
 const deltaScreen = Dimensions.get('window').width / 4;
@@ -302,6 +306,18 @@ class habHomeScreen extends React.Component {
           options={{headerShown: false}}
         />
         {/* Module T6bis end*/}
+
+        <Drawer.Screen
+          name="ECIAppositionScellesRechercheScreen"
+          component={ECIAppositionScellesRechercheScreen}
+          options={{ headerShown: false }}
+        />
+        <Drawer.Screen
+          name="AppositionScellesScreen"
+          component={ECIAppositionScellesScreen}
+          options={{ headerShown: false }}
+        />
+        
       </Drawer.Navigator>
     );
   }

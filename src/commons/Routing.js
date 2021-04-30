@@ -42,6 +42,10 @@ const mapping = {
     screen: 'T6bisRecherche',
     params: {title: 'Ecran  Recherche T6BIS'},
   },
+  '1226': {
+    screen: 'ECIAppositionScellesRechercheScreen',
+    params: {},
+   },
   '121711': {
     screen: 'EciConsultationBLS',
     params: { title: 'Ecran  Recherche Consultation BLS' }
