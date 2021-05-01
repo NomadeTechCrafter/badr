@@ -112,13 +112,14 @@ export default class ComBasicDataTableComp extends React.Component {
     // return String(_.get(row, code) ? _.get(row, code) : '');
   };
 
-  buildCellChildren = (row, column) => {
+  buildCellChildren = (row, column, index) => {
     return (
       <View
         style={{
           ...dataTableStyles.dataTableItemStyle,
           width: column.width,
-        }}>
+        }}
+        key={index}>
         <Text>
           {this.showValues(row, column.code, column.value) != null
             ? this.showValues(row, column.code, column.value, column.render)
@@ -185,7 +186,7 @@ export default class ComBasicDataTableComp extends React.Component {
                     : this.props.rows
                   ).map((row, index) => (
                     <DataTable.Row
-                      key={row[this.props.id]}
+                      key={index}
                       onPress={() => {
                         if (this.props.onItemSelected) {
                           this.props.onItemSelected(row);
@@ -265,7 +266,7 @@ export default class ComBasicDataTableComp extends React.Component {
                               )}
                           </View>
                         ) : (
-                          this.buildCellChildren(row, column)
+                          this.buildCellChildren(row, column, colindex)
                         );
                       })}
                     </DataTable.Row>
