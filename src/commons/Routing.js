@@ -1,5 +1,5 @@
 const mapping = {
-  '9005': {screen: 'CreerApurement', params: {qr: true}},/*
+  '9005': {screen: 'CreerApurement', params: {qr: true}},
   '3064': {screen: 'controleRechercheDumScreen', params: {typeControle: 'AC'}},
   '3072': {screen: 'controleRechercheDumScreen', params: {typeControle: 'RI'}},
   '767': {screen: 'BloquerOperateur', params: {}},
@@ -14,10 +14,7 @@ const mapping = {
   '4096': {screen: 'RefControleVehicule', params: {}},
   '823': {screen: 'RefPlaquesImm', params: {}},
   '90025': {screen: 'VuEmbarqueScreen', params: {qr: true}},
-  '1201': {
-    screen: 'RechercheEcorImport',
-    params: {typeEcorImport: 'EnleverMarchandise'},
-  },*/
+
   /*  '3086': {screen: 'controleRechercheDumScreen', params: {typeControle: 'TR'}},
     '2052': {screen: 'DedRechercheRedressement', params: {qr: false}},
     '5971': {screen: 'RechecheMLV', params: {}},
@@ -31,11 +28,28 @@ const mapping = {
     },
   '5202': {screen: 'LiquidationRechercheScreen', params: {qr: false}},*/
 
-  /*T6bis creation
+  /*T6bis creation*/
   '110001': {screen: 'T6bisCreation', params: {}},
-  '110002': {screen: 'T6bisRecherche', params: {}},
-  '110005': {screen: 'T6bisRecherche', params: {}},
-  '110007': {screen: 'T6bisRecherche', params: {}},*/
+  '110002': {
+    screen: 'T6bisRecherche',
+    params: {title: 'Ecran Modification T6bis'},
+  },
+  '110005': {
+    screen: 'T6bisRecherche',
+    params: {title: 'Ecran Redressement T6bis'},
+  },
+  '110007': {
+    screen: 'T6bisRecherche',
+    params: {title: 'Ecran  Recherche T6BIS'},
+  },
+  '1226': {
+    screen: 'ECIAppositionScellesRechercheScreen',
+    params: {},
+   },
+  '121711': {
+    screen: 'EciConsultationBLS',
+    params: { title: 'Ecran  Recherche Consultation BLS' }
+  },
 };
 
 const ionicMapping = {};

@@ -58,6 +58,9 @@ import ecorImportRechercheRefDumReducer from '../../modules/ecorImport/recherche
 
 import liquidationRechercheRefDumReducer from '../../modules/liquidation/state/reducers/liquidationRechercheRefDumReducer';
 import liquidationReducer from '../../modules/liquidation/state/reducers/liquidationReducer';
+import consultationBLSReducer from '../../modules/ecorImport/eciConsultationBLS/state/reducers/eciConsultationBLSReducer';
+import eciAppositionScellesRechercheReducer from '../../modules/ecorImport/appositionScelles/recherche/state/reducers/eciAppositionScellesRechercheReducer';
+import eciAppositionScellesReducer from '../../modules/ecorImport/appositionScelles/apposition/state/reducers/eciAppositionScellesReducer';
 
 import ecorExpConfirmationEntreeReducer from '../../modules/ecorExport/confirmationEntree/state/reducers/ecorExpConfirmationEntreeReducer';
 /**
@@ -112,6 +115,9 @@ const allReducers = combineReducers({
   t6bisGestionReducer,
   t6bisRechercheReducer,
   ecorExpConfirmationEntreeReducer,
+  consultationBLSReducer,
+  eciAppositionScellesRechercheReducer,
+  eciAppositionScellesReducer,
 });
 /**
  * store creation

@@ -1,0 +1,39 @@
+{
+  "dtoHeader": {
+    "userLogin": "AD6010",
+    "fonctionnalite": "cf9932",
+    "module": "GIB",
+    "commande": "getTypesIncident",
+    "typeService": "SP",
+    "motif": null,
+    "messagesInfo": null,
+    "messagesErreur": null
+  },
+  "jsonVO": [
+    {
+      "code": "1.4",
+      "libelle": "ACIDENT1",
+      "categorie": {
+        "code": "1",
+        "libelle": "Accident de service"
+      }
+    },
+    {
+      "code": "1.5",
+      "libelle": " ACID2",
+      "categorie": {
+        "code": "1",
+        "libelle": "Accident de service"
+      }
+    },
+    {
+      "code": "1.6",
+      "libelle": "accdident3",
+      "categorie": {
+        "code": "1",
+        "libelle": "Accident de service"
+      }
+    }
+
+  ]
+}

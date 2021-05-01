@@ -934,7 +934,7 @@
   "window.titleSeparator": " - ",
 
   // Adjust the zoom level of the window. The original size is 0 and each increment above (e.g. 1) or below (e.g. -1) represents zooming 20% larger or smaller. You can also enter decimals to adjust the zoom level with a finer granularity.
-  "window.zoomLevel": 0,
+  "window.zoomLevel": 1,
 
   // Files
 
@@ -2485,7 +2485,7 @@
   "emmet.excludeLanguages": ["markdown"],
 
   // Path to a folder containing Emmet profiles and snippets.
-  "emmet.extensionsPath": null,
+  "emmet.extensionsPath": [],
 
   // Enable Emmet abbreviations in languages that are not supported by default. Add a mapping here between the language and emmet supported language.
   //  E.g.: `{"vue-html": "html", "javascript": "javascriptreact"}`
