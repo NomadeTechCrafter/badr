@@ -53,9 +53,9 @@ class EcorExpRechercheParRefComp extends Component {
       value: {},
     });
     this.props.dispatch(action);
-    load('user').then((user) => {
+    /*load('user').then((user) => {
       this.setState({login: JSON.parse(user).login});
-    });
+    });*/
   }
 
   //accept just Number
@@ -119,7 +119,7 @@ class EcorExpRechercheParRefComp extends Component {
   };
 
   confirmer = () => {
-    console.log('confirmer', this.props.successRedirection);
+    console.log('confirmer EcorExpRechercheParRefComp');
     this.setState({showErrorMsg: true});
     if (this.state.regime && this.state.serie) {
       this.state.cleValide = this.cleDUM(this.state.regime, this.state.serie);

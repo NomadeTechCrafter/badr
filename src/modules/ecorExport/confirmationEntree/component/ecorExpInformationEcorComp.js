@@ -36,6 +36,11 @@ export default class EcorExpInformationEcorComp extends React.Component {
       generateurNumScelleAu,
       listeNombreDeScelles,
     } = this.state;
+
+    console.log(
+      ' render ecor bloc ',
+      this.props.ecorInfo.scellesConfirmationEntree,
+    );
     return (
       <ComBadrCardBoxComp noPadding={true}>
         {/* Informations ECOR */}
@@ -49,7 +54,7 @@ export default class EcorExpInformationEcorComp extends React.Component {
                 <TextInput
                   mode={'outlined'}
                   maxLength={8}
-                  value={ecorInfo.numeroPince}
+                  value={ecorInfo.numeroPinceConfirmationEntree}
                   label={translate(
                     'mainlevee.delivrerMainlevee.informationsEcor.numeroPince',
                   )}
@@ -68,7 +73,7 @@ export default class EcorExpInformationEcorComp extends React.Component {
               <Col size={1}>
                 <ComBadrNumericTextInputComp
                   maxLength={8}
-                  value={ecorInfo.nombreDeScelles}
+                  value={ecorInfo.nombreScelleConfirmationEntree}
                   label={translate(
                     'mainlevee.delivrerMainlevee.informationsEcor.nombreScelles',
                   )}
@@ -168,7 +173,7 @@ export default class EcorExpInformationEcorComp extends React.Component {
               <Col size={2} />
               <Col size={5}>
                 <ComBadrListComp
-                  data={listeNombreDeScelles}
+                  data={this.props.ecorInfo.scellesConfirmationEntree}
                   onPressListItem={(index) =>
                     this.setState({selectedItemListScelle: index})
                   }

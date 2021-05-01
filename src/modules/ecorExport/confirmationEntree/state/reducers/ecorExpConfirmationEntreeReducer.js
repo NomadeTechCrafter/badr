@@ -5,7 +5,7 @@ const initialState = {
   showProgress: false,
   errorMessage: '',
   displayError: false,
-  data: [],
+  data: {listDeclaration: [], initConfirmerEntreeVO: {}},
 };
 
 export default (state = initialState, action) => {
@@ -18,7 +18,7 @@ export default (state = initialState, action) => {
       nextState.displayError = false;
       nextState.errorMessage = null;
       nextState.showProgress = true;
-      nextState.data = [];
+      nextState.data = {listDeclaration: [], initConfirmerEntreeVO: {}};
       return nextState;
     case Constants.INITCONFIRMATIONENTREE_IN_PROGRESS:
       return nextState;
@@ -71,6 +71,7 @@ export default (state = initialState, action) => {
 const prepareConfirm = (declaration, referenceDum) => {
   let declarationDum = '';
   let listDeclaration = [];
+  let repObj = {};
   if (declaration.refDedServices) {
     declarationDum = {
       identifiantDED: '',
@@ -110,7 +111,13 @@ const prepareConfirm = (declaration, referenceDum) => {
   }
   listDeclaration.push(declarationDum);
   console.log(' in prepar reducer ', listDeclaration);
-  return listDeclaration;
+
+  repObj = {
+    listDeclaration: listDeclaration,
+    initConfirmerEntreeVO: declaration,
+  };
+
+  return repObj;
 
   //checkAlreadyConfirmed(declaration);
   /* if ($scope.alreadyConfirmed) {

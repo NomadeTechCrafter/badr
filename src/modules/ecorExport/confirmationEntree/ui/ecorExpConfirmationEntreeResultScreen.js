@@ -1,12 +1,20 @@
 import React from 'react';
 import {View, ScrollView} from 'react-native';
-
+import {TextInput} from 'react-native-paper';
 /**Custom Components */
-import {ComBasicDataTableComp} from '../../../../commons/component';
+import {
+  ComBasicDataTableComp,
+  ComBadrDatePickerComp,
+  ComBadrLibelleComp,
+} from '../../../../commons/component';
 import EcorExpInformationEcorComp from './../component/ecorExpInformationEcorComp';
+import {Col, Grid, Row} from 'react-native-easy-grid';
+import {CustomStyleSheet} from '../../../../commons/styles/ComThemeStyle';
+import moment from 'moment';
 /** REDUX **/
 import {connect} from 'react-redux';
 import translate from '../../../../commons/i18n/ComI18nHelper';
+import style from '../style/ecorExpConfirmationEntreeStyle';
 
 class ConfirmationEntreeResultScreen extends React.Component {
   constructor(props) {
@@ -65,16 +73,84 @@ class ConfirmationEntreeResultScreen extends React.Component {
           <ComBasicDataTableComp
             ref="_badrTable"
             id="numeroChassis"
-            rows={this.props.data}
+            rows={this.props.data.listDeclaration}
             cols={this.cols}
             onItemSelected={this.onItemSelected}
-            totalElements={this.props.data.length}
+            totalElements={this.props.data.listDeclaration.length}
             maxResultsPerPage={10}
             paginate={true}
             showProgress={this.props.showProgress}
           />
-          <EcorExpInformationEcorComp ecorInfo={this.props.data} />
+          <Grid>
+            <Row style={CustomStyleSheet.whiteRow}>
+              <Col size={2}>
+                <TextInput
+                  mode={'outlined'}
+                  maxLength={8}
+                  value={
+                    this.props.data.initConfirmerEntreeVO.documentEntreeEnceinte
+                  }
+                  label={translate('confirmationEntree.refDocument')}
+                  style={CustomStyleSheet.badrInputHeight}
+                  onChangeText={(text) =>
+                    this.setState({
+                      ecorInfo: {
+                        ...this.state.ecorInfo,
+                        numeroPince: text,
+                      },
+                    })
+                  }
+                />
+              </Col>
+              <Col size={1} />
+              <Col size={1}>
+                <ComBadrLibelleComp withColor={true}>
+                  {translate('confirmationEntree.dateHeure')}
+                </ComBadrLibelleComp>
+              </Col>
+              <Col size={2}>
+                <ComBadrDatePickerComp
+                  dateFormat="DD/MM/yyyy"
+                  heureFormat="HH:mm"
+                  value={
+                    this.props.data.initConfirmerEntreeVO.dateHeureEntree
+                      ? moment(
+                          this.props.data.initConfirmerEntreeVO.dateHeureEntree,
+                          'DD/MM/yyyy HH:mm',
+                          true,
+                        )
+                      : ''
+                  }
+                  timeValue={
+                    this.props.data.initConfirmerEntreeVO.dateHeureEntree
+                      ? moment(
+                          this.props.data.initConfirmerEntreeVO.dateHeureEntree,
+                          'DD/MM/yyyy HH:mm',
+                          true,
+                        )
+                      : ''
+                  }
+                  onDateChanged={(date) =>
+                    this.setState({
+                      ...this.state,
+                      dateDebut: date,
+                    })
+                  }
+                  onTimeChanged={(time) =>
+                    this.setState({
+                      ...this.state,
+                      heureDebut: time,
+                    })
+                  }
+                  inputStyle={style.dateInputStyle}
+                  readonly={true}
+                />
+              </Col>
+            </Row>
+          </Grid>
+
         </ScrollView>
+        <EcorExpInformationEcorComp ecorInfo={this.props.data.initConfirmerEntreeVO} />
       </View>
     );
   }

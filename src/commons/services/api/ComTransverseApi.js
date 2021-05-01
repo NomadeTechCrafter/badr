@@ -23,7 +23,7 @@ export default class ComTransverseApi {
         offset: _.isEmpty(_offset) ? 0 : _offset,
         pageSize: _.isEmpty(_pageSize) ? 0 : _pageSize,
       },
-      jsonVO: _jsonVO,
+      jsonVO: _.isEmpty(_jsonVO) ? '' : _jsonVO,
     };
     console.log('send data', data);
     let response = await ComHttpHelperApi.process(data);

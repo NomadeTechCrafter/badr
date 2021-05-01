@@ -15,5 +15,7 @@ export default {
     dateEnreg: 'Date Enregistrement',
     operateurDeclarant: 'Opérateur Déclarant',
     valeurDeclarant: 'Valeur Déclarée',
+    refDocument: 'Référence Document',
+    dateHeure: 'Date Heure (*)',
   },
 };
