@@ -129,6 +129,7 @@ export default {
     libRegime: 'Libellé du régime',
     suppressionTitre: 'Suppression',
     supprimerLigne: 'Voulez-vous supprimer cet élément?',
+    choix: 'Choix',
   },
   qr: {
     at_invalide:

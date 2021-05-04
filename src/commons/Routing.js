@@ -1,6 +1,6 @@
 const mapping = {
   '9005': {screen: 'CreerApurement', params: {qr: true}},
-  '3064': {screen: 'controleRechercheDumScreen', params: {typeControle: 'AC'}},
+  '3064': {screen: '²', params: {typeControle: 'AC'}},
   '3072': {screen: 'controleRechercheDumScreen', params: {typeControle: 'RI'}},
   '767': {screen: 'BloquerOperateur', params: {}},
   '42997': {screen: 'DebloquerOperateur', params: {}},
@@ -12,8 +12,12 @@ const mapping = {
   '14000012': {screen: 'ValiderCompteRenduMission', params: {}},
   '30661': {screen: 'ControleApresScanner', params: {}},
   '4096': {screen: 'RefControleVehicule', params: {}},
-  '823': {screen: 'RefPlaquesImm', params: {}},
-  '90025': {screen: 'VuEmbarqueScreen', params: {qr: true}},
+  '823': { screen: 'RefPlaquesImm', params: {} },
+  '90025': { screen: 'VuEmbarqueScreen', params: { qr: true } },
+  '1101': { screen: 'ConsultationTIScreen', params: { modeConsultation: 'E' } },
+  '1102': { screen: 'ConsultationTIScreen', params: { modeConsultation: 'I' } },
+  '1103': { screen: 'ConsultationIgTIScreen', params: { modeConsultation: 'E' } },
+  '1104': { screen: 'ConsultationIgTIScreen', params: { modeConsultation: 'I' } },
 
   /*  '3086': {screen: 'controleRechercheDumScreen', params: {typeControle: 'TR'}},
     '2052': {screen: 'DedRechercheRedressement', params: {qr: false}},

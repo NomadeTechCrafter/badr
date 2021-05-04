@@ -61,7 +61,9 @@ import liquidationReducer from '../../modules/liquidation/state/reducers/liquida
 import consultationBLSReducer from '../../modules/ecorImport/eciConsultationBLS/state/reducers/eciConsultationBLSReducer';
 import eciAppositionScellesRechercheReducer from '../../modules/ecorImport/appositionScelles/recherche/state/reducers/eciAppositionScellesRechercheReducer';
 import eciAppositionScellesReducer from '../../modules/ecorImport/appositionScelles/apposition/state/reducers/eciAppositionScellesReducer';
-import pecEtatChargementReducer from '../../modules/pecEtatChargement/rechParRef/state/reducers/pecEtatChargementReducer'
+import pecEtatChargementReducer from '../../modules/pecEtatChargement/rechParRef/state/reducers/pecEtatChargementReducer';
+import consultationIgTIReducer from '../../modules/tarifIntegre/tiConsultationIgTI/state/reducers/tiConsultationIgTIReducer';
+import consultationTIReducer from '../../modules/tarifIntegre/tiConsultationTI/state/reducers/tiConsultationTIReducer';
 
 /**
  * combine all reducers
@@ -118,6 +120,8 @@ const allReducers = combineReducers({
   eciAppositionScellesRechercheReducer,
   eciAppositionScellesReducer,
   pecEtatChargementReducer,
+  consultationIgTIReducer,
+  consultationTIReducer,
 });
 /**
  * store creation

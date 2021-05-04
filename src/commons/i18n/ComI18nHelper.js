@@ -32,6 +32,8 @@ import eciAppositionScellesRechercheTranslateFr from '../../modules/ecorImport/a
 import eciAppositionScellesTranslateFr from '../../modules/ecorImport/appositionScelles/apposition/i18n/eciAppositionScellesTranslateFr';
 import pecEtatChargementTranslateFr from '../../modules/pecEtatChargement/rechParRef/i18n/pecEtatChargementTranslateFr';
 
+import consultationIgTI from '../../modules/tarifIntegre/tiConsultationIgTI/i18n/tiConsultationIgTITranslateFr';
+import consultationTI from '../../modules/tarifIntegre/tiConsultationTI/i18n/tiConsultationTITranslateFr';
 
 const locales = RNLocalize.getLocales();
 
@@ -71,6 +73,8 @@ let combined = {
   ...eciAppositionScellesRechercheTranslateFr,
   ...eciAppositionScellesTranslateFr,
   ...pecEtatChargementTranslateFr,
+  ...consultationIgTI,
+  ...consultationTI,
 };
 I18n.translations = {
   fr: combined,

@@ -1,0 +1,119 @@
+{
+    "dtoHeader": {
+        "userLogin": "AD6202",
+        "fonctionnalite": "cf1103",
+        "module": "TI_LIB",
+        "commande": "getListInformationsConsultation",
+        "typeService": "SP",
+        "offset": 0,
+        "pageSize": 0,
+        "rowCount": 0
+    },
+    "jsonVO": [
+        {
+            "code": "AB-I",
+            "libelle": "test ab import",
+            "dateEffet": 1199887386000,
+            "dateFin": 253402210800000,
+            "mode": "I"
+        },
+        {
+            "code": "AC_E",
+            "libelle": "Liste des accords",
+            "dateEffet": 1072911600000,
+            "dateFin": 253402210800000,
+            "mode": "E"
+        },
+        {
+            "code": "AC_I",
+            "libelle": "Liste des accords",
+            "dateEffet": 1072911600000,
+            "dateFin": 253402210800000,
+            "mode": "I"
+        },
+        {
+            "code": "CODE1245",
+            "libelle": "Libellé",
+            "dateEffet": 1340146800000,
+            "dateFin": 29348002800000,
+            "mode": "E"
+        },
+        {
+            "code": "GF54",
+            "libelle": "information générale import",
+            "dateEffet": 1339974000000,
+            "dateFin": 29348002800000,
+            "mode": "I"
+        },
+        {
+            "code": "HJ12",
+            "libelle": "Information",
+            "dateEffet": 1338937200000,
+            "dateFin": 29348002800000,
+            "mode": "E"
+        },
+        {
+            "code": "I160413",
+            "libelle": "lib i160413",
+            "dateEffet": 1366066800000,
+            "dateFin": 29348002800000,
+            "mode": "I"
+        },
+        {
+            "code": "TA_E",
+            "libelle": "Liste des taxes",
+            "dateEffet": 1072911600000,
+            "dateFin": 253402210800000,
+            "mode": "E"
+        },
+        {
+            "code": "TA_I",
+            "libelle": "Liste des taxes",
+            "dateEffet": 1072911600000,
+            "dateFin": 253402210800000,
+            "mode": "I"
+        },
+        {
+            "code": "TES",
+            "libelle": "test test",
+            "dateEffet": 1202742620000,
+            "dateFin": 253402210800000,
+            "mode": "I"
+        },
+        {
+            "code": "TRFFFF",
+            "libelle": "trffff",
+            "dateEffet": 1363270332459,
+            "dateFin": 29348002800000,
+            "mode": "I"
+        },
+        {
+            "code": "10",
+            "libelle": "1010",
+            "dateEffet": 1362438000000,
+            "dateFin": 29348002800000,
+            "mode": "I"
+        },
+        {
+            "code": "36",
+            "libelle": "36",
+            "dateEffet": 1277217443287,
+            "dateFin": 253402210800287,
+            "mode": "E"
+        },
+        {
+            "code": "4555",
+            "libelle": "ff",
+            "dateEffet": 1422313500000,
+            "dateFin": 253373353920000,
+            "mode": "I"
+        },
+        {
+            "code": "987",
+            "libelle": "infos gen 987",
+            "dateEffet": 1312247229000,
+            "dateFin": 29348046000000,
+            "mode": "E"
+        }
+    ]
+}

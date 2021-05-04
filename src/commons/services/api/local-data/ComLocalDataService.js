@@ -71,7 +71,8 @@ const localStore = {
   getListHistoriqueEtdc: require('../../../../modules/pecEtatChargement/rechParRef/service/local-data/getListHistoriqueEtdc.json'),
   getListVersionsEtdc: require('../../../../modules/pecEtatChargement/rechParRef/service/local-data/getListVersionsEtdc.json'),
   findResultatScannerByReferenceEtatChargement: require('../../../../modules/pecEtatChargement/rechParRef/service/local-data/findResultatScannerByReferenceEtatChargement.json'),
-
-
+  getListInformationsConsultation: require('../../../../modules/tarifIntegre/tiConsultationIgTI/service/local-data/getListInformationsConsultation.json'),
+  getListFlux: require('../../../../modules/tarifIntegre/tiConsultationTI/service/local-data/getFlux.json'),
+  consulterTI: require('../../../../modules/tarifIntegre/tiConsultationTI/service/local-data/consulterTI.json'),
 };
 export default localStore;

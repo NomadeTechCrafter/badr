@@ -58,6 +58,9 @@ import eciConsultationBLSMainScreen from '../../../ecorImport/eciConsultationBLS
 import ECIAppositionScellesRechercheScreen from '../../../ecorImport/appositionScelles/recherche/ui/eciAppositionScellesRechercheScreen';
 import ECIAppositionScellesScreen from '../../../ecorImport/appositionScelles/apposition/ui/eciAppositionScellesScreen';
 import ConsultationBLSMainScreen from '../../../ecorImport/eciConsultationBLS/ui/eciConsultationBLSMainScreen';
+import ConsultationIgTIScreen from '../../../tarifIntegre/tiConsultationIgTI/ui/tiConsultationIgTIScreen';
+import ConsultationTIScreen from '../../../tarifIntegre/tiConsultationTI/ui/tiConsultationTIScreen';
+
 
 
 import PecEtatChargementMainScreen from '../../../pecEtatChargement/rechParRef/ui/pecEtatChargementMainScreen';
@@ -327,6 +330,18 @@ class habHomeScreen extends React.Component {
           options={{headerShown: false}}
         />
 
+
+        <Drawer.Screen
+          name="ConsultationIgTIScreen"
+          component={ConsultationIgTIScreen}
+          options={{ headerShown: false }}
+        />
+
+        <Drawer.Screen
+          name="ConsultationTIScreen"
+          component={ConsultationTIScreen}
+          options={{ headerShown: false }}
+        />
       </Drawer.Navigator>
     );
   }
