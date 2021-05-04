@@ -204,6 +204,10 @@ class T6bisEnteteRedevableSousBlock extends React.Component {
     }
   }
   static getDerivedStateFromProps(props, state) {
+    console.log('getDerivedStateFromProps - 03052021 - props  : ', props);
+    console.log('getDerivedStateFromProps - 03052021 - state  : ', state);
+    console.log('getDerivedStateFromProps - 03052021 - state  : ', !props.t6bis.hasOwnProperty('intervenantVO'));
+    console.log('getDerivedStateFromProps - 03052021 - state  : ', props.t6bis.hasOwnProperty('intervenantVO'));
     if (
       props.t6bis.intervenantVO &&
       !props?.newIntervenant &&
@@ -214,6 +218,30 @@ class T6bisEnteteRedevableSousBlock extends React.Component {
         newIntervenant: props.newIntervenant,
       };
     }
+    if (!props.t6bis.hasOwnProperty('intervenantVO')) {
+      return {
+
+        intervenantVO: {
+          refTypeDocumentIdentite: '',
+          numeroDocumentIndentite: '',
+          nationaliteFr: '',
+          nomIntervenant: '',
+          prenomIntervenant: '',
+          adresse: '',
+        },
+        infoCompleted: false,
+        newIntervenant: false,
+        acNationalite: {},
+      };
+    }
+    if (
+      props?.t6bis?.intervenantVO?.numeroDocumentIndentite != state?.intervenantVO?.numeroDocumentIndentite
+    ) {
+      return {
+        intervenantVO: { ...state.intervenantVO, ...props.t6bis?.intervenantVO }
+      };
+    }
+   
     // Return null to indicate no change to state.
     return null;
   }

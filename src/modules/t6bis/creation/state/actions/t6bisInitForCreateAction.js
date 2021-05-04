@@ -1,7 +1,7 @@
 import * as Constants from '../t6bisCreationConstants';
 import T6bisCreationApi from '../../service/api/t6bisCreationApi';
 
-export function request(action, navigation) {
+export function request(action, navigation,cleaner) {
   return (dispatch) => {
     console.log('action.value.codeType', action.value.codeType);
 
@@ -16,6 +16,7 @@ export function request(action, navigation) {
           console.log('action.value', action.value);
 
           dispatch(success(action));
+          cleaner();
           navigation.navigate('T6bisGestion', {
             context: {
               selectedType: action.value.selectedType,

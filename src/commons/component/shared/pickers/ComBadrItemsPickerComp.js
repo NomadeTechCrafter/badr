@@ -17,7 +17,7 @@ export default class ComBadrItemsPickerComp extends React.Component {
       <View style={this.props.style}>
         <Picker
           mode="dropdown"
-          enabled={!this.state.disabled}
+          enabled={!this.props.disabled}
           selectedValue={this.props.selectedValue}
           onValueChange={(itemValue, itemIndex) => {
             this.setState({item: itemValue});

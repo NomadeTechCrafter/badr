@@ -46,7 +46,7 @@ export default {
                         choisirElement: 'Choisir un élément',
                     },
                     cm: {
-                        title: "Informations T6BIS (Marchandises et taxe de magasinage)",
+                        title: "Informations T6BIS (Cyclomoteur <= 50cc)",
                         numeroRecepisse: "Numéro récépissé",
                         immatriculationMoyenTransport: "Immatriculation moyen transport",
                         typeMoyenPaiement: "Type moyen paiement (*)",
