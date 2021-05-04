@@ -30,6 +30,7 @@ import liquidationTranslateFr from '../../modules/liquidation/i18n/liquidationTr
 import eciConsultationBLSTranslateFr from '../../modules/ecorImport/eciConsultationBLS/i18n/eciConsultationBLSTranslateFr';
 import eciAppositionScellesRechercheTranslateFr from '../../modules/ecorImport/appositionScelles/recherche/i18n/eciAppositionScellesRechercheTranslateFr';
 import eciAppositionScellesTranslateFr from '../../modules/ecorImport/appositionScelles/apposition/i18n/eciAppositionScellesTranslateFr';
+import decSortiPortTranslateFr from '../../modules/DeclarationD17D20/sortiPort/i18n/decSortiPortTranslateFr';
 
 const locales = RNLocalize.getLocales();
 
@@ -67,7 +68,8 @@ let combined = {
   ...t6bisRechercheTranslationsFr,
   ...eciConsultationBLSTranslateFr,
   ...eciAppositionScellesRechercheTranslateFr,
-  ...eciAppositionScellesTranslateFr
+  ...eciAppositionScellesTranslateFr,
+  ...decSortiPortTranslateFr
 };
 I18n.translations = {
   fr: combined,

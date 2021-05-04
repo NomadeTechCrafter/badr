@@ -1,0 +1,911 @@
+{
+    "dtoHeader": {
+        "userLogin": "AD6203",
+        "fonctionnalite": "cf90023",
+        "module": "DED_LIB",
+        "commande": "ded.vuEmbRechercheDeclarationTrypByRef",
+        "typeService": "UC",
+        "messagesInfo": [
+            "??? InitVuEmbarqueDeclarationTriptyque_MESSAGE_INFO ???"
+        ],
+        "offset": 0,
+        "pageSize": 0,
+        "rowCount": 0
+    },
+    "jsonVO": {
+        "trypRechercheSectionsVO": {
+            "preapurementDsApureSection": false,
+            "preapurementDsSection": false,
+            "etatChargementApureSection": true,
+            "etatChargementSection": true,
+            "historique": [
+                {
+                    "identifiant": 2207,
+                    "codeActeur": "A421948",
+                    "numeroVersion": "0",
+                    "dateHeureIntervention": "20/09/2019 16:48",
+                    "intervention": "Création",
+                    "refEtatResultat": "Créée Provisoire"
+                },
+                {
+                    "identifiant": 2208,
+                    "codeActeur": "A421948",
+                    "numeroVersion": "0",
+                    "commentaireIntervention": " Transaction BADR numéro 1217",
+                    "dateHeureIntervention": "20/09/2019 16:48",
+                    "intervention": "Création transaction signature",
+                    "refEtatResultat": "Créée Provisoire"
+                },
+                {
+                    "identifiant": 2209,
+                    "codeActeur": "A421948",
+                    "numeroVersion": "0",
+                    "commentaireIntervention": " Transaction BADR numéro 1217",
+                    "dateHeureIntervention": "20/09/2019 16:49",
+                    "intervention": "Signature Déclarant",
+                    "refEtatResultat": "Signée"
+                },
+                {
+                    "identifiant": 2895,
+                    "codeActeur": "MEZZOUINE",
+                    "numeroVersion": "0",
+                    "commentaireIntervention": "JKKJKJ",
+                    "dateHeureIntervention": "25/04/2020 04:39",
+                    "intervention": "Mainlevée délivrée",
+                    "refEtatResultat": "Mainlevée délivrée"
+                },
+                {
+                    "identifiant": 2896,
+                    "codeActeur": "MEZZOUINE",
+                    "numeroVersion": "0",
+                    "commentaireIntervention": "JKKJJK",
+                    "dateHeureIntervention": "25/04/2020 04:40",
+                    "intervention": "Apurement",
+                    "refEtatResultat": "Apurée"
+                },
+                {
+                    "identifiant": 3544,
+                    "codeActeur": "AAMM",
+                    "numeroVersion": "0",
+                    "commentaireIntervention": "Date Sortie: 11/09/2020 12:00\n Commentaire: test",
+                    "dateHeureIntervention": "11/09/2020 20:18",
+                    "intervention": "Sortie du port",
+                    "refEtatResultat": "Apurée"
+                },
+                {
+                    "identifiant": 4166,
+                    "codeActeur": "AD6205",
+                    "numeroVersion": "0",
+                    "dateHeureIntervention": "16/04/2021 11:16",
+                    "intervention": "Annulation Sortie du port",
+                    "refEtatResultat": "Apurée"
+                },
+                {
+                    "identifiant": 4167,
+                    "codeActeur": "AD6205",
+                    "numeroVersion": "0",
+                    "commentaireIntervention": "Date Sortie: 16/04/2021 06:06\n Commentaire: ok",
+                    "dateHeureIntervention": "16/04/2021 11:17",
+                    "intervention": "Sortie du port",
+                    "refEtatResultat": "Apurée"
+                },
+                {
+                    "identifiant": 4168,
+                    "codeActeur": "AD6205",
+                    "numeroVersion": "0",
+                    "dateHeureIntervention": "16/04/2021 11:18",
+                    "intervention": "Annulation Sortie du port",
+                    "refEtatResultat": "Apurée"
+                },
+                {
+                    "identifiant": 4169,
+                    "codeActeur": "AD6203",
+                    "numeroVersion": "0",
+                    "commentaireIntervention": "Date Sortie: 20/04/2021 00:00\n Commentaire: KO",
+                    "dateHeureIntervention": "20/04/2021 01:16",
+                    "intervention": "Sortie du port",
+                    "refEtatResultat": "Apurée"
+                },
+                {
+                    "identifiant": 4170,
+                    "codeActeur": "AD6203",
+                    "numeroVersion": "0",
+                    "dateHeureIntervention": "20/04/2021 01:16",
+                    "intervention": "Annulation Sortie du port",
+                    "refEtatResultat": "Apurée"
+                }
+            ]
+        },
+        "trypRecherchePreapSectionVO": {
+            "dedDumPreapWrappers": [
+                {
+                    "vo": {
+                        "dontHandleLimitationOperateur": false,
+                        "versionModifiee": true,
+                        "lancerTraitementCompteDechage": false,
+                        "insideEtude": false,
+                        "insideRedressement": false,
+                        "initiale": false,
+                        "ssDUM": false,
+                        "insideRedressementApresMainLevee": false,
+                        "demandeModification": false,
+                        "dateArrivee": "14/01/2020",
+                        "lieuChargement": "MACAS",
+                        "modeTransport": "MARITIME",
+                        "moyenTransport": "CASABLANCA EXPRESS",
+                        "nombreContenant": "2",
+                        "numeroOrdre": "1",
+                        "poidsLot": "2",
+                        "preapAnnee": "2020",
+                        "preapBureau": "309",
+                        "preapRegime": "0",
+                        "preapSerie": "33",
+                        "referenceLot": "REF5",
+                        "typeDS": "01",
+                        "typeDSLib": " DS ",
+                        "descLieuChargement": "CASABLANCA",
+                        "idLot": 0,
+                        "defaultConverter": {},
+                        "callFromEC": false,
+                        "revaliderEtude": false,
+                        "dumFictiveParam": false,
+                        "transfertOperateurParam": false,
+                        "banqueConsign": false,
+                        "createParam": false,
+                        "banqueSaisie": false,
+                        "transit": false,
+                        "regimeExport": false,
+                        "appelCouplageFromUC1": false,
+                        "occasionnelle": false,
+                        "regimeTransitImport": false
+                    },
+                    "cmbLieuChargementSelected": {
+                        "code": "MACAS",
+                        "libelle": "CASABLANCA(MACAS)",
+                        "actif": false,
+                        "showDropDown": false,
+                        "disableAutoComplete": true,
+                        "onFocus": "",
+                        "disabled": false
+                    },
+                    "lieuChargAC": {
+                        "actif": false,
+                        "showDropDown": false,
+                        "disableAutoComplete": true,
+                        "onFocus": "",
+                        "disabled": false
+                    },
+                    "descriptionModeTransport": "MARITIME",
+                    "descriptionMoyenTransport": "CASABLANCA EXPRESS",
+                    "referenceDs": "309-000-2020-0000033-S",
+                    "preapCle": "S",
+                    "action": 0,
+                    "ifAgent": false,
+                    "declarationExistante": false
+                }
+            ]
+        },
+        "trypRecherchePreapApuresSectionVO": {},
+        "declarationTriptique": {
+            "codeInitiateur": "A421948",
+            "refOperateurDeclarant": "OP DECLARANT T12",
+            "refOperateurSoumissionaire": "OP DECLARANT T12",
+            "rcDéclarant": "1111444 /81",
+            "codeOperateurSoumissionaire": "35291",
+            "rcSoumission": "1111444 /81",
+            "nomTransporteur": "OP DECLARANT T12",
+            "statut": "010",
+            "indentifiant": 1108,
+            "anticipee": false,
+            "enregistree": true,
+            "numeroVersionCourante": 0,
+            "dateCreation": 1568994484777,
+            "refBureauDedouanement": "Casa port (309)",
+            "refRegime": "D20",
+            "refVersionsDeclarationEnDouane": [
+                {
+                    "indentifiant": 1217,
+                    "lignesEtatChargement": [
+                        {
+                            "refetatchargement": 53032
+                        }
+                    ],
+                    "lignesLotDs": [],
+                    "lignesEtatChargementApures": [],
+                    "lignesLotDsApures": [
+                        {
+                            "dontHandleLimitationOperateur": false,
+                            "versionModifiee": true,
+                            "lancerTraitementCompteDechage": false,
+                            "insideEtude": false,
+                            "insideRedressement": false,
+                            "initiale": false,
+                            "ssDUM": false,
+                            "insideRedressementApresMainLevee": false,
+                            "demandeModification": false,
+                            "dateArrivee": "14/01/2020",
+                            "lieuChargement": "MACAS",
+                            "modeTransport": "MARITIME",
+                            "moyenTransport": "CASABLANCA EXPRESS",
+                            "nombreContenant": "2",
+                            "numeroOrdre": "1",
+                            "poidsLot": "2",
+                            "preapAnnee": "2020",
+                            "preapBureau": "309",
+                            "preapRegime": "0",
+                            "preapSerie": "33",
+                            "referenceLot": "REF5",
+                            "typeDS": "01",
+                            "typeDSLib": " DS ",
+                            "descLieuChargement": "CASABLANCA",
+                            "idLot": 0,
+                            "defaultConverter": {},
+                            "callFromEC": false,
+                            "revaliderEtude": false,
+                            "dumFictiveParam": false,
+                            "transfertOperateurParam": false,
+                            "banqueConsign": false,
+                            "createParam": false,
+                            "banqueSaisie": false,
+                            "transit": false,
+                            "regimeExport": false,
+                            "appelCouplageFromUC1": false,
+                            "occasionnelle": false,
+                            "regimeTransitImport": false
+                        }
+                    ],
+                    "etatVersion": "010",
+                    "etatVersionForm": "Apurée",
+                    "numeroVersion": 0,
+                    "typeVersion": "Courante",
+                    "natureMarchandise": "Nature de la marchandise",
+                    "dateEnregistrement": "20/09/2019 16:48:04",
+                    "dateSignature": "20/09/2019 16:49:04",
+                    "dateDebutAutorisationMa": "",
+                    "dateFinAutorisationMa": "",
+                    "idConducteur": "411",
+                    "idConducteurSecondaire": "434",
+                    "idVehicule": "463",
+                    "idVehiculeSecondaire": "464",
+                    "datePassage": "25/04/2020 04:39:04",
+                    "agentPassage": "MEZZOUINE",
+                    "idNatureVehicule": "02",
+                    "idNatureVehiculeSecondaire": "04",
+                    "avide": false,
+                    "sansManifest": false,
+                    "conducteurTryptiquePremiereSignature": true,
+                    "conducteurTryptiqueSecondairePremiereSignature": true,
+                    "conducteurTryptiqueTroisiemePremiereSignature": false,
+                    "lignesDed": [],
+                    "lignesDedApures": []
+                }
+            ],
+            "referenceEnregistrement": "30990020190000034",
+            "sortiePort": {
+                "defaultConverter": {}
+            },
+            "sortieExisteDeja": false,
+            "vuEmbarque": {
+                "defaultConverter": {}
+            },
+            "vuEmbarqueExisteDeja": false,
+            "decApurementSigneExist": false,
+            "decApurementExist": false,
+            "defaultConverter": {},
+            "codeOperateurDeclarant": "35291"
+        },
+        "enteteTrypVO": {
+            "avide": false,
+            "sansManifest": false,
+            "showDeclarTry": false,
+            "natureMarchandise": "Nature de la marchandise",
+            "refBureauDedouanement": "309",
+            "refRegime": "900",
+            "libelleRegime": "D20",
+            "annee": "2019",
+            "serie": "0000034",
+            "codeInitiateur": "A421948",
+            "nomInitiateur": "SAMIRA - CHADLI",
+            "transitaire": "false",
+            "codeDeclarant": "35291",
+            "nomDeclarant": "OP DECLARANT T12",
+            "numeroRC": "1111444 /81",
+            "codeTransporteur": "35291",
+            "numeroRCTransporteur": "1111444 /81",
+            "nomTransporteur": "OP DECLARANT T12",
+            "dateDebutAutorisationMa": "",
+            "dateFinAutorisationMa": "",
+            "idConducteur": "411",
+            "idConducteurSecondaire": "434",
+            "idVehicule": "463",
+            "idVehiculeSecondaire": "464",
+            "idNatureVehicule": "02",
+            "idNatureVehiculeSecondaire": "04",
+            "dateCreation_VC": "20/09/2019 16:48:04",
+            "dateCreation_VI": "",
+            "dateDepot_VC": "20/09/2019 16:49:04",
+            "dateDepot_VI": "",
+            "status": "Apurée",
+            "numeroVersion": "0",
+            "type": "Courante",
+            "dateCreaTryp": "20/09/2019 16:48:04",
+            "libelleSectionDeclarant": "Transporteur"
+        },
+        "listDedDumPreapVOs": [
+            {
+                "dontHandleLimitationOperateur": false,
+                "versionModifiee": true,
+                "lancerTraitementCompteDechage": false,
+                "insideEtude": false,
+                "insideRedressement": false,
+                "initiale": false,
+                "ssDUM": false,
+                "insideRedressementApresMainLevee": false,
+                "demandeModification": false,
+                "dateArrivee": "14/01/2020",
+                "lieuChargement": "MACAS",
+                "modeTransport": "MARITIME",
+                "moyenTransport": "CASABLANCA EXPRESS",
+                "nombreContenant": "2",
+                "numeroOrdre": "1",
+                "poidsLot": "2",
+                "preapAnnee": "2020",
+                "preapBureau": "309",
+                "preapRegime": "0",
+                "preapSerie": "33",
+                "referenceLot": "REF5",
+                "typeDS": "01",
+                "typeDSLib": " DS ",
+                "descLieuChargement": "CASABLANCA",
+                "idLot": 0,
+                "defaultConverter": {},
+                "callFromEC": false,
+                "revaliderEtude": false,
+                "dumFictiveParam": false,
+                "transfertOperateurParam": false,
+                "banqueConsign": false,
+                "createParam": false,
+                "banqueSaisie": false,
+                "transit": false,
+                "regimeExport": false,
+                "appelCouplageFromUC1": false,
+                "occasionnelle": false,
+                "regimeTransitImport": false
+            }
+        ],
+        "listDeclarationEnDouaneVO": [],
+        "listDeclarationEnDouaneApuresVO": [],
+        "listEtatChargementVO": [
+            {
+                "referenceEnregistrement": "30900120190000001",
+                "annee": "2019",
+                "bureau": "309",
+                "regime": "001",
+                "serie": "0000001",
+                "formatedDateenregistrement": "",
+                "etatChargement": {
+                    "dateHeureEnregistrement": "18/04/2019 10:16:22:092",
+                    "dateHeureVoyage": "18/04/2019 12:00:00:000",
+                    "refDeclarant": "AAM",
+                    "bureauSortie": "Tanger-Méditerranée(411)[411]",
+                    "navire": "NURAL STEVNS",
+                    "dateHeureCreation": 1555578977776,
+                    "refetatchargement": 53032
+                },
+                "defaultConverter": {}
+            }
+        ],
+        "listEtatChargementApuresVO": [],
+        "vctVehiculeSecondaires": [
+            {
+                "code": "464",
+                "libelle": "MAT654321",
+                "actif": false,
+                "showDropDown": false,
+                "disableAutoComplete": true,
+                "onFocus": "",
+                "disabled": false
+            },
+            {
+                "code": "466",
+                "libelle": "MAT7654321",
+                "actif": false,
+                "showDropDown": false,
+                "disableAutoComplete": true,
+                "onFocus": "",
+                "disabled": false
+            },
+            {
+                "code": "563",
+                "libelle": "MAT963852",
+                "actif": false,
+                "showDropDown": false,
+                "disableAutoComplete": true,
+                "onFocus": "",
+                "disabled": false
+            },
+            {
+                "code": "467",
+                "libelle": "MAT968574",
+                "actif": false,
+                "showDropDown": false,
+                "disableAutoComplete": true,
+                "onFocus": "",
+                "disabled": false
+            },
+            {
+                "code": "201",
+                "libelle": "1A1",
+                "actif": false,
+                "showDropDown": false,
+                "disableAutoComplete": true,
+                "onFocus": "",
+                "disabled": false
+            }
+        ],
+        "vctVehicules": [
+            {
+                "code": "541",
+                "libelle": "AZERT741852",
+                "actif": false,
+                "showDropDown": false,
+                "disableAutoComplete": true,
+                "onFocus": "",
+                "disabled": false
+            },
+            {
+                "code": "722",
+                "libelle": "MAT112233",
+                "actif": false,
+                "showDropDown": false,
+                "disableAutoComplete": true,
+                "onFocus": "",
+                "disabled": false
+            },
+            {
+                "code": "465",
+                "libelle": "MAT12345467",
+                "actif": false,
+                "showDropDown": false,
+                "disableAutoComplete": true,
+                "onFocus": "",
+                "disabled": false
+            },
+            {
+                "code": "562",
+                "libelle": "MAT123456",
+                "actif": false,
+                "showDropDown": false,
+                "disableAutoComplete": true,
+                "onFocus": "",
+                "disabled": false
+            },
+            {
+                "code": "463",
+                "libelle": "MAT123456",
+                "actif": false,
+                "showDropDown": false,
+                "disableAutoComplete": true,
+                "onFocus": "",
+                "disabled": false
+            },
+            {
+                "code": "642",
+                "libelle": "MAT123457",
+                "actif": false,
+                "showDropDown": false,
+                "disableAutoComplete": true,
+                "onFocus": "",
+                "disabled": false
+            },
+            {
+                "code": "682",
+                "libelle": "MAT123654",
+                "actif": false,
+                "showDropDown": false,
+                "disableAutoComplete": true,
+                "onFocus": "",
+                "disabled": false
+            },
+            {
+                "code": "662",
+                "libelle": "MAT963852",
+                "actif": false,
+                "showDropDown": false,
+                "disableAutoComplete": true,
+                "onFocus": "",
+                "disabled": false
+            },
+            {
+                "code": "622",
+                "libelle": "MAT968574",
+                "actif": false,
+                "showDropDown": false,
+                "disableAutoComplete": true,
+                "onFocus": "",
+                "disabled": false
+            },
+            {
+                "code": "582",
+                "libelle": "MAT987654321",
+                "actif": false,
+                "showDropDown": false,
+                "disableAutoComplete": true,
+                "onFocus": "",
+                "disabled": false
+            },
+            {
+                "code": "762",
+                "libelle": "MAT9998888777",
+                "actif": false,
+                "showDropDown": false,
+                "disableAutoComplete": true,
+                "onFocus": "",
+                "disabled": false
+            },
+            {
+                "code": "116",
+                "libelle": "123",
+                "actif": false,
+                "showDropDown": false,
+                "disableAutoComplete": true,
+                "onFocus": "",
+                "disabled": false
+            },
+            {
+                "code": "561",
+                "libelle": "123456",
+                "actif": false,
+                "showDropDown": false,
+                "disableAutoComplete": true,
+                "onFocus": "",
+                "disabled": false
+            },
+            {
+                "code": "264",
+                "libelle": "1234566",
+                "actif": false,
+                "showDropDown": false,
+                "disableAutoComplete": true,
+                "onFocus": "",
+                "disabled": false
+            },
+            {
+                "code": "462",
+                "libelle": "665665",
+                "actif": false,
+                "showDropDown": false,
+                "disableAutoComplete": true,
+                "onFocus": "",
+                "disabled": false
+            }
+        ],
+        "vctConducteurs": [
+            {
+                "code": "534",
+                "libelle": "A B",
+                "actif": false,
+                "showDropDown": false,
+                "disableAutoComplete": true,
+                "onFocus": "",
+                "disabled": false
+            },
+            {
+                "code": "311",
+                "libelle": "ALAMI ALI",
+                "actif": false,
+                "showDropDown": false,
+                "disableAutoComplete": true,
+                "onFocus": "",
+                "disabled": false
+            },
+            {
+                "code": "873",
+                "libelle": "C S",
+                "actif": false,
+                "showDropDown": false,
+                "disableAutoComplete": true,
+                "onFocus": "",
+                "disabled": false
+            },
+            {
+                "code": "872",
+                "libelle": "CHADLI SAMIRA",
+                "actif": false,
+                "showDropDown": false,
+                "disableAutoComplete": true,
+                "onFocus": "",
+                "disabled": false
+            },
+            {
+                "code": "211",
+                "libelle": "CONDUCTEUR ZDAIK CONDUCTEUR AMAL",
+                "actif": false,
+                "showDropDown": false,
+                "disableAutoComplete": true,
+                "onFocus": "",
+                "disabled": false
+            },
+            {
+                "code": "203",
+                "libelle": "CONDUCTEURNOM CONDUCTEURPRENOM",
+                "actif": false,
+                "showDropDown": false,
+                "disableAutoComplete": true,
+                "onFocus": "",
+                "disabled": false
+            },
+            {
+                "code": "911",
+                "libelle": "C1 C1",
+                "actif": false,
+                "showDropDown": false,
+                "disableAutoComplete": true,
+                "onFocus": "",
+                "disabled": false
+            },
+            {
+                "code": "932",
+                "libelle": "C2 C2",
+                "actif": false,
+                "showDropDown": false,
+                "disableAutoComplete": true,
+                "onFocus": "",
+                "disabled": false
+            },
+            {
+                "code": "931",
+                "libelle": "C2 C2",
+                "actif": false,
+                "showDropDown": false,
+                "disableAutoComplete": true,
+                "onFocus": "",
+                "disabled": false
+            },
+            {
+                "code": "891",
+                "libelle": "NC1 PC1",
+                "actif": false,
+                "showDropDown": false,
+                "disableAutoComplete": true,
+                "onFocus": "",
+                "disabled": false
+            },
+            {
+                "code": "892",
+                "libelle": "NC2 PC2",
+                "actif": false,
+                "showDropDown": false,
+                "disableAutoComplete": true,
+                "onFocus": "",
+                "disabled": false
+            },
+            {
+                "code": "593",
+                "libelle": "NOM PRENOM",
+                "actif": false,
+                "showDropDown": false,
+                "disableAutoComplete": true,
+                "onFocus": "",
+                "disabled": false
+            },
+            {
+                "code": "411",
+                "libelle": "NOM PRENOM",
+                "actif": false,
+                "showDropDown": false,
+                "disableAutoComplete": true,
+                "onFocus": "",
+                "disabled": false
+            },
+            {
+                "code": "433",
+                "libelle": "NOM PRENOM",
+                "actif": false,
+                "showDropDown": false,
+                "disableAutoComplete": true,
+                "onFocus": "",
+                "disabled": false
+            },
+            {
+                "code": "753",
+                "libelle": "NOM PRENOM",
+                "actif": false,
+                "showDropDown": false,
+                "disableAutoComplete": true,
+                "onFocus": "",
+                "disabled": false
+            },
+            {
+                "code": "751",
+                "libelle": "NOM PRENOM",
+                "actif": false,
+                "showDropDown": false,
+                "disableAutoComplete": true,
+                "onFocus": "",
+                "disabled": false
+            },
+            {
+                "code": "752",
+                "libelle": "NOM PRENOM",
+                "actif": false,
+                "showDropDown": false,
+                "disableAutoComplete": true,
+                "onFocus": "",
+                "disabled": false
+            },
+            {
+                "code": "535",
+                "libelle": "NOM PRENOM",
+                "actif": false,
+                "showDropDown": false,
+                "disableAutoComplete": true,
+                "onFocus": "",
+                "disabled": false
+            },
+            {
+                "code": "871",
+                "libelle": "NOM PRENOM",
+                "actif": false,
+                "showDropDown": false,
+                "disableAutoComplete": true,
+                "onFocus": "",
+                "disabled": false
+            },
+            {
+                "code": "214",
+                "libelle": "NOM CONDUCTEUR ZDAIK PRENOM CONDUCTEUR AMAL",
+                "actif": false,
+                "showDropDown": false,
+                "disableAutoComplete": true,
+                "onFocus": "",
+                "disabled": false
+            },
+            {
+                "code": "952",
+                "libelle": "NOM 55 PRÉNOM 55",
+                "actif": false,
+                "showDropDown": false,
+                "disableAutoComplete": true,
+                "onFocus": "",
+                "disabled": false
+            },
+            {
+                "code": "432",
+                "libelle": "NOML PRENOLM",
+                "actif": false,
+                "showDropDown": false,
+                "disableAutoComplete": true,
+                "onFocus": "",
+                "disabled": false
+            },
+            {
+                "code": "434",
+                "libelle": "NOM1 PRENOM1",
+                "actif": false,
+                "showDropDown": false,
+                "disableAutoComplete": true,
+                "onFocus": "",
+                "disabled": false
+            },
+            {
+                "code": "595",
+                "libelle": "NOM1 PRENOM1",
+                "actif": false,
+                "showDropDown": false,
+                "disableAutoComplete": true,
+                "onFocus": "",
+                "disabled": false
+            },
+            {
+                "code": "594",
+                "libelle": "NOM1 PRENOM1",
+                "actif": false,
+                "showDropDown": false,
+                "disableAutoComplete": true,
+                "onFocus": "",
+                "disabled": false
+            },
+            {
+                "code": "536",
+                "libelle": "NOM1 PRENOM1",
+                "actif": false,
+                "showDropDown": false,
+                "disableAutoComplete": true,
+                "onFocus": "",
+                "disabled": false
+            },
+            {
+                "code": "596",
+                "libelle": "NOM2 PRENOM2",
+                "actif": false,
+                "showDropDown": false,
+                "disableAutoComplete": true,
+                "onFocus": "",
+                "disabled": false
+            },
+            {
+                "code": "631",
+                "libelle": "NOM3 PRENOM3",
+                "actif": false,
+                "showDropDown": false,
+                "disableAutoComplete": true,
+                "onFocus": "",
+                "disabled": false
+            },
+            {
+                "code": "792",
+                "libelle": "NOUVEAU NOM NOUVEAU PRENOM",
+                "actif": false,
+                "showDropDown": false,
+                "disableAutoComplete": true,
+                "onFocus": "",
+                "disabled": false
+            },
+            {
+                "code": "791",
+                "libelle": "NOUVEAU NOM NOUVEAU PRENOM",
+                "actif": false,
+                "showDropDown": false,
+                "disableAutoComplete": true,
+                "onFocus": "",
+                "disabled": false
+            }
+        ],
+        "vctNaturesVehicule": [
+            {
+                "code": "01",
+                "libelle": "TRACTEUR",
+                "actif": false,
+                "showDropDown": false,
+                "disableAutoComplete": true,
+                "onFocus": "",
+                "disabled": false
+            },
+            {
+                "code": "02",
+                "libelle": "REMORQUE",
+                "actif": false,
+                "showDropDown": false,
+                "disableAutoComplete": true,
+                "onFocus": "",
+                "disabled": false
+            },
+            {
+                "code": "03",
+                "libelle": "CAMION",
+                "actif": false,
+                "showDropDown": false,
+                "disableAutoComplete": true,
+                "onFocus": "",
+                "disabled": false
+            },
+            {
+                "code": "04",
+                "libelle": "SEMI REMORQUE",
+                "actif": false,
+                "showDropDown": false,
+                "disableAutoComplete": true,
+                "onFocus": "",
+                "disabled": false
+            },
+            {
+                "code": "06",
+                "libelle": " FOURGON",
+                "actif": false,
+                "showDropDown": false,
+                "disableAutoComplete": true,
+                "onFocus": "",
+                "disabled": false
+            }
+        ],
+        "traceSignature": {
+            "date_signature": "20-09-2019 17.01.53",
+            "qualite_signataire": "DECLARANT",
+            "ident_signataire": "A421948",
+            "numeroTransaction": "1217"
+        },
+        "datePassage": "25/04/2020 04:39:04",
+        "agentPassage": "MEZZOUINE"
+    }
+}

@@ -12,17 +12,18 @@ import {
 } from '../../../../../commons/component';
 import _ from 'lodash';
 
-import * as VuEmbRefVHAction from '../../state/actions/vuEmbRefVhAction';
+import * as SortiPortRefVHAction from '../../state/actions/decSortiPortRefVhAction';
 import {Button, HelperText, TextInput} from 'react-native-paper';
-import * as Constants from '../../state/vuEmbarquerConstants';
-import * as VuEmbInitAction from '../../state/actions/vuEmbInitAction';
+import * as Constants from '../../state/decSortiPortConstants';
+import * as SortiPortInitAction from '../../state/actions/decSortiPortInitAction';
+import { ComSessionService } from '../../../../../commons/services/session/ComSessionService';
 
 const initialState = {
   matriculeVehicule: '',
   showErrorMsg: false,
 };
 
-class VuEmbListeByRefVh extends React.Component {
+class SortiPortListeByRefVh extends React.Component {
   constructor(props) {
     super(props);
     this.state = {...initialState};
@@ -30,7 +31,7 @@ class VuEmbListeByRefVh extends React.Component {
   }
 
   componentDidMount() {
-    var action = VuEmbInitAction.init();
+    var action = SortiPortInitAction.init();
     this.props.actions.dispatch(action);
     //this.state = {...initialState};
     // this.unsubscribe = this.props.navigation.addListener('focus', () => {
@@ -46,7 +47,7 @@ class VuEmbListeByRefVh extends React.Component {
     return [
       {
         code: 'dedo_num_enreg',
-        libelle: translate('vuEmbarquee.decEnDetail.ref'),
+        libelle: translate('sortiPort.decEnDetail.ref'),
         width: 160,
       },
       {
@@ -66,7 +67,7 @@ class VuEmbListeByRefVh extends React.Component {
       },
       {
         code: '',
-        libelle: 'Vu Embarquer',
+        libelle: 'Sorti du Port',
         width: 150,
         icon: 'pencil',
         size: 25,
@@ -89,7 +90,7 @@ class VuEmbListeByRefVh extends React.Component {
     };
 
     console.log(JSON.stringify(data));
-    var action = VuEmbInitAction.request(
+    var action = SortiPortInitAction.request(
       {
         type: Constants.RECHERCHE_D17_DUM_REQUEST,
         value: {
@@ -114,13 +115,13 @@ class VuEmbListeByRefVh extends React.Component {
     this.setState({showErrorMsg: true});
     if (this.state.matriculeVehicule && this.state.matriculeVehicule !== '') {
       const data = {
-        codeBureau: '309',
+        codeBureau: ComSessionService.getInstance().getCodeBureau(),
         immatriculationVehicule: this.state.matriculeVehicule,
       };
       const action = {
         type: Constants.VU_EMB_RECH_BY_REF_VH_REQUEST,
         value: {
-          login: 'AD6025',
+          login: ComSessionService.getInstance().getLogin(),
           commande: 'ded.getDecTryptiqueParMatVehicule',
           module: 'DED_LIB',
           typeService: 'SP',
@@ -128,7 +129,7 @@ class VuEmbListeByRefVh extends React.Component {
         },
       };
 
-      this.props.actions.dispatch(VuEmbRefVHAction.request(action));
+      this.props.actions.dispatch(SortiPortRefVHAction.request(action));
     }
   };
 
@@ -160,7 +161,7 @@ class VuEmbListeByRefVh extends React.Component {
               error={this.hasErrors('matriculeVehicule')}
               maxLength={20}
               value={this.state.matriculeVehicule}
-              label={translate('vuEmbarquee.matriculeVehicule')}
+              label={translate('sortiPort.matriculeVehicule')}
               onChangeText={(val) => this.setState({matriculeVehicule: val})}
             />
             <HelperText
@@ -168,7 +169,7 @@ class VuEmbListeByRefVh extends React.Component {
               padding="none"
               visible={this.hasErrors('matriculeVehicule')}>
               {translate('errors.donneeObligatoire', {
-                champ: translate('vuEmbarquee.matriculeVehicule'),
+                champ: translate('sortiPort.matriculeVehicule'),
               })}
             </HelperText>
           </View>
@@ -188,10 +189,10 @@ class VuEmbListeByRefVh extends React.Component {
           <CardBox style={styles.cardBox}>
             <Accordion
               badr
-              title={translate('vuEmbarquee.historique.title')}
+              title={translate('sortiPort.historique.title')}
               expanded>
               <Text style={styles.nombreResult}>
-                {translate('vuEmbarquee.versions.nbreVersions')} :
+                {translate('sortiPort.versions.nbreVersions')} :
                 <Text style={styles.libelle}>{this.props.vh?.data?.length}</Text>
               </Text>
               <ComBasicDataTableComp
@@ -237,7 +238,7 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps(state) {
-  return {vh: state.vuEmbRefVH, tryp: state.vuEmbInitReducer};
+  return {vh: state.sortiPortRefVH, tryp: state.sortiPortInitReducer};
 }
 
 function mapDispatchToProps(dispatch) {
@@ -247,4 +248,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(VuEmbListeByRefVh);
+export default connect(mapStateToProps, mapDispatchToProps)(SortiPortListeByRefVh);

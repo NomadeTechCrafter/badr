@@ -78,6 +78,7 @@ export default class ComHttpHelperApi {
         '----reponse WS local',
         localStore[object.dtoHeader.commande],
       );*/
+      console.log(JSON.stringify(localStore[object.dtoHeader.commande]));
       return {
         data: localStore[object.dtoHeader.commande],
       };

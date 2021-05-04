@@ -11,6 +11,8 @@ import MainMenu from '../../mainMenu/ui/habMainMenuScreen';
 import CreerApurement from '../../../at/apurement/ui/creerApurement/AtApurementScreen';
 import Apurement from '../../../at/apurement/ui/ongletAt/apurement/AtCreateApurementScreen';
 import VuEmbarqueScreen from '../../../DeclarationD17D20/vuEmbarquer/ui/vuEmbarquer/VuEmbarqueScreen';
+import SortiPortScreen from '../../../DeclarationD17D20/sortiPort/ui/decSortiPort/decSortiPortMainScreen';
+import SortiPortListeDeclaration from '../../../DeclarationD17D20/sortiPort/ui/decSortiPort/decSortiPortListeDeclaration';
 import VuEmbListeDeclaration from '../../../DeclarationD17D20/vuEmbarquer/ui/vuEmbarquer/VuEmbListeDeclaration';
 
 import { ComQrCodeScannerComp } from '../../../../commons/component';
@@ -284,6 +286,17 @@ class habHomeScreen extends React.Component {
           component={VuEmbListeDeclaration}
           options={{ headerShown: false }}
         />
+        {/* Fonc Sorti Du Port */}
+        <Drawer.Screen
+          name="SortiPortScreen"
+          component={SortiPortScreen}
+          options={{ headerShown: false }}
+        />
+        <Drawer.Screen
+          name="SortiPortListeDeclaration"
+          component={SortiPortListeDeclaration}
+          options={{ headerShown: false }}
+        />
         <Drawer.Screen
           name="EciConsultationBLS"
           component={ConsultationBLSMainScreen}
@@ -293,17 +306,17 @@ class habHomeScreen extends React.Component {
         <Drawer.Screen
           name="T6bisCreation"
           component={T6bisCreation}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Drawer.Screen
           name="T6bisRecherche"
           component={T6bisRecherche}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Drawer.Screen
           name="T6bisGestion"
           component={T6bisGestion}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         {/* Module T6bis end*/}
 
@@ -317,7 +330,7 @@ class habHomeScreen extends React.Component {
           component={ECIAppositionScellesScreen}
           options={{ headerShown: false }}
         />
-        
+
       </Drawer.Navigator>
     );
   }

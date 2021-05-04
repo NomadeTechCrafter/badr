@@ -12,8 +12,9 @@ const mapping = {
   '14000012': {screen: 'ValiderCompteRenduMission', params: {}},
   '30661': {screen: 'ControleApresScanner', params: {}},
   '4096': {screen: 'RefControleVehicule', params: {}},
-  '823': {screen: 'RefPlaquesImm', params: {}},
-  '90025': {screen: 'VuEmbarqueScreen', params: {qr: true}},
+  '823': { screen: 'RefPlaquesImm', params: {} },
+  '90025': { screen: 'VuEmbarqueScreen', params: { qr: true } },
+  '90023': { screen: 'SortiPortScreen', params: { } },
 
   /*  '3086': {screen: 'controleRechercheDumScreen', params: {typeControle: 'TR'}},
     '2052': {screen: 'DedRechercheRedressement', params: {qr: false}},
