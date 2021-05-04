@@ -6,6 +6,7 @@ import {
   ComBasicDataTableComp,
   ComBadrDatePickerComp,
   ComBadrLibelleComp,
+  ComBadrErrorMessageComp,
 } from '../../../../commons/component';
 import EcorExpInformationEcorComp from './../component/ecorExpInformationEcorComp';
 import {Col, Grid, Row} from 'react-native-easy-grid';
@@ -19,7 +20,9 @@ import style from '../style/ecorExpConfirmationEntreeStyle';
 class ConfirmationEntreeResultScreen extends React.Component {
   constructor(props) {
     super(props);
-
+    this.state = {
+      errorMessage: '',
+    };
     this.cols = [
       {
         code: 'referenceEnregistrement',
@@ -58,6 +61,12 @@ class ConfirmationEntreeResultScreen extends React.Component {
       this.refs._badrTable.reset();
     }
   }
+  setError = (msg) => {
+    console.log(msg);
+    this.setState({
+      errorMessage: msg,
+    });
+  };
 
   render() {
     return (
@@ -70,9 +79,12 @@ class ConfirmationEntreeResultScreen extends React.Component {
           onLayout={(event) => {
             this.layout = event.nativeEvent.layout;
           }}>
+          {this.state.errorMessage !== null && (
+            <ComBadrErrorMessageComp message={this.state.errorMessage} />
+          )}
           <ComBasicDataTableComp
             ref="_badrTable"
-            id="numeroChassis"
+            id="listConfirmationEntree"
             rows={this.props.data.listDeclaration}
             cols={this.cols}
             onItemSelected={this.onItemSelected}
@@ -148,9 +160,11 @@ class ConfirmationEntreeResultScreen extends React.Component {
               </Col>
             </Row>
           </Grid>
-
+          <EcorExpInformationEcorComp
+            ecorInfo={this.props.data.initConfirmerEntreeVO}
+            setError={this.setError}
+          />
         </ScrollView>
-        <EcorExpInformationEcorComp ecorInfo={this.props.data.initConfirmerEntreeVO} />
       </View>
     );
   }
