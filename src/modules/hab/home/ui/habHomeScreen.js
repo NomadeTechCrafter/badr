@@ -1,9 +1,9 @@
 /** React Components */
 import React from 'react';
-import { Dimensions } from 'react-native';
+import {Dimensions} from 'react-native';
 
 /** REDUX **/
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 
 /** Screens */
 import WelcomeScreen from '../../annonces/ui/habAnnoncesScreen';
@@ -13,7 +13,7 @@ import Apurement from '../../../at/apurement/ui/ongletAt/apurement/AtCreateApure
 import VuEmbarqueScreen from '../../../DeclarationD17D20/vuEmbarquer/ui/vuEmbarquer/VuEmbarqueScreen';
 import VuEmbListeDeclaration from '../../../DeclarationD17D20/vuEmbarquer/ui/vuEmbarquer/VuEmbListeDeclaration';
 
-import { ComQrCodeScannerComp } from '../../../../commons/component';
+import {ComQrCodeScannerComp} from '../../../../commons/component';
 import BloquerOperateur from '../../../referentiel/operateursEconomiques/ui/bloquerOperateur/refBloquerOperateurScreen';
 import DebloquerOperateur from '../../../referentiel/operateursEconomiques/ui/debloquerOperateur/refDebloquerOperateurScreen';
 import DedRedressementScreen from '../../../dedouanement/redressement/ui/DedRedressementScreen';
@@ -50,7 +50,7 @@ import * as Constants from '../../../../commons/constants/generic/ComGenericCons
 import * as GenericAction from '../../../../commons/state/actions/ComGenericAction';
 
 /** Drawer navigation */
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import {createDrawerNavigator} from '@react-navigation/drawer';
 import DedRedressementRecherche from '../../../dedouanement/redressement/ui/DedRechercheRedressementScreen';
 import RefControleVehiculeMainScreen from '../../../referentiel/controleVehicules/ui/refControleVehiculeMainScreen';
 import RefPlaquesImmMainScreen from '../../../referentiel/plaquesImmatriculation/ui/refPlaquesImmMainScreen';
@@ -60,10 +60,11 @@ import ECIAppositionScellesScreen from '../../../ecorImport/appositionScelles/ap
 import ConsultationBLSMainScreen from '../../../ecorImport/eciConsultationBLS/ui/eciConsultationBLSMainScreen';
 
 
+import PecEtatChargementMainScreen from '../../../pecEtatChargement/rechParRef/ui/pecEtatChargementMainScreen';
 const Drawer = createDrawerNavigator();
 const deltaScreen = Dimensions.get('window').width / 4;
 
-function DedRedressementRechercheScreen({ route, navigation }) {
+function DedRedressementRechercheScreen({route, navigation}) {
   return <DedRedressementRecherche navigation={navigation} route={route} />;
 }
 
@@ -112,177 +113,177 @@ class habHomeScreen extends React.Component {
         <Drawer.Screen
           name="CreerApurement"
           component={CreerApurement}
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
         />
         <Drawer.Screen
           name="Apurement"
           component={Apurement}
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
         />
         <Drawer.Screen
           name="DedRechercheRedressement"
           component={DedRedressementRechercheScreen}
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
         />
         <Drawer.Screen
           name="controleRechercheDumScreen"
           component={controleRechercheDumScreen}
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
         />
         <Drawer.Screen
           name="controleListDecalarationDumScreen"
           component={controleListDecalarationDumScreen}
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
         />
         <Drawer.Screen
           name="ControleRegimeInterneScreen"
           component={ControleRegimeInterneScreen}
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
         />
         <Drawer.Screen
           name="ControleRegimeTransitScreen"
           component={ControleRegimeTransitScreen}
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
         />
         <Drawer.Screen
           name="ControleACVPScreen"
           component={ControleACVPScreen}
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
         />
         <Drawer.Screen
           name="RechecheMLV"
           component={RechecheMLV}
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
         />
 
         <Drawer.Screen
           name="DelivrerMLV"
           component={DelivrerMLV}
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
         />
 
         <Drawer.Screen
           name="ListDeclarationMLV"
           component={ListDeclarationMLV}
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
         />
         <Drawer.Screen
           name="RechercheEcorImport"
           component={RechercheEcorImport}
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
         />
         <Drawer.Screen
           name="ComQrCodeScannerComp"
           component={ComQrCodeScannerComp}
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
         />
 
         <Drawer.Screen
           name="BloquerOperateur"
           component={BloquerOperateur}
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
         />
 
         <Drawer.Screen
           name="DebloquerOperateur"
           component={DebloquerOperateur}
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
         />
 
         <Drawer.Screen
           name="AjouterReconnaissance"
           component={AjouterReconnaissance}
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
         />
 
         <Drawer.Screen
           name="ModifierReconnaissance"
           component={ModifierReconnaissance}
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
         />
 
         <Drawer.Screen
           name="AnnulerReconnaissance"
           component={AnnulerReconnaissance}
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
         />
 
         <Drawer.Screen
           name="CreerCompteRenduMission"
           component={CreerCompteRenduMission}
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
         />
 
         <Drawer.Screen
           name="ModifierCompteRenduMission"
           component={ModifierCompteRenduMission}
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
         />
 
         <Drawer.Screen
           name="ValiderCompteRenduMission"
           component={ValiderCompteRenduMission}
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
         />
 
         <Drawer.Screen
           name="ControleApresScanner"
           component={ControleApresScanner}
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
         />
 
         <Drawer.Screen
           name="RefControleVehicule"
           component={RefControleVehiculeMainScreen}
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
         />
 
         <Drawer.Screen
           name="RefPlaquesImm"
           component={RefPlaquesImmMainScreen}
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
         />
         {/* Actif Module*/}
         <Drawer.Screen
           name="Recherche"
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
           component={Recherche}
         />
         <Drawer.Screen
           name="Creation"
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
           component={Creation}
         />
         <Drawer.Screen
           name="Entete"
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
           component={Entete}
         />
         <Drawer.Screen
           name="Details"
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
           component={Details}
         />
         <Drawer.Screen
           name="Saisie"
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
           component={Saisie}
         />
         <Drawer.Screen
           name="Consultation"
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
           component={Consultation}
         />
         {/* Fonc Vu embarquer */}
         <Drawer.Screen
           name="VuEmbarqueScreen"
           component={VuEmbarqueScreen}
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
         />
         <Drawer.Screen
           name="VuEmbListeDeclaration"
           component={VuEmbListeDeclaration}
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
         />
         <Drawer.Screen
           name="EciConsultationBLS"
@@ -317,11 +318,19 @@ class habHomeScreen extends React.Component {
           component={ECIAppositionScellesScreen}
           options={{ headerShown: false }}
         />
-        
+
+
+        {/* Fonc RechParRef EtatChargement */}
+        <Drawer.Screen
+          name="PecEtatChargementMainScreen"
+          component={PecEtatChargementMainScreen}
+          options={{headerShown: false}}
+        />
+
       </Drawer.Navigator>
     );
   }
 }
 
-const mapStateToProps = (state) => ({ ...state.genericReducer });
+const mapStateToProps = (state) => ({...state.genericReducer});
 export default connect(mapStateToProps, null)(habHomeScreen);

@@ -50,6 +50,7 @@ const mapping = {
     screen: 'EciConsultationBLS',
     params: { title: 'Ecran  Recherche Consultation BLS' }
   },
+    '6064': {screen: 'PecEtatChargementMainScreen', params: {}},
 };
 
 const ionicMapping = {};

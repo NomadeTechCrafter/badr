@@ -67,6 +67,10 @@ const localStore = {
   /* T6bisInitForUpdate: require('../../../../modules/t6bis/recherche/service/local-data/t6bisInitForUpdateDataError.json'), */
   findEciRechBls: require('../../../../modules/ecorImport/eciConsultationBLS/service/local-data/eciFindEciRechBls.json'),
   initApposerScelles: require('../../../../modules/ecorImport/appositionScelles/recherche/service/local-data/eciInitAppositionScellesData.json'),
+  recupererVersionAECVO: require('../../../../modules/pecEtatChargement/rechParRef/service/local-data/recupererVersionAECVO.json'),
+  getListHistoriqueEtdc: require('../../../../modules/pecEtatChargement/rechParRef/service/local-data/getListHistoriqueEtdc.json'),
+  getListVersionsEtdc: require('../../../../modules/pecEtatChargement/rechParRef/service/local-data/getListVersionsEtdc.json'),
+  findResultatScannerByReferenceEtatChargement: require('../../../../modules/pecEtatChargement/rechParRef/service/local-data/findResultatScannerByReferenceEtatChargement.json'),
 
 
 };

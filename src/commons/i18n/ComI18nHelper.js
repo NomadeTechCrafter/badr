@@ -30,6 +30,8 @@ import liquidationTranslateFr from '../../modules/liquidation/i18n/liquidationTr
 import eciConsultationBLSTranslateFr from '../../modules/ecorImport/eciConsultationBLS/i18n/eciConsultationBLSTranslateFr';
 import eciAppositionScellesRechercheTranslateFr from '../../modules/ecorImport/appositionScelles/recherche/i18n/eciAppositionScellesRechercheTranslateFr';
 import eciAppositionScellesTranslateFr from '../../modules/ecorImport/appositionScelles/apposition/i18n/eciAppositionScellesTranslateFr';
+import pecEtatChargementTranslateFr from '../../modules/pecEtatChargement/rechParRef/i18n/pecEtatChargementTranslateFr';
+
 
 const locales = RNLocalize.getLocales();
 
@@ -43,7 +45,7 @@ I18n.fallbacks = true;
  */
 let combined = {
   ...commonTranslations,
-  ...annoncesTranslations,
+    ...annoncesTranslations,
   ...loginTranslations,
   ...smsVerifyTranslations,
   ...profileTranslations,
@@ -67,7 +69,8 @@ let combined = {
   ...t6bisRechercheTranslationsFr,
   ...eciConsultationBLSTranslateFr,
   ...eciAppositionScellesRechercheTranslateFr,
-  ...eciAppositionScellesTranslateFr
+  ...eciAppositionScellesTranslateFr,
+  ...pecEtatChargementTranslateFr,
 };
 I18n.translations = {
   fr: combined,

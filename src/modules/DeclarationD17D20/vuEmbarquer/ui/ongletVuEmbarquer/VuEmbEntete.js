@@ -66,8 +66,8 @@ class VuEmbarquerEntete extends React.Component {
         vuEmbarqueExisteDeja: this.props.dataVo.declarationTriptique
           .vuEmbarqueExisteDeja,
         screenActions,
-        dateDebutVuEmb: vuEmbarque.dateVuEmbarque.split(' ')[0],
-        heureDebutVuEmb: vuEmbarque.dateVuEmbarque.split(' ')[1],
+        dateDebutVuEmb: vuEmbarque.dateVuEmbarque?.split(' ')[0],
+        heureDebutVuEmb: vuEmbarque.dateVuEmbarque?.split(' ')[1],
       };
     } else {
       this.state = {

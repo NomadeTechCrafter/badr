@@ -1,0 +1,12 @@
+{
+    "dtoHeader": {
+        "userLogin": "AD6203",
+        "fonctionnalite": "cf6064",
+        "module": "AEC_LIB",
+        "commande": "findResultatScannerByReferenceEtatChargement",
+        "typeService": "SP",
+        "offset": 0,
+        "pageSize": 0,
+        "rowCount": 0
+    }
+}

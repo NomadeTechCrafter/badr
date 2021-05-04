@@ -61,6 +61,7 @@ import liquidationReducer from '../../modules/liquidation/state/reducers/liquida
 import consultationBLSReducer from '../../modules/ecorImport/eciConsultationBLS/state/reducers/eciConsultationBLSReducer';
 import eciAppositionScellesRechercheReducer from '../../modules/ecorImport/appositionScelles/recherche/state/reducers/eciAppositionScellesRechercheReducer';
 import eciAppositionScellesReducer from '../../modules/ecorImport/appositionScelles/apposition/state/reducers/eciAppositionScellesReducer';
+import pecEtatChargementReducer from '../../modules/pecEtatChargement/rechParRef/state/reducers/pecEtatChargementReducer'
 
 /**
  * combine all reducers
@@ -115,7 +116,8 @@ const allReducers = combineReducers({
   t6bisRechercheReducer,
   consultationBLSReducer,
   eciAppositionScellesRechercheReducer,
-  eciAppositionScellesReducer
+  eciAppositionScellesReducer,
+  pecEtatChargementReducer,
 });
 /**
  * store creation
