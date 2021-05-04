@@ -25,7 +25,18 @@ class T6bisCreation extends React.Component {
     };
   }
 
-  componentDidMount = async () => {
+  componentDidMount = () => {
+    this._unsubscribe = this.props.navigation.addListener('focus', () => {
+      console.log('T6bisCreation focus start');
+      this.setState({
+        selectedTypeCode: null,
+        selectedType: null,
+        mode: null
+      });
+    });
+    this.loadTypes();
+  }
+  loadTypes = async () => {
     let action = await t6bisCreationSearchAction.request({
       type: Constantes.CREATION_T6BIS_ALL_TYPE_REQUEST,
       value: null,
@@ -37,10 +48,12 @@ class T6bisCreation extends React.Component {
     this.props.errorMessage = '';
     this.props.errorInfo = '';
     console.log('T6bisCreation         componentWillUnmount');
+    this._unsubscribe();
   }
 
   reset = () => {
     console.log('reset');
+    this.setState({ selectedTypeCode: null });
   };
 
   valider = async () => {
@@ -62,14 +75,14 @@ class T6bisCreation extends React.Component {
           title: translate('t6bisGestion.title'),
         },
       },
-      this.props.navigation,
+      this.props.navigation, this.reset
     );
     this.props.actions.dispatch(action);
   };
 
   abandonner = () => {
     console.log('abandonner');
-    this.props.navigation.navigate('Home', {});
+    this.props.navigation.navigate('Bienvenue', {});
   };
 
   static getDerivedStateFromProps(props, state) {
