@@ -10,9 +10,13 @@ const style = {
     row: { height: 28 },
     text: { textAlign: 'center' },
     datatableWidth: { width: '100%' },
-    datatableCellWidth: { width: 120 },
-    datatableCell: { width: 100 },
+    datatableCell: { margin: 10, width: 400},
+    datatableCellValue: { width: 1000 },
     width100: { width: '100%' },
+    cardBox: {
+        padding: 0,
+        margin: 10,
+    },
 };
 
 export default StyleSheet.create(style);

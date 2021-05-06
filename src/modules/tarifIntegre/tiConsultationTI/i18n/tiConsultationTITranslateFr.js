@@ -1,5 +1,6 @@
 export default {
   consultationTI: {
+    mainTitle: 'Consultation du Tarif Intégré',
     positionTarifaire: 'Position Tarifaire',
     date: 'Date',
     flux: 'Flux',

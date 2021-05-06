@@ -1,4 +1,5 @@
 /**Constants */
+import { ComSessionService } from '../../../../../commons/services/session/ComSessionService';
 import {
     CONSULTATION_IGTI_FAILED,
     CONSULTATION_IGTI_IN_PROGRESS,
@@ -37,7 +38,7 @@ export default (state = initialState, action) => {
             nextState.errorMessage = null;
             nextState.showProgress = false;
             nextState.data = action.value.filter(function (item) {
-                return item.mode === 'I';
+                return item.mode === ComSessionService.getInstance().getModeConsultation();
             }).map(function ({ code, libelle }) {
                 return { code, libelle };
             });
@@ -67,8 +68,8 @@ export default (state = initialState, action) => {
             filtredBlocs = filtredBlocs.filter(function (item) {
                 return item.condition === action.value.condition;
             });
-            nextState.myBlocs = filtredBlocs[0].sousBlocs;
-            nextState.leftBlocs = filtredBlocs[0].sousBlocs.map(b => b.title);
+            nextState.myBlocs = filtredBlocs[0]?.sousBlocs;
+            nextState.leftBlocs = filtredBlocs[0]?.sousBlocs.map(b => b.title);
             return nextState;
         case CONSULTATION_IGTI_FAILED:
             nextState.showProgress = false;
@@ -82,8 +83,6 @@ export default (state = initialState, action) => {
             nextState.showProgress = true;
             return initialState;
     }
-
-
 
 };
 
@@ -119,9 +118,9 @@ function filterBlocs(donnees) {
                                                         for (var o = 0; o < donnees[i].datas[j].datas[k].datas[l].datas[m].datas[0].datas[n].datas.length; o++) {
                                                             if (donnees[i].datas[j].datas[k].datas[l].datas[m].datas[0].datas[n].datas[o].name === 'tab-ligne') {
                                                                 for (var p = 0; p < donnees[i].datas[j].datas[k].datas[l].datas[m].datas[0].datas[n].datas[o].datas.length; p++) {
-                                                                    if (donnees[i].datas[j].datas[k].datas[l].datas[m].datas[0].datas[n].datas[o].datas[p].code === 'val') {
+                                                                    // if (donnees[i].datas[j].datas[k].datas[l].datas[m].datas[0].datas[n].datas[o].datas[p].code === 'val') {
                                                                         sousBlocLigne.valeur += ' ' + donnees[i].datas[j].datas[k].datas[l].datas[m].datas[0].datas[n].datas[o].datas[p].libelle;
-                                                                    }
+                                                                    // }
                                                                 }
                                                             }
                                                         }

@@ -6,10 +6,10 @@ export default class TiConsultationIgTIApi {
         const data = {
             dtoHeader: {
                 userLogin: ComSessionService.getInstance().getLogin(),
-                fonctionnalite: 'cf1104',
+                fonctionnalite: ComSessionService.getInstance().getFonctionalite(),
                 module: 'TI_LIB',
                 commande: 'getListInformationsConsultation',
-                typeService: 'SP',
+                typeService: 'SP'
             }
         };
         let response = await ComHttpHelperApi.process(data);

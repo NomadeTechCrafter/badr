@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, View } from 'react-native';
+import { ScrollView, View, Text } from 'react-native';
 import { Col, Grid, Row } from 'react-native-easy-grid';
 /**Custom Components */
 import {
@@ -7,6 +7,13 @@ import {
     ComBadrErrorMessageComp,
     ComBadrItemsPickerComp,
     ComBadrKeyValueComp,
+    ComBadrProgressBarComp,
+    ComBadrToolbarComp,
+} from '../../../../commons/component';
+import {
+    ComAccordionComp as Accordion,
+    ComBadrCardBoxComp as CardBox,
+    ComBasicDataTableComp,
 } from '../../../../commons/component';
 /** REDUX **/
 import { connect } from 'react-redux';
@@ -17,10 +24,10 @@ import style from '../style/tiConsultationIgTIStyle';
 /** i18n **/
 /** Inmemory session */
 import translate from '../../../../commons/i18n/ComI18nHelper';
-import { DataTable, List } from 'react-native-paper';
+import { DataTable, List, TextInput } from 'react-native-paper';
 import { CONSULTATION_IGTI_REQUEST, INIT_CONSULTATION_IGTI_REQUEST } from '../state/tiConsultationIgTIConstants';
+import { ComSessionService } from '../../../../commons/services/session/ComSessionService';
 import _ from 'lodash';
-import { Text } from 'react-native-elements';
 
 const initialState = {
 };
@@ -34,11 +41,13 @@ class TiConsultationIgTIScreen extends React.Component {
             libelleIG: '',
             igIsNotValid: false,
         };
+        ComSessionService.getInstance().setModeConsultation(props.route?.params?.modeConsultation ? props.route?.params?.modeConsultation : 'I');
     }
 
     buildInitConsultationIgTIAction = () => {
         let action = InitConsultationIgTIAction.request({
-            type: INIT_CONSULTATION_IGTI_REQUEST,
+            type: INIT_CONSULTATION_IGTI_REQUEST
+            
         });
         return action;
     };
@@ -48,7 +57,7 @@ class TiConsultationIgTIScreen extends React.Component {
             type: CONSULTATION_IGTI_REQUEST,
             value: {
                 "consultationTypeAction": "consultation_ig",
-                "consultationTiMode": this.props.route.params.modeConsultation ? this.props.route.params.modeConsultation : 'I',
+                "consultationTiMode": this.props.route?.params?.modeConsultation ? this.props.route?.params?.modeConsultation : 'I',
                 "infosConsultationTI": this.state.codeIG,
             }
         });
@@ -96,10 +105,30 @@ class TiConsultationIgTIScreen extends React.Component {
     renderSousBlocs = (bloc) => {
         const items = [];
         for (let sousBloc of bloc.sousBlocsLines) {
-            items.push(<DataTable.Row key={sousBloc.libelle}>
-                <DataTable.Cell style={style.datatableCellWidth}>{sousBloc.libelle}</DataTable.Cell>
-                <DataTable.Cell style={style.datatableCellWidth}>{sousBloc.valeur}</DataTable.Cell>
-            </DataTable.Row>);
+            items.push(
+                <DataTable.Row key={sousBloc.libelle}>
+                    <DataTable.Cell style={style.datatableCell}>
+                        <TextInput
+                            mode={'outlined'}
+                            style={{ width: 400, textAlignVertical: 'top' }}
+                            disabled={true}
+                            value={sousBloc.libelle}
+                            multiline={true}
+                            numberOfLines={sousBloc?.valeur?.length / 30}
+                        />
+                    </DataTable.Cell>
+                    <DataTable.Cell style={style.datatableCell}>
+                        <TextInput
+                            mode={'outlined'}
+                            style={{ width: 400, textAlignVertical: 'top' }}
+                            disabled={true}
+                            value={sousBloc.valeur}
+                            multiline={true}
+                            numberOfLines={sousBloc?.valeur?.length / 30}
+                        />
+                    </DataTable.Cell>
+                </DataTable.Row>
+            );
         }
         return items;
     }
@@ -111,8 +140,17 @@ class TiConsultationIgTIScreen extends React.Component {
                 items.push(
                     <DataTable key={bloc.title} style={style.width100}>
                         <DataTable.Row>
-                            <DataTable.Cell style={style.datatableCell}>{bloc.title}</DataTable.Cell>
                             <DataTable.Cell style={style.datatableCell}>
+                                <TextInput
+                                    mode={'outlined'}
+                                    style={{ width: 400 }}
+                                    disabled={true}
+                                    value={bloc.title}
+                                    multiline={true}
+                                    numberOfLines={bloc?.title?.length / 30}
+                                />
+                            </DataTable.Cell>
+                            <DataTable.Cell>
                                 <DataTable>
                                     {this.renderSousBlocs(bloc)}
                                 </DataTable>
@@ -127,77 +165,100 @@ class TiConsultationIgTIScreen extends React.Component {
 
     render() {
         return (
-            <ScrollView>
-                <Grid style={style.marginTop20}>
-                    <Row size={5}>
-                        <Col size={100}>
-                            {this.state.igIsNotValid && (
-                                <ComBadrErrorMessageComp
-                                    message={translate('consultationIgTI.igChampObligatoire')}
-                                />
-                            )}
-                        </Col>
-                    </Row>
-                    <Row size={7}>
-                        <Col size={5} />
-                        <Col size={90} >
-                            <ComBadrKeyValueComp
-                                libelleSize={2}
-                                libelle={translate('consultationIgTI.ig')}
-                                children={
-                                    <ComBadrItemsPickerComp
-                                        label={translate('transverse.choix')}
-                                        selectedValue={this.state.codeIG ? this.state.codeIG : ''}
-                                        items={this.props.data}
-                                        onValueChanged={(value, index) => this.setState({
-                                            ...this.state,
-                                            ...initialState,
-                                            libelleIG: value ? value.libelle : '',
-                                            codeIG: value ? value.code : ''
-                                        })
-                                        }
+            <View style={style.container}>
+                <ComBadrToolbarComp
+                    navigation={this.props.navigation}
+                    icon="menu"
+                    title={translate('consultationIgTI.mainTitle')}
+                    subtitle={translate('consultationIgTI.title')}
+                />
+
+                {this.props.showProgress && <ComBadrProgressBarComp circle={false} />}
+                <ScrollView>
+                    <Grid style={style.marginTop20}>
+                        <Row size={5}>
+                            <Col size={100}>
+                                {this.state.igIsNotValid && (
+                                    <ComBadrErrorMessageComp
+                                        message={translate('consultationIgTI.igChampObligatoire')}
                                     />
-                                }
-                            />
-                        </Col>
-                        <Col size={5} />
-                    </Row>
-                    <Row size={10}>
-                        <Col size={5} />
-                        <Col size={45}>
-                            <ComBadrButtonIconComp
-                                onPress={() => this.handleSearch()}
-                                icon="magnify"
-                                style={style.buttonIcon}
-                                loading={this.props.showProgress}
-                                text={translate('transverse.confirmer')}
-                            />
-                        </Col>
-                        <Col size={45}>
-                            <ComBadrButtonIconComp
-                                onPress={() => this.handleClear()}
-                                icon="autorenew"
-                                style={style.buttonIcon}
-                                text={translate('transverse.retablir')}
-                            />
-                        </Col>
-                        <Col size={5} />
-                    </Row>
-                    <Row size={70}>
-                        <Col size={1000}>
-                            {(this.state.codeIG !== 0 && this.props.myBlocs && this.props.myBlocs.length > 0) && (
-                                <View style={style.width100} >
-                                    <List.Section style={style.width100}>
-                                        <List.Accordion style={style.width100}
-                                            title={this.state.libelleIG}>
-                                            {this.renderAccordians()}
-                                        </List.Accordion></List.Section>
-                                </View>
-                            )}
-                        </Col>
-                    </Row>
-                </Grid>
-            </ScrollView>
+                                )}
+                            </Col>
+                        </Row>
+                        <Row size={7}>
+                            <Col size={5} />
+                            <Col size={90} >
+                                <ComBadrKeyValueComp
+                                    libelleSize={2}
+                                    libelle={translate('consultationIgTI.ig')}
+                                    children={
+                                        <ComBadrItemsPickerComp
+                                            label={translate('transverse.choix')}
+                                            selectedValue={this.state.codeIG ? this.state.codeIG : ''}
+                                            items={this.props.data}
+                                            onValueChanged={(value, index) => this.setState({
+                                                ...this.state,
+                                                ...initialState,
+                                                libelleIG: value ? value.libelle : '',
+                                                codeIG: value ? value.code : ''
+                                            })
+                                            }
+                                        />
+                                    }
+                                />
+                            </Col>
+                            <Col size={5} />
+                        </Row>
+                        <Row size={10}>
+                            <Col size={5} />
+                            <Col size={45}>
+                                <ComBadrButtonIconComp
+                                    onPress={() => this.handleSearch()}
+                                    icon="magnify"
+                                    style={style.buttonIcon}
+                                    loading={this.props.showProgress}
+                                    text={translate('transverse.confirmer')}
+                                />
+                            </Col>
+                            <Col size={45}>
+                                <ComBadrButtonIconComp
+                                    onPress={() => this.handleClear()}
+                                    icon="autorenew"
+                                    style={style.buttonIcon}
+                                    text={translate('transverse.retablir')}
+                                />
+                            </Col>
+                            <Col size={5} />
+                        </Row>
+                        <Row size={70}>
+                            <Col size={1000}>
+                                {(this.state.codeIG !== 0 && this.props.myBlocs && this.props.myBlocs.length > 0) && (
+                                    <View style={style.width100} >
+                                        <CardBox style={style.cardBox}>
+                                            <Accordion
+                                                badr
+                                                title={this.state.libelleIG}
+                                                expanded>
+                                                <ScrollView
+                                                    style={style.width100}
+                                                    ref={(node) => {
+                                                        this.horizontalScrollView = node;
+                                                    }}
+                                                    key="horizontalScrollView"
+                                                    horizontal={true}>
+                                                    <ScrollView key="verticalScrollView" style={style.width100}>
+                                                        {this.renderAccordians()}
+                                                    </ScrollView>
+                                                </ScrollView>
+                                            </Accordion>
+                                        </CardBox>
+                                    </View>
+                                )}
+                            </Col>
+                        </Row>
+                    </Grid>
+                </ScrollView>
+            </View>
         );
     }
 }

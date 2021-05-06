@@ -14,6 +14,7 @@ export class ComSessionService {
   profiles = [];
   geoCoords;
   fonctionalite = '';
+  modeConsultation = '';
   /**
     Device information
    */
@@ -193,5 +194,13 @@ export class ComSessionService {
 
   setFonctionalite(fonctionalite) {
     this.fonctionalite = fonctionalite;
+  }
+
+  getModeConsultation() {
+    return this.modeConsultation;
+  }
+
+  setModeConsultation(modeConsultation) {
+    this.modeConsultation = modeConsultation;
   }
 }
