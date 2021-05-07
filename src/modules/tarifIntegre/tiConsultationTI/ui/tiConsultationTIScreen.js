@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, Text, TextInput, View } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 import { Col, Grid, Row } from 'react-native-easy-grid';
 /**Custom Components */
 import {
@@ -26,10 +26,11 @@ import style from '../style/tiConsultationTIStyle';
 /** i18n **/
 /** Inmemory session */
 import translate from '../../../../commons/i18n/ComI18nHelper';
-import { DataTable, List } from 'react-native-paper';
+import { DataTable, TextInput } from 'react-native-paper';
 import { CONSULTATION_TI_REQUEST, INIT_CONSULTATION_TI_REQUEST } from '../state/tiConsultationTIConstants';
 import _ from 'lodash';
 import { remote } from '../../../../old/common/config';
+import moment from 'moment';
 
 const initialState = {
 };
@@ -40,7 +41,7 @@ class TiConsultationTIScreen extends React.Component {
         super(props);
         this.state = {
             ...initialState,
-            date: new Date(),
+            date: moment(new Date()).format('DD/MM/YYYY'),
             codeIG: '',
             none: false,
             libelleIG: '',
@@ -76,13 +77,25 @@ class TiConsultationTIScreen extends React.Component {
     };
 
     componentDidMount() {
-        if (!remote && this.props.route.params.modeConsultation === 'E') {
-            this.state = {
-                none: true,
-            };
-        }
-        let action = this.buildInitConsultationTIAction();
-        this.props.actions.dispatch(action);
+        this.unsubscribe = this.props.navigation.addListener('focus', () => {
+            let action1 = this.buildInitConsultationTIActionInit();
+            this.props.actions.dispatch(action1);
+            let action = this.buildInitConsultationTIAction();
+            this.props.actions.dispatch(action);
+            this.setState({
+                ...initialState,
+                codeIG: '',
+                libelleIG: '',
+                positionTarifaire: '',
+                errorMessage: '',
+                date: moment(new Date()).format('DD/MM/YYYY')
+            });
+            this.positionTarifaireInput.clear();
+        });
+    }
+
+    componentWillUnmount() {
+        this.unsubscribe();
     }
 
     handleClear = () => {
@@ -96,7 +109,7 @@ class TiConsultationTIScreen extends React.Component {
             libelleIG: '',
             positionTarifaire: '',
             errorMessage: '',
-            date: new Date()
+            date: moment(new Date()).format('DD/MM/YYYY')
         });
         this.positionTarifaireInput.clear();
     }
@@ -139,12 +152,29 @@ class TiConsultationTIScreen extends React.Component {
 
     renderSousBlocs = (sousBloc) => {
         const items = [];
+        let index = 0;
         for (let sousBlocsLine of sousBloc.sousBlocsLines) {
             items.push(
-                <DataTable.Row key={sousBloc.title}>
-                    <DataTable.Cell style={style.datatableCellWidth}>{sousBlocsLine.libelle}</DataTable.Cell>
+                <DataTable.Row key={sousBloc.title + index++}>
                     <DataTable.Cell style={style.datatableCellWidth}>
-                        {sousBlocsLine.valeur}
+                        <TextInput
+                            mode={'outlined'}
+                            style={{ width: 200, textAlignVertical: 'top' }}
+                            disabled={true}
+                            value={sousBlocsLine.libelle}
+                            multiline={true}
+                            numberOfLines={sousBlocsLine?.libelle?.length / 15}
+                        />
+                    </DataTable.Cell>
+                    <DataTable.Cell style={style.datatableCellWidth}>
+                        <TextInput
+                            mode={'outlined'}
+                            style={{ width: 200, textAlignVertical: 'top' }}
+                            disabled={true}
+                            value={sousBlocsLine.valeur}
+                            multiline={true}
+                            numberOfLines={sousBlocsLine?.valeur?.length / 15}
+                        />
                     </DataTable.Cell>
                 </DataTable.Row>
             );
@@ -157,7 +187,7 @@ class TiConsultationTIScreen extends React.Component {
         for (let sousBloc of sousBlocs) {
             items.push(
                 <DataTable.Row>
-                    <DataTable.Cell style={style.datatableCell}>{sousBloc.title}</DataTable.Cell>
+                    <DataTable.Cell style={style.datatableCellWidth}>{sousBloc.title}</DataTable.Cell>
                     <DataTable.Cell style={style.datatableCell}>
                         <DataTable>
                             {this.renderSousBlocs(sousBloc)}
@@ -174,10 +204,23 @@ class TiConsultationTIScreen extends React.Component {
             for (let bloc of this.props.myBlocs) {
                 items.push(
                     <DataTable key={bloc.title} style={style.width100}>
-                        <List.Accordion style={style.width100}
-                            title={bloc.title}>
-                            {this.renderAccordians(bloc.sousBlocs)}
-                        </List.Accordion>
+                        <Accordion
+                            badr
+                            title={bloc.title}
+                            expanded
+                            style={[style.width100, style.text]}>
+                            <ScrollView
+                                style={style.width100}
+                                ref={(node) => {
+                                    this.horizontalScrollView = node;
+                                }}
+                                key="horizontalScrollView"
+                                horizontal={true}>
+                                <ScrollView key="verticalScrollView" style={style.width100}>
+                                    {this.renderAccordians(bloc.sousBlocs)}
+                                </ScrollView>
+                            </ScrollView>
+                        </Accordion>
                     </DataTable>
                 );
             }
@@ -231,15 +274,14 @@ class TiConsultationTIScreen extends React.Component {
                             {this.renderCodification(line.codification)}
                         </DataTable.Cell>
                         <DataTable.Cell style={style.datatableCell}>
-                            {/* <TextInput
+                            <TextInput
                                 mode={'outlined'}
-                                style={{ width: 250, textAlignVertical: 'top' }}
+                                style={{ width: 400, textAlignVertical: 'top' }}
                                 disabled={true}
-                                value={line.designation}
+                                value={line?.designation}
                                 multiline={true}
-                                numberOfLines={10}
-                            /> */}
-                            {line.designation}
+                                numberOfLines={line?.designation?.length / 30}
+                            />
                         </DataTable.Cell>
                         <DataTable.Cell style={style.datatableCellMinWidth}>
                             {line.di}
@@ -260,8 +302,7 @@ class TiConsultationTIScreen extends React.Component {
     renderDescriptionFr = () => {
         const items = [];
         items.push(
-            <List.Accordion style={style.width100}
-                title={this.props.descriptionFr.title}>
+            <ScrollView key="verticalScrollView" style={style.width100}>
                 <DataTable.Header style={style.width100}>
                     <DataTable.Title style={style.datatableCell}>
                         Codification
@@ -279,8 +320,8 @@ class TiConsultationTIScreen extends React.Component {
                         UC
                     </DataTable.Title>
                 </DataTable.Header>
-                {this.renderDescriptionFrDataTable(this.props.descriptionFr.listData)}
-            </List.Accordion>
+                {this.renderDescriptionFrDataTable(this.props.descriptionFr?.listData)}
+            </ScrollView>
         );
         return items;
     }
@@ -292,17 +333,24 @@ class TiConsultationTIScreen extends React.Component {
             items.push(
                 <DataTable style={style.width100}>
                     <DataTable.Row>
-                        <DataTable.Cell style={style.datatableCell}>
+                        <DataTable.Cell style={style.datatableCellMinWidth}>
                             {line.uc}
                         </DataTable.Cell>
-                        <DataTable.Cell style={style.datatableCell}>
+                        <DataTable.Cell style={style.datatableCellAveWidth}>
                             {line.uqn}
                         </DataTable.Cell>
-                        <DataTable.Cell style={style.datatableCell}>
+                        <DataTable.Cell style={style.datatableCellMinWidth}>
                             {line.di}
                         </DataTable.Cell>
                         <DataTable.Cell style={style.datatableCell}>
-                            {line.designation}
+                            <TextInput
+                                mode={'outlined'}
+                                style={{ width: 400, textAlignVertical: 'top' }}
+                                disabled={true}
+                                value={line?.designation}
+                                multiline={true}
+                                numberOfLines={line?.designation?.length / 30}
+                            />
                         </DataTable.Cell>
                         <DataTable.Cell style={style.datatableCell}>
                             <DataTable>
@@ -319,27 +367,26 @@ class TiConsultationTIScreen extends React.Component {
     renderDescriptionAr = () => {
         const items = [];
         items.push(
-            <List.Accordion style={style.width100}
-                title={this.props.descriptionAr.title}>
+            <ScrollView key="verticalScrollView" style={style.width100}>
                 <DataTable.Header>
-                    <DataTable.Title style={style.datatableCell}>
+                    <DataTable.Title style={style.datatableCellMinWidth}>
                         الوحدات التكميلية
                     </DataTable.Title>
-                    <DataTable.Title style={style.datatableCell}>
+                    <DataTable.Title style={style.datatableCellAveWidth}>
                         وحدة الكمية حسب المواصفة
                     </DataTable.Title>
                     <DataTable.Title style={style.datatableCellMinWidth}>
                         رسم الاستيراد
                     </DataTable.Title>
-                    <DataTable.Title style={style.datatableCellMinWidth}>
+                    <DataTable.Title style={style.datatableCell}>
                         نوع البضائع
                     </DataTable.Title>
-                    <DataTable.Title style={style.datatableCellMinWidth}>
+                    <DataTable.Title style={style.datatableCell}>
                         ترميز حسب النظام المنسق
                     </DataTable.Title>
                 </DataTable.Header>
-                {this.renderDescriptionArDataTable(this.props.descriptionAr.listData)}
-            </List.Accordion>
+                {this.renderDescriptionArDataTable(this.props.descriptionAr?.listData)}
+            </ScrollView>
         );
         return items;
     }
@@ -407,6 +454,7 @@ class TiConsultationTIScreen extends React.Component {
                                     libelle={translate('consultationTI.date')}
                                     children={
                                         <ComBadrDatePickerComp
+                                            readonly={this.props.route?.params?.modeConsultation === 'E' ? true : false}
                                             dateFormat="DD/MM/YYYY"
                                             value={this.state.date}
                                             onDateChanged={(lDate) =>
@@ -468,27 +516,51 @@ class TiConsultationTIScreen extends React.Component {
                         </Row>
                         <Row size={70}>
                             <Col style={style.width100} >
-                                {(this.state.codeIG !== 0 && this.props.myBlocs && this.props.myBlocs.length > 0) && (
-                                    <View style={style.width100} >
-                                        <ScrollView
-                                            style={style.width100}
-                                            ref={(node) => {
-                                                this.horizontalScrollView = node;
-                                            }}
-                                            key="horizontalScrollView"
-                                            horizontal={true}>
-                                            <ScrollView key="verticalScrollView" style={style.width100}>
+                                <View style={style.width100} >
+                                    {(this.props.descriptionFr) && (
+                                        <Accordion
+                                            badr
+                                            title={this.props.descriptionFr?.title}
+                                            expanded
+                                            style={[style.width100, style.text]}>
+                                            <ScrollView
+                                                style={style.width100}
+                                                ref={(node) => {
+                                                    this.horizontalScrollView = node;
+                                                }}
+                                                key="horizontalScrollView"
+                                                horizontal={true}>
                                                 {this.renderDescriptionFr()}
-                                                {this.renderDescriptionAr()}
-                                                {this.renderBlocs()}
                                             </ScrollView>
-                                        </ScrollView>
-                                    </View>
-                                )}
+                                        </Accordion>
+                                    )}
+
+                                    {(this.props.descriptionAr) && (
+                                        <Accordion
+                                            badr
+                                            title={this.props.descriptionAr?.title}
+                                            expanded
+                                            style={[style.width100, style.text]}>
+                                            <ScrollView
+                                                style={style.width100}
+                                                ref={(node) => {
+                                                    this.horizontalScrollView = node;
+                                                }}
+                                                key="horizontalScrollView"
+                                                horizontal={true}>
+                                                {this.renderDescriptionAr()}
+                                            </ScrollView>
+                                        </Accordion>
+                                    )}
+
+                                    {(this.state.codeIG !== 0 && this.props.myBlocs && this.props.myBlocs.length > 0) && (
+                                        this.renderBlocs()
+                                    )}
+                                </View>
                             </Col>
                         </Row>
                     </Grid>
-                </ScrollView>
+                </ScrollView >
             </View >
         );
     }

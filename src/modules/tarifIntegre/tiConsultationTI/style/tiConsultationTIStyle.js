@@ -13,12 +13,20 @@ const style = {
     wrapper: { flexDirection: 'row' },
     title: { flex: 1, backgroundColor: '#f6f8fa' },
     row: { height: 28 },
-    text: { textAlign: 'center' },
+    text: {
+        textAlign: 'center'
+    },
     datatableWidth: { width: '100%' },
     datatableHeaderWidth: { textAlign: 'center', backgroundColor: '#00ffff' },
-    datatableCellWidth: { width: 220 },
-    datatableCell: { width: 500 },
-    datatableCellMinWidth: { width: 100 },
+    datatableCellWidth: { width: 220, margin: 5 },
+    datatableCell: {
+        width: 500,
+        justifyContent: 'center',
+        alignItems: 'center',
+        margin: 5
+    },
+    datatableCellMinWidth: { width: 100, margin: 5 },
+    datatableCellAveWidth: { width: 150, margin: 5 },
     width100: { width: '100%' },
     textInputsStyle: {
         padding: 10,
@@ -33,7 +41,7 @@ const style = {
         ...value,
         flex: 2,
     },
-    column: {width: 90 },
+    column: { width: 90 },
     gridContainer: { paddingRight: 25, paddingLeft: 25, width: '100%' },
 };
 

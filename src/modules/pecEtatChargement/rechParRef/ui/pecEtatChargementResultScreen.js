@@ -51,12 +51,13 @@ class PecEtatChargementResultScreen extends React.Component {
     onItemSelected = (row) => { };
 
     componentDidMount() {
+        this.unsubscribe = this.props.navigation.addListener('focus', () => {
+            // this.props.navigation.navigate(translate('etatChargement.enteteEtatChargement'), { });
+        });
     }
 
-    componentDidUpdate() {
-        if (this.props.route.params.first) {
-            // this.refs._badrTable.reset();
-        }
+    componentWillUnmount() {
+        this.unsubscribe();
     }
 
     render() {

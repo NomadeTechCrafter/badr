@@ -33,6 +33,16 @@ class PecEtatChargementMainScreen extends React.Component {
     super(props);
   }
 
+  componentDidMount() {
+    this.unsubscribe = this.props.navigation.addListener('focus', () => {
+      // this.props.navigation.navigate('Recherche', {});
+    });
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
+
   render() {
     return (
       <View style={style.container}>

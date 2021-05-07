@@ -17,10 +17,10 @@ import _ from 'lodash';
 
 import * as Constants from '../state/pecEtatChargementConstants';
 
-import EtatChargementAction from '../state/actions/pecEtatChargementAction';
-import HistEtatChargementAction from '../state/actions/pecHistoriqueEtatChargementAction';
-import VersionsEtatChargementAction from '../state/actions/pecVersionsEtatChargementAction';
-import ScannerEtatChargementAction from '../state/actions/pecScannerEtatChargementAction';
+import * as EtatChargementAction from '../state/actions/pecEtatChargementAction';
+import * as HistEtatChargementAction from '../state/actions/pecHistoriqueEtatChargementAction';
+import * as VersionsEtatChargementAction from '../state/actions/pecVersionsEtatChargementAction';
+import * as ScannerEtatChargementAction from '../state/actions/pecScannerEtatChargementAction';
 
 const initialState = {
     bureau: '309',
@@ -36,6 +36,41 @@ class PecEtatChargementSearchScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = initialState;
+    }
+
+    componentDidMount() {
+        this.unsubscribe = this.props.navigation.addListener('focus', () => {
+            let initAction1 = EtatChargementAction.init(
+                {
+                    type: Constants.ETAT_CHARGEMENT_INIT,
+                }
+            );
+            let initAction2 = HistEtatChargementAction.init(
+                {
+                    type: Constants.HISTORIQUE_ETAT_CHARGEMENT_INIT
+                }
+            );
+            let initAction3 = VersionsEtatChargementAction.init(
+                {
+                    type: Constants.VERSIONS_ETAT_CHARGEMENT_INIT
+                }
+            );
+            let initAction4 = ScannerEtatChargementAction.init(
+                {
+                    type: Constants.SCANNER_ETAT_CHARGEMENT_INIT
+                }
+            );
+            this.props.actions.dispatch(initAction1);
+            this.props.actions.dispatch(initAction2);
+            this.props.actions.dispatch(initAction3);
+            this.props.actions.dispatch(initAction4);
+            this.props.navigation.navigate('Recherche', { });
+            this.reset();
+        });
+    }
+
+    componentWillUnmount() {
+        this.unsubscribe();
     }
 
     confirm = () => {
