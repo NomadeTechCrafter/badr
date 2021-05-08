@@ -47,7 +47,7 @@ class TiConsultationIgTIScreen extends React.Component {
     buildInitConsultationIgTIAction = () => {
         let action = InitConsultationIgTIAction.request({
             type: INIT_CONSULTATION_IGTI_REQUEST
-            
+
         });
         return action;
     };
@@ -70,8 +70,21 @@ class TiConsultationIgTIScreen extends React.Component {
     };
 
     componentDidMount() {
-        let action = this.buildInitConsultationIgTIAction();
-        this.props.actions.dispatch(action);
+        this.unsubscribe = this.props.navigation.addListener('focus', () => {
+            let action1 = this.buildInitConsultationIgTIActionInit();
+            this.props.actions.dispatch(action1);
+            let action = this.buildInitConsultationIgTIAction();
+            this.props.actions.dispatch(action);
+            this.setState({
+                ...initialState,
+                codeIG: '',
+                libelleIG: '',
+                igIsNotValid: false,
+            });
+        });
+    }
+    componentWillUnmount() {
+        this.unsubscribe();
     }
 
     handleClear = () => {

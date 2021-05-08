@@ -15,9 +15,9 @@ const mapping = {
   '823': { screen: 'RefPlaquesImm', params: {} },
   '90025': { screen: 'VuEmbarqueScreen', params: { qr: true } },
   '1101': { screen: 'ConsultationTIScreen', params: { modeConsultation: 'E' } },
-  '1102': { screen: 'ConsultationTIScreen', params: { modeConsultation: 'I' } },
+  '1102': { screen: 'ConsultationTIScreenI', params: { modeConsultation: 'I' } },
   '1103': { screen: 'ConsultationIgTIScreen', params: { modeConsultation: 'E' } },
-  '1104': { screen: 'ConsultationIgTIScreen', params: { modeConsultation: 'I' } },
+  '1104': { screen: 'ConsultationIgTIScreenI', params: { modeConsultation: 'I' } },
 
   /*  '3086': {screen: 'controleRechercheDumScreen', params: {typeControle: 'TR'}},
     '2052': {screen: 'DedRechercheRedressement', params: {qr: false}},

@@ -6,25 +6,35 @@ import {
 } from '../tiConsultationTIConstants';
 import TiConsultationTIApi from '../../service/api/tiConsultationTIApi';
 import translate from '../../../../../commons/i18n/ComI18nHelper';
+import ComTransverseApi from '../../../../../commons/services/api/ComTransverseApi';
 
 export function request(action) {
     return (dispatch) => {
         dispatch(action);
         dispatch(inProgress(action));
-        TiConsultationTIApi.consulterTI(action.value)
+        ComTransverseApi.doProcess(
+            "TI_LIB",
+            "consulterTI",
+            "SP",
+            action.value,
+        )
             .then((response) => {
-                if (response && response.data && response.data.jsonVO) {
-                    dispatch(success(response.data.jsonVO));
-                } else {
-                    if (response.data.jsonVO) {
-                        dispatch(failed(response.data.jsonVO));
+                if (response) {
+                    const data = response.data;
+                    if (
+                        data &&
+                        (data.dtoHeader.messagesErreur == null ||
+                            data.dtoHeader.messagesErreur.length === 0)
+                    ) {
+                        dispatch(success(data));
                     } else {
-                        dispatch(failed(translate('errors.technicalIssue')));
+                        dispatch(failed(data));
                     }
+                } else {
+                    dispatch(failed(translate('errors.technicalIssue')));
                 }
             })
             .catch((e) => {
-                console.log(e);
                 dispatch(failed(translate('errors.technicalIssue')));
             });
     };

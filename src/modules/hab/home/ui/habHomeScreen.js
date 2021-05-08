@@ -338,7 +338,19 @@ class habHomeScreen extends React.Component {
         />
 
         <Drawer.Screen
+          name="ConsultationIgTIScreenI"
+          component={ConsultationIgTIScreen}
+          options={{ headerShown: false }}
+        />
+
+        <Drawer.Screen
           name="ConsultationTIScreen"
+          component={ConsultationTIScreen}
+          options={{ headerShown: false }}
+        />
+
+        <Drawer.Screen
+          name="ConsultationTIScreenI"
           component={ConsultationTIScreen}
           options={{ headerShown: false }}
         />
