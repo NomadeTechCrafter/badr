@@ -6,15 +6,22 @@ import {
 } from '../pecEtatChargementConstants';
 import PecEtatChargementApi from '../../service/api/pecEtatChargementApi';
 import translate from '../../../../../commons/i18n/ComI18nHelper';
+import ComTransverseApi from '../../../../../commons/services/api/ComTransverseApi';
 
-export function request(action) {
+export function request(action, navigation) {
     return (dispatch) => {
         dispatch(action);
         dispatch(inProgress(action));
-        PecEtatChargementApi.consulterVersionsDumEtatChargement(action.value)
+        ComTransverseApi.doProcess(
+            "ECOREXP_LIB",
+            "getListVersionsEtdc",
+            "SP",
+            action.value,
+        )
             .then((response) => {
                 if (response && response.data && response.data.jsonVO) {
                     dispatch(success(response.data.jsonVO));
+                    navigation.navigate('Resultat', {});
                 } else {
                     if (response.data.jsonVO) {
                         dispatch(failed(response.data.jsonVO));

@@ -28,6 +28,34 @@ const value = {
 
 const style = {
   container: { width: '100%', height: '100%' },
+  container2: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingTop: 0,
+  },
+  containerBtn: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 10,
+  },
+  btnConfirmer: {
+    color: accentColor,
+    padding: 5,
+    marginRight: 15,
+  },
+  btnRetablir: {
+    color: accentColor,
+    padding: 5,
+  },
+  containerInputs: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  flexRow: {
+    flexDirection: 'row',
+  },
+  cleHelperMsg: { width: 150 },
   width90: { width: '90%', height: '70%'},
   centre: {
     alignSelf: 'center',

@@ -6,24 +6,34 @@ import {
 } from '../pecEtatChargementConstants';
 import PecEtatChargementApi from '../../service/api/pecEtatChargementApi';
 import translate from '../../../../../commons/i18n/ComI18nHelper';
-export function request(action) {
+import ComTransverseApi from '../../../../../commons/services/api/ComTransverseApi';
+export function request(action, navigation) {
     return (dispatch) => {
         dispatch(action);
         dispatch(inProgress(action));
-        PecEtatChargementApi.consulterDumEtatChargement(action.value)
+        ComTransverseApi.doProcess(
+            "AEC_LIB",
+            "recupererVersionAECVO",
+            "SP",
+            action.value,
+        )
             .then((response) => {
-                if (response && response.data && response.data.jsonVO) {
-                    dispatch(success(response.data.jsonVO));
-                } else {
-                    if (response.data.jsonVO) {
-                        dispatch(failed(response.data.jsonVO));
+                if (response) {
+                    const data = response.data;
+                    if (
+                        data &&
+                        (data.dtoHeader.messagesErreur == null ||
+                            data.dtoHeader.messagesErreur.length === 0)
+                    ) {
+                        dispatch(success(data));
                     } else {
-                        dispatch(failed(translate('errors.technicalIssue')));
+                        dispatch(failed(data));
                     }
+                } else {
+                    dispatch(failed(translate('errors.technicalIssue')));
                 }
             })
             .catch((e) => {
-                console.log(e);
                 dispatch(failed(translate('errors.technicalIssue')));
             });
     };

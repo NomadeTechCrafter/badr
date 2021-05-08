@@ -52,7 +52,7 @@ class PecEtatChargementResultScreen extends React.Component {
 
     componentDidMount() {
         this.unsubscribe = this.props.navigation.addListener('focus', () => {
-            // this.props.navigation.navigate(translate('etatChargement.enteteEtatChargement'), { });
+            this.props.navigation.navigate('Resultat', { screen: translate('etatChargement.enteteEtatChargement') });
         });
     }
 

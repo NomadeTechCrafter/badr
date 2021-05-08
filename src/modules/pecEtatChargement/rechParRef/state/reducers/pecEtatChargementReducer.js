@@ -33,7 +33,7 @@ export default (state = initialState, action) => {
         case Constants.ETAT_CHARGEMENT_FAILED:
             nextState.showProgress = false;
             nextState.displayError = true;
-            nextState.errorMessage = action.value;
+            nextState.errorMessage = action?.value?.dtoHeader?.messagesErreur;
             return nextState;
         case Constants.ETAT_CHARGEMENT_INIT:
             return initialState;
@@ -53,7 +53,7 @@ export default (state = initialState, action) => {
         case Constants.HISTORIQUE_ETAT_CHARGEMENT_FAILED:
             nextState.showProgress = false;
             nextState.displayError = true;
-            nextState.errorMessage = action.value;
+            nextState.errorMessage = action?.value?.dtoHeader?.messagesErreur;
             return nextState;
         case Constants.HISTORIQUE_ETAT_CHARGEMENT_INIT:
             return initialState;
@@ -74,7 +74,7 @@ export default (state = initialState, action) => {
         case Constants.VERSIONS_ETAT_CHARGEMENT_FAILED:
             nextState.showProgress = false;
             nextState.displayError = true;
-            nextState.errorMessage = action.value;
+            nextState.errorMessage = action?.value?.dtoHeader?.messagesErreur;
             return nextState;
         case Constants.VERSIONS_ETAT_CHARGEMENT_INIT:
             return initialState;
@@ -94,7 +94,7 @@ export default (state = initialState, action) => {
         case Constants.SCANNER_ETAT_CHARGEMENT_FAILED:
             nextState.showProgress = false;
             nextState.displayError = true;
-            nextState.errorMessage = action.value;
+            nextState.errorMessage = action?.value?.dtoHeader?.messagesErreur;
             return nextState;
         case Constants.SCANNER_ETAT_CHARGEMENT_INIT:
             return initialState;

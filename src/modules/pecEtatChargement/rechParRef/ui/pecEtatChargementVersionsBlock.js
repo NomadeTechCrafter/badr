@@ -53,17 +53,6 @@ class EtatChargementVersionsBlock extends React.Component {
 
     };
 
-
-
-    componentDidMount() {
-
-    }
-
-    componentDidUpdate() {
-
-    }
-
-
     componentWillUnmount() {
     }
 

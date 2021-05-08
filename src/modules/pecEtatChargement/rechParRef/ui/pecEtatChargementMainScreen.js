@@ -18,8 +18,6 @@ import EtatChargementSearch from './pecEtatChargementSearchScreen';
 import EtatChargementResult from './pecEtatChargementResultScreen';
 const Tab = createMaterialTopTabNavigator();
 
-
-/** CONSTANTS **/
 function ResultScreen({ route, navigation }) {
   return <EtatChargementResult navigation={navigation} route={route} />;
 }
@@ -35,7 +33,7 @@ class PecEtatChargementMainScreen extends React.Component {
 
   componentDidMount() {
     this.unsubscribe = this.props.navigation.addListener('focus', () => {
-      // this.props.navigation.navigate('Recherche', {});
+      this.props.navigation.navigate('PecEtatChargementMainScreen', { screen: 'Recherche' });
     });
   }
 

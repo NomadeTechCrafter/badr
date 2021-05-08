@@ -23,11 +23,11 @@ import * as VersionsEtatChargementAction from '../state/actions/pecVersionsEtatC
 import * as ScannerEtatChargementAction from '../state/actions/pecScannerEtatChargementAction';
 
 const initialState = {
-    bureau: '309',
-    regime: '1',
-    annee: '2020',
-    serie: '63',
-    cle: 'N',
+    bureau: '',
+    regime: '',
+    annee: '',
+    serie: '',
+    cle: '',
     validCleDum: '',
     showErrorMessage: false,
 };
@@ -64,7 +64,6 @@ class PecEtatChargementSearchScreen extends React.Component {
             this.props.actions.dispatch(initAction2);
             this.props.actions.dispatch(initAction3);
             this.props.actions.dispatch(initAction4);
-            this.props.navigation.navigate('Recherche', { });
             this.reset();
         });
     }
@@ -131,11 +130,8 @@ class PecEtatChargementSearchScreen extends React.Component {
                     cleIHM: this.state.cle,
                 },
             },
+            this.props.navigation,
         );
-        this.props.navigation.navigate('Resultat', {
-            login: this.state.login,
-            first: true,
-        });
         return action
     };
 
@@ -150,11 +146,8 @@ class PecEtatChargementSearchScreen extends React.Component {
                     serie: this.state.serie,
                 },
             },
+            this.props.navigation,
         );
-        this.props.navigation.navigate('Resultat', {
-            login: this.state.login,
-            first: true,
-        });
         return action
     };
 
@@ -169,11 +162,8 @@ class PecEtatChargementSearchScreen extends React.Component {
                     serie: this.state.serie,
                 },
             },
+            this.props.navigation,
         );
-        this.props.navigation.navigate('Resultat', {
-            login: this.state.login,
-            first: true,
-        });
         return action
     };
 
@@ -184,11 +174,8 @@ class PecEtatChargementSearchScreen extends React.Component {
                 value: this.state.bureau + this.state.regime + this.state.annee + this.state.serie
 
             },
+            this.props.navigation,
         );
-        this.props.navigation.navigate('Resultat', {
-            login: this.state.login,
-            first: true,
-        });
         return action
     };
 
