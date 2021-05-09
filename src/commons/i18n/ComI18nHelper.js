@@ -34,6 +34,7 @@ import pecEtatChargementTranslateFr from '../../modules/pecEtatChargement/rechPa
 
 import consultationIgTI from '../../modules/tarifIntegre/tiConsultationIgTI/i18n/tiConsultationIgTITranslateFr';
 import consultationTI from '../../modules/tarifIntegre/tiConsultationTI/i18n/tiConsultationTITranslateFr';
+import dedConfirmationReception from '../../modules/dedouanement/confirmationReception/i18n/dedConfirmationReceptionTranslateFr';
 
 const locales = RNLocalize.getLocales();
 
@@ -75,6 +76,7 @@ let combined = {
   ...pecEtatChargementTranslateFr,
   ...consultationIgTI,
   ...consultationTI,
+  ...dedConfirmationReception
 };
 I18n.translations = {
   fr: combined,

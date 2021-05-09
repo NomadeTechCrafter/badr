@@ -64,6 +64,8 @@ import ConsultationTIScreen from '../../../tarifIntegre/tiConsultationTI/ui/tiCo
 
 
 import PecEtatChargementMainScreen from '../../../pecEtatChargement/rechParRef/ui/pecEtatChargementMainScreen';
+
+import DedRechercheConfirmationReceptionScreen from '../../../dedouanement/confirmationReception/ui/dedRechercheConfirmationReceptionScreen';
 const Drawer = createDrawerNavigator();
 const deltaScreen = Dimensions.get('window').width / 4;
 
@@ -340,6 +342,18 @@ class habHomeScreen extends React.Component {
         <Drawer.Screen
           name="ConsultationTIScreen"
           component={ConsultationTIScreen}
+          options={{ headerShown: false }}
+        />
+
+        <Drawer.Screen
+          name="RechercheConfirmationReceptionScreen"
+          component={DedRechercheConfirmationReceptionScreen}
+          options={{ headerShown: false }}
+        />
+
+        <Drawer.Screen
+          name="DedRedressementScreen"
+          component={DedRedressementScreen}
           options={{ headerShown: false }}
         />
       </Drawer.Navigator>
