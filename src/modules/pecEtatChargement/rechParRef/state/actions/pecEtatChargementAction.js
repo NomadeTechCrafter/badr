@@ -19,13 +19,21 @@ export function request(action, navigation) {
         )
             .then((response) => {
                 if (response) {
-                    const data = response.data;
+                    const data = response?.data;
                     if (
                         data &&
                         (data.dtoHeader.messagesErreur == null ||
                             data.dtoHeader.messagesErreur.length === 0)
                     ) {
                         dispatch(success(data));
+                        console.log('----------------------------------------------------------------');
+                        console.log('----------------------------------------------------------------');
+                        console.log('----------------------------------------------------------------');
+                        console.log(JSON.stringify(data));
+                        console.log('----------------------------------------------------------------');
+                        console.log('----------------------------------------------------------------');
+                        console.log('----------------------------------------------------------------');
+                        navigation.navigate('Resultat', {});
                     } else {
                         dispatch(failed(data));
                     }

@@ -28,12 +28,18 @@ export default (state = initialState, action) => {
         case Constants.ETAT_CHARGEMENT_SUCCESS:
             nextState.errorMessage = null;
             nextState.showProgress = false;
-            nextState.data = action.value;
+            nextState.data = action?.value?.jsonVO;
             return nextState;
         case Constants.ETAT_CHARGEMENT_FAILED:
             nextState.showProgress = false;
             nextState.displayError = true;
-            nextState.errorMessage = action?.value?.dtoHeader?.messagesErreur;
+            if (action?.value?.dtoHeader) {
+                nextState.errorMessage = action?.value?.dtoHeader?.messagesErreur
+                    ? action?.value?.dtoHeader?.messagesErreur
+                    : action.value;
+            } else {
+                nextState.errorMessage = translate('errors.technicalIssue');
+            }
             return nextState;
         case Constants.ETAT_CHARGEMENT_INIT:
             return initialState;
@@ -48,12 +54,18 @@ export default (state = initialState, action) => {
         case Constants.HISTORIQUE_ETAT_CHARGEMENT_SUCCESS:
             nextState.errorMessage = null;
             nextState.showProgress = false;
-            nextState.dataHistorique = action.value;
+            nextState.dataHistorique = action?.value?.jsonVO;
             return nextState;
         case Constants.HISTORIQUE_ETAT_CHARGEMENT_FAILED:
             nextState.showProgress = false;
             nextState.displayError = true;
-            nextState.errorMessage = action?.value?.dtoHeader?.messagesErreur;
+            if (action?.value?.dtoHeader) {
+                nextState.errorMessage = action?.value?.dtoHeader?.messagesErreur
+                    ? action?.value?.dtoHeader?.messagesErreur
+                    : action.value;
+            } else {
+                nextState.errorMessage = translate('errors.technicalIssue');
+            }
             return nextState;
         case Constants.HISTORIQUE_ETAT_CHARGEMENT_INIT:
             return initialState;
@@ -69,12 +81,18 @@ export default (state = initialState, action) => {
         case Constants.VERSIONS_ETAT_CHARGEMENT_SUCCESS:
             nextState.errorMessage = null;
             nextState.showProgress = false;
-            nextState.dataVersions = action.value;
+            nextState.dataVersions = action?.value?.jsonVO;
             return nextState;
         case Constants.VERSIONS_ETAT_CHARGEMENT_FAILED:
             nextState.showProgress = false;
             nextState.displayError = true;
-            nextState.errorMessage = action?.value?.dtoHeader?.messagesErreur;
+            if (action?.value?.dtoHeader) {
+                nextState.errorMessage = action?.value?.dtoHeader?.messagesErreur
+                    ? action?.value?.dtoHeader?.messagesErreur
+                    : action.value;
+            } else {
+                nextState.errorMessage = translate('errors.technicalIssue');
+            }
             return nextState;
         case Constants.VERSIONS_ETAT_CHARGEMENT_INIT:
             return initialState;
@@ -89,12 +107,18 @@ export default (state = initialState, action) => {
         case Constants.SCANNER_ETAT_CHARGEMENT_SUCCESS:
             nextState.errorMessage = null;
             nextState.showProgress = false;
-            nextState.dataScanner = action.value;
+            nextState.dataScanner = action?.value?.jsonVO;
             return nextState;
         case Constants.SCANNER_ETAT_CHARGEMENT_FAILED:
             nextState.showProgress = false;
             nextState.displayError = true;
-            nextState.errorMessage = action?.value?.dtoHeader?.messagesErreur;
+            if (action?.value?.dtoHeader) {
+                nextState.errorMessage = action?.value?.dtoHeader?.messagesErreur
+                    ? action?.value?.dtoHeader?.messagesErreur
+                    : action.value;
+            } else {
+                nextState.errorMessage = translate('errors.technicalIssue');
+            }
             return nextState;
         case Constants.SCANNER_ETAT_CHARGEMENT_INIT:
             return initialState;

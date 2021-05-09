@@ -19,19 +19,30 @@ export function request(action, navigation) {
             action.value,
         )
             .then((response) => {
-                if (response && response.data && response.data.jsonVO) {
-                    dispatch(success(response.data.jsonVO));
-                    navigation.navigate('Resultat', {});
-                } else {
-                    if (response.data.jsonVO) {
-                        dispatch(failed(response.data.jsonVO));
+                if (response) {
+                    const data = response?.data;
+                    if (
+                        data &&
+                        (data.dtoHeader.messagesErreur == null ||
+                            data.dtoHeader.messagesErreur.length === 0)
+                    ) {
+                        dispatch(success(data));
+                        console.log('----------------------------------------------------------------');
+                        console.log('----------------------------------------------------------------');
+                        console.log('----------------------------------------------------------------');
+                        console.log(JSON.stringify(data));
+                        console.log('----------------------------------------------------------------');
+                        console.log('----------------------------------------------------------------');
+                        console.log('----------------------------------------------------------------');
+                        navigation.navigate('Resultat', {});
                     } else {
-                        dispatch(failed(translate('errors.technicalIssue')));
+                        dispatch(failed(data));
                     }
+                } else {
+                    dispatch(failed(translate('errors.technicalIssue')));
                 }
             })
             .catch((e) => {
-                console.log(e);
                 dispatch(failed(translate('errors.technicalIssue')));
             });
     };
