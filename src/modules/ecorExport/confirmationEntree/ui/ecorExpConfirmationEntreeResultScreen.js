@@ -53,6 +53,11 @@ class ConfirmationEntreeResultScreen extends React.Component {
   }
 
   onItemSelected = (row) => {};
+  convertListeScelles = (listeScelles) => {
+    return listeScelles
+      ? Object.values(this.props.data.initConfirmerEntreeVO.scelles)
+      : [];
+  };
 
   componentDidMount() {}
 
@@ -62,7 +67,7 @@ class ConfirmationEntreeResultScreen extends React.Component {
     }
   }
   setError = (msg) => {
-    console.log(msg);
+    console.log('setError msg', msg);
     this.setState({
       errorMessage: msg,
     });
@@ -163,6 +168,9 @@ class ConfirmationEntreeResultScreen extends React.Component {
           <EcorExpInformationEcorComp
             ecorInfo={this.props.data.initConfirmerEntreeVO}
             setError={this.setError}
+            listeNombreDeScelles={this.convertListeScelles(
+              this.props.data.initConfirmerEntreeVO.scelles,
+            )}
           />
         </ScrollView>
       </View>

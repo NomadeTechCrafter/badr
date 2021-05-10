@@ -15,7 +15,7 @@ const mapping = {
   '823': {screen: 'RefPlaquesImm', params: {}},
   '90025': {screen: 'VuEmbarqueScreen', params: {qr: true}},
 
-  /*  '3086': {screen: 'controleRechercheDumScreen', params: {typeControle: 'TR'}},
+    '3086': {screen: 'controleRechercheDumScreen', params: {typeControle: 'TR'}},
     '2052': {screen: 'DedRechercheRedressement', params: {qr: false}},
     '5971': {screen: 'RechecheMLV', params: {}},
     '1201': {
@@ -26,7 +26,7 @@ const mapping = {
         screen: 'RechercheEcorImport',
         params: {typeEcorImport: 'EnleverMarchandiseParPesage'},
     },
-  '5202': {screen: 'LiquidationRechercheScreen', params: {qr: false}},*/
+  '5202': {screen: 'LiquidationRechercheScreen', params: {qr: false}},
 
   /*T6bis creation*/
   '110001': {screen: 'T6bisCreation', params: {}},

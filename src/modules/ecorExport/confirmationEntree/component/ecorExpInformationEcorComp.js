@@ -32,10 +32,26 @@ export default class EcorExpInformationEcorComp extends React.Component {
     };
     this.numeroScelle = '';
   }
+  static getDerivedStateFromProps(props, state) {
+    console.log(
+      'EcorExpInformationEcorComp getDerivedStateFromProps',
+      props.listeNombreDeScelles,
+      state.listeNombreDeScelles,
+    );
+    if (props.listeNombreDeScelles !== state.listeNombreDeScelles) {
+      console.log(' in if EcorExpInformationEcorComp getDerivedStateFromProps');
+      return {
+        listeNombreDeScelles: props.listeNombreDeScelles,
+      };
+    }
+    // Return null to indicate no change to state.
+    return null;
+  }
+
   genererNumeroScelle = () => {
     console.log('generateurNumScelleDu');
     let listeScelles = [];
-    var {
+    const {
       generateurNumScelleDu,
       generateurNumScelleAu,
       listeNombreDeScelles,
@@ -50,27 +66,27 @@ export default class EcorExpInformationEcorComp extends React.Component {
         if (au > du) {
           if (au - du <= 100) {
             console.log('generateurNumScelleDu ok condition');
-            //$scope.listeNombreDeScelles = $scope.listeNombreDeScelles ? $scope.listeNombreDeScelles : [];
             var nbScelle = du;
-
             for (var i = du; i <= au; i++) {
               listeScelles.push(('00000000' + nbScelle).slice(-8));
-              //this.setState({listeNombreDeScelles: listeNombreDeScelles});
               nbScelle += 1;
             }
             console.log('generateurNumScelleDu listeScelles', listeScelles);
+            /*let formattedListeScelles = {};
             listeScelles.forEach((value) => {
-              this.props.ecorInfo.scellesConfirmationEntree[value] = value;
+              formattedListeScelles[value] = value;
             });
             console.log(
               'generateurNumScelleDu scellesConfirmationEntree',
               this.props.ecorInfo.scellesConfirmationEntree,
-            );
+            );*/
 
             this.setState({
+              listeNombreDeScelles: listeNombreDeScelles.push(listeScelles),
               generateurNumScelleDu: '',
               generateurNumScelleAu: '',
             });
+            console.log('after set state genrete list ');
             this.generateurNumScelleDu.clear();
             this.generateurNumScelleAu.clear();
             this.props.setError(null);
@@ -124,14 +140,25 @@ export default class EcorExpInformationEcorComp extends React.Component {
   };
 
   deleteNumeroScelle = () => {
-    var {selectedItemListScelle, listeNombreDeScelles} = this.state;
+    var {selectedScelle} = this.state;
+    console.log('deleteNumeroScelle', selectedScelle);
     if (
-      selectedItemListScelle !== '' &&
-      listeNombreDeScelles[selectedItemListScelle]
+      selectedScelle !== '' &&
+      this.props.ecorInfo.scellesConfirmationEntree[selectedScelle]
     ) {
-      listeNombreDeScelles.splice(selectedItemListScelle, 1);
-      this.setState({
+      Object.values(this.props.ecorInfo.scellesConfirmationEntree).splice(
+        selectedScelle,
+        1,
+      );
+      console.log(
+        'in if deleteNumeroScelle',
+        this.props.ecorInfo.scellesConfirmationEntree,
+      );
+      /*this.setState({
         listeNombreDeScelles: listeNombreDeScelles,
+      });*/
+      this.setState({
+        numeroScelleInput: '',
       });
     }
   };
@@ -161,6 +188,7 @@ export default class EcorExpInformationEcorComp extends React.Component {
     );
   };
   render() {
+    console.log('in render');
     const {ecorInfo} = this.props;
     const {
       generateurNumScelleDu,
@@ -303,13 +331,13 @@ export default class EcorExpInformationEcorComp extends React.Component {
 
               <Col size={5} style={style.boxContainer}>
                 <SafeAreaView style={style.boxSafeArea}>
-                  {_.isEmpty(ecorInfo.scellesConfirmationEntree) && (
+                  {_.isEmpty(listeNombreDeScelles) && (
                     <Text style={style.boxItemText}>Aucun élément</Text>
                   )}
 
-                  {!_.isEmpty(ecorInfo.scellesConfirmationEntree) && (
+                  {!_.isEmpty(listeNombreDeScelles) && (
                     <FlatList
-                      data={Object.values(ecorInfo.scellesConfirmationEntree)}
+                      data={listeNombreDeScelles}
                       renderItem={(item) => this.renderBoxItem(item)}
                       keyExtractor={(item) => item}
                       nestedScrollEnabled={true}
