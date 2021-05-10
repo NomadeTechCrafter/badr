@@ -9,6 +9,7 @@ module.exports = {
   PROCESS_API: '/rest/api/process',
   SEND_STATS: '/action/set',
   SEND_CRASH: '/crashWebService/addCrash',
+  DEFAULT_FONCTIONALITE_IONIC: 'cf4011',
   TYPE_SERVICE_UC: 'UC',
   TYPE_SERVICE_SP: 'SP',
   MODULE_AT: 'AT',

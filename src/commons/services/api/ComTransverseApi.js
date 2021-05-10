@@ -1,6 +1,8 @@
 import ComHttpHelperApi from './common/ComHttpHelperApi';
 /** Inmemory session */
 import {ComSessionService} from '../session/ComSessionService';
+import {DEFAULT_FONCTIONALITE_IONIC} from '../../../commons/Config';
+import _ from 'lodash';
 export default class ComTransverseApi {
   static doProcess = async (
     _module,
@@ -15,14 +17,14 @@ export default class ComTransverseApi {
         userLogin: ComSessionService.getInstance().getLogin(),
         fonctionnalite: ComSessionService.getInstance().getFonctionalite()
           ? ComSessionService.getInstance().getFonctionalite()
-          : ComSessionService.getInstance().setFonctionalite(),
+          : DEFAULT_FONCTIONALITE_IONIC,
         module: _module,
         commande: _command,
         typeService: _typeService,
-        offset: _offset,
-        pageSize: _pageSize,
+        offset: _.isEmpty(_offset) ? 0 : _offset,
+        pageSize: _.isEmpty(_pageSize) ? 0 : _pageSize,
       },
-      jsonVO: _jsonVO,
+      jsonVO: _.isEmpty(_jsonVO) ? '' : _jsonVO,
     };
     let response = await ComHttpHelperApi.process(data);
     return response;
