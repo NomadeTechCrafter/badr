@@ -1,33 +1,41 @@
-import React from 'react';
-import {BackHandler, Dimensions, StyleSheet, View} from 'react-native';
 /** Drawer navigation */
-import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import moment from 'moment';
+import { NavigationContainer } from '@react-navigation/native';
+import _ from 'lodash';
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
+import Spinner from 'react-native-loading-spinner-overlay';
+import { IconButton } from 'react-native-paper';
+import { connect } from 'react-redux';
+import { ComBadrErrorMessageComp, ComBadrInfoMessageComp, ComBadrToolbarComp } from '../../../../commons/component';
+import { translate } from '../../../../commons/i18n/ComI18nHelper';
 import {
   accentColor,
   primaryColor,
-  primaryColorRgba,
+  primaryColorRgba
 } from '../../../../commons/styles/ComThemeStyle';
-import DedRedressementCautionScreen from './caution/DedRedressementCautionScreen';
-import DedRedressementEnteteScreen from './entete/DedRedressementEnteteScreen';
-import DedRedressementArticlesScreen from './articles/DedRedressementArticlesScreen';
-import DedRedressementPreapurementDsScreen from './preapurementDS/DedRedressementPreapurementDsScreen';
-import DedRedressementDemandeDiverseScreen from './demandesDiverses/DedRedressementDemandeDiverseScreen';
-import DedRedressementImputationTitreChangeScreen from './imputationsTitresChange/DedRedressementImputationTitreChangeScreen';
-import DedRedressementImputationCompteREDScreen from './imputationsCompteRED/DedRedressementImputationCompteREDScreen';
-import DedRedressementDocumentsScreen from './documents/DedRedressementDocumentsScreen';
-import DedRedressementInfoScreen from './info/DedRedressementInfoScreen';
-import {request} from '../state/actions/DedAction';
+import DedConfirmerCertificatReceptionAction from '../../confirmationReception/state/actions/DedConfirmerCertificatReceptionAction';
+import { request } from '../state/actions/DedAction';
 import {
+  CONFIRMER_CERTIFICAT_RECEPTION_INIT,
+  CONFIRMER_CERTIFICAT_RECEPTION_REQUEST,
   GENERIC_DED_INIT,
-  GENERIC_DED_REQUEST,
+  GENERIC_DED_REQUEST
 } from '../state/DedRedressementConstants';
-import {connect} from 'react-redux';
-import consulterDumReducer from '../../../../commons/state/reducers/ConsulterDumReducer';
+import { getCategorieDum, getValueByPath } from '../utils/DedUtils';
+import DedRedressementArticlesScreen from './articles/DedRedressementArticlesScreen';
+import DedRedressementCautionScreen from './caution/DedRedressementCautionScreen';
+import DedRedressementDemandeDiverseScreen from './demandesDiverses/DedRedressementDemandeDiverseScreen';
+import DedRedressementDocumentsScreen from './documents/DedRedressementDocumentsScreen';
+import DedRedressementEnteteScreen from './entete/DedRedressementEnteteScreen';
+import DedRedressementImputationCompteREDScreen from './imputationsCompteRED/DedRedressementImputationCompteREDScreen';
+import DedRedressementImputationTitreChangeScreen from './imputationsTitresChange/DedRedressementImputationTitreChangeScreen';
+import DedRedressementInfoScreen from './info/DedRedressementInfoScreen';
+import ModalConfirmationReception from './modelIntervention/modalConfirmationReception';
+import DedRedressementPreapurementDsScreen from './preapurementDS/DedRedressementPreapurementDsScreen';
 
-import {getValueByPath, getCategorieDum} from '../utils/DedUtils';
-import _ from 'lodash';
-import Spinner from 'react-native-loading-spinner-overlay';
-import {translate} from '../../../../commons/i18n/ComI18nHelper';
+
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -97,6 +105,8 @@ class DedRedressementScreen extends React.Component {
     isDemandesDiversesVisible: true,
     isImputationTitreChangeVisible: true,
     isImputationCompteRedVisible: true,
+    showIntervention: false,
+    indexDialogConfirmationReception: 0
   };
   constructor(props) {
     super(props);
@@ -261,11 +271,92 @@ class DedRedressementScreen extends React.Component {
   };
 
   componentDidMount() {
+    console.log('componentDidMount 08052021');
     this.checkAffichabilite();
     this.checkAccessibility();
+    this.checkPresenceDouaniere();
   }
 
-  componentWillUnmount() {}
+  checkPresenceDouaniere=()=>{ 
+   let identifiant = getValueByPath(
+      'dedReferenceVO.identifiant',
+      this.props,
+      'consulterDumReducer',
+    );
+  this.callRedux({
+    command: 'ded.isDumSansPresenceDouaniere',
+    typeService: 'SP',
+    jsonVO: identifiant,
+  });
+  }
+
+  componentWillUnmount() { }
+  
+  lancerModal = () => {
+    let index = this.state.indexDialogConfirmationReception
+    this.setState({
+      indexDialogConfirmationReception: index+1
+    });
+    
+    let action = DedConfirmerCertificatReceptionAction.init(
+      {
+        type: CONFIRMER_CERTIFICAT_RECEPTION_INIT
+
+
+      },
+
+    );
+    this.props.dispatch(action);
+    this.setState({showIntervention:true});
+  }
+
+  onDismissCertificatReception = () => {
+    this.setState({
+      showIntervention: false
+    });
+  };
+
+  confirmerCertificatReception = () => {
+    this.onDismissCertificatReception();
+    let listDeclarationMoyenTransportVO = getValueByPath(
+      'dedSectionMoyenTransportVO.listDeclarationMoyenTransportVO',
+      this.props,
+      'consulterDumReducer',
+    );
+
+    this.state.transitCertifReceptVO = {
+      ...this.state.transitCertifReceptVO, listDeclarationMoyenTransportVO: listDeclarationMoyenTransportVO
+    }
+  let action = DedConfirmerCertificatReceptionAction.request(
+      {
+        type: CONFIRMER_CERTIFICAT_RECEPTION_REQUEST,
+        value:  this.state.transitCertifReceptVO,
+         
+        
+      },
+      
+    );
+    this.props.dispatch(action); 
+    
+    
+  }
+
+  retablirCertificatReception = () => {
+    this.setState({
+      transitCertifReceptVO: {}
+    });
+  };
+
+  updateCertificatReception = (transitCertifReceptVO) => {
+    
+    console.log('test', transitCertifReceptVO);
+    this.state.transitCertifReceptVO = transitCertifReceptVO;
+    /* this.setState({
+      transitCertifReceptVO: transitCertifReceptVO
+    }); */
+  }
+
+
 
   render() {
     let isCautionAccessible = this.extractCommandData(
@@ -284,9 +375,62 @@ class DedRedressementScreen extends React.Component {
       'ded.isImputationTitresDeChangeAccessible',
       'genericDedReducer',
     );
+    let isDumSansPresenceDouaniere = this.extractCommandData(
+      'ded.isDumSansPresenceDouaniere',
+      'genericDedReducer',
+    );
+    
+    let errorMessage = getValueByPath(
+      'dedConfirmationReceptionReducer.errorMessage',
+      this.props
+     
+    );
+    let messageInfo = getValueByPath(
+      'dedConfirmationReceptionReducer.messageInfo',
+      this.props,
+    );
 
+    let success = getValueByPath(
+      'dedConfirmationReceptionReducer.success',
+      this.props,
+    );
+    
+    console.log('this.props.dedConfirmationReceptionReducer : ', this.props.dedConfirmationReceptionReducer);
+    console.log('this.props.consulterDumReducer : ', this.props.consulterDumReducer);
+
+    
     return (
-      <View style={{flex: 1}}>
+      <View style={{ flex: 1 }}>
+        {this.props.route.params.showHeader && <ComBadrToolbarComp
+          navigation={this.props.navigation}
+          title={this.props.route.params.title}
+          subtitle={this.props.route.params.subtitle}
+          icon="menu">
+          {(!success) && <IconButton
+            icon="arrange-bring-forward"
+            size={30}
+            color={primaryColor}
+            style={{ backgroundColor: 'white' }}
+            onPress={() => this.lancerModal()}
+          />}
+        </ComBadrToolbarComp>}
+        {errorMessage != null && (
+          <View>
+            <ComBadrErrorMessageComp
+              style={styles.centerErrorMsg}
+              message={errorMessage}
+            />
+          </View>
+        )}
+        {messageInfo != null && (
+          <View>
+            <ComBadrInfoMessageComp
+              style={styles.centerInfoMsg}
+              message={messageInfo}
+            />
+          </View>
+        )}
+        <NavigationContainer independent={true}>
         {/* add test to fix the loading prob in document tab*/}
         {!_.isNil(isCautionAccessible) &&
         !_.isNil(isPreapurementDSAccessible) &&
@@ -295,7 +439,8 @@ class DedRedressementScreen extends React.Component {
         !_.isNil(isCautionAccessible.data) &&
         !_.isNil(isPreapurementDSAccessible.data) &&
         !_.isNil(isImputationTitresDeChangeAccessible.data) &&
-        !_.isNil(isImputationCompteREDAccessible.data) ? (
+          !_.isNil(isImputationCompteREDAccessible.data) ? (
+        
           <Tab.Navigator
             swipeEnabled={true}
             lazy={true}
@@ -359,7 +504,8 @@ class DedRedressementScreen extends React.Component {
               )}
             <Tab.Screen name="Documents" component={DocumentsScreen} />
             <Tab.Screen name="Info" component={InfoScreen} />
-          </Tab.Navigator>
+            </Tab.Navigator>
+            
         ) : (
           <Spinner
             visible={true}
@@ -370,7 +516,18 @@ class DedRedressementScreen extends React.Component {
             textContent={translate('transverse.inprogress')}
             textStyle={styles.spinnerTextStyle}
           />
-        )}
+          )}
+        </NavigationContainer>
+        <ModalConfirmationReception
+          visible={this.state.showIntervention}
+          identifiant={getValueByPath('dedReferenceVO.identifiant', this.props, 'consulterDumReducer',)}
+          onDismiss={this.onDismissCertificatReception}
+          confirmer={this.confirmerCertificatReception}
+          retablir={this.retablirCertificatReception}
+          depotageSansPresenceDouaniere={isDumSansPresenceDouaniere?.data}
+          update={this.updateCertificatReception}
+          index={this.state.indexDialogConfirmationReception}
+        />
       </View>
     );
   }
@@ -406,4 +563,9 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'normal',
   },
+  centerErrorMsg: {
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  }
 });

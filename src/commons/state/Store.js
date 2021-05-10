@@ -64,6 +64,7 @@ import eciAppositionScellesReducer from '../../modules/ecorImport/appositionScel
 import pecEtatChargementReducer from '../../modules/pecEtatChargement/rechParRef/state/reducers/pecEtatChargementReducer';
 import consultationIgTIReducer from '../../modules/tarifIntegre/tiConsultationIgTI/state/reducers/tiConsultationIgTIReducer';
 import consultationTIReducer from '../../modules/tarifIntegre/tiConsultationTI/state/reducers/tiConsultationTIReducer';
+import dedConfirmationReceptionReducer from '../../modules/dedouanement/confirmationReception/state/reducers/dedConfirmationReceptionReducer';
 
 /**
  * combine all reducers
@@ -122,6 +123,7 @@ const allReducers = combineReducers({
   pecEtatChargementReducer,
   consultationIgTIReducer,
   consultationTIReducer,
+  dedConfirmationReceptionReducer
 });
 /**
  * store creation
