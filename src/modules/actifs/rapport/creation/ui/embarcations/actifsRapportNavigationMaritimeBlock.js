@@ -40,30 +40,22 @@ class ActifsRapportNavigationMaritimeBlock extends React.Component {
 
     componentDidMount() {
 
-        console.log('ActifsRapportNavigationMaritimeBlock componentWillmount');
     }
 
 
 
     componentWillUnmount() {
-        console.log('ActifsRapportNavigationMaritimeBlock componentWillUnmount');
     }
 
 
 
     reset = () => {
-        console.log('ActifsRapportNavigationMaritimeBlock reset');
     };
 
 
 
 
    static getDerivedStateFromProps(props, state) {
-       console.log('getDerivedStateFromProps--------ActifsRapportNavigationMaritimeBlock------------props ', props);
-       console.log('getDerivedStateFromProps--------ActifsRapportNavigationMaritimeBlock------------state ', state);
-       console.log('getDerivedStateFromProps--------ActifsRapportNavigationMaritimeBlock------------state ', props.index);
-       console.log('getDerivedStateFromProps--------ActifsRapportNavigationMaritimeBlock------------state ', state.index);
-       console.log('getDerivedStateFromProps--------ActifsRapportNavigationMaritimeBlock------------state ', props.navigationMaritimeModel);
 
         if (
             props.navigationMaritimeModel && props.index !== state.index
@@ -84,10 +76,6 @@ class ActifsRapportNavigationMaritimeBlock extends React.Component {
 
 
     onDateEntreeChange = (event, selectedDate) => {
-        console.log(event);
-        console.log('test ===============> ', event);
-        console.log(selectedDate);
-        console.log('test ===============> ', selectedDate);
         this.setState({
             navigationMaritimeModel: {
                 ...this.state.navigationMaritimeModel,
@@ -95,32 +83,25 @@ class ActifsRapportNavigationMaritimeBlock extends React.Component {
             }, showDateEntree: false
 
 
-        });
+        },);
         this.state.navigationMaritimeModel.dateEntree = event.nativeEvent.timestamp;
         this.props.update(this.state.navigationMaritimeModel);
     }
     onHeureEntreeChange = (event, selectedHeure) => {
-        console.log(event);
-        console.log('test ===============> ', event);
-        console.log(selectedHeure);
-        console.log('test ===============> ', selectedHeure);
         this.setState({
             navigationMaritimeModel: {
                 ...this.state.navigationMaritimeModel,
-                heureEntree: moment(selectedHeure).format('HH:mm').toString(),
+                heureEntree: event.nativeEvent.timestamp,
             }, showHeureEntree: false, heureEntreeTech: event.nativeEvent.timestamp
 
 
         });
-        this.state.navigationMaritimeModel.heureEntree = moment(selectedHeure).format('HH:mm').toString();
+        this.state.navigationMaritimeModel.heureEntree= event.nativeEvent.timestamp;
         this.props.update(this.state.navigationMaritimeModel);
+        
     }
 
     onDateDepartChange = (event, selectedDate) => {
-        console.log(event);
-        console.log('test ===============> ', event);
-        console.log(selectedDate);
-        console.log('test ===============> ', selectedDate);
         this.setState({
             navigationMaritimeModel: {
                 ...this.state.navigationMaritimeModel,
@@ -130,23 +111,20 @@ class ActifsRapportNavigationMaritimeBlock extends React.Component {
 
         });
         this.state.navigationMaritimeModel.dateDepart = event.nativeEvent.timestamp;
-        this.props.update();
+        this.props.update(this.state.navigationMaritimeModel);
     }
     onHeureDepartChange = (event, selectedHeure) => {
-        console.log(event);
-        console.log('test ===============> ', event);
-        console.log(selectedHeure);
-        console.log('test ===============> ', selectedHeure);
         this.setState({
             navigationMaritimeModel: {
                 ...this.state.navigationMaritimeModel,
-                heureDepart: moment(selectedHeure).format('HH:mm').toString(),
+                heureDepart: event.nativeEvent.timestamp,
             }, showHeureDepart: false, heureDepartTech: event.nativeEvent.timestamp
 
 
         });
-        this.state.navigationMaritimeModel.heureDepart = moment(selectedHeure).format('HH:mm').toString();
+        this.state.navigationMaritimeModel.heureDepart= event.nativeEvent.timestamp;
         this.props.update(this.state.navigationMaritimeModel);
+       
     }
 
 
@@ -166,7 +144,6 @@ class ActifsRapportNavigationMaritimeBlock extends React.Component {
     };
 
     handleProvenanceChanged = (pays) => {
-        console.log(pays);
         this.setState({
             acProvenance: pays.libelle, navigationMaritimeModel: {
                 ...this.state.navigationMaritimeModel,
@@ -174,11 +151,10 @@ class ActifsRapportNavigationMaritimeBlock extends React.Component {
             }
         });
         this.state.navigationMaritimeModel.provenance = pays;
-        this.props.update(this.state.navigationMaritimeModel);
+        this.props.update(this.state.navigationMaritimeModel)
     }
 
     handleDestinationChanged = (pays) => {
-        console.log(pays);
         this.setState({
             acDestination: pays.libelle, navigationMaritimeModel: {
                 ...this.state.navigationMaritimeModel,
@@ -186,7 +162,7 @@ class ActifsRapportNavigationMaritimeBlock extends React.Component {
             }
         });
         this.state.navigationMaritimeModel.destination = pays;
-        this.props.update(this.state.navigationMaritimeModel);
+        this.props.update(this.state.navigationMaritimeModel)
 
 
     }
@@ -196,7 +172,6 @@ class ActifsRapportNavigationMaritimeBlock extends React.Component {
 
     render() {
     
-        console.log('ActifsRapportNavigationMaritimeBlock--------------------props ', this.props);
         return (
 
             <ComAccordionComp title={translate('actifsCreation.embarcations.navigMaritime.title')} expanded={true}>
@@ -262,7 +237,7 @@ class ActifsRapportNavigationMaritimeBlock extends React.Component {
                                             mode={'outlined'}
                                             disabled={this.props.readOnly}
                                             style={{ height: 20, fontSize: 12, alignSelf: 'center', padding: 15 }}
-                                            value={this.state.navigationMaritimeModel.heureEntree}
+                                            value={moment(this.state.navigationMaritimeModel.heureEntree).format('HH:mm').toString()}
                                             onFocus={() => {
                                                 this.setState({ showHeureEntree: true });
                                             }}
@@ -372,9 +347,9 @@ class ActifsRapportNavigationMaritimeBlock extends React.Component {
                                             placeholder={translate(
                                                 'actifsCreation.embarcations.navigMaritime.provenance'
                                             )}
-                                            selected={this.state.navigationMaritimeModel.provenance.nomPays}
+                                            selected={this.state.navigationMaritimeModel.provenance.libelle}
                                             maxItems={3}
-                                            libelle="nomPays"
+                                            libelle="libelle"
                                             command="getCmbPays"
                                             paramName="libellePays"
                                             onDemand={true}
@@ -506,7 +481,7 @@ class ActifsRapportNavigationMaritimeBlock extends React.Component {
                                             mode={'outlined'}
                                             disabled={this.props.readOnly}
                                             style={{ height: 20, fontSize: 12, alignSelf: 'center', padding: 15 }}
-                                            value={this.state.navigationMaritimeModel.heureDepart}
+                                            value={moment(this.state.navigationMaritimeModel.heureDepart).format('HH:mm').toString()}
                                             onFocus={() => {
                                                 this.setState({ showHeureDepart: true });
                                             }}
@@ -554,9 +529,9 @@ class ActifsRapportNavigationMaritimeBlock extends React.Component {
                                             placeholder={translate(
                                                 'actifsCreation.embarcations.navigMaritime.destination'
                                             )}
-                                            selected={this.state.navigationMaritimeModel.destination.nomPays}
+                                            selected={this.state.navigationMaritimeModel.destination.libelle}
                                             maxItems={3}
-                                            libelle="nomPays"
+                                            libelle="libelle"
                                             command="getCmbPays"
                                             paramName="libellePays"
                                             onDemand={true}

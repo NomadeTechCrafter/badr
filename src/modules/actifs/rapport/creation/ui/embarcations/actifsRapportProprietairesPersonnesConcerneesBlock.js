@@ -21,29 +21,19 @@ class ActifsRapportProprietairesPersonnesConcerneesBlock extends React.Component
 
 
     updateModelProprietaires = (proprietaires) => {
-        console.log('-------------------------------------------------yassine --------------------------------------debut ');
-        console.log(this.props);
         this.props.navigationMaritimeModel.proprietaires = proprietaires;
         this.props.update(this.props.navigationMaritimeModel);
-        console.log(this.props);
-        console.log('-------------------------------------------------yassine --------------------------------------fin ');
 
 
     }
    
 
     updateModelIntervenant = (intervenants) => {
-        console.log('-------------------------------------------------yassine --------------------------------------debut ');
-        console.log(this.props);
         this.props.navigationMaritimeModel.intervenants = intervenants;
         this.props.update(this.props.navigationMaritimeModel);
-        console.log(this.props);
-        console.log('-------------------------------------------------yassine --------------------------------------fin ');
     }
 
     static getDerivedStateFromProps(props, state) {
-        console.log('getDerivedStateFromProps--------------------props ', props);
-        console.log('getDerivedStateFromProps--------------------state ', state);
 
         if (
             props.navigationMaritimeModel && props.index !== state.index
@@ -60,24 +50,20 @@ class ActifsRapportProprietairesPersonnesConcerneesBlock extends React.Component
 
    
     componentDidMount() {
-        console.log('ActifsRapportCreationEmbarcationsTableBlock componentDidMount');
        
     }
 
     componentDidUpdate() {
 
-        console.log('ActifsRapportCreationEmbarcationsTableBlock componentDidUpdate');
     }
 
 
     componentWillUnmount() {
-        console.log('ActifsRapportCreationEmbarcationsTableBlock componentWillUnmount');
     }
 
     
 
     render() {
-        console.log("ActifsRapportCreationEmbarcationsTableBlock -------------------------------------------------------------------------------------- this.props", this.props);
         let proprietaires = (this.props.navigationMaritimeModel.proprietaires) ? this.props.navigationMaritimeModel.proprietaires : [];
         return (
 

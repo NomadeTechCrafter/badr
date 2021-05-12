@@ -19,8 +19,8 @@ export function request(action, navigation, successRedirection) {
         if (response) {
           const data = response.data;
           if (data && !data.dtoHeader.messagesErreur) {
-            console.log('data', data);
-            dispatch(success(data));
+            console.log('data', data.jsonVO);
+            dispatch(success(data.jsonVO));
             /** Naviguer vers la vue suivant. */
 
             console.log('navig success');

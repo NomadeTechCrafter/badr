@@ -33,11 +33,8 @@ class ActifsRapportCreationAvionsPriveesTab extends React.Component {
 
 
     componentDidMount() {
-        console.log('ActifsRapportCreationAvionsPriveesTab componentDidMount');
-        load('rows').then((value) => {
-            console.log('ActifsRapportCreationAvionsPriveesTab componentDidMount value : ', value);
-            let navigations = (JSON.parse(value).navigationsAeriennes) ? JSON.parse(value).navigationsAeriennes : [];
-            let rapportExiste = (JSON.parse(value)) ? JSON.parse(value).rapportExiste : false;
+        let navigations = (this.props.rows.navigationsAeriennes) ? this.props.rows.navigationsAeriennes : [];
+        let rapportExiste = (this.props.rows) ? this.props.rows.rapportExiste : false;
 
 
 
@@ -51,12 +48,10 @@ class ActifsRapportCreationAvionsPriveesTab extends React.Component {
 
             this.props.dispatch(actifsRapportInitierAvionsPriveesTabAction.request(dataToAction));
 
-        });
 
     }
 
     ajouterNavigationAerienneModel = (model) => {
-        console.log('ActifsRapportCreationAvionsPriveesTab ajouterNavigationAerienneModel');
         let navigationsAeriennes = [...this.props.navigationsAeriennes];
         let dataToAction = {
             type: ACTIFS_CONFIRMER_AVION_PRIVEE_REQUEST,
@@ -74,23 +69,18 @@ class ActifsRapportCreationAvionsPriveesTab extends React.Component {
     }
 
     componentDidUpdate() {
-        console.log('ActifsRapportCreationAvionsPriveesTab componentDidUpdate');
     }
 
 
     componentWillUnmount() {
-        console.log('ActifsRapportCreationAvionsPriveesTab componentWillUnmount');
     }
 
 
 
     reset = () => {
-        console.log('ActifsRapportCreationAvionsPriveesTab reset');
     };
 
     callbackHandler=(type, data)=> {
-        console.log('T6bisGestion callbackHandler type :', data);
-        console.log('T6bisGestion callbackHandler type :', type);
         switch (type) {
             case EDIT_AVION_PRIVEE_TASK:
 
@@ -135,8 +125,6 @@ class ActifsRapportCreationAvionsPriveesTab extends React.Component {
 
      
     render() {
-        console.log("ActifsRapportCreationAvionsPriveesTab this.props", this.props);
-        console.log("ActifsRapportCreationAvionsPriveesTab this.props.navigationAerienneModel :", this.props.navigationAerienneModel);
         return (
             <ScrollView>
                 {(this.props.navigationsAeriennes) && (<ActifsRapportCreationAvionsPriveesTableBlock navigationsAeriennes={this.props.navigationsAeriennes} callbackHandler={this.callbackHandler} readOnly={this.props.rapportExiste}/>)}

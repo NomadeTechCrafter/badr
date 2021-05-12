@@ -70,7 +70,7 @@ class ComBadrAutoCompleteChipsComp extends Component {
       let action = AutoCompleteAction.request({
         type: Constants.AUTOCOMPLETE_REQUEST,
         value: {
-          module: MODULE_REF,
+          module: this.props.module ? this.props.module:MODULE_REF,
           command: this.props.command,
           typeService: TYPE_SERVICE_SP,
           param: this.prepareParams(params),

@@ -16,6 +16,10 @@ export default {
       heureFin: 'Heure fin',
       uniteHeure: '(hh:mm)',
       enregister: 'Enregister',
+      errors: {
+        dateFinRequired: 'Date fin n\'est pas valide ou vide',
+        dateDebutFinOrdre: 'Date fin doit être strictement supérieure à la date début'
+      }
     },
     detail: {
       subtitle: 'Details',

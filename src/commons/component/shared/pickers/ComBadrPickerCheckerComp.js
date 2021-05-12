@@ -54,6 +54,10 @@ class ComBadrPickerCheckerComp extends React.Component {
     this.fetchData(this.props.param);
   }
 
+  refresh = (params) => {
+    this.fetchData(params);
+  };
+
   onSelectedItemsChange = (selectedItems) => {
     this.setState({selectedItems: selectedItems});
   };

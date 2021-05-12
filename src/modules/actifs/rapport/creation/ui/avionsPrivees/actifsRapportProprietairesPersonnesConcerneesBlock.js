@@ -21,29 +21,19 @@ class ActifsRapportProprietairesPersonnesConcerneesBlock extends React.Component
 
 
     updateModelProprietaires = (proprietaires) => {
-        console.log('-------------------------------------------------yassine --------------------------------------debut ');
-        console.log(this.props);
         this.props.navigationAerienneModel.proprietaires = proprietaires;
         this.props.update(this.props.navigationAerienneModel);
-        console.log(this.props);
-        console.log('-------------------------------------------------yassine --------------------------------------fin ');
 
 
     }
    
 
     updateModelIntervenant = (intervenants) => {
-        console.log('-------------------------------------------------yassine --------------------------------------debut ');
-        console.log(this.props);
         this.props.navigationAerienneModel.intervenants = intervenants;
         this.props.update(this.props.navigationAerienneModel);
-        console.log(this.props);
-        console.log('-------------------------------------------------yassine --------------------------------------fin ');
     }
 
     static getDerivedStateFromProps(props, state) {
-        console.log('getDerivedStateFromProps--------------------props ', props);
-        console.log('getDerivedStateFromProps--------------------state ', state);
 
         if (
             props.navigationAerienneModel && props.index !== state.index
@@ -60,24 +50,20 @@ class ActifsRapportProprietairesPersonnesConcerneesBlock extends React.Component
 
    
     componentDidMount() {
-        console.log('ActifsRapportProprietairesPersonnesConcerneesBlock componentDidMount');
        
     }
 
     componentDidUpdate() {
 
-        console.log('ActifsRapportProprietairesPersonnesConcerneesBlock componentDidUpdate');
     }
 
 
     componentWillUnmount() {
-        console.log('ActifsRapportProprietairesPersonnesConcerneesBlock componentWillUnmount');
     }
 
     
 
     render() {
-        console.log("ActifsRapportProprietairesPersonnesConcerneesBlock -------------------------------------------------------------------------------------- this.props", this.props);
         let proprietaires = (this.props.navigationAerienneModel.proprietaires) ? this.props.navigationAerienneModel.proprietaires : [];
         return (
 

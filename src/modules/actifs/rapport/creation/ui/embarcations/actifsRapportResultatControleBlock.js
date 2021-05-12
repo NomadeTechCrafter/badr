@@ -37,19 +37,16 @@ class ActifsRapportResultatControleBlock extends React.Component {
 
     componentDidMount() {
 
-        console.log('ActifsRapportResultatControleBlock componentWillmount');
     }
 
 
 
     componentWillUnmount() {
-        console.log('ActifsRapportResultatControleBlock componentWillUnmount');
     }
 
 
 
     reset = () => {
-        console.log('ActifsRapportResultatControleBlock reset');
     };
 
 
@@ -57,10 +54,6 @@ class ActifsRapportResultatControleBlock extends React.Component {
 
     
     onDateDebutControleChange = (event, selectedDate) => {
-        console.log(event);
-        console.log('test ===============> ', event);
-        console.log(selectedDate);
-        console.log('test ===============> ', selectedDate);
         this.setState({
             navigationMaritimeModel: {
                 ...this.state.navigationMaritimeModel,
@@ -73,27 +66,19 @@ class ActifsRapportResultatControleBlock extends React.Component {
         this.props.update(this.state.navigationMaritimeModel);
     }
     onHeureDebutControleChange = (event, selectedHeure) => {
-        console.log(event);
-        console.log('test ===============> ', event);
-        console.log(selectedHeure);
-        console.log('test ===============> ', selectedHeure);
         this.setState({
             navigationMaritimeModel: {
                 ...this.state.navigationMaritimeModel,
-                heureDebutControle: moment(selectedHeure).format('hh:mm').toString(),
+                heureDebutControle: event.nativeEvent.timestamp,
             }, showHeureDebutControle: false, heureDebutControleTech: event.nativeEvent.timestamp
 
 
         });
-        this.state.navigationMaritimeModel.heureDebutControle = moment(selectedHeure).format('hh:mm').toString();
+        this.state.navigationMaritimeModel.heureDebutControle = event.nativeEvent.timestamp;
         this.props.update(this.state.navigationMaritimeModel);
     }
 
     onDateFinControleChange = (event, selectedDate) => {
-        console.log(event);
-        console.log('test ===============> ', event);
-        console.log(selectedDate);
-        console.log('test ===============> ', selectedDate);
         this.setState({
             navigationMaritimeModel: {
                 ...this.state.navigationMaritimeModel,
@@ -106,25 +91,19 @@ class ActifsRapportResultatControleBlock extends React.Component {
         this.props.update(this.state.navigationMaritimeModel);
     }
     onHeureFinControleChange = (event, selectedHeure) => {
-        console.log(event);
-        console.log('test ===============> ', event);
-        console.log(selectedHeure);
-        console.log('test ===============> ', selectedHeure);
         this.setState({
             navigationMaritimeModel: {
                 ...this.state.navigationMaritimeModel,
-                heureFinControle: moment(selectedHeure).format('hh:mm').toString(),
+                heureFinControle: event.nativeEvent.timestamp
             }, showHeureFinControle: false, heureFinControleTech: event.nativeEvent.timestamp
 
 
         });
-        this.state.navigationMaritimeModel.heureFinControle = moment(selectedHeure).format('hh:mm').toString();
+        this.state.navigationMaritimeModel.heureFinControle = event.nativeEvent.timestamp;
         this.props.update(this.state.navigationMaritimeModel);
     }
 
     static getDerivedStateFromProps(props, state) {
-        console.log('getDerivedStateFromProps--------------------props ', props);
-        console.log('getDerivedStateFromProps--------------------state ', state);
 
         if (
             props.navigationMaritimeModel && props.index !== state.index
@@ -202,17 +181,17 @@ class ActifsRapportResultatControleBlock extends React.Component {
                                         />)}
                                     </Col>
                                     <Col size={1} />
-                                    <Col size={6}>
+                                    <Col size={5}>
                                         <ComBadrLibelleComp withColor={true}>
                                             {translate('actifsCreation.embarcations.resultatCtrl.heureDebutControle')}
                                         </ComBadrLibelleComp>
                                     </Col>
-                                    <Col size={4}>
+                                    <Col size={5}>
                                         <TextInput
                                             mode={'outlined'}
                                             disabled={this.props.readOnly}
                                             style={{ height: 20, fontSize: 12, alignSelf: 'center', padding: 15 }}
-                                            value={this.state.navigationMaritimeModel.heureDebutControle}
+                                            value={moment(this.state.navigationMaritimeModel.heureDebutControle).format('HH:mm').toString()}
                                             onFocus={() => {
                                                 this.setState({ showHeureDebutControle: true });
                                             }}
@@ -240,7 +219,7 @@ class ActifsRapportResultatControleBlock extends React.Component {
                                             />
                                         )}
                                     </Col>
-                                    <Col size={2} style={{ paddingTop: 5 }}>
+                                    <Col size={2} style={{ paddingTop: 1 }}>
                                         <Text style={{ fontSize: 12 }}>
                                             {translate('actifsCreation.entete.uniteHeure')}
                                         </Text>
@@ -283,17 +262,17 @@ class ActifsRapportResultatControleBlock extends React.Component {
                                         />)}
                                     </Col>
                                     <Col size={1} />
-                                    <Col size={6}>
+                                    <Col size={5}>
                                         <ComBadrLibelleComp withColor={true}>
                                             {translate('actifsCreation.embarcations.resultatCtrl.heureFinControle')}
                                         </ComBadrLibelleComp>
                                     </Col>
-                                    <Col size={4}>
+                                    <Col size={5}>
                                         <TextInput
                                             mode={'outlined'}
                                             disabled={this.props.readOnly}
                                             style={{ height: 20, fontSize: 12, alignSelf: 'center', padding: 15 }}
-                                            value={this.state.navigationMaritimeModel.heureFinControle}
+                                            value={moment(this.state.navigationMaritimeModel.heureFinControle).format('HH:mm').toString()}
                                             onFocus={() => {
                                                 this.setState({ showHeureFinControle: true });
                                             }}
@@ -321,7 +300,7 @@ class ActifsRapportResultatControleBlock extends React.Component {
                                             />
                                         )}
                                     </Col>
-                                    <Col size={2} style={{ paddingTop: 5 }}>
+                                    <Col size={2} style={{ paddingTop: 1 }}>
                                         <Text style={{ fontSize: 12 }}>
                                             {translate('actifsCreation.entete.uniteHeure')}
                                         </Text>

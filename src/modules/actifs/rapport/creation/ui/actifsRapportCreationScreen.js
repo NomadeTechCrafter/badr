@@ -4,13 +4,13 @@ import React, { Component } from 'react';
 import { Dimensions, View } from 'react-native';
 import { IconButton } from 'react-native-paper';
 import { connect } from 'react-redux';
-import { ComBadrProgressBarComp, ComBadrToolbarComp } from '../../../../../commons/component';
+import { ComBadrErrorMessageComp, ComBadrProgressBarComp, ComBadrToolbarComp } from '../../../../../commons/component';
 import { translate } from '../../../../../commons/i18n/ComI18nHelper';
 import { load } from '../../../../../commons/services/async-storage/ComStorageService';
 import { primaryColor } from '../../../../../commons/styles/ComThemeStyle';
 import * as Constants from '../state/actifsRapportCreationConstants';
 import * as enregistrerRS from '../state/actions/actifsRapportCreationEnregistrerRSAction';
-import actifsRapportCreationAvionsPriveesTab from './avionsPrivees/actifsRapportCreationAvionsPriveesTab';
+import * as getOsById from '../state/actions/actifsRapportCreationGetOsByIdAction';
 import AtifsRapportCreationDetailsTab from './details/actifsRapportCreationDetails';
 import ActifsRapportCreationEmbarcationsTab from './embarcations/actifsRapportCreationEmbarcationsTab';
 import ActifsRapportCreationEnteteTab from './entete/actifsRapportCreationEnteteTab';
@@ -26,19 +26,19 @@ const screenHeight = Dimensions.get('window').height;
 
 const screenWidth = Dimensions.get('window').width;
 
-function EnteteScreen({ consultation, route, navigation }) {
+function EnteteScreen({ route, navigation }) {
   return (
-    <ActifsRapportCreationEnteteTab consultation={consultation} navigation={navigation} route={route} />
+    <ActifsRapportCreationEnteteTab navigation={navigation} route={route} />
   );
 }
 
-function DetailsScreen({ route, navigation }) {
+/* function DetailsScreen({ route, navigation }) {
   return <AtifsRapportCreationDetailsTab navigation={navigation} route={route} />;
 }
 
 function SaisieScreen({ route, navigation }) {
   return <AtifsRapportCreationSaisieTab navigation={navigation} route={route} />;
-}
+} */
 
 
 function embarcationsTab({ route, navigation }) {
@@ -65,44 +65,85 @@ class ActifsRapportCreationScreen extends Component {
   }
 
   componentDidMount = () => {
-    load('rows').then((value) => {
-      this.setState({ rows: JSON.parse(value) }, () => {
-        console.log(this.state.rows.vehicules[0]);
+    console.log('this.props : yassine                                                             09/05/2021 ', this.props);
+    let data = this.props.route.params.row?.id;
+
+    let action = getOsById.request(
+      {
+        type: Constants.ACTIFS_ENTETE_REQUEST,
+        value: { data: data },
+      } /*,
+                    this.props.navigation,
+                    this.props.successRedirection,*/,
+    );
+    this.props.dispatch(action);
+
+
+  };
+
+
+
+  updateSaisieValue = (val) => {
+    console.log('val :', val);
+    this.setState({ vehiculesSaisiVO: val.vehiculesSaisiVO, marchandisesVO: val.marchandisesVO, pvsSaisi: val.pvsSaisi });
+
+  }
+
+
+  updateEnteteValue = (val) => {
+    console.log('val :', val);
+    this.setState({ heureFin: val.heureFin, dateFin: val.dateFin });
+
+  }
+
+  updateDetailsValue = (val) => {
+    console.log('val :', val);
+    this.setState({
+      description: val.description,
+      typeIncident: val.typeIncident,
+      autreIncident: val.autreIncident
+    });
+
+  }
+
+  checkDatesDebutFinInformations = () => {
+    this.setState({
+      errorMessage: null
+    });
+
+    let dateDebut = format(this.props.rows.dateDebut);
+
+    moment.suppressDeprecationWarnings = true;
+    let dateHeureDebut = moment(dateDebut, FORMAT_DDMMYYYY_HHMM);
+
+    console.log('dateHeureEntree : ', dateHeureDebut);
+
+    console.log('this.state.dateFin : ', this.state.dateFin);
+    let dateHeureFin = moment(this.state.dateFin, FORMAT_DDMMYYYY_HHMM);
+    if (dateHeureFin === null) {
+      console.log("test : ", dateHeureFin);
+      let message = translate('actifsCreation.entete.errors.dateFinRequired');
+      this.setState({
+        errorMessage: message
       });
-    });
-    this.loadincident();
-    this.loadTypeincident();
-    this.loadDescription();
-  };
+      return true;
 
-  loadincident = () => {
-    load('autreIncident').then((value) => {
-      if (value) {
-        this.setState({ autreIncident: value });
-      } else {
-        console.log('no value');
-      }
-    });
-  };
+    }
+    if (dateHeureFin < dateHeureDebut) {
+      let message = translate('actifsCreation.entete.errors.dateDebutFinOrdre');
 
-  loadTypeincident = () => {
-    load('typeIncident').then((value) => {
-      if (value) {
-        this.setState({ typeIncident: value });
-      } else {
-        console.log('no value');
-      }
-    });
-  };
-  loadDescription = () => {
-    load('description').then((value) => {
-      if (value) {
-        this.setState({ description: value });
-      } else {
-        console.log('no value');
-      }
-    });
-  };
+      this.setState({
+        errorMessage: message
+      });
+      return true;
+    } else {
+
+      return false
+    }
+
+
+
+  }
   Enregister = () => {
     let rsAEnregistrer = {
       anneeRef: this.state.rows.journeeDu, //....?????getRapportTemp().anneeRef
@@ -112,10 +153,10 @@ class ActifsRapportCreationScreen extends Component {
       commentaire: null,
       dateEnregistrement: null,
       dateEnregistrementV0: '',
-      dateFin: this.state.row.dateFin, //yes
+      dateFin: (this.state?.dateFin) ? this.state.dateFin : this.state.row.dateFin, //yes
       description: this.state.description, //yess reacherche(description rapport)
       disableFields: null,
-      heureFin: this.state.rows.heureFin, //yess entete
+      heureFin: (this.state?.heureFin) ? this.state.heureFin : this.state.row.heureFin, //yess entete
       idOS: this.state.rows.numero, //recherchess
       journeeDU: this.state.rows.journeeDu, //yess entete
       motif: null,
@@ -131,14 +172,17 @@ class ActifsRapportCreationScreen extends Component {
       typesIncidentSelect: this.state.typeIncident, //yess
       uniteorganisationnelle: this.state.rows.uniteOrganisationnelle, //yess
       validations: null,
-      vehiculesSaisiVO: '',
-      marchandisesVO: '',
-      pvsSaisi: '',
+      vehiculesSaisiVO: this.state.vehiculesSaisiVO,
+      marchandisesVO: this.state.marchandisesVO,
+      pvsSaisi: this.state.pvsSaisi,
       versionRS: null,
       versionsRS: null,
     };
     console.log('--------------------------------rows navigationsMaritimes--------------------------------------------------');
     console.log(this.state.rows.navigationsMaritimes);
+    if (this.checkDatesDebutFinInformations()) {
+      return;
+    }
     load('navigationsMaritimes').then((value) => {
       if (value) {
         console.log(value);
@@ -186,9 +230,11 @@ class ActifsRapportCreationScreen extends Component {
 
   render() {
 
-    console.log('rows    :', this.state.rows);
-    console.log('rows    :', this.state.rows.maritime);
-    console.log(!this.state.rows.maritime && !this.state.rows.aerien);
+    console.log('rows 1  ActifsRapportCreationScreen :', this.state.rows);
+    console.log('rows 2  ActifsRapportCreationScreen  :', this.state.rows.maritime);
+    console.log('rows 3  ActifsRapportCreationScreen  :', this.props.rows);
+    console.log('rows 4  ActifsRapportCreationScreen  :', this.props.rows?.maritime);
+    console.log(!this.props.rows?.maritime && !this.props.rows?.aerien);
     return (
       <View style={{ width: '100%', height: '100%' }}>
         <ComBadrToolbarComp
@@ -206,8 +252,11 @@ class ActifsRapportCreationScreen extends Component {
         {this.props.showProgress && (
           <ComBadrProgressBarComp width={screenWidth} />
         )}
+        {this.state.errorMessage != null && (
+          <ComBadrErrorMessageComp message={this.state.errorMessage} />
+        )}
         <NavigationContainer independent={true}>
-          {(!this.state.rows.maritime && !this.state.rows.aerien) && (
+          {!(this.props.rows?.maritime) && !(this.props.rows?.aerien) &&
             <Tab.Navigator
               initialLayout={{ height: Dimensions.get('window').height }}
               swipeEnabled={false}
@@ -224,25 +273,31 @@ class ActifsRapportCreationScreen extends Component {
                   borderColor: primaryColor,
                 },
               }}>
-              <Tab.Screen consultation={this.state.consultation} name="Entête1">
+              <Tab.Screen name="Entête1">
                 {() => (
                   <ActifsRapportCreationEnteteTab
-                    consultation={this.state.consultation}
-                    row={this.state.row}
+                    update={(val) => this.updateEnteteValue(val)}
                   />
                 )}
               </Tab.Screen>
               <Tab.Screen name="Details">
                 {() => (
                   <AtifsRapportCreationDetailsTab
-                    consultation={this.state.consultation}
-                    row={this.state.row}
+                    update={this.updateDetailsValue}
                   />
                 )}
               </Tab.Screen>
-              <Tab.Screen name="Saisie" component={SaisieScreen} />
-            </Tab.Navigator>)}
-          {(this.state.rows.maritime) && (
+              <Tab.Screen name="Saisie" >
+                {() => (
+                  <AtifsRapportCreationSaisieTab
+                    update={this.updateSaisieValue}
+                  />
+                )}
+              </Tab.Screen>
+              
+              
+            </Tab.Navigator>}
+          {(this.props.rows?.maritime) && (
             <Tab.Navigator
               initialLayout={{ height: Dimensions.get('window').height }}
               swipeEnabled={false}
@@ -259,14 +314,14 @@ class ActifsRapportCreationScreen extends Component {
                   borderColor: primaryColor,
                 },
               }}>
-              <Tab.Screen consultation={this.state.consultation} name="Entête2">
+              <Tab.Screen name="Entête">
                 {() => (
                   <ActifsRapportCreationEnteteTab
-                    consultation={this.state.consultation}
-                    row={this.state.row}
+                    update={(val) => this.updateEnteteValue(val)}
                   />
                 )}
               </Tab.Screen>
+
               <Tab.Screen name="Details">
                 {() => (
                   <AtifsRapportCreationDetailsTab
@@ -275,10 +330,16 @@ class ActifsRapportCreationScreen extends Component {
                   />
                 )}
               </Tab.Screen>
-              <Tab.Screen name="Saisie" component={SaisieScreen} />
+              <Tab.Screen name="Saisie" >
+                {() => (
+                  <AtifsRapportCreationSaisieTab
+                    update={this.updateSaisieValue}
+                  />
+                )}
+              </Tab.Screen>
               <Tab.Screen name={translate('actifsCreation.embarcations.title')} component={embarcationsTab} />
             </Tab.Navigator>)}
-          {(this.state.rows.aerien) && (
+          {(this.props.rows?.aerien) && (
             <Tab.Navigator
               initialLayout={{ height: Dimensions.get('window').height }}
               swipeEnabled={false}
@@ -295,14 +356,14 @@ class ActifsRapportCreationScreen extends Component {
                   borderColor: primaryColor,
                 },
               }}>
-              <Tab.Screen consultation={this.state.consultation} name="Entête3">
+              <Tab.Screen name="Entête">
                 {() => (
                   <ActifsRapportCreationEnteteTab
-                    consultation={this.state.consultation}
-                    row={this.state.row}
+                    update={(val) => this.updateEnteteValue(val)}
                   />
                 )}
               </Tab.Screen>
+
               <Tab.Screen name="Details">
                 {() => (
                   <AtifsRapportCreationDetailsTab
@@ -311,9 +372,15 @@ class ActifsRapportCreationScreen extends Component {
                   />
                 )}
               </Tab.Screen>
-              <Tab.Screen name="Saisie" component={SaisieScreen} />
+              <Tab.Screen name="Saisie" >
+                {() => (
+                  <AtifsRapportCreationSaisieTab
+                    update={this.updateSaisieValue}
+                  />
+                )}
+              </Tab.Screen>
               <Tab.Screen name={translate('actifsCreation.avionsPrivees.title')} component={avionsPriveesTab} />
-            </Tab.Navigator>)}
+            </Tab.Navigator>)} 
         </NavigationContainer>
       </View>
     );

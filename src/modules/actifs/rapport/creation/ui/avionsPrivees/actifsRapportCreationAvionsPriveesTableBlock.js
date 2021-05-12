@@ -43,12 +43,12 @@ class ActifsRapportCreationAvionsPriveesTableBlock extends React.Component {
                 }
             },
             {
-                code: 'provenance.nomPays',
+                code: 'provenance.libelle',
                 libelle: translate('actifsCreation.avionsPrivees.provenance'),
                 width: 100,
             },
             {
-                code: 'destination.nomPays',
+                code: 'destination.libelle',
                 libelle: translate('actifsCreation.avionsPrivees.destination'),
                 width: 100,
             },
@@ -119,12 +119,12 @@ class ActifsRapportCreationAvionsPriveesTableBlock extends React.Component {
                 }
             },
             {
-                code: 'provenance.nomPays',
+                code: 'provenance.libelle',
                 libelle: translate('actifsCreation.avionsPrivees.provenance'),
                 width: 100,
             },
             {
-                code: 'destination.nomPays',
+                code: 'destination.libelle',
                 libelle: translate('actifsCreation.avionsPrivees.destination'),
                 width: 100,
             },
@@ -170,8 +170,6 @@ class ActifsRapportCreationAvionsPriveesTableBlock extends React.Component {
     onItemSelected = (row) => { };
 
     updateItem = (row, index) => {
-        console.log('updateItem row : ', row);
-        console.log('updateItem index : ', index);
         let data = {
             index: index,
             navigationAerienneModel: row
@@ -180,32 +178,26 @@ class ActifsRapportCreationAvionsPriveesTableBlock extends React.Component {
 
     }
     removeItem = (row, index) => {
-        console.log('removeItem row : ', row);
-        console.log('removeItem index : ', index);
         this.props.callbackHandler(DELETE_AVION_PRIVEE_TASK, index);
 
 
     }
 
     componentDidMount() {
-        console.log('ActifsRapportCreationAvionsPriveesTableBlock componentDidMount     ', this.props.readOnly);
 
     }
 
     componentDidUpdate() {
 
-        console.log('ActifsRapportCreationAvionsPriveesTableBlock componentDidUpdate');
     }
 
 
     componentWillUnmount() {
-        console.log('ActifsRapportCreationAvionsPriveesTableBlock componentWillUnmount');
     }
 
 
 
     reset = () => {
-        console.log('ActifsRapportCreationAvionsPriveesTableBlock reset');
     };
 
     nouveau = () => {
@@ -215,7 +207,6 @@ class ActifsRapportCreationAvionsPriveesTableBlock extends React.Component {
 
 
     render() {
-        console.log("ActifsRapportCreationAvionsPriveesTableBlock this.props", this.props);
         return (
 
             <ComAccordionComp title={translate('actifsCreation.avionsPrivees.title')} expanded={true}>

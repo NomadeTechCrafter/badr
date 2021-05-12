@@ -5,7 +5,7 @@ import { ScrollView, View } from 'react-native';
 import { Row } from 'react-native-easy-grid';
 import { ComBadrButtonComp, ComBadrErrorMessageComp, ComContainerComp } from '../../../../../../commons/component';
 import { translate } from '../../../../../../commons/i18n/ComI18nHelper';
-import { FORMAT_DDMMYYYY, FORMAT_DDMMYYYY_HHMM, FORMAT_HHMM, RESET_EMBARCATION_TASK } from '../../../utils/actifsConstants';
+import { FORMAT_DDMMYYYY, FORMAT_DDMMYYYY_HHMM, RESET_EMBARCATION_TASK } from '../../../utils/actifsConstants';
 import { formatCustomized } from '../../../utils/actifsUtils';
 import ActifsRapportCaracteristiquesBateauBlock from './actifsRapportCaracteristiquesBateauBlock';
 import ActifsRapportNavigationMaritimeBlock from './actifsRapportNavigationMaritimeBlock';
@@ -31,26 +31,22 @@ class ActifsRapportEmbarcationBlock extends React.Component {
 
     componentDidMount() {
 
-        console.log('ActifsRapportEmbarcationBlock componentWillmount');
     }
 
 
 
     componentWillUnmount() {
-        console.log('ActifsRapportEmbarcationBlock componentWillUnmount');
     }
 
 
 
     reset = () => {
-        console.log('ActifsRapportEmbarcationBlock reset');
     };
 
     confirmer = () => {
         if (!this.checkRequiredFields()) {
             if (!this.checkDatesEntreeDepartInformations()) {
                 if (!this.checkDatesDebutFinControleInformations()) {
-                    console.log(' confirmation ActifsRapportEmbarcationBlock this.props.navigationMaritimeModel : ', this.state.navigationMaritimeModel);
                     this.props.push(this.state.navigationMaritimeModel);
                 }
             }
@@ -69,7 +65,6 @@ class ActifsRapportEmbarcationBlock extends React.Component {
         this.checkRequiredFieldsCaracteristiquesBateau(params);
         this.checkRequiredFieldsResultatCtrl(params);
 
-        this.checkDatesInformations(params);
         if (params.required) {
             let message = translate('actifsCreation.embarcations.champsObligatoires') + params.msg;
             this.setState({
@@ -300,8 +295,6 @@ class ActifsRapportEmbarcationBlock extends React.Component {
     }
 
     updateModelNavigationMaritime = (modele) => {
-        console.log('-------------------------------------------------yassine --------------------------------------debut ');
-        console.log(this.props);
         this.state.navigationMaritimeModel.dateEntree = modele.dateEntree;
         this.state.navigationMaritimeModel.heureEntree = modele.heureEntree;
         this.state.navigationMaritimeModel.motifAccostage = modele.motifAccostage;
@@ -314,16 +307,12 @@ class ActifsRapportEmbarcationBlock extends React.Component {
         this.state.navigationMaritimeModel.heureDepart = modele.heureDepart;
         this.state.navigationMaritimeModel.destination = modele.destination;
         this.state.navigationMaritimeModel.villeDestination = modele.villeDestination;
-        console.log(this.props);
-        console.log('-------------------------------------------------yassine --------------------------------------fin ');
 
 
         //this.state.navigationMaritimeModel = model;
     }
 
     updateModelCaracteristiquesBateau = (modele) => {
-        console.log('-------------------------------------------------yassine --------------------------------------debut ');
-        console.log(this.props);
         this.state.navigationMaritimeModel.typeBateau = modele.typeBateau;
         this.state.navigationMaritimeModel.nomBateau = modele.nomBateau;
         this.state.navigationMaritimeModel.immatriculation = modele.immatriculation;
@@ -334,15 +323,8 @@ class ActifsRapportEmbarcationBlock extends React.Component {
         this.state.navigationMaritimeModel.numDeclaration = modele.numDeclaration;
         this.state.navigationMaritimeModel.delivreePar = modele.delivreePar;
         this.state.navigationMaritimeModel.dateDeclaration = modele.dateDeclaration;
-        console.log(this.props);
-        console.log('-------------------------------------------------yassine --------------------------------------fin ');
-
-
-        //this.state.navigationMaritimeModel = model;
     }
     updateModelResultatCtrl = (modele) => {
-        console.log('-------------------------------------------------yassine --------------------------------------debut ');
-        console.log(this.props);
         this.state.navigationMaritimeModel.dateDebutControle = modele.dateDebutControle;
         this.state.navigationMaritimeModel.heureDebutControle = modele.heureDebutControle;
         this.state.navigationMaritimeModel.dateFinControle = modele.dateFinControle;
@@ -350,29 +332,17 @@ class ActifsRapportEmbarcationBlock extends React.Component {
         this.state.navigationMaritimeModel.documentsVerifies = modele.documentsVerifies;
         this.state.navigationMaritimeModel.observations = modele.observations;
         this.state.navigationMaritimeModel.resultatControle = modele.resultatControle;
-        console.log(this.props);
-        console.log('-------------------------------------------------yassine --------------------------------------fin ');
 
 
-        //this.state.navigationMaritimeModel = model;
     }
 
     updateModelProprietairesPersonnesConcernees = (modele) => {
-        console.log('-------------------------------------------------yassine ----------------ActifsRapportEmbarcationBlock----------------------debut ');
-        console.log(this.props);
         this.state.navigationMaritimeModel.proprietaires = modele.proprietaires;
         this.state.navigationMaritimeModel.intervenants = modele.intervenants;
-        console.log(this.props);
-        console.log('-------------------------------------------------yassine -------------------ActifsRapportEmbarcationBlock-------------------fin ');
     }
 
 
     static getDerivedStateFromProps(props, state) {
-        console.log('getDerivedStateFromProps--------ActifsRapportEmbarcationBlock------------props ', props);
-        console.log('getDerivedStateFromProps--------ActifsRapportEmbarcationBlock------------state ', state);
-        console.log('getDerivedStateFromProps--------ActifsRapportEmbarcationBlock------------state ', props.index);
-        console.log('getDerivedStateFromProps--------ActifsRapportEmbarcationBlock------------state ', state.index);
-        console.log('getDerivedStateFromProps--------ActifsRapportEmbarcationBlock------------state ', props.navigationMaritimeModel);
 
         if (
             props.navigationMaritimeModel && props.index !== state.index
@@ -386,8 +356,6 @@ class ActifsRapportEmbarcationBlock extends React.Component {
         return null;
     }
     render() {
-        console.log('-------------------------------------------------yassine -------------------ActifsRapportEmbarcationBlock-------------------this.props', this.props);
-        console.log('-------------------------------------------------yassine -------------------ActifsRapportEmbarcationBlock-------------------this.state', this.state);
         return (
             <ScrollView>
                 <ComContainerComp>

@@ -18,7 +18,7 @@ export default class ActifsRapportCreationSaisieMTSModal extends React.Component
   constructor(props) {
     super(props);
     this.state = {
-      value: 'hello',
+      value: '',
     };
   }
 
@@ -51,6 +51,8 @@ export default class ActifsRapportCreationSaisieMTSModal extends React.Component
                   libelle="libelle"
                   module="GIB"
                   command="getNaturesVehicule"
+                  selectedValue={this.props.natureVehicule.code}
+                  selected={this.props.natureVehicule.code}
                   onValueChange={this.props.onValueChangeMTS}
                   param={'this.state.value'}
                   typeService="SP"

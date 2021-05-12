@@ -38,12 +38,12 @@ class ActifsRapportCreationEmbarcationsTableBlock extends React.Component {
                 }
             },
             {
-                code: 'provenance.nomPays',
+                code: 'provenance.libelle',
                 libelle: translate('actifsCreation.embarcations.provenance'),
                 width: 100,
             },
             {
-                code: 'destination.nomPays',
+                code: 'destination.libelle',
                 libelle: translate('actifsCreation.embarcations.destination'),
                 width: 100,
             },
@@ -114,14 +114,14 @@ class ActifsRapportCreationEmbarcationsTableBlock extends React.Component {
                 }
             },
             {
-                code: 'provenance.nomPays',
+                code: 'provenance.libelle',
                 libelle: translate('actifsCreation.embarcations.provenance'),
-                width: 100,
+                width: 100
             },
             {
-                code: 'destination.nomPays',
+                code: 'destination.libelle',
                 libelle: translate('actifsCreation.embarcations.destination'),
-                width: 100,
+                width: 100
             },
             {
                 code: 'dateDebutControle',
@@ -165,8 +165,6 @@ class ActifsRapportCreationEmbarcationsTableBlock extends React.Component {
     onItemSelected = (row) => { };
 
     updateItem = (row, index) => {
-        console.log('updateItem row : ', row);
-        console.log('updateItem index : ', index);
         let data = {
             index: index,
             navigationMaritimeModel: row
@@ -175,32 +173,26 @@ class ActifsRapportCreationEmbarcationsTableBlock extends React.Component {
 
     }
     removeItem = (row, index) => {
-        console.log('removeItem row : ', row);
-        console.log('removeItem index : ', index);
         this.props.callbackHandler(DELETE_EMBARCATION_TASK, index);
 
 
     }
 
     componentDidMount() {
-        console.log('ActifsRapportCreationEmbarcationsTableBlock componentDidMount     ', this.props.readOnly);
 
     }
 
     componentDidUpdate() {
 
-        console.log('ActifsRapportCreationEmbarcationsTableBlock componentDidUpdate');
     }
 
 
     componentWillUnmount() {
-        console.log('ActifsRapportCreationEmbarcationsTableBlock componentWillUnmount');
     }
 
 
 
     reset = () => {
-        console.log('ActifsRapportCreationEmbarcationsTableBlock reset');
     };
 
     nouveau = () => {
@@ -210,7 +202,6 @@ class ActifsRapportCreationEmbarcationsTableBlock extends React.Component {
 
 
     render() {
-        console.log("ActifsRapportCreationEmbarcationsTableBlock this.props", this.props);
         return (
 
             <ComAccordionComp title={translate('actifsCreation.embarcations.title')} expanded={true}>

@@ -33,7 +33,6 @@ export default class ActifsRapportPropritaireModal extends React.Component {
   }
 
   onChangeTypeIdentifiant(text) {
-    console.log(this.state.proprietaire);
     this.setState({
       proprietaire: {
         ...this.state.proprietaire, intervenant: {
@@ -45,7 +44,6 @@ export default class ActifsRapportPropritaireModal extends React.Component {
   }
 
   handlePaysChanged = (pays) => {
-    console.log('handlePaysChanged : ', pays);
     this.setState({
       acNationalite: pays,
       proprietaire: {

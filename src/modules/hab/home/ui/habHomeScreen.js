@@ -48,7 +48,7 @@ import Recherche from '../../../../old/screens/actifs/rapport/recherche';
 import Saisie from '../../../../old/screens/actifs/rapport/creation/saisie';
 import Details from '../../../../old/./screens/actifs/rapport/creation/details';
 import Consultation from '../../../../old/screens/actifs/rapport/consultation';
-import Creation from '../../../../old/screens/actifs/rapport/creation';
+import actifsRapportCreationScreen from '../../../actifs/rapport/creation/ui/actifsRapportCreationScreen';
 /**ACTIONS */
 import * as Constants from '../../../../commons/constants/generic/ComGenericConstants';
 import * as GenericAction from '../../../../commons/state/actions/ComGenericAction';
@@ -300,7 +300,13 @@ class habHomeScreen extends React.Component {
           component={T6bisGestion}
           options={{headerShown: false}}
         />
+        
         {/* Module T6bis end*/}
+        <Drawer.Screen
+          name="CreationRapport"
+          component={actifsRapportCreationScreen}
+          options={{ headerShown: false }}
+        />
 
       </Drawer.Navigator>
     );

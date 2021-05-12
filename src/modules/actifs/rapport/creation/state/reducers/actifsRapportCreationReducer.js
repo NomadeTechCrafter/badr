@@ -1,6 +1,7 @@
 import { getNavigationAerienneModelInitial, getNavigationMaritimeModelInitial } from '../../../utils/actifsUtils';
 import * as Constants from '../actifsRapportCreationConstants';
 import { save, saveStringified } from '../../../../../../commons/services/async-storage/ComStorageService';
+import { Rows } from 'react-native-table-component';
 
 const initialState = {
   showProgress: false,
@@ -15,6 +16,74 @@ export default (state = initialState, action) => {
   console.log("actifsRapportCreationReducer action.type : " + action.type);
   console.log("actifsRapportCreationReducer action.value : " + action.value)
   switch (action.type) {
+    case Constants.ACTIFS_ENTETE_REQUEST:
+      nextState.showProgress = true;
+      nextState.errorMessage = null;
+      console.log('--> ACTIFS_ENTETE request...');
+      return nextState;
+    case Constants.ACTIFS_ENTETE_IN_PROGRESS:
+      console.log('--> ACTIFS_ENTETE in progress...');
+      return nextState;
+    case Constants.ACTIFS_ENTETE_SUCCESS:
+      console.log('--> ACTIFS_ENTETE success...', nextState);
+      nextState.showProgress = false;
+      nextState.errorMessage = null;
+      nextState.rows = action.value;
+      nextState.consultation = action.value.rapportExiste;
+      let typesIncidents = '';
+      console.log('typesIncidents----------------------------------------------------------this.props.row : ', action.value);
+      if (action.value && action.value?.typesIncidentSelect) {
+        let typesIncidentSelect = action.value?.typesIncidentSelect;
+        for (
+          var i = 0;
+          i < typesIncidentSelect.length;
+          i++
+        ) {
+          if (i < typesIncidentSelect.length - 1) {
+            typesIncidents +=
+              typesIncidentSelect[i].libelle + "\n";
+          } else {
+            typesIncidents +=
+              typesIncidentSelect[i].libelle;
+          }
+        }
+      }
+      nextState.typesIncidents = typesIncidents;
+      return nextState;
+    case Constants.ACTIFS_ENTETE_FAILED:
+      console.log('--> ACTIFS_ENTETE failed...');
+      nextState.showProgress = false;
+      nextState.errorMessage = action.value.dtoHeader
+        ? action.value.dtoHeader.messagesErreur
+        : action.value;
+      return nextState;
+    case Constants.ACTIFS_SAISIE_REQUEST:
+      nextState.showProgress = true;
+      nextState.errorMessage = null;
+      console.log('--> ACTIFS_SAISIE request...');
+      return nextState;
+    case Constants.ACTIFS_SAISIE_IN_PROGRESS:
+      console.log('--> ACTIFS_SAISIE in progress...');
+      return nextState;
+    case Constants.ACTIFS_SAISIE_SUCCESS:
+      console.log('--> ACTIFS_SAISIE ---------------------------------------------------------success...', nextState);
+      console.log('--> ACTIFS_SAISIE ---------------------------------------------------------success...', action.value.jsonVO);
+      let listUnites = [];
+      action.value.jsonVO.forEach(element => {
+        listUnites.push({ code: element.codeUniteMesure, libelle: element.descriptionUniteMesure });
+      });
+
+      nextState.listUnites = listUnites;
+      nextState.showProgress = false;
+      nextState.errorMessage = null;
+      return nextState;
+    case Constants.ACTIFS_SAISIE_FAILED:
+      console.log('--> ACTIFS_SAISIE failed...');
+      nextState.showProgress = false;
+      nextState.errorMessage = action.value.dtoHeader
+        ? action.value.dtoHeader.messagesErreur
+        : action.value;
+      return nextState;
     case Constants.ACTIFS_CREATION_REQUEST:
       nextState.showProgress = true;
       nextState.errorMessage = null;

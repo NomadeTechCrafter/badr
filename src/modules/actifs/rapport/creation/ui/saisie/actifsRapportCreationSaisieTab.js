@@ -79,41 +79,50 @@ class AtifsRapportCreationSaisieTab extends Component {
       natureMarchandise: '',
       valeur: '',
       autre: '',
+      dateText: ''
     });
   };
+
+  retablirMarchandise = () => {
+    this.setState({ natureMarchandise: '',quantity: '', autre: '', valeur: '' });
+    this.refMarchandiseModal.clear();
+  }
   onChange = (event, selectedDate) => {
     this.setState({
       date: selectedDate,
       show: false,
-      dateText: moment(selectedDate).format('MM/DD/YYYY'),
+      dateText: moment(selectedDate).format('DD/MM/YYYY'),
     });
   };
   showMode = (currentMode) => {
-    this.setState({show: true, mode: currentMode});
+    this.setState({ show: true, mode: currentMode });
   };
 
   confirmer = () => {
-    this.state.editPV
-      ? this.editPV()
-      : this.state.dataPV.push({
-          nPV: this.state.nPV,
-          date: moment(this.state.date).format('MM/DD/YYYY'),
-        });
-    this.setState({showDetailPV: false});
+    if (this.state.editPV) {
+      this.editPV()
+
+    } else {
+      this.state.dataPV.push({
+        nPV: this.state.nPV,
+        date: moment(this.state.date).format('DD/MM/YYYY'),
+      });
+      this.update();
+    }
+    this.setState({ showDetailPV: false });
   };
   editPV = () => {
     const dataPV = [...this.state.dataPV];
     console.log('data[item]', dataPV[this.state.selectedItem]);
     dataPV.splice(this.state.selectedItem, 1, {
       nPV: this.state.nPV,
-      date: moment(this.state.date).format('MM/DD/YYYY'),
+      date: moment(this.state.date).format('DD/MM/YYYY'),
     });
     console.log('table after splice', dataPV);
-    this.setState({dataPV, editPV: false}, () =>
-      console.log('on press edit', this.state.dataPV),
+    this.setState({ dataPV, editPV: false }, () => { console.log('on press edit', this.state.dataPV); this.update(); }
     );
   };
-  choixPV = (item) => {
+  choixPV = (item, index) => {
     return (
       <Col size={2}>
         <Row>
@@ -122,12 +131,17 @@ class AtifsRapportCreationSaisieTab extends Component {
               icon="pencil-outline"
               color={'white'}
               size={15}
-              style={{backgroundColor: primaryColor}}
+              style={{ backgroundColor: primaryColor }}
               onPress={() => {
+                let data = item;
                 this.setState({
                   showDetailPV: true,
                   editPV: true,
-                  selectedItem: item,
+                  selectedItem: index,
+                  nPV: data.nPV,
+                  date: new Date(data.date).toString(),
+                  dateText: data.date
+
                 });
               }}
             />
@@ -137,11 +151,11 @@ class AtifsRapportCreationSaisieTab extends Component {
               icon="trash-can-outline"
               color={'white'}
               size={15}
-              style={{backgroundColor: primaryColor}}
+              style={{ backgroundColor: primaryColor }}
               onPress={() => {
                 let dataPV = [...this.state.dataPV];
                 dataPV.splice(item, 1);
-                this.setState({dataPV}, () => console.log(this.state.dataPV));
+                this.setState({ dataPV }, () => { console.log(this.state.dataPV); this.update(); });
               }}
             />
           </Col>
@@ -162,7 +176,7 @@ class AtifsRapportCreationSaisieTab extends Component {
               {item.date}
             </ComBadrLibelleComp>
           </Col>
-          {this.choixPV(index)}
+          {this.choixPV(item,index)}
         </Row>
       );
     });
@@ -172,7 +186,7 @@ class AtifsRapportCreationSaisieTab extends Component {
     let action = getUnitesMesure.request(
       {
         type: Constants.ACTIFS_SAISIE_REQUEST,
-        value: {data: ''},
+        value: { data: '' },
       } /*,
                     this.props.navigation,
                     this.props.successRedirection,*/,
@@ -206,18 +220,22 @@ class AtifsRapportCreationSaisieTab extends Component {
     );
   }
   confirmerMarchandise = () => {
-    console.log('confirmerMarchandise : ',this.state);
-    this.state.editMarchandise
-      ? this.editMarchandise()
-      : this.state.dataMarchandise.push({
-          NDM: this.state.natureMarchandise,
-          UM: this.state.selectedValue,
-          quantity: this.state.quantity,
-          V: this.state.valeur,
-        });
-    this.setState({showDetailMarchandise: false});
+    console.log('confirmerMarchandise : ', this.state);
+    if (this.state.editMarchandise) {
+      this.editMarchandise();
+    } else {
+       this.state.dataMarchandise.push({
+      NDM: this.state.natureMarchandise,
+      UM: this.state.selectedValue,
+      quantity: this.state.quantity,
+         V: this.state.valeur,
+         autre: this.state.autre
+       });
+      this.update();
+    }
+    this.setState({ showDetailMarchandise: false });
   };
-  choixMarchandise = (item) => {
+  choixMarchandise = (item, index) => {
     return (
       <Col size={2}>
         <Row>
@@ -226,13 +244,22 @@ class AtifsRapportCreationSaisieTab extends Component {
               icon="pencil-outline"
               color={'white'}
               size={15}
-              style={{backgroundColor: primaryColor}}
+              style={{ backgroundColor: primaryColor }}
               onPress={() => {
+                let data = item;
+                console.log('dataPV ', dataMarchandise);
+                console.log('data ', data);
+                
                 this.setState({
                   showDetailMarchandise: true,
                   editMarchandise: true,
-                  selectedItemMar: item,
+                  selectedItemMar: index,
+                  quantity: data.quantity, autre: data.autre, valeur: data.V
                 });
+
+                this.refMarchandiseModal.clear();
+                  this.refMarchandiseModal.populate(data);
+                
               }}
             />
           </Col>
@@ -241,13 +268,12 @@ class AtifsRapportCreationSaisieTab extends Component {
               icon="trash-can-outline"
               color={'white'}
               size={15}
-              style={{backgroundColor: primaryColor}}
+              style={{ backgroundColor: primaryColor }}
               onPress={() => {
                 let dataMarchandise = [...this.state.dataMarchandise];
                 dataMarchandise.splice(item, 1);
-                this.setState({dataMarchandise}, () =>
-                  console.log(this.state.dataMarchandise),
-                );
+                this.setState({ dataMarchandise }, () =>
+                { console.log(this.state.dataMarchandise); this.update(); })
               }}
             />
           </Col>
@@ -272,7 +298,7 @@ class AtifsRapportCreationSaisieTab extends Component {
           <Col size={2}>
             <ComBadrLibelleComp>{item.V}</ComBadrLibelleComp>
           </Col>
-          {this.choixMarchandise(index)}
+          {this.choixMarchandise(item,index)}
         </Row>
       );
     });
@@ -298,13 +324,13 @@ class AtifsRapportCreationSaisieTab extends Component {
     this.state.editMTS
       ? this.editMTS()
       : this.state.dataMTS.push({
-          natureVehicule: this.state.natureVehicule,
-          libelle: this.state.libelle,
-          valeurMTS: this.state.valeurMTS,
-        });
-    this.setState({showDetailMTS: false});
+        natureVehicule: this.state.natureVehicule,
+        libelle: this.state.libelle,
+        valeurMTS: this.state.valeurMTS,
+      });
+    this.setState({ showDetailMTS: false });
   };
-  choixMTS = (item) => {
+  choixMTS = (item,index) => {
     return (
       <Col size={2}>
         <Row>
@@ -313,12 +339,16 @@ class AtifsRapportCreationSaisieTab extends Component {
               icon="pencil-outline"
               color={'white'}
               size={15}
-              style={{backgroundColor: primaryColor}}
+              style={{ backgroundColor: primaryColor }}
               onPress={() => {
+                console.log('item xxx:', item);
                 this.setState({
                   showDetailMTS: true,
                   editMTS: true,
-                  selectedItemMTS: item,
+                  selectedItemMTS: index,
+                  natureVehicule: item.natureVehicule,
+                  valeurMTS: item.valeurMTS,
+                  libelle:item.libelle
                 });
               }}
             />
@@ -328,11 +358,11 @@ class AtifsRapportCreationSaisieTab extends Component {
               icon="trash-can-outline"
               color={'white'}
               size={15}
-              style={{backgroundColor: primaryColor}}
+              style={{ backgroundColor: primaryColor }}
               onPress={() => {
                 let dataMTS = [...this.state.dataMTS];
                 dataMTS.splice(item, 1);
-                this.setState({dataMTS}, () => console.log(this.state.dataMTS));
+                this.setState({ dataMTS }, () => console.log(this.state.dataMTS));
               }}
             />
           </Col>
@@ -346,7 +376,7 @@ class AtifsRapportCreationSaisieTab extends Component {
         <Row style={CustomStyleSheet.whiteRow}>
           <Col size={2} />
           <Col size={2}>
-            <ComBadrLibelleComp>{item.natureVehicule}</ComBadrLibelleComp>
+            <ComBadrLibelleComp>{item.natureVehicule.libelle}</ComBadrLibelleComp>
           </Col>
           <Col size={2}>
             <ComBadrLibelleComp>{item.libelle}</ComBadrLibelleComp>
@@ -354,16 +384,26 @@ class AtifsRapportCreationSaisieTab extends Component {
           <Col size={2}>
             <ComBadrLibelleComp>{item.valeurMTS}</ComBadrLibelleComp>
           </Col>
-          {this.choixMTS(index)}
+          {this.choixMTS(item,index)}
         </Row>
       );
     });
   };
 
+
+  update() {
+
+    this.props.update({
+      vehiculesSaisiVO: this.state.dataMTS,
+      marchandisesVO: this.state.dataMarchandise,
+      pvsSaisi: this.state.dataPV,
+    });
+
+
+  }
   render() {
 
 
-    console.log('console.log(this.state.dataPV)', this.state.dataPV);
     return (
       <View style={CustomStyleSheet.fullContainer}>
         <ComContainerComp>
@@ -384,9 +424,10 @@ class AtifsRapportCreationSaisieTab extends Component {
                     icon="plus"
                     color={'white'}
                     size={15}
-                    style={{backgroundColor: primaryColor}}
+                    style={{ backgroundColor: primaryColor }}
                     onPress={() => {
-                      this.setState({showDetailPV: true});
+                      this.retablir();
+                      this.setState({ showDetailPV: true });
                     }}
                   />
                 </Col>
@@ -418,9 +459,10 @@ class AtifsRapportCreationSaisieTab extends Component {
                     icon="plus"
                     size={15}
                     color={'white'}
-                    style={{backgroundColor: primaryColor}}
+                    style={{ backgroundColor: primaryColor }}
                     onPress={() => {
-                      this.setState({showDetailMarchandise: true});
+                      this.setState({ showDetailMarchandise: true, natureMarchandise: '', quantity: '', autre: '', valeur: '' });
+                      this.refMarchandiseModal.clear();
                     }}
                   />
                 </Col>
@@ -462,9 +504,9 @@ class AtifsRapportCreationSaisieTab extends Component {
                     icon="plus"
                     size={15}
                     color={'white'}
-                    style={{backgroundColor: primaryColor}}
+                    style={{ backgroundColor: primaryColor }}
                     onPress={() => {
-                      this.setState({showDetailMTS: true});
+                      this.setState({ showDetailMTS: true, valeurMTS: '', libelle: '', natureVehicule:'' });
                     }}
                   />
                 </Col>
@@ -499,50 +541,54 @@ class AtifsRapportCreationSaisieTab extends Component {
             onDismiss={this.onDismiss}
             confirmer={this.confirmer}
             retablir={this.retablir}
-            onChangeBadrInput={(text) => this.setState({nPV: text})}
-            onChangeTextDate={(text) => this.setState({date: text})}
+            onChangeBadrInput={(text) => this.setState({ nPV: text })}
+            onChangeTextDate={(text) => this.setState({ date: text })}
             valueDate={this.state.dateText}
-            date={new Date(1598051730000)}
+            date={new Date()}
             show={this.state.show}
             onChange={this.onChange}
             showMode={this.showMode}
           />
 
           <ActifsRapportCreationSaisieMarchandiseModal
+            ref={ref => this.refMarchandiseModal = ref}
             visible={this.state.showDetailMarchandise}
             handlenatureMarchnadise={(item, index) => {
-              this.setState({natureMarchandise: item}, () =>
+              this.setState({ natureMarchandise: item }, () =>
                 console.log('item ======', this.state.natureMarchandise),
               );
             }}
-            onChangeTextAutre={(text) => this.setState({autre: text})}
-            onChangeQuantity={(text) => this.setState({quantity: text})}
-            onChangeValeur={(text) => this.setState({valeur: text})}
-            Qunatity={this.state.quantity}
+            onChangeTextAutre={(text) => this.setState({ autre: text })}
+            onChangeQuantity={(text) => this.setState({ quantity: text })}
+            onChangeValeur={(text) => this.setState({ valeur: text })}
+            quantity={this.state.quantity}
             autre={this.state.autre}
             valeur={this.state.valeur}
-            rows={this.props.rows}
+            listUnites={this.props.listUnites}
             onValueChanged={(item, index) => {
               this.setState({ selectedValue: item }, () =>
                 console.log('selectedValue ======', this.state.selectedValue));
             }}
             selectedvalue={this.state.selectedValue}
             confirmer={this.confirmerMarchandise}
+            retablir={this.retablirMarchandise}
             onDismiss={this.onDismiss}
           />
 
           <ActifsRapportCreationSaisieMTSModal
             visible={this.state.showDetailMTS}
             onDismiss={this.onDismiss}
-            onValueChangeMTS={(item, index) => {
-              this.setState({natureVehicule: item});
-              console.log('item',item);
+            onValueChangeMTS={(item, index, selectedItem) => {
+              this.setState({ natureVehicule: selectedItem });
+              console.log('item', item);
+              console.log('selectedItem : ', selectedItem);
             }}
+            natureVehicule={this.state.natureVehicule}
             confirmer={this.confirmerMTS}
-            onChangeValueMTS={(text) => this.setState({valeurMTS: text})}
+            onChangeValueMTS={(text) => this.setState({ valeurMTS: text })}
             valueMTS={this.state.valeurMTS}
             libelle={this.state.libelle}
-            onChangelibelle={(text) => this.setState({libelle: text})}
+            onChangelibelle={(text) => this.setState({ libelle: text })}
           />
         </ComContainerComp>
       </View>
@@ -557,6 +603,6 @@ const styles = {
   },
 };
 
-const mapStateToProps = (state) => ({ ...state.saisieReducer});
+const mapStateToProps = (state) => ({ ...state.creationReducer });
 
 export default connect(mapStateToProps, null)(AtifsRapportCreationSaisieTab);

@@ -35,19 +35,16 @@ class ActifsRapportCaracteristiquesBateauBlock extends React.Component {
 
     componentDidMount() {
 
-        console.log('ActifsRapportCaracteristiquesBateauBlock componentWillmount');
     }
 
 
 
     componentWillUnmount() {
-        console.log('ActifsRapportCaracteristiquesBateauBlock componentWillUnmount');
     }
 
 
 
     reset = () => {
-        console.log('ActifsRapportCaracteristiquesBateauBlock reset');
     };
 
    
@@ -58,8 +55,6 @@ class ActifsRapportCaracteristiquesBateauBlock extends React.Component {
 
 
     static getDerivedStateFromProps(props, state) {
-        console.log('getDerivedStateFromProps--------------------props ', props);
-        console.log('getDerivedStateFromProps--------------------state ', state);
 
         if (
             props.navigationMaritimeModel && props.index !== state.index
@@ -75,18 +70,16 @@ class ActifsRapportCaracteristiquesBateauBlock extends React.Component {
 
 
     onDateDeclarationChange = (event, selectedDate) => {
-        console.log(event);
-        console.log('test ===============> ', event);
-        console.log(selectedDate);
-        console.log('test ===============> ', selectedDate);
         this.setState({
             navigationMaritimeModel: {
                 ...this.state.navigationMaritimeModel,
-                dateDeclaration: selectedDate,
+                dateDeclaration: event.nativeEvent.timestamp,
             }, showDateDeclaration: false
 
 
         });
+        this.state.navigationMaritimeModel.dateDeclaration = event.nativeEvent.timestamp;
+        this.props.update(this.state.navigationMaritimeModel);
     }
    
 
@@ -359,11 +352,11 @@ class ActifsRapportCaracteristiquesBateauBlock extends React.Component {
                                             placeholder={translate(
                                                 'actifsCreation.embarcations.caracteristiques.delivreePar'
                                             )}
-                                            selected={this.state.navigationMaritimeModel.delivreePar.idActeur}
+                                            selected={this.state.navigationMaritimeModel.delivreePar.libelle}
                                             maxItems={3}
                                             libelle="libelle"
                                             command="getCmbActeurs"
-                                            paramName="libelleActeur"
+                                            paramName=""
                                             onDemand={true}
                                             searchZoneFirst={false}
                                             onValueChange={this.handleDelivreeParChanged}
@@ -378,12 +371,9 @@ class ActifsRapportCaracteristiquesBateauBlock extends React.Component {
                                     </Col>
                                     <Col size={4}>
                                         <TextInput
-                                            mode={'outlined'}
                                             disabled={true}
                                             style={{ height: 20, fontSize: 12 }}
                                             value={moment(this.state.navigationMaritimeModel.dateDeclaration).format('DD/MM/YYYY')}
-                                            multiline={true}
-                                            numberOfLines={1}
                                         />
                                         {this.state.showDateDeclaration && (
                                             <DateTimePicker

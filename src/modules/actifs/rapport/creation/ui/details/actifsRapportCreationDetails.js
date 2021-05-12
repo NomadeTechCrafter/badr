@@ -6,6 +6,7 @@ import {
   RadioButton,
   TextInput, Text
 } from 'react-native-paper';
+import { connect } from 'react-redux';
 import {
   ComBadrCardBoxComp,
   ComBadrErrorMessageComp,
@@ -35,6 +36,7 @@ class AtifsRapportCreationDetailsTab extends Component {
     this.state = {
       command: null,
       selectedvalue: '',
+      natureIncident:null,
       show: false,
     };
     console.log('consultation_________details', this.props.consultation);
@@ -43,16 +45,27 @@ class AtifsRapportCreationDetailsTab extends Component {
   componentDidMount() { }
 
   handleOnIncidentItemsChanged = (items) => {
-    this.setState({ selectedItems: items });
+    this.setState({ selectedItems: items }, console.log('handleOnIncidentItemsChanged items',items));
   };
-  handleOnConfirmIncidentType = (items) => { };
+  handleOnConfirmIncidentType = (items) => {
+    console.log('handleOnConfirmIncidentType items', items);
+    this.setState({ typeIncident: items }, () => this.updateModele());
+  };
 
+
+  updateModele() {
+    return this.props.update({
+      description: this.state.descriptionRapport,
+      typeIncident: this.state.typeIncident,
+      autreIncident: this.state.autreIncident
+    });
+  }
   render() {
 
     let typesIncidents = '';
-    console.log('----------------------------------------------------------this.props.row : ', this.props.row);
-    if (this.props.row && this.props.row?.typesIncidentSelect) {
-      let typesIncidentSelect = this.props.row?.typesIncidentSelect;
+    console.log('typesIncidents----------------------------------------------------------this.props.row : ', this.props.rows);
+    if (this.props.rows && this.props.rows?.typesIncidentSelect) {
+      let typesIncidentSelect = this.props.rows?.typesIncidentSelect;
       for (
         var i = 0;
         i < typesIncidentSelect.length;
@@ -105,7 +118,8 @@ class AtifsRapportCreationDetailsTab extends Component {
                         module="GIB"
                         command="getNaturesIncident"
                         onValueChange={(selectedValue, selectedIndex, item) => {
-                          // console.log("item", item)
+                          this.setState({ natureIncident: selectedValue });
+                          this.refTypesIncidents.refresh(selectedValue);
                         }}
                         param={'this.state.value'}
                         typeService="SP"
@@ -118,7 +132,7 @@ class AtifsRapportCreationDetailsTab extends Component {
                   </Col>
                 </Row>
 
-                <Row style={CustomStyleSheet.lightBlueRow}>
+                <Row style={CustomStyleSheet.whiteRow}>
                   <Col size={4}>
                     <ComBadrLibelleComp withColor={true}>
                       {translate('actifsCreation.detail.typesIncidents')}
@@ -129,6 +143,7 @@ class AtifsRapportCreationDetailsTab extends Component {
                       <Col size={10}>
                         <ComBadrCardBoxComp>
                           <ComBadrPickerCheckerComp
+                            onRef={(ref) => (this.refTypesIncidents = ref)}
                             key={'code'}
                             title={translate('actifsCreation.detail.typesIncidents')}
                             titleStyle={CustomStyleSheet.badrPickerTitle}
@@ -138,12 +153,10 @@ class AtifsRapportCreationDetailsTab extends Component {
                             module="GIB"
                             command={'getTypesIncident'}
                             onValueChange={(selectedValue, selectedIndex) => {
-                              //console.log(selectedValue)
-                              save('typeIncident', selectedValue).then(() =>
-                                console.log(selectedValue),
-                              );
+                              console.log("selectedValue", selectedValue);
+                              this.setState({ typeIncident: selectedValue },()=>this.updateModele());
                             }}
-                            param={''}
+                            param={this.state.natureIncident}
                             typeService="SP"
                             onConfirm={this.handleOnConfirmIncidentType}
                             onSelectedItemObjectsChange={
@@ -156,7 +169,7 @@ class AtifsRapportCreationDetailsTab extends Component {
                   </Col>
                 </Row>
 
-                <Row style={CustomStyleSheet.lightBlueRow}>
+                <Row style={CustomStyleSheet.whiteRow}>
                   <Col size={4}>
                     <ComBadrLibelleComp withColor={true}>
                       {translate('actifsCreation.detail.autresIncidents')}
@@ -173,11 +186,7 @@ class AtifsRapportCreationDetailsTab extends Component {
                       value={this.state.autreIncident}
                       multiline={false}
                       numberOfLines={1}
-                      onChangeText={(text) =>
-                        this.setState({ autreIncident: text }, () =>
-                          save('autreIncident', this.state.autreIncident),
-                        )
-                      }
+                      onChangeText={(text) =>this.setState({ autreIncident: text },  () => this.updateModele())}
                     />
                   </Col>
                 </Row>
@@ -185,7 +194,7 @@ class AtifsRapportCreationDetailsTab extends Component {
                 <Row style={CustomStyleSheet.whiteRow}>
                   <Col size={3}>
                     <Row>
-                      <ComBadrLibelleComp style={{ paddingRight: 2 }}>
+                      <ComBadrLibelleComp style={{ paddingRight: 2 }} withColor={true}>
                         {translate('actifsCreation.detail.descriptionRapport')}
                       </ComBadrLibelleComp>
                     </Row>
@@ -202,10 +211,8 @@ class AtifsRapportCreationDetailsTab extends Component {
                       value={this.state.descriptionRapport}
                       multiline
                       numberOfLines={20}
-                      onChangeText={(text) =>
-                        this.setState({ descriptionRapport: text }, () =>
-                          save('description', this.state.descriptionRapport),
-                        )
+                      onChangeText={(text) => this.setState({ descriptionRapport: text }, () =>this.updateModele())
+                        
                       }
                     />
                   </Col>
@@ -230,7 +237,7 @@ class AtifsRapportCreationDetailsTab extends Component {
                           color={primaryColor}
                           disabled={true}
                           status={
-                            this.props.row?.osAvecSaisie
+                            this.props.rows?.osAvecSaisie
                               ? 'checked'
                               : 'unchecked'
                           }
@@ -254,7 +261,7 @@ class AtifsRapportCreationDetailsTab extends Component {
                           color={primaryColor}
                           disabled={true}
                           status={
-                            this.props.row?.osAvecIncident
+                            this.props.rows?.osAvecIncident
                               ? 'checked'
                               : 'unchecked'
                           }
@@ -280,7 +287,7 @@ class AtifsRapportCreationDetailsTab extends Component {
                       }
                       }
                       disabled={true}
-                      value={typesIncidents}
+                      value={this.props.typesIncidents}
                       multiline={true}
                       numberOfLines={4}
 
@@ -304,7 +311,7 @@ class AtifsRapportCreationDetailsTab extends Component {
                       }
                       }
                       disabled={true}
-                      value={this.props.row?.autreIncidents}
+                      value={this.props.rows?.autreIncidents}
                       multiline={true}
                       numberOfLines={4}
 
@@ -320,7 +327,7 @@ class AtifsRapportCreationDetailsTab extends Component {
                     </Row>
                   </Col>
                   <Col size={6} style={{ paddingRight: 5 }}>
-                    <RadioButton.Group disabled={true} value={this.props.row.coiffeInitiePar}>
+                    <RadioButton.Group disabled={true} value={this.props.rows.coiffeInitiePar}>
                       <View style={{ justifyContent: 'space-around' }}>
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                           <Text>{translate('actifsCreation.detail.officierControle')}</Text>
@@ -380,7 +387,7 @@ class AtifsRapportCreationDetailsTab extends Component {
                       }
                       }
                       disabled={true}
-                      value={this.props?.row?.dateDebut.slice(0, 10)}
+                      value={this.props?.rows?.dateDebut.slice(0, 10)}
                       multiline={false}
 
                     />
@@ -394,7 +401,7 @@ class AtifsRapportCreationDetailsTab extends Component {
                       }
                       }
                       disabled={true}
-                      value={this.props?.row?.heureDebut}
+                      value={this.props?.rows?.heureDebut}
                       multiline={false}
 
                     />
@@ -415,7 +422,7 @@ class AtifsRapportCreationDetailsTab extends Component {
                       }
                       }
                       disabled={true}
-                      value={this.props?.row?.dateFin.slice(0,10)}
+                      value={this.props?.rows?.dateFin.slice(0,10)}
                       multiline={false}
 
                     />
@@ -429,7 +436,7 @@ class AtifsRapportCreationDetailsTab extends Component {
                       }
                       }
                       disabled={true}
-                      value={this.props?.row?.heureFin}
+                      value={this.props?.rows?.heureFin}
                       multiline={false}
 
                     />
@@ -452,7 +459,7 @@ class AtifsRapportCreationDetailsTab extends Component {
                       }
                       }
                       disabled={true}
-                      value={this.props.row?.animateur}
+                      value={this.props.rows?.animateur}
                       multiline={true}
                       numberOfLines={4}
 
@@ -476,7 +483,7 @@ class AtifsRapportCreationDetailsTab extends Component {
                       }
                       }
                       disabled={true}
-                      value={this.props.row?.qualiteAnimateur}
+                      value={this.props.rows?.qualiteAnimateur}
                       multiline={true}
                       numberOfLines={4}
 
@@ -500,7 +507,7 @@ class AtifsRapportCreationDetailsTab extends Component {
                       }
                       }
                       disabled={true}
-                      value={this.props.row?.themeConference}
+                      value={this.props.rows?.themeConference}
                       multiline={true}
                       numberOfLines={4}
 
@@ -524,7 +531,7 @@ class AtifsRapportCreationDetailsTab extends Component {
                       }
                       }
                       disabled={true}
-                      value={this.props.row?.description}
+                      value={this.props.rows?.description}
                       multiline={true}
                       numberOfLines={4}
 
@@ -540,6 +547,8 @@ class AtifsRapportCreationDetailsTab extends Component {
       </View>
     );
   }
+
+  
 }
 
 const libelle = {
@@ -614,4 +623,6 @@ const styles = {
   },
 };
 
-export default AtifsRapportCreationDetailsTab;
+const mapStateToProps = (state) => ({ ...state.creationReducer });
+
+export default connect(mapStateToProps, null)(AtifsRapportCreationDetailsTab);

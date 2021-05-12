@@ -32,6 +32,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import * as Constants from '../state/actifsRapportRechercheConstants';
 import * as getOrdresService from '../state/actions/actifsRapportRechercheGetOrdresServiceAction';
 import { DataTable } from 'react-native-paper';
+import { ComSessionService } from '../../../../../commons/services/session/ComSessionService';
 
 class ActifsRapportRechercheScreen extends Component {
   constructor(props) {
@@ -41,6 +42,7 @@ class ActifsRapportRechercheScreen extends Component {
       mode: '',
       show: false,
       paginate: true,
+      code1: ComSessionService.getInstance().getUserObject()?ComSessionService.getInstance().getUserObject().codeUOR: '',
       data: 'jj/mm/aaaa', //moment(this.state.date).format("MM/DD/YYYY")
     };
     this.cols = [
@@ -58,7 +60,7 @@ class ActifsRapportRechercheScreen extends Component {
       {
         code: 'agentsBrigade',
         libelle: 'Agents',
-        item: 'agentsBrigade.id',
+        item: 'agentsBrigade',
         width: 200,
       },
       { code: 'vehicules', libelle: 'Véhicules', item: 'matricule', width: 200 },
@@ -79,12 +81,12 @@ class ActifsRapportRechercheScreen extends Component {
 
   onItemSelected = (row) => {
     if (row.rapportExiste) {
-      this.props.navigation.navigate('Creation', {
+      this.props.navigation.navigate('CreationRapport', {
         consultation: true,
         row: row,
       });
     } else {
-      this.props.navigation.navigate('Creation', {
+      this.props.navigation.navigate('CreationRapport', {
         consultation: false,
         row: row,
       });
@@ -94,6 +96,7 @@ class ActifsRapportRechercheScreen extends Component {
   componentDidMount() { }
 
   Enregister = () => {
+    this.setState({ errorMessage: null });
     console.log('this.state.data : ', this.state.data);
     if (
       this.state.data != 'jj/mm/aaaa' ||
@@ -129,11 +132,7 @@ class ActifsRapportRechercheScreen extends Component {
       this.props.dispatch(action);
       // console.log('dispatch fired !!');
     } else {
-      return (
-        this.props.errorMessage != null && (
-          <ComBadrErrorMessageComp message={this.props.errorMessage} />
-        )
-      );
+      this.setState({ errorMessage:translate("actifs.recherche.errors.champsSearcheRapportRequired") });
     }
   };
 
@@ -147,13 +146,14 @@ class ActifsRapportRechercheScreen extends Component {
         date: selectedDate,
         show: false,
         data: moment(selectedDate).format('DD/MM/YYYY'),
+        errorMessage: null
       },
       () => console.log('=======', this.state.data),
     );
   };
 
   showMode = (currentMode) => {
-    this.setState({ show: true, mode: currentMode });
+    this.setState({ show: true, mode: currentMode, errorMessage: null});
   };
 
   render_cols = (item, code) => {
@@ -164,9 +164,23 @@ class ActifsRapportRechercheScreen extends Component {
         return <Text>{'mode creation'}</Text>;
       }
     }
+    if (code === 'confidentiel' || code === 'additif' ) {
+      if (item) {
+        return <Text>{'Oui'}</Text>;
+      } else {
+        return <Text>{'Non'}</Text>;
+      }
+    }
     if (_.isArray(item)) {
+      
       return item.map((object) => {
-        return <Text> {object.matricule}</Text>;
+
+        if (code === 'agentsBrigade') {
+          return <Text> {object.agentBrigade}</Text>;
+        }
+        if (code === 'vehicules') {
+          return <Text> {object.matricule}</Text>;
+        }
       });
     }
     if (_.isObject(item)) {
@@ -201,6 +215,9 @@ class ActifsRapportRechercheScreen extends Component {
           )}
           {this.props.errorMessage != null && (
             <ComBadrErrorMessageComp message={this.props.errorMessage} />
+          )}
+          {this.state.errorMessage != null && (
+            <ComBadrErrorMessageComp message={this.state.errorMessage} />
           )}
           {this.props.successMessage != null && (
             <ComBadrInfoMessageComp message={this.props.successMessage} />
@@ -345,36 +362,6 @@ class ActifsRapportRechercheScreen extends Component {
               </ScrollView>
             </ScrollView>
           </View>
-
-          {/* <Grid>
-            <Row>
-              <Col>
-                <ComBadrLibelleComp withColor={true}>
-                  {translate('actifs.recherche.nOS')}
-                </ComBadrLibelleComp>
-              </Col>
-              <Col>
-                <ComBadrLibelleComp withColor={true}>
-                  {translate('actifs.recherche.conf')}
-                </ComBadrLibelleComp>
-              </Col>
-              <Col>
-                <ComBadrLibelleComp withColor={true}>
-                  {translate('actifs.recherche.add')}
-                </ComBadrLibelleComp>
-              </Col>
-              <Col>
-                <ComBadrLibelleComp withColor={true}>
-                  {translate('actifs.recherche.description')}
-                </ComBadrLibelleComp>
-              </Col>
-              <Col>{translate('actifs.recherche.conf')}</Col>
-              <Col>{translate('actifs.recherche.add')}</Col>
-              <Col>{translate('actifs.recherche.description')}</Col>
-              <Col>{translate('actifs.recherche.dateDebut')}</Col>
-              <Col>{translate('actifs.recherche.dateFin')}</Col>
-            </Row>
-          </Grid> */}
         </ComContainerComp>
       </View>
     );

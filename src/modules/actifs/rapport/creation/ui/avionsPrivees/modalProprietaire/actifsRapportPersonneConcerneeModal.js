@@ -28,7 +28,6 @@ export default class ActifsRapportPersonneConcerneeModal extends React.Component
   }
 
   onChangeTypeIdentifiant(text) {
-    console.log(this.state.intervenant);
     this.setState({
       intervenant: {
         ...this.state.intervenant, intervenant: {
@@ -40,7 +39,6 @@ export default class ActifsRapportPersonneConcerneeModal extends React.Component
   }
 
   handlePaysChanged = (pays) => {
-    console.log('handlePaysChanged : ', pays);
     this.setState({
       acNationalite: pays,
       intervenant: {

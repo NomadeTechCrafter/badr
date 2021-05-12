@@ -38,33 +38,17 @@ class ActifsRapportProprietairesSousBlock extends React.Component {
     };
 
     componentDidMount() {
-        console.log('ActifsRapportProprietairesSousBlock componentDidMount');
-        /* if (!!this.props.readOnly) {
-            this.cols.push({
-                code: '',
-                libelle: '',
-                width: 50,
-                component: 'button',
-                icon: 'delete-outline',
-                action: (row, index) =>
-                    this.removeItem(row, index)
-            }
-            );
-        } */
     }
 
     componentDidUpdate() {
 
-        console.log('ActifsRapportProprietairesSousBlock componentDidUpdate');
     }
 
 
     componentWillUnmount() {
-        console.log('ActifsRapportProprietairesSousBlock componentWillUnmount');
     }
 
     confirmerProprietaire = (proprietaire) => {
-        console.log(proprietaire);
         if (this.state.selectedIndex == -1) {
             this.state.proprietaires.push(proprietaire);
         } else {
@@ -76,11 +60,8 @@ class ActifsRapportProprietairesSousBlock extends React.Component {
     };
     editProprietaire = (proprietaire) => {
         const dataProprietaire = [...this.state.proprietaires];
-        console.log('data[item]', dataProprietaire[this.state.selectedIndex]);
         dataProprietaire.splice(this.state.selectedIndex, 1, proprietaire);
-        console.log('table after splice', dataProprietaire);
-        this.setState({ proprietaires: dataProprietaire, editProprietaire: false }, () =>
-            console.log('on press edit', this.state.dataProprietaire),
+        this.setState({ proprietaires: dataProprietaire, editProprietaire: false }
         );
     };
 

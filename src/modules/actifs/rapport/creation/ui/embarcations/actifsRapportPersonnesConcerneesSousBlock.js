@@ -38,33 +38,18 @@ class ActifsRapportPersonnesConcerneesSousBlock extends React.Component {
     };
 
     componentDidMount() {
-        console.log('ActifsRapportPersonnesConcerneesSousBlock componentDidMount');
-        /* if (!!this.props.readOnly) {
-            this.cols.push({
-                code: '',
-                libelle: '',
-                width: 50,
-                component: 'button',
-                icon: 'delete-outline',
-                action: (row, index) =>
-                    this.removeItem(row, index)
-            }
-            );
-        } */
+       
     }
 
     componentDidUpdate() {
 
-        console.log('ActifsRapportPersonnesConcerneesSousBlock componentDidUpdate');
     }
 
 
     componentWillUnmount() {
-        console.log('ActifsRapportPersonnesConcerneesSousBlock componentWillUnmount');
     }
 
     confirmerIntervenant = (intervenant) => {
-        console.log(intervenant);
         if (this.state.selectedIndex == -1) {
             this.state.intervenants.push(intervenant);
         } else {
@@ -76,11 +61,8 @@ class ActifsRapportPersonnesConcerneesSousBlock extends React.Component {
     };
     editIntervenant = (intervenant) => {
         const dataIntervenant = [...this.state.intervenants];
-        console.log('data[item]', dataIntervenant[this.state.selectedIndex]);
         dataIntervenant.splice(this.state.selectedIndex, 1, intervenant );
-        console.log('table after splice', dataIntervenant);
-        this.setState({ intervenants: dataIntervenant }, () =>
-            console.log('on press edit', this.state.dataIntervenant),
+        this.setState({ intervenants: dataIntervenant }
         );
     };
 
@@ -175,8 +157,6 @@ class ActifsRapportPersonnesConcerneesSousBlock extends React.Component {
     };
 
     static getDerivedStateFromProps(props, state) {
-        console.log('getDerivedStateFromProps--------------------props ', props);
-        console.log('getDerivedStateFromProps--------------------state ', state);
 
         if (
             props.index !== state.index
@@ -191,7 +171,6 @@ class ActifsRapportPersonnesConcerneesSousBlock extends React.Component {
     }
 
     render() {
-        console.log("ActifsRapportPersonnesConcerneesSousBlock this.props", this.props);
         return (
 
             <View>

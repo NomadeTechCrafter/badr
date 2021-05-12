@@ -34,11 +34,8 @@ class ActifsRapportCreationEmbarcationsTab extends React.Component {
 
 
     componentDidMount() {
-        console.log('ActifsRapportCreationEmbarcationsTab componentDidMount');
-        load('rows').then((value) => {
-            console.log('ActifsRapportCreationEmbarcationsTab componentDidMount value : ', value);
-            let navigations = (JSON.parse(value).navigationsMaritimes) ? JSON.parse(value).navigationsMaritimes : [];
-            let rapportExiste = (JSON.parse(value)) ? JSON.parse(value).rapportExiste : false;
+        let navigations = (this.props.rows.navigationsMaritimes)? this.props.rows.navigationsMaritimes : [];
+        let rapportExiste = (this.props.rows) ? this.props.rows.rapportExiste : false;
 
 
 
@@ -52,12 +49,10 @@ class ActifsRapportCreationEmbarcationsTab extends React.Component {
 
             this.props.dispatch(actifsRapportInitierEmbaracationsTabAction.request(dataToAction));
 
-        });
 
     }
 
     ajouterNavigationMaritimeModel = (model) => {
-        console.log('ActifsRapportCreationEmbarcationsTab ajouterNavigationMaritimeModel');
         let navigationsMaritimes = [...this.props.navigationsMaritimes];
         let dataToAction = {
             type: ACTIFS_CONFIRMER_EMBARCATION_REQUEST,
@@ -75,23 +70,18 @@ class ActifsRapportCreationEmbarcationsTab extends React.Component {
     }
 
     componentDidUpdate() {
-        console.log('ActifsRapportCreationEmbarcationsTab componentDidUpdate');
     }
 
 
     componentWillUnmount() {
-        console.log('ActifsRapportCreationEmbarcationsTab componentWillUnmount');
     }
 
 
 
     reset = () => {
-        console.log('ActifsRapportCreationEmbarcationsTab reset');
     };
 
     callbackHandler=(type, data)=> {
-        console.log('T6bisGestion callbackHandler type :', data);
-        console.log('T6bisGestion callbackHandler type :', type);
         switch (type) {
             case EDIT_EMBARCATION_TASK:
 
@@ -136,8 +126,6 @@ class ActifsRapportCreationEmbarcationsTab extends React.Component {
 
      
     render() {
-        console.log("ActifsRapportCreationEmbarcationsTab this.props", this.props);
-        console.log("ActifsRapportCreationEmbarcationsTab this.props.navigationMaritimeModel :", this.props.navigationMaritimeModel);
         return (
             <ScrollView>
                 {(this.props.navigationsMaritimes) && (<ActifsRapportCreationEmbarcationsTableBlock navigationsMaritimes={this.props.navigationsMaritimes} callbackHandler={this.callbackHandler} readOnly={this.props.rapportExiste}/>)}

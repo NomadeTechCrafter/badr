@@ -126,7 +126,7 @@ export default class App extends React.Component {
                 component={Recherche}
               />
               <Stack.Screen
-                name="Creation"
+                name="CreationRapport"
                 options={{headerShown: false}}
                 component={ActifsRapportCreationScreen}
               />

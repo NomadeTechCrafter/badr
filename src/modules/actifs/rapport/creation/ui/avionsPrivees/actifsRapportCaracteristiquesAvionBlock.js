@@ -23,8 +23,7 @@ class ActifsRapportCaracteristiquesAvionBlock extends React.Component {
         this.state = {
             navigationAerienneModel: this.props.navigationAerienneModel ? this.props.navigationAerienneModel : getNavigationAerienneModelInitial(),
             acDelivreePar: this.props.navigationAerienneModel ? this.props.navigationAerienneModel.delivreePar.libelle : '',
-            showDateDeclaration: false,
-            acDestination: this.props.navigationAerienneModel ? this.props.navigationAerienneModel.destination.nomPays : '',
+            acDestination: this.props.navigationAerienneModel ? this.props.navigationAerienneModel.destination.libelle : '',
             
         };
 
@@ -33,19 +32,16 @@ class ActifsRapportCaracteristiquesAvionBlock extends React.Component {
 
     componentDidMount() {
 
-        console.log('ActifsRapportCaracteristiquesAvionBlock componentWillmount');
     }
 
 
 
     componentWillUnmount() {
-        console.log('ActifsRapportCaracteristiquesAvionBlock componentWillUnmount');
     }
 
 
 
     reset = () => {
-        console.log('ActifsRapportCaracteristiquesAvionBlock reset');
     };
 
    
@@ -56,8 +52,6 @@ class ActifsRapportCaracteristiquesAvionBlock extends React.Component {
 
 
     static getDerivedStateFromProps(props, state) {
-        console.log('getDerivedStateFromProps--------------------props ', props);
-        console.log('getDerivedStateFromProps--------------------state ', state);
 
         if (
             props.navigationAerienneModel && props.index !== state.index
@@ -72,20 +66,7 @@ class ActifsRapportCaracteristiquesAvionBlock extends React.Component {
     }
 
 
-    onDateDeclarationChange = (event, selectedDate) => {
-        console.log(event);
-        console.log('test ===============> ', event);
-        console.log(selectedDate);
-        console.log('test ===============> ', selectedDate);
-        this.setState({
-            navigationAerienneModel: {
-                ...this.state.navigationAerienneModel,
-                dateDeclaration: selectedDate,
-            }, showDateDeclaration: false
-
-
-        });
-    }
+   
    
 
 

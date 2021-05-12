@@ -30,19 +30,16 @@ class ActifsRapportAvionPriveeBlock extends React.Component {
 
     componentDidMount() {
 
-        console.log('ActifsRapportAvionPriveeBlock componentWillmount');
     }
 
 
 
     componentWillUnmount() {
-        console.log('ActifsRapportAvionPriveeBlock componentWillUnmount');
     }
 
 
 
     reset = () => {
-        console.log('ActifsRapportAvionPriveeBlock reset');
     };
 
     confirmer = () => {
@@ -67,8 +64,6 @@ class ActifsRapportAvionPriveeBlock extends React.Component {
         this.checkRequiredFieldsnavigAerienne(params);
         this.checkRequiredFieldsCaracteristiquesAvion(params);
         this.checkRequiredFieldsResultatCtrl(params);
-
-        this.checkDatesInformations(params);
         if (params.required) {
             let message = translate('actifsCreation.avionsPrivees.champsObligatoires') + params.msg;
             this.setState({
@@ -285,8 +280,6 @@ class ActifsRapportAvionPriveeBlock extends React.Component {
     }
 
     updateModelNavigationAerienne = (modele) => {
-        console.log('-------------------------------------------------yassine --------------------------------------debut ');
-        console.log(this.props);
         this.state.navigationAerienneModel.dateAtterissage = modele.dateAtterissage;
         this.state.navigationAerienneModel.heureAtterissage = modele.heureAtterissage;
         this.state.navigationAerienneModel.motifAtterissage = modele.motifAtterissage;
@@ -299,16 +292,12 @@ class ActifsRapportAvionPriveeBlock extends React.Component {
         this.state.navigationAerienneModel.heureDepart = modele.heureDepart;
         this.state.navigationAerienneModel.destination = modele.destination;
         this.state.navigationAerienneModel.villeDestination = modele.villeDestination;
-        console.log(this.props);
-        console.log('-------------------------------------------------yassine --------------------------------------fin ');
 
 
         //this.state.navigationAerienneModel = model;
     }
 
     updateModelCaracteristiquesBateau = (modele) => {
-        console.log('-------------------------------------------------yassine --------------------------------------debut ');
-        console.log(this.props);
         this.state.navigationAerienneModel.nomAvion = modele.nomAvion;
         this.state.navigationAerienneModel.typeAvion = modele.typeAvion;
         this.state.navigationAerienneModel.immatriculation = modele.immatriculation;
@@ -316,15 +305,10 @@ class ActifsRapportAvionPriveeBlock extends React.Component {
         this.state.navigationAerienneModel.nbPlaces = modele.nbPlaces;
         this.state.navigationAerienneModel.nbMoteurs = modele.nbMoteurs;
         this.state.navigationAerienneModel.tonnage = modele.tonnage;
-        console.log(this.props);
-        console.log('-------------------------------------------------yassine --------------------------------------fin ');
 
 
-        //this.state.navigationAerienneModel = model;
     }
     updateModelResultatCtrl = (modele) => {
-        console.log('-------------------------------------------------yassine --------------------------------------debut ');
-        console.log(this.props);
         this.state.navigationAerienneModel.dateDebutControle = modele.dateDebutControle;
         this.state.navigationAerienneModel.heureDebutControle = modele.heureDebutControle;
         this.state.navigationAerienneModel.dateFinControle = modele.dateFinControle;
@@ -332,29 +316,15 @@ class ActifsRapportAvionPriveeBlock extends React.Component {
         this.state.navigationAerienneModel.documentsVerifies = modele.documentsVerifies;
         this.state.navigationAerienneModel.observations = modele.observations;
         this.state.navigationAerienneModel.resultatControle = modele.resultatControle;
-        console.log(this.props);
-        console.log('-------------------------------------------------yassine --------------------------------------fin ');
-
-
-        //this.state.navigationAerienneModel = model;
     }
 
     updateModelProprietairesPersonnesConcernees = (modele) => {
-        console.log('-------------------------------------------------yassine ----------------ActifsRapportAvionPriveeBlock----------------------debut ');
-        console.log(this.props);
         this.state.navigationAerienneModel.proprietaires = modele.proprietaires;
         this.state.navigationAerienneModel.intervenants = modele.intervenants;
-        console.log(this.props);
-        console.log('-------------------------------------------------yassine -------------------ActifsRapportAvionPriveeBlock-------------------fin ');
     }
 
 
     static getDerivedStateFromProps(props, state) {
-        console.log('getDerivedStateFromProps--------ActifsRapportAvionPriveeBlock------------props ', props);
-        console.log('getDerivedStateFromProps--------ActifsRapportAvionPriveeBlock------------state ', state);
-        console.log('getDerivedStateFromProps--------ActifsRapportAvionPriveeBlock------------state ', props.index);
-        console.log('getDerivedStateFromProps--------ActifsRapportAvionPriveeBlock------------state ', state.index);
-        console.log('getDerivedStateFromProps--------ActifsRapportAvionPriveeBlock------------state ', props.navigationAerienneModel);
 
         if (
             props.navigationAerienneModel && props.index !== state.index
@@ -368,8 +338,6 @@ class ActifsRapportAvionPriveeBlock extends React.Component {
         return null;
     }
     render() {
-        console.log('-------------------------------------------------yassine -------------------ActifsRapportAvionPriveeBlock-------------------this.props', this.props);
-        console.log('-------------------------------------------------yassine -------------------ActifsRapportAvionPriveeBlock-------------------this.state', this.state);
         return (
             <ScrollView>
                 <ComContainerComp>
