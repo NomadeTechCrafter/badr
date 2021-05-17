@@ -20,6 +20,9 @@ export const INITCONFIRMATIONENTREE_ETATCHARGEMENT_IN_PROGRESS =
 export const INITCONFIRMATIONENTREE_ETATCHARGEMENT_INIT =
   '[COMPONENT] INITCONFIRMATIONENTREE_ETATCHARGEMENT_INIT';
 
+export const INITCONFIRMATIONENTREE_UPDATE_VO =
+  '[COMPONENT] INITCONFIRMATIONENTREE_UPDATE_VO';
+
 export const typeListe = [
   {code: 'etatChargement', libelle: 'Référence Etat de chargement'},
   {code: 'moyenT', libelle: 'Moyen de transport'},

@@ -41,6 +41,12 @@ const style = {
   rowListNumScelle: {
     height: 170,
   },
+  btnActionList: {
+    margin: 15,
+  },
+  toolBarBtn: {
+    backgroundColor: 'white',
+  },
 };
 
 export default StyleSheet.create(style);

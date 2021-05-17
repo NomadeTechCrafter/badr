@@ -10,6 +10,7 @@ import {
   ComBadrProgressBarComp,
   ComBadrToolbarComp,
 } from '../../../../commons/component';
+import {IconButton} from 'react-native-paper';
 /** REDUX **/
 import {connect} from 'react-redux';
 
@@ -36,7 +37,6 @@ class ConfirmationEntreeMainScreen extends React.Component {
   constructor(props) {
     super(props);
   }
-
   render() {
     return (
       <View style={style.container}>

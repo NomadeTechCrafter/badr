@@ -21,6 +21,6 @@ module.exports = {
   MODULE_ECOREXP: 'ECOREXP_LIB',
   AUTOCOMPLETE_MIN_CHARACTERS: 3,
   AUTOCOMPLETE_LIST_NB_ELEMENTS: -1,
-  remote: true,
+  remote: false,
   bootstrapRoute: 'Home',
 };

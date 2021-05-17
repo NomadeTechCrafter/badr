@@ -29,6 +29,7 @@ export default class ComBadrNumericTextInputComp extends React.Component {
         value={this.state.inputValue}
         onChangeText={(text) => this.handleInputChange(text)}
         style={[CustomStyleSheet.badrInputHeight, style]}
+        disabled={this.props.disabled}
       />
     );
   }

@@ -17,5 +17,17 @@ export default {
     valeurDeclarant: 'Valeur Déclarée',
     refDocument: 'Référence Document',
     dateHeure: 'Date Heure (*)',
+    informationsEcor: {
+      title: 'Informations ECOR',
+      scellesConfirmationEntree: 'Scellés confirmation entrée',
+      nouveauxScelles: 'Nouveaux scellés',
+      oui: 'Oui',
+      non: 'Non',
+      aucunElement: 'Aucun élément',
+      numeroPince: 'Numéro Pince',
+      nombreScelles: 'Nombre de Scellés',
+      generateurScelle: 'Génerateur de numéros de scellés ',
+      numeroScelle: 'Numéro scellé ',
+    },
   },
 };

@@ -1,7 +1,10 @@
 import React from 'react';
 
 import {FlatList, SafeAreaView, View, TouchableOpacity} from 'react-native';
-
+/** REDUX **/
+import {connect} from 'react-redux';
+import * as Constants from '../state/ecorExpConfirmationEntreeConstants';
+import * as ConfirmationEntreeCRUDAction from '../state/actions/ecorExpConfirmationEntreeCRUDAction';
 import {
   ComAccordionComp,
   ComBadrCardBoxComp,
@@ -15,24 +18,46 @@ import {CustomStyleSheet} from '../../../../commons/styles/ComThemeStyle';
 import {Col, Grid, Row} from 'react-native-easy-grid';
 import style from '../style/ecorExpConfirmationEntreeStyle';
 import _ from 'lodash';
-export default class EcorExpInformationEcorComp extends React.Component {
+
+const initialState = {
+  generateurNumScelleAu: '',
+  generateurNumScelleDu: '',
+  numeroScelle: '',
+  messagesErreur: [],
+  listeNombreDeScelles: [],
+  messageVisibility: false,
+  message: '',
+  messageType: '',
+  selectedItemListScelle: '',
+  includeScelles: false,
+  selectedScelle: {},
+};
+class EcorExpInformationEcorComp extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      generateurNumScelleAu: '',
-      generateurNumScelleDu: '',
-      messagesErreur: [],
-      listeNombreDeScelles: [],
-      messageVisibility: false,
-      message: '',
-      messageType: '',
-      selectedItemListScelle: '',
-      includeScelles: false,
-      selectedScelle: {},
-    };
-    this.numeroScelle = '';
+    this.state = initialState;
+    //this.prepareState();
   }
-  static getDerivedStateFromProps(props, state) {
+
+  /*prepareState = () => {
+    this.state = {
+      ...this.state,
+      initConfirmerEntreeVO: this.props.initConfirmerEntreeVO,
+      listeNombreDeScelles: this.props.listeNombreDeScelles,
+    };
+  };*/
+
+  componentDidMount() {
+    this.setState({
+      ...this.state,
+      initConfirmerEntreeVO: this.props.initConfirmerEntreeVO,
+      listeNombreDeScelles: this.props.listeNombreDeScelles,
+    });
+  }
+  /* componentDidUpdate(prevProps, prevState) {
+    console.log( '--------componentDidUpdate')
+    }*/
+  /*static getDerivedStateFromProps(props, state) {
     console.log(
       'EcorExpInformationEcorComp getDerivedStateFromProps',
       props.listeNombreDeScelles,
@@ -46,7 +71,7 @@ export default class EcorExpInformationEcorComp extends React.Component {
     }
     // Return null to indicate no change to state.
     return null;
-  }
+  }*/
 
   genererNumeroScelle = () => {
     console.log('generateurNumScelleDu');
@@ -72,20 +97,19 @@ export default class EcorExpInformationEcorComp extends React.Component {
               nbScelle += 1;
             }
             console.log('generateurNumScelleDu listeScelles', listeScelles);
-            /*let formattedListeScelles = {};
-            listeScelles.forEach((value) => {
-              formattedListeScelles[value] = value;
-            });
-            console.log(
-              'generateurNumScelleDu scellesConfirmationEntree',
-              this.props.ecorInfo.scellesConfirmationEntree,
-            );*/
 
-            this.setState({
-              listeNombreDeScelles: listeNombreDeScelles.push(listeScelles),
-              generateurNumScelleDu: '',
-              generateurNumScelleAu: '',
-            });
+            this.setState(
+              {
+                ...this.state,
+                listeNombreDeScelles: _.concat(
+                  listeNombreDeScelles,
+                  listeScelles,
+                ),
+                generateurNumScelleDu: '',
+                generateurNumScelleAu: '',
+              },
+              () => this.updateVo(),
+            );
             console.log('after set state genrete list ');
             this.generateurNumScelleDu.clear();
             this.generateurNumScelleAu.clear();
@@ -103,31 +127,19 @@ export default class EcorExpInformationEcorComp extends React.Component {
   };
 
   addNumeroScelle = () => {
-    const {ecorInfo} = this.props;
-    let numeroScelle = this.numeroScelle;
+    const {numeroScelle, listeNombreDeScelles} = this.state;
     if (numeroScelle && numeroScelle.length === 8) {
-      console.log(
-        'add selle arry ',
-        Object.values(ecorInfo.scellesConfirmationEntree),
-      );
-      if (Object.values(ecorInfo.scellesConfirmationEntree).length < 100) {
-        if (
-          _.indexOf(
-            Object.values(ecorInfo.scellesConfirmationEntree),
-            numeroScelle,
-          ) === -1
-        ) {
-          this.props.ecorInfo.scellesConfirmationEntree[
-            numeroScelle
-          ] = numeroScelle;
-          console.log(
-            'add selle',
-            this.props.ecorInfo.scellesConfirmationEntree,
+      if (listeNombreDeScelles.length < 100) {
+        if (_.indexOf(listeNombreDeScelles, numeroScelle) === -1) {
+          this.setState(
+            {
+              ...this.state,
+              listeNombreDeScelles: [...listeNombreDeScelles, numeroScelle],
+              numeroScelle: '',
+            },
+            () => this.updateVo(),
           );
           this.numeroScelleInput.clear();
-          this.setState({
-            numeroScelleInput: '',
-          });
         } else {
           this.props.setError(translate('errors.numScelleExisteDeja'));
         }
@@ -140,27 +152,31 @@ export default class EcorExpInformationEcorComp extends React.Component {
   };
 
   deleteNumeroScelle = () => {
-    var {selectedScelle} = this.state;
-    console.log('deleteNumeroScelle', selectedScelle);
-    if (
-      selectedScelle !== '' &&
-      this.props.ecorInfo.scellesConfirmationEntree[selectedScelle]
-    ) {
-      Object.values(this.props.ecorInfo.scellesConfirmationEntree).splice(
-        selectedScelle,
-        1,
+    const {selectedScelle, listeNombreDeScelles} = this.state;
+    let selectedScelleIndex = _.indexOf(listeNombreDeScelles, selectedScelle);
+    if (selectedScelle !== '' && selectedScelleIndex) {
+      listeNombreDeScelles.splice(selectedScelleIndex, 1);
+      this.setState(
+        {
+          selectedScelle: {},
+        },
+        () => this.updateVo(),
       );
-      console.log(
-        'in if deleteNumeroScelle',
-        this.props.ecorInfo.scellesConfirmationEntree,
-      );
-      /*this.setState({
-        listeNombreDeScelles: listeNombreDeScelles,
-      });*/
-      this.setState({
-        numeroScelleInput: '',
-      });
     }
+  };
+
+  updateVo = () => {
+    let initConfirmerEntreeVO = this.state.initConfirmerEntreeVO;
+    let formattedListeScelles = {};
+    this.state.listeNombreDeScelles.forEach((value) => {
+      formattedListeScelles[value] = value;
+    });
+    initConfirmerEntreeVO.scelles = formattedListeScelles;
+    let action = ConfirmationEntreeCRUDAction.updateVO({
+      type: Constants.INITCONFIRMATIONENTREE_UPDATE_VO,
+      value: initConfirmerEntreeVO,
+    });
+    this.props.dispatch(action);
   };
   renderBoxItem = ({item}) => {
     const itemStyle =
@@ -175,7 +191,7 @@ export default class EcorExpInformationEcorComp extends React.Component {
     return (
       <View style={itemStyle}>
         <TouchableOpacity
-          disabled={this.state.readonly}
+          disabled={this.props.ecorIsSaved}
           onPress={() =>
             this.setState({
               ...this.state,
@@ -189,57 +205,58 @@ export default class EcorExpInformationEcorComp extends React.Component {
   };
   render() {
     console.log('in render');
-    const {ecorInfo} = this.props;
-    const {
+    const {initConfirmerEntreeVO} = this.props;
+    let {
       generateurNumScelleDu,
       generateurNumScelleAu,
       listeNombreDeScelles,
+      numeroScelle,
     } = this.state;
 
     return (
       <ComBadrCardBoxComp noPadding={true}>
         {/* Informations ECOR */}
         <ComAccordionComp
-          title={translate(
-            'mainlevee.delivrerMainlevee.informationsEcor.title',
-          )}>
+          title={translate('confirmationEntree.informationsEcor.title')}>
           <Grid>
             <Row style={CustomStyleSheet.whiteRow}>
               <Col size={1}>
                 <TextInput
                   mode={'outlined'}
                   maxLength={8}
-                  value={ecorInfo.numeroPinceConfirmationEntree}
+                  value={initConfirmerEntreeVO.numeroPinceConfirmationEntree}
                   label={translate(
-                    'mainlevee.delivrerMainlevee.informationsEcor.numeroPince',
+                    'confirmationEntree.informationsEcor.numeroPince',
                   )}
                   style={CustomStyleSheet.badrInputHeight}
                   onChangeText={(text) =>
                     this.setState({
-                      ecorInfo: {
-                        ...this.state.ecorInfo,
+                      initConfirmerEntreeVO: {
+                        ...this.state.initConfirmerEntreeVO,
                         numeroPince: text,
                       },
                     })
                   }
+                  disabled={this.props.ecorIsSaved}
                 />
               </Col>
               <Col size={1} />
               <Col size={1}>
                 <ComBadrNumericTextInputComp
                   maxLength={8}
-                  value={ecorInfo.nombreScelleConfirmationEntree}
+                  value={initConfirmerEntreeVO.nombreScelleConfirmationEntree}
                   label={translate(
-                    'mainlevee.delivrerMainlevee.informationsEcor.nombreScelles',
+                    'confirmationEntree.informationsEcor.nombreScelles',
                   )}
                   onChangeBadrInput={(text) =>
                     this.setState({
-                      ecorInfo: {
-                        ...this.state.ecorInfo,
+                      initConfirmerEntreeVO: {
+                        ...this.state.initConfirmerEntreeVO,
                         nombreDeScelles: text,
                       },
                     })
                   }
+                  disabled={this.props.ecorIsSaved}
                 />
               </Col>
             </Row>
@@ -247,7 +264,7 @@ export default class EcorExpInformationEcorComp extends React.Component {
               <Col size={5}>
                 <ComBadrLibelleComp withColor={true}>
                   {translate(
-                    'mainlevee.delivrerMainlevee.informationsEcor.generateurScelle',
+                    'confirmationEntree.informationsEcor.generateurScelle',
                   )}
                 </ComBadrLibelleComp>
               </Col>
@@ -264,6 +281,7 @@ export default class EcorExpInformationEcorComp extends React.Component {
                       generateurNumScelleDu: text,
                     })
                   }
+                  disabled={this.props.ecorIsSaved}
                 />
               </Col>
               <Col size={1} />
@@ -280,6 +298,7 @@ export default class EcorExpInformationEcorComp extends React.Component {
                       generateurNumScelleAu: text,
                     })
                   }
+                  disabled={this.props.ecorIsSaved}
                 />
               </Col>
               <Col size={2} />
@@ -287,8 +306,10 @@ export default class EcorExpInformationEcorComp extends React.Component {
                 <Button
                   mode="contained"
                   compact="true"
-                  onPress={this.genererNumeroScelle}>
+                  onPress={this.genererNumeroScelle}
+                  disabled={this.props.ecorIsSaved}>
                   {translate('transverse.Ok')}
+
                 </Button>
               </Col>
               <Col size={2} />
@@ -300,13 +321,16 @@ export default class EcorExpInformationEcorComp extends React.Component {
                     this.numeroScelleInput = input;
                   }}
                   maxLength={8}
-                  value={this.numeroScelle}
+                  value={numeroScelle}
                   label={translate(
-                    'mainlevee.delivrerMainlevee.informationsEcor.numeroScelle',
+                    'confirmationEntree.informationsEcor.numeroScelle',
                   )}
                   onChangeBadrInput={(text) => {
-                    this.numeroScelle = text;
+                    this.setState({
+                      numeroScelle: text,
+                    });
                   }}
+                  disabled={this.props.ecorIsSaved}
                 />
               </Col>
               <Col size={2} />
@@ -317,14 +341,16 @@ export default class EcorExpInformationEcorComp extends React.Component {
                   icon="plus-box"
                   mode="contained"
                   compact="true"
-                  style={{margin: 20}}
+                  style={style.btnActionList}
+                  disabled={this.props.ecorIsSaved}
                 />
                 <Button
                   onPress={this.deleteNumeroScelle}
                   icon="delete"
                   mode="contained"
                   compact="true"
-                  style={{margin: 20}}
+                  style={style.btnActionList}
+                  disabled={this.props.ecorIsSaved}
                 />
               </Col>
               <Col size={2} />
@@ -332,7 +358,11 @@ export default class EcorExpInformationEcorComp extends React.Component {
               <Col size={5} style={style.boxContainer}>
                 <SafeAreaView style={style.boxSafeArea}>
                   {_.isEmpty(listeNombreDeScelles) && (
-                    <Text style={style.boxItemText}>Aucun élément</Text>
+                    <Text style={style.boxItemText}>
+                      {translate(
+                        'confirmationEntree.informationsEcor.aucunElement',
+                      )}
+                    </Text>
                   )}
 
                   {!_.isEmpty(listeNombreDeScelles) && (
@@ -341,7 +371,7 @@ export default class EcorExpInformationEcorComp extends React.Component {
                       renderItem={(item) => this.renderBoxItem(item)}
                       keyExtractor={(item) => item}
                       nestedScrollEnabled={true}
-                      disabled={this.props.readOnly}
+                      disabled={this.props.ecorIsSaved}
                     />
                   )}
                 </SafeAreaView>
@@ -353,3 +383,7 @@ export default class EcorExpInformationEcorComp extends React.Component {
     );
   }
 }
+function mapStateToProps(state) {
+  return {...state.ecorExpConfirmationEntreeReducer};
+}
+export default connect(mapStateToProps, null)(EcorExpInformationEcorComp);

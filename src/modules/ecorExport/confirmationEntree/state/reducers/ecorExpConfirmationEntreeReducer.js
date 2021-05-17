@@ -5,7 +5,12 @@ const initialState = {
   showProgress: false,
   errorMessage: '',
   displayError: false,
-  data: {listDeclaration: [], initConfirmerEntreeVO: {}},
+  data: {
+    listDeclaration: [],
+    initConfirmerEntreeVO: {},
+    ecorIsSaved: false,
+    alreadyConfirmed: false,
+  },
 };
 
 export default (state = initialState, action) => {
@@ -62,6 +67,9 @@ export default (state = initialState, action) => {
       return nextState;
     case Constants.INITCONFIRMATIONENTREE_ETATCHARGEMENT_INIT:
       return initialState;
+    case Constants.INITCONFIRMATIONENTREE_UPDATE_VO:
+      nextState.data.initConfirmerEntreeVO = action.value;
+      return nextState;
     default:
       nextState.showProgress = true;
       return initialState;
@@ -71,6 +79,7 @@ export default (state = initialState, action) => {
 const prepareConfirm = (declaration, referenceDum) => {
   let declarationDum = '';
   let listDeclaration = [];
+  let ecorIsSaved = false;
   let repObj = {};
   if (declaration.refDedServices) {
     declarationDum = {
@@ -105,39 +114,20 @@ const prepareConfirm = (declaration, referenceDum) => {
       dedProvisionnelle: false,
     };
   }
-  let ecorIsSaved = false;
-  if (declarationDum.dateEntree) {
+
+  if (declaration.dateEntree) {
     ecorIsSaved = true;
   }
   listDeclaration.push(declarationDum);
-  console.log(' in prepar reducer ', listDeclaration);
 
   repObj = {
     listDeclaration: listDeclaration,
     initConfirmerEntreeVO: declaration,
+    ecorIsSaved: ecorIsSaved,
+    alreadyConfirmed: !(
+      !declaration.dateHeureEntree || declaration.dateHeureEntree.length === 0
+    ),
   };
 
   return repObj;
-
-  //checkAlreadyConfirmed(declaration);
-  /* if ($scope.alreadyConfirmed) {
-    if (declaration.documentEntreeEnceinte) {
-      $scope.referenceDocument = declaration.documentEntreeEnceinte;
-    }
-    var dateValueArray = declaration.dateHeureEntree.split(' ')[0].split('/');
-    if (declaration.dateHeureEntree) {
-      $scope.dateConfirmation = new Date(
-        dateValueArray[2] + ' ' + dateValueArray[1] + ' ' + dateValueArray[0],
-      );
-      var hourValue = declaration.dateHeureEntree.split(' ')[1];
-      $scope.heureConfirmation = hourValue;
-    }
-    $scope.ecorIsSaved = true;
-  } else {
-    $scope.ecorIsSaved = false;
-  }
-  $scope.listeNombreDeScelles = declaration.scellesConfirmationEntree
-    ? declaration.scellesConfirmationEntree
-    : [];
-    */
 };

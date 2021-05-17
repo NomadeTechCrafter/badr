@@ -39,11 +39,17 @@ const instanceBO = axios.create({
 });
 export default class ComHttpHelperApi {
   static async login(user) {
-    let response = await instance.post(LOGIN_API, JSON.stringify(user), {
-      withCredentials: true,
-    });
-    ComSessionService.getInstance().setSessionId(response.headers.session_id);
-    return response;
+    if (remote) {
+      let response = await instance.post(LOGIN_API, JSON.stringify(user), {
+        withCredentials: true,
+      });
+      ComSessionService.getInstance().setSessionId(response.headers.session_id);
+      return response;
+    } else {
+      return {
+        data: localStore['login'],
+      };
+    }
   }
 
   static async logout(user) {
@@ -64,7 +70,7 @@ export default class ComHttpHelperApi {
         console.log('reponse WS', response.data);
         return response;
       } catch (error) {
-        console.log('---catch error in Api Call--' ,error.response);
+        console.log('---catch error in Api Call--', error.response);
         /**Dispatch Action :GENERIC_CATCH_API to custom Middleware*/
         let action = GenericAction.refresh({
           type: Constants.GENERIC_CATCH_API,

@@ -16,7 +16,7 @@ import moment from 'moment';
 import {connect} from 'react-redux';
 import translate from '../../../../commons/i18n/ComI18nHelper';
 import style from '../style/ecorExpConfirmationEntreeStyle';
-
+import _ from 'lodash';
 class ConfirmationEntreeResultScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -74,6 +74,7 @@ class ConfirmationEntreeResultScreen extends React.Component {
   };
 
   render() {
+    console.log('in render result compoent', JSON.stringify(this.props));
     return (
       <View>
         <ScrollView
@@ -117,6 +118,7 @@ class ConfirmationEntreeResultScreen extends React.Component {
                       },
                     })
                   }
+                  disabled={this.props.data.ecorIsSaved}
                 />
               </Col>
               <Col size={1} />
@@ -160,18 +162,21 @@ class ConfirmationEntreeResultScreen extends React.Component {
                     })
                   }
                   inputStyle={style.dateInputStyle}
-                  readonly={true}
+                  readonly={this.props.data.ecorIsSaved}
                 />
               </Col>
             </Row>
           </Grid>
-          <EcorExpInformationEcorComp
-            ecorInfo={this.props.data.initConfirmerEntreeVO}
-            setError={this.setError}
-            listeNombreDeScelles={this.convertListeScelles(
-              this.props.data.initConfirmerEntreeVO.scelles,
-            )}
-          />
+          {!_.isEmpty(this.props.data.initConfirmerEntreeVO) && (
+            <EcorExpInformationEcorComp
+              initConfirmerEntreeVO={this.props.data.initConfirmerEntreeVO}
+              setError={this.setError}
+              listeNombreDeScelles={this.convertListeScelles(
+                this.props.data.initConfirmerEntreeVO.scelles,
+              )}
+              ecorIsSaved={this.props.data.ecorIsSaved}
+            />
+          )}
         </ScrollView>
       </View>
     );
