@@ -32,6 +32,7 @@ import vuEmbReducer from '../../modules/DeclarationD17D20/vuEmbarquer/state/redu
 import vuEmbRefVH from '../../modules/DeclarationD17D20/vuEmbarquer/state/reducers/vuEmRefVhReducer';
 import sortiPortRefVH from '../../modules/DeclarationD17D20/sortiPort/state/reducers/decSortiPortRefVhReducer';
 import sortiPortInitReducer from '../../modules/DeclarationD17D20/sortiPort/state/reducers/decSortiPortInitReducer';
+import sortiPortReducer from '../../modules/DeclarationD17D20/sortiPort/state/reducers/decSortiPortUcReducer';
 
 
 import referentielReducer from './reducers/ReferentielReducer';
@@ -119,6 +120,7 @@ const allReducers = combineReducers({
   consultationBLSReducer,
   eciAppositionScellesRechercheReducer,
   eciAppositionScellesReducer,
+  sortiPortReducer,
   sortiPortRefVH,
   sortiPortInitReducer,
 });

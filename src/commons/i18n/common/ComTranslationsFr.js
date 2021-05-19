@@ -139,7 +139,7 @@ export default {
     connaissement: 'Connaissement',
     declarationDetail: 'Déclaration en Détail',
     etatChargement: 'Etat de chargement',
-    resultScanner: 'résultat scanner',
+    resultScanner: 'Résultat scanner',
     info: 'Info',
     vumEmb: {
       rechByRef: 'Reference declaration',

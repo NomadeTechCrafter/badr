@@ -10,6 +10,7 @@ import {primaryColor} from '../../../../../commons/styles/ComThemeStyle';
 
 import SortiPortEntete from '../ongletsSortiPort/decSortiPortEntete';
 import SortiPortInfo from '../ongletsSortiPort/decSortiPortInfo';
+import SoritPortScanner from '../ongletsSortiPort/decSoritPortScanner';
 import SortiPortDecEnDetail from '../ongletsSortiPort/decSortiPortDecEnDetail';
 import SortiPortEtatChargement from '../ongletsSortiPort/decSortiPortEtatChargement';
 
@@ -96,6 +97,13 @@ class SortiPortListeDeclaration extends React.Component {
               name={translate('tabs.info')}
               component={() => (
                 <SortiPortInfo dataVo={this.props.route.params.data.jsonVO} />
+              )}
+            />
+
+            <Tab.Screen
+              name={translate('tabs.resultScanner')}
+              component={() => (
+                <SoritPortScanner dataVo={this.props.route.params.data.jsonVO}  />
               )}
             />
           </Tab.Navigator>

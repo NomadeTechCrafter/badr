@@ -97,5 +97,11 @@ export default {
       bureauSortie: 'Bureau Sortie',
       navire: 'Navire',
     },
+    scanner: {
+      dateScannage: 'Date scannage',
+      agent: 'Agent',
+      resultat: 'Résultat',
+      commentaire: 'Commentaire',
+    },
   },
 };

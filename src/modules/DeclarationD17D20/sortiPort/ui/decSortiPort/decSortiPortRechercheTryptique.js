@@ -1,11 +1,11 @@
 /** RN Components **/
-import React, {Component} from 'react';
-import {View} from 'react-native';
+import React, { Component } from 'react';
+import { View } from 'react-native';
 /** REDUX **/
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import _ from 'lodash';
 
-import {Button, HelperText, TextInput} from 'react-native-paper';
+import { Button, HelperText, TextInput } from 'react-native-paper';
 
 import {
   ComBadrButtonIconComp,
@@ -19,10 +19,10 @@ import {
 } from '../../../../../commons/styles/ComThemeStyle';
 
 /** Storage **/
-import {load} from '../../../../../commons/services/async-storage/ComStorageService';
+import { load } from '../../../../../commons/services/async-storage/ComStorageService';
 
 /**i18n */
-import {translate} from '../../../../../commons/i18n/ComI18nHelper';
+import { translate } from '../../../../../commons/i18n/ComI18nHelper';
 import * as Constants from '../../state/decSortiPortConstants';
 import * as SortiPortInitAction from '../../state/actions/decSortiPortInitAction';
 
@@ -31,8 +31,8 @@ class SortiPortRechercheTryptique extends Component {
     bureau: '309',
     regime: '009',
     annee: '2020',
-    serie: '0000092',
-    cle: 'J',
+    serie: '0000108',
+    cle: 'B',
     cleValide: '',
     login: '',
     showErrorMsg: false,
@@ -46,8 +46,11 @@ class SortiPortRechercheTryptique extends Component {
   componentDidMount() {
     var action = SortiPortInitAction.init();
     this.props.actions.dispatch(action);
+    // var action1 = SortiPortScanAction.init();
+    // this.props.actions.dispatch(action1);
+
     load('user').then((user) => {
-      this.setState({login: JSON.parse(user).login});
+      this.setState({ login: JSON.parse(user).login });
     });
 
     this.loadRefDumFormScanQrCode();
@@ -56,7 +59,7 @@ class SortiPortRechercheTryptique extends Component {
   /*load Dum Reference from scan Qrcode*/
   loadRefDumFormScanQrCode = () => {
     if (this.props.routeParams && this.props.routeParams.refDeclaration) {
-      const {refDeclaration} = this.props.routeParams;
+      const { refDeclaration } = this.props.routeParams;
       console.log('refDeclaration', refDeclaration);
       this.setState({
         bureau: refDeclaration.slice(0, 3),
@@ -70,10 +73,10 @@ class SortiPortRechercheTryptique extends Component {
   //accept just Number
   onChangeInput = (input) => {
     let keyImput = _.keys(input)[0];
-    this.setState({[keyImput]: input[keyImput].replace(/[^0-9]/g, '')});
+    this.setState({ [keyImput]: input[keyImput].replace(/[^0-9]/g, '') });
   };
   onChangeInputCle = (cle) => {
-    this.setState({cle: cle.replace(/[^A-Za-z]/g, '')});
+    this.setState({ cle: cle.replace(/[^A-Za-z]/g, '') });
   };
   addZeros = (input) => {
     let keyImput = _.keys(input)[0];
@@ -84,11 +87,11 @@ class SortiPortRechercheTryptique extends Component {
     }
   };
   retablir = () => {
-    this.setState({...this.defaultState});
+    this.setState({ ...this.defaultState });
   };
 
   confirmer = () => {
-    this.setState({showErrorMsg: true});
+    this.setState({ showErrorMsg: true });
     if (this.state.regime && this.state.serie) {
       this.state.cleValide = this.cleDUM(this.state.regime, this.state.serie);
 
@@ -164,7 +167,7 @@ class SortiPortRechercheTryptique extends Component {
               keyboardType={'number-pad'}
               value={this.state.bureau}
               label={translate('transverse.bureau')}
-              onChangeText={(val) => this.onChangeInput({bureau: val})}
+              onChangeText={(val) => this.onChangeInput({ bureau: val })}
               onEndEditing={(event) =>
                 this.addZeros({
                   bureau: event.nativeEvent.text,
@@ -190,7 +193,7 @@ class SortiPortRechercheTryptique extends Component {
               keyboardType={'number-pad'}
               value={this.state.regime}
               label={translate('transverse.regime')}
-              onChangeText={(val) => this.onChangeInput({regime: val})}
+              onChangeText={(val) => this.onChangeInput({ regime: val })}
               onEndEditing={(event) =>
                 this.addZeros({
                   regime: event.nativeEvent.text,
@@ -216,7 +219,7 @@ class SortiPortRechercheTryptique extends Component {
               keyboardType={'number-pad'}
               value={this.state.annee}
               label={translate('transverse.annee')}
-              onChangeText={(val) => this.onChangeInput({annee: val})}
+              onChangeText={(val) => this.onChangeInput({ annee: val })}
               onEndEditing={(event) =>
                 this.addZeros({
                   annee: event.nativeEvent.text,
@@ -242,7 +245,7 @@ class SortiPortRechercheTryptique extends Component {
               keyboardType={'number-pad'}
               value={this.state.serie}
               label={translate('transverse.serie')}
-              onChangeText={(val) => this.onChangeInput({serie: val})}
+              onChangeText={(val) => this.onChangeInput({ serie: val })}
               onEndEditing={(event) =>
                 this.addZeros({
                   serie: event.nativeEvent.text,
@@ -319,7 +322,7 @@ const styles = {
     alignItems: 'center',
     marginTop: 20,
   },
-  cleHelperMsg: {width: 150},
+  cleHelperMsg: { width: 150 },
   containerBtn: {
     flexDirection: 'row',
     justifyContent: 'center',
@@ -350,12 +353,12 @@ const styles = {
     alignItems: 'flex-end',
     flex: 1,
   },
-  BtnWidth: {width: 100},
+  BtnWidth: { width: 100 },
 };
 
-const mapStateToProps = (state) => ({...state.sortiPortInitReducer});
+const mapStateToProps = (state) => ({ ...state.sortiPortInitReducer });
 function mapDispatchToProps(dispatch) {
-  let actions = {dispatch};
+  let actions = { dispatch };
   return {
     actions,
   };
