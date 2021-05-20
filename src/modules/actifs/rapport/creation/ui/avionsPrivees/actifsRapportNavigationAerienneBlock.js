@@ -90,7 +90,7 @@ class ActifsRapportNavigationAerienneBlock extends React.Component {
         this.setState({
             navigationAerienneModel: {
                 ...this.state.navigationAerienneModel,
-                heureAtterissage: event.nativeEvent.timestamp,
+                heureAtterissage: moment(selectedHeure).format('HH:mm').toString(),
             }, showHeureAtterissage: false, heureAtterissageTech: event.nativeEvent.timestamp
 
 
@@ -115,12 +115,12 @@ class ActifsRapportNavigationAerienneBlock extends React.Component {
         this.setState({
             navigationAerienneModel: {
                 ...this.state.navigationAerienneModel,
-                heureDepart: event.nativeEvent.timestamp,
+                heureDepart: moment(selectedHeure).format('HH:mm').toString(),
             }, showHeureDepart: false, heureDepartTech: event.nativeEvent.timestamp
 
 
         });
-        this.state.navigationAerienneModel.heureDepart = event.nativeEvent.timestamp;
+        this.state.navigationAerienneModel.heureDepart = moment(selectedHeure).format('HH:mm').toString();
         this.props.update(this.state.navigationAerienneModel);
        
     }
@@ -145,10 +145,10 @@ class ActifsRapportNavigationAerienneBlock extends React.Component {
         this.setState({
             acProvenance: pays.libelle, navigationAerienneModel: {
                 ...this.state.navigationAerienneModel,
-                provenance: pays
+                provenance: { codePays: pays.code, nomPays: pays.libelle }
             }
         });
-        this.state.navigationAerienneModel.provenance = pays;
+        this.state.navigationAerienneModel.provenance = { codePays: pays.code, nomPays: pays.libelle };
         this.props.update(this.state.navigationAerienneModel);
     }
 
@@ -156,10 +156,10 @@ class ActifsRapportNavigationAerienneBlock extends React.Component {
         this.setState({
             acDestination: pays.libelle, navigationAerienneModel: {
                 ...this.state.navigationAerienneModel,
-                destination: pays
+                destination: { codePays: pays.code, nomPays: pays.libelle }
             }
         });
-        this.state.navigationAerienneModel.destination = pays;
+        this.state.navigationAerienneModel.destination = { codePays: pays.code, nomPays: pays.libelle };
         this.props.update(this.state.navigationAerienneModel);
 
 
@@ -192,7 +192,7 @@ class ActifsRapportNavigationAerienneBlock extends React.Component {
                                 <Row style={CustomStyleSheet.whiteRow}>
                                     <Col size={4}>
                                         <ComBadrLibelleComp withColor={true}>
-                                            {translate('actifsCreation.avionsPrivees.navigAerienne.dateAtterissage')}
+                                            {translate('actifsCreation.avionsPrivees.navigAerienne.dateAtterissage') }
                                         </ComBadrLibelleComp>
                                     </Col>
                                     <Col size={6}>
@@ -227,7 +227,7 @@ class ActifsRapportNavigationAerienneBlock extends React.Component {
                                     <Col size={2} />
                                     <Col size={4}>
                                         <ComBadrLibelleComp withColor={true}>
-                                            {translate('actifsCreation.avionsPrivees.navigAerienne.heureAtterissage')}
+                                            {translate('actifsCreation.avionsPrivees.navigAerienne.heureAtterissage') + 'x' + this.state.navigationAerienneModel.heureAtterissage}
                                         </ComBadrLibelleComp>
                                     </Col>
                                     <Col size={4}>
@@ -235,7 +235,7 @@ class ActifsRapportNavigationAerienneBlock extends React.Component {
                                             mode={'outlined'}
                                             disabled={this.props.readOnly}
                                             style={{ height: 20, fontSize: 12, alignSelf: 'center', padding: 15 }}
-                                            value={moment(this.state.navigationAerienneModel.heureAtterissage).format('HH:mm').toString()}
+                                            value={this.state.navigationAerienneModel.heureAtterissage}
                                             onFocus={() => {
                                                 this.setState({ showHeureAtterissage: true });
                                             }}
@@ -345,7 +345,7 @@ class ActifsRapportNavigationAerienneBlock extends React.Component {
                                             placeholder={translate(
                                                 'actifsCreation.avionsPrivees.navigAerienne.provenance'
                                             )}
-                                            selected={this.state.navigationAerienneModel.provenance.libelle}
+                                            selected={(this.state.navigationAerienneModel.provenance.libelle) ? this.state.navigationAerienneModel.provenance.libelle : this.state.navigationAerienneModel.provenance.nomPays}
                                             maxItems={3}
                                             libelle="libelle"
                                             command="getCmbPays"
@@ -479,7 +479,7 @@ class ActifsRapportNavigationAerienneBlock extends React.Component {
                                             mode={'outlined'}
                                             disabled={this.props.readOnly}
                                             style={{ height: 20, fontSize: 12, alignSelf: 'center', padding: 15 }}
-                                            value={moment(this.state.navigationAerienneModel.heureDepart).format('HH:mm').toString()}
+                                            value={this.state.navigationAerienneModel.heureDepart}
                                             onFocus={() => {
                                                 this.setState({ showHeureDepart: true });
                                             }}
@@ -527,7 +527,7 @@ class ActifsRapportNavigationAerienneBlock extends React.Component {
                                             placeholder={translate(
                                                 'actifsCreation.avionsPrivees.navigAerienne.destination'
                                             )}
-                                            selected={this.state.navigationAerienneModel.destination.libelle}
+                                            selected={this.state.navigationAerienneModel.destination.libelle ? this.state.navigationAerienneModel.destination.libelle : this.state.navigationAerienneModel.destination.nomPays}
                                             maxItems={3}
                                             libelle="libelle"
                                             command="getCmbPays"

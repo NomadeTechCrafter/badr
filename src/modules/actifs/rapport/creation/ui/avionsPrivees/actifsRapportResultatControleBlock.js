@@ -69,12 +69,12 @@ class ActifsRapportResultatControleBlock extends React.Component {
         this.setState({
             navigationAerienneModel: {
                 ...this.state.navigationAerienneModel,
-                heureDebutControle: event.nativeEvent.timestamp,
+                heureDebutControle: moment(selectedHeure).format('HH:mm').toString(),
             }, showHeureDebutControle: false, heureDebutControleTech: event.nativeEvent.timestamp
 
 
         });
-        this.state.navigationAerienneModel.heureDebutControle = event.nativeEvent.timestamp;
+        this.state.navigationAerienneModel.heureDebutControle = moment(selectedHeure).format('HH:mm').toString();
         this.props.update(this.state.navigationAerienneModel);
     }
 
@@ -94,12 +94,12 @@ class ActifsRapportResultatControleBlock extends React.Component {
         this.setState({
             navigationAerienneModel: {
                 ...this.state.navigationAerienneModel,
-                heureFinControle: event.nativeEvent.timestamp,
+                heureFinControle: moment(selectedHeure).format('HH:mm').toString(),
             }, showHeureFinControle: false, heureFinControleTech: event.nativeEvent.timestamp
 
 
         });
-        this.state.navigationAerienneModel.heureFinControle = event.nativeEvent.timestamp;
+        this.state.navigationAerienneModel.heureFinControle = moment(selectedHeure).format('HH:mm').toString();
         this.props.update(this.state.navigationAerienneModel);
     }
 
@@ -191,7 +191,7 @@ class ActifsRapportResultatControleBlock extends React.Component {
                                             mode={'outlined'}
                                             disabled={this.props.readOnly}
                                             style={{ height: 20, fontSize: 12, alignSelf: 'center', padding: 15 }}
-                                            value={moment(this.state.navigationAerienneModel.heureDebutControle).format('HH:mm').toString()}
+                                            value={this.state.navigationAerienneModel.heureDebutControle}
                                             onFocus={() => {
                                                 this.setState({ showHeureDebutControle: true });
                                             }}
@@ -272,7 +272,7 @@ class ActifsRapportResultatControleBlock extends React.Component {
                                             mode={'outlined'}
                                             disabled={this.props.readOnly}
                                             style={{ height: 20, fontSize: 12, alignSelf: 'center', padding: 15 }}
-                                            value={moment(this.state.navigationAerienneModel.heureFinControle).format('HH:mm').toString()}
+                                            value={this.state.navigationAerienneModel.heureFinControle}
                                             onFocus={() => {
                                                 this.setState({ showHeureFinControle: true });
                                             }}

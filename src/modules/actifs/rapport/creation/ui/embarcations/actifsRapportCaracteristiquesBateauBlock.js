@@ -95,10 +95,10 @@ class ActifsRapportCaracteristiquesBateauBlock extends React.Component {
         this.setState({
             acDelivreePar: agent.libelle, navigationMaritimeModel: {
                 ...this.state.navigationMaritimeModel,
-                delivreePar: agent
+                delivreePar: { idActeur: agent.code, nom: agent.libelle }
             }
         });
-        this.state.navigationMaritimeModel.delivreePar = agent;
+        this.state.navigationMaritimeModel.delivreePar = { idActeur: agent.code, nom: agent.libelle };
         this.props.update(this.state.navigationMaritimeModel);
 
 
@@ -352,7 +352,7 @@ class ActifsRapportCaracteristiquesBateauBlock extends React.Component {
                                             placeholder={translate(
                                                 'actifsCreation.embarcations.caracteristiques.delivreePar'
                                             )}
-                                            selected={this.state.navigationMaritimeModel.delivreePar.libelle}
+                                            selected={this.state.navigationMaritimeModel.delivreePar.nom}
                                             maxItems={3}
                                             libelle="libelle"
                                             command="getCmbActeurs"

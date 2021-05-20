@@ -69,12 +69,12 @@ class ActifsRapportResultatControleBlock extends React.Component {
         this.setState({
             navigationMaritimeModel: {
                 ...this.state.navigationMaritimeModel,
-                heureDebutControle: event.nativeEvent.timestamp,
+                heureDebutControle: moment(selectedHeure).format('HH:mm').toString(),
             }, showHeureDebutControle: false, heureDebutControleTech: event.nativeEvent.timestamp
 
 
         });
-        this.state.navigationMaritimeModel.heureDebutControle = event.nativeEvent.timestamp;
+        this.state.navigationMaritimeModel.heureDebutControle = moment(selectedHeure).format('HH:mm').toString();
         this.props.update(this.state.navigationMaritimeModel);
     }
 
@@ -94,12 +94,12 @@ class ActifsRapportResultatControleBlock extends React.Component {
         this.setState({
             navigationMaritimeModel: {
                 ...this.state.navigationMaritimeModel,
-                heureFinControle: event.nativeEvent.timestamp
+                heureFinControle: moment(selectedHeure).format('HH:mm').toString()
             }, showHeureFinControle: false, heureFinControleTech: event.nativeEvent.timestamp
 
 
         });
-        this.state.navigationMaritimeModel.heureFinControle = event.nativeEvent.timestamp;
+        this.state.navigationMaritimeModel.heureFinControle = moment(selectedHeure).format('HH:mm').toString();
         this.props.update(this.state.navigationMaritimeModel);
     }
 
@@ -191,7 +191,7 @@ class ActifsRapportResultatControleBlock extends React.Component {
                                             mode={'outlined'}
                                             disabled={this.props.readOnly}
                                             style={{ height: 20, fontSize: 12, alignSelf: 'center', padding: 15 }}
-                                            value={moment(this.state.navigationMaritimeModel.heureDebutControle).format('HH:mm').toString()}
+                                            value={this.state.navigationMaritimeModel.heureDebutControle}
                                             onFocus={() => {
                                                 this.setState({ showHeureDebutControle: true });
                                             }}
@@ -272,7 +272,7 @@ class ActifsRapportResultatControleBlock extends React.Component {
                                             mode={'outlined'}
                                             disabled={this.props.readOnly}
                                             style={{ height: 20, fontSize: 12, alignSelf: 'center', padding: 15 }}
-                                            value={moment(this.state.navigationMaritimeModel.heureFinControle).format('HH:mm').toString()}
+                                            value={this.state.navigationMaritimeModel.heureFinControle}
                                             onFocus={() => {
                                                 this.setState({ showHeureFinControle: true });
                                             }}

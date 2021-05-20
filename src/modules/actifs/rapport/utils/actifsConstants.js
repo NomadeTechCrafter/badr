@@ -108,6 +108,8 @@ export const INTERVENANT_INITIAL = {
         prenomIntervenant: '',
         nationaliteFr: '',
         adresse: '',
+        dateEffet: new Date(),
+        dateFin: '9999-05-20',
         
     }, passager: true,
     equipage: false,

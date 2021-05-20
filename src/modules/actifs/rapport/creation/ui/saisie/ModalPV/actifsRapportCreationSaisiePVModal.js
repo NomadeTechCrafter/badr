@@ -49,7 +49,7 @@ export default class ActifsRapportCreationSaisiePVModal extends React.Component 
               <TextInput
                 mode={'outlined'}
                 style={{height: 20, fontSize: 12}}
-                disabled={false}
+                disabled={true}
                 value={this.props.valueDate}
                 multiline={false}
                 numberOfLines={1}

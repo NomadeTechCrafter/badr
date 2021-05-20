@@ -45,11 +45,11 @@ export default class ActifsRapportCreationSaisieMarchandiseModal extends React.C
   }
   populate = (data) => {
     console.log("ActifsRapportCreationSaisieMarchandiseModal data : ", data);
-    console.log("ActifsRapportCreationSaisieMarchandiseModal _.isEmpty(data.autre) : ", !_.isEmpty(data.autre));
+    console.log("ActifsRapportCreationSaisieMarchandiseModal _.isEmpty(data.autre) : ", !_.isEmpty(data.autreMarque));
     this.setState({
-      natureMarchandiseSelected: data.NDM.libelle,
-      add:!_.isEmpty(data.autre),
-      selectedvalue: data.UM.code
+      natureMarchandiseSelected: data.marque.libelle,
+      add: !_.isEmpty(data.autreMarque),
+      selectedvalue: data.uniteMesure.codeUniteMesure
     });
   }
 
@@ -62,7 +62,7 @@ export default class ActifsRapportCreationSaisieMarchandiseModal extends React.C
           mode={'outlined'}
           style={{ height: 20, fontSize: 12 }}
           disabled={false}
-          value={this.props.autre}
+          value={this.props.autreMarque}
           multiline={false}
           numberOfLines={1}
           onChangeText={this.props.onChangeTextAutre}
@@ -166,7 +166,7 @@ export default class ActifsRapportCreationSaisieMarchandiseModal extends React.C
                 mode={'outlined'}
                 style={{ height: 20, fontSize: 12 }}
                 disabled={false}
-                value={this.props.quantity}
+                value={this.props.quantite}
                 multiline={false}
                 numberOfLines={1}
                 onChangeBadrInput={this.props.onChangeQuantity}

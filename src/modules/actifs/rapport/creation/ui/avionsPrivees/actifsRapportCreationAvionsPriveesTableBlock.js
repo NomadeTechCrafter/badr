@@ -43,12 +43,12 @@ class ActifsRapportCreationAvionsPriveesTableBlock extends React.Component {
                 }
             },
             {
-                code: 'provenance.libelle',
+                code: 'provenance.nomPays',
                 libelle: translate('actifsCreation.avionsPrivees.provenance'),
                 width: 100,
             },
             {
-                code: 'destination.libelle',
+                code: 'destination.nomPays',
                 libelle: translate('actifsCreation.avionsPrivees.destination'),
                 width: 100,
             },
@@ -119,12 +119,12 @@ class ActifsRapportCreationAvionsPriveesTableBlock extends React.Component {
                 }
             },
             {
-                code: 'provenance.libelle',
+                code: 'provenance.nomPays',
                 libelle: translate('actifsCreation.avionsPrivees.provenance'),
                 width: 100,
             },
             {
-                code: 'destination.libelle',
+                code: 'destination.nomPays',
                 libelle: translate('actifsCreation.avionsPrivees.destination'),
                 width: 100,
             },

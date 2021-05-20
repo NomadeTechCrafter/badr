@@ -97,4 +97,35 @@ export const getNavigationAerienneModelInitial = () => {
     intervenants: [],
     proprietaires: []
   }
+
+  
+}
+export const convert = (date) => {
+  var datearray = date.split("/");
+  return datearray[2] + '-' + datearray[1] + '-' + datearray[0];
+
+}
+
+export const cleanOrdreService = (rsAEnregistrer)=>{
+  delete rsAEnregistrer.rapportService.ordreService.chefEquipe.refGradeLib;
+  delete rsAEnregistrer.rapportService.ordreService.uniteOrganisationnelle;
+  delete rsAEnregistrer.rapportService.ordreService.refPJ;
+  delete rsAEnregistrer.rapportService.ordreService.journeeDu;
+  delete rsAEnregistrer.rapportService.ordreService.libAdditif;
+  delete rsAEnregistrer.rapportService.ordreService.libChefBrigade;
+  delete rsAEnregistrer.rapportService.ordreService.libRonde;
+  delete rsAEnregistrer.rapportService.ordreService.libMaritime;
+  delete rsAEnregistrer.rapportService.ordreService.libAerien;
+  delete rsAEnregistrer.rapportService.ordreService.libConfidentiel;
+  delete rsAEnregistrer.rapportService.ordreService.defaultConverter;
+  delete rsAEnregistrer.rapportService.ordreService.rapportExiste;
+
+  if (_.isArray(rsAEnregistrer.rapportService.ordreService.agentsBrigade)) {
+    rsAEnregistrer.rapportService.ordreService.agentsBrigade.forEach((agentBrigade) => {
+
+      delete agentBrigade.agent.refGradeLib;
+      delete agentBrigade.agentBrigade;
+    });
+    
+  }
 }

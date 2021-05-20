@@ -4,38 +4,33 @@ import * as Constants from '../actifsRapportCreationConstants';
 import {translate} from '../../../../../../commons/i18n/ComI18nHelper';
 
 const MODULE = 'GIB';
-const TYPE_SERVICE = 'UC';
+const TYPE_SERVICE = 'SP';
 export function request(action, navigation, successRedirection) {
   return (dispatch) => {
     dispatch(action);
     dispatch(inProgress(action));
     TransverseApi.doProcess(
       MODULE,
-      'enregistrerRS',
+      'getRsByIdOs',
       TYPE_SERVICE,
       action.value.data,
     )
       .then((response) => {
         if (response) {
           const data = response.data;
-          console.log('response enregistrerRS', response);
           if (data && !data.dtoHeader.messagesErreur) {
-            console.log('data enregistrerRS', data);
-            dispatch(success(data));
+            console.log('data', data);
+            dispatch(success(data.jsonVO));
             /** Naviguer vers la vue suivant. */
-
-            console.log('navig success');
           } else {
-            console.log('failed(data) enregistrerRS',data);
             dispatch(failed(data));
           }
         } else {
-          console.log('failed(data) 2 enregistrerRS', response);
           dispatch(failed(translate('errors.technicalIssue')));
         }
       })
       .catch((e) => {
-        console.log('in action request catch enregistrerRS ', e);
+        console.log('in action request catch', e);
         dispatch(failed(translate('errors.technicalIssue')));
       });
   };
@@ -43,28 +38,28 @@ export function request(action, navigation, successRedirection) {
 
 export function inProgress(action) {
   return {
-    type: Constants.ACTIFS_CREATION_IN_PROGRESS,
+    type: Constants.ACTIFS_CONSULTATION_IN_PROGRESS,
     value: action.value,
   };
 }
 
 export function success(data) {
   return {
-    type: Constants.ACTIFS_CREATION_SUCCESS,
+    type: Constants.ACTIFS_CONSULTATION_SUCCESS,
     value: data,
   };
 }
 
 export function failed(data) {
   return {
-    type: Constants.ACTIFS_CREATION_FAILED,
+    type: Constants.ACTIFS_CONSULTATION_FAILED,
     value: data,
   };
 }
 
 export function init(action) {
   return {
-    type: Constants.ACTIFS_CREATION_INIT,
+    type: Constants.ACTIFS_CONSULTATION_INIT,
     value: action.value,
   };
 }

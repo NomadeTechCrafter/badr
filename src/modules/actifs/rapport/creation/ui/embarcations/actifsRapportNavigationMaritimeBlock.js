@@ -91,12 +91,12 @@ class ActifsRapportNavigationMaritimeBlock extends React.Component {
         this.setState({
             navigationMaritimeModel: {
                 ...this.state.navigationMaritimeModel,
-                heureEntree: event.nativeEvent.timestamp,
+                heureEntree: moment(selectedHeure).format('HH:mm').toString(),
             }, showHeureEntree: false, heureEntreeTech: event.nativeEvent.timestamp
 
 
         });
-        this.state.navigationMaritimeModel.heureEntree= event.nativeEvent.timestamp;
+        this.state.navigationMaritimeModel.heureEntree = moment(selectedHeure).format('HH:mm').toString();
         this.props.update(this.state.navigationMaritimeModel);
         
     }
@@ -117,12 +117,12 @@ class ActifsRapportNavigationMaritimeBlock extends React.Component {
         this.setState({
             navigationMaritimeModel: {
                 ...this.state.navigationMaritimeModel,
-                heureDepart: event.nativeEvent.timestamp,
+                heureDepart: moment(selectedHeure).format('HH:mm').toString(),
             }, showHeureDepart: false, heureDepartTech: event.nativeEvent.timestamp
 
 
         });
-        this.state.navigationMaritimeModel.heureDepart= event.nativeEvent.timestamp;
+        this.state.navigationMaritimeModel.heureDepart = moment(selectedHeure).format('HH:mm').toString();
         this.props.update(this.state.navigationMaritimeModel);
        
     }
@@ -147,10 +147,10 @@ class ActifsRapportNavigationMaritimeBlock extends React.Component {
         this.setState({
             acProvenance: pays.libelle, navigationMaritimeModel: {
                 ...this.state.navigationMaritimeModel,
-                provenance: pays
+                provenance: { codePays: pays.code, nomPays: pays.libelle }
             }
         });
-        this.state.navigationMaritimeModel.provenance = pays;
+        this.state.navigationMaritimeModel.provenance = { codePays: pays.code, nomPays: pays.libelle };
         this.props.update(this.state.navigationMaritimeModel)
     }
 
@@ -158,10 +158,10 @@ class ActifsRapportNavigationMaritimeBlock extends React.Component {
         this.setState({
             acDestination: pays.libelle, navigationMaritimeModel: {
                 ...this.state.navigationMaritimeModel,
-                destination: pays
+                destination: { codePays: pays.code, nomPays: pays.libelle }
             }
         });
-        this.state.navigationMaritimeModel.destination = pays;
+        this.state.navigationMaritimeModel.destination = { codePays: pays.code, nomPays: pays.libelle };
         this.props.update(this.state.navigationMaritimeModel)
 
 
@@ -237,7 +237,7 @@ class ActifsRapportNavigationMaritimeBlock extends React.Component {
                                             mode={'outlined'}
                                             disabled={this.props.readOnly}
                                             style={{ height: 20, fontSize: 12, alignSelf: 'center', padding: 15 }}
-                                            value={moment(this.state.navigationMaritimeModel.heureEntree).format('HH:mm').toString()}
+                                            value={this.state.navigationMaritimeModel.heureEntree}
                                             onFocus={() => {
                                                 this.setState({ showHeureEntree: true });
                                             }}
@@ -347,7 +347,7 @@ class ActifsRapportNavigationMaritimeBlock extends React.Component {
                                             placeholder={translate(
                                                 'actifsCreation.embarcations.navigMaritime.provenance'
                                             )}
-                                            selected={this.state.navigationMaritimeModel.provenance.libelle}
+                                            selected={this.state.navigationMaritimeModel.provenance.nomPays}
                                             maxItems={3}
                                             libelle="libelle"
                                             command="getCmbPays"
@@ -481,7 +481,7 @@ class ActifsRapportNavigationMaritimeBlock extends React.Component {
                                             mode={'outlined'}
                                             disabled={this.props.readOnly}
                                             style={{ height: 20, fontSize: 12, alignSelf: 'center', padding: 15 }}
-                                            value={moment(this.state.navigationMaritimeModel.heureDepart).format('HH:mm').toString()}
+                                            value={this.state.navigationMaritimeModel.heureDepart}
                                             onFocus={() => {
                                                 this.setState({ showHeureDepart: true });
                                             }}
@@ -529,7 +529,7 @@ class ActifsRapportNavigationMaritimeBlock extends React.Component {
                                             placeholder={translate(
                                                 'actifsCreation.embarcations.navigMaritime.destination'
                                             )}
-                                            selected={this.state.navigationMaritimeModel.destination.libelle}
+                                            selected={this.state.navigationMaritimeModel.destination.nomPays}
                                             maxItems={3}
                                             libelle="libelle"
                                             command="getCmbPays"

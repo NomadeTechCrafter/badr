@@ -27,12 +27,12 @@ export default class ActifsRapportPersonneConcerneeModal extends React.Component
     };
   }
 
-  onChangeTypeIdentifiant(text) {
+  onChangeTypeIdentifiant(value) {
     this.setState({
       intervenant: {
         ...this.state.intervenant, intervenant: {
           ...this.state.intervenant.intervenant,
-          refTypeDocumentIdentite: text,
+          refTypeDocumentIdentite: { code: value.code, libelle: value.libelle }
         }
       }
     });
@@ -71,7 +71,7 @@ export default class ActifsRapportPersonneConcerneeModal extends React.Component
     let msg = [];
     let required = false;
 
-    if (_.isEmpty(this.state.intervenant?.intervenant.refTypeDocumentIdentite)) {
+    if (_.isEmpty(this.state.intervenant?.intervenant.refTypeDocumentIdentite.code)) {
       required = true;
       msg.push(translate('actifsCreation.embarcations.intervenants.msgerrors.typeIdentifiant'));
     }
@@ -129,10 +129,10 @@ export default class ActifsRapportPersonneConcerneeModal extends React.Component
                 height: 40, fontSize: 12, paddingBottom: 45
               }}
               label={translate('actifsCreation.embarcations.intervenants.typeIdentifiant')}
-              selectedValue={this.state.intervenant?.intervenant.refTypeDocumentIdentite}
+              selectedValue={this.state.intervenant?.intervenant.refTypeDocumentIdentite.code}
               items={LIST_TYPES_IDENTIFIANT}
               onValueChanged={(value, index) =>
-                (value?.code) ? this.onChangeTypeIdentifiant(value.code) : {}
+                (value?.code) ? this.onChangeTypeIdentifiant(value) : {}
               }
             />
 

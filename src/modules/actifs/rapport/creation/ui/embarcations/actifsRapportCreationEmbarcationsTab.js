@@ -1,13 +1,12 @@
 import React from 'react';
 import { ScrollView } from 'react-native';
 import { connect } from 'react-redux';
-import { load, save, saveStringified } from '../../../../../../commons/services/async-storage/ComStorageService';
+import { ComBadrInfoMessageComp } from '../../../../../../commons/component';
 import { DELETE_EMBARCATION_TASK, EDIT_EMBARCATION_TASK, RESET_EMBARCATION_TASK } from '../../../utils/actifsConstants';
 import { getNavigationMaritimeModelInitial } from '../../../utils/actifsUtils';
-import { ACTIFS_CONFIRMER_EMBARCATION_REQUEST, ACTIFS_DELETE_EMBARCATION_REQUEST, ACTIFS_EDITER_EMBARCATION_REQUEST, ACTIFS_INITIER_EMBARCATIONS_TAB_REQUEST, ACTIFS_RESET_EMBARCATION_REQUEST } from '../../state/actifsRapportCreationConstants';
+import { ACTIFS_CONFIRMER_EMBARCATION_REQUEST, ACTIFS_DELETE_EMBARCATION_REQUEST, ACTIFS_EDITER_EMBARCATION_REQUEST, ACTIFS_RESET_EMBARCATION_REQUEST } from '../../state/actifsRapportCreationConstants';
 import actifsRapportConfirmerEmbaracationAction from '../../state/actions/actifsRapportConfirmerEmbaracationAction';
 import actifsRapportEditerEmbaracationAction from '../../state/actions/actifsRapportEditerEmbaracationAction';
-import actifsRapportInitierEmbaracationsTabAction from '../../state/actions/actifsRapportInitierEmbaracationsTabAction';
 import actifsRapportResetEmbaracationAction from '../../state/actions/actifsRapportResetEmbaracationAction';
 import actifsRapportSupprimerEmbaracationAction from '../../state/actions/actifsRapportSupprimerEmbaracationAction';
 import ActifsRapportCreationEmbarcationsTableBlock from './actifsRapportCreationEmbarcationsTableBlock';
@@ -34,20 +33,6 @@ class ActifsRapportCreationEmbarcationsTab extends React.Component {
 
 
     componentDidMount() {
-        let navigations = (this.props.rows.navigationsMaritimes)? this.props.rows.navigationsMaritimes : [];
-        let rapportExiste = (this.props.rows) ? this.props.rows.rapportExiste : false;
-
-
-
-            let dataToAction = {
-                type: ACTIFS_INITIER_EMBARCATIONS_TAB_REQUEST,
-                value: {
-                    navigationsMaritimes: navigations,
-                    rapportExiste: rapportExiste
-                }
-            };
-
-            this.props.dispatch(actifsRapportInitierEmbaracationsTabAction.request(dataToAction));
 
 
     }
@@ -128,6 +113,9 @@ class ActifsRapportCreationEmbarcationsTab extends React.Component {
     render() {
         return (
             <ScrollView>
+                {this.props.successMessage != null && (
+                    <ComBadrInfoMessageComp message={this.props.successMessage} />
+                )}
                 {(this.props.navigationsMaritimes) && (<ActifsRapportCreationEmbarcationsTableBlock navigationsMaritimes={this.props.navigationsMaritimes} callbackHandler={this.callbackHandler} readOnly={this.props.rapportExiste}/>)}
                 {(this.props.navigationMaritimeModel) && (<ActifsRapportEmbarcationBlock navigationMaritimeModel={this.props.navigationMaritimeModel} index={this.props.index} push={this.ajouterNavigationMaritimeModel} callbackHandler={this.callbackHandler} readOnly={this.props.rapportExiste} />)}
             </ScrollView>

@@ -1,12 +1,12 @@
 import React from 'react';
 import { ScrollView } from 'react-native';
 import { connect } from 'react-redux';
-import { load } from '../../../../../../commons/services/async-storage/ComStorageService';
+import { ComBadrInfoMessageComp } from '../../../../../../commons/component';
+import { EDIT_AVION_PRIVEE_TASK } from '../../../utils/actifsConstants';
 import { getNavigationAerienneModelInitial } from '../../../utils/actifsUtils';
-import { ACTIFS_CONFIRMER_AVION_PRIVEE_REQUEST, ACTIFS_INITIER_AVIONS_PRIVEES_TAB_REQUEST } from '../../state/actifsRapportCreationConstants';
+import { ACTIFS_CONFIRMER_AVION_PRIVEE_REQUEST, ACTIFS_DELETE_AVION_PRIVEE_REQUEST, ACTIFS_EDITER_AVION_PRIVEE_REQUEST, ACTIFS_RESET_AVION_PRIVEE_REQUEST } from '../../state/actifsRapportCreationConstants';
 import actifsRapportConfirmerAvionPriveeAction from '../../state/actions/actifsRapportConfirmerAvionPriveeAction';
 import actifsRapportEditerAvionPriveeAction from '../../state/actions/actifsRapportEditerAvionPriveeAction';
-import actifsRapportInitierAvionsPriveesTabAction from '../../state/actions/actifsRapportInitierAvionsPriveesTabAction';
 import actifsRapportResetAvionPriveeAction from '../../state/actions/actifsRapportResetAvionPriveeAction';
 import actifsRapportSupprimerAvionPriveeAction from '../../state/actions/actifsRapportSupprimerAvionPriveeAction';
 import ActifsRapportAvionPriveeBlock from './actifsRapportAvionPriveeBlock';
@@ -33,20 +33,6 @@ class ActifsRapportCreationAvionsPriveesTab extends React.Component {
 
 
     componentDidMount() {
-        let navigations = (this.props.rows.navigationsAeriennes) ? this.props.rows.navigationsAeriennes : [];
-        let rapportExiste = (this.props.rows) ? this.props.rows.rapportExiste : false;
-
-
-
-            let dataToAction = {
-                type: ACTIFS_INITIER_AVIONS_PRIVEES_TAB_REQUEST,
-                value: {
-                    navigationsAeriennes: navigations,
-                    rapportExiste: rapportExiste
-                }
-            };
-
-            this.props.dispatch(actifsRapportInitierAvionsPriveesTabAction.request(dataToAction));
 
 
     }
@@ -127,6 +113,9 @@ class ActifsRapportCreationAvionsPriveesTab extends React.Component {
     render() {
         return (
             <ScrollView>
+                {this.props.successMessage != null && (
+                    <ComBadrInfoMessageComp message={this.props.successMessage} />
+                )}
                 {(this.props.navigationsAeriennes) && (<ActifsRapportCreationAvionsPriveesTableBlock navigationsAeriennes={this.props.navigationsAeriennes} callbackHandler={this.callbackHandler} readOnly={this.props.rapportExiste}/>)}
                 {(this.props.navigationAerienneModel) && (<ActifsRapportAvionPriveeBlock navigationAerienneModel={this.props.navigationAerienneModel} index={this.props.index} push={this.ajouterNavigationAerienneModel} callbackHandler={this.callbackHandler} readOnly={this.props.rapportExiste} />)}
             </ScrollView>

@@ -10,6 +10,7 @@ import { formatCustomized } from '../../../utils/actifsUtils';
 import ActifsRapportNavigationAerienneBlock from './actifsRapportNavigationAerienneBlock';
 import ActifsRapportProprietairesPersonnesConcerneesBlock from './actifsRapportProprietairesPersonnesConcerneesBlock';
 import ActifsRapportResultatControleBlock from './actifsRapportResultatControleBlock';
+import ActifsRapportCaracteristiquesAvionBlock from './actifsRapportCaracteristiquesAvionBlock';
 
 
 

@@ -32,12 +32,12 @@ export default class ActifsRapportPropritaireModal extends React.Component {
     };
   }
 
-  onChangeTypeIdentifiant(text) {
+  onChangeTypeIdentifiant(value) {
     this.setState({
       proprietaire: {
         ...this.state.proprietaire, intervenant: {
           ...this.state.proprietaire.intervenant,
-          refTypeDocumentIdentite: text,
+          refTypeDocumentIdentite: { code: value.code, libelle: value.libelle }
         }
       }
     });
@@ -72,7 +72,7 @@ export default class ActifsRapportPropritaireModal extends React.Component {
     let msg = [];
     let required = false;
     if (this.state.typeProprietaire == '01') {
-      if (_.isEmpty(this.state.proprietaire?.intervenant.refTypeDocumentIdentite)) {
+      if (_.isEmpty(this.state.proprietaire?.intervenant.refTypeDocumentIdentite.code)) {
         required = true;
         msg.push(translate('actifsCreation.embarcations.proprietaires.msgerrors.typeIdentifiant'));
       }
@@ -149,10 +149,10 @@ export default class ActifsRapportPropritaireModal extends React.Component {
                 height: 40, fontSize: 12, paddingBottom: 45
               }}
               label={translate('actifsCreation.embarcations.proprietaires.typeIdentifiant')}
-              selectedValue={this.state.proprietaire?.intervenant.refTypeDocumentIdentite}
+              selectedValue={this.state.proprietaire?.intervenant.refTypeDocumentIdentite.code}
               items={LIST_TYPES_IDENTIFIANT}
               onValueChanged={(value, index) =>
-                (value?.code) ? this.onChangeTypeIdentifiant(value.code) : {}
+                (value?.code) ? this.onChangeTypeIdentifiant(value) : {}
               }
             />
 

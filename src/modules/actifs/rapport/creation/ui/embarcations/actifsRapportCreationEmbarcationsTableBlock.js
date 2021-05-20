@@ -38,12 +38,12 @@ class ActifsRapportCreationEmbarcationsTableBlock extends React.Component {
                 }
             },
             {
-                code: 'provenance.libelle',
+                code: 'provenance.nomPays',
                 libelle: translate('actifsCreation.embarcations.provenance'),
                 width: 100,
             },
             {
-                code: 'destination.libelle',
+                code: 'destination.nomPays',
                 libelle: translate('actifsCreation.embarcations.destination'),
                 width: 100,
             },
@@ -114,12 +114,12 @@ class ActifsRapportCreationEmbarcationsTableBlock extends React.Component {
                 }
             },
             {
-                code: 'provenance.libelle',
+                code: 'provenance.nomPays',
                 libelle: translate('actifsCreation.embarcations.provenance'),
                 width: 100
             },
             {
-                code: 'destination.libelle',
+                code: 'destination.nomPays',
                 libelle: translate('actifsCreation.embarcations.destination'),
                 width: 100
             },

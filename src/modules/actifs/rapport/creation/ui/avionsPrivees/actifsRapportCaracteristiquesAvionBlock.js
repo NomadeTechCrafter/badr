@@ -21,9 +21,7 @@ class ActifsRapportCaracteristiquesAvionBlock extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            navigationAerienneModel: this.props.navigationAerienneModel ? this.props.navigationAerienneModel : getNavigationAerienneModelInitial(),
-            acDelivreePar: this.props.navigationAerienneModel ? this.props.navigationAerienneModel.delivreePar.libelle : '',
-            acDestination: this.props.navigationAerienneModel ? this.props.navigationAerienneModel.destination.libelle : '',
+            navigationAerienneModel: this.props.navigationAerienneModel ? this.props.navigationAerienneModel : getNavigationAerienneModelInitial()
             
         };
 
@@ -76,19 +74,7 @@ class ActifsRapportCaracteristiquesAvionBlock extends React.Component {
    
     
 
-    handleDelivreeParChanged = (agent) => {
-        console.log(agent);
-        this.setState({
-            acDelivreePar: agent.libelle, navigationAerienneModel: {
-                ...this.state.navigationAerienneModel,
-                delivreePar: agent
-            }
-        });
-        this.state.navigationAerienneModel.delivreePar = agent;
-        this.props.update(this.state.navigationAerienneModel);
-
-
-    }
+   
 
 
 

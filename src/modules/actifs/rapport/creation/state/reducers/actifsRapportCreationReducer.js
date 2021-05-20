@@ -15,10 +15,12 @@ export default (state = initialState, action) => {
   };
   console.log("actifsRapportCreationReducer action.type : " + action.type);
   console.log("actifsRapportCreationReducer action.value : " + action.value)
+  
   switch (action.type) {
     case Constants.ACTIFS_ENTETE_REQUEST:
       nextState.showProgress = true;
       nextState.errorMessage = null;
+      nextState.successMessage = null;
       console.log('--> ACTIFS_ENTETE request...');
       return nextState;
     case Constants.ACTIFS_ENTETE_IN_PROGRESS:
@@ -29,11 +31,63 @@ export default (state = initialState, action) => {
       nextState.showProgress = false;
       nextState.errorMessage = null;
       nextState.rows = action.value;
+      nextState.rows.dateDebut = nextState.rows.dateDebut.substring(0, 10);
+      nextState.rows.dateFin = nextState.rows.dateFin.substring(0, 10);
       nextState.consultation = action.value.rapportExiste;
+      nextState.navigationsAeriennes = [];
+      nextState.navigationAerienneModel = getNavigationAerienneModelInitial();
+      nextState.rapportExiste = action.value.rapportExiste;
+      nextState.navigationsMaritimes = [];
+      nextState.navigationMaritimeModel = getNavigationMaritimeModelInitial();
+      nextState.index = -1;
+      nextState.successMessage = null;
+      nextState.rapportServiceId = null;
+      nextState.vehiculesSaisiVO = [];
+      nextState.marchandisesVO = [];
+      nextState.pvsSaisi = [];
+      return nextState;
+    case Constants.ACTIFS_ENTETE_FAILED:
+      console.log('--> ACTIFS_ENTETE failed...');
+      nextState.showProgress = false;
+      nextState.errorMessage = action.value.dtoHeader
+        ? action.value.dtoHeader.messagesErreur
+        : action.value;
+      return nextState;
+    case Constants.ACTIFS_CONSULTATION_REQUEST:
+      nextState.showProgress = true;
+      nextState.errorMessage = null;
+      nextState.successMessage = null;
+      console.log('--> ACTIFS_CONSULTATION request...');
+      return nextState;
+    case Constants.ACTIFS_CONSULTATION_IN_PROGRESS:
+      console.log('--> ACTIFS_CONSULTATION_in progress...');
+      return nextState;
+    case Constants.ACTIFS_CONSULTATION_SUCCESS:
+      console.log('--> ACTIFS_CONSULTATION success...', nextState);
+      nextState.showProgress = false;
+      nextState.errorMessage = null;
+      nextState.rows = action.value.rapportService.ordreService;
+      nextState.rows.dateDebut = nextState.rows.dateDebut.substring(0, 10);
+      nextState.rows.dateFin = nextState.rows.dateFin.substring(0, 10);
+      nextState.consultation = nextState.rows.rapportExiste;
+      nextState.navigationsAeriennes = (action.value.navigationsAeriennes) ? (action.value.navigationsAeriennes) : [];
+      nextState.navigationsMaritimes = (action.value.navigationsMaritimes) ? (action.value.navigationsMaritimes):[];
+      nextState.navigationMaritimeModel = getNavigationMaritimeModelInitial();
+      nextState.navigationAerienneModel = getNavigationAerienneModelInitial();
+      nextState.rapportExiste = nextState.rows.rapportExiste;
+      nextState.rapportServiceId = action.value.rapportService.id;
+      nextState.index = -1;
+      nextState.successMessage = null;
+      nextState.vehiculesSaisiVO = action.value.vehiculesSaisiVO;
+      nextState.marchandisesVO = action.value.marchandisesVO;
+      nextState.pvsSaisi = action.value.pvsSaisi;
+      nextState.autreIncidents = action.value.autreIncidents;
+      nextState.description = action.value.description;
+      
+      console.log('typesIncidents---------------------------------------------------------- action.value.typesIncidents : ', action.value.typesIncident);
       let typesIncidents = '';
-      console.log('typesIncidents----------------------------------------------------------this.props.row : ', action.value);
-      if (action.value && action.value?.typesIncidentSelect) {
-        let typesIncidentSelect = action.value?.typesIncidentSelect;
+      if (action.value && action.value.typesIncident) {
+        let typesIncidentSelect = action.value.typesIncident;
         for (
           var i = 0;
           i < typesIncidentSelect.length;
@@ -50,8 +104,8 @@ export default (state = initialState, action) => {
       }
       nextState.typesIncidents = typesIncidents;
       return nextState;
-    case Constants.ACTIFS_ENTETE_FAILED:
-      console.log('--> ACTIFS_ENTETE failed...');
+    case Constants.ACTIFS_CONSULTATION_FAILED:
+      console.log('--> ACTIFS_CONSULTATION failed...');
       nextState.showProgress = false;
       nextState.errorMessage = action.value.dtoHeader
         ? action.value.dtoHeader.messagesErreur
@@ -96,6 +150,9 @@ export default (state = initialState, action) => {
       console.log('--> ACTIFS_CREATION success...', nextState);
       nextState.showProgress = false;
       nextState.errorMessage = null;
+      nextState.successMessage = action.value.dtoHeader
+        ? action.value.dtoHeader.messagesInfo : action.value;
+      nextState.consultation = true;
       return nextState;
     case Constants.ACTIFS_CREATION_FAILED:
       console.log('--> ACTIFS_CREATION failed...');
@@ -135,24 +192,6 @@ export default (state = initialState, action) => {
       return nextState;
     case Constants.ACTIF_CONFIRMER_EMBARCATION_FAILED:
       console.log('ACTIF_CONFIRMER_EMBARCATION_FAILED');
-      return nextState;
-    case Constants.ACTIFS_INITIER_EMBARCATIONS_TAB_REQUEST:
-      console.log('--> ACTIFS_INITIER_EMBARCATIONS_TAB_REQUEST...');
-      return nextState;
-    case Constants.ACTIFS_INITIER_EMBARCATIONS_TAB_PROGRESS:
-      console.log('ACTIFS_INITIER_EMBARCATIONS_TAB_PROGRESS');
-      return nextState;
-    case Constants.ACTIFS_INITIER_EMBARCATIONS_TAB_SUCCESS:
-      console.log('ACTIFS_INITIER_EMBARCATIONS_TAB_SUCCESS', nextState);
-      console.log('ACTIFS_INITIER_EMBARCATIONS_TAB_SUCCESS', action.value);
-      nextState.navigationsMaritimes = action.value.navigationsMaritimes;
-      nextState.navigationMaritimeModel = getNavigationMaritimeModelInitial();
-      nextState.rapportExiste = action.value.rapportExiste;
-      nextState.index = -1;
-
-      return nextState;
-    case Constants.ACTIF_INITIER_EMBARCATIONS_TAB_FAILED:
-      console.log('ACTIF_INITIER_EMBARCATIONS_TAB_FAILED');
       return nextState;
     case Constants.ACTIFS_EDITER_EMBARCATION_REQUEST:
       console.log('ACTIFS_EDITER_EMBARCATION_REQUEST');
@@ -238,24 +277,6 @@ export default (state = initialState, action) => {
       return nextState;
     case Constants.ACTIF_CONFIRMER_AVION_PRIVEE_FAILED:
       console.log('ACTIF_CONFIRMER_AVION_PRIVEE_FAILED');
-      return nextState;
-    case Constants.ACTIFS_INITIER_AVIONS_PRIVEES_TAB_REQUEST:
-      console.log('--> ACTIFS_INITIER_AVIONS_PRIVEES_TAB_REQUEST...');
-      return nextState;
-    case Constants.ACTIFS_INITIER_AVIONS_PRIVEES_TAB_IN_PROGRESS:
-      console.log('ACTIFS_INITIER_AVIONS_PRIVEES_TAB_IN_PROGRESS');
-      return nextState;
-    case Constants.ACTIFS_INITIER_AVIONS_PRIVEES_TAB_SUCCESS:
-      console.log('ACTIFS_INITIER_AVIONS_PRIVEES_TAB_SUCCESS', nextState);
-      console.log('ACTIFS_INITIER_AVIONS_PRIVEES_TAB_SUCCESS', action.value);
-      nextState.navigationsAeriennes = action.value.navigationsAeriennes;
-      nextState.navigationAerienneModel = getNavigationAerienneModelInitial();
-      nextState.rapportExiste = action.value.rapportExiste;
-      nextState.index = -1;
-
-      return nextState;
-    case Constants.ACTIF_INITIER_AVIONS_PRIVEES_TAB_FAILED:
-      console.log('ACTIF_INITIER_AVIONS_PRIVEES_TAB_FAILED');
       return nextState;
     case Constants.ACTIFS_EDITER_AVION_PRIVEE_REQUEST:
       console.log('ACTIFS_EDITER_AVION_PRIVEE_REQUEST');

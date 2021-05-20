@@ -18,7 +18,6 @@ import {
 } from '../../../../../../commons/component';
 /**i18n */
 import { translate } from '../../../../../../commons/i18n/ComI18nHelper';
-import { save } from '../../../../../../commons/services/async-storage/ComStorageService';
 import {
   CustomStyleSheet,
   primaryColor
@@ -55,9 +54,6 @@ class ActifsRapportCreationEnteteTab extends Component {
   }
 
   componentDidMount() {
-    console.log('--------------------------------------------------ActifsRapportCreationEnteteTab---------------------------------------------------------start');
-   // this.Enregister();
-    console.log('--------------------------------------------------ActifsRapportCreationEnteteTab---------------------------------------------------------fin');
   }
 
   Enregister = () => {
@@ -77,8 +73,6 @@ class ActifsRapportCreationEnteteTab extends Component {
   };
 
   render_validations = (item, libelle) => {
-    console.log('item______', item);
-    console.log('libelle______', libelle);
     if (_.property(item)) {
       if (libelle === 'Agent') {
         return <Text> {item.nom}</Text>;
@@ -111,20 +105,19 @@ class ActifsRapportCreationEnteteTab extends Component {
 
   onChange = (event, selectedDate) => {
 
-    console.log('selectedDate --------------onChangeDate------------------------------------', selectedDate);
     if (this.state.mode == 'date') {
       this.setState({
         dateFin: moment(selectedDate).format("DD/MM/YYYY").toString(),
         show: false,
       });
-      this.props.update({ heureFin: this.state.heureFin, dateFin: moment(selectedDate).format("DD/MM/YYYY").toString() + ' ' + this.state.heureFin });
+      this.props.update({ heureFin: this.state.heureFin, dateFin: moment(selectedDate).format("DD/MM/YYYY").toString() });
       this.state.dateFin = moment(selectedDate).format("DD/MM/YYYY").toString() ;
     } else {
       this.setState({
         heureFin: moment(selectedDate).format("HH:mm").toString(),
         show: false,
       });
-      this.props.update({ heureFin: moment(selectedDate).format("HH:mm").toString(), dateFin: this.state.dateFin + ' ' + moment(selectedDate).format("HH:mm").toString() });
+      this.props.update({ heureFin: moment(selectedDate).format("HH:mm").toString(), dateFin: this.state.dateFin });
     }
     this.checkDatesDebutFinInformations();
   };
@@ -139,13 +132,9 @@ class ActifsRapportCreationEnteteTab extends Component {
     moment.suppressDeprecationWarnings = true;
     let dateHeureDebut = moment(dateDebut, FORMAT_DDMMYYYY_HHMM);
 
-    console.log('dateHeureEntree : ',dateHeureDebut);
-    
-    console.log('this.state.dateFin : ', this.state.dateFin);
     let dateHeureFin = moment(this.state.dateFin + ' ' + this.state.heureFin, FORMAT_DDMMYYYY_HHMM);
     console.log(dateHeureFin, '   ', _.isNil(dateHeureFin), '   ', typeof dateHeureFin);
     if (dateHeureFin===null) {
-      console.log("test : ",dateHeureFin);
       let message = translate('actifsCreation.entete.errors.dateFinRequired');
       this.setState({
         errorMessage: message
@@ -211,11 +200,8 @@ class ActifsRapportCreationEnteteTab extends Component {
     let datatable = [];
    
     
-    console.log('this.props : yassine               ActifsRapportCreationEnteteTab                                              09/05/2021 ', this.props);
    
     datatable.push(this.props.rows);
-    //console.log("_______v___agentBrigade_____________",JSON.stringify(this.props.row.agentsBrigade))
-    console.log('rows props _______', datatable);
     return (
       <View style={CustomStyleSheet.fullContainer}>
         <ComContainerComp>
@@ -241,9 +227,7 @@ class ActifsRapportCreationEnteteTab extends Component {
                     {translate('actifsCreation.entete.enteteTitleLeft')}
                     {this.props.consultation && (
                       <ComBadrLibelleComp withColor={true}>
-                        {moment(this.props.rows?.journeeDu).format(
-                          'DD/MM/YYYY hh:mm',
-                        )}
+                        {this.props.rows?.journeeDu}
                       </ComBadrLibelleComp>
                     )}
                   </ComBadrLibelleComp>
@@ -511,10 +495,7 @@ class ActifsRapportCreationEnteteTab extends Component {
                             </DataTable.Title>
                           ))}
                         </DataTable.Header>
-                        {console.log(
-                          'row__________________',
-                          this.props.rows?.agentsBrigade,
-                        )}
+                        
                         {this.props.rows?.agentsBrigade && this.props.rows?.agentsBrigade.length > 0
                           ? (this.state.paginate
                             ? _(this.props.rows?.agentsBrigade)

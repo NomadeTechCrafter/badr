@@ -87,17 +87,9 @@ class ActifsRapportEmbarcationBlock extends React.Component {
 
         moment.suppressDeprecationWarnings = true;
         let dateHeureEntree = moment(dateEntree + ' ' + modele.heureEntree, FORMAT_DDMMYYYY_HHMM);
-        console.log(dateEntree);
-        console.log(modele.heureEntree);
-        console.log(dateEntree + ' ' + modele.heureEntree);
-        console.log(dateHeureEntree);
         let dateDepart = formatCustomized(modele.dateDepart, FORMAT_DDMMYYYY);
 
         let dateHeureDepart = moment(dateDepart + ' ' + modele.heureDepart, FORMAT_DDMMYYYY_HHMM);
-        console.log(dateDepart);
-        console.log(modele.heureDepart);
-        console.log(dateDepart + ' ' + modele.heureDepart);
-        console.log(dateHeureDepart);
 
         if (dateHeureDepart < dateHeureEntree) {
             let message = translate('actifsCreation.embarcations.navigMaritime.msgErrorOrdreDateEntreeDepart');
@@ -122,17 +114,9 @@ class ActifsRapportEmbarcationBlock extends React.Component {
 
         moment.suppressDeprecationWarnings = true;
         let dateHeureDebutControle = moment(dateDebutControle + ' ' + modele.heureDebutControle, FORMAT_DDMMYYYY_HHMM);
-        console.log(dateDebutControle);
-        console.log(modele.heureDebutControle);
-        console.log(dateDebutControle + ' ' + modele.heureDebutControle);
-        console.log(dateHeureDebutControle);
         let dateFinControle = formatCustomized(modele.dateFinControle, FORMAT_DDMMYYYY);
 
         let dateHeureFinControle = moment(dateFinControle + ' ' + modele.heureFinControle, FORMAT_DDMMYYYY_HHMM);
-        console.log(dateFinControle);
-        console.log(modele.heureFinControle);
-        console.log(dateFinControle + ' ' + modele.heureFinControle);
-        console.log(dateHeureFinControle);
 
         if (dateHeureFinControle < dateHeureDebutControle) {
             let message = translate('actifsCreation.embarcations.resultatCtrl.msgErrorOrdreDateDebutFinControle');
@@ -167,7 +151,7 @@ class ActifsRapportEmbarcationBlock extends React.Component {
             params.msg += !_.isEmpty(params.msg) ? ", " : "";
             params.msg += translate('actifsCreation.embarcations.navigMaritime.portEntree');
         }
-        if (_.isEmpty(modele.provenance?.code)) {
+        if (_.isEmpty(modele.provenance?.codePays)) {
             params.required = true;
             params.msg += !_.isEmpty(params.msg) ? ", " : "";
             params.msg += translate('actifsCreation.embarcations.navigMaritime.provenance');
@@ -191,7 +175,7 @@ class ActifsRapportEmbarcationBlock extends React.Component {
             params.required = true;
             params.msg += translate('actifsCreation.embarcations.navigMaritime.dateDepart');
         }
-        if (_.isEmpty(modele.destination?.code)) {
+        if (_.isEmpty(modele.destination?.codePays)) {
             params.required = true;
             params.msg += !_.isEmpty(params.msg) ? ", " : "";
             params.msg += translate('actifsCreation.embarcations.navigMaritime.destination');
@@ -247,7 +231,9 @@ class ActifsRapportEmbarcationBlock extends React.Component {
             params.msg += !_.isEmpty(params.msg) ? ", " : "";
             params.msg += translate('actifsCreation.embarcations.caracteristiques.numDeclaration');
         }
-        if (_.isEmpty(modele.delivreePar?.code)) {
+        console.log('modele.delivreePar?.nom', modele.delivreePar?.idActeur);
+        console.log('modele.delivreePar?.nom ', modele.delivreePar?.nom);
+        if (_.isEmpty(modele.delivreePar?.nom)) {
             params.required = true;
             params.msg += !_.isEmpty(params.msg) ? ", " : "";
             params.msg += translate('actifsCreation.embarcations.caracteristiques.delivreePar');

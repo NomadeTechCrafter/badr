@@ -91,6 +91,15 @@ class ActifsRapportRechercheScreen extends Component {
         row: row,
       });
     }
+    this.setState ({
+      date: new Date(),
+      mode: '',
+      show: false,
+      paginate: true,
+      code1: ComSessionService.getInstance().getUserObject() ? ComSessionService.getInstance().getUserObject().codeUOR : '',
+      data: 'jj/mm/aaaa', //moment(this.state.date).format("MM/DD/YYYY")
+    });
+
   };
 
   componentDidMount() { }

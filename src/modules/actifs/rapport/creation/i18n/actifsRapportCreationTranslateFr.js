@@ -71,6 +71,7 @@ export default {
       },
     },
     "avionsPrivees": {
+      "title": "Avions privés",
       "typeAvion": "Type d'avion",
       "nomAvion": "Nom d'avion",
       "immatriculation": "Immatriculation",
@@ -85,7 +86,7 @@ export default {
         "dateAtterissage": "Date d'atterissage",
         "heureAtterissage": "Heure d'atterissage",
         "motifAtterissage": "Motif d'atterissage",
-        "aeroportEntree": "Arroport d'entrée",
+        "aeroportEntree": "Aéroport d'entrée",
         "portEntree": "Port d'entrée",
         "provenance": "Provenance",
         "villeProvenance": "Ville provenance",

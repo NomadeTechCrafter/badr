@@ -31,24 +31,20 @@ const screenHeight = Dimensions.get('window').height;
 class AtifsRapportCreationDetailsTab extends Component {
   constructor(props) {
     super(props);
-    //console.log('props entete')
-    //console.log(props)
     this.state = {
       command: null,
       selectedvalue: '',
       natureIncident:null,
       show: false,
     };
-    console.log('consultation_________details', this.props.consultation);
   }
 
   componentDidMount() { }
 
   handleOnIncidentItemsChanged = (items) => {
-    this.setState({ selectedItems: items }, console.log('handleOnIncidentItemsChanged items',items));
+    this.setState({ selectedItems: items });
   };
   handleOnConfirmIncidentType = (items) => {
-    console.log('handleOnConfirmIncidentType items', items);
     this.setState({ typeIncident: items }, () => this.updateModele());
   };
 
@@ -62,24 +58,6 @@ class AtifsRapportCreationDetailsTab extends Component {
   }
   render() {
 
-    let typesIncidents = '';
-    console.log('typesIncidents----------------------------------------------------------this.props.row : ', this.props.rows);
-    if (this.props.rows && this.props.rows?.typesIncidentSelect) {
-      let typesIncidentSelect = this.props.rows?.typesIncidentSelect;
-      for (
-        var i = 0;
-        i < typesIncidentSelect.length;
-        i++
-      ) {
-        if (i < typesIncidentSelect.length - 1) {
-          typesIncidents +=
-            typesIncidentSelect[i].libelle + "\n";
-        } else {
-          typesIncidents +=
-            typesIncidentSelect[i].libelle;
-        }
-      }
-    }
     return (
       <View style={CustomStyleSheet.fullContainer}>
         <ComContainerComp>
@@ -311,7 +289,7 @@ class AtifsRapportCreationDetailsTab extends Component {
                       }
                       }
                       disabled={true}
-                      value={this.props.rows?.autreIncidents}
+                      value={this.props.autreIncidents}
                       multiline={true}
                       numberOfLines={4}
 
@@ -531,7 +509,7 @@ class AtifsRapportCreationDetailsTab extends Component {
                       }
                       }
                       disabled={true}
-                      value={this.props.rows?.description}
+                      value={this.props.description}
                       multiline={true}
                       numberOfLines={4}
 
