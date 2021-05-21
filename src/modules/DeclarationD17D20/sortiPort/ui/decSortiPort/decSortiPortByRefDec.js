@@ -65,7 +65,7 @@ class SortiPort extends React.Component {
         <SortiPortRechercheTryptique
           successRedirection="SortiPortListeDeclaration"
           module="DED_LIB"
-          commande="ded.vuEmbRechercheDeclarationTrypByRef"
+          commande="ded.sortiPortRechercheDeclarationTrypByRef"
           typeService="UC"
           navigation={this.props.navigation}
           routeParams={this.props.route.params}

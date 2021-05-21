@@ -3,7 +3,7 @@
         "userLogin": "AD6203",
         "fonctionnalite": "cf90023",
         "module": "DED_LIB",
-        "commande": "ded.getDecTryptiqueParMatVehicule",
+        "commande": "ded.getDecSortiPortParMatVehicule",
         "typeService": "SP",
         "offset": 0,
         "pageSize": 0,

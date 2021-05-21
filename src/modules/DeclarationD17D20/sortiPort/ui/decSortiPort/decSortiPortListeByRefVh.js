@@ -94,7 +94,7 @@ class SortiPortListeByRefVh extends React.Component {
       {
         type: Constants.RECHERCHE_D17_DUM_REQUEST,
         value: {
-          login: 'AD6025',
+          login: ComSessionService.getInstance().getLogin(),
           commande: 'ded.vuEmbRechercheDeclarationTrypByRef',
           module: 'DED_LIB',
           typeService: 'UC',
@@ -122,7 +122,7 @@ class SortiPortListeByRefVh extends React.Component {
         type: Constants.VU_EMB_RECH_BY_REF_VH_REQUEST,
         value: {
           login: ComSessionService.getInstance().getLogin(),
-          commande: 'ded.getDecTryptiqueParMatVehicule',
+          commande: 'ded.getDecSortiPortParMatVehicule',
           module: 'DED_LIB',
           typeService: 'SP',
           data: data,

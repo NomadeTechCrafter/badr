@@ -67,7 +67,7 @@ const localStore = {
   /* T6bisInitForUpdate: require('../../../../modules/t6bis/recherche/service/local-data/t6bisInitForUpdateDataError.json'), */
   findEciRechBls: require('../../../../modules/ecorImport/eciConsultationBLS/service/local-data/eciFindEciRechBls.json'),
   initApposerScelles: require('../../../../modules/ecorImport/appositionScelles/recherche/service/local-data/eciInitAppositionScellesData.json'),
-  'ded.getDecTryptiqueParMatVehicule': require('../../../../modules/DeclarationD17D20/sortiPort/service/local-data/ded.getDecTryptiqueParMatVehicule.json'),
+  'ded.getDecSortiPortParMatVehicule': require('../../../../modules/DeclarationD17D20/sortiPort/service/local-data/ded.getDecSortiPortParMatVehicule.json'),
   'ded.vuEmbRechercheDeclarationTrypByRef': require('../../../../modules/DeclarationD17D20/sortiPort/service/local-data/ded.vuEmbRechercheDeclarationTrypByRef.json'),
    
 
