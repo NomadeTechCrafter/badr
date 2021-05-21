@@ -1,0 +1,401 @@
+{
+    "dtoHeader": {
+        "userLogin": "AD6203",
+        "fonctionnalite": "cf90023",
+        "module": "DED_LIB",
+        "commande": "ded.getDecSortiPortParMatVehicule",
+        "typeService": "SP",
+        "offset": 0,
+        "pageSize": 0,
+        "rowCount": 0
+    },
+    "jsonVO": [
+        {
+            "dedo_var_id": "1108",
+            "dedo_num_enreg": "30990020190000034",
+            "numeroVersion": "0",
+            "nomOperateurDeclarant": "OP DECLARANT T12",
+            "versionId": "1217",
+            "matriculeVehicule": "MAT123456",
+            "idPourRecherche": "1108"
+        },
+        {
+            "dedo_var_id": "1219",
+            "dedo_num_enreg": "30990020190000050",
+            "numeroVersion": "0",
+            "nomOperateurDeclarant": "OP DECLARANT T12",
+            "versionId": "1339",
+            "matriculeVehicule": "MAT123456",
+            "idPourRecherche": "1219"
+        },
+        {
+            "dedo_var_id": "1902",
+            "dedo_num_enreg": "30900920200000136",
+            "numeroVersion": "0",
+            "nomOperateurDeclarant": "BABYTEX TEST",
+            "versionId": "2050",
+            "matriculeVehicule": "MAT123456",
+            "idPourRecherche": "1902"
+        },
+        {
+            "dedo_var_id": "1858",
+            "dedo_num_enreg": "30990020200000115",
+            "numeroVersion": "0",
+            "nomOperateurDeclarant": "BABYTEX TEST",
+            "versionId": "2075",
+            "matriculeVehicule": "MAT123456",
+            "idPourRecherche": "1858"
+        },
+        {
+            "dedo_var_id": "1862",
+            "dedo_num_enreg": "30900920200000123",
+            "numeroVersion": "0",
+            "nomOperateurDeclarant": "BABYTEX TEST",
+            "versionId": "2028",
+            "matriculeVehicule": "MAT123456",
+            "idPourRecherche": "1862"
+        },
+        {
+            "dedo_var_id": "1244",
+            "dedo_num_enreg": "30900920190000078",
+            "numeroVersion": "0",
+            "nomOperateurDeclarant": "OP DECLARANT T12",
+            "versionId": "1364",
+            "matriculeVehicule": "MAT123456",
+            "idPourRecherche": "1244"
+        },
+        {
+            "dedo_var_id": "1287",
+            "dedo_num_enreg": "30900920190000083",
+            "numeroVersion": "0",
+            "nomOperateurDeclarant": "OP TRANSITAIRE VSR 1",
+            "versionId": "1407",
+            "matriculeVehicule": "MAT123456",
+            "idPourRecherche": "1287"
+        },
+        {
+            "dedo_var_id": "1736",
+            "dedo_num_enreg": "30900920200000092",
+            "numeroVersion": "0",
+            "nomOperateurDeclarant": "BABYTEX TEST",
+            "versionId": "1875",
+            "matriculeVehicule": "MAT123456",
+            "idPourRecherche": "1736"
+        },
+        {
+            "dedo_var_id": "1581",
+            "dedo_num_enreg": "30900920200000063",
+            "numeroVersion": "0",
+            "nomOperateurDeclarant": "BABYTEX TEST",
+            "versionId": "1713",
+            "matriculeVehicule": "MAT123456",
+            "idPourRecherche": "1581"
+        },
+        {
+            "dedo_var_id": "1953",
+            "dedo_num_enreg": "30900920210000015",
+            "numeroVersion": "0",
+            "nomOperateurDeclarant": "BABYTEX TEST",
+            "versionId": "2103",
+            "matriculeVehicule": "MAT123456",
+            "idPourRecherche": "1953"
+        },
+        {
+            "dedo_var_id": "1754",
+            "dedo_num_enreg": "30990020200000097",
+            "numeroVersion": "0",
+            "nomOperateurDeclarant": "BABYTEX TEST",
+            "versionId": "1893",
+            "matriculeVehicule": "MAT123456",
+            "idPourRecherche": "1754"
+        },
+        {
+            "dedo_var_id": "1213",
+            "dedo_num_enreg": "30990020190000048",
+            "numeroVersion": "0",
+            "nomOperateurDeclarant": "OP DECLARANT T12",
+            "versionId": "1333",
+            "matriculeVehicule": "MAT123456",
+            "idPourRecherche": "1213"
+        },
+        {
+            "dedo_var_id": "1132",
+            "dedo_num_enreg": "30900920190000044",
+            "numeroVersion": "0",
+            "nomOperateurDeclarant": "OP DECLARANT T12",
+            "versionId": "1241",
+            "matriculeVehicule": "MAT123456",
+            "idPourRecherche": "1132"
+        },
+        {
+            "dedo_var_id": "1207",
+            "dedo_num_enreg": "30900920190000074",
+            "numeroVersion": "0",
+            "nomOperateurDeclarant": "OP DECLARANT T12",
+            "versionId": "1327",
+            "matriculeVehicule": "MAT123456",
+            "idPourRecherche": "1207"
+        },
+        {
+            "dedo_var_id": "1232",
+            "dedo_num_enreg": "30990020190000053",
+            "numeroVersion": "0",
+            "nomOperateurDeclarant": "OP DECLARANT T12",
+            "versionId": "1352",
+            "matriculeVehicule": "MAT123456",
+            "idPourRecherche": "1232"
+        },
+        {
+            "dedo_var_id": "1901",
+            "dedo_num_enreg": "30900920200000135",
+            "numeroVersion": "0",
+            "nomOperateurDeclarant": "BABYTEX TEST",
+            "versionId": "2049",
+            "matriculeVehicule": "MAT123456",
+            "idPourRecherche": "1901"
+        },
+        {
+            "dedo_var_id": "1903",
+            "dedo_num_enreg": "30900920200000137",
+            "numeroVersion": "0",
+            "nomOperateurDeclarant": "BABYTEX TEST",
+            "versionId": "2051",
+            "matriculeVehicule": "MAT123456",
+            "idPourRecherche": "1903"
+        },
+        {
+            "dedo_var_id": "1289",
+            "dedo_num_enreg": "30900920190000084",
+            "numeroVersion": "0",
+            "nomOperateurDeclarant": "OP DECLARANT T12",
+            "versionId": "1409",
+            "matriculeVehicule": "MAT123456",
+            "idPourRecherche": "1289"
+        },
+        {
+            "dedo_var_id": "1296",
+            "dedo_num_enreg": "30900920190000088",
+            "numeroVersion": "0",
+            "nomOperateurDeclarant": "OP DECLARANT T12",
+            "versionId": "1416",
+            "matriculeVehicule": "MAT123456",
+            "idPourRecherche": "1296"
+        },
+        {
+            "dedo_var_id": "1181",
+            "dedo_num_enreg": "30990020190000044",
+            "numeroVersion": "0",
+            "nomOperateurDeclarant": "OP DECLARANT T12",
+            "versionId": "1296",
+            "matriculeVehicule": "MAT123456",
+            "idPourRecherche": "1181"
+        },
+        {
+            "dedo_var_id": "1246",
+            "dedo_num_enreg": "30900920190000079",
+            "numeroVersion": "0",
+            "nomOperateurDeclarant": "OP DECLARANT T12",
+            "versionId": "1366",
+            "matriculeVehicule": "MAT123456",
+            "idPourRecherche": "1246"
+        },
+        {
+            "dedo_var_id": "1293",
+            "dedo_num_enreg": "30900920190000087",
+            "numeroVersion": "0",
+            "nomOperateurDeclarant": "OP DECLARANT T12",
+            "versionId": "1413",
+            "matriculeVehicule": "MAT123456",
+            "idPourRecherche": "1293"
+        },
+        {
+            "dedo_var_id": "1247",
+            "dedo_num_enreg": "30900920190000080",
+            "numeroVersion": "0",
+            "nomOperateurDeclarant": "OP DECLARANT T12",
+            "versionId": "1367",
+            "matriculeVehicule": "MAT123456",
+            "idPourRecherche": "1247"
+        },
+        {
+            "dedo_var_id": "1819",
+            "dedo_num_enreg": "30900920200000112",
+            "numeroVersion": "0",
+            "nomOperateurDeclarant": "BABYTEX TEST",
+            "versionId": "1962",
+            "matriculeVehicule": "MAT123456",
+            "idPourRecherche": "1819"
+        },
+        {
+            "dedo_var_id": "1866",
+            "dedo_num_enreg": "30990020200000117",
+            "numeroVersion": "0",
+            "nomOperateurDeclarant": "BABYTEX TEST",
+            "versionId": "2009",
+            "matriculeVehicule": "MAT123456",
+            "idPourRecherche": "1866"
+        },
+        {
+            "dedo_var_id": "1270",
+            "dedo_num_enreg": "30990020190000061",
+            "numeroVersion": "0",
+            "nomOperateurDeclarant": "OP TRANSITAIRE VSR 1",
+            "versionId": "1390",
+            "matriculeVehicule": "MAT123456",
+            "idPourRecherche": "1270"
+        },
+        {
+            "dedo_var_id": "1350",
+            "dedo_num_enreg": "30900920190000105",
+            "numeroVersion": "0",
+            "nomOperateurDeclarant": "OP TRANSITAIRE5",
+            "versionId": "1473",
+            "matriculeVehicule": "MAT123456",
+            "idPourRecherche": "1350"
+        },
+        {
+            "dedo_var_id": "1218",
+            "dedo_num_enreg": "30990020190000049",
+            "numeroVersion": "0",
+            "nomOperateurDeclarant": "OP DECLARANT T12",
+            "versionId": "1338",
+            "matriculeVehicule": "MAT123456",
+            "idPourRecherche": "1218"
+        },
+        {
+            "dedo_var_id": "1271",
+            "dedo_num_enreg": "30990020190000062",
+            "numeroVersion": "0",
+            "nomOperateurDeclarant": "OP TRANSITAIRE VSR 1",
+            "versionId": "1391",
+            "matriculeVehicule": "MAT123456",
+            "idPourRecherche": "1271"
+        },
+        {
+            "dedo_var_id": "1524",
+            "dedo_num_enreg": "30990020200000009",
+            "numeroVersion": "0",
+            "nomOperateurDeclarant": "OP TRANSITAIRE VSR 1",
+            "versionId": "1654",
+            "matriculeVehicule": "MAT123456",
+            "idPourRecherche": "1524"
+        },
+        {
+            "dedo_var_id": "1586",
+            "dedo_num_enreg": "30990020200000020",
+            "numeroVersion": "1",
+            "nomOperateurDeclarant": "BABYTEX TEST",
+            "versionId": "1720",
+            "matriculeVehicule": "MAT123456",
+            "idPourRecherche": "1586"
+        },
+        {
+            "dedo_var_id": "1818",
+            "dedo_num_enreg": "30900920200000111",
+            "numeroVersion": "0",
+            "nomOperateurDeclarant": "BABYTEX TEST",
+            "versionId": "1961",
+            "matriculeVehicule": "MAT123456",
+            "idPourRecherche": "1818"
+        },
+        {
+            "dedo_var_id": "1871",
+            "dedo_num_enreg": "30990020200000119",
+            "numeroVersion": "0",
+            "nomOperateurDeclarant": "BABYTEX TEST",
+            "versionId": "2014",
+            "matriculeVehicule": "MAT123456",
+            "idPourRecherche": "1871"
+        },
+        {
+            "dedo_var_id": "1749",
+            "dedo_num_enreg": "30990020200000094",
+            "numeroVersion": "0",
+            "nomOperateurDeclarant": "BABYTEX TEST",
+            "versionId": "1888",
+            "matriculeVehicule": "MAT123456",
+            "idPourRecherche": "1749"
+        },
+        {
+            "dedo_var_id": "1516",
+            "dedo_num_enreg": "30900920200000050",
+            "numeroVersion": "0",
+            "nomOperateurDeclarant": "OP DECLARANT T12",
+            "versionId": "1646",
+            "matriculeVehicule": "MAT123456",
+            "idPourRecherche": "1516"
+        },
+        {
+            "dedo_var_id": "1587",
+            "dedo_num_enreg": "30990020200000021",
+            "numeroVersion": "0",
+            "nomOperateurDeclarant": "BABYTEX TEST",
+            "versionId": "1719",
+            "matriculeVehicule": "MAT123456",
+            "idPourRecherche": "1587"
+        },
+        {
+            "dedo_var_id": "1653",
+            "dedo_num_enreg": "30900920200000070",
+            "numeroVersion": "0",
+            "nomOperateurDeclarant": "BABYTEX TEST",
+            "versionId": "1789",
+            "matriculeVehicule": "MAT123456",
+            "idPourRecherche": "1653"
+        },
+        {
+            "dedo_var_id": "1241",
+            "dedo_num_enreg": "30900920190000077",
+            "numeroVersion": "0",
+            "nomOperateurDeclarant": "OP DECLARANT T12",
+            "versionId": "1361",
+            "matriculeVehicule": "MAT123456",
+            "idPourRecherche": "1241"
+        },
+        {
+            "dedo_var_id": "1324",
+            "dedo_num_enreg": "30900920190000094",
+            "numeroVersion": "0",
+            "nomOperateurDeclarant": "OP DECLARANT T12",
+            "versionId": "1445",
+            "matriculeVehicule": "MAT123456",
+            "idPourRecherche": "1324"
+        },
+        {
+            "dedo_var_id": "1175",
+            "dedo_num_enreg": "30900920190000062",
+            "numeroVersion": "0",
+            "nomOperateurDeclarant": "OP TRANSITAIRE VSR 1",
+            "versionId": "1288",
+            "matriculeVehicule": "MAT123456",
+            "idPourRecherche": "1175"
+        },
+        {
+            "dedo_var_id": "1894",
+            "dedo_num_enreg": "30900920200000133",
+            "numeroVersion": "0",
+            "nomOperateurDeclarant": "BABYTEX TEST",
+            "versionId": "2042",
+            "matriculeVehicule": "MAT123456",
+            "idPourRecherche": "1894"
+        },
+        {
+            "dedo_var_id": "1931",
+            "dedo_num_enreg": "30900920210000003",
+            "numeroVersion": "0",
+            "nomOperateurDeclarant": "BABYTEX TEST",
+            "versionId": "2080",
+            "matriculeVehicule": "MAT123456",
+            "idPourRecherche": "1931"
+        },
+        {
+            "dedo_var_id": "1859",
+            "dedo_num_enreg": "30990020200000116",
+            "numeroVersion": "0",
+            "nomOperateurDeclarant": "BABYTEX TEST",
+            "versionId": "2002",
+            "matriculeVehicule": "MAT123456",
+            "idPourRecherche": "1859"
+        }
+    ]
+}

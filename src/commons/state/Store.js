@@ -30,6 +30,10 @@ import genericDedReducer from '../../modules/dedouanement/redressement/state/red
 import vuEmbInitReducer from '../../modules/DeclarationD17D20/vuEmbarquer/state/reducers/vuEmbInitReducer';
 import vuEmbReducer from '../../modules/DeclarationD17D20/vuEmbarquer/state/reducers/vuEmbUcReducer';
 import vuEmbRefVH from '../../modules/DeclarationD17D20/vuEmbarquer/state/reducers/vuEmRefVhReducer';
+import sortiPortRefVH from '../../modules/DeclarationD17D20/sortiPort/state/reducers/decSortiPortRefVhReducer';
+import sortiPortInitReducer from '../../modules/DeclarationD17D20/sortiPort/state/reducers/decSortiPortInitReducer';
+import sortiPortReducer from '../../modules/DeclarationD17D20/sortiPort/state/reducers/decSortiPortUcReducer';
+
 
 import referentielReducer from './reducers/ReferentielReducer';
 import consulterDumReducer from './reducers/ConsulterDumReducer';
@@ -123,7 +127,10 @@ const allReducers = combineReducers({
   pecEtatChargementReducer,
   consultationIgTIReducer,
   consultationTIReducer,
-  dedConfirmationReceptionReducer
+  dedConfirmationReceptionReducer,
+  sortiPortReducer,
+  sortiPortRefVH,
+  sortiPortInitReducer,
 });
 /**
  * store creation

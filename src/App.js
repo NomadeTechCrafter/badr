@@ -48,6 +48,8 @@ import T6bisCreation from './modules/t6bis/creation/ui/t6bisCreation/t6bisCreati
 import T6bisGestion from './modules/t6bis/gestion/ui/t6bisGestion/t6bisGestionScreen';
 import RechercheEcorImport from './old/screens/ecorImport/rechercheEcorImport';
 
+import SortiPortScreen from './modules/DeclarationD17D20/sortiPort/ui/decSortiPort/decSortiPortMainScreen'
+
 //Actif
 import Recherche from './old/screens/actifs/rapport/recherche';
 import Creation from './old/screens/actifs/rapport/creation';
@@ -78,12 +80,12 @@ export default class App extends React.Component {
                   component={Login}
                 />
               ) : (
-                <Stack.Screen
-                  name="test"
-                  options={{headerShown: false}}
-                    component={EtatChargement}
-                />
-              )}
+                  <Stack.Screen
+                    name="test"
+                    options={{ headerShown: false }}
+                    component={SortiPortScreen}
+                  />
+                )}
               <Stack.Screen
                 name="ControleRegimeInterneScreen"
                 options={{headerShown: false}}

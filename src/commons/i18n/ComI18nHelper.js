@@ -35,6 +35,7 @@ import pecEtatChargementTranslateFr from '../../modules/pecEtatChargement/rechPa
 import consultationIgTI from '../../modules/tarifIntegre/tiConsultationIgTI/i18n/tiConsultationIgTITranslateFr';
 import consultationTI from '../../modules/tarifIntegre/tiConsultationTI/i18n/tiConsultationTITranslateFr';
 import dedConfirmationReception from '../../modules/dedouanement/confirmationReception/i18n/dedConfirmationReceptionTranslateFr';
+import decSortiPortTranslateFr from '../../modules/DeclarationD17D20/sortiPort/i18n/decSortiPortTranslateFr';
 
 const locales = RNLocalize.getLocales();
 
@@ -48,7 +49,7 @@ I18n.fallbacks = true;
  */
 let combined = {
   ...commonTranslations,
-    ...annoncesTranslations,
+  ...annoncesTranslations,
   ...loginTranslations,
   ...smsVerifyTranslations,
   ...profileTranslations,
@@ -76,7 +77,9 @@ let combined = {
   ...pecEtatChargementTranslateFr,
   ...consultationIgTI,
   ...consultationTI,
-  ...dedConfirmationReception
+  ...dedConfirmationReception,
+  ...eciAppositionScellesTranslateFr,
+  ...decSortiPortTranslateFr
 };
 I18n.translations = {
   fr: combined,

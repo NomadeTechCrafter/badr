@@ -1,6 +1,6 @@
 const mapping = {
   '9005': {screen: 'CreerApurement', params: {qr: true}},
-  '3064': {screen: '²', params: {typeControle: 'AC'}},
+  '3064': {screen: 'controleRechercheDumScreen', params: {typeControle: 'AC'}},
   '3072': {screen: 'controleRechercheDumScreen', params: {typeControle: 'RI'}},
   '767': {screen: 'BloquerOperateur', params: {}},
   '42997': {screen: 'DebloquerOperateur', params: {}},
@@ -18,6 +18,7 @@ const mapping = {
   '1102': { screen: 'ConsultationTIScreen', params: { modeConsultation: 'I' } },
   '1103': { screen: 'ConsultationIgTIScreen', params: { modeConsultation: 'E' } },
   '1104': { screen: 'ConsultationIgTIScreen', params: { modeConsultation: 'I' } },
+  '90023': { screen: 'SortiPortScreen', params: { } },
 
 
   '2052': { screen: 'DedRechercheRedressement', params: { qr: false } },
