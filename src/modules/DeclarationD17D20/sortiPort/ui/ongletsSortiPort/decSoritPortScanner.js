@@ -47,10 +47,10 @@ class SortiPortScanner extends React.Component {
 
     cleDUM = function (regime, serie) {
         let alpha = 'ABCDEFGHJKLMNPRSTUVWXYZ';
-        if (serie.length > 6) {
-            let firstSerie = serie.substring(0, 1);
+        if (serie?.length > 6) {
+            let firstSerie = serie?.substring(0, 1);
             if (firstSerie === '0') {
-                serie = serie.substring(1, 7);
+                serie = serie?.substring(1, 7);
             }
         }
         let obj = regime + serie;
@@ -75,7 +75,7 @@ class SortiPortScanner extends React.Component {
                     commande: "findResultatScannerByReferenceEtatChargement",
                     module: "AEC_LIB",
                     typeService: "SP",
-                    data: "30900920200000108"
+                    data: this.props.dataVo?.declarationTriptique?.referenceEnregistrement
                 },
             },
             this.props.navigation
@@ -88,8 +88,8 @@ class SortiPortScanner extends React.Component {
         if (!resultatsScanner) {
             resultatsScanner = [];
         }
-        const { referenceEnregistrement } = this.props.dataVo.declarationTriptique;
-        const { enteteTrypVO } = this.props.dataVo;
+        const referenceEnregistrement = this.props.dataVo?.declarationTriptique?.referenceEnregistrement;
+        const enteteTrypVO = this.props.dataVo?.enteteTrypVO;
         return (
             <View style={style.mainContainer}>
                 <ScrollView>
@@ -118,25 +118,25 @@ class SortiPortScanner extends React.Component {
                         </View>
                         <View style={styles.flexDirectionRow}>
                             <Text style={styles.valueM}>
-                                {referenceEnregistrement.slice(0, 3)}
+                                {referenceEnregistrement?.slice(0, 3)}
                             </Text>
                             <Text style={styles.valueM}>
-                                {referenceEnregistrement.slice(3, 6)}
+                                {referenceEnregistrement?.slice(3, 6)}
                             </Text>
                             <Text style={styles.valueM}>
-                                {referenceEnregistrement.slice(6, 10)}
+                                {referenceEnregistrement?.slice(6, 10)}
                             </Text>
                             <Text style={styles.valueL}>
-                                {referenceEnregistrement.slice(10, 17)}
+                                {referenceEnregistrement?.slice(10, 17)}
                             </Text>
                             <Text style={styles.valueS}>
                                 {this.cleDUM(
-                                    referenceEnregistrement.slice(3, 6),
-                                    referenceEnregistrement.slice(10, 17),
+                                    referenceEnregistrement?.slice(3, 6),
+                                    referenceEnregistrement?.slice(10, 17),
                                 )}
                             </Text>
                             <Text style={styles.valueL}>TRYPTIQUE</Text>
-                            <Text style={styles.valueL}>{enteteTrypVO.libelleRegime}</Text>
+                            <Text style={styles.valueL}>{enteteTrypVO?.libelleRegime}</Text>
                         </View>
                     </CardBox>
                     <CardBox style={style.cardBox}>

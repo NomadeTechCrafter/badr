@@ -1,7 +1,7 @@
 import React from 'react';
-import {View, ScrollView, StyleSheet, Text} from 'react-native';
-import {connect} from 'react-redux';
-import {translate} from '../../../../../commons/i18n/ComI18nHelper';
+import { View, ScrollView, StyleSheet, Text } from 'react-native';
+import { connect } from 'react-redux';
+import { translate } from '../../../../../commons/i18n/ComI18nHelper';
 import {
   ComAccordionComp as Accordion,
   ComBadrCardBoxComp as CardBox,
@@ -26,7 +26,7 @@ class SortiPortDecEnDetail extends React.Component {
   }
 
   componentDidMount() {
-   // this.state = {...initialState};
+    // this.state = {...initialState};
   }
 
   /**
@@ -75,10 +75,10 @@ class SortiPortDecEnDetail extends React.Component {
 
   cleDUM = function (regime, serie) {
     let alpha = 'ABCDEFGHJKLMNPRSTUVWXYZ';
-    if (serie.length > 6) {
-      let firstSerie = serie.substring(0, 1);
+    if (serie?.length > 6) {
+      let firstSerie = serie?.substring(0, 1);
       if (firstSerie === '0') {
-        serie = serie.substring(1, 7);
+        serie = serie?.substring(1, 7);
       }
     }
     let obj = regime + serie;
@@ -88,8 +88,9 @@ class SortiPortDecEnDetail extends React.Component {
   };
 
   render() {
-    const {enteteTrypVO, listDeclarationEnDouaneVO} = this.props.dataVo;
-    const {referenceEnregistrement} = this.props.dataVo.declarationTriptique;
+    const enteteTrypVO = this.props.dataVo?.enteteTrypVO;
+    const listDeclarationEnDouaneVO = this.props.dataVo?.listDeclarationEnDouaneVO;
+    const referenceEnregistrement = this.props.dataVo?.declarationTriptique?.referenceEnregistrement;
 
     return (
       <View style={styles.fabContainer}>
@@ -119,25 +120,25 @@ class SortiPortDecEnDetail extends React.Component {
             </View>
             <View style={styles.flexDirectionRow}>
               <Text style={styles.valueM}>
-                {referenceEnregistrement.slice(0, 3)}
+                {referenceEnregistrement?.slice(0, 3)}
               </Text>
               <Text style={styles.valueM}>
-                {referenceEnregistrement.slice(3, 6)}
+                {referenceEnregistrement?.slice(3, 6)}
               </Text>
               <Text style={styles.valueM}>
-                {referenceEnregistrement.slice(6, 10)}
+                {referenceEnregistrement?.slice(6, 10)}
               </Text>
               <Text style={styles.valueL}>
-                {referenceEnregistrement.slice(10, 17)}
+                {referenceEnregistrement?.slice(10, 17)}
               </Text>
               <Text style={styles.valueS}>
                 {this.cleDUM(
-                  referenceEnregistrement.slice(3, 6),
-                  referenceEnregistrement.slice(10, 17),
+                  referenceEnregistrement?.slice(3, 6),
+                  referenceEnregistrement?.slice(10, 17),
                 )}
               </Text>
               <Text style={styles.valueL}>TRYPTIQUE</Text>
-              <Text style={styles.valueL}>{enteteTrypVO.libelleRegime}</Text>
+              <Text style={styles.valueL}>{enteteTrypVO?.libelleRegime}</Text>
             </View>
           </CardBox>
 
@@ -149,25 +150,26 @@ class SortiPortDecEnDetail extends React.Component {
               <Text style={styles.nombreResult}>
                 {translate('sortiPort.versions.nbreVersions')} :
                 <Text style={styles.libelle}>
-                  {'    ' + listDeclarationEnDouaneVO.length}
+                  {'    ' + listDeclarationEnDouaneVO?.length}
                 </Text>
               </Text>
-              <ComBasicDataTableComp
-                badr
-                onRef={(ref) => (this.badrComposantsTable = ref)}
-                hasId={false}
-                id="idComposant"
-                rows={listDeclarationEnDouaneVO}
-                cols={this.composantTablesCols}
-                onItemSelected={this.onComposantSelected}
-                totalElements={
-                  listDeclarationEnDouaneVO.length
-                    ? listDeclarationEnDouaneVO.length
-                    : 0
-                }
-                maxResultsPerPage={5}
-                paginate={true}
-              />
+              {listDeclarationEnDouaneVO && (
+                <ComBasicDataTableComp
+                  badr
+                  onRef={(ref) => (this.badrComposantsTable = ref)}
+                  hasId={false}
+                  id="idComposant"
+                  rows={listDeclarationEnDouaneVO}
+                  cols={this.composantTablesCols}
+                  onItemSelected={this.onComposantSelected}
+                  totalElements={
+                    listDeclarationEnDouaneVO?.length
+                      ? listDeclarationEnDouaneVO?.length
+                      : 0
+                  }
+                  maxResultsPerPage={5}
+                  paginate={true}
+                />)}
             </Accordion>
           </CardBox>
         </ScrollView>
@@ -215,7 +217,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
   },
-  libelle: {...libelle},
+  libelle: { ...libelle },
   libelleS: {
     ...libelle,
     flex: 1,
@@ -251,7 +253,7 @@ const styles = StyleSheet.create({
   textRadio: {
     color: '#FFF',
   },
-  flexColumn: {flexDirection: 'column'},
+  flexColumn: { flexDirection: 'column' },
   margLeft: {
     marginLeft: 20,
   },
@@ -278,7 +280,7 @@ const styles = StyleSheet.create({
   centre: {
     alignSelf: 'center',
   },
-  nombreResult: {margin: 20, marginVertical: 10, ...value},
+  nombreResult: { margin: 20, marginVertical: 10, ...value },
   cardBoxInfoDum: {
     flexDirection: 'column',
     margin: 10,
@@ -286,11 +288,11 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps(state) {
-  return {...state.initApurementReducer};
+  return { ...state.initApurementReducer };
 }
 
 function mapDispatchToProps(dispatch) {
-  let actions = {dispatch};
+  let actions = { dispatch };
   return {
     actions,
   };

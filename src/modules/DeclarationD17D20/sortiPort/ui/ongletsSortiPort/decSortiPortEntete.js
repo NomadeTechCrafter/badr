@@ -17,6 +17,7 @@ import {Checkbox} from 'react-native-paper';
 import {TextInput} from 'react-native-paper';
 
 import moment from 'moment';
+import { ComSessionService } from '../../../../../commons/services/session/ComSessionService';
 
 const initialState = {
   reference: '',
@@ -36,7 +37,7 @@ class SortiPortEntete extends React.Component {
     //define actions switch between Confirmer and Annuler
     const screenActions = [];
 
-    if (this.props.dataVo.declarationTriptique.sortiPortExisteDeja) {
+    if (this.props.dataVo?.declarationTriptique?.sortiPortExisteDeja) {
       screenActions.push({
         title: translate('sortiPort.actionAnnuler'),
         icon: 'remove',
@@ -52,10 +53,10 @@ class SortiPortEntete extends React.Component {
 
     if (
       this.props.dataVo &&
-      this.props.dataVo.declarationTriptique &&
-      this.props.dataVo.declarationTriptique.sortiPort
+      this.props.dataVo?.declarationTriptique &&
+      this.props.dataVo?.declarationTriptique?.sortiPort
     ) {
-      const sortiPort = this.props.dataVo.declarationTriptique.sortiPort;
+      const sortiPort = this.props.dataVo?.declarationTriptique?.sortiPort;
       // this.setState({commentaire: sortiPort.commentaire});
       // this.setState({dateSortiPort: sortiPort.dateSortiPort});
       console.log('  test date : ' + sortiPort.dateSortiPort);
@@ -63,8 +64,7 @@ class SortiPortEntete extends React.Component {
         ...initialState,
         commentaire: sortiPort.commentaire,
         dateSortiPort: sortiPort.dateSortiPort,
-        sortiPortExisteDeja: this.props.dataVo.declarationTriptique
-          .sortiPortExisteDeja,
+        sortiPortExisteDeja: this.props.dataVo?.declarationTriptique?.sortiPortExisteDeja,
         screenActions,
         dateDebutSortiPort: sortiPort.dateSortiPort.split(' ')[0],
         heureDebutSortiPort: sortiPort.dateSortiPort.split(' ')[1],
@@ -87,7 +87,7 @@ class SortiPortEntete extends React.Component {
 
   cleDUM = function (regime, serie) {
     let alpha = 'ABCDEFGHJKLMNPRSTUVWXYZ';
-    if (serie.length > 6) {
+    if (serie?.length > 6) {
       let firstSerie = serie.substring(0, 1);
       if (firstSerie === '0') {
         serie = serie.substring(1, 7);
@@ -101,7 +101,7 @@ class SortiPortEntete extends React.Component {
 
   getNatureVehicule = function (idNature) {
     let natureVehicule = '';
-    natureVehicule = this.props.dataVo.vctNaturesVehicule.filter((vehicule) => {
+    natureVehicule = this.props.dataVo?.vctNaturesVehicule.filter((vehicule) => {
       return vehicule.code === idNature;
     });
 
@@ -114,7 +114,7 @@ class SortiPortEntete extends React.Component {
 
   getNomVehicule = function (idVehicule) {
     let nomVehicule = '';
-    let vehiculeObjet = this.props.dataVo.vctVehicules.find((vehicule) => {
+    let vehiculeObjet = this.props.dataVo?.vctVehicules.find((vehicule) => {
       return vehicule.code === idVehicule;
     });
 
@@ -142,11 +142,11 @@ class SortiPortEntete extends React.Component {
     }
 
     const jsonVO = {};
-    jsonVO.indentifiant = this.props.dataVo.declarationTriptique.indentifiant;
-    jsonVO.sortiPort = {
-      dateSortiPort: this.state.dateSortiPort, //'18/01/2021 11:08',
+    jsonVO.indentifiant = this.props.dataVo?.declarationTriptique?.indentifiant;
+    jsonVO.sortiePort = {
+      dateSortie: this.state.dateSortiPort, //'18/01/2021 11:08',
       commentaire: this.state.commentaire, //'My Comment ',
-      agent: this.state.login, //'AD6025',
+      agent: ComSessionService.getInstance().getLogin(), //'AD6025',
     };
 
     var action = SortiPortConfirmerAction.request(
@@ -168,7 +168,7 @@ class SortiPortEntete extends React.Component {
 
   handleAnnulerSortiPort = () => {
     const jsonVO = {};
-    jsonVO.indentifiant = this.props.dataVo.declarationTriptique.indentifiant;
+    jsonVO.indentifiant = this.props.dataVo?.declarationTriptique?.indentifiant;
 
     var action = SortiPortConfirmerAction.request(
       {
@@ -188,9 +188,9 @@ class SortiPortEntete extends React.Component {
   };
 
   getConducteurById = function (codeConducteur) {
-    const vctConducteurs = this.props.dataVo.vctConducteurs;
+    const vctConducteurs = this.props.dataVo?.vctConducteurs;
 
-    const conducteur = vctConducteurs.find(
+    const conducteur = vctConducteurs?.find(
       (cond) => cond.code === codeConducteur,
     );
     if (conducteur) {
@@ -200,8 +200,9 @@ class SortiPortEntete extends React.Component {
   };
 
   render() {
-    const {enteteTrypVO, traceSignature} = this.props.dataVo;
-    const {referenceEnregistrement} = this.props.dataVo.declarationTriptique;
+    const enteteTrypVO = this.props.dataVo?.enteteTrypVO;
+    const traceSignature = this.props.dataVo?.traceSignature;
+    const referenceEnregistrement = this.props.dataVo?.declarationTriptique?.referenceEnregistrement;
 
     const renderDateSortiPort = () => {
       return (
@@ -296,25 +297,25 @@ class SortiPortEntete extends React.Component {
             </View>
             <View style={styles.flexDirectionRow}>
               <Text style={styles.valueM}>
-                {referenceEnregistrement.slice(0, 3)}
+                {referenceEnregistrement?.slice(0, 3)}
               </Text>
               <Text style={styles.valueM}>
-                {referenceEnregistrement.slice(3, 6)}
+                {referenceEnregistrement?.slice(3, 6)}
               </Text>
               <Text style={styles.valueM}>
-                {referenceEnregistrement.slice(6, 10)}
+                {referenceEnregistrement?.slice(6, 10)}
               </Text>
               <Text style={styles.valueL}>
-                {referenceEnregistrement.slice(10, 17)}
+                {referenceEnregistrement?.slice(10, 17)}
               </Text>
               <Text style={styles.valueS}>
                 {this.cleDUM(
-                  referenceEnregistrement.slice(3, 6),
-                  referenceEnregistrement.slice(10, 17),
+                  referenceEnregistrement?.slice(3, 6),
+                  referenceEnregistrement?.slice(10, 17),
                 )}
               </Text>
               <Text style={styles.valueL}>TRYPTIQUE</Text>
-              <Text style={styles.valueL}>{enteteTrypVO.libelleRegime}</Text>
+              <Text style={styles.valueL}>{enteteTrypVO?.libelleRegime}</Text>
             </View>
           </CardBox>
           {/* Version */}
@@ -325,17 +326,17 @@ class SortiPortEntete extends React.Component {
                   <Text style={styles.libelleM}>
                     {translate('sortiPort.type')} :
                   </Text>
-                  <Text style={styles.valueM}>{enteteTrypVO.type}</Text>
+                  <Text style={styles.valueM}>{enteteTrypVO?.type}</Text>
                   <Text style={styles.libelleS}>
                     {translate('sortiPort.numeroVersion')} :
                   </Text>
                   <Text style={styles.valueS}>
-                    {enteteTrypVO.numeroVersion}
+                    {enteteTrypVO?.numeroVersion}
                   </Text>
                   <Text style={styles.libelleM}>
                     {translate('sortiPort.statut')} :
                   </Text>
-                  <Text style={styles.valueM}>{enteteTrypVO.status}</Text>
+                  <Text style={styles.valueM}>{enteteTrypVO?.status}</Text>
                 </View>
                 <View style={[styles.flexDirectionRow, styles.marg]}>
                   <Text style={styles.libelleM}>
@@ -348,13 +349,13 @@ class SortiPortEntete extends React.Component {
                     {translate('sortiPort.codeInitiateur')} :
                   </Text>
                   <Text style={styles.valueM}>
-                    {enteteTrypVO.codeInitiateur}
+                    {enteteTrypVO?.codeInitiateur}
                   </Text>
                   <Text style={styles.libelleS}>
                     {translate('sortiPort.nomInitiateur')} :
                   </Text>
                   <Text style={styles.valueS}>
-                    {enteteTrypVO.nomInitiateur}
+                    {enteteTrypVO?.nomInitiateur}
                   </Text>
                 </View>
                 <View style={[styles.flexDirectionRow, styles.marg]}>
@@ -362,7 +363,7 @@ class SortiPortEntete extends React.Component {
                     {translate('sortiPort.dateCreation')} :
                   </Text>
                   <Text style={styles.valueM}>
-                    {enteteTrypVO.dateCreation_VC}
+                    {enteteTrypVO?.dateCreation_VC}
                   </Text>
                 </View>
 
@@ -371,14 +372,14 @@ class SortiPortEntete extends React.Component {
                     {translate('sortiPort.dateSauvegarde')}{' '}
                     {translate('sortiPort.versionCourante')}:
                   </Text>
-                  <Text style={styles.valueM}>{enteteTrypVO.dateDepot_VC}</Text>
+                  <Text style={styles.valueM}>{enteteTrypVO?.dateDepot_VC}</Text>
                 </View>
                 <View style={[styles.flexDirectionRow, styles.marg]}>
                   <Text style={styles.libelleM}>
                     {translate('sortiPort.dateSauvegarde')}{' '}
                     {translate('sortiPort.versionInitiale')}:
                   </Text>
-                  <Text style={styles.valueM}>{enteteTrypVO.dateDepot_VI}</Text>
+                  <Text style={styles.valueM}>{enteteTrypVO?.dateDepot_VI}</Text>
                 </View>
               </View>
             </Accordion>
@@ -433,7 +434,7 @@ class SortiPortEntete extends React.Component {
                     {translate('sortiPort.dateMLV')} :
                   </Text>
                   <Text style={styles.valueM}>
-                    {this.props.dataVo.datePassage}
+                    {this.props.dataVo?.datePassage}
                   </Text>
                 </View>
                 <View style={[styles.flexDirectionRow, styles.marg]}>
@@ -441,7 +442,7 @@ class SortiPortEntete extends React.Component {
                     {translate('sortiPort.agent')} :
                   </Text>
                   <Text style={styles.valueS}>
-                    {this.props.dataVo.agentPassage}
+                    {this.props.dataVo?.agentPassage}
                   </Text>
                 </View>
               </View>
@@ -456,7 +457,7 @@ class SortiPortEntete extends React.Component {
                     {translate('sortiPort.numRc')} :
                   </Text>
                   <Text style={styles.valueM}>
-                    {enteteTrypVO.numeroRCTransporteur}
+                    {enteteTrypVO?.numeroRCTransporteur}
                   </Text>
                 </View>
                 <View style={[styles.flexDirectionRow, styles.marg]}>
@@ -464,7 +465,7 @@ class SortiPortEntete extends React.Component {
                     {translate('sortiPort.nomRaisonSociale')} :
                   </Text>
                   <Text style={styles.valueS}>
-                    {enteteTrypVO.nomTransporteur}
+                    {enteteTrypVO?.nomTransporteur}
                   </Text>
                 </View>
               </View>
@@ -479,7 +480,7 @@ class SortiPortEntete extends React.Component {
                     {translate('sortiPort.conducteur')} :
                   </Text>
                   <Text style={styles.valueM}>
-                    {this.getConducteurById(enteteTrypVO.idConducteur)}
+                    {this.getConducteurById(enteteTrypVO?.idConducteur)}
                   </Text>
                 </View>
                 <View style={[styles.flexDirectionRow, styles.marg]}>
@@ -499,14 +500,14 @@ class SortiPortEntete extends React.Component {
                     {translate('sortiPort.natureVehicule')} :
                   </Text>
                   <Text style={styles.valueM}>
-                    {this.getNatureVehicule(enteteTrypVO.idNatureVehicule)}
+                    {this.getNatureVehicule(enteteTrypVO?.idNatureVehicule)}
                   </Text>
 
                   <Text style={styles.libelleM}>
                     {translate('sortiPort.vehicule')} :
                   </Text>
                   <Text style={styles.valueM}>
-                    {this.getNomVehicule(enteteTrypVO.idVehicule)}
+                    {this.getNomVehicule(enteteTrypVO?.idVehicule)}
                   </Text>
                 </View>
                 <View style={[styles.flexDirectionRow, styles.marg]}>
@@ -532,7 +533,7 @@ class SortiPortEntete extends React.Component {
                     {translate('sortiPort.natureMarch')} :
                   </Text>
                   <Text style={styles.valueL}>
-                    {enteteTrypVO.natureMarchandise}
+                    {enteteTrypVO?.natureMarchandise}
                   </Text>
                 </View>
               </View>
@@ -551,13 +552,13 @@ class SortiPortEntete extends React.Component {
                     {translate('sortiPort.du')} :
                   </Text>
                   <Text style={styles.valueM}>
-                    {enteteTrypVO.dateDebutAutorisationMa}
+                    {enteteTrypVO?.dateDebutAutorisationMa}
                   </Text>
                   <Text style={styles.libelleS}>
                     {translate('sortiPort.au')} :
                   </Text>
                   <Text style={styles.valueM}>
-                    {enteteTrypVO.dateFinAutorisationMa}
+                    {enteteTrypVO?.dateFinAutorisationMa}
                   </Text>
                 </View>
                 <View style={[styles.flexDirectionRow, styles.marg]}>
@@ -566,7 +567,7 @@ class SortiPortEntete extends React.Component {
                   </Text>
                   <Checkbox
                     color="#009ab2"
-                    status={enteteTrypVO.avide ? 'checked' : 'unchecked'}
+                    status={enteteTrypVO?.avide ? 'checked' : 'unchecked'}
                   />
                 </View>
               </View>

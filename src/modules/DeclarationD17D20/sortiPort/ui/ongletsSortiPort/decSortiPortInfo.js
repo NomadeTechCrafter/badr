@@ -1,8 +1,8 @@
 import React from 'react';
-import {View, ScrollView, StyleSheet, Text} from 'react-native';
-import {connect} from 'react-redux';
-import {translate} from '../../../../../commons/i18n/ComI18nHelper';
-import {DataTable} from 'react-native-paper';
+import { View, ScrollView, StyleSheet, Text } from 'react-native';
+import { connect } from 'react-redux';
+import { translate } from '../../../../../commons/i18n/ComI18nHelper';
+import { DataTable } from 'react-native-paper';
 import {
   ComCopyPasteComp as CopyPaste,
   ComAccordionComp as Accordion,
@@ -28,7 +28,7 @@ class SortiPortInfo extends React.Component {
   }
 
   componentDidMount() {
-   // this.setState({...initialState});
+    // this.setState({...initialState});
   }
 
   /**
@@ -72,10 +72,10 @@ class SortiPortInfo extends React.Component {
 
   cleDUM = function (regime, serie) {
     let alpha = 'ABCDEFGHJKLMNPRSTUVWXYZ';
-    if (serie.length > 6) {
-      let firstSerie = serie.substring(0, 1);
+    if (serie?.length > 6) {
+      let firstSerie = serie?.substring(0, 1);
       if (firstSerie === '0') {
-        serie = serie.substring(1, 7);
+        serie = serie?.substring(1, 7);
       }
     }
     let obj = regime + serie;
@@ -85,14 +85,10 @@ class SortiPortInfo extends React.Component {
   };
 
   render() {
-    let listeVersions = this.props.dataVo.declarationTriptique
-      .refVersionsDeclarationEnDouane;
-
-    const listeHistorique = this.props.dataVo.trypRechercheSectionsVO
-      .historique;
-
-    const {enteteTrypVO} = this.props.dataVo;
-    const {referenceEnregistrement} = this.props.dataVo.declarationTriptique;
+    let listeVersions = this.props.dataVo?.declarationTriptique?.refVersionsDeclarationEnDouane;
+    const listeHistorique = this.props.dataVo?.trypRechercheSectionsVO?.historique;
+    const enteteTrypVO = this.props.dataVo?.enteteTrypVO;
+    const referenceEnregistrement = this.props.dataVo?.declarationTriptique?.referenceEnregistrement;
 
     return (
       <View style={styles.fabContainer}>
@@ -122,25 +118,25 @@ class SortiPortInfo extends React.Component {
             </View>
             <View style={styles.flexDirectionRow}>
               <Text style={styles.valueM}>
-                {referenceEnregistrement.slice(0, 3)}
+                {referenceEnregistrement?.slice(0, 3)}
               </Text>
               <Text style={styles.valueM}>
-                {referenceEnregistrement.slice(3, 6)}
+                {referenceEnregistrement?.slice(3, 6)}
               </Text>
               <Text style={styles.valueM}>
-                {referenceEnregistrement.slice(6, 10)}
+                {referenceEnregistrement?.slice(6, 10)}
               </Text>
               <Text style={styles.valueL}>
-                {referenceEnregistrement.slice(10, 17)}
+                {referenceEnregistrement?.slice(10, 17)}
               </Text>
               <Text style={styles.valueS}>
                 {this.cleDUM(
-                  referenceEnregistrement.slice(3, 6),
-                  referenceEnregistrement.slice(10, 17),
+                  referenceEnregistrement?.slice(3, 6),
+                  referenceEnregistrement?.slice(10, 17),
                 )}
               </Text>
               <Text style={styles.valueL}>TRYPTIQUE</Text>
-              <Text style={styles.valueL}>{enteteTrypVO.libelleRegime}</Text>
+              <Text style={styles.valueL}>{enteteTrypVO?.libelleRegime}</Text>
             </View>
           </CardBox>
           <CardBox style={styles.cardBox}>
@@ -148,7 +144,7 @@ class SortiPortInfo extends React.Component {
               <Text style={styles.nombreResult}>
                 {translate('sortiPort.versions.nbreVersions')} :
                 <Text style={styles.libelle}>
-                  {'    ' + listeVersions.length}
+                  {'    ' + listeVersions?.length}
                 </Text>
               </Text>
 
@@ -158,65 +154,65 @@ class SortiPortInfo extends React.Component {
                     <View>
                       <DataTable style={styles.table}>
                         <DataTable.Header style={styles.tableHeader}>
-                          <DataTable.Title style={{width: 60}}>
+                          <DataTable.Title style={{ width: 60 }}>
                             <Text style={styles.libelle}>
                               {translate('sortiPort.versions.num')}
                             </Text>
                           </DataTable.Title>
-                          <DataTable.Title style={{width: 150}}>
+                          <DataTable.Title style={{ width: 150 }}>
                             <Text style={styles.libelle}>
                               {translate('sortiPort.versions.type')}
                             </Text>
                           </DataTable.Title>
-                          <DataTable.Title style={{width: 150}}>
+                          <DataTable.Title style={{ width: 150 }}>
                             <Text style={styles.libelle}>
                               {translate('sortiPort.versions.statut')}
                             </Text>
                           </DataTable.Title>
-                          <DataTable.Title style={{width: 200}}>
+                          <DataTable.Title style={{ width: 200 }}>
                             <Text style={styles.libelle}>
                               {translate('sortiPort.versions.dateCreation')}
                             </Text>
                           </DataTable.Title>
-                          <DataTable.Title style={{width: 200}}>
+                          <DataTable.Title style={{ width: 200 }}>
                             <Text style={styles.libelle}>
                               {translate('sortiPort.versions.dateSignature')}
                             </Text>
                           </DataTable.Title>
                         </DataTable.Header>
                         {listeVersions ? (
-                          listeVersions.map((item) => (
+                          listeVersions?.map((item) => (
                             <DataTable.Row
                               key={item.reference}
-                              // onPress={() => this.onItemSelected(item)}
+                            // onPress={() => this.onItemSelected(item)}
                             >
                               <DataTable.Cell
-                                style={{width: 60}}
+                                style={{ width: 60 }}
                                 children={
                                   <CopyPaste value={item.numeroVersion} />
                                 }
                               />
                               <DataTable.Cell
-                                style={{width: 150}}
+                                style={{ width: 150 }}
                                 children={
                                   <CopyPaste value={item.typeVersion} />
                                 }
                               />
                               <DataTable.Cell
-                                style={{width: 150}}
+                                style={{ width: 150 }}
                                 children={
                                   <CopyPaste value={item.etatVersionForm} />
                                 }
                               />
                               <DataTable.Cell
-                                style={{width: 200}}
+                                style={{ width: 200 }}
                                 children={
                                   <CopyPaste value={item.dateEnregistrement} />
                                 }
                               />
 
                               <DataTable.Cell
-                                style={{width: 200}}
+                                style={{ width: 200 }}
                                 children={
                                   <CopyPaste value={item.dateSignature} />
                                 }
@@ -243,23 +239,25 @@ class SortiPortInfo extends React.Component {
               <Text style={styles.nombreResult}>
                 {translate('sortiPort.versions.nbreVersions')} :
                 <Text style={styles.libelle}>
-                  {'    ' + listeHistorique.length}
+                  {'    ' + listeHistorique?.length}
                 </Text>
               </Text>
-              <ComBasicDataTableComp
-                badr
-                onRef={(ref) => (this.badrComposantsTable = ref)}
-                hasId={false}
-                id="idComposant"
-                rows={listeHistorique}
-                cols={this.composantTablesCols}
-                onItemSelected={this.onComposantSelected}
-                totalElements={
-                  listeHistorique.length ? listeHistorique.length : 0
-                }
-                maxResultsPerPage={5}
-                paginate={true}
-              />
+              {listeHistorique && (
+                <ComBasicDataTableComp
+                  badr
+                  onRef={(ref) => (this.badrComposantsTable = ref)}
+                  hasId={false}
+                  id="idComposant"
+                  rows={listeHistorique}
+                  cols={this.composantTablesCols}
+                  onItemSelected={this.onComposantSelected}
+                  totalElements={
+                    listeHistorique?.length ? listeHistorique?.length : 0
+                  }
+                  maxResultsPerPage={5}
+                  paginate={true}
+                />
+              )}
             </Accordion>
           </CardBox>
         </ScrollView>
@@ -307,7 +305,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
   },
-  libelle: {...libelle},
+  libelle: { ...libelle },
   libelleS: {
     ...libelle,
     flex: 1,
@@ -343,7 +341,7 @@ const styles = StyleSheet.create({
   textRadio: {
     color: '#FFF',
   },
-  flexColumn: {flexDirection: 'column'},
+  flexColumn: { flexDirection: 'column' },
   margLeft: {
     marginLeft: 20,
   },
@@ -370,7 +368,7 @@ const styles = StyleSheet.create({
   centre: {
     alignSelf: 'center',
   },
-  nombreResult: {margin: 20, marginVertical: 10, ...value},
+  nombreResult: { margin: 20, marginVertical: 10, ...value },
   cardBoxInfoDum: {
     flexDirection: 'column',
     margin: 10,
@@ -378,11 +376,11 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps(state) {
-  return {...state.initApurementReducer};
+  return { ...state.initApurementReducer };
 }
 
 function mapDispatchToProps(dispatch) {
-  let actions = {dispatch};
+  let actions = { dispatch };
   return {
     actions,
   };

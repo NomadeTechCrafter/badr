@@ -3,7 +3,7 @@
         "userLogin": "AD6203",
         "fonctionnalite": "cf90023",
         "module": "DED_LIB",
-        "commande": "ded.vuEmbRechercheDeclarationTrypByRef",
+        "commande": "ded.sortiPortRechercheDeclarationTrypByRef",
         "typeService": "UC",
         "messagesInfo": [
             "??? InitVuEmbarqueDeclarationTriptyque_MESSAGE_INFO ???"

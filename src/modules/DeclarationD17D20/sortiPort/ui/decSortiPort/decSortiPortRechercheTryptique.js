@@ -28,11 +28,11 @@ import * as SortiPortInitAction from '../../state/actions/decSortiPortInitAction
 
 class SortiPortRechercheTryptique extends Component {
   defaultState = {
-    bureau: '309',
-    regime: '009',
-    annee: '2020',
-    serie: '0000108',
-    cle: 'B',
+    bureau: '',
+    regime: '',
+    annee: '',
+    serie: '',
+    cle: '',
     cleValide: '',
     login: '',
     showErrorMsg: false,
