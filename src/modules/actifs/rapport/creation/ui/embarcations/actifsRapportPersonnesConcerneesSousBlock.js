@@ -159,11 +159,11 @@ class ActifsRapportPersonnesConcerneesSousBlock extends React.Component {
     static getDerivedStateFromProps(props, state) {
 
         if (
-            props.index !== state.index
+            props.index !== state.selectedIndex || !(props.index)
         ) {
             return {
                 intervenants: props.intervenants,// update the value of specific key
-                index: props.index
+                selectedItem: props.index
             };
         }
         // Return null to indicate no change to state.
@@ -171,6 +171,9 @@ class ActifsRapportPersonnesConcerneesSousBlock extends React.Component {
     }
 
     render() {
+        console.log('Yassine laghouazi' + this.props.index);
+        console.log('Yassine laghouazi' + this.state.selectedIndex);
+        console.log('Yassine laghouazi' + this.props.proprietaires);
         return (
 
             <View>

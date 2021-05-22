@@ -116,8 +116,8 @@ class ActifsRapportCreationEmbarcationsTab extends React.Component {
                 {this.props.successMessage != null && (
                     <ComBadrInfoMessageComp message={this.props.successMessage} />
                 )}
-                {(this.props.navigationsMaritimes) && (<ActifsRapportCreationEmbarcationsTableBlock navigationsMaritimes={this.props.navigationsMaritimes} callbackHandler={this.callbackHandler} readOnly={this.props.rapportExiste}/>)}
-                {(this.props.navigationMaritimeModel) && (<ActifsRapportEmbarcationBlock navigationMaritimeModel={this.props.navigationMaritimeModel} index={this.props.index} push={this.ajouterNavigationMaritimeModel} callbackHandler={this.callbackHandler} readOnly={this.props.rapportExiste} />)}
+                {(this.props.navigationsMaritimes) && (<ActifsRapportCreationEmbarcationsTableBlock navigationsMaritimes={this.props.navigationsMaritimes} callbackHandler={this.callbackHandler} readOnly={this.props.consultation}/>)}
+                {(this.props.navigationMaritimeModel) && (<ActifsRapportEmbarcationBlock navigationMaritimeModel={this.props.navigationMaritimeModel} index={this.props.index} push={this.ajouterNavigationMaritimeModel} callbackHandler={this.callbackHandler} readOnly={this.props.consultation} />)}
             </ScrollView>
 
         );

@@ -65,6 +65,8 @@ class ActifsRapportProprietairesPersonnesConcerneesBlock extends React.Component
 
     render() {
         let proprietaires = (this.props.navigationMaritimeModel.proprietaires) ? this.props.navigationMaritimeModel.proprietaires : [];
+
+        console.log('Yassine laghouazi' + JSON.stringify(this.props.navigationMaritimeModel));
         return (
 
             <ComAccordionComp title={translate('actifsCreation.embarcations.intervenants.title')} expanded={true}>

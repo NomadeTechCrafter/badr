@@ -150,13 +150,13 @@ class ActifsRapportProprietairesSousBlock extends React.Component {
     };
 
     static getDerivedStateFromProps(props, state) {
-
+        
         if (
-            props.index !== state.index
+            props.index !== state.selectedIndex || !(props.index)
         ) {
             return {
                 proprietaires: props.proprietaires,// update the value of specific key
-                index: props.index
+                selectedIndex: props.index
             };
         }
         // Return null to indicate no change to state.

@@ -95,6 +95,8 @@ export const PROPRIETAIRE_INITIAL = {
         adresse: '',
         numeroRC: '',
         refCentreRC: { codeCentreRC: '' },
+        dateEffet: new Date(),
+        dateFin: '9999-01-01',
     },
     professionIntervenant: '',
 
@@ -109,7 +111,7 @@ export const INTERVENANT_INITIAL = {
         nationaliteFr: '',
         adresse: '',
         dateEffet: new Date(),
-        dateFin: '9999-05-20',
+        dateFin: '9999-01-01',
         
     }, passager: true,
     equipage: false,
