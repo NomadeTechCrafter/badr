@@ -163,7 +163,7 @@ class ActifsRapportPersonnesConcerneesSousBlock extends React.Component {
         ) {
             return {
                 intervenants: props.intervenants,// update the value of specific key
-                selectedItem: props.index
+                selectedIndex: props.index
             };
         }
         // Return null to indicate no change to state.
