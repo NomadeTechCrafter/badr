@@ -9,7 +9,8 @@ import {
 import DedRedressementRow from '../../common/DedRedressementRow';
 import {Checkbox, RadioButton, TextInput} from 'react-native-paper';
 import ComBadrReferentielPickerComp from '../../../../../../commons/component/shared/pickers/ComBadrReferentielPickerComp';
-import {getValueByPath} from '../../../utils/DedUtils';
+import { getValueByPath } from '../../../utils/DedUtils';
+import * as ReferentielAction from '../../../../../../commons/state/actions/ReferentielAction';
 import _ from 'lodash';
 import {request} from '../../../state/actions/DedAction';
 import {
@@ -17,6 +18,7 @@ import {
   GENERIC_DED_REQUEST,
 } from '../../../state/DedRedressementConstants';
 import {connect} from 'react-redux';
+import { GENERIC_REF_REQUEST } from '../../../../../../commons/constants/generic/ComGenericConstants';
 
 class DedRedressementCautionBlock extends React.Component {
   constructor(props) {
@@ -42,17 +44,33 @@ class DedRedressementCautionBlock extends React.Component {
       this.setState({
         cautionVo: this.props.data.dedDumSectionCautionVO,
       });
+      if (this.props.data.dedDumSectionCautionVO.banque) {
+        let action = ReferentielAction.request({
+          type: GENERIC_REF_REQUEST,
+          value: {
+            command: 'getCmbBanque',
+            jsonVO: { codeBanque: this.props.data.dedDumSectionCautionVO.banque },
+            module: 'REF_LIB',
+          },
+        });
+        this.props.dispatch(action);
+      }
     }
   }
 
   initSectionsToShow(typeCautionSelected, numDecision) {
+    console.log('initSectionsToShow typeCautionSelected : ', typeCautionSelected);
+    console.log('initSectionsToShow numDecision : ', numDecision);
     this.setState({
       isBanque: typeCautionSelected === '01',
       isMixte: typeCautionSelected === '02',
       isConsignation: typeCautionSelected === '08',
       isGlobalIndustrie: typeCautionSelected === '05',
     });
-    this.handleDecisionChangedCau(numDecision);
+    if (
+      !_.isNil(numDecision) &&
+      !_.isEmpty(numDecision)
+    ) { this.handleDecisionChangedCau(numDecision); }
   }
   getCodeValiditeStatus = (codeValidite) => {
     if (codeValidite === '0') {
@@ -261,7 +279,7 @@ class DedRedressementCautionBlock extends React.Component {
                   type="flat"
                   label=""
                   disabled={true}
-                  value={getValueByPath('data.dateCreation', decisionCautionVO)}
+                  value={(decisionCautionVO)?getValueByPath('data.dateCreation', decisionCautionVO):""}
                 />
               }
             />
@@ -276,9 +294,9 @@ class DedRedressementCautionBlock extends React.Component {
                   type="flat"
                   label=""
                   disabled={true}
-                  value={this.getCodeValiditeStatus(
+                  value={(decisionCautionVO) ?this.getCodeValiditeStatus(
                     getValueByPath('data.validite', decisionCautionVO),
-                  )}
+                  ):""}
                 />
               }
             />
@@ -291,12 +309,12 @@ class DedRedressementCautionBlock extends React.Component {
                   label=""
                   disabled={true}
                   value={
-                    getValueByPath(
+                    (decisionCautionVO) ?(getValueByPath(
                       'data.statutUtilisation',
                       decisionCautionVO,
                     ) === 'true'
                       ? 'Utilisée'
-                      : 'Non utilisée'
+                      : 'Non utilisée'):""
                   }
                 />
               }
@@ -312,7 +330,7 @@ class DedRedressementCautionBlock extends React.Component {
                   type="flat"
                   label=""
                   disabled={true}
-                  value={getValueByPath('data.dateEcheance', decisionCautionVO)}
+                  value={(decisionCautionVO) ?(getValueByPath('data.dateEcheance', decisionCautionVO)):""}
                 />
               }
             />
@@ -325,10 +343,10 @@ class DedRedressementCautionBlock extends React.Component {
                   label=""
                   disabled={true}
                   value={
-                    getValueByPath('data.statutEcheance', decisionCautionVO) ===
+                    (decisionCautionVO) ?( getValueByPath('data.statutEcheance', decisionCautionVO) ===
                     'true'
                       ? 'échue'
-                      : 'Non échue'
+                      : 'Non échue'):""
                   }
                 />
               }
@@ -338,7 +356,7 @@ class DedRedressementCautionBlock extends React.Component {
             <ComBadrKeyValueComp
               libelle="Date d'écheance"
               libelleSize={1}
-              value={getValueByPath('data.statut', decisionCautionVO)}
+              value={(decisionCautionVO) ?getValueByPath('data.statut', decisionCautionVO):""}
             />
           </DedRedressementRow>
         </View>
@@ -530,6 +548,7 @@ class DedRedressementCautionBlock extends React.Component {
   };
 
   buildBanqueBlock = (hideValidite) => {
+    let banqueLibelle = (this.extractCommandData('getCmbBanque', 'referentielReducer').data) ? this.extractCommandData('getCmbBanque', 'referentielReducer').data[0].libelle:"" ;
     return (
       <View style={styles.container}>
         <DedRedressementRow>
@@ -537,6 +556,7 @@ class DedRedressementCautionBlock extends React.Component {
             libelle="Banque"
             libelleSize={1}
             children={
+              
               <ComBadrAutoCompleteChipsComp
                 disabled={true}
                 onRef={(ref) => (this.refBanque = ref)}
@@ -544,18 +564,14 @@ class DedRedressementCautionBlock extends React.Component {
                 command="getCmbBanque"
                 paramName="libelleBanque"
                 libelle="libelle"
-                selected={
-                  getValueByPath('banqueLibelle', this.state.cautionVo) +
-                  '(' +
-                  getValueByPath('banque', this.state.cautionVo) +
-                  ')'
-                }
+                selected={banqueLibelle}
                 onDemand={true}
                 searchZoneFirst={false}
                 onValueChange={(item) => this.handleBanqueChanged(item)}
               />
             }
           />
+          {console.log('yassine test', banqueLibelle)}
           <ComBadrKeyValueComp
             libelle="Agence"
             libelleSize={1}

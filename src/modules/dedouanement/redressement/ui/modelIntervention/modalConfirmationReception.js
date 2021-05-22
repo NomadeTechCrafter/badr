@@ -36,27 +36,30 @@ export default class ModalConfirmationReception extends React.Component {
   }
 
   onDateReceptionChange = (event, selectedDate) => {
+
     console.log(event);
     console.log('test ===============> ', event);
     console.log(selectedDate);
     console.log('test ===============> ', selectedDate);
-    this.setState({
+    if (selectedDate) {
+      this.setState({
 
 
-      dateReceptionTech: event.nativeEvent.timestamp,
-      dateReception: moment(selectedDate).format('DD/MM/YYYY').toString()
-      , showDateReception: false
+        dateReceptionTech: event.nativeEvent.timestamp,
+        dateReception: moment(selectedDate).format('DD/MM/YYYY').toString()
+        , showDateReception: false
 
 
-    });
-    this.state.dateReception = moment(selectedDate).format('DD/MM/YYYY').toString();
+      });
+      this.state.dateReception = moment(selectedDate).format('DD/MM/YYYY').toString();
 
 
-    this.state.transitCertifRecep = {
-      ...this.state.transitCertifRecep,
-      dateReception: this.state.dateReception + ' ' + this.state.heureReception
+      this.state.transitCertifRecep = {
+        ...this.state.transitCertifRecep,
+        dateReception: this.state.dateReception + ' ' + this.state.heureReception
+      }
+      this.props.update(this.state.transitCertifRecep);
     }
-    this.props.update(this.state.transitCertifRecep);
   }
   onHeureReceptionChange = (event, selectedHeure) => {
     console.log(event);

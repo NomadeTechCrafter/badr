@@ -37,12 +37,14 @@ export default class DedRedressementDetailArticleAccordFranchiseBlocK extends Re
               libelleSize={2}
               children={
                 <ComBadrReferentielPickerComp
+                  label="Choisir un code accord"
                   selected={{code: this.props.codeAccord}}
                   onRef={(ref) => (this.comboAccords = ref)}
                   command="getCmbAccord"
                   typeService="SP"
                   onValueChanged={this.handleAccordChanged}
                   code="code"
+                  disabled={true}
                   libelle="libelle"
                   params={{
                     codeAccord: '',
@@ -59,6 +61,7 @@ export default class DedRedressementDetailArticleAccordFranchiseBlocK extends Re
               libelleSize={2}
               children={
                 <ComBadrReferentielPickerComp
+                  label="Choisir un code franchise"
                   selected={{code: this.props.article.franchise}}
                   onRef={(ref) => (this.comboFranchise = ref)}
                   command="getCmbFranchise"
@@ -66,6 +69,7 @@ export default class DedRedressementDetailArticleAccordFranchiseBlocK extends Re
                   onValueChanged={this.handleFranchiseChanged}
                   code="code"
                   libelle="libelle"
+                  disabled={true}
                   params={{
                     codeFranchise: '',
                     libelleFranchise: '',

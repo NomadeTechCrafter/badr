@@ -30,14 +30,14 @@ class DedRedressementListsBlock extends React.Component {
             ? this.onArticleContesteSelected(row, index)
             : this.onArticleSelected(row, index),
       },
-      {code: 'numeroOrdre', libelle: 'Unité', width: 100},
+      {code: 'numeroOrdre', libelle: 'N°', width: 100},
       {code: 'typeContenant', libelle: 'Code contenants', width: 120},
       {code: 'nombreContenants', libelle: 'Nombre contenants', width: 120},
       {code: 'refNgp', libelle: 'Code NGP', width: 200},
       {code: 'valeurDeclaree', libelle: 'Valeur declarée', width: 80},
       {code: 'quantite', libelle: 'Quantité', width: 80},
       {code: 'unite', libelle: 'Unité', width: 80},
-      {code: 'issuATPA ', libelle: 'Issu ATPA', width: 120},
+      { code: 'issuATPA ', libelle: 'Issu ATPA', width: 120, render: (row) => (row.issuATPA==='false')?'Non':'Oui' },
     ];
   };
 
@@ -64,6 +64,7 @@ class DedRedressementListsBlock extends React.Component {
       'dedDumSectionArticlesVO.dedDumArticleFormVO',
       this.props.data,
     );
+    console.log('JSON.stringify(dedDumArticles) ',JSON.stringify(dedDumArticles));
     if (dedDumArticles) {
       const articles = [];
       const articlesContestes = [];
@@ -142,7 +143,6 @@ class DedRedressementListsBlock extends React.Component {
           title={`Articles : ${this.state.articles.length}`}
           expanded={true}>
           <ComBasicDataTableComp
-            hasId={true}
             rows={this.state.articles}
             cols={this.state.articlesCols}
             totalElements={this.state.articles.length}
@@ -162,7 +162,6 @@ class DedRedressementListsBlock extends React.Component {
           title={`Articles contestés : ${this.state.articlesContestes.length}`}
           expanded={true}>
           <ComBasicDataTableComp
-            hasId={true}
             rows={this.state.articlesContestes}
             cols={this.state.articlesContesteCols}
             totalElements={this.state.articles.length}

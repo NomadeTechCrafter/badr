@@ -165,12 +165,14 @@ class DedRedressementDetailArticleMarchandiseBlock extends React.Component {
               }
             />
           </DedRedressementRow>
-
+          {console.log("this.props.article", this.props.article)}
+          {console.log("this.props.article.paiement", this.props.article.paiement)}
           <DedRedressementRow>
             <ComBadrKeyValueComp
               libelle="Paiement"
               libelleSize={0.7}
               children={
+                
                 <View style={{flexDirection: 'row'}}>
                   <ComBadrKeyValueComp
                     libelle="Avec"
@@ -180,7 +182,7 @@ class DedRedressementDetailArticleMarchandiseBlock extends React.Component {
                         value="Avec"
                         disabled={true}
                         status={
-                          this.props.article.paiement ? 'checked' : 'unchecked'
+                          (this.props.article.paiement !== "false") ? 'checked' :'unchecked'
                         }
                       />
                     }
@@ -193,7 +195,7 @@ class DedRedressementDetailArticleMarchandiseBlock extends React.Component {
                         value="Sans"
                         disabled={true}
                         status={
-                          !this.props.article.paiement ? 'checked' : 'unchecked'
+                          (this.props.article.paiement === "false")? 'checked' : 'unchecked'
                         }
                       />
                     }
@@ -208,9 +210,9 @@ class DedRedressementDetailArticleMarchandiseBlock extends React.Component {
                         color={primaryColor}
                         disabled={true}
                         status={
-                          getValueByPath('occasion', this.props.article)
-                            ? 'checked'
-                            : 'unchecked'
+                          getValueByPath('occasion', this.props.article)==="false"
+                            ? 'unchecked'
+                            : 'checked'
                         }
                       />
                     }
