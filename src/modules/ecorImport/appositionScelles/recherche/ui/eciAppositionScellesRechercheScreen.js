@@ -47,7 +47,7 @@ class ECIAppositionScellesRechercheScreen extends Component {
     this.setState({ [keyImput]: input[keyImput].replace(/[^0-9]/g, '') });
   };
   onChangeInputCle = (cle) => {
-    this.setState({ cle: cle.replace(/[^A-Za-z]/g, '') });
+    this.setState({ cle: cle.toUpperCase().replace(/[^A-Za-z]/g, '') });
   };
   addZeros = (input) => {
     let keyImput = _.keys(input)[0];
