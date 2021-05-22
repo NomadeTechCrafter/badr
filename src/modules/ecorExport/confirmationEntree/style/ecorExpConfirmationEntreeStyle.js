@@ -47,6 +47,11 @@ const style = {
   toolBarBtn: {
     backgroundColor: 'white',
   },
+  centerErrorMsg: {
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 };
 
 export default StyleSheet.create(style);

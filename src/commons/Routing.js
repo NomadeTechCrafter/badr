@@ -15,17 +15,17 @@ const mapping = {
   '823': {screen: 'RefPlaquesImm', params: {}},
   '90025': {screen: 'VuEmbarqueScreen', params: {qr: true}},
 
-    '3086': {screen: 'controleRechercheDumScreen', params: {typeControle: 'TR'}},
-    '2052': {screen: 'DedRechercheRedressement', params: {qr: false}},
-    '5971': {screen: 'RechecheMLV', params: {}},
-    '1201': {
-        screen: 'RechercheEcorImport',
-        params: {typeEcorImport: 'EnleverMarchandise'},
-    },
-    '1203': {
-        screen: 'RechercheEcorImport',
-        params: {typeEcorImport: 'EnleverMarchandiseParPesage'},
-    },
+  '3086': {screen: 'controleRechercheDumScreen', params: {typeControle: 'TR'}},
+  '2052': {screen: 'DedRechercheRedressement', params: {qr: false}},
+  '5971': {screen: 'RechecheMLV', params: {}},
+  '1201': {
+    screen: 'RechercheEcorImport',
+    params: {typeEcorImport: 'EnleverMarchandise'},
+  },
+  '1203': {
+    screen: 'RechercheEcorImport',
+    params: {typeEcorImport: 'EnleverMarchandiseParPesage'},
+  },
   '5202': {screen: 'LiquidationRechercheScreen', params: {qr: false}},
 
   /*T6bis creation*/
@@ -45,10 +45,15 @@ const mapping = {
   '1226': {
     screen: 'ECIAppositionScellesRechercheScreen',
     params: {},
-   },
+  },
   '121711': {
     screen: 'EciConsultationBLS',
-    params: { title: 'Ecran  Recherche Consultation BLS' }
+    params: {title: 'Ecran  Recherche Consultation BLS'},
+  },
+  '6151': {
+    //CONFIRMATION ENTREE
+    screen: 'ConfirmationEntreeRechercheScreen',
+    params: {title: 'Ecran  Recherche Confirmation entree'},
   },
 };
 

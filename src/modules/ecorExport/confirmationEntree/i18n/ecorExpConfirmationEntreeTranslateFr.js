@@ -17,6 +17,8 @@ export default {
     valeurDeclarant: 'Valeur Déclarée',
     refDocument: 'Référence Document',
     dateHeure: 'Date Heure (*)',
+    dateArrivee: 'Date Arrivée',
+    heureArrivee: 'Heure Arrivée',
     informationsEcor: {
       title: 'Informations ECOR',
       scellesConfirmationEntree: 'Scellés confirmation entrée',

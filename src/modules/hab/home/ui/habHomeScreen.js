@@ -59,7 +59,7 @@ import eciConsultationBLSMainScreen from '../../../ecorImport/eciConsultationBLS
 import ECIAppositionScellesRechercheScreen from '../../../ecorImport/appositionScelles/recherche/ui/eciAppositionScellesRechercheScreen';
 import ECIAppositionScellesScreen from '../../../ecorImport/appositionScelles/apposition/ui/eciAppositionScellesScreen';
 import ConsultationBLSMainScreen from '../../../ecorImport/eciConsultationBLS/ui/eciConsultationBLSMainScreen';
-
+import ConfirmationEntreeMainScreen from '../../../ecorExport/confirmationEntree/ui/ecorExpConfirmationEntreeMainScreen';
 
 const Drawer = createDrawerNavigator();
 const deltaScreen = Dimensions.get('window').width / 4;
@@ -288,7 +288,7 @@ class habHomeScreen extends React.Component {
         <Drawer.Screen
           name="EciConsultationBLS"
           component={ConsultationBLSMainScreen}
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
         />
         {/* Module T6bis start*/}
         <Drawer.Screen
@@ -311,14 +311,19 @@ class habHomeScreen extends React.Component {
         <Drawer.Screen
           name="ECIAppositionScellesRechercheScreen"
           component={ECIAppositionScellesRechercheScreen}
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
         />
         <Drawer.Screen
           name="AppositionScellesScreen"
           component={ECIAppositionScellesScreen}
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
         />
 
+        <Drawer.Screen
+          name="ConfirmationEntreeRechercheScreen"
+          component={ConfirmationEntreeMainScreen}
+          options={{headerShown: false}}
+        />
       </Drawer.Navigator>
     );
   }

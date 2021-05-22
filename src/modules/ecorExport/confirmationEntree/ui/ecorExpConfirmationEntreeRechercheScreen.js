@@ -11,6 +11,7 @@ import {
   ComBadrAlphabetPickerComp,
   ComBadrToolbarComp,
   ComBadrButtonIconComp,
+  ComBadrErrorMessageComp,
   ComBadrItemsPickerComp,
   ComBadrPopupComp,
 } from '../../../../commons/component';
@@ -19,7 +20,9 @@ import {
   primaryColor,
   accentColor,
 } from '../../../../commons/styles/ComThemeStyle';
+import styles from '../style/ecorExpConfirmationEntreeStyle';
 import EcorExpRechercheParRefComp from '../component/ecorExpRechercheParRefComp';
+import _ from 'lodash';
 /**i18n */
 import {translate} from '../../../../commons/i18n/ComI18nHelper';
 import {connect} from 'react-redux';
@@ -75,7 +78,6 @@ class ConfirmationEntreeRechercheScreen extends Component {
         },
       });
       this.props.navigation.navigate('Resultat', {
-        login: this.state.login,
         first: true,
       });
       this.props.dispatch(action);
@@ -336,6 +338,13 @@ class ConfirmationEntreeRechercheScreen extends Component {
           onLayout={(event) => {
             this.layout = event.nativeEvent.layout;
           }}>
+          {!_.isEmpty(this.props.errorMessage) && (
+            <ComBadrErrorMessageComp
+              style={styles.centerErrorMsg}
+              message={this.props.errorMessage}
+            />
+          )}
+
           {this.buildSearchZone('DeclarationEnDetail')}
           <Divider />
           {this.buildSearchZone('EtatChargement')}

@@ -4,8 +4,8 @@ import * as Constants from '../ecorExpConfirmationEntreeConstants';
 
 /**i18n */
 import {translate} from '../../../../../commons/i18n/ComI18nHelper';
-
-export function request(action) {
+import _ from 'lodash';
+export function request(action, navigation) {
   return (dispatch) => {
     dispatch(action);
     dispatch(inProgress(action));
@@ -19,18 +19,16 @@ export function request(action) {
         if (response) {
           console.log('response action confirmationentre', response);
           const data = response.data;
-          if (data && !data.dtoHeader.messagesErreur) {
+          if (data && _.isEmpty(data.dtoHeader.messagesErreur)) {
+            console.log('****************response action dispatch succes');
             console.log('data', data);
             dispatch(success(data, action.value.referenceDed));
-            /** Naviguer vers la vue suivant. */
-            /* navigation.navigate(successRedirection, {
-              login: action.value.login,
-              refDeclaration: action.value.referenceDed,
-              numeroVoyage: action.value.numeroVoyage,
-              cle: action.value.cle,
-              declarationRI: data.jsonVO,
-            });*/
+
+            navigation.navigate('Resultat', {
+              first: true,
+            });
           } else {
+            console.log('***************response action dispatch failed');
             dispatch(failed(data));
           }
         } else {
@@ -89,13 +87,14 @@ export function requestFindDumByEtatChargement(action) {
         if (response) {
           console.log('response action confirmationentre', response);
           const data = response.data;
-          if (data && !data.dtoHeader.messagesErreur) {
+          if (data && _.isEmpty(data.dtoHeader.messagesErreur)) {
             console.log('data', data);
             completerInformationDum(data.jsonVO, dispatch);
           } else {
             dispatch(failedFindDumByEtatChargement(data));
           }
         } else {
+          console.log('***************response action dispatch failed reponse');
           dispatch(
             failedFindDumByEtatChargement(translate('errors.technicalIssue')),
           );

@@ -1,6 +1,6 @@
 /**Constants */
 import * as Constants from '../ecorExpConfirmationEntreeConstants';
-
+import {translate} from '../../../../../commons/i18n/ComI18nHelper';
 const initialState = {
   showProgress: false,
   errorMessage: '',
@@ -42,7 +42,13 @@ export default (state = initialState, action) => {
     case Constants.INITCONFIRMATIONENTREE_FAILED:
       nextState.showProgress = false;
       nextState.displayError = true;
-      nextState.errorMessage = action.value;
+      if (action.value.dtoHeader) {
+        nextState.errorMessage = action.value.dtoHeader.messagesErreur
+          ? action.value.dtoHeader.messagesErreur
+          : action.value;
+      } else {
+        nextState.errorMessage = translate('errors.technicalIssue');
+      }
       return nextState;
     case Constants.INITCONFIRMATIONENTREE_INIT:
       return initialState;
@@ -124,10 +130,24 @@ const prepareConfirm = (declaration, referenceDum) => {
     listDeclaration: listDeclaration,
     initConfirmerEntreeVO: declaration,
     ecorIsSaved: ecorIsSaved,
-    alreadyConfirmed: !(
-      !declaration.dateHeureEntree || declaration.dateHeureEntree.length === 0
-    ),
+    alreadyConfirmed: checkAlreadyConfirmed(declaration),
   };
 
+  /* if (response.data.dtoHeader.messagesErreur) {
+        $rootScope.messagesErreur .push(response.data.dtoHeader.messagesErreur);
+        $rootScope.messagesInfo = []
+
+    }*/
+  repObj.ecorIsSaved = checkAlreadyConfirmed(declaration);
+
+  //$scope.listeNombreDeScelles= $scope.dataJson.scellesConfirmationEntree ?$scope.dataJson.scellesConfirmationEntree :[];
+
   return repObj;
+};
+
+const checkAlreadyConfirmed = (ecorDum) => {
+  if (!ecorDum) {
+    return;
+  }
+  return !(!ecorDum.dateHeureEntree || ecorDum.dateHeureEntree.length === 0);
 };

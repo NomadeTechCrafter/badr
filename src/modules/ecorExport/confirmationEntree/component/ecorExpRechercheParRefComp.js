@@ -33,9 +33,9 @@ class EcorExpRechercheParRefComp extends Component {
   defaultState = {
     bureau: '309',
     regime: '060',
-    annee: '2020',
-    serie: '0000179',
-    cle: 'L',
+    annee: '2021',
+    serie: '0000010',
+    cle: 'C',
     cleValide: '',
     login: '',
     numeroVoyage: '',
@@ -134,12 +134,9 @@ class EcorExpRechercheParRefComp extends Component {
         console.log('confirmer data Action ', dataAction);
         let action =
           this.props.commande === 'initConfirmerEntree'
-            ? RechecheDumAction.request(dataAction)
+            ? RechecheDumAction.request(dataAction, this.props.navigation)
             : RechecheDumAction.requestFindDumByEtatChargement(dataAction);
-        this.props.navigation.navigate('Resultat', {
-          login: this.state.login,
-          first: true,
-        });
+
         this.props.dispatch(action);
         console.log('dispatch fired !!');
       }

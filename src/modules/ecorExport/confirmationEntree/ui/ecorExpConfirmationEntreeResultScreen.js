@@ -62,9 +62,9 @@ class ConfirmationEntreeResultScreen extends React.Component {
   componentDidMount() {}
 
   componentDidUpdate() {
-    if (this.props.route.params.first) {
+    /*if (this.props.route.params.first) {
       this.refs._badrTable.reset();
-    }
+    }*/
   }
   setError = (msg) => {
     console.log('setError msg', msg);
@@ -99,74 +99,6 @@ class ConfirmationEntreeResultScreen extends React.Component {
             paginate={true}
             showProgress={this.props.showProgress}
           />
-          <Grid>
-            <Row style={CustomStyleSheet.whiteRow}>
-              <Col size={2}>
-                <TextInput
-                  mode={'outlined'}
-                  maxLength={8}
-                  value={
-                    this.props.data.initConfirmerEntreeVO.documentEntreeEnceinte
-                  }
-                  label={translate('confirmationEntree.refDocument')}
-                  style={CustomStyleSheet.badrInputHeight}
-                  onChangeText={(text) =>
-                    this.setState({
-                      ecorInfo: {
-                        ...this.state.ecorInfo,
-                        numeroPince: text,
-                      },
-                    })
-                  }
-                  disabled={this.props.data.ecorIsSaved}
-                />
-              </Col>
-              <Col size={1} />
-              <Col size={1}>
-                <ComBadrLibelleComp withColor={true}>
-                  {translate('confirmationEntree.dateHeure')}
-                </ComBadrLibelleComp>
-              </Col>
-              <Col size={2}>
-                <ComBadrDatePickerComp
-                  dateFormat="DD/MM/yyyy"
-                  heureFormat="HH:mm"
-                  value={
-                    this.props.data.initConfirmerEntreeVO.dateHeureEntree
-                      ? moment(
-                          this.props.data.initConfirmerEntreeVO.dateHeureEntree,
-                          'DD/MM/yyyy HH:mm',
-                          true,
-                        )
-                      : ''
-                  }
-                  timeValue={
-                    this.props.data.initConfirmerEntreeVO.dateHeureEntree
-                      ? moment(
-                          this.props.data.initConfirmerEntreeVO.dateHeureEntree,
-                          'DD/MM/yyyy HH:mm',
-                          true,
-                        )
-                      : ''
-                  }
-                  onDateChanged={(date) =>
-                    this.setState({
-                      ...this.state,
-                      dateDebut: date,
-                    })
-                  }
-                  onTimeChanged={(time) =>
-                    this.setState({
-                      ...this.state,
-                      heureDebut: time,
-                    })
-                  }
-                  inputStyle={style.dateInputStyle}
-                  readonly={this.props.data.ecorIsSaved}
-                />
-              </Col>
-            </Row>
-          </Grid>
           {!_.isEmpty(this.props.data.initConfirmerEntreeVO) && (
             <EcorExpInformationEcorComp
               initConfirmerEntreeVO={this.props.data.initConfirmerEntreeVO}
