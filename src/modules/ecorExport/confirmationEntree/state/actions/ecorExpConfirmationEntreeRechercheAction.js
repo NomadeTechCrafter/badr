@@ -17,10 +17,8 @@ export function request(action, navigation) {
     )
       .then((response) => {
         if (response) {
-          console.log('response action confirmationentre', response);
           const data = response.data;
           if (data && _.isEmpty(data.dtoHeader.messagesErreur)) {
-            console.log('****************response action dispatch succes');
             console.log('data', data);
             dispatch(success(data, action.value.referenceDed));
 
@@ -28,7 +26,6 @@ export function request(action, navigation) {
               first: true,
             });
           } else {
-            console.log('***************response action dispatch failed');
             dispatch(failed(data));
           }
         } else {
@@ -72,7 +69,7 @@ export function init(action) {
     value: action.value,
   };
 }
-export function requestFindDumByEtatChargement(action) {
+export function requestFindDumByEtatChargement(action, navigation) {
   console.log('requestFindDumByEtatChargement action');
   return (dispatch) => {
     dispatch(action);
@@ -88,13 +85,12 @@ export function requestFindDumByEtatChargement(action) {
           console.log('response action confirmationentre', response);
           const data = response.data;
           if (data && _.isEmpty(data.dtoHeader.messagesErreur)) {
-            console.log('data', data);
-            completerInformationDum(data.jsonVO, dispatch);
+            console.log('data requestFindDumByEtatChargement', data);
+            completerInformationDum(data.jsonVO, dispatch, navigation);
           } else {
             dispatch(failedFindDumByEtatChargement(data));
           }
         } else {
-          console.log('***************response action dispatch failed reponse');
           dispatch(
             failedFindDumByEtatChargement(translate('errors.technicalIssue')),
           );
@@ -138,7 +134,7 @@ export function initFindDumByEtatChargement(action) {
   };
 }
 // Completer les informations de la DUM liées à l'état de chargement
-export async function completerInformationDum(listDum, dispatch) {
+export async function completerInformationDum(listDum, dispatch, navigation) {
   console.log('in completerInformationDum', listDum);
   var promises = [];
   let listDeclaration = [];
@@ -171,6 +167,9 @@ export async function completerInformationDum(listDum, dispatch) {
   }
   console.log('end for.', listDeclaration);
   dispatch(successFindDumByEtatChargement(listDeclaration));
+  navigation.navigate('Resultat', {
+    first: true,
+  });
 }
 
 export default {

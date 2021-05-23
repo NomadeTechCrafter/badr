@@ -123,6 +123,7 @@ class ConfirmationEntreeRechercheScreen extends Component {
         <EcorExpRechercheParRefComp
           commande="initConfirmerEntree"
           typeService="UC"
+          isBureauDisabled={false}
           navigation={this.props.navigation}
           routeParams={this.props.route.params}
         />
@@ -224,6 +225,7 @@ class ConfirmationEntreeRechercheScreen extends Component {
           <EcorExpRechercheParRefComp
             commande="findDumByEtatChargement"
             typeService="SP"
+            isBureauDisabled={true}
             navigation={this.props.navigation}
             routeParams={this.props.route.params}
           />

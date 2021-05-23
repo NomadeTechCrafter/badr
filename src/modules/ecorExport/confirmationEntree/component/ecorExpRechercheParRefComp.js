@@ -125,17 +125,21 @@ class EcorExpRechercheParRefComp extends Component {
       this.state.cleValide = this.cleDUM(this.state.regime, this.state.serie);
 
       if (this.state.cle === this.state.cleValide) {
+        let regime =
+          this.props.commande === 'findDumByEtatChargement'
+            ? '001'
+            : this.state.regime;
         let referenceDed =
-          this.state.bureau +
-          this.state.regime +
-          this.state.annee +
-          this.state.serie;
+          this.state.bureau + regime + this.state.annee + this.state.serie;
         let dataAction = this.initActionData(referenceDed);
         console.log('confirmer data Action ', dataAction);
         let action =
           this.props.commande === 'initConfirmerEntree'
             ? RechecheDumAction.request(dataAction, this.props.navigation)
-            : RechecheDumAction.requestFindDumByEtatChargement(dataAction);
+            : RechecheDumAction.requestFindDumByEtatChargement(
+                dataAction,
+                this.props.navigation,
+              );
 
         this.props.dispatch(action);
         console.log('dispatch fired !!');
@@ -195,9 +199,10 @@ class EcorExpRechercheParRefComp extends Component {
             <Col>
               <TextInput
                 error={this._hasErrors('regime')}
+                disabled={this.props.isBureauDisabled}
                 maxLength={3}
                 keyboardType={'number-pad'}
-                value={this.state.regime}
+                value={this.props.isBureauDisabled ? '001' : this.state.regime}
                 label={translate('transverse.regime')}
                 onChangeText={(val) => this.onChangeInput({regime: val})}
                 onEndEditing={(event) =>

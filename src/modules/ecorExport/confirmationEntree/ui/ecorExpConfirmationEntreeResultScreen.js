@@ -74,7 +74,10 @@ class ConfirmationEntreeResultScreen extends React.Component {
   };
 
   render() {
-    console.log('in render result compoent', JSON.stringify(this.props));
+    console.log(
+      'in render result',
+      JSON.stringify(this.props.data.initConfirmerEntreeVO),
+    );
     return (
       <View>
         <ScrollView
@@ -88,17 +91,21 @@ class ConfirmationEntreeResultScreen extends React.Component {
           {this.state.errorMessage !== null && (
             <ComBadrErrorMessageComp message={this.state.errorMessage} />
           )}
-          <ComBasicDataTableComp
-            ref="_badrTable"
-            id="listConfirmationEntree"
-            rows={this.props.data.listDeclaration}
-            cols={this.cols}
-            onItemSelected={this.onItemSelected}
-            totalElements={this.props.data.listDeclaration.length}
-            maxResultsPerPage={10}
-            paginate={true}
-            showProgress={this.props.showProgress}
-          />
+          {!_.isEmpty(this.props.data) &&
+            !_.isEmpty(this.props.data.listDeclaration) && (
+              <ComBasicDataTableComp
+                ref="_badrTable"
+                id="listConfirmationEntree"
+                rows={this.props.data.listDeclaration}
+                cols={this.cols}
+                onItemSelected={this.onItemSelected}
+                totalElements={this.props.data.listDeclaration.length}
+                maxResultsPerPage={10}
+                paginate={true}
+                showProgress={this.props.showProgress}
+              />
+            )}
+
           {!_.isEmpty(this.props.data.initConfirmerEntreeVO) && (
             <EcorExpInformationEcorComp
               initConfirmerEntreeVO={this.props.data.initConfirmerEntreeVO}

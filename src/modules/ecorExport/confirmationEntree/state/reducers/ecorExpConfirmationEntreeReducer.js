@@ -64,7 +64,13 @@ export default (state = initialState, action) => {
     case Constants.INITCONFIRMATIONENTREE_ETATCHARGEMENT_SUCCESS:
       nextState.errorMessage = null;
       nextState.showProgress = false;
-      nextState.data = action.value.data;
+      let repObj = {
+        listDeclaration: action.value.data,
+        initConfirmerEntreeVO: {dateEnregistrement: ''},
+      };
+      console.log(' in success reducer ', action.value.data);
+
+      nextState.data = repObj;
       return nextState;
     case Constants.INITCONFIRMATIONENTREE_ETATCHARGEMENT_FAILED:
       nextState.showProgress = false;
@@ -73,9 +79,32 @@ export default (state = initialState, action) => {
       return nextState;
     case Constants.INITCONFIRMATIONENTREE_ETATCHARGEMENT_INIT:
       return initialState;
+
     case Constants.INITCONFIRMATIONENTREE_UPDATE_VO:
       nextState.data.initConfirmerEntreeVO = action.value;
       return nextState;
+
+    case Constants.CONFIRMERNTREE_REQUEST:
+      nextState.displayError = false;
+      nextState.errorMessage = null;
+      nextState.showProgress = true;
+      nextState.data = [];
+      return nextState;
+    case Constants.CONFIRMERNTREE_IN_PROGRESS:
+      return nextState;
+    case Constants.CONFIRMERNTREE_SUCCESS:
+      nextState.errorMessage = null;
+      nextState.showProgress = false;
+      nextState.data = action.value.data;
+      return nextState;
+    case Constants.CONFIRMERNTREE_FAILED:
+      nextState.showProgress = false;
+      nextState.displayError = true;
+      nextState.errorMessage = action.value;
+      return nextState;
+    case Constants.CONFIRMERNTREE_INIT:
+      return initialState;
+
     default:
       nextState.showProgress = true;
       return initialState;
