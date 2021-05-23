@@ -70,9 +70,8 @@ const localStore = {
   findDumByEtatChargement: require('../../../../modules/ecorExport/confirmationEntree/service/local-data/findDumByEtatChargement.json'),
   recupererDumInfo: require('../../../../modules/ecorExport/confirmationEntree/service/local-data/recupererDumInfo.json'),
   findDumByAmp: require('../../../../modules/ecorExport/confirmationEntree/service/local-data/findDumByAmp.json'),
+  confirmerEntree: require('../../../../modules/ecorExport/confirmationEntree/service/local-data/confirmerEntree.json'),
   findEciRechBls: require('../../../../modules/ecorImport/eciConsultationBLS/service/local-data/eciFindEciRechBls.json'),
   initApposerScelles: require('../../../../modules/ecorImport/appositionScelles/recherche/service/local-data/eciInitAppositionScellesData.json'),
-
-
 };
 export default localStore;

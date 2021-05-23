@@ -55,7 +55,7 @@ class ConfirmationEntreeRechercheScreen extends Component {
     this.setState({typeListeAmp: value ? value.code : ''});
   };
 
-  confirmer = () => {
+  confirmerEtatChargement = () => {
     console.log('confirmer', this.props.successRedirection);
     this.setState({showErrorMsg: true});
     if (this.state.typeMoyenTEtatC && this.state.immatriculationEtatC) {
@@ -200,7 +200,7 @@ class ConfirmationEntreeRechercheScreen extends Component {
               <Col size={2} />
               <Col size={2}>
                 <Button
-                  onPress={this.confirmer}
+                  onPress={this.confirmerEtatChargement}
                   icon="check"
                   compact="true"
                   mode="contained"

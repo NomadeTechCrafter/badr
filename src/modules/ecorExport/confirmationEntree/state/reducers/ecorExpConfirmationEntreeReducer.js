@@ -4,6 +4,7 @@ import {translate} from '../../../../../commons/i18n/ComI18nHelper';
 const initialState = {
   showProgress: false,
   errorMessage: '',
+  infoMessage: '',
   displayError: false,
   data: {
     listDeclaration: [],
@@ -87,20 +88,30 @@ export default (state = initialState, action) => {
     case Constants.CONFIRMERNTREE_REQUEST:
       nextState.displayError = false;
       nextState.errorMessage = null;
+      nextState.infoMessage = null;
       nextState.showProgress = true;
-      nextState.data = [];
       return nextState;
     case Constants.CONFIRMERNTREE_IN_PROGRESS:
       return nextState;
     case Constants.CONFIRMERNTREE_SUCCESS:
       nextState.errorMessage = null;
+      if (action.value.dtoHeader) {
+        nextState.infoMessage = action.value.dtoHeader.messagesInfo;
+      }
       nextState.showProgress = false;
-      nextState.data = action.value.data;
+      //nextState.data = action.value.data;
+      nextState.ecorIsSaved = true;
       return nextState;
     case Constants.CONFIRMERNTREE_FAILED:
       nextState.showProgress = false;
       nextState.displayError = true;
-      nextState.errorMessage = action.value;
+      if (action.value.dtoHeader) {
+        nextState.errorMessage = action.value.dtoHeader.messagesErreur
+          ? action.value.dtoHeader.messagesErreur
+          : action.value;
+      } else {
+        nextState.errorMessage = translate('errors.technicalIssue');
+      }
       return nextState;
     case Constants.CONFIRMERNTREE_INIT:
       return initialState;

@@ -1,22 +1,18 @@
 import React from 'react';
-import {View, ScrollView} from 'react-native';
-import {TextInput} from 'react-native-paper';
+import {ScrollView, View} from 'react-native';
 /**Custom Components */
 import {
-  ComBasicDataTableComp,
-  ComBadrDatePickerComp,
-  ComBadrLibelleComp,
   ComBadrErrorMessageComp,
+  ComBadrInfoMessageComp,
+  ComBasicDataTableComp,
 } from '../../../../commons/component';
 import EcorExpInformationEcorComp from './../component/ecorExpInformationEcorComp';
-import {Col, Grid, Row} from 'react-native-easy-grid';
-import {CustomStyleSheet} from '../../../../commons/styles/ComThemeStyle';
-import moment from 'moment';
 /** REDUX **/
 import {connect} from 'react-redux';
 import translate from '../../../../commons/i18n/ComI18nHelper';
-import style from '../style/ecorExpConfirmationEntreeStyle';
+import styles from '../style/ecorExpConfirmationEntreeStyle';
 import _ from 'lodash';
+
 class ConfirmationEntreeResultScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -32,22 +28,37 @@ class ConfirmationEntreeResultScreen extends React.Component {
       {
         code: 'typeDeD',
         libelle: translate('confirmationEntree.typeDed'),
-        width: 200,
+        width: 100,
       },
       {
         code: 'dateEnregistrement',
         libelle: translate('confirmationEntree.dateEnreg'),
-        width: 200,
+        width: 150,
       },
       {
         code: 'operateurDeclarant',
         libelle: translate('confirmationEntree.operateurDeclarant'),
-        width: 200,
+        width: 150,
       },
       {
         code: 'valeurDeclaree',
         libelle: translate('confirmationEntree.valeurDeclarant'),
-        width: 200,
+        width: 150,
+      },
+      {
+        code: 'poidsBruts',
+        libelle: translate('confirmationEntree.poidsBruts'),
+        width: 150,
+      },
+      {
+        code: 'poidsNet',
+        libelle: translate('confirmationEntree.poidsNet'),
+        width: 150,
+      },
+      {
+        code: 'nombreContenants',
+        libelle: translate('confirmationEntree.nombreContenants'),
+        width: 150,
       },
     ];
   }
@@ -74,10 +85,6 @@ class ConfirmationEntreeResultScreen extends React.Component {
   };
 
   render() {
-    console.log(
-      'in render result',
-      JSON.stringify(this.props.data.initConfirmerEntreeVO),
-    );
     return (
       <View>
         <ScrollView
@@ -89,7 +96,22 @@ class ConfirmationEntreeResultScreen extends React.Component {
             this.layout = event.nativeEvent.layout;
           }}>
           {this.state.errorMessage !== null && (
-            <ComBadrErrorMessageComp message={this.state.errorMessage} />
+            <ComBadrErrorMessageComp
+              style={styles.centerErrorMsg}
+              message={this.state.errorMessage}
+            />
+          )}
+          {!_.isEmpty(this.props.errorMessage) && (
+            <ComBadrErrorMessageComp
+              style={styles.centerErrorMsg}
+              message={this.props.errorMessage}
+            />
+          )}
+          {!_.isEmpty(this.props.infoMessage) && (
+            <ComBadrInfoMessageComp
+              style={styles.centerErrorMsg}
+              message={this.props.infoMessage}
+            />
           )}
           {!_.isEmpty(this.props.data) &&
             !_.isEmpty(this.props.data.listDeclaration) && (

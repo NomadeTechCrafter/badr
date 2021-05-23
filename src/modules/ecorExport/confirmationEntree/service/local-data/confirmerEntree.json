@@ -1,0 +1,202 @@
+{
+  "dtoHeader": {
+    "userLogin": "AD6203",
+    "fonctionnalite": "cf6151",
+    "module": "ECOREXP_LIB",
+    "commande": "confirmerEntree",
+    "typeService": "UC",
+    "messagesInfo": [
+      "La confirmation d'entrée dans l'enceinte douanière est passée avec succès "
+    ],
+    "offset": 0,
+    "pageSize": 0,
+    "rowCount": 0
+  },
+  "jsonVO": {
+    "bureau": "",
+    "regime": "",
+    "annee": "",
+    "serie": "",
+    "cle": "",
+    "referenceEnregistrement": "",
+    "dateEffectiveEnregistrement": "",
+    "numeroOrdreVoyage": "",
+    "listeDumVo": [
+      {
+        "documentEntreeEnceinte": "ref2",
+        "numeroPince": "",
+        "nombreScelle": "",
+        "nombreScelleConfirmationEntree": "2",
+        "numeroPinceConfirmationEntree": "12",
+        "numeroVoyage": "",
+        "dateHeureAutorisation": "",
+        "dateHeureEntree": "23/05/2021 19:51",
+        "dateHeureAcheminement": "",
+        "dateHeureVoyage": "",
+        "dateHeureEmbarquement": "",
+        "dateHeureArrive": "",
+        "dateHeureCtrlApresScanner": "",
+        "commentaireEmbarquement": "",
+        "refAgentEmbarquement": {
+          "idActeur": "",
+          "nom": "",
+          "prenom": "",
+          "refBureau": {
+            "codeBureau": "",
+            "nomBureauDouane": "",
+            "defaultConverter": {}
+          },
+          "defaultConverter": {}
+        },
+        "refAgentEntree": {
+          "idActeur": "AD6203",
+          "nom": "AD6203",
+          "prenom": "AD6203",
+          "refBureau": {
+            "codeBureau": "309",
+            "nomBureauDouane": "Casa port (309)",
+            "defaultConverter": {}
+          },
+          "defaultConverter": {}
+        },
+        "refAgentAutorisationAcheminement": {
+          "idActeur": "",
+          "nom": "",
+          "prenom": "",
+          "refBureau": {
+            "codeBureau": "",
+            "nomBureauDouane": "",
+            "defaultConverter": {}
+          },
+          "defaultConverter": {}
+        },
+        "refAgentAnnulationEmbarquement": {
+          "idActeur": "",
+          "nom": "",
+          "prenom": "",
+          "refBureau": {
+            "codeBureau": "",
+            "nomBureauDouane": "",
+            "defaultConverter": {}
+          },
+          "defaultConverter": {}
+        },
+        "refAgentAutorisation": {
+          "idActeur": "",
+          "nom": "",
+          "prenom": "",
+          "refBureau": {
+            "codeBureau": "",
+            "nomBureauDouane": "",
+            "defaultConverter": {}
+          },
+          "defaultConverter": {}
+        },
+        "refAgentConfirmationArrive": {
+          "idActeur": "",
+          "nom": "",
+          "prenom": "",
+          "refBureau": {
+            "codeBureau": "",
+            "nomBureauDouane": "",
+            "defaultConverter": {}
+          },
+          "defaultConverter": {}
+        },
+        "refMoyenTransport": {
+          "descriptionMoyenTransport": "",
+          "codeMoyenTransport": "",
+          "refModeTransport": {
+            "descriptionModeTransport": "",
+            "codeModeTransport": "",
+            "defaultConverter": {}
+          },
+          "commentaire": "",
+          "defaultConverter": {}
+        },
+        "refDUM": {
+          "bureau": "",
+          "regime": "",
+          "annee": "",
+          "serie": "",
+          "cle": "",
+          "referenceEnregistrement": "",
+          "dateEffectiveEnregistrement": "21/01/2021 08:00",
+          "numeroOrdreVoyage": "",
+          "defaultConverter": {}
+        },
+        "refDedServices": {
+          "operateurDeclarant": "BABYTEX TEST",
+          "poidsBruts": "250.0",
+          "poidsNet": "200.0",
+          "valeurDeclaree": "200.0",
+          "nombreContenant": "",
+          "typeDeD": "DUM",
+          "dateEnregistrement": "21/01/2021 08:00",
+          "nombreContenants": "2",
+          "libelleTypeDED": "DUM",
+          "defaultConverter": {}
+        },
+        "refMainlevee": {
+          "dateValidation": "",
+          "dateImpression": "",
+          "refAgentValidation": {
+            "idActeur": "",
+            "nom": "",
+            "prenom": "",
+            "refBureau": {
+              "codeBureau": "",
+              "nomBureauDouane": "",
+              "defaultConverter": {}
+            },
+            "defaultConverter": {}
+          },
+          "refAgentEdition": {
+            "idActeur": "",
+            "nom": "",
+            "prenom": "",
+            "refBureau": {
+              "codeBureau": "",
+              "nomBureauDouane": "",
+              "defaultConverter": {}
+            },
+            "defaultConverter": {}
+          },
+          "listScelle": {},
+          "defaultConverter": {}
+        },
+        "dateEnregistrement": "",
+        "depuisDelivrerBonEntree": false,
+        "refAgentCrtlApresScanner": {
+          "idActeur": "",
+          "nom": "",
+          "prenom": "",
+          "refBureau": {
+            "codeBureau": "",
+            "nomBureauDouane": "",
+            "defaultConverter": {}
+          },
+          "defaultConverter": {}
+        },
+        "numeroPinceCrtlApresScanner": "",
+        "nombreScelleCrtlApresScanner": "",
+        "scelles": {
+          "24789650": "24789650",
+          "24789651": "24789651",
+          "24789652": "24789652",
+          "24789653": "24789653"
+        },
+        "scellesConfirmationEntree": {
+          "24789650": "24789650",
+          "24789651": "24789651",
+          "24789652": "24789652",
+          "24789653": "24789653"
+        },
+        "scellesAutorisationAcheminement": {},
+        "scellesCrtlApresScanner": {},
+        "defaultConverter": {}
+      }
+    ],
+    "defaultConverter": {}
+  }
+}
