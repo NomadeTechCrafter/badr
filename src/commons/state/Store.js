@@ -63,6 +63,7 @@ import eciAppositionScellesRechercheReducer from '../../modules/ecorImport/appos
 import eciAppositionScellesReducer from '../../modules/ecorImport/appositionScelles/apposition/state/reducers/eciAppositionScellesReducer';
 
 import ecorExpConfirmationEntreeReducer from '../../modules/ecorExport/confirmationEntree/state/reducers/ecorExpConfirmationEntreeReducer';
+import ecorExpConfirmationArriveeReducer from '../../modules/ecorExport/confirmationArrivee/state/reducers/ecorExpConfirmationArriveeReducer';
 /**
  * combine all reducers
  */
@@ -115,6 +116,7 @@ const allReducers = combineReducers({
   t6bisGestionReducer,
   t6bisRechercheReducer,
   ecorExpConfirmationEntreeReducer,
+  ecorExpConfirmationArriveeReducer,
   consultationBLSReducer,
   eciAppositionScellesRechercheReducer,
   eciAppositionScellesReducer,

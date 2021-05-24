@@ -28,6 +28,7 @@ import t6bisRechercheTranslationsFr from '../../modules/t6bis/recherche/i18n/t6b
 import actifTranslateFr from '../../old/common/translations/actif/actifTranslateFr';
 import liquidationTranslateFr from '../../modules/liquidation/i18n/liquidationTranslateFr';
 import ecorExpConfirmationEntreeTranslateFr from '../../modules/ecorExport/confirmationEntree/i18n/ecorExpConfirmationEntreeTranslateFr';
+import ecorExpConfirmationArriveeTranslateFr from '../../modules/ecorExport/confirmationArrivee/i18n/ecorExpConfirmationArriveeTranslateFr';
 import eciConsultationBLSTranslateFr from '../../modules/ecorImport/eciConsultationBLS/i18n/eciConsultationBLSTranslateFr';
 import eciAppositionScellesRechercheTranslateFr from '../../modules/ecorImport/appositionScelles/recherche/i18n/eciAppositionScellesRechercheTranslateFr';
 import eciAppositionScellesTranslateFr from '../../modules/ecorImport/appositionScelles/apposition/i18n/eciAppositionScellesTranslateFr';
@@ -70,6 +71,7 @@ let combined = {
   ...eciAppositionScellesRechercheTranslateFr,
   ...eciAppositionScellesTranslateFr,
   ...ecorExpConfirmationEntreeTranslateFr,
+  ...ecorExpConfirmationArriveeTranslateFr,
 };
 I18n.translations = {
   fr: combined,

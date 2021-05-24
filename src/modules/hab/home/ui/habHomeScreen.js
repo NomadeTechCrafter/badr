@@ -60,6 +60,7 @@ import ECIAppositionScellesRechercheScreen from '../../../ecorImport/appositionS
 import ECIAppositionScellesScreen from '../../../ecorImport/appositionScelles/apposition/ui/eciAppositionScellesScreen';
 import ConsultationBLSMainScreen from '../../../ecorImport/eciConsultationBLS/ui/eciConsultationBLSMainScreen';
 import ConfirmationEntreeMainScreen from '../../../ecorExport/confirmationEntree/ui/ecorExpConfirmationEntreeMainScreen';
+import ConfirmationArriveeMainScreen from '../../../ecorExport/confirmationArrivee/ui/ecorExpConfirmationArriveeMainScreen';
 
 const Drawer = createDrawerNavigator();
 const deltaScreen = Dimensions.get('window').width / 4;
@@ -322,7 +323,13 @@ class habHomeScreen extends React.Component {
         <Drawer.Screen
           name="ConfirmationEntreeRechercheScreen"
           component={ConfirmationEntreeMainScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
+        />
+
+        <Drawer.Screen
+          name="ConfirmationArriveeRechercheScreen"
+          component={ConfirmationArriveeMainScreen}
+          options={{ headerShown: false }}
         />
       </Drawer.Navigator>
     );
