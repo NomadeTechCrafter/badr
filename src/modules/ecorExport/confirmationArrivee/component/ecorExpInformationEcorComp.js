@@ -206,11 +206,11 @@ class EcorExpInformationEcorComp extends React.Component {
             documentEntreeEnceinte: '',
             numeroPince: '',
             nombreScelle: '',
-            nombreScelleConfirmationArrivee: this.state.initConfirmerArriveeVO
+            nombreScelleConfirmationEntree: this.state.initConfirmerArriveeVO
               .nombreDeScelles
               ? this.state.initConfirmerArriveeVO.nombreDeScelles
               : '',
-            numeroPinceConfirmationArrivee: this.state.initConfirmerArriveeVO
+            numeroPinceConfirmationEntree: this.state.initConfirmerArriveeVO
               .numeroPince
               ? this.state.initConfirmerArriveeVO.numeroPince
               : '',
@@ -244,7 +244,7 @@ class EcorExpInformationEcorComp extends React.Component {
             depuisDelivrerBonEntree: false,
             fonctionMessage: '',
             scelles: formattedListeScelles ? formattedListeScelles : {},
-            scellesConfirmationArrivee: formattedListeScelles
+            scellesConfirmationEntree: formattedListeScelles
               ? formattedListeScelles
               : {},
           };
@@ -410,7 +410,7 @@ class EcorExpInformationEcorComp extends React.Component {
                               mode={'outlined'}
                               maxLength={8}
                               value={
-                                initConfirmerArriveeVO.numeroPinceConfirmationArrivee
+                                initConfirmerArriveeVO.numeroPinceConfirmationEntree
                               }
                               label={translate(
                                 'confirmationArrivee.informationsEcor.numeroPince',
@@ -432,7 +432,7 @@ class EcorExpInformationEcorComp extends React.Component {
                             <ComBadrNumericTextInputComp
                               maxLength={8}
                               value={
-                                initConfirmerArriveeVO.nombreScelleConfirmationArrivee
+                                initConfirmerArriveeVO.nombreScelleConfirmationEntree
                               }
                               label={translate(
                                 'confirmationArrivee.informationsEcor.nombreScelles',
@@ -654,11 +654,6 @@ class EcorExpInformationEcorComp extends React.Component {
                       )}>
                       <Grid>
                         <Row style={CustomStyleSheet.whiteRow}>
-                          <Col>
-                            <ComBadrLibelleComp withColor={true}>
-                              {translate('confirmationArrivee.autorisationAcheminement.dateHeureAcheminement')}
-                            </ComBadrLibelleComp>
-                          </Col>
                           <Col size={1}>
                             <ComBadrLibelleComp withColor={true}>
                               {translate('confirmationArrivee.dateHeure')}

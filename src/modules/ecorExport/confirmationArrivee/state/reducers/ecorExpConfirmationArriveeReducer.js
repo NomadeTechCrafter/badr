@@ -95,8 +95,8 @@ export default (state = initialState, action) => {
       return nextState;
     case Constants.CONFIRMERNTREE_SUCCESS:
       nextState.errorMessage = null;
-      if (action.value.dtoHeader) {
-        nextState.infoMessage = action.value.dtoHeader.messagesInfo;
+      if (action.value.data.dtoHeader) {
+        nextState.infoMessage = action.value.data.dtoHeader.messagesInfo;
       }
       nextState.showProgress = false;
       //nextState.data = action.value.data;
