@@ -63,7 +63,7 @@ export default {
     sortiPort: 'Sorti du Port',
     dateSortiPort: 'Date sorti du Port',
     commentSortiPort: 'Commentaire',
-
+    listeEtatChargement: 'Liste Etat de chargement',
     versions: {
       title: 'Liste des versions',
       num: 'N°',
@@ -71,7 +71,7 @@ export default {
       statut: 'Statut',
       dateCreation: 'Date création',
       dateSignature: 'Date signature',
-      nbreVersions: 'nombre de résultats',
+      nbreVersions: 'Nombre d\'éléments',
     },
     historique: {
       title: 'Histrorique de la déclaration',

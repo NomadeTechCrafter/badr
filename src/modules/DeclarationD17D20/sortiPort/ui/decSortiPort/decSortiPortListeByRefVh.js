@@ -17,6 +17,7 @@ import {Button, HelperText, TextInput} from 'react-native-paper';
 import * as Constants from '../../state/decSortiPortConstants';
 import * as SortiPortInitAction from '../../state/actions/decSortiPortInitAction';
 import { ComSessionService } from '../../../../../commons/services/session/ComSessionService';
+import { accentColor } from '../../../../../commons/styles/ComThemeStyle';
 
 const initialState = {
   matriculeVehicule: '',
@@ -133,6 +134,12 @@ class SortiPortListeByRefVh extends React.Component {
     }
   };
 
+  retablir = () => {
+    this.setState({ matriculeVehicule: '', showErrorMsg: false });
+    var action = SortiPortInitAction.init();
+    this.props.actions.dispatch(action);
+  };
+
   render() {
     return (
       <ScrollView>
@@ -173,7 +180,7 @@ class SortiPortListeByRefVh extends React.Component {
               })}
             </HelperText>
           </View>
-          <View>
+          <View style={styles.containerBtn}>
             <ComBadrButtonIconComp
               onPress={this.confirmer}
               icon="check"
@@ -182,6 +189,13 @@ class SortiPortListeByRefVh extends React.Component {
               loading={this.props.showProgress}
               text={translate('transverse.confirmer')}
             />
+            <Button
+              onPress={this.retablir}
+              icon="autorenew"
+              mode="contained"
+              style={styles.btnRetablir}>
+              {translate('transverse.retablir')}
+            </Button>
           </View>
         </View>
 
@@ -189,7 +203,7 @@ class SortiPortListeByRefVh extends React.Component {
           <CardBox style={styles.cardBox}>
             <Accordion
               badr
-              title={translate('sortiPort.historique.title')}
+              title={''}
               expanded>
               <Text style={styles.nombreResult}>
                 {translate('sortiPort.versions.nbreVersions')} :
@@ -217,8 +231,14 @@ class SortiPortListeByRefVh extends React.Component {
   }
 }
 
+const value = {
+  fontSize: 14,
+  fontWeight: 'bold',
+};
+
 const styles = StyleSheet.create({
   messages: {},
+  nombreResult: { margin: 20, marginVertical: 10, ...value },
   centerErrorMsg: {
     width: '100%',
     justifyContent: 'center',
@@ -234,6 +254,20 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  containerBtn: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 10,
+  },
+  btnConfirmer: {
+    color: accentColor,
+    padding: 5,
+    marginRight: 15,
+  },
+  btnRetablir: {
+    color: accentColor,
+    padding: 5,
   },
 });
 

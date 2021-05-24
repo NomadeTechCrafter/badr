@@ -216,6 +216,10 @@ class VuEmbListeByRefVh extends React.Component {
   }
 }
 
+const value = {
+  fontSize: 14,
+  fontWeight: 'bold',
+};
 const styles = StyleSheet.create({
   messages: {},
   centerErrorMsg: {
@@ -234,6 +238,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  nombreResult: { margin: 20, marginVertical: 10, ...value },
 });
 
 function mapStateToProps(state) {

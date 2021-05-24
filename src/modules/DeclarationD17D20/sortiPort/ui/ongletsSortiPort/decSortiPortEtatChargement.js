@@ -140,7 +140,7 @@ class SortiPortEtatChargement extends React.Component {
           <CardBox style={styles.cardBox}>
             <Accordion
               badr
-              title={translate('sortiPort.historique.title')}
+              title={translate('sortiPort.listeEtatChargement')}
               expanded>
               <Text style={styles.nombreResult}>
                 {translate('sortiPort.versions.nbreVersions')} :{' '}

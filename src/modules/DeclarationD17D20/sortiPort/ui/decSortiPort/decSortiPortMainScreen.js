@@ -62,14 +62,14 @@ function HomeScreen(props) {
             width: 250,
           },
         }}>
-        <Tab.Screen
-          name={translate('tabs.vumEmb.rechByRef')}
-          component={SortiPortByRefDec}
-        />
 
         <Tab.Screen
           name={translate('tabs.vumEmb.rechByVH')}
           component={SortiPortListeByRefVh}
+        />
+        <Tab.Screen
+          name={translate('tabs.vumEmb.rechByRef')}
+          component={SortiPortByRefDec}
         />
       </Tab.Navigator>
     </View>

@@ -200,6 +200,7 @@ class SortiPortEntete extends React.Component {
   };
 
   render() {
+    const declarationTriptique = this.props.dataVo?.declarationTriptique;
     const enteteTrypVO = this.props.dataVo?.enteteTrypVO;
     const traceSignature = this.props.dataVo?.traceSignature;
     const referenceEnregistrement = this.props.dataVo?.declarationTriptique?.referenceEnregistrement;
@@ -342,7 +343,10 @@ class SortiPortEntete extends React.Component {
                   <Text style={styles.libelleM}>
                     {translate('sortiPort.modeAcquisition')} :
                   </Text>
-                  <Text style={styles.valueM}>?????</Text>
+                  <Text style={styles.valueM}>Interactif</Text>
+                  <Text style={styles.libelleM}>
+                  </Text>
+                  <Text style={styles.valueM}></Text>
                 </View>
                 <View style={[styles.flexDirectionRow, styles.marg]}>
                   <Text style={styles.libelleM}>
@@ -487,7 +491,8 @@ class SortiPortEntete extends React.Component {
                   <Text style={styles.libelleM}>
                     {translate('sortiPort.conducteur2')} :
                   </Text>
-                  <Text style={styles.valueM}>{''}</Text>
+                  <Text style={styles.valueM}>
+                    {this.getConducteurById(enteteTrypVO?.idConducteurSecondaire)}</Text>
                 </View>
                 <View style={[styles.flexDirectionRow, styles.marg]}>
                   <Text style={styles.libelleM}>
@@ -514,12 +519,14 @@ class SortiPortEntete extends React.Component {
                   <Text style={styles.libelleM}>
                     {translate('sortiPort.natureVehicule2')} :
                   </Text>
-                  <Text style={styles.valueM}>{''}</Text>
+                  <Text style={styles.valueM}>
+                    {this.getNatureVehicule(enteteTrypVO?.idNatureVehiculeSecondaire)}</Text>
 
                   <Text style={styles.libelleM}>
                     {translate('sortiPort.vehicule2')} :
                   </Text>
-                  <Text style={styles.valueM}>{''}</Text>
+                  <Text style={styles.valueM}>
+                    {this.getNomVehicule(enteteTrypVO?.idVehiculeSecondaire)}</Text>
                 </View>
               </View>
             </Accordion>
@@ -547,7 +554,7 @@ class SortiPortEntete extends React.Component {
                   <Text style={styles.libelleM}>
                     {translate('sortiPort.numAutorisation')} :
                   </Text>
-                  <Text style={styles.valueS}>????</Text>
+                  <Text style={styles.valueS}>{ ''}</Text>
                   <Text style={styles.libelleS}>
                     {translate('sortiPort.du')} :
                   </Text>
@@ -560,15 +567,6 @@ class SortiPortEntete extends React.Component {
                   <Text style={styles.valueM}>
                     {enteteTrypVO?.dateFinAutorisationMa}
                   </Text>
-                </View>
-                <View style={[styles.flexDirectionRow, styles.marg]}>
-                  <Text style={[styles.marg, styles.libelle]}>
-                    {translate('sortiPort.vide')} :
-                  </Text>
-                  <Checkbox
-                    color="#009ab2"
-                    status={enteteTrypVO?.avide ? 'checked' : 'unchecked'}
-                  />
                 </View>
               </View>
             </Accordion>
@@ -608,6 +606,43 @@ class SortiPortEntete extends React.Component {
                   onChangeText={(text) => this.setState({commentaire: text})}
                   value={this.state.commentaire}
                 /> */}
+                </View>
+                <View style={[styles.flexDirectionRow, styles.marg]}>
+                  <Text style={[styles.marg, styles.libelle]}>
+                    {translate('sortiPort.vide')} :
+                  </Text>
+                  <Checkbox
+                    color="#009ab2"
+                    status={enteteTrypVO?.avide ? 'checked' : 'unchecked'}
+                  />
+                </View>
+              </View>
+            </Accordion>
+          </CardBox>
+          {/* Vu Embarquer */}
+          <CardBox style={styles.cardBox}>
+            <Accordion badr title={translate('vuEmbarquee.vuEmb')} expanded>
+              <View style={styles.flexColumn}>
+                <View style={[styles.flexDirectionRow, styles.marg]}>
+                  <Text style={styles.libelleS}>
+                    {translate('vuEmbarquee.dateVuEmb')} :
+                  </Text>
+                  <Text style={styles.valueS}>{declarationTriptique?.vuEmbarque?.dateVuEmbarque}</Text>
+                </View>
+
+                <View style={[styles.flexDirectionRow, styles.marg]}>
+                  <Text style={styles.libelleS}>
+                    {translate('vuEmbarquee.commentVuEmb')} :{' '}
+                  </Text>
+                  <TextInput
+                    style={styles.libelleL}
+                    maxLength={250}
+                    multiline
+                    disabled={true}
+                    numberOfLines={3}
+                    placeholder={translate('vuEmbarquee.commentVuEmb')}
+                    value={declarationTriptique?.vuEmbarque?.commentaire}
+                  />
                 </View>
               </View>
             </Accordion>

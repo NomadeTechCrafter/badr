@@ -94,16 +94,16 @@ class SortiPortListeDeclaration extends React.Component {
             />
 
             <Tab.Screen
-              name={translate('tabs.info')}
+              name={translate('tabs.resultScanner')}
               component={() => (
-                <SortiPortInfo dataVo={this.props.route.params.data.jsonVO} />
+                <SoritPortScanner dataVo={this.props.route.params.data.jsonVO} />
               )}
             />
 
             <Tab.Screen
-              name={translate('tabs.resultScanner')}
+              name={translate('tabs.info')}
               component={() => (
-                <SoritPortScanner dataVo={this.props.route.params.data.jsonVO}  />
+                <SortiPortInfo dataVo={this.props.route.params.data.jsonVO} />
               )}
             />
           </Tab.Navigator>
