@@ -16,6 +16,8 @@ import * as VuEmbRefVHAction from '../../state/actions/vuEmbRefVhAction';
 import {Button, HelperText, TextInput} from 'react-native-paper';
 import * as Constants from '../../state/vuEmbarquerConstants';
 import * as VuEmbInitAction from '../../state/actions/vuEmbInitAction';
+import { accentColor } from '../../../../../commons/styles/ComThemeStyle';
+import { ComSessionService } from '../../../../../commons/services/session/ComSessionService';
 
 const initialState = {
   matriculeVehicule: '',
@@ -93,7 +95,7 @@ class VuEmbListeByRefVh extends React.Component {
       {
         type: Constants.RECHERCHE_D17_DUM_REQUEST,
         value: {
-          login: 'AD6025',
+          login: ComSessionService.getInstance().getLogin(),
           commande: 'ded.vuEmbRechercheDeclarationTrypByRef',
           module: 'DED_LIB',
           typeService: 'UC',
@@ -114,13 +116,13 @@ class VuEmbListeByRefVh extends React.Component {
     this.setState({showErrorMsg: true});
     if (this.state.matriculeVehicule && this.state.matriculeVehicule !== '') {
       const data = {
-        codeBureau: '309',
+        codeBureau: ComSessionService.getInstance().getCodeBureau(),
         immatriculationVehicule: this.state.matriculeVehicule,
       };
       const action = {
         type: Constants.VU_EMB_RECH_BY_REF_VH_REQUEST,
         value: {
-          login: 'AD6025',
+          login: ComSessionService.getInstance().getLogin(),
           commande: 'ded.getDecTryptiqueParMatVehicule',
           module: 'DED_LIB',
           typeService: 'SP',
@@ -130,6 +132,12 @@ class VuEmbListeByRefVh extends React.Component {
 
       this.props.actions.dispatch(VuEmbRefVHAction.request(action));
     }
+  };
+
+  retablir = () => {
+    this.setState({ matriculeVehicule: '', showErrorMsg: false });
+    var action = VuEmbInitAction.init();
+    this.props.actions.dispatch(action);
   };
 
   render() {
@@ -172,7 +180,7 @@ class VuEmbListeByRefVh extends React.Component {
               })}
             </HelperText>
           </View>
-          <View>
+          <View style={styles.containerBtn}>
             <ComBadrButtonIconComp
               onPress={this.confirmer}
               icon="check"
@@ -181,6 +189,13 @@ class VuEmbListeByRefVh extends React.Component {
               loading={this.props.showProgress}
               text={translate('transverse.confirmer')}
             />
+            <Button
+              onPress={this.retablir}
+              icon="autorenew"
+              mode="contained"
+              style={styles.btnRetablir}>
+              {translate('transverse.retablir')}
+            </Button>
           </View>
         </View>
 
@@ -188,7 +203,7 @@ class VuEmbListeByRefVh extends React.Component {
           <CardBox style={styles.cardBox}>
             <Accordion
               badr
-              title={translate('vuEmbarquee.historique.title')}
+              title={''}
               expanded>
               <Text style={styles.nombreResult}>
                 {translate('vuEmbarquee.versions.nbreVersions')} :
@@ -227,6 +242,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  containerBtn: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 10,
+  },
   centerInfoMsg: {
     width: '100%',
     justifyContent: 'center',
@@ -237,6 +257,15 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  btnConfirmer: {
+    color: accentColor,
+    padding: 5,
+    marginRight: 15,
+  },
+  btnRetablir: {
+    color: accentColor,
+    padding: 5,
   },
   nombreResult: { margin: 20, marginVertical: 10, ...value },
 });

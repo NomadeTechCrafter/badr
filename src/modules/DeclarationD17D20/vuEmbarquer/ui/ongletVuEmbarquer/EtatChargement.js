@@ -72,7 +72,7 @@ class VuEmbarquerEtatChargement extends React.Component {
 
   cleDUM = function (regime, serie) {
     let alpha = 'ABCDEFGHJKLMNPRSTUVWXYZ';
-    if (serie.length > 6) {
+    if (serie?.length > 6) {
       let firstSerie = serie.substring(0, 1);
       if (firstSerie === '0') {
         serie = serie.substring(1, 7);
@@ -85,8 +85,12 @@ class VuEmbarquerEtatChargement extends React.Component {
   };
 
   render() {
-    const {enteteTrypVO, listDeclarationEnDouaneVO} = this.props.dataVo;
-    const {referenceEnregistrement} = this.props.dataVo.declarationTriptique;
+    const enteteTrypVO = this.props.dataVo?.enteteTrypVO;
+    let listDeclarationEnDouaneVO = this.props.dataVo?.listDeclarationEnDouaneVO;
+    if (!listDeclarationEnDouaneVO) {
+      listDeclarationEnDouaneVO = [];
+    }
+    const referenceEnregistrement = this.props.dataVo?.declarationTriptique?.referenceEnregistrement;
 
     return (
       <View style={styles.fabContainer}>
@@ -116,25 +120,25 @@ class VuEmbarquerEtatChargement extends React.Component {
             </View>
             <View style={styles.flexDirectionRow}>
               <Text style={styles.valueM}>
-                {referenceEnregistrement.slice(0, 3)}
+                {referenceEnregistrement?.slice(0, 3)}
               </Text>
               <Text style={styles.valueM}>
-                {referenceEnregistrement.slice(3, 6)}
+                {referenceEnregistrement?.slice(3, 6)}
               </Text>
               <Text style={styles.valueM}>
-                {referenceEnregistrement.slice(6, 10)}
+                {referenceEnregistrement?.slice(6, 10)}
               </Text>
               <Text style={styles.valueL}>
-                {referenceEnregistrement.slice(10, 17)}
+                {referenceEnregistrement?.slice(10, 17)}
               </Text>
               <Text style={styles.valueS}>
                 {this.cleDUM(
-                  referenceEnregistrement.slice(3, 6),
-                  referenceEnregistrement.slice(10, 17),
+                  referenceEnregistrement?.slice(3, 6),
+                  referenceEnregistrement?.slice(10, 17),
                 )}
               </Text>
               <Text style={styles.valueL}>TRYPTIQUE</Text>
-              <Text style={styles.valueL}>{enteteTrypVO.libelleRegime}</Text>
+              <Text style={styles.valueL}>{enteteTrypVO?.libelleRegime}</Text>
             </View>
           </CardBox>
 
@@ -145,8 +149,8 @@ class VuEmbarquerEtatChargement extends React.Component {
               expanded>
               <Text style={styles.nombreResult}>
                 {translate('vuEmbarquee.versions.nbreVersions')} :{' '}
-                {listDeclarationEnDouaneVO.length
-                  ? listDeclarationEnDouaneVO.length
+                {listDeclarationEnDouaneVO?.length
+                  ? listDeclarationEnDouaneVO?.length
                   : 0}
               </Text>
               <ComBasicDataTableComp
@@ -158,8 +162,8 @@ class VuEmbarquerEtatChargement extends React.Component {
                 cols={this.composantTablesCols}
                 onItemSelected={this.onComposantSelected}
                 totalElements={
-                  listDeclarationEnDouaneVO.length
-                    ? listDeclarationEnDouaneVO.length
+                  listDeclarationEnDouaneVO?.length
+                    ? listDeclarationEnDouaneVO?.length
                     : 0
                 }
                 maxResultsPerPage={5}
