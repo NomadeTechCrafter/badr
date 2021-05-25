@@ -1,5 +1,17 @@
 const mapping = {
   '9005': {screen: 'CreerApurement', params: {qr: true}},
+  '2243': {screen: 'RechercheConfirmationReceptionScreen', params: {}},
+  '1226': {
+    screen: 'ECIAppositionScellesRechercheScreen',
+    params: {},
+  },
+  '90023': {screen: 'SortiPortScreen', params: {}},
+  /*
+  '121711': {
+    screen: 'EciConsultationBLS',
+    params: {title: 'Ecran  Recherche Consultation BLS'},
+  },
+  '6064': {screen: 'PecEtatChargementMainScreen', params: {}},
   '3064': {screen: 'controleRechercheDumScreen', params: {typeControle: 'AC'}},
   '3072': {screen: 'controleRechercheDumScreen', params: {typeControle: 'RI'}},
   '767': {screen: 'BloquerOperateur', params: {}},
@@ -12,13 +24,12 @@ const mapping = {
   '14000012': {screen: 'ValiderCompteRenduMission', params: {}},
   '30661': {screen: 'ControleApresScanner', params: {}},
   '4096': {screen: 'RefControleVehicule', params: {}},
-  '823': { screen: 'RefPlaquesImm', params: {} },
-  '90025': { screen: 'VuEmbarqueScreen', params: { qr: true } },
-  '1101': { screen: 'ConsultationTIScreen', params: { modeConsultation: 'E' } },
-  '1102': { screen: 'ConsultationTIScreen', params: { modeConsultation: 'I' } },
-  '1103': { screen: 'ConsultationIgTIScreen', params: { modeConsultation: 'E' } },
-  '1104': { screen: 'ConsultationIgTIScreen', params: { modeConsultation: 'I' } },
-  '90023': { screen: 'SortiPortScreen', params: { } },
+  '823': {screen: 'RefPlaquesImm', params: {}},
+  '90025': {screen: 'VuEmbarqueScreen', params: {qr: true}},
+  '1101': {screen: 'ConsultationTIScreen', params: {modeConsultation: 'E'}},
+  '1102': {screen: 'ConsultationTIScreen', params: {modeConsultation: 'I'}},
+  '1103': {screen: 'ConsultationIgTIScreen', params: {modeConsultation: 'E'}},
+  '1104': {screen: 'ConsultationIgTIScreen', params: {modeConsultation: 'I'}},
 
   '3086': {screen: 'controleRechercheDumScreen', params: {typeControle: 'TR'}},
   '2052': {screen: 'DedRechercheRedressement', params: {qr: false}},
@@ -31,10 +42,10 @@ const mapping = {
     screen: 'RechercheEcorImport',
     params: {typeEcorImport: 'EnleverMarchandiseParPesage'},
   },
-  '5202': {screen: 'LiquidationRechercheScreen', params: {qr: false}},
+  '5202': {screen: 'LiquidationRechercheScreen', params: {qr: false}},*/
 
   /*T6bis creation*/
-  '110001': {screen: 'T6bisCreation', params: {}},
+  /* '110001': {screen: 'T6bisCreation', params: {}},
   '110002': {
     screen: 'T6bisRecherche',
     params: {title: 'Ecran Modification T6bis'},
@@ -47,10 +58,7 @@ const mapping = {
     screen: 'T6bisRecherche',
     params: {title: 'Ecran  Recherche T6BIS'},
   },
-  '1226': {
-    screen: 'ECIAppositionScellesRechercheScreen',
-    params: {},
-  },
+
   '121711': {
     screen: 'EciConsultationBLS',
     params: {title: 'Ecran  Recherche Consultation BLS'},
@@ -58,17 +66,13 @@ const mapping = {
   '6151': {
     //CONFIRMATION ENTREE
     screen: 'ConfirmationEntreeRechercheScreen',
-    params: { title: 'Ecran  Recherche Confirmation entree' },
+    params: {title: 'Ecran  Recherche Confirmation entree'},
   },
   '61530': {
     //CONFIRMATION ARRIVEE
     screen: 'ConfirmationArriveeRechercheScreen',
-    params: { title: 'Ecran  Recherche Confirmation arrivee' },
-  },
-
-  '6064': { screen: 'PecEtatChargementMainScreen', params: {} },
-  '2243': { screen: 'RechercheConfirmationReceptionScreen', params: {} }
-
+    params: {title: 'Ecran  Recherche Confirmation arrivee'},
+  },*/
 };
 
 const ionicMapping = {};
