@@ -49,6 +49,7 @@ import T6bisGestion from './modules/t6bis/gestion/ui/t6bisGestion/t6bisGestionSc
 import RechercheEcorImport from './old/screens/ecorImport/rechercheEcorImport';
 
 import ConfirmationEntreeMainScreen from './modules/ecorExport/confirmationEntree/ui/ecorExpConfirmationEntreeMainScreen';
+import ConfirmationArriveeMainScreen from './modules/ecorExport/confirmationArrivee/ui/ecorExpConfirmationArriveeMainScreen';
 
 //Actif
 import Recherche from './old/screens/actifs/rapport/recherche';
@@ -79,7 +80,7 @@ export default class App extends React.Component {
                 <Stack.Screen
                   name="test"
                   options={{headerShown: false}}
-                  component={ConfirmationEntreeMainScreen}
+                    component={ConfirmationArriveeMainScreen}
                 />
               )}
               <Stack.Screen

@@ -53,8 +53,14 @@ const mapping = {
   '6151': {
     //CONFIRMATION ENTREE
     screen: 'ConfirmationEntreeRechercheScreen',
-    params: {title: 'Ecran  Recherche Confirmation entree'},
+    params: { title: 'Ecran  Recherche Confirmation entree' },
   },
+  '61530': {
+    //CONFIRMATION ARRIVEE
+    screen: 'ConfirmationArriveeRechercheScreen',
+    params: { title: 'Ecran  Recherche Confirmation arrivee' },
+  },
+  
 };
 
 const ionicMapping = {};
