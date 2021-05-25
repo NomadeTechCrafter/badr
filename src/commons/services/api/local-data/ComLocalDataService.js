@@ -75,5 +75,6 @@ const localStore = {
   confirmerArrivee: require('../../../../modules/ecorExport/confirmationArrivee/service/local-data/confirmerEntree.json'),
   findEciRechBls: require('../../../../modules/ecorImport/eciConsultationBLS/service/local-data/eciFindEciRechBls.json'),
   initApposerScelles: require('../../../../modules/ecorImport/appositionScelles/recherche/service/local-data/eciInitAppositionScellesData.json'),
+  'ece.initAutoriserAcheminement': require('../../../../modules/ecorExport/autoriserAcheminement/recherche/service/local-data/initAutoriserAcheminementData.json'),
 };
 export default localStore;

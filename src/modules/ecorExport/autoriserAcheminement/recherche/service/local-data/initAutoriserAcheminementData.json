@@ -1,0 +1,41 @@
+{
+    "dtoHeader": {
+        "userLogin": "YELM",
+        "fonctionnalite": "cf61525",
+        "module": "ECOREXP_LIB",
+        "commande": "ece.initAutoriserAcheminement",
+        "typeService": "UC",
+        "messagesErreur": [
+            "??? ecor_pc_4 ???"
+        ],
+        "offset": 0,
+        "pageSize": 0,
+        "rowCount": 0
+    },
+    "jsonVO": {
+        "identifiant": 517948,
+        "referenceEnregistrement": "30906020210956125",
+        "preapurementDS": false,
+        "annulee": false,
+        "deposee": false,
+        "combinee": false,
+        "migre": false,
+        "dumInitiale": false,
+        "indicateurLiqManuelle": false,
+        "indicateurRedevanceAT": false,
+        "indicateurRedevanceInf": false,
+        "articleReconnuRedevanceAT": false,
+        "articleContesteRedevanceAT": false,
+        "ouvertureCompte": false,
+        "prealable": false,
+        "redevanceInformatiqueLiquide": false,
+        "articles": [],
+        "articlesContestes": [],
+        "listDUMFictives": [],
+        "dumInitialNouvelleprovisionnelleArretee": false,
+        "arrondissementDepotTransitECE": {},
+        "refDSCreeSuiteAAT": [],
+        "dumdeposee": false,
+        "dumannulee": false
+    }
+}

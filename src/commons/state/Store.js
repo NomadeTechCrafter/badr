@@ -64,6 +64,8 @@ import eciAppositionScellesReducer from '../../modules/ecorImport/appositionScel
 
 import ecorExpConfirmationEntreeReducer from '../../modules/ecorExport/confirmationEntree/state/reducers/ecorExpConfirmationEntreeReducer';
 import ecorExpConfirmationArriveeReducer from '../../modules/ecorExport/confirmationArrivee/state/reducers/ecorExpConfirmationArriveeReducer';
+
+import rechercheAutoriserAcheminementReducer from '../../modules/ecorExport/autoriserAcheminement/recherche/state/reducers/rechercheAutoriserAcheminementReducer';
 /**
  * combine all reducers
  */
@@ -120,6 +122,7 @@ const allReducers = combineReducers({
   consultationBLSReducer,
   eciAppositionScellesRechercheReducer,
   eciAppositionScellesReducer,
+  rechercheAutoriserAcheminementReducer
 });
 /**
  * store creation

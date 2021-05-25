@@ -32,6 +32,7 @@ import ecorExpConfirmationArriveeTranslateFr from '../../modules/ecorExport/conf
 import eciConsultationBLSTranslateFr from '../../modules/ecorImport/eciConsultationBLS/i18n/eciConsultationBLSTranslateFr';
 import eciAppositionScellesRechercheTranslateFr from '../../modules/ecorImport/appositionScelles/recherche/i18n/eciAppositionScellesRechercheTranslateFr';
 import eciAppositionScellesTranslateFr from '../../modules/ecorImport/appositionScelles/apposition/i18n/eciAppositionScellesTranslateFr';
+import rechercheAutoriserAcheminementTranslateFr from '../../modules/ecorExport/autoriserAcheminement/recherche/i18n/rechercheAutoriserAcheminementTranslateFr';
 
 const locales = RNLocalize.getLocales();
 
@@ -72,6 +73,7 @@ let combined = {
   ...eciAppositionScellesTranslateFr,
   ...ecorExpConfirmationEntreeTranslateFr,
   ...ecorExpConfirmationArriveeTranslateFr,
+  ...rechercheAutoriserAcheminementTranslateFr
 };
 I18n.translations = {
   fr: combined,

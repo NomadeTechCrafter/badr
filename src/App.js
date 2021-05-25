@@ -50,6 +50,7 @@ import RechercheEcorImport from './old/screens/ecorImport/rechercheEcorImport';
 
 import ConfirmationEntreeMainScreen from './modules/ecorExport/confirmationEntree/ui/ecorExpConfirmationEntreeMainScreen';
 import ConfirmationArriveeMainScreen from './modules/ecorExport/confirmationArrivee/ui/ecorExpConfirmationArriveeMainScreen';
+import RechercheAutoriserAcheminementScreen from './modules/ecorExport/autoriserAcheminement/recherche/ui/rechercheAutoriserAcheminementScreen';
 
 //Actif
 import Recherche from './old/screens/actifs/rapport/recherche';
@@ -80,7 +81,7 @@ export default class App extends React.Component {
                 <Stack.Screen
                   name="test"
                   options={{headerShown: false}}
-                    component={ConfirmationArriveeMainScreen}
+                    component={RechercheAutoriserAcheminementScreen}
                 />
               )}
               <Stack.Screen
