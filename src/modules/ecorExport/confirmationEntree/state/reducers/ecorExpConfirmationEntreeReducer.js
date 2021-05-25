@@ -67,16 +67,22 @@ export default (state = initialState, action) => {
       nextState.showProgress = false;
       let repObj = {
         listDeclaration: action.value.data,
-        initConfirmerEntreeVO: {dateEnregistrement: ''},
+        initConfirmerEntreeVO: {dateEnregistrement: action.value.data[0].dateEnregistrement},
       };
-      console.log(' in success reducer ', action.value.data);
+      console.log(' in success reducer ', action.value.data , action.value.data[0].dateEnregistrement);
 
       nextState.data = repObj;
       return nextState;
     case Constants.INITCONFIRMATIONENTREE_ETATCHARGEMENT_FAILED:
       nextState.showProgress = false;
       nextState.displayError = true;
-      nextState.errorMessage = action.value;
+      if (action.value.dtoHeader) {
+        nextState.errorMessage = action.value.dtoHeader.messagesErreur
+          ? action.value.dtoHeader.messagesErreur
+          : translate('transverse.noRowFound');
+      } else {
+        nextState.errorMessage = translate('errors.technicalIssue');
+      }
       return nextState;
     case Constants.INITCONFIRMATIONENTREE_ETATCHARGEMENT_INIT:
       return initialState;

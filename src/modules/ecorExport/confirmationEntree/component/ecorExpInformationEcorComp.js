@@ -80,7 +80,6 @@ class EcorExpInformationEcorComp extends React.Component {
     });
   }
 
-
   genererNumeroScelle = () => {
     console.log('generateurNumScelleDu');
     let listeScelles = [];
@@ -388,6 +387,11 @@ class EcorExpInformationEcorComp extends React.Component {
                 inputStyle={style.dateInputStyle}
                 readonly={this.props.data.ecorIsSaved}
               />
+            </Col>
+          </Row>
+          <Row style={[CustomStyleSheet.whiteRow, style.rowErrorHelper]}>
+            <Col size={4} />
+            <Col size={2}>
               <HelperText
                 type="error"
                 padding="none"
@@ -414,7 +418,8 @@ class EcorExpInformationEcorComp extends React.Component {
                   <ComAccordionComp
                     title={translate(
                       'confirmationEntree.informationsEcor.title',
-                    )}>
+                    )}
+                    expanded={true}>
                     <Grid>
                       <Row style={CustomStyleSheet.whiteRow}>
                         <Col size={1}>

@@ -119,7 +119,8 @@ class ConfirmationEntreeRechercheScreen extends Component {
   accordionDeclarationEnDetail = () => {
     return (
       <ComAccordionComp
-        title={translate('confirmationEntree.declarationEnDetail')}>
+        title={translate('confirmationEntree.declarationEnDetail')}
+        expanded={true}>
         <EcorExpRechercheParRefComp
           commande="initConfirmerEntree"
           typeService="UC"

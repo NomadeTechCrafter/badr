@@ -1,41 +1,25 @@
 import React, {Component} from 'react';
 import {View} from 'react-native';
-import {
-  ComContainerComp,
-  ComBadrErrorMessageComp,
-  ComBadrButtonIconComp,
-  ComBadrLibelleComp,
-} from '../../../../commons/component/index';
+import {ComContainerComp} from '../../../../commons/component/index';
 
-import {
-  TextInput,
-  Button,
-  HelperText,
-  Checkbox,
-  TouchableRipple,
-  Paragraph,
-} from 'react-native-paper';
+import {Button, HelperText, TextInput} from 'react-native-paper';
 /**i18n */
 import {translate} from '../../../../commons/i18n/ComI18nHelper';
-import {
-  accentColor,
-  CustomStyleSheet,
-  primaryColor,
-} from '../../../../commons/styles/ComThemeStyle';
 import _ from 'lodash';
-import {Col, Row, Grid} from 'react-native-easy-grid';
-import {load} from '../../../../commons/services/async-storage/ComStorageService';
+import {Col, Grid, Row} from 'react-native-easy-grid';
 import {connect} from 'react-redux';
 import * as Constants from '../state/ecorExpConfirmationEntreeConstants';
 import * as RechecheDumAction from '../state/actions/ecorExpConfirmationEntreeRechercheAction';
-import {MODULE_ECOREXP, TYPE_SERVICE_UC} from '../../../../commons/Config';
+import {MODULE_ECOREXP} from '../../../../commons/Config';
+import ComUtils from '../../../../commons/utils/ComUtils';
+
 class EcorExpRechercheParRefComp extends Component {
   defaultState = {
-    bureau: '309',
-    regime: '060',
-    annee: '2021',
-    serie: '0000010',
-    cle: 'C',
+    bureau: '',
+    regime: this.props.isBureauDisabled ? '001' : '',
+    annee: '',
+    serie: '',
+    cle: '',
     cleValide: '',
     login: '',
     numeroVoyage: '',
@@ -121,29 +105,34 @@ class EcorExpRechercheParRefComp extends Component {
   confirmer = () => {
     console.log('confirmer EcorExpRechercheParRefComp');
     this.setState({showErrorMsg: true});
-    if (this.state.regime && this.state.serie) {
-      this.state.cleValide = this.cleDUM(this.state.regime, this.state.serie);
+    if (this.state.regime && this.state.serie && this.state.annee) {
+      let cleValide =
+        this.props.commande === 'initConfirmerEntree'
+          ? this.cleDUM(this.state.regime, this.state.serie)
+          : ComUtils.cleDS(
+              this.state.regime + this.state.serie + this.state.annee,
+            );
+      this.setState({cleValide: cleValide}, () => {
+        if (this.state.cle === this.state.cleValide) {
+          let referenceDed =
+            this.state.bureau +
+            this.state.regime +
+            this.state.annee +
+            this.state.serie;
+          let dataAction = this.initActionData(referenceDed);
+          let action =
+            this.props.commande === 'initConfirmerEntree'
+              ? RechecheDumAction.request(dataAction, this.props.navigation)
+              : RechecheDumAction.requestFindDumByEtatChargement(
+                  dataAction,
+                  this.props.navigation,
+                );
 
-      if (this.state.cle === this.state.cleValide) {
-        let regime =
-          this.props.commande === 'findDumByEtatChargement'
-            ? '001'
-            : this.state.regime;
-        let referenceDed =
-          this.state.bureau + regime + this.state.annee + this.state.serie;
-        let dataAction = this.initActionData(referenceDed);
-        console.log('confirmer data Action ', dataAction);
-        let action =
-          this.props.commande === 'initConfirmerEntree'
-            ? RechecheDumAction.request(dataAction, this.props.navigation)
-            : RechecheDumAction.requestFindDumByEtatChargement(
-                dataAction,
-                this.props.navigation,
-              );
-
-        this.props.dispatch(action);
-        console.log('dispatch fired !!');
-      }
+          this.props.dispatch(action);
+          console.log('dispatch fired !!');
+        }
+      });
+      this.state.cleValide = cleValide;
     }
   };
   _hasErrors = (field) => {
@@ -202,7 +191,7 @@ class EcorExpRechercheParRefComp extends Component {
                 disabled={this.props.isBureauDisabled}
                 maxLength={3}
                 keyboardType={'number-pad'}
-                value={this.props.isBureauDisabled ? '001' : this.state.regime}
+                value={this.state.regime}
                 label={translate('transverse.regime')}
                 onChangeText={(val) => this.onChangeInput({regime: val})}
                 onEndEditing={(event) =>
@@ -290,14 +279,19 @@ class EcorExpRechercheParRefComp extends Component {
                 })}
               </HelperText>
             </Col>
+
             <Col>
-              <TextInput
-                keyboardType={'number-pad'}
-                value={this.state.numeroVoyage}
-                maxLength={1}
-                label={translate('transverse.nVoyage')}
-                onChangeText={(val) => this.onChangeInput({numeroVoyage: val})}
-              />
+              {!this.props.isBureauDisabled && (
+                <TextInput
+                  keyboardType={'number-pad'}
+                  value={this.state.numeroVoyage}
+                  maxLength={1}
+                  label={translate('transverse.nVoyage')}
+                  onChangeText={(val) =>
+                    this.onChangeInput({numeroVoyage: val})
+                  }
+                />
+              )}
             </Col>
           </Row>
         </Grid>

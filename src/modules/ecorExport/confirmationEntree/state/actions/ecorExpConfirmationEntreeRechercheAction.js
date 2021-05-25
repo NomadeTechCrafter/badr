@@ -84,7 +84,11 @@ export function requestFindDumByEtatChargement(action, navigation) {
         if (response) {
           console.log('response action confirmationentre', response);
           const data = response.data;
-          if (data && _.isEmpty(data.dtoHeader.messagesErreur)) {
+          if (
+            data &&
+            !_.isEmpty(data.jsonVO) &&
+            _.isEmpty(data.dtoHeader.messagesErreur)
+          ) {
             console.log('data requestFindDumByEtatChargement', data);
             completerInformationDum(data.jsonVO, dispatch, navigation);
           } else {

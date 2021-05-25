@@ -52,6 +52,11 @@ const style = {
     justifyContent: 'center',
     alignItems: 'center',
   },
+  rowErrorHelper: {
+    margin: 0,
+      padding:0,
+      marginTop:-15,
+  },
 };
 
 export default StyleSheet.create(style);
