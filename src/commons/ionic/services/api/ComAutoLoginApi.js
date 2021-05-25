@@ -25,6 +25,7 @@ export default class ComAutoLoginApi {
     this.arrondissementCode = arrondissementCode;
     this.arrondissement = arrondissement;
     this.profiles = profiles;
+    console.log('ComAutoLoginApi :', usr, password, smsCode, bureauCode, bureau, arrondissementCode, arrondissement,profiles)
   }
 
   shortAuth = async () => {
@@ -33,8 +34,9 @@ export default class ComAutoLoginApi {
 
   shortConnect = async () => {
     console.log('1) LOGIN START');
-    return await HabLoginApi.login(this.usr, this.password)
+    return await HabLoginApi.login(this.usr, this.password ,true)
       .then((data) => {
+
         if (data) {
           if (data.statutConnexion === '1') {
             /** Saving the user login into the local storage */

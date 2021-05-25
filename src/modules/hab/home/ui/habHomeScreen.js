@@ -28,6 +28,7 @@ import RechecheMLV from '../../../../old/screens/mainlevee/rechercheMLV';
 import ListDeclarationMLV from '../../../../old/screens/mainlevee/listedeclarationsMLV';
 import DelivrerMLV from '../../../../old/screens/mainlevee/delivrerMLV';
 import RechercheEcorImport from '../../../../old/screens/ecorImport/rechercheEcorImport';
+import EcorImportRechercheScreen from '../../../ecorImport/rechercheEcorImport/ui/EcorImportRechercheScreen';
 import AjouterReconnaissance from '../../../controle/reconnaissance/ui/ajouterReconnaissance/ctrlAjouterReconnaissanceScreen';
 import ModifierReconnaissance from '../../../controle/reconnaissance/ui/modifierReconnaissance/ctrlModifierReconnaissanceScreen';
 import AnnulerReconnaissance from '../../../controle/reconnaissance/ui/annulerReconnaissance/ctrlAnnulerReconnaissanceScreen';
@@ -63,6 +64,8 @@ import ConsultationBLSMainScreen from '../../../ecorImport/eciConsultationBLS/ui
 import ConsultationIgTIScreen from '../../../tarifIntegre/tiConsultationIgTI/ui/tiConsultationIgTIScreen';
 import ConsultationTIScreen from '../../../tarifIntegre/tiConsultationTI/ui/tiConsultationTIScreen';
 
+import ConfirmationEntreeMainScreen from '../../../ecorExport/confirmationEntree/ui/ecorExpConfirmationEntreeMainScreen';
+import ConfirmationArriveeMainScreen from '../../../ecorExport/confirmationArrivee/ui/ecorExpConfirmationArriveeMainScreen';
 
 
 import PecEtatChargementMainScreen from '../../../pecEtatChargement/rechParRef/ui/pecEtatChargementMainScreen';
@@ -120,160 +123,160 @@ class habHomeScreen extends React.Component {
         <Drawer.Screen
           name="CreerApurement"
           component={CreerApurement}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Drawer.Screen
           name="Apurement"
           component={Apurement}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Drawer.Screen
           name="DedRechercheRedressement"
           component={DedRedressementRechercheScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Drawer.Screen
           name="controleRechercheDumScreen"
           component={controleRechercheDumScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Drawer.Screen
           name="controleListDecalarationDumScreen"
           component={controleListDecalarationDumScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Drawer.Screen
           name="ControleRegimeInterneScreen"
           component={ControleRegimeInterneScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Drawer.Screen
           name="ControleRegimeTransitScreen"
           component={ControleRegimeTransitScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Drawer.Screen
           name="ControleACVPScreen"
           component={ControleACVPScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Drawer.Screen
           name="RechecheMLV"
           component={RechecheMLV}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
 
         <Drawer.Screen
           name="DelivrerMLV"
           component={DelivrerMLV}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
 
         <Drawer.Screen
           name="ListDeclarationMLV"
           component={ListDeclarationMLV}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Drawer.Screen
           name="RechercheEcorImport"
-          component={RechercheEcorImport}
+          component={EcorImportRechercheScreen}
           options={{headerShown: false}}
         />
         <Drawer.Screen
           name="ComQrCodeScannerComp"
           component={ComQrCodeScannerComp}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
 
         <Drawer.Screen
           name="BloquerOperateur"
           component={BloquerOperateur}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
 
         <Drawer.Screen
           name="DebloquerOperateur"
           component={DebloquerOperateur}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
 
         <Drawer.Screen
           name="AjouterReconnaissance"
           component={AjouterReconnaissance}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
 
         <Drawer.Screen
           name="ModifierReconnaissance"
           component={ModifierReconnaissance}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
 
         <Drawer.Screen
           name="AnnulerReconnaissance"
           component={AnnulerReconnaissance}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
 
         <Drawer.Screen
           name="CreerCompteRenduMission"
           component={CreerCompteRenduMission}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
 
         <Drawer.Screen
           name="ModifierCompteRenduMission"
           component={ModifierCompteRenduMission}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
 
         <Drawer.Screen
           name="ValiderCompteRenduMission"
           component={ValiderCompteRenduMission}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
 
         <Drawer.Screen
           name="ControleApresScanner"
           component={ControleApresScanner}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
 
         <Drawer.Screen
           name="RefControleVehicule"
           component={RefControleVehiculeMainScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
 
         <Drawer.Screen
           name="RefPlaquesImm"
           component={RefPlaquesImmMainScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         {/* Actif Module*/}
         <Drawer.Screen
           name="Recherche"
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
           component={Recherche}
         />
         <Drawer.Screen
           name="Creation"
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
           component={Creation}
         />
         <Drawer.Screen
           name="Entete"
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
           component={Entete}
         />
         <Drawer.Screen
           name="Details"
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
           component={Details}
         />
         <Drawer.Screen
           name="Saisie"
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
           component={Saisie}
         />
         <Drawer.Screen
@@ -312,17 +315,17 @@ class habHomeScreen extends React.Component {
         <Drawer.Screen
           name="T6bisCreation"
           component={T6bisCreation}
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
         />
         <Drawer.Screen
           name="T6bisRecherche"
           component={T6bisRecherche}
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
         />
         <Drawer.Screen
           name="T6bisGestion"
           component={T6bisGestion}
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
         />
         {/* Module T6bis end*/}
 
@@ -334,6 +337,18 @@ class habHomeScreen extends React.Component {
         <Drawer.Screen
           name="AppositionScellesScreen"
           component={ECIAppositionScellesScreen}
+          options={{headerShown: false}}
+        />
+
+        <Drawer.Screen
+          name="ConfirmationEntreeRechercheScreen"
+          component={ConfirmationEntreeMainScreen}
+          options={{ headerShown: false }}
+        />
+
+        <Drawer.Screen
+          name="ConfirmationArriveeRechercheScreen"
+          component={ConfirmationArriveeMainScreen}
           options={{ headerShown: false }}
         />
 
@@ -380,5 +395,5 @@ class habHomeScreen extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({...state.genericReducer});
+const mapStateToProps = (state) => ({ ...state.genericReducer });
 export default connect(mapStateToProps, null)(habHomeScreen);

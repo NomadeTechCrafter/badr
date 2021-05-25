@@ -20,20 +20,18 @@ const mapping = {
   '1104': { screen: 'ConsultationIgTIScreen', params: { modeConsultation: 'I' } },
   '90023': { screen: 'SortiPortScreen', params: { } },
 
-
-  '2052': { screen: 'DedRechercheRedressement', params: { qr: false } },
-
-  /*  '3086': {screen: 'controleRechercheDumScreen', params: {typeControle: 'TR'}},
-    '5971': {screen: 'RechecheMLV', params: {}},
-    '1201': {
-        screen: 'RechercheEcorImport',
-        params: {typeEcorImport: 'EnleverMarchandise'},
-    },
-    '1203': {
-        screen: 'RechercheEcorImport',
-        params: {typeEcorImport: 'EnleverMarchandiseParPesage'},
-    },
-  '5202': {screen: 'LiquidationRechercheScreen', params: {qr: false}},*/
+  '3086': {screen: 'controleRechercheDumScreen', params: {typeControle: 'TR'}},
+  '2052': {screen: 'DedRechercheRedressement', params: {qr: false}},
+  '5971': {screen: 'RechecheMLV', params: {}},
+  '1201': {
+    screen: 'RechercheEcorImport',
+    params: {typeEcorImport: 'EnleverMarchandise'},
+  },
+  '1203': {
+    screen: 'RechercheEcorImport',
+    params: {typeEcorImport: 'EnleverMarchandiseParPesage'},
+  },
+  '5202': {screen: 'LiquidationRechercheScreen', params: {qr: false}},
 
   /*T6bis creation*/
   '110001': {screen: 'T6bisCreation', params: {}},
@@ -52,11 +50,22 @@ const mapping = {
   '1226': {
     screen: 'ECIAppositionScellesRechercheScreen',
     params: {},
-   },
+  },
   '121711': {
     screen: 'EciConsultationBLS',
-    params: { title: 'Ecran  Recherche Consultation BLS' }
+    params: {title: 'Ecran  Recherche Consultation BLS'},
   },
+  '6151': {
+    //CONFIRMATION ENTREE
+    screen: 'ConfirmationEntreeRechercheScreen',
+    params: { title: 'Ecran  Recherche Confirmation entree' },
+  },
+  '61530': {
+    //CONFIRMATION ARRIVEE
+    screen: 'ConfirmationArriveeRechercheScreen',
+    params: { title: 'Ecran  Recherche Confirmation arrivee' },
+  },
+
   '6064': { screen: 'PecEtatChargementMainScreen', params: {} },
   '2243': { screen: 'RechercheConfirmationReceptionScreen', params: {} }
 

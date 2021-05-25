@@ -19,9 +19,10 @@ module.exports = {
   MODULE_REF: 'REF_LIB',
   MODULE_ECI: 'ECI_LIB',
   MODULE_T6BIS: 'T6BIS_LIB',
+  MODULE_ECOREXP: 'ECOREXP_LIB',
   MODULE_DED: 'DED_LIB',
   AUTOCOMPLETE_MIN_CHARACTERS: 3,
   AUTOCOMPLETE_LIST_NB_ELEMENTS: -1,
   remote: true,
-  bootstrapRoute: 'test',
+  bootstrapRoute: 'Home',
 };

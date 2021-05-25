@@ -50,6 +50,9 @@ import RechercheEcorImport from './old/screens/ecorImport/rechercheEcorImport';
 
 import SortiPortScreen from './modules/DeclarationD17D20/sortiPort/ui/decSortiPort/decSortiPortMainScreen'
 
+import ConfirmationEntreeMainScreen from './modules/ecorExport/confirmationEntree/ui/ecorExpConfirmationEntreeMainScreen';
+import ConfirmationArriveeMainScreen from './modules/ecorExport/confirmationArrivee/ui/ecorExpConfirmationArriveeMainScreen';
+
 //Actif
 import Recherche from './old/screens/actifs/rapport/recherche';
 import Creation from './old/screens/actifs/rapport/creation';

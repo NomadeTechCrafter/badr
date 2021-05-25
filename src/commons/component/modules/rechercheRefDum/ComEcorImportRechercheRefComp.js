@@ -32,10 +32,10 @@ import * as RechecheDumAction from '../../../../modules/ecorImport/rechercheEcor
 class ComEcorImportRechercheRefComp extends Component {
   defaultState = {
     bureau: '309',
-    regime: '010',
+    regime: '085',
     annee: '2020',
-    serie: '0000540',
-    cle: 'C',
+    serie: '0000035',
+    cle: 'T',
     cleValide: '',
     login: '',
     numeroVoyage: '',
@@ -101,9 +101,9 @@ class ComEcorImportRechercheRefComp extends Component {
   };
   initWSData = (referenceDed) => {
     return {
-      referenceObjetLiquidation: referenceDed,
-      refBureauLiquidation: this.state.bureau,
-      nombreMaxRedevancesAT: this.state.infoLiquidation.nombreMaxRedevance,
+      referenceEnregistrement: referenceDed,
+      numeroOrdreVoyage: '',
+      indentifiant: '',
     };
   };
 

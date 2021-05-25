@@ -70,6 +70,8 @@ import consultationIgTIReducer from '../../modules/tarifIntegre/tiConsultationIg
 import consultationTIReducer from '../../modules/tarifIntegre/tiConsultationTI/state/reducers/tiConsultationTIReducer';
 import dedConfirmationReceptionReducer from '../../modules/dedouanement/confirmationReception/state/reducers/dedConfirmationReceptionReducer';
 
+import ecorExpConfirmationEntreeReducer from '../../modules/ecorExport/confirmationEntree/state/reducers/ecorExpConfirmationEntreeReducer';
+import ecorExpConfirmationArriveeReducer from '../../modules/ecorExport/confirmationArrivee/state/reducers/ecorExpConfirmationArriveeReducer';
 /**
  * combine all reducers
  */
@@ -121,6 +123,8 @@ const allReducers = combineReducers({
   t6bisCreationReducer,
   t6bisGestionReducer,
   t6bisRechercheReducer,
+  ecorExpConfirmationEntreeReducer,
+  ecorExpConfirmationArriveeReducer,
   consultationBLSReducer,
   eciAppositionScellesRechercheReducer,
   eciAppositionScellesReducer,

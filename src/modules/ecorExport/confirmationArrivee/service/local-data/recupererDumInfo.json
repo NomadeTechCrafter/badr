@@ -1,0 +1,28 @@
+{
+  "dtoHeader": {
+    "userLogin": "AD6203",
+    "fonctionnalite": "cf61530",
+    "module": "ECOREXP_LIB",
+    "commande": "recupererDumInfo",
+    "typeService": "SP",
+    "offset": 0,
+    "pageSize": 0,
+    "rowCount": 0
+  },
+  "jsonVO": {
+    "identifiantDED": 505010,
+    "dateEnregistrement": 1606758226017,
+    "operateurDeclarant": "BABYTEX TEST",
+    "poidsBruts": 250.0,
+    "poidsNet": 200.0,
+    "valeurDeclaree": 200.0,
+    "nombreContenants": 2,
+    "libelleTypeDED": "DUM",
+    "operateurImportateurExportateur": "BABYTEX TEST",
+    "codeLieuStockage": "309201",
+    "typeDeD": "DUM",
+    "numeroVersion": 0,
+    "referenceEnregistrement": "30906020200000184",
+    "dedProvisionnelle": false
+  }
+}
