@@ -21,14 +21,6 @@ export function request(action, navigation, successRedirection) {
             (data.dtoHeader.messagesErreur == null ||
               data.dtoHeader.messagesErreur.length === 0)
           ) {
-            console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
-            console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
-            console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
-            console.log(JSON.stringify(data));
-            console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
-            console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
-            console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
-            console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
             dispatch(success(data));
             //navigation.navigate(successRedirection, data);
             navigation.navigate('Home', {
