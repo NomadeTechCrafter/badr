@@ -31,6 +31,7 @@ class DedRedressementEnteteAccordFranchiseBlock extends React.Component {
                 libelleSize={3}
                 children={
                   <ComBadrReferentielPickerComp
+                    label="Choisir un code accord"
                     selected={{
                       code: getValueByPath(
                         'dedDumSectionEnteteVO.codeAccord',
@@ -40,6 +41,7 @@ class DedRedressementEnteteAccordFranchiseBlock extends React.Component {
                     onRef={(ref) => (this.comboAccords = ref)}
                     command="getCmbAccord"
                     onValueChanged={this.handleAccordChanged}
+                    disabled={true}
                     code="code"
                     libelle="libelle"
                     params={{
@@ -55,7 +57,7 @@ class DedRedressementEnteteAccordFranchiseBlock extends React.Component {
               <ComBadrKeyValueComp
                 libelleSize={3}
                 libelle="Franchise et exonération"
-                children={<ComBadrItemsPickerComp items={[]} label="" />}
+                children={<ComBadrItemsPickerComp items={[]} label="Choisir un code franchise" disabled={true} />}
               />
             </DedRedressementRow>
           </View>

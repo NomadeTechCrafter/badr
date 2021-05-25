@@ -24,10 +24,6 @@ class T6bisRecherche extends React.Component {
     bureau: ComSessionService.getInstance().getCodeBureau(),
     annee: null,
     serie: null,
-    title: isRedressement()
-      ? translate('t6bisrecherche.redressmenttitle')
-      : translate('t6bisrecherche.title'),
-
     t6bis: {
       enregistree: false,
       annee: '',
@@ -43,14 +39,21 @@ class T6bisRecherche extends React.Component {
     super(props);
     this.state = this.defaultState;
   }
-
-  componentDidMount() {
-    this.setState({
-      title: isRedressement()
-        ? translate('t6bisrecherche.redressmenttitle')
-        : translate('t6bisrecherche.title'),
+  componentDidMount = () => {
+    this._unsubscribe = this.props.navigation.addListener('focus', () => {
+      console.log('T6bisCreation focus start');
+      this.setState({
+        ...this.defaultState
+      });
     });
   }
+
+
+  componentWillUnmount() {
+    console.log('T6bisRecherche         componentWillUnmount');
+    this._unsubscribe();
+  }
+
 
   //accept just Number
   onChangeInput = (input) => {
@@ -135,6 +138,7 @@ class T6bisRecherche extends React.Component {
           },
         },
         this.props.navigation,
+        this.emptyFields,
       );
     } else {
       action = t6bisInitForUpdateAction.request(
@@ -143,13 +147,18 @@ class T6bisRecherche extends React.Component {
           value: {
             t6bis: this.state.t6bis,
             mode: 'update',
-            title: translate('t6bisrecherche.title'),
+            title: this.getTitre(),
           },
         },
         this.props.navigation,
+        this.emptyFields,
       );
     }
     this.props.actions.dispatch(action);
+  };
+
+  emptyFields = () => {
+    this.setState({annee: '', serie: ''});
   };
   _hasErrors = (field) => {
     return this.state.showErrorMsg && _.isEmpty(this.state[field]);
@@ -159,6 +168,22 @@ class T6bisRecherche extends React.Component {
     console.log('getTitre  this.props  : ', this.props?.route?.params.title);
     return this.props?.route?.params.title;
   };
+
+  static getDerivedStateFromProps(props, state) {
+    console.log('getDerivedStateFromProps--------------------props ', props);
+    console.log('getDerivedStateFromProps--------------------state ', state);
+
+    if (props?.route?.params.title != state.title) {
+      return {
+        title: props.route?.params.title,
+        annee: null,
+        serie: null,
+      };
+    }
+
+    // Return null to indicate no change to state.
+    return null;
+  }
 
   render() {
     console.log('6bisRecherche  ', this.props);

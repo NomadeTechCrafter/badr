@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text} from 'react-native';
+import {Text, StyleSheet} from 'react-native';
 import {CustomStyleSheet} from '../../../styles/ComThemeStyle';
 
 export default class ComBadrLibelleComp extends React.Component {
@@ -16,7 +16,15 @@ export default class ComBadrLibelleComp extends React.Component {
           this.props.style,
         ]}>
         {this.props.children}
+        {this.props.isRequired && <Text style={styles.required}> * </Text>}
       </Text>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  required: {
+    fontWeight: 'bold',
+    color: '#F00',
+  },
+});

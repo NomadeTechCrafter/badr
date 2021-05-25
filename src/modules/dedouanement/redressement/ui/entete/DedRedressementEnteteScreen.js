@@ -36,6 +36,7 @@ class DedRedressementEnteteScreen extends React.Component {
                 'dedDumSectionEnteteVO',
                 this.props.data,
               )}
+              
             />
             <DedRedressementEnteteInfoBlock
               data={this.props.data}

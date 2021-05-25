@@ -36,7 +36,7 @@ class VuEmbarquerEntete extends React.Component {
     //define actions switch between Confirmer and Annuler
     const screenActions = [];
 
-    if (this.props.dataVo.declarationTriptique.vuEmbarqueExisteDeja) {
+    if (this.props.dataVo?.declarationTriptique?.vuEmbarqueExisteDeja) {
       screenActions.push({
         title: translate('vuEmbarquee.actionAnnuler'),
         icon: 'remove',
@@ -52,10 +52,10 @@ class VuEmbarquerEntete extends React.Component {
 
     if (
       this.props.dataVo &&
-      this.props.dataVo.declarationTriptique &&
-      this.props.dataVo.declarationTriptique.vuEmbarque
+      this.props.dataVo?.declarationTriptique &&
+      this.props.dataVo?.declarationTriptique?.vuEmbarque
     ) {
-      const vuEmbarque = this.props.dataVo.declarationTriptique.vuEmbarque;
+      const vuEmbarque = this.props.dataVo?.declarationTriptique?.vuEmbarque;
       // this.setState({commentaire: vuEmbarque.commentaire});
       // this.setState({dateVuEmb: vuEmbarque.dateVuEmbarque});
       console.log('  test date : ' + vuEmbarque.dateVuEmbarque);
@@ -63,11 +63,10 @@ class VuEmbarquerEntete extends React.Component {
         ...initialState,
         commentaire: vuEmbarque.commentaire,
         dateVuEmb: vuEmbarque.dateVuEmbarque,
-        vuEmbarqueExisteDeja: this.props.dataVo.declarationTriptique
-          .vuEmbarqueExisteDeja,
+        vuEmbarqueExisteDeja: this.props.dataVo?.declarationTriptique ?.vuEmbarqueExisteDeja,
         screenActions,
-        dateDebutVuEmb: vuEmbarque.dateVuEmbarque.split(' ')[0],
-        heureDebutVuEmb: vuEmbarque.dateVuEmbarque.split(' ')[1],
+        dateDebutVuEmb: vuEmbarque.dateVuEmbarque?.split(' ')[0],
+        heureDebutVuEmb: vuEmbarque.dateVuEmbarque?.split(' ')[1],
       };
     } else {
       this.state = {
@@ -87,7 +86,7 @@ class VuEmbarquerEntete extends React.Component {
 
   cleDUM = function (regime, serie) {
     let alpha = 'ABCDEFGHJKLMNPRSTUVWXYZ';
-    if (serie.length > 6) {
+    if (serie?.length > 6) {
       let firstSerie = serie.substring(0, 1);
       if (firstSerie === '0') {
         serie = serie.substring(1, 7);
@@ -101,7 +100,7 @@ class VuEmbarquerEntete extends React.Component {
 
   getNatureVehicule = function (idNature) {
     let natureVehicule = '';
-    natureVehicule = this.props.dataVo.vctNaturesVehicule.filter((vehicule) => {
+    natureVehicule = this.props.dataVo?.vctNaturesVehicule.filter((vehicule) => {
       return vehicule.code === idNature;
     });
 
@@ -114,7 +113,7 @@ class VuEmbarquerEntete extends React.Component {
 
   getNomVehicule = function (idVehicule) {
     let nomVehicule = '';
-    let vehiculeObjet = this.props.dataVo.vctVehicules.find((vehicule) => {
+    let vehiculeObjet = this.props.dataVo?.vctVehicules.find((vehicule) => {
       return vehicule.code === idVehicule;
     });
 
@@ -142,7 +141,7 @@ class VuEmbarquerEntete extends React.Component {
     }
 
     const jsonVO = {};
-    jsonVO.indentifiant = this.props.dataVo.declarationTriptique.indentifiant;
+    jsonVO.indentifiant = this.props.dataVo?.declarationTriptique?.indentifiant;
     jsonVO.vuEmbarque = {
       dateVuEmbarque: this.state.dateVuEmb, //'18/01/2021 11:08',
       commentaire: this.state.commentaire, //'My Comment ',
@@ -168,7 +167,7 @@ class VuEmbarquerEntete extends React.Component {
 
   handleAnnulerVuEmb = () => {
     const jsonVO = {};
-    jsonVO.indentifiant = this.props.dataVo.declarationTriptique.indentifiant;
+    jsonVO.indentifiant = this.props.dataVo?.declarationTriptique?.indentifiant;
 
     var action = VuEmbConfirmerAction.request(
       {
@@ -188,9 +187,9 @@ class VuEmbarquerEntete extends React.Component {
   };
 
   getConducteurById = function (codeConducteur) {
-    const vctConducteurs = this.props.dataVo.vctConducteurs;
+    const vctConducteurs = this.props.dataVo?.vctConducteurs;
 
-    const conducteur = vctConducteurs.find(
+    const conducteur = vctConducteurs?.find(
       (cond) => cond.code === codeConducteur,
     );
     if (conducteur) {
@@ -200,8 +199,9 @@ class VuEmbarquerEntete extends React.Component {
   };
 
   render() {
-    const {enteteTrypVO, traceSignature} = this.props.dataVo;
-    const {referenceEnregistrement} = this.props.dataVo.declarationTriptique;
+    const enteteTrypVO = this.props.dataVo?.enteteTrypVO;
+    const traceSignature = this.props.dataVo?.traceSignature;
+    const referenceEnregistrement = this.props.dataVo?.declarationTriptique?.referenceEnregistrement;
 
     const renderDateVuEmb = () => {
       return (
@@ -296,25 +296,25 @@ class VuEmbarquerEntete extends React.Component {
             </View>
             <View style={styles.flexDirectionRow}>
               <Text style={styles.valueM}>
-                {referenceEnregistrement.slice(0, 3)}
+                {referenceEnregistrement?.slice(0, 3)}
               </Text>
               <Text style={styles.valueM}>
-                {referenceEnregistrement.slice(3, 6)}
+                {referenceEnregistrement?.slice(3, 6)}
               </Text>
               <Text style={styles.valueM}>
-                {referenceEnregistrement.slice(6, 10)}
+                {referenceEnregistrement?.slice(6, 10)}
               </Text>
               <Text style={styles.valueL}>
-                {referenceEnregistrement.slice(10, 17)}
+                {referenceEnregistrement?.slice(10, 17)}
               </Text>
               <Text style={styles.valueS}>
                 {this.cleDUM(
-                  referenceEnregistrement.slice(3, 6),
-                  referenceEnregistrement.slice(10, 17),
+                  referenceEnregistrement?.slice(3, 6),
+                  referenceEnregistrement?.slice(10, 17),
                 )}
               </Text>
               <Text style={styles.valueL}>TRYPTIQUE</Text>
-              <Text style={styles.valueL}>{enteteTrypVO.libelleRegime}</Text>
+              <Text style={styles.valueL}>{enteteTrypVO?.libelleRegime}</Text>
             </View>
           </CardBox>
           {/* Version */}
@@ -325,17 +325,17 @@ class VuEmbarquerEntete extends React.Component {
                   <Text style={styles.libelleM}>
                     {translate('vuEmbarquee.type')} :
                   </Text>
-                  <Text style={styles.valueM}>{enteteTrypVO.type}</Text>
+                  <Text style={styles.valueM}>{enteteTrypVO?.type}</Text>
                   <Text style={styles.libelleS}>
                     {translate('vuEmbarquee.numeroVersion')} :
                   </Text>
                   <Text style={styles.valueS}>
-                    {enteteTrypVO.numeroVersion}
+                    {enteteTrypVO?.numeroVersion}
                   </Text>
                   <Text style={styles.libelleM}>
                     {translate('vuEmbarquee.statut')} :
                   </Text>
-                  <Text style={styles.valueM}>{enteteTrypVO.status}</Text>
+                  <Text style={styles.valueM}>{enteteTrypVO?.status}</Text>
                 </View>
                 <View style={[styles.flexDirectionRow, styles.marg]}>
                   <Text style={styles.libelleM}>
@@ -348,13 +348,13 @@ class VuEmbarquerEntete extends React.Component {
                     {translate('vuEmbarquee.codeInitiateur')} :
                   </Text>
                   <Text style={styles.valueM}>
-                    {enteteTrypVO.codeInitiateur}
+                    {enteteTrypVO?.codeInitiateur}
                   </Text>
                   <Text style={styles.libelleS}>
                     {translate('vuEmbarquee.nomInitiateur')} :
                   </Text>
                   <Text style={styles.valueS}>
-                    {enteteTrypVO.nomInitiateur}
+                    {enteteTrypVO?.nomInitiateur}
                   </Text>
                 </View>
                 <View style={[styles.flexDirectionRow, styles.marg]}>
@@ -362,7 +362,7 @@ class VuEmbarquerEntete extends React.Component {
                     {translate('vuEmbarquee.dateCreation')} :
                   </Text>
                   <Text style={styles.valueM}>
-                    {enteteTrypVO.dateCreation_VC}
+                    {enteteTrypVO?.dateCreation_VC}
                   </Text>
                 </View>
 
@@ -371,14 +371,14 @@ class VuEmbarquerEntete extends React.Component {
                     {translate('vuEmbarquee.dateSauvegarde')}{' '}
                     {translate('vuEmbarquee.versionCourante')}:
                   </Text>
-                  <Text style={styles.valueM}>{enteteTrypVO.dateDepot_VC}</Text>
+                  <Text style={styles.valueM}>{enteteTrypVO?.dateDepot_VC}</Text>
                 </View>
                 <View style={[styles.flexDirectionRow, styles.marg]}>
                   <Text style={styles.libelleM}>
                     {translate('vuEmbarquee.dateSauvegarde')}{' '}
                     {translate('vuEmbarquee.versionInitiale')}:
                   </Text>
-                  <Text style={styles.valueM}>{enteteTrypVO.dateDepot_VI}</Text>
+                  <Text style={styles.valueM}>{enteteTrypVO?.dateDepot_VI}</Text>
                 </View>
               </View>
             </Accordion>
@@ -393,7 +393,7 @@ class VuEmbarquerEntete extends React.Component {
                       {translate('vuEmbarquee.qualite')} :
                     </Text>
                     <Text style={styles.valueM}>
-                      {traceSignature.qualite_signataire}
+                      {traceSignature?.qualite_signataire}
                     </Text>
                   </View>
                   <View style={[styles.flexDirectionRow, styles.marg]}>
@@ -401,7 +401,7 @@ class VuEmbarquerEntete extends React.Component {
                       {translate('vuEmbarquee.par')} :
                     </Text>
                     <Text style={styles.valueS}>
-                      {traceSignature.ident_signataire}
+                      {traceSignature?.ident_signataire}
                     </Text>
                   </View>
                   <View style={[styles.flexDirectionRow, styles.marg]}>
@@ -409,7 +409,7 @@ class VuEmbarquerEntete extends React.Component {
                       {translate('vuEmbarquee.le')} :
                     </Text>
                     <Text style={styles.valueM}>
-                      {traceSignature.date_signature}
+                      {traceSignature?.date_signature}
                     </Text>
                   </View>
                   <View style={[styles.flexDirectionRow, styles.marg]}>
@@ -417,7 +417,7 @@ class VuEmbarquerEntete extends React.Component {
                       {translate('vuEmbarquee.numTransaction')} :
                     </Text>
                     <Text style={styles.valueM}>
-                      {traceSignature.numeroTransaction}{' '}
+                      {traceSignature?.numeroTransaction}{' '}
                     </Text>
                   </View>
                 </View>
@@ -433,7 +433,7 @@ class VuEmbarquerEntete extends React.Component {
                     {translate('vuEmbarquee.dateMLV')} :
                   </Text>
                   <Text style={styles.valueM}>
-                    {this.props.dataVo.datePassage}
+                    {this.props.dataVo?.datePassage}
                   </Text>
                 </View>
                 <View style={[styles.flexDirectionRow, styles.marg]}>
@@ -441,7 +441,7 @@ class VuEmbarquerEntete extends React.Component {
                     {translate('vuEmbarquee.agent')} :
                   </Text>
                   <Text style={styles.valueS}>
-                    {this.props.dataVo.agentPassage}
+                    {this.props.dataVo?.agentPassage}
                   </Text>
                 </View>
               </View>
@@ -456,7 +456,7 @@ class VuEmbarquerEntete extends React.Component {
                     {translate('vuEmbarquee.numRc')} :
                   </Text>
                   <Text style={styles.valueM}>
-                    {enteteTrypVO.numeroRCTransporteur}
+                    {enteteTrypVO?.numeroRCTransporteur}
                   </Text>
                 </View>
                 <View style={[styles.flexDirectionRow, styles.marg]}>
@@ -464,7 +464,7 @@ class VuEmbarquerEntete extends React.Component {
                     {translate('vuEmbarquee.nomRaisonSociale')} :
                   </Text>
                   <Text style={styles.valueS}>
-                    {enteteTrypVO.nomTransporteur}
+                    {enteteTrypVO?.nomTransporteur}
                   </Text>
                 </View>
               </View>
@@ -479,7 +479,7 @@ class VuEmbarquerEntete extends React.Component {
                     {translate('vuEmbarquee.conducteur')} :
                   </Text>
                   <Text style={styles.valueM}>
-                    {this.getConducteurById(enteteTrypVO.idConducteur)}
+                    {this.getConducteurById(enteteTrypVO?.idConducteur)}
                   </Text>
                 </View>
                 <View style={[styles.flexDirectionRow, styles.marg]}>
@@ -499,14 +499,14 @@ class VuEmbarquerEntete extends React.Component {
                     {translate('vuEmbarquee.natureVehicule')} :
                   </Text>
                   <Text style={styles.valueM}>
-                    {this.getNatureVehicule(enteteTrypVO.idNatureVehicule)}
+                    {this.getNatureVehicule(enteteTrypVO?.idNatureVehicule)}
                   </Text>
 
                   <Text style={styles.libelleM}>
                     {translate('vuEmbarquee.vehicule')} :
                   </Text>
                   <Text style={styles.valueM}>
-                    {this.getNomVehicule(enteteTrypVO.idVehicule)}
+                    {this.getNomVehicule(enteteTrypVO?.idVehicule)}
                   </Text>
                 </View>
                 <View style={[styles.flexDirectionRow, styles.marg]}>
@@ -532,7 +532,7 @@ class VuEmbarquerEntete extends React.Component {
                     {translate('vuEmbarquee.natureMarch')} :
                   </Text>
                   <Text style={styles.valueL}>
-                    {enteteTrypVO.natureMarchandise}
+                    {enteteTrypVO?.natureMarchandise}
                   </Text>
                 </View>
               </View>
@@ -551,13 +551,13 @@ class VuEmbarquerEntete extends React.Component {
                     {translate('vuEmbarquee.du')} :
                   </Text>
                   <Text style={styles.valueM}>
-                    {enteteTrypVO.dateDebutAutorisationMa}
+                    {enteteTrypVO?.dateDebutAutorisationMa}
                   </Text>
                   <Text style={styles.libelleS}>
                     {translate('vuEmbarquee.au')} :
                   </Text>
                   <Text style={styles.valueM}>
-                    {enteteTrypVO.dateFinAutorisationMa}
+                    {enteteTrypVO?.dateFinAutorisationMa}
                   </Text>
                 </View>
                 <View style={[styles.flexDirectionRow, styles.marg]}>
@@ -566,7 +566,7 @@ class VuEmbarquerEntete extends React.Component {
                   </Text>
                   <Checkbox
                     color="#009ab2"
-                    status={enteteTrypVO.avide ? 'checked' : 'unchecked'}
+                    status={enteteTrypVO?.avide ? 'checked' : 'unchecked'}
                   />
                 </View>
               </View>

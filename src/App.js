@@ -48,6 +48,11 @@ import T6bisCreation from './modules/t6bis/creation/ui/t6bisCreation/t6bisCreati
 import T6bisGestion from './modules/t6bis/gestion/ui/t6bisGestion/t6bisGestionScreen';
 import RechercheEcorImport from './old/screens/ecorImport/rechercheEcorImport';
 
+import SortiPortScreen from './modules/DeclarationD17D20/sortiPort/ui/decSortiPort/decSortiPortMainScreen'
+
+import ConfirmationEntreeMainScreen from './modules/ecorExport/confirmationEntree/ui/ecorExpConfirmationEntreeMainScreen';
+import ConfirmationArriveeMainScreen from './modules/ecorExport/confirmationArrivee/ui/ecorExpConfirmationArriveeMainScreen';
+
 //Actif
 import Recherche from './old/screens/actifs/rapport/recherche';
 import Creation from './old/screens/actifs/rapport/creation';
@@ -55,6 +60,10 @@ import Entete from './old/screens/actifs/rapport/creation/entete';
 import Details from './old/screens/actifs/rapport/creation/details';
 import Saisie from './old/screens/actifs/rapport/creation/saisie';
 import Consultation from './old/screens/actifs/rapport/consultation';
+import EtatChargement from './modules/pecEtatChargement/rechParRef/ui/pecEtatChargementMainScreen';
+import VuEmbarqueScreen from './modules/DeclarationD17D20/vuEmbarquer/ui/vuEmbarquer/VuEmbarqueScreen';
+import ConsultationIgTIScreen from './modules/tarifIntegre/tiConsultationIgTI/ui/tiConsultationIgTIScreen';
+import ConsultationTIScreen from './modules/tarifIntegre/tiConsultationTI/ui/tiConsultationTIScreen';
 
 //setGlobalHandler();
 export default class App extends React.Component {
@@ -77,7 +86,7 @@ export default class App extends React.Component {
                   <Stack.Screen
                     name="test"
                     options={{ headerShown: false }}
-                    component={EciConsultationBLSSearchScreen}
+                    component={SortiPortScreen}
                   />
                 )}
               <Stack.Screen

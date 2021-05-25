@@ -138,7 +138,7 @@ class VuEmbRechercheTryptique extends Component {
 
   cleDUM = function (regime, serie) {
     let alpha = 'ABCDEFGHJKLMNPRSTUVWXYZ';
-    if (serie.length > 6) {
+    if (serie?.length > 6) {
       let firstSerie = serie.substring(0, 1);
       if (firstSerie === '0') {
         serie = serie.substring(1, 7);

@@ -19,7 +19,6 @@ class T6bisInformationsCmSousBlock extends React.Component {
         this.state = {
             numeroRecepisse: isCreation() ? '' : this.props.t6bis?.numeroRecepisse,
             immatriculationMoyenTransport: isCreation() ? '' : this.props.t6bis?.immatriculationMoyenTransport,
-            numeroVol: isCreation() ? '' : this.props.t6bis?.numeroVol,
             typeMoyenPaiement: isCreation() ? '' : this.props.t6bis?.typeMoyenPaiement?.code
         };
     }

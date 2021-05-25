@@ -38,11 +38,14 @@ export const getSerie = (reference) => {
 };
 
 export const getCategorieDum = (typeDum, isSousDum) => {
+  console.log('getCategorieDum typeDum :', typeDum);
   if (typeDum == '01') {
     return '1';
   } else if (typeDum == '02') {
     return isSousDum ? '4' : '2';
   } else if (typeDum == '04') {
     return '4';
+  } else if (typeDum == '99') {
+    return '99';
   }
 };

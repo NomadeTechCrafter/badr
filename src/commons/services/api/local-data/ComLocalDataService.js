@@ -2,6 +2,8 @@ const localStore = {
   login: require('../../../../modules/hab/login/service/local-data/habLoginData.json'),
   confirmerConnexionAgent: require('../../../../modules/hab/login/service/local-data/habConfirmerConnexionAgentData.json'),
   verifierCodeGenere: require('../../../../modules/hab/smsVerify/service/local-data/habVerifierCodeGenereData.json'),
+  getListeProfil: require('../../../../modules/hab/profile/service/local-data/habGetListeProfilData.json'),
+  getArrondissementsByAgentAndBureau: require('../../../../modules/hab/profile/service/local-data/habGetArrondissementsByAgentAndBureauData.json'),
   initControlerDedRI: require('./controle/initControleDedRI.json'),
   initControlerDedACVP: require('./controle/initControlerDedACVP.json'),
   initEnleverMarchandise: require('./ecorImport/initEnleverMarchandise.json'),
@@ -65,6 +67,26 @@ const localStore = {
   getListRubriqueMtmTaxationGlobale: require('../../../../modules/t6bis/gestion/service/local-data/getListRubriqueMtmTaxationGlobaleData.json'),
   T6bisInitForRedresser: require('../../../../modules/t6bis/recherche/service/local-data/t6bisInitForRedresserData.json'),
   /* T6bisInitForUpdate: require('../../../../modules/t6bis/recherche/service/local-data/t6bisInitForUpdateDataError.json'), */
+  getListMoyenTransport: require('../../../../modules/ecorExport/confirmationEntree/service/local-data/getListMoyenTransport.json'),
+  initConfirmerEntree: require('../../../../modules/ecorExport/confirmationEntree/service/local-data/initConfirmerEntree.json'),
+  findDumByEtatChargement: require('../../../../modules/ecorExport/confirmationEntree/service/local-data/findDumByEtatChargement.json'),
+  recupererDumInfo: require('../../../../modules/ecorExport/confirmationEntree/service/local-data/recupererDumInfo.json'),
+  findDumByAmp: require('../../../../modules/ecorExport/confirmationEntree/service/local-data/findDumByAmp.json'),
+  confirmerEntree: require('../../../../modules/ecorExport/confirmationEntree/service/local-data/confirmerEntree.json'),
+  initConfirmerArrivee: require('../../../../modules/ecorExport/confirmationArrivee/service/local-data/initConfirmerEntree.json'),
+  confirmerArrivee: require('../../../../modules/ecorExport/confirmationArrivee/service/local-data/confirmerEntree.json'),
   findEciRechBls: require('../../../../modules/ecorImport/eciConsultationBLS/service/local-data/eciFindEciRechBls.json'),
+  initApposerScelles: require('../../../../modules/ecorImport/appositionScelles/recherche/service/local-data/eciInitAppositionScellesData.json'),
+  recupererVersionAECVO: require('../../../../modules/pecEtatChargement/rechParRef/service/local-data/recupererVersionAECVO.json'),
+  getListHistoriqueEtdc: require('../../../../modules/pecEtatChargement/rechParRef/service/local-data/getListHistoriqueEtdc.json'),
+  getListVersionsEtdc: require('../../../../modules/pecEtatChargement/rechParRef/service/local-data/getListVersionsEtdc.json'),
+  findResultatScannerByReferenceEtatChargement: require('../../../../modules/pecEtatChargement/rechParRef/service/local-data/findResultatScannerByReferenceEtatChargement.json'),
+  getListInformationsConsultation: require('../../../../modules/tarifIntegre/tiConsultationIgTI/service/local-data/getListInformationsConsultation.json'),
+  getListFlux: require('../../../../modules/tarifIntegre/tiConsultationTI/service/local-data/getFlux.json'),
+  consulterTI: require('../../../../modules/tarifIntegre/tiConsultationTI/service/local-data/consulterTI.json'),
+  'ded.getDecSortiPortParMatVehicule': require('../../../../modules/DeclarationD17D20/sortiPort/service/local-data/ded.getDecSortiPortParMatVehicule.json'),
+  'ded.vuEmbRechercheDeclarationTrypByRef': require('../../../../modules/DeclarationD17D20/sortiPort/service/local-data/ded.vuEmbRechercheDeclarationTrypByRef.json'),
+
+
 };
 export default localStore;

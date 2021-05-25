@@ -129,6 +129,7 @@ export default {
     libRegime: 'Libellé du régime',
     suppressionTitre: 'Suppression',
     supprimerLigne: 'Voulez-vous supprimer cet élément?',
+    choix: 'Choix',
   },
   qr: {
     at_invalide:
@@ -139,7 +140,7 @@ export default {
     connaissement: 'Connaissement',
     declarationDetail: 'Déclaration en Détail',
     etatChargement: 'Etat de chargement',
-    resultScanner: 'résultat scanner',
+    resultScanner: 'Résultat scanner',
     info: 'Info',
     vumEmb: {
       rechByRef: 'Reference declaration',

@@ -65,6 +65,7 @@ class DedRedressementEnteteDeclarantOpeBlock extends React.Component {
           {this.buildOperateurBlock(
             'Expediteur / Exportateur / Cédant',
             'dedDumSectionEnteteVO.codeCentreRCExpediteur',
+            'dedDumSectionEnteteVO.justNumeroRC',
             'dedDumSectionEnteteVO.nomCentreRC',
             'dedDumSectionEnteteVO.ifuExpediteur',
             'dedDumSectionEnteteVO.nomOperateurExpediteurR',
@@ -76,6 +77,7 @@ class DedRedressementEnteteDeclarantOpeBlock extends React.Component {
           {this.buildOperateurBlock(
             'Destinataire, Importateur / Cessionaire',
             'dedDumSectionEnteteVO.codeCentreRCDestinataire',
+            'dedDumSectionEnteteVO.justNumeroCentreRCDestinataire',
             'dedDumSectionEnteteVO.nomCentreRCDestinataire',
             'dedDumSectionEnteteVO.ifuDestinataire',
             'dedDumSectionEnteteVO.nomOperateurDestinataireR',
@@ -87,6 +89,7 @@ class DedRedressementEnteteDeclarantOpeBlock extends React.Component {
           {this.buildOperateurBlock(
             "Operateur pour lequel est engagé l'opération",
             'dedDumSectionEnteteVO.codeCentreRCOperateurPourLequel',
+            'dedDumSectionEnteteVO.numeroRCOperateurPourLequel',
             'dedDumSectionEnteteVO.nomCentreRCOperateurPourLequel',
             'dedDumSectionEnteteVO.ifuOperateurPourLequel',
             'dedDumSectionEnteteVO.nomOperateurPourLequel',
@@ -102,6 +105,7 @@ class DedRedressementEnteteDeclarantOpeBlock extends React.Component {
 
   buildOperateurBlock = (
     title,
+    codeCentreRC,
     numRC,
     nomRC,
     ifu,
@@ -121,8 +125,9 @@ class DedRedressementEnteteDeclarantOpeBlock extends React.Component {
           <ComBadrKeyValueComp
             libelleSize={1}
             libelle="N° R.C"
-            value={getValueByPath(numRC, this.props.data)}
+            value={(getValueByPath(codeCentreRC, this.props.data) ? getValueByPath(codeCentreRC, this.props.data) : "" )+ " " + (getValueByPath(numRC, this.props.data) ? getValueByPath(numRC, this.props.data):"")}
           />
+          
           <ComBadrKeyValueComp
             libelleSize={1}
             libelle="Centre R.C"

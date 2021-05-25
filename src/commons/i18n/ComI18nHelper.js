@@ -19,7 +19,7 @@ import dedouanementTranslateFr from '../../modules/dedouanement/redressement/i18
 import controleRechrcheDumTranslateFr from '../../modules/controle/rechercheDum/i18n/controleRechrcheDumTranslateFr';
 import controleBadTranslateFr from '../../modules/controle/BAD/i18n/controleBadTranslateFr';
 import mainLeveeTranslateFr from '../../old/screens/mainlevee/i18/mainLeveeTranslateFr';
-import ecorImportTranslateFr from '../../old/screens/ecorImport/i18/ecorImportTranslateFr';
+import ecorImportTranslateFr from '../../modules/ecorImport/i18/ecorImportTranslateFr';
 import refControleVehiculeTranslateFr from '../../modules/referentiel/controleVehicules/i18n/refControleVehiculeTranslateFr';
 import refPlaquesImmTranslateFr from '../../modules/referentiel/plaquesImmatriculation/i18n/refPlaquesImmTranslateFr';
 import t6bisCreationTranslationsFr from '../../modules/t6bis/creation/i18n/t6bisCreationTranslateFr';
@@ -27,7 +27,17 @@ import t6bisGestionTranslateFr from '../../modules/t6bis/gestion/i18n/t6bisGesti
 import t6bisRechercheTranslationsFr from '../../modules/t6bis/recherche/i18n/t6bisRechercheTranslateFr';
 import actifTranslateFr from '../../old/common/translations/actif/actifTranslateFr';
 import liquidationTranslateFr from '../../modules/liquidation/i18n/liquidationTranslateFr';
+import ecorExpConfirmationEntreeTranslateFr from '../../modules/ecorExport/confirmationEntree/i18n/ecorExpConfirmationEntreeTranslateFr';
+import ecorExpConfirmationArriveeTranslateFr from '../../modules/ecorExport/confirmationArrivee/i18n/ecorExpConfirmationArriveeTranslateFr';
 import eciConsultationBLSTranslateFr from '../../modules/ecorImport/eciConsultationBLS/i18n/eciConsultationBLSTranslateFr';
+import eciAppositionScellesRechercheTranslateFr from '../../modules/ecorImport/appositionScelles/recherche/i18n/eciAppositionScellesRechercheTranslateFr';
+import eciAppositionScellesTranslateFr from '../../modules/ecorImport/appositionScelles/apposition/i18n/eciAppositionScellesTranslateFr';
+import pecEtatChargementTranslateFr from '../../modules/pecEtatChargement/rechParRef/i18n/pecEtatChargementTranslateFr';
+
+import consultationIgTI from '../../modules/tarifIntegre/tiConsultationIgTI/i18n/tiConsultationIgTITranslateFr';
+import consultationTI from '../../modules/tarifIntegre/tiConsultationTI/i18n/tiConsultationTITranslateFr';
+import dedConfirmationReception from '../../modules/dedouanement/confirmationReception/i18n/dedConfirmationReceptionTranslateFr';
+import decSortiPortTranslateFr from '../../modules/DeclarationD17D20/sortiPort/i18n/decSortiPortTranslateFr';
 
 const locales = RNLocalize.getLocales();
 
@@ -64,6 +74,16 @@ let combined = {
   ...t6bisGestionTranslateFr,
   ...t6bisRechercheTranslationsFr,
   ...eciConsultationBLSTranslateFr,
+  ...eciAppositionScellesRechercheTranslateFr,
+  ...eciAppositionScellesTranslateFr,
+  ...pecEtatChargementTranslateFr,
+  ...consultationIgTI,
+  ...consultationTI,
+  ...dedConfirmationReception,
+  ...eciAppositionScellesTranslateFr,
+  ...decSortiPortTranslateFr,
+  ...ecorExpConfirmationEntreeTranslateFr,
+  ...ecorExpConfirmationArriveeTranslateFr,
 };
 I18n.translations = {
   fr: combined,

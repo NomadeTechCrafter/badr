@@ -30,6 +30,10 @@ import genericDedReducer from '../../modules/dedouanement/redressement/state/red
 import vuEmbInitReducer from '../../modules/DeclarationD17D20/vuEmbarquer/state/reducers/vuEmbInitReducer';
 import vuEmbReducer from '../../modules/DeclarationD17D20/vuEmbarquer/state/reducers/vuEmbUcReducer';
 import vuEmbRefVH from '../../modules/DeclarationD17D20/vuEmbarquer/state/reducers/vuEmRefVhReducer';
+import sortiPortRefVH from '../../modules/DeclarationD17D20/sortiPort/state/reducers/decSortiPortRefVhReducer';
+import sortiPortInitReducer from '../../modules/DeclarationD17D20/sortiPort/state/reducers/decSortiPortInitReducer';
+import sortiPortReducer from '../../modules/DeclarationD17D20/sortiPort/state/reducers/decSortiPortUcReducer';
+
 
 import referentielReducer from './reducers/ReferentielReducer';
 import consulterDumReducer from './reducers/ConsulterDumReducer';
@@ -59,7 +63,15 @@ import ecorImportRechercheRefDumReducer from '../../modules/ecorImport/recherche
 import liquidationRechercheRefDumReducer from '../../modules/liquidation/state/reducers/liquidationRechercheRefDumReducer';
 import liquidationReducer from '../../modules/liquidation/state/reducers/liquidationReducer';
 import consultationBLSReducer from '../../modules/ecorImport/eciConsultationBLS/state/reducers/eciConsultationBLSReducer';
+import eciAppositionScellesRechercheReducer from '../../modules/ecorImport/appositionScelles/recherche/state/reducers/eciAppositionScellesRechercheReducer';
+import eciAppositionScellesReducer from '../../modules/ecorImport/appositionScelles/apposition/state/reducers/eciAppositionScellesReducer';
+import pecEtatChargementReducer from '../../modules/pecEtatChargement/rechParRef/state/reducers/pecEtatChargementReducer';
+import consultationIgTIReducer from '../../modules/tarifIntegre/tiConsultationIgTI/state/reducers/tiConsultationIgTIReducer';
+import consultationTIReducer from '../../modules/tarifIntegre/tiConsultationTI/state/reducers/tiConsultationTIReducer';
+import dedConfirmationReceptionReducer from '../../modules/dedouanement/confirmationReception/state/reducers/dedConfirmationReceptionReducer';
 
+import ecorExpConfirmationEntreeReducer from '../../modules/ecorExport/confirmationEntree/state/reducers/ecorExpConfirmationEntreeReducer';
+import ecorExpConfirmationArriveeReducer from '../../modules/ecorExport/confirmationArrivee/state/reducers/ecorExpConfirmationArriveeReducer';
 /**
  * combine all reducers
  */
@@ -111,7 +123,18 @@ const allReducers = combineReducers({
   t6bisCreationReducer,
   t6bisGestionReducer,
   t6bisRechercheReducer,
+  ecorExpConfirmationEntreeReducer,
+  ecorExpConfirmationArriveeReducer,
   consultationBLSReducer,
+  eciAppositionScellesRechercheReducer,
+  eciAppositionScellesReducer,
+  pecEtatChargementReducer,
+  consultationIgTIReducer,
+  consultationTIReducer,
+  dedConfirmationReceptionReducer,
+  sortiPortReducer,
+  sortiPortRefVH,
+  sortiPortInitReducer,
 });
 /**
  * store creation
