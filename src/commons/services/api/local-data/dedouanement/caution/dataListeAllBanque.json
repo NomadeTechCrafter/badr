@@ -1,0 +1,524 @@
+{
+  "dtoHeader": {
+    "userLogin": "YAMAGENT",
+    "fonctionnalite": "cf4011",
+    "module": "REF_LIB",
+    "commande": "getCmbBanque",
+    "typeService": "SP"
+  },
+  "jsonVO": [
+    {
+      "code": "02",
+      "libelle": "ARAB BANK()",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "13",
+      "libelle": "AWB(007)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "B2",
+      "libelle": "B.A.M(AT)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "11",
+      "libelle": "B.A.M()",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "GX",
+      "libelle": "BANKA(GX1)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "9A",
+      "libelle": "BANQUA AMAL 2(9A)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "93",
+      "libelle": "banque(028)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "75",
+      "libelle": "banque fictive sans code bkm()",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "BI",
+      "libelle": "BANQUE ISLAMIQUE MAROCAINE IE(BIM)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "98",
+      "libelle": "BANQUE TEST()",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "10",
+      "libelle": "BANQUE TEST(002)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "22",
+      "libelle": "BARID AL-MAGHRIB()",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "A0",
+      "libelle": "bat(A0)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "50",
+      "libelle": "BCP RESEAU(980)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "ED",
+      "libelle": "benq(DQ)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "AZ",
+      "libelle": "BK AL-AMAL(AZ3)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "1",
+      "libelle": "BMCE()",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "AA",
+      "libelle": "BMCE(011)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "AR",
+      "libelle": "bp(AR4)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "33",
+      "libelle": "B.P. CENTRE-SUD(75)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "54",
+      "libelle": "B.P. ELJADIDA-SAFI(54)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "45",
+      "libelle": "B.P. FES-TAZA(465)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "48",
+      "libelle": "B.P. LAAYOUNE()",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "bc",
+      "libelle": "B.P. MARRAKECH-BENI MELLAL(aa)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "77",
+      "libelle": "B.P. MEKNES()",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "b1",
+      "libelle": "B.P. NADOR-ALHOCEIMA(T1)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "65",
+      "libelle": "B.P. OUJDA()",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "B4",
+      "libelle": "B.P. TANGER-TETOUAN()",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "BQ",
+      "libelle": "bq test(BQ)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "39",
+      "libelle": "CAIXA()",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "BB",
+      "libelle": "C.A.M()",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "74",
+      "libelle": "cb(028)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "BC",
+      "libelle": "C.C.P()",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "60",
+      "libelle": "CDG CAPITAL()",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "05",
+      "libelle": "CFG BANK(050)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "20",
+      "libelle": "C.I.H()",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "190",
+      "libelle": "CITIBANK(190)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "16",
+      "libelle": "CITIBANK.(028)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "73",
+      "libelle": "city town(33)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "BD",
+      "libelle": "C.M()",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "ER",
+      "libelle": "erer(ERR)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "61",
+      "libelle": "F.E.C()",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "JS",
+      "libelle": "JSF BANK CHROM 42(JSF)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "ZA",
+      "libelle": "MA BANQUE EN LIGNE(SDZ)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "AB",
+      "libelle": "MEDIAFINANCE(25)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "RI",
+      "libelle": "ri2(RI)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "AE",
+      "libelle": "rrrr(RR)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "007",
+      "libelle": "SABADELL(045)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "40",
+      "libelle": "SGMB(045)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "RT",
+      "libelle": "test comp android jsf 222(19)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "83",
+      "libelle": "test comp ref jsf chrome 222(TES)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "57",
+      "libelle": "test comp ref jsf ie8 222(ATT)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "87",
+      "libelle": "test comp ref jsf ie9 222(BMC)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "B9",
+      "libelle": "TRESORERIE GENERALE()",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "B8",
+      "libelle": "U.M.B()",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "8",
+      "libelle": "WAFA BANK()",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "EZ",
+      "libelle": "ze test(ZE)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    }
+  ]
+}

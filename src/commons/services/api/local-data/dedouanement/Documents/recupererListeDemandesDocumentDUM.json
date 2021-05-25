@@ -1,0 +1,35 @@
+{
+  "dtoHeader": {
+    "userLogin": "TESTAG3",
+    "fonctionnalite": "cf4011",
+    "module": "DED_LIB",
+    "commande": "ded.recupererListeDemandesDocumentDUM",
+    "typeService": "SP"
+  },
+  "jsonVO": [
+    {
+      "dateDemande": 1526912678000,
+      "idDemande": "955",
+      "typeDocument": "Factures de livraison",
+      "commentaire": "fl",
+      "agent": "TESTAG14",
+      "identifiantDUM": "183824",
+      "statut": 1,
+      "charge": 0,
+      "defaultConverter": {},
+      "statutString": "Nouveau"
+    },
+    {
+      "dateDemande": 1526912678000,
+      "idDemande": "956",
+      "typeDocument": "Facture établie en hors droits et taxes",
+      "commentaire": "test",
+      "agent": "TESTAG14",
+      "identifiantDUM": "183824",
+      "statut": 1,
+      "charge": 0,
+      "defaultConverter": {},
+      "statutString": "Nouveau"
+    }
+  ]
+}

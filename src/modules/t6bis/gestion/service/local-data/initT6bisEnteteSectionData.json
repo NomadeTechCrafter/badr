@@ -1,0 +1,215 @@
+{
+  "dtoHeader": {
+    "userLogin": "AD6203",
+    "fonctionnalite": "cf110001",
+    "module": "T6BIS_LIB",
+    "commande": "initT6bisEnteteSection",
+    "typeService": "SP",
+    "messagesInfo": ["??? getAllTypeT6bis_MESSAGE_INFO ???"]
+  },
+  "jsonVO":{
+    "t6bisMtmDto": {
+      "annee": 2021,
+      "enregistree": false,
+      "dateCreation": 1610468280622,
+      "codeTypeT6bis": "01",
+      "libelleTypeT6Bis": "Taxe coordination",
+      "listeT6bisLigneTaxationGlobale": [],
+      "interventions": [],
+      "actionModification": false,
+      "annulationT6bis": false,
+      "redressementFromActeTeransactionnel": false,
+      "dontCheckConditionTPE": false,
+      "defaultConverter": {},
+      "sauvegardee": false,
+      "etat":"ENREGISTRER","referenceT6BisRemplacee":"1203231210202321"
+    },
+    "t6bisCyclomoteurVO": {
+      "annee": 2021,
+      "enregistree": false,
+      "listeT6bisLigneTaxationGlobale": [],
+      "interventions": [],
+      "actionModification": false,
+      "annulationT6bis": false,
+      "redressementFromActeTeransactionnel": false,
+      "dontCheckConditionTPE": false,
+      "defaultConverter": {},
+      "sauvegardee": false
+    },
+    "t6bisTaxeCoordinationVO": {
+      "annee": 2021,
+      "enregistree": false,
+      "listeT6bisLigneTaxationGlobale": [],
+      "interventions": [],
+      "actionModification": false,
+      "annulationT6bis": false,
+      "redressementFromActeTeransactionnel": false,
+      "dontCheckConditionTPE": false,
+      "defaultConverter": {},
+      "sauvegardee": false
+    },
+    "t6bisContrainteParCorpsVO": {
+      "annee": 2021,
+      "enregistree": false,
+      "listeT6bisLigneTaxationGlobale": [],
+      "interventions": [],
+      "actionModification": false,
+      "annulationT6bis": false,
+      "redressementFromActeTeransactionnel": false,
+      "dontCheckConditionTPE": false,
+      "defaultConverter": {},
+      "sauvegardee": false
+    },
+    "t6bisDepassementDelaiVO": {
+      "annee": 2021,
+      "enregistree": false,
+      "listeT6bisLigneTaxationGlobale": [],
+      "interventions": [],
+      "actionModification": false,
+      "annulationT6bis": false,
+      "redressementFromActeTeransactionnel": false,
+      "dontCheckConditionTPE": false,
+      "defaultConverter": {},
+      "sauvegardee": false
+    },
+    "t6bisAffaireChangeVO": {
+      "annee": 2021,
+      "enregistree": false,
+      "listeT6bisLigneTaxationGlobale": [],
+      "interventions": [],
+      "actionModification": false,
+      "annulationT6bis": false,
+      "redressementFromActeTeransactionnel": false,
+      "dontCheckConditionTPE": false,
+      "defaultConverter": {},
+      "sauvegardee": false
+    },
+    "t6bisAmendesTransactionnelleAutresVO": {
+      "annee": 2021,
+      "enregistree": false,
+      "listeT6bisLigneTaxationGlobale": [],
+      "interventions": [],
+      "actionModification": false,
+      "annulationT6bis": false,
+      "redressementFromActeTeransactionnel": false,
+      "dontCheckConditionTPE": false,
+      "defaultConverter": {},
+      "sauvegardee": false
+    },
+    "typeMoyenPaiementList": [
+      {
+        "code": "01",
+        "libelle": "Espèce",
+        "actif": false,
+        "showDropDown": false,
+        "disableAutoComplete": true,
+        "onFocus": "",
+        "disabled": false
+      },
+      {
+        "code": "02",
+        "libelle": "Chèque",
+        "actif": false,
+        "showDropDown": false,
+        "disableAutoComplete": true,
+        "onFocus": "",
+        "disabled": false
+      },
+      {
+        "code": "03",
+        "libelle": "TPE",
+        "actif": false,
+        "showDropDown": false,
+        "disableAutoComplete": true,
+        "onFocus": "",
+        "disabled": false
+      }
+    ],
+    "genreList": [
+      "Messages.getResourceBundleString(T6bisCstPresentation.TRACTEUR, null,Messages.T6BIS_BUNDLE_NAME)",
+      "Messages.getResourceBundleString(T6bisCstPresentation.REMORQUE, null,Messages.T6BIS_BUNDLE_NAME)",
+      "Messages.getResourceBundleString(T6bisCstPresentation.ENSEMBLE_ROUTIER, null,Messages.T6BIS_BUNDLE_NAME)"
+    ],
+    "operateur": {},
+    "listTypeIdentifiant": [
+      {
+        "code": "04",
+        "libelle": "AUTRE PERSONNE(04)",
+        "actif": false,
+        "showDropDown": false,
+        "disableAutoComplete": true,
+        "onFocus": "",
+        "disabled": false
+      },
+      {
+        "code": "02",
+        "libelle": "Numero Carte séjour(02)",
+        "actif": false,
+        "showDropDown": false,
+        "disableAutoComplete": true,
+        "onFocus": "",
+        "disabled": false
+      },
+      {
+        "code": "01",
+        "libelle": "Numero C.I.N.(01)",
+        "actif": false,
+        "showDropDown": false,
+        "disableAutoComplete": true,
+        "onFocus": "",
+        "disabled": false
+      },
+      {
+        "code": "03",
+        "libelle": "Numero Composteur(03)",
+        "actif": false,
+        "showDropDown": false,
+        "disableAutoComplete": true,
+        "onFocus": "",
+        "disabled": false
+      },
+      {
+        "code": "07",
+        "libelle": "Passeport de service(07)",
+        "actif": false,
+        "showDropDown": false,
+        "disableAutoComplete": true,
+        "onFocus": "",
+        "disabled": false
+      },
+      {
+        "code": "06",
+        "libelle": "Passeport Diplomatique(06)",
+        "actif": false,
+        "showDropDown": false,
+        "disableAutoComplete": true,
+        "onFocus": "",
+        "disabled": false
+      },
+      {
+        "code": "05",
+        "libelle": "Passeport normal(05)",
+        "actif": false,
+        "showDropDown": false,
+        "disableAutoComplete": true,
+        "onFocus": "",
+        "disabled": false
+      },
+      {
+        "code": "08",
+        "libelle": "Sans pièce d’identité(08)",
+        "actif": false,
+        "showDropDown": false,
+        "disableAutoComplete": true,
+        "onFocus": "",
+        "disabled": false
+      }
+    ],
+    "intervenant": {
+      "rechercheAnnules": false,
+      "rechercheValides": true,
+      "defaultConverter": {}
+    },
+    "intervenantExistant": false
+  }
+}

@@ -1,0 +1,22 @@
+
+
+//TODO : before start developing your feature : make master up to date
+    ws <---- pull ---> git repo local <----- fetch ----> remote repo
+    
+    1) git fetch 
+    2) git pull
+
+    * create a new git branch : 
+        1) git branch list-declaration-et-transit
+        
+    * checkout the branch : 
+        git checkout list-declaration-et-transit
+    
+    * Commit the change : 
+         git add .
+         git commit -m "commentaire du commit"
+         git push --set-upstream origin list-declaration-et-transit
+
+
+
+ 

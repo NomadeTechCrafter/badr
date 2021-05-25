@@ -1,0 +1,134 @@
+{
+  "dtoHeader": {
+    "userLogin": "AD6202",
+    "fonctionnalite": "cf110002",
+    "module": "T6BIS_LIB",
+    "commande": "T6bisInitForRedresser",
+    "typeService": "UC",
+    "offset": 0,
+    "pageSize": 0,
+    "rowCount": 0,
+    "messagesInfo": ["T6bis initialisée avec succès."]
+  },
+  "jsonVO": {
+    "bureauCourant": {
+      "cable": false,
+      "codeBureau": "309",
+      "nomBureauDouane": "Casa port (309)",
+      "nomBureauDouaneArabe": "الدار البيضاء الميناء"
+    },
+    "annee": 2021,
+    "utilisateur": {"numeroPaie": -1, "refGradeLib": ""},
+    "enregistree": false,
+    "dateCreation": 1613384460283,
+    "codeTypeT6bis": "01",
+    "libelleTypeT6Bis": "Marchandises et taxe de magasinage",
+    "intervenantVO": {
+      "numeroOrdreIntervenant": "34368",
+      "dateEffet": "14/05/2007 00:00:00",
+      "dateFin": "12/01/3000 00:00:00",
+      "nomIntervenant": "alaoui",
+      "prenomIntervenant": "ismail",
+      "adresse": "salé",
+      "numeroDocumentIndentite": "A0123456",
+      "refTypeIntervenant": "02",
+      "typeIntervenant": "Personne physique",
+      "refTypeDocumentIdentite": "01",
+      "refPaysPassPort": "MA",
+      "resident": true,
+      "retraite": false,
+      "adresseAr": "Adresse",
+      "filiationAr": "النسب",
+      "lieuNaissance": "casa",
+      "nationaliteFr": "MAROC",
+      "nomAr": "الاسم العائلي",
+      "prenomAr": "الاسم الشخصي",
+      "sexe": "M",
+      "dateNaissance": "",
+      "paysFr": "MA",
+      "nbrRappelInteresse": "0",
+      "adresseEmail": "S.CHADLI@DOUANE.GOV.MA",
+      "descTypeIntervenant": "Personne physique",
+      "descTypeDocumentIdentite": "Numero C.I.N.",
+      "descPaysPassPort": "MAROC",
+      "descPaysFr": "MAROC",
+      "statut": "valide",
+      "rechercheAnnules": false,
+      "rechercheValides": true,
+      "defaultConverter": {},
+      "idPourRecherche": "34368"
+    },
+    "listeT6bisLigneTaxationGlobale": [
+      {
+        "rubriqueTaxation": {
+          "code": "002901",
+          "libelle": "TAXE MAGASINAGE(002901)",
+          "actif": false,
+          "showDropDown": false,
+          "disableAutoComplete": true,
+          "onFocus": "",
+          "disabled": false
+        },
+        "tauxTaxation": "10.0",
+        "montantTaxation": "20.0",
+        "defaultConverter": {}
+      }
+    ],
+    "typeMoyenPaiement": {
+      "code": "01",
+      "libelle": "Espèce",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    "taxationPaiementEspece": 3,
+    "montantGlobal": 909,
+    "idT6bisRemplacee": 4826,
+    "interventions": [],
+    "actionModification": false,
+    "annulationT6bis": false,
+    "redressementFromActeTeransactionnel": false,
+    "dontCheckConditionTPE": false,
+    "numeroRecepisse": "11",
+    "immatriculationMoyenTransport": "22",
+    "numeroVol": "33",
+    "listeArticleT6bis": [
+      {
+        "numArticle": 1,
+        "codeNomenclature": "9999999999",
+        "dateEffetNomenclature": 631152000000,
+        "natureMarchandise": "0528",
+        "libelleNatureMarchandise": "allume charbon ",
+        "designation": "designation 3",
+        "valeurTaxable": "444.0",
+        "montantFacture": "5555.0",
+        "devise": "BGN",
+        "quantite": "6666.0",
+        "uniteQuantite": "000",
+        "libelleUnite": "000",
+        "totalTaxationArticle": 0,
+        "listeT6bisLigneTaxation": [
+          {
+            "rubriqueTaxation": {
+              "code": "000500",
+              "libelle": "TAXE UNIFORME(000500)",
+              "actif": false,
+              "showDropDown": false,
+              "disableAutoComplete": true,
+              "onFocus": "",
+              "disabled": false
+            },
+            "tauxTaxation": "77.0",
+            "montantTaxation": "888.0",
+            "defaultConverter": {}
+          }
+        ],
+        "defaultConverter": {}
+      }
+    ],
+    "defaultConverter": {},
+    "sauvegardee": false
+  }
+}
