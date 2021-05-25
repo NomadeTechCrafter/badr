@@ -2,6 +2,7 @@ import React from 'react';
 import { ScrollView, View } from 'react-native';
 import { TextInput } from 'react-native-paper';
 import { Col, Grid, Row } from 'react-native-easy-grid';
+import moment from 'moment';
 /**Custom Components */
 import {
     ComBadrButtonIconComp,
@@ -95,7 +96,7 @@ class EciConsultationBLSSearchScreen extends React.Component {
                             <Col>
                                 <ComBadrDatePickerComp
                                     dateFormat="DD/MM/YYYY"
-                                    value={this.state.dateBlsDu}
+                                    value={this.state.dateBlsDu ? moment(this.state.dateBlsDu, 'DD/MM/yyyy', true) : ''}
                                     labelDate={translate('consultationBLS.startDate')}
                                     inputStyle={style.textInputsStyle}
                                     onDateChanged={(date) =>
@@ -109,7 +110,7 @@ class EciConsultationBLSSearchScreen extends React.Component {
                             <Col>
                                 <ComBadrDatePickerComp
                                     dateFormat="DD/MM/YYYY"
-                                    value={this.state.dateBlsAu}
+                                    value={this.state.dateBlsAu ? moment(this.state.dateBlsAu, 'DD/MM/yyyy', true) : ''}
                                     labelDate={translate('consultationBLS.endDate')}
                                     inputStyle={style.textInputsStyle}
                                     onDateChanged={(date) =>

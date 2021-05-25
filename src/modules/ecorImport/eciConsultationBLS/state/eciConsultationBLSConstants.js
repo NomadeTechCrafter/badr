@@ -11,5 +11,4 @@ export const CONSULTATION_BLS_INIT =
 
 export const status = [
   { code: 'ENREGISTRE', libelle: 'Enregistrement'},
-  {code: 'MODIFIE', libelle: 'Modification'},
 ];
