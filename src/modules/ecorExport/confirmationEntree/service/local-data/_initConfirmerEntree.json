@@ -1,0 +1,186 @@
+{
+  "dtoHeader": {
+    "userLogin": "AD6202",
+    "fonctionnalite": "cf6151",
+    "module": "ECOREXP_LIB",
+    "commande": "initConfirmerEntree",
+    "typeService": "UC",
+    "messagesInfo": [
+      "??? InitConfirmerEntree_MESSAGE_INFO ???"
+    ],
+    "offset": 0,
+    "pageSize": 0,
+    "rowCount": 0
+  },
+  "jsonVO": {
+    "documentEntreeEnceinte": "1",
+    "numeroPince": "",
+    "nombreScelle": "",
+    "nombreScelleConfirmationEntree": "1",
+    "numeroPinceConfirmationEntree": "1",
+    "numeroVoyage": "",
+    "dateHeureAutorisation": "",
+    "dateHeureEntree": "16/10/2020 15:25",
+    "dateHeureAcheminement": "",
+    "dateHeureVoyage": "",
+    "dateHeureEmbarquement": "",
+    "dateHeureArrive": "",
+    "dateHeureCtrlApresScanner": "",
+    "commentaireEmbarquement": "",
+    "refAgentEmbarquement": {
+      "idActeur": "",
+      "nom": "",
+      "prenom": "",
+      "refBureau": {
+        "codeBureau": "",
+        "nomBureauDouane": "",
+        "defaultConverter": {}
+      },
+      "defaultConverter": {}
+    },
+    "refAgentEntree": {
+      "idActeur": "YELM",
+      "nom": "EL MAJDOUBI",
+      "prenom": "YOUSSEF",
+      "refBureau": {
+        "codeBureau": "309",
+        "nomBureauDouane": "Casa port (309)",
+        "defaultConverter": {}
+      },
+      "defaultConverter": {}
+    },
+    "refAgentAutorisationAcheminement": {
+      "idActeur": "",
+      "nom": "",
+      "prenom": "",
+      "refBureau": {
+        "codeBureau": "",
+        "nomBureauDouane": "",
+        "defaultConverter": {}
+      },
+      "defaultConverter": {}
+    },
+    "refAgentAnnulationEmbarquement": {
+      "idActeur": "",
+      "nom": "",
+      "prenom": "",
+      "refBureau": {
+        "codeBureau": "",
+        "nomBureauDouane": "",
+        "defaultConverter": {}
+      },
+      "defaultConverter": {}
+    },
+    "refAgentAutorisation": {
+      "idActeur": "",
+      "nom": "",
+      "prenom": "",
+      "refBureau": {
+        "codeBureau": "",
+        "nomBureauDouane": "",
+        "defaultConverter": {}
+      },
+      "defaultConverter": {}
+    },
+    "refAgentConfirmationArrive": {
+      "idActeur": "",
+      "nom": "",
+      "prenom": "",
+      "refBureau": {
+        "codeBureau": "",
+        "nomBureauDouane": "",
+        "defaultConverter": {}
+      },
+      "defaultConverter": {}
+    },
+    "refMoyenTransport": {
+      "descriptionMoyenTransport": "",
+      "codeMoyenTransport": "",
+      "refModeTransport": {
+        "descriptionModeTransport": "",
+        "codeModeTransport": "",
+        "defaultConverter": {}
+      },
+      "commentaire": "",
+      "defaultConverter": {}
+    },
+    "refDUM": {
+      "bureau": "",
+      "regime": "",
+      "annee": "",
+      "serie": "",
+      "cle": "",
+      "referenceEnregistrement": "",
+      "dateEffectiveEnregistrement": "",
+      "numeroOrdreVoyage": "",
+      "defaultConverter": {}
+    },
+    "refDedServices": {
+      "operateurDeclarant": "BABYTEX TEST",
+      "poidsBruts": "1000.0",
+      "poidsNet": "100.0",
+      "valeurDeclaree": "100.0",
+      "nombreContenant": "",
+      "typeDeD": "DUM",
+      "dateEnregistrement": "16/10/2020 15:19",
+      "nombreContenants": "1",
+      "libelleTypeDED": "DUM",
+      "defaultConverter": {}
+    },
+    "refMainlevee": {
+      "dateValidation": "",
+      "dateImpression": "",
+      "refAgentValidation": {
+        "idActeur": "",
+        "nom": "",
+        "prenom": "",
+        "refBureau": {
+          "codeBureau": "",
+          "nomBureauDouane": "",
+          "defaultConverter": {}
+        },
+        "defaultConverter": {}
+      },
+      "refAgentEdition": {
+        "idActeur": "",
+        "nom": "",
+        "prenom": "",
+        "refBureau": {
+          "codeBureau": "",
+          "nomBureauDouane": "",
+          "defaultConverter": {}
+        },
+        "defaultConverter": {}
+      },
+      "listScelle": {},
+      "defaultConverter": {}
+    },
+    "dateEnregistrement": "",
+    "depuisDelivrerBonEntree": false,
+    "refAgentCrtlApresScanner": {
+      "idActeur": "",
+      "nom": "",
+      "prenom": "",
+      "refBureau": {
+        "codeBureau": "",
+        "nomBureauDouane": "",
+        "defaultConverter": {}
+      },
+      "defaultConverter": {}
+    },
+    "numeroPinceCrtlApresScanner": "",
+    "nombreScelleCrtlApresScanner": "",
+    "scelles": {
+      "15915915": "15915915",
+      "15915916": "15915916",
+      "15915917": "15915917",
+      "15915918": "15915918"
+    },
+    "scellesConfirmationEntree": {
+      "15915915": "15915915"
+    },
+    "scellesAutorisationAcheminement": {},
+    "scellesCrtlApresScanner": {},
+    "defaultConverter": {}
+  }
+}

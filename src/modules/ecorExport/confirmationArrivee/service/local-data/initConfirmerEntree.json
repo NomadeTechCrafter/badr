@@ -1,0 +1,178 @@
+{
+  "dtoHeader": {
+    "userLogin": "SUPSI1070",
+    "fonctionnalite": "cf61530",
+    "module": "ECOREXP_LIB",
+    "commande": "initConfirmerArrivee",
+    "typeService": "UC",
+    "messagesInfo": [
+      "??? InitArrive_MESSAGE_INFO ???"
+    ],
+    "offset": 0,
+    "pageSize": 0,
+    "rowCount": 0
+  },
+  "jsonVO": {
+    "documentEntreeEnceinte": "",
+    "numeroPince": "",
+    "nombreScelle": "",
+    "nombreScelleConfirmationEntree": "",
+    "numeroVoyage": "",
+    "dateHeureAutorisation": "",
+    "dateHeureEntree": "11/02/2021 09:30",
+    "dateHeureAcheminement": "03/02/2021 10:00",
+    "dateHeureVoyage": "",
+    "dateHeureEmbarquement": "",
+    "dateHeureArrive": "",
+    "dateHeureCtrlApresScanner": "",
+    "commentaireEmbarquement": "",
+    "refAgentEmbarquement": {
+      "idActeur": "",
+      "nom": "",
+      "prenom": "",
+      "refBureau": {
+        "codeBureau": "",
+        "nomBureauDouane": "",
+        "defaultConverter": {}
+      },
+      "defaultConverter": {}
+    },
+    "refAgentEntree": {
+      "idActeur": "AD6201",
+      "nom": "NOM",
+      "prenom": "PRENOM",
+      "refBureau": {
+        "codeBureau": "309",
+        "nomBureauDouane": "Casa port (309)",
+        "defaultConverter": {}
+      },
+      "defaultConverter": {}
+    },
+    "refAgentAutorisationAcheminement": {
+      "idActeur": "",
+      "nom": "",
+      "prenom": "",
+      "refBureau": {
+        "codeBureau": "",
+        "nomBureauDouane": "",
+        "defaultConverter": {}
+      },
+      "defaultConverter": {}
+    },
+    "refAgentAnnulationEmbarquement": {
+      "idActeur": "",
+      "nom": "",
+      "prenom": "",
+      "refBureau": {
+        "codeBureau": "",
+        "nomBureauDouane": "",
+        "defaultConverter": {}
+      },
+      "defaultConverter": {}
+    },
+    "refAgentAutorisation": {
+      "idActeur": "",
+      "nom": "",
+      "prenom": "",
+      "refBureau": {
+        "codeBureau": "",
+        "nomBureauDouane": "",
+        "defaultConverter": {}
+      },
+      "defaultConverter": {}
+    },
+    "refAgentConfirmationArrive": {
+      "idActeur": "",
+      "nom": "",
+      "prenom": "",
+      "refBureau": {
+        "codeBureau": "",
+        "nomBureauDouane": "",
+        "defaultConverter": {}
+      },
+      "defaultConverter": {}
+    },
+    "refMoyenTransport": {
+      "descriptionMoyenTransport": "",
+      "codeMoyenTransport": "",
+      "refModeTransport": {
+        "descriptionModeTransport": "",
+        "codeModeTransport": "",
+        "defaultConverter": {}
+      },
+      "commentaire": "",
+      "defaultConverter": {}
+    },
+    "refDUM": {
+      "bureau": "",
+      "regime": "",
+      "annee": "",
+      "serie": "",
+      "cle": "",
+      "referenceEnregistrement": "",
+      "dateEffectiveEnregistrement": "",
+      "numeroOrdreVoyage": "",
+      "defaultConverter": {}
+    },
+    "refDedServices": {
+      "operateurDeclarant": "BABYTEX TEST",
+      "poidsBruts": "1000.0",
+      "poidsNet": "1000.0",
+      "valeurDeclaree": "1000.0",
+      "nombreContenant": "",
+      "typeDeD": "DUM",
+      "dateEnregistrement": "18/01/2021 11:40",
+      "nombreContenants": "0",
+      "libelleTypeDED": "DUM",
+      "defaultConverter": {}
+    },
+    "refMainlevee": {
+      "dateValidation": "",
+      "dateImpression": "",
+      "refAgentValidation": {
+        "idActeur": "",
+        "nom": "",
+        "prenom": "",
+        "refBureau": {
+          "codeBureau": "",
+          "nomBureauDouane": "",
+          "defaultConverter": {}
+        },
+        "defaultConverter": {}
+      },
+      "refAgentEdition": {
+        "idActeur": "",
+        "nom": "",
+        "prenom": "",
+        "refBureau": {
+          "codeBureau": "",
+          "nomBureauDouane": "",
+          "defaultConverter": {}
+        },
+        "defaultConverter": {}
+      },
+      "listScelle": {},
+      "defaultConverter": {}
+    },
+    "dateEnregistrement": "",
+    "depuisDelivrerBonEntree": false,
+    "refAgentCrtlApresScanner": {
+      "idActeur": "",
+      "nom": "",
+      "prenom": "",
+      "refBureau": {
+        "codeBureau": "",
+        "nomBureauDouane": "",
+        "defaultConverter": {}
+      },
+      "defaultConverter": {}
+    },
+    "numeroPinceCrtlApresScanner": "",
+    "nombreScelleCrtlApresScanner": "",
+    "scelles": {},
+    "scellesConfirmationEntree": {},
+    "scellesAutorisationAcheminement": {},
+    "scellesCrtlApresScanner": {},
+    "defaultConverter": {}
+  }
+}

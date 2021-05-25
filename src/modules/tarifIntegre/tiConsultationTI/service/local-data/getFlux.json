@@ -1,0 +1,86 @@
+{
+    "dtoHeader": {
+        "userLogin": "AD6203",
+        "fonctionnalite": "cf1102",
+        "module": "TI_LIB",
+        "commande": "getListFlux",
+        "typeService": "SP",
+        "offset": 0,
+        "pageSize": 0,
+        "rowCount": 0
+    },
+    "jsonVO": [
+        {
+            "code": "A",
+            "libelle": "aaaaa vvvvv11",
+            "dateEffet": 1199891107000,
+            "dateFin": 253402214400000
+        },
+        {
+            "code": "EXP",
+            "libelle": "Exportation",
+            "dateEffet": 1072915200000,
+            "dateFin": 253402214400000
+        },
+        {
+            "code": "FLU1",
+            "libelle": "Flux.",
+            "dateEffet": 1340146800000,
+            "dateFin": 29348006400000
+        },
+        {
+            "code": "IMP",
+            "libelle": "Importation",
+            "dateEffet": 1072915260000,
+            "dateFin": 253373357520000
+        },
+        {
+            "code": "INT",
+            "libelle": "Intérieur",
+            "dateEffet": 1072915200000,
+            "dateFin": 253402214400000
+        },
+        {
+            "code": "10",
+            "libelle": "10",
+            "dateEffet": 1362441600000,
+            "dateFin": 29348006400000
+        },
+        {
+            "code": "159",
+            "libelle": "flux 159.",
+            "dateEffet": 1254997439607,
+            "dateFin": 253402214400254
+        },
+        {
+            "code": "16",
+            "libelle": "f 1604..",
+            "dateEffet": 1366070400000,
+            "dateFin": 29348006400000
+        },
+        {
+            "code": "44",
+            "libelle": "444",
+            "dateEffet": 1422317100000,
+            "dateFin": 253373357520000
+        },
+        {
+            "code": "5555",
+            "libelle": "TEST TEST TEST",
+            "dateEffet": 1199872031000,
+            "dateFin": 253402214400000
+        },
+        {
+            "code": "77",
+            "libelle": "777",
+            "dateEffet": 1422316860000,
+            "dateFin": 29348006400000
+        },
+        {
+            "code": "987",
+            "libelle": "flux 987",
+            "dateEffet": 1312294075205,
+            "dateFin": 29348006400000
+        }
+    ]
+}

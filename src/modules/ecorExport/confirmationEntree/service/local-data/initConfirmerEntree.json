@@ -1,0 +1,27 @@
+{
+  "dtoHeader": {
+    "userLogin": "AD6203",
+    "fonctionnalite": "cf6151",
+    "module": "ECOREXP_LIB",
+    "commande": "initConfirmerEntree",
+    "typeService": "UC",
+    "messagesInfo": [
+      "??? InitConfirmerEntree_MESSAGE_INFO ???"
+    ],
+    "offset": 0,
+    "pageSize": 0,
+    "rowCount": 0
+  },
+  "jsonVO": {
+    "operateurDeclarant": "BABYTEX TEST",
+    "poidsBruts": "250.0",
+    "poidsNet": "200.0",
+    "valeurDeclaree": "200.0",
+    "nombreContenant": "",
+    "typeDeD": "DUM",
+    "dateEnregistrement": "21/01/2021 07:46",
+    "nombreContenants": "2",
+    "libelleTypeDED": "DUM",
+    "defaultConverter": {}
+  }
+}

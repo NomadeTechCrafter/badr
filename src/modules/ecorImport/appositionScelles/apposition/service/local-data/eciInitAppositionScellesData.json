@@ -1,0 +1,38 @@
+{
+    "dtoHeader": {
+        "userLogin": "AD6203",
+        "fonctionnalite": "cf4011",
+        "module": "ECI_LIB",
+        "commande": "initApposerScelles",
+        "typeService": "UC",
+        "messagesInfo": [
+            "??? InitApposerScelles_MESSAGE_INFO ???"
+        ],
+        "offset": 0,
+        "pageSize": 0,
+        "rowCount": 0
+    },
+    "jsonVO": {
+        "nombreScelle": "",
+        "scelles": {},
+        "referenceDED": {
+            "referenceEnregistrement": "30985520210000023",
+            "indentifiant": "516171",
+            "regime": "855",
+            "defaultConverter": {}
+        },
+        "refDedServices": {
+            "dateEnregistrement": "20/03/2021 10:19",
+            "operateurDeclarant": "BABYTEX TEST",
+            "valeurDeclaree": "1000.0",
+            "poidsBruts": "1000.0",
+            "poidsNet": "1.0",
+            "nombreContenants": "0",
+            "libelleTypeDED": "DUM",
+            "numeroOrdreVoyage": "",
+            "defaultConverter": {}
+        },
+        "scellesApposees": {},
+        "defaultConverter": {}
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "dtoHeader": {
+      "userLogin": "AD6203",
+      "fonctionnalite": "cf6064",
+      "module": "ECOREXP_LIB",
+      "commande": "getListVersionsEtdc",
+      "typeService": "SP",
+      "offset": 0,
+      "pageSize": 0,
+      "rowCount": 0
+    },
+    "jsonVO": [
+      {
+        "dateCreation": "2020-11-30 19:19:23",
+        "dateEnregistrement": "2020-11-30 19:19:23",
+        "dateDepot": "2020-11-30 21:30:02",
+        "etat": "Enregistree",
+        "statut": "Acceptee",
+        "mode": "Interactif",
+        "codeStatut": "01"
+      }
+    ]
+  }
