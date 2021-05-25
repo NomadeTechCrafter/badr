@@ -1,7 +1,8 @@
 /** React Components */
 import React from 'react';
 import {Alert, Linking, ScrollView, TextInput, View} from 'react-native';
-import {Button} from 'react-native-paper';
+import {Button, Title, Modal, Portal, Text} from 'react-native-paper';
+import Icon from 'react-native-vector-icons/FontAwesome';
 /** REDUX **/
 import {connect} from 'react-redux';
 import style from '../style/habLoginStyle';
@@ -48,12 +49,11 @@ class Login extends React.Component {
   }
 
   handleLogin = (forcerConnexion) => {
-    this.props.login(this.state.login, this.state.password, forcerConnexion);
+    this.props.login(this.state.login, this.state.password, forcerConnexion, "false");
   };
 
   initAutoLoginParameters = async () => {
     const initialUrl = await Linking.getInitialURL();
-    console.log('initAutoLoginParameters :' , initialUrl);
     let params = this.extractUrlParams(initialUrl);
     if (Object.keys(params).length > 0) {
       this.setState({startAutoLogin: true, autoLoginParam: params});
@@ -89,80 +89,96 @@ class Login extends React.Component {
   };
 
   render() {
-    console.log(this.props);
     return (
-      <ScrollView style={style.container}>
-        {/* {this.props.showProgress && <SmartLoader />} */}
-        <View style={style.loginBlock}>
-          <ComBadrLoginHeaderComp />
-          <View style={style.textInputContainer}>
-            <TextInput
-              value={this.state.login}
-              autoCapitalize="characters"
-              style={style.textInput}
-              placeholder={translate('userName')}
-              onChangeText={(text) => this.onLoginChanged(text)}
-              secureTextEntry={false}
-            />
-          </View>
-          <View style={style.textInputContainer}>
-            <TextInput
-              value={this.state.password}
-              style={style.textInput}
-              autoCapitalize="none"
-              secureTextEntry={true}
-              placeholder={translate('password')}
-              onChangeText={(text) => this.setState({password: text})}
-            />
-          </View>
-          <Button
-            loading={this.props.showProgress}
-            mode="contained"
-            style={style.loginButton}
-            onPress={() => this.handleLogin(false)}>
-            {translate('connexion')}
-          </Button>
-          {!this.props.loggedIn &&
+        <ScrollView style={style.container}>
+          {/* {this.props.showProgress && <SmartLoader />} */}
+
+          <Portal>
+            <Modal
+                dismissable={false}
+                visible={this.props.showModalUpdateVersion}
+                contentContainerStyle={style.containerModal}>
+              <Icon
+                  name="warning"
+                  color={'white'}
+                  size={50}
+                  style={style.iconModal}
+              />
+              <Title style={style.textModal}>
+                {this.props.msgModalUpdateVersion}
+              </Title>
+            </Modal>
+          </Portal>
+          <View style={style.loginBlock}>
+            <ComBadrLoginHeaderComp />
+            <View style={style.textInputContainer}>
+              <TextInput
+                  value={this.state.login}
+                  autoCapitalize="characters"
+                  style={style.textInput}
+                  placeholder={translate('userName')}
+                  onChangeText={(text) => this.onLoginChanged(text)}
+                  secureTextEntry={false}
+              />
+            </View>
+            <View style={style.textInputContainer}>
+              <TextInput
+                  value={this.state.password}
+                  style={style.textInput}
+                  autoCapitalize="none"
+                  secureTextEntry={true}
+                  placeholder={translate('password')}
+                  onChangeText={(text) => this.setState({password: text})}
+              />
+            </View>
+            <Button
+                loading={this.props.showProgress}
+                mode="contained"
+                style={style.loginButton}
+                onPress={() => this.handleLogin(false)}>
+              {translate('connexion')}
+            </Button>
+            {!this.props.loggedIn &&
             this.props.errorMessage != null &&
             this.props.errorMessage !== '2' && (
-              <ComBadrErrorMessageComp message={this.props.errorMessage} />
+                <ComBadrErrorMessageComp message={this.props.errorMessage} />
             )}
-          {!this.props.loggedIn &&
+            {!this.props.loggedIn &&
             this.props.errorMessage === '2' &&
             Alert.alert(
-              translate('alreadyLogged.title'),
-              translate('alreadyLogged.message'),
-              [
-                {
-                  text: translate('alreadyLogged.cancel'),
-                  onPress: () => {},
-                  style: translate('alreadyLogged.cancel'),
-                },
-                {
-                  text: translate('alreadyLogged.connect'),
-                  onPress: () => this.handleLogin(true),
-                },
-              ],
-              {cancelable: false},
+                translate('alreadyLogged.title'),
+                translate('alreadyLogged.message'),
+                [
+                  {
+                    text: translate('alreadyLogged.cancel'),
+                    onPress: () => {},
+                    style: translate('alreadyLogged.cancel'),
+                  },
+                  {
+                    text: translate('alreadyLogged.connect'),
+                    onPress: () => this.handleLogin(true),
+                  },
+                ],
+                {cancelable: false},
             )}
-          {this.props.route.params && this.props.route.params.msg && (
-            <ComBadrInfoMessageComp message={this.props.route.params.msg} />
+            {this.props.route.params && this.props.route.params.msg && (
+                <ComBadrInfoMessageComp message={this.props.route.params.msg} />
+            )}
+          </View>
+          {this.state.startAutoLogin && (
+              <AutoLoginProcess
+                  navigation={this.props.navigation}
+                  usr={this.state.autoLoginParam.login}
+                  password={this.state.autoLoginParam.password}
+                  smsCode={this.state.autoLoginParam.codeSms}
+                  bureau={this.state.autoLoginParam.bureau}
+                  bureauCode={this.state.autoLoginParam.codeBureau}
+                  arrondissement={this.state.autoLoginParam.arrondissement}
+                  arrondissementCode={this.state.autoLoginParam.codeArrondissement}
+                  profiles={JSON.parse(this.state.autoLoginParam.profiles)}
+              />
           )}
-        </View>
-        {this.state.startAutoLogin && (
-          <AutoLoginProcess
-            navigation={this.props.navigation}
-            usr={this.state.autoLoginParam.login}
-            password={this.state.autoLoginParam.password}
-            smsCode={this.state.autoLoginParam.codeSms}
-            bureau={this.state.autoLoginParam.bureau}
-            bureauCode={this.state.autoLoginParam.codeBureau}
-            arrondissement={this.state.autoLoginParam.arrondissement}
-            arrondissementCode={this.state.autoLoginParam.codeArrondissement}
-            profiles={JSON.parse(this.state.autoLoginParam.profiles)}
-          />
-        )}
-      </ScrollView>
+        </ScrollView>
     );
   }
 }
@@ -171,17 +187,18 @@ const mapStateToProps = (state) => ({...state.loginReducer});
 
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    login: (login, password, forcerConnexion) => {
+    login: (login, password, forcerConnexion, isFromCohabitation) => {
       let action = authAction.request(
-        {
-          type: LoginConstants.AUTH_LOGIN_REQUEST,
-          value: {
-            login: login,
-            pwd: password,
-            forcerConnexion: forcerConnexion,
+          {
+            type: LoginConstants.AUTH_LOGIN_REQUEST,
+            value: {
+              login: login,
+              pwd: password,
+              forcerConnexion: forcerConnexion,
+            isFromCohabitation: isFromCohabitation,
+            },
           },
-        },
-        props.navigation,
+          props.navigation,
       );
       dispatch(action);
     },

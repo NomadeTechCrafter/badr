@@ -81,7 +81,7 @@ class T6bisGestion extends React.Component {
     };
   }
 
-  
+
   showDialog = () => {
     this.setState({
       dialogVisibility: true,
@@ -173,7 +173,7 @@ class T6bisGestion extends React.Component {
           }
           console.log('sauvgarder 5');
           /* this.props.t6bis.listeArticleT6bis.forEach(function (article) {
-                       
+
                         article.dateMiseEnCirculation = moment(new Date(article.dateMiseEnCirculation)).format("DD/MM/YYYY");
                     }); */
           console.log('sauvgarder 6');

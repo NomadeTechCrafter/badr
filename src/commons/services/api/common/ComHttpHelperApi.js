@@ -9,6 +9,7 @@ import {
   remote,
   SEND_STATS,
   SEND_CRASH,
+  CHECK_VERION,
 } from '../../../Config';
 import * as axios from 'axios';
 import store from '../../../../commons/state/Store';
@@ -123,6 +124,15 @@ export default class ComHttpHelperApi {
         return response;
       } catch (e) {
         console.log('error sendcrah', e.message);
+      }
+    }
+  }
+  static async checkVersion() {
+    if (remote) {
+      try {
+        return await instanceBO.get(CHECK_VERION);
+      } catch (e) {
+        console.log('error checkVersion', e.message);
       }
     }
   }

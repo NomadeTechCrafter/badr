@@ -241,7 +241,7 @@ class T6bisEnteteRedevableSousBlock extends React.Component {
         intervenantVO: { ...state.intervenantVO, ...props.t6bis?.intervenantVO }
       };
     }
-   
+
     // Return null to indicate no change to state.
     return null;
   }

@@ -1,5 +1,9 @@
 import {StyleSheet} from 'react-native';
-import {accentColor, lightGris} from '../../../../commons/styles/ComThemeStyle';
+import {
+  accentColor,
+  lightGris,
+  primaryColor,
+} from '../../../../commons/styles/ComThemeStyle';
 const style = {
   container: {flex: 1, backgroundColor: accentColor},
   loginBlock: {
@@ -21,6 +25,19 @@ const style = {
     alignItems: 'center',
   },
   loginButton: {width: '50%', borderRadius: 10, padding: 5},
+  containerModal: {
+    backgroundColor: primaryColor,
+    padding: 20,
+    margin: 20,
+    alignItems: 'center',
+    borderRadius: 10,
+  },
+  iconModal: {
+    marginBottom: 10,
+  },
+  textModal: {
+    color: accentColor,
+  },
 };
 
 export default StyleSheet.create(style);

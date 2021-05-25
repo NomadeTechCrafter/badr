@@ -148,6 +148,14 @@ android {
         }
     }
     signingConfigs {
+        	release {
+                if (project.hasProperty('MYAPP_UPLOAD_STORE_FILE')) {
+                    storeFile file(MYAPP_UPLOAD_STORE_FILE)
+                    storePassword MYAPP_UPLOAD_STORE_PASSWORD
+                    keyAlias MYAPP_UPLOAD_KEY_ALIAS
+                    keyPassword MYAPP_UPLOAD_KEY_PASSWORD
+                }
+            }
         debug {
             storeFile file('debug.keystore')
             storePassword 'android'
@@ -168,6 +176,7 @@ android {
             minifyEnabled true
             useProguard true
             setProguardFiles([getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'])
+             signingConfig signingConfigs.release
         }
     }
 
@@ -198,7 +207,7 @@ dependencies {
     compile project(':react-native-exception-handler')
     compile project(':react-native-fs')
     compile project(':react-native-file-viewer')
-
+    compile project(':react-native-android-installed-apps-unblocking')
     implementation project(':rn-fetch-blob')
 
     implementation fileTree(dir: "libs", include: ["*.jar"])
@@ -239,5 +248,10 @@ task copyDownloadableDepsToLibs(type: Copy) {
 }
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
+
+project.ext.envConfigFiles = [
+    debug: ".env",
+    release: ".env.production",
+]
 //configuration de .env file
 apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"

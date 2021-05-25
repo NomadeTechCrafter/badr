@@ -47,13 +47,13 @@ class T6bisRecherche extends React.Component {
       });
     });
   }
-  
+
 
   componentWillUnmount() {
     console.log('T6bisRecherche         componentWillUnmount');
     this._unsubscribe();
   }
- 
+
 
   //accept just Number
   onChangeInput = (input) => {
@@ -180,7 +180,7 @@ class T6bisRecherche extends React.Component {
         serie: null,
       };
     }
-   
+
     // Return null to indicate no change to state.
     return null;
   }
