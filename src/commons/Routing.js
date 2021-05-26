@@ -55,10 +55,15 @@ const mapping = {
     screen: 'ConfirmationEntreeRechercheScreen',
     params: { title: 'Ecran  Recherche Confirmation entree' },
   },
-  '61530': {
+  /* '61530': {
     //CONFIRMATION ARRIVEE
     screen: 'ConfirmationArriveeRechercheScreen',
     params: { title: 'Ecran  Recherche Confirmation arrivee' },
+  }, */
+  '61530': {
+    //CONFIRMATION ARRIVEE
+    screen: 'RechercheAutoriserAcheminementScreen',
+    params: {},
   },
   
 };

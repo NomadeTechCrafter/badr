@@ -1,4 +1,4 @@
-import { ECOREXP_LIB, TYPE_SERVICE_SP } from '../../../../../../commons/Config';
+import { MODULE_ECOREXP, TYPE_SERVICE_UC } from '../../../../../../commons/Config';
 import ComHttpHelperApi from '../../../../../../commons/services/api/common/ComHttpHelperApi';
 import { ComSessionService } from '../../../../../../commons/services/session/ComSessionService';
 
@@ -11,9 +11,9 @@ export default class RechercheAutoriserAcheminementApi {
       dtoHeader: {
         userLogin: ComSessionService.getInstance().getLogin(),
         fonctionnalite: ComSessionService.getInstance().getFonctionalite() ? ComSessionService.getInstance().getFonctionalite() : T6BIS_CREATION_FONCTIONNALITE,
-        module: ECOREXP_LIB,
+        module: MODULE_ECOREXP,
         commande: 'ece.initAutoriserAcheminement',
-        typeService: TYPE_SERVICE_SP,
+        typeService: TYPE_SERVICE_UC,
         motif: null,
         messagesInfo: null,
         messagesErreur: null,

@@ -25,14 +25,14 @@ export default (state = initialState, action) => {
     case Constants.INIT_AUTORISER_ACHEMINEMENT_SUCCESS:
       nextState.errorMessage = null;
       nextState.showProgress = false;
-      console.log(
+      /* console.log(
         ' in success reducer ',
         prepareConfirm(action.value.data.jsonVO, action.value.refDeclaration),
       );
       nextState.data = prepareConfirm(
         action.value.data.jsonVO,
         action.value.refDeclaration,
-      );
+      ); */
       return nextState;
     case Constants.INIT_AUTORISER_ACHEMINEMENT_FAILED:
       nextState.showProgress = false;
