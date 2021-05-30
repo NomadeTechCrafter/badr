@@ -38,7 +38,30 @@ class RechercheAutoriserAcheminementScreen extends React.Component {
     this.state = this.defaultState;
   }
 
-  
+  componentDidMount = () => {
+    this._unsubscribe = this.props.navigation.addListener('focus', () => {
+     
+      this.setState({
+        bureau: '',
+        regime: '',
+        annee: '',
+        serie: '',
+        cle: '',
+        cleValide: '',
+        login: '',
+        numeroVoyage: '',
+        showErrorMsg: false,
+        sousReservePaiementMLV: false,
+        enregistree: false,
+      });
+      
+    });
+
+  }
+
+  componentWillUnmount() {
+    this._unsubscribe();
+  }
 
   
   //accept just Number
@@ -79,6 +102,7 @@ class RechercheAutoriserAcheminementScreen extends React.Component {
               dumVO: {
                 referenceEnregistrement: referenceDed
               },
+              numeroVoyage: this.state.numeroVoyage,
               cle: this.state.cle,
             },
           },

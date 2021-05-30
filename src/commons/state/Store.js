@@ -66,6 +66,8 @@ import ecorExpConfirmationEntreeReducer from '../../modules/ecorExport/confirmat
 import ecorExpConfirmationArriveeReducer from '../../modules/ecorExport/confirmationArrivee/state/reducers/ecorExpConfirmationArriveeReducer';
 
 import rechercheAutoriserAcheminementReducer from '../../modules/ecorExport/autoriserAcheminement/recherche/state/reducers/rechercheAutoriserAcheminementReducer';
+import autoriserAcheminementMainReducer from '../../modules/ecorExport/autoriserAcheminement/mainScreen/state/reducers/autoriserAcheminementMainReducer';
+
 /**
  * combine all reducers
  */
@@ -122,7 +124,7 @@ const allReducers = combineReducers({
   consultationBLSReducer,
   eciAppositionScellesRechercheReducer,
   eciAppositionScellesReducer,
-  rechercheAutoriserAcheminementReducer
+  rechercheAutoriserAcheminementReducer, autoriserAcheminementMainReducer
 });
 /**
  * store creation

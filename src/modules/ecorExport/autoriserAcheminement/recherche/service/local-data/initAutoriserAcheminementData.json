@@ -5,37 +5,199 @@
         "module": "ECOREXP_LIB",
         "commande": "ece.initAutoriserAcheminement",
         "typeService": "UC",
-        "messagesErreur": [
-            "??? ecor_pc_4 ???"
+        "messagesInfo": [
+            "??? InitAutorisationAcheminement_MESSAGE_INFO ???"
         ],
         "offset": 0,
         "pageSize": 0,
         "rowCount": 0
     },
     "jsonVO": {
-        "identifiant": 517948,
-        "referenceEnregistrement": "30906020210956125",
-        "preapurementDS": false,
-        "annulee": false,
-        "deposee": false,
-        "combinee": false,
-        "migre": false,
-        "dumInitiale": false,
-        "indicateurLiqManuelle": false,
-        "indicateurRedevanceAT": false,
-        "indicateurRedevanceInf": false,
-        "articleReconnuRedevanceAT": false,
-        "articleContesteRedevanceAT": false,
-        "ouvertureCompte": false,
-        "prealable": false,
-        "redevanceInformatiqueLiquide": false,
-        "articles": [],
-        "articlesContestes": [],
-        "listDUMFictives": [],
-        "dumInitialNouvelleprovisionnelleArretee": false,
-        "arrondissementDepotTransitECE": {},
-        "refDSCreeSuiteAAT": [],
-        "dumdeposee": false,
-        "dumannulee": false
+        "documentEntreeEnceinte": "testdec",
+        "numeroPince": "",
+        "nombreScelle": "",
+        "nombreScelleConfirmationEntree": "4",
+        "numeroPinceConfirmationEntree": "123",
+        "numeroVoyage": "",
+        "dateHeureAutorisation": "",
+        "dateHeureEntree": "27/05/2021 09:00",
+        "dateHeureAcheminement": "",
+        "dateHeureVoyage": "",
+        "dateHeureEmbarquement": "",
+        "dateHeureArrive": "",
+        "dateHeureCtrlApresScanner": "28/05/2021 15:09",
+        "commentaireEmbarquement": "",
+        "refAgentEmbarquement": {
+            "idActeur": "",
+            "nom": "",
+            "prenom": "",
+            "refBureau": {
+                "codeBureau": "",
+                "nomBureauDouane": "",
+                "defaultConverter": {}
+            },
+            "defaultConverter": {}
+        },
+        "refAgentEntree": {
+            "idActeur": "YELM",
+            "nom": "EL MAJDOUBI",
+            "prenom": "YOUSSEF",
+            "refBureau": {
+                "codeBureau": "309",
+                "nomBureauDouane": "Casa port (309)",
+                "defaultConverter": {}
+            },
+            "defaultConverter": {}
+        },
+        "refAgentAutorisationAcheminement": {
+            "idActeur": "",
+            "nom": "",
+            "prenom": "",
+            "refBureau": {
+                "codeBureau": "",
+                "nomBureauDouane": "",
+                "defaultConverter": {}
+            },
+            "defaultConverter": {}
+        },
+        "refAgentAnnulationEmbarquement": {
+            "idActeur": "",
+            "nom": "",
+            "prenom": "",
+            "refBureau": {
+                "codeBureau": "",
+                "nomBureauDouane": "",
+                "defaultConverter": {}
+            },
+            "defaultConverter": {}
+        },
+        "refAgentAutorisation": {
+            "idActeur": "",
+            "nom": "",
+            "prenom": "",
+            "refBureau": {
+                "codeBureau": "",
+                "nomBureauDouane": "",
+                "defaultConverter": {}
+            },
+            "defaultConverter": {}
+        },
+        "refAgentConfirmationArrive": {
+            "idActeur": "",
+            "nom": "",
+            "prenom": "",
+            "refBureau": {
+                "codeBureau": "",
+                "nomBureauDouane": "",
+                "defaultConverter": {}
+            },
+            "defaultConverter": {}
+        },
+        "refMoyenTransport": {
+            "descriptionMoyenTransport": "",
+            "codeMoyenTransport": "",
+            "refModeTransport": {
+                "descriptionModeTransport": "",
+                "codeModeTransport": "",
+                "defaultConverter": {}
+            },
+            "commentaire": "",
+            "defaultConverter": {}
+        },
+        "refDUM": {
+            "bureau": "",
+            "regime": "",
+            "annee": "",
+            "serie": "",
+            "cle": "",
+            "referenceEnregistrement": "",
+            "dateEffectiveEnregistrement": "",
+            "numeroOrdreVoyage": "",
+            "defaultConverter": {}
+        },
+        "refDedServices": {
+            "operateurDeclarant": "BABYTEX TEST",
+            "poidsBruts": "250.0",
+            "poidsNet": "200.0",
+            "valeurDeclaree": "200.0",
+            "nombreContenant": "",
+            "typeDeD": "DUM",
+            "dateEnregistrement": "26/04/2021 13:50",
+            "nombreContenants": "2",
+            "libelleTypeDED": "DUM",
+            "defaultConverter": {}
+        },
+        "refMainlevee": {
+            "dateValidation": "27/04/2021 11:05",
+            "dateImpression": "28/05/2021 12:26",
+            "refAgentValidation": {
+                "idActeur": "AGTYAS309",
+                "nom": "SGHIR",
+                "prenom": "Yassine",
+                "refBureau": {
+                    "codeBureau": "411",
+                    "nomBureauDouane": "Tanger-Méditerranée(411)",
+                    "defaultConverter": {}
+                },
+                "defaultConverter": {}
+            },
+            "refAgentEdition": {
+                "idActeur": "AGTYAS309",
+                "nom": "SGHIR",
+                "prenom": "Yassine",
+                "refBureau": {
+                    "codeBureau": "411",
+                    "nomBureauDouane": "Tanger-Méditerranée(411)",
+                    "defaultConverter": {}
+                },
+                "defaultConverter": {}
+            },
+            "conteneursCibles": [],
+            "listScelle": {
+                "96969693": "96969693",
+                "96969694": "96969694",
+                "96969695": "96969695",
+                "96969696": "96969696"
+            },
+            "defaultConverter": {}
+        },
+        "dateEnregistrement": "",
+        "depuisDelivrerBonEntree": false,
+        "refAgentCrtlApresScanner": {
+            "idActeur": "",
+            "nom": "EL MAJDOUBI",
+            "prenom": "YOUSSEF",
+            "refBureau": {
+                "codeBureau": "",
+                "nomBureauDouane": "",
+                "defaultConverter": {}
+            },
+            "defaultConverter": {}
+        },
+        "infoEcorScelleCrtlApresScanner": true,
+        "numeroPinceCrtlApresScanner": "321",
+        "nombreScelleCrtlApresScanner": "5",
+        "scelles": {
+            "86999556": "86999556",
+            "86999557": "86999557",
+            "86999558": "86999558",
+            "86999559": "86999559"
+        },
+        "scellesConfirmationEntree": {
+            "86999556": "86999556",
+            "86999557": "86999557",
+            "86999558": "86999558",
+            "86999559": "86999559"
+        },
+        "scellesAutorisationAcheminement": {},
+        "scellesCrtlApresScanner": {
+            "89999954": "89999954",
+            "89999955": "89999955",
+            "89999956": "89999956",
+            "89999952": "89999952",
+            "89999953": "89999953"
+        },
+        "transporteurExploitantMEAD": "16688",
+        "defaultConverter": {}
     }
 }

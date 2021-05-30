@@ -1,18 +1,18 @@
 
-import * as Constants from '../rechercheAutoriserAcheminementConstants';
-import RechercheAutoriserAcheminementApi from '../../service/api/rechercheAutoriserAcheminementApi';
+import * as Constants from '../autoriserAcheminementMainConstants';
+import AutoriserAcheminementGestionApi from '../../service/api/autoriserAcheminementGestionApi';
 
 /**i18n */
 import { translate } from '../../../../../../commons/i18n/ComI18nHelper';
 
 import _ from 'lodash';
 
-export function request(action, navigation) {
+export function request(action) {
   return (dispatch) => {
     dispatch(action);
     dispatch(inProgress(action));
-    RechercheAutoriserAcheminementApi.initAutoriserAcheminement(
-      action.value.dumVO
+    AutoriserAcheminementGestionApi.autoriserAcheminement(
+      action.value.ecorDumVO
      
     )
       .then((response) => {
@@ -21,14 +21,7 @@ export function request(action, navigation) {
           const data = response.data;
           if (data && _.isEmpty(data.dtoHeader.messagesErreur)) {
             console.log('data', data);
-            //navigation
-            navigation.navigate('AutoriserAcheminementMainScreen', {
-              ecorDumVO: data.jsonVO,
-              referenceEnregistrement: action.value.dumVO.referenceEnregistrement,
-              numeroVoyage: action.value.numeroVoyage,
-              cle: action.value.cle,
-              readOnly: (data.jsonVO.refAgentAutorisationAcheminement?.nom) ? true : false
-            });
+            
             dispatch(success(data));
           } else {
             dispatch(failed(data));
@@ -46,14 +39,14 @@ export function request(action, navigation) {
 
 export function inProgress(action) {
   return {
-    type: Constants.INIT_AUTORISER_ACHEMINEMENT_IN_PROGRESS,
+    type: Constants.AUTORISER_ACHEMINEMENT_UC_IN_PROGRESS,
     value: action.value,
   };
 }
 
 export function success(data) {
   return {
-    type: Constants.INIT_AUTORISER_ACHEMINEMENT_SUCCESS,
+    type: Constants.AUTORISER_ACHEMINEMENT_UC_SUCCESS,
     value: {
       data: data,
     },
@@ -62,7 +55,7 @@ export function success(data) {
 
 export function failed(data) {
   return {
-    type: Constants.INIT_AUTORISER_ACHEMINEMENT_FAILED,
+    type: Constants.AUTORISER_ACHEMINEMENT_UC_FAILED,
     value: data,
   };
 }

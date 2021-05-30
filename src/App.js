@@ -50,7 +50,7 @@ import RechercheEcorImport from './old/screens/ecorImport/rechercheEcorImport';
 
 import ConfirmationEntreeMainScreen from './modules/ecorExport/confirmationEntree/ui/ecorExpConfirmationEntreeMainScreen';
 import ConfirmationArriveeMainScreen from './modules/ecorExport/confirmationArrivee/ui/ecorExpConfirmationArriveeMainScreen';
-import RechercheAutoriserAcheminementScreen from './modules/ecorExport/autoriserAcheminement/recherche/ui/rechercheAutoriserAcheminementScreen';
+
 
 //Actif
 import Recherche from './old/screens/actifs/rapport/recherche';
@@ -59,6 +59,8 @@ import Entete from './old/screens/actifs/rapport/creation/entete';
 import Details from './old/screens/actifs/rapport/creation/details';
 import Saisie from './old/screens/actifs/rapport/creation/saisie';
 import Consultation from './old/screens/actifs/rapport/consultation';
+import autoriserAcheminementMainScreen from './modules/ecorExport/autoriserAcheminement/mainScreen/ui/autoriserAcheminementMainScreen';
+import RechercheAutoriserAcheminementScreen from './modules/ecorExport/autoriserAcheminement/recherche/ui/rechercheAutoriserAcheminementScreen';
 
 //setGlobalHandler();
 export default class App extends React.Component {
@@ -162,6 +164,11 @@ export default class App extends React.Component {
                 name="T6bisGestion"
                 options={{headerShown: false}}
                 component={T6bisGestion}
+              />
+              <Stack.Screen
+                name="AutoriserAcheminementMainScreen"
+                component={autoriserAcheminementMainScreen}
+                options={{ headerShown: false }}
               />
             </ComBadrStackNavigatorComp>
           </PaperProvider>

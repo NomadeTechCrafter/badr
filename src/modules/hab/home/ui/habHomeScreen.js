@@ -62,6 +62,8 @@ import ConsultationBLSMainScreen from '../../../ecorImport/eciConsultationBLS/ui
 import ConfirmationEntreeMainScreen from '../../../ecorExport/confirmationEntree/ui/ecorExpConfirmationEntreeMainScreen';
 import ConfirmationArriveeMainScreen from '../../../ecorExport/confirmationArrivee/ui/ecorExpConfirmationArriveeMainScreen';
 import rechercheAutoriserAcheminementScreen from '../../../ecorExport/autoriserAcheminement/recherche/ui/rechercheAutoriserAcheminementScreen';
+import autoriserAcheminementMainScreen from '../../../ecorExport/autoriserAcheminement/mainScreen/ui/autoriserAcheminementMainScreen';
+
 
 const Drawer = createDrawerNavigator();
 const deltaScreen = Dimensions.get('window').width / 4;
@@ -336,6 +338,12 @@ class habHomeScreen extends React.Component {
         <Drawer.Screen
           name="RechercheAutoriserAcheminementScreen"
           component={rechercheAutoriserAcheminementScreen}
+          options={{ headerShown: false }}
+        />
+
+        <Drawer.Screen
+          name="AutoriserAcheminementMainScreen"
+          component={autoriserAcheminementMainScreen}
           options={{ headerShown: false }}
         />
 
