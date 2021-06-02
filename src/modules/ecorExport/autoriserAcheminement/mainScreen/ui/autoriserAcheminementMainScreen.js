@@ -14,21 +14,21 @@ import {
 } from '../../../../../commons/component';
 import translate from '../../../../../commons/i18n/ComI18nHelper';
 import { CustomStyleSheet, primaryColor } from '../../../../../commons/styles/ComThemeStyle';
+import * as AutoriserAcheminementAction from '../state/actions/autoriserAcheminementAction';
 import * as getCmbOperateurByCodeAction from '../state/actions/getCmbOperateurByCodeAction';
+import * as GetScellesApposeesAction from '../state/actions/getScellesApposeesAction';
+import * as IsRegimeTransbordementAction from '../state/actions/isRegimeTransbordementAction';
 import * as Constants from '../state/autoriserAcheminementMainConstants';
+import { getFormattedScelles } from '../utils/autoriserAcheminementUtil';
 import EceAutoriserAcheminementBlock from './blocks/eceAutoriserAcheminementBlock';
 import EceConfirmationEntreeBlock from './blocks/eceConfirmationEntreeBlock';
+import EceConfirmerArriveeBlock from './blocks/eceConfirmerArriveeBlock';
 import EceControleApresScannerBlock from './blocks/eceControleApresScanner';
 import EceDeclarationEnDetailBlock from './blocks/eceDeclarationEnDetailBlock';
 import EceEntreeMarchandiseEnceinteDouaniereBlock from './blocks/eceEntreeMarchandiseEnceinteDouaniereBlock';
 import EceMainleveeBlock from './blocks/eceMainleveeBlock';
 import EceReferenceDeclarationBlock from './blocks/eceReferenceDeclarationBlock';
-import * as GetScellesApposeesAction from '../state/actions/getScellesApposeesAction';
-import * as IsRegimeTransbordementAction from '../state/actions/isRegimeTransbordementAction';
-import * as AutoriserAcheminementAction from '../state/actions/autoriserAcheminementAction';
 import EceScelleApposeesBlock from './blocks/eceScelleApposeesBlock';
-import EceConfirmerArriveeBlock from './blocks/eceConfirmerArriveeBlock';
-import { getFormattedScelles } from '../utils/autoriserAcheminementUtil';
 
 
 
@@ -95,6 +95,7 @@ class AutoriserAcheminementMainScreen extends React.Component {
     });
     console.log(this.state.dateAcheminement + " " + this.state.heureAcheminement);
     newEcorDumVO.dateHeureAcheminement = this.state.dateAcheminement + " " + this.state.heureAcheminement;
+    newEcorDumVO.dateHeureEntree = this.state.ecorDumVO.dateHeureEntree;
     newEcorDumVO.refDUM = {
       referenceEnregistrement: this.state.referenceEnregistrement,
                   
@@ -260,6 +261,10 @@ class AutoriserAcheminementMainScreen extends React.Component {
           {this.isScellesApposeesDisplayed() && <EceScelleApposeesBlock
             listeScellesApposees={this.props.listeScellesApposees}
           />}
+          <EceConfirmationEntreeBlock
+            vo={this.state.ecorDumVO}
+            transporteurExploitantMEAD={this.props.transporteurExploitantMEAD}
+          />
           <EceConfirmationEntreeBlock
             vo={this.state.ecorDumVO}
             transporteurExploitantMEAD={this.props.transporteurExploitantMEAD}
