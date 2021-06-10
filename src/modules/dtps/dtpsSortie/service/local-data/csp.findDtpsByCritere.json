@@ -1,0 +1,80 @@
+[
+    {
+        "referenceDeclaration": "41120210000001",
+        "listeLots": [
+            {
+                "typeDs": "typeDS",
+                "referenceDs": "refDS",
+                "referenceLot": "refLot",
+                "codeLieuChargement": "codeLieuChargement"
+            },
+            {
+                "typeDs": "typeDS",
+                "referenceDs": "refDS",
+                "referenceLot": "refLot",
+                "codeLieuChargement": "codeLieuChargement"
+            }
+        ],
+        "listeScelle": [
+            {
+                "numeroScelle": "12345678"
+            },
+            {
+                "numeroScelle": "12345678"
+            }
+        ],
+        "operateur": "operateur",
+        "portSec": "portSec",
+        "listeMatricules": [
+            {
+                "numeroMatricule": "mat777666"
+            },
+            {
+                "numeroMatricule": "mat777666"
+            }
+        ],
+        "dateSortie": "01/06/2021",
+        "agentSortie": "AD6202",
+        "dateEntree": "30/06/2021",
+        "agentEntree": "AD6203"
+    },
+    {
+        "referenceDeclaration": "41120210000001",
+        "listeLots": [
+            {
+                "typeDs": "typeDS",
+                "referenceDs": "refDS",
+                "referenceLot": "refLot",
+                "codeLieuChargement": "codeLieuChargement"
+            },
+            {
+                "typeDs": "typeDS",
+                "referenceDs": "refDS",
+                "referenceLot": "refLot",
+                "codeLieuChargement": "codeLieuChargement"
+            }
+        ],
+        "listeScelle": [
+            {
+                "numeroScelle": "12345678"
+            },
+            {
+                "numeroScelle": "12345678"
+            }
+        ],
+        "operateur": "operateur",
+        "portSec": "portSec",
+        "listeMatricules": [
+            {
+                "numeroMatricule": "mat777666"
+            },
+            {
+                "numeroMatricule": "mat777666"
+            }
+        ],
+        "dateSortie": "01/06/2021",
+        "agentSortie": "AD6202",
+        "dateEntree": "30/06/2021",
+        "agentEntree": "AD6203"
+    }
+]

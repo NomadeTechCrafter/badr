@@ -38,6 +38,7 @@ import consultationIgTI from '../../modules/tarifIntegre/tiConsultationIgTI/i18n
 import consultationTI from '../../modules/tarifIntegre/tiConsultationTI/i18n/tiConsultationTITranslateFr';
 import dedConfirmationReception from '../../modules/dedouanement/confirmationReception/i18n/dedConfirmationReceptionTranslateFr';
 import decSortiPortTranslateFr from '../../modules/DeclarationD17D20/sortiPort/i18n/decSortiPortTranslateFr';
+import dtpsSortieTranslateFr from '../../modules/dtps/dtpsSortie/i18n/sortieDTPSTranslateFr';
 
 const locales = RNLocalize.getLocales();
 
@@ -84,6 +85,7 @@ let combined = {
   ...decSortiPortTranslateFr,
   ...ecorExpConfirmationEntreeTranslateFr,
   ...ecorExpConfirmationArriveeTranslateFr,
+  ...dtpsSortieTranslateFr,
 };
 I18n.translations = {
   fr: combined,

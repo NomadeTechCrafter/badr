@@ -72,6 +72,7 @@ import dedConfirmationReceptionReducer from '../../modules/dedouanement/confirma
 
 import ecorExpConfirmationEntreeReducer from '../../modules/ecorExport/confirmationEntree/state/reducers/ecorExpConfirmationEntreeReducer';
 import ecorExpConfirmationArriveeReducer from '../../modules/ecorExport/confirmationArrivee/state/reducers/ecorExpConfirmationArriveeReducer';
+import dtpsSortieReducer from '../../modules/dtps/dtpsSortie/state/reducers/dtpsSortieReducer'
 /**
  * combine all reducers
  */
@@ -135,6 +136,7 @@ const allReducers = combineReducers({
   sortiPortReducer,
   sortiPortRefVH,
   sortiPortInitReducer,
+  dtpsSortieReducer,
 });
 /**
  * store creation

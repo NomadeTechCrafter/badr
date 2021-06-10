@@ -64,6 +64,8 @@ import EtatChargement from './modules/pecEtatChargement/rechParRef/ui/pecEtatCha
 import VuEmbarqueScreen from './modules/DeclarationD17D20/vuEmbarquer/ui/vuEmbarquer/VuEmbarqueScreen';
 import ConsultationIgTIScreen from './modules/tarifIntegre/tiConsultationIgTI/ui/tiConsultationIgTIScreen';
 import ConsultationTIScreen from './modules/tarifIntegre/tiConsultationTI/ui/tiConsultationTIScreen';
+import DTPSSortieMainScreen from './modules/dtps/dtpsSortie/ui/dtpsSortieMainScreen';
+
 
 //setGlobalHandler();
 export default class App extends React.Component {
@@ -86,7 +88,7 @@ export default class App extends React.Component {
                   <Stack.Screen
                     name="test"
                     options={{ headerShown: false }}
-                    component={SortiPortScreen}
+                    component={DTPSSortieMainScreen}
                   />
                 )}
               <Stack.Screen
