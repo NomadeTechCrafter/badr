@@ -5,7 +5,9 @@ const mapping = {
     screen: 'ECIAppositionScellesRechercheScreen',
     params: {},
   },
-  '90023': {screen: 'SortiPortScreen', params: {}},
+  '90023': { screen: 'SortiPortScreen', params: {} },
+  '2301': { screen: 'DTPSSortieMainScreen', params: {} },
+  
   /*
   '121711': {
     screen: 'EciConsultationBLS',

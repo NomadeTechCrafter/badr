@@ -5,10 +5,10 @@ import { Col, Grid, Row } from 'react-native-easy-grid';
 import moment from 'moment';
 import { connect } from "react-redux";
 import { ComSessionService } from "../../../../commons/services/session/ComSessionService";
-import { init, request } from "../state/actions/dtpsSortieAction";
+import { init, request } from "../state/actions/dtpsEntreeAction";
 import {
-    DTPS_SORTIE_REQUEST,
-} from '../state/dtpsSortieConstants';
+    DTPS_ENTREE_REQUEST,
+} from '../state/dtpsEntreeConstants';
 /**Custom Components */
 import {
     ComBadrButtonIconComp,
@@ -17,9 +17,9 @@ import {
 import translate from '../../../../commons/i18n/ComI18nHelper';
 /**Styling */
 import { CustomStyleSheet } from '../../../../commons/styles/ComThemeStyle';
-import style from '../style/dtpsSortieStyle';
+import style from '../style/dtpsEntreeStyle';
 
-class dtpsSortieRechercheScreen extends React.Component {
+class dtpsEntreeRechercheScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -31,7 +31,7 @@ class dtpsSortieRechercheScreen extends React.Component {
     }
 
     handleSearch = () => {
-        let action = this.buildSearchDTPSSortieAction(this.state.login);
+        let action = this.buildSearchDTPSEntreeAction(this.state.login);
         this.props.actions.dispatch(action);
     };
 
@@ -48,9 +48,9 @@ class dtpsSortieRechercheScreen extends React.Component {
         return action;
     };
 
-    buildSearchDTPSSortieAction = (login) => {
+    buildSearchDTPSEntreeAction = (login) => {
         let action = request({
-            type: DTPS_SORTIE_REQUEST,
+            type: DTPS_ENTREE_REQUEST,
             value: {
                 dateDebut: this.state.dateDu,
                 dateFin: this.state.dateAu,
@@ -145,7 +145,7 @@ class dtpsSortieRechercheScreen extends React.Component {
 }
 
 function mapStateToProps(state) {
-    return { ...state.dtpsSortieReducer };
+    return { ...state.dtpsEntreeReducer };
 }
 
 function mapDispatchToProps(dispatch) {
@@ -158,4 +158,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
-)(dtpsSortieRechercheScreen);
+)(dtpsEntreeRechercheScreen);

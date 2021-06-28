@@ -8,23 +8,23 @@ import {
     ComBadrToolbarComp,
 } from '../../../../commons/component';
 import translate from "../../../../commons/i18n/ComI18nHelper";
-import style from '../style/dtpsSortieStyle';
+import style from '../style/dtpsEntreeStyle';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { primaryColor } from '../../../../commons/styles/ComThemeStyle';
-import DTPSSortieResult from "./dtpsSortieResultScreen";
-import DTPSSortieSearch from "./dtpsSortieRechercheScreen";
+import DTPSEntreeResult from "./dtpsEntreeResultScreen";
+import DTPSEntreeSearch from "./dtpsEntreeRechercheScreen";
 
 const Tab = createMaterialTopTabNavigator();
 
 function ResultScreen({ route, navigation }) {
-    return <DTPSSortieResult navigation={navigation} route={route} />;
+    return <DTPSEntreeResult navigation={navigation} route={route} />;
 }
 
 function SearchScreen({ route, navigation }) {
-    return <DTPSSortieSearch navigation={navigation} route={route} />;
+    return <DTPSEntreeSearch navigation={navigation} route={route} />;
 }
 
-class DTPSSortieMainScreen extends React.Component {
+class DTPSEntreeMainScreen extends React.Component {
 
     constructor(props) {
         super(props);
@@ -68,7 +68,7 @@ class DTPSSortieMainScreen extends React.Component {
 }
 
 function mapStateToProps(state) {
-    return { ...state.dtpsSortieReducer };
+    return { ...state.dtpsEntreeReducer };
 }
 
 function mapDispatchToProps(dispatch) {
@@ -81,4 +81,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
-)(DTPSSortieMainScreen);
+)(DTPSEntreeMainScreen);

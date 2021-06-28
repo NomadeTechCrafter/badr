@@ -60,11 +60,12 @@ import Entete from './old/screens/actifs/rapport/creation/entete';
 import Details from './old/screens/actifs/rapport/creation/details';
 import Saisie from './old/screens/actifs/rapport/creation/saisie';
 import Consultation from './old/screens/actifs/rapport/consultation';
-import EtatChargement from './modules/pecEtatChargement/rechParRef/ui/pecEtatChargementMainScreen';
+import PecEtatChargementMainScreen from './modules/pecEtatChargement/rechParRef/ui/pecEtatChargementMainScreen';
 import VuEmbarqueScreen from './modules/DeclarationD17D20/vuEmbarquer/ui/vuEmbarquer/VuEmbarqueScreen';
 import ConsultationIgTIScreen from './modules/tarifIntegre/tiConsultationIgTI/ui/tiConsultationIgTIScreen';
 import ConsultationTIScreen from './modules/tarifIntegre/tiConsultationTI/ui/tiConsultationTIScreen';
 import DTPSSortieMainScreen from './modules/dtps/dtpsSortie/ui/dtpsSortieMainScreen';
+import DTPSEntreeMainScreen from './modules/dtps/dtpsEntree/ui/dtpsEntreeMainScreen'
 
 
 //setGlobalHandler();
@@ -88,7 +89,7 @@ export default class App extends React.Component {
                   <Stack.Screen
                     name="test"
                     options={{ headerShown: false }}
-                    component={DTPSSortieMainScreen}
+                    component={DTPSEntreeMainScreen}
                   />
                 )}
               <Stack.Screen

@@ -71,6 +71,9 @@ import ConfirmationArriveeMainScreen from '../../../ecorExport/confirmationArriv
 import PecEtatChargementMainScreen from '../../../pecEtatChargement/rechParRef/ui/pecEtatChargementMainScreen';
 
 import DedRechercheConfirmationReceptionScreen from '../../../dedouanement/confirmationReception/ui/dedRechercheConfirmationReceptionScreen';
+
+import DTPSSortieMainScreen from '../../../dtps/dtpsSortie/ui/dtpsSortieMainScreen';
+
 const Drawer = createDrawerNavigator();
 const deltaScreen = Dimensions.get('window').width / 4;
 
@@ -390,6 +393,13 @@ class habHomeScreen extends React.Component {
           component={DedRedressementScreen}
           options={{ headerShown: false }}
         />
+
+        <Drawer.Screen
+          name="DTPSSortieMainScreen"
+          component={DTPSSortieMainScreen}
+          options={{ headerShown: false }}
+        />
+        
       </Drawer.Navigator>
     );
   }

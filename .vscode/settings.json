@@ -740,7 +740,7 @@
   "workbench.editor.untitled.labelFormat": "content",
 
   // Configure which editor to use for specific file types.
-  "workbench.editorAssociations": [],
+  "workbench.editorAssociations": {},
 
   // Specifies the file icon theme used in the workbench or 'null' to not show any file icons.
   //  - null: No file icons

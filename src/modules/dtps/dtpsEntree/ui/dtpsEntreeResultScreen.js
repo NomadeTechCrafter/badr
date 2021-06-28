@@ -1,7 +1,6 @@
 import React from "react";
 import { ScrollView, FlatList } from "react-native";
 import { View } from "react-native";
-import { Checkbox, TextInput, Text, RadioButton } from 'react-native-paper';
 import { connect } from "react-redux";
 /**Custom Components */
 import {
@@ -12,12 +11,12 @@ import {
     ComBadrButtonIconComp,
 } from '../../../../commons/component';
 import translate from "../../../../commons/i18n/ComI18nHelper";
-import style from '../style/dtpsSortieStyle';
+import style from '../style/dtpsEntreeStyle';
 import { Divider } from 'react-native-paper';
-import { VALIDER_DTPS_SORTIE_REQUEST } from "../state/dtpsSortieConstants";
-import { request } from "../state/actions/dtpsValiderSortieAction";
+import { VALIDER_DTPS_ENTREE_REQUEST } from "../state/dtpsEntreeConstants";
+import { request } from "../state/actions/dtpsValiderEntreeAction";
 
-class dtpsSortieResultScreen extends React.Component {
+class dtpsEntreeResultScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -165,9 +164,9 @@ class dtpsSortieResultScreen extends React.Component {
         console.log(JSON.stringify(this.state.selectedItem));
     };
 
-    vaiderSortie = () => {
+    vaiderEntree = () => {
         let action = request({
-            type: VALIDER_DTPS_SORTIE_REQUEST,
+            type: VALIDER_DTPS_ENTREE_REQUEST,
             value: {
                 id: this.state.selectedItem?.id,
             },
@@ -185,7 +184,7 @@ class dtpsSortieResultScreen extends React.Component {
                 <ScrollView>
                     <ComBasicDataTableComp
                         ref="_badrTable"
-                        id="DtpsSortie"
+                        id="DtpsEntree"
                         rows={this.props.data}
                         cols={this.cols}
                         totalElements={this.props.data?.length}
@@ -233,7 +232,7 @@ class dtpsSortieResultScreen extends React.Component {
                             >
                                 <ComBasicDataTableComp
                                     ref="_badrTable"
-                                    id="DtpsSortieLots"
+                                    id="DtpsEntreeLots"
                                     rows={this.state.selectedItem?.listLots}
                                     cols={this.lotsCols}
                                     totalElements={this.state.selectedItem?.listLots?.length}
@@ -255,7 +254,7 @@ class dtpsSortieResultScreen extends React.Component {
                             >
                                 <ComBasicDataTableComp
                                     ref="_badrTable"
-                                    id="DtpsSortieChauffeurs"
+                                    id="DtpsEntreeChauffeurs"
                                     rows={this.state.selectedItem?.listeChauffeurs}
                                     cols={this.chauffeursCols}
                                     totalElements={this.state.selectedItem?.listeChauffeurs?.length}
@@ -277,7 +276,7 @@ class dtpsSortieResultScreen extends React.Component {
                             >
                                 <ComBasicDataTableComp
                                     ref="_badrTable"
-                                id="DtpsSortieChauffeurs"
+                                id="DtpsEntreeChauffeurs"
                                 rows={this.state.selectedItem?.resultatsScanners ? this.state.selectedItem?.resultatsScanners : []}
                                     cols={this.scannerCols}
                                     totalElements={0}
@@ -294,7 +293,7 @@ class dtpsSortieResultScreen extends React.Component {
                         <ComBadrCardBoxComp style={style.cardBox}>
 
                             <ComBadrButtonIconComp
-                                onPress={() => this.vaiderSortie()}
+                                onPress={() => this.vaiderEntree()}
                                 icon="check"
                                 style={style.buttonIcon}
                                 loading={this.props.showProgress}
@@ -309,7 +308,7 @@ class dtpsSortieResultScreen extends React.Component {
 }
 
 function mapStateToProps(state) {
-    return { ...state.dtpsSortieReducer };
+    return { ...state.dtpsEntreeReducer };
 }
 
 function mapDispatchToProps(dispatch) {
@@ -322,4 +321,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
-)(dtpsSortieResultScreen);
+)(dtpsEntreeResultScreen);

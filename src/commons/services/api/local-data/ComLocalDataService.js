@@ -86,6 +86,10 @@ const localStore = {
   consulterTI: require('../../../../modules/tarifIntegre/tiConsultationTI/service/local-data/consulterTI.json'),
   'ded.getDecSortiPortParMatVehicule': require('../../../../modules/DeclarationD17D20/sortiPort/service/local-data/ded.getDecSortiPortParMatVehicule.json'),
   'ded.vuEmbRechercheDeclarationTrypByRef': require('../../../../modules/DeclarationD17D20/sortiPort/service/local-data/ded.vuEmbRechercheDeclarationTrypByRef.json'),
+  'echange.findDtpsByCritereForSortie': require('../../../../modules/dtps/dtpsSortie/service/local-data/echange.findDtpsByCritereForSortie.json'),
+  'echange.validerSortieDtps': require('../../../../modules/dtps/dtpsSortie/service/local-data/echange.validerSortieDtps.json'),
+  'echange.findDtpsByCritereForEntree': require('../../../../modules/dtps/dtpsEntree/service/local-data/echange.findDtpsByCritereForEntree.json'),
+  'echange.validerEntreeDtps': require('../../../../modules/dtps/dtpsEntree/service/local-data/echange.validerEntreeDtps.json'),
 
 
 };
