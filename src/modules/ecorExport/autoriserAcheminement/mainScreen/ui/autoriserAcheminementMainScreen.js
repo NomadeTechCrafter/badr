@@ -14,23 +14,22 @@ import {
 } from '../../../../../commons/component';
 import translate from '../../../../../commons/i18n/ComI18nHelper';
 import { CustomStyleSheet, primaryColor } from '../../../../../commons/styles/ComThemeStyle';
-import * as AutoriserAcheminementAction from '../state/actions/autoriserAcheminementAction';
 import * as getCmbOperateurByCodeAction from '../state/actions/getCmbOperateurByCodeAction';
-import * as GetScellesApposeesAction from '../state/actions/getScellesApposeesAction';
-import * as IsRegimeTransbordementAction from '../state/actions/isRegimeTransbordementAction';
 import * as Constants from '../state/autoriserAcheminementMainConstants';
-import { getFormattedScelles } from '../utils/autoriserAcheminementUtil';
 import EceAutoriserAcheminementBlock from './blocks/eceAutoriserAcheminementBlock';
 import EceConfirmationEntreeBlock from './blocks/eceConfirmationEntreeBlock';
-import EceConfirmerArriveeBlock from './blocks/eceConfirmerArriveeBlock';
 import EceControleApresScannerBlock from './blocks/eceControleApresScanner';
 import EceDeclarationEnDetailBlock from './blocks/eceDeclarationEnDetailBlock';
 import EceEntreeMarchandiseEnceinteDouaniereBlock from './blocks/eceEntreeMarchandiseEnceinteDouaniereBlock';
 import EceMainleveeBlock from './blocks/eceMainleveeBlock';
 import EceReferenceDeclarationBlock from './blocks/eceReferenceDeclarationBlock';
+import * as GetScellesApposeesAction from '../state/actions/getScellesApposeesAction';
+import * as IsRegimeTransbordementAction from '../state/actions/isRegimeTransbordementAction';
+import * as AutoriserAcheminementAction from '../state/actions/autoriserAcheminementAction';
 import EceScelleApposeesBlock from './blocks/eceScelleApposeesBlock';
-
-
+import EceConfirmerArriveeBlock from './blocks/eceConfirmerArriveeBlock';
+import { getFormattedScelles } from '../utils/autoriserAcheminementUtil';
+import moment from 'moment';
 
 
 /** CONSTANTS **/
@@ -46,7 +45,7 @@ class AutoriserAcheminementMainScreen extends React.Component {
       cle: props.route.params.cle,
       dateAcheminement: '',
       heureAcheminement: '',
-      scellesList: (props.route.params.ecorDumVO.scellesAutorisationAcheminement) ? getFormattedScelles(props.route.params.ecorDumVO.scellesAutorisationAcheminement):[]
+      scellesList: (props.route.params.ecorDumVO.scellesAutorisationAcheminement) ? getFormattedScelles(props.route.params.ecorDumVO.scellesAutorisationAcheminement) : []
     };
   }
 
@@ -79,7 +78,7 @@ class AutoriserAcheminementMainScreen extends React.Component {
       this.getScellesApposees();
       console.log('AutoriserAcheminementMainScreen focus end');
     });
-   
+
   }
 
   componentWillUnmount() {
@@ -94,37 +93,60 @@ class AutoriserAcheminementMainScreen extends React.Component {
       this.state.ecorDumVO.scellesAutorisationAcheminement[value] = value;
     });
     console.log(this.state.dateAcheminement + " " + this.state.heureAcheminement);
-    newEcorDumVO.dateHeureAcheminement = this.state.dateAcheminement + " " + this.state.heureAcheminement;
-    newEcorDumVO.dateHeureEntree = this.state.ecorDumVO.dateHeureEntree;
-    newEcorDumVO.refDUM = {
-      referenceEnregistrement: this.state.referenceEnregistrement,
-                  
-      numeroOrdreVoyage: this.state.numeroVoyage
-                      
-    };
-    if (this.state.ecorDumVO.infoEcorScelle) {
-      newEcorDumVO.infoEcorScelle = true;
-      newEcorDumVO.scellesAutorisationAcheminement = this.state.ecorDumVO.scellesAutorisationAcheminement;
-      newEcorDumVO.numeroPince = this.state.ecorDumVO.numeroPince;
-      newEcorDumVO.nombreScelle = this.state.ecorDumVO.nombreScelle;
-      newEcorDumVO.transporteurExploitantMEADAutoAchemin = this.state.ecorDumVO.transporteurExploitantMEADAutoAchemin;
+    let dateHeureAcheminement = this.state.dateAcheminement + " " + this.state.heureAcheminement;
+
+    var formats = [
+      "MM/DD/YYYY HH:mm"
+    ];
+    console.log(moment(dateHeureAcheminement, formats, true).isValid()); // false
+
+
+    if (_.isEmpty(this.state.dateAcheminement) || _.isEmpty(this.state.heureAcheminement) || !moment(dateHeureAcheminement, formats, true).isValid()) {
+      this.setState({
+        errorMessage:
+          translate('autoriserAcheminemenMainScreen.autorisationAcheminement.dateError')
+      });
+      console.log('NULL');
     } else {
-      newEcorDumVO.infoEcorScelle = false;
-      newEcorDumVO.scellesAutorisationAcheminement = {}
+
+      this.setState({
+        errorMessage:
+          null
+      });
+
+      newEcorDumVO.dateHeureAcheminement = dateHeureAcheminement;
+      newEcorDumVO.dateHeureEntree = this.state.ecorDumVO.dateHeureEntree;
+      newEcorDumVO.refDUM = {
+        referenceEnregistrement: this.state.referenceEnregistrement,
+
+        numeroOrdreVoyage: this.state.numeroVoyage
+
+      };
+      if (this.state.ecorDumVO.infoEcorScelle) {
+        newEcorDumVO.infoEcorScelle = true;
+        newEcorDumVO.scellesAutorisationAcheminement = this.state.ecorDumVO.scellesAutorisationAcheminement;
+        newEcorDumVO.numeroPince = this.state.ecorDumVO.numeroPince;
+        newEcorDumVO.nombreScelle = this.state.ecorDumVO.nombreScelle;
+        newEcorDumVO.transporteurExploitantMEADAutoAchemin = this.state.ecorDumVO.transporteurExploitantMEADAutoAchemin;
+      } else {
+        newEcorDumVO.infoEcorScelle = false;
+        newEcorDumVO.scellesAutorisationAcheminement = {}
+      }
+
+
+
+      console.log(JSON.stringify(newEcorDumVO));
+      var autoriserAcheminementAction = AutoriserAcheminementAction.request({
+        type: Constants.AUTORISER_ACHEMINEMENT_UC_REQUEST,
+        value: {
+          ecorDumVO: newEcorDumVO
+        },
+      }
+      );
+      this.props.actions.dispatch(autoriserAcheminementAction);
+      console.log('dispatch EciApposerScellesAction fired !!');
+
     }
-        
-   
-    
-    console.log(JSON.stringify(newEcorDumVO));
-    var autoriserAcheminementAction = AutoriserAcheminementAction.request({
-      type: Constants.AUTORISER_ACHEMINEMENT_UC_REQUEST,
-      value: {
-        ecorDumVO: newEcorDumVO
-      },
-    }
-    );
-    this.props.actions.dispatch(autoriserAcheminementAction);
-    console.log('dispatch EciApposerScellesAction fired !!');
   }
 
   populateLibelleTransporteurControleApresScanner() {
@@ -166,7 +188,7 @@ class AutoriserAcheminementMainScreen extends React.Component {
       if (_.isEmpty(this.props.transporteurExploitantMEADAutoAchemin) || this.props.transporteurExploitantMEADAutoAchemin.code !== transporteurExploitantMEADAutoAchemin) {
         console.log('transporteurExploitantMEADAutoAcheminLibelle', this.props.transporteurExploitantMEADAutoAchemin);
         let action = getCmbOperateurByCodeAction.request({
-          type: Constants.AUTORISER_ACHEMINEMENT_GET_CMB_OPERATEUR_BY_CODE_REQUEST, value: { idOperateur: transporteurExploitantMEADAutoAchemin, isCtrlApresScanner: false,isAutoAchemin: true }
+          type: Constants.AUTORISER_ACHEMINEMENT_GET_CMB_OPERATEUR_BY_CODE_REQUEST, value: { idOperateur: transporteurExploitantMEADAutoAchemin, isCtrlApresScanner: false, isAutoAchemin: true }
         });
         this.props.actions.dispatch(action);
 
@@ -209,7 +231,7 @@ class AutoriserAcheminementMainScreen extends React.Component {
   }
 
   render() {
-    
+
 
     return (
       <View style={CustomStyleSheet.fullContainer}>
@@ -261,10 +283,6 @@ class AutoriserAcheminementMainScreen extends React.Component {
           {this.isScellesApposeesDisplayed() && <EceScelleApposeesBlock
             listeScellesApposees={this.props.listeScellesApposees}
           />}
-          <EceConfirmationEntreeBlock
-            vo={this.state.ecorDumVO}
-            transporteurExploitantMEAD={this.props.transporteurExploitantMEAD}
-          />
           <EceConfirmationEntreeBlock
             vo={this.state.ecorDumVO}
             transporteurExploitantMEAD={this.props.transporteurExploitantMEAD}

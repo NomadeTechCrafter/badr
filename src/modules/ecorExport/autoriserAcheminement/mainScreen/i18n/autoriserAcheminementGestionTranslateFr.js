@@ -59,7 +59,8 @@ export default {
       dateHeureAcheminement: 'Date Heure Acheminement',
       agentDouanier: 'Agent Douanier',
       transporteurExploitantMEAD: 'Transporteur/ Exploitant MEAD',
-      choisirValeur: 'Choisir une valeur'
+      choisirValeur: 'Choisir une valeur',
+      dateError:'La date d\'autorisation d\'acheminement est vide ou incorrecte!'
     },
     confirmationArrivee: {
       title: 'Confirmation Arrivée',

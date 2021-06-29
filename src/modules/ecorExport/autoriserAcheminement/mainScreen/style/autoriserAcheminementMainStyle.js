@@ -126,6 +126,9 @@ const style = {
     margin: '1%',
     backgroundColor: '#009ab2',
   },
+  textInputsStyle: {
+    padding: 10,
+  },
 };
 
 export default StyleSheet.create(style);

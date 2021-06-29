@@ -12,7 +12,7 @@ import { Col, Grid, Row } from 'react-native-easy-grid';
 import { Button } from 'react-native-elements';
 import { RadioButton, HelperText, TextInput } from 'react-native-paper';
 import {
-  ComAccordionComp, ComBadrAutoCompleteChipsComp, ComBadrCardBoxComp, ComBadrLibelleComp
+  ComAccordionComp, ComBadrAutoCompleteChipsComp, ComBadrCardBoxComp, ComBadrDatePickerComp, ComBadrLibelleComp
 } from '../../../../../../commons/component';
 import { translate } from '../../../../../../commons/i18n/ComI18nHelper';
 import { CustomStyleSheet, primaryColor } from '../../../../../../commons/styles/ComThemeStyle';
@@ -325,7 +325,22 @@ export default class EceAutoriserAcheminementBlock extends React.Component {
                     </ComBadrLibelleComp>
                   </Col>
                   <Col>
-                    <TextInput
+                    
+                    <ComBadrDatePickerComp
+                      dateFormat="DD/MM/YYYY"
+                      value={this.state.dateAcheminement ? moment(this.state.dateAcheminement, 'DD/MM/yyyy', true) : ''}
+                      inputStyle={style.textInputsStyle}
+                      onDateChanged={(date) => {
+                        this.setState({
+                          ...this.state,
+                          dateAcheminement: date,
+                        });
+                        console.log('date', date);
+                        this.props.updateDate(date);
+                      }
+                      }
+                    />
+                    {/* <TextInput
                       mode={'outlined'}
                       style={{ height: 20, fontSize: 12 }}
                       value={this.state.dateAcheminement}
@@ -350,20 +365,21 @@ export default class EceAutoriserAcheminementBlock extends React.Component {
                         display="default"
                         onChange={this.onDateAutoriserAcheminementChange}
                       />
-                    )}
+                    )} */}
                   </Col>
 
 
                   <Col>
                     <TextInput
                       mode={'outlined'}
-                      style={{ height: 20, fontSize: 12, alignSelf: 'center', padding: 15 }}
+                      style={style.textInputsStyle}
                       value={this.state.heureAcheminement}
                       onFocus={() => {
                         this.setState({ showHeureAcheminement: true });
                       }}
                       multiline={false}
                       numberOfLines={1}
+                      
                       onChangeText={(text) => {
                         this.setState({
                           heureAcheminement: text
