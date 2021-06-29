@@ -43,11 +43,7 @@ import T6bisGestion from '../../../t6bis/gestion/ui/t6bisGestion/t6bisGestionScr
 import ActifsRapportRechercheScreen from '../../../actifs/rapport/recherche/ui/actifsRapportRechercheScreen';
 
 
-import Entete from '../../../../old/screens/actifs/rapport/creation/entete';
-import Recherche from '../../../../old/screens/actifs/rapport/recherche';
-import Saisie from '../../../../old/screens/actifs/rapport/creation/saisie';
-import Details from '../../../../old/./screens/actifs/rapport/creation/details';
-import Consultation from '../../../../old/screens/actifs/rapport/consultation';
+
 import actifsRapportCreationScreen from '../../../actifs/rapport/creation/ui/actifsRapportCreationScreen';
 /**ACTIONS */
 import * as Constants from '../../../../commons/constants/generic/ComGenericConstants';
@@ -243,36 +239,13 @@ class habHomeScreen extends React.Component {
           options={{headerShown: false}}
         />
         {/* Actif Module*/}
-        <Drawer.Screen
-          name="Recherche"
-          options={{headerShown: false}}
-          component={Recherche}
-        />
+       
         <Drawer.Screen
           name="ActifsRecherche"
           options={{headerShown: false}}
           component={ActifsRapportRechercheScreen}
         />
-        <Drawer.Screen
-          name="Entete"
-          options={{headerShown: false}}
-          component={Entete}
-        />
-        <Drawer.Screen
-          name="Details"
-          options={{headerShown: false}}
-          component={Details}
-        />
-        <Drawer.Screen
-          name="Saisie"
-          options={{headerShown: false}}
-          component={Saisie}
-        />
-        <Drawer.Screen
-          name="Consultation"
-          options={{headerShown: false}}
-          component={Consultation}
-        />
+        
         {/* Fonc Vu embarquer */}
         <Drawer.Screen
           name="VuEmbarqueScreen"

@@ -25,7 +25,6 @@ import refPlaquesImmTranslateFr from '../../modules/referentiel/plaquesImmatricu
 import t6bisCreationTranslationsFr from '../../modules/t6bis/creation/i18n/t6bisCreationTranslateFr';
 import t6bisGestionTranslateFr from '../../modules/t6bis/gestion/i18n/t6bisGestionTranslateFr';
 import t6bisRechercheTranslationsFr from '../../modules/t6bis/recherche/i18n/t6bisRechercheTranslateFr';
-import actifTranslateFr from '../../old/common/translations/actif/actifTranslateFr';
 import liquidationTranslateFr from '../../modules/liquidation/i18n/liquidationTranslateFr';
 import actifsRapportConsultationTranslateFr from '../../modules/actifs/rapport/recherche/i18n/actifsRapportConsultationTranslateFr';
 import actifsRapportCreationTranslateFr from '../../modules/actifs/rapport/creation/i18n/actifsRapportCreationTranslateFr';

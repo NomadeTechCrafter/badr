@@ -47,14 +47,6 @@ import T6bisCreation from './modules/t6bis/creation/ui/t6bisCreation/t6bisCreati
 import T6bisGestion from './modules/t6bis/gestion/ui/t6bisGestion/t6bisGestionScreen';
 import RechercheEcorImport from './old/screens/ecorImport/rechercheEcorImport';
 
-//Actif
-import Recherche from './old/screens/actifs/rapport/recherche';
-import Creation from './old/screens/actifs/rapport/creation';
-import Entete from './old/screens/actifs/rapport/creation/entete';
-import Details from './old/screens/actifs/rapport/creation/details';
-import Saisie from './old/screens/actifs/rapport/creation/saisie';
-import Consultation from './old/screens/actifs/rapport/consultation';
-
 import ActifsRapportCreationScreen from './modules/actifs/rapport/creation/ui/actifsRapportCreationScreen'; 
 import ActifsRapportRechercheScreen from './modules/actifs/rapport/recherche/ui/actifsRapportRechercheScreen'; 
 
@@ -120,36 +112,13 @@ export default class App extends React.Component {
               />
 
               {/* Actif Module*/}
-              <Stack.Screen
-                name="Recherche"
-                options={{headerShown: false}}
-                component={Recherche}
-              />
+              
               <Stack.Screen
                 name="CreationRapport"
                 options={{headerShown: false}}
                 component={ActifsRapportCreationScreen}
               />
-              <Stack.Screen
-                name="Entete"
-                options={{headerShown: false}}
-                component={Entete}
-              />
-              <Stack.Screen
-                name="Details"
-                options={{headerShown: false}}
-                component={Details}
-              />
-              <Stack.Screen
-                name="Saisie"
-                options={{headerShown: false}}
-                component={Saisie}
-              />
-              <Stack.Screen
-                name="Consultation"
-                options={{headerShown: false}}
-                component={Consultation}
-              />
+              
 
               <Stack.Screen
                 name="LiquidationHomeScreen"
