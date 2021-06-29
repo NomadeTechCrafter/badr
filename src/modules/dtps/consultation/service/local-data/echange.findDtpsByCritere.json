@@ -1,0 +1,272 @@
+{
+    "dtoHeader": {
+        "userLogin": "AD6202",
+        "fonctionnalite": "cf90023",
+        "module": "ECHANGE_LIB",
+        "commande": "echange.findDtpsByCritere",
+        "typeService": "SP",
+        "offset": 0,
+        "pageSize": 0,
+        "rowCount": 0
+    },
+    "jsonVO": [
+        {
+            "id": 11,
+            "typeMessage": "DECLARATION_TRANSFERT_PORT_SEC",
+            "numeroMessage": 132,
+            "emetteur": "ADII",
+            "destinataire": "TMSA",
+            "dateMessage": "16/06/2021 15:18:09",
+            "dateCreation": "24/06/2021 12:17:00",
+            "referenceDeclaration": "41120210000013",
+            "idOperateurAutorise": "16688",
+            "nomOperateurAutorise": "BABYTEX TEST",
+            "portSec": "401401",
+            "listeNumScelle": [
+                "12345678"
+            ],
+            "typeDs": "DS",
+            "referenceDs": "41100020210000001",
+            "listLots": [
+                {
+                    "referenceLot": "REF1",
+                    "codeLieuChargement": "MACAS"
+                }
+            ],
+            "listeChauffeurs": [
+                {
+                    "nomChauffeur": "Nom",
+                    "prenomChauffeur": "prenom",
+                    "typeIdentifiantChauffeur": "1",
+                    "identifiantChauffeur": "A123456"
+                },
+                {
+                    "nomChauffeur": "Nom2",
+                    "prenomChauffeur": "prenom2",
+                    "typeIdentifiantChauffeur": "5",
+                    "identifiantChauffeur": "L0022558",
+                    "paysPasseportChauffeur": "FR"
+                }
+            ],
+            "listeMatricules": [
+                "4400A4",
+                "12345B76",
+                "wwd-96-xx"
+            ],
+            "avecScanner": true,
+            "resultatsScanners": [
+                {
+                    "dateScannage": "06/06/2021 09:30",
+                    "agent": "YBA",
+                    "resultat": "Non suspect",
+                    "commentaire": "Commentaire de l'agent 3",
+                    "listMatriculeVO": []
+                }
+            ]
+        },
+        {
+            "id": 10,
+            "typeMessage": "DECLARATION_TRANSFERT_PORT_SEC",
+            "numeroMessage": 131,
+            "emetteur": "ADII",
+            "destinataire": "TMSA",
+            "dateMessage": "16/06/2021 15:18:09",
+            "dateCreation": "24/06/2021 12:16:00",
+            "referenceDeclaration": "41120210000012",
+            "idOperateurAutorise": "16688",
+            "nomOperateurAutorise": "BABYTEX TEST",
+            "portSec": "401401",
+            "listeNumScelle": [
+                "12345678"
+            ],
+            "typeDs": "DS",
+            "referenceDs": "41100020210000001",
+            "listLots": [
+                {
+                    "referenceLot": "REF1",
+                    "codeLieuChargement": "MACAS"
+                }
+            ],
+            "listeChauffeurs": [
+                {
+                    "nomChauffeur": "Nom",
+                    "prenomChauffeur": "prenom",
+                    "typeIdentifiantChauffeur": "1",
+                    "identifiantChauffeur": "A123456"
+                },
+                {
+                    "nomChauffeur": "Nom2",
+                    "prenomChauffeur": "prenom2",
+                    "typeIdentifiantChauffeur": "5",
+                    "identifiantChauffeur": "L0022558",
+                    "paysPasseportChauffeur": "FR"
+                }
+            ],
+            "listeMatricules": [
+                "4400A4",
+                "12345B76",
+                "wwd-96-xx"
+            ],
+            "avecScanner": false
+        },
+        {
+            "id": 9,
+            "typeMessage": "DECLARATION_TRANSFERT_PORT_SEC",
+            "numeroMessage": 130,
+            "emetteur": "ADII",
+            "destinataire": "TMSA",
+            "dateMessage": "16/06/2021 15:18:09",
+            "dateCreation": "24/06/2021 12:14:00",
+            "referenceDeclaration": "41120210000011",
+            "idOperateurAutorise": "16688",
+            "nomOperateurAutorise": "BABYTEX TEST",
+            "portSec": "401401",
+            "listeNumScelle": [
+                "12345678"
+            ],
+            "typeDs": "DS",
+            "referenceDs": "41100020210000001",
+            "listLots": [
+                {
+                    "referenceLot": "REF1",
+                    "codeLieuChargement": "MACAS"
+                }
+            ],
+            "listeChauffeurs": [
+                {
+                    "nomChauffeur": "Nom",
+                    "prenomChauffeur": "prenom",
+                    "typeIdentifiantChauffeur": "1",
+                    "identifiantChauffeur": "A123456"
+                },
+                {
+                    "nomChauffeur": "Nom2",
+                    "prenomChauffeur": "prenom2",
+                    "typeIdentifiantChauffeur": "5",
+                    "identifiantChauffeur": "L0022558",
+                    "paysPasseportChauffeur": "FR"
+                }
+            ],
+            "listeMatricules": [
+                "4400A4",
+                "12345B76",
+                "wwd-96-xx"
+            ],
+            "avecScanner": false
+        },
+        {
+            "id": 8,
+            "typeMessage": "DECLARATION_TRANSFERT_PORT_SEC",
+            "numeroMessage": 12,
+            "emetteur": "ADII",
+            "destinataire": "TMSA",
+            "dateMessage": "16/06/2021 15:18:09",
+            "dateCreation": "17/06/2021 16:00:00",
+            "referenceDeclaration": "41120210000001",
+            "idOperateurAutorise": "16688",
+            "nomOperateurAutorise": "BABYTEX TEST",
+            "portSec": "401401",
+            "listeNumScelle": [
+                "12345678"
+            ],
+            "typeDs": "DS",
+            "referenceDs": "41100020210000001",
+            "listLots": [
+                {
+                    "referenceLot": "REF1",
+                    "codeLieuChargement": "MACAS"
+                },
+                {
+                    "referenceLot": "REF1",
+                    "codeLieuChargement": "MACAS"
+                }
+            ],
+            "listeChauffeurs": [
+                {
+                    "nomChauffeur": "Nom",
+                    "prenomChauffeur": "prenom",
+                    "typeIdentifiantChauffeur": "1",
+                    "identifiantChauffeur": "A123456"
+                },
+                {
+                    "nomChauffeur": "Nom2",
+                    "prenomChauffeur": "prenom2",
+                    "typeIdentifiantChauffeur": "5",
+                    "identifiantChauffeur": "L0022558",
+                    "paysPasseportChauffeur": "FR"
+                }
+            ],
+            "listeMatricules": [
+                "4400A4",
+                "12345B76",
+                "wwd-96-xx"
+            ],
+            "avecScanner": true,
+            "resultatsScanners": [
+                {
+                    "dateScannage": "06/06/2021 09:30",
+                    "agent": "YBA",
+                    "resultat": "Non suspect",
+                    "commentaire": "Commentaire de l'agent 2",
+                    "listMatriculeVO": []
+                },
+                {
+                    "dateScannage": "06/06/2021 09:30",
+                    "agent": "YBA",
+                    "resultat": "Non suspect",
+                    "commentaire": "Commentaire de l'agent 1",
+                    "listMatriculeVO": []
+                }
+            ]
+        },
+        {
+            "id": 7,
+            "typeMessage": "DECLARATION_TRANSFERT_PORT_SEC",
+            "numeroMessage": 10,
+            "emetteur": "ADII",
+            "destinataire": "TMSA",
+            "dateMessage": "16/06/2021 15:18:09",
+            "dateCreation": "17/06/2021 10:03:00",
+            "referenceDeclaration": "41120210000002",
+            "idOperateurAutorise": "16688",
+            "nomOperateurAutorise": "BABYTEX TEST",
+            "portSec": "401401",
+            "listeNumScelle": [
+                "12345678"
+            ],
+            "typeDs": "DS",
+            "referenceDs": "41100020210000001",
+            "listLots": [
+                {
+                    "referenceLot": "REF1",
+                    "codeLieuChargement": "MACAS"
+                },
+                {
+                    "referenceLot": "REF1",
+                    "codeLieuChargement": "MACAS"
+                }
+            ],
+            "listeChauffeurs": [
+                {
+                    "nomChauffeur": "Nom",
+                    "prenomChauffeur": "prenom",
+                    "typeIdentifiantChauffeur": "1",
+                    "identifiantChauffeur": "A123456"
+                },
+                {
+                    "nomChauffeur": "Nom2",
+                    "prenomChauffeur": "prenom2",
+                    "typeIdentifiantChauffeur": "5",
+                    "identifiantChauffeur": "L0022558",
+                    "paysPasseportChauffeur": "FR"
+                }
+            ],
+            "listeMatricules": [
+                "4400A4",
+                "12345B76",
+                "wwd-96-xx"
+            ],
+            "avecScanner": false
+        }
+    ]
+}

@@ -90,6 +90,8 @@ const localStore = {
   'echange.validerSortieDtps': require('../../../../modules/dtps/dtpsSortie/service/local-data/echange.validerSortieDtps.json'),
   'echange.findDtpsByCritereForEntree': require('../../../../modules/dtps/dtpsEntree/service/local-data/echange.findDtpsByCritereForEntree.json'),
   'echange.validerEntreeDtps': require('../../../../modules/dtps/dtpsEntree/service/local-data/echange.validerEntreeDtps.json'),
+  'echange.findDtpsByCritere': require('../../../../modules/dtps/consultation/service/local-data/echange.findDtpsByCritere.json'),
+
 
 
 };

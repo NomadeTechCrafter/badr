@@ -74,6 +74,8 @@ import ecorExpConfirmationEntreeReducer from '../../modules/ecorExport/confirmat
 import ecorExpConfirmationArriveeReducer from '../../modules/ecorExport/confirmationArrivee/state/reducers/ecorExpConfirmationArriveeReducer';
 import dtpsSortieReducer from '../../modules/dtps/dtpsSortie/state/reducers/dtpsSortieReducer'
 import dtpsEntreeReducer from '../../modules/dtps/dtpsEntree/state/reducers/dtpsEntreeReducer'
+import dtpsConsultationReducer from '../../modules/dtps/consultation/state/reducers/dtpsConsultationReducer'
+
 
 /**
  * combine all reducers
@@ -140,6 +142,7 @@ const allReducers = combineReducers({
   sortiPortInitReducer,
   dtpsSortieReducer,
   dtpsEntreeReducer,
+  dtpsConsultationReducer
 });
 /**
  * store creation

@@ -66,6 +66,7 @@ import ConsultationIgTIScreen from './modules/tarifIntegre/tiConsultationIgTI/ui
 import ConsultationTIScreen from './modules/tarifIntegre/tiConsultationTI/ui/tiConsultationTIScreen';
 import DTPSSortieMainScreen from './modules/dtps/dtpsSortie/ui/dtpsSortieMainScreen';
 import DTPSEntreeMainScreen from './modules/dtps/dtpsEntree/ui/dtpsEntreeMainScreen'
+import DTPSConsultationMainScreen from './modules/dtps/consultation/ui/dtpsConsultationMainScreen'
 
 
 //setGlobalHandler();

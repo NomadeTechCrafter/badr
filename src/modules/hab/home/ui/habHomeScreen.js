@@ -73,6 +73,8 @@ import PecEtatChargementMainScreen from '../../../pecEtatChargement/rechParRef/u
 import DedRechercheConfirmationReceptionScreen from '../../../dedouanement/confirmationReception/ui/dedRechercheConfirmationReceptionScreen';
 
 import DTPSSortieMainScreen from '../../../dtps/dtpsSortie/ui/dtpsSortieMainScreen';
+import DTPSEntreeMainScreen from '../../../dtps/dtpsEntree/ui/dtpsEntreeMainScreen';
+import DTPSConsultationMainScreen from '../../../dtps/consultation/ui/dtpsConsultationMainScreen';
 
 const Drawer = createDrawerNavigator();
 const deltaScreen = Dimensions.get('window').width / 4;
@@ -399,6 +401,20 @@ class habHomeScreen extends React.Component {
           component={DTPSSortieMainScreen}
           options={{ headerShown: false }}
         />
+
+        <Drawer.Screen
+          name="DTPSEntreeMainScreen"
+          component={DTPSEntreeMainScreen}
+          options={{ headerShown: false }}
+        />
+
+        <Drawer.Screen
+          name="DTPSConsultationMainScreen"
+          component={DTPSConsultationMainScreen}
+          options={{ headerShown: false }}
+        />
+
+        
         
       </Drawer.Navigator>
     );

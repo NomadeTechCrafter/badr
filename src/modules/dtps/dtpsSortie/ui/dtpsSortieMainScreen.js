@@ -38,7 +38,7 @@ class DTPSSortieMainScreen extends React.Component {
                     navigation={this.props.navigation}
                     icon="menu"
                     title={translate('dtps.title')}
-                    subtitle={translate('dtps.subTitle')}
+                    subtitle={translate('dtps.subTitle1')}
                 />
                 {this.props.showProgress && <ComBadrProgressBarComp circle={false} />}
                 <NavigationContainer independent={true}>

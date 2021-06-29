@@ -1,7 +1,7 @@
 export default {
     dtps: {
         title: 'Déclaration transfert ',
-        subTitle: 'Sortie du port Tanger-Med (411)',
+        subTitle1: 'Sortie du port Tanger-Med (411)',
         numeroMessage: 'Numéro de message',
         dateMessage: 'Date de message',
         dateCreation: "Date de création",
