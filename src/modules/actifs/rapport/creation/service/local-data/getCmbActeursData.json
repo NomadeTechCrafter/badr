@@ -1,0 +1,32 @@
+{
+    "dtoHeader": {
+        "userLogin": "YASAG",
+        "fonctionnalite": "cf4011",
+        "module": "REF_LIB",
+        "commande": "getCmbActeurs",
+        "typeService": "SP",
+        "motif": null,
+        "messagesInfo": null,
+        "messagesErreur": null
+    },
+    "jsonVO": [
+        {
+            "code": "YASAG",
+            "libelle": "Agent Yassine(YASAG)",
+            "actif": false,
+            "showDropDown": false,
+            "disableAutoComplete": true,
+            "onFocus": "",
+            "disabled": false
+        },
+        {
+            "code": "TESTAG14",
+            "libelle": "TESTAG14 TESTAG14(TESTAG14)",
+            "actif": false,
+            "showDropDown": false,
+            "disableAutoComplete": true,
+            "onFocus": "",
+            "disabled": false
+        }
+    ]
+}

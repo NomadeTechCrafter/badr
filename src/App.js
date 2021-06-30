@@ -55,12 +55,9 @@ import ConfirmationArriveeMainScreen from './modules/ecorExport/confirmationArri
 
 
 //Actif
-import Recherche from './old/screens/actifs/rapport/recherche';
-import Creation from './old/screens/actifs/rapport/creation';
-import Entete from './old/screens/actifs/rapport/creation/entete';
-import Details from './old/screens/actifs/rapport/creation/details';
-import Saisie from './old/screens/actifs/rapport/creation/saisie';
-import Consultation from './old/screens/actifs/rapport/consultation';
+import ActifsRapportCreationScreen from './modules/actifs/rapport/creation/ui/actifsRapportCreationScreen';
+import ActifsRapportRechercheScreen from './modules/actifs/rapport/recherche/ui/actifsRapportRechercheScreen';
+
 import EtatChargement from './modules/pecEtatChargement/rechParRef/ui/pecEtatChargementMainScreen';
 import VuEmbarqueScreen from './modules/DeclarationD17D20/vuEmbarquer/ui/vuEmbarquer/VuEmbarqueScreen';
 import ConsultationIgTIScreen from './modules/tarifIntegre/tiConsultationIgTI/ui/tiConsultationIgTIScreen';
@@ -89,7 +86,7 @@ export default class App extends React.Component {
                 <Stack.Screen
                   name="test"
                   options={{headerShown: false}}
-                    component={RechercheAutoriserAcheminementScreen}
+                    component={ActifsRapportRechercheScreen}
                 />
               )}
               <Stack.Screen
@@ -130,36 +127,13 @@ export default class App extends React.Component {
               />
 
               {/* Actif Module*/}
+
               <Stack.Screen
-                name="Recherche"
+                name="CreationRapport"
                 options={{headerShown: false}}
-                component={Recherche}
+                component={ActifsRapportCreationScreen}
               />
-              <Stack.Screen
-                name="Creation"
-                options={{headerShown: false}}
-                component={Creation}
-              />
-              <Stack.Screen
-                name="Entete"
-                options={{headerShown: false}}
-                component={Entete}
-              />
-              <Stack.Screen
-                name="Details"
-                options={{headerShown: false}}
-                component={Details}
-              />
-              <Stack.Screen
-                name="Saisie"
-                options={{headerShown: false}}
-                component={Saisie}
-              />
-              <Stack.Screen
-                name="Consultation"
-                options={{headerShown: false}}
-                component={Consultation}
-              />
+
 
               <Stack.Screen
                 name="LiquidationHomeScreen"

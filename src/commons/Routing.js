@@ -78,6 +78,8 @@ const mapping = {
         screen: 'RechercheAutoriserAcheminementScreen',
         params: {},
     },
+'9932': { screen: 'ActifsRecherche', params: {} },
+
 };
 
 const ionicMapping = {};

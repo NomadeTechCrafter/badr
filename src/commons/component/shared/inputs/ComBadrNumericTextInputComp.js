@@ -17,6 +17,9 @@ export default class ComBadrNumericTextInputComp extends React.Component {
       this.props.onChangeBadrInput(text);
     }
   };
+  clear() {
+    this.setState({ inputValue:''});
+  }
 
   render() {
     const {value, style, ...inputProps} = this.props;

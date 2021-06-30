@@ -25,7 +25,6 @@ import refPlaquesImmTranslateFr from '../../modules/referentiel/plaquesImmatricu
 import t6bisCreationTranslationsFr from '../../modules/t6bis/creation/i18n/t6bisCreationTranslateFr';
 import t6bisGestionTranslateFr from '../../modules/t6bis/gestion/i18n/t6bisGestionTranslateFr';
 import t6bisRechercheTranslationsFr from '../../modules/t6bis/recherche/i18n/t6bisRechercheTranslateFr';
-import actifTranslateFr from '../../old/common/translations/actif/actifTranslateFr';
 import liquidationTranslateFr from '../../modules/liquidation/i18n/liquidationTranslateFr';
 import ecorExpConfirmationEntreeTranslateFr from '../../modules/ecorExport/confirmationEntree/i18n/ecorExpConfirmationEntreeTranslateFr';
 import ecorExpConfirmationArriveeTranslateFr from '../../modules/ecorExport/confirmationArrivee/i18n/ecorExpConfirmationArriveeTranslateFr';
@@ -40,6 +39,8 @@ import dedConfirmationReception from '../../modules/dedouanement/confirmationRec
 import decSortiPortTranslateFr from '../../modules/DeclarationD17D20/sortiPort/i18n/decSortiPortTranslateFr';
 import rechercheAutoriserAcheminementTranslateFr from '../../modules/ecorExport/autoriserAcheminement/recherche/i18n/rechercheAutoriserAcheminementTranslateFr';
 import autoriserAcheminementGestionTranslateFr from '../../modules/ecorExport/autoriserAcheminement/mainScreen/i18n/autoriserAcheminementGestionTranslateFr';
+import actifsRapportConsultationTranslateFr from '../../modules/actifs/rapport/recherche/i18n/actifsRapportConsultationTranslateFr';
+import actifsRapportCreationTranslateFr from '../../modules/actifs/rapport/creation/i18n/actifsRapportCreationTranslateFr';
 
 const locales = RNLocalize.getLocales();
 
@@ -69,12 +70,14 @@ let combined = {
   ...controleRechrcheDumTranslateFr,
   ...mainLeveeTranslateFr,
   ...ecorImportTranslateFr,
-  ...actifTranslateFr,
+  //...actifTranslateFr,
   ...vuEmbTranslations,
   ...liquidationTranslateFr,
   ...t6bisCreationTranslationsFr,
   ...t6bisGestionTranslateFr,
   ...t6bisRechercheTranslationsFr,
+  ...actifsRapportConsultationTranslateFr,
+  ...actifsRapportCreationTranslateFr,
   ...eciConsultationBLSTranslateFr,
   ...eciAppositionScellesRechercheTranslateFr,
   ...eciAppositionScellesTranslateFr,

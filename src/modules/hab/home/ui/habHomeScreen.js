@@ -42,12 +42,12 @@ import T6bisCreation from '../../../t6bis/creation/ui/t6bisCreation/t6bisCreatio
 import T6bisRecherche from '../../../t6bis/recherche/ui/t6bisRechercheScreen';
 import T6bisGestion from '../../../t6bis/gestion/ui/t6bisGestion/t6bisGestionScreen';
 
-import Entete from '../../../../old/screens/actifs/rapport/creation/entete';
-import Recherche from '../../../../old/screens/actifs/rapport/recherche';
-import Saisie from '../../../../old/screens/actifs/rapport/creation/saisie';
-import Details from '../../../../old/./screens/actifs/rapport/creation/details';
-import Consultation from '../../../../old/screens/actifs/rapport/consultation';
-import Creation from '../../../../old/screens/actifs/rapport/creation';
+
+import ActifsRapportRechercheScreen from '../../../actifs/rapport/recherche/ui/actifsRapportRechercheScreen';
+
+
+
+import actifsRapportCreationScreen from '../../../actifs/rapport/creation/ui/actifsRapportCreationScreen';
 /**ACTIONS */
 import * as Constants from '../../../../commons/constants/generic/ComGenericConstants';
 import * as GenericAction from '../../../../commons/state/actions/ComGenericAction';
@@ -257,36 +257,13 @@ class habHomeScreen extends React.Component {
           options={{headerShown: false}}
         />
         {/* Actif Module*/}
+
         <Drawer.Screen
-          name="Recherche"
+          name="ActifsRecherche"
           options={{headerShown: false}}
-          component={Recherche}
+          component={ActifsRapportRechercheScreen}
         />
-        <Drawer.Screen
-          name="Creation"
-          options={{headerShown: false}}
-          component={Creation}
-        />
-        <Drawer.Screen
-          name="Entete"
-          options={{headerShown: false}}
-          component={Entete}
-        />
-        <Drawer.Screen
-          name="Details"
-          options={{headerShown: false}}
-          component={Details}
-        />
-        <Drawer.Screen
-          name="Saisie"
-          options={{headerShown: false}}
-          component={Saisie}
-        />
-        <Drawer.Screen
-          name="Consultation"
-          options={{headerShown: false}}
-          component={Consultation}
-        />
+
         {/* Fonc Vu embarquer */}
         <Drawer.Screen
           name="VuEmbarqueScreen"
@@ -330,6 +307,7 @@ class habHomeScreen extends React.Component {
           component={T6bisGestion}
           options={{headerShown: false}}
         />
+
         {/* Module T6bis end*/}
 
         <Drawer.Screen
@@ -406,6 +384,12 @@ class habHomeScreen extends React.Component {
           options={{ headerShown: false }}
         />
 
+
+        <Drawer.Screen
+          name="CreationRapport"
+          component={actifsRapportCreationScreen}
+          options={{ headerShown: false }}
+        />
 
       </Drawer.Navigator>
     );
