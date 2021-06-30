@@ -72,6 +72,10 @@ import dedConfirmationReceptionReducer from '../../modules/dedouanement/confirma
 
 import ecorExpConfirmationEntreeReducer from '../../modules/ecorExport/confirmationEntree/state/reducers/ecorExpConfirmationEntreeReducer';
 import ecorExpConfirmationArriveeReducer from '../../modules/ecorExport/confirmationArrivee/state/reducers/ecorExpConfirmationArriveeReducer';
+
+import rechercheAutoriserAcheminementReducer from '../../modules/ecorExport/autoriserAcheminement/recherche/state/reducers/rechercheAutoriserAcheminementReducer';
+import autoriserAcheminementMainReducer from '../../modules/ecorExport/autoriserAcheminement/mainScreen/state/reducers/autoriserAcheminementMainReducer';
+
 /**
  * combine all reducers
  */
@@ -135,6 +139,7 @@ const allReducers = combineReducers({
   sortiPortReducer,
   sortiPortRefVH,
   sortiPortInitReducer,
+  rechercheAutoriserAcheminementReducer, autoriserAcheminementMainReducer
 });
 /**
  * store creation

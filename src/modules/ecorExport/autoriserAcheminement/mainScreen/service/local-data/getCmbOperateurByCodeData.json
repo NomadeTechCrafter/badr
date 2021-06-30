@@ -1,0 +1,23 @@
+{
+    "dtoHeader": {
+        "userLogin": "YELM",
+        "fonctionnalite": "cf110001",
+        "module": "REF_LIB",
+        "commande": "getCmbOperateurByCode",
+        "typeService": "SP",
+        "offset": 0,
+        "pageSize": 0,
+        "rowCount": 0
+    },
+    "jsonVO": [
+        {
+            "code": "16688",
+            "libelle": "BABYTEX TEST(81/81)",
+            "actif": false,
+            "showDropDown": false,
+            "disableAutoComplete": true,
+            "onFocus": "",
+            "disabled": false
+        }
+    ]
+}

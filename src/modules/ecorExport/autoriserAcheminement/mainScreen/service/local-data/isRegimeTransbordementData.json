@@ -1,0 +1,13 @@
+{
+    "dtoHeader": {
+        "userLogin": "YELM",
+        "fonctionnalite": "cf4011",
+        "module": "DED_LIB",
+        "commande": "ded.isRegimeTransbordement",
+        "typeService": "SP",
+        "offset": 0,
+        "pageSize": 0,
+        "rowCount": 0
+    },
+    "jsonVO": false
+}

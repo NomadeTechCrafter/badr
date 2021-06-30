@@ -73,6 +73,11 @@ const mapping = {
     screen: 'ConfirmationArriveeRechercheScreen',
     params: {title: 'Ecran  Recherche Confirmation arrivee'},
   },*/
+    '61525': {
+        //AUTORISER ACHEMINEMENT
+        screen: 'RechercheAutoriserAcheminementScreen',
+        params: {},
+    },
 };
 
 const ionicMapping = {};

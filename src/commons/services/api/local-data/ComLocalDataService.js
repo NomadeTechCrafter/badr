@@ -86,7 +86,9 @@ const localStore = {
   consulterTI: require('../../../../modules/tarifIntegre/tiConsultationTI/service/local-data/consulterTI.json'),
   'ded.getDecSortiPortParMatVehicule': require('../../../../modules/DeclarationD17D20/sortiPort/service/local-data/ded.getDecSortiPortParMatVehicule.json'),
   'ded.vuEmbRechercheDeclarationTrypByRef': require('../../../../modules/DeclarationD17D20/sortiPort/service/local-data/ded.vuEmbRechercheDeclarationTrypByRef.json'),
-
-
+  'ece.initAutoriserAcheminement': require('../../../../modules/ecorExport/autoriserAcheminement/recherche/service/local-data/initAutoriserAcheminementData.json'),
+  getCmbOperateurByCode: require('../../../../modules/ecorExport/autoriserAcheminement/mainScreen/service/local-data/getCmbOperateurByCodeData.json'),
+  getScellesApposees: require('../../../../modules/ecorExport/autoriserAcheminement/mainScreen/service/local-data/getScellesApposeesData.json'),
+  'ded.isRegimeTransbordement': require('../../../../modules/ecorExport/autoriserAcheminement/mainScreen/service/local-data/isRegimeTransbordementData.json'),
 };
 export default localStore;

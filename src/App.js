@@ -53,6 +53,7 @@ import SortiPortScreen from './modules/DeclarationD17D20/sortiPort/ui/decSortiPo
 import ConfirmationEntreeMainScreen from './modules/ecorExport/confirmationEntree/ui/ecorExpConfirmationEntreeMainScreen';
 import ConfirmationArriveeMainScreen from './modules/ecorExport/confirmationArrivee/ui/ecorExpConfirmationArriveeMainScreen';
 
+
 //Actif
 import Recherche from './old/screens/actifs/rapport/recherche';
 import Creation from './old/screens/actifs/rapport/creation';
@@ -64,6 +65,8 @@ import EtatChargement from './modules/pecEtatChargement/rechParRef/ui/pecEtatCha
 import VuEmbarqueScreen from './modules/DeclarationD17D20/vuEmbarquer/ui/vuEmbarquer/VuEmbarqueScreen';
 import ConsultationIgTIScreen from './modules/tarifIntegre/tiConsultationIgTI/ui/tiConsultationIgTIScreen';
 import ConsultationTIScreen from './modules/tarifIntegre/tiConsultationTI/ui/tiConsultationTIScreen';
+import autoriserAcheminementMainScreen from './modules/ecorExport/autoriserAcheminement/mainScreen/ui/autoriserAcheminementMainScreen';
+import RechercheAutoriserAcheminementScreen from './modules/ecorExport/autoriserAcheminement/recherche/ui/rechercheAutoriserAcheminementScreen';
 
 //setGlobalHandler();
 export default class App extends React.Component {
@@ -83,12 +86,12 @@ export default class App extends React.Component {
                   component={Login}
                 />
               ) : (
-                  <Stack.Screen
-                    name="test"
-                    options={{ headerShown: false }}
-                    component={SortiPortScreen}
-                  />
-                )}
+                <Stack.Screen
+                  name="test"
+                  options={{headerShown: false}}
+                    component={RechercheAutoriserAcheminementScreen}
+                />
+              )}
               <Stack.Screen
                 name="ControleRegimeInterneScreen"
                 options={{headerShown: false}}
@@ -167,6 +170,11 @@ export default class App extends React.Component {
                 name="T6bisGestion"
                 options={{headerShown: false}}
                 component={T6bisGestion}
+              />
+              <Stack.Screen
+                name="AutoriserAcheminementMainScreen"
+                component={autoriserAcheminementMainScreen}
+                options={{ headerShown: false }}
               />
             </ComBadrStackNavigatorComp>
           </PaperProvider>

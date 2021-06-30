@@ -29,7 +29,7 @@ class HabSmsVerifyScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      code: '',
+      code: '000000',
       login: ComSessionService.getInstance().getLogin(),
     };
   }
