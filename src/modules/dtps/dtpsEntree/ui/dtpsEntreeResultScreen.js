@@ -47,6 +47,16 @@ class dtpsEntreeResultScreen extends React.Component {
                 width: 180,
             },
             {
+                code: 'dateSortie',
+                libelle: translate('dtps.dateSortie'),
+                width: 180,
+            },
+            {
+                code: 'agentSortie',
+                libelle: translate('dtps.agentSortie'),
+                width: 180,
+            },           
+            {
                 code: 'nomOperateurAutorise',
                 libelle: translate('dtps.nomOperateurAutorise'),
                 width: 200,

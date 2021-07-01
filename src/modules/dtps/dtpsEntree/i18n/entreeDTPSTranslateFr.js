@@ -5,6 +5,8 @@ export default {
         numeroMessage: 'Numéro de message',
         dateMessage: 'Date de message',
         dateCreation: "Date de création",
+        dateSortie: "Date de sortie",
+        agentSortie: "Agent de sortie",
         referenceDeclaration: 'Référence',
         matricule: 'Matricule',
         nomOperateurAutorise: 'Opérateur autorisé	',
