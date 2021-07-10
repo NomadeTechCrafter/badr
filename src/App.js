@@ -86,7 +86,7 @@ export default class App extends React.Component {
                 <Stack.Screen
                   name="test"
                   options={{headerShown: false}}
-                    component={ActifsRapportRechercheScreen}
+                    component={VuEmbarqueScreen}
                 />
               )}
               <Stack.Screen

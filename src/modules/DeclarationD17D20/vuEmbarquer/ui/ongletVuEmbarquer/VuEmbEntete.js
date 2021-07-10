@@ -1,7 +1,7 @@
 import React from 'react';
-import {View, ScrollView, StyleSheet, Text} from 'react-native';
-import {connect} from 'react-redux';
-import {translate} from '../../../../../commons/i18n/ComI18nHelper';
+import { View, ScrollView, StyleSheet, Text } from 'react-native';
+import { connect } from 'react-redux';
+import { translate } from '../../../../../commons/i18n/ComI18nHelper';
 import * as Constants from '../../state/vuEmbarquerConstants';
 import * as VuEmbConfirmerAction from '../../state/actions/vuEmbUcAction';
 
@@ -13,8 +13,8 @@ import {
   ComBadrDatePickerComp,
   ComBadrActionButtonComp,
 } from '../../../../../commons/component';
-import {Checkbox} from 'react-native-paper';
-import {TextInput} from 'react-native-paper';
+import { Checkbox } from 'react-native-paper';
+import { TextInput } from 'react-native-paper';
 
 import moment from 'moment';
 
@@ -63,7 +63,7 @@ class VuEmbarquerEntete extends React.Component {
         ...initialState,
         commentaire: vuEmbarque.commentaire,
         dateVuEmb: vuEmbarque.dateVuEmbarque,
-        vuEmbarqueExisteDeja: this.props.dataVo?.declarationTriptique ?.vuEmbarqueExisteDeja,
+        vuEmbarqueExisteDeja: this.props.dataVo?.declarationTriptique?.vuEmbarqueExisteDeja,
         screenActions,
         dateDebutVuEmb: vuEmbarque.dateVuEmbarque?.split(' ')[0],
         heureDebutVuEmb: vuEmbarque.dateVuEmbarque?.split(' ')[1],
@@ -136,7 +136,7 @@ class VuEmbarquerEntete extends React.Component {
       this.setState({
         errorMessage: translate('vuEmbarquee.dateVuEmbObligatoire'),
       });
-      this.scrollViewRef.current.scrollTo({x: 0, y: 0, animated: true});
+      this.scrollViewRef.current.scrollTo({ x: 0, y: 0, animated: true });
       return;
     }
 
@@ -162,7 +162,7 @@ class VuEmbarquerEntete extends React.Component {
       this.props.navigation,
     );
     this.props.actions.dispatch(action);
-    this.scrollViewRef.current.scrollTo({x: 0, y: 0, animated: true});
+    this.scrollViewRef.current.scrollTo({ x: 0, y: 0, animated: true });
   };
 
   handleAnnulerVuEmb = () => {
@@ -183,7 +183,7 @@ class VuEmbarquerEntete extends React.Component {
       this.props.navigation,
     );
     this.props.actions.dispatch(action);
-    this.scrollViewRef.current.scrollTo({x: 0, y: 0, animated: true});
+    this.scrollViewRef.current.scrollTo({ x: 0, y: 0, animated: true });
   };
 
   getConducteurById = function (codeConducteur) {
@@ -341,7 +341,10 @@ class VuEmbarquerEntete extends React.Component {
                   <Text style={styles.libelleM}>
                     {translate('vuEmbarquee.modeAcquisition')} :
                   </Text>
-                  <Text style={styles.valueM}>?????</Text>
+                  <Text style={styles.valueM}>Interactif</Text>
+                  <Text style={styles.libelleM}>
+                  </Text>
+                  <Text style={styles.valueM}></Text>
                 </View>
                 <View style={[styles.flexDirectionRow, styles.marg]}>
                   <Text style={styles.libelleM}>
@@ -546,7 +549,7 @@ class VuEmbarquerEntete extends React.Component {
                   <Text style={styles.libelleM}>
                     {translate('vuEmbarquee.numAutorisation')} :
                   </Text>
-                  <Text style={styles.valueS}>????</Text>
+                  <Text style={styles.valueS}>{enteteTrypVO?.autorisationMa}</Text>
                   <Text style={styles.libelleS}>
                     {translate('vuEmbarquee.du')} :
                   </Text>
@@ -560,14 +563,91 @@ class VuEmbarquerEntete extends React.Component {
                     {enteteTrypVO?.dateFinAutorisationMa}
                   </Text>
                 </View>
+              </View>
+            </Accordion>
+          </CardBox>
+          {/* Sorti du Port */}
+          <CardBox style={styles.cardBox}>
+            <Accordion badr title={translate('sortiPort.sortiPort')}>
+              <View style={styles.flexColumn}>
+                <View style={[styles.flexDirectionRow, styles.marg]}>
+                  <Text style={styles.libelleS}>
+                    {translate('vuEmbarquee.dateSorti')} :
+                  </Text>
+                  <View style={styles.libelleM}>
+
+                    <ComBadrDatePickerComp
+                      dateFormat="DD/MM/yyyy"
+                      heureFormat="HH:mm"
+                      value={
+                        this.props.dataVo?.declarationTriptique?.sortiePort?.dateSortie.split(' ')[0]
+                          ? moment(this.props.dataVo?.declarationTriptique?.sortiePort?.dateSortie.split(' ')[0], 'DD/MM/yyyy', true)
+                          : ''
+                      }
+                      timeValue={
+                        this.props.dataVo?.declarationTriptique?.sortiePort?.dateSortie.split(' ')[1]
+                          ? moment(this.props.dataVo?.declarationTriptique?.sortiePort?.dateSortie.split(' ')[1], 'HH:mm', true)
+                          : ''
+                      }
+                      onDateChanged={(date) => {
+                        console.log(' changed date : ' + date);
+                        const dateToSet = date ? date : '';
+                        this.setState({
+                          dateDebutSorti: dateToSet,
+                        });
+                      }}
+                      onTimeChanged={(time) =>
+                        this.setState({
+                          heureDebutSorti: time,
+                        })
+                      }
+                      readonly={true}
+                      disabled={true}
+                    />
+                  </View>
+                  <Text style={styles.libelleS} />
+                </View>
+
+                <View style={[styles.flexDirectionRow, styles.marg]}>
+                  <Text style={styles.libelleS}>
+                    {translate('sortiPort.commentSortiPort')} :{' '}
+                  </Text>
+
+                  <TextInput
+                    style={styles.libelleL}
+                    maxLength={250}
+                    multiline
+                    disabled={true}
+                    numberOfLines={3}
+                    value={this.props.dataVo?.declarationTriptique?.sortiePort?.commentaire}
+                  />
+                </View>
                 <View style={[styles.flexDirectionRow, styles.marg]}>
                   <Text style={[styles.marg, styles.libelle]}>
-                    {translate('vuEmbarquee.vide')} :
+                    {translate('sortiPort.vide')} :
                   </Text>
                   <Checkbox
                     color="#009ab2"
                     status={enteteTrypVO?.avide ? 'checked' : 'unchecked'}
                   />
+                </View>
+                <View style={[styles.flexDirectionRow, styles.marg]}>
+                  <Text style={[styles.marg, styles.libelle]}>
+                    {translate('vuEmbarquee.sansManifest')} :
+                  </Text>
+                  <Checkbox
+                    color="#009ab2"
+                    status={enteteTrypVO?.sansManifest ? 'checked' : 'unchecked'}
+                  />
+                </View>
+                
+                <View style={[styles.flexDirectionRow, styles.marg]}>
+                  <Text style={styles.libelleS}>
+                    {translate('sortiPort.autresDocument')} :
+                  </Text>
+                  <Text style={styles.valueL}>
+                    {enteteTrypVO?.autreDocument}
+                  </Text>
                 </View>
               </View>
             </Accordion>
@@ -597,16 +677,9 @@ class VuEmbarquerEntete extends React.Component {
                       this.state.vuEmbarqueExisteDeja || this.props.success
                     }
                     numberOfLines={3}
-                    placeholder={translate('vuEmbarquee.commentVuEmb')}
                     value={this.state.commentaire}
-                    onChangeText={(text) => this.setState({commentaire: text})}
+                    onChangeText={(text) => this.setState({ commentaire: text })}
                   />
-                  {/* <ComBadrTextInputComp
-                  keyboardType="text"
-                  placeholder={translate('vuEmbarquee.commentVuEmb')}
-                  onChangeText={(text) => this.setState({commentaire: text})}
-                  value={this.state.commentaire}
-                /> */}
                 </View>
               </View>
             </Accordion>
@@ -667,7 +740,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
   },
-  libelle: {...libelle},
+  libelle: { ...libelle },
   libelleS: {
     ...libelle,
     flex: 1,
@@ -703,7 +776,7 @@ const styles = StyleSheet.create({
   textRadio: {
     color: '#FFF',
   },
-  flexColumn: {flexDirection: 'column'},
+  flexColumn: { flexDirection: 'column' },
   margLeft: {
     marginLeft: 20,
   },
@@ -724,11 +797,11 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps(state) {
-  return {...state.vuEmbReducer};
+  return { ...state.vuEmbReducer };
 }
 
 function mapDispatchToProps(dispatch) {
-  let actions = {dispatch};
+  let actions = { dispatch };
   return {
     actions,
   };

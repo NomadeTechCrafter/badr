@@ -1,7 +1,7 @@
 import React from 'react';
-import {View, ScrollView, StyleSheet, Text} from 'react-native';
-import {connect} from 'react-redux';
-import {translate} from '../../../../../commons/i18n/ComI18nHelper';
+import { View, ScrollView, StyleSheet, Text } from 'react-native';
+import { connect } from 'react-redux';
+import { translate } from '../../../../../commons/i18n/ComI18nHelper';
 import * as Constants from '../../state/decSortiPortConstants';
 import * as SortiPortConfirmerAction from '../../state/actions/decSortiPortUcAction';
 
@@ -13,8 +13,8 @@ import {
   ComBadrDatePickerComp,
   ComBadrActionButtonComp,
 } from '../../../../../commons/component';
-import {Checkbox} from 'react-native-paper';
-import {TextInput} from 'react-native-paper';
+import { Checkbox } from 'react-native-paper';
+import { TextInput } from 'react-native-paper';
 
 import moment from 'moment';
 import { ComSessionService } from '../../../../../commons/services/session/ComSessionService';
@@ -125,6 +125,21 @@ class SortiPortEntete extends React.Component {
     return nomVehicule;
   };
 
+  getNomVehiculeSecondaires = function (idVehicule) {
+    let nomVehicule = '';
+    let vehiculeObjet = this.props.dataVo?.vctVehiculeSecondaires.find((vehicule) => {
+      return vehicule.code === idVehicule;
+    });
+
+    if (vehiculeObjet && vehiculeObjet.libelle) {
+      return vehiculeObjet.libelle;
+    }
+
+    return nomVehicule;
+  };
+
+
+
   handleConfirmSortiPort = () => {
     if (
       !this.state.dateDebutSortiPort ||
@@ -137,7 +152,7 @@ class SortiPortEntete extends React.Component {
       this.setState({
         errorMessage: translate('sortiPort.dateSortiPortObligatoire'),
       });
-      this.scrollViewRef.current.scrollTo({x: 0, y: 0, animated: true});
+      this.scrollViewRef.current.scrollTo({ x: 0, y: 0, animated: true });
       return;
     }
 
@@ -163,7 +178,7 @@ class SortiPortEntete extends React.Component {
       this.props.navigation,
     );
     this.props.actions.dispatch(action);
-    this.scrollViewRef.current.scrollTo({x: 0, y: 0, animated: true});
+    this.scrollViewRef.current.scrollTo({ x: 0, y: 0, animated: true });
   };
 
   handleAnnulerSortiPort = () => {
@@ -184,7 +199,7 @@ class SortiPortEntete extends React.Component {
       this.props.navigation,
     );
     this.props.actions.dispatch(action);
-    this.scrollViewRef.current.scrollTo({x: 0, y: 0, animated: true});
+    this.scrollViewRef.current.scrollTo({ x: 0, y: 0, animated: true });
   };
 
   getConducteurById = function (codeConducteur) {
@@ -526,7 +541,7 @@ class SortiPortEntete extends React.Component {
                     {translate('sortiPort.vehicule2')} :
                   </Text>
                   <Text style={styles.valueM}>
-                    {this.getNomVehicule(enteteTrypVO?.idVehiculeSecondaire)}</Text>
+                    {this.getNomVehiculeSecondaires(enteteTrypVO?.idVehiculeSecondaire)}</Text>
                 </View>
               </View>
             </Accordion>
@@ -554,7 +569,7 @@ class SortiPortEntete extends React.Component {
                   <Text style={styles.libelleM}>
                     {translate('sortiPort.numAutorisation')} :
                   </Text>
-                  <Text style={styles.valueS}>{ ''}</Text>
+                  <Text style={styles.valueS}>{enteteTrypVO?.autorisationMa}</Text>
                   <Text style={styles.libelleS}>
                     {translate('sortiPort.du')} :
                   </Text>
@@ -598,7 +613,7 @@ class SortiPortEntete extends React.Component {
                     numberOfLines={3}
                     placeholder={translate('sortiPort.commentSortiPort')}
                     value={this.state.commentaire}
-                    onChangeText={(text) => this.setState({commentaire: text})}
+                    onChangeText={(text) => this.setState({ commentaire: text })}
                   />
                   {/* <ComBadrTextInputComp
                   keyboardType="text"
@@ -615,6 +630,14 @@ class SortiPortEntete extends React.Component {
                     color="#009ab2"
                     status={enteteTrypVO?.avide ? 'checked' : 'unchecked'}
                   />
+                </View>
+                <View style={[styles.flexDirectionRow, styles.marg]}>
+                  <Text style={styles.libelleS}>
+                    {translate('sortiPort.autresDocument')} :
+                  </Text>
+                  <Text style={styles.valueL}>
+                    {enteteTrypVO?.autreDocument}
+                  </Text>
                 </View>
               </View>
             </Accordion>
@@ -703,7 +726,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
   },
-  libelle: {...libelle},
+  libelle: { ...libelle },
   libelleS: {
     ...libelle,
     flex: 1,
@@ -739,7 +762,7 @@ const styles = StyleSheet.create({
   textRadio: {
     color: '#FFF',
   },
-  flexColumn: {flexDirection: 'column'},
+  flexColumn: { flexDirection: 'column' },
   margLeft: {
     marginLeft: 20,
   },
@@ -760,11 +783,11 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps(state) {
-  return {...state.sortiPortReducer};
+  return { ...state.sortiPortReducer };
 }
 
 function mapDispatchToProps(dispatch) {
-  let actions = {dispatch};
+  let actions = { dispatch };
   return {
     actions,
   };

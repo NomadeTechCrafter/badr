@@ -5,6 +5,8 @@ export default {
     dateEnregistrement: 'Date enregistrement',
     version: 'Version',
     modeAcquisition: "Mode d'acquisition",
+    dateSorti: 'Date sortie',
+    sansManifest: 'sans manifeste',
     actionAnnuler: 'Annuler',
     dateVuEmbObligatoire: 'Date et commentaire sont obligatoire',
     matriculeVehicule: 'Matricule Vehicule',

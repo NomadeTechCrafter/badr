@@ -86,10 +86,13 @@ const localStore = {
   getListFlux: require('../../../../modules/tarifIntegre/tiConsultationTI/service/local-data/getFlux.json'),
   consulterTI: require('../../../../modules/tarifIntegre/tiConsultationTI/service/local-data/consulterTI.json'),
   'ded.getDecSortiPortParMatVehicule': require('../../../../modules/DeclarationD17D20/sortiPort/service/local-data/ded.getDecSortiPortParMatVehicule.json'),
-  'ded.vuEmbRechercheDeclarationTrypByRef': require('../../../../modules/DeclarationD17D20/sortiPort/service/local-data/ded.vuEmbRechercheDeclarationTrypByRef.json'),
+  'ded.sortiPortRechercheDeclarationTrypByRef': require('../../../../modules/DeclarationD17D20/sortiPort/service/local-data/ded.sortiPortRechercheDeclarationTrypByRef.json'),
   'ece.initAutoriserAcheminement': require('../../../../modules/ecorExport/autoriserAcheminement/recherche/service/local-data/initAutoriserAcheminementData.json'),
   getCmbOperateurByCode: require('../../../../modules/ecorExport/autoriserAcheminement/mainScreen/service/local-data/getCmbOperateurByCodeData.json'),
   getScellesApposees: require('../../../../modules/ecorExport/autoriserAcheminement/mainScreen/service/local-data/getScellesApposeesData.json'),
   'ded.isRegimeTransbordement': require('../../../../modules/ecorExport/autoriserAcheminement/mainScreen/service/local-data/isRegimeTransbordementData.json'),
+  'ded.vuEmbRechercheDeclarationTrypByRef': require('../../../../modules/DeclarationD17D20/vuEmbarquer/service/local-data/ded.vuEmbRechercheDeclarationTrypByRef.json'),
+  'ded.getDecTryptiqueParMatVehicule': require('../../../../modules/DeclarationD17D20/sortiPort/service/local-data/ded.getDecSortiPortParMatVehicule.json'),
+ 
 };
 export default localStore;
