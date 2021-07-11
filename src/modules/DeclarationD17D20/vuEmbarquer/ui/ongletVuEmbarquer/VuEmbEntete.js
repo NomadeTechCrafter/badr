@@ -631,16 +631,18 @@ class VuEmbarquerEntete extends React.Component {
                     status={enteteTrypVO?.avide ? 'checked' : 'unchecked'}
                   />
                 </View>
-                <View style={[styles.flexDirectionRow, styles.marg]}>
-                  <Text style={[styles.marg, styles.libelle]}>
-                    {translate('vuEmbarquee.sansManifest')} :
-                  </Text>
-                  <Checkbox
-                    color="#009ab2"
-                    status={enteteTrypVO?.sansManifest ? 'checked' : 'unchecked'}
-                  />
-                </View>
-                
+                {enteteTrypVO?.refRegime === '009' && (
+                  <View style={[styles.flexDirectionRow, styles.marg]}>
+                    <Text style={[styles.marg, styles.libelle]}>
+                      {translate('vuEmbarquee.sansManifest')} :
+                    </Text>
+                    <Checkbox
+                      color="#009ab2"
+                      status={enteteTrypVO?.sansManifest ? 'checked' : 'unchecked'}
+                    />
+                  </View>)
+                }
+
                 <View style={[styles.flexDirectionRow, styles.marg]}>
                   <Text style={styles.libelleS}>
                     {translate('sortiPort.autresDocument')} :

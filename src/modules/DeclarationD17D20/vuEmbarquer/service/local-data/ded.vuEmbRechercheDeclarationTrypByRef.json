@@ -74,7 +74,30 @@
                 }
             ]
         },
-        "trypRecherchePreapSectionVO": {},
+        "trypRecherchePreapSectionVO": {"dedDumPreapWrappers":
+            [{
+                "referenceDS":"ref mrs 001",
+                "vo":{
+                    "numeroOrdre": "numeroOrdre",
+                    "typeDS": "typeDS",
+                    "lieuChargement": "lieuChargement",
+                    "referenceLot": "referenceLot",
+                    "poidsLot": "poidsLot",
+                    "nombreContenant": "nombreContenant"
+                }
+            }
+            ,{
+                "referenceDS":"ref mrs 002",
+                "vo":{
+                    "numeroOrdre": "numeroOrdre 002",
+                    "typeDS": "typeDS 002",
+                    "lieuChargement": "lieuChargement 002",
+                    "referenceLot": "referenceLot 002",
+                    "poidsLot": "poidsLot 002",
+                    "nombreContenant": "nombreContenant 002"
+                }
+            }]
+        },
         "trypRecherchePreapApuresSectionVO": {},
         "declarationTriptique": {
             "codeInitiateur": "A421948",

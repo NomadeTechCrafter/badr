@@ -1,32 +1,38 @@
 import React from 'react';
 
-import {View, Dimensions} from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
+import { View, Dimensions } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
 
-import {translate} from '../../../../../commons/i18n/ComI18nHelper';
-import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+import { translate } from '../../../../../commons/i18n/ComI18nHelper';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
-import {primaryColor} from '../../../../../commons/styles/ComThemeStyle';
+import { primaryColor } from '../../../../../commons/styles/ComThemeStyle';
 
 import VuEmbEntete from '../ongletVuEmbarquer/VuEmbEntete';
 import VuEmbInfo from '../ongletVuEmbarquer/VuEmbInfo';
+import ResultatScanner from '../ongletVuEmbarquer/ResultatScanner';
 import VuEmbarquerDecEnDetail from '../ongletVuEmbarquer/DecEnDetail';
 import VuEmbarquerEtatChargement from '../ongletVuEmbarquer/EtatChargement';
 
 /**Custom Components */
 import {
+  ComBadrErrorMessageComp,
   ComBadrProgressBarComp,
   ComBadrToolbarComp,
 } from '../../../../../commons/component';
 
 /** REDUX **/
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
+import Connaissements from '../ongletVuEmbarquer/Connaissements';
 
 const Tab = createMaterialTopTabNavigator();
 
 class VuEmbListeDeclaration extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      erreur: null,
+    };
   }
 
   render() {
@@ -40,9 +46,17 @@ class VuEmbListeDeclaration extends React.Component {
         />
         {this.props.showProgress && <ComBadrProgressBarComp />}
         {/* {this.props.showProgress && <ComBadrCircleProgressBarComp size={30} />} */}
+        {/* {this.state.erreur != null && ( */}
+        <View style={styles.messages}>
+          <ComBadrErrorMessageComp
+            style={styles.centerErrorMsg}
+            message={this.state.erreur}
+          />
+        </View>
+        {/* )} */}
         <NavigationContainer independent={true}>
           <Tab.Navigator
-            initialLayout={{height: Dimensions.get('window').height}}
+            initialLayout={{ height: Dimensions.get('window').height }}
             swipeEnabled={false}
             tabBarOptions={{
               labelStyle: {
@@ -60,7 +74,7 @@ class VuEmbListeDeclaration extends React.Component {
                 borderColor: primaryColor,
               },
               scrollEnabled: true,
-              style: {height: 50},
+              style: { height: 50 },
               tabStyle: {
                 borderRightWidth: 1,
                 borderRightColor: primaryColor,
@@ -72,7 +86,13 @@ class VuEmbListeDeclaration extends React.Component {
               component={() => (
                 <VuEmbEntete dataVo={this.props.route.params.data.jsonVO} />
               )}
-              //component={EnteteScreen}
+            //component={EnteteScreen}
+            />
+            <Tab.Screen
+              name={translate('tabs.connaissements')}
+              component={() => (
+                <Connaissements dataVo={this.props.route.params.data.jsonVO} />
+              )}
             />
 
             <Tab.Screen
@@ -83,7 +103,21 @@ class VuEmbListeDeclaration extends React.Component {
                 />
               )}
             />
+            {/* {'009' !== this.props?.route?.params?.data?.jsonVO?.dataVo?.enteteTrypVO?.refRegime && ( */}
             <Tab.Screen
+              listeners={{
+                tabPress: e => {
+                  if ('009' !== this.props?.route?.params?.data?.jsonVO?.enteteTrypVO?.refRegime) {
+                    this.state.erreur = null;
+                  } else {
+                    e.preventDefault();
+                    this.setState({
+                      erreur: 'E13527: Section non accessible!',
+                    });
+                    console.log('E13527: Section non accessible!');
+                  }
+                },
+              }}
               name={translate('tabs.etatChargement')}
               component={() => (
                 <VuEmbarquerEtatChargement
@@ -91,6 +125,7 @@ class VuEmbListeDeclaration extends React.Component {
                 />
               )}
             />
+            {/* )} */}
 
             <Tab.Screen
               name={translate('tabs.info')}
@@ -98,23 +133,35 @@ class VuEmbListeDeclaration extends React.Component {
                 <VuEmbInfo dataVo={this.props.route.params.data.jsonVO} />
               )}
             />
+            <Tab.Screen
+              name={translate('tabs.resultScanner')}
+              component={() => (
+                <ResultatScanner dataVo={this.props.route.params.data.jsonVO} />
+              )}
+            />
           </Tab.Navigator>
         </NavigationContainer>
-      </View>
+      </View >
     );
   }
 }
 
 const styles = {
-  container: {width: '100%', height: '100%'},
+  messages: {},
+  container: { width: '100%', height: '100%' },
+  centerErrorMsg: {
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 };
 
 function mapStateToProps(state) {
-  return {...state.plaquesImmReducer};
+  return { ...state.plaquesImmReducer };
 }
 
 function mapDispatchToProps(dispatch) {
-  let actions = {dispatch};
+  let actions = { dispatch };
   return {
     actions,
   };
