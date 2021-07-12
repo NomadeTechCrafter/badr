@@ -128,15 +128,15 @@ class VuEmbListeDeclaration extends React.Component {
             {/* )} */}
 
             <Tab.Screen
-              name={translate('tabs.info')}
-              component={() => (
-                <VuEmbInfo dataVo={this.props.route.params.data.jsonVO} />
-              )}
-            />
-            <Tab.Screen
               name={translate('tabs.resultScanner')}
               component={() => (
                 <ResultatScanner dataVo={this.props.route.params.data.jsonVO} />
+              )}
+            />
+            <Tab.Screen
+              name={translate('tabs.info')}
+              component={() => (
+                <VuEmbInfo dataVo={this.props.route.params.data.jsonVO} />
               )}
             />
           </Tab.Navigator>

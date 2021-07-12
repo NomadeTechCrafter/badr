@@ -374,7 +374,7 @@ class SortiPortEntete extends React.Component {
                     {translate('sortiPort.nomInitiateur')} :
                   </Text>
                   <Text style={styles.valueS}>
-                    {enteteTrypVO?.nomInitiateur}
+                    {enteteTrypVO?.nomDeclarant}
                   </Text>
                 </View>
                 <View style={[styles.flexDirectionRow, styles.marg]}>
@@ -382,7 +382,7 @@ class SortiPortEntete extends React.Component {
                     {translate('sortiPort.dateCreation')} :
                   </Text>
                   <Text style={styles.valueM}>
-                    {enteteTrypVO?.dateCreation_VC}
+                    {enteteTrypVO?.dateCreaTryp}
                   </Text>
                 </View>
 
@@ -391,14 +391,14 @@ class SortiPortEntete extends React.Component {
                     {translate('sortiPort.dateSauvegarde')}{' '}
                     {translate('sortiPort.versionCourante')}:
                   </Text>
-                  <Text style={styles.valueM}>{enteteTrypVO?.dateDepot_VC}</Text>
+                  <Text style={styles.valueM}>{enteteTrypVO?.dateCreation_VC}</Text>
                 </View>
                 <View style={[styles.flexDirectionRow, styles.marg]}>
                   <Text style={styles.libelleM}>
                     {translate('sortiPort.dateSauvegarde')}{' '}
                     {translate('sortiPort.versionInitiale')}:
                   </Text>
-                  <Text style={styles.valueM}>{enteteTrypVO?.dateDepot_VI}</Text>
+                  <Text style={styles.valueM}>{enteteTrypVO?.dateCreation_VI}</Text>
                 </View>
               </View>
             </Accordion>

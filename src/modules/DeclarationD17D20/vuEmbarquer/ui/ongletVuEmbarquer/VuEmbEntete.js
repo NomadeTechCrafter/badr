@@ -357,7 +357,7 @@ class VuEmbarquerEntete extends React.Component {
                     {translate('vuEmbarquee.nomInitiateur')} :
                   </Text>
                   <Text style={styles.valueS}>
-                    {enteteTrypVO?.nomInitiateur}
+                    {enteteTrypVO?.nomDeclarant}
                   </Text>
                 </View>
                 <View style={[styles.flexDirectionRow, styles.marg]}>
@@ -365,7 +365,7 @@ class VuEmbarquerEntete extends React.Component {
                     {translate('vuEmbarquee.dateCreation')} :
                   </Text>
                   <Text style={styles.valueM}>
-                    {enteteTrypVO?.dateCreation_VC}
+                    {enteteTrypVO?.dateCreaTryp}
                   </Text>
                 </View>
 
@@ -374,14 +374,14 @@ class VuEmbarquerEntete extends React.Component {
                     {translate('vuEmbarquee.dateSauvegarde')}{' '}
                     {translate('vuEmbarquee.versionCourante')}:
                   </Text>
-                  <Text style={styles.valueM}>{enteteTrypVO?.dateDepot_VC}</Text>
+                  <Text style={styles.valueM}>{enteteTrypVO?.dateCreation_VC}</Text>
                 </View>
                 <View style={[styles.flexDirectionRow, styles.marg]}>
                   <Text style={styles.libelleM}>
                     {translate('vuEmbarquee.dateSauvegarde')}{' '}
                     {translate('vuEmbarquee.versionInitiale')}:
                   </Text>
-                  <Text style={styles.valueM}>{enteteTrypVO?.dateDepot_VI}</Text>
+                  <Text style={styles.valueM}>{enteteTrypVO?.dateCreation_VI}</Text>
                 </View>
               </View>
             </Accordion>
