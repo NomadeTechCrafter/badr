@@ -17,6 +17,7 @@ import { Checkbox } from 'react-native-paper';
 import { TextInput } from 'react-native-paper';
 
 import moment from 'moment';
+import { ComSessionService } from '../../../../../commons/services/session/ComSessionService';
 
 const initialState = {
   reference: '',
@@ -59,6 +60,8 @@ class VuEmbarquerEntete extends React.Component {
       // this.setState({commentaire: vuEmbarque.commentaire});
       // this.setState({dateVuEmb: vuEmbarque.dateVuEmbarque});
       console.log('  test date : ' + vuEmbarque.dateVuEmbarque);
+      console.log('  test date : ' + vuEmbarque.dateVuEmbarque?.split(' ')[0]);
+      console.log('  test date : ' + vuEmbarque.dateVuEmbarque?.split(' ')[1]);
       this.state = {
         ...initialState,
         commentaire: vuEmbarque.commentaire,
@@ -81,7 +84,7 @@ class VuEmbarquerEntete extends React.Component {
 
   componentDidMount() {
     // eslint-disable-next-line react/no-did-mount-set-state
-    this.setState(initialState);
+    // this.setState(initialState);
   }
 
   cleDUM = function (regime, serie) {
@@ -143,11 +146,16 @@ class VuEmbarquerEntete extends React.Component {
     const jsonVO = {};
     jsonVO.indentifiant = this.props.dataVo?.declarationTriptique?.indentifiant;
     jsonVO.vuEmbarque = {
-      dateVuEmbarque: this.state.dateVuEmb, //'18/01/2021 11:08',
+      dateVuEmbarque: this.state.dateDebutVuEmb + ' ' + this.state.heureDebutVuEmb, //'18/01/2021 11:08',
       commentaire: this.state.commentaire, //'My Comment ',
-      agent: this.state.login, //'AD6025',
+      agent: ComSessionService.getInstance().getLogin(), //'AD6025',
     };
 
+    console.log("-----------------");
+    console.log(JSON.stringify(jsonVO));
+    console.log("-----------------");
+    console.log(JSON.stringify(this.state.dateVuEmb));
+    console.log("-----------------");
     var action = VuEmbConfirmerAction.request(
       {
         type: Constants.VU_EMB_CONFIRMER_REQUEST,
@@ -204,18 +212,20 @@ class VuEmbarquerEntete extends React.Component {
     const referenceEnregistrement = this.props.dataVo?.declarationTriptique?.referenceEnregistrement;
 
     const renderDateVuEmb = () => {
+      console.log('  test date 1 : ' + this.state?.dateDebutVuEmb);
+      console.log('  test date 2 : ' + this.state?.heureDebutVuEmb);
       return (
         <ComBadrDatePickerComp
-          dateFormat="DD/MM/yyyy"
+          dateFormat="DD/MM/YYYY"
           heureFormat="HH:mm"
           value={
-            this.state.dateDebutVuEmb
-              ? moment(this.state.dateDebutVuEmb, 'DD/MM/yyyy', true)
+            this.state?.dateDebutVuEmb
+              ? moment(this.state?.dateDebutVuEmb, 'DD/MM/yyyy', true)
               : ''
           }
           timeValue={
-            this.state.heureDebutVuEmb
-              ? moment(this.state.heureDebutVuEmb, 'HH:mm', true)
+            this.state?.heureDebutVuEmb
+              ? moment(this.state?.heureDebutVuEmb, 'HH:mm', true)
               : ''
           }
           onDateChanged={(date) => {
@@ -577,16 +587,16 @@ class VuEmbarquerEntete extends React.Component {
                   <View style={styles.libelleM}>
 
                     <ComBadrDatePickerComp
-                      dateFormat="DD/MM/yyyy"
+                      dateFormat="DD/MM/YYYY"
                       heureFormat="HH:mm"
                       value={
-                        this.props.dataVo?.declarationTriptique?.sortiePort?.dateSortie.split(' ')[0]
-                          ? moment(this.props.dataVo?.declarationTriptique?.sortiePort?.dateSortie.split(' ')[0], 'DD/MM/yyyy', true)
+                        this.props.dataVo?.declarationTriptique?.sortiePort?.dateSortie?.split(' ')[0]
+                          ? moment(this.props.dataVo?.declarationTriptique?.sortiePort?.dateSortie?.split(' ')[0], 'DD/MM/yyyy', true)
                           : ''
                       }
                       timeValue={
-                        this.props.dataVo?.declarationTriptique?.sortiePort?.dateSortie.split(' ')[1]
-                          ? moment(this.props.dataVo?.declarationTriptique?.sortiePort?.dateSortie.split(' ')[1], 'HH:mm', true)
+                        this.props.dataVo?.declarationTriptique?.sortiePort?.dateSortie?.split(' ')[1]
+                          ? moment(this.props.dataVo?.declarationTriptique?.sortiePort?.dateSortie?.split(' ')[1], 'HH:mm', true)
                           : ''
                       }
                       onDateChanged={(date) => {

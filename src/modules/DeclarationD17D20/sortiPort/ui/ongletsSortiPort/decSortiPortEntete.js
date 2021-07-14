@@ -37,7 +37,7 @@ class SortiPortEntete extends React.Component {
     //define actions switch between Confirmer and Annuler
     const screenActions = [];
 
-    if (this.props.dataVo?.declarationTriptique?.sortiPortExisteDeja) {
+    if (this.props.dataVo?.declarationTriptique?.sortieExisteDeja) {
       screenActions.push({
         title: translate('sortiPort.actionAnnuler'),
         icon: 'remove',
@@ -54,20 +54,20 @@ class SortiPortEntete extends React.Component {
     if (
       this.props.dataVo &&
       this.props.dataVo?.declarationTriptique &&
-      this.props.dataVo?.declarationTriptique?.sortiPort
+      this.props.dataVo?.declarationTriptique?.sortiePort
     ) {
-      const sortiPort = this.props.dataVo?.declarationTriptique?.sortiPort;
+      const sortiPort = this.props.dataVo?.declarationTriptique?.sortiePort;
       // this.setState({commentaire: sortiPort.commentaire});
       // this.setState({dateSortiPort: sortiPort.dateSortiPort});
       console.log('  test date : ' + sortiPort.dateSortiPort);
       this.state = {
         ...initialState,
-        commentaire: sortiPort.commentaire,
-        dateSortiPort: sortiPort.dateSortiPort,
-        sortiPortExisteDeja: this.props.dataVo?.declarationTriptique?.sortiPortExisteDeja,
+        commentaire: sortiPort?.commentaire,
+        dateSortiPort: sortiPort?.dateSortie,
+        sortiPortExisteDeja: this.props.dataVo?.declarationTriptique?.sortieExisteDeja,
         screenActions,
-        dateDebutSortiPort: sortiPort.dateSortiPort.split(' ')[0],
-        heureDebutSortiPort: sortiPort.dateSortiPort.split(' ')[1],
+        dateDebutSortiPort: sortiPort?.dateSortie?.split(' ')[0],
+        heureDebutSortiPort: sortiPort?.dateSortie?.split(' ')[1],
       };
     } else {
       this.state = {
@@ -82,7 +82,7 @@ class SortiPortEntete extends React.Component {
 
   componentDidMount() {
     // eslint-disable-next-line react/no-did-mount-set-state
-    this.setState(initialState);
+    // this.setState(initialState);
   }
 
   cleDUM = function (regime, serie) {
@@ -159,10 +159,16 @@ class SortiPortEntete extends React.Component {
     const jsonVO = {};
     jsonVO.indentifiant = this.props.dataVo?.declarationTriptique?.indentifiant;
     jsonVO.sortiePort = {
-      dateSortie: this.state.dateSortiPort, //'18/01/2021 11:08',
+      dateSortie: this.state.dateDebutSortiPort + ' ' + this.state.heureDebutSortiPort, //'18/01/2021 11:08',
       commentaire: this.state.commentaire, //'My Comment ',
       agent: ComSessionService.getInstance().getLogin(), //'AD6025',
     };
+
+    +    console.log("-----------------");
+    +    console.log(JSON.stringify(jsonVO));
+    +    console.log("-----------------");
+    +    console.log("-----------------");
+
 
     var action = SortiPortConfirmerAction.request(
       {
@@ -223,15 +229,15 @@ class SortiPortEntete extends React.Component {
     const renderDateSortiPort = () => {
       return (
         <ComBadrDatePickerComp
-          dateFormat="DD/MM/yyyy"
+          dateFormat="DD/MM/YYYY"
           heureFormat="HH:mm"
           value={
-            this.state.dateDebutSortiPort
+            this.state?.dateDebutSortiPort
               ? moment(this.state.dateDebutSortiPort, 'DD/MM/yyyy', true)
               : ''
           }
           timeValue={
-            this.state.heureDebutSortiPort
+            this.state?.heureDebutSortiPort
               ? moment(this.state.heureDebutSortiPort, 'HH:mm', true)
               : ''
           }
