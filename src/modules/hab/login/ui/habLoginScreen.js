@@ -25,8 +25,8 @@ import ComUtils from '../../../../commons/utils/ComUtils';
 
 class Login extends React.Component {
   state = {
-    login: 'YELM',
-    password: 'testtest',
+    login: '',
+    password: '',
     startAutoLogin: false,
     autoLoginParam: {},
   };

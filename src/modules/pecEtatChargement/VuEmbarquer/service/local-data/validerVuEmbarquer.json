@@ -1,0 +1,179 @@
+{
+    "dtoHeader": {
+        "userLogin": "AD6203",
+        "fonctionnalite": "cf6153",
+        "module": "ECOREXP_LIB",
+        "commande": "confirmerVuEmbarquer",
+        "typeService": "UC",
+        "messagesInfo": [
+            "Le vu embarquer est passé avec succès !"
+        ],
+        "offset": 0,
+        "pageSize": 0,
+        "rowCount": 0
+    },
+    "jsonVO": {
+        "documentEntreeEnceinte": "",
+        "numeroPince": "",
+        "nombreScelle": "",
+        "nombreScelleConfirmationEntree": "",
+        "numeroVoyage": "",
+        "dateHeureAutorisation": "",
+        "dateHeureEntree": "04/07/2020 10:29",
+        "dateHeureAcheminement": "",
+        "dateHeureVoyage": "",
+        "dateHeureEmbarquement": "05/07/2020 15:26",
+        "dateHeureArrive": "",
+        "dateHeureCtrlApresScanner": "",
+        "commentaireEmbarquement": "",
+        "refAgentEmbarquement": {
+            "idActeur": "AD6203",
+            "nom": "AD6203",
+            "prenom": "AD6203",
+            "refBureau": {
+                "codeBureau": "309",
+                "nomBureauDouane": "Casa port (309)",
+                "defaultConverter": {}
+            },
+            "defaultConverter": {}
+        },
+        "refAgentEntree": {
+            "idActeur": "AD6204",
+            "nom": "NOM",
+            "prenom": "PRENOM",
+            "refBureau": {
+                "codeBureau": "309",
+                "nomBureauDouane": "Casa port (309)",
+                "defaultConverter": {}
+            },
+            "defaultConverter": {}
+        },
+        "refAgentAutorisationAcheminement": {
+            "idActeur": "",
+            "nom": "",
+            "prenom": "",
+            "refBureau": {
+                "codeBureau": "",
+                "nomBureauDouane": "",
+                "defaultConverter": {}
+            },
+            "defaultConverter": {}
+        },
+        "refAgentAnnulationEmbarquement": {
+            "idActeur": "",
+            "nom": "",
+            "prenom": "",
+            "refBureau": {
+                "codeBureau": "",
+                "nomBureauDouane": "",
+                "defaultConverter": {}
+            },
+            "defaultConverter": {}
+        },
+        "refAgentAutorisation": {
+            "idActeur": "",
+            "nom": "",
+            "prenom": "",
+            "refBureau": {
+                "codeBureau": "",
+                "nomBureauDouane": "",
+                "defaultConverter": {}
+            },
+            "defaultConverter": {}
+        },
+        "refAgentConfirmationArrive": {
+            "idActeur": "",
+            "nom": "",
+            "prenom": "",
+            "refBureau": {
+                "codeBureau": "",
+                "nomBureauDouane": "",
+                "defaultConverter": {}
+            },
+            "defaultConverter": {}
+        },
+        "refMoyenTransport": {
+            "descriptionMoyenTransport": "",
+            "codeMoyenTransport": "",
+            "refModeTransport": {
+                "descriptionModeTransport": "",
+                "codeModeTransport": "",
+                "defaultConverter": {}
+            },
+            "commentaire": "",
+            "defaultConverter": {}
+        },
+        "refDUM": {
+            "bureau": "",
+            "regime": "",
+            "annee": "",
+            "serie": "",
+            "cle": "",
+            "referenceEnregistrement": "",
+            "dateEffectiveEnregistrement": "14/04/2020 15:24",
+            "numeroOrdreVoyage": "",
+            "defaultConverter": {}
+        },
+        "refDedServices": {
+            "operateurDeclarant": "BABYTEX TEST",
+            "poidsBruts": "1.0",
+            "poidsNet": "1.0",
+            "valeurDeclaree": "1.0",
+            "nombreContenant": "",
+            "typeDeD": "DUM",
+            "dateEnregistrement": "02/06/2020 15:26",
+            "nombreContenants": "0",
+            "libelleTypeDED": "DUM",
+            "defaultConverter": {}
+        },
+        "refMainlevee": {
+            "dateValidation": "01/06/2020 09:28",
+            "dateImpression": "01/06/2020 09:29",
+            "refAgentValidation": {
+                "idActeur": "AD6209",
+                "nom": "AD6209",
+                "prenom": "AD6209",
+                "refBureau": {
+                    "codeBureau": "411",
+                    "nomBureauDouane": "Tanger-Méditerranée(411)",
+                    "defaultConverter": {}
+                },
+                "defaultConverter": {}
+            },
+            "refAgentEdition": {
+                "idActeur": "AD6209",
+                "nom": "AD6209",
+                "prenom": "AD6209",
+                "refBureau": {
+                    "codeBureau": "411",
+                    "nomBureauDouane": "Tanger-Méditerranée(411)",
+                    "defaultConverter": {}
+                },
+                "defaultConverter": {}
+            },
+            "conteneursCibles": [],
+            "listScelle": {},
+            "defaultConverter": {}
+        },
+        "dateEnregistrement": "",
+        "depuisDelivrerBonEntree": false,
+        "refAgentCrtlApresScanner": {
+            "idActeur": "",
+            "nom": "",
+            "prenom": "",
+            "refBureau": {
+                "codeBureau": "",
+                "nomBureauDouane": "",
+                "defaultConverter": {}
+            },
+            "defaultConverter": {}
+        },
+        "numeroPinceCrtlApresScanner": "",
+        "nombreScelleCrtlApresScanner": "",
+        "scelles": {},
+        "scellesConfirmationEntree": {},
+        "scellesAutorisationAcheminement": {},
+        "scellesCrtlApresScanner": {},
+        "defaultConverter": {}
+    }
+}

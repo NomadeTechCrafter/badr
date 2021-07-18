@@ -48,9 +48,14 @@ import t6bisGestionReducer from '../../modules/t6bis/gestion/state/reducers/t6bi
 import t6bisRechercheReducer from '../../modules/t6bis/recherche/state/reducers/t6bisRechercheReducer';
 
 import crudDatatableReducer from '../state/reducers/ComCrudDataTableReducer';
-import creationReducer from '../../modules/actifs/rapport/creation/state/reducers/actifsRapportCreationReducer';
 
-import recherchereducer from '../../modules/actifs/rapport/recherche/state/reducers/actifsRapportRechercheReducer';
+import enteteReducer from '../../old/redux/reducers/actifs/rapport/creation/entete';
+import saisieReducer from '../../old/redux/reducers/actifs/rapport/creation/saisie';
+import creationReducer from '../../old/redux/reducers/actifs/rapport/creation/creation';
+
+import detailsreducer from '../../old/redux/reducers/actifs/rapport/creation/details';
+import recherchereducer from '../../old/redux/reducers/actifs/rapport/recherche/recherche';
+import consultationreducer from '../../old/redux/reducers/actifs/rapport/consultation/consultation';
 
 import EcorImportReducer from '../../modules/ecorImport/enleverMarchandise/state/reducers/EcorImportReducer';
 import ecorImportRechercheRefDumReducer from '../../modules/ecorImport/rechercheEcorImport/state/reducers/ecorImportRechercheRefDumReducer';
@@ -61,16 +66,15 @@ import consultationBLSReducer from '../../modules/ecorImport/eciConsultationBLS/
 import eciAppositionScellesRechercheReducer from '../../modules/ecorImport/appositionScelles/recherche/state/reducers/eciAppositionScellesRechercheReducer';
 import eciAppositionScellesReducer from '../../modules/ecorImport/appositionScelles/apposition/state/reducers/eciAppositionScellesReducer';
 import pecEtatChargementReducer from '../../modules/pecEtatChargement/rechParRef/state/reducers/pecEtatChargementReducer';
+import pecEtatChargementVEReducer from '../../modules/pecEtatChargement/VuEmbarquer/state/reducers/pecVuEmbarquerReducer';
 import consultationIgTIReducer from '../../modules/tarifIntegre/tiConsultationIgTI/state/reducers/tiConsultationIgTIReducer';
 import consultationTIReducer from '../../modules/tarifIntegre/tiConsultationTI/state/reducers/tiConsultationTIReducer';
 import dedConfirmationReceptionReducer from '../../modules/dedouanement/confirmationReception/state/reducers/dedConfirmationReceptionReducer';
 
 import ecorExpConfirmationEntreeReducer from '../../modules/ecorExport/confirmationEntree/state/reducers/ecorExpConfirmationEntreeReducer';
 import ecorExpConfirmationArriveeReducer from '../../modules/ecorExport/confirmationArrivee/state/reducers/ecorExpConfirmationArriveeReducer';
-
 import rechercheAutoriserAcheminementReducer from '../../modules/ecorExport/autoriserAcheminement/recherche/state/reducers/rechercheAutoriserAcheminementReducer';
 import autoriserAcheminementMainReducer from '../../modules/ecorExport/autoriserAcheminement/mainScreen/state/reducers/autoriserAcheminementMainReducer';
-
 /**
  * combine all reducers
  */
@@ -106,7 +110,11 @@ const allReducers = combineReducers({
   controleVehiculesReducer,
   plaquesImmReducer,
   crudDatatableReducer,
+  enteteReducer,
+  detailsreducer,
   recherchereducer,
+  consultationreducer,
+  saisieReducer,
   creationReducer,
   EcorImportReducer,
   liquidationRechercheRefDumReducer,
@@ -130,7 +138,7 @@ const allReducers = combineReducers({
   sortiPortReducer,
   sortiPortRefVH,
   sortiPortInitReducer,
-  rechercheAutoriserAcheminementReducer, autoriserAcheminementMainReducer
+  rechercheAutoriserAcheminementReducer, autoriserAcheminementMainReducer,pecEtatChargementVEReducer
 });
 /**
  * store creation

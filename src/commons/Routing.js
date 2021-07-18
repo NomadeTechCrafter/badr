@@ -6,11 +6,16 @@ const mapping = {
     params: {},
   },
   '90023': { screen: 'SortiPortScreen', params: {} },
-  '90025': { screen: 'VuEmbarqueScreen', params: {} },
+  '61525': {screen: 'RechercheAutoriserAcheminementScreen',params: {}},
+  '30661': {screen: 'ControleApresScanner', params: {}},
+  '90025': {screen: 'VuEmbarqueScreen', params: {qr: true}},
+
   '1101': { screen: 'ConsultationTIScreen', params: { modeConsultation: 'E' } },
   '1102': { screen: 'ConsultationTIScreenI', params: { modeConsultation: 'I' } },
   '1103': { screen: 'ConsultationIgTIScreen', params: { modeConsultation: 'E' } },
-  '1104': { screen: 'ConsultationIgTIScreenI', params: { modeConsultation: 'I' } },
+  '1104': {screen: 'ConsultationIgTIScreenI', params: {modeConsultation: 'I'}},
+  '6064': {screen: 'PecEtatChargementMainScreen', params: {}},
+  '6060': { screen: 'PecEtatChargementVEMainScreen', params: {} },
   /*
   '121711': {
     screen: 'EciConsultationBLS',
@@ -72,14 +77,14 @@ const mapping = {
     //CONFIRMATION ARRIVEE
     screen: 'ConfirmationArriveeRechercheScreen',
     params: {title: 'Ecran  Recherche Confirmation arrivee'},
-  },*/
+  },
     '61525': {
         //AUTORISER ACHEMINEMENT
         screen: 'RechercheAutoriserAcheminementScreen',
         params: {},
     },
 '9932': { screen: 'ActifsRecherche', params: {} },
-
+*/
 };
 
 const ionicMapping = {};

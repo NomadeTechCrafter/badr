@@ -1,0 +1,29 @@
+{
+    "dtoHeader": {
+        "userLogin": "AD6203",
+        "fonctionnalite": "cf6064",
+        "module": "ECOREXP_LIB",
+        "commande": "getListHistoriqueEtdc",
+        "typeService": "SP",
+        "offset": 0,
+        "pageSize": 0,
+        "rowCount": 0
+    },
+    "jsonVO": [
+        {
+            "dateOperation": "2020/11/30 19:19:23",
+            "version": "0",
+            "intervenant": "DELARANT SGHIR YASSINE",
+            "intervention": "Création de l'EC",
+            "resultatOperation": "Enregistree Acceptee"
+        },
+        {
+            "dateOperation": "2020/11/30 21:30:02",
+            "version": "0",
+            "intervenant": "Système Système",
+            "intervention": "Initiation de contrôle automatique de l'EC",
+            "resultatOperation": "Enregistree Acceptee",
+            "commentaire": "Selectivité et cotation automatique : décision = AC, agent coté : AD6209"
+        }
+    ]
+}

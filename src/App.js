@@ -57,7 +57,7 @@ import ConfirmationArriveeMainScreen from './modules/ecorExport/confirmationArri
 //Actif
 import ActifsRapportCreationScreen from './modules/actifs/rapport/creation/ui/actifsRapportCreationScreen';
 import ActifsRapportRechercheScreen from './modules/actifs/rapport/recherche/ui/actifsRapportRechercheScreen';
-
+import PecEtatChargementMainScreen from './modules/pecEtatChargement/VuEmbarquer/ui/pecEtatChargementMainScreen';
 import EtatChargement from './modules/pecEtatChargement/rechParRef/ui/pecEtatChargementMainScreen';
 import VuEmbarqueScreen from './modules/DeclarationD17D20/vuEmbarquer/ui/vuEmbarquer/VuEmbarqueScreen';
 import ConsultationIgTIScreen from './modules/tarifIntegre/tiConsultationIgTI/ui/tiConsultationIgTIScreen';
@@ -86,7 +86,7 @@ export default class App extends React.Component {
                 <Stack.Screen
                   name="test"
                   options={{headerShown: false}}
-                    component={VuEmbarqueScreen}
+                    component={PecEtatChargementMainScreen}
                 />
               )}
               <Stack.Screen

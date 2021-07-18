@@ -2,6 +2,7 @@ import {ComSessionService} from '../../../../../commons/services/session/ComSess
 import HttpHelper from '../../../../../old/services/api/common/http-helper';
 
 export default class RefControleVehiculeApi {
+	
   static findVehiculeVoleByParameter = async (rechercheObject) => {
     const data = {
       dtoHeader: {

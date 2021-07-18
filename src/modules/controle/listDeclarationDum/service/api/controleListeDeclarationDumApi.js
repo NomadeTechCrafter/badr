@@ -98,6 +98,7 @@ export default class ControleListeDeclarationDumApi {
     return await HttpHelper.process(_data);
   };
 
+  
   static getDetailBAD = async (data) => {
     const _data = {
       dtoHeader: {

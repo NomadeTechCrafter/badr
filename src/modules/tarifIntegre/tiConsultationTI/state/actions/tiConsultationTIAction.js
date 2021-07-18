@@ -26,9 +26,9 @@ export function request(action) {
                         (data.dtoHeader.messagesErreur == null ||
                             data.dtoHeader.messagesErreur.length === 0)
                     ) {
-                        dispatch(success(data));
+                        dispatch(success(data.jsonVO));
                     } else {
-                        dispatch(failed(data));
+                        dispatch(failed(data.jsonVO));
                     }
                 } else {
                     dispatch(failed(translate('errors.technicalIssue')));

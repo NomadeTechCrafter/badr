@@ -12,6 +12,7 @@ import DedRedressementEnteteTransbordementBlock from './blocks/DedRedressementEn
 import {connect} from 'react-redux';
 import {getValueByPath} from '../../utils/DedUtils';
 
+
 class DedRedressementEnteteScreen extends React.Component {
   constructor(props) {
     super(props);

@@ -32,7 +32,7 @@ import eciConsultationBLSTranslateFr from '../../modules/ecorImport/eciConsultat
 import eciAppositionScellesRechercheTranslateFr from '../../modules/ecorImport/appositionScelles/recherche/i18n/eciAppositionScellesRechercheTranslateFr';
 import eciAppositionScellesTranslateFr from '../../modules/ecorImport/appositionScelles/apposition/i18n/eciAppositionScellesTranslateFr';
 import pecEtatChargementTranslateFr from '../../modules/pecEtatChargement/rechParRef/i18n/pecEtatChargementTranslateFr';
-
+import pecEtatChargementVETranslateFr from '../../modules/pecEtatChargement/VuEmbarquer/i18n/pecEtatChargementTranslateFr';
 import consultationIgTI from '../../modules/tarifIntegre/tiConsultationIgTI/i18n/tiConsultationIgTITranslateFr';
 import consultationTI from '../../modules/tarifIntegre/tiConsultationTI/i18n/tiConsultationTITranslateFr';
 import dedConfirmationReception from '../../modules/dedouanement/confirmationReception/i18n/dedConfirmationReceptionTranslateFr';
@@ -90,7 +90,8 @@ let combined = {
   ...ecorExpConfirmationEntreeTranslateFr,
   ...ecorExpConfirmationArriveeTranslateFr,
   ...rechercheAutoriserAcheminementTranslateFr,
-  ...autoriserAcheminementGestionTranslateFr
+  ...autoriserAcheminementGestionTranslateFr,
+  ...pecEtatChargementVETranslateFr
 };
 I18n.translations = {
   fr: combined,

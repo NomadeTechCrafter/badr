@@ -1,0 +1,23 @@
+{
+  "dtoHeader": {
+    "userLogin": "YASAG",
+    "fonctionnalite": "cf4011",
+    "module": "REF_LIB",
+    "commande": "getCmbMoyenTransport",
+    "typeService": "SP",
+    "motif": null,
+    "messagesInfo": null,
+    "messagesErreur": null
+  },
+  "jsonVO": [
+    {
+      "code": "14330",
+      "libelle": "NUEVO APENINO(14330)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    }
+  ]
+}

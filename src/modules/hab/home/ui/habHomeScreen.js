@@ -72,6 +72,7 @@ import autoriserAcheminementMainScreen from '../../../ecorExport/autoriserAchemi
 
 
 import PecEtatChargementMainScreen from '../../../pecEtatChargement/rechParRef/ui/pecEtatChargementMainScreen';
+import PecEtatChargementVEMainScreen from '../../../pecEtatChargement/VuEmbarquer/ui/pecEtatChargementMainScreen';
 
 import DedRechercheConfirmationReceptionScreen from '../../../dedouanement/confirmationReception/ui/dedRechercheConfirmationReceptionScreen';
 const Drawer = createDrawerNavigator();
@@ -341,7 +342,12 @@ class habHomeScreen extends React.Component {
           options={{headerShown: false}}
         />
 
-
+        <Drawer.Screen
+          name="PecEtatChargementVEMainScreen"
+          component={PecEtatChargementVEMainScreen}
+          options={{ headerShown: false }}
+        />
+		
         <Drawer.Screen
           name="ConsultationIgTIScreen"
           component={ConsultationIgTIScreen}
@@ -356,6 +362,12 @@ class habHomeScreen extends React.Component {
 
         <Drawer.Screen
           name="ConsultationTIScreen"
+          component={ConsultationTIScreen}
+          options={{ headerShown: false }}
+        />
+
+        <Drawer.Screen
+          name="ConsultationTIScreenI"
           component={ConsultationTIScreen}
           options={{ headerShown: false }}
         />
