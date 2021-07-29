@@ -45,7 +45,18 @@ export default class EceAutoriserAcheminementBlock extends React.Component {
 
 
     }
+
+    // this.props.updateDate(moment(this.state.dateAcheminement).format('HH:mm').toString());
+    // this.props.updateHeure(moment(this.state.heureAcheminement).format('HH:mm').toString());
   }
+
+  // componentDidMount() {
+  //   this.setState({
+  //     dateAcheminement: this.state.dateAcheminement,
+  //     heureAcheminement: this.state.heureAcheminement,
+  //   });
+  // }
+
   onDateAutoriserAcheminementChange = (event, selectedDate) => {
     if (selectedDate) {
       console.log(selectedDate);
@@ -262,7 +273,7 @@ export default class EceAutoriserAcheminementBlock extends React.Component {
   };
 
   static getDerivedStateFromProps(props, state) {
-    console.log('props', props);
+    console.log('props', JSON.stringify(props));
     console.log('state', state);
     if (
       props.referenceEnregistrement!==state.referenceEnregistrement
@@ -324,9 +335,41 @@ export default class EceAutoriserAcheminementBlock extends React.Component {
                       {translate('autoriserAcheminemenMainScreen.autorisationAcheminement.dateHeureAcheminement')}
                     </ComBadrLibelleComp>
                   </Col>
-                  <Col>
+                  <Col size={2}>
                     
                     <ComBadrDatePickerComp
+                      
+                      dateFormat="DD/MM/YYYY"
+                      heureFormat="HH:mm"
+                      value={
+                        this.state?.dateAcheminement
+                          ? moment(this.state?.dateAcheminement, 'DD/MM/yyyy', true)
+                          : ''
+                      }
+                      timeValue={
+                        this.state?.heureAcheminement
+                          ? moment(this.state?.heureAcheminement, 'HH:mm', true)
+                          : ''
+                      }
+                      onDateChanged={(date) => {
+                        console.log(' changed date : ' + date);
+                        const dateToSet = date ? date : '';
+                        this.setState({
+                          dateAcheminement: dateToSet,
+                        });
+                      }}
+                      onTimeChanged={(time) =>
+                        this.setState({
+                          heureAcheminement: time,
+                        })
+                      }
+                      // labelDate={translate('operateursEconomiques.core.dateDebut')}
+                      // labelHeure={translate('operateursEconomiques.core.heureDebut')}
+                      // inputStyle={style.dateInputStyle}
+                      // readonly={this.state.vuEmbarqueExisteDeja || this.state.success}
+                    />
+                    
+                    {/* <ComBadrDatePickerComp
                       dateFormat="DD/MM/YYYY"
                       value={this.state.dateAcheminement ? moment(this.state.dateAcheminement, 'DD/MM/yyyy', true) : ''}
                       inputStyle={style.textInputsStyle}
@@ -339,7 +382,7 @@ export default class EceAutoriserAcheminementBlock extends React.Component {
                         this.props.updateDate(date);
                       }
                       }
-                    />
+                    /> */}
                     {/* <TextInput
                       mode={'outlined'}
                       style={{ height: 20, fontSize: 12 }}
@@ -368,7 +411,7 @@ export default class EceAutoriserAcheminementBlock extends React.Component {
                     )} */}
                   </Col>
 
-
+{/* 
                   <Col>
                     <TextInput
                       mode={'outlined'}
@@ -397,7 +440,7 @@ export default class EceAutoriserAcheminementBlock extends React.Component {
                         onChange={this.onHeureAutoriserAcheminementChange}
                       />
                     )}
-                  </Col>
+                  </Col> */}
                   <Col>
                     <ComBadrLibelleComp withColor={true}>
                       {translate('autoriserAcheminemenMainScreen.autorisationAcheminement.agentDouanier')}

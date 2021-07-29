@@ -10,7 +10,7 @@ module.exports = {
   SEND_STATS: '/action/set',
   SEND_CRASH: '/crashWebService/addCrash',
   CHECK_VERION: '/mobileVersion',
-  USER_SKIP_VERIVICATION_VERSION: ['Z193731', 'C974202'],
+  USER_SKIP_VERIVICATION_VERSION: ['Z193731', 'C974202', 'AD6203'],
   IONIC_PACKAGE_NAME: 'ma.adii.badrmobile',
   DEFAULT_FONCTIONALITE_IONIC: 'cf4011',
   TYPE_SERVICE_UC: 'UC',

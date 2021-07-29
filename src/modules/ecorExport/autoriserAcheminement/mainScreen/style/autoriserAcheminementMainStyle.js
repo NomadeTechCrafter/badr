@@ -22,6 +22,13 @@ const referenceContainer = {
   elevation: 2,
 };
 
+
+const libelle = {
+  fontSize: 14,
+  color: '#006acd',
+  fontWeight: 'bold',
+};
+
 const style = {
   container: { width: '100%', height: '100%' },
   innerContainer: {
@@ -128,6 +135,10 @@ const style = {
   },
   textInputsStyle: {
     padding: 10,
+  },
+  libelleM: {
+    ...libelle,
+    flex: 2,
   },
 };
 

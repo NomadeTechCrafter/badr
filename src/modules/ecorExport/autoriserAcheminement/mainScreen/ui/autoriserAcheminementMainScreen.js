@@ -102,50 +102,58 @@ class AutoriserAcheminementMainScreen extends React.Component {
 
 
     if (_.isEmpty(this.state.dateAcheminement) || _.isEmpty(this.state.heureAcheminement) || !moment(dateHeureAcheminement, formats, true).isValid()) {
-      this.setState({
-        errorMessage:
-          translate('autoriserAcheminemenMainScreen.autorisationAcheminement.dateError')
-      });
-      console.log('NULL');
-    } else {
 
-      this.setState({
-        errorMessage:
-          null
-      });
+      let dateHeureAcheminement = this.props?.route?.params?.ecorDumVO?.dateHeureAcheminement;
+      console.log('dateHeureAcheminement : ' + dateHeureAcheminement);
+      console.log('dateHeureAcheminement valid : ' + moment(dateHeureAcheminement, formats, true).isValid());
+      console.log('dateHeureAcheminement isEmpty : ' + _.isEmpty(dateHeureAcheminement));
 
-      newEcorDumVO.dateHeureAcheminement = dateHeureAcheminement;
-      newEcorDumVO.dateHeureEntree = this.state.ecorDumVO.dateHeureEntree;
-      newEcorDumVO.refDUM = {
-        referenceEnregistrement: this.state.referenceEnregistrement,
-
-        numeroOrdreVoyage: this.state.numeroVoyage
-
-      };
-      if (this.state.ecorDumVO.infoEcorScelle) {
-        newEcorDumVO.infoEcorScelle = true;
-        newEcorDumVO.scellesAutorisationAcheminement = this.state.ecorDumVO.scellesAutorisationAcheminement;
-        newEcorDumVO.numeroPince = this.state.ecorDumVO.numeroPince;
-        newEcorDumVO.nombreScelle = this.state.ecorDumVO.nombreScelle;
-        newEcorDumVO.transporteurExploitantMEADAutoAchemin = this.state.ecorDumVO.transporteurExploitantMEADAutoAchemin;
+      if (_.isEmpty(dateHeureAcheminement)) {
+        this.setState({
+          errorMessage:
+            translate('autoriserAcheminemenMainScreen.autorisationAcheminement.dateError')
+        });
+        console.log('NULL');
       } else {
-        newEcorDumVO.infoEcorScelle = false;
-        newEcorDumVO.scellesAutorisationAcheminement = {}
+
+        this.setState({
+          errorMessage:
+            null
+        });
+
+        newEcorDumVO.dateHeureAcheminement = dateHeureAcheminement;
+        newEcorDumVO.dateHeureEntree = this.state.ecorDumVO.dateHeureEntree;
+        newEcorDumVO.refDUM = {
+          referenceEnregistrement: this.state.referenceEnregistrement,
+
+          numeroOrdreVoyage: this.state.numeroVoyage
+
+        };
+        if (this.state.ecorDumVO.infoEcorScelle) {
+          newEcorDumVO.infoEcorScelle = true;
+          newEcorDumVO.scellesAutorisationAcheminement = this.state.ecorDumVO.scellesAutorisationAcheminement;
+          newEcorDumVO.numeroPince = this.state.ecorDumVO.numeroPince;
+          newEcorDumVO.nombreScelle = this.state.ecorDumVO.nombreScelle;
+          newEcorDumVO.transporteurExploitantMEADAutoAchemin = this.state.ecorDumVO.transporteurExploitantMEADAutoAchemin;
+        } else {
+          newEcorDumVO.infoEcorScelle = false;
+          newEcorDumVO.scellesAutorisationAcheminement = {}
+        }
+
+
+
+        console.log(JSON.stringify(newEcorDumVO));
+        var autoriserAcheminementAction = AutoriserAcheminementAction.request({
+          type: Constants.AUTORISER_ACHEMINEMENT_UC_REQUEST,
+          value: {
+            ecorDumVO: newEcorDumVO
+          },
+        }
+        );
+        this.props.actions.dispatch(autoriserAcheminementAction);
+        console.log('dispatch EciApposerScellesAction fired !!');
+
       }
-
-
-
-      console.log(JSON.stringify(newEcorDumVO));
-      var autoriserAcheminementAction = AutoriserAcheminementAction.request({
-        type: Constants.AUTORISER_ACHEMINEMENT_UC_REQUEST,
-        value: {
-          ecorDumVO: newEcorDumVO
-        },
-      }
-      );
-      this.props.actions.dispatch(autoriserAcheminementAction);
-      console.log('dispatch EciApposerScellesAction fired !!');
-
     }
   }
 
