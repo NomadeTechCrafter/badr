@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 import { Dimensions, View } from 'react-native';
 /**Custom Components */
 import {
+    ComBadrErrorMessageComp,
+    ComBadrInfoMessageComp,
     ComBadrProgressBarComp,
     ComBadrToolbarComp,
 } from '../../../../commons/component';
@@ -28,6 +30,15 @@ class DTPSEntreeMainScreen extends React.Component {
 
     constructor(props) {
         super(props);
+        console.log('--------------------------+props------------------------------');
+        console.log('--------------------------+props------------------------------');
+        console.log('--------------------------+------------------------------');
+        console.log('--------------------------+------------------------------');
+        console.log(JSON.stringify(props));
+        console.log('---------------------------+props-----------------------------');
+        console.log('--------------------------+props------------------------------');
+        console.log('---------------------------+-----------------------------');
+        console.log('---------------------------+-----------------------------');
     }
 
     render() {
@@ -40,7 +51,17 @@ class DTPSEntreeMainScreen extends React.Component {
                     title={translate('dtps.title')}
                     subtitle={translate('dtps.subTitle')}
                 />
-                {this.props.showProgress && <ComBadrProgressBarComp circle={false} />}
+                {this.props.showProgress && (
+                    <ComBadrProgressBarComp />
+                )}
+
+                {this.props.infoMessage != null && (
+                    <ComBadrInfoMessageComp message={this.props.infoMessage} />
+                )}
+
+                {/* {this.props.errorMessage != null && (
+                    <ComBadrErrorMessageComp message={this.props.errorMessage} />
+                )} */}
                 <NavigationContainer independent={true}>
                     <Tab.Navigator
                         initialLayout={{ height: Dimensions.get('window').height }}

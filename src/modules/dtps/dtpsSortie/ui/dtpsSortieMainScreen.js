@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 import { Dimensions, View } from 'react-native';
 /**Custom Components */
 import {
+    ComBadrErrorMessageComp,
+    ComBadrInfoMessageComp,
     ComBadrProgressBarComp,
     ComBadrToolbarComp,
 } from '../../../../commons/component';
@@ -27,6 +29,15 @@ function SearchScreen({ route, navigation }) {
 class DTPSSortieMainScreen extends React.Component {
 
     constructor(props) {
+        console.log('--------------------------+props------------------------------');
+        console.log('--------------------------+props------------------------------');
+        console.log('--------------------------+------------------------------');
+        console.log('--------------------------+------------------------------');
+        console.log(JSON.stringify(props));
+        console.log('---------------------------+props-----------------------------');
+        console.log('--------------------------+props------------------------------');
+        console.log('---------------------------+-----------------------------');
+        console.log('---------------------------+-----------------------------');
         super(props);
     }
 
@@ -40,7 +51,17 @@ class DTPSSortieMainScreen extends React.Component {
                     title={translate('dtps.title')}
                     subtitle={translate('dtps.subTitle1')}
                 />
-                {this.props.showProgress && <ComBadrProgressBarComp circle={false} />}
+                {this.props.showProgress && (
+                    <ComBadrProgressBarComp />
+                )}
+
+                {this.props.infoMessage != null && (
+                    <ComBadrInfoMessageComp message={this.props.infoMessage} />
+                )}
+
+                {/* {this.props.errorMessage != null && (
+                    <ComBadrErrorMessageComp message={this.props.errorMessage} />
+                )} */}
                 <NavigationContainer independent={true}>
                     <Tab.Navigator
                         initialLayout={{ height: Dimensions.get('window').height }}

@@ -15,6 +15,7 @@ export default {
         matricule: 'Matricule',
         nomOperateurAutorise: 'Opérateur autorisé	',
         portSec: 'Port Sec',
+        etat: 'Etat',
         referenceDs: 'Déclaration sommaire',
         scelles: 'Scelles',
         typeDs: 'Type DS',

@@ -140,31 +140,31 @@ class dtpsEntreeResultScreen extends React.Component {
         ];
     }
     
-    componentDidMount() {
-        this.unsubscribe = this.props.navigation.addListener('focus', () => {
-            // let action1 = this.buildInitConsultationTIActionInit();
-            // this.props.actions.dispatch(action1);
-            // let action = this.buildInitConsultationTIAction();
-            // this.props.actions.dispatch(action);
-            // this.setState({
-            //     ...initialState,
-            //     codeIG: '',
-            //     libelleIG: '',
-            //     positionTarifaire: '',
-            //     errorMessage: '',
-            //     date: moment(new Date()).format('DD/MM/YYYY')
-            // });
-            // this.positionTarifaireInput.clear();
+    // componentDidMount() {
+    //     this.unsubscribe = this.props.navigation.addListener('focus', () => {
+    //         // let action1 = this.buildInitConsultationTIActionInit();
+    //         // this.props.actions.dispatch(action1);
+    //         // let action = this.buildInitConsultationTIAction();
+    //         // this.props.actions.dispatch(action);
+    //         // this.setState({
+    //         //     ...initialState,
+    //         //     codeIG: '',
+    //         //     libelleIG: '',
+    //         //     positionTarifaire: '',
+    //         //     errorMessage: '',
+    //         //     date: moment(new Date()).format('DD/MM/YYYY')
+    //         // });
+    //         // this.positionTarifaireInput.clear();
 
-            this.setState({
-                selectedItem: null,
-            });
-        });
-    }
+    //         this.setState({
+    //             selectedItem: null,
+    //         });
+    //     });
+    // }
     
-    componentWillUnmount() {
-        this.unsubscribe();
-    }
+    // componentWillUnmount() {
+    //     this.unsubscribe();
+    // }
 
 
     onItemSelected = (item) => {

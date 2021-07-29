@@ -76,6 +76,11 @@ class dtpsConsultationResultScreen extends React.Component {
                 width: 150,
             },
             {
+                code: 'etat',
+                libelle: translate('dtps.etat'),
+                width: 150,
+            },
+            {
                 code: 'referenceDs',
                 libelle: translate('dtps.referenceDs'),
                 width: 180,

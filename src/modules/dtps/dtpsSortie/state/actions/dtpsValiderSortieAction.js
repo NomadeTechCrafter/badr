@@ -58,6 +58,7 @@ export function success(data) {
   return {
     type: VALIDER_DTPS_SORTIE_SUCCESS,
     value: data.jsonVO,
+    messagesInfo: data.dtoHeader?.messagesInfo[0],
   };
 }
 
@@ -65,6 +66,7 @@ export function failed(data) {
   return {
     type: VALIDER_DTPS_SORTIE_FAILED,
     value: data,
+    messagesInfo: data.dtoHeader?.messagesInfo[0],
   };
 }
 
