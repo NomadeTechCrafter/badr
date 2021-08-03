@@ -9,6 +9,11 @@ const mapping = {
   '2301': { screen: 'DTPSSortieMainScreen', params: {} },
   '2302': { screen: 'DTPSEntreeMainScreen', params: {} },
   '2303': { screen: 'DTPSConsultationMainScreen', params: {} },
+  '2052': { screen: 'DedRechercheRedressement', params: { qr: false } },
+  '20470': { screen: 'DedEnvoyerValeurScreen', params: { qr: false } },
+  '20471': { screen: 'DedEnvoyerValeurScreen', params: { qr: false } },
+  
+  
   
   /*
   '121711': {

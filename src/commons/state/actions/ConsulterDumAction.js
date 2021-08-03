@@ -12,7 +12,7 @@ export function request(action, navigation) {
     dispatch(inProgress(action));
     TransverseApi.doProcess(
       'DED_LIB',
-      'ded.ConsulterDum',
+      action.command,
       'UC',
       action.value.jsonVO,
     )

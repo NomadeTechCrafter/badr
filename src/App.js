@@ -35,6 +35,8 @@ import {Provider as PaperProvider, DefaultTheme} from 'react-native-paper';
 import {remote, bootstrapRoute} from './commons/Config';
 import DedRedressementScreen from './modules/dedouanement/redressement/ui/DedRedressementScreen';
 import DedRedressementRecherche from './modules/dedouanement/redressement/ui/DedRechercheRedressementScreen';
+import DedEnvoyerValeurScreen from './modules/dedouanement/envoyerValeur/ui/dedEnvoyerValeurScreen';
+
 import controleRechercheDumScreen from './modules/controle/rechercheDum/ui/controleRechercheDumScreen';
 import ControleRegimeInterneScreen from './modules/controle/regimeInterne/ui/controleRegimeInterneScreen';
 import ControleACVPScreen from './modules/controle/ACVP/ui/controleACVPScreen';
@@ -90,7 +92,7 @@ export default class App extends React.Component {
                   <Stack.Screen
                     name="test"
                     options={{ headerShown: false }}
-                    component={DTPSEntreeMainScreen}
+                    component={DedEnvoyerValeurScreen}
                   />
                 )}
               <Stack.Screen

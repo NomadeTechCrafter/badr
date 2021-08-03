@@ -107,6 +107,7 @@ class ComRedressementRechercheRefComp extends Component {
               },
               cle: this.state.cle,
             },
+            command: 'ded.ConsulterDum'
           },
           this.props.navigation,
         );
