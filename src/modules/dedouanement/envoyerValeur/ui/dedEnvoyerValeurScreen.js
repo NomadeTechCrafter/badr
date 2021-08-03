@@ -24,23 +24,23 @@ import styles from '../style/dedEnvoyerValeurStyle';
 
 
 class DedEnvoyerValeurScreen extends React.Component {
-  defaultState = {
-    bureau: '',
-    regime: '',
-    annee: '',
-    serie: '',
-    cle: '',
-    cleValide: '',
-    login: '',
-    numeroVoyage: '',
-    showErrorMsg: false,
-    sousReservePaiementMLV: false,
-    enregistree: true,
-  };
+  // defaultState = {
+  //   bureau: '',
+  //   regime: '',
+  //   annee: '',
+  //   serie: '',
+  //   cle: '',
+  //   cleValide: '',
+  //   login: '',
+  //   numeroVoyage: '',
+  //   showErrorMsg: false,
+  //   sousReservePaiementMLV: false,
+  //   enregistree: true,
+  // };
 
   constructor(props) {
     super(props);
-    this.state = this.defaultState;
+    // this.state = this.defaultState;
   }
 
   // componentDidMount() {
@@ -140,7 +140,7 @@ class DedEnvoyerValeurScreen extends React.Component {
   render() {
     return (
       <View>
-        <DedRechercheRedressementScreen />
+        <DedRechercheRedressementScreen navigation={this.props.navigation} from='ENVOYER_VALEUR'/>
       </View>
     );
   }

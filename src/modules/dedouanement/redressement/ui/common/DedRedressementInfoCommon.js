@@ -52,22 +52,22 @@ class DedRedressementInfoCommon extends React.Component {
           <View style={styles.containerValRow}>
             <Text style={styles.libelleValM}>
               {getBureau(
-                getValueByPath('reference', this.props.searchData.jsonVO),
+                getValueByPath('reference', this.props?.searchData?.jsonVO),
               )}
             </Text>
             <Text style={styles.libelleValM}>
               {getRegime(
-                getValueByPath('reference', this.props.searchData.jsonVO),
+                getValueByPath('reference', this.props?.searchData?.jsonVO),
               )}
             </Text>
             <Text style={styles.libelleValL}>
               {getAnnee(
-                getValueByPath('reference', this.props.searchData.jsonVO),
+                getValueByPath('reference', this.props?.searchData?.jsonVO),
               )}
             </Text>
             <Text style={styles.libelleValL}>
               {getSerie(
-                getValueByPath('reference', this.props.searchData.jsonVO),
+                getValueByPath('reference', this.props?.searchData?.jsonVO),
               )}
             </Text>
             <Text style={styles.libelleValM}>

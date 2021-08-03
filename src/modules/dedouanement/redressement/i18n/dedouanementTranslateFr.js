@@ -1,6 +1,8 @@
 export default {
   dedouanement: {
     title: 'DEDOUANEMENT',
+    titleEnvoyerValeur: 'ENVOYER DECLARATION A LA VALEUR',
+    titleTraiterValeur: 'TRAITER VALEUR DECLARATION	',
     subTitle: 'Recherche par référence',
     transverse: {
       libelleRegime: 'Régime : ',

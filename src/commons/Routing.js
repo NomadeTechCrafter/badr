@@ -12,6 +12,7 @@ const mapping = {
   '2052': { screen: 'DedRechercheRedressement', params: { qr: false } },
   '20470': { screen: 'DedEnvoyerValeurScreen', params: { qr: false } },
   '20471': { screen: 'DedEnvoyerValeurScreen', params: { qr: false } },
+  '2052': { screen: 'DedRechercheRedressement', params: { qr: false } },
   
   
   
