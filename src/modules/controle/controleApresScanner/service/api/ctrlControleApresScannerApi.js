@@ -39,7 +39,7 @@ export default class CtrlControleApresScannerApi {
             'showDropDown',
             'disableAutoComplete',
             'onFocus',
-            'disabled', 'transactionid'
+            'disabled', 'transactionId'
         ]);
 
         console.log(JSON.stringify(data));

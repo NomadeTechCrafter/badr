@@ -16,16 +16,17 @@ const mapping = {
   '1104': {screen: 'ConsultationIgTIScreenI', params: {modeConsultation: 'I'}},
   '6064': {screen: 'PecEtatChargementMainScreen', params: {}},
   '6060': { screen: 'PecEtatChargementVEMainScreen', params: {} },
+  '3064': {screen: 'controleRechercheDumScreen', params: {typeControle: 'AC'}},
+  '3072': {screen: 'controleRechercheDumScreen', params: {typeControle: 'RI'}},
+  '3086': {screen: 'controleRechercheDumScreen', params: {typeControle: 'TR'}},
+  '767': {screen: 'BloquerOperateur', params: {}},
+  '42997': {screen: 'DebloquerOperateur', params: {}},
   /*
   '121711': {
     screen: 'EciConsultationBLS',
     params: {title: 'Ecran  Recherche Consultation BLS'},
   },
   '6064': {screen: 'PecEtatChargementMainScreen', params: {}},
-  '3064': {screen: 'controleRechercheDumScreen', params: {typeControle: 'AC'}},
-  '3072': {screen: 'controleRechercheDumScreen', params: {typeControle: 'RI'}},
-  '767': {screen: 'BloquerOperateur', params: {}},
-  '42997': {screen: 'DebloquerOperateur', params: {}},
   '306011': {screen: 'AjouterReconnaissance', params: {}},
   '306012': {screen: 'ModifierReconnaissance', params: {}},
   '306013': {screen: 'AnnulerReconnaissance', params: {}},
@@ -36,7 +37,7 @@ const mapping = {
   '4096': {screen: 'RefControleVehicule', params: {}},
   '823': {screen: 'RefPlaquesImm', params: {}},
 
-  '3086': {screen: 'controleRechercheDumScreen', params: {typeControle: 'TR'}},
+
   '2052': {screen: 'DedRechercheRedressement', params: {qr: false}},
   '5971': {screen: 'RechecheMLV', params: {}},
   '1201': {
