@@ -395,8 +395,8 @@ class DedRedressementScreen extends React.Component {
             this.props,
         );
 
-        console.log('this.props.dedConfirmationReceptionReducer : ', this.props.dedConfirmationReceptionReducer);
-        console.log('this.props.consulterDumReducer : ', this.props.consulterDumReducer);
+        // console.log('this.props.dedConfirmationReceptionReducer : ', this.props.dedConfirmationReceptionReducer);
+        // console.log('this.props.consulterDumReducer : ', this.props.consulterDumReducer);
 
 
         return (

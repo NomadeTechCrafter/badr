@@ -10,9 +10,16 @@ export function request(action, navigation) {
   return (dispatch) => {
     dispatch(action);
     dispatch(inProgress(action));
+    console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+    console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+    console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+    console.log('action.command ? : ' + action.command);
+    console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+    console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+    console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
     TransverseApi.doProcess(
       'DED_LIB',
-      'ded.ConsulterDum',
+      action.command,
       'UC',
       action.value.jsonVO,
     )
@@ -27,7 +34,7 @@ export function request(action, navigation) {
           response.data.jsonVO &&
           !messagesErreurs
         ) {
-          dispatch(success(response.data.jsonVO, action.value));
+          dispatch(success(response.data.jsonVO, action.value, action.command));
           navigation.navigate('DedRedressementScreen', {
             searchData: action.value ? action.value.jsonVO : {},
           });
@@ -55,12 +62,13 @@ export function init(action) {
   };
 }
 
-export function success(data, searchParams) {
+export function success(data, searchParams, fromWhere1) {
   return {
     type: Constants.GENERIC_SUCCESS,
     value: {
       searchParams: searchParams,
       data: data,
+      fromWhere1: fromWhere1,
     },
   };
 }

@@ -37,6 +37,9 @@ import consultationIgTI from '../../modules/tarifIntegre/tiConsultationIgTI/i18n
 import consultationTI from '../../modules/tarifIntegre/tiConsultationTI/i18n/tiConsultationTITranslateFr';
 import dedConfirmationReception from '../../modules/dedouanement/confirmationReception/i18n/dedConfirmationReceptionTranslateFr';
 import decSortiPortTranslateFr from '../../modules/DeclarationD17D20/sortiPort/i18n/decSortiPortTranslateFr';
+import dtpsSortieTranslateFr from '../../modules/dtps/dtpsSortie/i18n/sortieDTPSTranslateFr';
+import dtpsEntreeTranslateFr from '../../modules/dtps/dtpsEntree/i18n/entreeDTPSTranslateFr';
+import dtpsConsultationTranslateFr from '../../modules/dtps/consultation/i18n/consultationDTPSTranslateFr';
 import rechercheAutoriserAcheminementTranslateFr from '../../modules/ecorExport/autoriserAcheminement/recherche/i18n/rechercheAutoriserAcheminementTranslateFr';
 import autoriserAcheminementGestionTranslateFr from '../../modules/ecorExport/autoriserAcheminement/mainScreen/i18n/autoriserAcheminementGestionTranslateFr';
 import actifsRapportConsultationTranslateFr from '../../modules/actifs/rapport/recherche/i18n/actifsRapportConsultationTranslateFr';
@@ -89,6 +92,9 @@ let combined = {
   ...decSortiPortTranslateFr,
   ...ecorExpConfirmationEntreeTranslateFr,
   ...ecorExpConfirmationArriveeTranslateFr,
+  ...dtpsSortieTranslateFr,
+  ...dtpsEntreeTranslateFr,
+  ...dtpsConsultationTranslateFr,
   ...rechercheAutoriserAcheminementTranslateFr,
   ...autoriserAcheminementGestionTranslateFr,
   ...pecEtatChargementVETranslateFr

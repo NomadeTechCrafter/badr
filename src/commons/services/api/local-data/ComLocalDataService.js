@@ -32,7 +32,7 @@ const localStore = {
   'ded.isPreapurementDSAccessible': require('./dedouanement/accesOnglet/isPreapurementDSAccessible.json'),
   'ded.isImputationCompteREDAccessible': require('./dedouanement/accesOnglet/isImputationCompteREDAccessible.json'),
   'ded.isImputationTitresDeChangeAccessible': require('./dedouanement/accesOnglet/isImputationTitresDeChangeAccessible.json'),
-  getOsById: require('../../../../modules/actifs/rapport/creation/service/local-data/getOsByIdData.json'), 
+  getOsById: require('../../../../modules/actifs/rapport/creation/service/local-data/getOsByIdData.json'),
   getOrdresService: require('../../../../modules/actifs/rapport/recherche/service/local-data/getOrdresServiceData.json'),
   getNaturesIncident: require('./actifs/dataNatureMarchandises.json'),
   getNaturesMarchandise: require('./actifs/dataNatureMarchandises.json'),
@@ -86,6 +86,12 @@ const localStore = {
   getListFlux: require('../../../../modules/tarifIntegre/tiConsultationTI/service/local-data/getFlux.json'),
   consulterTI: require('../../../../modules/tarifIntegre/tiConsultationTI/service/local-data/consulterTI.json'),
   'ded.getDecSortiPortParMatVehicule': require('../../../../modules/DeclarationD17D20/sortiPort/service/local-data/ded.getDecSortiPortParMatVehicule.json'),
+  'ded.vuEmbRechercheDeclarationTrypByRef': require('../../../../modules/DeclarationD17D20/sortiPort/service/local-data/ded.vuEmbRechercheDeclarationTrypByRef.json'),
+  'echange.findDtpsByCritereForSortie': require('../../../../modules/dtps/dtpsSortie/service/local-data/echange.findDtpsByCritereForSortie.json'),
+  'echange.validerSortieDtps': require('../../../../modules/dtps/dtpsSortie/service/local-data/echange.validerSortieDtps.json'),
+  'echange.findDtpsByCritereForEntree': require('../../../../modules/dtps/dtpsEntree/service/local-data/echange.findDtpsByCritereForEntree.json'),
+  'echange.validerEntreeDtps': require('../../../../modules/dtps/dtpsEntree/service/local-data/echange.validerEntreeDtps.json'),
+  'echange.findDtpsByCritere': require('../../../../modules/dtps/consultation/service/local-data/echange.findDtpsByCritere.json'),
   'ded.sortiPortRechercheDeclarationTrypByRef': require('../../../../modules/DeclarationD17D20/sortiPort/service/local-data/ded.sortiPortRechercheDeclarationTrypByRef.json'),
   'ece.initAutoriserAcheminement': require('../../../../modules/ecorExport/autoriserAcheminement/recherche/service/local-data/initAutoriserAcheminementData.json'),
   getCmbOperateurByCode: require('../../../../modules/ecorExport/autoriserAcheminement/mainScreen/service/local-data/getCmbOperateurByCodeData.json'),
@@ -93,6 +99,5 @@ const localStore = {
   'ded.isRegimeTransbordement': require('../../../../modules/ecorExport/autoriserAcheminement/mainScreen/service/local-data/isRegimeTransbordementData.json'),
   'ded.vuEmbRechercheDeclarationTrypByRef': require('../../../../modules/DeclarationD17D20/vuEmbarquer/service/local-data/ded.vuEmbRechercheDeclarationTrypByRef.json'),
   'ded.getDecTryptiqueParMatVehicule': require('../../../../modules/DeclarationD17D20/sortiPort/service/local-data/ded.getDecSortiPortParMatVehicule.json'),
- 
 };
 export default localStore;

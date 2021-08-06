@@ -1,17 +1,27 @@
 export default {
   dedouanement: {
     title: 'DEDOUANEMENT',
+    titleEnvoyerValeur: 'ENVOYER DECLARATION A LA VALEUR',
+    titleTraiterValeur: 'TRAITER VALEUR DECLARATION	',
     subTitle: 'Recherche par référence',
     transverse: {
       libelleRegime: 'Régime : ',
       declarationEnreg: 'Déclaration enregistrée',
     },
+    confirmerEnvoiValeur: 'ENVOYER A LA VALEUR',
+    confirmerTraitementValeur: 'TRAITER LA VALEUR',
     info: {
       info: 'Info',
       listeV: 'Liste des versions',
       nbrV: 'Nombre des versions',
       nbreResultat: 'Nombre résultats',
       num: 'N°',
+      agentEnvoi: 'agent Envoi	',
+      dateEnvoi: 'date Envoi	',
+      descriptionEnvoi: 'description Envoi	',
+      agentTraitement: 'agent Traitement	',
+      dateTraitement: 'date Traitement	',
+      descriptionTraitement: 'description Traitement',
       type: 'Type',
       statut: 'Statut',
       initiateur: 'Initiateur',

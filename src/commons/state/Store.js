@@ -1,7 +1,7 @@
 /** Redux Store & middleware */
-import {applyMiddleware, combineReducers, compose, createStore} from 'redux';
+import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
 import thunk from 'redux-thunk';
-import {comCustomMiddlewareService} from '../services/middleware/ComCustomMiddlewareService';
+import { comCustomMiddlewareService } from '../services/middleware/ComCustomMiddlewareService';
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 /** Reducers */
 import loginReducer from '../../modules/hab/login/state/reducers/habLoginReducer';
@@ -73,6 +73,9 @@ import dedConfirmationReceptionReducer from '../../modules/dedouanement/confirma
 
 import ecorExpConfirmationEntreeReducer from '../../modules/ecorExport/confirmationEntree/state/reducers/ecorExpConfirmationEntreeReducer';
 import ecorExpConfirmationArriveeReducer from '../../modules/ecorExport/confirmationArrivee/state/reducers/ecorExpConfirmationArriveeReducer';
+import dtpsSortieReducer from '../../modules/dtps/dtpsSortie/state/reducers/dtpsSortieReducer'
+import dtpsEntreeReducer from '../../modules/dtps/dtpsEntree/state/reducers/dtpsEntreeReducer'
+import dtpsConsultationReducer from '../../modules/dtps/consultation/state/reducers/dtpsConsultationReducer'
 import rechercheAutoriserAcheminementReducer from '../../modules/ecorExport/autoriserAcheminement/recherche/state/reducers/rechercheAutoriserAcheminementReducer';
 import autoriserAcheminementMainReducer from '../../modules/ecorExport/autoriserAcheminement/mainScreen/state/reducers/autoriserAcheminementMainReducer';
 /**
@@ -138,7 +141,10 @@ const allReducers = combineReducers({
   sortiPortReducer,
   sortiPortRefVH,
   sortiPortInitReducer,
-  rechercheAutoriserAcheminementReducer, autoriserAcheminementMainReducer,pecEtatChargementVEReducer
+  dtpsSortieReducer,
+  dtpsEntreeReducer,
+  dtpsConsultationReducer,
+  rechercheAutoriserAcheminementReducer, autoriserAcheminementMainReducer, pecEtatChargementVEReducer
 });
 /**
  * store creation

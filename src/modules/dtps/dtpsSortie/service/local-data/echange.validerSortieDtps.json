@@ -1,0 +1,57 @@
+{
+    "dtoHeader": {
+        "userLogin": "AD6202",
+        "fonctionnalite": "cf90023",
+        "module": "ECHANGE_LIB",
+        "commande": "echange.validerSortieDtps",
+        "typeService": "UC",
+        "messagesInfo": [
+            "??? ValiderSortieDtps_MESSAGE_INFO ???"
+        ],
+        "offset": 0,
+        "pageSize": 0,
+        "rowCount": 0
+    },
+    "jsonVO": {
+        "typeMessage": "DECLARATION_TRANSFERT_PORT_SEC",
+        "numeroMessage": 132,
+        "emetteur": "ADII",
+        "destinataire": "TMSA",
+        "dateMessage": "2021-06-16 15:18:09",
+        "referenceDeclaration": "41120210000013",
+        "idOperateurAutorise": "16688",
+        "portSec": "401401",
+        "listeNumScelle": [
+            "12345678"
+        ],
+        "typeDs": "01",
+        "referenceDs": "41100020210000001",
+        "listLots": [
+            {
+                "referenceLot": "REF1",
+                "codeLieuChargement": "MACAS"
+            }
+        ],
+        "listeChauffeurs": [
+            {
+                "nomChauffeur": "Nom",
+                "prenomChauffeur": "prenom",
+                "typeIdentifiantChauffeur": "1",
+                "identifiantChauffeur": "A123456"
+            },
+            {
+                "nomChauffeur": "Nom2",
+                "prenomChauffeur": "prenom2",
+                "typeIdentifiantChauffeur": "5",
+                "identifiantChauffeur": "L0022558",
+                "paysPasseportChauffeur": "FR"
+            }
+        ],
+        "listeMatricules": [
+            "4400A4",
+            "12345B76",
+            "wwd-96-xx"
+        ],
+        "defaultConverter": {}
+    }
+}

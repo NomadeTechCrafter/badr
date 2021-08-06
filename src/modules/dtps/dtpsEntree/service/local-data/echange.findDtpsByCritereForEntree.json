@@ -1,0 +1,147 @@
+{
+    "dtoHeader": {
+        "userLogin": "AD6202",
+        "fonctionnalite": "cf90023",
+        "module": "ECHANGE_LIB",
+        "commande": "echange.findDtpsByCritereForEntree",
+        "typeService": "SP",
+        "offset": 0,
+        "pageSize": 0,
+        "rowCount": 0
+    },
+    "jsonVO": [
+        {
+            "id": 8,
+            "typeMessage": "DECLARATION_TRANSFERT_PORT_SEC",
+            "numeroMessage": 12,
+            "emetteur": "ADII",
+            "destinataire": "TMSA",
+            "dateMessage": "16/06/2021 15:18:09",
+            "dateCreation": "17/06/2021 16:00:00",
+            "dateSortie": "29/06/2021 21:31:37",
+            "referenceDeclaration": "41120210000001",
+            "idOperateurAutorise": "16688",
+            "nomOperateurAutorise": "BABYTEX TEST",
+            "portSec": "401401",
+            "listeNumScelle": [
+                "12345678"
+            ],
+            "typeDs": "DS",
+            "referenceDs": "41100020210000001",
+            "listLots": [
+                {
+                    "referenceLot": "REF1",
+                    "codeLieuChargement": "MACAS"
+                },
+                {
+                    "referenceLot": "REF1",
+                    "codeLieuChargement": "MACAS"
+                }
+            ],
+            "listeChauffeurs": [
+                {
+                    "nomChauffeur": "Nom",
+                    "prenomChauffeur": "prenom",
+                    "typeIdentifiantChauffeur": "1",
+                    "identifiantChauffeur": "A123456"
+                },
+                {
+                    "nomChauffeur": "Nom2",
+                    "prenomChauffeur": "prenom2",
+                    "typeIdentifiantChauffeur": "5",
+                    "identifiantChauffeur": "L0022558",
+                    "paysPasseportChauffeur": "FR"
+                }
+            ],
+            "listeMatricules": [
+                "4400A4",
+                "12345B76",
+                "wwd-96-xx"
+            ],
+            "avecScanner": true,
+            "resultatsScanners": [
+                {
+                    "dateScannage": "06/06/2021 09:30",
+                    "agent": "YBA",
+                    "resultat": "Non suspect",
+                    "commentaire": "Commentaire de l'agent 2",
+                    "listMatriculeVO": []
+                },
+                {
+                    "dateScannage": "06/06/2021 09:30",
+                    "agent": "YBA",
+                    "resultat": "Non suspect",
+                    "commentaire": "Commentaire de l'agent 1",
+                    "listMatriculeVO": []
+                }
+            ],
+            "agentSortie": "TESTAG5"
+        },
+        {
+            "id": 6,
+            "typeMessage": "DECLARATION_TRANSFERT_PORT_SEC",
+            "numeroMessage": 1,
+            "emetteur": "ADII",
+            "destinataire": "TMSA",
+            "dateMessage": "06/05/2021 15:18:09",
+            "dateCreation": "27/05/2021 17:02:30",
+            "dateSortie": "29/06/2021 21:28:27",
+            "referenceDeclaration": "41120210000001",
+            "idOperateurAutorise": "1234567890",
+            "portSec": "123456",
+            "listeNumScelle": [
+                "12345678"
+            ],
+            "typeDs": "Eclatement TT",
+            "referenceDs": "41100020210001234",
+            "listLots": [
+                {
+                    "referenceLot": "RefLot1",
+                    "codeLieuChargement": "ESALG"
+                },
+                {
+                    "referenceLot": "RefLot2",
+                    "codeLieuChargement": "ESALG"
+                }
+            ],
+            "listeChauffeurs": [
+                {
+                    "nomChauffeur": "Nom",
+                    "prenomChauffeur": "prenom",
+                    "typeIdentifiantChauffeur": "1",
+                    "identifiantChauffeur": "A123456"
+                },
+                {
+                    "nomChauffeur": "Nom2",
+                    "prenomChauffeur": "prenom2",
+                    "typeIdentifiantChauffeur": "5",
+                    "identifiantChauffeur": "L0022558",
+                    "paysPasseportChauffeur": "FR"
+                }
+            ],
+            "listeMatricules": [
+                "4400A4",
+                "12345B76",
+                "wwd-96-xx"
+            ],
+            "avecScanner": true,
+            "resultatsScanners": [
+                {
+                    "dateScannage": "06/06/2021 09:30",
+                    "agent": "YBA",
+                    "resultat": "Non suspect",
+                    "commentaire": "Commentaire de l'agent 2",
+                    "listMatriculeVO": []
+                },
+                {
+                    "dateScannage": "06/06/2021 09:30",
+                    "agent": "YBA",
+                    "resultat": "Non suspect",
+                    "commentaire": "Commentaire de l'agent 1",
+                    "listMatriculeVO": []
+                }
+            ],
+            "agentSortie": "AD6202"
+        }
+    ]
+}

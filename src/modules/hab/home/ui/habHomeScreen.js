@@ -1,9 +1,9 @@
 /** React Components */
 import React from 'react';
-import {Dimensions} from 'react-native';
+import { Dimensions } from 'react-native';
 
 /** REDUX **/
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 /** Screens */
 import WelcomeScreen from '../../annonces/ui/habAnnoncesScreen';
@@ -15,7 +15,7 @@ import SortiPortScreen from '../../../DeclarationD17D20/sortiPort/ui/decSortiPor
 import SortiPortListeDeclaration from '../../../DeclarationD17D20/sortiPort/ui/decSortiPort/decSortiPortListeDeclaration';
 import VuEmbListeDeclaration from '../../../DeclarationD17D20/vuEmbarquer/ui/vuEmbarquer/VuEmbListeDeclaration';
 
-import {ComQrCodeScannerComp} from '../../../../commons/component';
+import { ComQrCodeScannerComp } from '../../../../commons/component';
 import BloquerOperateur from '../../../referentiel/operateursEconomiques/ui/bloquerOperateur/refBloquerOperateurScreen';
 import DebloquerOperateur from '../../../referentiel/operateursEconomiques/ui/debloquerOperateur/refDebloquerOperateurScreen';
 import DedRedressementScreen from '../../../dedouanement/redressement/ui/DedRedressementScreen';
@@ -53,7 +53,7 @@ import * as Constants from '../../../../commons/constants/generic/ComGenericCons
 import * as GenericAction from '../../../../commons/state/actions/ComGenericAction';
 
 /** Drawer navigation */
-import {createDrawerNavigator} from '@react-navigation/drawer';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import DedRedressementRecherche from '../../../dedouanement/redressement/ui/DedRechercheRedressementScreen';
 import RefControleVehiculeMainScreen from '../../../referentiel/controleVehicules/ui/refControleVehiculeMainScreen';
 import RefPlaquesImmMainScreen from '../../../referentiel/plaquesImmatriculation/ui/refPlaquesImmMainScreen';
@@ -75,10 +75,16 @@ import PecEtatChargementMainScreen from '../../../pecEtatChargement/rechParRef/u
 import PecEtatChargementVEMainScreen from '../../../pecEtatChargement/VuEmbarquer/ui/pecEtatChargementMainScreen';
 
 import DedRechercheConfirmationReceptionScreen from '../../../dedouanement/confirmationReception/ui/dedRechercheConfirmationReceptionScreen';
+
+import DTPSSortieMainScreen from '../../../dtps/dtpsSortie/ui/dtpsSortieMainScreen';
+import DTPSEntreeMainScreen from '../../../dtps/dtpsEntree/ui/dtpsEntreeMainScreen';
+import DTPSConsultationMainScreen from '../../../dtps/consultation/ui/dtpsConsultationMainScreen';
+import dedEnvoyerValeurScreen from '../../../dedouanement/envoyerValeur/ui/dedEnvoyerValeurScreen';
+
 const Drawer = createDrawerNavigator();
 const deltaScreen = Dimensions.get('window').width / 4;
 
-function DedRedressementRechercheScreen({route, navigation}) {
+function DedRedressementRechercheScreen({ route, navigation }) {
   return <DedRedressementRecherche navigation={navigation} route={route} />;
 }
 
@@ -127,141 +133,141 @@ class habHomeScreen extends React.Component {
         <Drawer.Screen
           name="CreerApurement"
           component={CreerApurement}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Drawer.Screen
           name="Apurement"
           component={Apurement}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Drawer.Screen
           name="DedRechercheRedressement"
           component={DedRedressementRechercheScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Drawer.Screen
           name="controleRechercheDumScreen"
           component={controleRechercheDumScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Drawer.Screen
           name="controleListDecalarationDumScreen"
           component={controleListDecalarationDumScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Drawer.Screen
           name="ControleRegimeInterneScreen"
           component={ControleRegimeInterneScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Drawer.Screen
           name="ControleRegimeTransitScreen"
           component={ControleRegimeTransitScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Drawer.Screen
           name="ControleACVPScreen"
           component={ControleACVPScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Drawer.Screen
           name="RechecheMLV"
           component={RechecheMLV}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
 
         <Drawer.Screen
           name="DelivrerMLV"
           component={DelivrerMLV}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
 
         <Drawer.Screen
           name="ListDeclarationMLV"
           component={ListDeclarationMLV}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Drawer.Screen
           name="RechercheEcorImport"
           component={EcorImportRechercheScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Drawer.Screen
           name="ComQrCodeScannerComp"
           component={ComQrCodeScannerComp}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
 
         <Drawer.Screen
           name="BloquerOperateur"
           component={BloquerOperateur}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
 
         <Drawer.Screen
           name="DebloquerOperateur"
           component={DebloquerOperateur}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
 
         <Drawer.Screen
           name="AjouterReconnaissance"
           component={AjouterReconnaissance}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
 
         <Drawer.Screen
           name="ModifierReconnaissance"
           component={ModifierReconnaissance}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
 
         <Drawer.Screen
           name="AnnulerReconnaissance"
           component={AnnulerReconnaissance}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
 
         <Drawer.Screen
           name="CreerCompteRenduMission"
           component={CreerCompteRenduMission}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
 
         <Drawer.Screen
           name="ModifierCompteRenduMission"
           component={ModifierCompteRenduMission}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
 
         <Drawer.Screen
           name="ValiderCompteRenduMission"
           component={ValiderCompteRenduMission}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
 
         <Drawer.Screen
           name="ControleApresScanner"
           component={ControleApresScanner}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
 
         <Drawer.Screen
           name="RefControleVehicule"
           component={RefControleVehiculeMainScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
 
         <Drawer.Screen
           name="RefPlaquesImm"
           component={RefPlaquesImmMainScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         {/* Actif Module*/}
 
         <Drawer.Screen
           name="ActifsRecherche"
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
           component={ActifsRapportRechercheScreen}
         />
 
@@ -269,12 +275,12 @@ class habHomeScreen extends React.Component {
         <Drawer.Screen
           name="VuEmbarqueScreen"
           component={VuEmbarqueScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Drawer.Screen
           name="VuEmbListeDeclaration"
           component={VuEmbListeDeclaration}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         {/* Fonc Sorti Du Port */}
         <Drawer.Screen
@@ -290,23 +296,23 @@ class habHomeScreen extends React.Component {
         <Drawer.Screen
           name="EciConsultationBLS"
           component={ConsultationBLSMainScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         {/* Module T6bis start*/}
         <Drawer.Screen
           name="T6bisCreation"
           component={T6bisCreation}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Drawer.Screen
           name="T6bisRecherche"
           component={T6bisRecherche}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Drawer.Screen
           name="T6bisGestion"
           component={T6bisGestion}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
 
         {/* Module T6bis end*/}
@@ -314,12 +320,12 @@ class habHomeScreen extends React.Component {
         <Drawer.Screen
           name="ECIAppositionScellesRechercheScreen"
           component={ECIAppositionScellesRechercheScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Drawer.Screen
           name="AppositionScellesScreen"
           component={ECIAppositionScellesScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
 
         <Drawer.Screen
@@ -339,7 +345,7 @@ class habHomeScreen extends React.Component {
         <Drawer.Screen
           name="PecEtatChargementMainScreen"
           component={PecEtatChargementMainScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
 
         <Drawer.Screen
@@ -347,7 +353,7 @@ class habHomeScreen extends React.Component {
           component={PecEtatChargementVEMainScreen}
           options={{ headerShown: false }}
         />
-		
+
         <Drawer.Screen
           name="ConsultationIgTIScreen"
           component={ConsultationIgTIScreen}
@@ -385,6 +391,31 @@ class habHomeScreen extends React.Component {
         />
 
         <Drawer.Screen
+          name="DTPSSortieMainScreen"
+          component={DTPSSortieMainScreen}
+          name="RechercheAutoriserAcheminementScreen"
+          component={rechercheAutoriserAcheminementScreen}
+          options={{ headerShown: false }}
+        />
+
+        <Drawer.Screen
+          name="DTPSEntreeMainScreen"
+          component={DTPSEntreeMainScreen}
+          options={{ headerShown: false }}
+        />
+
+        <Drawer.Screen
+          name="DTPSConsultationMainScreen"
+          component={DTPSConsultationMainScreen}
+          options={{ headerShown: false }}
+        />
+        <Drawer.Screen
+          name="DedEnvoyerValeurScreen"
+          component={dedEnvoyerValeurScreen}
+          options={{ headerShown: false }}
+        />
+
+        <Drawer.Screen
           name="RechercheAutoriserAcheminementScreen"
           component={rechercheAutoriserAcheminementScreen}
           options={{ headerShown: false }}
@@ -395,7 +426,6 @@ class habHomeScreen extends React.Component {
           component={autoriserAcheminementMainScreen}
           options={{ headerShown: false }}
         />
-
 
         <Drawer.Screen
           name="CreationRapport"
@@ -408,5 +438,5 @@ class habHomeScreen extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({...state.genericReducer});
+const mapStateToProps = (state) => ({ ...state.genericReducer });
 export default connect(mapStateToProps, null)(habHomeScreen);
