@@ -78,7 +78,7 @@ class DedRedressementEnteteInfoBlock extends React.Component {
               }
               onRef={(ref) => (this.refBureau = ref)}
               code="codeBureau"
-              selected={this.props.dedDumSectionEnteteVO.bureauDestinationLibelle}
+              selected={this.props?.dedDumSectionEnteteVO?.bureauDestinationLibelle}
               maxItems={10}
               disabled={true}
               libelle="nomBureauDouane"

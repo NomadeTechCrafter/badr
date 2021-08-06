@@ -69,6 +69,8 @@ import ConsultationTIScreen from './modules/tarifIntegre/tiConsultationTI/ui/tiC
 import DTPSSortieMainScreen from './modules/dtps/dtpsSortie/ui/dtpsSortieMainScreen';
 import DTPSEntreeMainScreen from './modules/dtps/dtpsEntree/ui/dtpsEntreeMainScreen'
 import DTPSConsultationMainScreen from './modules/dtps/consultation/ui/dtpsConsultationMainScreen'
+import DedRedressementEnteteEnvoyerTraiterValeurBlock from './modules/dedouanement/redressement/ui/entete/blocks/DedRedressementEnteteEnvoyerTraiterValeurBlock';
+import DedRedressementEnteteScreen from './modules/dedouanement/redressement/ui/entete/DedRedressementEnteteScreen';
 
 
 //setGlobalHandler();
@@ -92,7 +94,7 @@ export default class App extends React.Component {
                   <Stack.Screen
                     name="test"
                     options={{ headerShown: false }}
-                    component={DedEnvoyerValeurScreen}
+                    component={DedRedressementEnteteEnvoyerTraiterValeurBlock}
                   />
                 )}
               <Stack.Screen

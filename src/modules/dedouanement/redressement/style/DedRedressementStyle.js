@@ -32,7 +32,11 @@ const styles = {
   versionInitialStyle: {paddingLeft: 50, marginLeft: 10},
   versionEnCoursStyle: {paddingLeft: 50, marginLeft: 10},
   touchableButtonStyle: {width: 120, height: 50, margin: 5},
-  rtlCheckboxLabelStyle: {fontSize: 17, color: darkGrayColor, marginLeft: -40},
+  rtlCheckboxLabelStyle: { fontSize: 17, color: darkGrayColor, marginLeft: -40 },
+  buttonAction: {
+    margin: '4%',
+    backgroundColor: '#009ab2',
+  },
 };
 
 export default StyleSheet.create(styles);

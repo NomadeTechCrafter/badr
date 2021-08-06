@@ -1,13 +1,13 @@
 /** RN Components **/
-import React, {Component} from 'react';
-import {View} from 'react-native';
+import React, { Component } from 'react';
+import { View } from 'react-native';
 import {
   ComBadrButtonIconComp,
   ComBadrErrorMessageComp,
   ComBadrToolbarComp,
   ComContainerComp,
 } from '../../../../commons/component/index';
-import {Button, Checkbox, HelperText, TextInput} from 'react-native-paper';
+import { Button, Checkbox, HelperText, TextInput } from 'react-native-paper';
 import {
   accentColor,
   CustomStyleSheet,
@@ -15,9 +15,9 @@ import {
 } from '../../../styles/ComThemeStyle';
 import _ from 'lodash';
 /**i18n */
-import {translate} from '../../../i18n/ComI18nHelper';
+import { translate } from '../../../i18n/ComI18nHelper';
 /** REDUX **/
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import {
   GENERIC_INIT,
   GENERIC_REQUEST,
@@ -28,16 +28,17 @@ import * as ConsulterDumAction from '../../../state/actions/ConsulterDumAction';
 class ComRedressementRechercheRefComp extends Component {
   defaultState = {
     bureau: '309',
-    regime: '022',
-    annee: '2017',
-    serie: '0002752',
-    cle: 'K',
+    regime: '010',
+    annee: '2020',
+    serie: '0000588',
+    cle: 'E',
     cleValide: '',
     login: '',
     numeroVoyage: '',
     showErrorMsg: false,
     sousReservePaiementMLV: false,
     enregistree: false,
+    command: 'ded.ConsulterDum'
   };
 
   constructor(props) {
@@ -46,18 +47,52 @@ class ComRedressementRechercheRefComp extends Component {
   }
 
   componentDidMount() {
-    var action = ConsulterDumAction.init({
-      type: GENERIC_INIT,
-      value: {},
+    // console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+    // console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+    // console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+    // console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+    // console.log('componentDidMount ComRedressementRechercheRefComp from ? : ' + this.props?.fromWhere);
+    // console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+    // console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+    // console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+    // console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+    this.unsubscribe = this.props.navigation.addListener('focus', () => {
+      switch (this.props?.fromWhere) {
+        case 'ENVOYER_VALEUR':
+          return this.setState({
+            command: 'ded.InitEnvoyerValeur',
+            enregistree: true,
+          });
+        case 'TRAITER_VALEUR':
+          return this.setState({
+            command: 'ded.InitTraiterValeur',
+            enregistree: true,
+          });
+
+        default:
+          this.setState({
+            command: 'ded.ConsulterDum',
+            enregistree: false,
+          });
+      }
+
+      var action = ConsulterDumAction.init({
+        type: GENERIC_INIT,
+        value: {},
+      });
+      this.props.dispatch(action);
+      this.loadRefDumFormScanQrCode();
     });
-    this.props.dispatch(action);
-    this.loadRefDumFormScanQrCode();
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
   }
 
   /*load Dum Reference from scan Qrcode*/
   loadRefDumFormScanQrCode = () => {
     if (this.props.routeParams && this.props.routeParams.refDeclaration) {
-      const {refDeclaration} = this.props.routeParams;
+      const { refDeclaration } = this.props.routeParams;
       this.setState({
         bureau: refDeclaration.slice(0, 3),
         regime: refDeclaration.slice(3, 6),
@@ -69,10 +104,10 @@ class ComRedressementRechercheRefComp extends Component {
   //accept just Number
   onChangeInput = (input) => {
     let keyImput = _.keys(input)[0];
-    this.setState({[keyImput]: input[keyImput].replace(/[^0-9]/g, '')});
+    this.setState({ [keyImput]: input[keyImput].replace(/[^0-9]/g, '') });
   };
   onChangeInputCle = (cle) => {
-    this.setState({cle: cle.replace(/[^A-Za-z]/g, '')});
+    this.setState({ cle: cle.replace(/[^A-Za-z]/g, '') });
   };
   addZeros = (input) => {
     let keyImput = _.keys(input)[0];
@@ -83,11 +118,11 @@ class ComRedressementRechercheRefComp extends Component {
     }
   };
   retablir = () => {
-    this.setState({...this.defaultState});
+    this.setState({ ...this.defaultState });
   };
 
   confirm = () => {
-    this.setState({showErrorMsg: true});
+    this.setState({ showErrorMsg: true });
     if (this.state.regime && this.state.serie) {
       this.state.cleValide = this.cleDUM(this.state.regime, this.state.serie);
 
@@ -107,7 +142,7 @@ class ComRedressementRechercheRefComp extends Component {
               },
               cle: this.state.cle,
             },
-            command: 'ded.ConsulterDum'
+            command: this.state?.command
           },
           this.props.navigation,
         );
@@ -150,7 +185,7 @@ class ComRedressementRechercheRefComp extends Component {
               keyboardType={'number-pad'}
               value={this.state.bureau}
               label={translate('transverse.bureau')}
-              onChangeText={(val) => this.onChangeInput({bureau: val})}
+              onChangeText={(val) => this.onChangeInput({ bureau: val })}
               onEndEditing={(event) =>
                 this.addZeros({
                   bureau: event.nativeEvent.text,
@@ -176,7 +211,7 @@ class ComRedressementRechercheRefComp extends Component {
               keyboardType={'number-pad'}
               value={this.state.regime}
               label={translate('transverse.regime')}
-              onChangeText={(val) => this.onChangeInput({regime: val})}
+              onChangeText={(val) => this.onChangeInput({ regime: val })}
               onEndEditing={(event) =>
                 this.addZeros({
                   regime: event.nativeEvent.text,
@@ -202,7 +237,7 @@ class ComRedressementRechercheRefComp extends Component {
               keyboardType={'number-pad'}
               value={this.state.annee}
               label={translate('transverse.annee')}
-              onChangeText={(val) => this.onChangeInput({annee: val})}
+              onChangeText={(val) => this.onChangeInput({ annee: val })}
               onEndEditing={(event) =>
                 this.addZeros({
                   annee: event.nativeEvent.text,
@@ -228,7 +263,7 @@ class ComRedressementRechercheRefComp extends Component {
               keyboardType={'number-pad'}
               value={this.state.serie}
               label={translate('transverse.serie')}
-              onChangeText={(val) => this.onChangeInput({serie: val})}
+              onChangeText={(val) => this.onChangeInput({ serie: val })}
               onEndEditing={(event) =>
                 this.addZeros({
                   serie: event.nativeEvent.text,
@@ -275,7 +310,7 @@ class ComRedressementRechercheRefComp extends Component {
               value={this.state.numeroVoyage}
               maxLength={1}
               label={translate('transverse.nVoyage')}
-              onChangeText={(val) => this.onChangeInput({numeroVoyage: val})}
+              onChangeText={(val) => this.onChangeInput({ numeroVoyage: val })}
               style={CustomStyleSheet.mediumInput}
             />
           </View>
@@ -308,7 +343,7 @@ class ComRedressementRechercheRefComp extends Component {
               if (this.props.onEnregistree) {
                 this.props.onEnregistree(!this.state.enregistree);
               }
-              this.setState({enregistree: !this.state.enregistree});
+              this.setState({ enregistree: !this.state.enregistree });
             }}
           />
         </View>
@@ -326,7 +361,7 @@ const styles = {
     flexDirection: 'column',
     alignItems: 'center',
   },
-  cleHelperMsg: {width: 150},
+  cleHelperMsg: { width: 150 },
   containerBtn: {
     flexDirection: 'row',
     justifyContent: 'center',
@@ -356,10 +391,10 @@ const styles = {
     alignItems: 'flex-end',
     flex: 1,
   },
-  BtnWidth: {width: 100},
-  enregistreeStyle: {padding: 20},
+  BtnWidth: { width: 100 },
+  enregistreeStyle: { padding: 20 },
 };
 
-const mapStateToProps = (state) => ({...state.consulterDumReducer});
+const mapStateToProps = (state) => ({ ...state.consulterDumReducer });
 
 export default connect(mapStateToProps, null)(ComRedressementRechercheRefComp);

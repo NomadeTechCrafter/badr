@@ -11,6 +11,7 @@ import DedRedressementEnteteAccordFranchiseBlock from './blocks/DedRedressementE
 import DedRedressementEnteteTransbordementBlock from './blocks/DedRedressementEnteteTransbordementBlock';
 import {connect} from 'react-redux';
 import {getValueByPath} from '../../utils/DedUtils';
+import DedRedressementEnteteEnvoyerTraiterValeurBlock from './blocks/DedRedressementEnteteEnvoyerTraiterValeurBlock';
 
 class DedRedressementEnteteScreen extends React.Component {
   constructor(props) {
@@ -65,6 +66,15 @@ class DedRedressementEnteteScreen extends React.Component {
                 'dedDumSectionEnteteVO',
                 this.props.data,
               )}
+            />
+            <DedRedressementEnteteEnvoyerTraiterValeurBlock
+              data={this.props.data}
+              dedDumSectionEnteteVO={getValueByPath(
+                'dedDumSectionEnteteVO',
+                this.props.data,
+              )
+              }
+              fromWhere1={this.props.fromWhere1}
             />
             <DedRedressementEnteteDocumentPrecedentBlock
               data={this.props.data}

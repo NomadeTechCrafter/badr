@@ -13,15 +13,6 @@ class DedRechercheRedressementScreen extends React.Component {
     this.state = {
       title: translate('dedouanement.title')
     };
-    // console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
-    // console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
-    // console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
-    // console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
-    // console.log('Constructor DedRechercheRedressementScreen from ? : ' + this.props?.from);
-    // console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
-    // console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
-    // console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
-    // console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
   }
   componentDidMount() {
     switch (this.props?.from) {
@@ -40,13 +31,13 @@ class DedRechercheRedressementScreen extends React.Component {
         });
     }
 
-    // console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
-    // console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
-    // console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
-    // console.log('componentDidMount DedRechercheRedressementScreen from ? : ' + this.props?.from);
-    // console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
-    // console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
-    // console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+    console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+    console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+    console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+    console.log('componentDidMount DedRechercheRedressementScreen from  : ' + this.props?.from);
+    console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+    console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+    console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
   }
 
   render() {
@@ -58,7 +49,7 @@ class DedRechercheRedressementScreen extends React.Component {
           title={this.state.title}
           subtitle={translate('dedouanement.subTitle')}
         />
-        <ComRedressementRechercheRefComp navigation={this.props.navigation} />
+        <ComRedressementRechercheRefComp navigation={this.props.navigation} fromWhere={this.props?.from} />
       </View>
     );
   }
