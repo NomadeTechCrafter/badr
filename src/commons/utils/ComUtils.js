@@ -139,4 +139,9 @@ export default class ComUtils {
     alpha = alpha.charAt(RS);
     return alpha;
   };
+
+  static convertStringTimeStamp = (date) => {
+    var start_date = new Date(moment(date, "yyyy-MM-dd HH:mm:ss.S"));
+    return start_date;
+  }
 }

@@ -142,7 +142,7 @@
     "controleeService": null,
     "os_chefBrigade": false,
     "ronde": false,
-    "maritime": false,
+    "maritime": true,
     "aerien": false,
     "uniteOrganisationnelle": "DIRECTION REGIONALE DE CASA PORT      (280)",
     "refPJ": "280_2017_9023",

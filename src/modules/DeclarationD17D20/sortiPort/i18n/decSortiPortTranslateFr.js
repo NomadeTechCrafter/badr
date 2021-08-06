@@ -62,6 +62,7 @@ export default {
     //Sorti du Port
     sortiPort: 'Sorti du Port',
     dateSortiPort: 'Date sorti du Port',
+    autresDocument: 'Autre Documents',
     commentSortiPort: 'Commentaire',
     listeEtatChargement: 'Liste Etat de chargement',
     versions: {

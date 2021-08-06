@@ -13,6 +13,7 @@ import {connect} from 'react-redux';
 import {getValueByPath} from '../../utils/DedUtils';
 import DedRedressementEnteteEnvoyerTraiterValeurBlock from './blocks/DedRedressementEnteteEnvoyerTraiterValeurBlock';
 
+
 class DedRedressementEnteteScreen extends React.Component {
   constructor(props) {
     super(props);

@@ -1,7 +1,7 @@
 /** Redux Store & middleware */
-import {applyMiddleware, combineReducers, compose, createStore} from 'redux';
+import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
 import thunk from 'redux-thunk';
-import {comCustomMiddlewareService} from '../services/middleware/ComCustomMiddlewareService';
+import { comCustomMiddlewareService } from '../services/middleware/ComCustomMiddlewareService';
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 /** Reducers */
 import loginReducer from '../../modules/hab/login/state/reducers/habLoginReducer';
@@ -66,6 +66,7 @@ import consultationBLSReducer from '../../modules/ecorImport/eciConsultationBLS/
 import eciAppositionScellesRechercheReducer from '../../modules/ecorImport/appositionScelles/recherche/state/reducers/eciAppositionScellesRechercheReducer';
 import eciAppositionScellesReducer from '../../modules/ecorImport/appositionScelles/apposition/state/reducers/eciAppositionScellesReducer';
 import pecEtatChargementReducer from '../../modules/pecEtatChargement/rechParRef/state/reducers/pecEtatChargementReducer';
+import pecEtatChargementVEReducer from '../../modules/pecEtatChargement/VuEmbarquer/state/reducers/pecVuEmbarquerReducer';
 import consultationIgTIReducer from '../../modules/tarifIntegre/tiConsultationIgTI/state/reducers/tiConsultationIgTIReducer';
 import consultationTIReducer from '../../modules/tarifIntegre/tiConsultationTI/state/reducers/tiConsultationTIReducer';
 import dedConfirmationReceptionReducer from '../../modules/dedouanement/confirmationReception/state/reducers/dedConfirmationReceptionReducer';
@@ -75,8 +76,8 @@ import ecorExpConfirmationArriveeReducer from '../../modules/ecorExport/confirma
 import dtpsSortieReducer from '../../modules/dtps/dtpsSortie/state/reducers/dtpsSortieReducer'
 import dtpsEntreeReducer from '../../modules/dtps/dtpsEntree/state/reducers/dtpsEntreeReducer'
 import dtpsConsultationReducer from '../../modules/dtps/consultation/state/reducers/dtpsConsultationReducer'
-
-
+import rechercheAutoriserAcheminementReducer from '../../modules/ecorExport/autoriserAcheminement/recherche/state/reducers/rechercheAutoriserAcheminementReducer';
+import autoriserAcheminementMainReducer from '../../modules/ecorExport/autoriserAcheminement/mainScreen/state/reducers/autoriserAcheminementMainReducer';
 /**
  * combine all reducers
  */
@@ -142,7 +143,8 @@ const allReducers = combineReducers({
   sortiPortInitReducer,
   dtpsSortieReducer,
   dtpsEntreeReducer,
-  dtpsConsultationReducer
+  dtpsConsultationReducer,
+  rechercheAutoriserAcheminementReducer, autoriserAcheminementMainReducer, pecEtatChargementVEReducer
 });
 /**
  * store creation

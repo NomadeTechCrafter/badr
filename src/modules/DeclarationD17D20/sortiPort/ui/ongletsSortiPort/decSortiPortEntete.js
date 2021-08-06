@@ -1,7 +1,7 @@
 import React from 'react';
-import {View, ScrollView, StyleSheet, Text} from 'react-native';
-import {connect} from 'react-redux';
-import {translate} from '../../../../../commons/i18n/ComI18nHelper';
+import { View, ScrollView, StyleSheet, Text } from 'react-native';
+import { connect } from 'react-redux';
+import { translate } from '../../../../../commons/i18n/ComI18nHelper';
 import * as Constants from '../../state/decSortiPortConstants';
 import * as SortiPortConfirmerAction from '../../state/actions/decSortiPortUcAction';
 
@@ -13,8 +13,8 @@ import {
   ComBadrDatePickerComp,
   ComBadrActionButtonComp,
 } from '../../../../../commons/component';
-import {Checkbox} from 'react-native-paper';
-import {TextInput} from 'react-native-paper';
+import { Checkbox } from 'react-native-paper';
+import { TextInput } from 'react-native-paper';
 
 import moment from 'moment';
 import { ComSessionService } from '../../../../../commons/services/session/ComSessionService';
@@ -37,7 +37,7 @@ class SortiPortEntete extends React.Component {
     //define actions switch between Confirmer and Annuler
     const screenActions = [];
 
-    if (this.props.dataVo?.declarationTriptique?.sortiPortExisteDeja) {
+    if (this.props.dataVo?.declarationTriptique?.sortieExisteDeja) {
       screenActions.push({
         title: translate('sortiPort.actionAnnuler'),
         icon: 'remove',
@@ -54,20 +54,20 @@ class SortiPortEntete extends React.Component {
     if (
       this.props.dataVo &&
       this.props.dataVo?.declarationTriptique &&
-      this.props.dataVo?.declarationTriptique?.sortiPort
+      this.props.dataVo?.declarationTriptique?.sortiePort
     ) {
-      const sortiPort = this.props.dataVo?.declarationTriptique?.sortiPort;
+      const sortiPort = this.props.dataVo?.declarationTriptique?.sortiePort;
       // this.setState({commentaire: sortiPort.commentaire});
       // this.setState({dateSortiPort: sortiPort.dateSortiPort});
       console.log('  test date : ' + sortiPort.dateSortiPort);
       this.state = {
         ...initialState,
-        commentaire: sortiPort.commentaire,
-        dateSortiPort: sortiPort.dateSortiPort,
-        sortiPortExisteDeja: this.props.dataVo?.declarationTriptique?.sortiPortExisteDeja,
+        commentaire: sortiPort?.commentaire,
+        dateSortiPort: sortiPort?.dateSortie,
+        sortiPortExisteDeja: this.props.dataVo?.declarationTriptique?.sortieExisteDeja,
         screenActions,
-        dateDebutSortiPort: sortiPort.dateSortiPort.split(' ')[0],
-        heureDebutSortiPort: sortiPort.dateSortiPort.split(' ')[1],
+        dateDebutSortiPort: sortiPort?.dateSortie?.split(' ')[0],
+        heureDebutSortiPort: sortiPort?.dateSortie?.split(' ')[1],
       };
     } else {
       this.state = {
@@ -82,7 +82,7 @@ class SortiPortEntete extends React.Component {
 
   componentDidMount() {
     // eslint-disable-next-line react/no-did-mount-set-state
-    this.setState(initialState);
+    // this.setState(initialState);
   }
 
   cleDUM = function (regime, serie) {
@@ -125,6 +125,21 @@ class SortiPortEntete extends React.Component {
     return nomVehicule;
   };
 
+  getNomVehiculeSecondaires = function (idVehicule) {
+    let nomVehicule = '';
+    let vehiculeObjet = this.props.dataVo?.vctVehiculeSecondaires.find((vehicule) => {
+      return vehicule.code === idVehicule;
+    });
+
+    if (vehiculeObjet && vehiculeObjet.libelle) {
+      return vehiculeObjet.libelle;
+    }
+
+    return nomVehicule;
+  };
+
+
+
   handleConfirmSortiPort = () => {
     if (
       !this.state.dateDebutSortiPort ||
@@ -137,17 +152,23 @@ class SortiPortEntete extends React.Component {
       this.setState({
         errorMessage: translate('sortiPort.dateSortiPortObligatoire'),
       });
-      this.scrollViewRef.current.scrollTo({x: 0, y: 0, animated: true});
+      this.scrollViewRef.current.scrollTo({ x: 0, y: 0, animated: true });
       return;
     }
 
     const jsonVO = {};
     jsonVO.indentifiant = this.props.dataVo?.declarationTriptique?.indentifiant;
     jsonVO.sortiePort = {
-      dateSortie: this.state.dateSortiPort, //'18/01/2021 11:08',
+      dateSortie: this.state.dateDebutSortiPort + ' ' + this.state.heureDebutSortiPort, //'18/01/2021 11:08',
       commentaire: this.state.commentaire, //'My Comment ',
       agent: ComSessionService.getInstance().getLogin(), //'AD6025',
     };
+
+    +    console.log("-----------------");
+    +    console.log(JSON.stringify(jsonVO));
+    +    console.log("-----------------");
+    +    console.log("-----------------");
+
 
     var action = SortiPortConfirmerAction.request(
       {
@@ -163,7 +184,7 @@ class SortiPortEntete extends React.Component {
       this.props.navigation,
     );
     this.props.actions.dispatch(action);
-    this.scrollViewRef.current.scrollTo({x: 0, y: 0, animated: true});
+    this.scrollViewRef.current.scrollTo({ x: 0, y: 0, animated: true });
   };
 
   handleAnnulerSortiPort = () => {
@@ -184,7 +205,7 @@ class SortiPortEntete extends React.Component {
       this.props.navigation,
     );
     this.props.actions.dispatch(action);
-    this.scrollViewRef.current.scrollTo({x: 0, y: 0, animated: true});
+    this.scrollViewRef.current.scrollTo({ x: 0, y: 0, animated: true });
   };
 
   getConducteurById = function (codeConducteur) {
@@ -208,15 +229,15 @@ class SortiPortEntete extends React.Component {
     const renderDateSortiPort = () => {
       return (
         <ComBadrDatePickerComp
-          dateFormat="DD/MM/yyyy"
+          dateFormat="DD/MM/YYYY"
           heureFormat="HH:mm"
           value={
-            this.state.dateDebutSortiPort
+            this.state?.dateDebutSortiPort
               ? moment(this.state.dateDebutSortiPort, 'DD/MM/yyyy', true)
               : ''
           }
           timeValue={
-            this.state.heureDebutSortiPort
+            this.state?.heureDebutSortiPort
               ? moment(this.state.heureDebutSortiPort, 'HH:mm', true)
               : ''
           }
@@ -359,7 +380,7 @@ class SortiPortEntete extends React.Component {
                     {translate('sortiPort.nomInitiateur')} :
                   </Text>
                   <Text style={styles.valueS}>
-                    {enteteTrypVO?.nomInitiateur}
+                    {enteteTrypVO?.nomDeclarant}
                   </Text>
                 </View>
                 <View style={[styles.flexDirectionRow, styles.marg]}>
@@ -367,7 +388,7 @@ class SortiPortEntete extends React.Component {
                     {translate('sortiPort.dateCreation')} :
                   </Text>
                   <Text style={styles.valueM}>
-                    {enteteTrypVO?.dateCreation_VC}
+                    {enteteTrypVO?.dateCreaTryp}
                   </Text>
                 </View>
 
@@ -376,14 +397,14 @@ class SortiPortEntete extends React.Component {
                     {translate('sortiPort.dateSauvegarde')}{' '}
                     {translate('sortiPort.versionCourante')}:
                   </Text>
-                  <Text style={styles.valueM}>{enteteTrypVO?.dateDepot_VC}</Text>
+                  <Text style={styles.valueM}>{enteteTrypVO?.dateCreation_VC}</Text>
                 </View>
                 <View style={[styles.flexDirectionRow, styles.marg]}>
                   <Text style={styles.libelleM}>
                     {translate('sortiPort.dateSauvegarde')}{' '}
                     {translate('sortiPort.versionInitiale')}:
                   </Text>
-                  <Text style={styles.valueM}>{enteteTrypVO?.dateDepot_VI}</Text>
+                  <Text style={styles.valueM}>{enteteTrypVO?.dateCreation_VI}</Text>
                 </View>
               </View>
             </Accordion>
@@ -526,7 +547,7 @@ class SortiPortEntete extends React.Component {
                     {translate('sortiPort.vehicule2')} :
                   </Text>
                   <Text style={styles.valueM}>
-                    {this.getNomVehicule(enteteTrypVO?.idVehiculeSecondaire)}</Text>
+                    {this.getNomVehiculeSecondaires(enteteTrypVO?.idVehiculeSecondaire)}</Text>
                 </View>
               </View>
             </Accordion>
@@ -554,7 +575,7 @@ class SortiPortEntete extends React.Component {
                   <Text style={styles.libelleM}>
                     {translate('sortiPort.numAutorisation')} :
                   </Text>
-                  <Text style={styles.valueS}>{ ''}</Text>
+                  <Text style={styles.valueS}>{enteteTrypVO?.autorisationMa}</Text>
                   <Text style={styles.libelleS}>
                     {translate('sortiPort.du')} :
                   </Text>
@@ -598,7 +619,7 @@ class SortiPortEntete extends React.Component {
                     numberOfLines={3}
                     placeholder={translate('sortiPort.commentSortiPort')}
                     value={this.state.commentaire}
-                    onChangeText={(text) => this.setState({commentaire: text})}
+                    onChangeText={(text) => this.setState({ commentaire: text })}
                   />
                   {/* <ComBadrTextInputComp
                   keyboardType="text"
@@ -615,6 +636,14 @@ class SortiPortEntete extends React.Component {
                     color="#009ab2"
                     status={enteteTrypVO?.avide ? 'checked' : 'unchecked'}
                   />
+                </View>
+                <View style={[styles.flexDirectionRow, styles.marg]}>
+                  <Text style={styles.libelleS}>
+                    {translate('sortiPort.autresDocument')} :
+                  </Text>
+                  <Text style={styles.valueL}>
+                    {enteteTrypVO?.autreDocument}
+                  </Text>
                 </View>
               </View>
             </Accordion>
@@ -703,7 +732,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
   },
-  libelle: {...libelle},
+  libelle: { ...libelle },
   libelleS: {
     ...libelle,
     flex: 1,
@@ -739,7 +768,7 @@ const styles = StyleSheet.create({
   textRadio: {
     color: '#FFF',
   },
-  flexColumn: {flexDirection: 'column'},
+  flexColumn: { flexDirection: 'column' },
   margLeft: {
     marginLeft: 20,
   },
@@ -760,11 +789,11 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps(state) {
-  return {...state.sortiPortReducer};
+  return { ...state.sortiPortReducer };
 }
 
 function mapDispatchToProps(dispatch) {
-  let actions = {dispatch};
+  let actions = { dispatch };
   return {
     actions,
   };

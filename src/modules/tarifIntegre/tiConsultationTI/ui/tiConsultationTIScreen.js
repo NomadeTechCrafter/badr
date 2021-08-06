@@ -31,6 +31,11 @@ import { CONSULTATION_TI_REQUEST, INIT_CONSULTATION_TI_REQUEST } from '../state/
 import _ from 'lodash';
 import { remote } from '../../../../old/common/config';
 import moment from 'moment';
+import { Html5Entities } from 'html-entities';
+import { Button } from 'react-native';
+import { Modal } from 'react-native';
+import { Pressable } from 'react-native';
+const entities = new Html5Entities();
 
 const initialState = {
 };
@@ -47,6 +52,8 @@ class TiConsultationTIScreen extends React.Component {
             libelleIG: '',
             positionTarifaire: '',
             errorMessage: '',
+            modalVisible: false,
+            modalVisibleFr: false,
         };
     }
 
@@ -228,7 +235,7 @@ class TiConsultationTIScreen extends React.Component {
         return items;
     }
 
-    renderCodification = (codification) => {
+    renderCodificationFr = (codification) => {
         const items = [];
         items.push(
             <Grid style={style.gridContainer}>
@@ -264,14 +271,51 @@ class TiConsultationTIScreen extends React.Component {
         return items;
     }
 
+    renderCodificationAr = (codification) => {
+        const items = [];
+        items.push(
+            <Grid style={style.gridContainer}>
+                <Row>
+                    <Col style={style.column}>
+                        <Text style={style.valueM}>
+                            {codification.code10}
+                        </Text>
+                    </Col >
+                    <Col style={style.column}>
+                        <Text style={style.valueM}>
+                            {codification.code8}
+                        </Text>
+                    </Col >
+                    <Col style={style.column}>
+                        <Text style={style.valueM}>
+                            {codification.code6}
+                        </Text>
+                    </Col >
+                    <Col style={style.column}>
+                        <Text style={style.valueM}>
+                            {codification.code4}
+                        </Text>
+                    </Col>
+                    <Col style={style.column}>
+                        <Text style={style.valueM}>
+                            {codification.ingGrp}
+                        </Text>
+                    </Col>
+                </Row>
+            </Grid>
+        );
+        return items;
+    }
+
     renderDescriptionFrDataTable = (listData) => {
+        const { modalVisibleFr } = this.state;
         const items = [];
         for (let line of listData) {
             items.push(
                 <DataTable style={style.width100}>
                     <DataTable.Row>
                         <DataTable.Cell style={style.datatableCell}>
-                            {this.renderCodification(line.codification)}
+                            {this.renderCodificationFr(line.codification)}
                         </DataTable.Cell>
                         <DataTable.Cell style={style.datatableCell}>
                             <TextInput
@@ -282,6 +326,38 @@ class TiConsultationTIScreen extends React.Component {
                                 multiline={true}
                                 numberOfLines={line?.designation?.length / 30}
                             />
+
+                            {line?.designationRenvoi && (
+                                <View style={style.centeredView}>
+                                    <Modal
+                                        animationType="slide"
+                                        transparent={true}
+                                        visible={modalVisibleFr}
+                                        onRequestClose={() => {
+                                            // Alert.alert("Modal has been closed.");
+                                            this.setModalVisibleFr(!modalVisibleFr);
+                                        }}
+                                    >
+                                        <View style={style.centeredView}>
+                                            <View style={style.modalView}>
+                                                <Text style={style.modalText}>{entities.decode(line?.designationRenvoi)}</Text>
+                                                <Pressable
+                                                    style={[style.button, style.buttonClose]}
+                                                    onPress={() => this.setModalVisibleFr(!modalVisibleFr)}
+                                                >
+                                                    <Text style={style.textStyle}>X</Text>
+                                                </Pressable>
+                                            </View>
+                                        </View>
+                                    </Modal>
+                                    <Pressable
+                                        style={[style.button, style.buttonOpen]}
+                                        onPress={() => this.setModalVisibleFr(true)}
+                                    >
+                                        <Text style={style.textStyle}>(*)</Text>
+                                    </Pressable>
+                                </View>
+                            )}
                         </DataTable.Cell>
                         <DataTable.Cell style={style.datatableCellMinWidth}>
                             {line.di}
@@ -326,15 +402,22 @@ class TiConsultationTIScreen extends React.Component {
         return items;
     }
 
+    setModalVisible = (visible) => {
+        this.setState({ modalVisible: visible });
+    }
+    setModalVisibleFr = (visible) => {
+        this.setState({ modalVisibleFr: visible });
+    }
 
     renderDescriptionArDataTable = (listData) => {
+        const { modalVisible } = this.state;
         const items = [];
         for (let line of listData) {
             items.push(
                 <DataTable style={style.width100}>
                     <DataTable.Row>
-                        <DataTable.Cell style={style.datatableCellMinWidth}>
-                            {line.uc}
+                        <DataTable.Cell style={style.datatableCellAveWidth}>
+                            {entities.decode(line.uc)}
                         </DataTable.Cell>
                         <DataTable.Cell style={style.datatableCellAveWidth}>
                             {line.uqn}
@@ -343,6 +426,38 @@ class TiConsultationTIScreen extends React.Component {
                             {line.di}
                         </DataTable.Cell>
                         <DataTable.Cell style={style.datatableCell}>
+                            {line?.designationRenvoi && (
+                                <View style={style.centeredView}>
+                                    <Modal
+                                        animationType="slide"
+                                        transparent={true}
+                                        visible={modalVisible}
+                                        onRequestClose={() => {
+                                            // Alert.alert("Modal has been closed.");
+                                            this.setModalVisible(!modalVisible);
+                                        }}
+                                    >
+                                        <View style={style.centeredView}>
+                                            <View style={style.modalView}>
+                                                <Text style={style.modalText}>{entities.decode(line?.designationRenvoi)}</Text>
+                                                <Pressable
+                                                    style={[style.button, style.buttonClose]}
+                                                    onPress={() => this.setModalVisible(!modalVisible)}
+                                                >
+                                                    <Text style={style.textStyle}>X</Text>
+                                                </Pressable>
+                                            </View>
+                                        </View>
+                                    </Modal>
+                                    <Pressable
+                                        style={[style.button, style.buttonOpen]}
+                                        onPress={() => this.setModalVisible(true)}
+                                    >
+                                        <Text style={style.textStyle}>(*)</Text>
+                                    </Pressable>
+                                </View>
+                            )}
+
                             <TextInput
                                 mode={'outlined'}
                                 style={{ width: 400, textAlignVertical: 'top' }}
@@ -351,10 +466,12 @@ class TiConsultationTIScreen extends React.Component {
                                 multiline={true}
                                 numberOfLines={line?.designation?.length / 30}
                             />
+
+
                         </DataTable.Cell>
                         <DataTable.Cell style={style.datatableCell}>
                             <DataTable>
-                                {this.renderCodification(line.codification)}
+                                {this.renderCodificationAr(line.codification)}
                             </DataTable>
                         </DataTable.Cell>
                     </DataTable.Row>
@@ -456,7 +573,7 @@ class TiConsultationTIScreen extends React.Component {
                                         <ComBadrDatePickerComp
                                             readonly={this.props.route?.params?.modeConsultation === 'E' ? true : false}
                                             dateFormat="DD/MM/YYYY"
-                                            value={this.state.date}
+                                            value={this.state.date ? moment(this.state.date, 'DD/MM/yyyy', true) : ''}
                                             onDateChanged={(lDate) =>
                                                 this.setState({
                                                     ...this.state,

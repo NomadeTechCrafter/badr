@@ -119,6 +119,7 @@ export default {
     poidsNet: 'Poids net',
     refDS: 'Référence DS',
     typeDS: 'Type DS',
+    nbreContenant: 'Nbre contenant',
     total: 'Total',
     lieuChargement: 'Lieu de chargement',
     referenceLot: 'Référence Lot',
@@ -137,7 +138,7 @@ export default {
   },
   tabs: {
     entete: 'Entete',
-    connaissement: 'Connaissement',
+    connaissements: 'Connaissements',
     declarationDetail: 'Déclaration en Détail',
     etatChargement: 'Etat de chargement',
     resultScanner: 'Résultat scanner',

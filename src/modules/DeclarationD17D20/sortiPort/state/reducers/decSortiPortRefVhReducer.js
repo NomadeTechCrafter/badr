@@ -44,8 +44,8 @@ export default (state = initialState, action) => {
       nextState.messageInfo = null;
       nextState.success = false;
       if (action.value.dtoHeader) {
-        nextState.errorMessage = action.value.dtoHeader.messagesErreur
-          ? action.value.dtoHeader.messagesErreur
+        nextState.errorMessage = action?.value?.dtoHeader?.messagesErreur
+          ? action?.value?.dtoHeader?.messagesErreur
           : action.value;
       } else {
         nextState.errorMessage = translate('errors.technicalIssue');

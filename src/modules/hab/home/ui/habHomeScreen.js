@@ -1,9 +1,9 @@
 /** React Components */
 import React from 'react';
-import {Dimensions} from 'react-native';
+import { Dimensions } from 'react-native';
 
 /** REDUX **/
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 /** Screens */
 import WelcomeScreen from '../../annonces/ui/habAnnoncesScreen';
@@ -15,7 +15,7 @@ import SortiPortScreen from '../../../DeclarationD17D20/sortiPort/ui/decSortiPor
 import SortiPortListeDeclaration from '../../../DeclarationD17D20/sortiPort/ui/decSortiPort/decSortiPortListeDeclaration';
 import VuEmbListeDeclaration from '../../../DeclarationD17D20/vuEmbarquer/ui/vuEmbarquer/VuEmbListeDeclaration';
 
-import {ComQrCodeScannerComp} from '../../../../commons/component';
+import { ComQrCodeScannerComp } from '../../../../commons/component';
 import BloquerOperateur from '../../../referentiel/operateursEconomiques/ui/bloquerOperateur/refBloquerOperateurScreen';
 import DebloquerOperateur from '../../../referentiel/operateursEconomiques/ui/debloquerOperateur/refDebloquerOperateurScreen';
 import DedRedressementScreen from '../../../dedouanement/redressement/ui/DedRedressementScreen';
@@ -42,18 +42,18 @@ import T6bisCreation from '../../../t6bis/creation/ui/t6bisCreation/t6bisCreatio
 import T6bisRecherche from '../../../t6bis/recherche/ui/t6bisRechercheScreen';
 import T6bisGestion from '../../../t6bis/gestion/ui/t6bisGestion/t6bisGestionScreen';
 
-import Entete from '../../../../old/screens/actifs/rapport/creation/entete';
-import Recherche from '../../../../old/screens/actifs/rapport/recherche';
-import Saisie from '../../../../old/screens/actifs/rapport/creation/saisie';
-import Details from '../../../../old/./screens/actifs/rapport/creation/details';
-import Consultation from '../../../../old/screens/actifs/rapport/consultation';
-import Creation from '../../../../old/screens/actifs/rapport/creation';
+
+import ActifsRapportRechercheScreen from '../../../actifs/rapport/recherche/ui/actifsRapportRechercheScreen';
+
+
+
+import actifsRapportCreationScreen from '../../../actifs/rapport/creation/ui/actifsRapportCreationScreen';
 /**ACTIONS */
 import * as Constants from '../../../../commons/constants/generic/ComGenericConstants';
 import * as GenericAction from '../../../../commons/state/actions/ComGenericAction';
 
 /** Drawer navigation */
-import {createDrawerNavigator} from '@react-navigation/drawer';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import DedRedressementRecherche from '../../../dedouanement/redressement/ui/DedRechercheRedressementScreen';
 import RefControleVehiculeMainScreen from '../../../referentiel/controleVehicules/ui/refControleVehiculeMainScreen';
 import RefPlaquesImmMainScreen from '../../../referentiel/plaquesImmatriculation/ui/refPlaquesImmMainScreen';
@@ -66,9 +66,13 @@ import ConsultationTIScreen from '../../../tarifIntegre/tiConsultationTI/ui/tiCo
 
 import ConfirmationEntreeMainScreen from '../../../ecorExport/confirmationEntree/ui/ecorExpConfirmationEntreeMainScreen';
 import ConfirmationArriveeMainScreen from '../../../ecorExport/confirmationArrivee/ui/ecorExpConfirmationArriveeMainScreen';
+import rechercheAutoriserAcheminementScreen from '../../../ecorExport/autoriserAcheminement/recherche/ui/rechercheAutoriserAcheminementScreen';
+import autoriserAcheminementMainScreen from '../../../ecorExport/autoriserAcheminement/mainScreen/ui/autoriserAcheminementMainScreen';
+
 
 
 import PecEtatChargementMainScreen from '../../../pecEtatChargement/rechParRef/ui/pecEtatChargementMainScreen';
+import PecEtatChargementVEMainScreen from '../../../pecEtatChargement/VuEmbarquer/ui/pecEtatChargementMainScreen';
 
 import DedRechercheConfirmationReceptionScreen from '../../../dedouanement/confirmationReception/ui/dedRechercheConfirmationReceptionScreen';
 
@@ -80,7 +84,7 @@ import dedEnvoyerValeurScreen from '../../../dedouanement/envoyerValeur/ui/dedEn
 const Drawer = createDrawerNavigator();
 const deltaScreen = Dimensions.get('window').width / 4;
 
-function DedRedressementRechercheScreen({route, navigation}) {
+function DedRedressementRechercheScreen({ route, navigation }) {
   return <DedRedressementRecherche navigation={navigation} route={route} />;
 }
 
@@ -186,7 +190,7 @@ class habHomeScreen extends React.Component {
         <Drawer.Screen
           name="RechercheEcorImport"
           component={EcorImportRechercheScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Drawer.Screen
           name="ComQrCodeScannerComp"
@@ -260,46 +264,23 @@ class habHomeScreen extends React.Component {
           options={{ headerShown: false }}
         />
         {/* Actif Module*/}
+
         <Drawer.Screen
-          name="Recherche"
+          name="ActifsRecherche"
           options={{ headerShown: false }}
-          component={Recherche}
+          component={ActifsRapportRechercheScreen}
         />
-        <Drawer.Screen
-          name="Creation"
-          options={{ headerShown: false }}
-          component={Creation}
-        />
-        <Drawer.Screen
-          name="Entete"
-          options={{ headerShown: false }}
-          component={Entete}
-        />
-        <Drawer.Screen
-          name="Details"
-          options={{ headerShown: false }}
-          component={Details}
-        />
-        <Drawer.Screen
-          name="Saisie"
-          options={{ headerShown: false }}
-          component={Saisie}
-        />
-        <Drawer.Screen
-          name="Consultation"
-          options={{headerShown: false}}
-          component={Consultation}
-        />
+
         {/* Fonc Vu embarquer */}
         <Drawer.Screen
           name="VuEmbarqueScreen"
           component={VuEmbarqueScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Drawer.Screen
           name="VuEmbListeDeclaration"
           component={VuEmbListeDeclaration}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         {/* Fonc Sorti Du Port */}
         <Drawer.Screen
@@ -321,18 +302,19 @@ class habHomeScreen extends React.Component {
         <Drawer.Screen
           name="T6bisCreation"
           component={T6bisCreation}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Drawer.Screen
           name="T6bisRecherche"
           component={T6bisRecherche}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Drawer.Screen
           name="T6bisGestion"
           component={T6bisGestion}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
+
         {/* Module T6bis end*/}
 
         <Drawer.Screen
@@ -343,7 +325,7 @@ class habHomeScreen extends React.Component {
         <Drawer.Screen
           name="AppositionScellesScreen"
           component={ECIAppositionScellesScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
 
         <Drawer.Screen
@@ -363,9 +345,14 @@ class habHomeScreen extends React.Component {
         <Drawer.Screen
           name="PecEtatChargementMainScreen"
           component={PecEtatChargementMainScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
 
+        <Drawer.Screen
+          name="PecEtatChargementVEMainScreen"
+          component={PecEtatChargementVEMainScreen}
+          options={{ headerShown: false }}
+        />
 
         <Drawer.Screen
           name="ConsultationIgTIScreen"
@@ -386,6 +373,12 @@ class habHomeScreen extends React.Component {
         />
 
         <Drawer.Screen
+          name="ConsultationTIScreenI"
+          component={ConsultationTIScreen}
+          options={{ headerShown: false }}
+        />
+
+        <Drawer.Screen
           name="RechercheConfirmationReceptionScreen"
           component={DedRechercheConfirmationReceptionScreen}
           options={{ headerShown: false }}
@@ -400,6 +393,8 @@ class habHomeScreen extends React.Component {
         <Drawer.Screen
           name="DTPSSortieMainScreen"
           component={DTPSSortieMainScreen}
+          name="RechercheAutoriserAcheminementScreen"
+          component={rechercheAutoriserAcheminementScreen}
           options={{ headerShown: false }}
         />
 
@@ -420,8 +415,24 @@ class habHomeScreen extends React.Component {
           options={{ headerShown: false }}
         />
 
-        
-        
+        <Drawer.Screen
+          name="RechercheAutoriserAcheminementScreen"
+          component={rechercheAutoriserAcheminementScreen}
+          options={{ headerShown: false }}
+        />
+
+        <Drawer.Screen
+          name="AutoriserAcheminementMainScreen"
+          component={autoriserAcheminementMainScreen}
+          options={{ headerShown: false }}
+        />
+
+        <Drawer.Screen
+          name="CreationRapport"
+          component={actifsRapportCreationScreen}
+          options={{ headerShown: false }}
+        />
+
       </Drawer.Navigator>
     );
   }
