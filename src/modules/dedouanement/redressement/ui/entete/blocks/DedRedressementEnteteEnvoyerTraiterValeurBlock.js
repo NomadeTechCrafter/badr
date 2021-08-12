@@ -15,12 +15,18 @@ import translate from "../../../../../../commons/i18n/ComI18nHelper";
 import { Button } from 'react-native';
 import { connect } from 'react-redux';
 import { Component } from 'react';
+import { FORMAT_DDMMYYYY_HHMM } from '../../../../../actifs/rapport/utils/actifsConstants';
+import { ComSessionService } from '../../../../../../commons/services/session/ComSessionService';
+import ComUtils from '../../../../../../commons/utils/ComUtils';
+import moment from 'moment';
 
 class DedRedressementEnteteEnvoyerTraiterValeurBlock extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
+      declarationValeurEnvoi: false,
+      descriptionTraitementEnvoi: false,
       declarationValeurDescriptionEnvoi: '',
       descriptionTraitementDescriptionEnvoi: '',
       buttonLabel: 'disabled',
@@ -67,18 +73,20 @@ class DedRedressementEnteteEnvoyerTraiterValeurBlock extends Component {
   }
 
   componentDidMount() {
-    // this.unsubscribe = this.props.navigation.addListener('focus', () => {
+    this.unsubscribe = this.props.navigation.addListener('focus', () => {
       console.log('this.props?.fromWhere1 : ', this.props?.fromWhere1);
 
       switch (this.props?.fromWhere1) {
         case 'ded.InitEnvoyerValeur':
-          return this.setState({
+          this.setState({
             buttonLabel: translate('dedouanement.confirmerEnvoiValeur')
           });
+          break;
         case 'ded.InitTraiterValeur':
-          return this.setState({
+          this.setState({
             buttonLabel: translate('dedouanement.confirmerTraitementValeur')
           });
+          break;
 
         default:
           this.setState({
@@ -87,21 +95,69 @@ class DedRedressementEnteteEnvoyerTraiterValeurBlock extends Component {
       }
 
       const lastVersionDeclarationValeur = this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO ? this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO[this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO?.length - 1] : {}
+      console.log('=============================================================');
+      console.log('=============================================================');
+      console.log('=============================================================');
+      console.log(JSON.stringify(lastVersionDeclarationValeur));
+      console.log('=============================================================');
+      console.log('=============================================================');
+      console.log('=============================================================');
+
       if (lastVersionDeclarationValeur && !lastVersionDeclarationValeur.traite) {
         this.setState({
           declarationValeurDescriptionEnvoi: lastVersionDeclarationValeur ? lastVersionDeclarationValeur.descriptionEnvoi : '',
-          descriptionTraitementDescriptionEnvoi: lastVersionDeclarationValeur ? lastVersionDeclarationValeur.descriptionTraitement : '',
+          declarationValeurEnvoi: true,
+          // descriptionTraitementDescriptionEnvoi: lastVersionDeclarationValeur ? lastVersionDeclarationValeur.descriptionTraitement : '',
         })
       }
-    // });
+      // if (lastVersionDeclarationValeur && lastVersionDeclarationValeur.traite) {
+      //   this.setState({
+      //     declarationValeurDescriptionEnvoi: lastVersionDeclarationValeur ? lastVersionDeclarationValeur.descriptionEnvoi : '',
+      //     descriptionTraitementDescriptionEnvoi: lastVersionDeclarationValeur ? lastVersionDeclarationValeur.descriptionTraitement : '',
+      //   })
+      // }
+    });
   }
 
   componentWillUnmount() {
-    // this.unsubscribe();
+    this.unsubscribe();
   }
 
   addDeclarationValeur = async () => {
+    if (this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO && this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO?.length > 0) {
+      const lastVersionDeclarationValeur = this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO[this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO?.length - 1];
+      const newVersionDeclarationValeur =
+      {
+        "agentEnvoiValeur": ComSessionService.getInstance().getLogin(),
+        "nomAgentEnvoiValeur": ComUtils.buildUserFullname(
+          ComSessionService.getInstance().getUserObject(),
+        ),
+        "numeroOrdre": lastVersionDeclarationValeur.numeroOrdre++,
+        "dateEnvoi": moment(new Date(), FORMAT_DDMMYYYY_HHMM),
+        "descriptionEnvoi": this.state.descriptionTraitementDescriptionEnvoi,
+        "identifiantDUM": lastVersionDeclarationValeur.identifiantDUM,
+      };
+      this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO.push(newVersionDeclarationValeur);
+    } else {
+      const newVersionDeclarationValeur =
+      {
+        "agentEnvoiValeur": ComSessionService.getInstance().getLogin(),
+        "nomAgentEnvoiValeur": ComUtils.buildUserFullname(
+          ComSessionService.getInstance().getUserObject(),
+        ),
+        "numeroOrdre": 1,
+        "dateEnvoi": moment(new Date(), FORMAT_DDMMYYYY_HHMM),
+        "descriptionEnvoi": this.state.descriptionTraitementDescriptionEnvoi,
+        "identifiantDUM": this.props?.dedDumSectionEnteteVO?.identifiant,
+      };
 
+      // this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO = [];
+      this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO.push(newVersionDeclarationValeur);
+    }
+
+    console.log('=============================================================');
+    console.log(JSON.stringify(this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO));
+    console.log('=============================================================');
   };
 
   render() {
@@ -115,7 +171,7 @@ class DedRedressementEnteteEnvoyerTraiterValeurBlock extends Component {
               libelle="Envoi valeur"
               children={
                 <TextInput
-                  disabled={this.props?.fromWhere1 === 'ded.ConsulterDum' || this.state.declarationValeurDescriptionEnvoi || this.props?.fromWhere1 === 'ded.InitTraiterValeur'}
+                  disabled={this.props?.fromWhere1 === 'ded.ConsulterDum' || this.state.declarationValeurEnvoi || this.props?.fromWhere1 === 'ded.InitTraiterValeur'}
                   mode="flat"
                   value={this.state.declarationValeurDescriptionEnvoi}
                   style={{ width: '100%' }}
@@ -154,7 +210,7 @@ class DedRedressementEnteteEnvoyerTraiterValeurBlock extends Component {
           <DedRedressementRow>
             <Button
               title={translate('transverse.ajouter')}
-              disabled={this.state.buttonLabel === 'disabled' || this.props?.fromWhere1 === 'ded.ConsulterDum'}
+              disabled={this.state.buttonLabel === 'disabled' || this.state.declarationValeurEnvoi || this.props?.fromWhere1 === 'ded.ConsulterDum'}
               type={'solid'}
               buttonStyle={styles.buttonAction}
               onPress={() => this.addDeclarationValeur()} />
@@ -175,7 +231,7 @@ class DedRedressementEnteteEnvoyerTraiterValeurBlock extends Component {
           <DedRedressementRow>
             <Button
               title={this.state.buttonLabel}
-              disabled={this.state.buttonLabel === 'disabled' || this.props?.fromWhere1 === 'ded.ConsulterDum'}
+              disabled={this.state.buttonLabel === 'disabled' || this.state.declarationValeurEnvoi || this.props?.fromWhere1 === 'ded.ConsulterDum'}
               type={'solid'}
               buttonStyle={styles.buttonAction}
               onPress={() => this.addDeclarationValeur()} />
@@ -186,6 +242,9 @@ class DedRedressementEnteteEnvoyerTraiterValeurBlock extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({ ...state.consulterDumReducer });
+
+function mapStateToProps(state) {
+  return { ...state.consulterDumReducer };
+}
 
 export default connect(mapStateToProps, null)(DedRedressementEnteteEnvoyerTraiterValeurBlock);

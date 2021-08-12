@@ -34,6 +34,10 @@ import sortiPortRefVH from '../../modules/DeclarationD17D20/sortiPort/state/redu
 import sortiPortInitReducer from '../../modules/DeclarationD17D20/sortiPort/state/reducers/decSortiPortInitReducer';
 import sortiPortReducer from '../../modules/DeclarationD17D20/sortiPort/state/reducers/decSortiPortUcReducer';
 
+import rechParRefInitReducer from '../../modules/DeclarationD17D20/rechParRef/state/reducers/decRechParRefInitReducer';
+import rechParRefUcReducer from '../../modules/DeclarationD17D20/rechParRef/state/reducers/decRechParRefUcReducer';
+import rechParRefVh from '../../modules/DeclarationD17D20/rechParRef/state/reducers/decRechParRefVhReducer';
+
 
 import referentielReducer from './reducers/ReferentielReducer';
 import consulterDumReducer from './reducers/ConsulterDumReducer';
@@ -144,7 +148,13 @@ const allReducers = combineReducers({
   dtpsSortieReducer,
   dtpsEntreeReducer,
   dtpsConsultationReducer,
-  rechercheAutoriserAcheminementReducer, autoriserAcheminementMainReducer, pecEtatChargementVEReducer
+  rechercheAutoriserAcheminementReducer,
+  autoriserAcheminementMainReducer,
+  pecEtatChargementVEReducer,
+  rechParRefInitReducer,
+  rechParRefUcReducer,
+  rechParRefVh,
+
 });
 /**
  * store creation

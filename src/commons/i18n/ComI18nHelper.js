@@ -44,6 +44,7 @@ import rechercheAutoriserAcheminementTranslateFr from '../../modules/ecorExport/
 import autoriserAcheminementGestionTranslateFr from '../../modules/ecorExport/autoriserAcheminement/mainScreen/i18n/autoriserAcheminementGestionTranslateFr';
 import actifsRapportConsultationTranslateFr from '../../modules/actifs/rapport/recherche/i18n/actifsRapportConsultationTranslateFr';
 import actifsRapportCreationTranslateFr from '../../modules/actifs/rapport/creation/i18n/actifsRapportCreationTranslateFr';
+import decRechParRefTranslateFr from '../../modules/DeclarationD17D20/rechParRef/i18n/decRechParRefTranslateFr'
 
 const locales = RNLocalize.getLocales();
 
@@ -97,7 +98,8 @@ let combined = {
   ...dtpsConsultationTranslateFr,
   ...rechercheAutoriserAcheminementTranslateFr,
   ...autoriserAcheminementGestionTranslateFr,
-  ...pecEtatChargementVETranslateFr
+  ...pecEtatChargementVETranslateFr,
+  ...decRechParRefTranslateFr
 };
 I18n.translations = {
   fr: combined,

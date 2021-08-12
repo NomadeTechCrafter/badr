@@ -12,6 +12,8 @@ import CreerApurement from '../../../at/apurement/ui/creerApurement/AtApurementS
 import Apurement from '../../../at/apurement/ui/ongletAt/apurement/AtCreateApurementScreen';
 import VuEmbarqueScreen from '../../../DeclarationD17D20/vuEmbarquer/ui/vuEmbarquer/VuEmbarqueScreen';
 import SortiPortScreen from '../../../DeclarationD17D20/sortiPort/ui/decSortiPort/decSortiPortMainScreen';
+import RechParRefTrypScreen from '../../../DeclarationD17D20/rechParRef/ui/decRechParRef/decRechParRefMainScreen';
+import RechParRefListeDeclaration from '../../../DeclarationD17D20/rechParRef/ui/decRechParRef/decRechParRefListeDeclaration';
 import SortiPortListeDeclaration from '../../../DeclarationD17D20/sortiPort/ui/decSortiPort/decSortiPortListeDeclaration';
 import VuEmbListeDeclaration from '../../../DeclarationD17D20/vuEmbarquer/ui/vuEmbarquer/VuEmbListeDeclaration';
 
@@ -289,6 +291,16 @@ class habHomeScreen extends React.Component {
           options={{ headerShown: false }}
         />
         <Drawer.Screen
+          name="RechParRefTrypScreen"
+          component={RechParRefTrypScreen}
+          options={{ headerShown: false }}
+        />
+        <Drawer.Screen
+          name="RechParRefListeDeclaration"
+          component={RechParRefListeDeclaration}
+          options={{ headerShown: false }}
+        />
+        <Drawer.Screen
           name="SortiPortListeDeclaration"
           component={SortiPortListeDeclaration}
           options={{ headerShown: false }}
@@ -393,8 +405,6 @@ class habHomeScreen extends React.Component {
         <Drawer.Screen
           name="DTPSSortieMainScreen"
           component={DTPSSortieMainScreen}
-          name="RechercheAutoriserAcheminementScreen"
-          component={rechercheAutoriserAcheminementScreen}
           options={{ headerShown: false }}
         />
 

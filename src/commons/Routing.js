@@ -14,8 +14,10 @@ const mapping = {
   '20471': { screen: 'DedEnvoyerValeurScreen', params: { qr: false } },
   '2052': { screen: 'DedRechercheRedressement', params: { qr: false } },
   '61525': {screen: 'RechercheAutoriserAcheminementScreen',params: {}},
-  '30661': {screen: 'ControleApresScanner', params: {}},
-  '90025': {screen: 'VuEmbarqueScreen', params: {qr: true}},
+  '30661': { screen: 'ControleApresScanner', params: {} },
+  '90025': { screen: 'VuEmbarqueScreen', params: { qr: true } },
+  '90008': { screen: 'RechParRefTrypScreen', params: {} },
+  
 
   '1101': { screen: 'ConsultationTIScreen', params: { modeConsultation: 'E' } },
   '1102': { screen: 'ConsultationTIScreenI', params: { modeConsultation: 'I' } },

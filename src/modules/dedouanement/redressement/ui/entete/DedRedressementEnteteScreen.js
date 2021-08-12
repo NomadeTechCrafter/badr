@@ -69,6 +69,7 @@ class DedRedressementEnteteScreen extends React.Component {
               )}
             />
             <DedRedressementEnteteEnvoyerTraiterValeurBlock
+              navigation={this.props.navigation}
               data={this.props.data}
               dedDumSectionEnteteVO={getValueByPath(
                 'dedDumSectionEnteteVO',
