@@ -1,9 +1,9 @@
 /** API Services */
 
-import AtApurementApi from '../../service/api/atApurementApi';
+import AtApurementApi from '../../service/api/atApi';
 
 /**Constants */
-import * as Constants from '../atApurementConstants';
+import * as Constants from '../atConstants';
 import {translate} from '../../../../../commons/i18n/ComI18nHelper';
 
 /**

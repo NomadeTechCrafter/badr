@@ -8,15 +8,15 @@
 
 import React from 'react';
 
-import { createStackNavigator } from '@react-navigation/stack';
+import {createStackNavigator} from '@react-navigation/stack';
 
 const Stack = createStackNavigator();
 
-import { ComBadrStackNavigatorComp } from './commons/component';
-import { RootSiblingParent } from 'react-native-root-siblings';
+import {ComBadrStackNavigatorComp} from './commons/component';
+import {RootSiblingParent} from 'react-native-root-siblings';
 
 /** REDUX */
-import { Provider } from 'react-redux';
+import {Provider} from 'react-redux';
 import setGlobalHandler from './commons/services/exceptionHandler/ComGlobalErrorHandlerService';
 import store from './commons/state/Store';
 
@@ -31,12 +31,10 @@ import {
   PaperTheme,
 } from './commons/styles/ComThemeStyle';
 import ComOfflineAlertService from './commons/services/offlineHandler/ComOfflineAlertService';
-import { Provider as PaperProvider, DefaultTheme } from 'react-native-paper';
-import { remote, bootstrapRoute } from './commons/Config';
+import {Provider as PaperProvider, DefaultTheme} from 'react-native-paper';
+import {remote, bootstrapRoute} from './commons/Config';
 import DedRedressementScreen from './modules/dedouanement/redressement/ui/DedRedressementScreen';
 import DedRedressementRecherche from './modules/dedouanement/redressement/ui/DedRechercheRedressementScreen';
-import DedEnvoyerValeurScreen from './modules/dedouanement/envoyerValeur/ui/dedEnvoyerValeurScreen';
-
 import controleRechercheDumScreen from './modules/controle/rechercheDum/ui/controleRechercheDumScreen';
 import ControleRegimeInterneScreen from './modules/controle/regimeInterne/ui/controleRegimeInterneScreen';
 import ControleACVPScreen from './modules/controle/ACVP/ui/controleACVPScreen';
@@ -50,34 +48,26 @@ import T6bisCreation from './modules/t6bis/creation/ui/t6bisCreation/t6bisCreati
 import T6bisGestion from './modules/t6bis/gestion/ui/t6bisGestion/t6bisGestionScreen';
 import RechercheEcorImport from './old/screens/ecorImport/rechercheEcorImport';
 
-import SortiPortScreen from './modules/DeclarationD17D20/sortiPort/ui/decSortiPort/decSortiPortMainScreen';
-import RechParRefTrypScreen from './modules/DeclarationD17D20/rechParRef/ui/decRechParRef/decRechParRefMainScreen';
+import SortiPortScreen from './modules/DeclarationD17D20/sortiPort/ui/decSortiPort/decSortiPortMainScreen'
 
 import ConfirmationEntreeMainScreen from './modules/ecorExport/confirmationEntree/ui/ecorExpConfirmationEntreeMainScreen';
 import ConfirmationArriveeMainScreen from './modules/ecorExport/confirmationArrivee/ui/ecorExpConfirmationArriveeMainScreen';
-import Recherche from './old/screens/actifs/rapport/recherche';
-import Creation from './old/screens/actifs/rapport/creation';
-import Entete from './old/screens/actifs/rapport/creation/entete';
-import Details from './old/screens/actifs/rapport/creation/details';
-import Saisie from './old/screens/actifs/rapport/creation/saisie';
-import Consultation from './old/screens/actifs/rapport/consultation';
-import PecEtatChargementMainScreen from './modules/pecEtatChargement/rechParRef/ui/pecEtatChargementMainScreen';
+
+
+//Actif
+import ActifsRapportCreationScreen from './modules/actifs/rapport/creation/ui/actifsRapportCreationScreen';
+import ActifsRapportRechercheScreen from './modules/actifs/rapport/recherche/ui/actifsRapportRechercheScreen';
+import PecEtatChargementMainScreen from './modules/pecEtatChargement/VuEmbarquer/ui/pecEtatChargementMainScreen';
+import EtatChargement from './modules/pecEtatChargement/rechParRef/ui/pecEtatChargementMainScreen';
 import VuEmbarqueScreen from './modules/DeclarationD17D20/vuEmbarquer/ui/vuEmbarquer/VuEmbarqueScreen';
 import ConsultationIgTIScreen from './modules/tarifIntegre/tiConsultationIgTI/ui/tiConsultationIgTIScreen';
 import ConsultationTIScreen from './modules/tarifIntegre/tiConsultationTI/ui/tiConsultationTIScreen';
-import DTPSSortieMainScreen from './modules/dtps/dtpsSortie/ui/dtpsSortieMainScreen';
-import DTPSEntreeMainScreen from './modules/dtps/dtpsEntree/ui/dtpsEntreeMainScreen'
-import DTPSConsultationMainScreen from './modules/dtps/consultation/ui/dtpsConsultationMainScreen'
-import DedRedressementEnteteEnvoyerTraiterValeurBlock from './modules/dedouanement/redressement/ui/entete/blocks/DedRedressementEnteteEnvoyerTraiterValeurBlock';
-import DedRedressementEnteteScreen from './modules/dedouanement/redressement/ui/entete/DedRedressementEnteteScreen';
-
-import ActifsRapportCreationScreen from './modules/actifs/rapport/creation/ui/actifsRapportCreationScreen';
 import autoriserAcheminementMainScreen from './modules/ecorExport/autoriserAcheminement/mainScreen/ui/autoriserAcheminementMainScreen';
 import RechercheAutoriserAcheminementScreen from './modules/ecorExport/autoriserAcheminement/recherche/ui/rechercheAutoriserAcheminementScreen';
 
 //setGlobalHandler();
 export default class App extends React.Component {
-  componentDidMount() { }
+  componentDidMount() {}
 
   render() {
     return (
@@ -89,50 +79,50 @@ export default class App extends React.Component {
               {remote ? (
                 <Stack.Screen
                   name="Login"
-                  options={{ headerShown: false }}
+                  options={{headerShown: false}}
                   component={Login}
                 />
               ) : (
                 <Stack.Screen
                   name="test"
-                  options={{ headerShown: false }}
-                    component={RechParRefTrypScreen}
+                  options={{headerShown: false}}
+                    component={PecEtatChargementMainScreen}
                 />
               )}
               <Stack.Screen
                 name="ControleRegimeInterneScreen"
-                options={{ headerShown: false }}
+                options={{headerShown: false}}
                 component={ControleRegimeInterneScreen}
               />
               <Stack.Screen
                 name="ControleACVPScreen"
-                options={{ headerShown: false }}
+                options={{headerShown: false}}
                 component={ControleACVPScreen}
               />
               <Stack.Screen
                 name="EnleverMarchandise"
-                options={{ headerShown: false }}
+                options={{headerShown: false}}
                 component={EcorImportEnleverMarchandiseScreen}
               />
               <Stack.Screen
                 name="DedRedressementScreen"
-                options={{ headerShown: false }}
+                options={{headerShown: false}}
                 component={DedRedressementScreen}
               />
               <Stack.Screen
                 name="SmsVerify"
-                options={{ headerShown: false }}
+                options={{headerShown: false}}
                 component={SmsVerifyScreen}
               />
               <Stack.Screen
                 name="Profile"
-                options={{ headerShown: false }}
+                options={{headerShown: false}}
                 mode="modal"
                 component={HabProfileScreen}
               />
               <Stack.Screen
                 name="Home"
-                options={{ headerShown: false }}
+                options={{headerShown: false}}
                 component={Home}
               />
 
@@ -140,7 +130,7 @@ export default class App extends React.Component {
 
               <Stack.Screen
                 name="CreationRapport"
-                options={{ headerShown: false }}
+                options={{headerShown: false}}
                 component={ActifsRapportCreationScreen}
               />
 
@@ -148,11 +138,11 @@ export default class App extends React.Component {
               <Stack.Screen
                 name="LiquidationHomeScreen"
                 component={LiquidationHomeScreen}
-                options={{ headerShown: false }}
+                options={{headerShown: false}}
               />
               <Stack.Screen
                 name="T6bisGestion"
-                options={{ headerShown: false }}
+                options={{headerShown: false}}
                 component={T6bisGestion}
               />
               <Stack.Screen

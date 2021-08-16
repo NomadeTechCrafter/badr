@@ -83,6 +83,10 @@ class ComBadrAutoCompleteChipsComp extends Component {
         showItems: false,
       });
     }
+    if (_.isEmpty(params)) {
+        this.props.onValueChange(this.props.initialValue);
+    }
+
   };
 
   prepareParams = (params) => {

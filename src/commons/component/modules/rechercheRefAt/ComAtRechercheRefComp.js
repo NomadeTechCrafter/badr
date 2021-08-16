@@ -9,7 +9,7 @@ import {connect} from 'react-redux';
 import {CustomStyleSheet} from '../../../styles/ComThemeStyle';
 import {ComBadrErrorMessageComp, ComContainerComp} from '../../';
 import * as InitApurementAction from '../../../../modules/at/apurement/state/actions/atApurementInitAction';
-import * as ConstantsAt from '../../../../modules/at/apurement/state/atApurementConstants';
+import * as ConstantsAt from '../../../../modules/at/apurement/state/atConstants';
 /** Utils */
 import ComUtils from '../../../utils/ComUtils';
 import {translate} from '../../../i18n/ComI18nHelper';

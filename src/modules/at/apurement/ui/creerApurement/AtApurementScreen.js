@@ -11,7 +11,7 @@ import {
 } from '../../../../../commons/component';
 import * as CreateApurementAction from '../../state/actions/atApurementCreateAction';
 import * as InitApurementAction from '../../state/actions/atApurementInitAction';
-import * as ConstantsAt from '../../state/atApurementConstants';
+import * as ConstantsAt from '../../state/atConstants';
 
 const initialState = {
   reference: '',

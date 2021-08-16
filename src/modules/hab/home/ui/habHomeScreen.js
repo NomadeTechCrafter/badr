@@ -10,6 +10,7 @@ import WelcomeScreen from '../../annonces/ui/habAnnoncesScreen';
 import MainMenu from '../../mainMenu/ui/habMainMenuScreen';
 import CreerApurement from '../../../at/apurement/ui/creerApurement/AtApurementScreen';
 import Apurement from '../../../at/apurement/ui/ongletAt/apurement/AtCreateApurementScreen';
+import RechercheAtMulti from '../../../at/apurement/ui/recherche/atRechMultiMainScreen';
 import VuEmbarqueScreen from '../../../DeclarationD17D20/vuEmbarquer/ui/vuEmbarquer/VuEmbarqueScreen';
 import SortiPortScreen from '../../../DeclarationD17D20/sortiPort/ui/decSortiPort/decSortiPortMainScreen';
 import RechParRefTrypScreen from '../../../DeclarationD17D20/rechParRef/ui/decRechParRef/decRechParRefMainScreen';
@@ -143,6 +144,11 @@ class habHomeScreen extends React.Component {
           name="Apurement"
           component={Apurement}
           options={{ headerShown: false }}
+        />
+        <Drawer.Screen
+        name="RechercheAtMulti"
+        component={RechercheAtMulti}
+        options={{headerShown: false}}
         />
         <Drawer.Screen
           name="DedRechercheRedressement"

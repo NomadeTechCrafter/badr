@@ -1,5 +1,5 @@
 /**Constants */
-import * as Constants from '../atApurementConstants';
+import * as Constants from '../atConstants';
 import _ from 'lodash';
 /** Inmemory session */
 import {ComSessionService} from '../../../../../commons/services/session/ComSessionService';

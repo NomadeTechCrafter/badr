@@ -25,7 +25,7 @@ import {ComSessionService} from '../../../../../commons/services/session/ComSess
 
 const initialState = {
     bureau: '',
-    regime: '',
+    regime: '001',
     annee: '',
     serie: '',
     cle: '',
@@ -92,17 +92,20 @@ class EtatChargementTabSearchComponent extends React.Component {
             maxLength: 7,
         });
 
-        let reference = this.state.bureau + this.state.regime + this.state.annee + this.state.serie;
+        let reference = this.state.regime + this.state.serie + this.state.annee;
+        let referenceEC = this.state.bureau + this.state.regime + this.state.annee + this.state.serie ;
+        console.log('reference', reference);
         if (this.state.typeRechercheEtatChargement === '1') {
-            if (reference && reference.length === 17) {
+            if (reference && reference.length === 14) {
                 let validCleDum = this.cleDum(reference);
                 if (validCleDum === this.state.cle) {
-                    let action = this.searchAction(reference);
+                    let action = this.searchAction(referenceEC);
                     this.props.actions.dispatch(action);
                 } else {
                     this.setState({
                         ...this.state,
                         validCleDum: validCleDum,
+                        showErrorMessage: true
                     });
                 }
             }
@@ -265,7 +268,7 @@ class EtatChargementTabSearchComponent extends React.Component {
                                             value={this.state.regime}
                                             keyboardType={'number-pad'}
                                             maxLength={3}
-                                            onChangeText={(val) => this.onChangeSearchInput({regime: val}, true)}
+                                            onChangeText={(val) => this.onChangeSearchInput({ regime: val }, true)}
                                             onEndEditing={(event) =>
                                                 this.completeWithZeros({
                                                     regime: event.nativeEvent.text,
@@ -274,6 +277,7 @@ class EtatChargementTabSearchComponent extends React.Component {
                                             }
                                             error={this.hasErrors('regime')}
                                             style={style.searchInput}
+                                            disabled={true}
                                         />
 
                                         <HelperText

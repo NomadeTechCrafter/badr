@@ -1,18 +1,15 @@
 const mapping = {
   '9005': {screen: 'CreerApurement', params: {qr: true}},
+  '9009': {screen: 'RechercheAtMulti', params: {qr: false}},
   '2243': {screen: 'RechercheConfirmationReceptionScreen', params: {}},
   '1226': {
     screen: 'ECIAppositionScellesRechercheScreen',
     params: {},
   },
   '90023': { screen: 'SortiPortScreen', params: {} },
-  '2301': { screen: 'DTPSSortieMainScreen', params: {} },
-  '2302': { screen: 'DTPSEntreeMainScreen', params: {} },
-  '2303': { screen: 'DTPSConsultationMainScreen', params: {} },
   '2052': { screen: 'DedRechercheRedressement', params: { qr: false } },
   '20470': { screen: 'DedEnvoyerValeurScreen', params: { qr: false } },
   '20471': { screen: 'DedTraiterValeurScreen', params: { qr: false } },
-  '2052': { screen: 'DedRechercheRedressement', params: { qr: false } },
   '61525': {screen: 'RechercheAutoriserAcheminementScreen',params: {}},
   '30661': { screen: 'ControleApresScanner', params: {} },
   '90025': { screen: 'VuEmbarqueScreen', params: { qr: true } },
@@ -31,6 +28,10 @@ const mapping = {
   '767': {screen: 'BloquerOperateur', params: {}},
   '42997': {screen: 'DebloquerOperateur', params: {}},
   /*
+
+  '2301': { screen: 'DTPSSortieMainScreen', params: {} },
+  '2302': { screen: 'DTPSEntreeMainScreen', params: {} },
+  '2303': { screen: 'DTPSConsultationMainScreen', params: {} },
   '121711': {
     screen: 'EciConsultationBLS',
     params: {title: 'Ecran  Recherche Consultation BLS'},

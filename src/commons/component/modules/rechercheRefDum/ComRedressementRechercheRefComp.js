@@ -27,11 +27,11 @@ import * as ConsulterDumAction from '../../../state/actions/ConsulterDumAction';
 
 class ComRedressementRechercheRefComp extends Component {
   defaultState = {
-    bureau: '309',
-    regime: '010',
-    annee: '2020',
-    serie: '0000588',
-    cle: 'E',
+    bureau: '',
+    regime: '',
+    annee: '',
+    serie: '',
+    cle: '',
     cleValide: '',
     login: '',
     numeroVoyage: '',

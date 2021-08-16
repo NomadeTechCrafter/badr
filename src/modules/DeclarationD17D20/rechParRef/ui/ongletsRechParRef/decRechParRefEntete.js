@@ -689,13 +689,13 @@ class RechParRefEntete extends React.Component {
           </CardBox> */}
         </ScrollView>
 
-        <ComBadrActionButtonComp
+        {/* <ComBadrActionButtonComp
           style={styles.badrActionsStyle}
           // visible={this.state.dateRechParRef && this.state.commentaire}
           visible={!this.props.success}
           active={false}
           actions={this.state.screenActions}
-        />
+        /> */}
       </View>
     );
   }

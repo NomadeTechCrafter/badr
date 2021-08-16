@@ -16,6 +16,7 @@ import badrPickerCheckerReducer from './reducers/ComBadrPickerCheckerReducer';
 import qrCodeReducer from './reducers/ComQrCodeReducer';
 import badrApiTable from './reducers/ComBadrApiTableReducer';
 import initApurementReducer from '../../modules/at/apurement/state/reducers/atApurementReducer';
+import atRechercheReducer from '../../modules/at/apurement/state/reducers/atRechercheReducer';
 import refOperateursEconomiquesReducer from '../../modules/referentiel/operateursEconomiques/state/reducers/refOperateursEconomiquesReducer';
 import dedRedressementInitReducer from '../../modules/dedouanement/redressement/state/reducers/DedRedressementInitReducer';
 import rechercheRefDumReducer from './reducers/rechercheDum';
@@ -97,6 +98,7 @@ const allReducers = combineReducers({
   badrApiTable,
   qrCodeReducer,
   initApurementReducer,
+  atRechercheReducer,
   refOperateursEconomiquesReducer,
   ctrlReconnaissanceReducer,
   enqCompteRenduReducer,
