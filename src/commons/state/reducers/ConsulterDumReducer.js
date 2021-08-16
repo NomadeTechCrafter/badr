@@ -8,6 +8,7 @@ const initialState = {
   displayError: false,
   data: [],
   fromWhere1: '',
+  messageInfo: '',
 };
 
 export default (state = initialState, action) => {
@@ -32,6 +33,7 @@ export default (state = initialState, action) => {
       nextState.data = action.value.data;
       nextState.searchData = action.value.searchParams;
       nextState.fromWhere1 = action.value.fromWhere1;
+      nextState.messageInfo = action.value.messageInfo;
       return nextState;
     case Constants.GENERIC_FAILED:
       nextState.showProgress = false;

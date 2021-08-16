@@ -5,6 +5,7 @@ import {
   ComAccordionComp,
   ComBadrAutoCompleteChipsComp,
   ComBadrErrorMessageComp,
+  ComBadrInfoMessageComp,
   ComBadrKeyValueComp,
   ComBasicDataTableComp,
 } from '../../../../../../commons/component';
@@ -20,6 +21,11 @@ import { FORMAT_DDMMYYYY_HHMM } from '../../../../../actifs/rapport/utils/actifs
 import { ComSessionService } from '../../../../../../commons/services/session/ComSessionService';
 import ComUtils from '../../../../../../commons/utils/ComUtils';
 import moment from 'moment';
+import * as ConsulterDumAction from '../../../../../../commons/state/actions/ConsulterDumAction';
+import {
+  GENERIC_INIT,
+  GENERIC_REQUEST,
+} from '../../../../../../old/common/constants/generic';
 
 class DedRedressementEnteteEnvoyerTraiterValeurBlock extends Component {
 
@@ -27,12 +33,17 @@ class DedRedressementEnteteEnvoyerTraiterValeurBlock extends Component {
     super(props);
     this.state = {
       declarationValeurEnvoi: false,
+      declarationValeurEnvoiAjouter: false,
       descriptionTraitementEnvoi: false,
+      descriptionTraitementEnvoiAjouter: false,
+      traitementOK: false,
+      envoiOK: false,
       declarationValeurDescriptionEnvoi: '',
       declarationValeurDescriptionTraitement: '',
       buttonLabel: 'disabled',
       errorMessage: '',
-
+      lastVersionDeclarationValeur: {},
+      listDeclarationValeurDUMVO: [],
     };
 
     this.cols = [
@@ -78,12 +89,55 @@ class DedRedressementEnteteEnvoyerTraiterValeurBlock extends Component {
     this.unsubscribe = this.props.navigation.addListener('focus', () => {
       this.setState({
         declarationValeurEnvoi: false,
+        //declarationValeurEnvoiAjouter: false,
         descriptionTraitementEnvoi: false,
+        //descriptionTraitementEnvoiAjouter: false,
         declarationValeurDescriptionEnvoi: '',
         declarationValeurDescriptionTraitement: '',
         buttonLabel: 'disabled',
         errorMessage: '',
+        listDeclarationValeurDUMVO: this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO,
+        lastVersionDeclarationValeur: this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO ? this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO[this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO.length - 1] : {},
+
+
       });
+      switch (this.props?.fromWhere1) {
+        case 'ded.InitEnvoyerValeur':
+          this.setState({
+            buttonLabel: translate('dedouanement.confirmerEnvoiValeur')
+          });
+          break;
+        case 'ded.InitTraiterValeur':
+          this.setState({
+            buttonLabel: translate('dedouanement.confirmerTraitementValeur')
+          });
+          break;
+
+        default:
+          this.setState({
+            buttonLabel: 'disabled'
+          });
+      }
+      let lastVersion = this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO ? this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO[this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO.length - 1] : {};
+      if (lastVersion && !lastVersion?.traite) {
+        this.setState({
+          declarationValeurDescriptionEnvoi: lastVersion ? lastVersion.descriptionEnvoi : '',
+          declarationValeurEnvoi: true,
+        })
+      }
+    });
+
+    this.setState({
+      declarationValeurEnvoi: false,
+      declarationValeurEnvoiAjouter: false,
+      descriptionTraitementEnvoi: false,
+      descriptionTraitementEnvoiAjouter: false,
+      declarationValeurDescriptionEnvoi: '',
+      declarationValeurDescriptionTraitement: '',
+      buttonLabel: 'disabled',
+      errorMessage: '',
+      listDeclarationValeurDUMVO: this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO,
+      lastVersionDeclarationValeur: this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO ? this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO[this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO.length - 1] : {},
     });
     console.log('this.props?.fromWhere1 : ', this.props?.fromWhere1);
 
@@ -105,28 +159,14 @@ class DedRedressementEnteteEnvoyerTraiterValeurBlock extends Component {
         });
     }
 
-    const lastVersionDeclarationValeur = this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO ? this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO[this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO?.length - 1] : {}
-    console.log('=============================================================');
-    console.log('=============================================================');
-    console.log('=============================================================');
-    console.log(JSON.stringify(lastVersionDeclarationValeur));
-    console.log('=============================================================');
-    console.log('=============================================================');
-    console.log('=============================================================');
+    let lastVersion = this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO ? this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO[this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO.length - 1] : {};
 
-    if (lastVersionDeclarationValeur && !lastVersionDeclarationValeur.traite) {
+    if (lastVersion && !lastVersion?.traite) {
       this.setState({
-        declarationValeurDescriptionEnvoi: lastVersionDeclarationValeur ? lastVersionDeclarationValeur.descriptionEnvoi : '',
-        declarationValeurEnvoi: true,
-        // declarationValeurDescriptionTraitement: lastVersionDeclarationValeur ? lastVersionDeclarationValeur.descriptionTraitement : '',
+        declarationValeurDescriptionEnvoi: lastVersion ? lastVersion.descriptionEnvoi : '',
+        declarationValeurEnvoi: true
       })
     }
-    // if (lastVersionDeclarationValeur && lastVersionDeclarationValeur.traite) {
-    //   this.setState({
-    //     declarationValeurDescriptionEnvoi: lastVersionDeclarationValeur ? lastVersionDeclarationValeur.descriptionEnvoi : '',
-    //     declarationValeurDescriptionTraitement: lastVersionDeclarationValeur ? lastVersionDeclarationValeur.descriptionTraitement : '',
-    //   })
-    // }
   }
 
   componentWillUnmount() {
@@ -138,48 +178,163 @@ class DedRedressementEnteteEnvoyerTraiterValeurBlock extends Component {
     if (this.state.declarationValeurDescriptionEnvoi) {
       this.setState({
         errorMessage: '',
-        declarationValeurEnvoi: true
+        declarationValeurEnvoiAjouter: true,
       })
       if (this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO && this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO?.length > 0) {
         const lastVersionDeclarationValeur = this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO[this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO?.length - 1];
 
+        var derniereligneTraitee = this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO[this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO.length - 1].dateTraitement !== undefined;
         const newVersionDeclarationValeur =
         {
-          "agentEnvoiValeur": ComSessionService.getInstance().getLogin(),
-          "nomAgentEnvoiValeur": ComUtils.buildUserFullname(
+          agentEnvoiValeur: ComSessionService.getInstance().getLogin(),
+          nomAgentEnvoiValeur: ComUtils.buildUserFullname(
             ComSessionService.getInstance().getUserObject(),
           ),
-          "numeroOrdre": lastVersionDeclarationValeur.numeroOrdre + 1,
-          "dateEnvoi": moment(new Date()).format(FORMAT_DDMMYYYY_HHMM).toString(),
-          "descriptionEnvoi": this.state.declarationValeurDescriptionEnvoi,
-          "identifiantDUM": lastVersionDeclarationValeur.identifiantDUM,
+          numeroOrdre: lastVersionDeclarationValeur.numeroOrdre + 1,
+          dateEnvoi: moment(new Date()).format(FORMAT_DDMMYYYY_HHMM).toString(),
+          descriptionEnvoi: this.state.declarationValeurDescriptionEnvoi,
+          identifiantDUM: lastVersionDeclarationValeur.identifiantDUM,
+          structureDestination: derniereligneTraitee,
+          newVal: false
         };
-        this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO.push(newVersionDeclarationValeur);
+
+        const newArray = this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO;
+
+        newArray.push(newVersionDeclarationValeur);
+        this.setState({
+          errorMessage: '',
+          lastVersionDeclarationValeur: newVersionDeclarationValeur,
+          listDeclarationValeurDUMVO: newArray,
+        })
+
       } else {
         const newVersionDeclarationValeur =
         {
-          "agentEnvoiValeur": ComSessionService.getInstance().getLogin(),
-          "nomAgentEnvoiValeur": ComUtils.buildUserFullname(
+          agentEnvoiValeur: ComSessionService.getInstance().getLogin(),
+          nomAgentEnvoiValeur: ComUtils.buildUserFullname(
             ComSessionService.getInstance().getUserObject(),
           ),
-          "numeroOrdre": 1,
-          "dateEnvoi": moment(new Date(), FORMAT_DDMMYYYY_HHMM),
-          "descriptionEnvoi": this.state.declarationValeurDescriptionEnvoi,
-          "identifiantDUM": this.props?.dedDumSectionEnteteVO?.identifiant,
+          numeroOrdre: 1,
+          dateEnvoi: moment(new Date()).format(FORMAT_DDMMYYYY_HHMM).toString(),
+          descriptionEnvoi: this.state.declarationValeurDescriptionEnvoi,
+          identifiantDUM: this.props?.dedDumSectionEnteteVO?.identifiant,
+          structureDestination: true,
+          newVal: false
         };
 
-        // this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO = [];
-        this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO.push(newVersionDeclarationValeur);
+        const newArray = [];
+
+        newArray.push(newVersionDeclarationValeur);
+        this.setState({
+          errorMessage: '',
+          lastVersionDeclarationValeur: newVersionDeclarationValeur,
+          listDeclarationValeurDUMVO: newArray,
+        });
       }
     } else {
       this.setState({
-        errorMessage: 'message obligatoire',
+        errorMessage: 'Valeur obligatoire',
       })
+    }
+  };
+
+  addTraitementValeur = async () => {
+
+    if (this.state.declarationValeurDescriptionTraitement) {
+      this.setState({
+        errorMessage: '',
+        descriptionTraitementEnvoiAjouter: true,
+      })
+      const localLastVersionDeclarationValeur = this.state.listDeclarationValeurDUMVO[this.state.listDeclarationValeurDUMVO.length - 1];
+      localLastVersionDeclarationValeur.agentTraitementValeur = ComSessionService.getInstance().getLogin();
+      localLastVersionDeclarationValeur.nomAgentTraitementValeur = ComUtils.buildUserFullname(
+        ComSessionService.getInstance().getUserObject());
+      localLastVersionDeclarationValeur.dateTraitement = moment(new Date()).format(FORMAT_DDMMYYYY_HHMM).toString();
+      localLastVersionDeclarationValeur.descriptionTraitement = this.state.declarationValeurDescriptionTraitement;
+      localLastVersionDeclarationValeur.traite = true;
+
+      const newArray = this.state.listDeclarationValeurDUMVO;
+
+      newArray[this.state?.listDeclarationValeurDUMVO?.length - 1] = this.state.lastVersionDeclarationValeur;
+      this.setState({
+        errorMessage: '',
+        lastVersionDeclarationValeur: localLastVersionDeclarationValeur,
+        listDeclarationValeurDUMVO: newArray,
+      })
+    } else {
+      this.setState({
+        errorMessage: 'Valeur de traitement obligatoire',
+      })
+    }
+  };
+
+  envoyerDeclarationValeur = async () => {
+
+    const dataToSendToWS = {
+      dedReferenceVO: {
+        identifiant: this.props?.data?.dedReferenceVO?.identifiant
+      },
+      dedDumSectionEnteteVO: {        
+        declarationValeur: this.state?.listDeclarationValeurDUMVO[this.state?.listDeclarationValeurDUMVO?.length - 1]
+      }
     }
 
     console.log('============================++++=================================');
-    console.log(JSON.stringify(this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO));
+    console.log(JSON.stringify(dataToSendToWS));
     console.log('============================++++=================================');
+
+    let action = ConsulterDumAction.request(
+      {
+        type: GENERIC_REQUEST,
+        value: {
+          jsonVO: dataToSendToWS
+        },
+        command: 'ded.EnvoyerValeur'
+      },
+      this.props.navigation,
+    );
+
+    this.setState({
+      errorMessage: '',
+      envoiOK: true,
+    })
+
+    this.props.dispatch(action);
+  };
+
+  traiterDeclarationValeur = async () => {
+
+    const dataToSendToWS = {
+      dedReferenceVO: {
+        identifiant: this.props?.data?.dedReferenceVO?.identifiant
+      },
+      dedDumSectionEnteteVO: {
+        declarationValeur: this.state?.listDeclarationValeurDUMVO[this.state?.listDeclarationValeurDUMVO?.length - 1]
+      }
+    }
+
+    delete dataToSendToWS.dedDumSectionEnteteVO.declarationValeur.defaultConverter;
+
+
+    console.log('============================++++=================================');
+    console.log(JSON.stringify(dataToSendToWS));
+    console.log('============================++++=================================');
+
+    let action = ConsulterDumAction.request(
+      {
+        type: GENERIC_REQUEST,
+        value: {
+          jsonVO: dataToSendToWS
+        },
+        command: 'ded.TraiterValeur'
+      },
+      this.props.navigation,
+    );
+    this.setState({
+      errorMessage: '',
+      traitementOK: true,
+    })
+    this.props.dispatch(action);
   };
 
   render() {
@@ -191,12 +346,16 @@ class DedRedressementEnteteEnvoyerTraiterValeurBlock extends Component {
           {this.state.errorMessage != null && (
             <ComBadrErrorMessageComp message={this.state.errorMessage} />
           )}
+          {this.props?.messageInfo != null && (
+            <ComBadrInfoMessageComp message={this.props?.messageInfo} />
+          )}
+          
           <DedRedressementRow zebra={true}>
             <ComBadrKeyValueComp
               libelle="Envoi valeur"
               children={
                 <TextInput
-                  disabled={this.props?.fromWhere1 === 'ded.ConsulterDum' || this.state.declarationValeurEnvoi || this.props?.fromWhere1 === 'ded.InitTraiterValeur'}
+                  disabled={this.props?.fromWhere1 === 'ded.ConsulterDum' || this.state.declarationValeurEnvoiAjouter || this.state.declarationValeurEnvoi || this.props?.fromWhere1 === 'ded.InitTraiterValeur' || this.state.envoiOK}
                   mode="flat"
                   value={this.state.declarationValeurDescriptionEnvoi}
                   style={{ width: '100%' }}
@@ -216,7 +375,7 @@ class DedRedressementEnteteEnvoyerTraiterValeurBlock extends Component {
               libelle="Traitement valeur"
               children={
                 <TextInput
-                  disabled={this.props?.fromWhere1 === 'ded.ConsulterDum' || this.state.declarationValeurDescriptionTraitement || this.props?.fromWhere1 === 'ded.InitEnvoyerValeur'}
+                  disabled={this.props?.fromWhere1 === 'ded.ConsulterDum' || this.state.descriptionTraitementEnvoi || this.props?.fromWhere1 === 'ded.InitEnvoyerValeur' ||  this.state.traitementOK}
                   mode="flat"
                   value={this.state.declarationValeurDescriptionTraitement}
                   style={{ width: '100%' }}
@@ -233,20 +392,30 @@ class DedRedressementEnteteEnvoyerTraiterValeurBlock extends Component {
           </DedRedressementRow>
 
           <DedRedressementRow>
-            <Button
-              title={translate('transverse.ajouter')}
-              disabled={this.props?.fromWhere1 === 'ded.ConsulterDum' || this.state.declarationValeurEnvoi}
-              type={'solid'}
-              buttonStyle={styles.buttonAction}
-              onPress={() => this.addDeclarationValeur()} />
+            {this.props?.fromWhere1 === 'ded.InitEnvoyerValeur' && (
+              <Button
+                title={translate('transverse.ajouter')}
+                disabled={this.props?.fromWhere1 === 'ded.ConsulterDum' || this.state.declarationValeurEnvoiAjouter || this.state.envoiOK}
+                type={'solid'}
+                buttonStyle={styles.buttonAction}
+                onPress={() => this.addDeclarationValeur()} />
+            )}
+            {this.props?.fromWhere1 === 'ded.InitTraiterValeur' && (
+              <Button
+                title={translate('transverse.ajouter')}
+                disabled={this.props?.fromWhere1 === 'ded.ConsulterDum' || this.state.descriptionTraitementEnvoiAjouter || this.state.traitementOK}
+                type={'solid'}
+                buttonStyle={styles.buttonAction}
+                onPress={() => this.addTraitementValeur()} />
+            )}
           </DedRedressementRow>
           <DedRedressementRow>
             <ComBasicDataTableComp
               ref="_badrTable"
               id="scannerTable"
-              rows={this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO ? this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO : []}
+              rows={this.state?.listDeclarationValeurDUMVO ? this.state?.listDeclarationValeurDUMVO : []}
               cols={this.cols}
-              totalElements={this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO ? this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO?.length : 0}
+              totalElements={this.state?.listDeclarationValeurDUMVO ? this.state?.listDeclarationValeurDUMVO?.length : 0}
               maxResultsPerPage={10}
               paginate={true}
               showProgress={this.props.showProgress}
@@ -254,12 +423,22 @@ class DedRedressementEnteteEnvoyerTraiterValeurBlock extends Component {
             />
           </DedRedressementRow>
           <DedRedressementRow>
-            <Button
-              title={this.state.buttonLabel}
-              disabled={this.props?.fromWhere1 === 'ded.ConsulterDum' || !this.state.declarationValeurEnvoi}
-              type={'solid'}
-              buttonStyle={styles.buttonAction}
-              onPress={() => this.addDeclarationValeur()} />
+            {this.props?.fromWhere1 === 'ded.InitEnvoyerValeur' && (
+              <Button
+                title={this.state.buttonLabel}
+                disabled={this.props?.fromWhere1 === 'ded.ConsulterDum' || !this.state.declarationValeurEnvoiAjouter || this.state.envoiOK}
+                type={'solid'}
+                buttonStyle={styles.buttonAction}
+                onPress={() => this.envoyerDeclarationValeur()} />
+            )}
+            {this.props?.fromWhere1 === 'ded.InitTraiterValeur' && (
+              <Button
+                title={this.state.buttonLabel}
+                disabled={this.props?.fromWhere1 === 'ded.ConsulterDum' || !this.state.descriptionTraitementEnvoiAjouter || this.state.traitementOK}
+                type={'solid'}
+                buttonStyle={styles.buttonAction}
+                onPress={() => this.traiterDeclarationValeur()} />
+            )}
           </DedRedressementRow>
         </ComAccordionComp>
       </View>

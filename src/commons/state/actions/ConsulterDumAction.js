@@ -2,21 +2,14 @@
 import * as Constants from '../../constants/generic/ComGenericConstants';
 
 /** i18n */
-import {translate} from '../../i18n/ComI18nHelper';
+import { translate } from '../../i18n/ComI18nHelper';
 import TransverseApi from '../../services/api/ComTransverseApi';
-import {getValueByPath} from '../../../modules/dedouanement/redressement/utils/DedUtils';
+import { getValueByPath } from '../../../modules/dedouanement/redressement/utils/DedUtils';
 
 export function request(action, navigation) {
   return (dispatch) => {
     dispatch(action);
     dispatch(inProgress(action));
-    console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
-    console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
-    console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
-    console.log('action.command ? : ' + action.command);
-    console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
-    console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
-    console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
     TransverseApi.doProcess(
       'DED_LIB',
       action.command,
@@ -34,7 +27,18 @@ export function request(action, navigation) {
           response.data.jsonVO &&
           !messagesErreurs
         ) {
-          dispatch(success(response.data.jsonVO, action.value, action.command));
+          console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+          console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+          console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+          console.log('response.data for : ' + action.command + ' is : ' + JSON.stringify(response.data));
+          console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+          console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+          console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+          if (action.command === 'ded.TraiterValeur' || action.command === 'ded.EnvoyerValeur') {
+            dispatch(success(response.data.jsonVO, action.value, action.command, response.data.dtoHeader.messagesInfo));
+          } else {
+            dispatch(success(response.data.jsonVO, action.value, action.command, ''));
+          }
           navigation.navigate('DedRedressementScreen', {
             searchData: action.value ? action.value.jsonVO : {},
           });
@@ -62,13 +66,14 @@ export function init(action) {
   };
 }
 
-export function success(data, searchParams, fromWhere1) {
+export function success(data, searchParams, fromWhere1, messagesInfo) {
   return {
     type: Constants.GENERIC_SUCCESS,
     value: {
       searchParams: searchParams,
       data: data,
       fromWhere1: fromWhere1,
+      messageInfo: messagesInfo[0]
     },
   };
 }

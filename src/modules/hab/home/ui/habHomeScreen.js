@@ -82,6 +82,8 @@ import DTPSSortieMainScreen from '../../../dtps/dtpsSortie/ui/dtpsSortieMainScre
 import DTPSEntreeMainScreen from '../../../dtps/dtpsEntree/ui/dtpsEntreeMainScreen';
 import DTPSConsultationMainScreen from '../../../dtps/consultation/ui/dtpsConsultationMainScreen';
 import dedEnvoyerValeurScreen from '../../../dedouanement/envoyerValeur/ui/dedEnvoyerValeurScreen';
+import dedTraiterValeurScreen from '../../../dedouanement/traiterValeur/ui/dedTraiterValeurScreen';
+
 
 const Drawer = createDrawerNavigator();
 const deltaScreen = Dimensions.get('window').width / 4;
@@ -424,7 +426,12 @@ class habHomeScreen extends React.Component {
           component={dedEnvoyerValeurScreen}
           options={{ headerShown: false }}
         />
-
+        <Drawer.Screen
+          name="DedTraiterValeurScreen"
+          component={dedTraiterValeurScreen}
+          options={{ headerShown: false }}
+        />
+        
         <Drawer.Screen
           name="RechercheAutoriserAcheminementScreen"
           component={rechercheAutoriserAcheminementScreen}
