@@ -99,5 +99,6 @@ const localStore = {
   'ded.isRegimeTransbordement': require('../../../../modules/ecorExport/autoriserAcheminement/mainScreen/service/local-data/isRegimeTransbordementData.json'),
   'ded.vuEmbRechercheDeclarationTrypByRef': require('../../../../modules/DeclarationD17D20/vuEmbarquer/service/local-data/ded.vuEmbRechercheDeclarationTrypByRef.json'),
   'ded.getDecTryptiqueParMatVehicule': require('../../../../modules/DeclarationD17D20/sortiPort/service/local-data/ded.getDecSortiPortParMatVehicule.json'),
+  findListDumConfirmerEntreeArrivee: require('../../../../modules/ecorExport/confirmationEntreeArrivee/service/local-data/findListDumConfirmerEntreeArrivee.json'),
 };
 export default localStore;

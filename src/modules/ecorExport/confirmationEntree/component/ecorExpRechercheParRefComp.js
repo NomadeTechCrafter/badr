@@ -122,7 +122,7 @@ class EcorExpRechercheParRefComp extends Component {
           let dataAction = this.initActionData(referenceDed);
           let action =
             this.props.commande === 'initConfirmerEntree'
-              ? RechecheDumAction.request(dataAction, this.props.navigation)
+              ? RechecheDumAction.request(dataAction, this.props.navigation, 'Resultat')
               : RechecheDumAction.requestFindDumByEtatChargement(
                   dataAction,
                   this.props.navigation,

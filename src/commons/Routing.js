@@ -25,8 +25,19 @@ const mapping = {
   '3064': {screen: 'controleRechercheDumScreen', params: {typeControle: 'AC'}},
   '3072': {screen: 'controleRechercheDumScreen', params: {typeControle: 'RI'}},
   '3086': {screen: 'controleRechercheDumScreen', params: {typeControle: 'TR'}},
-  '767': {screen: 'BloquerOperateur', params: {}},
-  '42997': {screen: 'DebloquerOperateur', params: {}},
+  '767': { screen: 'BloquerOperateur', params: {} },
+  '42997': { screen: 'DebloquerOperateur', params: {} },
+  '6160': { screen: 'ConfirmationEntreeArriveeRechercheScreen', params: {} },
+  '6151': {
+    //CONFIRMATION ENTREE
+    screen: 'ConfirmationEntreeRechercheScreen',
+    params: { title: 'Ecran  Recherche Confirmation entree' },
+  },
+  '61530': {
+    //CONFIRMATION ARRIVEE
+    screen: 'ConfirmationArriveeRechercheScreen',
+    params: { title: 'Ecran  Recherche Confirmation arrivee' },
+  }
   /*
 
   '2301': { screen: 'DTPSSortieMainScreen', params: {} },

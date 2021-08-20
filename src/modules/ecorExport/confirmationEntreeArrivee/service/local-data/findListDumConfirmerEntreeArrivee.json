@@ -1,0 +1,34 @@
+{
+    "dtoHeader": {
+        "userLogin": "YEL",
+        "fonctionnalite": "cf6160",
+        "module": "ECOREXP_LIB",
+        "commande": "findListDumConfirmerEntreeArrivee",
+        "typeService": "SP",
+        "offset": 0,
+        "pageSize": 0,
+        "rowCount": 0
+    },
+    "jsonVO": [
+        {
+            "bureau": "",
+            "regime": "",
+            "annee": "",
+            "numeroSerie": "",
+            "reference": "41106020210000019",
+            "numeroOrdreVoyage": "",
+            "transporteur": "",
+            "dateEnregistrement": "17/03/2021",
+            "numeroVoyage": "",
+            "dateVoyage": "",
+            "dateEntree": "",
+            "navire": "",
+            "agentEntree": "",
+            "dateEmbarquement": "",
+            "agentEmbarquement": "",
+            "operateurDeclarant": "BABYTEX TEST",
+            "numeroVersion": 0,
+            "confirmationEntree": true
+        }
+    ]
+}

@@ -84,6 +84,8 @@ import DTPSEntreeMainScreen from '../../../dtps/dtpsEntree/ui/dtpsEntreeMainScre
 import DTPSConsultationMainScreen from '../../../dtps/consultation/ui/dtpsConsultationMainScreen';
 import dedEnvoyerValeurScreen from '../../../dedouanement/envoyerValeur/ui/dedEnvoyerValeurScreen';
 import dedTraiterValeurScreen from '../../../dedouanement/traiterValeur/ui/dedTraiterValeurScreen';
+import ConfirmationEntreeArriveeRechercheScreen from '../../../ecorExport/confirmationEntreeArrivee/ui/ecorExpConfirmationEntreeArriveeRechercheScreen';
+
 
 
 const Drawer = createDrawerNavigator();
@@ -453,6 +455,12 @@ class habHomeScreen extends React.Component {
         <Drawer.Screen
           name="CreationRapport"
           component={actifsRapportCreationScreen}
+          options={{ headerShown: false }}
+        />
+
+        <Drawer.Screen
+          name="ConfirmationEntreeArriveeRechercheScreen"
+          component={ConfirmationEntreeArriveeRechercheScreen}
           options={{ headerShown: false }}
         />
 

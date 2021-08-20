@@ -135,7 +135,7 @@ class EcorExpRechercheParRefComp extends Component {
         console.log('confirmer data Action ', dataAction);
         let action =
           this.props.commande === 'initConfirmerArrivee'
-            ? RechecheDumAction.request(dataAction, this.props.navigation)
+            ? RechecheDumAction.request(dataAction, this.props.navigation, 'Resultat')
             : RechecheDumAction.requestFindDumByEtatChargement(
                 dataAction,
                 this.props.navigation,

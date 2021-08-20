@@ -83,6 +83,8 @@ import dtpsEntreeReducer from '../../modules/dtps/dtpsEntree/state/reducers/dtps
 import dtpsConsultationReducer from '../../modules/dtps/consultation/state/reducers/dtpsConsultationReducer'
 import rechercheAutoriserAcheminementReducer from '../../modules/ecorExport/autoriserAcheminement/recherche/state/reducers/rechercheAutoriserAcheminementReducer';
 import autoriserAcheminementMainReducer from '../../modules/ecorExport/autoriserAcheminement/mainScreen/state/reducers/autoriserAcheminementMainReducer';
+import ecorExpConfirmationEntreeArriveeReducer from '../../modules/ecorExport/confirmationEntreeArrivee/state/reducers/ecorExpConfirmationEntreeArriveeReducer';
+
 /**
  * combine all reducers
  */
@@ -156,6 +158,7 @@ const allReducers = combineReducers({
   rechParRefInitReducer,
   rechParRefUcReducer,
   rechParRefVh,
+  ecorExpConfirmationEntreeArriveeReducer,
 
 });
 /**

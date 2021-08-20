@@ -50,8 +50,8 @@ import RechercheEcorImport from './old/screens/ecorImport/rechercheEcorImport';
 
 import SortiPortScreen from './modules/DeclarationD17D20/sortiPort/ui/decSortiPort/decSortiPortMainScreen'
 
-import ConfirmationEntreeMainScreen from './modules/ecorExport/confirmationEntree/ui/ecorExpConfirmationEntreeMainScreen';
-import ConfirmationArriveeMainScreen from './modules/ecorExport/confirmationArrivee/ui/ecorExpConfirmationArriveeMainScreen';
+import ConfirmationEntreeResultScreen from './modules/ecorExport/confirmationEntree/ui/ecorExpConfirmationEntreeResultScreen';
+import ConfirmationArriveeResultScreen from './modules/ecorExport/confirmationArrivee/ui/ecorExpConfirmationArriveeResultScreen';
 
 
 //Actif
@@ -64,6 +64,7 @@ import ConsultationIgTIScreen from './modules/tarifIntegre/tiConsultationIgTI/ui
 import ConsultationTIScreen from './modules/tarifIntegre/tiConsultationTI/ui/tiConsultationTIScreen';
 import autoriserAcheminementMainScreen from './modules/ecorExport/autoriserAcheminement/mainScreen/ui/autoriserAcheminementMainScreen';
 import RechercheAutoriserAcheminementScreen from './modules/ecorExport/autoriserAcheminement/recherche/ui/rechercheAutoriserAcheminementScreen';
+import ecorExpConfirmationEntreeArriveeRechercheScreen from './modules/ecorExport/confirmationEntreeArrivee/ui/ecorExpConfirmationEntreeArriveeRechercheScreen';
 
 //setGlobalHandler();
 export default class App extends React.Component {
@@ -86,13 +87,23 @@ export default class App extends React.Component {
                 <Stack.Screen
                   name="test"
                   options={{headerShown: false}}
-                    component={PecEtatChargementMainScreen}
+                    component={ecorExpConfirmationEntreeArriveeRechercheScreen}
                 />
               )}
               <Stack.Screen
                 name="ControleRegimeInterneScreen"
-                options={{headerShown: false}}
+                options={{ headerShown: false }}
                 component={ControleRegimeInterneScreen}
+              />
+              <Stack.Screen
+                name="ConfirmationEntreeResultScreen"
+                options={{ headerShown: false }}
+                component={ConfirmationEntreeResultScreen}
+              />
+              <Stack.Screen
+                name="ConfirmationArriveeResultScreen"
+                options={{ headerShown: false }}
+                component={ConfirmationArriveeResultScreen}
               />
               <Stack.Screen
                 name="ControleACVPScreen"

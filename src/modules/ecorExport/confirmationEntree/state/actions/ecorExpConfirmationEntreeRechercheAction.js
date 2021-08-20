@@ -5,7 +5,7 @@ import * as Constants from '../ecorExpConfirmationEntreeConstants';
 /**i18n */
 import {translate} from '../../../../../commons/i18n/ComI18nHelper';
 import _ from 'lodash';
-export function request(action, navigation) {
+export function request(action, navigation, route) {
   return (dispatch) => {
     dispatch(action);
     dispatch(inProgress(action));
@@ -22,7 +22,7 @@ export function request(action, navigation) {
             console.log('data', data);
             dispatch(success(data, action.value.referenceDed));
 
-            navigation.navigate('Resultat', {
+            navigation.navigate(route, {
               first: true,
             });
           } else {
