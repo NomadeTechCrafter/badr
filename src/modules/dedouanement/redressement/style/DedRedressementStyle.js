@@ -7,6 +7,12 @@ import {
   primaryColor,
 } from '../../../../commons/styles/ComThemeStyle';
 
+// const libelle = {
+//   fontSize: 14,
+//   color: '#006acd',
+//   fontWeight: 'bold',
+// };
+
 const styles = {
   row: {flexDirection: 'row', padding: 10, margin: 10},
   zRow: {
@@ -37,6 +43,8 @@ const styles = {
     margin: '4%',
     backgroundColor: '#009ab2',
   },
+  // nombreResult: { margin: 20, marginVertical: 10, ...value },
+  // libelle: { ...libelle },
 };
 
 export default StyleSheet.create(styles);

@@ -34,25 +34,26 @@ import DedRedressementImputationTitreChangeScreen from './imputationsTitresChang
 import DedRedressementInfoScreen from './info/DedRedressementInfoScreen';
 import ModalConfirmationReception from './modelIntervention/modalConfirmationReception';
 import DedRedressementPreapurementDsScreen from './preapurementDS/DedRedressementPreapurementDsScreen';
+import DedRedressementResultatScannerScreen from './resultatScanner/DedRedressementResultatScannerScreen';
 
 
 
 const Tab = createMaterialTopTabNavigator();
 
-function EnteteScreen({route, navigation}) {
+function EnteteScreen({ route, navigation }) {
     return <DedRedressementEnteteScreen navigation={navigation} route={route} />;
 }
-function CautionScreen({route, navigation}) {
+function CautionScreen({ route, navigation }) {
     return <DedRedressementCautionScreen navigation={navigation} route={route} />;
 }
 
-function ArticlesScreen({route, navigation}) {
+function ArticlesScreen({ route, navigation }) {
     return (
         <DedRedressementArticlesScreen navigation={navigation} route={route} />
     );
 }
 
-function PreapurementDsScreen({route, navigation}) {
+function PreapurementDsScreen({ route, navigation }) {
     return (
         <DedRedressementPreapurementDsScreen
             navigation={navigation}
@@ -61,7 +62,7 @@ function PreapurementDsScreen({route, navigation}) {
     );
 }
 
-function DemandeDiverseScreen({route, navigation}) {
+function DemandeDiverseScreen({ route, navigation }) {
     return (
         <DedRedressementDemandeDiverseScreen
             navigation={navigation}
@@ -70,7 +71,7 @@ function DemandeDiverseScreen({route, navigation}) {
     );
 }
 
-function ImputationTitreChangeScreen({route, navigation}) {
+function ImputationTitreChangeScreen({ route, navigation }) {
     return (
         <DedRedressementImputationTitreChangeScreen
             navigation={navigation}
@@ -79,7 +80,7 @@ function ImputationTitreChangeScreen({route, navigation}) {
     );
 }
 
-function ImputationCompteREDScreen({route, navigation}) {
+function ImputationCompteREDScreen({ route, navigation }) {
     return (
         <DedRedressementImputationCompteREDScreen
             navigation={navigation}
@@ -88,14 +89,18 @@ function ImputationCompteREDScreen({route, navigation}) {
     );
 }
 
-function DocumentsScreen({route, navigation}) {
+function DocumentsScreen({ route, navigation }) {
     return (
         <DedRedressementDocumentsScreen navigation={navigation} route={route} />
     );
 }
 
-function InfoScreen({route, navigation}) {
+function InfoScreen({ route, navigation }) {
     return <DedRedressementInfoScreen navigation={navigation} route={route} />;
+}
+
+function ResultatScanner({ route, navigation }) {
+    return <DedRedressementResultatScannerScreen navigation={navigation} route={route} reference={this.props?.data?.dedReferenceVO?.reference} />;
 }
 
 class DedRedressementScreen extends React.Component {
@@ -136,7 +141,7 @@ class DedRedressementScreen extends React.Component {
                 isImputationCompteRedVisible: false,
             });
         } else if (this.getCategorieDum() === '4') {
-            this.setState({isImputationCompteRedVisible: false});
+            this.setState({ isImputationCompteRedVisible: false });
         }
     };
 
@@ -277,7 +282,7 @@ class DedRedressementScreen extends React.Component {
         this.checkPresenceDouaniere();
     }
 
-    checkPresenceDouaniere=()=>{
+    checkPresenceDouaniere = () => {
         let identifiant = getValueByPath(
             'dedReferenceVO.identifiant',
             this.props,
@@ -295,7 +300,7 @@ class DedRedressementScreen extends React.Component {
     lancerModal = () => {
         let index = this.state.indexDialogConfirmationReception
         this.setState({
-            indexDialogConfirmationReception: index+1
+            indexDialogConfirmationReception: index + 1
         });
 
         let action = DedConfirmerCertificatReceptionAction.init(
@@ -307,7 +312,7 @@ class DedRedressementScreen extends React.Component {
 
         );
         this.props.dispatch(action);
-        this.setState({showIntervention:true});
+        this.setState({ showIntervention: true });
     }
 
     onDismissCertificatReception = () => {
@@ -330,7 +335,7 @@ class DedRedressementScreen extends React.Component {
         let action = DedConfirmerCertificatReceptionAction.request(
             {
                 type: CONFIRMER_CERTIFICAT_RECEPTION_REQUEST,
-                value:  this.state.transitCertifReceptVO,
+                value: this.state.transitCertifReceptVO,
 
 
             },
@@ -416,118 +421,120 @@ class DedRedressementScreen extends React.Component {
                 </ComBadrToolbarComp>}
                 {errorMessage != null && (
                     <View>
-                      <ComBadrErrorMessageComp
-                          style={styles.centerErrorMsg}
-                          message={errorMessage}
-                      />
+                        <ComBadrErrorMessageComp
+                            style={styles.centerErrorMsg}
+                            message={errorMessage}
+                        />
                     </View>
                 )}
                 {messageInfo != null && (
                     <View>
-                      <ComBadrInfoMessageComp
-                          style={styles.centerInfoMsg}
-                          message={messageInfo}
-                      />
+                        <ComBadrInfoMessageComp
+                            style={styles.centerInfoMsg}
+                            message={messageInfo}
+                        />
                     </View>
                 )}
-              <NavigationContainer independent={true}>
-                  {/* add test to fix the loading prob in document tab*/}
-                  {!_.isNil(isCautionAccessible) &&
-                  !_.isNil(isPreapurementDSAccessible) &&
-                  !_.isNil(isImputationTitresDeChangeAccessible) &&
-                  !_.isNil(isImputationCompteREDAccessible) &&
-                  !_.isNil(isCautionAccessible.data) &&
-                  !_.isNil(isPreapurementDSAccessible.data) &&
-                  !_.isNil(isImputationTitresDeChangeAccessible.data) &&
-                  !_.isNil(isImputationCompteREDAccessible.data) ? (
+                <NavigationContainer independent={true}>
+                    {/* add test to fix the loading prob in document tab*/}
+                    {!_.isNil(isCautionAccessible) &&
+                        !_.isNil(isPreapurementDSAccessible) &&
+                        !_.isNil(isImputationTitresDeChangeAccessible) &&
+                        !_.isNil(isImputationCompteREDAccessible) &&
+                        !_.isNil(isCautionAccessible.data) &&
+                        !_.isNil(isPreapurementDSAccessible.data) &&
+                        !_.isNil(isImputationTitresDeChangeAccessible.data) &&
+                        !_.isNil(isImputationCompteREDAccessible.data) ? (
 
-                      <Tab.Navigator
-                          swipeEnabled={true}
-                          lazy={true}
-                          optimizationsEnabled={true}
-                          tabBarOptions={{
-                              scrollEnabled: true,
-                              labelStyle: {fontSize: 14, fontWeight: 'bold'},
-                              showLabel: true,
-                              allowFontScaling: true,
-                              activeBackgroundColor: primaryColor,
-                              activeTintColor: primaryColor,
-                              inactiveTintColor: 'gray',
-                              indicatorStyle: {
-                                  backgroundColor: primaryColor,
-                                  borderWidth: 2.5,
-                                  borderColor: primaryColor,
-                              },
-                          }}>
-                        <Tab.Screen name="Entête" component={EnteteScreen} />
-                          {this.state.isCautionVisible && isCautionAccessible.data === true && (
-                              <Tab.Screen
-                                  name="Caution"
-                                  component={CautionScreen}
-                                  listeners={
-                                      {
-                                          /* tabPress: (e) => {
-                                            // Prevent default action
-                                            e.preventDefault();
-                                          },*/
-                                      }
-                                  }
-                              />
-                          )}
-                        <Tab.Screen name="Articles" component={ArticlesScreen} />
-                          {this.state.isPreapurementDSVisible &&
-                          isPreapurementDSAccessible === true && (
-                              <Tab.Screen
-                                  name="Préapurements DS"
-                                  component={PreapurementDsScreen}
-                              />
-                          )}
-                          {this.state.isDemandesDiversesVisible && (
-                              <Tab.Screen
-                                  name="Demandes Diverses"
-                                  component={DemandeDiverseScreen}
-                              />
-                          )}
-                          {this.state.isImputationTitreChangeVisible &&
-                          isImputationTitresDeChangeAccessible.data === true && (
-                              <Tab.Screen
-                                  name="Imputation Titre Change"
-                                  component={ImputationTitreChangeScreen}
-                              />
-                          )}
-                          {this.state.isImputationCompteRedVisible &&
-                          isImputationCompteREDAccessible.data === true && (
-                              <Tab.Screen
-                                  name="Imputation Compte RED"
-                                  component={ImputationCompteREDScreen}
-                              />
-                          )}
-                        <Tab.Screen name="Documents" component={DocumentsScreen} />
-                        <Tab.Screen name="Info" component={InfoScreen} />
-                      </Tab.Navigator>
+                        <Tab.Navigator
+                            swipeEnabled={true}
+                            lazy={true}
+                            optimizationsEnabled={true}
+                            tabBarOptions={{
+                                scrollEnabled: true,
+                                labelStyle: { fontSize: 14, fontWeight: 'bold' },
+                                showLabel: true,
+                                allowFontScaling: true,
+                                activeBackgroundColor: primaryColor,
+                                activeTintColor: primaryColor,
+                                inactiveTintColor: 'gray',
+                                indicatorStyle: {
+                                    backgroundColor: primaryColor,
+                                    borderWidth: 2.5,
+                                    borderColor: primaryColor,
+                                },
+                            }}>
+                            <Tab.Screen name="Entête" component={EnteteScreen} />
+                            {this.state.isCautionVisible && isCautionAccessible.data === true && (
+                                <Tab.Screen
+                                    name="Caution"
+                                    component={CautionScreen}
+                                    listeners={
+                                        {
+                                            /* tabPress: (e) => {
+                                              // Prevent default action
+                                              e.preventDefault();
+                                            },*/
+                                        }
+                                    }
+                                />
+                            )}
+                            <Tab.Screen name="Articles" component={ArticlesScreen} />
+                            {this.state.isPreapurementDSVisible &&
+                                isPreapurementDSAccessible === true && (
+                                    <Tab.Screen
+                                        name="Préapurements DS"
+                                        component={PreapurementDsScreen}
+                                    />
+                                )}
+                            {this.state.isDemandesDiversesVisible && (
+                                <Tab.Screen
+                                    name="Demandes Diverses"
+                                    component={DemandeDiverseScreen}
+                                />
+                            )}
+                            {this.state.isImputationTitreChangeVisible &&
+                                isImputationTitresDeChangeAccessible.data === true && (
+                                    <Tab.Screen
+                                        name="Imputation Titre Change"
+                                        component={ImputationTitreChangeScreen}
+                                    />
+                                )}
+                            {this.state.isImputationCompteRedVisible &&
+                                isImputationCompteREDAccessible.data === true && (
+                                    <Tab.Screen
+                                        name="Imputation Compte RED"
+                                        component={ImputationCompteREDScreen}
+                                    />
+                                )}
+                            <Tab.Screen name="Documents" component={DocumentsScreen} />
+                            <Tab.Screen name="Info" component={InfoScreen} />
+                            <Tab.Screen name="Résultat scanner" component={ResultatScanner} />
 
-                  ) : (
-                      <Spinner
-                          visible={true}
-                          cancelable={false}
-                          animation="fade"
-                          color={accentColor}
-                          overlayColor={'rgba(' + primaryColorRgba + ',0.80)'}
-                          textContent={translate('transverse.inprogress')}
-                          textStyle={styles.spinnerTextStyle}
-                      />
-                  )}
-              </NavigationContainer>
-              <ModalConfirmationReception
-                  visible={this.state.showIntervention}
-                  identifiant={getValueByPath('dedReferenceVO.identifiant', this.props, 'consulterDumReducer',)}
-                  onDismiss={this.onDismissCertificatReception}
-                  confirmer={this.confirmerCertificatReception}
-                  retablir={this.retablirCertificatReception}
-                  depotageSansPresenceDouaniere={isDumSansPresenceDouaniere?.data}
-                  update={this.updateCertificatReception}
-                  index={this.state.indexDialogConfirmationReception}
-              />
+                        </Tab.Navigator>
+
+                    ) : (
+                        <Spinner
+                            visible={true}
+                            cancelable={false}
+                            animation="fade"
+                            color={accentColor}
+                            overlayColor={'rgba(' + primaryColorRgba + ',0.80)'}
+                            textContent={translate('transverse.inprogress')}
+                            textStyle={styles.spinnerTextStyle}
+                        />
+                    )}
+                </NavigationContainer>
+                <ModalConfirmationReception
+                    visible={this.state.showIntervention}
+                    identifiant={getValueByPath('dedReferenceVO.identifiant', this.props, 'consulterDumReducer',)}
+                    onDismiss={this.onDismissCertificatReception}
+                    confirmer={this.confirmerCertificatReception}
+                    retablir={this.retablirCertificatReception}
+                    depotageSansPresenceDouaniere={isDumSansPresenceDouaniere?.data}
+                    update={this.updateCertificatReception}
+                    index={this.state.indexDialogConfirmationReception}
+                />
             </View>
         );
     }
@@ -536,13 +543,13 @@ class DedRedressementScreen extends React.Component {
         if (this.props.dispatch) {
             console.log('calling redux ...');
             this.props.dispatch(
-                request({type: GENERIC_DED_REQUEST, value: actionValue}),
+                request({ type: GENERIC_DED_REQUEST, value: actionValue }),
             );
         }
     };
 
     init = () => {
-        this.props.dispatch(request({type: GENERIC_DED_INIT, value: {}}));
+        this.props.dispatch(request({ type: GENERIC_DED_INIT, value: {} }));
     };
 
     extractCommandData = (command, reducerName) => {
@@ -552,7 +559,7 @@ class DedRedressementScreen extends React.Component {
     };
 }
 function mapStateToProps(state) {
-    return {...state};
+    return { ...state };
 }
 
 export default connect(mapStateToProps, null)(DedRedressementScreen);

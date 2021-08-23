@@ -1,5 +1,5 @@
 import React from 'react';
-import {ScrollView, View} from 'react-native';
+import { ScrollView, Text, View } from "react-native";
 import DedRedressementInfoCommon from '../common/DedRedressementInfoCommon';
 import DedRedressementEnteteVersionBlock from './blocks/DedRedressementEnteteVersionBlock';
 import DedRedressementEnteteInfoBlock from './blocks/DedRedressementEnteteInfoBlock';
@@ -9,25 +9,54 @@ import DedRedressementEnteteLocalisationMarchandiseBlock from './blocks/DedRedre
 import DedRedressementEnteteDocumentPrecedentBlock from './blocks/DedRedressementEnteteDocumentPrecedentBlock';
 import DedRedressementEnteteAccordFranchiseBlock from './blocks/DedRedressementEnteteAccordFranchiseBlock';
 import DedRedressementEnteteTransbordementBlock from './blocks/DedRedressementEnteteTransbordementBlock';
-import {connect} from 'react-redux';
-import {getValueByPath} from '../../utils/DedUtils';
+import { connect } from 'react-redux';
+import { getValueByPath } from '../../utils/DedUtils';
 import DedRedressementEnteteEnvoyerTraiterValeurBlock from './blocks/DedRedressementEnteteEnvoyerTraiterValeurBlock';
+import {
+  ComAccordionComp,
+  ComBasicDataTableComp
+} from '../../../../../commons/component';
+import translate from "../../../../../commons/i18n/ComI18nHelper";
+import styles from '../../style/DedRedressementStyle';
+import DedRedressementRow from '../common/DedRedressementRow';
 
 
 class DedRedressementEnteteScreen extends React.Component {
   constructor(props) {
     super(props);
+    this.composantTablesColsD17D20 = this.buildComposantsColumnsD17D20();
   }
 
   componentDidMount() {
     console.log('ENTETE IS LOADING...');
   }
 
+  buildComposantsColumnsD17D20 = () => {
+    return [
+      {
+        code: 'referenceEnregistrement',
+        libelle: translate('mainlevee.delivrerMainlevee.listeD17D20.reference'),
+        width: 180,
+      },
+      {
+        code: 'dateCreation',
+        libelle: translate('mainlevee.delivrerMainlevee.listeD17D20.dateCreation'),
+        width: 180,
+      },
+      {
+        code: 'numeroVersionCourante',
+        libelle: translate('mainlevee.delivrerMainlevee.listeD17D20.numeroVersion'),
+        width: 180,
+      },
+    ];
+  };
+
   render() {
+    let listD17D20 = this.props.data?.dedDumSectionEnteteVO?.declarationsTryptique;
     return (
       <ScrollView>
         {this.props.data && (
-          <View style={{flex: 1}}>
+          <View style={{ flex: 1 }}>
             <DedRedressementInfoCommon
               searchData={this.props.searchData}
               data={this.props.data}
@@ -38,7 +67,7 @@ class DedRedressementEnteteScreen extends React.Component {
                 'dedDumSectionEnteteVO',
                 this.props.data,
               )}
-              
+
             />
             <DedRedressementEnteteInfoBlock
               data={this.props.data}
@@ -99,6 +128,38 @@ class DedRedressementEnteteScreen extends React.Component {
                 this.props.data,
               )}
             />
+
+            <View style={styles.container}>
+              <ComAccordionComp title={translate('etatChargement.listeD17D20')} expanded={true}>
+                <View style={styles.container}>
+                  <Text style={styles.nombreResult, styles.libelle}>
+                    {translate('etatChargement.nombreD17D20')} :
+                    <Text style={styles.libelle}>
+                      {'    ' + listD17D20?.length}
+                    </Text>
+                  </Text>
+                  <DedRedressementRow zebra={true}>
+                    <ComBasicDataTableComp
+                      badr
+                      onRef={(ref) => (this.badrComposantsTable = ref)}
+                      ref="_badrTable"
+                      hasId={false}
+                      id="idComposant"
+                      rows={listD17D20}
+                      cols={this.composantTablesColsD17D20}
+                      totalElements={
+                        listD17D20?.length
+                          ? listD17D20?.length
+                          : 0
+                      }
+                      maxResultsPerPage={5}
+                      paginate={true}
+                    />
+                  </DedRedressementRow>
+                </View>
+              </ComAccordionComp>
+            </View>
+
           </View>
         )}
       </ScrollView>
@@ -107,7 +168,7 @@ class DedRedressementEnteteScreen extends React.Component {
 }
 
 function mapStateToProps(state) {
-  return {...state.consulterDumReducer};
+  return { ...state.consulterDumReducer };
 }
 
 export default connect(mapStateToProps, null)(DedRedressementEnteteScreen);

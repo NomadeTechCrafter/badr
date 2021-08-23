@@ -23,11 +23,11 @@ class DedRedressementDocumentsScreen extends React.Component {
       ),
       getValueByPath('sousDum', this.props, 'consulterDumReducer'),
     );
-    console.log('----is sous Dum -----', categorieDum);
-    console.log(
-      '----is sous Dum result-----',
-      categorieDum === '4' || categorieDum === '1',
-    );
+    // console.log('----is sous Dum -----', categorieDum);
+    // console.log(
+    //   '----is sous Dum result-----',
+    //   categorieDum === '4' || categorieDum === '1',
+    // );
     return categorieDum === '4' || categorieDum === '1';
   };
 
@@ -37,10 +37,10 @@ class DedRedressementDocumentsScreen extends React.Component {
       this.props,
       'consulterDumReducer',
     );
-    console.log(
-      '----is render DedRedressementDocumentsScreen -----',
-      dumSignee,
-    );
+    // console.log(
+    //   '----is render DedRedressementDocumentsScreen -----',
+    //   dumSignee,
+    // );
     return (
       <ScrollView>
         {dumSignee === 'true' && (

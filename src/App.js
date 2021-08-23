@@ -12,7 +12,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 
 const Stack = createStackNavigator();
 
-import {ComBadrStackNavigatorComp} from './commons/component';
+import {ComBadrStackNavigatorComp, ComRedressementRechercheRefComp} from './commons/component';
 import {RootSiblingParent} from 'react-native-root-siblings';
 
 /** REDUX */
@@ -65,6 +65,7 @@ import ConsultationTIScreen from './modules/tarifIntegre/tiConsultationTI/ui/tiC
 import autoriserAcheminementMainScreen from './modules/ecorExport/autoriserAcheminement/mainScreen/ui/autoriserAcheminementMainScreen';
 import RechercheAutoriserAcheminementScreen from './modules/ecorExport/autoriserAcheminement/recherche/ui/rechercheAutoriserAcheminementScreen';
 import ecorExpConfirmationEntreeArriveeRechercheScreen from './modules/ecorExport/confirmationEntreeArrivee/ui/ecorExpConfirmationEntreeArriveeRechercheScreen';
+import DedRedressementEnteteScreen from './modules/dedouanement/redressement/ui/entete/DedRedressementEnteteScreen';
 
 //setGlobalHandler();
 export default class App extends React.Component {
@@ -87,7 +88,7 @@ export default class App extends React.Component {
                 <Stack.Screen
                   name="test"
                   options={{headerShown: false}}
-                    component={ecorExpConfirmationEntreeArriveeRechercheScreen}
+                    component={ComRedressementRechercheRefComp}
                 />
               )}
               <Stack.Screen

@@ -38,7 +38,7 @@ export const getSerie = (reference) => {
 };
 
 export const getCategorieDum = (typeDum, isSousDum) => {
-  console.log('getCategorieDum typeDum :', typeDum);
+  // console.log('getCategorieDum typeDum :', typeDum);
   if (typeDum == '01') {
     return '1';
   } else if (typeDum == '02') {

@@ -60,6 +60,15 @@ class DedRedressementEnteteDeclarantOpeBlock extends React.Component {
                 )}
               />
             </DedRedressementRow>
+            <DedRedressementRow zebra={true}>
+              <ComBadrKeyValueComp
+                libelle="Activité"
+                value={getValueByPath(
+                  'dedDumSectionEnteteVO.activiteDeclarant',
+                  this.props.data,
+                )}
+              />
+            </DedRedressementRow>
           </View>
 
           {this.buildOperateurBlock(
@@ -73,6 +82,7 @@ class DedRedressementEnteteDeclarantOpeBlock extends React.Component {
             'dedDumSectionEnteteVO.adresseOperateurExpediteurR',
             'dedDumSectionEnteteVO.adresseOperateurExpediteurS',
             'dedDumSectionEnteteVO.preIfuExpediteur',
+            'dedDumSectionEnteteVO.activiteOperateurDestinataireR0'
           )}
           {this.buildOperateurBlock(
             'Destinataire, Importateur / Cessionaire',
@@ -85,6 +95,7 @@ class DedRedressementEnteteDeclarantOpeBlock extends React.Component {
             'dedDumSectionEnteteVO.adresseOperateurDestinataireR',
             'dedDumSectionEnteteVO.adresseOperateurDestinataireS',
             'dedDumSectionEnteteVO.preIfuDestinataire',
+            'dedDumSectionEnteteVO.activiteOperateurDestinataireR'      
           )}
           {this.buildOperateurBlock(
             "Operateur pour lequel est engagé l'opération",
@@ -97,6 +108,7 @@ class DedRedressementEnteteDeclarantOpeBlock extends React.Component {
             'dedDumSectionEnteteVO.adresseOperateurPourLequel',
             'dedDumSectionEnteteVO.adresseOperateurPourLequel',
             'dedDumSectionEnteteVO.preIfuDestinataire',
+            'dedDumSectionEnteteVO.activiteOperateurPourLequel'
           )}
         </ComAccordionComp>
       </View>
@@ -114,6 +126,7 @@ class DedRedressementEnteteDeclarantOpeBlock extends React.Component {
     adressOpeExpR,
     adressOpeExpS,
     preIfu,
+    activite,
   ) => {
     return (
       <View style={styles.container}>
@@ -177,6 +190,12 @@ class DedRedressementEnteteDeclarantOpeBlock extends React.Component {
                 )}
               />
             }
+          />
+        </DedRedressementRow>
+        <DedRedressementRow zebra={true}>
+          <ComBadrKeyValueComp
+            libelle="Activité"
+            value={getValueByPath(activite, this.props.data)}
           />
         </DedRedressementRow>
       </View>

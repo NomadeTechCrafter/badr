@@ -135,10 +135,10 @@ export default class ModalConfirmationReception extends React.Component {
     
   }
   static getDerivedStateFromProps(props, state) {
-    console.log('props.identifiant ', props.identifiant);
-    console.log('state.identifiant ', state.identifiant);
-    console.log('props.index ', props.index);
-    console.log('state.index ', state.index);
+    // console.log('props.identifiant ', props.identifiant);
+    // console.log('state.identifiant ', state.identifiant);
+    // console.log('props.index ', props.index);
+    // console.log('state.index ', state.index);
 
     if (
       
