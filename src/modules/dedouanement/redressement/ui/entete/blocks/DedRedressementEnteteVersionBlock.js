@@ -1,23 +1,28 @@
 import React from 'react';
-import {TextInput, View} from 'react-native';
+import { TextInput, View } from 'react-native';
 import {
   ComAccordionComp,
   ComBadrDialogComp,
   ComBadrKeyValueComp,
   ComBadrTouchableButtonComp,
+  ComBadrAutoCompleteChipsComp,
 } from '../../../../../../commons/component';
 import styles from '../../../style/DedRedressementStyle';
 import ComBadrLibelleComp from '../../../../../../commons/component/shared/text/ComBadrLibelleComp';
 import DedRedressementRow from '../../common/DedRedressementRow';
-import {getValueByPath} from '../../../utils/DedUtils';
-import {Col, Row} from 'react-native-easy-grid';
-import {lightGris} from '../../../../../../commons/styles/ComThemeStyle';
-import {request} from '../../../state/actions/DedAction';
+import { getValueByPath } from '../../../utils/DedUtils';
+import { Col, Row } from 'react-native-easy-grid';
+import { lightGris } from '../../../../../../commons/styles/ComThemeStyle';
+import { request } from '../../../state/actions/DedAction';
 import {
   GENERIC_DED_INIT,
   GENERIC_DED_REQUEST,
 } from '../../../state/DedRedressementConstants';
-import {connect} from 'react-redux';
+import { primaryColor } from '../../../../../../commons/styles/ComThemeStyle';
+import { connect } from 'react-redux';
+import { Divider } from 'react-native-elements';
+import ComBadrReferentielPickerComp from '../../../../../../commons/component/shared/pickers/ComBadrReferentielPickerComp';
+import { Checkbox } from 'react-native-paper';
 
 class DedRedressementEnteteVersionBlock extends React.Component {
   constructor(props) {
@@ -29,7 +34,7 @@ class DedRedressementEnteteVersionBlock extends React.Component {
     };
   }
 
-  componentDidMount() {}
+  componentDidMount() { }
 
   isVersionCourante = () => {
     return !(
@@ -41,15 +46,15 @@ class DedRedressementEnteteVersionBlock extends React.Component {
   };
 
   handleCommentaireClicked = () => {
-    this.setState({isCommentaireDialogVisible: true});
+    this.setState({ isCommentaireDialogVisible: true });
   };
 
   handleConfirmCommentaire = () => {
-    this.setState({isCommentaireDialogVisible: false});
+    this.setState({ isCommentaireDialogVisible: false });
   };
 
   handleCancelCommentaire = () => {
-    this.setState({isCommentaireDialogVisible: false});
+    this.setState({ isCommentaireDialogVisible: false });
   };
 
   handleVersionCouranteClicked = () => {
@@ -70,12 +75,12 @@ class DedRedressementEnteteVersionBlock extends React.Component {
 
   callRedux = (jsonVO) => {
     if (this.props.dispatch) {
-      this.props.dispatch(request({type: GENERIC_DED_REQUEST, value: jsonVO}));
+      this.props.dispatch(request({ type: GENERIC_DED_REQUEST, value: jsonVO }));
     }
   };
 
   init = () => {
-    this.props.dispatch(request({type: GENERIC_DED_INIT, value: {}}));
+    this.props.dispatch(request({ type: GENERIC_DED_INIT, value: {} }));
   };
 
   extractCommandData = (command, reducerName) => {
@@ -106,7 +111,7 @@ class DedRedressementEnteteVersionBlock extends React.Component {
               this.props.data,
               'consulterDumReducer',
             )}
-            style={{backgroundColor: lightGris, width: '100%'}}
+            style={{ backgroundColor: lightGris, width: '100%' }}
             placeholder="Commentaires..."
             multiline={true}
             numberOfLines={5}
@@ -146,7 +151,7 @@ class DedRedressementEnteteVersionBlock extends React.Component {
               libelle="Statut : "
               children={
                 <View>
-                  <ComBadrLibelleComp style={{padding: 10}}>
+                  <ComBadrLibelleComp style={{ padding: 10 }}>
                     {getValueByPath(
                       'dedDumSectionEnteteVO.statut',
                       this.props.data,
@@ -282,6 +287,106 @@ class DedRedressementEnteteVersionBlock extends React.Component {
             </Row>
           </DedRedressementRow>
 
+          <Divider></Divider>
+
+          <DedRedressementRow>
+            <ComBadrKeyValueComp
+              rtl={true}
+              style={styles.rtlCheckboxLabelStyle}
+              libelle="Combinée"
+              children={
+                <Checkbox
+                  status={
+                    getValueByPath(
+                      'dedDumSectionEnteteVO.combinee',
+                      this.props.data,
+                    ) === 'true'
+                      ? 'checked'
+                      : 'unchecked'
+                  }
+                  disabled={true}
+                  color={primaryColor}
+                />
+              }
+            />
+            <ComBadrKeyValueComp
+              rtl={true}
+              style={styles.rtlCheckboxLabelStyle}
+              libelle="Déclaration par anticipation"
+              children={
+                <Checkbox
+                  status={
+                    getValueByPath(
+                      'dedDumSectionEnteteVO.anticipee',
+                      this.props.data,
+                    ) === 'true'
+                      ? 'checked'
+                      : 'unchecked'
+                  }
+                  disabled={true}
+                  color={primaryColor}
+                />
+              }
+            />
+          </DedRedressementRow>
+
+
+          <DedRedressementRow zebra={true}>
+            <ComBadrAutoCompleteChipsComp
+              label={
+                <ComBadrLibelleComp withColor={true}>
+                  Bureau destination
+                </ComBadrLibelleComp>
+              }
+              onRef={(ref) => (this.refBureau = ref)}
+              code="codeBureau"
+              selected={this.props?.dedDumSectionEnteteVO?.bureauDestinationLibelle}
+              maxItems={10}
+              disabled={true}
+              libelle="nomBureauDouane"
+              command="getListeBureaux"
+              onDemand={true}
+              searchZoneFirst={false}
+              onValueChange={this.handleBureauChipsChanged}
+            />
+          </DedRedressementRow>
+          <DedRedressementRow>
+            <ComBadrKeyValueComp
+              libelle="Lieu de stockage destination"
+              children={
+                <ComBadrReferentielPickerComp
+                  key="lieuStockage"
+                  disabled={true}
+                  selected={{
+                    code: getValueByPath(
+                      'dedDumSectionEnteteVO.lieuStockage',
+                      this.props.data,
+                    ),
+                  }}
+                  module="REF_LIB"
+                  onRef={(ref) => (this.comboLieuStockage = ref)}
+                  command="getCmbLieuStockageParBureau"
+                  onValueChange={(selectedValue, selectedIndex, item) =>
+                    this.handleLieuStockageChanged(
+                      selectedValue,
+                      selectedIndex,
+                      item,
+                    )
+                  }
+                  params={{
+                    codeBureau: getValueByPath(
+                      'dedDumSectionEnteteVO.bureauDestination',
+                      this.props.data,
+                    ),
+                  }}
+                  typeService="SP"
+                  code="code"
+                  libelle="libelle"
+                />
+              }
+            />
+          </DedRedressementRow>
+         
           {/*{!this.isVersionCourante() && (
             <ComBadrTouchableButtonComp
               text="Version courante"
@@ -296,7 +401,7 @@ class DedRedressementEnteteVersionBlock extends React.Component {
 }
 
 function mapStateToProps(state) {
-  return {...state};
+  return { ...state };
 }
 
 export default connect(

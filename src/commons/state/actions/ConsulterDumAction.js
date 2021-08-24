@@ -27,13 +27,6 @@ export function request(action, navigation) {
           response.data.jsonVO &&
           !messagesErreurs
         ) {
-          console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
-          console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
-          console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
-          console.log('response.data for : ' + action.command + ' is : ' + JSON.stringify(response.data));
-          console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
-          console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
-          console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
           if (action.command === 'ded.TraiterValeur' || action.command === 'ded.EnvoyerValeur') {
             dispatch(success(response.data.jsonVO, action.value, action.command, response.data.dtoHeader.messagesInfo));
           } else {

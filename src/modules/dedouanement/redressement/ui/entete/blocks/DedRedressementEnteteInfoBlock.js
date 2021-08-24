@@ -1,5 +1,5 @@
 import React from 'react';
-import {View} from 'react-native';
+import { View } from 'react-native';
 import {
   ComAccordionComp,
   ComBadrAutoCompleteChipsComp,
@@ -7,12 +7,13 @@ import {
   ComBadrPickerComp,
 } from '../../../../../../commons/component';
 import styles from '../../../style/DedRedressementStyle';
-import {Checkbox} from 'react-native-paper';
-import {primaryColor} from '../../../../../../commons/styles/ComThemeStyle';
+import { Checkbox } from 'react-native-paper';
+import { primaryColor } from '../../../../../../commons/styles/ComThemeStyle';
 import DedRedressementRow from '../../common/DedRedressementRow';
 import ComBadrLibelleComp from '../../../../../../commons/component/shared/text/ComBadrLibelleComp';
-import {getValueByPath} from '../../../utils/DedUtils';
-import {ComSessionService} from '../../../../../../commons/services/session/ComSessionService';
+import { getValueByPath } from '../../../utils/DedUtils';
+import { ComSessionService } from '../../../../../../commons/services/session/ComSessionService';
+import ComBadrReferentielPickerComp from '../../../../../../commons/component/shared/pickers/ComBadrReferentielPickerComp';
 
 class DedRedressementEnteteInfoBlock extends React.Component {
   constructor(props) {
@@ -22,105 +23,12 @@ class DedRedressementEnteteInfoBlock extends React.Component {
     };
   }
 
-  componentDidMount() {}
+  componentDidMount() { }
 
   render() {
     return (
       <View style={styles.container}>
         <ComAccordionComp title="Info" expanded={true}>
-          <DedRedressementRow>
-            <ComBadrKeyValueComp
-              rtl={true}
-              style={styles.rtlCheckboxLabelStyle}
-              libelle="Combinée"
-              children={
-                <Checkbox
-                  status={
-                    getValueByPath(
-                      'dedDumSectionEnteteVO.combinee',
-                      this.props.data,
-                    ) === 'true'
-                      ? 'checked'
-                      : 'unchecked'
-                  }
-                  disabled={true}
-                  color={primaryColor}
-                />
-              }
-            />
-            <ComBadrKeyValueComp
-              rtl={true}
-              style={styles.rtlCheckboxLabelStyle}
-              libelle="Déclaration par anticipation"
-              children={
-                <Checkbox
-                  status={
-                    getValueByPath(
-                      'dedDumSectionEnteteVO.anticipee',
-                      this.props.data,
-                    ) === 'true'
-                      ? 'checked'
-                      : 'unchecked'
-                  }
-                  disabled={true}
-                  color={primaryColor}
-                />
-              }
-            />
-          </DedRedressementRow>
-
-          <DedRedressementRow zebra={true}>
-            <ComBadrAutoCompleteChipsComp
-              label={
-                <ComBadrLibelleComp withColor={true}>
-                  Bureau d'entrée
-                </ComBadrLibelleComp>
-              }
-              onRef={(ref) => (this.refBureau = ref)}
-              code="codeBureau"
-              selected={this.props?.dedDumSectionEnteteVO?.bureauDestinationLibelle}
-              maxItems={10}
-              disabled={true}
-              libelle="nomBureauDouane"
-              command="getListeBureaux"
-              onDemand={true}
-              searchZoneFirst={false}
-              onValueChange={this.handleBureauChipsChanged}
-            />
-          </DedRedressementRow>
-
-          <DedRedressementRow>
-            <ComBadrKeyValueComp
-              libelle="Lieu de stockage"
-              libelleSize={3}
-              children={
-                <ComBadrPickerComp
-                  disabled={true}
-                  onRef={(ref) => (this.comboLieuStockage = ref)}
-                  style={{
-                    flex: 1,
-                    marginLeft: -80,
-                  }}
-                  titleStyle={{flex: 1}}
-                  key="lieuStockage"
-                  cle="code"
-                  libelle="libelle"
-                  module="REF_LIB"
-                  command="getCmbLieuStockageParBureau"
-                  onValueChange={(selectedValue, selectedIndex, item) =>
-                    this.handleArrondissementChanged(
-                      selectedValue,
-                      selectedIndex,
-                      item,
-                    )
-                  }
-                  param={{codeBureau: this.state.selectedBureau.code}}
-                  typeService="SP"
-                />
-              }
-            />
-          </DedRedressementRow>
-
           <DedRedressementRow zebra={true}>
             <ComBadrKeyValueComp
               libelle="Arrondissement"
@@ -137,7 +45,7 @@ class DedRedressementEnteteInfoBlock extends React.Component {
                     flex: 1,
                     marginLeft: -80,
                   }}
-                  titleStyle={{flex: 1}}
+                  titleStyle={{ flex: 1 }}
                   key="arrondissements"
                   cle="code"
                   libelle="libelle"
@@ -151,9 +59,49 @@ class DedRedressementEnteteInfoBlock extends React.Component {
                     )
                   }
                   param={{
-                    codeBureau: ComSessionService.getInstance().getCodeBureau(),
+                    codeBureau: getValueByPath(
+                      'dedDumSectionEnteteVO.refBureauDedouanement',
+                      this.props.data,
+                    ),
                   }}
                   typeService="SP"
+                />
+              }
+            />
+          </DedRedressementRow>
+
+          <DedRedressementRow>
+            <ComBadrKeyValueComp
+              libelle="Lieu de stockage"
+              children={
+                <ComBadrReferentielPickerComp
+                  key="lieuStockage"
+                  disabled={true}
+                  selected={{
+                    code: getValueByPath(
+                      'dedDumSectionEnteteVO.lieuStockageLocalisation',
+                      this.props.data,
+                    ),
+                  }}
+                  module="REF_LIB"
+                  onRef={(ref) => (this.comboLieuStockage = ref)}
+                  command="getCmbLieuStockageParBureau"
+                  onValueChange={(selectedValue, selectedIndex, item) =>
+                    this.handleLieuStockageChanged(
+                      selectedValue,
+                      selectedIndex,
+                      item,
+                    )
+                  }
+                  params={{
+                    codeBureau: getValueByPath(
+                      'dedDumSectionEnteteVO.refBureauDedouanement',
+                      this.props.data,
+                    ),
+                  }}
+                  typeService="SP"
+                  code="code"
+                  libelle="libelle"
                 />
               }
             />
@@ -171,7 +119,7 @@ class DedRedressementEnteteInfoBlock extends React.Component {
     });
     this.comboArrondissements.refresh(item.codeBureau, this.refBureau);
     this.comboLieuStockage.refresh(
-      {codeBureau: item.codeBureau},
+      { codeBureau: item.codeBureau },
       this.comboBureaux,
     );
   };
@@ -185,7 +133,7 @@ class DedRedressementEnteteInfoBlock extends React.Component {
     });
     this.comboArrondissements.refresh(selectedValue, this.refBureau);
     this.comboLieuStockage.refresh(
-      {codeBureau: selectedValue},
+      { codeBureau: selectedValue },
       this.comboBureaux,
     );
   };

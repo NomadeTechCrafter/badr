@@ -122,40 +122,6 @@ class DedRedressementEnteteLocalisationMarchandiseBlock extends React.Component 
 
             <DedRedressementRow zebra={true}>
               <ComBadrKeyValueComp
-                libelle="Lieu de stockage"
-                children={
-                  <ComBadrReferentielPickerComp
-                    key="lieuStockage"
-                    disabled={true}
-                    selected={{
-                      code: getValueByPath(
-                        'dedDumSectionEnteteVO.lieuStockageLocalisation',
-                        this.props.data,
-                      ),
-                    }}
-                    module="REF_LIB"
-                    onRef={(ref) => (this.comboLieuStockage = ref)}
-                    command="getCmbLieuStockageParBureau"
-                    onValueChange={(selectedValue, selectedIndex, item) =>
-                      this.handleLieuStockageChanged(
-                        selectedValue,
-                        selectedIndex,
-                        item,
-                      )
-                    }
-                    params={{
-                      codeBureau: getValueByPath(
-                        'dedDumSectionEnteteVO.refBureauDedouanement',
-                        this.props.data,
-                      ),
-                    }}
-                    typeService="SP"
-                    code="code"
-                    libelle="libelle"
-                  />
-                }
-              />
-              <ComBadrKeyValueComp
                 libelle="Date de voyage"
                 children={
                   <TextInput
