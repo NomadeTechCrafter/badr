@@ -355,7 +355,7 @@ class DedRedressementEnteteVersionBlock extends React.Component {
               libelle="Lieu de stockage destination"
               children={
                 <ComBadrReferentielPickerComp
-                  key="lieuStockage"
+                  key="lieuStockage2"
                   disabled={true}
                   selected={{
                     code: getValueByPath(
@@ -364,7 +364,7 @@ class DedRedressementEnteteVersionBlock extends React.Component {
                     ),
                   }}
                   module="REF_LIB"
-                  onRef={(ref) => (this.comboLieuStockage = ref)}
+                  onRef={(ref) => (this.comboLieuStockage2 = ref)}
                   command="getCmbLieuStockageParBureau"
                   onValueChange={(selectedValue, selectedIndex, item) =>
                     this.handleLieuStockageChanged(

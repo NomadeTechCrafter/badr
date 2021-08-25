@@ -122,6 +122,10 @@ class DedRedressementEnteteInfoBlock extends React.Component {
       { codeBureau: item.codeBureau },
       this.comboBureaux,
     );
+    this.comboLieuStockage2.refresh(
+      { codeBureau: selectedValue },
+      this.comboBureaux,
+    );
   };
 
   handleBureauChanged = (selectedValue, selectedIndex, item) => {
@@ -136,6 +140,11 @@ class DedRedressementEnteteInfoBlock extends React.Component {
       { codeBureau: selectedValue },
       this.comboBureaux,
     );
+    this.comboLieuStockage2.refresh(
+      { codeBureau: selectedValue },
+      this.comboBureaux,
+    );
+
   };
 }
 

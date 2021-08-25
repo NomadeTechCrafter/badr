@@ -124,14 +124,14 @@ class DedRedressementListsBlock extends React.Component {
 
         <DedRedressementDetailArticleOrigineBlock
           article={selectedArticle}></DedRedressementDetailArticleOrigineBlock>
-        <DedRedressementDetailArticleTypeReconnaissanceBlock
+        {/* <DedRedressementDetailArticleTypeReconnaissanceBlock
           article={
             selectedArticle
-          }></DedRedressementDetailArticleTypeReconnaissanceBlock>
-        <DedRedressementDetailArticleLiquidationBlock
+          }></DedRedressementDetailArticleTypeReconnaissanceBlock> */}
+        {/* <DedRedressementDetailArticleLiquidationBlock
           article={
             selectedArticle
-          }></DedRedressementDetailArticleLiquidationBlock>
+          }></DedRedressementDetailArticleLiquidationBlock> */}
       </ComBadrDetailAccordion>
     );
   };

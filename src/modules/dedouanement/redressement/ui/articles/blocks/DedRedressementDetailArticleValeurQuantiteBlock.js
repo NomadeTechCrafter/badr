@@ -1,5 +1,5 @@
 import React from 'react';
-import {View} from 'react-native';
+import { View } from 'react-native';
 import {
   ComAccordionComp,
   ComBadrAutoCompleteChipsComp,
@@ -13,19 +13,19 @@ import {
   TextInput,
   Checkbox,
 } from 'react-native-paper';
-import {primaryColor} from '../../../../../../commons/styles/ComThemeStyle';
-import {getValueByPath} from '../../../utils/DedUtils';
+import { primaryColor } from '../../../../../../commons/styles/ComThemeStyle';
+import { getValueByPath } from '../../../utils/DedUtils';
 
 export default class DedRedressementDetailArticleValeurQuantiteBlock extends React.Component {
   constructor(props) {
     super(props);
   }
 
-  componentDidMount() {}
+  componentDidMount() { }
 
   render() {
     return (
-      <View style={{flex: 1}}>
+      <View style={{ flex: 1 }}>
         <ComAccordionComp title="Valeur et quantités" expanded={false}>
           <DedRedressementRow>
             <ComBadrKeyValueComp
@@ -44,7 +44,7 @@ export default class DedRedressementDetailArticleValeurQuantiteBlock extends Rea
               libelleSize={1}
               children={
                 <Button
-                  style={{margin: 10}}
+                  style={{ margin: 10 }}
                   mode="contained"
                   disabled={true}
                   color={primaryColor}>
@@ -100,6 +100,10 @@ export default class DedRedressementDetailArticleValeurQuantiteBlock extends Rea
                   value={getValueByPath('poidsNet', this.props.article)}
                 />
               }
+            />
+            <ComBadrKeyValueComp
+              libelle=""
+              libelleSize={2}
             />
           </DedRedressementRow>
 
