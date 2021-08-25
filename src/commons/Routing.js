@@ -37,7 +37,10 @@ const mapping = {
     //CONFIRMATION ARRIVEE
     screen: 'ConfirmationArriveeRechercheScreen',
     params: { title: 'Ecran  Recherche Confirmation arrivee' },
-  }
+  },
+  '306011': { screen: 'AjouterReconnaissance', params: {} },
+  '306012': { screen: 'ModifierReconnaissance', params: {} },
+  '306013': { screen: 'AnnulerReconnaissance', params: {} },
   /*
 
   '2301': { screen: 'DTPSSortieMainScreen', params: {} },
@@ -48,9 +51,6 @@ const mapping = {
     params: {title: 'Ecran  Recherche Consultation BLS'},
   },
   '6064': {screen: 'PecEtatChargementMainScreen', params: {}},
-  '306011': {screen: 'AjouterReconnaissance', params: {}},
-  '306012': {screen: 'ModifierReconnaissance', params: {}},
-  '306013': {screen: 'AnnulerReconnaissance', params: {}},
   '14000010': {screen: 'CreerCompteRenduMission', params: {}},
   '14000011': {screen: 'ModifierCompteRenduMission', params: {}},
   '14000012': {screen: 'ValiderCompteRenduMission', params: {}},
