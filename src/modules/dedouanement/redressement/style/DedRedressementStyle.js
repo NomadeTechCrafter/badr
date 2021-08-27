@@ -34,6 +34,11 @@ const styles = {
     borderWidth: 3,
     borderColor: lightGris,
   },
+  actionBtn: {
+    width: 100,
+    margin: 15,
+    flex: 1,
+  },
   headingText: {color: primaryColor, fontSize: 15},
   versionInitialStyle: {paddingLeft: 50, marginLeft: 10},
   versionEnCoursStyle: {paddingLeft: 50, marginLeft: 10},

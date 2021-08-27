@@ -35,6 +35,7 @@ import DedRedressementInfoScreen from './info/DedRedressementInfoScreen';
 import ModalConfirmationReception from './modelIntervention/modalConfirmationReception';
 import DedRedressementPreapurementDsScreen from './preapurementDS/DedRedressementPreapurementDsScreen';
 import DedRedressementResultatScannerScreen from './resultatScanner/DedRedressementResultatScannerScreen';
+import DedRedressementMoyenTransportTransitScreen from './moyenTransport/DedRedressementMoyenTransportTransitScreen';
 
 
 
@@ -507,8 +508,9 @@ class DedRedressementScreen extends React.Component {
                                         component={ImputationCompteREDScreen}
                                     />
                                 )}
-                            <Tab.Screen name="Documents" component={DocumentsScreen} />
-                            <Tab.Screen name="Info" component={InfoScreen} />
+                                <Tab.Screen name="Documents" component={DocumentsScreen} />
+                                <Tab.Screen name="Moyen de transport de transit" component={DedRedressementMoyenTransportTransitScreen} />
+                                <Tab.Screen name="Info" component={InfoScreen} />
                             <Tab.Screen name="Résultat scanner" component={ResultatScanner} />
 
                         </Tab.Navigator>

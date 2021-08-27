@@ -6,6 +6,7 @@ import {
   ComBadrAutoCompleteChipsComp,
   ComBadrItemsPickerComp,
   ComBadrKeyValueComp,
+  ComBasicDataTableComp,
 } from '../../../../../../commons/component';
 import DedRedressementRow from '../../common/DedRedressementRow';
 import {TextInput, Subheading, Checkbox} from 'react-native-paper';
@@ -14,10 +15,43 @@ import {primaryColor} from '../../../../../../commons/styles/ComThemeStyle';
 import {getValueByPath} from '../../../utils/DedUtils';
 import ComBadrReferentielPickerComp from '../../../../../../commons/component/shared/pickers/ComBadrReferentielPickerComp';
 import ComBadrPickerComp from '../../../../../../commons/component/shared/pickers/ComBadrPickerComp';
+import translate from '../../../../../../commons/i18n/ComI18nHelper';
 
 class DedRedressementEnteteFacturePaiementBlock extends React.Component {
   constructor(props) {
     super(props);
+    this.cols = [
+      {
+        code: 'numeroOrdre',
+        libelle: translate('dedouanement.info.numeroOrdre'),
+        width: 150,
+      },
+      {
+        code: 'numero',
+        libelle: translate('dedouanement.info.numeroFacture'),
+        width: 250,
+      },
+      {
+        code: 'fournisseur',
+        libelle: translate('dedouanement.info.fournisseurClients'),
+        width: 300,
+      },
+      {
+        code: 'stringDateFacture',
+        libelle: translate('dedouanement.info.dateFacture'),
+        width: 150,
+      },
+      {
+        code: 'devise',
+        libelle: translate('dedouanement.info.devise'),
+        width: 200,
+      },
+      {
+        code: 'valeurDevise',
+        libelle: translate('dedouanement.info.valeurDevise'),
+        width: 200,
+      }
+    ];
   }
 
   componentDidMount() {}
@@ -29,10 +63,20 @@ class DedRedressementEnteteFacturePaiementBlock extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <ComAccordionComp title="Facture et paiement" expanded={true}>
+        <ComAccordionComp title="Facture" expanded={true}>
           <View style={styles.container}>
             <DedRedressementRow zebra={true}>
-              <Text style={styles.headingText}>Facture</Text>
+              <ComBasicDataTableComp
+                ref="_badrTable"
+                id="scannerTable"
+                rows={this.props?.data?.dedDumSectionEnteteVO?.listDeclarationFactureVO}
+                cols={this.cols}
+                totalElements={this.props?.data?.dedDumSectionEnteteVO?.listDeclarationFactureVO?.length}
+                maxResultsPerPage={10}
+                paginate={true}
+                showProgress={this.props.showProgress}
+                withId={false}
+              />
             </DedRedressementRow>
 
             <DedRedressementRow>
