@@ -125,6 +125,7 @@ class DedRedressementEnteteEnvoyerTraiterValeurBlock extends Component {
           declarationValeurEnvoi: true,
         })
       }
+      console.log('lastVersion 1 : ' + JSON.stringify(lastVersion));
     });
 
     this.setState({
@@ -137,7 +138,7 @@ class DedRedressementEnteteEnvoyerTraiterValeurBlock extends Component {
       buttonLabel: 'disabled',
       errorMessage: '',
       listDeclarationValeurDUMVO: this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO,
-      lastVersionDeclarationValeur: this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO ? this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO[this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO.length - 1] : {},
+      lastVersionDeclarationValeur: this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO ? this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO[this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO.length - 1] : null,
     });
     console.log('this.props?.fromWhere1 : ', this.props?.fromWhere1);
 
@@ -159,8 +160,9 @@ class DedRedressementEnteteEnvoyerTraiterValeurBlock extends Component {
         });
     }
 
-    let lastVersion = this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO ? this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO[this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO.length - 1] : {};
+    let lastVersion = this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO ? this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO[this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO.length - 1] : null;
 
+    console.log('lastVersion 2 : ' + JSON.stringify(lastVersion));
     if (lastVersion && !lastVersion?.traite) {
       this.setState({
         declarationValeurDescriptionEnvoi: lastVersion ? lastVersion.descriptionEnvoi : '',
