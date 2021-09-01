@@ -205,15 +205,15 @@ class DedRedressementDocumentsExigiblesBlock extends React.Component {
   getTraceSignatureDUM = () => {
     let identifiantDUM = getValueByPath(
       'dedReferenceVO.identifiant',
-      this.props.data,
+      this.props,
     );
     let numeroVersion = getValueByPath(
       'dedReferenceVO.numeroVersion',
-      this.props.data,
+      this.props,
     );
     let codeRegime = getValueByPath(
       'dedReferenceVO.refRegime',
-      this.props.data,
+      this.props,
     );
     var data = {
       identifiantDUM: identifiantDUM,
@@ -230,11 +230,11 @@ class DedRedressementDocumentsExigiblesBlock extends React.Component {
   consulterDeclaration = () => {
     let idDeclaration = getValueByPath(
       'dedReferenceVO.identifiant',
-      this.props.data,
+      this.props,
     );
     let numeroVersion = getValueByPath(
       'dedReferenceVO.numeroVersion',
-      this.props.data,
+      this.props,
     );
 
     var data = {
@@ -270,7 +270,7 @@ class DedRedressementDocumentsExigiblesBlock extends React.Component {
       );
       if (granted === PermissionsAndroid.RESULTS.GRANTED) {
         let pdfLocation = RNFetchBlob.fs.dirs.DocumentDir + '/' + nameFile;
-        RNFetchBlob.fs.writeFile(pdfLocation, base64File, 'base64').then(() => {
+        RNFetchBlob.fs.writeFile(pdfLocation, base64File, 'base64').then((result) => {
           if (Platform.OS === 'android') {
             RNFetchBlob.android.actionViewIntent(
               pdfLocation,
@@ -279,6 +279,7 @@ class DedRedressementDocumentsExigiblesBlock extends React.Component {
           } else {
             RNFetchBlob.ios.previewDocument(pdfLocation);
           }
+          result.flush();
         });
       } else {
         console.log('External storage permission denied');

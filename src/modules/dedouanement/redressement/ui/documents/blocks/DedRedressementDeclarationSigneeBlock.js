@@ -59,17 +59,18 @@ class DedRedressementDeclarationSigneeBlock extends React.Component {
   }
 
   getTraceSignatureDUM = () => {
+    console.log('this.props.data : ' + JSON.stringify(this.props.consulterDumReducer.data));
     let identifiantDUM = getValueByPath(
       'dedReferenceVO.identifiant',
-      this.props.data,
+      this.props.consulterDumReducer.data,
     );
     let numeroVersion = getValueByPath(
       'dedReferenceVO.numeroVersion',
-      this.props.data,
+      this.props.consulterDumReducer.data,
     );
     let codeRegime = getValueByPath(
       'dedReferenceVO.refRegime',
-      this.props.data,
+      this.props.consulterDumReducer.data,
     );
     var data = {
       identifiantDUM: identifiantDUM,
@@ -84,13 +85,16 @@ class DedRedressementDeclarationSigneeBlock extends React.Component {
   };
 
   initDataConsulterDeclaration = () => {
+    console.log("initDataConsulterDeclaration : " + this.props);
     let idDeclaration = getValueByPath(
       'dedReferenceVO.identifiant',
-      this.props.data,
+      this.props,
+      'consulterDumReducer',
     );
     let numeroVersion = getValueByPath(
       'dedReferenceVO.numeroVersion',
-      this.props.data,
+      this.props,
+      'consulterDumReducer',
     );
     return {
       idDeclaration: idDeclaration,
@@ -133,10 +137,19 @@ class DedRedressementDeclarationSigneeBlock extends React.Component {
         let pdfLocation = RNFetchBlob.fs.dirs.DocumentDir + '/' + nameFile;
         RNFetchBlob.fs.writeFile(pdfLocation, base64File, 'base64').then(() => {
           if (Platform.OS === 'android') {
+
             RNFetchBlob.android.actionViewIntent(
               pdfLocation,
               'application/pdf',
             );
+            // RNFetchBlob.android.addCompleteDownload({
+            //   title: nameFile,
+            //   description: 'desc' + nameFile,
+            //   mime: 'application/pdf',
+            //   path: RNFetchBlob.fs.dirs.DownloadDir,
+            //   showNotification: true
+            // });
+
           } else {
             RNFetchBlob.ios.previewDocument(pdfLocation);
           }
@@ -159,21 +172,22 @@ class DedRedressementDeclarationSigneeBlock extends React.Component {
       'ded.consulterFichierPdfDumSign',
       'genericDedReducer',
     );
-
-    let fichierPdfXMLSign = this.extractCommandData(
-      'ded.consulterFichierPdfXMLSign',
-      'genericDedReducer',
-    );
-    if (!_.isNil(fichierPdfDumSign) && !_.isNil(fichierPdfDumSign.data)) {
+    
+    if (fichierPdfDumSign && !_.isNil(fichierPdfDumSign) && !_.isNil(fichierPdfDumSign.data)) {
       this.downloadFile(
         fichierPdfDumSign.data.nomFichier,
         fichierPdfDumSign.data.contentByte,
       );
     }
-    if (!_.isNil(fichierPdfXMLSign) && !_.isNil(fichierPdfXMLSign.data)) {
+
+    let fichierPdfXMLSign = this.extractCommandData(
+      'ded.consulterFichierPdfXMLSign',
+      'genericDedReducer',
+    );
+    if (fichierPdfXMLSign && !_.isNil(fichierPdfXMLSign) && !_.isNil(fichierPdfXMLSign.data)) {
       this.downloadFile(
-        fichierPdfDumSign.data.nomFichier,
-        fichierPdfDumSign.data.contentByte,
+        fichierPdfXMLSign.data.nomFichier,
+        fichierPdfXMLSign.data.contentByte,
       );
     }
     return (

@@ -28,11 +28,11 @@ import * as ConsulterDumAction from '../../../state/actions/ConsulterDumAction';
 class ComRedressementRechercheRefComp extends Component {
   defaultState = {
     bureau: '309',
-    regime: '010',
+    regime: '085',
     annee: '2021',
-    serie: '0000426',
-    cle: 'D',
-    cleValide: 'D',
+    serie: '0000011',
+    cle: 'S',
+    cleValide: '',
     login: '',
     numeroVoyage: '',
     showErrorMsg: false,
@@ -48,24 +48,8 @@ class ComRedressementRechercheRefComp extends Component {
 
   componentDidMount() {
     this.unsubscribe = this.props.navigation.addListener('focus', () => {
-      switch (this.props?.fromWhere) {
-        case 'ENVOYER_VALEUR':
-          return this.setState({
-            command: 'ded.InitEnvoyerValeur',
-            enregistree: true,
-          });
-        case 'TRAITER_VALEUR':
-          return this.setState({
-            command: 'ded.InitTraiterValeur',
-            enregistree: true,
-          });
 
-        default:
-          this.setState({
-            command: 'ded.ConsulterDum',
-            enregistree: false,
-          });
-      }
+      this.switchToChooseCommand();
 
       var action = ConsulterDumAction.init({
         type: GENERIC_INIT,
@@ -92,6 +76,30 @@ class ComRedressementRechercheRefComp extends Component {
       });
     }
   };
+
+
+
+  switchToChooseCommand = () => {
+    switch (this.props?.fromWhere) {
+      case 'ENVOYER_VALEUR':
+        return this.setState({
+          command: 'ded.InitEnvoyerValeur',
+          enregistree: true,
+        });
+      case 'TRAITER_VALEUR':
+        return this.setState({
+          command: 'ded.InitTraiterValeur',
+          enregistree: true,
+        });
+
+      default:
+        this.setState({
+          command: 'ded.ConsulterDum',
+          enregistree: false,
+        });
+    }
+  };
+
   //accept just Number
   onChangeInput = (input) => {
     let keyImput = _.keys(input)[0];
@@ -108,8 +116,18 @@ class ComRedressementRechercheRefComp extends Component {
       });
     }
   };
+
   retablir = () => {
-    this.setState({ ...this.defaultState });
+    this.setState({
+      ...this.defaultState
+    });
+    var action = ConsulterDumAction.init({
+      type: GENERIC_INIT,
+      value: {},
+    });
+    this.props.dispatch(action);
+    this.switchToChooseCommand();
+    console.log('========================================> ' + this.props?.fromWhere)
   };
 
   confirm = () => {
@@ -328,6 +346,7 @@ class ComRedressementRechercheRefComp extends Component {
         <View style={styles.enregistreeStyle}>
           <Checkbox.Item
             status={this.state.enregistree ? 'checked' : 'unchecked'}
+            // disabled={this.props.fromWhere1 === 'ENVOYER_VALEUR' || this.props.fromWhere1 === 'TRAITER_VALEUR'}
             label={translate('dedouanement.transverse.declarationEnreg')}
             color={primaryColor}
             onPress={() => {

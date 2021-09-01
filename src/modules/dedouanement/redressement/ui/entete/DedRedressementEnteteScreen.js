@@ -52,7 +52,7 @@ class DedRedressementEnteteScreen extends React.Component {
   };
 
   render() {
-    let listD17D20 = this.props.data?.dedDumSectionEnteteVO?.declarationsTryptique;
+    let listD17D20 = this.props.data?.dedDumSectionEnteteVO?.declarationsTryptique ? this.props.data?.dedDumSectionEnteteVO?.declarationsTryptique : [];
     return (
       <ScrollView>
         {this.props.data && (

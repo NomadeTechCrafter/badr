@@ -93,20 +93,22 @@ class DedRedressementMoyenTransportTransitScreen extends React.Component {
 
     render() {
 
+        const listMoyenTransport = this.props?.data?.dedSectionMoyenTransportVO?.listDeclarationMoyenTransportVO ? this.props?.data?.dedSectionMoyenTransportVO?.listDeclarationMoyenTransportVO : [];
+
         return (
             <View >
                 <ScrollView>
                     <CardBox >
                         <Accordion
-                            title={'Nombre total des moyens de transport : ' + this.props?.data?.dedSectionMoyenTransportVO?.listDeclarationMoyenTransportVO?.length}
+                            title={'Nombre total des moyens de transport : ' + listMoyenTransport.length}
                             expanded
                         >
                             <ComBasicDataTableComp
                                 ref="_badrTable"
                                 id="scannerTable"
-                                rows={this.props?.data?.dedSectionMoyenTransportVO?.listDeclarationMoyenTransportVO}
+                                rows={listMoyenTransport}
                                 cols={this.cols}
-                                totalElements={this.props?.data?.dedSectionMoyenTransportVO?.listDeclarationMoyenTransportVO?.length}
+                                totalElements={listMoyenTransport.length}
                                 maxResultsPerPage={10}
                                 paginate={true}
                                 showProgress={this.props.showProgress}

@@ -61,6 +61,7 @@ class DedRedressementEnteteFacturePaiementBlock extends React.Component {
   handleModePaiementChanged = (mode) => {};
 
   render() {
+    const factures = this.props?.data?.dedDumSectionEnteteVO?.listDeclarationFactureVO ? this.props?.data?.dedDumSectionEnteteVO?.listDeclarationFactureVO : [];
     return (
       <View style={styles.container}>
         <ComAccordionComp title="Facture" expanded={true}>
@@ -69,9 +70,9 @@ class DedRedressementEnteteFacturePaiementBlock extends React.Component {
               <ComBasicDataTableComp
                 ref="_badrTable"
                 id="scannerTable"
-                rows={this.props?.data?.dedDumSectionEnteteVO?.listDeclarationFactureVO}
+                rows={factures}
                 cols={this.cols}
-                totalElements={this.props?.data?.dedDumSectionEnteteVO?.listDeclarationFactureVO?.length}
+                totalElements={factures.length}
                 maxResultsPerPage={10}
                 paginate={true}
                 showProgress={this.props.showProgress}

@@ -97,7 +97,7 @@ class DedRedressementEnteteEnvoyerTraiterValeurBlock extends Component {
         buttonLabel: 'disabled',
         errorMessage: '',
         listDeclarationValeurDUMVO: this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO,
-        lastVersionDeclarationValeur: this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO ? this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO[this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO.length - 1] : {},
+        lastVersionDeclarationValeur: this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO ? this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO[this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO.length - 1] : null,
 
 
       });
@@ -118,7 +118,7 @@ class DedRedressementEnteteEnvoyerTraiterValeurBlock extends Component {
             buttonLabel: 'disabled'
           });
       }
-      let lastVersion = this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO ? this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO[this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO.length - 1] : {};
+      let lastVersion = this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO ? this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO[this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO.length - 1] : null;
       if (lastVersion && !lastVersion?.traite) {
         this.setState({
           declarationValeurDescriptionEnvoi: lastVersion ? lastVersion.descriptionEnvoi : '',
