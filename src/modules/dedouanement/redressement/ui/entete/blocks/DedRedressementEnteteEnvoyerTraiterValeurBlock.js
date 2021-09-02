@@ -377,7 +377,7 @@ class DedRedressementEnteteEnvoyerTraiterValeurBlock extends Component {
               libelle="Traitement valeur"
               children={
                 <TextInput
-                  disabled={this.props?.fromWhere1 === 'ded.ConsulterDum' || this.state.descriptionTraitementEnvoi || this.props?.fromWhere1 === 'ded.InitEnvoyerValeur' ||  this.state.traitementOK}
+                  disabled={this.props?.fromWhere1 === 'ded.ConsulterDum' || this.state.descriptionTraitementEnvoi || this.props?.fromWhere1 === 'ded.InitEnvoyerValeur' || this.state.traitementOK || this.state.envoiOK}
                   mode="flat"
                   value={this.state.declarationValeurDescriptionTraitement}
                   style={{ width: '100%' }}
