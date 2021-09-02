@@ -1,6 +1,5 @@
 /**Constants */
 import * as Constants from '../../constants/generic/ComGenericConstants';
-import { ComSessionService } from '../../services/session/ComSessionService';
 
 const initialState = {
   showProgress: false,
@@ -29,22 +28,11 @@ export default (state = initialState, action) => {
       return nextState;
     case Constants.GENERIC_REF_SUCCESS:
       nextState.showProgress = false;
-      if ('getCmbLieuStockageParBureau' === action.value.command) {
-        // ComSessionService.getInstance().getCmbLieuStockageParBureauMap().set(action.value.json.codeBureau, action.value.data);
-
-        nextState.picker[action.value.command + action.value.json.codeBureau] = {
-          data: action.value.data,
-          errorMessage: null,
-          showProgress: false,
-        };
-      } else {
-        
-        nextState.picker[action.value.command] = {
-          data: action.value.data,
-          errorMessage: null,
-          showProgress: false,
-        };
-      }
+      nextState.picker[action.value.command] = {
+        data: action.value.data,
+        errorMessage: null,
+        showProgress: false,
+      };
       return nextState;
     case Constants.GENERIC_REF_FAILED:
       nextState.showProgress = false;

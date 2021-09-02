@@ -9,18 +9,6 @@ export function request(action) {
   return (dispatch) => {
     dispatch(action);
     dispatch(inProgress(action));
-
-    if ('getCmbLieuStockageParBureau' === action.value.command) {
-      console.log('----------------------------------------------------------------');
-      console.log('----------------------------------------------------------------');
-      console.log('----------------------------------------------------------------');
-
-      console.log(action);
-
-      console.log('----------------------------------------------------------------');
-      console.log('----------------------------------------------------------------');
-      console.log('----------------------------------------------------------------');
-    }
     TransverseApi.doProcess(
       action.value.module ? action.value.module : 'REF_LIB',
       action.value.command,
@@ -29,7 +17,7 @@ export function request(action) {
     )
       .then((response) => {
         if (response && response.data && response.data.jsonVO) {
-          dispatch(success(response.data.jsonVO, action.value.command, action.value.jsonVO));
+          dispatch(success(response.data.jsonVO, action.value.command));
         } else {
           dispatch(
             failed(translate('errors.technicalIssue'), action.value.command),
@@ -58,13 +46,12 @@ export function init(action) {
   };
 }
 
-export function success(data, command, json) {
+export function success(data, command) {
   return {
     type: Constants.GENERIC_REF_SUCCESS,
     value: {
       command: command,
       data: data,
-      json: json,
     },
   };
 }
