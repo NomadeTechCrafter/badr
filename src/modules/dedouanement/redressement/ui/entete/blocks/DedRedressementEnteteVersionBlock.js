@@ -374,10 +374,7 @@ class DedRedressementEnteteVersionBlock extends React.Component {
                     )
                   }
                   params={{
-                    codeBureau: getValueByPath(
-                      'dedDumSectionEnteteVO.bureauDestination',
-                      this.props.data,
-                    ),
+                    codeBureau: ''
                   }}
                   typeService="SP"
                   code="code"

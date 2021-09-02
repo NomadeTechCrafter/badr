@@ -28,7 +28,7 @@ class DedRedressementEnteteInfoBlock extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <ComAccordionComp title="Info" expanded={true}>
+        <ComAccordionComp title="Arrondissement et lieu de stockage de Dédouanement" expanded={true}>
           <DedRedressementRow zebra={true}>
             <ComBadrKeyValueComp
               libelle="Arrondissement"
@@ -94,10 +94,7 @@ class DedRedressementEnteteInfoBlock extends React.Component {
                     )
                   }
                   params={{
-                    codeBureau: getValueByPath(
-                      'dedDumSectionEnteteVO.refBureauDedouanement',
-                      this.props.data,
-                    ),
+                    codeBureau: ''
                   }}
                   typeService="SP"
                   code="code"

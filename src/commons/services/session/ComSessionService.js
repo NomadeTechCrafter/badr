@@ -24,6 +24,7 @@ export class ComSessionService {
   manufacturer = '';
   systemVersion = '';
   platform = '';
+  cmbLieuStockageParBureauMap = new Map();
 
   /**
     session
@@ -52,6 +53,14 @@ export class ComSessionService {
 
   setLogin(login) {
     this.login = login;
+  }
+
+  getCmbLieuStockageParBureauMap() {
+    return this.cmbLieuStockageParBureauMap;
+  }
+
+  setCmbLieuStockageParBureauMap(cmbLieuStockageParBureauMap) {
+    this.cmbLieuStockageParBureauMap = cmbLieuStockageParBureauMap;
   }
 
   getGeoCoords() {
