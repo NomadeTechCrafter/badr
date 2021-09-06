@@ -115,6 +115,7 @@ class CtrlReconnaissanceSearchComponent extends React.Component {
                 this.setState({
                     ...this.state,
                     validCleDum: validCleDum,
+                    showErrorMessage: true,
                 });
             }
         }

@@ -445,7 +445,7 @@ class CtrlReconnaissanceCoreComponent extends React.Component {
                                             <HelperText
                                                 type="error"
                                                 padding="none"
-                                                visible={this.hasErrors('descriptionVisite')}>
+                                                visible={this.hasErrors('nature')}>
                                                 {translate('errors.donneeObligatoire', {champ: translate('reconnaissance.core.nature')})}
                                             </HelperText>
                                         </Col>
@@ -487,7 +487,7 @@ class CtrlReconnaissanceCoreComponent extends React.Component {
                                             <HelperText
                                                 type="error"
                                                 padding="none"
-                                                visible={this.hasErrors('descriptionVisite')}>
+                                                visible={this.hasErrors('marque')}>
                                                 {translate('errors.donneeObligatoire', {champ: translate('reconnaissance.core.marque')})}
                                             </HelperText>
                                         </Col>
@@ -567,7 +567,7 @@ class CtrlReconnaissanceCoreComponent extends React.Component {
                                             <HelperText
                                                 type="error"
                                                 padding="none"
-                                                visible={this.hasErrors('descriptionVisite')}>
+                                                visible={this.hasErrors('nbrColis')}>
                                                 {translate('errors.donneeObligatoire', {champ: translate('reconnaissance.core.nombreColisIdentifies')})}
                                             </HelperText>
                                         </Col>
@@ -613,7 +613,7 @@ class CtrlReconnaissanceCoreComponent extends React.Component {
                                             <HelperText
                                                 type="error"
                                                 padding="none"
-                                                visible={this.hasErrors('descriptionVisite')}>
+                                                visible={this.hasErrors('nombreColisVisite')}>
                                                 {translate('errors.donneeObligatoire', {champ: translate('reconnaissance.core.nombreColisVisites')})}
                                             </HelperText>
                                         </Col>

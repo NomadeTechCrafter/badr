@@ -8,8 +8,7 @@ import loginTranslations from '../../modules/hab/login/i18n/habLoginTranslateFr'
 import smsVerifyTranslations from '../../modules/hab/smsVerify/i18n/habSmsVerifyTranslateFr';
 import profileTranslations from '../../modules/hab/profile/i18n/habProfileTranslateFr';
 import annoncesTranslations from '../../modules/hab/annonces/i18n/habAnnoncesTranslateFr';
-import atTranslations from '../../modules/at/apurement/i18n/atApurementTranslateFr';
-import atTranslations2 from '../../modules/at/apurement/i18n/atTranslateFr';
+import atTranslations from '../../modules/at/apurement/i18n/atTranslateFr';
 import refOperateursEconomiquesTranslations from '../../modules/referentiel/operateursEconomiques/i18n/refOperateursEconomiquesTranslateFr';
 import ctrlReconnaissanceTranslations from '../../modules/controle/reconnaissance/i18n/ctrlReconnaissanceTranslateFr';
 import enqCompteRenduTranslations from '../../modules/enquetes/compteRendu/i18n/enqCompteRenduTranslateFr';
@@ -65,7 +64,6 @@ let combined = {
   ...smsVerifyTranslations,
   ...profileTranslations,
   ...atTranslations,
-  ...atTranslations2,
   ...refOperateursEconomiquesTranslations,
   ...ctrlReconnaissanceTranslations,
   ...enqCompteRenduTranslations,
