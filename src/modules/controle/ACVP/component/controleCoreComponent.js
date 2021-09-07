@@ -459,10 +459,10 @@ class ControleCoreComponent extends Component {
               <ComBadrCardBoxComp style={styles.cardBox}>
                 <ComAccordionComp
                   disable={
-                    !(this.state.declaration.historiqueCompte.length > 0)
+                    !(this.state.declaration?.historiqueCompte?.length > 0)
                   }
                   title={translate('controle.historiqueCompteRendu')}>
-                  {this.state.declaration.historiqueCompte.length > 0 && (
+                  {this.state.declaration?.historiqueCompte?.length > 0 && (
                     <View>
                       <Text>{this.state.declaration.historiqueCompte}</Text>
                     </View>

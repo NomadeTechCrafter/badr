@@ -66,6 +66,8 @@ import autoriserAcheminementMainScreen from './modules/ecorExport/autoriserAchem
 import RechercheAutoriserAcheminementScreen from './modules/ecorExport/autoriserAcheminement/recherche/ui/rechercheAutoriserAcheminementScreen';
 import ecorExpConfirmationEntreeArriveeRechercheScreen from './modules/ecorExport/confirmationEntreeArrivee/ui/ecorExpConfirmationEntreeArriveeRechercheScreen';
 import DedRedressementEnteteScreen from './modules/dedouanement/redressement/ui/entete/DedRedressementEnteteScreen';
+import controleACVPScreen from './modules/controle/ACVP/ui/controleACVPScreen';
+import controleCompteRenduScreen from './modules/controle/ACVP/ui/onglets/ControleCompteRenduScreen';
 
 //setGlobalHandler();
 export default class App extends React.Component {
@@ -88,7 +90,7 @@ export default class App extends React.Component {
                 <Stack.Screen
                   name="test"
                   options={{headerShown: false}}
-                    component={ComRedressementRechercheRefComp}
+                    component={ControleACVPScreen}
                 />
               )}
               <Stack.Screen

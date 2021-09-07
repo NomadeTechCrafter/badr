@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {View, Dimensions} from 'react-native';
+import React, { Component } from 'react';
+import { View, Dimensions } from 'react-native';
 
 import {
   ComContainerComp,
@@ -15,17 +15,24 @@ import {
 } from '../../../../commons/component';
 
 import BAD from '../../BAD';
-import {Checkbox, TextInput, Text, RadioButton} from 'react-native-paper';
+import { Checkbox, TextInput, Text, RadioButton } from 'react-native-paper';
 /**i18n */
-import {translate} from '../../../../commons/i18n/ComI18nHelper';
-import {CustomStyleSheet} from '../../../../commons/styles/ComThemeStyle';
+import { translate } from '../../../../commons/i18n/ComI18nHelper';
+import { CustomStyleSheet, primaryColor } from '../../../../commons/styles/ComThemeStyle';
 import _ from 'lodash';
-import {Col, Row, Grid} from 'react-native-easy-grid';
-import {load} from '../../../../commons/services/async-storage/ComStorageService';
-import {connect} from 'react-redux';
+import { Col, Row, Grid } from 'react-native-easy-grid';
+import { load } from '../../../../commons/services/async-storage/ComStorageService';
+import { connect } from 'react-redux';
 import * as ControleRechercheRefDumAction from '../../common/state/actions/controleCommonRechercheRefDumAction';
 import * as ControleCommonActionBtnAction from '../../common/state/actions/controleCommonActionBtnAction';
 import * as controleCommonConstants from '../../common/state/controleCommonConstants';
+import { NavigationContainer } from '@react-navigation/native';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import ControleCompteRenduScreen from './onglets/ControleCompteRenduScreen';
+import controleCompteRenduScreen from './onglets/ControleCompteRenduScreen';
+
+const Tab = createMaterialTopTabNavigator();
+
 
 class ControleACVPScreen extends Component {
   constructor(props) {
@@ -149,7 +156,7 @@ class ControleACVPScreen extends Component {
     this.props.dispatch(action);
     console.log('dispatch fired !!');
     if (this.scrollViewRef) {
-      this.scrollViewRef.scrollTo({y: 0, animated: true});
+      this.scrollViewRef.scrollTo({ y: 0, animated: true });
     }
   };
 
@@ -193,29 +200,29 @@ class ControleACVPScreen extends Component {
   }*/
 
   reconnuChange = (index) => {
-    var declaration = {...this.state.declaration};
+    var declaration = { ...this.state.declaration };
     declaration.documentAnnexeResultVOs[
       index
     ].documentAnnexe.reconnu = !declaration.documentAnnexeResultVOs[index]
       .documentAnnexe.reconnu;
-    this.setState({declaration});
+    this.setState({ declaration });
   };
 
   demandeConsignationChange = (index) => {
-    var declaration = {...this.state.declaration};
+    var declaration = { ...this.state.declaration };
     declaration.documentAnnexeResultVOs[
       index
     ].documentAnnexe.demandeConsignation = !declaration.documentAnnexeResultVOs[
       index
     ].documentAnnexe.demandeConsignation;
-    this.setState({declaration});
+    this.setState({ declaration });
   };
 
   render() {
     return (
       <View style={CustomStyleSheet.fullContainer}>
         <ComBadrToolbarComp
-          back={true}
+          // back={true}
           navigation={this.props.navigation}
           title="Contrôle"
           subtitle={translate('controle.ACVP')}
@@ -234,323 +241,39 @@ class ControleACVPScreen extends Component {
           )}
           {!_.isNil(this.state.declaration) && (
             <View>
-              {/* Référence déclaration */}
-              <ComBadrCardBoxComp noPadding={true}>
-                <Grid>
-                  <Row style={CustomStyleSheet.whiteRow}>
-                    <Col size={2}>
-                      <ComBadrLibelleComp withColor={true}>
-                        {translate('transverse.bureau')}
-                      </ComBadrLibelleComp>
-                    </Col>
-                    <Col size={2}>
-                      <ComBadrLibelleComp withColor={true}>
-                        {translate('transverse.regime')}
-                      </ComBadrLibelleComp>
-                    </Col>
-                    <Col size={2}>
-                      <ComBadrLibelleComp withColor={true}>
-                        {translate('transverse.annee')}
-                      </ComBadrLibelleComp>
-                    </Col>
-                    <Col size={2}>
-                      <ComBadrLibelleComp withColor={true}>
-                        {translate('transverse.serie')}
-                      </ComBadrLibelleComp>
-                    </Col>
-                    <Col size={1}>
-                      <ComBadrLibelleComp withColor={true}>
-                        {translate('transverse.cle')}
-                      </ComBadrLibelleComp>
-                    </Col>
-                    <Col size={1}>
-                      <ComBadrLibelleComp withColor={true}>
-                        {translate('transverse.nVoyage')}
-                      </ComBadrLibelleComp>
-                    </Col>
-                    <Col size={4}>
-                      <ComBadrLibelleComp withColor={true}>
-                        {translate('transverse.type')}
-                      </ComBadrLibelleComp>
-                    </Col>
-                  </Row>
-                  <Row style={CustomStyleSheet.lightBlueRow}>
-                    <Col size={2}>
-                      <ComBadrLibelleComp withColor={false}>
-                        {this.state.refDeclaration.slice(0, 3)}
-                      </ComBadrLibelleComp>
-                    </Col>
-                    <Col size={2}>
-                      <ComBadrLibelleComp withColor={false}>
-                        {this.state.refDeclaration.slice(3, 6)}
-                      </ComBadrLibelleComp>
-                    </Col>
-                    <Col size={2}>
-                      <ComBadrLibelleComp withColor={false}>
-                        {this.state.refDeclaration.slice(6, 10)}
-                      </ComBadrLibelleComp>
-                    </Col>
-                    <Col size={2}>
-                      <ComBadrLibelleComp withColor={false}>
-                        {this.state.refDeclaration.slice(10, 17)}
-                      </ComBadrLibelleComp>
-                    </Col>
-                    <Col size={1}>
-                      <ComBadrLibelleComp withColor={false}>
-                        {this.state.cle}
-                      </ComBadrLibelleComp>
-                    </Col>
-                    <Col size={1}>
-                      <ComBadrLibelleComp withColor={false}>
-                        {this.state.numeroVoyage}
-                      </ComBadrLibelleComp>
-                    </Col>
-                    <Col size={4}>
-                      <ComBadrLibelleComp withColor={true}>
-                        {this.state.typeRegime}
-                      </ComBadrLibelleComp>
-                    </Col>
-                  </Row>
-                </Grid>
-              </ComBadrCardBoxComp>
+              <NavigationContainer independent={true}>
 
-              {/* Annotations */}
-              <ComBadrCardBoxComp style={styles.cardBox}>
-                <ComAccordionComp title={translate('controle.annotations')}>
-                  {this.state.declaration.annotation && (
-                    <View style={styles.flexDirectionRow}>
-                      <Text style={styles.libelleM}>
-                        {this.state.declaration.annotation}
-                      </Text>
-                    </View>
-                  )}
-                </ComAccordionComp>
-              </ComBadrCardBoxComp>
+                <Tab.Navigator
+                  initialLayout={{ height: Dimensions.get('window').height }}
+                  swipeEnabled={false}
+                  tabBarOptions={{
+                    labelStyle: { fontSize: 16, fontWeight: 'bold' },
+                    showLabel: true,
+                    allowFontScaling: true,
+                    activeBackgroundColor: primaryColor,
+                    activeTintColor: primaryColor,
+                    inactiveTintColor: 'gray',
+                    indicatorStyle: {
+                      backgroundColor: primaryColor,
+                      borderWidth: 2.5,
+                      borderColor: primaryColor,
+                    },
+                  }}>
+                  <Tab.Screen name="Compte rendu" component={ControleCompteRenduScreen} />
+                  <Tab.Screen name="info" component={controleCompteRenduScreen} />
+                  <Tab.Screen name="reconnaissance" component={controleCompteRenduScreen} />
+                </Tab.Navigator>
+              </NavigationContainer>
 
-              {/* Intervention */}
-              <ComBadrCardBoxComp noPadding={true}>
-                <ComAccordionComp title={translate('controle.intervention')}>
-                  <Grid>
-                    <Row style={CustomStyleSheet.whiteRow}>
-                      <Col size={2}>
-                        <ComBadrLibelleComp withColor={true}>
-                          {translate('controle.version')}
-                        </ComBadrLibelleComp>
-                      </Col>
-                      <Col size={3}>
-                        <ComBadrLibelleComp withColor={true}>
-                          {translate('controle.typeIntervention')}
-                        </ComBadrLibelleComp>
-                      </Col>
-                      <Col size={2}>
-                        <ComBadrLibelleComp withColor={true}>
-                          {translate('controle.date')}
-                        </ComBadrLibelleComp>
-                      </Col>
-                      <Col size={2}>
-                        <ComBadrLibelleComp withColor={true}>
-                          {translate('controle.acteur')}
-                        </ComBadrLibelleComp>
-                      </Col>
-                      <Col size={3}>
-                        <ComBadrLibelleComp withColor={true}>
-                          {translate('controle.commentaire')}
-                        </ComBadrLibelleComp>
-                      </Col>
-                    </Row>
-                    {this.state.declaration.autreAnnotationVOs &&
-                      this.state.declaration.autreAnnotationVOs.map(
-                        (item, index) => (
-                          <Row
-                            key={index}
-                            style={
-                              index % 2 === 0
-                                ? CustomStyleSheet.lightBlueRow
-                                : CustomStyleSheet.whiteRow
-                            }>
-                            <Col size={2}>
-                              <ComBadrLibelleComp withColor={false}>
-                                {item.numeroVersion}
-                              </ComBadrLibelleComp>
-                            </Col>
-                            <Col size={3}>
-                              <ComBadrLibelleComp withColor={false}>
-                                {item.intervention}
-                              </ComBadrLibelleComp>
-                            </Col>
-                            <Col size={2}>
-                              <ComBadrLibelleComp withColor={false}>
-                                {item.dateIntervention}
-                              </ComBadrLibelleComp>
-                            </Col>
-                            <Col size={2}>
-                              <ComBadrLibelleComp withColor={false}>
-                                {item.acteur}
-                              </ComBadrLibelleComp>
-                            </Col>
-                            <Col size={3}>
-                              <ComBadrLibelleComp withColor={false}>
-                                {item.commentaire}
-                              </ComBadrLibelleComp>
-                            </Col>
-                          </Row>
-                        ),
-                      )}
-                  </Grid>
-                </ComAccordionComp>
-              </ComBadrCardBoxComp>
-
-              {/* Liste des Docs exigibles */}
-              <ComBadrCardBoxComp style={styles.cardBox}>
-                <ComAccordionComp title={translate('controle.listDocExigible')}>
-                  <Grid>
-                    <Row style={CustomStyleSheet.whiteRow}>
-                      <Col size={4}>
-                        <ComBadrLibelleComp withColor={true}>
-                          {translate('controle.doc')}
-                        </ComBadrLibelleComp>
-                      </Col>
-                      <Col size={1}>
-                        <ComBadrLibelleComp withColor={true}>
-                          {translate('controle.portee')}
-                        </ComBadrLibelleComp>
-                      </Col>
-                      <Col size={1}>
-                        <ComBadrLibelleComp withColor={true}>
-                          {translate('controle.nArticle')}
-                        </ComBadrLibelleComp>
-                      </Col>
-                      <Col size={1}>
-                        <ComBadrLibelleComp withColor={true}>
-                          {translate('controle.reconnu')}
-                        </ComBadrLibelleComp>
-                      </Col>
-                      <Col size={1}>
-                        <ComBadrLibelleComp withColor={true}>
-                          {translate('controle.consignation')}
-                        </ComBadrLibelleComp>
-                      </Col>
-                      <Col size={2}>
-                        <ComBadrLibelleComp withColor={true}>
-                          {translate('controle.decision')}
-                        </ComBadrLibelleComp>
-                      </Col>
-                    </Row>
-                    {this.state.declaration.documentAnnexeResultVOs &&
-                      this.state.declaration.documentAnnexeResultVOs.map(
-                        (item, index) => (
-                          <Row
-                            key={index}
-                            style={
-                              index % 2 === 0
-                                ? CustomStyleSheet.lightBlueRow
-                                : CustomStyleSheet.whiteRow
-                            }>
-                            <Col size={4}>
-                              <ComBadrLibelleComp withColor={false}>
-                                {item.documentAnnexe.libelle}
-                              </ComBadrLibelleComp>
-                            </Col>
-                            <Col size={1}>
-                              <ComBadrLibelleComp withColor={false}>
-                                {item.documentAnnexe.portee}
-                              </ComBadrLibelleComp>
-                            </Col>
-                            <Col size={1}>
-                              <ComBadrLibelleComp withColor={false}>
-                                {item.documentAnnexe.numeroOrdreArticle}
-                              </ComBadrLibelleComp>
-                            </Col>
-                            <Col size={1}>
-                              <Checkbox
-                                color={'#009ab2'}
-                                status={
-                                  item.documentAnnexe.reconnu
-                                    ? 'checked'
-                                    : 'unchecked'
-                                }
-                                disabled={this.state.isConsultation}
-                                onPress={() => this.reconnuChange(index)}
-                              />
-                            </Col>
-                            <Col size={1}>
-                              <Checkbox
-                                status={
-                                  item.documentAnnexe.demandeConsignation
-                                    ? 'checked'
-                                    : 'unchecked'
-                                }
-                                disabled={this.state.isConsultation}
-                                onPress={() =>
-                                  this.demandeConsignationChange(index)
-                                }
-                              />
-                            </Col>
-                            <Col size={2}>
-                              <ComBadrLibelleComp withColor={false}>
-                                {item.decisionMCI}
-                              </ComBadrLibelleComp>
-                            </Col>
-                          </Row>
-                        ),
-                      )}
-                  </Grid>
-                </ComAccordionComp>
-              </ComBadrCardBoxComp>
-
-              {/* Redressement opéré */}
-              <ComBadrCardBoxComp style={styles.cardBox}>
-                <ComAccordionComp
-                  title={translate('controle.redressementOperes')}>
-                  <View>
-                    {!_.isEmpty(this.state.declaration.redressement) && (
-                      <View>
-                        <Text>{this.state.declaration.redressement}</Text>
-                      </View>
-                    )}
-                    {!_.isEmpty(this.state.compteRendu) && (
-                      <View>
-                        <Text>{this.state.compteRendu}</Text>
-                      </View>
-                    )}
-                    <View
-                      style={{flexDirection: 'row', justifyContent: 'center'}}>
-                      <ComBadrButtonComp
-                        onPress={this.genererCompteRendu}
-                        disabled={this.state.isConsultation}
-                        text={translate('controle.genererCompte')}
-                      />
-                    </View>
-                  </View>
-                </ComAccordionComp>
-              </ComBadrCardBoxComp>
-
-              {/* Observation */}
-              <ComBadrCardBoxComp style={styles.cardBox}>
-                <ComAccordionComp title={translate('controle.observation')}>
-                  <View>
-                    <TextInput
-                      placeholder={translate('controle.votreObservation')}
-                      value={this.state.observation}
-                      multiline={true}
-                      numberOfLines={6}
-                      disabled={this.state.isConsultation}
-                      onChangeText={(text) =>
-                        this.setState({observation: text})
-                      }
-                    />
-                  </View>
-                </ComAccordionComp>
-              </ComBadrCardBoxComp>
 
               {/* Historique des comptes rendu de contrôle */}
               <ComBadrCardBoxComp style={styles.cardBox}>
                 <ComAccordionComp
                   disable={
-                    !(this.state.declaration.historiqueCompte.length > 0)
+                    !(this.state.declaration?.historiqueCompte?.length > 0)
                   }
                   title={translate('controle.historiqueCompteRendu')}>
-                  {this.state.declaration.historiqueCompte.length > 0 && (
+                  {this.state.declaration?.historiqueCompte?.length > 0 && (
                     <View>
                       <Text>{this.state.declaration.historiqueCompte}</Text>
                     </View>
@@ -566,7 +289,7 @@ class ControleACVPScreen extends Component {
                     pointerEvents={this.state.isConsultation ? 'none' : 'auto'}>
                     <RadioButton.Group
                       onValueChange={(value) =>
-                        this.setState({decisionControle: value})
+                        this.setState({ decisionControle: value })
                       }
                       value={this.state.decisionControle}>
                       <View style={styles.decisionContainerRB}>
@@ -728,7 +451,7 @@ const styles = {
   textRadio: {
     color: '#FFF',
   },
-  flexColumn: {flexDirection: 'column'},
+  flexColumn: { flexDirection: 'column' },
 
   actionBtn: {
     width: 250,
@@ -739,7 +462,7 @@ const styles = {
 //const mapStateToProps = (state) => ({...state.controleACVPReducer});
 
 function mapStateToProps(state) {
-  return {...state.controleCommonReducer};
+  return { ...state.controleCommonReducer };
 }
 
 export default connect(mapStateToProps, null)(ControleACVPScreen);
