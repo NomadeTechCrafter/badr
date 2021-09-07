@@ -64,7 +64,20 @@ class RechercheAtMulti extends React.Component {
     ];
   }
 
-  onItemSelected = (row) => {};
+  onItemSelected = (row) => {
+    console.log(this.props.navigation);
+    let action = AtRechercheAction.requestConsulter(
+      {
+        type: ConstantsAt.CONSULTER_AT_REQUEST,
+        value: {
+          reference: row.referenceAt,
+          enregistre: row.enregistree,
+        },
+      },
+      this.props.navigation,
+    );
+    this.props.actions.dispatch(action);
+  };
 
   componentDidUpdate() {
     if (

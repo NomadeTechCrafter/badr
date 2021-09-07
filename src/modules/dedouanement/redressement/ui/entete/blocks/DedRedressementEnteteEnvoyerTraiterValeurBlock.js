@@ -88,17 +88,22 @@ class DedRedressementEnteteEnvoyerTraiterValeurBlock extends Component {
   componentDidMount() {
     this.unsubscribe = this.props.navigation.addListener('focus', () => {
       this.setState({
+        traitementOK: false,
+        envoiOK: false,
         declarationValeurEnvoi: false,
         //declarationValeurEnvoiAjouter: false,
         descriptionTraitementEnvoi: false,
         //descriptionTraitementEnvoiAjouter: false,
-        declarationValeurDescriptionEnvoi: '',
-        declarationValeurDescriptionTraitement: '',
+        declarationValeurDescriptionEnvoi: this.state.declarationValeurDescriptionEnvoi,
+        declarationValeurDescriptionTraitement: this.state.declarationValeurDescriptionTraitement,
         buttonLabel: 'disabled',
         errorMessage: '',
-        listDeclarationValeurDUMVO: this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO,
-        lastVersionDeclarationValeur: this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO ? this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO[this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO.length - 1] : null,
-
+        listDeclarationValeurDUMVO: this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO && this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO.length > 0
+          ? this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO
+          : this.state.listDeclarationValeurDUMVO,
+        lastVersionDeclarationValeur: this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO
+          ? this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO[this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO.length - 1]
+          : this.state.listDeclarationValeurDUMVO[0],
 
       });
       switch (this.props?.fromWhere1) {
@@ -129,6 +134,8 @@ class DedRedressementEnteteEnvoyerTraiterValeurBlock extends Component {
     });
 
     this.setState({
+      traitementOK: false,
+      envoiOK: false,
       declarationValeurEnvoi: false,
       declarationValeurEnvoiAjouter: false,
       descriptionTraitementEnvoi: false,
@@ -137,8 +144,12 @@ class DedRedressementEnteteEnvoyerTraiterValeurBlock extends Component {
       declarationValeurDescriptionTraitement: '',
       buttonLabel: 'disabled',
       errorMessage: '',
-      listDeclarationValeurDUMVO: this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO,
-      lastVersionDeclarationValeur: this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO ? this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO[this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO.length - 1] : null,
+      listDeclarationValeurDUMVO: this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO && this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO.length > 0
+        ? this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO
+        : this.state.listDeclarationValeurDUMVO,
+      lastVersionDeclarationValeur: this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO
+        ? this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO[this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO.length - 1]
+        : this.state.listDeclarationValeurDUMVO[0],
     });
     console.log('this.props?.fromWhere1 : ', this.props?.fromWhere1);
 
@@ -357,7 +368,7 @@ class DedRedressementEnteteEnvoyerTraiterValeurBlock extends Component {
               libelle="Envoi valeur"
               children={
                 <TextInput
-                  disabled={this.props?.fromWhere1 === 'ded.ConsulterDum' || this.state.declarationValeurEnvoiAjouter || this.state.declarationValeurEnvoi || this.props?.fromWhere1 === 'ded.InitTraiterValeur' || this.state.envoiOK}
+                  disabled={this.props?.fromWhere1 === 'ded.ConsulterDum' || this.state.declarationValeurEnvoiAjouter || this.state.declarationValeurEnvoi || this.props?.fromWhere1 === 'ded.InitTraiterValeur' || this.state.traitementOK || this.state.envoiOK}
                   mode="flat"
                   value={this.state.declarationValeurDescriptionEnvoi}
                   style={{ width: '100%' }}
@@ -377,7 +388,7 @@ class DedRedressementEnteteEnvoyerTraiterValeurBlock extends Component {
               libelle="Traitement valeur"
               children={
                 <TextInput
-                  disabled={this.props?.fromWhere1 === 'ded.ConsulterDum' || this.state.descriptionTraitementEnvoi || this.props?.fromWhere1 === 'ded.InitEnvoyerValeur' || this.state.traitementOK || this.state.envoiOK}
+                  disabled={this.props?.fromWhere1 === 'ded.ConsulterDum' || this.state.descriptionTraitementEnvoiAjouter || this.state.descriptionTraitementEnvoi || this.props?.fromWhere1 === 'ded.InitEnvoyerValeur' || this.state.traitementOK || this.state.envoiOK}
                   mode="flat"
                   value={this.state.declarationValeurDescriptionTraitement}
                   style={{ width: '100%' }}

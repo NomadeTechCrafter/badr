@@ -173,4 +173,21 @@ export default class AtApi {
     };
     return await ComHttpHelperApi.process(data);
   };
+  static searchAtByRef = async (referenceVO) => {
+    const data = {
+      dtoHeader: {
+        userLogin: ComSessionService.getInstance().getLogin(),
+        fonctionnalite: 'cf9009',
+        module: AT_MODULE,
+        commande: 'searchAtByRef',
+        typeService: TYPE_SERVICE_SP,
+        motif: null,
+        messagesInfo: null,
+        messagesErreur: null,
+      },
+      jsonVO: referenceVO,
+    };
+    return await ComHttpHelperApi.process(data);
+  };
+  
 }
