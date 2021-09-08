@@ -120,6 +120,7 @@ export default {
     refDS: 'Référence DS',
     typeDS: 'Type DS',
     nbreContenant: 'Nbre contenant',
+    bad: 'BAD',
     total: 'Total',
     lieuChargement: 'Lieu de chargement',
     referenceLot: 'Référence Lot',

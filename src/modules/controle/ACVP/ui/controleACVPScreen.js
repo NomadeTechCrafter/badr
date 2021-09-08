@@ -28,8 +28,11 @@ import * as ControleCommonActionBtnAction from '../../common/state/actions/contr
 import * as controleCommonConstants from '../../common/state/controleCommonConstants';
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import ControleCompteRenduScreen from './onglets/ControleCompteRenduScreen';
-import controleCompteRenduScreen from './onglets/ControleCompteRenduScreen';
+import ControleCompteRenduScreen from './onglets/compteRendu/ControleCompteRenduScreen';
+import ControleInfoScreen from './onglets/info/ControleInfoScreen';
+import ControleReconnaissanceScreen from './onglets/reconnaissance/ControleReconnaissanceScreen';
+import ControleBonDelivrerScreen from './onglets/bonDelivrer/ControleBonDelivrerScreen';
+import ControleDeclarationsApurementScreen from './onglets/declarationsApurement/ControleDeclarationsApurementScreen';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -240,14 +243,16 @@ class ControleACVPScreen extends Component {
             <ComBadrInfoMessageComp message={this.props.successMessage} />
           )}
           {!_.isNil(this.state.declaration) && (
-            <View>
+            <View style={{ flex: 1 }}>
               <NavigationContainer independent={true}>
 
                 <Tab.Navigator
-                  initialLayout={{ height: Dimensions.get('window').height }}
-                  swipeEnabled={false}
+                  swipeEnabled={true}
+                  lazy={true}
+                  optimizationsEnabled={true}
                   tabBarOptions={{
-                    labelStyle: { fontSize: 16, fontWeight: 'bold' },
+                    scrollEnabled: true,
+                    labelStyle: { fontSize: 14, fontWeight: 'bold' },
                     showLabel: true,
                     allowFontScaling: true,
                     activeBackgroundColor: primaryColor,
@@ -260,72 +265,17 @@ class ControleACVPScreen extends Component {
                     },
                   }}>
                   <Tab.Screen name="Compte rendu" component={ControleCompteRenduScreen} />
-                  <Tab.Screen name="info" component={controleCompteRenduScreen} />
-                  <Tab.Screen name="reconnaissance" component={controleCompteRenduScreen} />
+                  <Tab.Screen name="info" component={ControleInfoScreen} />
+                  <Tab.Screen name="reconnaissance" component={ControleReconnaissanceScreen} />
+                  <Tab.Screen name="Bon à délivrer" component={ControleBonDelivrerScreen} />
+                  <Tab.Screen name="Déclarations d'apurement" component={ControleDeclarationsApurementScreen} />
                 </Tab.Navigator>
               </NavigationContainer>
 
 
-              {/* Historique des comptes rendu de contrôle */}
-              <ComBadrCardBoxComp style={styles.cardBox}>
-                <ComAccordionComp
-                  disable={
-                    !(this.state.declaration?.historiqueCompte?.length > 0)
-                  }
-                  title={translate('controle.historiqueCompteRendu')}>
-                  {this.state.declaration?.historiqueCompte?.length > 0 && (
-                    <View>
-                      <Text>{this.state.declaration.historiqueCompte}</Text>
-                    </View>
-                  )}
-                </ComAccordionComp>
-              </ComBadrCardBoxComp>
-
-              {/* Décision */}
-              <ComBadrCardBoxComp style={styles.cardBox}>
-                <ComAccordionComp title={translate('controle.decision')}>
-                  <View
-                    style={styles.flexColumn}
-                    pointerEvents={this.state.isConsultation ? 'none' : 'auto'}>
-                    <RadioButton.Group
-                      onValueChange={(value) =>
-                        this.setState({ decisionControle: value })
-                      }
-                      value={this.state.decisionControle}>
-                      <View style={styles.decisionContainerRB}>
-                        <Text style={styles.textRadio}>
-                          {translate('controle.controleConforme')}
-                        </Text>
-                        <RadioButton
-                          color={styles.textRadio.color}
-                          value="controleConforme"
-                        />
-                      </View>
-                      <View style={styles.decisionContainerRB}>
-                        <Text style={styles.textRadio}>
-                          {translate('controle.redressementContentieux')}
-                        </Text>
-                        <RadioButton
-                          color={styles.textRadio.color}
-                          value="contencieux"
-                        />
-                      </View>
-                      <View style={styles.decisionContainerRB}>
-                        <Text style={styles.textRadio}>
-                          {translate('controle.redressementSansContentieux')}
-                        </Text>
-                        <RadioButton
-                          color={styles.textRadio.color}
-                          value="sansContencieux"
-                        />
-                      </View>
-                    </RadioButton.Group>
-                  </View>
-                </ComAccordionComp>
-              </ComBadrCardBoxComp>
-
+              
               {/* BAD */}
-              <ComBadrCardBoxComp style={styles.cardBox}>
+              {/* <ComBadrCardBoxComp style={styles.cardBox}>
                 <ComAccordionComp title={translate('bad.title')}>
                   <View style={styles.flexColumn}>
                     {
@@ -339,7 +289,7 @@ class ControleACVPScreen extends Component {
                     }
                   </View>
                 </ComAccordionComp>
-              </ComBadrCardBoxComp>
+              </ComBadrCardBoxComp> */}
 
               {/* Actions */}
               {/*<View
@@ -367,7 +317,7 @@ class ControleACVPScreen extends Component {
                 />
               </View>*/}
 
-              <Row pointerEvents={this.state.isConsultation ? 'none' : 'auto'}>
+              {/* <Row pointerEvents={this.state.isConsultation ? 'none' : 'auto'}>
                 <Col size={1} />
                 <Col size={3}>
                   <ComBadrButtonIconComp
@@ -399,7 +349,7 @@ class ControleACVPScreen extends Component {
                   />
                 </Col>
                 <Col size={1} />
-              </Row>
+              </Row> */}
             </View>
           )}
         </ComContainerComp>
