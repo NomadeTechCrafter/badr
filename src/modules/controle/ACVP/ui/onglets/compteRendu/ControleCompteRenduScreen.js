@@ -38,6 +38,11 @@ class ControleCompteRenduScreen extends React.Component {
     }
 
     componentDidMount() {
+        console.log('+++++++++++++++++++++++++-++++++++++++++++++++++++++++++++++');
+        console.log('++++++++++++++++++++++++++-+++++++++++++++++++++++++++++++++');
+        console.log(JSON.stringify(this.props));
+        console.log('++++++++++++++++++++++++++-+++++++++++++++++++++++++++++++++');
+        console.log('++++++++++++++++++++++++++-+++++++++++++++++++++++++++++++++');
     }
 
     buildComposantsColumnsAnnotations = () => {
@@ -91,27 +96,27 @@ class ControleCompteRenduScreen extends React.Component {
     };
 
     render() {
-        let annotations = this.state?.declaration?.autreAnnotationVOs ? this.state?.declaration?.autreAnnotationVOs : [];
+        let annotations = this.props?.compteRenduData?.declaration?.autreAnnotationVOs ? this.props?.compteRenduData?.declaration?.autreAnnotationVOs : [];
         const listD17D20 = [];
         return (
             <ScrollView>
-                <ControleRefDeclarationBlock />
+                <ControleRefDeclarationBlock refDeclaration={this.props?.compteRenduData}/>
                 {/* Annotations */}
                 < ComBadrCardBoxComp style={styles.cardBox} >
                     <ComAccordionComp title={translate('controle.annotations')} expanded={true}>
                         <DedRedressementRow>
                             <TextInput
                                 style={styles.flexDirectionRow, styles.libelleM}
-                                value={this.state?.declaration?.annotation}
+                                value={this.props?.compteRenduData?.declaration?.annotation}
                                 multiline={true}
                                 numberOfLines={6}
-                                disabled={this.state?.isConsultation}
+                                disabled={this.props?.compteRenduData?.isConsultation}
                                 onChangeText={(text) =>
                                     this.setState({ annotation: text })
                                 }
                             />
                             {/* <Text style={styles.libelleM}>
-                                {this.state?.declaration?.annotation}
+                                {this.props?.compteRenduData?.declaration?.annotation}
                             </Text> */}
                         </DedRedressementRow>
                         <ComBasicDataTableComp
@@ -140,23 +145,25 @@ class ControleCompteRenduScreen extends React.Component {
                     <ComAccordionComp title={translate('controle.redressementOperes')} expanded={true}>
                         <View>
                             <DedRedressementRow>
-                                {/* <Text>{this.state?.declaration.redressement}</Text> */}
+                                {/* <Text>{this.props?.compteRenduData?.declaration.redressement}</Text> */}
                                 <TextInput
+                                    mode={'outlined'}
                                     style={styles.flexDirectionRow, styles.libelleM}
-                                    value={this.state?.declaration.redressement}
+                                    value={this.props?.compteRenduData?.declaration?.redressement}
                                     multiline={true}
                                     numberOfLines={6}
                                     disabled={true}
+                                    scrollEnabled={true}
                                 // onChangeText={(text) =>
                                 //     this.setState({ annotation: text })
                                 // }
                                 />
                             </DedRedressementRow>
                             {/* <DedRedressementRow>
-                                <Text>{this.state?.compteRendu}</Text>
+                                <Text>{this.props?.compteRenduData?.compteRendu}</Text>
                                 <TextInput
                                     style={styles.flexDirectionRow, styles.libelleM}
-                                    value={this.state?.compteRendu}
+                                    value={this.props?.compteRenduData?.compteRendu}
                                     multiline={true}
                                     numberOfLines={6}
                                     disabled={true}
@@ -169,7 +176,7 @@ class ControleCompteRenduScreen extends React.Component {
                                 style={{ flexDirection: 'row', justifyContent: 'center' }}>
                                 <ComBadrButtonComp
                                     onPress={this.genererCompteRendu}
-                                    disabled={this.state?.isConsultation}
+                                    disabled={this.props?.compteRenduData?.isConsultation}
                                     text={translate('controle.genererCompte')}
                                 />
                             </View>
@@ -183,10 +190,10 @@ class ControleCompteRenduScreen extends React.Component {
                         <View>
                             <TextInput
                                 placeholder={translate('controle.votreObservation')}
-                                value={this.state?.observation}
+                                value={this.props?.compteRenduData?.observation}
                                 multiline={true}
                                 numberOfLines={6}
-                                disabled={this.state?.isConsultation}
+                                disabled={this.props?.compteRenduData?.isConsultation}
                                 onChangeText={(text) =>
                                     this.setState({ observation: text })
                                 }
@@ -202,12 +209,12 @@ class ControleCompteRenduScreen extends React.Component {
                     <ComAccordionComp title={translate('controle.decision')} expanded={true}>
                         <View
                             style={styles.flexColumn}
-                            pointerEvents={this.state?.isConsultation ? 'none' : 'auto'}>
+                            pointerEvents={this.props?.compteRenduData?.isConsultation ? 'none' : 'auto'}>
                             <RadioButton.Group
                                 onValueChange={(value) =>
                                     this.setState({ decisionControle: value })
                                 }
-                                value={this.state?.decisionControle}>
+                                value={this.props?.compteRenduData?.decisionControle}>
                                 <View style={styles.decisionContainerRB}>
                                     <Text style={styles.textRadio}>
                                         {translate('controle.controleConforme')}
@@ -281,8 +288,8 @@ class ControleCompteRenduScreen extends React.Component {
 
 
 
-function mapStateToProps(state) {
-    return { ...state.controleCommonReducer };
-}
+// function mapStateToProps(state) {
+//     return { ...state.controleCommonReducer };
+// }
 
-export default connect(mapStateToProps, null)(ControleCompteRenduScreen);
+export default connect(null, null)(ControleCompteRenduScreen);

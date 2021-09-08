@@ -52,9 +52,6 @@ class ControleACVPScreen extends Component {
     if (!_.isNil(this.props.data.init)) {
       let controleVo = this.props.data.init;
       let refDeclaration = this.props.data.refDeclaration;
-      console.log('---------------------');
-      console.log('-----initControleState 1 data--', controleVo);
-      console.log('-----initControleState 1', refDeclaration);
       this.setState({
         ...this.state,
         refDeclaration: refDeclaration,
@@ -242,40 +239,43 @@ class ControleACVPScreen extends Component {
           {this.props.successMessage != null && (
             <ComBadrInfoMessageComp message={this.props.successMessage} />
           )}
-          {!_.isNil(this.state.declaration) && (
-            <View style={{ flex: 1 }}>
-              <NavigationContainer independent={true}>
+          <View style={{ flex: 1 }}>
+            <NavigationContainer independent={true}>
 
-                <Tab.Navigator
-                  swipeEnabled={true}
-                  lazy={true}
-                  optimizationsEnabled={true}
-                  tabBarOptions={{
-                    scrollEnabled: true,
-                    labelStyle: { fontSize: 14, fontWeight: 'bold' },
-                    showLabel: true,
-                    allowFontScaling: true,
-                    activeBackgroundColor: primaryColor,
-                    activeTintColor: primaryColor,
-                    inactiveTintColor: 'gray',
-                    indicatorStyle: {
-                      backgroundColor: primaryColor,
-                      borderWidth: 2.5,
-                      borderColor: primaryColor,
-                    },
-                  }}>
-                  <Tab.Screen name="Compte rendu" component={ControleCompteRenduScreen} />
-                  <Tab.Screen name="info" component={ControleInfoScreen} />
-                  <Tab.Screen name="reconnaissance" component={ControleReconnaissanceScreen} />
-                  <Tab.Screen name="Bon à délivrer" component={ControleBonDelivrerScreen} />
-                  <Tab.Screen name="Déclarations d'apurement" component={ControleDeclarationsApurementScreen} />
-                </Tab.Navigator>
-              </NavigationContainer>
+              <Tab.Navigator
+                swipeEnabled={true}
+                lazy={true}
+                optimizationsEnabled={true}
+                tabBarOptions={{
+                  scrollEnabled: true,
+                  labelStyle: { fontSize: 14, fontWeight: 'bold' },
+                  showLabel: true,
+                  allowFontScaling: true,
+                  activeBackgroundColor: primaryColor,
+                  activeTintColor: primaryColor,
+                  inactiveTintColor: 'gray',
+                  indicatorStyle: {
+                    backgroundColor: primaryColor,
+                    borderWidth: 2.5,
+                    borderColor: primaryColor,
+                  },
+                }}>
+
+                <Tab.Screen name="Compte rendu" component={() => (
+                  <ControleCompteRenduScreen compteRenduData={this.state} />
+                )} />
+
+                <Tab.Screen name="info" component={ControleInfoScreen} />
+                <Tab.Screen name="reconnaissance" component={ControleReconnaissanceScreen} />
+                <Tab.Screen name="Bon à délivrer" component={ControleBonDelivrerScreen} />
+                <Tab.Screen name="Déclarations d'apurement" component={ControleDeclarationsApurementScreen} />
+              </Tab.Navigator>
+            </NavigationContainer>
 
 
-              
-              {/* BAD */}
-              {/* <ComBadrCardBoxComp style={styles.cardBox}>
+
+            {/* BAD */}
+            {/* <ComBadrCardBoxComp style={styles.cardBox}>
                 <ComAccordionComp title={translate('bad.title')}>
                   <View style={styles.flexColumn}>
                     {
@@ -291,8 +291,8 @@ class ControleACVPScreen extends Component {
                 </ComAccordionComp>
               </ComBadrCardBoxComp> */}
 
-              {/* Actions */}
-              {/*<View
+            {/* Actions */}
+            {/*<View
                 style={styles.containerActionBtn}
                 pointerEvents={this.state.isConsultation ? 'none' : 'auto'}>
                 <ComBadrButtonComp
@@ -317,7 +317,7 @@ class ControleACVPScreen extends Component {
                 />
               </View>*/}
 
-              {/* <Row pointerEvents={this.state.isConsultation ? 'none' : 'auto'}>
+            {/* <Row pointerEvents={this.state.isConsultation ? 'none' : 'auto'}>
                 <Col size={1} />
                 <Col size={3}>
                   <ComBadrButtonIconComp
@@ -350,8 +350,7 @@ class ControleACVPScreen extends Component {
                 </Col>
                 <Col size={1} />
               </Row> */}
-            </View>
-          )}
+          </View>
         </ComContainerComp>
       </View>
     );
