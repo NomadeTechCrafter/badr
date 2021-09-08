@@ -13,11 +13,11 @@ class ControleRefDeclarationBlock extends React.Component {
     }
 
     componentDidMount() {
-        console.log('+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
-        console.log('+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
-        console.log(JSON.stringify(this.props));
-        console.log('+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
-        console.log('+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+        console.log('==================================================================+');
+        console.log('==================================================================+');
+        console.log(JSON.stringify(this.props?.refDeclaration));
+        console.log('==================================================================+');
+        console.log('==================================================================+');
     }
 
     render() {
@@ -59,27 +59,27 @@ class ControleRefDeclarationBlock extends React.Component {
                     <Row style={CustomStyleSheet.lightBlueRow}>
                         <Col size={2}>
                             <ComBadrLibelleComp withColor={false}>
-                                {this.props?.refDeclaration?.slice(0, 3)}
+                                {this.props?.refDeclaration?.refDeclaration?.slice(0, 3)}
                             </ComBadrLibelleComp>
                         </Col>
                         <Col size={2}>
                             <ComBadrLibelleComp withColor={false}>
-                                {this.props?.refDeclaration?.slice(3, 6)}
+                                {this.props?.refDeclaration?.refDeclaration?.slice(3, 6)}
                             </ComBadrLibelleComp>
                         </Col>
                         <Col size={2}>
                             <ComBadrLibelleComp withColor={false}>
-                                {this.props?.refDeclaration?.slice(6, 10)}
+                                {this.props?.refDeclaration?.refDeclaration?.slice(6, 10)}
                             </ComBadrLibelleComp>
                         </Col>
                         <Col size={2}>
                             <ComBadrLibelleComp withColor={false}>
-                                {this.props?.refDeclaration?.slice(10, 17)}
+                                {this.props?.refDeclaration?.refDeclaration?.slice(10, 17)}
                             </ComBadrLibelleComp>
                         </Col>
                         <Col size={1}>
                             <ComBadrLibelleComp withColor={false}>
-                                {this.state?.cle}
+                                {this.props?.refDeclaration?.cle}
                             </ComBadrLibelleComp>
                         </Col>
                         <Col size={2}>
