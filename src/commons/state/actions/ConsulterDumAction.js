@@ -17,10 +17,15 @@ export function request(action, navigation) {
       action.value.jsonVO,
     )
       .then((response) => {
+
         const messagesErreurs = getValueByPath(
           'data.dtoHeader.messagesErreur',
           response,
         );
+        // console.log('============================++2++=================================');
+        // console.log(JSON.stringify(messagesErreurs));
+        // console.log('============================++2++=================================');
+
         if (
           response &&
           response.data &&
@@ -77,6 +82,7 @@ export function failed(data, command) {
     value: {
       command: command,
       data: data,
+      errorMessage: data
     },
   };
 }

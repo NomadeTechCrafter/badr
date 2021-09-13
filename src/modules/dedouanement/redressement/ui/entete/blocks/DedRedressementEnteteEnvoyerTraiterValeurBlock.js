@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { AppState, View } from 'react-native';
 import styles from '../../../style/DedRedressementStyle';
 import {
   ComAccordionComp,
@@ -26,6 +26,10 @@ import {
   GENERIC_INIT,
   GENERIC_REQUEST,
 } from '../../../../../../old/common/constants/generic';
+import * as authAction from '../../../../../hab/login/state/actions/habLoginAction';
+import * as LoginConstants from '../../../../../hab/login/state/habLoginConstants';
+import * as RootNavigation from '../../../../../hab/login/state/habLoginConstants';
+
 
 class DedRedressementEnteteEnvoyerTraiterValeurBlock extends Component {
 
@@ -133,6 +137,13 @@ class DedRedressementEnteteEnvoyerTraiterValeurBlock extends Component {
       console.log('lastVersion 1 : ' + JSON.stringify(lastVersion));
     });
 
+
+    AppState.addEventListener('change', this.handleAppStateChange);
+
+    this.didItOnMount();
+  }
+
+  didItOnMount() {
     this.setState({
       traitementOK: false,
       envoiOK: false,
@@ -184,6 +195,35 @@ class DedRedressementEnteteEnvoyerTraiterValeurBlock extends Component {
 
   componentWillUnmount() {
     this.unsubscribe();
+    AppState.removeEventListener('change', this.handleAppStateChange);
+  }
+
+  handleAppStateChange = (nextAppState) => {
+    console.log(nextAppState);
+    console.log(nextAppState);
+    console.log(nextAppState);
+    console.log(nextAppState);
+    console.log(nextAppState);
+    console.log(nextAppState);
+    console.log(nextAppState);
+    console.log(nextAppState);
+    console.log(nextAppState);
+    console.log(nextAppState);
+    console.log(nextAppState);
+    console.log(nextAppState);
+    console.log(nextAppState);
+    console.log(nextAppState);
+    if (nextAppState === 'background') {
+
+      let action = authAction.requestLogout(
+        {
+          type: LoginConstants.AUTH_LOGOUT_REQUEST,
+          value: {},
+        },
+        RootNavigation,
+      );
+      this.props.dispatch(action);
+    }
   }
 
   addDeclarationValeur = async () => {
@@ -287,14 +327,10 @@ class DedRedressementEnteteEnvoyerTraiterValeurBlock extends Component {
       dedReferenceVO: {
         identifiant: this.props?.data?.dedReferenceVO?.identifiant
       },
-      dedDumSectionEnteteVO: {        
+      dedDumSectionEnteteVO: {
         declarationValeur: this.state?.listDeclarationValeurDUMVO[this.state?.listDeclarationValeurDUMVO?.length - 1]
       }
     }
-
-    console.log('============================++++=================================');
-    console.log(JSON.stringify(dataToSendToWS));
-    console.log('============================++++=================================');
 
     let action = ConsulterDumAction.request(
       {
@@ -307,12 +343,17 @@ class DedRedressementEnteteEnvoyerTraiterValeurBlock extends Component {
       this.props.navigation,
     );
 
-    this.setState({
-      errorMessage: '',
-      envoiOK: true,
-    })
-
     this.props.dispatch(action);
+
+    if (this.props?.errorMessage) {
+      console.log('if envoyerDeclarationValeur');
+      this.didItOnMount();
+    } else {
+      this.setState({
+        errorMessage: '',
+        envoiOK: true,
+      })
+    }
   };
 
   traiterDeclarationValeur = async () => {
@@ -329,9 +370,6 @@ class DedRedressementEnteteEnvoyerTraiterValeurBlock extends Component {
     delete dataToSendToWS.dedDumSectionEnteteVO.declarationValeur.defaultConverter;
 
 
-    console.log('============================++++=================================');
-    console.log(JSON.stringify(dataToSendToWS));
-    console.log('============================++++=================================');
 
     let action = ConsulterDumAction.request(
       {
@@ -343,11 +381,20 @@ class DedRedressementEnteteEnvoyerTraiterValeurBlock extends Component {
       },
       this.props.navigation,
     );
-    this.setState({
-      errorMessage: '',
-      traitementOK: true,
-    })
+
     this.props.dispatch(action);
+
+
+    if (this.props?.errorMessage) {
+      console.log('if traiterDeclarationValeur');
+      this.didItOnMount();
+    } else {
+      console.log('else traiterDeclarationValeur');
+      this.setState({
+        errorMessage: '',
+        traitementOK: true,
+      })
+    }
   };
 
   render() {
@@ -356,13 +403,16 @@ class DedRedressementEnteteEnvoyerTraiterValeurBlock extends Component {
         <ComAccordionComp
           title="Traitement de la valeur"
           expanded={true}>
-          {this.state.errorMessage != null && (
-            <ComBadrErrorMessageComp message={this.state.errorMessage} />
+          {this.props?.errorMessage != null && (
+            <ComBadrErrorMessageComp message={this.props?.errorMessage} />
+          )}
+          {this.state?.errorMessage != null && (
+            <ComBadrErrorMessageComp message={this.state?.errorMessage} />
           )}
           {this.props?.messageInfo != null && (
             <ComBadrInfoMessageComp message={this.props?.messageInfo} />
           )}
-          
+
           <DedRedressementRow zebra={true}>
             <ComBadrKeyValueComp
               libelle="Envoi valeur"
@@ -408,7 +458,7 @@ class DedRedressementEnteteEnvoyerTraiterValeurBlock extends Component {
             {this.props?.fromWhere1 === 'ded.InitEnvoyerValeur' && (
               <Button
                 title={translate('transverse.ajouter')}
-                disabled={this.props?.fromWhere1 === 'ded.ConsulterDum' || this.state.declarationValeurEnvoiAjouter || this.state.envoiOK}
+                disabled={this.props?.fromWhere1 === 'ded.ConsulterDum' || this.state.declarationValeurEnvoiAjouter || this.state.declarationValeurEnvoi || this.state.envoiOK}
                 type={'solid'}
                 buttonStyle={styles.buttonAction}
                 onPress={() => this.addDeclarationValeur()} />

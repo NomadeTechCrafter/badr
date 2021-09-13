@@ -16,6 +16,13 @@ export default class HabLoginApi {
     const data = {
       login: ComSessionService.getInstance().getLogin(),
     };
+    console.log('..................................logout....................................');
+    console.log('..................................logout....................................');
+    console.log('..................................logout....................................');
+    console.log(JSON.stringify(data));
+    console.log('..................................logout....................................');
+    console.log('..................................logout....................................');
+    console.log('..................................logout....................................');
     return await ComHttpHelperApi.logout(data);
   };
   static checkVersion = async () => {

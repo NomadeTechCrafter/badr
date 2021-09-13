@@ -28,7 +28,15 @@ class DedRedressementEnteteScreen extends React.Component {
   }
 
   componentDidMount() {
-    console.log('ENTETE IS LOADING...');
+    // console.log('..........................................................................................................');
+    // console.log('..........................................................................................................');
+    // console.log('..........................................................................................................');
+
+    // console.log(JSON.stringify(this.props));
+
+    // console.log('..........................................................................................................');
+    // console.log('..........................................................................................................');
+    // console.log('..........................................................................................................');
   }
 
   buildComposantsColumnsD17D20 = () => {
@@ -58,7 +66,10 @@ class DedRedressementEnteteScreen extends React.Component {
         {this.props.data && (
           <View style={{ flex: 1 }}>
             <DedRedressementInfoCommon
-              searchData={this.props.searchData}
+              searchData={getValueByPath(
+                'dedReferenceVO',
+                this.props.data,
+              )}
               data={this.props.data}
             />
             <DedRedressementEnteteVersionBlock

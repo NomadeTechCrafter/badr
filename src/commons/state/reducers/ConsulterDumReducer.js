@@ -5,6 +5,7 @@ const initialState = {
   refresh: false,
   showProgress: false,
   errorMessage: '',
+  errorMessage2: '',
   displayError: false,
   data: [],
   fromWhere1: '',
@@ -39,6 +40,7 @@ export default (state = initialState, action) => {
       nextState.showProgress = false;
       nextState.displayError = true;
       nextState.errorMessage = action.value.data;
+      nextState.errorMessage2 = action.value.errorMessage;
       return nextState;
     case Constants.GENERIC_REFRESH:
       nextState.refresh = true;

@@ -1,8 +1,8 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
-import {Text} from 'react-native-paper';
-import {ComBadrCardSectionComp} from '../../../../../commons/component';
-import {translate} from '../../../../../commons/i18n/ComI18nHelper';
+import { StyleSheet, View } from 'react-native';
+import { Text } from 'react-native-paper';
+import { ComBadrCardSectionComp } from '../../../../../commons/component';
+import { translate } from '../../../../../commons/i18n/ComI18nHelper';
 import {
   accentColor,
   atShadowColor,
@@ -11,6 +11,7 @@ import {
   lightWhiteColor,
 } from '../../../../../commons/styles/ComThemeStyle';
 import {
+  cleDS,
   getAnnee,
   getBureau,
   getRegime,
@@ -19,6 +20,24 @@ import {
 } from '../../utils/DedUtils';
 
 class DedRedressementInfoCommon extends React.Component {
+
+  cleDUM = function (regime, serie) {
+    let alpha = 'ABCDEFGHJKLMNPRSTUVWXYZ';
+    /*while (serie.length < 6) {
+            serie = '0' + serie;
+          }*/
+    if (serie.length > 6) {
+      let firstSerie = serie.substring(0, 1);
+      if (firstSerie == '0') {
+        serie = serie.substring(1, 7);
+      }
+    }
+    let obj = regime + serie;
+    let RS = obj % 23;
+    alpha = alpha.charAt(RS);
+    return alpha;
+  }
+
   render() {
     return (
       <View>
@@ -52,26 +71,34 @@ class DedRedressementInfoCommon extends React.Component {
           <View style={styles.containerValRow}>
             <Text style={styles.libelleValM}>
               {getBureau(
-                getValueByPath('reference', this.props?.searchData?.jsonVO),
+                getValueByPath('reference', this.props?.searchData),
               )}
             </Text>
             <Text style={styles.libelleValM}>
               {getRegime(
-                getValueByPath('reference', this.props?.searchData?.jsonVO),
+                getValueByPath('reference', this.props?.searchData),
               )}
             </Text>
             <Text style={styles.libelleValL}>
               {getAnnee(
-                getValueByPath('reference', this.props?.searchData?.jsonVO),
+                getValueByPath('reference', this.props?.searchData),
               )}
             </Text>
             <Text style={styles.libelleValL}>
               {getSerie(
-                getValueByPath('reference', this.props?.searchData?.jsonVO),
+                getValueByPath('reference', this.props?.searchData),
               )}
             </Text>
             <Text style={styles.libelleValM}>
-              {getValueByPath('cle', this.props.searchData)}
+              {
+                this.cleDUM(
+                  getRegime(
+                    getValueByPath('reference', this.props?.searchData),
+                  ), getSerie(
+                    getValueByPath('reference', this.props?.searchData),
+                  )
+                )
+              }
             </Text>
             <Text style={styles.libelleValL}>
               {getValueByPath('nVoyage', this.props.searchData)}
