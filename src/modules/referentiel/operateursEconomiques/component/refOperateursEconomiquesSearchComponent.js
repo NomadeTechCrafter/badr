@@ -1,25 +1,24 @@
+import CheckBox from '@react-native-community/checkbox';
 import React from 'react';
-
-import {ScrollView, Text} from 'react-native';
-import {Button} from 'react-native-elements';
-import {Col, Grid, Row} from 'react-native-easy-grid';
+import { ScrollView, Text } from 'react-native';
+import { Col, Grid, Row } from 'react-native-easy-grid';
+import { Button } from 'react-native-elements';
+import { connect } from 'react-redux';
 import {
-  ComBadrAutoCompleteComp,
-  ComBadrErrorMessageComp,
+  ComBadrAutoCompleteChipsComp, ComBadrErrorMessageComp,
   ComBadrInfoMessageComp,
   ComBadrProgressBarComp,
-  ComBasicDataTableComp,
+  ComBasicDataTableComp
 } from '../../../../commons/component';
-
-import {connect} from 'react-redux';
-import {translate} from '../../../../commons/i18n/ComI18nHelper';
+import { translate } from '../../../../commons/i18n/ComI18nHelper';
+import * as RefOperateursEconomiquesDetailAction from '../state/actions/refOperateursEconomiquesDetailAction';
+import * as RefOperateursEconomiquesSearchAction from '../state/actions/refOperateursEconomiquesSearchAction';
+import * as Constants from '../state/refOperateursEconomiquesConstants';
 import style from '../style/refOperateursEconomiquesStyle';
 
-import * as Constants from '../state/refOperateursEconomiquesConstants';
 
-import * as RefOperateursEconomiquesSearchAction from '../state/actions/refOperateursEconomiquesSearchAction';
-import * as RefOperateursEconomiquesDetailAction from '../state/actions/refOperateursEconomiquesDetailAction';
-import CheckBox from '@react-native-community/checkbox';
+
+
 
 const initialState = {
   blocageVo: {},
@@ -162,14 +161,20 @@ class RefOperateursEconomiquesSearchComponent extends React.Component {
               </Col>
 
               <Col size={70}>
-                <ComBadrAutoCompleteComp
+                
+                <ComBadrAutoCompleteChipsComp
                   onRef={(ref) => (this.cmbOperateur = ref)}
-                  key="cmbOperateur"
                   placeholder={translate(
-                    'operateursEconomiques.search.operateur',
+                    'operateursEconomiques.search.operateur'
                   )}
-                  initialValue={this.state.blocageVo.operateur}
-                  handleSelectItem={(item, id) =>
+                  code="code"
+                  selected={this.state.blocageVo?.operateur?.libelle}
+                  maxItems={3}
+                  libelle="libelle"
+                  command="getCmbOperateur"
+                  onDemand={true}
+                  searchZoneFirst={false}
+                  onValueChange={(item) =>
                     this.setState({
                       ...this.state,
                       blocageVo: {
@@ -179,9 +184,7 @@ class RefOperateursEconomiquesSearchComponent extends React.Component {
                           libelle: item.libelle,
                         },
                       },
-                    })
-                  }
-                  command="getCmbOperateur"
+                    })}
                 />
               </Col>
             </Row>

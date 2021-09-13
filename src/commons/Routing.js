@@ -1,6 +1,6 @@
 const mapping = {
   '9005': {screen: 'CreerApurement', params: {qr: true}},
-  '9009': {screen: 'RechercheAtMulti', params: {qr: false}},
+  //'9009': {screen: 'RechercheAtMulti', params: {qr: false}},
   '2243': {screen: 'RechercheConfirmationReceptionScreen', params: {}},
   '1226': {
     screen: 'ECIAppositionScellesRechercheScreen',
@@ -41,6 +41,7 @@ const mapping = {
   '306011': { screen: 'AjouterReconnaissance', params: {} },
   '306012': { screen: 'ModifierReconnaissance', params: {} },
   '306013': { screen: 'AnnulerReconnaissance', params: {} },
+  '306014': { screen: 'AffecterAgentVisiteur', params: {} },
   /*
 
   '2301': { screen: 'DTPSSortieMainScreen', params: {} },

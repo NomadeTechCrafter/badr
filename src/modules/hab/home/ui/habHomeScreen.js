@@ -36,6 +36,8 @@ import EcorImportRechercheScreen from '../../../ecorImport/rechercheEcorImport/u
 import AjouterReconnaissance from '../../../controle/reconnaissance/ui/ajouterReconnaissance/ctrlAjouterReconnaissanceScreen';
 import ModifierReconnaissance from '../../../controle/reconnaissance/ui/modifierReconnaissance/ctrlModifierReconnaissanceScreen';
 import AnnulerReconnaissance from '../../../controle/reconnaissance/ui/annulerReconnaissance/ctrlAnnulerReconnaissanceScreen';
+import AffecterAgentVisiteur from '../../../controle/reconnaissance/ui/affecterAgentVisiteur/ctrlAffecterAgentVisiteurScreen';
+import AffecterAgentVisiteurMain from '../../../controle/reconnaissance/ui/affecterAgentVisiteur/ctrlAffecterAgentVisiteurMainScreen';
 import CreerCompteRenduMission from '../../../enquetes/compteRendu/ui/creerCompteRenduMission/enqCreerCompteRenduMissionScreen';
 import ModifierCompteRenduMission from '../../../enquetes/compteRendu/ui/modifierCompteRenduMission/enqModifierCompteRenduMissionScreen';
 import ValiderCompteRenduMission from '../../../enquetes/compteRendu/ui/validerCompteRenduMission/enqValiderCompteRenduMissionScreen';
@@ -246,6 +248,18 @@ class habHomeScreen extends React.Component {
           options={{ headerShown: false }}
         />
 
+        <Drawer.Screen
+          name="AffecterAgentVisiteur"
+          component={AffecterAgentVisiteur}
+          options={{ headerShown: false }}
+        />
+
+        <Drawer.Screen
+          name="AffecterAgentVisiteurMain"
+          component={AffecterAgentVisiteurMain}
+          options={{ headerShown: false }}
+        />
+        
         <Drawer.Screen
           name="CreerCompteRenduMission"
           component={CreerCompteRenduMission}

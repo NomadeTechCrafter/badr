@@ -103,5 +103,6 @@ const localStore = {
   'ded.ConsulterDum': require('../../../../modules/dedouanement/redressement/service/local-data/ded.ConsulterDum.json'),
   'ded.initRechercheDeclarationTryp': require('../../../../modules/DeclarationD17D20/rechParRef/service/local-data/ded.initRechercheDeclarationTryp.json'),
   'ded.findTrypByRef': require('../../../../modules/DeclarationD17D20/rechParRef/service/local-data/ded.findTrypByRef.json'),
+  'initAffecterAgentVisiteur': require('../../../../modules/controle/reconnaissance/service/local-data/initAffecterAgentVisiteurData.json')
 };
 export default localStore;

@@ -69,7 +69,7 @@ export default class ComBadrDualListBoxComp extends React.Component {
                     </SafeAreaView>
                 </Col>
 
-                <Col size={8} style={styles.arrows}>
+                <Col size={16} style={styles.arrows}>
                     <TouchableOpacity style={styles.touchableArrow}
                                       disabled={this.props.readonly}>
                         <Button
@@ -137,7 +137,6 @@ const styles = StyleSheet.create({
     item: {
         backgroundColor: '#ffffff',
         marginVertical: 2,
-        height: 32,
         borderRadius: 4,
         justifyContent: 'center',
     },
@@ -148,7 +147,6 @@ const styles = StyleSheet.create({
     selectedItem: {
         backgroundColor: '#009ab2',
         marginVertical: 2,
-        height: 32,
         borderRadius: 4,
         justifyContent: 'center',
     },

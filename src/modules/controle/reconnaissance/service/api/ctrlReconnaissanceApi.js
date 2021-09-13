@@ -32,6 +32,7 @@ export default class CtrlReconnaissanceApi {
             },
             jsonVO: typeControle,
         };
+        console.log(JSON.stringify(data));
 
         return await HttpHelper.process(data);
     };
@@ -70,4 +71,38 @@ export default class CtrlReconnaissanceApi {
 
         return await HttpHelper.process(data);
     };
+
+    static initAffecterAgentVisiteur = async (objectVO) => {
+        let data = {
+            dtoHeader: {
+                userLogin: ComSessionService.getInstance().getLogin(),
+                fonctionnalite: ComSessionService.getInstance().getFonctionalite(),
+                module: MODULE_CTRL,
+                commande: 'initAffecterAgentVisiteur',
+                typeService: TYPE_SERVICE_UC,
+            },
+            jsonVO: objectVO,
+        };
+
+        return await HttpHelper.process(data);
+    };
+
+    static affecterAgentVisiteur = async (affecterAgentVisiteurVo) => {
+        let data = {
+            dtoHeader: {
+                userLogin: ComSessionService.getInstance().getLogin(),
+                fonctionnalite: ComSessionService.getInstance().getFonctionalite(),
+                module: MODULE_CTRL,
+                commande: 'affecterAgentVisiteur',
+                typeService: TYPE_SERVICE_UC,
+            },
+            jsonVO: affecterAgentVisiteurVo,
+        };
+        data = Utils.deepDelete(data, [
+            'defaultConverter','refGradeLib'
+        ]);
+
+        return await HttpHelper.process(data);
+    };
+    
 }

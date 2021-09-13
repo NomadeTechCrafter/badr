@@ -5,6 +5,7 @@ import {Button} from 'react-native-elements';
 import {TextInput} from 'react-native-paper';
 import {Col, Grid, Row} from 'react-native-easy-grid';
 import {
+  ComBadrAutoCompleteChipsComp,
   ComBadrAutoCompleteComp,
   ComBadrCheckboxTreeComp,
   ComBadrDatePickerComp,
@@ -133,18 +134,20 @@ class RefOperateursEconomiquesCoreComponent extends React.Component {
               </Col>
 
               <Col size={70}>
-                <ComBadrAutoCompleteComp
+                
+                <ComBadrAutoCompleteChipsComp
                   onRef={(ref) => (this.cmbOperateur = ref)}
-                  key="cmbOperateur"
                   placeholder={translate(
-                    'operateursEconomiques.core.operateur',
+                    'operateursEconomiques.core.operateur'
                   )}
-                  initialValue={
-                    this.state.blocageVo.operateur
-                      ? this.state.blocageVo.operateur.libelle
-                      : ''
-                  }
-                  handleSelectItem={(item, id) =>
+                  code="code"
+                  selected={this.state.blocageVo?.operateur?.libelle}
+                  maxItems={3}
+                  libelle="libelle"
+                  command="getCmbOperateur"
+                  onDemand={true}
+                  searchZoneFirst={false}
+                  onValueChange={(item) =>
                     this.setState({
                       ...this.state,
                       blocageVo: {
@@ -154,9 +157,7 @@ class RefOperateursEconomiquesCoreComponent extends React.Component {
                           libelle: item.libelle,
                         },
                       },
-                    })
-                  }
-                  command="getCmbOperateur"
+                    })}
                 />
               </Col>
             </Row>

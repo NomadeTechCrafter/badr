@@ -1,0 +1,21 @@
+{
+  "dtoHeader": {
+    "userLogin": "YELM",
+    "fonctionnalite": "cf306014",
+    "module": "CONTROL_LIB",
+    "commande": "listeDeclarationsRec",
+    "typeService": "SP",
+    "offset": 0,
+    "pageSize": 0,
+    "rowCount": 0
+  },
+  "jsonVO": [
+    {
+      "identifiant": "210854",
+      "reference": "41106020200000017",
+      "dateCreationVersion": "27/09/2020 13:56",
+      "dateEnregVersion": "27/09/2020 13:56",
+      "numeroVersion": "0"
+    }
+  ]
+}

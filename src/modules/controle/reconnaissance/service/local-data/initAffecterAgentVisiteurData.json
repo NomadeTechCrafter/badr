@@ -1,0 +1,102 @@
+{
+  "dtoHeader": {
+    "userLogin": "YELM",
+    "fonctionnalite": "cf306014",
+    "module": "CONTROL_LIB",
+    "commande": "initAffecterAgentVisiteur",
+    "typeService": "UC",
+    "messagesInfo": ["??? InitAffecterAgentVisiteur_MESSAGE_INFO ???"],
+    "offset": 0,
+    "pageSize": 0,
+    "rowCount": 0
+  },
+  "jsonVO": {
+    "affectationAgentVisiteur": {
+      "id": "",
+      "etatAffectation": "AFFECTE",
+      "refAgentVisiteur": {"numeroPaie": -1, "refGradeLib": ""},
+      "refDeclaration": "41106020200000017",
+      "motif": "test",
+      "idDed": "210854",
+      "agentVisieur": "YELM",
+      "infosDUMVO": {
+        "typeDUM": "DUM",
+        "identifiant": 210854,
+        "referenceEnregistrement": "41106020200000017",
+        "sousDUMNouvelleProv": false,
+        "numeroVersionCourante": 0,
+        "preapurementDS": false,
+        "codeBureauDedouanement": "411",
+        "codeLastStatut": "005",
+        "codeRegime": "060",
+        "mailSoumissionaire": "rr@douane.gov.ma",
+        "codeTypeRegime": "02",
+        "annulee": false,
+        "deposee": true,
+        "arrondissementDepotDedouanement": "411001",
+        "combinee": false,
+        "migre": false,
+        "bureauDedouanement": "411",
+        "valeurTotaleDeclaree": 1000,
+        "dumInitiale": false,
+        "indicateurLiqManuelle": false,
+        "indicateurRedevanceAT": false,
+        "indicateurRedevanceInf": true,
+        "articleReconnuRedevanceAT": false,
+        "articleContesteRedevanceAT": false,
+        "ouvertureCompte": false,
+        "prealable": false,
+        "idAgentCote": "YELM",
+        "dateEnregistrement": 1601211391829,
+        "typeRecette": "04",
+        "modePaiement": "01",
+        "redevanceInformatiqueLiquide": true,
+        "articles": [
+          {
+            "numeroOrdre": 1,
+            "ngp": "0101900000",
+            "valeur": 1000,
+            "quantite": 1000,
+            "uniteMesure": "029"
+          }
+        ],
+        "articlesContestes": [],
+        "identifiantOperateurEngage": 16688,
+        "identifiantOperateurDeclarant": 16688,
+        "nomOperateurEngage": "BABYTEX TEST",
+        "nomOperateurDeclarant": "BABYTEX TEST",
+        "mailOperateurDeclarant": "rr@douane.gov.ma",
+        "identifiantOperateurExpediteur": 16688,
+        "docsConsignes": [],
+        "listDUMFictives": [],
+        "destinataireIdentifie": false,
+        "expediteurIdentifie": true,
+        "occasionnelle": false,
+        "codeLieuStockage": "BABYTE",
+        "dumInitialNouvelleprovisionnelleArretee": false,
+        "ligneImputationCompteREDVOs": [],
+        "dateDebutComplementaire": 1583020800000,
+        "codeTypeDUM": "01",
+        "dumannulee": false,
+        "dumdeposee": true
+      },
+      "suggererVP": false,
+      "etatAffecte": false,
+      "flagEnregistre": false,
+      "flagAnnule": false,
+      "defaultConverter": {},
+      "creation": false
+    },
+    "agentsVisiteur": [
+      {
+        "code": "YELM",
+        "libelle": "EL MAJDOUBI YOUSSEF (YELM)",
+        "actif": false,
+        "showDropDown": false,
+        "disableAutoComplete": true,
+        "onFocus": "",
+        "disabled": false
+      }
+    ]
+  }
+}

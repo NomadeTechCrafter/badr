@@ -14,6 +14,16 @@ export default {
         message: 'Voulez-vous supprimer cette photo?',
       },
     },
+    
+    agentVisiteur: {
+      title: 'Affecter agent visiteur',
+      agentVisiteur: "Agent Visiteur",
+      motif: 'Motif',
+      
+      actions: {
+        affecterVisiteur: "Affecter"
+      },
+    },
     ajouterReconnaissance: {
       title: 'Ajouter une reconnaissance',
     },

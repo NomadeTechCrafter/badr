@@ -63,7 +63,9 @@ class ComBadrPickerComp extends React.Component {
     if (this.props.onRef) {
       this.props.onRef(this);
     }
-    this.fetchData(this.props.param);
+    if (!this.props.notFetchDataDidMount) {
+      this.fetchData(this.props.param);
+    }
   }
 
   toggleExpand = () => {

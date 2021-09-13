@@ -4,6 +4,7 @@ export {default as ComBadrLoginTextInputComp} from './shared/inputs/ComBadrLogin
 export {default as ComBadrPasswordTextInputComp} from './shared/inputs/ComBadrPasswordTextInputComp';
 export {default as ComBadrButtonComp} from './shared/buttons/ComBadrButtonComp';
 export {default as ComBadrButtonIconComp} from './shared/buttons/ComBadrButtonIconComp';
+export {default as ComBadrButtonRadioComp} from './shared/buttons/ComBadrButtonRadioComp';
 export {default as ComBadrFloatingButtonComp} from './shared/buttons/ComBadrFloatingButtonComp';
 export {default as ComBadrActionButtonComp} from './shared/buttons/ComBadrActionButtonComp';
 export {default as ComBadrErrorMessageComp} from './shared/messages/ComBadrErrorMessageComp';

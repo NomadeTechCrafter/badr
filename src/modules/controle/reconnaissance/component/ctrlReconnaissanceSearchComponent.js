@@ -20,6 +20,7 @@ import * as Constants from '../state/ctrlReconnaissanceConstants';
 
 import * as CtrlReconnaissanceSearchAction from '../state/actions/ctrlReconnaissanceSearchAction';
 import * as CtrlReconnaissanceDetailAction from '../state/actions/ctrlReconnaissanceDetailAction';
+import * as ctrlInitAffecterAgentVisiteurAction from '../state/actions/ctrlInitAffecterAgentVisiteurAction';
 
 const initialState = {
     bureau: '',
@@ -97,20 +98,7 @@ class CtrlReconnaissanceSearchComponent extends React.Component {
         if (reference && reference.length === 17) {
             let validCleDum = this.cleDum(this.state.regime, this.state.serie);
             if (validCleDum === this.state.cle) {
-                let action = CtrlReconnaissanceDetailAction.request(
-                    {
-                        type: Constants.DETAIL_RECONNAISSANCE_REQUEST,
-                        value: {
-                            creation: this.props.mode === 'add',
-                            modification: this.props.mode === 'edit',
-                            annulation: this.props.mode === 'cancel',
-                            referenceDed: reference,
-                            numeroVoyage: this.state.numeroVoyage,
-                        },
-                    },
-                    this.props.navigation,
-                );
-                this.props.actions.dispatch(action);
+                this.lancerInitAction(reference, this.state.numeroVoyage);
             } else {
                 this.setState({
                     ...this.state,
@@ -137,6 +125,9 @@ class CtrlReconnaissanceSearchComponent extends React.Component {
             case 'cancel':
                 typeControle = 'SR';
                 break;
+            case 'aav':
+                typeControle = 'AAV';
+                break;
             default:
                 typeControle = '';
                 break;
@@ -153,20 +144,7 @@ class CtrlReconnaissanceSearchComponent extends React.Component {
     };
 
     onReconnaissanceSelected = (row) => {
-        let action = CtrlReconnaissanceDetailAction.request(
-            {
-                type: Constants.DETAIL_RECONNAISSANCE_REQUEST,
-                value: {
-                    creation: this.props.mode === 'add',
-                    modification: this.props.mode === 'edit',
-                    annulation: this.props.mode === 'cancel',
-                    referenceDed: row.reference,
-                    numeroVoyage: row.numVoyage,
-                },
-            },
-            this.props.navigation,
-        );
-        this.props.actions.dispatch(action);
+        this.lancerInitAction(row.reference, row.numVoyage);
     };
 
 
@@ -213,6 +191,37 @@ class CtrlReconnaissanceSearchComponent extends React.Component {
         let RS = (regime + serie) % 23;
         return alpha.charAt(RS);
     };
+
+    lancerInitAction(reference, numeroVoyage) {
+        if (this.props.mode != 'aav') {
+            let action = CtrlReconnaissanceDetailAction.request(
+                {
+                    type: Constants.DETAIL_RECONNAISSANCE_REQUEST,
+                    value: {
+                        creation: this.props.mode === 'add',
+                        modification: this.props.mode === 'edit',
+                        annulation: this.props.mode === 'cancel',
+                        referenceDed: reference,
+                        numeroVoyage: numeroVoyage,
+                    },
+                },
+                this.props.navigation
+            );
+            this.props.actions.dispatch(action);
+        } else {
+            let action = ctrlInitAffecterAgentVisiteurAction.request(
+                {
+                    type: Constants.INIT_AFFECTER_AGENT_VISITEUR_REQUEST,
+                    value: {
+                        referenceDed: reference,
+                        numeroVoyage: numeroVoyage,
+                    },
+                },
+                this.props.navigation
+            );
+            this.props.actions.dispatch(action);
+        }
+    }
 
     render() {
         return (
