@@ -10,7 +10,7 @@ module.exports = {
   SEND_STATS: '/action/set',
   SEND_CRASH: '/crashWebService/addCrash',
   CHECK_VERION: '/mobileVersion',
-  USER_SKIP_VERIVICATION_VERSION: ['Z193731', 'C974202', 'AD6203', 'AD6211', 'YEL', 'AAMM'],
+  USER_SKIP_VERIVICATION_VERSION: ['Z193731', 'C974202', 'AD6203', 'AD6211', 'YEL', 'YELM', 'AAMM'],
   IONIC_PACKAGE_NAME: 'ma.adii.badrmobile',
   DEFAULT_FONCTIONALITE_IONIC: 'cf4011',
   TYPE_SERVICE_UC: 'UC',
@@ -26,6 +26,6 @@ module.exports = {
   MODULE_DED: 'DED_LIB',
   AUTOCOMPLETE_MIN_CHARACTERS: 3,
   AUTOCOMPLETE_LIST_NB_ELEMENTS: -1,
-  remote: true,
+  remote: false,
   bootstrapRoute: 'test',
 };

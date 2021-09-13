@@ -8,6 +8,7 @@ export default {
     actionAnnuler: 'Annuler',
     dateRechParRefObligatoire: 'Date et commentaire sont obligatoire',
     matriculeVehicule: 'Matricule Vehicule',
+    listeDeclarationsDetail: 'Liste Déclarations en Détail',
 
     //Version
     type: 'Type',

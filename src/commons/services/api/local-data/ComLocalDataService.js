@@ -101,5 +101,7 @@ const localStore = {
   'ded.getDecTryptiqueParMatVehicule': require('../../../../modules/DeclarationD17D20/sortiPort/service/local-data/ded.getDecSortiPortParMatVehicule.json'),
   findListDumConfirmerEntreeArrivee: require('../../../../modules/ecorExport/confirmationEntreeArrivee/service/local-data/findListDumConfirmerEntreeArrivee.json'),
   'ded.ConsulterDum': require('../../../../modules/dedouanement/redressement/service/local-data/ded.ConsulterDum.json'),
+  'ded.initRechercheDeclarationTryp': require('../../../../modules/DeclarationD17D20/rechParRef/service/local-data/ded.initRechercheDeclarationTryp.json'),
+  'ded.findTrypByRef': require('../../../../modules/DeclarationD17D20/rechParRef/service/local-data/ded.findTrypByRef.json'),
 };
 export default localStore;

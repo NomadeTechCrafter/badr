@@ -145,7 +145,7 @@ class RechParRefDecEnDetail extends React.Component {
           <CardBox style={styles.cardBox}>
             <Accordion
               badr
-              title={translate('rechParRef.historique.title')}
+              title={translate('rechParRef.listeDeclarationsDetail')}
               expanded>
               <Text style={styles.nombreResult}>
                 {translate('rechParRef.versions.nbreVersions')} :
