@@ -16,37 +16,37 @@ class ControleListeDocsExigi extends React.Component {
     buildComposantsColumnsListeDocs = () => {
         return [
             {
-                code: 'numeroVersion',
+                code: 'documentAnnexe.numeroOrdreArticle',
                 libelle: translate('controle.doc'),
                 width: 180,
             },
             {
-                code: 'intervention',
+                code: 'documentAnnexe.portee',
                 libelle: translate('controle.portee'),
                 width: 180,
             },
             {
-                code: 'nArticle',
+                code: 'documentAnnexe.numeroOrdreArticle',
                 libelle: translate('controle.nArticle'),
                 width: 180,
             },
             {
-                code: 'reconnu',
+                code: 'documentAnnexe.reconnu',
                 libelle: translate('controle.reconnu'),
                 width: 180,
             },
             {
-                code: 'consignation',
+                code: 'documentAnnexe.demandeConsignation',
                 libelle: translate('controle.consignation'),
                 width: 180,
             },
             {
-                code: 'consignation',
+                code: 'decisionMCI',
                 libelle: translate('controle.decision'),
                 width: 300,
             },
             {
-                code: 'consignation',
+                code: 'documentAnnexe.dateEffet',
                 libelle: translate('controle.dateOperation'),
                 width: 180,
             },
@@ -59,7 +59,8 @@ class ControleListeDocsExigi extends React.Component {
     };
 
     render() {
-        let listeDocs = this.state?.declaration?.documentAnnexeResultVOs ? this.state?.declaration?.documentAnnexeResultVOs : [];
+        console.log(JSON.stringify(this.props?.listeDocs));
+        let listeDocs = this.props?.listeDocs ? this.props?.listeDocs : [];
         return (
             < ComBadrCardBoxComp style={styles.cardBox} >
                 <ComAccordionComp title={translate('controle.listDocExigible')} expanded={true}>

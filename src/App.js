@@ -12,7 +12,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 
 const Stack = createStackNavigator();
 
-import {ComBadrStackNavigatorComp, ComRedressementRechercheRefComp} from './commons/component';
+import { ComBadrStackNavigatorComp, ComControleRechercheRefComp} from './commons/component';
 import {RootSiblingParent} from 'react-native-root-siblings';
 
 /** REDUX */
@@ -91,7 +91,7 @@ export default class App extends React.Component {
                 <Stack.Screen
                   name="test"
                   options={{headerShown: false}}
-                    component={ControleCompteRenduScreen}
+                    component={controleRechercheDumScreen}
                 />
               )}
               <Stack.Screen

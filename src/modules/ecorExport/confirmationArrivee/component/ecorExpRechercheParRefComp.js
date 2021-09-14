@@ -31,11 +31,11 @@ import * as RechecheDumAction from '../state/actions/ecorExpConfirmationArriveeR
 import {MODULE_ECOREXP, TYPE_SERVICE_UC} from '../../../../commons/Config';
 class EcorExpRechercheParRefComp extends Component {
   defaultState = {
-    bureau: '309',
-    regime: '060',
-    annee: '2021',
-    serie: '0000010',
-    cle: 'C',
+    bureau: '',
+    regime: '',
+    annee: '',
+    serie: '',
+    cle: '',
     cleValide: '',
     login: '',
     numeroVoyage: '',

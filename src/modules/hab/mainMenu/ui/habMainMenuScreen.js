@@ -111,7 +111,7 @@ class habMainMenuScreen extends React.Component {
       );
       if (route) {
         console.log('route RN', route);
-        // this.clearCacheObjects();
+        this.clearCacheObjects();
         if (route.params.qr) {
           Zxing.default.showQrReader(this.onBarcodeRead);
         }
@@ -150,6 +150,12 @@ class habMainMenuScreen extends React.Component {
       },
       this.props.navigation,
     );
+    console.log('clearCacheObjects');
+    console.log('clearCacheObjects');
+    console.log('clearCacheObjects');
+    console.log('clearCacheObjects');
+    console.log('clearCacheObjects');
+    console.log('clearCacheObjects');
     this.props.dispatch(action);
   };
 

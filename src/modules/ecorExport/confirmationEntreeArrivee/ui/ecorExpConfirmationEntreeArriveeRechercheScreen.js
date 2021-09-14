@@ -31,12 +31,16 @@ import * as ConfirmationEntree from '../../confirmationEntree/state/actions/ecor
 import { MODULE_ECOREXP, TYPE_SERVICE_SP } from '../../../../commons/Config';
 import { ComSessionService } from '../../../../commons/services/session/ComSessionService';
 import { TYPE_SERVICE_UC } from '../../../../commons/constants/ComGlobalConstants';
+import * as RechecheDumAction from '../../confirmationEntree/state/actions/ecorExpConfirmationEntreeRechercheAction';
+import * as ConstantsConfirmationEntree from '../../confirmationEntree/state/ecorExpConfirmationEntreeConstants';
+import * as ConstantsConfirmationArrivee from '../../confirmationArrivee/state/ecorExpConfirmationArriveeConstants';
+
 
 class ConfirmationEntreeArriveeRechercheScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      immatriculation: '5AAAED',
+      immatriculation: '',
       localErrorMessage: '',
     };
 
@@ -61,88 +65,106 @@ class ConfirmationEntreeArriveeRechercheScreen extends Component {
         libelle: translate('confirmationEntree.operateurDeclarant'),
         width: 200,
       },
-      {
-        code: '',
-        libelle: 'Confirmation Entrée Arrivée',
-        width: 150,
-        icon: 'pencil',
-        size: 25,
-        component: 'button',
-        action: (row, index) => this.onDeclarationChecked(row, index),
-      },
+      // {
+      //   code: '',
+      //   libelle: 'Confirmation Entrée Arrivée',
+      //   width: 150,
+      //   icon: 'pencil',
+      //   size: 25,
+      //   component: 'button',
+      //   action: (row, index) => this.onDeclarationChecked(row, index),
+      // },
     ];
 
   }
 
+  // initActionData = (referenceDed) => {
+  //   let wsData = {
+  //     bureau: referenceDed.slice(0, 3),
+  //     regime: referenceDed.slice(3, 6),
+  //     annee: referenceDed.slice(6, 10),
+  //     serie: referenceDed.slice(10, 17),
+  //     cle: '',
+  //     referenceEnregistrement: '',
+  //     dateEffectiveEnregistrement: '',
+  //     numeroOrdreVoyage: '',
+  //   };
 
-  initActionDataEntree = (referenceDed) => {
-    let wsData = {
-      bureau: referenceDed.slice(0, 3),
-      regime: referenceDed.slice(3, 6),
-      annee: referenceDed.slice(6, 10),
-      serie: referenceDed.slice(10, 17),
-      cle: '',
-      referenceEnregistrement: '',
-      dateEffectiveEnregistrement: '',
-      numeroOrdreVoyage: '',
-    };
+  //   return {
+  //     type: ConstantsArrivee.INITCONFIRMATIONARRIVEE_ETATCHARGEMENT_REQUEST,
+  //     value: {
+  //       login: ComSessionService.getInstance().getLogin(),
+  //       commande: 'initConfirmerArrivee',
+  //       module: MODULE_ECOREXP,
+  //       typeService: TYPE_SERVICE_UC,
+  //       data: wsData,
+  //       referenceDed: referenceDed,
+  //       cle: '',
+  //     },
+  //   };
+  // };
 
-    return {
-      type: ConstantsEntree.INITCONFIRMATIONENTREE_ETATCHARGEMENT_REQUEST,
-      value: {
-        login: ComSessionService.getInstance().getLogin(),
-        commande: 'initConfirmerEntree',
-        module: MODULE_ECOREXP,
-        typeService: TYPE_SERVICE_UC,
-        data: wsData,
-        referenceDed: referenceDed,
-        cle: '',
-      },
-    };
-  };
+  confirmerEntreeArrivee = () => {
 
+    console.log('+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+    console.log('+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+    console.log(JSON.stringify(this.props?.data));
+    console.log('+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+    console.log('+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
 
-  initActionData = (referenceDed) => {
-    let wsData = {
-      bureau: referenceDed.slice(0, 3),
-      regime: referenceDed.slice(3, 6),
-      annee: referenceDed.slice(6, 10),
-      serie: referenceDed.slice(10, 17),
-      cle: '',
-      referenceEnregistrement: '',
-      dateEffectiveEnregistrement: '',
-      numeroOrdreVoyage: '',
-    };
-
-    return {
-      type: ConstantsArrivee.INITCONFIRMATIONARRIVEE_ETATCHARGEMENT_REQUEST,
-      value: {
-        login: ComSessionService.getInstance().getLogin(),
-        commande: 'initConfirmerArrivee',
-        module: MODULE_ECOREXP,
-        typeService: TYPE_SERVICE_UC,
-        data: wsData,
-        referenceDed: referenceDed,
-        cle: '',
-      },
-    };
-  };
-
-  onDeclarationChecked = (row, index) => {
-    console.log(' Ligne selectionnée : ' + JSON.stringify(row));
-    console.log('=======================================================================================================');
-
+    const row = this.props?.data[0];
     if (true === row.confirmationEntree) {
-      let referenceDed = row.reference;
-      let dataAction = this.initActionDataEntree(referenceDed);
+      let action = RechecheDumAction.requestFindDumByEtatChargement({
+        type: ConstantsConfirmationEntree.INITCONFIRMATIONENTREE_ETATCHARGEMENT_REQUEST,
+        value: {
+          commande: 'findDumByEtatChargement',
+          module: MODULE_ECOREXP,
+          typeService: TYPE_SERVICE_SP,
+          data: {
+            codeBureau: null,
+            numero: this.state.immatriculation,
+            referenceDum: '',
+            typeSelecte: null,
+            moyenTransport: null,
+            modeTransport: null,
+            idDed: null,
+          },
+        },
+      }, null);
+      this.props.navigation.navigate('ConfirmationEntreeResultScreen', {
+        first: true,
+      });
+      // this.props.dispatch(action);
+
       // this.props.commande === 'initConfirmerEntree'
-      let action = ConfirmationEntree.request(dataAction, this.props.navigation, 'ConfirmationEntreeResultScreen')
+      // let action = ConfirmationEntree.request(dataAction, this.props.navigation, 'ConfirmationEntreeResultScreen')
       this.props.actions.dispatch(action);
     } else {
-      let referenceDed = row.reference;
-      let dataAction = this.initActionData(referenceDed);
+      // let referenceDed = row.reference;
+      // let dataAction = this.initActionData(referenceDed);
       // this.props.commande === 'initConfirmerArrivee'
-      let action = ConfirmationArrivee.request(dataAction, this.props.navigation, 'ConfirmationArriveeResultScreen');
+      // let action = ConfirmationArrivee.request(dataAction, this.props.navigation, 'ConfirmationArriveeResultScreen');
+
+      let action = RechecheDumAction.requestFindDumByEtatChargement({
+        type: ConstantsConfirmationArrivee.INITCONFIRMATIONARRIVEE_ETATCHARGEMENT_REQUEST,
+        value: {
+          commande: 'findDumByEtatChargementConfirmerArrivee',
+          module: MODULE_ECOREXP,
+          typeService: TYPE_SERVICE_SP,
+          data: {
+            codeBureau: null,
+            numero: this.state.immatriculation,
+            referenceDum: '',
+            typeSelecte: null,
+            moyenTransport: null,
+            modeTransport: null,
+            idDed: null,
+          },
+        },
+      });
+      this.props.navigation.navigate('ConfirmationArriveeResultScreen', {
+        first: true,
+      });
       this.props.actions.dispatch(action);
     }
 
@@ -265,6 +287,22 @@ class ConfirmationEntreeArriveeRechercheScreen extends Component {
                 showProgress={this.props.showProgress}
               />
             </Row>
+            {this.props?.data && this.props?.data?.length > 0 && (
+              <Row>
+                <Col size={4} />
+                <Col size={8}>
+                  <Button
+                    onPress={this.confirmerEntreeArrivee}
+                    icon="check"
+                    compact="true"
+                    mode="contained"
+                    loading={this.props.showProgress}>
+                    Confirmation Entrée Arrivée
+                  </Button>
+                </Col>
+                <Col size={2} />
+              </Row>
+            )}
           </View>
         </ScrollView>
       </View>

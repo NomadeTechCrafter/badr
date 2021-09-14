@@ -29,6 +29,13 @@ class ControleInfoScreen extends React.Component {
         super(props);
     }
     render() {
+        console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+        console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+        console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+        console.log(JSON.stringify(this.props));
+        console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+        console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+        console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
         return (
             <ScrollView>
                 <ControleRefDeclarationBlock />
@@ -36,7 +43,7 @@ class ControleInfoScreen extends React.Component {
                 <ComBadrCardBoxComp style={styles.cardBox}>
                     <ComAccordionComp expanded={true}
                         disable={
-                            !(this.state?.declaration?.historiqueCompte?.length > 0)
+                            !(this.props?.data?.init.historiqueCompte?.length > 0)
                         }
                         title={translate('controle.historiqueCompteRendu')}>
                         
@@ -44,7 +51,7 @@ class ControleInfoScreen extends React.Component {
                             {/* <Text>{this.state?.declaration.redressement}</Text> */}
                             <TextInput
                                 style={styles.flexDirectionRow, styles.libelleM}
-                                value={this.state?.declaration?.historiqueCompte}
+                                value={this.props?.data?.init.historiqueCompte}
                                 multiline={true}
                                 numberOfLines={10}
                                 disabled={true}

@@ -92,6 +92,7 @@ class ControleCompteRenduScreen extends React.Component {
 
     render() {
         let annotations = this.props?.compteRenduData?.declaration?.autreAnnotationVOs ? this.props?.compteRenduData?.declaration?.autreAnnotationVOs : [];
+        let listeDocs = this.props?.compteRenduData?.declaration?.documentAnnexeResultVOs ? this.props?.compteRenduData?.declaration?.documentAnnexeResultVOs : [];
         const listD17D20 = [];
         return (
             <ScrollView>
@@ -133,7 +134,7 @@ class ControleCompteRenduScreen extends React.Component {
                     </ComAccordionComp>
                 </ComBadrCardBoxComp >
 
-                <ControleListeDocsExigi />
+                <ControleListeDocsExigi listeDocs={listeDocs} />
 
                 {/* Redressement opéré */}
                 < ComBadrCardBoxComp style={styles.cardBox} >
