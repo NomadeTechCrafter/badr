@@ -78,15 +78,15 @@ export default class ComBadrCheckboxTreeComp extends React.Component {
                             </Col>
 
 
-                            {!this.props.readonly && (
+                            
                                 <Col size={5} style={styles.checkboxContainer}>
                                     <CheckBox
-                                        disabled={false}
+                                        disabled={this.props.readonly}
                                         value={node.data.actif}
                                         onValueChange={(check) => this.onCheck(node, check)}
                                     />
                                 </Col>
-                            )}
+                            
 
                             <Col size={90} style={styles.dataContainer}>
                                 <Text style={styles.dataText}>{node.data.libelle}</Text>
