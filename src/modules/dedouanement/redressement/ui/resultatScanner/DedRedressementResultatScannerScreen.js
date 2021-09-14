@@ -58,13 +58,6 @@ class DedRedressementResultatScannerScreen extends React.Component {
             this.props.navigation,
         );
         this.props.dispatch(action);
-
-        console.log('|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||');
-        console.log('|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||');
-        console.log(JSON.stringify(this.props?.resScan?.data?.dedReferenceVO?.reference));
-        console.log(this.props?.dataScanner);
-        console.log('|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||');
-        console.log('|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||');
     };
 
     render() {

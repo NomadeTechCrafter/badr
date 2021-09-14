@@ -13,11 +13,6 @@ class ControleRefDeclarationBlock extends React.Component {
     }
 
     componentDidMount() {
-        console.log('==================================================================+');
-        console.log('==================================================================+');
-        console.log(JSON.stringify(this.props?.refDeclaration));
-        console.log('==================================================================+');
-        console.log('==================================================================+');
     }
 
     render() {

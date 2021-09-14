@@ -90,26 +90,6 @@ class DedRedressementEnteteEnvoyerTraiterValeurBlock extends Component {
   }
 
   componentWillUnmount() {
-    console.log(' DedRedressementEnteteEnvoyerTraiterValeurBlock componentWillUnmount ');
-    console.log(' DedRedressementEnteteEnvoyerTraiterValeurBlock componentWillUnmount ');
-    console.log(' DedRedressementEnteteEnvoyerTraiterValeurBlock componentWillUnmount ');
-    console.log(' DedRedressementEnteteEnvoyerTraiterValeurBlock componentWillUnmount ');
-    console.log(' DedRedressementEnteteEnvoyerTraiterValeurBlock componentWillUnmount ');
-    console.log(' DedRedressementEnteteEnvoyerTraiterValeurBlock componentWillUnmount ');
-    console.log(' DedRedressementEnteteEnvoyerTraiterValeurBlock componentWillUnmount ');
-    console.log(' DedRedressementEnteteEnvoyerTraiterValeurBlock componentWillUnmount ');
-    console.log(' DedRedressementEnteteEnvoyerTraiterValeurBlock componentWillUnmount ');
-    console.log(' DedRedressementEnteteEnvoyerTraiterValeurBlock componentWillUnmount ');
-    console.log(' DedRedressementEnteteEnvoyerTraiterValeurBlock componentWillUnmount ');
-    console.log(' DedRedressementEnteteEnvoyerTraiterValeurBlock componentWillUnmount ');
-    console.log(' DedRedressementEnteteEnvoyerTraiterValeurBlock componentWillUnmount ');
-    console.log(' DedRedressementEnteteEnvoyerTraiterValeurBlock componentWillUnmount ');
-    console.log(' DedRedressementEnteteEnvoyerTraiterValeurBlock componentWillUnmount ');
-    console.log(' DedRedressementEnteteEnvoyerTraiterValeurBlock componentWillUnmount ');
-    console.log(' DedRedressementEnteteEnvoyerTraiterValeurBlock componentWillUnmount ');
-    console.log(' DedRedressementEnteteEnvoyerTraiterValeurBlock componentWillUnmount ');
-    console.log(' DedRedressementEnteteEnvoyerTraiterValeurBlock componentWillUnmount ');
-    console.log(' DedRedressementEnteteEnvoyerTraiterValeurBlock componentWillUnmount ');
   }
 
   componentDidMount() {

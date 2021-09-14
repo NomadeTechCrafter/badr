@@ -22,9 +22,6 @@ export function request(action, navigation) {
           'data.dtoHeader.messagesErreur',
           response,
         );
-        // console.log('============================++2++=================================');
-        // console.log(JSON.stringify(messagesErreurs));
-        // console.log('============================++2++=================================');
 
         if (
           response &&
