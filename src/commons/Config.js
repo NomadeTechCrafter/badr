@@ -6,6 +6,7 @@ module.exports = {
   BACK_OFFICE_BASE_URL: 'https://bomobile-recette.douane.gov.ma/BadrMobile/api',
   LOGIN_API: '/rest/api/login',
   LOGOUT_API: '/rest/api/logout',
+  CLEAR_CACHE_OBJECTS_API: '/rest/api/releaseCachedObjects',
   PROCESS_API: '/rest/api/process',
   SEND_STATS: '/action/set',
   SEND_CRASH: '/crashWebService/addCrash',

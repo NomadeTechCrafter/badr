@@ -277,7 +277,6 @@ class DedRedressementScreen extends React.Component {
     };
 
     componentDidMount() {
-        console.log('componentDidMount 08052021');
         this.checkAffichabilite();
         this.checkAccessibility();
         this.checkPresenceDouaniere();
@@ -296,7 +295,8 @@ class DedRedressementScreen extends React.Component {
         });
     }
 
-    componentWillUnmount() { }
+    componentWillUnmount() {
+     }
 
     lancerModal = () => {
         let index = this.state.indexDialogConfirmationReception

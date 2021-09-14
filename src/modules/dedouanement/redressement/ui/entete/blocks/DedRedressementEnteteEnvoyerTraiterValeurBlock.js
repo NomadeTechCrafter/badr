@@ -89,6 +89,29 @@ class DedRedressementEnteteEnvoyerTraiterValeurBlock extends Component {
     ];
   }
 
+  componentWillUnmount() {
+    console.log(' DedRedressementEnteteEnvoyerTraiterValeurBlock componentWillUnmount ');
+    console.log(' DedRedressementEnteteEnvoyerTraiterValeurBlock componentWillUnmount ');
+    console.log(' DedRedressementEnteteEnvoyerTraiterValeurBlock componentWillUnmount ');
+    console.log(' DedRedressementEnteteEnvoyerTraiterValeurBlock componentWillUnmount ');
+    console.log(' DedRedressementEnteteEnvoyerTraiterValeurBlock componentWillUnmount ');
+    console.log(' DedRedressementEnteteEnvoyerTraiterValeurBlock componentWillUnmount ');
+    console.log(' DedRedressementEnteteEnvoyerTraiterValeurBlock componentWillUnmount ');
+    console.log(' DedRedressementEnteteEnvoyerTraiterValeurBlock componentWillUnmount ');
+    console.log(' DedRedressementEnteteEnvoyerTraiterValeurBlock componentWillUnmount ');
+    console.log(' DedRedressementEnteteEnvoyerTraiterValeurBlock componentWillUnmount ');
+    console.log(' DedRedressementEnteteEnvoyerTraiterValeurBlock componentWillUnmount ');
+    console.log(' DedRedressementEnteteEnvoyerTraiterValeurBlock componentWillUnmount ');
+    console.log(' DedRedressementEnteteEnvoyerTraiterValeurBlock componentWillUnmount ');
+    console.log(' DedRedressementEnteteEnvoyerTraiterValeurBlock componentWillUnmount ');
+    console.log(' DedRedressementEnteteEnvoyerTraiterValeurBlock componentWillUnmount ');
+    console.log(' DedRedressementEnteteEnvoyerTraiterValeurBlock componentWillUnmount ');
+    console.log(' DedRedressementEnteteEnvoyerTraiterValeurBlock componentWillUnmount ');
+    console.log(' DedRedressementEnteteEnvoyerTraiterValeurBlock componentWillUnmount ');
+    console.log(' DedRedressementEnteteEnvoyerTraiterValeurBlock componentWillUnmount ');
+    console.log(' DedRedressementEnteteEnvoyerTraiterValeurBlock componentWillUnmount ');
+  }
+
   componentDidMount() {
     this.unsubscribe = this.props.navigation.addListener('focus', () => {
       this.setState({

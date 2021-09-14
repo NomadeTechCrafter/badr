@@ -40,6 +40,7 @@ export function request(action, navigation) {
           navigation.navigate('DedRedressementScreen', {
             searchData: action.value ? action.value.jsonVO : {},
           });
+
         } else {
           dispatch(failed(messagesErreurs, action.value));
         }

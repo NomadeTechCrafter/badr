@@ -1,9 +1,9 @@
 import React from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 /** React Components */
-import {View, ScrollView, Linking, Image} from 'react-native';
+import { View, ScrollView, Linking, Image } from 'react-native';
 
-import {Col, Grid} from 'react-native-easy-grid';
+import { Col, Grid } from 'react-native-easy-grid';
 import RNExitApp from 'react-native-exit-app';
 import * as Zxing from '../../../../commons/native/ComZxingNative';
 
@@ -15,7 +15,7 @@ import {
 } from '../../../../commons/component';
 
 /** REDUX **/
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import * as menuAction from '../state/actions/habMainMenuAction';
 import * as Constants from '../state/habMainMenuConstants';
 import * as qrCodeAction from '../../../../commons/state/actions/ComQrCodeAction';
@@ -31,13 +31,13 @@ import {
 } from '../../../../commons/styles/ComThemeStyle';
 import style from '../style/habMainMenuStyle';
 
-import {buildRouteWithParams} from '../../../../commons/Routing';
+import { buildRouteWithParams } from '../../../../commons/Routing';
 
 /** Utils */
 import ComUtils from '../../../../commons/utils/ComUtils';
 
 /** Inmemory session */
-import {ComSessionService} from '../../../../commons/services/session/ComSessionService';
+import { ComSessionService } from '../../../../commons/services/session/ComSessionService';
 import habLoginApi from '../../login/service/api/habLoginApi';
 import _ from 'lodash';
 class habMainMenuScreen extends React.Component {
@@ -87,14 +87,14 @@ class habMainMenuScreen extends React.Component {
       &codeArrondissement=${ComSessionService.getInstance().getCodeArrondissement()}
       &uuid=${ComSessionService.getInstance().getDeviceId()}
       &manifacturer=${_.replace(
-        ComSessionService.getInstance().getManufacturer(),
-        '&',
-        '',
+      ComSessionService.getInstance().getManufacturer(),
+      '&',
+      '',
     )}
       &model=${_.replace(
-        ComSessionService.getInstance().getModel(),
-        '&',
-        '',
+      ComSessionService.getInstance().getModel(),
+      '&',
+      '',
     )}
       &platform=${ComSessionService.getInstance().getPlatform()}
       &version=${ComSessionService.getInstance().getSystemVersion()}
@@ -106,18 +106,18 @@ class habMainMenuScreen extends React.Component {
   onItemSelected = (item) => {
     if (this.props.navigation) {
       let route = buildRouteWithParams(item.id);
-      console.log('onItemSelected route', route);
       ComSessionService.getInstance().setFonctionalite(
         item.fon_VAR_CODEFONCTIONALITE,
       );
       if (route) {
-          console.log('route RN', route);
+        console.log('route RN', route);
+        // this.clearCacheObjects();
         if (route.params.qr) {
           Zxing.default.showQrReader(this.onBarcodeRead);
         }
         this.props.navigation.navigate(route.screen, route.params);
       } else {
-          console.log('route IONIC', route);
+        console.log('route IONIC', route);
         this.openIntent(item.id).then((resp) => {
           habLoginApi.logout().then((logoutResponse) => {
             RNExitApp.exitApp();
@@ -140,6 +140,17 @@ class habMainMenuScreen extends React.Component {
       });
       this.props.dispatch(action);
     }
+  };
+
+  clearCacheObjects = () => {
+    let action = authAction.requestClearCacheObjects(
+      {
+        type: LoginConstants.AUTH_CLEAR_CACHE_OBJECTS_REQUEST,
+        value: {},
+      },
+      this.props.navigation,
+    );
+    this.props.dispatch(action);
   };
 
   logout = () => {
@@ -184,15 +195,15 @@ class habMainMenuScreen extends React.Component {
         </ComMenuHeaderComp>
         <LinearGradient
           colors={[primaryColor, accentColor, accentColor, accentColor]}
-          start={{x: 0, y: 0}}
+          start={{ x: 0, y: 0 }}
           locations={[0, 0.04, 0.05, 0.07]}
-          end={{x: 0, y: 1}}>
+          end={{ x: 0, y: 1 }}>
           <ScrollView style={style.scrollViewStyle}>
             <ComBadrTreeComp
               getCollapsedNodeHeight={() => 60}
               data={this.props.menuReducer.menuList}
               onItemSelected={(item) => this.onItemSelected(item)}
-              renderNode={({node, level, isExpanded, hasChildrenNodes}) => {
+              renderNode={({ node, level, isExpanded, hasChildrenNodes }) => {
                 return (
                   <ComBadrTreeItemComp
                     node={node}
@@ -212,8 +223,8 @@ class habMainMenuScreen extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    menuReducer: {...state.menuReducer},
-    qrCodeReducer: {...state.qrCodeReducer},
+    menuReducer: { ...state.menuReducer },
+    qrCodeReducer: { ...state.qrCodeReducer },
   };
 };
 

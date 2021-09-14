@@ -163,7 +163,9 @@ class habHomeScreen extends React.Component {
         <Drawer.Screen
           name="DedRechercheRedressement"
           component={DedRedressementRechercheScreen}
-          options={{ headerShown: false, unmountOnBlur: true, lazy:false  }}
+          options={{ headerShown: false, unmountOnBlur: true, lazy: false }}
+          unmountOnBlur={true}
+          lazy={false}
         />
         <Drawer.Screen
           name="controleRechercheDumScreen"
@@ -429,7 +431,8 @@ class habHomeScreen extends React.Component {
         <Drawer.Screen
           name="DedRedressementScreen"
           component={DedRedressementScreen}
-          options={{ headerShown: false }}
+          options={{ headerShown: false, unmountOnBlur: true, lazy: false }}
+          unmountOnBlur={true}
         />
 
         <Drawer.Screen
@@ -453,11 +456,15 @@ class habHomeScreen extends React.Component {
           name="DedEnvoyerValeurScreen"
           component={dedEnvoyerValeurScreen}
           options={{ headerShown: false, unmountOnBlur: true, lazy: false }}
+          unmountOnBlur={true}
+          lazy={false}
         />
         <Drawer.Screen
           name="DedTraiterValeurScreen"
           component={dedTraiterValeurScreen}
           options={{ headerShown: false, unmountOnBlur: true, lazy: false }}
+          unmountOnBlur={true}
+          lazy={false}
         />
         
         <Drawer.Screen

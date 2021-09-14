@@ -6,6 +6,7 @@ import {
   LOGIN_API,
   PROCESS_API,
   LOGOUT_API,
+  CLEAR_CACHE_OBJECTS_API,
   remote,
   SEND_STATS,
   SEND_CRASH,
@@ -56,6 +57,11 @@ export default class ComHttpHelperApi {
   static async logout(user) {
     return instance.post(LOGOUT_API, JSON.stringify(user));
   }
+
+  static async clearCacheObjects(user) {
+    return instance.post(CLEAR_CACHE_OBJECTS_API, JSON.stringify(user));
+  }
+
 
   static async process(object) {
     if (remote) {

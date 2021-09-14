@@ -74,6 +74,24 @@ export function request(action, navigation) {
     };
 }
 
+export function requestClearCacheObjects(action, navigation) {
+    return (dispatch) => {
+        dispatch(action);
+        dispatch(inProgressClearCacheObjects(action));
+        HabLoginApi.clearCacheObjects()
+            .then((data) => {
+                if (data) {
+                    dispatch(successClearCacheObjects(data));
+                } else {
+                    dispatch(failedClearCacheObjects(translate('errors.technicalIssue')));
+                }
+            })
+            .catch((e) => {
+                dispatch(failedClearCacheObjects(translate('errors.technicalIssue')));
+            });
+    };
+}
+
 export function requestLogout(action, navigation) {
     return (dispatch) => {
         dispatch(action);
@@ -84,7 +102,7 @@ export function requestLogout(action, navigation) {
                     dispatch(successLogout(data));
                     /** navigate to login screen  if the api call return 403  */
                     action.value.isFrom === GenericConstants.GENERIC_CATCH_API
-                        ? navigation.navigate('Login', {msg: action.value.msg})
+                        ? navigation.navigate('Login', { msg: action.value.msg })
                         : navigation.navigate('Login', {});
                 } else {
                     dispatch(failedLogout(translate('errors.technicalIssue')));
@@ -113,6 +131,27 @@ export function success(data) {
 export function failed(data) {
     return {
         type: Constants.AUTH_LOGIN_FAILED,
+        value: data,
+    };
+}
+
+export function inProgressClearCacheObjects(action) {
+    return {
+        type: Constants.AUTH_CLEAR_CACHE_OBJECTS_IN_PROGRESS,
+        value: action.value,
+    };
+}
+
+export function successClearCacheObjects(data) {
+    return {
+        type: Constants.AUTH_CLEAR_CACHE_OBJECTS_SUCCESS,
+        value: data,
+    };
+}
+
+export function failedClearCacheObjects(data) {
+    return {
+        type: Constants.AUTH_CLEAR_CACHE_OBJECTS_FAILED,
         value: data,
     };
 }

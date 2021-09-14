@@ -27,11 +27,11 @@ import * as ConsulterDumAction from '../../../state/actions/ConsulterDumAction';
 
 class ComRedressementRechercheRefComp extends Component {
   defaultState = {
-    bureau: '',
-    regime: '',
-    annee: '',
-    serie: '',
-    cle: '',
+    bureau: '309',
+    regime: '010',
+    annee: '2021',
+    serie: '0000440',
+    cle: 'U',
     cleValide: '',
     login: '',
     numeroVoyage: '',
@@ -76,8 +76,6 @@ class ComRedressementRechercheRefComp extends Component {
       });
     }
   };
-
-
 
   switchToChooseCommand = () => {
     switch (this.props?.fromWhere) {
