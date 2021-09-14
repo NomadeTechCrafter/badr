@@ -28,11 +28,11 @@ import * as RechParRefInitAction from '../../state/actions/decRechParRefInitActi
 
 class RechParRefRechercheTryptique extends Component {
   defaultState = {
-    bureau: '309',
-    regime: '900',
-    annee: '2019',
-    serie: '0000048',
-    cle: 'X',
+    bureau: '',
+    regime: '',
+    annee: '',
+    serie: '',
+    cle: '',
     cleValide: '',
     login: '',
     showErrorMsg: false,
