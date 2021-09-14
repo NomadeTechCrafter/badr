@@ -26,6 +26,33 @@ class AffecterAgentVisiteurMain extends React.Component {
         };
         this.prepareState();
     }
+
+    componentDidMount() {
+
+        this._unsubscribe = this.props.navigation.addListener('focus', () => {
+            let bureau = this.props.affectationAgentVisiteur.refDeclaration.slice(0, 3);
+            let regime = this.props.affectationAgentVisiteur.refDeclaration.slice(3, 6);
+            let annee = this.props.affectationAgentVisiteur.refDeclaration.slice(6, 10);
+            let serie = this.props.affectationAgentVisiteur.refDeclaration.slice(10, 17);
+            let cle = this.cleDum(regime, serie);
+            let numeroVoyage = this.props.affectationAgentVisiteur.numeroVoyage;
+            this.setState({
+                affectationAgentVisiteur: this.props.affectationAgentVisiteur, showErrors: { agentVisieur: false, motif: false },
+                bureau: bureau,
+                regime: regime,
+                annee: annee,
+                serie: serie,
+                cle: cle,
+                numeroVoyage: numeroVoyage,
+            });
+            this.reset();
+           
+        });
+    }
+
+    componentWillUnmount() {
+        this._unsubscribe();
+    }
     prepareState = () => {
         let bureau = this.props.affectationAgentVisiteur.refDeclaration.slice(0, 3);
         let regime = this.props.affectationAgentVisiteur.refDeclaration.slice(3, 6);
@@ -90,7 +117,7 @@ class AffecterAgentVisiteurMain extends React.Component {
     };
 
     
-    componentDidMount() {
+    /* componentDidMount() {
         this._unsubscribe = this.props.navigation.addListener('blur', () => {
             this.reset();
         });
@@ -98,7 +125,7 @@ class AffecterAgentVisiteurMain extends React.Component {
 
     componentWillUnmount() {
         this._unsubscribe();
-    }
+    } */
 
     reset = () => {
         let action = CtrlInitAffecterAgentVisiteurAction.init(
@@ -110,6 +137,10 @@ class AffecterAgentVisiteurMain extends React.Component {
         );
         this.props.actions.dispatch(action);
     };
+
+
+
+
 
 
     render() {
