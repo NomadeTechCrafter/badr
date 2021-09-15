@@ -41,6 +41,7 @@ class RefOperateursEconomiquesCoreComponent extends React.Component {
     this.state = {
       ...this.state,
       readonly: this.props.mode === 'consult',
+      readonlyedit: this.props.mode === 'edit',
       dateDebut: this.props.blocageVo.dateDebut
         ? this.props.blocageVo.dateDebut.split(' ')[0]
         : null,
@@ -147,6 +148,7 @@ class RefOperateursEconomiquesCoreComponent extends React.Component {
                   command="getCmbOperateur"
                   onDemand={true}
                   searchZoneFirst={false}
+                  disabled={this.state.readonly || this.state.readonlyedit}
                   onValueChange={(item) =>
                     this.setState({
                       ...this.state,
@@ -250,7 +252,7 @@ class RefOperateursEconomiquesCoreComponent extends React.Component {
                     'operateursEconomiques.core.heureDebut',
                   )}
                   inputStyle={style.dateInputStyle}
-                  readonly={this.state.readonly}
+                  readonly={this.state.readonly || this.state.readonlyedit}
                 />
               </Col>
             </Row>

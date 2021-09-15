@@ -63,8 +63,8 @@ export default class ComBadrCheckboxTreeComp extends React.Component {
             <View>
                 {node.data.display === true && (
                     <View>
-                        <Row size={100} style={{marginLeft: 46 * level}}>
-                            <Col size={7} style={styles.buttonContainer}>
+                        <Row size={130} style={{marginLeft: 46 * level}}>
+                            <Col size={20} style={styles.buttonContainer}>
                                 {(node.children != null && node.children.length !== 0) && (
                                     <Button type={''}
                                             icon={{
@@ -79,7 +79,7 @@ export default class ComBadrCheckboxTreeComp extends React.Component {
 
 
                             
-                                <Col size={5} style={styles.checkboxContainer}>
+                                <Col size={20} style={styles.checkboxContainer}>
                                     <CheckBox
                                         disabled={this.props.readonly}
                                         value={node.data.actif}
