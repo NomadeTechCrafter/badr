@@ -171,9 +171,11 @@ export async function completerInformationDum(listDum, dispatch, navigation) {
   }
   console.log('end for.', listDeclaration);
   dispatch(successFindDumByEtatChargement(listDeclaration));
-  navigation.navigate('Resultat', {
-    first: true,
-  });
+  if (navigation != null) {
+    navigation.navigate('Resultat', {
+      first: true,
+    });
+  }
 }
 
 export default {

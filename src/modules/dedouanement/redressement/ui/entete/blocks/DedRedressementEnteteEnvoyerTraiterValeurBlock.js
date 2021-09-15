@@ -334,6 +334,8 @@ class DedRedressementEnteteEnvoyerTraiterValeurBlock extends Component {
         declarationValeur: this.state?.listDeclarationValeurDUMVO[this.state?.listDeclarationValeurDUMVO?.length - 1]
       }
     }
+    
+    delete dataToSendToWS.dedDumSectionEnteteVO.declarationValeur.defaultConverter;
 
     let action = ConsulterDumAction.request(
       {
@@ -492,7 +494,7 @@ class DedRedressementEnteteEnvoyerTraiterValeurBlock extends Component {
             {this.props?.fromWhere1 === 'ded.InitEnvoyerValeur' && (
               <Button
                 title={this.state.buttonLabel}
-                disabled={this.props?.fromWhere1 === 'ded.ConsulterDum' || !this.state.declarationValeurEnvoiAjouter || this.state.envoiOK}
+                disabled={this.props?.fromWhere1 === 'ded.ConsulterDum' || this.state.envoiOK}
                 type={'solid'}
                 buttonStyle={styles.buttonAction}
                 onPress={() => this.envoyerDeclarationValeur()} />

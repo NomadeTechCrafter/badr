@@ -134,19 +134,10 @@ class ConfirmationEntreeArriveeRechercheScreen extends Component {
       this.props.navigation.navigate('ConfirmationEntreeResultScreen', {
         first: true,
       });
-      // this.props.dispatch(action);
-
-      // this.props.commande === 'initConfirmerEntree'
-      // let action = ConfirmationEntree.request(dataAction, this.props.navigation, 'ConfirmationEntreeResultScreen')
       this.props.actions.dispatch(action);
     } else {
-      // let referenceDed = row.reference;
-      // let dataAction = this.initActionData(referenceDed);
-      // this.props.commande === 'initConfirmerArrivee'
-      // let action = ConfirmationArrivee.request(dataAction, this.props.navigation, 'ConfirmationArriveeResultScreen');
-
-      let action = RechecheDumAction.requestFindDumByEtatChargement({
-        type: ConstantsConfirmationArrivee.INITCONFIRMATIONARRIVEE_ETATCHARGEMENT_REQUEST,
+      let action2 = RechecheDumAction.requestFindDumByEtatChargement({
+        type: ConstantsConfirmationEntree.INITCONFIRMATIONENTREE_ETATCHARGEMENT_REQUEST,
         value: {
           commande: 'findDumByEtatChargementConfirmerArrivee',
           module: MODULE_ECOREXP,
@@ -161,11 +152,30 @@ class ConfirmationEntreeArriveeRechercheScreen extends Component {
             idDed: null,
           },
         },
-      });
-      this.props.navigation.navigate('ConfirmationArriveeResultScreen', {
-        first: true,
-      });
-      this.props.actions.dispatch(action);
+      }, null);
+      this.props.navigation.navigate('ConfirmationArriveeResultScreen');
+      this.props.actions.dispatch(action2);
+      // let action = RechecheDumAction.requestFindDumByEtatChargement({
+      //   type: ConstantsConfirmationArrivee.INITCONFIRMATIONARRIVEE_ETATCHARGEMENT_REQUEST,
+      //   value: {
+      //     commande: 'findDumByEtatChargementConfirmerArrivee',
+      //     module: MODULE_ECOREXP,
+      //     typeService: TYPE_SERVICE_SP,
+      //     data: {
+      //       codeBureau: null,
+      //       numero: this.state.immatriculation,
+      //       referenceDum: '',
+      //       typeSelecte: null,
+      //       moyenTransport: null,
+      //       modeTransport: null,
+      //       idDed: null,
+      //     },
+      //   },
+      // }, null);
+      // this.props.navigation.navigate('ConfirmationArriveeResultScreen', {
+      //   first: true,
+      // });
+      // this.props.actions.dispatch(action);
     }
 
   };
