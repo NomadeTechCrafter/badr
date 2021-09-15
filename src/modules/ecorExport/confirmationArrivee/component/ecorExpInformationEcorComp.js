@@ -11,6 +11,7 @@ import {
   ComBadrLibelleComp,
   ComBadrDatePickerComp,
   ComBadrNumericTextInputComp,
+  ComBadrInfoMessageComp,
 } from '../../../../commons/component';
 import {
   Button,
@@ -342,6 +343,9 @@ class EcorExpInformationEcorComp extends React.Component {
 
     return (
       <View>
+        {this.props?.infoMessage != null && (
+          <ComBadrInfoMessageComp message={this.props?.infoMessage} />
+        )}
         <Grid>
           <Row style={CustomStyleSheet.whiteRow}>
             <Col size={1}>

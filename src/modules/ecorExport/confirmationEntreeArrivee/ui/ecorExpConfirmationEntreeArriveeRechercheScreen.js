@@ -31,7 +31,8 @@ import * as ConfirmationEntree from '../../confirmationEntree/state/actions/ecor
 import { MODULE_ECOREXP, TYPE_SERVICE_SP } from '../../../../commons/Config';
 import { ComSessionService } from '../../../../commons/services/session/ComSessionService';
 import { TYPE_SERVICE_UC } from '../../../../commons/constants/ComGlobalConstants';
-import * as RechecheDumAction from '../../confirmationEntree/state/actions/ecorExpConfirmationEntreeRechercheAction';
+import * as RechecheDumActionEntree from '../../confirmationEntree/state/actions/ecorExpConfirmationEntreeRechercheAction';
+import * as RechecheDumActionArrivee from '../../confirmationArrivee/state/actions/ecorExpConfirmationArriveeRechercheAction';
 import * as ConstantsConfirmationEntree from '../../confirmationEntree/state/ecorExpConfirmationEntreeConstants';
 import * as ConstantsConfirmationArrivee from '../../confirmationArrivee/state/ecorExpConfirmationArriveeConstants';
 
@@ -78,31 +79,6 @@ class ConfirmationEntreeArriveeRechercheScreen extends Component {
 
   }
 
-  // initActionData = (referenceDed) => {
-  //   let wsData = {
-  //     bureau: referenceDed.slice(0, 3),
-  //     regime: referenceDed.slice(3, 6),
-  //     annee: referenceDed.slice(6, 10),
-  //     serie: referenceDed.slice(10, 17),
-  //     cle: '',
-  //     referenceEnregistrement: '',
-  //     dateEffectiveEnregistrement: '',
-  //     numeroOrdreVoyage: '',
-  //   };
-
-  //   return {
-  //     type: ConstantsArrivee.INITCONFIRMATIONARRIVEE_ETATCHARGEMENT_REQUEST,
-  //     value: {
-  //       login: ComSessionService.getInstance().getLogin(),
-  //       commande: 'initConfirmerArrivee',
-  //       module: MODULE_ECOREXP,
-  //       typeService: TYPE_SERVICE_UC,
-  //       data: wsData,
-  //       referenceDed: referenceDed,
-  //       cle: '',
-  //     },
-  //   };
-  // };
 
   confirmerEntreeArrivee = () => {
 
@@ -114,7 +90,7 @@ class ConfirmationEntreeArriveeRechercheScreen extends Component {
 
     const row = this.props?.data[0];
     if (true === row.confirmationEntree) {
-      let action = RechecheDumAction.requestFindDumByEtatChargement({
+      let action = RechecheDumActionEntree.requestFindDumByEtatChargement({
         type: ConstantsConfirmationEntree.INITCONFIRMATIONENTREE_ETATCHARGEMENT_REQUEST,
         value: {
           commande: 'findDumByEtatChargement',
@@ -136,8 +112,8 @@ class ConfirmationEntreeArriveeRechercheScreen extends Component {
       });
       this.props.actions.dispatch(action);
     } else {
-      let action2 = RechecheDumAction.requestFindDumByEtatChargement({
-        type: ConstantsConfirmationEntree.INITCONFIRMATIONENTREE_ETATCHARGEMENT_REQUEST,
+      let action2 = RechecheDumActionArrivee.requestFindDumByEtatChargement({
+        type: ConstantsConfirmationArrivee.INITCONFIRMATIONARRIVEE_ETATCHARGEMENT_REQUEST,
         value: {
           commande: 'findDumByEtatChargementConfirmerArrivee',
           module: MODULE_ECOREXP,
@@ -153,29 +129,10 @@ class ConfirmationEntreeArriveeRechercheScreen extends Component {
           },
         },
       }, null);
-      this.props.navigation.navigate('ConfirmationArriveeResultScreen');
+      this.props.navigation.navigate('ConfirmationArriveeResultScreen', {
+        first: true,
+      });
       this.props.actions.dispatch(action2);
-      // let action = RechecheDumAction.requestFindDumByEtatChargement({
-      //   type: ConstantsConfirmationArrivee.INITCONFIRMATIONARRIVEE_ETATCHARGEMENT_REQUEST,
-      //   value: {
-      //     commande: 'findDumByEtatChargementConfirmerArrivee',
-      //     module: MODULE_ECOREXP,
-      //     typeService: TYPE_SERVICE_SP,
-      //     data: {
-      //       codeBureau: null,
-      //       numero: this.state.immatriculation,
-      //       referenceDum: '',
-      //       typeSelecte: null,
-      //       moyenTransport: null,
-      //       modeTransport: null,
-      //       idDed: null,
-      //     },
-      //   },
-      // }, null);
-      // this.props.navigation.navigate('ConfirmationArriveeResultScreen', {
-      //   first: true,
-      // });
-      // this.props.actions.dispatch(action);
     }
 
   };

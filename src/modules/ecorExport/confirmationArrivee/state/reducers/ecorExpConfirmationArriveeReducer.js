@@ -4,7 +4,7 @@ import {translate} from '../../../../../commons/i18n/ComI18nHelper';
 const initialState = {
   showProgress: false,
   errorMessage: '',
-  infoMessage: '',
+  infoMessage: null,
   displayError: false,
   data: {
     listDeclaration: [],
