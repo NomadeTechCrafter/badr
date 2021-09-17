@@ -51,7 +51,7 @@ class AffecterAgentVisiteur extends React.Component {
                 />
 
                 {(this.props.searchMode || this.props.resultsMode) && (
-                    <CtrlReconnaissanceSearchComponent navigation={this.props.navigation} mode={'aav'} />
+                    <CtrlReconnaissanceSearchComponent navigation={this.props.navigation} mode={'aav'} onReset={this.reset} />
                 )}
 
                 

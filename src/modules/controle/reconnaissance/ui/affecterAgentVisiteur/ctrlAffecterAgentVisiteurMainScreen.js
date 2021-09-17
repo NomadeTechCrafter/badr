@@ -28,30 +28,11 @@ class AffecterAgentVisiteurMain extends React.Component {
     }
 
     componentDidMount() {
-
-        this._unsubscribe = this.props.navigation.addListener('focus', () => {
-            let bureau = this.props.affectationAgentVisiteur.refDeclaration.slice(0, 3);
-            let regime = this.props.affectationAgentVisiteur.refDeclaration.slice(3, 6);
-            let annee = this.props.affectationAgentVisiteur.refDeclaration.slice(6, 10);
-            let serie = this.props.affectationAgentVisiteur.refDeclaration.slice(10, 17);
-            let cle = this.cleDum(regime, serie);
-            let numeroVoyage = this.props.affectationAgentVisiteur.numeroVoyage;
-            this.setState({
-                affectationAgentVisiteur: this.props.affectationAgentVisiteur, showErrors: { agentVisieur: false, motif: false },
-                bureau: bureau,
-                regime: regime,
-                annee: annee,
-                serie: serie,
-                cle: cle,
-                numeroVoyage: numeroVoyage,
-            });
-            this.reset();
-           
-        });
+        
     }
 
     componentWillUnmount() {
-        this._unsubscribe();
+        this.reset();
     }
     prepareState = () => {
         let bureau = this.props.affectationAgentVisiteur.refDeclaration.slice(0, 3);

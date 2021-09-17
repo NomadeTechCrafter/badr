@@ -113,6 +113,11 @@ class CtrlReconnaissanceSearchComponent extends React.Component {
         this.setState(initialState);
     };
 
+    back = () => {
+        this.reset();
+        this.props.onReset();
+    };
+
     declarations = () => {
         let typeControle;
         switch (this.props.mode) {
@@ -451,6 +456,19 @@ class CtrlReconnaissanceSearchComponent extends React.Component {
                                     paginate={true}
                                 />
                             </Col>
+                        </Row>
+                        <Row size={100}>
+                            <Col size={40} />
+
+                            <Col size={20}>
+                                <Button
+                                    title={translate('transverse.back')}
+                                    type={'solid'}
+                                    buttonStyle={style.buttonAction}
+                                    onPress={() => this.back()} />
+                            </Col>
+
+                            <Col size={40} />
                         </Row>
                     </Grid>
                 )}

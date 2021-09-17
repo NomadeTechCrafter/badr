@@ -51,7 +51,7 @@ class AnnulerReconnaissance extends React.Component {
                 />
 
                 {(this.props.searchMode || this.props.resultsMode) && (
-                    <CtrlReconnaissanceSearchComponent navigation={this.props.navigation} mode={'cancel'}/>
+                    <CtrlReconnaissanceSearchComponent navigation={this.props.navigation} mode={'cancel'} onReset={this.reset}/>
                 )}
 
                 {this.props.detailMode && (

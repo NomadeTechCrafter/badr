@@ -1,7 +1,7 @@
 {
   "dtoHeader": {
     "userLogin": "YELM",
-    "fonctionnalite": "cf306014",
+    "fonctionnalite": "cf2243",
     "module": "CONTROL_LIB",
     "commande": "listeDeclarationsRec",
     "typeService": "SP",
@@ -11,10 +11,2814 @@
   },
   "jsonVO": [
     {
+      "identifiant": "522974",
+      "reference": "30902220210000044",
+      "dateCreationVersion": "14/09/2021 16:19",
+      "dateEnregVersion": "14/09/2021 16:21",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "522974",
+      "reference": "30902220210000044",
+      "dateCreationVersion": "14/09/2021 16:19",
+      "dateEnregVersion": "14/09/2021 16:21",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "522037",
+      "reference": "30901020210000420",
+      "dateCreationVersion": "09/08/2021 10:35",
+      "dateEnregVersion": "09/08/2021 10:36",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "522037",
+      "reference": "30901020210000420",
+      "dateCreationVersion": "09/08/2021 10:35",
+      "dateEnregVersion": "09/08/2021 10:36",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "521438",
+      "reference": "30901020210000413",
+      "dateCreationVersion": "16/07/2021 15:37",
+      "dateEnregVersion": "16/07/2021 15:38",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "521437",
+      "reference": "30904020210000005",
+      "dateCreationVersion": "16/07/2021 14:27",
+      "dateEnregVersion": "16/07/2021 14:38",
+      "numeroVersion": "1"
+    },
+    {
+      "identifiant": "521397",
+      "reference": "30904020210000004",
+      "dateCreationVersion": "15/07/2021 15:59",
+      "dateEnregVersion": "15/07/2021 15:59",
+      "numeroVersion": "6"
+    },
+    {
+      "identifiant": "521295",
+      "reference": "30904020210000003",
+      "dateCreationVersion": "12/07/2021 09:38",
+      "dateEnregVersion": "12/07/2021 10:42",
+      "numeroVersion": "2"
+    },
+    {
+      "identifiant": "521294",
+      "reference": "30902220210000028",
+      "dateCreationVersion": "12/07/2021 09:24",
+      "dateEnregVersion": "12/07/2021 09:24",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "521293",
+      "reference": "30902220210000027",
+      "dateCreationVersion": "12/07/2021 09:19",
+      "dateEnregVersion": "12/07/2021 09:23",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "521022",
+      "reference": "30901020210000392",
+      "dateCreationVersion": "07/07/2021 11:57",
+      "dateEnregVersion": "07/07/2021 11:57",
+      "numeroVersion": "1"
+    },
+    {
+      "identifiant": "521022",
+      "reference": "30901020210000392",
+      "dateCreationVersion": "07/07/2021 11:57",
+      "dateEnregVersion": "07/07/2021 11:57",
+      "numeroVersion": "1"
+    },
+    {
+      "identifiant": "521017",
+      "reference": "30909920210000001",
+      "dateCreationVersion": "07/07/2021 10:59",
+      "dateEnregVersion": "07/07/2021 10:59",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "521014",
+      "reference": "30904020210000002",
+      "dateCreationVersion": "07/07/2021 10:03",
+      "dateEnregVersion": "07/07/2021 10:10",
+      "numeroVersion": "1"
+    },
+    {
+      "identifiant": "521013",
+      "reference": "30902220210000026",
+      "dateCreationVersion": "07/07/2021 09:51",
+      "dateEnregVersion": "07/07/2021 09:51",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "521013",
+      "reference": "30902220210000026",
+      "dateCreationVersion": "07/07/2021 09:51",
+      "dateEnregVersion": "07/07/2021 09:51",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "520831",
+      "reference": "30901020210000389",
+      "dateCreationVersion": "29/06/2021 11:13",
+      "dateEnregVersion": "29/06/2021 11:13",
+      "numeroVersion": "1"
+    },
+    {
+      "identifiant": "520831",
+      "reference": "30901020210000389",
+      "dateCreationVersion": "29/06/2021 11:13",
+      "dateEnregVersion": "29/06/2021 11:13",
+      "numeroVersion": "1"
+    },
+    {
+      "identifiant": "520679",
+      "reference": "30901020210000381",
+      "dateCreationVersion": "21/06/2021 09:52",
+      "dateEnregVersion": "21/06/2021 09:52",
+      "numeroVersion": "2"
+    },
+    {
+      "identifiant": "520679",
+      "reference": "30901020210000381",
+      "dateCreationVersion": "21/06/2021 09:52",
+      "dateEnregVersion": "21/06/2021 09:52",
+      "numeroVersion": "2"
+    },
+    {
+      "identifiant": "520543",
+      "reference": "30901020210000355",
+      "dateCreationVersion": "16/06/2021 09:55",
+      "dateEnregVersion": "16/06/2021 09:55",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "520543",
+      "reference": "30901020210000355",
+      "dateCreationVersion": "16/06/2021 09:55",
+      "dateEnregVersion": "16/06/2021 09:55",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "520406",
+      "reference": "30901020210986877",
+      "dateCreationVersion": "04/06/2021 22:17",
+      "dateEnregVersion": "04/06/2021 10:00",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "520406",
+      "reference": "30901020210986877",
+      "dateCreationVersion": "04/06/2021 22:17",
+      "dateEnregVersion": "04/06/2021 10:00",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "518213",
+      "reference": "30901020210000315",
+      "dateCreationVersion": "25/05/2021 11:18",
+      "dateEnregVersion": "25/05/2021 11:19",
+      "numeroVersion": "2"
+    },
+    {
+      "identifiant": "518213",
+      "reference": "30901020210000315",
+      "dateCreationVersion": "25/05/2021 11:18",
+      "dateEnregVersion": "25/05/2021 11:19",
+      "numeroVersion": "2"
+    },
+    {
+      "identifiant": "517921",
+      "reference": "30902220210000024",
+      "dateCreationVersion": "19/05/2021 14:35",
+      "dateEnregVersion": "19/05/2021 14:36",
+      "numeroVersion": "1"
+    },
+    {
+      "identifiant": "517920",
+      "reference": "30901020210000311",
+      "dateCreationVersion": "19/05/2021 14:22",
+      "dateEnregVersion": "19/05/2021 14:24",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "517916",
+      "reference": "30901020210000309",
+      "dateCreationVersion": "19/05/2021 11:56",
+      "dateEnregVersion": "19/05/2021 11:57",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "517888",
+      "reference": "30901020210000306",
+      "dateCreationVersion": "18/05/2021 15:55",
+      "dateEnregVersion": "18/05/2021 15:55",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "517888",
+      "reference": "30901020210000306",
+      "dateCreationVersion": "18/05/2021 15:55",
+      "dateEnregVersion": "18/05/2021 15:55",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "517577",
+      "reference": "30901020210000302",
+      "dateCreationVersion": "07/05/2021 10:22",
+      "dateEnregVersion": "07/05/2021 10:33",
+      "numeroVersion": "1"
+    },
+    {
+      "identifiant": "517577",
+      "reference": "30901020210000302",
+      "dateCreationVersion": "07/05/2021 10:22",
+      "dateEnregVersion": "07/05/2021 10:33",
+      "numeroVersion": "1"
+    },
+    {
+      "identifiant": "516925",
+      "reference": "30902220210000021",
+      "dateCreationVersion": "13/04/2021 16:29",
+      "dateEnregVersion": "13/04/2021 16:29",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "516925",
+      "reference": "30902220210000021",
+      "dateCreationVersion": "13/04/2021 16:29",
+      "dateEnregVersion": "13/04/2021 16:29",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "516694",
+      "reference": "30901020210000214",
+      "dateCreationVersion": "05/04/2021 12:53",
+      "dateEnregVersion": "05/04/2021 12:54",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "516483",
+      "reference": "30901020210000173",
+      "dateCreationVersion": "29/03/2021 14:20",
+      "dateEnregVersion": "29/03/2021 14:20",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "516483",
+      "reference": "30901020210000173",
+      "dateCreationVersion": "29/03/2021 14:20",
+      "dateEnregVersion": "29/03/2021 14:20",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "515900",
+      "reference": "30902220210000007",
+      "dateCreationVersion": "12/03/2021 11:11",
+      "dateEnregVersion": "12/03/2021 11:11",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "515900",
+      "reference": "30902220210000007",
+      "dateCreationVersion": "12/03/2021 11:11",
+      "dateEnregVersion": "12/03/2021 11:11",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "515899",
+      "reference": "30901020210000088",
+      "dateCreationVersion": "12/03/2021 11:02",
+      "dateEnregVersion": "12/03/2021 11:05",
+      "numeroVersion": "2"
+    },
+    {
+      "identifiant": "515899",
+      "reference": "30901020210000088",
+      "dateCreationVersion": "12/03/2021 11:02",
+      "dateEnregVersion": "12/03/2021 11:05",
+      "numeroVersion": "2"
+    },
+    {
+      "identifiant": "515417",
+      "reference": "30901020210000058",
+      "dateCreationVersion": "22/02/2021 10:33",
+      "dateEnregVersion": "22/02/2021 10:49",
+      "numeroVersion": "1"
+    },
+    {
+      "identifiant": "515417",
+      "reference": "30901020210000058",
+      "dateCreationVersion": "22/02/2021 10:33",
+      "dateEnregVersion": "22/02/2021 10:49",
+      "numeroVersion": "1"
+    },
+    {
+      "identifiant": "515268",
+      "reference": "30901020210000050",
+      "dateCreationVersion": "16/02/2021 15:19",
+      "dateEnregVersion": "16/02/2021 15:19",
+      "numeroVersion": "3"
+    },
+    {
+      "identifiant": "515268",
+      "reference": "30901020210000050",
+      "dateCreationVersion": "16/02/2021 15:19",
+      "dateEnregVersion": "16/02/2021 15:19",
+      "numeroVersion": "3"
+    },
+    {
+      "identifiant": "513708",
+      "reference": "30901020200000617",
+      "dateCreationVersion": "18/12/2020 16:51",
+      "dateEnregVersion": "18/12/2020 16:51",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "513708",
+      "reference": "30901020200000617",
+      "dateCreationVersion": "18/12/2020 16:51",
+      "dateEnregVersion": "18/12/2020 16:51",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "513222",
+      "reference": "30901020200000605",
+      "dateCreationVersion": "16/12/2020 14:13",
+      "dateEnregVersion": "16/12/2020 14:13",
+      "numeroVersion": "2"
+    },
+    {
+      "identifiant": "513222",
+      "reference": "30901020200000605",
+      "dateCreationVersion": "16/12/2020 14:13",
+      "dateEnregVersion": "16/12/2020 14:13",
+      "numeroVersion": "2"
+    },
+    {
+      "identifiant": "511571",
+      "reference": "30901020200000600",
+      "dateCreationVersion": "15/12/2020 09:36",
+      "dateEnregVersion": "15/12/2020 09:36",
+      "numeroVersion": "3"
+    },
+    {
+      "identifiant": "511571",
+      "reference": "30901020200000600",
+      "dateCreationVersion": "15/12/2020 09:36",
+      "dateEnregVersion": "15/12/2020 09:36",
+      "numeroVersion": "3"
+    },
+    {
+      "identifiant": "510454",
+      "reference": "30908520200000039",
+      "dateCreationVersion": "10/12/2020 15:36",
+      "dateEnregVersion": "10/12/2020 15:37",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "211881",
+      "reference": "30901020200000539",
+      "dateCreationVersion": "03/11/2020 12:22",
+      "dateEnregVersion": "03/11/2020 12:42",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "211881",
+      "reference": "30901020200000539",
+      "dateCreationVersion": "03/11/2020 12:22",
+      "dateEnregVersion": "03/11/2020 12:42",
+      "numeroVersion": "0"
+    },
+    {
       "identifiant": "210854",
       "reference": "41106020200000017",
       "dateCreationVersion": "27/09/2020 13:56",
       "dateEnregVersion": "27/09/2020 13:56",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "210835",
+      "reference": "41106020200000010",
+      "dateCreationVersion": "25/09/2020 17:20",
+      "dateEnregVersion": "25/09/2020 17:21",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "209350",
+      "reference": "30901020200000441",
+      "dateCreationVersion": "29/07/2020 09:24",
+      "dateEnregVersion": "29/07/2020 09:24",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "209350",
+      "reference": "30901020200000441",
+      "dateCreationVersion": "29/07/2020 09:24",
+      "dateEnregVersion": "29/07/2020 09:24",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "208788",
+      "reference": "30908520200000024",
+      "dateCreationVersion": "09/07/2020 10:54",
+      "dateEnregVersion": "09/07/2020 10:55",
+      "numeroVersion": "1"
+    },
+    {
+      "identifiant": "207946",
+      "reference": "30901020200987129",
+      "dateCreationVersion": "11/06/2020 19:09",
+      "dateEnregVersion": "07/02/2020 10:45",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "207945",
+      "reference": "30901020200913769",
+      "dateCreationVersion": "11/06/2020 19:08",
+      "dateEnregVersion": "07/02/2020 10:45",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "207945",
+      "reference": "30901020200913769",
+      "dateCreationVersion": "11/06/2020 19:08",
+      "dateEnregVersion": "07/02/2020 10:45",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "207944",
+      "reference": "30901020200984219",
+      "dateCreationVersion": "11/06/2020 19:07",
+      "dateEnregVersion": "07/02/2020 10:45",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "207932",
+      "reference": "30901020200968349",
+      "dateCreationVersion": "11/06/2020 16:46",
+      "dateEnregVersion": "07/02/2020 10:45",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "207930",
+      "reference": "30901020200934789",
+      "dateCreationVersion": "11/06/2020 16:45",
+      "dateEnregVersion": "07/02/2020 10:45",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "207928",
+      "reference": "30901020200976239",
+      "dateCreationVersion": "11/06/2020 16:43",
+      "dateEnregVersion": "07/02/2020 10:45",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "207927",
+      "reference": "30901020200983549",
+      "dateCreationVersion": "11/06/2020 16:40",
+      "dateEnregVersion": "07/02/2020 10:45",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "207910",
+      "reference": "30901020200992339",
+      "dateCreationVersion": "11/06/2020 14:48",
+      "dateEnregVersion": "07/02/2020 10:45",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "207909",
+      "reference": "30901020200986349",
+      "dateCreationVersion": "11/06/2020 14:47",
+      "dateEnregVersion": "07/02/2020 10:45",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "207908",
+      "reference": "30901020200927659",
+      "dateCreationVersion": "11/06/2020 14:46",
+      "dateEnregVersion": "07/02/2020 10:45",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "207907",
+      "reference": "30901020200984569",
+      "dateCreationVersion": "11/06/2020 14:44",
+      "dateEnregVersion": "07/02/2020 10:45",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "207906",
+      "reference": "30901020200972389",
+      "dateCreationVersion": "11/06/2020 14:16",
+      "dateEnregVersion": "07/02/2020 10:45",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "207875",
+      "reference": "30901020200967349",
+      "dateCreationVersion": "10/06/2020 23:31",
+      "dateEnregVersion": "07/02/2020 10:45",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "207867",
+      "reference": "30901020200999419",
+      "dateCreationVersion": "10/06/2020 22:04",
+      "dateEnregVersion": "07/02/2020 10:45",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "207817",
+      "reference": "30901020200987639",
+      "dateCreationVersion": "10/06/2020 12:44",
+      "dateEnregVersion": "07/02/2020 10:45",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "207735",
+      "reference": "30901020200933479",
+      "dateCreationVersion": "09/06/2020 23:17",
+      "dateEnregVersion": "07/02/2020 10:45",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "207612",
+      "reference": "30901020200000310",
+      "dateCreationVersion": "08/06/2020 16:44",
+      "dateEnregVersion": "08/06/2020 16:44",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "207612",
+      "reference": "30901020200000310",
+      "dateCreationVersion": "08/06/2020 16:44",
+      "dateEnregVersion": "08/06/2020 16:44",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "207454",
+      "reference": "30901020200934219",
+      "dateCreationVersion": "03/06/2020 20:33",
+      "dateEnregVersion": "05/02/2020 20:30",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "207447",
+      "reference": "30901020200997519",
+      "dateCreationVersion": "03/06/2020 15:33",
+      "dateEnregVersion": "07/02/2020 18:45",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "205377",
+      "reference": "30901020200000146",
+      "dateCreationVersion": "27/03/2020 13:12",
+      "dateEnregVersion": "27/03/2020 13:12",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "205372",
+      "reference": "30901020200000143",
+      "dateCreationVersion": "27/03/2020 11:15",
+      "dateEnregVersion": "27/03/2020 11:15",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "204826",
+      "reference": "30901020200955879",
+      "dateCreationVersion": "10/03/2020 16:18",
+      "dateEnregVersion": "05/02/2020 10:45",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "204826",
+      "reference": "30901020200955879",
+      "dateCreationVersion": "10/03/2020 16:18",
+      "dateEnregVersion": "05/02/2020 10:45",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "204824",
+      "reference": "30901020200941769",
+      "dateCreationVersion": "10/03/2020 15:57",
+      "dateEnregVersion": "05/02/2020 17:58",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "204822",
+      "reference": "30901020200965249",
+      "dateCreationVersion": "10/03/2020 15:34",
+      "dateEnregVersion": "05/02/2020 10:45",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "204821",
+      "reference": "30901020200997829",
+      "dateCreationVersion": "10/03/2020 15:26",
+      "dateEnregVersion": "05/02/2020 17:58",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "204818",
+      "reference": "30901020200969749",
+      "dateCreationVersion": "10/03/2020 14:31",
+      "dateEnregVersion": "05/02/2020 10:45",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "204816",
+      "reference": "30901020200925789",
+      "dateCreationVersion": "10/03/2020 14:13",
+      "dateEnregVersion": "05/02/2020 10:45",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "204804",
+      "reference": "30901020200967919",
+      "dateCreationVersion": "10/03/2020 11:02",
+      "dateEnregVersion": "05/02/2020 10:45",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "204802",
+      "reference": "30901020200973489",
+      "dateCreationVersion": "10/03/2020 10:44",
+      "dateEnregVersion": "05/02/2020 10:45",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "204781",
+      "reference": "30901020200954719",
+      "dateCreationVersion": "09/03/2020 16:03",
+      "dateEnregVersion": "05/02/2020 10:45",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "204778",
+      "reference": "30901020200962349",
+      "dateCreationVersion": "09/03/2020 15:24",
+      "dateEnregVersion": "05/02/2020 17:58",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "204765",
+      "reference": "30901020200956479",
+      "dateCreationVersion": "09/03/2020 09:52",
+      "dateEnregVersion": "05/02/2020 10:45",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "204696",
+      "reference": "30901020200928439",
+      "dateCreationVersion": "06/03/2020 17:16",
+      "dateEnregVersion": "05/02/2020 10:45",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "204690",
+      "reference": "30901020200923549",
+      "dateCreationVersion": "06/03/2020 15:15",
+      "dateEnregVersion": "05/02/2020 10:45",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "204676",
+      "reference": "30901020200935419",
+      "dateCreationVersion": "06/03/2020 11:15",
+      "dateEnregVersion": "05/02/2020 10:45",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "204675",
+      "reference": "30901020200932329",
+      "dateCreationVersion": "06/03/2020 10:58",
+      "dateEnregVersion": "05/02/2020 10:45",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "204648",
+      "reference": "30901020200958779",
+      "dateCreationVersion": "05/03/2020 17:57",
+      "dateEnregVersion": "05/02/2020 10:45",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "204644",
+      "reference": "30901020200971449",
+      "dateCreationVersion": "05/03/2020 16:16",
+      "dateEnregVersion": "05/02/2020 10:45",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "204641",
+      "reference": "30901020200925479",
+      "dateCreationVersion": "05/03/2020 15:32",
+      "dateEnregVersion": "05/02/2020 12:25",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "204640",
+      "reference": "30901020200969859",
+      "dateCreationVersion": "05/03/2020 15:13",
+      "dateEnregVersion": "05/02/2020 17:58",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "204633",
+      "reference": "30901020200956429",
+      "dateCreationVersion": "05/03/2020 13:44",
+      "dateEnregVersion": "15/02/2020 17:58",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "204623",
+      "reference": "30901020200985215",
+      "dateCreationVersion": "05/03/2020 11:17",
+      "dateEnregVersion": "05/02/2020 10:45",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "204585",
+      "reference": "30901020200965419",
+      "dateCreationVersion": "04/03/2020 15:29",
+      "dateEnregVersion": "05/02/2020 10:45",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "204583",
+      "reference": "30901020200978229",
+      "dateCreationVersion": "04/03/2020 15:09",
+      "dateEnregVersion": "05/02/2020 17:58",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "204580",
+      "reference": "30901020200944449",
+      "dateCreationVersion": "04/03/2020 14:24",
+      "dateEnregVersion": "05/02/2020 10:45",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "204575",
+      "reference": "30901020200932149",
+      "dateCreationVersion": "04/03/2020 11:55",
+      "dateEnregVersion": "05/02/2020 17:58",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "204540",
+      "reference": "30901020200925559",
+      "dateCreationVersion": "03/03/2020 17:51",
+      "dateEnregVersion": "05/02/2020 18:45",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "204539",
+      "reference": "30901020200933339",
+      "dateCreationVersion": "03/03/2020 17:40",
+      "dateEnregVersion": "15/02/2020 17:58",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "204538",
+      "reference": "30901020200998529",
+      "dateCreationVersion": "03/03/2020 17:23",
+      "dateEnregVersion": "05/02/2020 17:58",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "204537",
+      "reference": "30901020200925799",
+      "dateCreationVersion": "03/03/2020 17:09",
+      "dateEnregVersion": "12/02/2020 17:58",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "204535",
+      "reference": "30901020200999333",
+      "dateCreationVersion": "03/03/2020 16:26",
+      "dateEnregVersion": "12/02/2020 20:30",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "204535",
+      "reference": "30901020200999333",
+      "dateCreationVersion": "03/03/2020 16:26",
+      "dateEnregVersion": "12/02/2020 20:30",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "204533",
+      "reference": "30901020200911115",
+      "dateCreationVersion": "03/03/2020 15:57",
+      "dateEnregVersion": "07/02/2020 17:58",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "204512",
+      "reference": "30901020200925475",
+      "dateCreationVersion": "02/03/2020 16:54",
+      "dateEnregVersion": "15/02/2020 17:58",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "204508",
+      "reference": "30901020200934775",
+      "dateCreationVersion": "02/03/2020 15:48",
+      "dateEnregVersion": "15/02/2020 17:58",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "204500",
+      "reference": "30901020200955556",
+      "dateCreationVersion": "02/03/2020 12:30",
+      "dateEnregVersion": "15/02/2020 17:58",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "204499",
+      "reference": "30901020200935785",
+      "dateCreationVersion": "02/03/2020 12:13",
+      "dateEnregVersion": "15/02/2020 10:45",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "204497",
+      "reference": "30901020200932986",
+      "dateCreationVersion": "02/03/2020 11:54",
+      "dateEnregVersion": "15/02/2020 17:58",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "204495",
+      "reference": "30901020200925875",
+      "dateCreationVersion": "02/03/2020 11:09",
+      "dateEnregVersion": "05/02/2020 10:45",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "204451",
+      "reference": "30901020200936485",
+      "dateCreationVersion": "29/02/2020 19:32",
+      "dateEnregVersion": "08/02/2020 17:58",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "204349",
+      "reference": "30901020200995846",
+      "dateCreationVersion": "27/02/2020 14:23",
+      "dateEnregVersion": "15/02/2020 10:45",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "204337",
+      "reference": "30901020200985656",
+      "dateCreationVersion": "27/02/2020 08:44",
+      "dateEnregVersion": "05/02/2020 10:00",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "204336",
+      "reference": "30901020200984411",
+      "dateCreationVersion": "27/02/2020 08:33",
+      "dateEnregVersion": "05/02/2020 10:00",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "204335",
+      "reference": "30901020200985666",
+      "dateCreationVersion": "27/02/2020 08:11",
+      "dateEnregVersion": "13/02/2020 10:00",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "204315",
+      "reference": "30901020200986566",
+      "dateCreationVersion": "26/02/2020 14:52",
+      "dateEnregVersion": "12/02/2020 10:00",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "204186",
+      "reference": "30901020200996575",
+      "dateCreationVersion": "21/02/2020 14:34",
+      "dateEnregVersion": "04/01/2020 17:58",
+      "numeroVersion": "1"
+    },
+    {
+      "identifiant": "204030",
+      "reference": "30901020200986633",
+      "dateCreationVersion": "17/02/2020 09:54",
+      "dateEnregVersion": "05/02/2020 10:00",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "204029",
+      "reference": "30901020200984555",
+      "dateCreationVersion": "17/02/2020 09:52",
+      "dateEnregVersion": "01/02/2020 10:00",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "203808",
+      "reference": "30901020200987665",
+      "dateCreationVersion": "10/02/2020 08:54",
+      "dateEnregVersion": "05/02/2020 10:00",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "203732",
+      "reference": "30901020200956423",
+      "dateCreationVersion": "07/02/2020 09:14",
+      "dateEnregVersion": "06/02/2020 10:00",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "203314",
+      "reference": "30901020200986999",
+      "dateCreationVersion": "22/01/2020 12:49",
+      "dateEnregVersion": "15/01/2020 10:00",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "203314",
+      "reference": "30901020200986999",
+      "dateCreationVersion": "22/01/2020 12:49",
+      "dateEnregVersion": "15/01/2020 10:00",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "202971",
+      "reference": "30901020200000011",
+      "dateCreationVersion": "09/01/2020 15:01",
+      "dateEnregVersion": "09/01/2020 15:01",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "202761",
+      "reference": "30901020200000001",
+      "dateCreationVersion": "02/01/2020 09:11",
+      "dateEnregVersion": "02/01/2020 09:11",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "202715",
+      "reference": "30901020190000701",
+      "dateCreationVersion": "31/12/2019 13:31",
+      "dateEnregVersion": "31/12/2019 13:46",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "201559",
+      "reference": "30901020190000658",
+      "dateCreationVersion": "21/11/2019 13:58",
+      "dateEnregVersion": "21/11/2019 13:58",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "201290",
+      "reference": "30901020190000656",
+      "dateCreationVersion": "12/11/2019 10:07",
+      "dateEnregVersion": "12/11/2019 10:12",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "201070",
+      "reference": "30901020190000653",
+      "dateCreationVersion": "04/11/2019 10:26",
+      "dateEnregVersion": "04/11/2019 10:26",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "193959",
+      "reference": "30901020190700007",
+      "dateCreationVersion": "11/04/2019 14:28",
+      "dateEnregVersion": "11/04/2019 14:28",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "193954",
+      "reference": "30904020190000006",
+      "dateCreationVersion": "11/04/2019 12:13",
+      "dateEnregVersion": "11/04/2019 12:13",
+      "numeroVersion": "6"
+    },
+    {
+      "identifiant": "193948",
+      "reference": "30901020190000325",
+      "dateCreationVersion": "11/04/2019 09:18",
+      "dateEnregVersion": "11/04/2019 09:19",
+      "numeroVersion": "7"
+    },
+    {
+      "identifiant": "188326",
+      "reference": "30902220180922911",
+      "dateCreationVersion": "22/11/2018 14:18",
+      "dateEnregVersion": "22/11/2018 08:00",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "188322",
+      "reference": "30901020180922911",
+      "dateCreationVersion": "22/11/2018 11:46",
+      "dateEnregVersion": "22/11/2018 08:00",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "187982",
+      "reference": "30901020180910911",
+      "dateCreationVersion": "09/11/2018 14:09",
+      "dateEnregVersion": "09/11/2018 08:00",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "187975",
+      "reference": "30901020180909911",
+      "dateCreationVersion": "09/11/2018 12:05",
+      "dateEnregVersion": "09/11/2018 08:00",
+      "numeroVersion": "7"
+    },
+    {
+      "identifiant": "187919",
+      "reference": "30904020180907911",
+      "dateCreationVersion": "07/11/2018 11:38",
+      "dateEnregVersion": "07/11/2018 08:00",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "187596",
+      "reference": "30901020130926910",
+      "dateCreationVersion": "26/10/2018 10:30",
+      "dateEnregVersion": "28/10/2013 13:50",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "187479",
+      "reference": "30902220180900900",
+      "dateCreationVersion": "18/10/2018 12:38",
+      "dateEnregVersion": "18/10/2018 08:00",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "186523",
+      "reference": "30901020180914909",
+      "dateCreationVersion": "14/09/2018 10:47",
+      "dateEnregVersion": "14/09/2018 08:00",
+      "numeroVersion": "1"
+    },
+    {
+      "identifiant": "183779",
+      "reference": "30930120180910907",
+      "dateCreationVersion": "10/07/2018 12:44",
+      "dateEnregVersion": "10/07/2018 08:00",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "182762",
+      "reference": "30901020180000591",
+      "dateCreationVersion": "30/05/2018 12:00",
+      "dateEnregVersion": "30/05/2018 12:00",
+      "numeroVersion": "2"
+    },
+    {
+      "identifiant": "181653",
+      "reference": "30901020180000285",
+      "dateCreationVersion": "17/04/2018 13:24",
+      "dateEnregVersion": "17/04/2018 13:36",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "181444",
+      "reference": "30901020180900900",
+      "dateCreationVersion": "10/04/2018 13:39",
+      "dateEnregVersion": "10/04/2018 08:00",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "181310",
+      "reference": "30909920180907904",
+      "dateCreationVersion": "05/04/2018 16:03",
+      "dateEnregVersion": "05/04/2018 08:00",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "181307",
+      "reference": "30909920180905905",
+      "dateCreationVersion": "05/04/2018 15:22",
+      "dateEnregVersion": "05/04/2018 08:00",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "181016",
+      "reference": "30901020180927903",
+      "dateCreationVersion": "26/03/2018 14:28",
+      "dateEnregVersion": "26/03/2018 08:00",
+      "numeroVersion": "3"
+    },
+    {
+      "identifiant": "180684",
+      "reference": "30901020180000190",
+      "dateCreationVersion": "16/03/2018 15:03",
+      "dateEnregVersion": "16/03/2018 15:03",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "180684",
+      "reference": "30901020180000190",
+      "dateCreationVersion": "16/03/2018 15:03",
+      "dateEnregVersion": "16/03/2018 15:03",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "180684",
+      "reference": "30901020180000190",
+      "dateCreationVersion": "16/03/2018 15:03",
+      "dateEnregVersion": "16/03/2018 15:03",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "180684",
+      "reference": "30901020180000190",
+      "dateCreationVersion": "16/03/2018 15:03",
+      "dateEnregVersion": "16/03/2018 15:03",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "180684",
+      "reference": "30901020180000190",
+      "dateCreationVersion": "16/03/2018 15:03",
+      "dateEnregVersion": "16/03/2018 15:03",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "180684",
+      "reference": "30901020180000190",
+      "dateCreationVersion": "16/03/2018 15:03",
+      "dateEnregVersion": "16/03/2018 15:03",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "180093",
+      "reference": "30901020180000145",
+      "dateCreationVersion": "23/02/2018 14:08",
+      "dateEnregVersion": "23/02/2018 14:09",
+      "numeroVersion": "3"
+    },
+    {
+      "identifiant": "180026",
+      "reference": "30901020180000127",
+      "dateCreationVersion": "21/02/2018 14:41",
+      "dateEnregVersion": "21/02/2018 14:52",
+      "numeroVersion": "1"
+    },
+    {
+      "identifiant": "180011",
+      "reference": "30901020180000122",
+      "dateCreationVersion": "21/02/2018 10:27",
+      "dateEnregVersion": "21/02/2018 11:31",
+      "numeroVersion": "1"
+    },
+    {
+      "identifiant": "179957",
+      "reference": "30902220180000019",
+      "dateCreationVersion": "19/02/2018 14:13",
+      "dateEnregVersion": "19/02/2018 14:13",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "179791",
+      "reference": "30901020180000069",
+      "dateCreationVersion": "14/02/2018 15:01",
+      "dateEnregVersion": "14/02/2018 15:03",
+      "numeroVersion": "16"
+    },
+    {
+      "identifiant": "179788",
+      "reference": "30901020180000067",
+      "dateCreationVersion": "14/02/2018 13:12",
+      "dateEnregVersion": "14/02/2018 13:29",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "179738",
+      "reference": "30901020180000061",
+      "dateCreationVersion": "12/02/2018 13:48",
+      "dateEnregVersion": "12/02/2018 13:48",
+      "numeroVersion": "2"
+    },
+    {
+      "identifiant": "179667",
+      "reference": "30901020180000050",
+      "dateCreationVersion": "09/02/2018 14:57",
+      "dateEnregVersion": "09/02/2018 14:57",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "179666",
+      "reference": "30901020180000049",
+      "dateCreationVersion": "09/02/2018 14:44",
+      "dateEnregVersion": "09/02/2018 14:45",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "179633",
+      "reference": "30930120180000003",
+      "dateCreationVersion": "08/02/2018 09:08",
+      "dateEnregVersion": "08/02/2018 09:08",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "179300",
+      "reference": "30930120180000002",
+      "dateCreationVersion": "26/01/2018 14:50",
+      "dateEnregVersion": "26/01/2018 15:27",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "179299",
+      "reference": "30930120180926901",
+      "dateCreationVersion": "26/01/2018 14:14",
+      "dateEnregVersion": "26/01/2018 08:00",
+      "numeroVersion": "1"
+    },
+    {
+      "identifiant": "179245",
+      "reference": "30930120180924901",
+      "dateCreationVersion": "24/01/2018 12:51",
+      "dateEnregVersion": "24/01/2018 08:00",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "179112",
+      "reference": "30930120180919901",
+      "dateCreationVersion": "19/01/2018 15:56",
+      "dateEnregVersion": "19/01/2018 08:00",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "178884",
+      "reference": "30901020180000009",
+      "dateCreationVersion": "10/01/2018 13:03",
+      "dateEnregVersion": "10/01/2018 13:03",
+      "numeroVersion": "1"
+    },
+    {
+      "identifiant": "178861",
+      "reference": "30902220180000001",
+      "dateCreationVersion": "09/01/2018 16:01",
+      "dateEnregVersion": "09/01/2018 16:01",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "178748",
+      "reference": "30930120180900900",
+      "dateCreationVersion": "05/01/2018 10:23",
+      "dateEnregVersion": "05/01/2018 08:00",
+      "numeroVersion": "1"
+    },
+    {
+      "identifiant": "177892",
+      "reference": "30901020170907912",
+      "dateCreationVersion": "07/12/2017 10:43",
+      "dateEnregVersion": "07/12/2017 08:00",
+      "numeroVersion": "1"
+    },
+    {
+      "identifiant": "177830",
+      "reference": "30902220170906912",
+      "dateCreationVersion": "06/12/2017 09:43",
+      "dateEnregVersion": "06/12/2017 08:00",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "177449",
+      "reference": "30904020170900900",
+      "dateCreationVersion": "21/11/2017 14:02",
+      "dateEnregVersion": "21/11/2017 08:00",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "177448",
+      "reference": "30901020170922911",
+      "dateCreationVersion": "21/11/2017 13:46",
+      "dateEnregVersion": "21/11/2017 08:00",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "177441",
+      "reference": "30901020170921911",
+      "dateCreationVersion": "21/11/2017 09:25",
+      "dateEnregVersion": "21/11/2017 08:00",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "177275",
+      "reference": "30901020170915911",
+      "dateCreationVersion": "14/11/2017 09:16",
+      "dateEnregVersion": "14/11/2017 08:00",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "177274",
+      "reference": "30901020170914911",
+      "dateCreationVersion": "14/11/2017 09:14",
+      "dateEnregVersion": "14/11/2017 08:00",
+      "numeroVersion": "2"
+    },
+    {
+      "identifiant": "176808",
+      "reference": "30901020170911901",
+      "dateCreationVersion": "27/10/2017 12:02",
+      "dateEnregVersion": "27/10/2017 08:00",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "176807",
+      "reference": "30901020170910901",
+      "dateCreationVersion": "27/10/2017 12:00",
+      "dateEnregVersion": "27/10/2017 08:00",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "176806",
+      "reference": "30901020170928910",
+      "dateCreationVersion": "27/10/2017 11:51",
+      "dateEnregVersion": "27/10/2017 08:00",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "174669",
+      "reference": "30901020170903910",
+      "dateCreationVersion": "03/10/2017 14:51",
+      "dateEnregVersion": "03/10/2017 08:00",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "173594",
+      "reference": "30901020170008796",
+      "dateCreationVersion": "23/09/2017 11:21",
+      "dateEnregVersion": "23/09/2017 11:21",
+      "numeroVersion": "0",
+      "numVoyage": "1"
+    },
+    {
+      "identifiant": "173263",
+      "reference": "30901020170008538",
+      "dateCreationVersion": "20/09/2017 15:09",
+      "dateEnregVersion": "20/09/2017 15:16",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "173154",
+      "reference": "30901020170008267",
+      "dateCreationVersion": "15/09/2017 16:37",
+      "dateEnregVersion": "15/09/2017 16:37",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "173145",
+      "reference": "30901020170915909",
+      "dateCreationVersion": "15/09/2017 10:26",
+      "dateEnregVersion": "15/09/2017 08:00",
+      "numeroVersion": "1"
+    },
+    {
+      "identifiant": "171920",
+      "reference": "30901020170925908",
+      "dateCreationVersion": "25/08/2017 10:17",
+      "dateEnregVersion": "25/08/2017 08:00",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "171692",
+      "reference": "30901020170917908",
+      "dateCreationVersion": "17/08/2017 13:57",
+      "dateEnregVersion": "17/08/2017 08:00",
+      "numeroVersion": "1"
+    },
+    {
+      "identifiant": "168001",
+      "reference": "30901020170919907",
+      "dateCreationVersion": "19/07/2017 15:26",
+      "dateEnregVersion": "19/07/2017 08:00",
+      "numeroVersion": "1"
+    },
+    {
+      "identifiant": "167842",
+      "reference": "30901020170915907",
+      "dateCreationVersion": "14/07/2017 13:16",
+      "dateEnregVersion": "14/07/2017 08:00",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "167830",
+      "reference": "30901020170914907",
+      "dateCreationVersion": "14/07/2017 09:17",
+      "dateEnregVersion": "14/07/2017 08:00",
+      "numeroVersion": "1"
+    },
+    {
+      "identifiant": "167804",
+      "reference": "30901020170913907",
+      "dateCreationVersion": "13/07/2017 15:24",
+      "dateEnregVersion": "13/07/2017 08:00",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "167606",
+      "reference": "30901020170911907",
+      "dateCreationVersion": "11/07/2017 16:15",
+      "dateEnregVersion": "11/07/2017 08:00",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "167405",
+      "reference": "30901020170905907",
+      "dateCreationVersion": "05/07/2017 15:57",
+      "dateEnregVersion": "05/07/2017 08:00",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "167198",
+      "reference": "30901020170929906",
+      "dateCreationVersion": "28/06/2017 11:34",
+      "dateEnregVersion": "28/06/2017 08:00",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "166843",
+      "reference": "30902220170916906",
+      "dateCreationVersion": "15/06/2017 11:41",
+      "dateEnregVersion": "15/06/2017 08:00",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "166839",
+      "reference": "30902220170915906",
+      "dateCreationVersion": "15/06/2017 10:07",
+      "dateEnregVersion": "15/06/2017 08:00",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "166125",
+      "reference": "30902220170913906",
+      "dateCreationVersion": "13/06/2017 10:16",
+      "dateEnregVersion": "13/06/2017 08:00",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "165642",
+      "reference": "30902220170912906",
+      "dateCreationVersion": "12/06/2017 09:59",
+      "dateEnregVersion": "12/06/2017 08:00",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "165378",
+      "reference": "30902220170908906",
+      "dateCreationVersion": "08/06/2017 10:08",
+      "dateEnregVersion": "08/06/2017 08:00",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "163710",
+      "reference": "30902220170907906",
+      "dateCreationVersion": "07/06/2017 13:50",
+      "dateEnregVersion": "07/06/2017 08:00",
+      "numeroVersion": "1"
+    },
+    {
+      "identifiant": "162655",
+      "reference": "30901020170905906",
+      "dateCreationVersion": "05/06/2017 11:41",
+      "dateEnregVersion": "05/06/2017 08:00",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "162462",
+      "reference": "30902220170930905",
+      "dateCreationVersion": "30/05/2017 12:18",
+      "dateEnregVersion": "30/05/2017 08:00",
+      "numeroVersion": "1"
+    },
+    {
+      "identifiant": "162277",
+      "reference": "30902220170924905",
+      "dateCreationVersion": "24/05/2017 13:06",
+      "dateEnregVersion": "24/05/2017 08:00",
+      "numeroVersion": "1"
+    },
+    {
+      "identifiant": "162100",
+      "reference": "30901020170956454",
+      "dateCreationVersion": "19/05/2017 17:56",
+      "dateEnregVersion": "02/05/2017 10:10",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "162055",
+      "reference": "30901020170918905",
+      "dateCreationVersion": "18/05/2017 09:35",
+      "dateEnregVersion": "18/05/2017 08:00",
+      "numeroVersion": "1"
+    },
+    {
+      "identifiant": "162023",
+      "reference": "30901020170987741",
+      "dateCreationVersion": "17/05/2017 09:22",
+      "dateEnregVersion": "17/05/2017 08:00",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "161966",
+      "reference": "30902220170915905",
+      "dateCreationVersion": "15/05/2017 14:20",
+      "dateEnregVersion": "15/05/2017 08:00",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "161966",
+      "reference": "30902220170915905",
+      "dateCreationVersion": "15/05/2017 14:20",
+      "dateEnregVersion": "15/05/2017 08:00",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "161965",
+      "reference": "30901020170917905",
+      "dateCreationVersion": "15/05/2017 13:54",
+      "dateEnregVersion": "15/05/2017 08:00",
+      "numeroVersion": "1"
+    },
+    {
+      "identifiant": "161965",
+      "reference": "30901020170917905",
+      "dateCreationVersion": "15/05/2017 13:54",
+      "dateEnregVersion": "15/05/2017 08:00",
+      "numeroVersion": "1"
+    },
+    {
+      "identifiant": "161964",
+      "reference": "30901020170916905",
+      "dateCreationVersion": "15/05/2017 13:49",
+      "dateEnregVersion": "15/05/2017 08:00",
+      "numeroVersion": "1"
+    },
+    {
+      "identifiant": "161963",
+      "reference": "30901020170915905",
+      "dateCreationVersion": "15/05/2017 13:41",
+      "dateEnregVersion": "15/05/2017 14:00",
+      "numeroVersion": "1"
+    },
+    {
+      "identifiant": "161843",
+      "reference": "30901020170911905",
+      "dateCreationVersion": "11/05/2017 09:53",
+      "dateEnregVersion": "11/05/2017 08:00",
+      "numeroVersion": "1"
+    },
+    {
+      "identifiant": "161669",
+      "reference": "30901020170905905",
+      "dateCreationVersion": "05/05/2017 11:35",
+      "dateEnregVersion": "05/05/2017 08:00",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "161667",
+      "reference": "30901020170700075",
+      "dateCreationVersion": "05/05/2017 10:18",
+      "dateEnregVersion": "05/05/2017 10:18",
+      "numeroVersion": "3"
+    },
+    {
+      "identifiant": "161378",
+      "reference": "30901020170926904",
+      "dateCreationVersion": "26/04/2017 12:02",
+      "dateEnregVersion": "26/04/2017 08:00",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "161333",
+      "reference": "30901020170930904",
+      "dateCreationVersion": "25/04/2017 11:25",
+      "dateEnregVersion": "25/04/2017 08:08",
+      "numeroVersion": "1"
+    },
+    {
+      "identifiant": "161324",
+      "reference": "30901020170700067",
+      "dateCreationVersion": "25/04/2017 10:05",
+      "dateEnregVersion": "25/04/2017 10:06",
+      "numeroVersion": "1"
+    },
+    {
+      "identifiant": "161295",
+      "reference": "30901020170924904",
+      "dateCreationVersion": "24/04/2017 11:20",
+      "dateEnregVersion": "24/04/2017 08:00",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "161219",
+      "reference": "30901020170922904",
+      "dateCreationVersion": "21/04/2017 16:03",
+      "dateEnregVersion": "21/04/2017 08:00",
+      "numeroVersion": "2"
+    },
+    {
+      "identifiant": "161202",
+      "reference": "30901020170921904",
+      "dateCreationVersion": "21/04/2017 10:01",
+      "dateEnregVersion": "21/04/2017 08:00",
+      "numeroVersion": "1"
+    },
+    {
+      "identifiant": "160874",
+      "reference": "30930120170916904",
+      "dateCreationVersion": "14/04/2017 10:24",
+      "dateEnregVersion": "14/04/2017 08:00",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "160867",
+      "reference": "30930120170915904",
+      "dateCreationVersion": "14/04/2017 09:34",
+      "dateEnregVersion": "14/04/2017 08:00",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "160866",
+      "reference": "30930120170914904",
+      "dateCreationVersion": "14/04/2017 09:07",
+      "dateEnregVersion": "14/04/2017 08:00",
+      "numeroVersion": "1"
+    },
+    {
+      "identifiant": "160794",
+      "reference": "30930120170912904",
+      "dateCreationVersion": "12/04/2017 14:58",
+      "dateEnregVersion": "12/04/2017 08:00",
+      "numeroVersion": "1"
+    },
+    {
+      "identifiant": "160792",
+      "reference": "30901020170912904",
+      "dateCreationVersion": "12/04/2017 12:38",
+      "dateEnregVersion": "12/04/2017 08:00",
+      "numeroVersion": "1"
+    },
+    {
+      "identifiant": "160634",
+      "reference": "30901020170900900",
+      "dateCreationVersion": "07/04/2017 09:40",
+      "dateEnregVersion": "07/04/2017 08:00",
+      "numeroVersion": "0",
+      "numVoyage": "1"
+    },
+    {
+      "identifiant": "160395",
+      "reference": "30901020170923125",
+      "dateCreationVersion": "30/03/2017 15:27",
+      "dateEnregVersion": "29/03/2017 10:10",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "160335",
+      "reference": "30901020170928903",
+      "dateCreationVersion": "28/03/2017 13:46",
+      "dateEnregVersion": "28/03/2017 08:00",
+      "numeroVersion": "1"
+    },
+    {
+      "identifiant": "160334",
+      "reference": "30902220170928903",
+      "dateCreationVersion": "28/03/2017 13:15",
+      "dateEnregVersion": "28/03/2017 08:00",
+      "numeroVersion": "1"
+    },
+    {
+      "identifiant": "160104",
+      "reference": "30901020170963335",
+      "dateCreationVersion": "21/03/2017 15:29",
+      "dateEnregVersion": "21/03/2017 10:11",
+      "numeroVersion": "1"
+    },
+    {
+      "identifiant": "160096",
+      "reference": "30902220170921903",
+      "dateCreationVersion": "21/03/2017 12:07",
+      "dateEnregVersion": "21/03/2017 08:00",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "159961",
+      "reference": "30901020170914903",
+      "dateCreationVersion": "14/03/2017 16:02",
+      "dateEnregVersion": "14/03/2017 08:00",
+      "numeroVersion": "2"
+    },
+    {
+      "identifiant": "159171",
+      "reference": "30902220170902903",
+      "dateCreationVersion": "02/03/2017 15:59",
+      "dateEnregVersion": "02/03/2017 08:00",
+      "numeroVersion": "1"
+    },
+    {
+      "identifiant": "157268",
+      "reference": "30902220170924902",
+      "dateCreationVersion": "24/02/2017 10:35",
+      "dateEnregVersion": "24/02/2017 08:00",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "157233",
+      "reference": "30901020170923902",
+      "dateCreationVersion": "23/02/2017 14:45",
+      "dateEnregVersion": "23/02/2017 08:00",
+      "numeroVersion": "1"
+    },
+    {
+      "identifiant": "157166",
+      "reference": "30901020170922902",
+      "dateCreationVersion": "22/02/2017 10:57",
+      "dateEnregVersion": "22/02/2017 08:00",
+      "numeroVersion": "2"
+    },
+    {
+      "identifiant": "157114",
+      "reference": "30901020170921902",
+      "dateCreationVersion": "21/02/2017 09:34",
+      "dateEnregVersion": "21/02/2017 08:00",
+      "numeroVersion": "2"
+    },
+    {
+      "identifiant": "157081",
+      "reference": "30901020170920902",
+      "dateCreationVersion": "20/02/2017 14:28",
+      "dateEnregVersion": "20/02/2017 08:00",
+      "numeroVersion": "3"
+    },
+    {
+      "identifiant": "155298",
+      "reference": "30901020170924901",
+      "dateCreationVersion": "24/01/2017 10:46",
+      "dateEnregVersion": "24/01/2017 08:00",
+      "numeroVersion": "1"
+    },
+    {
+      "identifiant": "155135",
+      "reference": "30901020170921901",
+      "dateCreationVersion": "19/01/2017 16:19",
+      "dateEnregVersion": "19/01/2017 08:00",
+      "numeroVersion": "1"
+    },
+    {
+      "identifiant": "155134",
+      "reference": "30901020170920901",
+      "dateCreationVersion": "19/01/2017 15:26",
+      "dateEnregVersion": "19/01/2017 08:00",
+      "numeroVersion": "1"
+    },
+    {
+      "identifiant": "155133",
+      "reference": "30901020170919901",
+      "dateCreationVersion": "19/01/2017 15:20",
+      "dateEnregVersion": "19/01/2017 08:00",
+      "numeroVersion": "1"
+    },
+    {
+      "identifiant": "155089",
+      "reference": "30901020170918901",
+      "dateCreationVersion": "18/01/2017 10:28",
+      "dateEnregVersion": "18/01/2017 08:00",
+      "numeroVersion": "1"
+    },
+    {
+      "identifiant": "155004",
+      "reference": "30901020170916901",
+      "dateCreationVersion": "16/01/2017 11:04",
+      "dateEnregVersion": "16/01/2017 08:00",
+      "numeroVersion": "1"
+    },
+    {
+      "identifiant": "154888",
+      "reference": "30902220170900900",
+      "dateCreationVersion": "13/01/2017 15:26",
+      "dateEnregVersion": "13/01/2017 15:00",
+      "numeroVersion": "0",
+      "numVoyage": "1"
+    },
+    {
+      "identifiant": "154816",
+      "reference": "30902220170912901",
+      "dateCreationVersion": "12/01/2017 11:07",
+      "dateEnregVersion": "12/01/2017 08:00",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "154776",
+      "reference": "30902220170911901",
+      "dateCreationVersion": "10/01/2017 13:56",
+      "dateEnregVersion": "10/01/2017 08:00",
+      "numeroVersion": "2"
+    },
+    {
+      "identifiant": "154775",
+      "reference": "30902220170910901",
+      "dateCreationVersion": "10/01/2017 13:31",
+      "dateEnregVersion": "10/01/2017 08:00",
+      "numeroVersion": "1"
+    },
+    {
+      "identifiant": "154460",
+      "reference": "30901020170902901",
+      "dateCreationVersion": "02/01/2017 11:45",
+      "dateEnregVersion": "02/01/2017 08:00",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "152735",
+      "reference": "30901020160908912",
+      "dateCreationVersion": "08/12/2016 09:59",
+      "dateEnregVersion": "08/12/2016 08:00",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "152679",
+      "reference": "30901020160907912",
+      "dateCreationVersion": "07/12/2016 10:32",
+      "dateEnregVersion": "07/12/2016 08:00",
+      "numeroVersion": "2"
+    },
+    {
+      "identifiant": "152487",
+      "reference": "30901020160048065",
+      "dateCreationVersion": "05/12/2016 16:16",
+      "dateEnregVersion": "05/12/2016 16:16",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "152244",
+      "reference": "30930120160901912",
+      "dateCreationVersion": "01/12/2016 13:29",
+      "dateEnregVersion": "01/12/2016 08:00",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "152217",
+      "reference": "30901020160901912",
+      "dateCreationVersion": "01/12/2016 09:55",
+      "dateEnregVersion": "01/12/2016 08:00",
+      "numeroVersion": "1"
+    },
+    {
+      "identifiant": "152157",
+      "reference": "30901020160930911",
+      "dateCreationVersion": "29/11/2016 16:03",
+      "dateEnregVersion": "29/11/2016 08:00",
+      "numeroVersion": "2"
+    },
+    {
+      "identifiant": "152153",
+      "reference": "30901020160929911",
+      "dateCreationVersion": "29/11/2016 13:48",
+      "dateEnregVersion": "29/11/2016 08:00",
+      "numeroVersion": "1"
+    },
+    {
+      "identifiant": "151881",
+      "reference": "30901020160924911",
+      "dateCreationVersion": "24/11/2016 11:01",
+      "dateEnregVersion": "24/11/2016 08:00",
+      "numeroVersion": "1"
+    },
+    {
+      "identifiant": "151834",
+      "reference": "30901020160923911",
+      "dateCreationVersion": "23/11/2016 16:45",
+      "dateEnregVersion": "23/11/2016 08:00",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "151073",
+      "reference": "30901020160988988",
+      "dateCreationVersion": "11/11/2016 11:31",
+      "dateEnregVersion": "11/11/2016 08:00",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "151020",
+      "reference": "30901020160910911",
+      "dateCreationVersion": "10/11/2016 11:14",
+      "dateEnregVersion": "10/11/2016 08:00",
+      "numeroVersion": "1"
+    },
+    {
+      "identifiant": "150939",
+      "reference": "30901020160909911",
+      "dateCreationVersion": "08/11/2016 10:57",
+      "dateEnregVersion": "08/11/2016 08:00",
+      "numeroVersion": "4"
+    },
+    {
+      "identifiant": "150869",
+      "reference": "30901020160908911",
+      "dateCreationVersion": "07/11/2016 11:55",
+      "dateEnregVersion": "07/11/2016 08:00",
+      "numeroVersion": "3"
+    },
+    {
+      "identifiant": "150862",
+      "reference": "30901020160907911",
+      "dateCreationVersion": "07/11/2016 10:38",
+      "dateEnregVersion": "07/11/2016 08:00",
+      "numeroVersion": "2"
+    },
+    {
+      "identifiant": "150738",
+      "reference": "30901020160904911",
+      "dateCreationVersion": "04/11/2016 11:38",
+      "dateEnregVersion": "04/11/2016 08:00",
+      "numeroVersion": "1"
+    },
+    {
+      "identifiant": "150663",
+      "reference": "30930120160903911",
+      "dateCreationVersion": "03/11/2016 09:45",
+      "dateEnregVersion": "03/11/2016 08:00",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "150623",
+      "reference": "30901020160902911",
+      "dateCreationVersion": "02/11/2016 11:32",
+      "dateEnregVersion": "02/11/2016 08:00",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "150580",
+      "reference": "30901020160901911",
+      "dateCreationVersion": "01/11/2016 11:45",
+      "dateEnregVersion": "01/11/2016 08:00",
+      "numeroVersion": "1"
+    },
+    {
+      "identifiant": "150556",
+      "reference": "30930120160931910",
+      "dateCreationVersion": "31/10/2016 15:50",
+      "dateEnregVersion": "31/10/2016 08:00",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "150550",
+      "reference": "30901020160931910",
+      "dateCreationVersion": "31/10/2016 11:22",
+      "dateEnregVersion": "31/10/2016 08:00",
+      "numeroVersion": "1",
+      "numVoyage": "1"
+    },
+    {
+      "identifiant": "149968",
+      "reference": "30901020160917910",
+      "dateCreationVersion": "17/10/2016 10:17",
+      "dateEnregVersion": "17/10/2016 08:00",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "147239",
+      "reference": "30904020160900900",
+      "dateCreationVersion": "07/09/2016 14:50",
+      "dateEnregVersion": "07/09/2016 08:00",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "147180",
+      "reference": "30901020160906909",
+      "dateCreationVersion": "06/09/2016 10:12",
+      "dateEnregVersion": "06/09/2016 08:00",
+      "numeroVersion": "2"
+    },
+    {
+      "identifiant": "146268",
+      "reference": "30908520160000029",
+      "dateCreationVersion": "15/08/2016 15:16",
+      "dateEnregVersion": "15/08/2016 15:16",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "142328",
+      "reference": "30901020160913907",
+      "dateCreationVersion": "13/07/2016 10:19",
+      "dateEnregVersion": "13/07/2016 08:00",
+      "numeroVersion": "1"
+    },
+    {
+      "identifiant": "135833",
+      "reference": "30907020160018436",
+      "dateCreationVersion": "14/06/2016 13:10",
+      "dateEnregVersion": "14/06/2016 13:10",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "135786",
+      "reference": "30907020160018392",
+      "dateCreationVersion": "14/06/2016 12:36",
+      "dateEnregVersion": "14/06/2016 12:36",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "135279",
+      "reference": "30907020160018258",
+      "dateCreationVersion": "14/06/2016 09:23",
+      "dateEnregVersion": "14/06/2016 09:23",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "135155",
+      "reference": "30901020160038847",
+      "dateCreationVersion": "13/06/2016 16:03",
+      "dateEnregVersion": "13/06/2016 16:03",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "135142",
+      "reference": "30901020160038835",
+      "dateCreationVersion": "13/06/2016 16:01",
+      "dateEnregVersion": "13/06/2016 16:01",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "135128",
+      "reference": "30901020160038822",
+      "dateCreationVersion": "13/06/2016 16:00",
+      "dateEnregVersion": "13/06/2016 16:00",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "135114",
+      "reference": "30901020160038808",
+      "dateCreationVersion": "13/06/2016 15:59",
+      "dateEnregVersion": "13/06/2016 15:59",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "135101",
+      "reference": "30901020160038796",
+      "dateCreationVersion": "13/06/2016 15:57",
+      "dateEnregVersion": "13/06/2016 15:57",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "135087",
+      "reference": "30901020160038782",
+      "dateCreationVersion": "13/06/2016 15:56",
+      "dateEnregVersion": "13/06/2016 15:56",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "135072",
+      "reference": "30901020160038769",
+      "dateCreationVersion": "13/06/2016 15:54",
+      "dateEnregVersion": "13/06/2016 15:54",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "135059",
+      "reference": "30901020160038757",
+      "dateCreationVersion": "13/06/2016 15:53",
+      "dateEnregVersion": "13/06/2016 15:53",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "135045",
+      "reference": "30901020160038743",
+      "dateCreationVersion": "13/06/2016 15:52",
+      "dateEnregVersion": "13/06/2016 15:52",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "135032",
+      "reference": "30901020160038731",
+      "dateCreationVersion": "13/06/2016 15:50",
+      "dateEnregVersion": "13/06/2016 15:50",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "135018",
+      "reference": "30901020160038717",
+      "dateCreationVersion": "13/06/2016 15:49",
+      "dateEnregVersion": "13/06/2016 15:49",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "135004",
+      "reference": "30901020160038704",
+      "dateCreationVersion": "13/06/2016 15:48",
+      "dateEnregVersion": "13/06/2016 15:48",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "134991",
+      "reference": "30901020160038692",
+      "dateCreationVersion": "13/06/2016 15:47",
+      "dateEnregVersion": "13/06/2016 15:47",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "134977",
+      "reference": "30901020160038678",
+      "dateCreationVersion": "13/06/2016 15:45",
+      "dateEnregVersion": "13/06/2016 15:45",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "134965",
+      "reference": "30901020160038667",
+      "dateCreationVersion": "13/06/2016 15:44",
+      "dateEnregVersion": "13/06/2016 15:44",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "134951",
+      "reference": "30901020160038653",
+      "dateCreationVersion": "13/06/2016 15:43",
+      "dateEnregVersion": "13/06/2016 15:43",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "134938",
+      "reference": "30901020160038641",
+      "dateCreationVersion": "13/06/2016 15:42",
+      "dateEnregVersion": "13/06/2016 15:42",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "134924",
+      "reference": "30901020160038628",
+      "dateCreationVersion": "13/06/2016 15:40",
+      "dateEnregVersion": "13/06/2016 15:40",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "134910",
+      "reference": "30901020160038614",
+      "dateCreationVersion": "13/06/2016 15:39",
+      "dateEnregVersion": "13/06/2016 15:39",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "134897",
+      "reference": "30901020160038602",
+      "dateCreationVersion": "13/06/2016 15:38",
+      "dateEnregVersion": "13/06/2016 15:38",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "134883",
+      "reference": "30901020160038588",
+      "dateCreationVersion": "13/06/2016 15:36",
+      "dateEnregVersion": "13/06/2016 15:36",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "134870",
+      "reference": "30901020160038576",
+      "dateCreationVersion": "13/06/2016 15:35",
+      "dateEnregVersion": "13/06/2016 15:35",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "134856",
+      "reference": "30901020160038563",
+      "dateCreationVersion": "13/06/2016 15:34",
+      "dateEnregVersion": "13/06/2016 15:34",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "134842",
+      "reference": "30901020160038549",
+      "dateCreationVersion": "13/06/2016 15:32",
+      "dateEnregVersion": "13/06/2016 15:32",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "134829",
+      "reference": "30901020160038537",
+      "dateCreationVersion": "13/06/2016 15:31",
+      "dateEnregVersion": "13/06/2016 15:31",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "134815",
+      "reference": "30901020160038523",
+      "dateCreationVersion": "13/06/2016 15:29",
+      "dateEnregVersion": "13/06/2016 15:29",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "134801",
+      "reference": "30901020160038510",
+      "dateCreationVersion": "13/06/2016 15:28",
+      "dateEnregVersion": "13/06/2016 15:28",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "134788",
+      "reference": "30901020160038498",
+      "dateCreationVersion": "13/06/2016 15:27",
+      "dateEnregVersion": "13/06/2016 15:27",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "134773",
+      "reference": "30901020160038483",
+      "dateCreationVersion": "13/06/2016 15:25",
+      "dateEnregVersion": "13/06/2016 15:25",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "134760",
+      "reference": "30901020160038471",
+      "dateCreationVersion": "13/06/2016 15:24",
+      "dateEnregVersion": "13/06/2016 15:24",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "134759",
+      "reference": "30901020160038470",
+      "dateCreationVersion": "13/06/2016 15:24",
+      "dateEnregVersion": "13/06/2016 15:24",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "134732",
+      "reference": "30901020160038444",
+      "dateCreationVersion": "13/06/2016 15:22",
+      "dateEnregVersion": "13/06/2016 15:22",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "134718",
+      "reference": "30901020160038432",
+      "dateCreationVersion": "13/06/2016 15:20",
+      "dateEnregVersion": "13/06/2016 15:20",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "134704",
+      "reference": "30901020160038418",
+      "dateCreationVersion": "13/06/2016 15:19",
+      "dateEnregVersion": "13/06/2016 15:19",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "134691",
+      "reference": "30901020160038406",
+      "dateCreationVersion": "13/06/2016 15:18",
+      "dateEnregVersion": "13/06/2016 15:18",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "134677",
+      "reference": "30901020160038392",
+      "dateCreationVersion": "13/06/2016 15:16",
+      "dateEnregVersion": "13/06/2016 15:16",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "134663",
+      "reference": "30901020160038379",
+      "dateCreationVersion": "13/06/2016 15:15",
+      "dateEnregVersion": "13/06/2016 15:15",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "134648",
+      "reference": "30901020160038366",
+      "dateCreationVersion": "13/06/2016 15:14",
+      "dateEnregVersion": "13/06/2016 15:14",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "134634",
+      "reference": "30901020160038352",
+      "dateCreationVersion": "13/06/2016 15:12",
+      "dateEnregVersion": "13/06/2016 15:12",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "134620",
+      "reference": "30901020160038339",
+      "dateCreationVersion": "13/06/2016 15:11",
+      "dateEnregVersion": "13/06/2016 15:11",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "134606",
+      "reference": "30901020160038325",
+      "dateCreationVersion": "13/06/2016 15:10",
+      "dateEnregVersion": "13/06/2016 15:10",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "134593",
+      "reference": "30901020160038313",
+      "dateCreationVersion": "13/06/2016 15:09",
+      "dateEnregVersion": "13/06/2016 15:09",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "134579",
+      "reference": "30901020160038299",
+      "dateCreationVersion": "13/06/2016 15:07",
+      "dateEnregVersion": "13/06/2016 15:07",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "134567",
+      "reference": "30901020160038288",
+      "dateCreationVersion": "13/06/2016 15:06",
+      "dateEnregVersion": "13/06/2016 15:06",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "134551",
+      "reference": "30901020160038273",
+      "dateCreationVersion": "13/06/2016 15:04",
+      "dateEnregVersion": "13/06/2016 15:04",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "134538",
+      "reference": "30901020160038261",
+      "dateCreationVersion": "13/06/2016 15:02",
+      "dateEnregVersion": "13/06/2016 15:02",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "134524",
+      "reference": "30901020160038247",
+      "dateCreationVersion": "13/06/2016 15:01",
+      "dateEnregVersion": "13/06/2016 15:01",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "134509",
+      "reference": "30901020160038234",
+      "dateCreationVersion": "13/06/2016 14:59",
+      "dateEnregVersion": "13/06/2016 14:59",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "134496",
+      "reference": "30901020160038222",
+      "dateCreationVersion": "13/06/2016 14:58",
+      "dateEnregVersion": "13/06/2016 14:58",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "134482",
+      "reference": "30901020160038208",
+      "dateCreationVersion": "13/06/2016 14:57",
+      "dateEnregVersion": "13/06/2016 14:57",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "134468",
+      "reference": "30901020160038195",
+      "dateCreationVersion": "13/06/2016 14:55",
+      "dateEnregVersion": "13/06/2016 14:55",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "134454",
+      "reference": "30901020160038183",
+      "dateCreationVersion": "13/06/2016 14:54",
+      "dateEnregVersion": "13/06/2016 14:54",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "134449",
+      "reference": "30901020160038178",
+      "dateCreationVersion": "13/06/2016 14:53",
+      "dateEnregVersion": "13/06/2016 14:53",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "134425",
+      "reference": "30901020160038156",
+      "dateCreationVersion": "13/06/2016 14:50",
+      "dateEnregVersion": "13/06/2016 14:50",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "134411",
+      "reference": "30901020160038143",
+      "dateCreationVersion": "13/06/2016 14:48",
+      "dateEnregVersion": "13/06/2016 14:48",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "134398",
+      "reference": "30901020160038131",
+      "dateCreationVersion": "13/06/2016 14:46",
+      "dateEnregVersion": "13/06/2016 14:46",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "134396",
+      "reference": "30901020160038129",
+      "dateCreationVersion": "13/06/2016 14:46",
+      "dateEnregVersion": "13/06/2016 14:46",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "134370",
+      "reference": "30901020160038104",
+      "dateCreationVersion": "13/06/2016 14:43",
+      "dateEnregVersion": "13/06/2016 14:43",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "134356",
+      "reference": "30901020160038092",
+      "dateCreationVersion": "13/06/2016 14:42",
+      "dateEnregVersion": "13/06/2016 14:42",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "134354",
+      "reference": "30901020160038090",
+      "dateCreationVersion": "13/06/2016 14:42",
+      "dateEnregVersion": "13/06/2016 14:42",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "134328",
+      "reference": "30901020160038065",
+      "dateCreationVersion": "13/06/2016 14:39",
+      "dateEnregVersion": "13/06/2016 14:39",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "134315",
+      "reference": "30901020160038053",
+      "dateCreationVersion": "13/06/2016 14:38",
+      "dateEnregVersion": "13/06/2016 14:38",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "134301",
+      "reference": "30901020160038039",
+      "dateCreationVersion": "13/06/2016 14:36",
+      "dateEnregVersion": "13/06/2016 14:36",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "134287",
+      "reference": "30901020160038027",
+      "dateCreationVersion": "13/06/2016 14:35",
+      "dateEnregVersion": "13/06/2016 14:35",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "134273",
+      "reference": "30901020160038014",
+      "dateCreationVersion": "13/06/2016 14:34",
+      "dateEnregVersion": "13/06/2016 14:34",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "134259",
+      "reference": "30901020160038000",
+      "dateCreationVersion": "13/06/2016 14:33",
+      "dateEnregVersion": "13/06/2016 14:33",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "134246",
+      "reference": "30901020160037988",
+      "dateCreationVersion": "13/06/2016 14:31",
+      "dateEnregVersion": "13/06/2016 14:31",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "134232",
+      "reference": "30901020160037974",
+      "dateCreationVersion": "13/06/2016 14:30",
+      "dateEnregVersion": "13/06/2016 14:30",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "134219",
+      "reference": "30901020160037962",
+      "dateCreationVersion": "13/06/2016 14:29",
+      "dateEnregVersion": "13/06/2016 14:29",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "133720",
+      "reference": "30907020160017996",
+      "dateCreationVersion": "13/06/2016 10:14",
+      "dateEnregVersion": "13/06/2016 10:14",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "133701",
+      "reference": "30907020160017981",
+      "dateCreationVersion": "13/06/2016 02:33",
+      "dateEnregVersion": "13/06/2016 02:33",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "133688",
+      "reference": "30907020160017968",
+      "dateCreationVersion": "13/06/2016 02:08",
+      "dateEnregVersion": "13/06/2016 02:08",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "133675",
+      "reference": "30907020160017955",
+      "dateCreationVersion": "13/06/2016 01:42",
+      "dateEnregVersion": "13/06/2016 01:42",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "133662",
+      "reference": "30907020160017942",
+      "dateCreationVersion": "13/06/2016 01:16",
+      "dateEnregVersion": "13/06/2016 01:16",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "133649",
+      "reference": "30907020160017929",
+      "dateCreationVersion": "13/06/2016 00:35",
+      "dateEnregVersion": "13/06/2016 00:35",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "133636",
+      "reference": "30907020160017916",
+      "dateCreationVersion": "13/06/2016 00:10",
+      "dateEnregVersion": "13/06/2016 00:10",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "133623",
+      "reference": "30907020160017903",
+      "dateCreationVersion": "12/06/2016 23:44",
+      "dateEnregVersion": "12/06/2016 23:44",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "133610",
+      "reference": "30907020160017890",
+      "dateCreationVersion": "12/06/2016 23:18",
+      "dateEnregVersion": "12/06/2016 23:18",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "133597",
+      "reference": "30907020160017877",
+      "dateCreationVersion": "12/06/2016 22:37",
+      "dateEnregVersion": "12/06/2016 22:37",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "133584",
+      "reference": "30907020160017864",
+      "dateCreationVersion": "12/06/2016 22:11",
+      "dateEnregVersion": "12/06/2016 22:11",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "133571",
+      "reference": "30907020160017851",
+      "dateCreationVersion": "12/06/2016 21:46",
+      "dateEnregVersion": "12/06/2016 21:46",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "133558",
+      "reference": "30907020160017838",
+      "dateCreationVersion": "12/06/2016 21:20",
+      "dateEnregVersion": "12/06/2016 21:20",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "133545",
+      "reference": "30907020160017825",
+      "dateCreationVersion": "12/06/2016 20:39",
+      "dateEnregVersion": "12/06/2016 20:39",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "133532",
+      "reference": "30907020160017812",
+      "dateCreationVersion": "12/06/2016 20:13",
+      "dateEnregVersion": "12/06/2016 20:13",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "133519",
+      "reference": "30907020160017799",
+      "dateCreationVersion": "12/06/2016 19:48",
+      "dateEnregVersion": "12/06/2016 19:48",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "133506",
+      "reference": "30907020160017786",
+      "dateCreationVersion": "12/06/2016 19:22",
+      "dateEnregVersion": "12/06/2016 19:22",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "133493",
+      "reference": "30907020160017773",
+      "dateCreationVersion": "12/06/2016 18:40",
+      "dateEnregVersion": "12/06/2016 18:40",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "133480",
+      "reference": "30907020160017760",
+      "dateCreationVersion": "12/06/2016 18:15",
+      "dateEnregVersion": "12/06/2016 18:15",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "133467",
+      "reference": "30907020160017747",
+      "dateCreationVersion": "12/06/2016 17:49",
+      "dateEnregVersion": "12/06/2016 17:49",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "133454",
+      "reference": "30907020160017734",
+      "dateCreationVersion": "12/06/2016 17:24",
+      "dateEnregVersion": "12/06/2016 17:24",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "133441",
+      "reference": "30907020160017721",
+      "dateCreationVersion": "12/06/2016 16:58",
+      "dateEnregVersion": "12/06/2016 16:58",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "133428",
+      "reference": "30907020160017708",
+      "dateCreationVersion": "12/06/2016 16:33",
+      "dateEnregVersion": "12/06/2016 16:33",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "133415",
+      "reference": "30907020160017695",
+      "dateCreationVersion": "12/06/2016 16:07",
+      "dateEnregVersion": "12/06/2016 16:07",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "133402",
+      "reference": "30907020160017682",
+      "dateCreationVersion": "12/06/2016 15:41",
+      "dateEnregVersion": "12/06/2016 15:41",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "133389",
+      "reference": "30907020160017669",
+      "dateCreationVersion": "12/06/2016 15:16",
+      "dateEnregVersion": "12/06/2016 15:16",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "133376",
+      "reference": "30907020160017656",
+      "dateCreationVersion": "12/06/2016 14:51",
+      "dateEnregVersion": "12/06/2016 14:51",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "133363",
+      "reference": "30907020160017643",
+      "dateCreationVersion": "12/06/2016 14:25",
+      "dateEnregVersion": "12/06/2016 14:25",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "133350",
+      "reference": "30907020160017630",
+      "dateCreationVersion": "12/06/2016 14:00",
+      "dateEnregVersion": "12/06/2016 14:00",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "133337",
+      "reference": "30907020160017617",
+      "dateCreationVersion": "12/06/2016 13:34",
+      "dateEnregVersion": "12/06/2016 13:34",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "133324",
+      "reference": "30907020160017604",
+      "dateCreationVersion": "12/06/2016 13:09",
+      "dateEnregVersion": "12/06/2016 13:09",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "133311",
+      "reference": "30907020160017591",
+      "dateCreationVersion": "12/06/2016 12:43",
+      "dateEnregVersion": "12/06/2016 12:43",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "133298",
+      "reference": "30907020160017578",
+      "dateCreationVersion": "12/06/2016 12:18",
+      "dateEnregVersion": "12/06/2016 12:18",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "133285",
+      "reference": "30907020160017565",
+      "dateCreationVersion": "12/06/2016 11:52",
+      "dateEnregVersion": "12/06/2016 11:52",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "133272",
+      "reference": "30907020160017552",
+      "dateCreationVersion": "12/06/2016 11:27",
+      "dateEnregVersion": "12/06/2016 11:27",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "133259",
+      "reference": "30907020160017539",
+      "dateCreationVersion": "12/06/2016 11:02",
+      "dateEnregVersion": "12/06/2016 11:02",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "133246",
+      "reference": "30907020160017526",
+      "dateCreationVersion": "12/06/2016 10:36",
+      "dateEnregVersion": "12/06/2016 10:36",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "133233",
+      "reference": "30907020160017513",
+      "dateCreationVersion": "12/06/2016 10:11",
+      "dateEnregVersion": "12/06/2016 10:11",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "133220",
+      "reference": "30907020160017500",
+      "dateCreationVersion": "12/06/2016 09:45",
+      "dateEnregVersion": "12/06/2016 09:45",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "133207",
+      "reference": "30907020160017487",
+      "dateCreationVersion": "12/06/2016 09:20",
+      "dateEnregVersion": "12/06/2016 09:20",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "133194",
+      "reference": "30907020160017474",
+      "dateCreationVersion": "12/06/2016 08:54",
+      "dateEnregVersion": "12/06/2016 08:54",
+      "numeroVersion": "0"
+    },
+    {
+      "identifiant": "133181",
+      "reference": "30907020160017461",
+      "dateCreationVersion": "12/06/2016 08:29",
+      "dateEnregVersion": "12/06/2016 08:29",
       "numeroVersion": "0"
     }
   ]

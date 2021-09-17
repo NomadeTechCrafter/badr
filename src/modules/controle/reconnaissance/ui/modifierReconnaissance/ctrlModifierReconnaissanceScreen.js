@@ -51,7 +51,7 @@ class ModifierReconnaissance extends React.Component {
                 />
 
                 {(this.props.searchMode || this.props.resultsMode) && (
-                    <CtrlReconnaissanceSearchComponent navigation={this.props.navigation} mode={'edit'}/>
+                    <CtrlReconnaissanceSearchComponent navigation={this.props.navigation} mode={'edit'} onReset={this.reset}/>
                 )}
 
                 {this.props.detailMode && (

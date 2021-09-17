@@ -231,7 +231,9 @@ class habHomeScreen extends React.Component {
         <Drawer.Screen
           name="DebloquerOperateur"
           component={DebloquerOperateur}
-          options={{ headerShown: false }}
+          options={{ headerShown: false, unmountOnBlur: true, lazy: false }}
+          unmountOnBlur={true}
+          lazy={false}
         />
 
         <Drawer.Screen
@@ -261,7 +263,8 @@ class habHomeScreen extends React.Component {
         <Drawer.Screen
           name="AffecterAgentVisiteurMain"
           component={AffecterAgentVisiteurMain}
-          options={{ headerShown: false }}
+          options={{ headerShown: false, unmountOnBlur: true, lazy: false }}
+         
         />
         
         <Drawer.Screen

@@ -51,7 +51,7 @@ class AjouterReconnaissance extends React.Component {
                 />
 
                 {(this.props.searchMode || this.props.resultsMode) && (
-                    <CtrlReconnaissanceSearchComponent navigation={this.props.navigation} mode={'add'}/>
+                    <CtrlReconnaissanceSearchComponent navigation={this.props.navigation} mode={'add'} onReset={this.reset}/>
                 )}
 
                 {this.props.detailMode && (
