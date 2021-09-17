@@ -1,29 +1,28 @@
+import moment from 'moment';
 import React from 'react';
-
-import {ScrollView, Text} from 'react-native';
-import {Button} from 'react-native-elements';
-import {TextInput} from 'react-native-paper';
-import {Col, Grid, Row} from 'react-native-easy-grid';
+import { ScrollView, Text } from 'react-native';
+import { Col, Grid, Row } from 'react-native-easy-grid';
+import { Button } from 'react-native-elements';
+import { TextInput } from 'react-native-paper';
+import { connect } from 'react-redux';
 import {
-  ComBadrAutoCompleteChipsComp,
-  ComBadrAutoCompleteComp,
-  ComBadrCheckboxTreeComp,
+  ComBadrAutoCompleteChipsComp, ComBadrCheckboxTreeComp,
   ComBadrDatePickerComp,
   ComBadrDualListBoxComp,
   ComBadrErrorMessageComp,
   ComBadrInfoMessageComp,
-  ComBadrProgressBarComp,
+  ComBadrProgressBarComp
 } from '../../../../commons/component';
-
-import {connect} from 'react-redux';
-import {translate} from '../../../../commons/i18n/ComI18nHelper';
-import style from '../style/refOperateursEconomiquesStyle';
-
-import moment from 'moment';
-
-import * as Constants from '../state/refOperateursEconomiquesConstants';
-
+import { translate } from '../../../../commons/i18n/ComI18nHelper';
 import * as RefOperateursEconomiquesConfirmAction from '../state/actions/refOperateursEconomiquesConfirmAction';
+import * as Constants from '../state/refOperateursEconomiquesConstants';
+import style from '../style/refOperateursEconomiquesStyle';
+import _ from 'lodash';
+
+
+
+
+
 
 const initialState = {
   blocageVo: {},
@@ -62,11 +61,43 @@ class RefOperateursEconomiquesCoreComponent extends React.Component {
       },
     };
   };
+  reset = () => {
+    if (this.props.mode === 'add') {
+      this.props.onReset();
+      this.setState({
+        
+        readonly: false,
+        readonlyedit: false,
+        dateDebut: null,
+        heureDebut: null,
+        dateFin: null,
+        heureFin: null,
+        blocageVo: {
+          operateur: {libelle:''},
+          commentaire: ''
+        }
+      });
+    }
+  }
+  static getDerivedStateFromProps(props, state) {
+    console.log('props', props);
+    console.log('state', state);
 
+    if (
+      props.mode === 'add' && !_.isEmpty(props.infoMessage) &&
+      _.isEmpty(state.infoMessage)
+    ) {
+      return {
+        ...state,
+        infoMessage: props.infoMessage
+      };
+    }
+  }
   confirm = () => {
     this.setState(
       {
         ...this.state,
+        infoMessage:null,
         blocageVo: {
           ...this.state.blocageVo,
           motifsBlocageSource: this.props.blocageVo.motifsBlocageSource,
@@ -91,7 +122,7 @@ class RefOperateursEconomiquesCoreComponent extends React.Component {
             value: this.state.blocageVo,
             mode: this.props.mode,
           },
-          this.props.navigation,
+          this.props.navigation,this.reset
         );
         this.props.actions.dispatch(action);
       },
@@ -111,6 +142,9 @@ class RefOperateursEconomiquesCoreComponent extends React.Component {
 
         {this.props.infoMessage != null && (
           <ComBadrInfoMessageComp message={this.props.infoMessage} />
+        )}
+        {this.state.infoMessage != null && (
+          <ComBadrInfoMessageComp message={this.state.infoMessage} />
         )}
 
         {this.props.errorMessage != null && (
@@ -297,7 +331,6 @@ class RefOperateursEconomiquesCoreComponent extends React.Component {
                 />
               </Col>
             </Row>
-
             <Row size={100}>
               <Col size={30} style={style.labelContainer}>
                 <Text style={style.labelTextStyle}>
@@ -325,6 +358,25 @@ class RefOperateursEconomiquesCoreComponent extends React.Component {
                 />
               </Col>
             </Row>
+            
+            {(this.props.mode === 'consult') && (<Row size={100}>
+              <Col size={30} style={style.labelContainer}>
+                <Text style={style.labelTextStyle}>
+                  {translate('operateursEconomiques.core.uniteOrganisationnelle')}
+                </Text>
+              </Col>
+
+              <Col size={70}>
+                <TextInput
+                  multiline={true}
+                  numberOfLines={4}
+                  mode="outlined"
+                  label={translate('operateursEconomiques.core.uniteOrganisationnelle')}
+                  value={this.state.blocageVo.descUniteOrgActBloquant}
+                  disabled={true}
+                />
+              </Col>
+            </Row>)}
 
             <Row size={100}>
               <Col size={30}>

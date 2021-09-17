@@ -4,7 +4,7 @@ import * as Constants from '../refOperateursEconomiquesConstants';
 
 import {translate} from '../../../../../commons/i18n/ComI18nHelper';
 
-export function request(action, navigation) {
+export function request(action, navigation,reset) {
     return (dispatch) => {
         dispatch(action);
         dispatch(inProgress(action));
@@ -15,6 +15,7 @@ export function request(action, navigation) {
                     const data = response.data;
                     if (data && (data.dtoHeader.messagesErreur == null || data.dtoHeader.messagesErreur.length === 0)) {
                         dispatch(success(data));
+                        reset();
                     } else {
                         dispatch(failed(data));
                     }

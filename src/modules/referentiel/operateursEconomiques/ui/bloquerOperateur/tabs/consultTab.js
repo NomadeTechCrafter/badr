@@ -43,7 +43,7 @@ class ConsultTab extends React.Component {
         return (
             <View>
                 {this.props.searchMode && (
-                    <RefOperateursEconomiquesSearchComponent navigation={this.props.navigation} includeInvalid={true}/>
+                    <RefOperateursEconomiquesSearchComponent navigation={this.props.navigation} includeInvalid={true} typeRecherche={'TYPE_RECHERCHE_SERVICES'}/>
                 )}
 
                 {this.props.detailMode && (

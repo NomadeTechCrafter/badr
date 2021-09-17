@@ -9,6 +9,7 @@ export default {
       heureDebut: 'Heure de début',
       heureFin: 'Heure de fin',
       commentaire: 'Commentaire',
+      uniteOrganisationnelle:'Unité organisationnelle',
       regimesABloquer: 'Régimes par rôles à bloquer',
     },
     search: {

@@ -25,6 +25,7 @@ class AddTab extends React.Component {
 
     componentWillUnmount() {
         this._unsubscribe();
+        this.reset();
     }
 
     reset = () => {

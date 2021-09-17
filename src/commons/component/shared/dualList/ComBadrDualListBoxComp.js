@@ -69,7 +69,7 @@ export default class ComBadrDualListBoxComp extends React.Component {
                     </SafeAreaView>
                 </Col>
 
-                <Col size={16} style={styles.arrows}>
+                <Col size={20} style={styles.arrows}>
                     <TouchableOpacity style={styles.touchableArrow}
                                       disabled={this.props.readonly}>
                         <Button

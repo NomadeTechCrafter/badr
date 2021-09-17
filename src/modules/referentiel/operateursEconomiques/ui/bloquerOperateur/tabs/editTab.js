@@ -43,7 +43,7 @@ class EditTab extends React.Component {
         return (
             <View>
                 {this.props.searchMode && (
-                    <RefOperateursEconomiquesSearchComponent navigation={this.props.navigation} includeInvalid={false}/>
+                    <RefOperateursEconomiquesSearchComponent navigation={this.props.navigation} includeInvalid={false} typeRecherche={'TYPE_RECHERCHE_MODIFICATION'}/>
                 )}
 
                 {this.props.detailMode && (

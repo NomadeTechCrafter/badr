@@ -11,6 +11,7 @@ import {
   ComBasicDataTableComp
 } from '../../../../commons/component';
 import { translate } from '../../../../commons/i18n/ComI18nHelper';
+import { ComSessionService } from '../../../../commons/services/session/ComSessionService';
 import * as RefOperateursEconomiquesDetailAction from '../state/actions/refOperateursEconomiquesDetailAction';
 import * as RefOperateursEconomiquesSearchAction from '../state/actions/refOperateursEconomiquesSearchAction';
 import * as Constants from '../state/refOperateursEconomiquesConstants';
@@ -85,6 +86,8 @@ class RefOperateursEconomiquesSearchComponent extends React.Component {
   };
 
   confirm = () => {
+    let codeBureau = ComSessionService.getInstance().getCodeBureau();
+    this.state.blocageVo = { ...this.state.blocageVo, administrateurCentral: codeBureau == '000', typeRecherche:this.props.typeRecherche}
     let action = RefOperateursEconomiquesSearchAction.request(
       {
         type: Constants.SEARCH_OPERATEURS_ECONOMIQUES_REQUEST,

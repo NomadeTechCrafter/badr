@@ -30,6 +30,7 @@ export default (state = initialState, action) => {
             nextState.infoMessage = null;
             nextState.errorMessage = null;
             nextState.showProgress = true;
+            nextState.showResults = false;
             nextState.data.init = [];
             return nextState;
         case Constants.INIT_OPERATEURS_ECONOMIQUES_IN_PROGRESS:

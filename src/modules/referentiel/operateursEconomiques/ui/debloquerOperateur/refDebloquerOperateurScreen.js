@@ -27,6 +27,7 @@ class DebloquerOperateur extends React.Component {
 
   componentWillUnmount() {
     this._unsubscribe();
+    this.reset();
   }
 
   reset = () => {
@@ -47,7 +48,7 @@ class DebloquerOperateur extends React.Component {
         value: {idBlocage: row.idBlocage},
         mode: 'unblock',
       },
-      this.props.navigation,
+      this.props.navigation, () => { }
     );
     this.props.actions.dispatch(action);
   };
@@ -66,6 +67,7 @@ class DebloquerOperateur extends React.Component {
             navigation={this.props.navigation}
             includeInvalid={false}
             onAction={this.debloquer}
+            typeRecherche={'TYPE_RECHERCHE_ANNULATION'}
           />
         )}
       </View>
