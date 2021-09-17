@@ -58,6 +58,7 @@ class RefOperateursEconomiquesCoreComponent extends React.Component {
         idBlocage: this.props.blocageVo.idBlocage,
         operateur: this.props.blocageVo.operateur,
         commentaire: this.props.blocageVo.commentaire,
+        descUniteOrgActBloquant: this.props.blocageVo.descUniteOrgActBloquant
       },
     };
   };
