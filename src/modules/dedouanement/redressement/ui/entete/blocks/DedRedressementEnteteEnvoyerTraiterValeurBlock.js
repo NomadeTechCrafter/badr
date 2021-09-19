@@ -239,7 +239,8 @@ class DedRedressementEnteteEnvoyerTraiterValeurBlock extends Component {
       if (this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO && this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO?.length > 0) {
         const lastVersionDeclarationValeur = this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO[this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO?.length - 1];
 
-        var derniereligneTraitee = this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO[this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO.length - 1].dateTraitement !== undefined;
+        const regionaleOuCentrale = lastVersionDeclarationValeur.traite;
+
         const newVersionDeclarationValeur =
         {
           agentEnvoiValeur: ComSessionService.getInstance().getLogin(),
@@ -250,8 +251,9 @@ class DedRedressementEnteteEnvoyerTraiterValeurBlock extends Component {
           dateEnvoi: moment(new Date()).format(FORMAT_DDMMYYYY_HHMM).toString(),
           descriptionEnvoi: this.state.declarationValeurDescriptionEnvoi,
           identifiantDUM: lastVersionDeclarationValeur.identifiantDUM,
-          structureDestination: derniereligneTraitee,
-          newVal: false
+          structureDestination: regionaleOuCentrale,
+          newVal: false,
+          traite: false
         };
 
         const newArray = this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO;
@@ -275,7 +277,8 @@ class DedRedressementEnteteEnvoyerTraiterValeurBlock extends Component {
           descriptionEnvoi: this.state.declarationValeurDescriptionEnvoi,
           identifiantDUM: this.props?.dedDumSectionEnteteVO?.identifiant,
           structureDestination: true,
-          newVal: false
+          newVal: false,
+          traite: false
         };
 
         const newArray = [];
@@ -334,30 +337,63 @@ class DedRedressementEnteteEnvoyerTraiterValeurBlock extends Component {
         declarationValeur: this.state?.listDeclarationValeurDUMVO[this.state?.listDeclarationValeurDUMVO?.length - 1]
       }
     }
-    
-    delete dataToSendToWS.dedDumSectionEnteteVO.declarationValeur.defaultConverter;
 
-    let action = ConsulterDumAction.request(
-      {
-        type: GENERIC_REQUEST,
-        value: {
-          jsonVO: dataToSendToWS
-        },
-        command: 'ded.EnvoyerValeur'
-      },
-      this.props.navigation,
-    );
+    console.log('*******************************************************************');
+    console.log('*******************************************************************');
+    console.log('*******************************************************************');
+    console.log('*******************************************************************');
+    console.log(JSON.stringify(this.state?.listDeclarationValeurDUMVO));
+    console.log('*******************************************************************');
+    console.log('*******************************************************************');
+    console.log('*******************************************************************');
+    console.log('*******************************************************************');
 
-    this.props.dispatch(action);
-
-    if (this.props?.errorMessage) {
-      console.log('if envoyerDeclarationValeur');
-      this.didItOnMount();
+    if (this.state?.listDeclarationValeurDUMVO && this.state?.listDeclarationValeurDUMVO?.length === 0) {
+      this.setState({
+        errorMessage: 'Demande de la valeur : Donnée manquante ou trop grande',
+      })
     } else {
       this.setState({
-        errorMessage: '',
-        envoiOK: true,
-      })
+        errorMessage: ''
+      });
+
+      if (this.state?.listDeclarationValeurDUMVO && this.state?.listDeclarationValeurDUMVO?.length > 0) {
+        const lastVersionDeclarationValeur = this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO[this.props?.dedDumSectionEnteteVO?.listDeclarationValeurDUMVO?.length - 1];
+        const structureDestination = lastVersionDeclarationValeur.traite;
+        // if (this.state?.listDeclarationValeurDUMVO && this.state?.listDeclarationValeurDUMVO?.length === 1) {
+          dataToSendToWS.dedDumSectionEnteteVO.declarationValeur.structureDestination = structureDestination;
+        // } else {
+        //   dataToSendToWS.dedDumSectionEnteteVO.declarationValeur.structureDestination = this.state?.listDeclarationValeurDUMVO[this.state?.listDeclarationValeurDUMVO?.length - 1].traite;
+        // }
+      } else {
+        dataToSendToWS.dedDumSectionEnteteVO.declarationValeur.structureDestination = true;
+      }
+
+      delete dataToSendToWS.dedDumSectionEnteteVO.declarationValeur.defaultConverter;
+
+      let action = ConsulterDumAction.request(
+        {
+          type: GENERIC_REQUEST,
+          value: {
+            jsonVO: dataToSendToWS
+          },
+          command: 'ded.EnvoyerValeur'
+        },
+        this.props.navigation,
+      );
+
+      this.props.dispatch(action);
+
+      if (this.props?.errorMessage) {
+        console.log('if envoyerDeclarationValeur');
+        this.didItOnMount();
+      } else {
+        this.setState({
+          errorMessage: '',
+          envoiOK: true,
+        })
+      }
+
     }
   };
 
