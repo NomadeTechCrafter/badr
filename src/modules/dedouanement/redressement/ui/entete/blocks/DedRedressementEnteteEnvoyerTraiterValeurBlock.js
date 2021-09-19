@@ -338,15 +338,6 @@ class DedRedressementEnteteEnvoyerTraiterValeurBlock extends Component {
       }
     }
 
-    console.log('*******************************************************************');
-    console.log('*******************************************************************');
-    console.log('*******************************************************************');
-    console.log('*******************************************************************');
-    console.log(JSON.stringify(this.state?.listDeclarationValeurDUMVO));
-    console.log('*******************************************************************');
-    console.log('*******************************************************************');
-    console.log('*******************************************************************');
-    console.log('*******************************************************************');
 
     if (this.state?.listDeclarationValeurDUMVO && this.state?.listDeclarationValeurDUMVO?.length === 0) {
       this.setState({

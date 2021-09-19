@@ -296,7 +296,7 @@ class DedRedressementScreen extends React.Component {
     }
 
     componentWillUnmount() {
-     }
+    }
 
     lancerModal = () => {
         let index = this.state.indexDialogConfirmationReception
@@ -481,8 +481,10 @@ class DedRedressementScreen extends React.Component {
                                 />
                             )}
                             <Tab.Screen name="Articles" component={ArticlesScreen} />
-                            {this.state.isPreapurementDSVisible &&
-                                isPreapurementDSAccessible === true && (
+                            {((this.state.isPreapurementDSVisible &&
+                                isPreapurementDSAccessible === true)
+                                || this.props?.consulterDumReducer?.fromWhere1 === 'ded.InitEnvoyerValeur'
+                                || this.props?.consulterDumReducer?.fromWhere1 === 'ded.InitTraiterValeur') && (
                                     <Tab.Screen
                                         name="Préapurements DS"
                                         component={PreapurementDsScreen}
@@ -494,8 +496,10 @@ class DedRedressementScreen extends React.Component {
                                     component={DemandeDiverseScreen}
                                 />
                             )}
-                            {this.state.isImputationTitreChangeVisible &&
-                                isImputationTitresDeChangeAccessible.data === true && (
+                            {((this.state.isImputationTitreChangeVisible &&
+                                isImputationTitresDeChangeAccessible.data === true)
+                                || this.props?.consulterDumReducer?.fromWhere1 === 'ded.InitEnvoyerValeur'
+                                || this.props?.consulterDumReducer?.fromWhere1 === 'ded.InitTraiterValeur') && (
                                     <Tab.Screen
                                         name="Imputation Titre Change"
                                         component={ImputationTitreChangeScreen}
@@ -508,9 +512,12 @@ class DedRedressementScreen extends React.Component {
                                         component={ImputationCompteREDScreen}
                                     />
                                 )}
-                                <Tab.Screen name="Documents" component={DocumentsScreen} />
-                                <Tab.Screen name="Moyen de transport de transit" component={DedRedressementMoyenTransportTransitScreen} />
-                                <Tab.Screen name="Info" component={InfoScreen} />
+                            <Tab.Screen name="Documents" component={DocumentsScreen} />
+                            {(this.props?.consulterDumReducer?.fromWhere1 !== 'ded.InitEnvoyerValeur'
+                                && this.props?.consulterDumReducer?.fromWhere1 !== 'ded.InitTraiterValeur') && (
+                                    <Tab.Screen name="Moyen de transport de transit" component={DedRedressementMoyenTransportTransitScreen} />
+                                )}
+                            <Tab.Screen name="Info" component={InfoScreen} />
                             <Tab.Screen name="Résultat scanner" component={ResultatScanner} />
 
                         </Tab.Navigator>
