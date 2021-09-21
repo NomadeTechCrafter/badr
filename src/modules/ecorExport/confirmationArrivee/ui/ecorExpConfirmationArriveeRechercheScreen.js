@@ -49,7 +49,7 @@ class ConfirmationArriveeRechercheScreen extends Component {
   };
   retablir = () => {
     console.log('retablir');
-    //this.setState({...this.defaultState});
+    this.setState({...this.defaultState});
   };
   onTypeListeAmpPickerChanged = (value, index) => {
     this.setState({typeListeAmp: value ? value.code : ''});

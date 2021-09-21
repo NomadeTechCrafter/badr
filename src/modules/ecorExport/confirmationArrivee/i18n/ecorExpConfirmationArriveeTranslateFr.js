@@ -4,6 +4,7 @@ export default {
     subTitle: 'CONFIRMER ARRIVEE',
     declarationEnDetail: 'Déclaration En Détail',
     etatChargement: 'Etat de Chargement',
+    avecReserves: 'Avec réserves',
     amp: 'AMP',
     oui: 'Oui',
     non: 'Non',

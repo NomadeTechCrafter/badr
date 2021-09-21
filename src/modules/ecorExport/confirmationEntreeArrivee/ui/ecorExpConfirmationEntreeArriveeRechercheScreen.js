@@ -248,7 +248,7 @@ class ConfirmationEntreeArriveeRechercheScreen extends Component {
                 id="listConfirmationEntreeArrivee"
                 rows={this.props?.data ? this.props?.data : []}
                 cols={this.cols}
-                totalElements={this.props?.data?.length}
+                totalElements={this.props?.data ? this.props?.data?.length : 0}
                 maxResultsPerPage={10}
                 paginate={true}
                 showProgress={this.props.showProgress}

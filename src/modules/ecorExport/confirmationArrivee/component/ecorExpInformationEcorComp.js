@@ -12,6 +12,10 @@ import {
   ComBadrDatePickerComp,
   ComBadrNumericTextInputComp,
   ComBadrInfoMessageComp,
+  ComBadrButtonRadioComp,
+  ComBadrKeyValueComp,
+  ComBadrPickerComp,
+  ComBadrErrorMessageComp,
 } from '../../../../commons/component';
 import {
   Button,
@@ -22,7 +26,7 @@ import {
 } from 'react-native-paper';
 import { MODULE_ECOREXP, TYPE_SERVICE_UC } from '../../../../commons/Config';
 import { translate } from '../../../../commons/i18n/ComI18nHelper';
-import { CustomStyleSheet } from '../../../../commons/styles/ComThemeStyle';
+import { CustomStyleSheet, primaryColor } from '../../../../commons/styles/ComThemeStyle';
 import { Col, Grid, Row } from 'react-native-easy-grid';
 import style from '../style/ecorExpConfirmationArriveeStyle';
 import _ from 'lodash';
@@ -31,6 +35,7 @@ const initialState = {
   documentEntreeEnceinte: '',
   dateDebut: '',
   heureDebut: '',
+  avecReserves: false,
   showErrorMessage: false,
   generateurNumScelleAu: '',
   generateurNumScelleDu: '',
@@ -60,9 +65,10 @@ class EcorExpInformationEcorComp extends React.Component {
   };*/
 
   componentDidMount() {
-    let dateHeureArrive = this.props.initConfirmerArriveeVO.dateHeureArrive
+    // this.comboRrubriqueTaxation.clearInput();
+    let dateHeureArrive = this.props.ecorExpConfirmationArriveeReducer?.initConfirmerArriveeVO?.dateHeureArrive
       ? moment(
-        this.props.initConfirmerArriveeVO.dateHeureArrive,
+        this.props.ecorExpConfirmationArriveeReducer?.initConfirmerArriveeVO?.dateHeureArrive,
         'DD/MM/yyyy HH:mm',
         true,
       )
@@ -71,98 +77,97 @@ class EcorExpInformationEcorComp extends React.Component {
     this.setState({
       ...this.state,
 
-      initConfirmerArriveeVO: this.props.initConfirmerArriveeVO,
-      documentEntreeEnceinte: this.props.initConfirmerArriveeVO
-        .documentEntreeEnceinte,
+      initConfirmerArriveeVO: this.props.ecorExpConfirmationArriveeReducer?.initConfirmerArriveeVO,
+      documentEntreeEnceinte: this.props.ecorExpConfirmationArriveeReducer?.initConfirmerArriveeVO?.documentEntreeEnceinte,
       dateDebut: dateHeureArrive,
       heureDebut: dateHeureArrive,
-      listeNombreDeScelles: this.props.listeNombreDeScelles,
+      listeNombreDeScelles: this.props.ecorExpConfirmationArriveeReducer?.listeNombreDeScelles,
     });
   }
 
 
-  genererNumeroScelle = () => {
-    console.log('generateurNumScelleDu');
-    let listeScelles = [];
-    const {
-      generateurNumScelleDu,
-      generateurNumScelleAu,
-      listeNombreDeScelles,
-    } = this.state;
-    if (generateurNumScelleDu && generateurNumScelleAu) {
-      if (
-        generateurNumScelleDu.length === 8 &&
-        generateurNumScelleAu.length === 8
-      ) {
-        let du = Number(generateurNumScelleDu);
-        let au = Number(generateurNumScelleAu);
-        if (au > du) {
-          if (au - du <= 100) {
-            console.log('generateurNumScelleDu ok condition');
-            let nbScelle = du;
-            for (let i = du; i <= au; i++) {
-              listeScelles.push(('00000000' + nbScelle).slice(-8));
-              nbScelle += 1;
-            }
-            console.log('generateurNumScelleDu listeScelles', listeScelles);
+  // genererNumeroScelle = () => {
+  //   console.log('generateurNumScelleDu');
+  //   let listeScelles = [];
+  //   const {
+  //     generateurNumScelleDu,
+  //     generateurNumScelleAu,
+  //     listeNombreDeScelles,
+  //   } = this.state;
+  //   if (generateurNumScelleDu && generateurNumScelleAu) {
+  //     if (
+  //       generateurNumScelleDu.length === 8 &&
+  //       generateurNumScelleAu.length === 8
+  //     ) {
+  //       let du = Number(generateurNumScelleDu);
+  //       let au = Number(generateurNumScelleAu);
+  //       if (au > du) {
+  //         if (au - du <= 100) {
+  //           console.log('generateurNumScelleDu ok condition');
+  //           let nbScelle = du;
+  //           for (let i = du; i <= au; i++) {
+  //             listeScelles.push(('00000000' + nbScelle).slice(-8));
+  //             nbScelle += 1;
+  //           }
+  //           console.log('generateurNumScelleDu listeScelles', listeScelles);
 
-            this.setState({
-              ...this.state,
-              listeNombreDeScelles: _.concat(
-                listeNombreDeScelles,
-                listeScelles,
-              ),
-              generateurNumScelleDu: '',
-              generateurNumScelleAu: '',
-            });
-            console.log('after set state genrete list ');
-            this.generateurNumScelleDu.clear();
-            this.generateurNumScelleAu.clear();
-            this.props.setError(null);
-          } else {
-            this.props.setError(translate('errors.maxNombreScelle'));
-          }
-        } else {
-          this.props.setError(translate('errors.numScelleInferieur'));
-        }
-      } else {
-        this.props.setError(translate('errors.numScelleLongueur'));
-      }
-    }
-  };
+  //           this.setState({
+  //             ...this.state,
+  //             listeNombreDeScelles: _.concat(
+  //               listeNombreDeScelles,
+  //               listeScelles,
+  //             ),
+  //             generateurNumScelleDu: '',
+  //             generateurNumScelleAu: '',
+  //           });
+  //           console.log('after set state genrete list ');
+  //           this.generateurNumScelleDu.clear();
+  //           this.generateurNumScelleAu.clear();
+  //           this.props.ecorExpConfirmationArriveeReducer?.setError(null);
+  //         } else {
+  //           this.props.setError(translate('errors.maxNombreScelle'));
+  //         }
+  //       } else {
+  //         this.props.setError(translate('errors.numScelleInferieur'));
+  //       }
+  //     } else {
+  //       this.props.setError(translate('errors.numScelleLongueur'));
+  //     }
+  //   }
+  // };
 
-  addNumeroScelle = () => {
-    const { numeroScelle, listeNombreDeScelles } = this.state;
-    if (numeroScelle && numeroScelle.length === 8) {
-      if (listeNombreDeScelles.length < 100) {
-        if (_.indexOf(listeNombreDeScelles, numeroScelle) === -1) {
-          this.setState({
-            ...this.state,
-            listeNombreDeScelles: [...listeNombreDeScelles, numeroScelle],
-            numeroScelle: '',
-          });
-          this.numeroScelleInput.clear();
-        } else {
-          this.props.setError(translate('errors.numScelleExisteDeja'));
-        }
-      } else {
-        this.props.setError(translate('errors.maxNombreScelle'));
-      }
-    } else {
-      this.props.setError(translate('errors.numScelleLongueur'));
-    }
-  };
+  // addNumeroScelle = () => {
+  //   const { numeroScelle, listeNombreDeScelles } = this.state;
+  //   if (numeroScelle && numeroScelle.length === 8) {
+  //     if (listeNombreDeScelles.length < 100) {
+  //       if (_.indexOf(listeNombreDeScelles, numeroScelle) === -1) {
+  //         this.setState({
+  //           ...this.state,
+  //           listeNombreDeScelles: [...listeNombreDeScelles, numeroScelle],
+  //           numeroScelle: '',
+  //         });
+  //         this.numeroScelleInput.clear();
+  //       } else {
+  //         this.props.setError(translate('errors.numScelleExisteDeja'));
+  //       }
+  //     } else {
+  //       this.props.setError(translate('errors.maxNombreScelle'));
+  //     }
+  //   } else {
+  //     this.props.setError(translate('errors.numScelleLongueur'));
+  //   }
+  // };
 
-  deleteNumeroScelle = () => {
-    const { selectedScelle, listeNombreDeScelles } = this.state;
-    let selectedScelleIndex = _.indexOf(listeNombreDeScelles, selectedScelle);
-    if (selectedScelle !== '' && selectedScelleIndex) {
-      listeNombreDeScelles.splice(selectedScelleIndex, 1);
-      this.setState({
-        selectedScelle: {},
-      });
-    }
-  };
+  // deleteNumeroScelle = () => {
+  //   const { selectedScelle, listeNombreDeScelles } = this.state;
+  //   let selectedScelleIndex = _.indexOf(listeNombreDeScelles, selectedScelle);
+  //   if (selectedScelle !== '' && selectedScelleIndex) {
+  //     listeNombreDeScelles.splice(selectedScelleIndex, 1);
+  //     this.setState({
+  //       selectedScelle: {},
+  //     });
+  //   }
+  // };
 
   updateVo = () => {
     let initConfirmerArriveeVO = this.state.initConfirmerArriveeVO;
@@ -198,23 +203,17 @@ class EcorExpInformationEcorComp extends React.Component {
       });
 
       if (
-        this.props.data &&
-        this.props.data.listDeclaration &&
-        this.props.data.listDeclaration.length > 0
+        this.props.ecorExpConfirmationArriveeReducer?.data &&
+        this.props.ecorExpConfirmationArriveeReducer?.data.listDeclaration &&
+        this.props.ecorExpConfirmationArriveeReducer?.data.listDeclaration.length > 0
       ) {
-        for (let j = 0; j < this.props.data.listDeclaration.length; j++) {
+        for (let j = 0; j < this.props.ecorExpConfirmationArriveeReducer?.data.listDeclaration.length; j++) {
           let DumVO = {
             documentEntreeEnceinte: '',
             numeroPince: '',
             nombreScelle: '',
-            nombreScelleConfirmationEntree: this.state.initConfirmerArriveeVO
-              .nombreDeScelles
-              ? this.state.initConfirmerArriveeVO.nombreDeScelles
-              : '',
-            numeroPinceConfirmationEntree: this.state.initConfirmerArriveeVO
-              .numeroPince
-              ? this.state.initConfirmerArriveeVO.numeroPince
-              : '',
+            nombreScelleConfirmationEntree: '',
+            numeroPinceConfirmationEntree: '',
             numeroVoyage: '',
             dateHeureAutorisation: '',
             dateHeureArrive: '',
@@ -244,13 +243,11 @@ class EcorExpInformationEcorComp extends React.Component {
             dateEnregistrement: '',
             depuisDelivrerBonEntree: false,
             fonctionMessage: '',
-            scelles: formattedListeScelles ? formattedListeScelles : {},
-            scellesConfirmationEntree: formattedListeScelles
-              ? formattedListeScelles
-              : {},
+            scelles: {},
+            scellesConfirmationEntree: {},
           };
 
-          DumVO.referenceEnregistrement = this.props.data.listDeclaration[
+          DumVO.referenceEnregistrement = this.props.ecorExpConfirmationArriveeReducer?.data.listDeclaration[
             j
           ].referenceEnregistrement;
           DumVO.documentEntreeEnceinte = this.state.documentEntreeEnceinte;
@@ -290,9 +287,9 @@ class EcorExpInformationEcorComp extends React.Component {
               data: EtatChargmentDUMVO,
             },
           },
-          this.props.navigation,
+          this.props.ecorExpConfirmationArriveeReducer?.navigation,
         );
-        this.props.dispatch(action);
+        this.props.ecorExpConfirmationArriveeReducer?.dispatch(action);
       } else {
         console.log('Veuillez choisir une déclaration en détail.');
       }
@@ -325,29 +322,49 @@ class EcorExpInformationEcorComp extends React.Component {
     );
   };
 
+  onMoyenTListePickerChanged = (selectedValue, selectedIndex, item) => {
+    this.setState({ message: selectedValue });
+  };
+  
+  handleRubriqueTaxationChanged = (itemValue, itemIndex, selectedItem) => {
+    console.log('handleRubriqueTaxationChanged itemValue', itemValue);
+    console.log('handleRubriqueTaxationChanged selectedItem', selectedItem);
+    this.setState({
+      ligne: {
+        ...this.state.ligne,
+        rubriqueTaxation: selectedItem
+      }
+    });
+
+  };
+
   render() {
-    console.log('in render');
-    const { ecorIsSaved } = this.props.data;
+    // console.log('in render');
+    console.log(' this.state.avecReserves : ' + this.state.avecReserves);
+    // const { ecorIsSaved } = this.props.data;
     const {
       initConfirmerArriveeVO,
       documentEntreeEnceinte,
       dateDebut,
       heureDebut,
     } = this.state;
-    let {
-      generateurNumScelleDu,
-      generateurNumScelleAu,
-      listeNombreDeScelles,
-      numeroScelle,
-    } = this.state;
+    // let {
+    //   generateurNumScelleDu,
+    //   generateurNumScelleAu,
+    //   listeNombreDeScelles,
+    //   numeroScelle,
+    // } = this.state;
 
     return (
       <View>
-        {this.props?.infoMessage != null && (
-          <ComBadrInfoMessageComp message={this.props?.infoMessage} />
+        {this.props?.ecorExpConfirmationArriveeReducer?.infoMessage != null && (
+          <ComBadrInfoMessageComp message={this.props?.ecorExpConfirmationArriveeReducer?.infoMessage} />
+        )}
+        {this.props.ecorExpConfirmationArriveeReducer?.errorMessage != null && (
+          <ComBadrErrorMessageComp message={this.props.ecorExpConfirmationArriveeReducer?.errorMessage} />
         )}
         <Grid>
-          <Row style={CustomStyleSheet.whiteRow}>
+          {/* <Row style={CustomStyleSheet.whiteRow}>
             <Col size={1}>
               <ComBadrLibelleComp withColor={true}>
                 {translate('confirmationArrivee.dateHeure')}
@@ -396,13 +413,13 @@ class EcorExpInformationEcorComp extends React.Component {
             </Col>
             <Col size={1}>
             </Col>
-          </Row>
-          {!_.isEmpty(initConfirmerArriveeVO) && (
+          </Row> */}
+          {/* {!_.isEmpty(initConfirmerArriveeVO) && ( */}
             <View>
-              <Row>
+              {/* Informations ECOR */}
+              {/* <Row>
                 <Col>
                   <ComBadrCardBoxComp noPadding={true}>
-                    {/* Informations ECOR */}
                     <ComAccordionComp
                       title={translate(
                         'confirmationArrivee.informationsEcor.title',
@@ -577,8 +594,8 @@ class EcorExpInformationEcorComp extends React.Component {
                     </ComAccordionComp>
                   </ComBadrCardBoxComp>
                 </Col>
-              </Row>
-              <Row>
+              </Row> */}
+              {/* <Row>
                 <Col>
                   <ComBadrCardBoxComp noPadding={true}>
                     <ComAccordionComp
@@ -648,72 +665,145 @@ class EcorExpInformationEcorComp extends React.Component {
                     </ComAccordionComp>
                   </ComBadrCardBoxComp>
                 </Col>
-              </Row>
+              </Row> */}
               <Row>
                 <Col>
                   <ComBadrCardBoxComp noPadding={true}>
-                    <ComAccordionComp
+                    {/* <ComAccordionComp
                       title={translate(
                         'confirmationArrivee.confirmationArrivee.title',
-                      )}>
-                      <Grid>
-                        <Row style={CustomStyleSheet.whiteRow}>
-                          <Col size={1}>
-                            <ComBadrLibelleComp withColor={true}>
-                              {translate('confirmationArrivee.dateHeure')}
-                            </ComBadrLibelleComp>
-                          </Col>
-                          <Col size={2}>
-                            <ComBadrDatePickerComp
-                              dateFormat="DD/MM/yyyy"
-                              heureFormat="HH:mm"
-                              value={dateDebut ? moment(dateDebut, 'DD/MM/yyyy', true) : ''}
-                              timeValue={heureDebut ? moment(heureDebut, 'HH:mm', true) : ''}
-                              onDateChanged={(date) =>
-                                this.setState({
-                                  ...this.state,
-                                  dateDebut: date,
-                                })
-                              }
-                              onTimeChanged={(time) =>
-                                this.setState({
-                                  ...this.state,
-                                  heureDebut: time,
-                                })
-                              }
-                              inputStyle={style.dateInputStyle}
-                              readonly={this.props.data.ecorIsSaved}
-                            />
-                            <HelperText
-                              type="error"
-                              padding="none"
-                              visible={this.hasErrors('dateDebut')}>
-                              {translate('errors.donneeObligatoire', {
-                                champ: translate('confirmationArrivee.dateArrivee'),
-                              })}
-                            </HelperText>
-                            <HelperText
-                              type="error"
-                              padding="none"
-                              visible={this.hasErrors('heureDebut')}>
-                              {translate('errors.donneeObligatoire', {
-                                champ: translate('confirmationArrivee.heureArrivee'),
-                              })}
-                            </HelperText>
-                          </Col>
-                          <Col>
+                      )}> */}
+                    <Grid>
+                      <Row style={CustomStyleSheet.whiteRow}>
+                        <Col size={1}>
+                          <ComBadrLibelleComp withColor={true}>
+                            {translate('confirmationArrivee.dateHeure')}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col size={4}>
+                          <ComBadrDatePickerComp
+                            dateFormat="DD/MM/YYYY"
+                            heureFormat="HH:mm"
+                            value={dateDebut ? moment(dateDebut, 'DD/MM/yyyy', true) : ''}
+                            timeValue={heureDebut ? moment(heureDebut, 'HH:mm', true) : ''}
+                            onDateChanged={(date) =>
+                              this.setState({
+                                ...this.state,
+                                dateDebut: date,
+                              })
+                            }
+                            onTimeChanged={(time) =>
+                              this.setState({
+                                ...this.state,
+                                heureDebut: time,
+                              })
+                            }
+                            inputStyle={style.dateInputStyle}
+                          />
+                          <HelperText
+                            type="error"
+                            padding="none"
+                            visible={this.hasErrors('dateDebut')}>
+                            {translate('errors.donneeObligatoire', {
+                              champ: translate('confirmationArrivee.dateArrivee'),
+                            })}
+                          </HelperText>
+                          <HelperText
+                            type="error"
+                            padding="none"
+                            visible={this.hasErrors('heureDebut')}>
+                            {translate('errors.donneeObligatoire', {
+                              champ: translate('confirmationArrivee.heureArrivee'),
+                            })}
+                          </HelperText>
+                        </Col>
+                        {/* <Col>
                             <ComBadrLibelleComp style={style.valueL}>
                               {initConfirmerArriveeVO.refAgentConfirmationArrive?.nom}{' '}
                               {initConfirmerArriveeVO.refAgentConfirmationArrive?.prenom}
                             </ComBadrLibelleComp>
+                          </Col> */}
+                      </Row>
+                      <Row style={CustomStyleSheet.whiteRow}>
+                        <Col>
+                          <ComBadrLibelleComp withColor={true}>
+                            {translate('confirmationArrivee.avecReserves')}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col>
+                          <View
+                            style={style.flexRow}>
+                            <RadioButton.Group
+                              onValueChange={newValue => {
+                                this.setState({ avecReserves: newValue });
+                                console.log('newValue : ' + newValue);
+                              }}
+                              value={this.state.avecReserves}>
+                              <View style={style.flexRowRadioButton}>
+                                <Text >
+                                  {translate('confirmationArrivee.oui')}
+                                </Text>
+                                <RadioButton value="true" color={primaryColor} />
+                              </View>
+                              <View style={style.flexRowRadioButton}>
+                                <Text >
+                                  {translate('confirmationArrivee.non')}
+                                </Text>
+                                <RadioButton value="false" color={primaryColor} />
+                              </View>
+                            </RadioButton.Group>
+                          </View>
+                        </Col>
+                        <Col>
+                        </Col>
+                        <Col>
+                        </Col>
+                      </Row>
+                      {this.state.avecReserves === 'true' && (
+                        <Row style={CustomStyleSheet.whiteRow}>
+                          <Col size={2}>
+                            <ComBadrLibelleComp withColor={true} isRequired={true}>
+                              {translate('confirmationArrivee.typeMoyen')}
+                            </ComBadrLibelleComp>
                           </Col>
+                          <Col size={4}>
+                            <ComBadrPickerComp
+                              onRef={(ref) => (this.comboRrubriqueTaxation = ref)}
+                              // style={CustomStyleSheet.badrPicker}
+                              cle="code"
+                              libelle="libelle"
+                              module="REF_LIB"
+                              selectedValue={this.state.message}
+                              command="getListRubriqueTaxeCoordination"
+                              onValueChange={(itemValue, itemIndex, selectedItem) =>
+                                this.handleRubriqueTaxationChanged(itemValue, itemIndex, selectedItem)
+                              }
+                              param=""
+                              typeService="SP"
+                            />
+                          </Col>
+                          <Col size={2} />
                         </Row>
-                      </Grid>
-                    </ComAccordionComp>
+                      )}
+                      {/* <Row>
+                        <Col>
+                          <ComBadrButtonRadioComp
+                            title={translate('confirmationArrivee.avecReserves')}
+                            onValueChange={newValue => {
+                              this.setState({ avecReserves: newValue });
+                              console.log('newValue : ' + newValue);
+                            }}
+                            value={this.state.avecReserves}
+                            radioButtonsData={[{ 'label': 'Oui', 'value': 'true' }, { 'label': 'Non', 'value': 'false' }]}
+                          />
+                        </Col>
+                      </Row> */}
+                    </Grid>
+                    {/* </ComAccordionComp> */}
                   </ComBadrCardBoxComp>
                 </Col>
               </Row>
-              <Row>
+              {/* <Row>
                 <Col>
                   <ComBadrCardBoxComp noPadding={true}>
                     <ComAccordionComp
@@ -783,9 +873,9 @@ class EcorExpInformationEcorComp extends React.Component {
                     </ComAccordionComp>
                   </ComBadrCardBoxComp>
                 </Col>
-              </Row>
+              </Row> */}
             </View>
-          )}
+          {/* )} */}
           <Row>
             <Col />
             <Col>
@@ -794,8 +884,8 @@ class EcorExpInformationEcorComp extends React.Component {
                 icon="check"
                 compact="true"
                 mode="contained"
-                disabled={this.props.ecorIsSaved}
-                loading={this.props.showProgress}>
+                disabled={this.props.ecorExpConfirmationArriveeReducer?.ecorIsSaved}
+                loading={this.props.ecorExpConfirmationArriveeReducer?.showProgress}>
                 {translate('confirmationArrivee.subTitle')}
               </Button>
             </Col>
@@ -807,6 +897,6 @@ class EcorExpInformationEcorComp extends React.Component {
   }
 }
 function mapStateToProps(state) {
-  return { ...state.ecorExpConfirmationArriveeReducer };
+  return { ...state };
 }
 export default connect(mapStateToProps, null)(EcorExpInformationEcorComp);

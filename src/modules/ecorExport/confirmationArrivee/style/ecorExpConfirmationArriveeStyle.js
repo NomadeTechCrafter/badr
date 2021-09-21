@@ -63,6 +63,10 @@ const style = {
   },
   flexColumn: { flexDirection: 'column' },
   flexRow: { flexDirection: 'row' },
+  flexRowRadioButton: {
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
 };
 
 export default StyleSheet.create(style);
