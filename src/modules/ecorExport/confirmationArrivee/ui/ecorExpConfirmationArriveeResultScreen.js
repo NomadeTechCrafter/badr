@@ -30,7 +30,8 @@ const initialState = {
   avecReserves: false,
   errorMessage: '',
   showErrorMessage: false,
-  localReducer: {}
+  localReducer: {},
+  refReserveConfirmationArrivee: {}
 };
 
 class ConfirmationArriveeResultScreen extends React.Component {
@@ -141,6 +142,7 @@ class ConfirmationArriveeResultScreen extends React.Component {
             refAgentEmbarquement: {},
             refAgentEntree: {},
             refAgentAutorisationAcheminement: {},
+            refReserveConfirmationArrivee: {},
             refAgentAnnulationEmbarquement: {},
             refAgentAutorisation: {},
             refAgentConfirmationArrive: {},
@@ -167,6 +169,7 @@ class ConfirmationArriveeResultScreen extends React.Component {
             j
           ].referenceEnregistrement;
           DumVO.documentEntreeEnceinte = this.state.documentEntreeEnceinte;
+          DumVO.refReserveConfirmationArrivee = this.state.refReserveConfirmationArrivee;
 
           console.log('   we will save => ');
           console.log(DumVO);
@@ -233,6 +236,15 @@ class ConfirmationArriveeResultScreen extends React.Component {
 
   hasErrors = (field) => {
     return this.state.showErrorMessage && _.isEmpty(this.state[field]);
+  };
+
+  handleRubriqueAvecReserves = (itemValue, itemIndex, selectedItem) => {
+    console.log('handleRubriqueAvecReserves itemValue', itemValue);
+    console.log('handleRubriqueAvecReserves selectedItem', selectedItem);
+    this.setState({
+      refReserveConfirmationArrivee: selectedItem
+    });
+
   };
 
   render() {
@@ -373,7 +385,7 @@ class ConfirmationArriveeResultScreen extends React.Component {
                         <Row style={CustomStyleSheet.whiteRow}>
                           <Col size={2}>
                             <ComBadrLibelleComp withColor={true} isRequired={true}>
-                              {translate('confirmationArrivee.typeMoyen')}
+                              Avec réserves
                             </ComBadrLibelleComp>
                           </Col>
                           <Col size={4}>
@@ -384,9 +396,9 @@ class ConfirmationArriveeResultScreen extends React.Component {
                               libelle="libelle"
                               module="REF_LIB"
                               selectedValue={this.state.message}
-                              command="getListRubriqueTaxeCoordination"
+                              command="getAllReserveConfirmationArrivee"
                               onValueChange={(itemValue, itemIndex, selectedItem) =>
-                                this.handleRubriqueTaxationChanged(itemValue, itemIndex, selectedItem)
+                                this.handleRubriqueAvecReserves(itemValue, itemIndex, selectedItem)
                               }
                               param=""
                               typeService="SP"

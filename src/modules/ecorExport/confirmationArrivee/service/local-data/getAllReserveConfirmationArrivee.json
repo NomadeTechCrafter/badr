@@ -1,0 +1,50 @@
+{
+    "dtoHeader": {
+        "userLogin": "AD6311",
+        "fonctionnalite": "cf6160",
+        "module": "REF_LIB",
+        "commande": "getAllReserveConfirmationArrivee",
+        "typeService": "SP",
+        "offset": 0,
+        "pageSize": 0,
+        "rowCount": 0
+    },
+    "jsonVO": [
+        {
+            "code": "3",
+            "libelle": "Dépassement du délai de transit fixé(3)",
+            "actif": false,
+            "showDropDown": false,
+            "disableAutoComplete": true,
+            "onFocus": "",
+            "disabled": false
+        },
+        {
+            "code": "4",
+            "libelle": "Incident en cours de route signalé par le transporteur(4)",
+            "actif": false,
+            "showDropDown": false,
+            "disableAutoComplete": true,
+            "onFocus": "",
+            "disabled": false
+        },
+        {
+            "code": "1",
+            "libelle": "Rupture des scellés(1)",
+            "actif": false,
+            "showDropDown": false,
+            "disableAutoComplete": true,
+            "onFocus": "",
+            "disabled": false
+        },
+        {
+            "code": "2",
+            "libelle": "Discordance entre les n° de scellés apposés et ceux renseignés sur système(2)",
+            "actif": false,
+            "showDropDown": false,
+            "disableAutoComplete": true,
+            "onFocus": "",
+            "disabled": false
+        }
+    ]
+}
