@@ -41,7 +41,8 @@ export default (state = initialState, action) => {
     case CONFIRMATION_ENTREE_ARRIVEE_INIT:
       return initialState;
     default:
-      nextState.showProgress = true;
-      return initialState;
+      // nextState.showProgress = true;
+      // return initialState;
+      return nextState ? nextState : initialState;
   }
 };

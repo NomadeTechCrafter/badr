@@ -380,13 +380,15 @@ class habHomeScreen extends React.Component {
         <Drawer.Screen
           name="ConfirmationEntreeRechercheScreen"
           component={ConfirmationEntreeMainScreen}
-          options={{ headerShown: false }}
+          options={{ headerShown: false, unmountOnBlur: true, lazy: false }}
+          unmountOnBlur={true}
         />
 
         <Drawer.Screen
           name="ConfirmationArriveeRechercheScreen"
           component={ConfirmationArriveeMainScreen}
-          options={{ headerShown: false }}
+          options={{ headerShown: false, unmountOnBlur: true, lazy: false }}
+          unmountOnBlur={true}
         />
 
 
@@ -493,7 +495,8 @@ class habHomeScreen extends React.Component {
         <Drawer.Screen
           name="ConfirmationEntreeArriveeRechercheScreen"
           component={ConfirmationEntreeArriveeRechercheScreen}
-          options={{ headerShown: false }}
+          options={{ headerShown: false, unmountOnBlur: true, lazy: false }}
+          unmountOnBlur={true}
         />
 
       </Drawer.Navigator>

@@ -12,10 +12,7 @@ import {
   ComBadrDatePickerComp,
   ComBadrNumericTextInputComp,
   ComBadrInfoMessageComp,
-  ComBadrButtonRadioComp,
-  ComBadrKeyValueComp,
   ComBadrPickerComp,
-  ComBadrErrorMessageComp,
 } from '../../../../commons/component';
 import {
   Button,
@@ -35,7 +32,8 @@ const initialState = {
   documentEntreeEnceinte: '',
   dateDebut: '',
   heureDebut: '',
-  avecReserves: false,
+  avecReserves: null,
+  refReserveConfirmationArrivee: {},
   showErrorMessage: false,
   generateurNumScelleAu: '',
   generateurNumScelleDu: '',
@@ -65,10 +63,9 @@ class EcorExpInformationEcorComp extends React.Component {
   };*/
 
   componentDidMount() {
-    // this.comboRrubriqueTaxation.clearInput();
-    let dateHeureArrive = this.props.ecorExpConfirmationArriveeReducer?.initConfirmerArriveeVO?.dateHeureArrive
+    let dateHeureArrive = this.props.initConfirmerArriveeVO.dateHeureArrive
       ? moment(
-        this.props.ecorExpConfirmationArriveeReducer?.initConfirmerArriveeVO?.dateHeureArrive,
+        this.props.initConfirmerArriveeVO.dateHeureArrive,
         'DD/MM/yyyy HH:mm',
         true,
       )
@@ -77,97 +74,98 @@ class EcorExpInformationEcorComp extends React.Component {
     this.setState({
       ...this.state,
 
-      initConfirmerArriveeVO: this.props.ecorExpConfirmationArriveeReducer?.initConfirmerArriveeVO,
-      documentEntreeEnceinte: this.props.ecorExpConfirmationArriveeReducer?.initConfirmerArriveeVO?.documentEntreeEnceinte,
+      initConfirmerArriveeVO: this.props.initConfirmerArriveeVO,
+      documentEntreeEnceinte: this.props.initConfirmerArriveeVO
+        .documentEntreeEnceinte,
       dateDebut: dateHeureArrive,
       heureDebut: dateHeureArrive,
-      listeNombreDeScelles: this.props.ecorExpConfirmationArriveeReducer?.listeNombreDeScelles,
+      listeNombreDeScelles: this.props.listeNombreDeScelles,
     });
   }
 
 
-  // genererNumeroScelle = () => {
-  //   console.log('generateurNumScelleDu');
-  //   let listeScelles = [];
-  //   const {
-  //     generateurNumScelleDu,
-  //     generateurNumScelleAu,
-  //     listeNombreDeScelles,
-  //   } = this.state;
-  //   if (generateurNumScelleDu && generateurNumScelleAu) {
-  //     if (
-  //       generateurNumScelleDu.length === 8 &&
-  //       generateurNumScelleAu.length === 8
-  //     ) {
-  //       let du = Number(generateurNumScelleDu);
-  //       let au = Number(generateurNumScelleAu);
-  //       if (au > du) {
-  //         if (au - du <= 100) {
-  //           console.log('generateurNumScelleDu ok condition');
-  //           let nbScelle = du;
-  //           for (let i = du; i <= au; i++) {
-  //             listeScelles.push(('00000000' + nbScelle).slice(-8));
-  //             nbScelle += 1;
-  //           }
-  //           console.log('generateurNumScelleDu listeScelles', listeScelles);
+  genererNumeroScelle = () => {
+    console.log('generateurNumScelleDu');
+    let listeScelles = [];
+    const {
+      generateurNumScelleDu,
+      generateurNumScelleAu,
+      listeNombreDeScelles,
+    } = this.state;
+    if (generateurNumScelleDu && generateurNumScelleAu) {
+      if (
+        generateurNumScelleDu.length === 8 &&
+        generateurNumScelleAu.length === 8
+      ) {
+        let du = Number(generateurNumScelleDu);
+        let au = Number(generateurNumScelleAu);
+        if (au > du) {
+          if (au - du <= 100) {
+            console.log('generateurNumScelleDu ok condition');
+            let nbScelle = du;
+            for (let i = du; i <= au; i++) {
+              listeScelles.push(('00000000' + nbScelle).slice(-8));
+              nbScelle += 1;
+            }
+            console.log('generateurNumScelleDu listeScelles', listeScelles);
 
-  //           this.setState({
-  //             ...this.state,
-  //             listeNombreDeScelles: _.concat(
-  //               listeNombreDeScelles,
-  //               listeScelles,
-  //             ),
-  //             generateurNumScelleDu: '',
-  //             generateurNumScelleAu: '',
-  //           });
-  //           console.log('after set state genrete list ');
-  //           this.generateurNumScelleDu.clear();
-  //           this.generateurNumScelleAu.clear();
-  //           this.props.ecorExpConfirmationArriveeReducer?.setError(null);
-  //         } else {
-  //           this.props.setError(translate('errors.maxNombreScelle'));
-  //         }
-  //       } else {
-  //         this.props.setError(translate('errors.numScelleInferieur'));
-  //       }
-  //     } else {
-  //       this.props.setError(translate('errors.numScelleLongueur'));
-  //     }
-  //   }
-  // };
+            this.setState({
+              ...this.state,
+              listeNombreDeScelles: _.concat(
+                listeNombreDeScelles,
+                listeScelles,
+              ),
+              generateurNumScelleDu: '',
+              generateurNumScelleAu: '',
+            });
+            console.log('after set state genrete list ');
+            this.generateurNumScelleDu.clear();
+            this.generateurNumScelleAu.clear();
+            this.props.setError(null);
+          } else {
+            this.props.setError(translate('errors.maxNombreScelle'));
+          }
+        } else {
+          this.props.setError(translate('errors.numScelleInferieur'));
+        }
+      } else {
+        this.props.setError(translate('errors.numScelleLongueur'));
+      }
+    }
+  };
 
-  // addNumeroScelle = () => {
-  //   const { numeroScelle, listeNombreDeScelles } = this.state;
-  //   if (numeroScelle && numeroScelle.length === 8) {
-  //     if (listeNombreDeScelles.length < 100) {
-  //       if (_.indexOf(listeNombreDeScelles, numeroScelle) === -1) {
-  //         this.setState({
-  //           ...this.state,
-  //           listeNombreDeScelles: [...listeNombreDeScelles, numeroScelle],
-  //           numeroScelle: '',
-  //         });
-  //         this.numeroScelleInput.clear();
-  //       } else {
-  //         this.props.setError(translate('errors.numScelleExisteDeja'));
-  //       }
-  //     } else {
-  //       this.props.setError(translate('errors.maxNombreScelle'));
-  //     }
-  //   } else {
-  //     this.props.setError(translate('errors.numScelleLongueur'));
-  //   }
-  // };
+  addNumeroScelle = () => {
+    const { numeroScelle, listeNombreDeScelles } = this.state;
+    if (numeroScelle && numeroScelle.length === 8) {
+      if (listeNombreDeScelles.length < 100) {
+        if (_.indexOf(listeNombreDeScelles, numeroScelle) === -1) {
+          this.setState({
+            ...this.state,
+            listeNombreDeScelles: [...listeNombreDeScelles, numeroScelle],
+            numeroScelle: '',
+          });
+          this.numeroScelleInput.clear();
+        } else {
+          this.props.setError(translate('errors.numScelleExisteDeja'));
+        }
+      } else {
+        this.props.setError(translate('errors.maxNombreScelle'));
+      }
+    } else {
+      this.props.setError(translate('errors.numScelleLongueur'));
+    }
+  };
 
-  // deleteNumeroScelle = () => {
-  //   const { selectedScelle, listeNombreDeScelles } = this.state;
-  //   let selectedScelleIndex = _.indexOf(listeNombreDeScelles, selectedScelle);
-  //   if (selectedScelle !== '' && selectedScelleIndex) {
-  //     listeNombreDeScelles.splice(selectedScelleIndex, 1);
-  //     this.setState({
-  //       selectedScelle: {},
-  //     });
-  //   }
-  // };
+  deleteNumeroScelle = () => {
+    const { selectedScelle, listeNombreDeScelles } = this.state;
+    let selectedScelleIndex = _.indexOf(listeNombreDeScelles, selectedScelle);
+    if (selectedScelle !== '' && selectedScelleIndex) {
+      listeNombreDeScelles.splice(selectedScelleIndex, 1);
+      this.setState({
+        selectedScelle: {},
+      });
+    }
+  };
 
   updateVo = () => {
     let initConfirmerArriveeVO = this.state.initConfirmerArriveeVO;
@@ -193,9 +191,10 @@ class EcorExpInformationEcorComp extends React.Component {
       showErrorMessage: true,
     });
   };
+
   confirmerArrivee = () => {
     this.displayErrorMessage();
-    if (this.state.dateDebut && this.state.heureDebut) {
+    if (this.state.dateDebut && this.state.heureDebut && this.state.avecReserves) {
       let formattedListeScelles = {};
       let listeDumVo = [];
       this.state.listeNombreDeScelles.forEach((value) => {
@@ -203,17 +202,23 @@ class EcorExpInformationEcorComp extends React.Component {
       });
 
       if (
-        this.props.ecorExpConfirmationArriveeReducer?.data &&
-        this.props.ecorExpConfirmationArriveeReducer?.data.listDeclaration &&
-        this.props.ecorExpConfirmationArriveeReducer?.data.listDeclaration.length > 0
+        this.props.data &&
+        this.props.data.listDeclaration &&
+        this.props.data.listDeclaration.length > 0
       ) {
-        for (let j = 0; j < this.props.ecorExpConfirmationArriveeReducer?.data.listDeclaration.length; j++) {
+        for (let j = 0; j < this.props.data.listDeclaration.length; j++) {
           let DumVO = {
             documentEntreeEnceinte: '',
             numeroPince: '',
             nombreScelle: '',
-            nombreScelleConfirmationEntree: '',
-            numeroPinceConfirmationEntree: '',
+            nombreScelleConfirmationEntree: this.state.initConfirmerArriveeVO
+              .nombreDeScelles
+              ? this.state.initConfirmerArriveeVO.nombreDeScelles
+              : '',
+            numeroPinceConfirmationEntree: this.state.initConfirmerArriveeVO
+              .numeroPince
+              ? this.state.initConfirmerArriveeVO.numeroPince
+              : '',
             numeroVoyage: '',
             dateHeureAutorisation: '',
             dateHeureArrive: '',
@@ -226,6 +231,7 @@ class EcorExpInformationEcorComp extends React.Component {
             refAgentEntree: {},
             refAgentAutorisationAcheminement: {},
             refAgentAnnulationEmbarquement: {},
+            refReserveConfirmationArrivee: {},
             refAgentAutorisation: {},
             refAgentConfirmationArrive: {},
             refMoyenTransport: {},
@@ -242,15 +248,20 @@ class EcorExpInformationEcorComp extends React.Component {
             operateurDeclarant: '',
             dateEnregistrement: '',
             depuisDelivrerBonEntree: false,
+            sousReserve: false,
             fonctionMessage: '',
-            scelles: {},
-            scellesConfirmationEntree: {},
+            scelles: formattedListeScelles ? formattedListeScelles : {},
+            scellesConfirmationEntree: formattedListeScelles
+              ? formattedListeScelles
+              : {},
           };
 
-          DumVO.referenceEnregistrement = this.props.ecorExpConfirmationArriveeReducer?.data.listDeclaration[
+          DumVO.referenceEnregistrement = this.props.data.listDeclaration[
             j
           ].referenceEnregistrement;
           DumVO.documentEntreeEnceinte = this.state.documentEntreeEnceinte;
+          DumVO.refReserveConfirmationArrivee = this.state.refReserveConfirmationArrivee;
+          DumVO.sousReserve = this.state.avecReserves === 'true' ? true : false;
 
           console.log('   we will save => ');
           console.log(DumVO);
@@ -287,9 +298,9 @@ class EcorExpInformationEcorComp extends React.Component {
               data: EtatChargmentDUMVO,
             },
           },
-          this.props.ecorExpConfirmationArriveeReducer?.navigation,
+          this.props.navigation,
         );
-        this.props.ecorExpConfirmationArriveeReducer?.dispatch(action);
+        this.props.dispatch(action);
       } else {
         console.log('Veuillez choisir une déclaration en détail.');
       }
@@ -322,560 +333,547 @@ class EcorExpInformationEcorComp extends React.Component {
     );
   };
 
-  onMoyenTListePickerChanged = (selectedValue, selectedIndex, item) => {
-    this.setState({ message: selectedValue });
-  };
-  
-  handleRubriqueTaxationChanged = (itemValue, itemIndex, selectedItem) => {
-    console.log('handleRubriqueTaxationChanged itemValue', itemValue);
-    console.log('handleRubriqueTaxationChanged selectedItem', selectedItem);
+  handleRubriqueAvecReserves = (itemValue, itemIndex, selectedItem) => {
+    console.log('handleRubriqueAvecReserves itemValue', itemValue);
+    console.log('handleRubriqueAvecReserves selectedItem', selectedItem);
     this.setState({
-      ligne: {
-        ...this.state.ligne,
-        rubriqueTaxation: selectedItem
-      }
+      refReserveConfirmationArrivee: selectedItem
     });
-
   };
 
   render() {
-    // console.log('in render');
-    console.log(' this.state.avecReserves : ' + this.state.avecReserves);
-    // const { ecorIsSaved } = this.props.data;
+    console.log('in render');
+    const { ecorIsSaved } = this.props.data;
     const {
       initConfirmerArriveeVO,
       documentEntreeEnceinte,
       dateDebut,
       heureDebut,
     } = this.state;
-    // let {
-    //   generateurNumScelleDu,
-    //   generateurNumScelleAu,
-    //   listeNombreDeScelles,
-    //   numeroScelle,
-    // } = this.state;
+    let {
+      generateurNumScelleDu,
+      generateurNumScelleAu,
+      listeNombreDeScelles,
+      numeroScelle,
+    } = this.state;
 
     return (
       <View>
-        {this.props?.ecorExpConfirmationArriveeReducer?.infoMessage != null && (
-          <ComBadrInfoMessageComp message={this.props?.ecorExpConfirmationArriveeReducer?.infoMessage} />
+        {this.props?.infoMessage != null && (
+          <ComBadrInfoMessageComp message={this.props?.infoMessage} />
         )}
-        {this.props.ecorExpConfirmationArriveeReducer?.errorMessage != null && (
-          <ComBadrErrorMessageComp message={this.props.ecorExpConfirmationArriveeReducer?.errorMessage} />
-        )}
+
         <Grid>
-          {/* <Row style={CustomStyleSheet.whiteRow}>
-            <Col size={1}>
-              <ComBadrLibelleComp withColor={true}>
-                {translate('confirmationArrivee.dateHeure')}
-              </ComBadrLibelleComp>
-            </Col>
-            <Col>
-              <ComBadrLibelleComp style={style.valueL}>
-                {initConfirmerArriveeVO?.dateHeureEntree}
-              </ComBadrLibelleComp>
-            </Col>
-            <Col>
-              <ComBadrLibelleComp withColor={true}>
-                {translate('confirmationArrivee.autorisationAcheminement.agentDouanier')}
-              </ComBadrLibelleComp>
-            </Col>
-            <Col>
-              <ComBadrLibelleComp style={style.valueL}>
-                {initConfirmerArriveeVO?.refAgentEntree?.nom}{' '}
-                {initConfirmerArriveeVO?.refAgentEntree?.prenom}
-              </ComBadrLibelleComp>
-            </Col>
-          </Row>
-          <Row style={CustomStyleSheet.whiteRow}>
-            <Col size={1}>
-              <ComBadrLibelleComp withColor={true}>
-                {translate('confirmationArrivee.refDocument')}
-              </ComBadrLibelleComp>
-            </Col>
-            <Col size={2}>
-              <TextInput
-                mode={'outlined'}
-                maxLength={8}
-                value={documentEntreeEnceinte}
-                label={translate('confirmationArrivee.refDocument')}
-                style={CustomStyleSheet.badrInputHeight}
-                onChangeText={(text) =>
-                  this.setState({
-                    ...this.state,
-                    documentEntreeEnceinte: text,
-                  })
-                }
-                disabled={true}
-              />
-            </Col>
-            <Col size={1}>
-            </Col>
-            <Col size={1}>
-            </Col>
-          </Row> */}
-          {/* {!_.isEmpty(initConfirmerArriveeVO) && ( */}
+          {this.props?.listEC === false && (
             <View>
-              {/* Informations ECOR */}
-              {/* <Row>
+              <Row style={CustomStyleSheet.whiteRow}>
+                <Col size={1}>
+                  <ComBadrLibelleComp withColor={true}>
+                    {translate('confirmationArrivee.dateHeure')}
+                  </ComBadrLibelleComp>
+                </Col>
                 <Col>
-                  <ComBadrCardBoxComp noPadding={true}>
-                    <ComAccordionComp
-                      title={translate(
-                        'confirmationArrivee.informationsEcor.title',
-                      )}>
-                      <Grid>
-                        <Row style={CustomStyleSheet.whiteRow}>
-                          <Col size={1}>
-                            <TextInput
-                              mode={'outlined'}
-                              maxLength={8}
-                              value={
-                                initConfirmerArriveeVO.numeroPinceConfirmationEntree
-                              }
-                              label={translate(
-                                'confirmationArrivee.informationsEcor.numeroPince',
-                              )}
-                              style={CustomStyleSheet.badrInputHeight}
-                              onChangeText={(text) =>
-                                this.setState({
-                                  initConfirmerArriveeVO: {
-                                    ...this.state.initConfirmerArriveeVO,
-                                    numeroPince: text,
-                                  },
-                                })
-                              }
-                              disabled={true}
-                            />
-                          </Col>
-                          <Col size={1} />
-                          <Col size={1}>
-                            <ComBadrNumericTextInputComp
-                              maxLength={8}
-                              value={
-                                initConfirmerArriveeVO.nombreScelleConfirmationEntree
-                              }
-                              label={translate(
-                                'confirmationArrivee.informationsEcor.nombreScelles',
-                              )}
-                              onChangeBadrInput={(text) =>
-                                this.setState({
-                                  initConfirmerArriveeVO: {
-                                    ...this.state.initConfirmerArriveeVO,
-                                    nombreDeScelles: text,
-                                  },
-                                })
-                              }
-                              disabled={true}
-                            />
-                          </Col>
-                        </Row>
-                        <Row style={CustomStyleSheet.lightBlueRow}>
-                          <Col size={5}>
-                            <ComBadrLibelleComp withColor={true}>
-                              {translate(
-                                'confirmationArrivee.informationsEcor.generateurScelle',
-                              )}
-                            </ComBadrLibelleComp>
-                          </Col>
-                          <Col size={2}>
-                            <ComBadrNumericTextInputComp
-                              onRef={(input) => {
-                                this.generateurNumScelleDu = input;
-                              }}
-                              maxLength={8}
-                              value={this.state.generateurNumScelleDu}
-                              label={translate('transverse.du')}
-                              onChangeBadrInput={(text) =>
-                                this.setState({
-                                  generateurNumScelleDu: text,
-                                })
-                              }
-                              disabled={true}
-                            />
-                          </Col>
-                          <Col size={1} />
-                          <Col size={2}>
-                            <ComBadrNumericTextInputComp
-                              onRef={(input) => {
-                                this.generateurNumScelleAu = input;
-                              }}
-                              maxLength={8}
-                              value={generateurNumScelleAu}
-                              label={translate('transverse.au')}
-                              onChangeBadrInput={(text) =>
-                                this.setState({
-                                  generateurNumScelleAu: text,
-                                })
-                              }
-                              disabled={true}
-                            />
-                          </Col>
-                          <Col size={2} />
-                          <Col size={1}>
-                            <Button
-                              mode="contained"
-                              compact="true"
-                              onPress={this.genererNumeroScelle}
-                              disabled={true}>
-                              {translate('transverse.Ok')}
-                            </Button>
-                          </Col>
-                          <Col size={2} />
-                        </Row>
-                        <Row
-                          style={[
-                            CustomStyleSheet.whiteRow,
-                            style.rowListNumScelle,
-                          ]}>
-                          <Col size={5}>
-                            <ComBadrNumericTextInputComp
-                              onRef={(input) => {
-                                this.numeroScelleInput = input;
-                              }}
-                              maxLength={8}
-                              value={numeroScelle}
-                              label={translate(
-                                'confirmationArrivee.informationsEcor.numeroScelle',
-                              )}
-                              onChangeBadrInput={(text) => {
-                                this.setState({
-                                  numeroScelle: text,
-                                });
-                              }}
-                              disabled={true}
-                            />
-                          </Col>
-                          <Col size={2} />
-
-                          <Col size={1}>
-                            <Button
-                              onPress={this.addNumeroScelle}
-                              icon="plus-box"
-                              mode="contained"
-                              compact="true"
-                              style={style.btnActionList}
-                              disabled={true}
-                            />
-                            <Button
-                              onPress={this.deleteNumeroScelle}
-                              icon="delete"
-                              mode="contained"
-                              compact="true"
-                              style={style.btnActionList}
-                              disabled={true}
-                            />
-                          </Col>
-                          <Col size={2} />
-
-                          <Col size={5} style={style.boxContainer}>
-                            <SafeAreaView style={style.boxSafeArea}>
-                              {_.isEmpty(listeNombreDeScelles) && (
-                                <Text style={style.boxItemText}>
-                                  {translate(
-                                    'confirmationArrivee.informationsEcor.aucunElement',
+                  <ComBadrLibelleComp style={style.valueL}>
+                    {initConfirmerArriveeVO?.dateHeureEntree}
+                  </ComBadrLibelleComp>
+                </Col>
+                <Col>
+                  <ComBadrLibelleComp withColor={true}>
+                    {translate('confirmationArrivee.autorisationAcheminement.agentDouanier')}
+                  </ComBadrLibelleComp>
+                </Col>
+                <Col>
+                  <ComBadrLibelleComp style={style.valueL}>
+                    {initConfirmerArriveeVO?.refAgentEntree?.nom}{' '}
+                    {initConfirmerArriveeVO?.refAgentEntree?.prenom}
+                  </ComBadrLibelleComp>
+                </Col>
+              </Row>
+              <Row style={CustomStyleSheet.whiteRow}>
+                <Col size={1}>
+                  <ComBadrLibelleComp withColor={true}>
+                    {translate('confirmationArrivee.refDocument')}
+                  </ComBadrLibelleComp>
+                </Col>
+                <Col size={2}>
+                  <TextInput
+                    mode={'outlined'}
+                    maxLength={8}
+                    value={documentEntreeEnceinte}
+                    label={translate('confirmationArrivee.refDocument')}
+                    style={CustomStyleSheet.badrInputHeight}
+                    onChangeText={(text) =>
+                      this.setState({
+                        ...this.state,
+                        documentEntreeEnceinte: text,
+                      })
+                    }
+                    disabled={true}
+                  />
+                </Col>
+                <Col size={1}>
+                </Col>
+                <Col size={1}>
+                </Col>
+              </Row>
+            </View>
+          )}
+          {!_.isEmpty(initConfirmerArriveeVO) && (
+            <View>
+              {this.props?.listEC === false && (
+                <View>
+                  <Row>
+                    <Col>
+                      <ComBadrCardBoxComp noPadding={true}>
+                        {/* Informations ECOR */}
+                        <ComAccordionComp
+                          title={translate(
+                            'confirmationArrivee.informationsEcor.title',
+                          )} expanded={true}>
+                          <Grid>
+                            <Row style={CustomStyleSheet.whiteRow}>
+                              <Col size={1}>
+                                <TextInput
+                                  mode={'outlined'}
+                                  maxLength={8}
+                                  value={
+                                    initConfirmerArriveeVO.numeroPinceConfirmationEntree
+                                  }
+                                  label={translate(
+                                    'confirmationArrivee.informationsEcor.numeroPince',
                                   )}
-                                </Text>
-                              )}
-
-                              {!_.isEmpty(listeNombreDeScelles) && (
-                                <FlatList
-                                  data={listeNombreDeScelles}
-                                  renderItem={(item) => this.renderBoxItem(item)}
-                                  keyExtractor={(item) => item}
-                                  nestedScrollEnabled={true}
+                                  style={CustomStyleSheet.badrInputHeight}
+                                  onChangeText={(text) =>
+                                    this.setState({
+                                      initConfirmerArriveeVO: {
+                                        ...this.state.initConfirmerArriveeVO,
+                                        numeroPince: text,
+                                      },
+                                    })
+                                  }
                                   disabled={true}
                                 />
-                              )}
-                            </SafeAreaView>
-                          </Col>
-                        </Row>
-                      </Grid>
-                    </ComAccordionComp>
-                  </ComBadrCardBoxComp>
-                </Col>
-              </Row> */}
-              {/* <Row>
-                <Col>
-                  <ComBadrCardBoxComp noPadding={true}>
-                    <ComAccordionComp
-                      title={translate(
-                        'confirmationArrivee.autorisationAcheminement.title',
-                      )}>
-                      <Grid>
-                        <Row style={CustomStyleSheet.whiteRow}>
-                          <Col>
-                            <ComBadrLibelleComp withColor={true}>
-                              {translate('confirmationArrivee.autorisationAcheminement.dateHeureAcheminement')}
-                            </ComBadrLibelleComp>
-                          </Col>
-                          <Col>
-                            <ComBadrLibelleComp style={style.valueL}>
-                              {initConfirmerArriveeVO.dateHeureAcheminement}
-                            </ComBadrLibelleComp>
-                          </Col>
-                          <Col>
-                            <ComBadrLibelleComp withColor={true}>
-                              {translate('confirmationArrivee.autorisationAcheminement.agentDouanier')}
-                            </ComBadrLibelleComp>
-                          </Col>
-                          <Col>
-                            <ComBadrLibelleComp style={style.valueL}>
-                              {initConfirmerArriveeVO.refAgentAutorisationAcheminement?.nom}{' '}
-                              {initConfirmerArriveeVO.refAgentAutorisationAcheminement?.prenom}
-                            </ComBadrLibelleComp>
-                          </Col>
-                        </Row>
-                        <Row style={CustomStyleSheet.whiteRow}>
-                          <Col>
-                            <ComBadrLibelleComp withColor={true}>
-                              {translate('confirmationArrivee.informationsEcor.nouveauxScelles')}
-                            </ComBadrLibelleComp>
-                          </Col>
-                          <Col>
-                            <View
-                              style={style.flexRow}>
-                              <RadioButton.Group
-                                value={this.state.decisionControle}>
-                                <View style={style.flexColumn}>
-                                  <Text >
-                                    {translate('confirmationArrivee.oui')}
-                                  </Text>
-                                  <RadioButton disabled
-                                    value=""
-                                  />
+                              </Col>
+                              <Col size={1} />
+                              <Col size={1}>
+                                <ComBadrNumericTextInputComp
+                                  maxLength={8}
+                                  value={
+                                    initConfirmerArriveeVO.nombreScelleConfirmationEntree
+                                  }
+                                  label={translate(
+                                    'confirmationArrivee.informationsEcor.nombreScelles',
+                                  )}
+                                  onChangeBadrInput={(text) =>
+                                    this.setState({
+                                      initConfirmerArriveeVO: {
+                                        ...this.state.initConfirmerArriveeVO,
+                                        nombreDeScelles: text,
+                                      },
+                                    })
+                                  }
+                                  disabled={true}
+                                />
+                              </Col>
+                            </Row>
+                            <Row style={CustomStyleSheet.lightBlueRow}>
+                              <Col size={5}>
+                                <ComBadrLibelleComp withColor={true}>
+                                  {translate(
+                                    'confirmationArrivee.informationsEcor.generateurScelle',
+                                  )}
+                                </ComBadrLibelleComp>
+                              </Col>
+                              <Col size={2}>
+                                <ComBadrNumericTextInputComp
+                                  onRef={(input) => {
+                                    this.generateurNumScelleDu = input;
+                                  }}
+                                  maxLength={8}
+                                  value={this.state.generateurNumScelleDu}
+                                  label={translate('transverse.du')}
+                                  onChangeBadrInput={(text) =>
+                                    this.setState({
+                                      generateurNumScelleDu: text,
+                                    })
+                                  }
+                                  disabled={true}
+                                />
+                              </Col>
+                              <Col size={1} />
+                              <Col size={2}>
+                                <ComBadrNumericTextInputComp
+                                  onRef={(input) => {
+                                    this.generateurNumScelleAu = input;
+                                  }}
+                                  maxLength={8}
+                                  value={generateurNumScelleAu}
+                                  label={translate('transverse.au')}
+                                  onChangeBadrInput={(text) =>
+                                    this.setState({
+                                      generateurNumScelleAu: text,
+                                    })
+                                  }
+                                  disabled={true}
+                                />
+                              </Col>
+                              <Col size={2} />
+                              <Col size={1}>
+                                <Button
+                                  mode="contained"
+                                  compact="true"
+                                  onPress={this.genererNumeroScelle}
+                                  disabled={true}>
+                                  {translate('transverse.Ok')}
+                                </Button>
+                              </Col>
+                              <Col size={2} />
+                            </Row>
+                            <Row
+                              style={[
+                                CustomStyleSheet.whiteRow,
+                                style.rowListNumScelle,
+                              ]}>
+                              <Col size={5}>
+                                <ComBadrNumericTextInputComp
+                                  onRef={(input) => {
+                                    this.numeroScelleInput = input;
+                                  }}
+                                  maxLength={8}
+                                  value={numeroScelle}
+                                  label={translate(
+                                    'confirmationArrivee.informationsEcor.numeroScelle',
+                                  )}
+                                  onChangeBadrInput={(text) => {
+                                    this.setState({
+                                      numeroScelle: text,
+                                    });
+                                  }}
+                                  disabled={true}
+                                />
+                              </Col>
+                              <Col size={2} />
+
+                              <Col size={1}>
+                                <Button
+                                  onPress={this.addNumeroScelle}
+                                  icon="plus-box"
+                                  mode="contained"
+                                  compact="true"
+                                  style={style.btnActionList}
+                                  disabled={true}
+                                />
+                                <Button
+                                  onPress={this.deleteNumeroScelle}
+                                  icon="delete"
+                                  mode="contained"
+                                  compact="true"
+                                  style={style.btnActionList}
+                                  disabled={true}
+                                />
+                              </Col>
+                              <Col size={2} />
+
+                              <Col size={5} style={style.boxContainer}>
+                                <SafeAreaView style={style.boxSafeArea}>
+                                  {_.isEmpty(listeNombreDeScelles) && (
+                                    <Text style={style.boxItemText}>
+                                      {translate(
+                                        'confirmationArrivee.informationsEcor.aucunElement',
+                                      )}
+                                    </Text>
+                                  )}
+
+                                  {!_.isEmpty(listeNombreDeScelles) && (
+                                    <FlatList
+                                      data={listeNombreDeScelles}
+                                      renderItem={(item) => this.renderBoxItem(item)}
+                                      keyExtractor={(item) => item}
+                                      nestedScrollEnabled={true}
+                                      disabled={true}
+                                    />
+                                  )}
+                                </SafeAreaView>
+                              </Col>
+                            </Row>
+                          </Grid>
+                        </ComAccordionComp>
+                      </ComBadrCardBoxComp>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col>
+                      <ComBadrCardBoxComp noPadding={true}>
+                        <ComAccordionComp
+                          title={translate(
+                            'confirmationArrivee.autorisationAcheminement.title',
+                          )} expanded={true}>
+                          <Grid>
+                            <Row style={CustomStyleSheet.whiteRow}>
+                              <Col>
+                                <ComBadrLibelleComp withColor={true}>
+                                  {translate('confirmationArrivee.autorisationAcheminement.dateHeureAcheminement')}
+                                </ComBadrLibelleComp>
+                              </Col>
+                              <Col>
+                                <ComBadrLibelleComp style={style.valueL}>
+                                  {initConfirmerArriveeVO.dateHeureAcheminement}
+                                </ComBadrLibelleComp>
+                              </Col>
+                              <Col>
+                                <ComBadrLibelleComp withColor={true}>
+                                  {translate('confirmationArrivee.autorisationAcheminement.agentDouanier')}
+                                </ComBadrLibelleComp>
+                              </Col>
+                              <Col>
+                                <ComBadrLibelleComp style={style.valueL}>
+                                  {initConfirmerArriveeVO.refAgentAutorisationAcheminement?.nom}{' '}
+                                  {initConfirmerArriveeVO.refAgentAutorisationAcheminement?.prenom}
+                                </ComBadrLibelleComp>
+                              </Col>
+                            </Row>
+                            <Row style={CustomStyleSheet.whiteRow}>
+                              <Col>
+                                <ComBadrLibelleComp withColor={true}>
+                                  {translate('confirmationArrivee.informationsEcor.nouveauxScelles')}
+                                </ComBadrLibelleComp>
+                              </Col>
+                              <Col>
+                                <View
+                                  style={style.flexRow}>
+                                  <RadioButton.Group
+                                    value={this.state.decisionControle}>
+                                    <View style={style.flexColumn}>
+                                      <Text >
+                                        {translate('confirmationArrivee.oui')}
+                                      </Text>
+                                      <RadioButton disabled
+                                        value=""
+                                      />
+                                    </View>
+                                    <View style={style.flexColumn}>
+                                      <Text >
+                                        {translate('confirmationArrivee.non')}
+                                      </Text>
+                                      <RadioButton disabled
+                                        value=""
+                                      />
+                                    </View>
+                                  </RadioButton.Group>
                                 </View>
-                                <View style={style.flexColumn}>
-                                  <Text >
-                                    {translate('confirmationArrivee.non')}
-                                  </Text>
-                                  <RadioButton disabled
-                                    value=""
-                                  />
-                                </View>
-                              </RadioButton.Group>
-                            </View>
-                          </Col>
-                          <Col>
-                          </Col>
-                          <Col>
-                          </Col>
-                        </Row>
-                      </Grid>
-                    </ComAccordionComp>
-                  </ComBadrCardBoxComp>
-                </Col>
-              </Row> */}
+                              </Col>
+                              <Col>
+                              </Col>
+                              <Col>
+                              </Col>
+                            </Row>
+                          </Grid>
+                        </ComAccordionComp>
+                      </ComBadrCardBoxComp>
+                    </Col>
+                  </Row>
+                </View>
+              )}
               <Row>
                 <Col>
                   <ComBadrCardBoxComp noPadding={true}>
-                    {/* <ComAccordionComp
+                    <ComAccordionComp
                       title={translate(
                         'confirmationArrivee.confirmationArrivee.title',
-                      )}> */}
-                    <Grid>
-                      <Row style={CustomStyleSheet.whiteRow}>
-                        <Col size={1}>
-                          <ComBadrLibelleComp withColor={true}>
-                            {translate('confirmationArrivee.dateHeure')}
-                          </ComBadrLibelleComp>
-                        </Col>
-                        <Col size={4}>
-                          <ComBadrDatePickerComp
-                            dateFormat="DD/MM/YYYY"
-                            heureFormat="HH:mm"
-                            value={dateDebut ? moment(dateDebut, 'DD/MM/yyyy', true) : ''}
-                            timeValue={heureDebut ? moment(heureDebut, 'HH:mm', true) : ''}
-                            onDateChanged={(date) =>
-                              this.setState({
-                                ...this.state,
-                                dateDebut: date,
-                              })
-                            }
-                            onTimeChanged={(time) =>
-                              this.setState({
-                                ...this.state,
-                                heureDebut: time,
-                              })
-                            }
-                            inputStyle={style.dateInputStyle}
-                          />
-                          <HelperText
-                            type="error"
-                            padding="none"
-                            visible={this.hasErrors('dateDebut')}>
-                            {translate('errors.donneeObligatoire', {
-                              champ: translate('confirmationArrivee.dateArrivee'),
-                            })}
-                          </HelperText>
-                          <HelperText
-                            type="error"
-                            padding="none"
-                            visible={this.hasErrors('heureDebut')}>
-                            {translate('errors.donneeObligatoire', {
-                              champ: translate('confirmationArrivee.heureArrivee'),
-                            })}
-                          </HelperText>
-                        </Col>
-                        {/* <Col>
-                            <ComBadrLibelleComp style={style.valueL}>
-                              {initConfirmerArriveeVO.refAgentConfirmationArrive?.nom}{' '}
-                              {initConfirmerArriveeVO.refAgentConfirmationArrive?.prenom}
-                            </ComBadrLibelleComp>
-                          </Col> */}
-                      </Row>
-                      <Row style={CustomStyleSheet.whiteRow}>
-                        <Col>
-                          <ComBadrLibelleComp withColor={true}>
-                            {translate('confirmationArrivee.avecReserves')}
-                          </ComBadrLibelleComp>
-                        </Col>
-                        <Col>
-                          <View
-                            style={style.flexRow}>
-                            <RadioButton.Group
-                              onValueChange={newValue => {
-                                this.setState({ avecReserves: newValue });
-                                console.log('newValue : ' + newValue);
-                              }}
-                              value={this.state.avecReserves}>
-                              <View style={style.flexRowRadioButton}>
-                                <Text >
-                                  {translate('confirmationArrivee.oui')}
-                                </Text>
-                                <RadioButton value="true" color={primaryColor} />
-                              </View>
-                              <View style={style.flexRowRadioButton}>
-                                <Text >
-                                  {translate('confirmationArrivee.non')}
-                                </Text>
-                                <RadioButton value="false" color={primaryColor} />
-                              </View>
-                            </RadioButton.Group>
-                          </View>
-                        </Col>
-                        <Col>
-                        </Col>
-                        <Col>
-                        </Col>
-                      </Row>
-                      {this.state.avecReserves === 'true' && (
+                      )} expanded={true}>
+                      <Grid>
                         <Row style={CustomStyleSheet.whiteRow}>
-                          <Col size={2}>
-                            <ComBadrLibelleComp withColor={true} isRequired={true}>
-                              {translate('confirmationArrivee.typeMoyen')}
+                          <Col size={1}>
+                            <ComBadrLibelleComp withColor={true}>
+                              {translate('confirmationArrivee.dateHeure')}
                             </ComBadrLibelleComp>
                           </Col>
                           <Col size={4}>
-                            <ComBadrPickerComp
-                              onRef={(ref) => (this.comboRrubriqueTaxation = ref)}
-                              // style={CustomStyleSheet.badrPicker}
-                              cle="code"
-                              libelle="libelle"
-                              module="REF_LIB"
-                              selectedValue={this.state.message}
-                              command="getListRubriqueTaxeCoordination"
-                              onValueChange={(itemValue, itemIndex, selectedItem) =>
-                                this.handleRubriqueTaxationChanged(itemValue, itemIndex, selectedItem)
+                            <ComBadrDatePickerComp
+                              dateFormat="DD/MM/YYYY"
+                              heureFormat="HH:mm"
+                              value={dateDebut ? moment(dateDebut, 'DD/MM/yyyy', true) : ''}
+                              timeValue={heureDebut ? moment(heureDebut, 'HH:mm', true) : ''}
+                              onDateChanged={(date) =>
+                                this.setState({
+                                  ...this.state,
+                                  dateDebut: date,
+                                })
                               }
-                              param=""
-                              typeService="SP"
+                              onTimeChanged={(time) =>
+                                this.setState({
+                                  ...this.state,
+                                  heureDebut: time,
+                                })
+                              }
+                              inputStyle={style.dateInputStyle}
+                              readonly={this.props.data.ecorIsSaved}
                             />
-                          </Col>
-                          <Col size={2} />
-                        </Row>
-                      )}
-                      {/* <Row>
-                        <Col>
-                          <ComBadrButtonRadioComp
-                            title={translate('confirmationArrivee.avecReserves')}
-                            onValueChange={newValue => {
-                              this.setState({ avecReserves: newValue });
-                              console.log('newValue : ' + newValue);
-                            }}
-                            value={this.state.avecReserves}
-                            radioButtonsData={[{ 'label': 'Oui', 'value': 'true' }, { 'label': 'Non', 'value': 'false' }]}
-                          />
-                        </Col>
-                      </Row> */}
-                    </Grid>
-                    {/* </ComAccordionComp> */}
-                  </ComBadrCardBoxComp>
-                </Col>
-              </Row>
-              {/* <Row>
-                <Col>
-                  <ComBadrCardBoxComp noPadding={true}>
-                    <ComAccordionComp
-                      title={translate(
-                        'confirmationArrivee.controleApresScanner.title',
-                      )}>
-                      <Grid>
-                        <Row style={CustomStyleSheet.whiteRow}>
-                          <Col>
-                            <ComBadrLibelleComp withColor={true}>
-                              {translate('confirmationArrivee.autorisationAcheminement.dateHeureAcheminement')}
-                            </ComBadrLibelleComp>
-                          </Col>
-                          <Col>
-                            <ComBadrLibelleComp style={style.valueL}>
-                              {initConfirmerArriveeVO.nombreScelleCrtlApresScanner}
-                            </ComBadrLibelleComp>
-                          </Col>
-                          <Col>
-                            <ComBadrLibelleComp withColor={true}>
-                              {translate('confirmationArrivee.autorisationAcheminement.agentDouanier')}
-                            </ComBadrLibelleComp>
-                          </Col>
-                          <Col>
-                            <ComBadrLibelleComp style={style.valueL}>
-                              {initConfirmerArriveeVO.refAgentCrtlApresScanner?.nom}{' '}
-                              {initConfirmerArriveeVO.refAgentCrtlApresScanner?.prenom}
-                            </ComBadrLibelleComp>
+                            <HelperText
+                              type="error"
+                              padding="none"
+                              visible={this.hasErrors('dateDebut')}>
+                              {translate('errors.donneeObligatoire', {
+                                champ: translate('confirmationArrivee.dateArrivee'),
+                              })}
+                            </HelperText>
+                            <HelperText
+                              type="error"
+                              padding="none"
+                              visible={this.hasErrors('heureDebut')}>
+                              {translate('errors.donneeObligatoire', {
+                                champ: translate('confirmationArrivee.heureArrivee'),
+                              })}
+                            </HelperText>
                           </Col>
                         </Row>
+
                         <Row style={CustomStyleSheet.whiteRow}>
-                          <Col>
+                          <Col size={1}>
                             <ComBadrLibelleComp withColor={true}>
-                              {translate('confirmationArrivee.informationsEcor.nouveauxScelles')}
+                              {translate('confirmationArrivee.avecReserves')}
                             </ComBadrLibelleComp>
                           </Col>
-                          <Col>
+                          <Col size={1}>
                             <View
                               style={style.flexRow}>
                               <RadioButton.Group
-                                value={this.state.decisionControle}>
-                                <View style={style.flexColumn}>
+                                onValueChange={newValue => {
+                                  this.setState({ avecReserves: newValue });
+                                  console.log('newValue : ' + newValue);
+                                }}
+                                value={this.state.avecReserves}>
+                                <View style={style.flexRowRadioButton}>
                                   <Text >
                                     {translate('confirmationArrivee.oui')}
                                   </Text>
-                                  <RadioButton disabled
-                                    value=""
-                                  />
+                                  <RadioButton value="true" color={primaryColor} />
                                 </View>
-                                <View style={style.flexColumn}>
+                                <View style={style.flexRowRadioButton}>
                                   <Text >
                                     {translate('confirmationArrivee.non')}
                                   </Text>
-                                  <RadioButton disabled
-                                    value=""
-                                  />
+                                  <RadioButton value="false" color={primaryColor} />
                                 </View>
                               </RadioButton.Group>
+                              <HelperText
+                                type="error"
+                                padding="none"
+                                visible={this.hasErrors('avecReserves')}>
+                                {translate('errors.donneeObligatoire', {
+                                  champ: translate('confirmationArrivee.avecReserves'),
+                                })}
+                              </HelperText>
                             </View>
                           </Col>
-                          <Col>
-                          </Col>
-                          <Col>
-                          </Col>
+                          {this.state.avecReserves === 'true' && (
+                            <Col size={2}>
+                              <ComBadrPickerComp
+                                onRef={(ref) => (this.comboRrubriqueTaxation = ref)}
+                                // style={CustomStyleSheet.badrPicker}
+                                cle="code"
+                                libelle="libelle"
+                                module="REF_LIB"
+                                selectedValue={this.state.message}
+                                command="getAllReserveConfirmationArrivee"
+                                onValueChange={(itemValue, itemIndex, selectedItem) =>
+                                  this.handleRubriqueAvecReserves(itemValue, itemIndex, selectedItem)
+                                }
+                                param=""
+                                typeService="SP"
+                              />
+                              <HelperText
+                                type="error"
+                                padding="none"
+                                visible={this.hasErrors('refReserveConfirmationArrivee')}>
+                                {translate('errors.donneeObligatoire', {
+                                  champ: translate('confirmationArrivee.avecReserves'),
+                                })}
+                              </HelperText>
+                            </Col>
+                          )}
                         </Row>
                       </Grid>
                     </ComAccordionComp>
                   </ComBadrCardBoxComp>
                 </Col>
-              </Row> */}
+              </Row>
+
+              {this.props?.listEC === false && (
+                <Row>
+                  <Col>
+                    <ComBadrCardBoxComp noPadding={true}>
+                      <ComAccordionComp
+                        title={translate(
+                          'confirmationArrivee.controleApresScanner.title',
+                        )} expanded={true}>
+                        <Grid>
+                          <Row style={CustomStyleSheet.whiteRow}>
+                            <Col>
+                              <ComBadrLibelleComp withColor={true}>
+                                {translate('confirmationArrivee.autorisationAcheminement.dateHeureAcheminement')}
+                              </ComBadrLibelleComp>
+                            </Col>
+                            <Col>
+                              <ComBadrLibelleComp style={style.valueL}>
+                                {initConfirmerArriveeVO.nombreScelleCrtlApresScanner}
+                              </ComBadrLibelleComp>
+                            </Col>
+                            <Col>
+                              <ComBadrLibelleComp withColor={true}>
+                                {translate('confirmationArrivee.autorisationAcheminement.agentDouanier')}
+                              </ComBadrLibelleComp>
+                            </Col>
+                            <Col>
+                              <ComBadrLibelleComp style={style.valueL}>
+                                {initConfirmerArriveeVO.refAgentCrtlApresScanner?.nom}{' '}
+                                {initConfirmerArriveeVO.refAgentCrtlApresScanner?.prenom}
+                              </ComBadrLibelleComp>
+                            </Col>
+                          </Row>
+                          <Row style={CustomStyleSheet.whiteRow}>
+                            <Col>
+                              <ComBadrLibelleComp withColor={true}>
+                                {translate('confirmationArrivee.informationsEcor.nouveauxScelles')}
+                              </ComBadrLibelleComp>
+                            </Col>
+                            <Col>
+                              <View
+                                style={style.flexRow}>
+                                <RadioButton.Group
+                                  value={this.state.decisionControle}>
+                                  <View style={style.flexColumn}>
+                                    <Text >
+                                      {translate('confirmationArrivee.oui')}
+                                    </Text>
+                                    <RadioButton disabled
+                                      value=""
+                                    />
+                                  </View>
+                                  <View style={style.flexColumn}>
+                                    <Text >
+                                      {translate('confirmationArrivee.non')}
+                                    </Text>
+                                    <RadioButton disabled
+                                      value=""
+                                    />
+                                  </View>
+                                </RadioButton.Group>
+                              </View>
+                            </Col>
+                            <Col>
+                            </Col>
+                            <Col>
+                            </Col>
+                          </Row>
+                        </Grid>
+                      </ComAccordionComp>
+                    </ComBadrCardBoxComp>
+                  </Col>
+                </Row>
+              )}
             </View>
-          {/* )} */}
+          )}
           <Row>
             <Col />
             <Col>
@@ -884,8 +882,8 @@ class EcorExpInformationEcorComp extends React.Component {
                 icon="check"
                 compact="true"
                 mode="contained"
-                disabled={this.props.ecorExpConfirmationArriveeReducer?.ecorIsSaved}
-                loading={this.props.ecorExpConfirmationArriveeReducer?.showProgress}>
+                disabled={this.props.ecorIsSaved}
+                loading={this.props.showProgress}>
                 {translate('confirmationArrivee.subTitle')}
               </Button>
             </Col>
@@ -897,6 +895,6 @@ class EcorExpInformationEcorComp extends React.Component {
   }
 }
 function mapStateToProps(state) {
-  return { ...state };
+  return { ...state.ecorExpConfirmationArriveeReducer };
 }
 export default connect(mapStateToProps, null)(EcorExpInformationEcorComp);

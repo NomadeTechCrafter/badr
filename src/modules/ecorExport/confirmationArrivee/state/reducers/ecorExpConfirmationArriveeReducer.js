@@ -117,8 +117,7 @@ export default (state = initialState, action) => {
       return initialState;
 
     default:
-      nextState.showProgress = true;
-      return initialState;
+      return nextState ? nextState : initialState;
   }
 };
 
