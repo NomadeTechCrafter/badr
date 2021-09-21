@@ -359,9 +359,9 @@ class EcorExpInformationEcorComp extends React.Component {
 
     return (
       <View>
-        {this.props?.infoMessage != null && (
+        {/* {this.props?.infoMessage != null && (
           <ComBadrInfoMessageComp message={this.props?.infoMessage} />
-        )}
+        )} */}
 
         <Grid>
           {this.props?.listEC === false && (
