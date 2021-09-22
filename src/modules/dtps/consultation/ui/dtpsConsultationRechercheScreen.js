@@ -11,6 +11,7 @@ import {
 } from '../state/dtpsConsultationConstants';
 /**Custom Components */
 import {
+    ComBadrAutoCompleteChipsComp,
     ComBadrButtonIconComp,
     ComBadrDatePickerComp,
 } from '../../../../commons/component';
@@ -19,15 +20,21 @@ import translate from '../../../../commons/i18n/ComI18nHelper';
 import { CustomStyleSheet } from '../../../../commons/styles/ComThemeStyle';
 import style from '../style/dtpsConsultationStyle';
 
+const initialState = {
+    login: ComSessionService.getInstance().getLogin(),
+    dateDu: '',
+    dateAu: '',
+    matricule: '',
+    referenceDS: '',
+    referenceLot: '',
+    codeLieuChargement: '',
+    lieuChargement: {},
+};
+
 class dtpsConsultationRechercheScreen extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            login: ComSessionService.getInstance().getLogin(),
-            dateDu: '',
-            dateAu: '',
-            matricule: '',
-        };
+        this.state = initialState
     }
 
     handleSearch = () => {
@@ -36,11 +43,7 @@ class dtpsConsultationRechercheScreen extends React.Component {
     };
 
     handleClear = () => {
-        this.setState({
-            dateDu: '',
-            dateAu: '',
-            matricule: '',
-        });
+        this.setState(initialState);
     };
 
     buildInitConsultationBLSAction = () => {
@@ -55,6 +58,9 @@ class dtpsConsultationRechercheScreen extends React.Component {
                 dateDebut: this.state.dateDu,
                 dateFin: this.state.dateAu,
                 matricule: this.state.matricule,
+                referenceDs: this.state.referenceDS,
+                refLot: this.state.referenceLot,
+                codeLieuChargement: this.state.codeLieuChargement
             },
         });
         this.props.navigation.navigate('Resultat', {
@@ -68,6 +74,13 @@ class dtpsConsultationRechercheScreen extends React.Component {
         let action = this.buildInitConsultationBLSAction();
         this.props.actions.dispatch(action);
     }
+
+    handleLieuChargementChanged = (localLieuChargement) => {
+        this.setState({
+            lieuChargement: localLieuChargement,
+            codeLieuChargement: localLieuChargement?.code
+        });
+    };
 
     render() {
         return (
@@ -113,6 +126,39 @@ class dtpsConsultationRechercheScreen extends React.Component {
                             label={translate('dtps.filtreRecherche.matricule')}
                             value={this.state.matricule}
                             onChangeText={(text) => this.setState({ matricule: text })}
+                        />
+                    </View>
+                    <View style={CustomStyleSheet.row}>
+                        <TextInput
+                            style={CustomStyleSheet.column}
+                            mode="outlined"
+                            keyboardType={'number-pad'}
+                            label={translate('dtps.filtreRecherche.refDS')}
+                            value={this.state.referenceDS}
+                            onChangeText={(text) => this.setState({ referenceDS: text })}
+                        />
+                        <TextInput
+                            style={CustomStyleSheet.column}
+                            mode="outlined"
+                            keyboardType={'number-pad'}
+                            label={translate('dtps.filtreRecherche.refLot')}
+                            value={this.state.referenceLot}
+                            onChangeText={(text) => this.setState({ referenceLot: text })}
+                        />
+                    </View>
+                    <View style={CustomStyleSheet.row}>
+                        <ComBadrAutoCompleteChipsComp
+                            code="code"
+                            placeholder={translate(
+                                'dtps.filtreRecherche.lieuChargement'
+                            )}
+                            selected={this.state.lieuChargement?.libelle}
+                            maxItems={3}
+                            libelle="libelle"
+                            command="getCmbLieuChargement"
+                            onDemand={true}
+                            searchZoneFirst={false}
+                            onValueChange={this.handleLieuChargementChanged}
                         />
                     </View>
                 </View>

@@ -42,11 +42,11 @@ const mapping = {
   '306012': { screen: 'ModifierReconnaissance', params: {} },
   '306013': { screen: 'AnnulerReconnaissance', params: {} },
   '306014': { screen: 'AffecterAgentVisiteur', params: {} },
-  /*
 
   '2301': { screen: 'DTPSSortieMainScreen', params: {} },
   '2302': { screen: 'DTPSEntreeMainScreen', params: {} },
   '2303': { screen: 'DTPSConsultationMainScreen', params: {} },
+  /*
   '121711': {
     screen: 'EciConsultationBLS',
     params: {title: 'Ecran  Recherche Consultation BLS'},

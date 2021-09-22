@@ -445,19 +445,22 @@ class habHomeScreen extends React.Component {
         <Drawer.Screen
           name="DTPSSortieMainScreen"
           component={DTPSSortieMainScreen}
-          options={{ headerShown: false }}
+          options={{ headerShown: false, unmountOnBlur: true, lazy: false }}
+          unmountOnBlur={true}
         />
 
         <Drawer.Screen
           name="DTPSEntreeMainScreen"
           component={DTPSEntreeMainScreen}
-          options={{ headerShown: false }}
+          options={{ headerShown: false, unmountOnBlur: true, lazy: false }}
+          unmountOnBlur={true}
         />
 
         <Drawer.Screen
           name="DTPSConsultationMainScreen"
           component={DTPSConsultationMainScreen}
-          options={{ headerShown: false }}
+          options={{ headerShown: false, unmountOnBlur: true, lazy: false }}
+          unmountOnBlur={true}
         />
         <Drawer.Screen
           name="DedEnvoyerValeurScreen"

@@ -63,6 +63,15 @@ class habProfileScreen extends React.Component {
   };
 
   handleArrondissementChanged = (selectedValue, selectedIndex, item) => {
+    console.log('----------------------------handleArrondissementChanged------------------------------------');
+    console.log('----------------------------------------------------------------');
+    console.log('----------------------------------------------------------------');
+    console.log('----------------------------------------------------------------');
+    console.log(JSON.stringify(selectedValue));
+    console.log('----------------------------------------------------------------');
+    console.log('----------------------------------------------------------------');
+    console.log('----------------------------------------------------------------');
+    console.log('-----------------------------handleArrondissementChanged-----------------------------------');
     this.setState({
       selectedArrondissement: selectedValue,
       selectedArrondissementLibelle: item ? item.libelle : '',
@@ -82,6 +91,15 @@ class habProfileScreen extends React.Component {
   handleOnConfirmProfils = (items) => {};
 
   handleOnProfilItemsChanged = (items) => {
+    console.log('----------------------------handleOnProfilItemsChanged------------------------------------');
+    console.log('----------------------------------------------------------------');
+    console.log('----------------------------------------------------------------');
+    console.log('----------------------------------------------------------------');
+    console.log(JSON.stringify(items));
+    console.log('----------------------------------------------------------------');
+    console.log('----------------------------------------------------------------');
+    console.log('----------------------------------------------------------------');
+    console.log('-----------------------------handleOnProfilItemsChanged-----------------------------------');
     this.setState({selectedProfiles: items});
   };
 

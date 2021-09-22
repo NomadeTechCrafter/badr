@@ -31,7 +31,16 @@ export default (state = initialState, action) => {
         case DTPS_CONSULTATION_SUCCESS:
             nextState.errorMessage = null;
             nextState.showProgress = false;
-            nextState.data = action.value;
+
+            function transformDTPS(dtps) {
+                dtps.avecScanner + '' === "true" ? dtps.avecScanner = 'Avec' : dtps.avecScanner = 'Sans';
+                let newDTPS = dtps;
+                return newDTPS;
+            }
+            
+            let listDTPS = action.value.map(dtps => transformDTPS(dtps));
+            // let listDTPS = action.value;
+            nextState.data = listDTPS;
             return nextState;
         case DTPS_CONSULTATION_FAILED:
             nextState.showProgress = false;

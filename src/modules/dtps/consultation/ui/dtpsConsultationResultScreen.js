@@ -89,7 +89,13 @@ class dtpsConsultationResultScreen extends React.Component {
                 code: 'typeDs',
                 libelle: translate('dtps.typeDs'),
                 width: 150,
+            }, ,
+            {
+                code: 'avecScanner',
+                libelle: translate('dtps.decisionScanner'),
+                width: 150,
             },
+            
         ];
         this.chauffeursCols = [
             {
