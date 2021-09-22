@@ -17,6 +17,7 @@ export default {
         portSec: 'Port Sec',
         etat: 'Etat',
         referenceDs: 'Déclaration sommaire',
+        decisionScanner: 'Décision scanner',
         scelles: 'Scelles',
         typeDs: 'Type DS',
         matricules: 'Matricules',
@@ -36,6 +37,10 @@ export default {
             title: 'Ecran de recherche',
             referenceDeclaration: 'Référence déclaration',
             matricule: 'Matricule',
+            refDS: 'Réference DS',
+            refLot: 'Réference Lot',
+            lieuChargement: 'Lieu de Chargement'
+            
         },
         // Bloc scanner
         scanner: {
