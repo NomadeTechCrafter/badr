@@ -5,7 +5,7 @@ import { Col, Grid, Row } from 'react-native-easy-grid';
 import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
 import {
-  ComBadrAutoCompleteChipsComp, ComBadrErrorMessageComp,
+  ComBadrAutoCompleteChipsComp, ComBadrDialogComp, ComBadrErrorMessageComp,
   ComBadrInfoMessageComp,
   ComBadrProgressBarComp,
   ComBasicDataTableComp
@@ -23,6 +23,8 @@ import style from '../style/refOperateursEconomiquesStyle';
 
 const initialState = {
   blocageVo: {},
+  dialogVisibility: false,
+  selectedRow:null
 };
 
 class RefOperateursEconomiquesSearchComponent extends React.Component {
@@ -77,7 +79,7 @@ class RefOperateursEconomiquesSearchComponent extends React.Component {
         component: 'button',
         icon: 'delete-outline',
         action: (row, index) => {
-          this.props.onAction(row);
+          this.setState({dialogVisibility:true,selectedRow:row});
         },
       });
     }
@@ -85,9 +87,11 @@ class RefOperateursEconomiquesSearchComponent extends React.Component {
     return tableColumns;
   };
 
+  hideDialog = () => this.setState({ dialogVisibility: false });
+
   confirm = () => {
     let codeBureau = ComSessionService.getInstance().getCodeBureau();
-    this.state.blocageVo = { ...this.state.blocageVo, administrateurCentral: codeBureau == '000', typeRecherche:this.props.typeRecherche}
+    this.state.blocageVo = { ...this.state.blocageVo, administrationCentrale: codeBureau == '000', typeRecherche:this.props.typeRecherche}
     let action = RefOperateursEconomiquesSearchAction.request(
       {
         type: Constants.SEARCH_OPERATEURS_ECONOMIQUES_REQUEST,
@@ -272,9 +276,26 @@ class RefOperateursEconomiquesSearchComponent extends React.Component {
                   />
                 </Col>
               </Row>
+              
             )}
           </Grid>
         )}
+       
+        <ComBadrDialogComp
+          title={translate('operateursEconomiques.debloquerOperateur.confirmDialog.info')}
+          confirmMessage={translate(
+            'operateursEconomiques.debloquerOperateur.confirmDialog.oui',
+          )}
+          cancelMessage={translate(
+            'operateursEconomiques.debloquerOperateur.confirmDialog.non',
+          )}
+          dialogMessage={translate(
+            'operateursEconomiques.debloquerOperateur.confirmDialog.confirmationMessage',
+          )}
+          onCancel={this.hideDialog}
+          onOk={() => { this.props.onAction(this.state.selectedRow); this.hideDialog();}}
+          dialogVisibility={this.state.dialogVisibility}
+        />
       </ScrollView>
     );
   }

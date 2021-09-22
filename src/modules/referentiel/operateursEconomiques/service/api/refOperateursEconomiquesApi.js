@@ -14,9 +14,9 @@ export default class RefOperateursEconomiquesApi {
                 commande: 'initBlocage',
                 typeService: TYPE_SERVICE_SP,
             },
-            jsonVO: '',
+            jsonVO: ComSessionService.getInstance().getCodeBureau(),
         };
-
+       
         return await HttpHelper.process(data);
     };
 
@@ -85,6 +85,7 @@ export default class RefOperateursEconomiquesApi {
             },
             jsonVO: {
                 idBlocage: idBlocage,
+                administrationCentrale: ComSessionService.getInstance().getCodeBureau() == '000'
             },
         };
 
