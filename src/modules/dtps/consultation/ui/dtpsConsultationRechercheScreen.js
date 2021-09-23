@@ -14,6 +14,7 @@ import {
     ComBadrAutoCompleteChipsComp,
     ComBadrButtonIconComp,
     ComBadrDatePickerComp,
+    ComBadrErrorMessageComp,
 } from '../../../../commons/component';
 import translate from '../../../../commons/i18n/ComI18nHelper';
 /**Styling */
@@ -28,6 +29,7 @@ const initialState = {
     referenceDS: '',
     referenceLot: '',
     codeLieuChargement: '',
+    errorMessage: '',
     lieuChargement: {},
 };
 
@@ -38,8 +40,19 @@ class dtpsConsultationRechercheScreen extends React.Component {
     }
 
     handleSearch = () => {
-        let action = this.buildSearchDTPSConsultationAction(this.state.login);
-        this.props.actions.dispatch(action);
+        if (this.state.codeLieuChargement || this.state.referenceLot) {
+            if (this.state.codeLieuChargement && this.state.referenceLot && this.state.referenceDS) {
+                let action = this.buildSearchDTPSConsultationAction(this.state.login);
+                this.props.actions.dispatch(action);
+            } else {
+                this.setState({
+                    errorMessage: 'Merci de saisire les 3 criteres de recherche d\'un lot(Réference DS/ Réference Lot / Lieu de Chargement).',
+                })
+            }
+        } else {
+            let action = this.buildSearchDTPSConsultationAction(this.state.login);
+            this.props.actions.dispatch(action);
+        }
     };
 
     handleClear = () => {
@@ -86,7 +99,15 @@ class dtpsConsultationRechercheScreen extends React.Component {
         return (
             <ScrollView>
                 <View style={CustomStyleSheet.verticalContainer20}>
+                    <Row>
+                        <Col>
+                            {this.state?.errorMessage != null && (
+                                <ComBadrErrorMessageComp message={this.state?.errorMessage} />
+                            )}
+                        </Col>
+                    </Row>
                     <View style={CustomStyleSheet.row}>
+
                         <Row>
                             <Col>
                                 <ComBadrDatePickerComp

@@ -225,6 +225,7 @@ class RechParRefEntete extends React.Component {
     const enteteTrypVO = this.props.dataVo?.enteteTrypVO;
     const traceSignature = this.props.dataVo?.traceSignature;
     const referenceEnregistrement = this.props.dataVo?.declarationTriptique?.referenceEnregistrement;
+    const datePassage = this.props.dataVo?.datePassage;
 
     const renderDateRechParRef = () => {
       return (
@@ -451,28 +452,30 @@ class RechParRefEntete extends React.Component {
             </CardBox>
           )}
           {/* Informations sur la mainlevée */}
-          <CardBox style={styles.cardBox}>
-            <Accordion badr title={translate('rechParRef.infoMLV')}>
-              <View style={styles.flexColumn}>
-                <View style={[styles.flexDirectionRow, styles.marg]}>
-                  <Text style={styles.libelleM}>
-                    {translate('rechParRef.dateMLV')} :
-                  </Text>
-                  <Text style={styles.valueM}>
-                    {this.props.dataVo?.datePassage}
-                  </Text>
+          {datePassage && (
+            <CardBox style={styles.cardBox}>
+              <Accordion badr title={translate('rechParRef.infoMLV')}>
+                <View style={styles.flexColumn}>
+                  <View style={[styles.flexDirectionRow, styles.marg]}>
+                    <Text style={styles.libelleM}>
+                      {translate('rechParRef.dateMLV')} :
+                    </Text>
+                    <Text style={styles.valueM}>
+                      {this.props.dataVo?.datePassage}
+                    </Text>
+                  </View>
+                  <View style={[styles.flexDirectionRow, styles.marg]}>
+                    <Text style={styles.libelleS}>
+                      {translate('rechParRef.agent')} :
+                    </Text>
+                    <Text style={styles.valueS}>
+                      {this.props.dataVo?.agentPassage}
+                    </Text>
+                  </View>
                 </View>
-                <View style={[styles.flexDirectionRow, styles.marg]}>
-                  <Text style={styles.libelleS}>
-                    {translate('rechParRef.agent')} :
-                  </Text>
-                  <Text style={styles.valueS}>
-                    {this.props.dataVo?.agentPassage}
-                  </Text>
-                </View>
-              </View>
-            </Accordion>
-          </CardBox>
+              </Accordion>
+            </CardBox>
+          )}
           {/* Transporteur */}
           <CardBox style={styles.cardBox}>
             <Accordion badr title={translate('rechParRef.transporteur')}>
@@ -590,7 +593,7 @@ class RechParRefEntete extends React.Component {
                   </Text>
                 </View>
               </View>
-              <View style={[styles.flexDirectionRow, styles.marg]}>
+              {/* <View style={[styles.flexDirectionRow, styles.marg]}>
                 <Text style={[styles.marg, styles.libelle]}>
                   {translate('rechParRef.vide')} :
                 </Text>
@@ -606,87 +609,102 @@ class RechParRefEntete extends React.Component {
                 <Text style={styles.valueL}>
                   {enteteTrypVO?.autreDocument}
                 </Text>
-              </View>
+              </View> */}
             </Accordion>
           </CardBox>
           {/* Sorti du Port */}
-          {/* <CardBox style={styles.cardBox}>
-            <Accordion badr title={translate('rechParRef.rechParRef')} expanded>
-              <View style={styles.flexColumn}>
-                <View style={[styles.flexDirectionRow, styles.marg]}>
-                  <Text style={styles.libelleS}>
-                    {translate('rechParRef.dateRechParRef')} :
-                  </Text>
-                  <View style={styles.libelleM}>{renderDateRechParRef()}</View>
-                  <Text style={styles.libelleS} />
-                </View>
+          {this.props.dataVo?.declarationTriptique?.sortieExisteDeja && (
+            <CardBox style={styles.cardBox}>
+              <Accordion badr title={translate('rechParRef.rechParRef')}>
+                <View style={styles.flexColumn}>
+                  <View style={[styles.flexDirectionRow, styles.marg]}>
+                    <Text style={styles.libelleS}>
+                      {translate('rechParRef.dateRechParRef')} :
+                    </Text>
+                    <View style={styles.libelleM}>{renderDateRechParRef()}</View>
+                    <Text style={styles.libelleS} />
+                  </View>
 
-                <View style={[styles.flexDirectionRow, styles.marg]}>
-                  <Text style={styles.libelleS}>
-                    {translate('rechParRef.commentRechParRef')} :{' '}
-                  </Text>
+                  <View style={[styles.flexDirectionRow, styles.marg]}>
+                    <Text style={styles.libelleS}>
+                      {translate('rechParRef.commentRechParRef')} :{' '}
+                    </Text>
 
-                  <TextInput
-                    style={styles.libelleL}
-                    maxLength={250}
-                    multiline
-                    disabled={
-                      this.state.rechParRefExisteDeja || this.props.success
-                    }
-                    numberOfLines={3}
-                    placeholder={translate('rechParRef.commentRechParRef')}
-                    value={this.state.commentaire}
-                    onChangeText={(text) => this.setState({ commentaire: text })}
-                  />
+                    <TextInput
+                      style={styles.libelleL}
+                      maxLength={250}
+                      multiline
+                      disabled={
+                        this.state.rechParRefExisteDeja || this.props.success
+                      }
+                      numberOfLines={3}
+                      placeholder={translate('rechParRef.commentRechParRef')}
+                      value={this.state.commentaire}
+                      onChangeText={(text) => this.setState({ commentaire: text })}
+                    />
+                  </View>
+                  <View style={[styles.flexDirectionRow, styles.marg]}>
+                    <Text style={[styles.marg, styles.libelle]}>
+                      {translate('rechParRef.vide')} :
+                    </Text>
+                    <Checkbox
+                      color="#009ab2"
+                      status={enteteTrypVO?.avide ? 'checked' : 'unchecked'}
+                    />
+                  </View>
+                  {enteteTrypVO?.refRegime === '009' && (
+                    <View style={[styles.flexDirectionRow, styles.marg]}>
+                      <Text style={[styles.marg, styles.libelle]}>
+                        {translate('vuEmbarquee.sansManifest')} :
+                      </Text>
+                      <Checkbox
+                        color="#009ab2"
+                        status={enteteTrypVO?.sansManifest ? 'checked' : 'unchecked'}
+                      />
+                    </View>)
+                  }
+                  <View style={[styles.flexDirectionRow, styles.marg]}>
+                    <Text style={styles.libelleS}>
+                      {translate('rechParRef.autresDocument')} :
+                    </Text>
+                    <Text style={styles.valueL}>
+                      {enteteTrypVO?.autreDocument}
+                    </Text>
+                  </View>
                 </View>
-                <View style={[styles.flexDirectionRow, styles.marg]}>
-                  <Text style={[styles.marg, styles.libelle]}>
-                    {translate('rechParRef.vide')} :
-                  </Text>
-                  <Checkbox
-                    color="#009ab2"
-                    status={enteteTrypVO?.avide ? 'checked' : 'unchecked'}
-                  />
-                </View>
-                <View style={[styles.flexDirectionRow, styles.marg]}>
-                  <Text style={styles.libelleS}>
-                    {translate('rechParRef.autresDocument')} :
-                  </Text>
-                  <Text style={styles.valueL}>
-                    {enteteTrypVO?.autreDocument}
-                  </Text>
-                </View>
-              </View>
-            </Accordion>
-          </CardBox> */}
+              </Accordion>
+            </CardBox>
+          )}
           {/* Vu Embarquer */}
-          {/* <CardBox style={styles.cardBox}>
-            <Accordion badr title={translate('vuEmbarquee.vuEmb')} expanded>
-              <View style={styles.flexColumn}>
-                <View style={[styles.flexDirectionRow, styles.marg]}>
-                  <Text style={styles.libelleS}>
-                    {translate('vuEmbarquee.dateVuEmb')} :
-                  </Text>
-                  <Text style={styles.valueS}>{declarationTriptique?.vuEmbarque?.dateVuEmbarque}</Text>
-                </View>
+          {this.props.dataVo?.declarationTriptique?.vuEmbarqueExisteDeja && (
+            <CardBox style={styles.cardBox}>
+              <Accordion badr title={translate('vuEmbarquee.vuEmb')} expanded>
+                <View style={styles.flexColumn}>
+                  <View style={[styles.flexDirectionRow, styles.marg]}>
+                    <Text style={styles.libelleS}>
+                      {translate('vuEmbarquee.dateVuEmb')} :
+                    </Text>
+                    <Text style={styles.valueS}>{declarationTriptique?.vuEmbarque?.dateVuEmbarque}</Text>
+                  </View>
 
-                <View style={[styles.flexDirectionRow, styles.marg]}>
-                  <Text style={styles.libelleS}>
-                    {translate('vuEmbarquee.commentVuEmb')} :{' '}
-                  </Text>
-                  <TextInput
-                    style={styles.libelleL}
-                    maxLength={250}
-                    multiline
-                    disabled={true}
-                    numberOfLines={3}
-                    placeholder={translate('vuEmbarquee.commentVuEmb')}
-                    value={declarationTriptique?.vuEmbarque?.commentaire}
-                  />
+                  <View style={[styles.flexDirectionRow, styles.marg]}>
+                    <Text style={styles.libelleS}>
+                      {translate('vuEmbarquee.commentVuEmb')} :{' '}
+                    </Text>
+                    <TextInput
+                      style={styles.libelleL}
+                      maxLength={250}
+                      multiline
+                      disabled={true}
+                      numberOfLines={3}
+                      placeholder={translate('vuEmbarquee.commentVuEmb')}
+                      value={declarationTriptique?.vuEmbarque?.commentaire}
+                    />
+                  </View>
                 </View>
-              </View>
-            </Accordion>
-          </CardBox> */}
+              </Accordion>
+            </CardBox>
+          )}
         </ScrollView>
 
         {/* <ComBadrActionButtonComp

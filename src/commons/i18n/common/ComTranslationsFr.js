@@ -142,6 +142,7 @@ export default {
     connaissements: 'Connaissements',
     declarationDetail: 'Déclaration en Détail',
     etatChargement: 'Etat de chargement',
+    apurement: 'Apurement',
     resultScanner: 'Résultat scanner',
     info: 'Info',
     vumEmb: {
