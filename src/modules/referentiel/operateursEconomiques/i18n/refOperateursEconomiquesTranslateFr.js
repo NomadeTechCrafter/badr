@@ -31,10 +31,19 @@ export default {
         ajouter: 'Ajouter',
         modifier: 'Modifier',
         services: 'Services',
-      },
+      }
+      
     },
     debloquerOperateur: {
       title: 'Déblocage des opérateurs',
+      
+        confirmDialog: {
+          info: 'Confirmation',
+          oui: 'Oui',
+          non: 'Non',
+          confirmationMessage: 'Voulez vous vraiment débloquer cet Opérateur ?',
+        }
+      
     },
   },
 };

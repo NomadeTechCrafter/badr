@@ -67,6 +67,7 @@ export default (state = initialState, action) => {
             }
             nextState.errorMessage = null;
             nextState.showProgress = false;
+            nextState.showResults = false;
             nextState.data.confirm = action.value;
             return nextState;
         case Constants.CONFIRM_OPERATEURS_ECONOMIQUES_FAILED:
