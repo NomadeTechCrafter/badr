@@ -1,6 +1,6 @@
 const mapping = {
   '9005': {screen: 'CreerApurement', params: {qr: true}},
-  //'9009': {screen: 'RechercheAtMulti', params: {qr: false}},
+  '9009': {screen: 'RechercheAtMulti', params: {qr: true}},
   '2243': {screen: 'RechercheConfirmationReceptionScreen', params: {}},
   '1226': {
     screen: 'ECIAppositionScellesRechercheScreen',

@@ -21,6 +21,7 @@ import {
   ComBasicDataTableComp,
 } from '../../../../../commons/component';
 import atRechercheAction, * as AtRechercheAction from '../../state/actions/atRechercheAction';
+import atConsulterAction, * as AtConsulterAction from '../../state/actions/atConsulterAction';
 import {
   CustomStyleSheet,
   primaryColor,
@@ -66,7 +67,7 @@ class RechercheAtMulti extends React.Component {
 
   onItemSelected = (row) => {
     console.log(this.props.navigation);
-    let action = AtRechercheAction.requestConsulter(
+    let action = AtConsulterAction.request(
       {
         type: ConstantsAt.CONSULTER_AT_REQUEST,
         value: {

@@ -1,10 +1,10 @@
 import React from 'react';
 import _ from 'lodash';
-import {connect} from 'react-redux';
-import {translate} from '../../../../../commons/i18n/ComI18nHelper';
-import {View, ScrollView, StyleSheet} from 'react-native';
-import {HelperText, TextInput, Button} from 'react-native-paper';
-import {Col, Row} from 'react-native-easy-grid';
+import { connect } from 'react-redux';
+import { translate } from '../../../../../commons/i18n/ComI18nHelper';
+import { View, ScrollView, StyleSheet } from 'react-native';
+import { HelperText, TextInput, Button } from 'react-native-paper';
+import { Col, Row } from 'react-native-easy-grid';
 import {
   ComBadrErrorMessageComp,
   ComBadrInfoMessageComp,
@@ -25,9 +25,15 @@ import {
   CustomStyleSheet,
   primaryColor,
 } from '../../../../../commons/styles/ComThemeStyle';
+/** Utils */
+import ComUtils from '../../../../../commons/utils/ComUtils';
 import * as ConstantsAt from '../../state/atConstants';
 
 const initialState = {
+  bureau: '',
+  annee: '',
+  numero: '',
+  serie: '',
   typeIdentifiant: '',
   identifiant: '',
   paysPasseport: '',
@@ -46,18 +52,43 @@ const initialState = {
 class RechercheAtMulti extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {...initialState};
+    this.state = { ...initialState };
   }
 
   componentDidMount() {
-    this.state = {...initialState};
-    this.unsubscribe = this.props.navigation.addListener('focus', () => {
-      this.onScreenReloaded();
-    });
+    this.state = { ...initialState };
+    // this.unsubscribe = this.props.navigation.addListener('focus', () => {
+    //   this.onScreenReloaded();
+    // });
   }
 
   componentWillUnmount() {
-    this.unsubscribe();
+    // this.unsubscribe();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log('nextProps nextProps nextProps');
+    console.log(nextProps);
+    if (
+      nextProps.qrCodeReducer.value &&
+      nextProps.qrCodeReducer.value.data &&
+      !nextProps.qrCodeReducer.qrFailed
+    ) {
+      this.setState({
+        bureau: this.props.qrCodeReducer.value.data.slice(0, 3),
+        annee: this.props.qrCodeReducer.value.data.slice(3, 7),
+        numero: this.props.qrCodeReducer.value.data.slice(7, 10),
+        serie: this.props.qrCodeReducer.value.data.slice(10, 17),
+      });
+    } else if (nextProps.qrCodeReducer && nextProps.qrCodeReducer.qrFailed) {
+      this.setState({
+        bureau: '',
+        annee: '',
+        numero: '',
+        serie: '',
+        showErrorMsg: false,
+      });
+    }
   }
 
   initRechercheAt() {
@@ -73,9 +104,9 @@ class RechercheAtMulti extends React.Component {
   };
 
   handleTypeIdentChanged = (selectedValue, selectedIndex, item) => {
-    this.setState({typeIdentifiant: ''});
+    this.setState({ typeIdentifiant: '' });
     if (selectedIndex !== 0) {
-      this.setState({typeIdentifiant: selectedValue});
+      this.setState({ typeIdentifiant: selectedValue });
     }
   };
 
@@ -102,28 +133,33 @@ class RechercheAtMulti extends React.Component {
       pays: '',
     });
     if (selectedIndex !== 0) {
-      this.setState({typeComposant: selectedValue});
+      this.setState({ typeComposant: selectedValue });
     }
     if (
       selectedValue === ConstantsAt.CODE_TYPE_COMP_VEHICULE ||
       selectedValue === ConstantsAt.CODE_TYPE_COMP_MOTO_QUAD
     ) {
-      this.setState({showDataMatricule: true});
+      this.setState({ showDataMatricule: true });
     }
   };
 
   onChangeInput = (input) => {
     let keyImput = _.keys(input)[0];
-    if (keyImput === 'paysPasseport') {
-      this.setState({[keyImput]: input[keyImput].replace(/[^A-Z]/g, '')});
+    if (keyImput === 'bureau' || keyImput === 'annee' ||
+        keyImput === 'numero' || keyImput === 'serie') {
+      let keyImput = _.keys(input)[0];
+      this.setState({ [keyImput]: input[keyImput].replace(/[^0-9]/g, '') });
+    }
+    else if (keyImput === 'paysPasseport') {
+      this.setState({ [keyImput]: input[keyImput].replace(/[^A-Z]/g, '') });
     } else if (
       keyImput === 'identifiant' ||
       keyImput === 'matricule' ||
       keyImput === 'numChassis'
     ) {
-      this.setState({[keyImput]: input[keyImput].replace(/[^A-Z0-9]/g, '')});
+      this.setState({ [keyImput]: input[keyImput].replace(/[^A-Z0-9]/g, '') });
     } else {
-      this.setState({[keyImput]: input[keyImput]});
+      this.setState({ [keyImput]: input[keyImput] });
     }
   };
 
@@ -133,11 +169,20 @@ class RechercheAtMulti extends React.Component {
     if (!this.validateChamps()) {
       return;
     }
+    let reference = ComUtils.concatReference(this.state.bureau, this.state.annee, this.state.numero, this.state.serie); 
+    let referenceVO = null;
+    if (!_.isEmpty(reference)) {
+      referenceVO = {
+        reference: reference,
+        enregistre: true,
+      }
+    }
     let action = atRechercheAction.request(
       {
         type: ConstantsAt.RECH_MULTI_REQUEST,
         value: {
           atRechercheBean: {
+            referenceVO: referenceVO,
             typeIdentifiant: this.state.typeIdentifiant,
             identifiant: this.state.identifiant,
             paysPasseport: this.state.paysPasseport,
@@ -165,8 +210,12 @@ class RechercheAtMulti extends React.Component {
   };
 
   validateChamps = () => {
-    this.setState({errorMessage: null});
+    this.setState({ errorMessage: null });
     if (
+      _.isEmpty(this.state.bureau) &&
+      _.isEmpty(this.state.annee) &&
+      _.isEmpty(this.state.numero) &&
+      _.isEmpty(this.state.serie) &&
       _.isEmpty(this.state.typeIdentifiant) &&
       _.isEmpty(this.state.identifiant) &&
       _.isEmpty(this.state.paysPasseport) &&
@@ -178,15 +227,21 @@ class RechercheAtMulti extends React.Component {
       _.isEmpty(this.state.ident) &&
       _.isEmpty(this.state.paysPP)
     ) {
-      this.setState({errorMessage: translate('at.recherche.msgRequiredField')});
+      this.setState({ errorMessage: translate('at.recherche.msgRequiredField') });
       return false;
     }
     return true;
   };
 
   retablir = () => {
+    this.cmbTypeIdent.clearInput();
+    this.cmbTypeComp.clearInput();
     this.initRechercheAt();
     this.setState({
+      bureau: '',
+      annee: '',
+      numero: '',
+      serie: '',
       typeIdentifiant: '',
       identifiant: '',
       paysPasseport: '',
@@ -202,15 +257,25 @@ class RechercheAtMulti extends React.Component {
     });
   };
 
+  addZeros = (input) => {
+    let keyImput = _.keys(input)[0];
+    if (input[keyImput] !== '') {
+      this.setState({
+        [keyImput]: _.padStart(input[keyImput], input.maxLength, '0'),
+      });
+    }
+  };
+
   render() {
     return (
       <ScrollView>
         {this.state.errorMessage != null && (
           <View>
             <ComBadrErrorMessageComp
-              onClose={this.initRechercheAt()}
+              onClose={() => (this.setState({ errorMessage: null }))}
               style={styles.centerErrorMsg}
               message={this.state.errorMessage}
+              showError={true}
             />
           </View>
         )}
@@ -220,8 +285,77 @@ class RechercheAtMulti extends React.Component {
             <View>
               <Row size={100}>
                 <Col size={100}>
+                  <TextInput
+                    maxLength={3}
+                    keyboardType={'number-pad'}
+                    value={this.state.bureau}
+                    label={translate('transverse.bureau')}
+                    onChangeText={(val) => this.onChangeInput({ bureau: val })}
+                    onEndEditing={(event) =>
+                      this.addZeros({
+                        bureau: event.nativeEvent.text,
+                        maxLength: 3,
+                      })
+                    }
+                    style={styles.margin15}
+                  />
+                </Col>
+                <Col size={100}>
+                  <TextInput
+                    maxLength={4}
+                    keyboardType={'number-pad'}
+                    value={this.state.annee}
+                    label={translate('transverse.annee')}
+                    onChangeText={(val) => this.onChangeInput({ annee: val })}
+                    onEndEditing={(event) => {
+                      this.addZeros({
+                        annee: event.nativeEvent.text,
+                        maxLength: 4,
+                      });
+                    }}
+                    style={styles.margin15}
+                  />
+                </Col>
+              </Row>
+              <Row size={100}>
+                <Col size={100}>
+                  <TextInput
+                    maxLength={3}
+                    keyboardType={'number-pad'}
+                    value={this.state.numero}
+                    label={translate('transverse.numero')}
+                    onChangeText={(val) => this.onChangeInput({ numero: val })}
+                    onEndEditing={(event) =>
+                      this.addZeros({
+                        numero: event.nativeEvent.text,
+                        maxLength: 3,
+                      })
+                    }
+                    style={styles.margin15}
+                  />
+                </Col>
+                <Col size={100}>
+                  <TextInput
+                    maxLength={7}
+                    keyboardType={'number-pad'}
+                    value={this.state.serie}
+                    label={translate('transverse.serie')}
+                    onChangeText={(val) => this.onChangeInput({ serie: val })}
+                    onEndEditing={(event) =>
+                      this.addZeros({
+                        serie: event.nativeEvent.text,
+                        maxLength: 7,
+                      })
+                    }
+                    style={styles.margin15}
+                  />
+                </Col>
+              </Row>
+              <Row size={100}>
+                <Col size={100}>
                   <ComBadrPickerComp
-                    key="code"
+                    onRef={(ref) => (this.cmbTypeIdent = ref)}
+                    key="cmbTypeIdent"
                     style={CustomStyleSheet.badrPicker}
                     titleStyle={CustomStyleSheet.badrPickerTitle}
                     title={translate('at.typeIdent')}
@@ -251,7 +385,7 @@ class RechercheAtMulti extends React.Component {
                     underlineColor={primaryColor}
                     mode="outlined"
                     onChangeText={(val) =>
-                      this.onChangeInput({identifiant: val.toUpperCase()})
+                      this.onChangeInput({ identifiant: val.toUpperCase() })
                     }
                     label={translate('at.identifiant')}
                   />
@@ -263,7 +397,7 @@ class RechercheAtMulti extends React.Component {
                     value={this.state.paysPasseport}
                     style={styles.margin15}
                     onChangeText={(val) =>
-                      this.onChangeInput({paysPasseport: val.toUpperCase()})
+                      this.onChangeInput({ paysPasseport: val.toUpperCase() })
                     }
                     label={translate('at.pays')}
                   />
@@ -273,13 +407,14 @@ class RechercheAtMulti extends React.Component {
                 <Col size={50}>
                   <ComBadrAutoCompleteChipsComp
                     placeholder={translate('at.nomVoyageur')}
+                    selected={this.state.nomVoyageur}
                     code="code"
                     maxItems={5}
                     libelle="libelle"
                     command="getCmbVoyageur"
                     module="AT"
                     onDemand={true}
-                    initialValue={{code: ''}}
+                    initialValue={{ code: '' }}
                     searchZoneFirst={false}
                     onValueChange={(item) => this.handleVoyageurChanged(item)}
                   />
@@ -289,7 +424,8 @@ class RechercheAtMulti extends React.Component {
               <Row size={100}>
                 <Col size={100}>
                   <ComBadrPickerComp
-                    key="code"
+                    onRef={(ref) => (this.cmbTypeComp = ref)}
+                    key="cmbTypeComp"
                     style={CustomStyleSheet.badrPicker}
                     titleStyle={CustomStyleSheet.badrPickerTitle}
                     title={translate('at.typeCompo')}
@@ -320,7 +456,7 @@ class RechercheAtMulti extends React.Component {
                         style={styles.margin15}
                         value={this.state.matricule}
                         onChangeText={(val) =>
-                          this.onChangeInput({matricule: val.toUpperCase()})
+                          this.onChangeInput({ matricule: val.toUpperCase() })
                         }
                         label={translate('at.numMatricule')}
                       />
@@ -328,6 +464,7 @@ class RechercheAtMulti extends React.Component {
                     <Col size={50}>
                       <ComBadrAutoCompleteChipsComp
                         placeholder={translate('at.pays')}
+                        selected={this.state.pays}
                         code="code"
                         maxItems={5}
                         libelle="libelle"
@@ -335,7 +472,7 @@ class RechercheAtMulti extends React.Component {
                         module="AT"
                         onDemand={true}
                         searchZoneFirst={false}
-                        initialValue={{code: ''}}
+                        initialValue={{ code: '' }}
                         onValueChange={(item) => this.handlePaysChanged(item)}
                       />
                     </Col>
@@ -348,7 +485,7 @@ class RechercheAtMulti extends React.Component {
                         underlineColor={primaryColor}
                         mode="outlined"
                         onChangeText={(val) =>
-                          this.onChangeInput({numChassis: val.toUpperCase()})
+                          this.onChangeInput({ numChassis: val.toUpperCase() })
                         }
                         label={translate('at.composants.numChassis')}
                       />
@@ -390,11 +527,15 @@ class RechercheAtMulti extends React.Component {
 }
 
 function mapStateToProps(state) {
-  return {...state.atRechercheReducer};
+  let clonedState = {
+    atRechercheReducer: { ...state.atRechercheReducer },
+    qrCodeReducer: { ...state.qrCodeReducer },
+  };
+  return clonedState;
 }
 
 function mapDispatchToProps(dispatch) {
-  let actions = {dispatch};
+  let actions = { dispatch };
   return {
     actions,
   };

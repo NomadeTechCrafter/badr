@@ -24,18 +24,22 @@ export default class ComBasicDataTableComp extends React.Component {
   constructor(props) {
     super(props);
     let checkedItems = [];
-    this.props.rows.forEach((element) => {
-      checkedItems.push({checked: element.isRowSelected});
-    });
-    this.state = {currentPage: 0, offset: 0, checkedItems: checkedItems};
+    if (this.props.rows) {
+      this.props.rows.forEach((element) => {
+        checkedItems.push({ checked: element.isRowSelected });
+      });
+    }
+    this.state = { currentPage: 0, offset: 0, checkedItems: checkedItems };
   }
 
   clearSelection = () => {
     let checkedItems = [];
-    this.props.rows.forEach((element) => {
-      checkedItems.push({checked: false});
-    });
-    this.setState({checkedItems: checkedItems});
+    if (this.props.rows) {
+      this.props.rows.forEach((element) => {
+        checkedItems.push({ checked: false });
+      });
+    }
+    this.setState({ checkedItems: checkedItems });
   };
 
   changeCurrentPage = (page) => {
@@ -130,9 +134,12 @@ export default class ComBasicDataTableComp extends React.Component {
   };
 
   buildDataTable = () => {
-    const pageCount = Math.ceil(
-      this.props.rows.length / this.props.maxResultsPerPage,
-    );
+    let pageCount = 0;
+    if (this.props.rows) {
+      pageCount = Math.ceil(
+        this.props.rows.length / this.props.maxResultsPerPage,
+      );
+    }
     return (
       <View style={styles.width100}>
         <ScrollView

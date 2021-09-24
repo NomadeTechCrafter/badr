@@ -42,7 +42,6 @@ class AtRechMultiMainScreen extends React.Component {
           subtitle={translate('at.recherche.subTitleMulti')}
         />
         {this.props.showProgress && <ComBadrProgressBarComp circle={false} />}
-        <NavigationContainer independent={true}>
           <Tab.Navigator
             initialLayout={{height: Dimensions.get('window').height}}
             swipeEnabled={false}
@@ -62,7 +61,6 @@ class AtRechMultiMainScreen extends React.Component {
             <Tab.Screen name="Recherche" component={SearchScreen} />
             <Tab.Screen name="Resultat" component={ResultScreen} />
           </Tab.Navigator>
-        </NavigationContainer>
       </View>
     );
   }

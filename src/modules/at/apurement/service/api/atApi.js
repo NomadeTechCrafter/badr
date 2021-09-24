@@ -189,5 +189,22 @@ export default class AtApi {
     };
     return await ComHttpHelperApi.process(data);
   };
+
+  static consulterFichierDocument = async (urlFichier) => {
+    const data = {
+      dtoHeader: {
+        userLogin: ComSessionService.getInstance().getLogin(),
+        fonctionnalite: 'cf9009',
+        module: AT_MODULE,
+        commande: 'consulterFichierDocument',
+        typeService: TYPE_SERVICE_SP,
+        motif: null,
+        messagesInfo: null,
+        messagesErreur: null,
+      },
+      jsonVO: urlFichier,
+    };
+    return await ComHttpHelperApi.process(data);
+  };
   
 }

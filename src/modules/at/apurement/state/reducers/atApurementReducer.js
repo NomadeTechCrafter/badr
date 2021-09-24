@@ -436,7 +436,7 @@ const buildMarchandiseVos = (admissionTempVO, listeIdDejaApure) => {
       value.selected = false;
       value.typeComposant = translate('at.composants.marchandise');
       value.informationAffichee =
-        translate('at.composants.designation') +
+        translate('at.composants.designation') + ' : ' +
         value.designation +
         (value.nature
           ? translate('at.composants.nature') + value.nature.libelle

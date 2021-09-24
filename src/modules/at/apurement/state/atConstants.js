@@ -1,6 +1,12 @@
 export const AT_MODULE = 'AT';
 export const CODE_TYPE_COMP_VEHICULE = '001';
+export const CODE_TYPE_COMP_REMORQUE = "002";
 export const CODE_TYPE_COMP_MOTO_QUAD = '003';
+export const CODE_TYPE_COMP_JET_SKI = "004";
+export const CODE_TYPE_COMP_BATEAU_PLAISANCE = "005";
+export const CODE_TYPE_COMP_ARME = "008";
+export const CODE_TYPE_COMP_DRONE = "009";
+export const CODE_TYPE_COMP_MARCHANDISE = "010";
 export const SEPAR_ID_VOY = '::';
 /*Init Apurement */
 export const INIT_APUR_REQUEST = '[INIT_APUR] INIT_APUR_REQUEST';
@@ -63,3 +69,16 @@ export const CONSULTER_AT_IN_PROGRESS =
 export const CONSULTER_AT_CLEAR_MSG =
   '[CONSULTER_AT_CLEAR_MSG] CONSULTER_AT_CLEAR_MSG';
 export const CONSULTER_AT_INIT = '[CONSULTER_AT] CONSULTER_AT_INIT';
+
+/*File AT */
+export const FILE_AT_REQUEST = '[FILE_AT_REQUEST] FILE_AT_REQUEST';
+export const FILE_AT_SUCCESS = '[FILE_AT_SUCCESS] FILE_AT_SUCCESS';
+export const FILE_AT_FAILED = '[FILE_AT_FAILED] FILE_AT_FAILED';
+export const FILE_AT_IN_PROGRESS = '[FILE_AT_IN_PROGRESS] FILE_AT_IN_PROGRESS';
+export const FILE_AT_CLEAR_MSG = '[FILE_AT_CLEAR_MSG] FILE_AT_CLEAR_MSG';
+export const FILE_AT_INIT = '[FILE_AT] FILE_AT_INIT';
+
+export const KEY_D16BIS = 'D16bis';
+export const KEY_D716 = 'D716';
+export const D16BIS = 'VEHICULES ET AUTRES MARCHANDISES';
+export const D716 = 'ENGINS NAUTIQUES';

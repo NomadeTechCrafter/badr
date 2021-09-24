@@ -11,6 +11,7 @@ import MainMenu from '../../mainMenu/ui/habMainMenuScreen';
 import CreerApurement from '../../../at/apurement/ui/creerApurement/AtApurementScreen';
 import Apurement from '../../../at/apurement/ui/ongletAt/apurement/AtCreateApurementScreen';
 import RechercheAtMulti from '../../../at/apurement/ui/recherche/atRechMultiMainScreen';
+import AtGestion from '../../../at/apurement/ui/ongletAt/AtGestionScreen';
 import AtEntete from '../../../at/apurement/ui/ongletAt/entete/AtEnteteScreen';
 import VuEmbarqueScreen from '../../../DeclarationD17D20/vuEmbarquer/ui/vuEmbarquer/VuEmbarqueScreen';
 import SortiPortScreen from '../../../DeclarationD17D20/sortiPort/ui/decSortiPort/decSortiPortMainScreen';
@@ -154,6 +155,11 @@ class habHomeScreen extends React.Component {
         name="RechercheAtMulti"
         component={RechercheAtMulti}
         options={{headerShown: false}}
+        />
+        <Drawer.Screen
+        name="AtGestion"
+        component={AtGestion}
+        options={{ headerShown: false }}
         />
         <Drawer.Screen
           name="AtEntete"

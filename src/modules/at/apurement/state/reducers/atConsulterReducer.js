@@ -19,7 +19,7 @@ export default (state = initialState, action) => {
     value: action.value,
   };
   switch (action.type) {
-    case Constants.RECH_MULTI_REQUEST:
+    case Constants.CONSULTER_AT_REQUEST:
       nextState.displayError = false;
       nextState.messageInfo = null;
       nextState.errorMessage = null;
@@ -28,15 +28,15 @@ export default (state = initialState, action) => {
         delete nextState.successMessage;
       }
       return nextState;
-    case Constants.RECH_MULTI_IN_PROGRESS:
+    case Constants.CONSULTER_AT_IN_PROGRESS:
       nextState.showProgress = true;
       return nextState;
-    case Constants.RECH_MULTI_SUCCESS:
+    case Constants.CONSULTER_AT_SUCCESS:
       nextState.errorMessage = null;
       nextState.showProgress = false;
       nextState.data = action.value.jsonVO;
       return nextState;
-    case Constants.RECH_MULTI_FAILED:
+    case Constants.CONSULTER_AT_FAILED:
       nextState.showProgress = false;
       nextState.displayError = true;
       if (action.value.dtoHeader) {
@@ -47,9 +47,9 @@ export default (state = initialState, action) => {
         nextState.errorMessage = translate('errors.technicalIssue');
       }
       return nextState;
-    case Constants.RECH_MULTI_INIT:
+    case Constants.CONSULTER_AT_INIT:
       return initialState;
-    case Constants.RECH_MULTI_CLEAR_MSG:
+    case Constants.CONSULTER_AT_CLEAR_MSG:
       if (nextState.successMessage) {
         delete nextState.successMessage;
       }

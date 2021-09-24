@@ -17,8 +17,8 @@ export default class ComBadrButtonRadioComp extends React.Component {
           {this.props.radioButtonsData.map((radio) => {
             return (
               <View style={styles.viewRadio}>
-                <Text style={styles.textRadio}>{radio.label}</Text>
                 <RadioButton disabled={this.props.disabled} value={radio.value} color={primaryColor} />
+                <Text style={styles.textRadio}>{radio.label}</Text>
               </View>
             );
           })}

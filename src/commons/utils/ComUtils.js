@@ -1,5 +1,6 @@
 import _ from 'lodash';
-import {Dimensions} from 'react-native';
+import { Dimensions, PermissionsAndroid } from 'react-native';
+import RNFetchBlob from 'rn-fetch-blob';
 import moment from 'moment';
 import translate from '../i18n/ComI18nHelper';
 import {ComSessionService} from '../services/session/ComSessionService';
@@ -143,5 +144,38 @@ export default class ComUtils {
   static convertStringTimeStamp = (date) => {
     var start_date = new Date(moment(date, "yyyy-MM-dd HH:mm:ss.S"));
     return start_date;
-  }
+  };
+
+  static downloadFile = async (nameFile, base64File) => {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+        {
+          title: 'External Storage Permission',
+          message:
+            "L'application a besoin des permissions nécessaires pour procéder.",
+          buttonNeutral: 'Demander ultérieurement',
+          buttonNegative: 'Annuler',
+          buttonPositive: 'OK',
+        },
+      );
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        let pdfLocation = RNFetchBlob.fs.dirs.DocumentDir + '/' + nameFile;
+        RNFetchBlob.fs.writeFile(pdfLocation, base64File, 'base64').then(() => {
+          if (Platform.OS === 'android') {
+            RNFetchBlob.android.actionViewIntent(
+              pdfLocation,
+              'application/pdf',
+            );
+          } else {
+            RNFetchBlob.ios.previewDocument(pdfLocation);
+          }
+        });
+      } else {
+        console.log('External storage permission denied');
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 }

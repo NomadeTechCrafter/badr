@@ -372,13 +372,17 @@ class Apurement extends React.Component {
 
   componentDidMount = () => {
     this.componentsAapurer = [];
-    this.unsubscribe = this.props.navigation.addListener('focus', () => {
-      this.onScreenReloaded();
-    });
+    if (!this.props.consultation) {
+      this.unsubscribe = this.props.navigation.addListener('focus', () => {
+        this.onScreenReloaded();
+      });
+    }
   };
 
   componentWillUnmount() {
-    this.unsubscribe();
+    if (!this.props.consultation) {
+      this.unsubscribe();
+    }
   }
 
   buildMotif = () => {
@@ -399,24 +403,31 @@ class Apurement extends React.Component {
   };
 
   render() {
-    const atVo: any = this.props.initApurement.data;
+    let atVo;
+    if (!this.props.consultation) {
+      atVo=this.props.initApurement.data;
+    } else {
+      atVo=this.props.data;
+    }
+    
     return (
       <View style={styles.fabContainer}>
         <ScrollView
           ref={(c) => {
             this.scroll = c;
           }}>
-          <ComBadrToolbarComp
-            back={true}
-            navigation={this.props.navigation}
-            title={translate('at.title')}
-            subtitle={translate('at.apurement.title')}
-            icon="menu"
-          />
-
+          {!this.props.consultation &&
+            <ComBadrToolbarComp
+              back={true}
+              navigation={this.props.navigation}
+              title={translate('at.title')}
+              subtitle={translate('at.apurement.title')}
+              icon="menu"
+            />
+          }
           {atVo != null && atVo.atEnteteVO != null && (
             <ComContainerComp>
-              {this.props.initApurement.errorMessage != null && (
+              {(!this.props.consultation && this.props.initApurement.errorMessage != null) && (
                 <View style={styles.messages}>
                   <ComBadrErrorMessageComp
                     message={this.props.initApurement.errorMessage}
@@ -452,6 +463,7 @@ class Apurement extends React.Component {
                 dateCreation={atVo.atEnteteVO.dateCreation}
                 numVersion={atVo.atEnteteVO.numVersion}
                 etat={atVo.atEnteteVO.etatAt.libelle}
+                etatValidation={atVo.atEnteteVO.etatValidation}
               />
 
               {/* Apurements */}
@@ -463,8 +475,8 @@ class Apurement extends React.Component {
                     <ComBasicDataTableComp
                       id="idComposantApures"
                       rows={
-                        this.props.initApurement.data.apurementVOs
-                          ? this.props.initApurement.data.apurementVOs
+                        atVo.apurementVOs
+                          ? atVo.apurementVOs
                           : []
                       }
                       cols={this.apurementsCols}
@@ -647,8 +659,8 @@ class Apurement extends React.Component {
                             style={styles.textInputsStyle}
                             underlineColor={primaryColor}
                             mode="outlined"
-                            value={
-                              this.state.selectedApurement.arrondApur.libelle
+                            value={this.state.selectedApurement.arrondApur ? 
+                              this.state.selectedApurement.arrondApur.libelle : ''
                             }
                             disabled="true"
                             label={translate('at.apurement.arrondApurement')}

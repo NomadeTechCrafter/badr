@@ -41,20 +41,26 @@ class InfoCommon extends React.Component {
         {/* Dates creation, enreg AT */}
         <ComBadrCardSectionComp style={styles.CardSectionInfo}>
           <View style={styles.containerLibRow}>
-            <Text style={styles.libelleTitleL}>
+            <Text style={styles.libelleTitleM}>
               {translate('at.dateCreation')}
             </Text>
-            <Text style={styles.libelleTitleL}>
+            <Text style={styles.libelleTitleM}>
               {translate('at.dateEnregistrement')}
             </Text>
             <Text style={styles.libelleTitleS}>{translate('at.version')}</Text>
+            {this.props.etatValidation && 
+              <Text style={styles.libelleTitleS}>{translate('at.atWraqi')}</Text>
+            }
           </View>
           <View style={styles.containerValRow}>
-            <Text style={styles.libelleValL}>{this.props.dateCreation}</Text>
-            <Text style={styles.libelleValL}>
+            <Text style={styles.libelleValM}>{this.props.dateCreation}</Text>
+            <Text style={styles.libelleValM}>
               {this.props.dateEnregistrement}
             </Text>
             <Text style={styles.libelleValS}>{this.props.numVersion}</Text>
+            {this.props.etatValidation &&
+              <Text style={styles.libelleValS}>{this.props.etatValidation}</Text>
+            }
           </View>
         </ComBadrCardSectionComp>
       </View>

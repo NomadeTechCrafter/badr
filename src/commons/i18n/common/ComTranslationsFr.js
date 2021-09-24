@@ -139,6 +139,10 @@ export default {
   },
   tabs: {
     entete: 'Entete',
+    composant: 'Composants AT',
+    apurement: 'Apurement',
+    docAnnexe: 'Documents Annexes',
+    historique: 'Historique',
     connaissements: 'Connaissements',
     declarationDetail: 'Déclaration en Détail',
     etatChargement: 'Etat de chargement',
