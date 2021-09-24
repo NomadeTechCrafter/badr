@@ -136,7 +136,7 @@ class ConfirmationArriveeResultScreen extends React.Component {
                 this.props.data.initConfirmerArriveeVO.scelles,
               )}
               ecorIsSaved={this.props.data.ecorIsSaved}
-              listEC={this.props?.data?.listDeclaration?.length > 1 ? true : false}
+              listEC={this.props?.data?.listDeclaration?.length > 0 ? true : false}
             />
           )}
         </ScrollView>
