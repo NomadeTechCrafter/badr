@@ -55,7 +55,7 @@ class ControleACVPScreen extends Component {
       this.setState({
         ...this.state,
         refDeclaration: refDeclaration,
-        cle: 'D',
+        cle: this.cleDUM(refDeclaration?.slice(3, 6), refDeclaration?.slice(10, 17)),
         numeroVoyage: '',
         declaration: controleVo,
         typeRegime: translate('controle.ACVP'),
@@ -67,6 +67,24 @@ class ControleACVPScreen extends Component {
         compteRendu: '',
       });
     }
+  };
+
+
+  cleDUM = function (regime, serie) {
+    let alpha = 'ABCDEFGHJKLMNPRSTUVWXYZ';
+    /*while (serie.length < 6) {
+        serie = '0' + serie;
+      }*/
+    if (serie.length > 6) {
+      let firstSerie = serie.substring(0, 1);
+      if (firstSerie == '0') {
+        serie = serie.substring(1, 7);
+      }
+    }
+    let obj = regime + serie;
+    let RS = obj % 23;
+    alpha = alpha.charAt(RS);
+    return alpha;
   };
 
   onScreenReloaded = () => {

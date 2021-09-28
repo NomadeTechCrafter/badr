@@ -4,6 +4,7 @@ import { Col, Row, Grid } from 'react-native-easy-grid';
 import { connect } from "react-redux";
 import { CustomStyleSheet } from "../../../../../../../commons/styles/ComThemeStyle";
 import translate from "../../../../../../../commons/i18n/ComI18nHelper";
+import { StyleSheet } from "react-native";
 
 
 class ControleRefDeclarationBlock extends React.Component {
@@ -15,9 +16,40 @@ class ControleRefDeclarationBlock extends React.Component {
     componentDidMount() {
     }
 
+    cleDUM = function (regime, serie) {
+        let alpha = 'ABCDEFGHJKLMNPRSTUVWXYZ';
+        /*while (serie.length < 6) {
+            serie = '0' + serie;
+          }*/
+        if (serie?.length > 6) {
+            let firstSerie = serie?.substring(0, 1);
+            if (firstSerie == '0') {
+                serie = serie?.substring(1, 7);
+            }
+        }
+        let obj = regime + serie;
+        let RS = obj % 23;
+        alpha = alpha.charAt(RS);
+        return alpha;
+    };
+
     render() {
+        const styles = StyleSheet.create({
+            container: {
+                marginTop: 50,
+            },
+            bigBlue: {
+                color: 'blue',
+                fontWeight: 'bold',
+                fontSize: 30,
+            },
+            red: {
+                backgroundColor: 'red',
+            },
+        });
+        // const cle = this.cleDUM(this.props?.refDeclaration?.refDeclaration?.slice(3, 6), this.props?.refDeclaration?.refDeclaration?.slice(10, 17));
         return (
-            <ComBadrCardBoxComp noPadding={true}>
+            <ComBadrCardBoxComp noPadding={true} style={styles.red}>
                 <Grid>
                     <Row style={CustomStyleSheet.whiteRow}>
                         <Col size={2}>
@@ -74,7 +106,7 @@ class ControleRefDeclarationBlock extends React.Component {
                         </Col>
                         <Col size={1}>
                             <ComBadrLibelleComp withColor={false}>
-                                {this.props?.refDeclaration?.cle}
+                                {this.cleDUM(this.props?.refDeclaration?.refDeclaration?.slice(3, 6), this.props?.refDeclaration?.refDeclaration?.slice(10, 17))}
                             </ComBadrLibelleComp>
                         </Col>
                         <Col size={2}>

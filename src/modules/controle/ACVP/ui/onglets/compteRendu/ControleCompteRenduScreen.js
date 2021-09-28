@@ -91,12 +91,13 @@ class ControleCompteRenduScreen extends React.Component {
     };
 
     render() {
+        const refDeclaration = this.props?.compteRenduData ? this.props?.compteRenduData : '';
         let annotations = this.props?.compteRenduData?.declaration?.autreAnnotationVOs ? this.props?.compteRenduData?.declaration?.autreAnnotationVOs : [];
         let listeDocs = this.props?.compteRenduData?.declaration?.documentAnnexeResultVOs ? this.props?.compteRenduData?.declaration?.documentAnnexeResultVOs : [];
         const listD17D20 = [];
         return (
             <ScrollView>
-                <ControleRefDeclarationBlock refDeclaration={this.props?.compteRenduData}/>
+                <ControleRefDeclarationBlock refDeclaration={refDeclaration} />
                 {/* Annotations */}
                 < ComBadrCardBoxComp style={styles.cardBox} >
                     <ComAccordionComp title={translate('controle.annotations')} expanded={true}>

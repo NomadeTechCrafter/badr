@@ -29,16 +29,10 @@ class ControleInfoScreen extends React.Component {
         super(props);
     }
     render() {
-        console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
-        console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
-        console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
-        console.log(JSON.stringify(this.props));
-        console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
-        console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
-        console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+        const refDeclaration = this.props?.data ? this.props?.data : '';
         return (
             <ScrollView>
-                <ControleRefDeclarationBlock />
+                <ControleRefDeclarationBlock refDeclaration={refDeclaration} />
                 {/* Historique des comptes rendu de contrôle */}
                 <ComBadrCardBoxComp style={styles.cardBox}>
                     <ComAccordionComp expanded={true}

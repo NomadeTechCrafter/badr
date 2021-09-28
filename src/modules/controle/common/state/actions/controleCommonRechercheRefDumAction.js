@@ -56,7 +56,6 @@ export function inProgress(action) {
 }
 
 export function success(data, refDeclaration) {
-  console.log('in dispatch succes action dunction');
   return {
     type: Constants.INIT_CONTROLE_COMMUN_SUCCESS,
     value: {
