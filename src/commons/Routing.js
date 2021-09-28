@@ -46,6 +46,8 @@ const mapping = {
   '2301': { screen: 'DTPSSortieMainScreen', params: {} },
   '2302': { screen: 'DTPSEntreeMainScreen', params: {} },
   '2303': { screen: 'DTPSConsultationMainScreen', params: {} },
+
+  '9932': { screen: 'ActifsRecherche', params: {} },
   /*
   '121711': {
     screen: 'EciConsultationBLS',
@@ -106,7 +108,6 @@ const mapping = {
         screen: 'RechercheAutoriserAcheminementScreen',
         params: {},
     },
-'9932': { screen: 'ActifsRecherche', params: {} },
 */
 };
 
