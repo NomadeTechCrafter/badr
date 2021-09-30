@@ -29,10 +29,11 @@ class ControleInfoScreen extends React.Component {
         super(props);
     }
     render() {
-        const refDeclaration = this.props?.data ? this.props?.data : '';
+        const refDeclaration = this.props?.data?.refDeclaration ? this.props?.data?.refDeclaration : '';
+        const declaration = this.props?.data?.init ? this.props?.data?.init : '';
         return (
             <ScrollView>
-                <ControleRefDeclarationBlock refDeclaration={refDeclaration} />
+                <ControleRefDeclarationBlock refDeclaration={refDeclaration} declaration={declaration} />
                 {/* Historique des comptes rendu de contrôle */}
                 <ComBadrCardBoxComp style={styles.cardBox}>
                     <ComAccordionComp expanded={true}
@@ -40,7 +41,7 @@ class ControleInfoScreen extends React.Component {
                             !(this.props?.data?.init.historiqueCompte?.length > 0)
                         }
                         title={translate('controle.historiqueCompteRendu')}>
-                        
+
                         <DedRedressementRow>
                             {/* <Text>{this.state?.declaration.redressement}</Text> */}
                             <TextInput

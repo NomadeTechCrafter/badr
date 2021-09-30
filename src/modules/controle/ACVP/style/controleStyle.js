@@ -16,6 +16,7 @@ const styles = {
         fontSize: 14,
         color: '#006acd',
     },
+    width100: { width: '100%' },
     cardBoxInfoDum: {
         flexDirection: 'column',
     },

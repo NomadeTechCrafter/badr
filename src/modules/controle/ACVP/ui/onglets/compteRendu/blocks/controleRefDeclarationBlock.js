@@ -4,7 +4,7 @@ import { Col, Row, Grid } from 'react-native-easy-grid';
 import { connect } from "react-redux";
 import { CustomStyleSheet } from "../../../../../../../commons/styles/ComThemeStyle";
 import translate from "../../../../../../../commons/i18n/ComI18nHelper";
-import { StyleSheet } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 
 
 class ControleRefDeclarationBlock extends React.Component {
@@ -34,6 +34,15 @@ class ControleRefDeclarationBlock extends React.Component {
     };
 
     render() {
+        const libelle = {
+            fontSize: 14,
+            color: '#006acd',
+            fontWeight: 'bold',
+        };
+        const value = {
+            fontSize: 14,
+            fontWeight: 'bold',
+        };
         const styles = StyleSheet.create({
             container: {
                 marginTop: 50,
@@ -45,84 +54,204 @@ class ControleRefDeclarationBlock extends React.Component {
             },
             red: {
                 backgroundColor: 'red',
+                paddingHorizontal: 10,
+                paddingVertical: 10,
+                width: '100%'
+            },
+            orange: {
+                backgroundColor: 'orange',
+                paddingHorizontal: 10,
+                paddingVertical: 10,
+                width: '100%'
+            },
+            
+            marg: {
+                // margin: 10,
+                // marginBottom: 10,
+                // marginRight: 15
+                width: 75,
+            },
+            leftMargin: {
+                // margin: 10,
+                // marginBottom: 10,
+                marginLeft: 60,
+                // width: 75,
+                color: 'white',
+            },
+            whiteTextColor: {
+                color: 'white',
+            },
+            whiteTextColorBold: {
+                color: 'white',
+                fontWeight: 'bold',
+            },
+            bold: {
+                fontWeight: 'bold',
+            },
+            width100: { width: '100%' },
+            cardBoxInfoDum: {
+                flexDirection: 'column',
+                margin: 10,
+            },
+            flexDirectionRow: {
+                flexDirection: 'row',
+            },
+            margtb: {
+                marginBottom: 10,
+            },
+            libelleS: {
+                ...libelle,
+                flex: 1,
+            },
+            libelleL: {
+                ...libelle,
+                flex: 3,
+            },
+            libelleM: {
+                ...libelle,
+                flex: 2,
+            },
+            valueS: {
+                ...value,
+                flex: 1,
+            },
+            valueM: {
+                ...value,
+                flex: 2,
+            },
+            valueL: {
+                ...value,
+                flex: 3,
             },
         });
-        // const cle = this.cleDUM(this.props?.refDeclaration?.refDeclaration?.slice(3, 6), this.props?.refDeclaration?.refDeclaration?.slice(10, 17));
+
+        let circuit = ''
+        let styleCircuit = '';
+        switch (this.props?.declaration?.decision) {
+            case 'AC':
+                circuit = 'Circuit Orange';
+                styleCircuit = styles.orange;
+                break;
+            case 'VP':
+                circuit = 'Circuit Rouge Partiel';
+                styleCircuit = styles.red;
+                break;
+            case 'VI':
+                circuit = 'Circuit Rouge Intégral';
+                styleCircuit = styles.red;
+                break;
+
+            default:
+                break;
+        }
+        let decisionCircuit = this.props?.declaration?.refDecisionSelectivite?.libelle + ' (' + this.props?.declaration?.decisionScanner + ')';
+
         return (
-            <ComBadrCardBoxComp noPadding={true} style={styles.red}>
-                <Grid>
-                    <Row style={CustomStyleSheet.whiteRow}>
-                        <Col size={2}>
-                            <ComBadrLibelleComp withColor={true}>
-                                {translate('transverse.bureau')}
-                            </ComBadrLibelleComp>
-                        </Col>
-                        <Col size={2}>
-                            <ComBadrLibelleComp withColor={true}>
-                                {translate('transverse.regime')}
-                            </ComBadrLibelleComp>
-                        </Col>
-                        <Col size={2}>
-                            <ComBadrLibelleComp withColor={true}>
-                                {translate('transverse.annee')}
-                            </ComBadrLibelleComp>
-                        </Col>
-                        <Col size={2}>
-                            <ComBadrLibelleComp withColor={true}>
-                                {translate('transverse.serie')}
-                            </ComBadrLibelleComp>
-                        </Col>
-                        <Col size={1}>
-                            <ComBadrLibelleComp withColor={true}>
-                                {translate('transverse.cle')}
-                            </ComBadrLibelleComp>
-                        </Col>
-                        <Col size={2}>
-                            <ComBadrLibelleComp withColor={true}>
-                                {translate('mainlevee.numVoyage')}
-                            </ComBadrLibelleComp>
-                        </Col>
-                    </Row>
-                    <Row style={CustomStyleSheet.lightBlueRow}>
-                        <Col size={2}>
-                            <ComBadrLibelleComp withColor={false}>
-                                {this.props?.refDeclaration?.refDeclaration?.slice(0, 3)}
-                            </ComBadrLibelleComp>
-                        </Col>
-                        <Col size={2}>
-                            <ComBadrLibelleComp withColor={false}>
-                                {this.props?.refDeclaration?.refDeclaration?.slice(3, 6)}
-                            </ComBadrLibelleComp>
-                        </Col>
-                        <Col size={2}>
-                            <ComBadrLibelleComp withColor={false}>
-                                {this.props?.refDeclaration?.refDeclaration?.slice(6, 10)}
-                            </ComBadrLibelleComp>
-                        </Col>
-                        <Col size={2}>
-                            <ComBadrLibelleComp withColor={false}>
-                                {this.props?.refDeclaration?.refDeclaration?.slice(10, 17)}
-                            </ComBadrLibelleComp>
-                        </Col>
-                        <Col size={1}>
-                            <ComBadrLibelleComp withColor={false}>
-                                {this.cleDUM(this.props?.refDeclaration?.refDeclaration?.slice(3, 6), this.props?.refDeclaration?.refDeclaration?.slice(10, 17))}
-                            </ComBadrLibelleComp>
-                        </Col>
-                        <Col size={2}>
-                            <ComBadrLibelleComp withColor={false}>
-                                {this.state?.numeroVoyage}
-                            </ComBadrLibelleComp>
-                        </Col>
-                    </Row>
-                </Grid>
-            </ComBadrCardBoxComp>
+            <View style={styles.width100}>
+                <ScrollView
+                    style={styles.width100}
+                    ref={(node) => {
+                        this.horizontalScrollView = node;
+                    }}
+                    key="horizontalScrollView"
+                    horizontal={true}>
+                    <ScrollView key="verticalScrollView" style={styles.width100}>
+                        <View style={[styles.flexDirectionRow, styles.margtb]}>
+                            <ComBadrCardBoxComp noPadding={true} style={styleCircuit}>
+                                <Grid>
+                                    <Col>
+                                        <Row style={CustomStyleSheet.whiteRow}>
+                                            <Col>
+                                                <ComBadrLibelleComp withColor={true} style={styles.marg}>
+                                                    {translate('transverse.bureau')}
+                                                </ComBadrLibelleComp>
+                                            </Col>
+                                            <Col>
+                                                <ComBadrLibelleComp withColor={true} style={styles.marg}>
+                                                    {translate('transverse.regime')}
+                                                </ComBadrLibelleComp>
+                                            </Col>
+                                            <Col>
+                                                <ComBadrLibelleComp withColor={true} style={styles.marg}>
+                                                    {translate('transverse.annee')}
+                                                </ComBadrLibelleComp>
+                                            </Col>
+                                            <Col>
+                                                <ComBadrLibelleComp withColor={true} style={styles.marg}>
+                                                    {translate('transverse.serie')}
+                                                </ComBadrLibelleComp>
+                                            </Col>
+                                            <Col>
+                                                <ComBadrLibelleComp withColor={true} style={styles.marg}>
+                                                    {translate('transverse.cle')}
+                                                </ComBadrLibelleComp>
+                                            </Col>
+                                            <Col>
+                                                <ComBadrLibelleComp withColor={true} style={styles.marg}>
+                                                    {translate('mainlevee.numVoyage')}
+                                                </ComBadrLibelleComp>
+                                            </Col>
+                                        </Row>
+                                        <Row style={CustomStyleSheet.lightBlueRow}>
+                                            <Col>
+                                                <ComBadrLibelleComp withColor={false} style={styles.marg}>
+                                                    {this.props?.refDeclaration?.slice(0, 3)}
+                                                </ComBadrLibelleComp>
+                                            </Col>
+                                            <Col>
+                                                <ComBadrLibelleComp withColor={false} style={styles.marg}>
+                                                    {this.props?.refDeclaration?.slice(3, 6)}
+                                                </ComBadrLibelleComp>
+                                            </Col>
+                                            <Col>
+                                                <ComBadrLibelleComp withColor={false} style={styles.marg}>
+                                                    {this.props?.refDeclaration?.slice(6, 10)}
+                                                </ComBadrLibelleComp>
+                                            </Col>
+                                            <Col>
+                                                <ComBadrLibelleComp withColor={false} style={styles.marg}>
+                                                    {this.props?.refDeclaration?.slice(10, 17)}
+                                                </ComBadrLibelleComp>
+                                            </Col>
+                                            <Col>
+                                                <ComBadrLibelleComp withColor={false} style={styles.marg}>
+                                                    {this.cleDUM(this.props?.refDeclaration?.slice(3, 6), this.props?.refDeclaration?.slice(10, 17))}
+                                                </ComBadrLibelleComp>
+                                            </Col>
+                                            <Col>
+                                                <ComBadrLibelleComp withColor={false} style={styles.marg}>
+                                                    {this.props?.declaration?.numeroVoyage}
+                                                </ComBadrLibelleComp>
+                                            </Col>
+                                        </Row>
+                                    </Col>
+                                    <Col style={styles.leftMargin} >
+                                        <Row>
+                                        </Row>
+                                        <Row>
+                                            <Col><Text style={styles.valueL, styles.whiteTextColor}>{circuit} </Text></Col>
+                                        </Row>
+                                        <Row>
+                                        </Row>
+                                    </Col>
+                                    <Col style={styles.leftMargin} >
+                                        <Row>
+                                        </Row>
+                                        <Row>
+                                            <Col><Text style={styles.whiteTextColorBold}>Décision de sélectivité : {decisionCircuit}</Text></Col>
+                                        </Row>
+                                        <Row>
+                                        </Row>
+                                    </Col>
+                                </Grid>
+                            </ComBadrCardBoxComp>
+                        </View >
+                    </ScrollView>
+                </ScrollView>
+            </View >
         );
     }
 }
 
-// function mapStateToProps(state) {
-//     return { ...state.controleCommonReducer };
-// }
 
 export default connect(null, null)(ControleRefDeclarationBlock);

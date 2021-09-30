@@ -335,7 +335,7 @@ class ControleACVPScreen extends Component {
                 />
               </View>*/}
 
-            {/* <Row pointerEvents={this.state.isConsultation ? 'none' : 'auto'}>
+            <Row pointerEvents={this.state.isConsultation ? 'none' : 'auto'}>
                 <Col size={1} />
                 <Col size={3}>
                   <ComBadrButtonIconComp
@@ -367,7 +367,7 @@ class ControleACVPScreen extends Component {
                   />
                 </Col>
                 <Col size={1} />
-              </Row> */}
+              </Row>
           </View>
         </ComContainerComp>
       </View>

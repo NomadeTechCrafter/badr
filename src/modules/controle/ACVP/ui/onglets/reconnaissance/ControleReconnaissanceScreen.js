@@ -121,17 +121,13 @@ class ControleBonDelivrerScreen extends React.Component {
     };
 
     render() {
-        const refDeclaration = this.props?.data ? this.props?.data : '';
-        console.log('**************************this.props.data.recVO*********************************+++');
-        console.log('**************************this.props.data.recVO*********************************+++');
-        console.log(JSON.stringify(this.props?.data));
-        console.log('****************************this.props.data.recVO*******************************+++');
-        console.log('**************************this.props.data.recVO*********************************+++');
+        const refDeclaration = this.props?.data?.refDeclaration ? this.props?.data?.refDeclaration : '';
+        const declaration = this.props?.data?.init ? this.props?.data?.init : '';
         const reconnaissance = this.props?.data?.init?.recVO ? this.props?.data?.init?.recVO : {};
         const photoList = this.props?.data?.init?.recVO?.photoList ? this.props?.data?.init?.recVO?.photoList : [];
         return (
             <ScrollView>
-                <ControleRefDeclarationBlock refDeclaration={refDeclaration}/>
+                <ControleRefDeclarationBlock refDeclaration={refDeclaration} declaration={declaration} />
                 <ComAccordionComp title={'Informations de la reconnaissance'} expanded={true}>
                     <ComBadrKeyValueComp
                         libelle={translate('reconnaissance.core.nature')}

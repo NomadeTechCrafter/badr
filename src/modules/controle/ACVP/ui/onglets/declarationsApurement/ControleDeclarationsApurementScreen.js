@@ -38,7 +38,7 @@ class ControleDeclarationsApurementScreen extends React.Component {
     }
 
     render() {
-        const listD17D20 = [];
+        const listD17D20 = this.props?.data?.init?.declarationsApurementTryptique ? this.props?.data?.init?.declarationsApurementTryptique : [];
         return (
             <ScrollView>
                 <ComBadrCardBoxComp style={styles.cardBox}>

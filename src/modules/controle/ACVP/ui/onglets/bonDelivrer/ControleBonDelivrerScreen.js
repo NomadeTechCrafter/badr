@@ -53,11 +53,12 @@ class ControleReconnaissanceScreen extends React.Component {
         ];
     }
     render() {
-        const refDeclaration = this.props?.data ? this.props?.data : '';
+        const refDeclaration = this.props?.data?.refDeclaration ? this.props?.data?.refDeclaration : '';
+        const declaration = this.props?.data?.init ? this.props?.data?.init : '';
         const preapurements = this.props?.data?.init?.listDedDumPreapVOs ? this.props?.data?.init?.listDedDumPreapVOs : [];
         return (
             <ScrollView>
-                <ControleRefDeclarationBlock refDeclaration={refDeclaration} />
+                <ControleRefDeclarationBlock refDeclaration={refDeclaration} declaration={declaration} />
                 <ComBasicDataTableComp
                     badr
                     onRef={(ref) => (this.badrComposantsTable = ref)}
