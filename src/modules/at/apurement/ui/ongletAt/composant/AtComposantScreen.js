@@ -160,12 +160,12 @@ class AtComposant extends React.Component {
                 </ComAccordionComp>
               </ComBadrCardBoxComp>
               <ComBadrCardBoxComp style={styles.cardBox}>
-                  <View style={styles.flexDirectionRow}>
+                  <View style={styles.flexDirectionRow} style= {styles.viewComp}>
                     <Row size={100}>
                       <Col size={100}>
                         <ComBadrPickerComp
-                          notFetchDataDidMount={true}
-                          key="code"
+                          onRef={(ref) => (this.cmbTypeCompoComp = ref)}
+                          key="cmbTypeCompoComp"
                           style={CustomStyleSheet.badrPicker}
                           titleStyle={CustomStyleSheet.badrPickerTitle}
                           title={translate('at.typeCompo')}
@@ -269,6 +269,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingBottom: 40,
     paddingTop: 15,
+  },
+  viewComp: {
+    padding : 10,
   },
   cardBox: {
     flexDirection: 'column',

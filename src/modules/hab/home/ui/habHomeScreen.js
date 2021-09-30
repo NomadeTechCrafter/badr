@@ -12,7 +12,6 @@ import CreerApurement from '../../../at/apurement/ui/creerApurement/AtApurementS
 import Apurement from '../../../at/apurement/ui/ongletAt/apurement/AtCreateApurementScreen';
 import RechercheAtMulti from '../../../at/apurement/ui/recherche/atRechMultiMainScreen';
 import AtGestion from '../../../at/apurement/ui/ongletAt/AtGestionScreen';
-import AtEntete from '../../../at/apurement/ui/ongletAt/entete/AtEnteteScreen';
 import VuEmbarqueScreen from '../../../DeclarationD17D20/vuEmbarquer/ui/vuEmbarquer/VuEmbarqueScreen';
 import SortiPortScreen from '../../../DeclarationD17D20/sortiPort/ui/decSortiPort/decSortiPortMainScreen';
 import RechParRefTrypScreen from '../../../DeclarationD17D20/rechParRef/ui/decRechParRef/decRechParRefMainScreen';
@@ -160,11 +159,6 @@ class habHomeScreen extends React.Component {
         name="AtGestion"
         component={AtGestion}
         options={{ headerShown: false }}
-        />
-        <Drawer.Screen
-          name="AtEntete"
-          component={AtEntete}
-          options={{ headerShown: false }}
         />
         <Drawer.Screen
           name="DedRechercheRedressement"

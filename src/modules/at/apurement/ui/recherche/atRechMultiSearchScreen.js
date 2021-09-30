@@ -67,8 +67,6 @@ class RechercheAtMulti extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('nextProps nextProps nextProps');
-    console.log(nextProps);
     if (
       nextProps.qrCodeReducer.value &&
       nextProps.qrCodeReducer.value.data &&
@@ -146,7 +144,7 @@ class RechercheAtMulti extends React.Component {
   onChangeInput = (input) => {
     let keyImput = _.keys(input)[0];
     if (keyImput === 'bureau' || keyImput === 'annee' ||
-        keyImput === 'numero' || keyImput === 'serie') {
+      keyImput === 'numero' || keyImput === 'serie') {
       let keyImput = _.keys(input)[0];
       this.setState({ [keyImput]: input[keyImput].replace(/[^0-9]/g, '') });
     }
@@ -164,12 +162,10 @@ class RechercheAtMulti extends React.Component {
   };
 
   rechercher = () => {
-    console.log('this.state');
-    console.log(this.state);
     if (!this.validateChamps()) {
       return;
     }
-    let reference = ComUtils.concatReference(this.state.bureau, this.state.annee, this.state.numero, this.state.serie); 
+    let reference = ComUtils.concatReference(this.state.bureau, this.state.annee, this.state.numero, this.state.serie);
     let referenceVO = null;
     if (!_.isEmpty(reference)) {
       referenceVO = {
@@ -279,6 +275,13 @@ class RechercheAtMulti extends React.Component {
             />
           </View>
         )}
+        {this.props.qrCodeReducer &&
+          this.props.qrCodeReducer.errorMessage && (
+            <ComBadrErrorMessageComp
+              onClose={this.retablir}
+              message={this.props.qrCodeReducer.errorMessage}
+            />
+          )}
         <ComBadrCardBoxComp style={styles.cardBox}>
           <ComBadrCardWithTileComp
             title={translate('at.recherche.critereTitle')}>

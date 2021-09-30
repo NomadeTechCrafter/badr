@@ -14,7 +14,7 @@ const mapping = {
   '30661': { screen: 'ControleApresScanner', params: {} },
   '90025': { screen: 'VuEmbarqueScreen', params: { qr: true } },
   '90008': { screen: 'RechParRefTrypScreen', params: {} },
-  
+
 
   '1101': { screen: 'ConsultationTIScreen', params: { modeConsultation: 'E' } },
   '1102': { screen: 'ConsultationTIScreenI', params: { modeConsultation: 'I' } },
@@ -47,8 +47,8 @@ const mapping = {
   '2302': { screen: 'DTPSEntreeMainScreen', params: {} },
   '2303': { screen: 'DTPSConsultationMainScreen', params: {} },
 
-  '9932': { screen: 'ActifsRecherche', params: {} },
-  /*
+    '9932': { screen: 'ActifsRecherche', params: {} },
+    /*
   '121711': {
     screen: 'EciConsultationBLS',
     params: {title: 'Ecran  Recherche Consultation BLS'},
@@ -89,26 +89,26 @@ const mapping = {
     params: {title: 'Ecran  Recherche T6BIS'},
   },
 
-  '121711': {
-    screen: 'EciConsultationBLS',
-    params: {title: 'Ecran  Recherche Consultation BLS'},
-  },
-  '6151': {
-    //CONFIRMATION ENTREE
-    screen: 'ConfirmationEntreeRechercheScreen',
-    params: {title: 'Ecran  Recherche Confirmation entree'},
-  },
-  '61530': {
-    //CONFIRMATION ARRIVEE
-    screen: 'ConfirmationArriveeRechercheScreen',
-    params: {title: 'Ecran  Recherche Confirmation arrivee'},
-  },
-    '61525': {
-        //AUTORISER ACHEMINEMENT
-        screen: 'RechercheAutoriserAcheminementScreen',
-        params: {},
+    '121711': {
+      screen: 'EciConsultationBLS',
+      params: {title: 'Ecran  Recherche Consultation BLS'},
     },
-*/
+    '6151': {
+      //CONFIRMATION ENTREE
+      screen: 'ConfirmationEntreeRechercheScreen',
+      params: {title: 'Ecran  Recherche Confirmation entree'},
+    },
+    '61530': {
+      //CONFIRMATION ARRIVEE
+      screen: 'ConfirmationArriveeRechercheScreen',
+      params: {title: 'Ecran  Recherche Confirmation arrivee'},
+    },
+      '61525': {
+          //AUTORISER ACHEMINEMENT
+          screen: 'RechercheAutoriserAcheminementScreen',
+          params: {},
+      },
+  */
 };
 
 const ionicMapping = {};

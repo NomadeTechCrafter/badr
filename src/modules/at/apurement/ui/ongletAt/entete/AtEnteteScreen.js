@@ -147,7 +147,6 @@ class AtEntete extends React.Component {
                     <Row size={100}>
                       <Col size={100}>
                         <ComBadrPickerComp
-                          notFetchDataDidMount={true}
                           disabled={true}
                           key="code"
                           style={CustomStyleSheet.badrPicker}
@@ -276,8 +275,8 @@ class AtEntete extends React.Component {
                       <Row size={100}>
                         <Col size={100}>
                           <ComBadrPickerComp
-                            notFetchDataDidMount={true}
-                            key="code"
+                            onRef={(ref) => (this.cmbTypeCompoEntete = ref)}
+                            key="cmbTypeCompoEntete"
                             style={CustomStyleSheet.badrPicker}
                             titleStyle={CustomStyleSheet.badrPickerTitle}
                             title={translate('at.typeCompo')}

@@ -407,7 +407,7 @@ class Apurement extends React.Component {
     if (!this.props.consultation) {
       atVo=this.props.initApurement.data;
     } else {
-      atVo=this.props.data;
+      atVo = this.props.atConsulter.data;
     }
     
     return (
@@ -758,7 +758,8 @@ class Apurement extends React.Component {
 
 function mapStateToProps(state) {
   const combinedState = {
-    initApurement: {...state.initApurementReducer},
+    initApurement: { ...state.initApurementReducer },
+    atConsulter: { ...state.atConsulterReducer },
   };
   return combinedState;
 }
