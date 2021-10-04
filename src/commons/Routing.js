@@ -1,7 +1,7 @@
 const mapping = {
-  '9005': {screen: 'CreerApurement', params: {qr: true}},
-  '9009': {screen: 'RechercheAtMulti', params: {qr: true}},
-  '2243': {screen: 'RechercheConfirmationReceptionScreen', params: {}},
+  '9005': { screen: 'CreerApurement', params: { qr: true } },
+  '9009': { screen: 'RechercheAtMulti', params: { qr: true } },
+  '2243': { screen: 'RechercheConfirmationReceptionScreen', params: {} },
   '1226': {
     screen: 'ECIAppositionScellesRechercheScreen',
     params: {},
@@ -10,7 +10,7 @@ const mapping = {
   '2052': { screen: 'DedRechercheRedressement', params: { qr: false } },
   '20470': { screen: 'DedEnvoyerValeurScreen', params: { qr: false } },
   '20471': { screen: 'DedTraiterValeurScreen', params: { qr: false } },
-  '61525': {screen: 'RechercheAutoriserAcheminementScreen',params: {}},
+  '61525': { screen: 'RechercheAutoriserAcheminementScreen', params: {} },
   '30661': { screen: 'ControleApresScanner', params: {} },
   '90025': { screen: 'VuEmbarqueScreen', params: { qr: true } },
   '90008': { screen: 'RechParRefTrypScreen', params: {} },
@@ -19,12 +19,12 @@ const mapping = {
   '1101': { screen: 'ConsultationTIScreen', params: { modeConsultation: 'E' } },
   '1102': { screen: 'ConsultationTIScreenI', params: { modeConsultation: 'I' } },
   '1103': { screen: 'ConsultationIgTIScreen', params: { modeConsultation: 'E' } },
-  '1104': {screen: 'ConsultationIgTIScreenI', params: {modeConsultation: 'I'}},
-  '6064': {screen: 'PecEtatChargementMainScreen', params: {}},
+  '1104': { screen: 'ConsultationIgTIScreenI', params: { modeConsultation: 'I' } },
+  '6064': { screen: 'PecEtatChargementMainScreen', params: {} },
   '6060': { screen: 'PecEtatChargementVEMainScreen', params: {} },
-  '3064': {screen: 'controleRechercheDumScreen', params: {typeControle: 'AC'}},
-  '3072': {screen: 'controleRechercheDumScreen', params: {typeControle: 'RI'}},
-  '3086': {screen: 'controleRechercheDumScreen', params: {typeControle: 'TR'}},
+  '3064': { screen: 'controleRechercheDumScreen', params: { typeControle: 'AC' } },
+  '3072': { screen: 'controleRechercheDumScreen', params: { typeControle: 'RI' } },
+  '3086': { screen: 'controleRechercheDumScreen', params: { typeControle: 'TR' } },
   '767': { screen: 'BloquerOperateur', params: {} },
   '42997': { screen: 'DebloquerOperateur', params: {} },
   '6160': { screen: 'ConfirmationEntreeArriveeRechercheScreen', params: {} },
@@ -47,12 +47,16 @@ const mapping = {
   '2302': { screen: 'DTPSEntreeMainScreen', params: {} },
   '2303': { screen: 'DTPSConsultationMainScreen', params: {} },
 
-    '9932': { screen: 'ActifsRecherche', params: {} },
-    /*
+  '9932': { screen: 'ActifsRecherche', params: {} },
+
   '121711': {
     screen: 'EciConsultationBLS',
-    params: {title: 'Ecran  Recherche Consultation BLS'},
+    params: { title: 'Ecran  Recherche Consultation BLS' },
   },
+  '121712': {
+    screen: 'EciConsultationBLE',
+    params: { title: 'Ecran  Recherche Consultation BLE' },
+  },/*
   '6064': {screen: 'PecEtatChargementMainScreen', params: {}},
   '14000010': {screen: 'CreerCompteRenduMission', params: {}},
   '14000011': {screen: 'ModifierCompteRenduMission', params: {}},
@@ -88,11 +92,6 @@ const mapping = {
     screen: 'T6bisRecherche',
     params: {title: 'Ecran  Recherche T6BIS'},
   },
-
-    '121711': {
-      screen: 'EciConsultationBLS',
-      params: {title: 'Ecran  Recherche Consultation BLS'},
-    },
     '6151': {
       //CONFIRMATION ENTREE
       screen: 'ConfirmationEntreeRechercheScreen',
@@ -128,9 +127,9 @@ const buildIonicRoute = (code) => {
 };*/
 const buildRouteWithParams = (code) => {
   if (mapping[code] && mapping[code].screen) {
-    return {screen: mapping[code].screen, params: mapping[code].params};
+    return { screen: mapping[code].screen, params: mapping[code].params };
   }
   return mapping[code];
 };
 
-export {buildRouteWithParams, buildRoute};
+export { buildRouteWithParams, buildRoute };

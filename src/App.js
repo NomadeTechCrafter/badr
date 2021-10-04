@@ -43,6 +43,7 @@ import EcorImportEnleverMarchandiseScreen from './modules/ecorImport/enleverMarc
 import LiquidationRechercheScreen from './modules/liquidation/ui/rechercheLiquidation/LiquidationRechercheScreen';
 import LiquidationHomeScreen from './modules/liquidation/ui/ongletsLiquidation/home/LiquidationHomeScreen';
 import EciConsultationBLSSearchScreen from './modules/ecorImport/eciConsultationBLS/ui/eciConsultationBLSMainScreen'
+import EciConsultationBLESearchScreen from './modules/ecorImport/eciConsultationBLE/ui/eciConsultationBLEMainScreen'
 
 import T6bisCreation from './modules/t6bis/creation/ui/t6bisCreation/t6bisCreationScreen';
 import T6bisGestion from './modules/t6bis/gestion/ui/t6bisGestion/t6bisGestionScreen';
@@ -91,7 +92,7 @@ export default class App extends React.Component {
                 <Stack.Screen
                   name="test"
                   options={{headerShown: false}}
-                    component={controleRechercheDumScreen}
+                    component={EciConsultationBLESearchScreen}
                 />
               )}
               <Stack.Screen

@@ -7,89 +7,89 @@ import { ComBasicDataTableComp, ComGenericDataTableComp } from '../../../../comm
 import { connect } from 'react-redux';
 import translate from '../../../../commons/i18n/ComI18nHelper';
 
-class EciConsultationBLSResultScreen extends React.Component {
+class EciConsultationBLEResultScreen extends React.Component {
     constructor(props) {
         super(props);
 
         this.cols = [
             {
                 code: 'referenceBulletin',
-                libelle: translate('consultationBLS.referenceBLS'),
+                libelle: translate('consultationBLE.referenceBLE'),
                 width: 180,
             },
             {
                 code: 'dateCreation',
-                libelle: translate('consultationBLS.creationDate'),
+                libelle: translate('consultationBLE.creationDate'),
                 width: 120,
             },
             {
                 code: 'dateEmission',
-                libelle: translate('consultationBLS.releaseDate'),
+                libelle: translate('consultationBLE.releaseDate'),
                 width: 120,
             },
             {
                 code: 'dateSortie',
-                libelle: translate('consultationBLS.exitDate'),
+                libelle: translate('consultationBLE.exitDate'),
                 width: 120,
             },
             {
                 code: 'dateValidation',
-                libelle: translate('consultationBLS.validationDate'),
+                libelle: translate('consultationBLE.validationDate'),
                 width: 120,
             },
             {
                 code: 'exportateur',
-                libelle: translate('consultationBLS.exporter'),
+                libelle: translate('consultationBLE.exporter'),
                 width: 120,
             },
             {
                 code: 'importateur',
-                libelle: translate('consultationBLS.importer'),
+                libelle: translate('consultationBLE.importer'),
                 width: 120,
             },
             {
                 code: 'modeTransport',
-                libelle: translate('consultationBLS.transportMode'),
+                libelle: translate('consultationBLE.transportMode'),
                 width: 80,
             },
             {
                 code: 'nombreColis',
-                libelle: translate('consultationBLS.numberOfPackages'),
+                libelle: translate('consultationBLE.numberOfPackages'),
                 width: 80,
             },
             {
                 code: 'numeroDUM',
-                libelle: translate('consultationBLS.referenceDUM'),
+                libelle: translate('consultationBLE.referenceDUM'),
                 width: 150,
             },
             {
                 code: 'operateur',
-                libelle: translate('consultationBLS.medHubOperator'),
+                libelle: translate('consultationBLE.medHubOperator'),
                 width: 150,
             },
             {
                 code: 'paysDestination',
-                libelle: translate('consultationBLS.destinationCountry'),
+                libelle: translate('consultationBLE.destinationCountry'),
                 width: 80,
             },
             {
                 code: 'poidsTotal',
-                libelle: translate('consultationBLS.totalWeight'),
+                libelle: translate('consultationBLE.totalWeight'),
                 width: 100,
             },
             {
                 code: 'valeurTotale',
-                libelle: translate('consultationBLS.totalValue'),
+                libelle: translate('consultationBLE.totalValue'),
                 width: 100,
             },
             {
                 code: 'etat',
-                libelle: translate('consultationBLS.etat'),
+                libelle: translate('consultationBLE.etat'),
                 width: 100,
             },
             {
                 code: 'matricules',
-                libelle: translate('consultationBLS.matricules'),
+                libelle: translate('consultationBLE.matricules'),
                 width: 150,
             },
         ];
@@ -111,7 +111,7 @@ class EciConsultationBLSResultScreen extends React.Component {
                 <ComBasicDataTableComp
 
                     ref="_badrTable"
-                    id="ConsBLS"
+                    id="ConsBLE"
                     rows={this.props.data}
                     //resultArrayMapping={this.props.data}
                     //data={this.props}
@@ -128,7 +128,7 @@ class EciConsultationBLSResultScreen extends React.Component {
 }
 
 function mapStateToProps(state) {
-    return { ...state.consultationBLSReducer };
+    return { ...state.consultationBLEReducer };
 }
 
 function mapDispatchToProps(dispatch) {
@@ -141,4 +141,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
-)(EciConsultationBLSResultScreen);
+)(EciConsultationBLEResultScreen);

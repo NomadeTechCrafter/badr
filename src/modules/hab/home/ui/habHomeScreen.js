@@ -63,7 +63,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import DedRedressementRecherche from '../../../dedouanement/redressement/ui/DedRechercheRedressementScreen';
 import RefControleVehiculeMainScreen from '../../../referentiel/controleVehicules/ui/refControleVehiculeMainScreen';
 import RefPlaquesImmMainScreen from '../../../referentiel/plaquesImmatriculation/ui/refPlaquesImmMainScreen';
-import eciConsultationBLSMainScreen from '../../../ecorImport/eciConsultationBLS/ui/eciConsultationBLSMainScreen';
+import ConsultationBLEMainScreen from '../../../ecorImport/eciConsultationBLE/ui/eciConsultationBLEMainScreen';
 import ECIAppositionScellesRechercheScreen from '../../../ecorImport/appositionScelles/recherche/ui/eciAppositionScellesRechercheScreen';
 import ECIAppositionScellesScreen from '../../../ecorImport/appositionScelles/apposition/ui/eciAppositionScellesScreen';
 import ConsultationBLSMainScreen from '../../../ecorImport/eciConsultationBLS/ui/eciConsultationBLSMainScreen';
@@ -345,6 +345,11 @@ class habHomeScreen extends React.Component {
         <Drawer.Screen
           name="EciConsultationBLS"
           component={ConsultationBLSMainScreen}
+          options={{ headerShown: false }}
+        />
+        <Drawer.Screen
+          name="EciConsultationBLE"
+          component={ConsultationBLEMainScreen}
           options={{ headerShown: false }}
         />
         {/* Module T6bis start*/}

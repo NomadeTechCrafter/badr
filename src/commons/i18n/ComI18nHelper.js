@@ -29,6 +29,7 @@ import liquidationTranslateFr from '../../modules/liquidation/i18n/liquidationTr
 import ecorExpConfirmationEntreeTranslateFr from '../../modules/ecorExport/confirmationEntree/i18n/ecorExpConfirmationEntreeTranslateFr';
 import ecorExpConfirmationArriveeTranslateFr from '../../modules/ecorExport/confirmationArrivee/i18n/ecorExpConfirmationArriveeTranslateFr';
 import eciConsultationBLSTranslateFr from '../../modules/ecorImport/eciConsultationBLS/i18n/eciConsultationBLSTranslateFr';
+import eciConsultationBLETranslateFr from '../../modules/ecorImport/eciConsultationBLE/i18n/eciConsultationBLETranslateFr';
 import eciAppositionScellesRechercheTranslateFr from '../../modules/ecorImport/appositionScelles/recherche/i18n/eciAppositionScellesRechercheTranslateFr';
 import eciAppositionScellesTranslateFr from '../../modules/ecorImport/appositionScelles/apposition/i18n/eciAppositionScellesTranslateFr';
 import pecEtatChargementTranslateFr from '../../modules/pecEtatChargement/rechParRef/i18n/pecEtatChargementTranslateFr';
@@ -84,6 +85,7 @@ let combined = {
   ...actifsRapportConsultationTranslateFr,
   ...actifsRapportCreationTranslateFr,
   ...eciConsultationBLSTranslateFr,
+  ...eciConsultationBLETranslateFr,
   ...eciAppositionScellesRechercheTranslateFr,
   ...eciAppositionScellesTranslateFr,
   ...pecEtatChargementTranslateFr,

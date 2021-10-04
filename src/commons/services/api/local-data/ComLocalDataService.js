@@ -77,6 +77,7 @@ const localStore = {
   initConfirmerArrivee: require('../../../../modules/ecorExport/confirmationArrivee/service/local-data/initConfirmerEntree.json'),
   confirmerArrivee: require('../../../../modules/ecorExport/confirmationArrivee/service/local-data/confirmerEntree.json'),
   findEciRechBls: require('../../../../modules/ecorImport/eciConsultationBLS/service/local-data/eciFindEciRechBls.json'),
+  findEciRechBle: require('../../../../modules/ecorImport/eciConsultationBLE/service/local-data/eciFindEciRechBle.json'),
   initApposerScelles: require('../../../../modules/ecorImport/appositionScelles/recherche/service/local-data/eciInitAppositionScellesData.json'),
   recupererVersionAECVO: require('../../../../modules/pecEtatChargement/rechParRef/service/local-data/recupererVersionAECVO.json'),
   getListHistoriqueEtdc: require('../../../../modules/pecEtatChargement/rechParRef/service/local-data/getListHistoriqueEtdc.json'),

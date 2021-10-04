@@ -69,6 +69,7 @@ import ecorImportRechercheRefDumReducer from '../../modules/ecorImport/recherche
 import liquidationRechercheRefDumReducer from '../../modules/liquidation/state/reducers/liquidationRechercheRefDumReducer';
 import liquidationReducer from '../../modules/liquidation/state/reducers/liquidationReducer';
 import consultationBLSReducer from '../../modules/ecorImport/eciConsultationBLS/state/reducers/eciConsultationBLSReducer';
+import consultationBLEReducer from '../../modules/ecorImport/eciConsultationBLE/state/reducers/eciConsultationBLEReducer';
 import eciAppositionScellesRechercheReducer from '../../modules/ecorImport/appositionScelles/recherche/state/reducers/eciAppositionScellesRechercheReducer';
 import eciAppositionScellesReducer from '../../modules/ecorImport/appositionScelles/apposition/state/reducers/eciAppositionScellesReducer';
 import pecEtatChargementReducer from '../../modules/pecEtatChargement/rechParRef/state/reducers/pecEtatChargementReducer';
@@ -142,6 +143,7 @@ const allReducers = combineReducers({
   ecorExpConfirmationEntreeReducer,
   ecorExpConfirmationArriveeReducer,
   consultationBLSReducer,
+  consultationBLEReducer,
   eciAppositionScellesRechercheReducer,
   eciAppositionScellesReducer,
   pecEtatChargementReducer,
