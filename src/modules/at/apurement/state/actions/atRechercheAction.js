@@ -10,13 +10,11 @@ import {translate} from '../../../../../commons/i18n/ComI18nHelper';
  Recherche
  */
 
-export function request(action) {
+export function request(action, navigation) {
   return (dispatch) => {
     dispatch(action);
     dispatch(inProgress(action));
-    console.log('action.value.atRechercheBean');
-    console.log(action.value.atRechercheBean);
-    AtApi.recupererListAt(action.value.atRechercheBean)
+    AtApi.recupererListAt(action.value.atRechercheBean, action.value.pageSize, action.value.offset)
       .then((response) => {
         if (response) {
           const data = response.data;
@@ -26,6 +24,11 @@ export function request(action) {
               data.dtoHeader.messagesErreur.length === 0)
           ) {
             dispatch(success(data));
+            navigation.navigate('Resultat', {
+              first: true,
+              rowCount: data.dtoHeader.rowCount,
+              atRechercheBean: action.value.atRechercheBean
+            });
           } else {
             dispatch(failed(data));
           }

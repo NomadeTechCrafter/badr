@@ -82,3 +82,5 @@ export const KEY_D16BIS = 'D16bis';
 export const KEY_D716 = 'D716';
 export const D16BIS = 'VEHICULES ET AUTRES MARCHANDISES';
 export const D716 = 'ENGINS NAUTIQUES';
+
+export const MAX_RESULTS_PER_PAGE = 10;

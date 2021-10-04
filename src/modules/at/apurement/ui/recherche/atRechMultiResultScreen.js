@@ -32,7 +32,7 @@ const initialState = {
   errorMessage: null,
 };
 
-class RechercheAtMulti extends React.Component {
+class AtRechMultiResultScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {...initialState};
@@ -86,28 +86,38 @@ class RechercheAtMulti extends React.Component {
       this.props.route.params &&
       this.props.route.params.first
     ) {
-      this.refs._badrTable.reset();
+      // this.refs._badrTable.reset();
     }
   }
 
   render() {
+    let searchObject = this.props.route && this.props.route.params ? this.props.route.params.atRechercheBean : null;
+    let rowCount = this.props.route && this.props.route.params ? this.props.route.params.rowCount : 0;
     return (
       <ScrollView>
         <ComBadrCardBoxComp style={styles.cardBox}>
           <Text style={styles.margin10}>
-            {translate('at.recherche.titleResult')} : {this.props.data.length}
+            {translate('at.recherche.titleResult')} : {rowCount}
           </Text>
           <ComBasicDataTableComp
-            ref="_badrTable"
+            onRef={(ref) => (this.resultTable = ref)}
+            key="resultTable"
             id="referenceAt"
             rows={this.props.data}
+            rowCount={rowCount}
             cols={this.cols}
+            command="recupererListAt"
+            module= {ConstantsAt.AT_MODULE}
+            typeService="SP"
+            searchObject={searchObject}
             onItemSelected={this.onItemSelected}
             totalElements={this.props.data.length}
             maxResultsPerPage={10}
             paginate={true}
+            paginateServer={true}
             showProgress={this.props.showProgress}
           />
+          
         </ComBadrCardBoxComp>
       </ScrollView>
     );
@@ -125,7 +135,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(RechercheAtMulti);
+export default connect(mapStateToProps, mapDispatchToProps)(AtRechMultiResultScreen);
 
 const styles = StyleSheet.create({
   cardBox: {

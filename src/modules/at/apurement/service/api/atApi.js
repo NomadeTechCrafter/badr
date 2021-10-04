@@ -155,7 +155,7 @@ export default class AtApi {
     };
     return await ComHttpHelperApi.process(data);
   };
-  static recupererListAt = async (atRechercheBean) => {
+  static recupererListAt = async (atRechercheBean, pageSize, offset) => {
     console.log('atRechercheBean');
     console.log(atRechercheBean);
     const data = {
@@ -168,6 +168,8 @@ export default class AtApi {
         motif: null,
         messagesInfo: null,
         messagesErreur: null,
+        offset: offset,
+        pageSize: pageSize,
       },
       jsonVO: atRechercheBean,
     };

@@ -49,7 +49,7 @@ const initialState = {
   paysPP: '',
 };
 
-class RechercheAtMulti extends React.Component {
+class AtRechMultiSearchScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = { ...initialState };
@@ -194,14 +194,12 @@ class RechercheAtMulti extends React.Component {
             ident: this.state.ident,
             paysPP: this.state.paysPP,
           },
+          pageSize: ConstantsAt.MAX_RESULTS_PER_PAGE,
+          offset: 0,
         },
       },
       this.props.navigation,
     );
-    this.props.navigation.navigate('Resultat', {
-      login: this.state.login,
-      first: true,
-    });
     this.props.actions.dispatch(action);
   };
 
@@ -233,24 +231,7 @@ class RechercheAtMulti extends React.Component {
     this.cmbTypeIdent.clearInput();
     this.cmbTypeComp.clearInput();
     this.initRechercheAt();
-    this.setState({
-      bureau: '',
-      annee: '',
-      numero: '',
-      serie: '',
-      typeIdentifiant: '',
-      identifiant: '',
-      paysPasseport: '',
-      nomVoyageur: '',
-      typeComposant: '',
-      matricule: '',
-      numChassis: '',
-      pays: '',
-      showDataMatricule: false,
-      typeIdent: '',
-      ident: '',
-      paysPP: '',
-    });
+    this.setState({...initialState});
   };
 
   addZeros = (input) => {
@@ -544,7 +525,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(RechercheAtMulti);
+export default connect(mapStateToProps, mapDispatchToProps)(AtRechMultiSearchScreen);
 
 const styles = StyleSheet.create({
   centerErrorMsg: {

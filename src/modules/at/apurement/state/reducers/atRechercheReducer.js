@@ -35,6 +35,7 @@ export default (state = initialState, action) => {
       nextState.errorMessage = null;
       nextState.showProgress = false;
       nextState.data = action.value.jsonVO;
+      nextState.dtoHeader = action.value.dtoHeader;
       return nextState;
     case Constants.RECH_MULTI_FAILED:
       nextState.showProgress = false;
