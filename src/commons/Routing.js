@@ -53,7 +53,7 @@ const mapping = {
     screen: 'EciConsultationBLS',
     params: { title: 'Ecran  Recherche Consultation BLS' },
   },
-  '121712': {
+  '121714': {
     screen: 'EciConsultationBLE',
     params: { title: 'Ecran  Recherche Consultation BLE' },
   },/*

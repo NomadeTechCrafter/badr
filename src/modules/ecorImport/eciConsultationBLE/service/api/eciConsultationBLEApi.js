@@ -7,7 +7,7 @@ export default class EciConsultationBLEApi {
         const data = {
             dtoHeader: {
                 userLogin: ComSessionService.getInstance().getLogin(),
-                fonctionnalite: 'cf121711',
+                fonctionnalite: 'cf121714',
                 module: 'ECI',
                 commande: 'findEciRechBle',
                 typeService: 'SP',

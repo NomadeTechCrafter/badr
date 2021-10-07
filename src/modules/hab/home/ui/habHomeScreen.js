@@ -345,12 +345,14 @@ class habHomeScreen extends React.Component {
         <Drawer.Screen
           name="EciConsultationBLS"
           component={ConsultationBLSMainScreen}
-          options={{ headerShown: false }}
+          options={{ headerShown: false, unmountOnBlur: true, lazy: false }}
+          unmountOnBlur={true}
         />
         <Drawer.Screen
           name="EciConsultationBLE"
           component={ConsultationBLEMainScreen}
-          options={{ headerShown: false }}
+          options={{ headerShown: false, unmountOnBlur: true, lazy: false }}
+          unmountOnBlur={true}
         />
         {/* Module T6bis start*/}
         <Drawer.Screen

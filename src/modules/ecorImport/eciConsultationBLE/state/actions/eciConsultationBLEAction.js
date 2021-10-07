@@ -14,7 +14,7 @@ export function request(action) {
     EciConsultationBLEApi.findEciRechBle({
       dateBleDu: action.value.dateBleDu,
       dateBleAu: action.value.dateBleAu,
-      referenceBle: action.value.referenceBLE,
+      referenceBLE: action.value.referenceBLE,
       etat: action.value.etat,
     })
       .then((response) => {

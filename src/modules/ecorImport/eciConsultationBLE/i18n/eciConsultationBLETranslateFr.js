@@ -16,7 +16,7 @@ export default {
     numberOfPackages: 'Nombre de colis',
     referenceDUM: 'Référence DUM',
     medHubOperator: 'Opérateur Medhub',
-    destinationCountry: 'Pays destination',
+    destinationCountry: 'Pays Provenance',
     totalWeight: 'Poids total',
     totalValue: 'Valeur total',
     etat: 'Etat',

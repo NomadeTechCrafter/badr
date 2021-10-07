@@ -20,57 +20,57 @@ class EciConsultationBLEResultScreen extends React.Component {
             {
                 code: 'dateCreation',
                 libelle: translate('consultationBLE.creationDate'),
-                width: 120,
+                width: 180,
             },
             {
                 code: 'dateEmission',
                 libelle: translate('consultationBLE.releaseDate'),
-                width: 120,
+                width: 180,
             },
             {
                 code: 'dateSortie',
                 libelle: translate('consultationBLE.exitDate'),
-                width: 120,
+                width: 180,
             },
             {
                 code: 'dateValidation',
                 libelle: translate('consultationBLE.validationDate'),
-                width: 120,
+                width: 180,
             },
             {
                 code: 'exportateur',
                 libelle: translate('consultationBLE.exporter'),
-                width: 120,
+                width: 200,
             },
             {
                 code: 'importateur',
                 libelle: translate('consultationBLE.importer'),
-                width: 120,
+                width: 200,
             },
             {
                 code: 'modeTransport',
                 libelle: translate('consultationBLE.transportMode'),
-                width: 80,
+                width: 150,
             },
             {
                 code: 'nombreColis',
                 libelle: translate('consultationBLE.numberOfPackages'),
-                width: 80,
+                width: 150,
             },
             {
                 code: 'numeroDUM',
                 libelle: translate('consultationBLE.referenceDUM'),
-                width: 150,
+                width: 200,
             },
             {
                 code: 'operateur',
                 libelle: translate('consultationBLE.medHubOperator'),
-                width: 150,
+                width: 200,
             },
             {
-                code: 'paysDestination',
+                code: 'paysProvenance',
                 libelle: translate('consultationBLE.destinationCountry'),
-                width: 80,
+                width: 150,
             },
             {
                 code: 'poidsTotal',
@@ -90,7 +90,7 @@ class EciConsultationBLEResultScreen extends React.Component {
             {
                 code: 'matricules',
                 libelle: translate('consultationBLE.matricules'),
-                width: 150,
+                width: 180,
             },
         ];
     }

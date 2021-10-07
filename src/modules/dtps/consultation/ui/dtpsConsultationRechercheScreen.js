@@ -143,7 +143,6 @@ class dtpsConsultationRechercheScreen extends React.Component {
                         <TextInput
                             style={CustomStyleSheet.column}
                             mode="outlined"
-                            keyboardType={'number-pad'}
                             label={translate('dtps.filtreRecherche.matricule')}
                             value={this.state.matricule}
                             onChangeText={(text) => this.setState({ matricule: text })}
@@ -153,7 +152,6 @@ class dtpsConsultationRechercheScreen extends React.Component {
                         <TextInput
                             style={CustomStyleSheet.column}
                             mode="outlined"
-                            keyboardType={'number-pad'}
                             label={translate('dtps.filtreRecherche.refDS')}
                             value={this.state.referenceDS}
                             onChangeText={(text) => this.setState({ referenceDS: text })}
@@ -161,7 +159,6 @@ class dtpsConsultationRechercheScreen extends React.Component {
                         <TextInput
                             style={CustomStyleSheet.column}
                             mode="outlined"
-                            keyboardType={'number-pad'}
                             label={translate('dtps.filtreRecherche.refLot')}
                             value={this.state.referenceLot}
                             onChangeText={(text) => this.setState({ referenceLot: text })}

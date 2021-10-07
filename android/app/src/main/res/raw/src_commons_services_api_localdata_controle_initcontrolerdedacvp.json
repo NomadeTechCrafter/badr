@@ -1,120 +1,241 @@
 {
-    "dtoHeader": {
-      "userLogin": "YAMAGENT",
-      "fonctionnalite": "cf4011",
-      "module": "CONTROL_LIB",
-      "commande": "initControlerDedACVP",
-      "typeService": "UC",
-      "motif": null,
-      "messagesInfo": [
-        "??? ControlerDedValiderVP_MESSAGE_INFO ???"
-      ],
-      "messagesErreur": null
-    },
-    "jsonVO": {
-      "idControle": "279720",
-      "idDed": "141381",
-      "decision": "VP",
-      "decisionControle": "contencieux",
-      "documentAnnexeResultVOs": [
-        {
-          "identifiant": "143707",
-          "decisionMCI": null,
-          "actif": true,
-          "idDocumentAnnexeDeclarationEnDouane": 143707,
-          "documentAnnexe": {
-            "libelle": "CERTIFICAT DORIGINE                                                  ",
-            "numeroOrdreArticle": 1,
-            "impactFiscal": false,
-            "demandeConsignation": false,
-            "portee": "A",
-            "reconnu": true,
-            "refTypeDocument": {
-              "refOrgansimeEmetteur": {
-                "code": "05",
-                "dateEffet": 1317427200000,
-                "dateFin": 253402214400000,
-                "libelle": "AUTORITE COMPETENTE DU PAYS CONCERNE",
-                "hibernateLazyInitializer": {}
-              },
-              "code": "04200",
-              "dateEffet": 631152000000,
+  "dtoHeader": {
+    "userLogin": "YAMAGENT",
+    "fonctionnalite": "cf4011",
+    "module": "CONTROL_LIB",
+    "commande": "initControlerDedACVP",
+    "typeService": "UC",
+    "motif": null,
+    "messagesInfo": [
+      "??? ControlerDedValiderVP_MESSAGE_INFO ???"
+    ],
+    "messagesErreur": null
+  },
+  "jsonVO": {
+    "idControle": "279720",
+    "idDed": "141381",
+    "decision": "VP",
+    "decisionControle": "contencieux",
+    "documentAnnexeResultVOs": [
+      {
+        "identifiant": "143707",
+        "decisionMCI": null,
+        "actif": true,
+        "idDocumentAnnexeDeclarationEnDouane": 143707,
+        "documentAnnexe": {
+          "libelle": "CERTIFICAT DORIGINE                                                  ",
+          "numeroOrdreArticle": 1,
+          "impactFiscal": false,
+          "demandeConsignation": false,
+          "portee": "A",
+          "reconnu": true,
+          "refTypeDocument": {
+            "refOrgansimeEmetteur": {
+              "code": "05",
+              "dateEffet": 1317427200000,
               "dateFin": 253402214400000,
-              "entiteEmettrice": "AUTORITE COMPETENTE DU PAYS CONCERNE",
-              "impactFiscal": true,
-              "libelle": "CERTIFICAT DORIGINE                                                  ",
-              "refTypeDocumentExigible": {
-                "code": "DOC",
-                "dateEffet": -2209075200000,
-                "dateFin": 253402214400000,
-                "libelle": "Type par défaut"
-              },
-              "reglementationParticuliere": false,
-              "dematerialise": false,
-              "isDocInvest": null
+              "libelle": "AUTORITE COMPETENTE DU PAYS CONCERNE",
+              "hibernateLazyInitializer": {
+                
+              }
             },
-            "identifiant": 143707,
-            "numeroVersion": null
+            "code": "04200",
+            "dateEffet": 631152000000,
+            "dateFin": 253402214400000,
+            "entiteEmettrice": "AUTORITE COMPETENTE DU PAYS CONCERNE",
+            "impactFiscal": true,
+            "libelle": "CERTIFICAT DORIGINE                                                  ",
+            "refTypeDocumentExigible": {
+              "code": "DOC",
+              "dateEffet": -2209075200000,
+              "dateFin": 253402214400000,
+              "libelle": "Type par défaut"
+            },
+            "reglementationParticuliere": false,
+            "dematerialise": false,
+            "isDocInvest": null
           },
-          "reconnuDisabled": false,
-          "consignationDisabled": false
+          "identifiant": 143707,
+          "numeroVersion": null
+        },
+        "reconnuDisabled": false,
+        "consignationDisabled": false
+      },
+      {
+        "identifiant": "143706",
+        "decisionMCI": null,
+        "actif": true,
+        "idDocumentAnnexeDeclarationEnDouane": 143706,
+        "documentAnnexe": {
+          "libelle": "CERTIFICAT DORIGINE                                                  ",
+          "numeroOrdreArticle": 2,
+          "impactFiscal": true,
+          "demandeConsignation": false,
+          "portee": "A",
+          "reconnu": true,
+          "refTypeDocument": {
+            "refOrgansimeEmetteur": {
+              "code": "05",
+              "dateEffet": 1317427200000,
+              "dateFin": 253402214400000,
+              "libelle": "AUTORITE COMPETENTE DU PAYS CONCERNE",
+              "hibernateLazyInitializer": {
+                
+              }
+            },
+            "code": "04200",
+            "dateEffet": 631152000000,
+            "dateFin": 253402214400000,
+            "entiteEmettrice": "AUTORITE COMPETENTE DU PAYS CONCERNE",
+            "impactFiscal": true,
+            "libelle": "CERTIFICAT DORIGINE                                                  ",
+            "refTypeDocumentExigible": {
+              "code": "DOC",
+              "dateEffet": -2209075200000,
+              "dateFin": 253402214400000,
+              "libelle": "Type par défaut"
+            },
+            "reglementationParticuliere": false,
+            "dematerialise": false,
+            "isDocInvest": null
+          },
+          "identifiant": 143706,
+          "numeroVersion": null
+        },
+        "reconnuDisabled": false,
+        "consignationDisabled": false
+      }
+    ],
+    "annotation": "\nOK",
+    "autreAnnotationVOs": [
+      {
+        "id": "10709104",
+        "numeroVersion": "3",
+        "dateIntervention": "18/08/2016 09:52",
+        "commentaire": "TEST ANNOTATION",
+        "acteur": "YAMAGENT",
+        "intervention": "Annotation"
+      }
+    ],
+    "suggererVP": "false",
+    "historiqueCompte": "\n18/08/2016 12:49:32 / amdaou youssef\n\nRedressements opérés : Aucun Redressement effectué\n\nDécision : \nObservation : \n------------------------------------------------\n18/08/2016 12:39:12 / amdaou youssef\n\nRedressements opérés : Aucun Redressement effectué\n\nDécision : Contrôle Conforme\nObservation : \n------------------------------------------------\n18/08/2016 12:39:12 / amdaou youssef\n\nRedressements opérés : Aucun Redressement effectué\n\nDécision : Contrôle Conforme\nObservation : \n------------------------------------------------",
+    "redressement": ".  Une a été lancée, mardi 7 septembre à Rabat, avec pour objectif de promouvoir un écosystème performant dédié au développement de projets verts, créateurs d'emplois et soutenant l'industrie nationale.  Une a été lancée, mardi 7 septembre à Rabat, avec pour objectif de promouvoir un écosystème performant dédié au développement de projets verts, créateurs d'emplois et soutenant l'industrie nationale.  Une a été lancée, mardi 7 septembre à Rabat, avec pour objectif de promouvoir un écosystème performant dédié au développement de projets verts, créateurs d'emplois et soutenant l'industrie nationale.  Une a été lancée, mardi 7 septembre à Rabat, avec pour objectif de promouvoir un écosystème performant dédié au développement de projets verts, créateurs d'emplois et soutenant l'industrie nationale.  Une a été lancée, mardi 7 septembre à Rabat, avec pour objectif de promouvoir un écosystème performant  Une a été lancée, mardi 7 septembre à Rabat, avec pour objectif de promouvoir un écosystème performant dédié au développement de projets verts, créateurs d'emplois et soutenant l'industrie nationale.  Une a été lancée, mardi 7 septembre à Rabat, avec pour objectif de promouvoir un écosystème performant dédié au développement de projets verts, créateurs d'emplois et soutenant l'industrie nationale.  Une a été lancée, mardi 7 septembre à Rabat, avec pour objectif de promouvoir un écosystème performant dédié au développement de projets verts, créateurs d'emplois et soutenant l'industrie nationale.  Une a été lancée, mardi 7 septembre à Rabat, avec pour objectif de promouvoir un écosystème performant dédié au développement de projets verts, créateurs d'emplois et soutenant l'industrie nationale.  Une a été lancée, mardi 7 septembre à Rabat, avec pour objectif de promouvoir un écosystème performant dédié au développement de projets verts, créateurs d'emplois et soutenant l'industrie nationale.  Une a été lancée, mardi 7 septembre à Rabat, avec pour objectif de promouvoir un écosystème performant dédié au développement de projets verts, créateurs d'emplois et soutenant l'industrie nationale.  Une a été lancée, mardi 7 septembre à Rabat, avec pour objectif de promouvoir un écosystème performant dédié au développement de projets verts, créateurs d'emplois et soutenant l'industrie nationale. dédié au développement de projets verts, créateurs d'emplois et soutenant l'industrie nationale.",
+    "observation": "qds",
+    "recVO": {
+      "id": "6157",
+      "marque": "Testreconnaissance",
+      "poids": "10.0",
+      "nature": "Test reconnaissance",
+      "nbrColis": 10,
+      "descriptionVisite": "Test",
+      "dateFinRec": "24/06/2021",
+      "dateDebutRec": "24/06/2021",
+      "nomAgent": "AMMARI",
+      "etatReconnaissance": "ENREGISTRE",
+      "nombreColisVisite": 10,
+      "suggererVP": false,
+      "etatAffecte": true,
+      "dateAffectation": "24/06/2021",
+      "isMobile": false,
+      "photoList": [
+        {
+          "idPhoto": 661,
+          "urlPhoto": "http://cdn.ecommercedns.uk/files/7/239087/3/12268633/p1.png",
+          "datePhoto": 1632844131069,
+          "transactionid": "REC661"
         },
         {
-          "identifiant": "143706",
-          "decisionMCI": null,
-          "actif": true,
-          "idDocumentAnnexeDeclarationEnDouane": 143706,
-          "documentAnnexe": {
-            "libelle": "CERTIFICAT DORIGINE                                                  ",
-            "numeroOrdreArticle": 2,
-            "impactFiscal": true,
-            "demandeConsignation": false,
-            "portee": "A",
-            "reconnu": true,
-            "refTypeDocument": {
-              "refOrgansimeEmetteur": {
-                "code": "05",
-                "dateEffet": 1317427200000,
-                "dateFin": 253402214400000,
-                "libelle": "AUTORITE COMPETENTE DU PAYS CONCERNE",
-                "hibernateLazyInitializer": {}
-              },
-              "code": "04200",
-              "dateEffet": 631152000000,
-              "dateFin": 253402214400000,
-              "entiteEmettrice": "AUTORITE COMPETENTE DU PAYS CONCERNE",
-              "impactFiscal": true,
-              "libelle": "CERTIFICAT DORIGINE                                                  ",
-              "refTypeDocumentExigible": {
-                "code": "DOC",
-                "dateEffet": -2209075200000,
-                "dateFin": 253402214400000,
-                "libelle": "Type par défaut"
-              },
-              "reglementationParticuliere": false,
-              "dematerialise": false,
-              "isDocInvest": null
-            },
-            "identifiant": 143706,
-            "numeroVersion": null
+          "idPhoto": 662,
+          "urlPhoto": "https://t3.ftcdn.net/jpg/01/05/57/38/360_F_105573812_cvD4P5jo6tMPhZULX324qUYFbNpXlisD.jpg",
+          "datePhoto": 1632844131079,
+          "transactionid": "REC662"
+        }
+      ],
+      "creation": false,
+      "modification": false,
+      "annulation": false,
+      "defaultConverter": {
+        
+      },
+      "affectation": false
+    },
+    "listDedDumPreapVOs": [
+      {
+        "vo": {
+          "dontHandleLimitationOperateur": false,
+          "versionModifiee": true,
+          "lancerTraitementCompteDechage": false,
+          "insideEtude": false,
+          "insideRedressement": false,
+          "initiale": false,
+          "ssDUM": false,
+          "insideRedressementApresMainLevee": false,
+          "demandeModification": false,
+          "dateArrivee": "04/04/2019",
+          "lieuChargement": "MACAS",
+          "modeTransport": "MARITIME",
+          "moyenTransport": "CASABLANCA EXPRESS",
+          "nombreContenant": "1",
+          "numeroOrdre": "1",
+          "poidsLot": "1",
+          "preapAnnee": "2019",
+          "preapBureau": "309",
+          "preapRegime": "0",
+          "preapSerie": "97",
+          "referenceLot": "REF1",
+          "typeDS": "01",
+          "typeDSLib": " DS ",
+          "descLieuChargement": "CASABLANCA",
+          "idLot": 0,
+          "defaultConverter": {
+            
           },
-          "reconnuDisabled": false,
-          "consignationDisabled": false
-        }
-      ],
-      "annotation": "\nOK",
-      "autreAnnotationVOs": [
-        {
-          "id": "10709104",
-          "numeroVersion": "3",
-          "dateIntervention": "18/08/2016 09:52",
-          "commentaire": "TEST ANNOTATION",
-          "acteur": "YAMAGENT",
-          "intervention": "Annotation"
-        }
-      ],
-      "suggererVP": "false",
-      "historiqueCompte": "\n18/08/2016 12:49:32 / amdaou youssef\n\nRedressements opérés : Aucun Redressement effectué\n\nDécision : \nObservation : \n------------------------------------------------\n18/08/2016 12:39:12 / amdaou youssef\n\nRedressements opérés : Aucun Redressement effectué\n\nDécision : Contrôle Conforme\nObservation : \n------------------------------------------------\n18/08/2016 12:39:12 / amdaou youssef\n\nRedressements opérés : Aucun Redressement effectué\n\nDécision : Contrôle Conforme\nObservation : \n------------------------------------------------",
-      "redressement": ".  Une a été lancée, mardi 7 septembre à Rabat, avec pour objectif de promouvoir un écosystème performant dédié au développement de projets verts, créateurs d'emplois et soutenant l'industrie nationale.  Une a été lancée, mardi 7 septembre à Rabat, avec pour objectif de promouvoir un écosystème performant dédié au développement de projets verts, créateurs d'emplois et soutenant l'industrie nationale.  Une a été lancée, mardi 7 septembre à Rabat, avec pour objectif de promouvoir un écosystème performant dédié au développement de projets verts, créateurs d'emplois et soutenant l'industrie nationale.  Une a été lancée, mardi 7 septembre à Rabat, avec pour objectif de promouvoir un écosystème performant dédié au développement de projets verts, créateurs d'emplois et soutenant l'industrie nationale.  Une a été lancée, mardi 7 septembre à Rabat, avec pour objectif de promouvoir un écosystème performant  Une a été lancée, mardi 7 septembre à Rabat, avec pour objectif de promouvoir un écosystème performant dédié au développement de projets verts, créateurs d'emplois et soutenant l'industrie nationale.  Une a été lancée, mardi 7 septembre à Rabat, avec pour objectif de promouvoir un écosystème performant dédié au développement de projets verts, créateurs d'emplois et soutenant l'industrie nationale.  Une a été lancée, mardi 7 septembre à Rabat, avec pour objectif de promouvoir un écosystème performant dédié au développement de projets verts, créateurs d'emplois et soutenant l'industrie nationale.  Une a été lancée, mardi 7 septembre à Rabat, avec pour objectif de promouvoir un écosystème performant dédié au développement de projets verts, créateurs d'emplois et soutenant l'industrie nationale.  Une a été lancée, mardi 7 septembre à Rabat, avec pour objectif de promouvoir un écosystème performant dédié au développement de projets verts, créateurs d'emplois et soutenant l'industrie nationale.  Une a été lancée, mardi 7 septembre à Rabat, avec pour objectif de promouvoir un écosystème performant dédié au développement de projets verts, créateurs d'emplois et soutenant l'industrie nationale.  Une a été lancée, mardi 7 septembre à Rabat, avec pour objectif de promouvoir un écosystème performant dédié au développement de projets verts, créateurs d'emplois et soutenant l'industrie nationale. dédié au développement de projets verts, créateurs d'emplois et soutenant l'industrie nationale."
-    }
+          "regimeExport": false,
+          "createParam": false,
+          "occasionnelle": false,
+          "revaliderEtude": false,
+          "transit": false,
+          "regimeTransitImport": false,
+          "dumFictiveParam": false,
+          "callFromEC": false,
+          "transfertOperateurParam": false,
+          "banqueConsign": false,
+          "banqueSaisie": false,
+          "appelCouplageFromUC1": false
+        },
+        "referenceDs": "30900020190000097",
+        "referenceDsWithCle": "30900020190000097null",
+        "hasBAD": false,
+        "numeroBAD": ""
+      }
+    ],
+    "declarationsTryptique": [
+      {
+        "identifiant": 802,
+        "identifiantVersionCourante": 850,
+        "numeroVersionCourante": 0,
+        "dateCreation": "26/04/2018 16:56",
+        "referenceEnregistrement": "30900920180000529"
+      }
+    ],
+    "declarationsApurementTryptique": [
+      {
+        "identifiant": 802,
+        "identifiantVersionCourante": 850,
+        "numeroVersionCourante": 0,
+        "dateCreation": "26/04/2018 16:56",
+        "referenceEnregistrement": "30900920180000529"
+      }
+    ],
+            "refDecisionSelectivite": {
+            "code": "VP",
+            "libelle": "Rouge Partiel",
+            "actif": false,
+            "showDropDown": false,
+            "disableAutoComplete": true,
+            "onFocus": "",
+            "disabled": false
+        },
+        "decisionScanner": "Sans Scanner"
   }
+}
