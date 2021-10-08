@@ -163,9 +163,12 @@ class dtpsSortieResultScreen extends React.Component {
             selectedItem: item,
         });
         console.log(JSON.stringify(this.state.selectedItem));
+        console.log(JSON.stringify(item));
     };
 
     vaiderSortie = () => {
+        console.log(JSON.stringify(this.state.selectedItem));
+        console.log(JSON.stringify(this.state.selectedItem?.id));
         let action = request({
             type: VALIDER_DTPS_SORTIE_REQUEST,
             value: {

@@ -2,15 +2,10 @@ const mapping = {
   '9005': { screen: 'CreerApurement', params: { qr: true } },
   '9009': { screen: 'RechercheAtMulti', params: { qr: true } },
   '2243': { screen: 'RechercheConfirmationReceptionScreen', params: {} },
-  '1226': {
-    screen: 'ECIAppositionScellesRechercheScreen',
-    params: {},
-  },
   '90023': { screen: 'SortiPortScreen', params: {} },
   '2052': { screen: 'DedRechercheRedressement', params: { qr: false } },
   '20470': { screen: 'DedEnvoyerValeurScreen', params: { qr: false } },
   '20471': { screen: 'DedTraiterValeurScreen', params: { qr: false } },
-  '61525': { screen: 'RechercheAutoriserAcheminementScreen', params: {} },
   '30661': { screen: 'ControleApresScanner', params: {} },
   '90025': { screen: 'VuEmbarqueScreen', params: { qr: true } },
   '90008': { screen: 'RechParRefTrypScreen', params: {} },
@@ -27,6 +22,15 @@ const mapping = {
   '3086': { screen: 'controleRechercheDumScreen', params: { typeControle: 'TR' } },
   '767': { screen: 'BloquerOperateur', params: {} },
   '42997': { screen: 'DebloquerOperateur', params: {} },
+  '306011': { screen: 'AjouterReconnaissance', params: {} },
+  '306012': { screen: 'ModifierReconnaissance', params: {} },
+  '306013': { screen: 'AnnulerReconnaissance', params: {} },
+  '306014': { screen: 'AffecterAgentVisiteur', params: {} },
+
+  '2301': { screen: 'DTPSSortieMainScreen', params: {} },
+  '2302': { screen: 'DTPSEntreeMainScreen', params: {} },
+  '2303': { screen: 'DTPSConsultationMainScreen', params: {} },
+  '61525': { screen: 'RechercheAutoriserAcheminementScreen', params: {} },
   '6160': { screen: 'ConfirmationEntreeArriveeRechercheScreen', params: {} },
   '6151': {
     //CONFIRMATION ENTREE
@@ -38,25 +42,23 @@ const mapping = {
     screen: 'ConfirmationArriveeRechercheScreen',
     params: { title: 'Ecran  Recherche Confirmation arrivee' },
   },
-  '306011': { screen: 'AjouterReconnaissance', params: {} },
-  '306012': { screen: 'ModifierReconnaissance', params: {} },
-  '306013': { screen: 'AnnulerReconnaissance', params: {} },
-  '306014': { screen: 'AffecterAgentVisiteur', params: {} },
+  /*
+  '1226': {
+    screen: 'ECIAppositionScellesRechercheScreen',
+    params: {},
+  },
 
-  '2301': { screen: 'DTPSSortieMainScreen', params: {} },
-  '2302': { screen: 'DTPSEntreeMainScreen', params: {} },
-  '2303': { screen: 'DTPSConsultationMainScreen', params: {} },
-
-  '9932': { screen: 'ActifsRecherche', params: {} },
 
   '121711': {
     screen: 'EciConsultationBLS',
     params: { title: 'Ecran  Recherche Consultation BLS' },
   },
+
   '121714': {
     screen: 'EciConsultationBLE',
     params: { title: 'Ecran  Recherche Consultation BLE' },
-  },/*
+  },
+    '9932': { screen: 'ActifsRecherche', params: {} },
   '6064': {screen: 'PecEtatChargementMainScreen', params: {}},
   '14000010': {screen: 'CreerCompteRenduMission', params: {}},
   '14000011': {screen: 'ModifierCompteRenduMission', params: {}},
@@ -92,6 +94,11 @@ const mapping = {
     screen: 'T6bisRecherche',
     params: {title: 'Ecran  Recherche T6BIS'},
   },
+
+    '121711': {
+      screen: 'EciConsultationBLS',
+      params: {title: 'Ecran  Recherche Consultation BLS'},
+    },
     '6151': {
       //CONFIRMATION ENTREE
       screen: 'ConfirmationEntreeRechercheScreen',

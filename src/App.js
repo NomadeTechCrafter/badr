@@ -92,7 +92,7 @@ export default class App extends React.Component {
                 <Stack.Screen
                   name="test"
                   options={{headerShown: false}}
-                    component={EciConsultationBLESearchScreen}
+                    component={ecorExpConfirmationEntreeArriveeRechercheScreen}
                 />
               )}
               <Stack.Screen

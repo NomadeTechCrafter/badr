@@ -88,6 +88,8 @@ import DTPSConsultationMainScreen from '../../../dtps/consultation/ui/dtpsConsul
 import dedEnvoyerValeurScreen from '../../../dedouanement/envoyerValeur/ui/dedEnvoyerValeurScreen';
 import dedTraiterValeurScreen from '../../../dedouanement/traiterValeur/ui/dedTraiterValeurScreen';
 import ConfirmationEntreeArriveeRechercheScreen from '../../../ecorExport/confirmationEntreeArrivee/ui/ecorExpConfirmationEntreeArriveeRechercheScreen';
+import ConfirmationEntreeResultScreen from '../../../ecorExport/confirmationEntree/ui/ecorExpConfirmationEntreeResultScreen';
+import ConfirmationArriveeResultScreen from '../../../ecorExport/confirmationArrivee/ui/ecorExpConfirmationArriveeResultScreen';
 
 
 
@@ -508,6 +510,22 @@ class habHomeScreen extends React.Component {
           options={{ headerShown: false, unmountOnBlur: true, lazy: false }}
           unmountOnBlur={true}
         />
+
+        <Drawer.Screen
+          name="ConfirmationEntreeResultScreen"
+          component={ConfirmationEntreeResultScreen}
+          options={{ headerShown: false, unmountOnBlur: true, lazy: false }}
+          unmountOnBlur={true}
+        />
+
+        <Drawer.Screen
+          name="ConfirmationArriveeResultScreen"
+          component={ConfirmationArriveeResultScreen}
+          options={{ headerShown: false, unmountOnBlur: true, lazy: false }}
+          unmountOnBlur={true}
+        />
+
+        
 
       </Drawer.Navigator>
     );
