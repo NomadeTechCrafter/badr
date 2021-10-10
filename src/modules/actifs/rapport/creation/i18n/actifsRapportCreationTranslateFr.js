@@ -178,7 +178,7 @@ export default {
       }
     },
     "embarcations": {
-      "title":"Embarcations",
+      "title": "Embarcations",
       "typeBateau": "Type du bateau",
       "nomBateau": "Nom du bateau",
       "immatriculation": "Immatriculation",
@@ -207,7 +207,7 @@ export default {
         "numDeclaration": "Numero de déclaration",
         "delivreePar": "Delivrée par",
         "dateDeclaration": "Date de déclaration",
-        "msgErrorOrdreDateEntreeDepart":"Date départ doit être supérieure à la date entrée"
+        "msgErrorOrdreDateEntreeDepart": "Date départ doit être supérieure à la date entrée"
       },
       "caracteristiques": {
         "title": "Caractéristiques du bateau",
@@ -250,7 +250,7 @@ export default {
           numeroRC: 'Numero RC est une donnée obligatoire !',
           centreRC: 'Centre RC est une donnée obligatoire !',
           raisonSociale: 'Raison sociale est une donnée obligatoire !',
-          adresse:'Adresse est une donnée obligatoire !'
+          adresse: 'Adresse est une donnée obligatoire !'
         }
       },
       "intervenants": {
@@ -277,7 +277,7 @@ export default {
           raisonSociale: 'Raison sociale est une donnée obligatoire !',
           adresse: 'Adresse est une donnée obligatoire !'
         }
-       
+
       },
       "resultatCtrl": {
         "title": "Résultat de contrôle",
@@ -290,6 +290,16 @@ export default {
         "resultatControle": "Résultat du contrôle",
         "msgErrorOrdreDateDebutFinControle": "Date fin coontôle doit être supérieure à la date fin contrôle"
       }
+    },
+    "rondesApparitions": {
+      "title": "Rondes et Apparitions",
+      "dateHeureDebut": "Date et heure début *",
+      "dateHeureFin": "Date et heure fin *",
+      "dateDebut": "Date début",
+      "dateFin": "Date fin",
+      "pointsServiceControles": "Points de service contrôlés",
+      "resContrRapService": "Résultat du contrôle / Rapport de service",
+      "choix": "Choix"
     },
   },
 };

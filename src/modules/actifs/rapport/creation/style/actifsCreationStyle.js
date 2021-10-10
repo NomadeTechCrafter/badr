@@ -68,7 +68,8 @@ const styles = {
         justifyContent: 'center',
         marginTop: 10,
     },
-    MontantLabel:{ fontSize: 16, fontWeight: 'bold' , color: '#009ab2'}
+    MontantLabel: { fontSize: 16, fontWeight: 'bold', color: '#009ab2' },
+    buttonIcon: { margin: 10, marginTop: 10 },
 
 };
 

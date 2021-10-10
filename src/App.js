@@ -70,6 +70,7 @@ import DedRedressementEnteteScreen from './modules/dedouanement/redressement/ui/
 import controleACVPScreen from './modules/controle/ACVP/ui/controleACVPScreen';
 import ControleCompteRenduScreen from './modules/controle/ACVP/ui/onglets/compteRendu/ControleCompteRenduScreen';
 import decRechParRefMainScreen from './modules/DeclarationD17D20/rechParRef/ui/decRechParRef/decRechParRefMainScreen';
+import actifsRapportCreationRondesApparitionsTab from './modules/actifs/rapport/creation/ui/rondesApparitions/actifsRapportCreationRondesApparitionsTab';
 
 //setGlobalHandler();
 export default class App extends React.Component {
@@ -92,7 +93,7 @@ export default class App extends React.Component {
                 <Stack.Screen
                   name="test"
                   options={{headerShown: false}}
-                    component={ecorExpConfirmationEntreeArriveeRechercheScreen}
+                    component={actifsRapportCreationRondesApparitionsTab}
                 />
               )}
               <Stack.Screen

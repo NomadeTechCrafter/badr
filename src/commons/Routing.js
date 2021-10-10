@@ -42,13 +42,6 @@ const mapping = {
     screen: 'ConfirmationArriveeRechercheScreen',
     params: { title: 'Ecran  Recherche Confirmation arrivee' },
   },
-  /*
-  '1226': {
-    screen: 'ECIAppositionScellesRechercheScreen',
-    params: {},
-  },
-
-
   '121711': {
     screen: 'EciConsultationBLS',
     params: { title: 'Ecran  Recherche Consultation BLS' },
@@ -58,7 +51,12 @@ const mapping = {
     screen: 'EciConsultationBLE',
     params: { title: 'Ecran  Recherche Consultation BLE' },
   },
-    '9932': { screen: 'ActifsRecherche', params: {} },
+  '9932': { screen: 'ActifsRecherche', params: {} },
+  /*
+  '1226': {
+    screen: 'ECIAppositionScellesRechercheScreen',
+    params: {},
+  },
   '6064': {screen: 'PecEtatChargementMainScreen', params: {}},
   '14000010': {screen: 'CreerCompteRenduMission', params: {}},
   '14000011': {screen: 'ModifierCompteRenduMission', params: {}},
@@ -94,26 +92,6 @@ const mapping = {
     screen: 'T6bisRecherche',
     params: {title: 'Ecran  Recherche T6BIS'},
   },
-
-    '121711': {
-      screen: 'EciConsultationBLS',
-      params: {title: 'Ecran  Recherche Consultation BLS'},
-    },
-    '6151': {
-      //CONFIRMATION ENTREE
-      screen: 'ConfirmationEntreeRechercheScreen',
-      params: {title: 'Ecran  Recherche Confirmation entree'},
-    },
-    '61530': {
-      //CONFIRMATION ARRIVEE
-      screen: 'ConfirmationArriveeRechercheScreen',
-      params: {title: 'Ecran  Recherche Confirmation arrivee'},
-    },
-      '61525': {
-          //AUTORISER ACHEMINEMENT
-          screen: 'RechercheAutoriserAcheminementScreen',
-          params: {},
-      },
   */
 };
 

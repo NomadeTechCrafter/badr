@@ -42,7 +42,7 @@ class ActifsRapportRechercheScreen extends Component {
       mode: '',
       show: false,
       paginate: true,
-      code1: ComSessionService.getInstance().getUserObject()?ComSessionService.getInstance().getUserObject().codeUOR: '',
+      code1: ComSessionService.getInstance().getUserObject() ? ComSessionService.getInstance().getUserObject().codeUOR : '',
       data: 'jj/mm/aaaa', //moment(this.state.date).format("MM/DD/YYYY")
     };
     this.cols = [
@@ -91,7 +91,7 @@ class ActifsRapportRechercheScreen extends Component {
         row: row,
       });
     }
-    this.setState ({
+    this.setState({
       date: new Date(),
       mode: '',
       show: false,
@@ -123,9 +123,9 @@ class ActifsRapportRechercheScreen extends Component {
       }
       if (this.state.code1) {
         data.codeUO = this.state.code1;
-       }
+      }
       if (this.state.code1 && this.state.code2 && this.state.code3) {
-        
+
         data.refPJ = this.state.code1 + '_' + this.state.code2 + '_' + this.state.code3;
       }
 
@@ -141,7 +141,7 @@ class ActifsRapportRechercheScreen extends Component {
       this.props.dispatch(action);
       // console.log('dispatch fired !!');
     } else {
-      this.setState({ errorMessage:translate("actifs.recherche.errors.champsSearcheRapportRequired") });
+      this.setState({ errorMessage: translate("actifs.recherche.errors.champsSearcheRapportRequired") });
     }
   };
 
@@ -162,7 +162,7 @@ class ActifsRapportRechercheScreen extends Component {
   };
 
   showMode = (currentMode) => {
-    this.setState({ show: true, mode: currentMode, errorMessage: null});
+    this.setState({ show: true, mode: currentMode, errorMessage: null });
   };
 
   render_cols = (item, code) => {
@@ -173,7 +173,7 @@ class ActifsRapportRechercheScreen extends Component {
         return <Text>{'mode creation'}</Text>;
       }
     }
-    if (code === 'confidentiel' || code === 'additif' ) {
+    if (code === 'confidentiel' || code === 'additif') {
       if (item) {
         return <Text>{'Oui'}</Text>;
       } else {
@@ -181,7 +181,7 @@ class ActifsRapportRechercheScreen extends Component {
       }
     }
     if (_.isArray(item)) {
-      
+
       return item.map((object) => {
 
         if (code === 'agentsBrigade') {
