@@ -129,139 +129,142 @@ class ActifsRapportCreationRondesApparitionsTab extends React.Component {
             <ScrollView >
                 <View style={CustomStyleSheet.verticalContainer20}>
                     <ComAccordionComp title={translate('actifsCreation.rondesApparitions.title')} expanded={true}>
-                        <View style={CustomStyleSheet.row}>
-                            <Row style={CustomStyleSheet.whiteRow}>
-                                <Col size={3}>
-                                    <ComBadrLibelleComp withColor={false}>
-                                        {translate('actifsCreation.rondesApparitions.dateHeureDebut')}
-                                    </ComBadrLibelleComp>
-                                </Col>
-                                <Col size={7}>
-                                    <ComBadrDatePickerComp
-                                        dateFormat="DD/MM/YYYY"
-                                        heureFormat="HH:mm"
-                                        value={this.state.currentRondeApparition.dateDebut ? moment(this.state.currentRondeApparition.dateDebut, 'DD/MM/YYYY', true) : ''}
-                                        timeValue={this.state.currentRondeApparition.heureDebut ? moment(this.state.currentRondeApparition.heureDebut, 'HH:mm', true) : ''}
-                                        onDateChanged={(date) => this.setState(prevState => ({
-                                            currentRondeApparition: {
-                                                ...prevState.currentRondeApparition,
-                                                dateDebut: date,
-                                            }
-                                        }))}
-                                        onTimeChanged={(time) => this.setState(prevState => ({
-                                            currentRondeApparition: {
-                                                ...prevState.currentRondeApparition,
-                                                heureDebut: time,
-                                            }
-                                        }))}
-                                        inputStyle={style.dateInputStyle}
-                                    />
-                                </Col>
-                            </Row>
-                        </View>
-                        <View style={CustomStyleSheet.row}>
-                            <Row style={CustomStyleSheet.whiteRow}>
-                                <Col size={3}>
-                                    <ComBadrLibelleComp withColor={false}>
-                                        {translate('actifsCreation.rondesApparitions.dateHeureFin')}
-                                    </ComBadrLibelleComp>
-                                </Col>
-                                <Col size={7}>
-                                    <ComBadrDatePickerComp
-                                        dateFormat="DD/MM/YYYY"
-                                        heureFormat="HH:mm"
-                                        value={this.state.currentRondeApparition.dateFin ? moment(this.state.currentRondeApparition.dateFin, 'DD/MM/YYYY', true) : ''}
-                                        timeValue={this.state.currentRondeApparition.heureFin ? moment(this.state.currentRondeApparition.heureFin, 'HH:mm', true) : ''}
-                                        onDateChanged={(date) => this.setState(prevState => ({
-                                            currentRondeApparition: {
-                                                ...prevState.currentRondeApparition,
-                                                dateFin: date,
-                                            }
-                                        }))}
-                                        onTimeChanged={(time) => this.setState(prevState => ({
-                                            currentRondeApparition: {
-                                                ...prevState.currentRondeApparition,
-                                                heureFin: time,
-                                            }
-                                        }))}
+                        {!this.state.modeConsultation && (
+                            <View>
+                                <View style={CustomStyleSheet.row}>
+                                    <Row style={CustomStyleSheet.whiteRow}>
+                                        <Col size={3}>
+                                            <ComBadrLibelleComp withColor={false}>
+                                                {translate('actifsCreation.rondesApparitions.dateHeureDebut')}
+                                            </ComBadrLibelleComp>
+                                        </Col>
+                                        <Col size={7}>
+                                            <ComBadrDatePickerComp
+                                                dateFormat="DD/MM/YYYY"
+                                                heureFormat="HH:mm"
+                                                value={this.state.currentRondeApparition.dateDebut ? moment(this.state.currentRondeApparition.dateDebut, 'DD/MM/YYYY', true) : ''}
+                                                timeValue={this.state.currentRondeApparition.heureDebut ? moment(this.state.currentRondeApparition.heureDebut, 'HH:mm', true) : ''}
+                                                onDateChanged={(date) => this.setState(prevState => ({
+                                                    currentRondeApparition: {
+                                                        ...prevState.currentRondeApparition,
+                                                        dateDebut: date,
+                                                    }
+                                                }))}
+                                                onTimeChanged={(time) => this.setState(prevState => ({
+                                                    currentRondeApparition: {
+                                                        ...prevState.currentRondeApparition,
+                                                        heureDebut: time,
+                                                    }
+                                                }))}
+                                                inputStyle={style.dateInputStyle}
+                                            />
+                                        </Col>
+                                    </Row>
+                                </View>
+                                <View style={CustomStyleSheet.row}>
+                                    <Row style={CustomStyleSheet.whiteRow}>
+                                        <Col size={3}>
+                                            <ComBadrLibelleComp withColor={false}>
+                                                {translate('actifsCreation.rondesApparitions.dateHeureFin')}
+                                            </ComBadrLibelleComp>
+                                        </Col>
+                                        <Col size={7}>
+                                            <ComBadrDatePickerComp
+                                                dateFormat="DD/MM/YYYY"
+                                                heureFormat="HH:mm"
+                                                value={this.state.currentRondeApparition.dateFin ? moment(this.state.currentRondeApparition.dateFin, 'DD/MM/YYYY', true) : ''}
+                                                timeValue={this.state.currentRondeApparition.heureFin ? moment(this.state.currentRondeApparition.heureFin, 'HH:mm', true) : ''}
+                                                onDateChanged={(date) => this.setState(prevState => ({
+                                                    currentRondeApparition: {
+                                                        ...prevState.currentRondeApparition,
+                                                        dateFin: date,
+                                                    }
+                                                }))}
+                                                onTimeChanged={(time) => this.setState(prevState => ({
+                                                    currentRondeApparition: {
+                                                        ...prevState.currentRondeApparition,
+                                                        heureFin: time,
+                                                    }
+                                                }))}
 
-                                        inputStyle={style.dateInputStyle}
-                                    />
-                                </Col>
-                            </Row>
-                        </View>
-                        <View style={CustomStyleSheet.row}>
-                            <Row style={CustomStyleSheet.whiteRow}>
-                                <Col size={3}>
-                                    <ComBadrLibelleComp withColor={false}>
-                                        {translate('actifsCreation.rondesApparitions.pointsServiceControles')} *
-                                    </ComBadrLibelleComp>
-                                </Col>
-                                <Col size={7}>
-                                    <TextInput
-                                        maxLength={250}
-                                        multiline
-                                        numberOfLines={4}
-                                        value={this.state.currentRondeApparition.pointsControle}
-                                        onChangeText={(text) => this.setState(prevState => ({
-                                            currentRondeApparition: {
-                                                ...prevState.currentRondeApparition,
-                                                pointsControle: text,
-                                            }
-                                        }))}
-                                    />
-                                </Col>
-                            </Row>
-                        </View>
-                        <View style={CustomStyleSheet.row}>
-                            <Row style={CustomStyleSheet.whiteRow}>
-                                <Col size={3}>
-                                    <ComBadrLibelleComp withColor={false}>
-                                        {translate('actifsCreation.rondesApparitions.resContrRapService')} *
-                                    </ComBadrLibelleComp>
-                                </Col>
-                                <Col size={7}>
-                                    <TextInput
-                                        maxLength={250}
-                                        multiline
-                                        numberOfLines={8}
-                                        value={this.state.currentRondeApparition.resultatControle}
+                                                inputStyle={style.dateInputStyle}
+                                            />
+                                        </Col>
+                                    </Row>
+                                </View>
+                                <View style={CustomStyleSheet.row}>
+                                    <Row style={CustomStyleSheet.whiteRow}>
+                                        <Col size={3}>
+                                            <ComBadrLibelleComp withColor={false}>
+                                                {translate('actifsCreation.rondesApparitions.pointsServiceControles')} *
+                                            </ComBadrLibelleComp>
+                                        </Col>
+                                        <Col size={7}>
+                                            <TextInput
+                                                maxLength={250}
+                                                multiline
+                                                numberOfLines={4}
+                                                value={this.state.currentRondeApparition.pointsControle}
+                                                onChangeText={(text) => this.setState(prevState => ({
+                                                    currentRondeApparition: {
+                                                        ...prevState.currentRondeApparition,
+                                                        pointsControle: text,
+                                                    }
+                                                }))}
+                                            />
+                                        </Col>
+                                    </Row>
+                                </View>
+                                <View style={CustomStyleSheet.row}>
+                                    <Row style={CustomStyleSheet.whiteRow}>
+                                        <Col size={3}>
+                                            <ComBadrLibelleComp withColor={false}>
+                                                {translate('actifsCreation.rondesApparitions.resContrRapService')} *
+                                            </ComBadrLibelleComp>
+                                        </Col>
+                                        <Col size={7}>
+                                            <TextInput
+                                                maxLength={250}
+                                                multiline
+                                                numberOfLines={8}
+                                                value={this.state.currentRondeApparition.resultatControle}
 
-                                        onChangeText={(text) => this.setState(prevState => ({
-                                            currentRondeApparition: {
-                                                ...prevState.currentRondeApparition,
-                                                resultatControle: text,
-                                            }
-                                        }))}
-                                    />
-                                </Col>
-                            </Row>
-                        </View>
-                        <View style={CustomStyleSheet.row}>
-                            <Row>
-                                <Col size={10} />
-                                <Col size={50}>
-                                    <ComBadrButtonIconComp
-                                        onPress={() => this.addRondeApparition()}
-                                        icon="check"
-                                        style={style.buttonIcon}
-                                        loading={this.props.showProgress}
-                                        text={translate('transverse.confirmer')}
-                                        disabled={this.state.modeConsultation}
-                                    />
-                                </Col>
-                                <Col size={50}>
-                                    <ComBadrButtonIconComp
-                                        onPress={() => this.handleClear()}
-                                        icon="autorenew"
-                                        style={style.buttonIcon}
-                                        text={translate('transverse.retablir')}
-                                        disabled={this.state.modeConsultation}
-                                    />
-                                </Col>
-                                <Col size={10} />
-                            </Row>
-                        </View>
+                                                onChangeText={(text) => this.setState(prevState => ({
+                                                    currentRondeApparition: {
+                                                        ...prevState.currentRondeApparition,
+                                                        resultatControle: text,
+                                                    }
+                                                }))}
+                                            />
+                                        </Col>
+                                    </Row>
+                                </View>
+                                <View style={CustomStyleSheet.row}>
+                                    <Row>
+                                        <Col size={10} />
+                                        <Col size={50}>
+                                            <ComBadrButtonIconComp
+                                                onPress={() => this.addRondeApparition()}
+                                                icon="check"
+                                                style={style.buttonIcon}
+                                                loading={this.props.showProgress}
+                                                text={translate('transverse.confirmer')}
+                                                compact={this.state.modeConsultation}
+                                            />
+                                        </Col>
+                                        <Col size={50}>
+                                            <ComBadrButtonIconComp
+                                                onPress={() => this.handleClear()}
+                                                icon="autorenew"
+                                                style={style.buttonIcon}
+                                                text={translate('transverse.retablir')}
+                                            />
+                                        </Col>
+                                        <Col size={10} />
+                                    </Row>
+                                </View>
+                            </View>
+                        )}
                         <View style={CustomStyleSheet.row}>
                             <ComBasicDataTableComp
                                 // ref="_badrTable_789"

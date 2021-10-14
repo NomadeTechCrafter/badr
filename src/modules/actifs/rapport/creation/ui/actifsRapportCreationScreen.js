@@ -254,18 +254,18 @@ class ActifsRapportCreationScreen extends Component {
     cleanOrdreService(rsAEnregistrer);
     if (this.checkDatesDebutFinInformations() || this.checkDetail()) {
       return;
-    } 
+    }
 
     let action = enregistrerRS.request({
       type: Constants.ACTIFS_CREATION_REQUEST,
       value: { data: rsAEnregistrer },
     });
-    this.props.dispatch(action); 
-    console.log('dispatch fired !!'); 
+    this.props.dispatch(action);
+    console.log('dispatch fired !!');
 
   };
 
-  
+
   parsePvsSaisi = (pvsSaisi) => {
     let array = [];
     if (_.isArray(pvsSaisi)) {
@@ -273,7 +273,7 @@ class ActifsRapportCreationScreen extends Component {
         let element = {};
         element.numPV = pv.numPV;
         element.datePV = convert(pv.datePV);
-        
+
         array.push(element);
       });
 
@@ -282,7 +282,7 @@ class ActifsRapportCreationScreen extends Component {
 
   }
 
-  
+
   render() {
 
     return (
@@ -305,7 +305,7 @@ class ActifsRapportCreationScreen extends Component {
         {this.state.errorMessage != null && (
           <ComBadrErrorMessageComp message={this.state.errorMessage} />
         )}
-       
+
 
         <NavigationContainer independent={true}>
           {!(this.props.rows?.maritime) && !(this.props.rows?.aerien) &&
@@ -338,105 +338,20 @@ class ActifsRapportCreationScreen extends Component {
                     update={this.updateDetailsValue}
                   />
                 )}
-            </Tab.Screen>
-            <Tab.Screen name="Saisie" >
-              {() => (
-                <AtifsRapportCreationSaisieTab
-                  update={this.updateSaisieValue}
-                />
-              )}
-            </Tab.Screen>
-            <Tab.Screen name={translate('actifsCreation.rondesApparitions.title')} >
-              {() => (
-                <RondesApparitionsTab />
-              )}
-            </Tab.Screen>
-
-
-
+              </Tab.Screen>
+              <Tab.Screen name="Saisie" >
+                {() => (
+                  <AtifsRapportCreationSaisieTab
+                    update={this.updateSaisieValue}
+                  />
+                )}
+              </Tab.Screen>
+              <Tab.Screen name={translate('actifsCreation.rondesApparitions.title')} >
+                {() => (
+                  <RondesApparitionsTab />
+                )}
+              </Tab.Screen>
             </Tab.Navigator>}
-          {(this.props.rows?.maritime) && (
-            <Tab.Navigator
-              initialLayout={{ height: Dimensions.get('window').height }}
-              swipeEnabled={false}
-              tabBarOptions={{
-                labelStyle: { fontSize: 16, fontWeight: 'bold' },
-                showLabel: true,
-                allowFontScaling: true,
-                activeBackgroundColor: primaryColor,
-                activeTintColor: primaryColor,
-                inactiveTintColor: 'gray',
-                indicatorStyle: {
-                  backgroundColor: primaryColor,
-                  borderWidth: 2.5,
-                  borderColor: primaryColor,
-                },
-              }}>
-              <Tab.Screen name="Entête 2">
-                {() => (
-                  <ActifsRapportCreationEnteteTab
-                    update={(val) => this.updateEnteteValue(val)}
-                  />
-                )}
-              </Tab.Screen>
-
-              <Tab.Screen name="Details">
-                {() => (
-                  <AtifsRapportCreationDetailsTab
-                    update={this.updateDetailsValue}
-                  />
-                )}
-              </Tab.Screen>
-              <Tab.Screen name="Saisie" >
-                {() => (
-                  <AtifsRapportCreationSaisieTab
-                    update={this.updateSaisieValue}
-                  />
-                )}
-              </Tab.Screen>
-              <Tab.Screen name={translate('actifsCreation.embarcations.title')} component={embarcationsTab} />
-            </Tab.Navigator>)}
-          {(this.props.rows?.aerien) && (
-            <Tab.Navigator
-              initialLayout={{ height: Dimensions.get('window').height }}
-              swipeEnabled={false}
-              tabBarOptions={{
-                labelStyle: { fontSize: 16, fontWeight: 'bold' },
-                showLabel: true,
-                allowFontScaling: true,
-                activeBackgroundColor: primaryColor,
-                activeTintColor: primaryColor,
-                inactiveTintColor: 'gray',
-                indicatorStyle: {
-                  backgroundColor: primaryColor,
-                  borderWidth: 2.5,
-                  borderColor: primaryColor,
-                },
-              }}>
-              <Tab.Screen name="Entête 3">
-                {() => (
-                  <ActifsRapportCreationEnteteTab
-                    update={(val) => this.updateEnteteValue(val)}
-                  />
-                )}
-              </Tab.Screen>
-
-              <Tab.Screen name="Details">
-                {() => (
-                  <AtifsRapportCreationDetailsTab
-                    update={this.updateDetailsValue}
-                  />
-                )}
-              </Tab.Screen>
-              <Tab.Screen name="Saisie" >
-                {() => (
-                  <AtifsRapportCreationSaisieTab
-                    update={this.updateSaisieValue}
-                  />
-                )}
-              </Tab.Screen>
-              <Tab.Screen name={translate('actifsCreation.avionsPrivees.title')} component={avionsPriveesTab} />
-            </Tab.Navigator>)}
         </NavigationContainer>
       </View>
     );
