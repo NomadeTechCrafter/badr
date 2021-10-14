@@ -27,8 +27,6 @@ export default (state = initialState, action) => {
       console.log('--> ACTIFS_ENTETE in progress...');
       return nextState;
     case Constants.ACTIFS_ENTETE_SUCCESS:
-      console.log('--> ACTIFS_ENTETE success...', nextState);
-      nextState.showProgress = false;
       nextState.errorMessage = null;
       nextState.rows = action.value;
       nextState.rows.dateDebut = nextState.rows.dateDebut.substring(0, 10);
@@ -63,7 +61,7 @@ export default (state = initialState, action) => {
       console.log('--> ACTIFS_CONSULTATION_in progress...');
       return nextState;
     case Constants.ACTIFS_CONSULTATION_SUCCESS:
-      console.log('--> ACTIFS_CONSULTATION success...', nextState);
+      console.log('--> ACTIFS_CONSULTATION success MRS...', nextState);
       nextState.showProgress = false;
       nextState.errorMessage = null;
       nextState.rows = action.value.rapportService.ordreService;

@@ -185,10 +185,10 @@ class T6bisTaxationManuelleArticleTaxBlock extends React.Component {
 
 
     static getDerivedStateFromProps(props, state) {
-        console.log('getDerivedStateFromProps--------------------props ', props);
-        console.log('getDerivedStateFromProps--------------------state ', state);
-        console.log('getDerivedStateFromProps--------------------props 1', !(props.currentArticle));
-        console.log('getDerivedStateFromProps--------------------props 1', (props.currentArticle.isNew));
+        // console.log('getDerivedStateFromProps--------------------props ', props);
+        // console.log('getDerivedStateFromProps--------------------state ', state);
+        // console.log('getDerivedStateFromProps--------------------props 1', !(props.currentArticle));
+        // console.log('getDerivedStateFromProps--------------------props 1', (props.currentArticle.isNew));
         if (state.fieldRequired) {
             return {
                 errorMessage: translate('t6bisGestion.tabs.taxation.manuelle.rubriqueBloc.msgErreurRequired'),
@@ -200,13 +200,13 @@ class T6bisTaxationManuelleArticleTaxBlock extends React.Component {
         if (
             !(props.currentArticle) || (props.currentArticle.isNew)
         ) {
-            console.log('getDerivedStateFromProps--------------------props 1');
+            // console.log('getDerivedStateFromProps--------------------props 1');
             return {
                 articleSelected: false,
                 errorMessage: translate('t6bisGestion.tabs.taxation.manuelle.msgErreurAucunArticle')// update the value of specific key
             };
         } else {
-            console.log('getDerivedStateFromProps--------------------props 2');
+            // console.log('getDerivedStateFromProps--------------------props 2');
             return {
                 errorMessage: null,// update the value of specific key
                 articleSelected: true

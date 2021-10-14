@@ -170,8 +170,8 @@ class T6bisRecherche extends React.Component {
   };
 
   static getDerivedStateFromProps(props, state) {
-    console.log('getDerivedStateFromProps--------------------props ', props);
-    console.log('getDerivedStateFromProps--------------------state ', state);
+    // console.log('getDerivedStateFromProps--------------------props ', props);
+    // console.log('getDerivedStateFromProps--------------------state ', state);
 
     if (props?.route?.params.title != state.title) {
       return {

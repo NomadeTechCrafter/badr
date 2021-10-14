@@ -3,7 +3,7 @@ import * as Constants from '../actifsRapportCreationConstants';
 /**i18n */
 import {translate} from '../../../../../../commons/i18n/ComI18nHelper';
 const MODULE = 'GIB';
-const TYPE_SERVICE = 'SP';
+const TYPE_SERVICE = 'UC';
 export function request(action, navigation, successRedirection) {
   return (dispatch) => {
     dispatch(action);
@@ -11,7 +11,7 @@ export function request(action, navigation, successRedirection) {
     console.log('navig success    getOsById action : ', action);
     TransverseApi.doProcess(
       MODULE,
-      'getOsById',
+      'editerOrdreService',
       TYPE_SERVICE,
       action.value.data,
     )

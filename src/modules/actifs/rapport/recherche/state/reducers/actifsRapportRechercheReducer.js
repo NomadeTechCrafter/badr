@@ -20,7 +20,7 @@ export default (state = initialState, action) => {
       console.log('--> ACTIFS_RECHERCHE in progress...');
       return nextState;
     case Constants.ACTIFS_RECHERCHE_SUCCESS:
-      console.log('--> ACTIFS_RECHERCHE success...', nextState);
+      // console.log('--> ACTIFS_RECHERCHE success...', nextState);
       nextState.showProgress = false;
       nextState.errorMessage = null;
       return nextState;

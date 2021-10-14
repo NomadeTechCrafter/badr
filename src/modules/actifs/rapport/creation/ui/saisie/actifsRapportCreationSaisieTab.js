@@ -69,7 +69,7 @@ class AtifsRapportCreationSaisieTab extends Component {
   }
 
   componentDidMount() {
-    console.log('--AtifsRapportCreationSaisieTab  -------------------  componentDidMount');
+    // console.log('--AtifsRapportCreationSaisieTab  -------------------  componentDidMount');
     this.getUnitesMesure();
   }
 
@@ -253,7 +253,7 @@ class AtifsRapportCreationSaisieTab extends Component {
               style={{ backgroundColor: primaryColor }}
               onPress={() => {
                 let data = item;
-                console.log('data ', data);
+                console.log('data MRS', data);
                 
                 this.setState({
                   showDetailMarchandise: true,
@@ -408,8 +408,8 @@ class AtifsRapportCreationSaisieTab extends Component {
   }
 
   static getDerivedStateFromProps(props, state) {
-    console.log('getDerivedStateFromProps--------------------props ', props);
-    console.log('getDerivedStateFromProps--------------------state ', state);
+    // console.log('getDerivedStateFromProps--------------------props ', props);
+    // console.log('getDerivedStateFromProps--------------------state ', state);
 
     if (
       props.consultation && props.rapportServiceId != state.rapportServiceId
@@ -644,6 +644,6 @@ const styles = {
   },
 };
 
-const mapStateToProps = (state) => ({ ...state.creationReducer });
+const mapStateToProps = (state) => ({ ...state.creationActifsReducer });
 
 export default connect(mapStateToProps, null)(AtifsRapportCreationSaisieTab);

@@ -55,13 +55,16 @@ import t6bisRechercheReducer from '../../modules/t6bis/recherche/state/reducers/
 
 import crudDatatableReducer from '../state/reducers/ComCrudDataTableReducer';
 
-import enteteReducer from '../../old/redux/reducers/actifs/rapport/creation/entete';
-import saisieReducer from '../../old/redux/reducers/actifs/rapport/creation/saisie';
-import creationReducer from '../../old/redux/reducers/actifs/rapport/creation/creation';
+// import enteteReducer from '../../old/redux/reducers/actifs/rapport/creation/entete';
+// import saisieReducer from '../../old/redux/reducers/actifs/rapport/creation/saisie';
+// import creationReducer from '../../old/redux/reducers/actifs/rapport/creation/creation';
 
-import detailsreducer from '../../old/redux/reducers/actifs/rapport/creation/details';
-import recherchereducer from '../../old/redux/reducers/actifs/rapport/recherche/recherche';
-import consultationreducer from '../../old/redux/reducers/actifs/rapport/consultation/consultation';
+// import detailsreducer from '../../old/redux/reducers/actifs/rapport/creation/details';
+// import recherchereducer from '../../old/redux/reducers/actifs/rapport/recherche/recherche';
+// import consultationreducer from '../../old/redux/reducers/actifs/rapport/consultation/consultation';
+
+import rechercheActifsReducer from '../../modules/actifs/rapport/recherche/state/reducers/actifsRapportRechercheReducer';
+import creationActifsReducer from '../../modules/actifs/rapport/creation/state/reducers/actifsRapportCreationReducer'
 
 import EcorImportReducer from '../../modules/ecorImport/enleverMarchandise/state/reducers/EcorImportReducer';
 import ecorImportRechercheRefDumReducer from '../../modules/ecorImport/rechercheEcorImport/state/reducers/ecorImportRechercheRefDumReducer';
@@ -124,12 +127,14 @@ const allReducers = combineReducers({
   controleVehiculesReducer,
   plaquesImmReducer,
   crudDatatableReducer,
-  enteteReducer,
-  detailsreducer,
-  recherchereducer,
-  consultationreducer,
-  saisieReducer,
-  creationReducer,
+  rechercheActifsReducer,
+  creationActifsReducer,
+  // enteteReducer,
+  // detailsreducer,
+  // recherchereducer,
+  // consultationreducer,
+  // saisieReducer,
+  // creationReducer,
   EcorImportReducer,
   liquidationRechercheRefDumReducer,
   liquidationReducer,

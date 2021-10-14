@@ -9,7 +9,7 @@ export function request(action, navigation, successRedirection) {
   return (dispatch) => {
     dispatch(action);
     dispatch(inProgress(action));
-    console.log('getUnitesMesure :',action);
+    // console.log('getUnitesMesure :',action);
     TransverseApi.doProcess(
       MODULE,
       'getUnitesMesure',
@@ -20,11 +20,11 @@ export function request(action, navigation, successRedirection) {
         if (response) {
           const data = response.data;
           if (data && !data.dtoHeader.messagesErreur) {
-            console.log('data', data);
+            // console.log('data', data);
             dispatch(success(data));
             /** Naviguer vers la vue suivant. */
 
-            console.log('navig success');
+            // console.log('navig success');
             /* navigation.navigate(successRedirection , {
                              login: action.value.login,
                              refDeclaration: action.value.data.referenceDed,

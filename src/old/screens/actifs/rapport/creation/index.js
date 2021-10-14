@@ -30,7 +30,6 @@ import * as enregistrerRS from '../../../../redux/actions/actifs/rapport/creatio
 import * as Constants from '../../../../common/constants/actifs/rapport/creation/creation';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {load} from '../../../../services/storage-service';
-import creationReducer from '../../../../redux/reducers/actifs/rapport/creation/creation';
 
 const screenWidth = Dimensions.get('window').width;
 
@@ -206,6 +205,6 @@ class Creation extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({...state.creationReducer});
+const mapStateToProps = (state) => ({ ...state.creationActifsReducer});
 
 export default connect(mapStateToProps, null)(Creation);

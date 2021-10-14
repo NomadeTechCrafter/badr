@@ -299,8 +299,8 @@ export default class ActifsRapportPersonneConcerneeModal extends React.Component
 
 
   static getDerivedStateFromProps(props, state) {
-    console.log('getDerivedStateFromProps--------------------props ', props);
-    console.log('getDerivedStateFromProps--------------------state ', state);
+    // console.log('getDerivedStateFromProps--------------------props ', props);
+    // console.log('getDerivedStateFromProps--------------------state ', state);
 
     if (
       props.intervenant && props.index != state.index

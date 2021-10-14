@@ -17,7 +17,7 @@ export default (state = initialState, action) => {
       console.log('--> ACTIFS_CONSULTATION request...');
       return nextState;
     case Constants.ACTIFS_CONSULTATION_IN_PROGRESS:
-      console.log('--> ACTIFS_CONSULTATION in progress...');
+      console.log('--> ACTIFS_CONSULTATION in progress MRS...');
       return nextState;
     case Constants.ACTIFS_CONSULTATION_SUCCESS:
       console.log('--> ACTIFS_CONSULTATION success...', nextState);

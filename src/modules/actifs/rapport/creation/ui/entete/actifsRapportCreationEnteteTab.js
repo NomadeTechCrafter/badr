@@ -173,8 +173,8 @@ class ActifsRapportCreationEnteteTab extends Component {
   onItemSelected = (row) => { };
   
   static getDerivedStateFromProps(props, state) {
-    console.log('getDerivedStateFromProps--------ActifsRapportCreationEnteteTab------------props ', props);
-    console.log('getDerivedStateFromProps--------ActifsRapportCreationEnteteTab------------state ', state);
+    // console.log('getDerivedStateFromProps--------ActifsRapportCreationEnteteTab------------props ', props);
+    // console.log('getDerivedStateFromProps--------ActifsRapportCreationEnteteTab------------state ', state);
 
 
     if ((!state?.rows && props?.rows) || (state?.rows && state.rows?.id!==props?.rows.id)) {
@@ -596,6 +596,6 @@ const styles = {
   },
 };
 
-const mapStateToProps = (state) => ({ ...state.creationReducer});
+const mapStateToProps = (state) => ({ ...state.creationActifsReducer});
 
 export default connect(mapStateToProps, null)(ActifsRapportCreationEnteteTab);

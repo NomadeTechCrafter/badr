@@ -345,7 +345,7 @@ class ActifsRapportRechercheScreen extends Component {
                       </DataTable.Title>
                     ))}
                   </DataTable.Header>
-                  {console.log('rows recherche ......', rows)}
+                  {/* {console.log('rows recherche ......', rows)} */}
                   {rows && rows.length > 0
                     ? (this.state.paginate
                       ? _(rows).slice(this.state.offset).take(5).value()
@@ -432,6 +432,6 @@ const styles = {
   },
 };
 
-const mapStateToProps = (state) => ({ ...state.recherchereducer });
+const mapStateToProps = (state) => ({ ...state.rechercheActifsReducer });
 
 export default connect(mapStateToProps, null)(ActifsRapportRechercheScreen);

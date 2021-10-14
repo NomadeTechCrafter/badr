@@ -149,8 +149,8 @@ class ActifsRapportProprietairesSousBlock extends React.Component {
     };
 
     static getDerivedStateFromProps(props, state) {
-        console.log('getDerivedStateFromProps--------------------props ', props);
-        console.log('getDerivedStateFromProps--------------------state ', state);
+        // console.log('getDerivedStateFromProps--------------------props ', props);
+        // console.log('getDerivedStateFromProps--------------------state ', state);
 
         if (
             props.index !== state.selectedIndex || !(props.index)

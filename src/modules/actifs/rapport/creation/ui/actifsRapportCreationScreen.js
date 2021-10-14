@@ -18,6 +18,8 @@ import AtifsRapportCreationDetailsTab from './details/actifsRapportCreationDetai
 import ActifsRapportCreationEmbarcationsTab from './embarcations/actifsRapportCreationEmbarcationsTab';
 import ActifsRapportCreationEnteteTab from './entete/actifsRapportCreationEnteteTab';
 import AtifsRapportCreationSaisieTab from './saisie/actifsRapportCreationSaisieTab';
+import RondesApparitionsTab from './rondesApparitions/actifsRapportCreationRondesApparitionsTab';
+
 import moment from 'moment';
 import { FORMAT_DDMMYYYY_HHMM } from '../../utils/actifsConstants';
 import _ from 'lodash';
@@ -67,7 +69,7 @@ class ActifsRapportCreationScreen extends Component {
       rows: '',
     };
     console.log('this.props.===========');
-    console.log(this.props);
+    // console.log(JSON.stringify(this.props));
   }
 
   componentDidMount = () => {
@@ -323,7 +325,7 @@ class ActifsRapportCreationScreen extends Component {
                   borderColor: primaryColor,
                 },
               }}>
-              <Tab.Screen name="Entête">
+              <Tab.Screen name="Entête 1">
                 {() => (
                   <ActifsRapportCreationEnteteTab
                     update={(val) => this.updateEnteteValue(val)}
@@ -336,14 +338,20 @@ class ActifsRapportCreationScreen extends Component {
                     update={this.updateDetailsValue}
                   />
                 )}
-              </Tab.Screen>
-              <Tab.Screen name="Saisie" >
-                {() => (
-                  <AtifsRapportCreationSaisieTab
-                    update={this.updateSaisieValue}
-                  />
-                )}
-              </Tab.Screen>
+            </Tab.Screen>
+            <Tab.Screen name="Saisie" >
+              {() => (
+                <AtifsRapportCreationSaisieTab
+                  update={this.updateSaisieValue}
+                />
+              )}
+            </Tab.Screen>
+            <Tab.Screen name={translate('actifsCreation.rondesApparitions.title')} >
+              {() => (
+                <RondesApparitionsTab />
+              )}
+            </Tab.Screen>
+
 
 
             </Tab.Navigator>}
@@ -364,7 +372,7 @@ class ActifsRapportCreationScreen extends Component {
                   borderColor: primaryColor,
                 },
               }}>
-              <Tab.Screen name="Entête">
+              <Tab.Screen name="Entête 2">
                 {() => (
                   <ActifsRapportCreationEnteteTab
                     update={(val) => this.updateEnteteValue(val)}
@@ -405,7 +413,7 @@ class ActifsRapportCreationScreen extends Component {
                   borderColor: primaryColor,
                 },
               }}>
-              <Tab.Screen name="Entête">
+              <Tab.Screen name="Entête 3">
                 {() => (
                   <ActifsRapportCreationEnteteTab
                     update={(val) => this.updateEnteteValue(val)}
@@ -435,6 +443,6 @@ class ActifsRapportCreationScreen extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({ ...state.creationReducer });
+const mapStateToProps = (state) => ({ ...state });
 
 export default connect(mapStateToProps, null)(ActifsRapportCreationScreen);

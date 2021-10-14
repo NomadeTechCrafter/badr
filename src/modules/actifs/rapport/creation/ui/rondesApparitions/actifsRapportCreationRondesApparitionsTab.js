@@ -27,12 +27,12 @@ class ActifsRapportCreationRondesApparitionsTab extends React.Component {
                 width: 150,
             },
             {
-                code: 'pointsServiceControles',
+                code: 'pointsControle',
                 libelle: translate('actifsCreation.rondesApparitions.pointsServiceControles'),
                 width: 250,
             },
             {
-                code: 'resContrRapService',
+                code: 'resultatControle',
                 libelle: translate('actifsCreation.rondesApparitions.resContrRapService'),
                 width: 250,
             },
@@ -57,13 +57,30 @@ class ActifsRapportCreationRondesApparitionsTab extends React.Component {
                 heureDebut: '',
                 dateFin: '',
                 heureFin: '',
-                pointsServiceControles: '',
-                resContrRapService: '',
+                pointsControle: '',
+                resultatControle: '',
                 dateHeureDebut: '',
                 dateHeureFin: '',
             },
-            rondesApparitions: []
+            rondesApparitions: [],
+            modeConsultation: false,
         };
+    }
+
+    componentDidMount = () => {
+        console.log('=================================================================================');
+        console.log('=================================================================================');
+        console.log('=================================================================================');
+        console.log(JSON.stringify(this.props.value?.rondesApparition));
+        console.log(JSON.stringify(this.props.consultation));
+        console.log('=================================================================================');
+        console.log('=================================================================================');
+        console.log('=================================================================================');
+
+        this.setState({
+            rondesApparitions: this.props.value?.rondesApparition,
+            modeConsultation: this.props.consultation,
+        });
     }
 
     deleteRow = (row, index) => {
@@ -86,11 +103,12 @@ class ActifsRapportCreationRondesApparitionsTab extends React.Component {
                 heureDebut: '',
                 dateFin: '',
                 heureFin: '',
-                pointsServiceControles: '',
-                resContrRapService: '',
+                pointsControle: '',
+                resultatControle: '',
                 dateHeureDebut: '',
                 dateHeureFin: '',
             },
+            modeConsultation: false,
         }))
     };
 
@@ -184,11 +202,11 @@ class ActifsRapportCreationRondesApparitionsTab extends React.Component {
                                         maxLength={250}
                                         multiline
                                         numberOfLines={4}
-                                        value={this.state.currentRondeApparition.pointsServiceControles}
+                                        value={this.state.currentRondeApparition.pointsControle}
                                         onChangeText={(text) => this.setState(prevState => ({
                                             currentRondeApparition: {
                                                 ...prevState.currentRondeApparition,
-                                                pointsServiceControles: text,
+                                                pointsControle: text,
                                             }
                                         }))}
                                     />
@@ -207,12 +225,12 @@ class ActifsRapportCreationRondesApparitionsTab extends React.Component {
                                         maxLength={250}
                                         multiline
                                         numberOfLines={8}
-                                        value={this.state.currentRondeApparition.resContrRapService}
+                                        value={this.state.currentRondeApparition.resultatControle}
 
                                         onChangeText={(text) => this.setState(prevState => ({
                                             currentRondeApparition: {
                                                 ...prevState.currentRondeApparition,
-                                                resContrRapService: text,
+                                                resultatControle: text,
                                             }
                                         }))}
                                     />
@@ -229,6 +247,7 @@ class ActifsRapportCreationRondesApparitionsTab extends React.Component {
                                         style={style.buttonIcon}
                                         loading={this.props.showProgress}
                                         text={translate('transverse.confirmer')}
+                                        disabled={this.state.modeConsultation}
                                     />
                                 </Col>
                                 <Col size={50}>
@@ -237,6 +256,7 @@ class ActifsRapportCreationRondesApparitionsTab extends React.Component {
                                         icon="autorenew"
                                         style={style.buttonIcon}
                                         text={translate('transverse.retablir')}
+                                        disabled={this.state.modeConsultation}
                                     />
                                 </Col>
                                 <Col size={10} />
@@ -244,13 +264,13 @@ class ActifsRapportCreationRondesApparitionsTab extends React.Component {
                         </View>
                         <View style={CustomStyleSheet.row}>
                             <ComBasicDataTableComp
-                                ref="_badrTable_789"
+                                // ref="_badrTable_789"
                                 id="RondesApparitionsTable"
                                 rows={this.state.rondesApparitions}
                                 //resultArrayMapping={this.props.data}
                                 //data={this.props}
                                 cols={this.cols}
-                                totalElements={this.state.rondesApparitions.length}
+                                totalElements={this.state.rondesApparitions?.length}
                                 maxResultsPerPage={10}
                                 paginate={true}
                                 showProgress={this.props.showProgress}
@@ -264,7 +284,7 @@ class ActifsRapportCreationRondesApparitionsTab extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => ({ ...state.creationReducer });
+const mapStateToProps = (state) => ({ ...state.creationActifsReducer });
 
 export default connect(mapStateToProps, null)(ActifsRapportCreationRondesApparitionsTab);
 

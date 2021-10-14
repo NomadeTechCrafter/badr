@@ -437,8 +437,8 @@ export default class ActifsRapportPropritaireModal extends React.Component {
 
 
   static getDerivedStateFromProps(props, state) {
-    console.log('getDerivedStateFromProps--------------------props ', props);
-    console.log('getDerivedStateFromProps--------------------state ', state);
+    // console.log('getDerivedStateFromProps--------------------props ', props);
+    // console.log('getDerivedStateFromProps--------------------state ', state);
 
     if (
       props.proprietaire && props.index != state.index
