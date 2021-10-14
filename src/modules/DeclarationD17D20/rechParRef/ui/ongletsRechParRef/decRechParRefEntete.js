@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { translate } from '../../../../../commons/i18n/ComI18nHelper';
 import * as Constants from '../../state/decRechParRefConstants';
 import * as RechParRefConfirmerAction from '../../state/actions/decRechParRefUcAction';
+import _ from 'lodash';
 
 import {
   ComBadrErrorMessageComp,
@@ -411,7 +412,7 @@ class RechParRefEntete extends React.Component {
             </Accordion>
           </CardBox>
           {/* Informations sur le signataire */}
-          {traceSignature && (
+          {!_.isEmpty(traceSignature) && (
             <CardBox style={styles.cardBox}>
               <Accordion badr title={translate('rechParRef.infoSignataire')}>
                 <View style={styles.flexColumn}>
@@ -452,7 +453,7 @@ class RechParRefEntete extends React.Component {
             </CardBox>
           )}
           {/* Informations sur la mainlevée */}
-          {datePassage && (
+          {!_.isEmpty(datePassage) && (
             <CardBox style={styles.cardBox}>
               <Accordion badr title={translate('rechParRef.infoMLV')}>
                 <View style={styles.flexColumn}>

@@ -106,7 +106,7 @@ class RechParRefListeByRefVh extends React.Component {
     this.setState({showErrorMsg: true});
     if (this.state.matriculeVehicule && this.state.matriculeVehicule !== '') {
       const data = {
-        codeBureau: ComSessionService.getInstance().getCodeBureau(),
+       // codeBureau: ComSessionService.getInstance().getCodeBureau(),
         immatriculationVehicule: this.state.matriculeVehicule,
       };
       const action = {
