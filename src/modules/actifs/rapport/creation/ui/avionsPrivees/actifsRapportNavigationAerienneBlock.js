@@ -235,7 +235,7 @@ class ActifsRapportNavigationAerienneBlock extends React.Component {
                                             mode={'outlined'}
                                             disabled={this.props.readOnly}
                                             style={{ height: 20, fontSize: 12, alignSelf: 'center', padding: 15 }}
-                                            value={this.state.navigationAerienneModel.heureAtterissage}
+                                            value={this.state?.navigationAerienneModel?.heureAtterissage ? this.state?.navigationAerienneModel?.heureAtterissage?.toString()  : ''}
                                             onFocus={() => {
                                                 this.setState({ showHeureAtterissage: true });
                                             }}
@@ -479,7 +479,7 @@ class ActifsRapportNavigationAerienneBlock extends React.Component {
                                             mode={'outlined'}
                                             disabled={this.props.readOnly}
                                             style={{ height: 20, fontSize: 12, alignSelf: 'center', padding: 15 }}
-                                            value={this.state.navigationAerienneModel.heureDepart}
+                                            value={this.state?.navigationAerienneModel?.heureDepart ? this.state?.navigationAerienneModel?.heureDepart?.toString() : ''}
                                             onFocus={() => {
                                                 this.setState({ showHeureDepart: true });
                                             }}

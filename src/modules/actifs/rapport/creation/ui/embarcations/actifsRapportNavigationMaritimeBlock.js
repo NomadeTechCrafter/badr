@@ -55,7 +55,7 @@ class ActifsRapportNavigationMaritimeBlock extends React.Component {
 
 
 
-   static getDerivedStateFromProps(props, state) {
+    static getDerivedStateFromProps(props, state) {
 
         if (
             props.navigationMaritimeModel && props.index !== state.index
@@ -69,7 +69,7 @@ class ActifsRapportNavigationMaritimeBlock extends React.Component {
         // Return null to indicate no change to state.
         return null;
     }
- 
+
 
 
 
@@ -83,7 +83,7 @@ class ActifsRapportNavigationMaritimeBlock extends React.Component {
             }, showDateEntree: false
 
 
-        },);
+        });
         this.state.navigationMaritimeModel.dateEntree = event.nativeEvent.timestamp;
         this.props.update(this.state.navigationMaritimeModel);
     }
@@ -98,7 +98,7 @@ class ActifsRapportNavigationMaritimeBlock extends React.Component {
         });
         this.state.navigationMaritimeModel.heureEntree = moment(selectedHeure).format('HH:mm').toString();
         this.props.update(this.state.navigationMaritimeModel);
-        
+
     }
 
     onDateDepartChange = (event, selectedDate) => {
@@ -124,7 +124,7 @@ class ActifsRapportNavigationMaritimeBlock extends React.Component {
         });
         this.state.navigationMaritimeModel.heureDepart = moment(selectedHeure).format('HH:mm').toString();
         this.props.update(this.state.navigationMaritimeModel);
-       
+
     }
 
 
@@ -171,7 +171,7 @@ class ActifsRapportNavigationMaritimeBlock extends React.Component {
 
 
     render() {
-    
+
         return (
 
             <ComAccordionComp title={translate('actifsCreation.embarcations.navigMaritime.title')} expanded={true}>
@@ -237,7 +237,7 @@ class ActifsRapportNavigationMaritimeBlock extends React.Component {
                                             mode={'outlined'}
                                             disabled={this.props.readOnly}
                                             style={{ height: 20, fontSize: 12, alignSelf: 'center', padding: 15 }}
-                                            value={this.state.navigationMaritimeModel.heureEntree}
+                                            value={this.state?.navigationMaritimeModel?.heureEntree ? this.state?.navigationMaritimeModel?.heureEntree?.toString() : ''}
                                             onFocus={() => {
                                                 this.setState({ showHeureEntree: true });
                                             }}
@@ -481,7 +481,8 @@ class ActifsRapportNavigationMaritimeBlock extends React.Component {
                                             mode={'outlined'}
                                             disabled={this.props.readOnly}
                                             style={{ height: 20, fontSize: 12, alignSelf: 'center', padding: 15 }}
-                                            value={this.state.navigationMaritimeModel.heureDepart}
+                                            // value={this.state.navigationMaritimeModel.heureDepart}
+                                            value={this.state?.navigationMaritimeModel?.heureDepart ? this.state?.navigationMaritimeModel?.heureDepart?.toString() : ''}
                                             onFocus={() => {
                                                 this.setState({ showHeureDepart: true });
                                             }}

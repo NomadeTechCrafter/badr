@@ -19,6 +19,8 @@ import ActifsRapportCreationEmbarcationsTab from './embarcations/actifsRapportCr
 import ActifsRapportCreationEnteteTab from './entete/actifsRapportCreationEnteteTab';
 import AtifsRapportCreationSaisieTab from './saisie/actifsRapportCreationSaisieTab';
 import RondesApparitionsTab from './rondesApparitions/actifsRapportCreationRondesApparitionsTab';
+import PerquisitionTab from './perquisition/actifsRapportCreationPerquisitionTab';
+
 
 import moment from 'moment';
 import { FORMAT_DDMMYYYY_HHMM } from '../../utils/actifsConstants';
@@ -34,11 +36,11 @@ const screenHeight = Dimensions.get('window').height;
 
 const screenWidth = Dimensions.get('window').width;
 
-function EnteteScreen({ route, navigation }) {
-  return (
-    <ActifsRapportCreationEnteteTab navigation={navigation} route={route} />
-  );
-}
+// function EnteteScreen({ route, navigation }) {
+//   return (
+//     <ActifsRapportCreationEnteteTab navigation={navigation} route={route} />
+//   );
+// }
 
 /* function DetailsScreen({ route, navigation }) {
   return <AtifsRapportCreationDetailsTab navigation={navigation} route={route} />;
@@ -68,11 +70,24 @@ class ActifsRapportCreationScreen extends Component {
       description: '',
       rows: '',
     };
-    console.log('this.props.===========');
+    // console.log('this.props.===========');
     // console.log(JSON.stringify(this.props));
   }
 
   componentDidMount = () => {
+    console.log('this.props.===========>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+    console.log('this.props.===========>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+    console.log('this.props.===========>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+    console.log('this.props.===========>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+    console.log('this.props.===========>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+    console.log('this.props.===========>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+    console.log(JSON.stringify(this.props));
+    console.log('this.props.===========>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+    console.log('this.props.===========>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+    console.log('this.props.===========>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+    console.log('this.props.===========>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+    console.log('this.props.===========>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+    console.log('this.props.===========>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
     this.unsubscribe = this.props.navigation.addListener('focus', () => {
       this.state = {
         consultation: this.props.route.params ? this.props.route.params.consultation : {},
@@ -97,7 +112,7 @@ class ActifsRapportCreationScreen extends Component {
         let action = getOsById.request(
           {
             type: Constants.ACTIFS_ENTETE_REQUEST,
-            value: { data: data },
+            value: { data: data ? data + '' : '' },
           } /*,
                     this.props.navigation,
                     this.props.successRedirection,*/,
@@ -141,7 +156,7 @@ class ActifsRapportCreationScreen extends Component {
       errorMessage: null
     });
 
-    let dateDebut = format(this.props.rows.dateDebut);
+    let dateDebut = format(this.props.route?.params?.row?.dateDebut);
 
     moment.suppressDeprecationWarnings = true;
     let dateHeureDebut = moment(dateDebut, FORMAT_DDMMYYYY_HHMM);
@@ -198,13 +213,21 @@ class ActifsRapportCreationScreen extends Component {
   }
 
   Enregister = () => {
-
-    console.log('Enregister this.state.rows ', this.state.rows);
-    console.log('Enregister this.props.rows ', this.props.rows);
     console.log('Enregister this.props ', this.props);
     console.log('Enregister this.state?.dateFin ', this.state?.dateFin);
-    console.log('Enregister this.props.row?.dateFin.substring(0, 10) ', this.props.rows?.dateFin);
-    let res = this.props.rows.refPJ.split('_');
+    let res = this.props.route?.params?.row?.refPJ?.split('_');
+    let localOrdreService = this.props.route?.params?.row;
+    localOrdreService.dateDebut = moment(this.props.route?.params?.row?.dateDebut).format("YYYY-MM-DD").toString();
+    localOrdreService.dateFin = moment(this.props.route?.params?.row?.dateFin).format("YYYY-MM-DD").toString();
+    console.log('ordreService ordreService ordreService ordreService ordreService ordreService ordreService ordreService ');
+    console.log('ordreService ordreService ordreService ordreService ordreService ordreService ordreService ordreService ');
+    console.log('ordreService ordreService ordreService ordreService ordreService ordreService ordreService ordreService ');
+    console.log('ordreService ordreService ordreService ordreService ordreService ordreService ordreService ordreService ');
+    console.log(JSON.stringify(localOrdreService));
+    console.log('ordreService ordreService ordreService ordreService ordreService ordreService ordreService ordreService ');
+    console.log('ordreService ordreService ordreService ordreService ordreService ordreService ordreService ordreService ');
+    console.log('ordreService ordreService ordreService ordreService ordreService ordreService ordreService ordreService ');
+    console.log('ordreService ordreService ordreService ordreService ordreService ordreService ordreService ordreService ');
     let rsAEnregistrer = {
 
 
@@ -215,12 +238,12 @@ class ActifsRapportCreationScreen extends Component {
       commentaire: null,
       dateEnregistrement: null,
       dateEnregistrementV0: '',
-      dateFin: (this.state?.dateFin) ? this.state.dateFin : this.props.rows?.dateFin.substring(0, 10), //yes
+      dateFin: (this.state?.dateFin) ? this.state.dateFin : moment(this.props.route?.params?.row?.dateFin), //yes
       description: this.state.description, //yess reacherche(description rapport)
       disableFields: null,
-      heureFin: (this.state?.heureFin) ? this.state.heureFin : this.props.rows.heureFin, //yess entete
-      idOS: this.props.rows.numero, //recherchess
-      journeeDU: this.props.rows.journeeDu ? convert(this.props.rows.journeeDu) : '', //yess entete
+      heureFin: (this.state?.heureFin) ? this.state.heureFin : this.props.route?.params?.row?.heureFin, //yess entete
+      idOS: this.props.route?.params?.row?.numero, //recherchess
+      journeeDU: this.props.route?.params?.row?.journeeDu ? convert(this.props.route?.params?.row?.journeeDu) : '', //yess entete
       motif: null,
       numOS: null,
       numSerieRef: _.isArray(res) ? res[2] : '',
@@ -228,15 +251,15 @@ class ActifsRapportCreationScreen extends Component {
       pk: null,
       rapportService: {
         id: null,
-        ordreService: { ...this.props.rows },
+        ordreService: localOrdreService,
         vrs: null,
       },
-      reference: this.props.rows.refPJ, //yess
+      reference: this.props.route?.params?.row?.refPJ, //yess
       statut: null,
       typeAction: 'ACTION_AJOUTER',
       typeIncident: null,
       typesIncidentSelect: this.state.typeIncident, //yess
-      uniteorganisationnelle: this.props.rows.uniteOrganisationnelle, //yess
+      uniteorganisationnelle: this.props.route?.params?.row?.uniteOrganisationnelle, //yess
       validations: null,
       vehiculesSaisiVO: this.state.vehiculesSaisiVO,
       marchandisesVO: this.state.marchandisesVO,
@@ -308,56 +331,82 @@ class ActifsRapportCreationScreen extends Component {
 
 
         <NavigationContainer independent={true}>
-          {!(this.props.rows?.maritime) && !(this.props.rows?.aerien) &&
-            <Tab.Navigator
-              initialLayout={{ height: Dimensions.get('window').height }}
-              swipeEnabled={false}
-              tabBarOptions={{
-                labelStyle: { fontSize: 16, fontWeight: 'bold' },
-                showLabel: true,
-                allowFontScaling: true,
-                activeBackgroundColor: primaryColor,
-                activeTintColor: primaryColor,
-                inactiveTintColor: 'gray',
-                indicatorStyle: {
-                  backgroundColor: primaryColor,
-                  borderWidth: 2.5,
-                  borderColor: primaryColor,
-                },
-              }}>
-              <Tab.Screen name="Entête 1">
-                {() => (
-                  <ActifsRapportCreationEnteteTab
-                    update={(val) => this.updateEnteteValue(val)}
-                  />
-                )}
-              </Tab.Screen>
-              <Tab.Screen name="Details">
-                {() => (
-                  <AtifsRapportCreationDetailsTab
-                    update={this.updateDetailsValue}
-                  />
-                )}
-              </Tab.Screen>
-              <Tab.Screen name="Saisie" >
-                {() => (
-                  <AtifsRapportCreationSaisieTab
-                    update={this.updateSaisieValue}
-                  />
-                )}
-              </Tab.Screen>
+          <Tab.Navigator
+            initialLayout={{ height: Dimensions.get('window').height }}
+            swipeEnabled={false}
+            tabBarOptions={{
+              labelStyle: { fontSize: 16, fontWeight: 'bold' },
+              showLabel: true,
+              allowFontScaling: true,
+              scrollEnabled: true,
+              activeBackgroundColor: primaryColor,
+              activeTintColor: primaryColor,
+              inactiveTintColor: 'gray',
+              indicatorStyle: {
+                backgroundColor: primaryColor,
+                borderWidth: 2.5,
+                borderColor: primaryColor,
+              },
+            }}>
+            <Tab.Screen name="Entête">
+              {() => (
+                <ActifsRapportCreationEnteteTab
+                  update={(val) => this.updateEnteteValue(val)}
+                />
+              )}
+            </Tab.Screen>
+            <Tab.Screen name="Détail">
+              {() => (
+                <AtifsRapportCreationDetailsTab
+                  update={this.updateDetailsValue}
+                />
+              )}
+            </Tab.Screen>
+            <Tab.Screen name="Saisie" >
+              {() => (
+                <AtifsRapportCreationSaisieTab
+                  update={this.updateSaisieValue}
+                />
+              )}
+            </Tab.Screen>
+            {(this.props.route?.params?.row?.ronde) && (
               <Tab.Screen name={translate('actifsCreation.rondesApparitions.title')} >
                 {() => (
                   <RondesApparitionsTab />
                 )}
               </Tab.Screen>
-            </Tab.Navigator>}
+            )}
+            <Tab.Screen name={translate('actifsCreation.perquisition.title')}>
+              {() => (
+                <PerquisitionTab />
+              )}
+            </Tab.Screen>
+
+            {(this.props.route?.params?.row?.aerien) && (
+              <Tab.Screen name={translate('actifsCreation.avionsPrivees.title')}>
+                {() => (
+                  <ActifsRapportCreationAvionsPriveesTab />
+                )}
+              </Tab.Screen>
+
+              // <Tab.Screen name={translate('actifsCreation.avionsPrivees.title')} component={avionsPriveesTab} />
+            )}
+            {(this.props.route?.params?.row?.maritime) && (
+              <Tab.Screen name={translate('actifsCreation.embarcations.title')}>
+                {() => (
+                  <ActifsRapportCreationEmbarcationsTab />
+                )}
+              </Tab.Screen>
+              // <Tab.Screen name={translate('actifsCreation.embarcations.title')} component={embarcationsTab} />
+            )}
+          </Tab.Navigator>
+
         </NavigationContainer>
       </View>
     );
   }
 }
 
-const mapStateToProps = (state) => ({ ...state });
+const mapStateToProps = (state) => ({ ...state.creationActifsReducer });
 
 export default connect(mapStateToProps, null)(ActifsRapportCreationScreen);

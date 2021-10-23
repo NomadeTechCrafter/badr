@@ -15,7 +15,7 @@ class ActifsRapportCreationRondesApparitionsTab extends React.Component {
 
     constructor(props) {
         super(props);
-        this.cols = [
+        this.colsEdition = [
             {
                 code: 'dateHeureDebut',
                 libelle: translate('actifsCreation.rondesApparitions.dateDebut'),
@@ -51,6 +51,28 @@ class ActifsRapportCreationRondesApparitionsTab extends React.Component {
                     this.deleteRow(row, index)
             }
         ];
+        this.colsConsultation = [
+            {
+                code: 'dateDebut',
+                libelle: translate('actifsCreation.rondesApparitions.dateDebut'),
+                width: 150,
+            },
+            {
+                code: 'dateFin',
+                libelle: translate('actifsCreation.rondesApparitions.dateFin'),
+                width: 150,
+            },
+            {
+                code: 'pointsControle',
+                libelle: translate('actifsCreation.rondesApparitions.pointsServiceControles'),
+                width: 250,
+            },
+            {
+                code: 'resultatControle',
+                libelle: translate('actifsCreation.rondesApparitions.resContrRapService'),
+                width: 250,
+            }
+        ];
         this.state = {
             currentRondeApparition: {
                 dateDebut: '',
@@ -72,13 +94,14 @@ class ActifsRapportCreationRondesApparitionsTab extends React.Component {
         console.log('=================================================================================');
         console.log('=================================================================================');
         console.log(JSON.stringify(this.props.value?.rondesApparition));
+        console.log(JSON.stringify(this.props.rondesApparition));
         console.log(JSON.stringify(this.props.consultation));
         console.log('=================================================================================');
         console.log('=================================================================================');
         console.log('=================================================================================');
 
         this.setState({
-            rondesApparitions: this.props.value?.rondesApparition,
+            rondesApparitions: this.props.value?.rondesApparition ? this.props.value?.rondesApparition : [],
             modeConsultation: this.props.consultation,
         });
     }
@@ -272,7 +295,7 @@ class ActifsRapportCreationRondesApparitionsTab extends React.Component {
                                 rows={this.state.rondesApparitions}
                                 //resultArrayMapping={this.props.data}
                                 //data={this.props}
-                                cols={this.cols}
+                                cols={this.props.consultation ? this.colsConsultation : this.colsEdition}
                                 totalElements={this.state.rondesApparitions?.length}
                                 maxResultsPerPage={10}
                                 paginate={true}

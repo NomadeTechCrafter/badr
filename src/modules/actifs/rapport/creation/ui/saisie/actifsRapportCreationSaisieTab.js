@@ -172,7 +172,7 @@ class AtifsRapportCreationSaisieTab extends Component {
   mapDataArrayPV = () => {
     return this.state.dataPV.map((item, index) => {
       return (
-        <Row style={CustomStyleSheet.whiteRow}>
+        <Row style={CustomStyleSheet.whiteRow} key={index}>
           <Col size={2} />
           <Col size={2}>
             <ComBadrLibelleComp withColor={true}>{item.numPV}</ComBadrLibelleComp>
@@ -289,7 +289,7 @@ class AtifsRapportCreationSaisieTab extends Component {
   mapDataArrayMarchandise = () => {
     return this.state.dataMarchandise.map((item, index) => {
       return (
-        <Row style={CustomStyleSheet.whiteRow}>
+        <Row style={CustomStyleSheet.whiteRow} key={index}>
           <Col size={2} />
           <Col size={2}>
             <ComBadrLibelleComp>{item.marque.libelle}</ComBadrLibelleComp>
@@ -378,7 +378,7 @@ class AtifsRapportCreationSaisieTab extends Component {
   mapDataArrayMTS = () => {
     return this.state.dataMTS.map((item, index) => {
       return (
-        <Row style={CustomStyleSheet.whiteRow}>
+        <Row style={CustomStyleSheet.whiteRow} key={index}>
           <Col size={2} />
           <Col size={2}>
             <ComBadrLibelleComp>{item.natureVehicule.libelle}</ComBadrLibelleComp>

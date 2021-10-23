@@ -487,10 +487,10 @@ class ActifsRapportCreationEnteteTab extends Component {
                     key="horizontalScrollView"
                     horizontal={true}>
                     <ScrollView key="verticalScrollView">
-                      <DataTable>
+                      <DataTable key="tab00100">
                         <DataTable.Header>
                           {this.cols.map((column, index) => (
-                            <DataTable.Title style={{width: column.width}}>
+                            <DataTable.Title style={{width: column.width}} key={index}>
                               {column.libelle}
                             </DataTable.Title>
                           ))}

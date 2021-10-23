@@ -185,10 +185,10 @@ class ActifsRapportRechercheScreen extends Component {
       return item.map((object) => {
 
         if (code === 'agentsBrigade') {
-          return <Text> {object.agentBrigade}</Text>;
+          return <Text key={object.agentBrigade}> {object.agentBrigade}</Text>;
         }
         if (code === 'vehicules') {
-          return <Text> {object.matricule}</Text>;
+          return <Text key={object.matricule}> {object.matricule}</Text>;
         }
       });
     }
@@ -340,7 +340,7 @@ class ActifsRapportRechercheScreen extends Component {
                 <DataTable>
                   <DataTable.Header>
                     {this.cols.map((column, index) => (
-                      <DataTable.Title style={{ width: column.width }}>
+                      <DataTable.Title style={{ width: column.width }} key={index}>
                         {column.libelle}
                       </DataTable.Title>
                     ))}
@@ -352,10 +352,10 @@ class ActifsRapportRechercheScreen extends Component {
                       : rows
                     ).map((row, index) => (
                       <DataTable.Row
-                        key={row.numeroChassis}
+                        key={index}
                         onPress={() => this.onItemSelected(row)}>
                         {this.cols.map((column, index) => (
-                          <DataTable.Cell style={{ width: column.width }}>
+                          <DataTable.Cell style={{ width: column.width }} key={index}>
                             {' '}
                             {this.render_cols(row[column.code], column.code)}
                           </DataTable.Cell>

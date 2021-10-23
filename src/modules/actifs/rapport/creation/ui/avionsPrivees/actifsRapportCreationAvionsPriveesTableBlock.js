@@ -212,7 +212,7 @@ class ActifsRapportCreationAvionsPriveesTableBlock extends React.Component {
             <ComAccordionComp title={translate('actifsCreation.avionsPrivees.title')} expanded={true}>
                 <View>
                     <ComBasicDataTableComp
-                        ref="_badrTable"
+                        // ref="_badrTable"
                         id="navigationsAeriennesTable"
                         rows={this.props.navigationsAeriennes}
                         cols={(this.props.readOnly) ? this.colsRO : this.cols}

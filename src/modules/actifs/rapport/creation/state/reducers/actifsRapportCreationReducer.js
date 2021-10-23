@@ -1,4 +1,4 @@
-import { getNavigationAerienneModelInitial, getNavigationMaritimeModelInitial } from '../../../utils/actifsUtils';
+import { getNavigationAerienneModelInitial, getNavigationMaritimeModelInitial, format } from '../../../utils/actifsUtils';
 import * as Constants from '../actifsRapportCreationConstants';
 import { save, saveStringified } from '../../../../../../commons/services/async-storage/ComStorageService';
 import { Rows } from 'react-native-table-component';
@@ -68,6 +68,11 @@ export default (state = initialState, action) => {
       nextState.rows.dateDebut = nextState.rows.dateDebut.substring(0, 10);
       nextState.rows.dateFin = nextState.rows.dateFin.substring(0, 10);
       nextState.consultation = nextState.rows.rapportExiste;
+      nextState.rondesApparition = action.value?.rondesApparition?.map((ronde) => {
+        ronde.dateDebut = format(ronde.dateDebut),
+          ronde.dateFin = format(ronde.dateFin)
+      });
+      nextState.gibPerquisition = action.value?.gibPerquisition;
       nextState.navigationsAeriennes = (action.value.navigationsAeriennes) ? (action.value.navigationsAeriennes) : [];
       nextState.navigationsMaritimes = (action.value.navigationsMaritimes) ? (action.value.navigationsMaritimes):[];
       nextState.navigationMaritimeModel = getNavigationMaritimeModelInitial();

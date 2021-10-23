@@ -178,7 +178,7 @@ export default {
       }
     },
     "embarcations": {
-      "title": "Embarcations",
+      "title": "Embarcations de plaisance",
       "typeBateau": "Type du bateau",
       "nomBateau": "Nom du bateau",
       "immatriculation": "Immatriculation",
@@ -300,6 +300,21 @@ export default {
       "pointsServiceControles": "Points de service contrôlés",
       "resContrRapService": "Résultat du contrôle / Rapport de service",
       "choix": "Choix"
+    },
+    "perquisition": {
+      "title": "Perquisition et Visite des domiciles",
+      "dateHeureDebut": "Date et heure perquisition *",
+      "lieuPerquisition": "Lieu de perquisition *",
+      "autoritePerquisition": "Autorité ayant autorisé la perquisition *",
+      "officierPJ": "Présence de l'Officier de Police Judiciaire",
+      "personnesConcernees": "Identité des personnes concernées",
+      "resultatPerquisition": "Résultat de la perquisition *",
+      "identifiant": "Identifiant",
+      "nom": "Nom",
+      "prenom": "Prénom",
+      "consentement": "Consentement",
+      "negatif": "Négatif",
+      "positif": "Positif"
     },
   },
 };

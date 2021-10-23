@@ -191,7 +191,8 @@ class ActifsRapportResultatControleBlock extends React.Component {
                                             mode={'outlined'}
                                             disabled={this.props.readOnly}
                                             style={{ height: 20, fontSize: 12, alignSelf: 'center', padding: 15 }}
-                                            value={this.state.navigationMaritimeModel.heureDebutControle}
+                                            // keyboardType={'number-pad'}
+                                            value={this.state?.navigationMaritimeModel?.heureDebutControle ? this.state?.navigationMaritimeModel?.heureDebutControle?.toString() : ''}
                                             onFocus={() => {
                                                 this.setState({ showHeureDebutControle: true });
                                             }}
@@ -272,7 +273,7 @@ class ActifsRapportResultatControleBlock extends React.Component {
                                             mode={'outlined'}
                                             disabled={this.props.readOnly}
                                             style={{ height: 20, fontSize: 12, alignSelf: 'center', padding: 15 }}
-                                            value={this.state.navigationMaritimeModel.heureFinControle}
+                                            value={this.state?.navigationMaritimeModel?.heureFinControle ? this.state?.navigationMaritimeModel?.heureFinControle?.toString(): ''}
                                             onFocus={() => {
                                                 this.setState({ showHeureFinControle: true });
                                             }}
@@ -322,7 +323,7 @@ class ActifsRapportResultatControleBlock extends React.Component {
                                             mode={'outlined'}
                                             disabled={this.props.readOnly}
                                             style={{ height: 90, fontSize: 12, textAlignVertical: 'top' }}
-                                            value={this.state.navigationMaritimeModel.documentsVerifies}
+                                            value={this.state?.navigationMaritimeModel?.documentsVerifies ? this.state?.navigationMaritimeModel?.documentsVerifies.toString() : ''}
                                             multiline={true}
                                             numberOfLines={10}
                                             onChangeText={(text) => {

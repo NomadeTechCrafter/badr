@@ -191,7 +191,8 @@ class ActifsRapportResultatControleBlock extends React.Component {
                                             mode={'outlined'}
                                             disabled={this.props.readOnly}
                                             style={{ height: 20, fontSize: 12, alignSelf: 'center', padding: 15 }}
-                                            value={this.state.navigationAerienneModel.heureDebutControle}
+                                            // value={this.state.navigationAerienneModel.heureDebutControle}
+                                            value={this.state?.navigationAerienneModel?.heureDebutControle ? this.state?.navigationAerienneModel?.heureDebutControle?.toString() : ''}
                                             onFocus={() => {
                                                 this.setState({ showHeureDebutControle: true });
                                             }}
@@ -272,7 +273,8 @@ class ActifsRapportResultatControleBlock extends React.Component {
                                             mode={'outlined'}
                                             disabled={this.props.readOnly}
                                             style={{ height: 20, fontSize: 12, alignSelf: 'center', padding: 15 }}
-                                            value={this.state.navigationAerienneModel.heureFinControle}
+                                            // value={this.state.navigationAerienneModel.heureFinControle}
+                                            value={this.state?.navigationAerienneModel?.heureFinControle ? this.state?.navigationAerienneModel?.heureFinControle?.toString() : ''}
                                             onFocus={() => {
                                                 this.setState({ showHeureFinControle: true });
                                             }}
@@ -323,6 +325,7 @@ class ActifsRapportResultatControleBlock extends React.Component {
                                             disabled={this.props.readOnly}
                                             style={{ height: 90, fontSize: 12, textAlignVertical: 'top' }}
                                             value={this.state.navigationAerienneModel.documentsVerifies}
+                                            // value={this.state?.navigationAerienneModel?.documentsVerifies ? this.state?.navigationAerienneModel?.documentsVerifies?.toString() : ''}
                                             multiline={true}
                                             numberOfLines={10}
                                             onChangeText={(text) => {
