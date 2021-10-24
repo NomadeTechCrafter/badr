@@ -145,23 +145,23 @@ class ActifsRapportNavigationMaritimeBlock extends React.Component {
 
     handleProvenanceChanged = (pays) => {
         this.setState({
-            acProvenance: pays.libelle, navigationMaritimeModel: {
+            acProvenance: pays?.libelle, navigationMaritimeModel: {
                 ...this.state.navigationMaritimeModel,
-                provenance: { codePays: pays.code, nomPays: pays.libelle }
+                provenance: { codePays: pays?.code, nomPays: pays?.libelle }
             }
         });
-        this.state.navigationMaritimeModel.provenance = { codePays: pays.code, nomPays: pays.libelle };
+        this.state.navigationMaritimeModel.provenance = { codePays: pays?.code, nomPays: pays?.libelle };
         this.props.update(this.state.navigationMaritimeModel)
     }
 
     handleDestinationChanged = (pays) => {
         this.setState({
-            acDestination: pays.libelle, navigationMaritimeModel: {
+            acDestination: pays?.libelle, navigationMaritimeModel: {
                 ...this.state.navigationMaritimeModel,
-                destination: { codePays: pays.code, nomPays: pays.libelle }
+                destination: { codePays: pays?.code, nomPays: pays?.libelle }
             }
         });
-        this.state.navigationMaritimeModel.destination = { codePays: pays.code, nomPays: pays.libelle };
+        this.state.navigationMaritimeModel.destination = { codePays: pays?.code, nomPays: pays?.libelle };
         this.props.update(this.state.navigationMaritimeModel)
 
 

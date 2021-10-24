@@ -297,6 +297,8 @@ export default {
       "dateHeureFin": "Date et heure fin *",
       "dateDebut": "Date début",
       "dateFin": "Date fin",
+      "heureDebut": "Heure début",
+      "heureFin": "Heure fin",
       "pointsServiceControles": "Points de service contrôlés",
       "resContrRapService": "Résultat du contrôle / Rapport de service",
       "choix": "Choix"

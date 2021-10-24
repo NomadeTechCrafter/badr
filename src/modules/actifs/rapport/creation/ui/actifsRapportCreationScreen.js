@@ -75,19 +75,19 @@ class ActifsRapportCreationScreen extends Component {
   }
 
   componentDidMount = () => {
-    console.log('this.props.===========>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
-    console.log('this.props.===========>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
-    console.log('this.props.===========>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
-    console.log('this.props.===========>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
-    console.log('this.props.===========>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
-    console.log('this.props.===========>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
-    console.log(JSON.stringify(this.props));
-    console.log('this.props.===========>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
-    console.log('this.props.===========>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
-    console.log('this.props.===========>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
-    console.log('this.props.===========>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
-    console.log('this.props.===========>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
-    console.log('this.props.===========>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+    // console.log('this.props.===========>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+    // console.log('this.props.===========>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+    // console.log('this.props.===========>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+    // console.log('this.props.===========>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+    // console.log('this.props.===========>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+    // console.log('this.props.===========>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+    // console.log(JSON.stringify(this.props));
+    // console.log('this.props.===========>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+    // console.log('this.props.===========>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+    // console.log('this.props.===========>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+    // console.log('this.props.===========>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+    // console.log('this.props.===========>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+    // console.log('this.props.===========>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
     this.unsubscribe = this.props.navigation.addListener('focus', () => {
       this.state = {
         consultation: this.props.route.params ? this.props.route.params.consultation : {},
@@ -131,6 +131,12 @@ class ActifsRapportCreationScreen extends Component {
   updateSaisieValue = (val) => {
     console.log('val :', val);
     this.setState({ vehiculesSaisiVO: val.vehiculesSaisiVO, marchandisesVO: val.marchandisesVO, pvsSaisi: val.pvsSaisi });
+
+  }
+
+  updateRondesApparitions = (val) => {
+    console.log('val :', val);
+    this.setState({ rondesApparitions: val.rondesApparitions });
 
   }
 
@@ -213,21 +219,12 @@ class ActifsRapportCreationScreen extends Component {
   }
 
   Enregister = () => {
-    console.log('Enregister this.props ', this.props);
-    console.log('Enregister this.state?.dateFin ', this.state?.dateFin);
+    // console.log('Enregister this.props ', JSON.stringify(this.props));
+    // console.log('Enregister this.state?.dateFin ', this.state?.dateFin);
     let res = this.props.route?.params?.row?.refPJ?.split('_');
     let localOrdreService = this.props.route?.params?.row;
-    localOrdreService.dateDebut = moment(this.props.route?.params?.row?.dateDebut).format("YYYY-MM-DD").toString();
-    localOrdreService.dateFin = moment(this.props.route?.params?.row?.dateFin).format("YYYY-MM-DD").toString();
-    console.log('ordreService ordreService ordreService ordreService ordreService ordreService ordreService ordreService ');
-    console.log('ordreService ordreService ordreService ordreService ordreService ordreService ordreService ordreService ');
-    console.log('ordreService ordreService ordreService ordreService ordreService ordreService ordreService ordreService ');
-    console.log('ordreService ordreService ordreService ordreService ordreService ordreService ordreService ordreService ');
-    console.log(JSON.stringify(localOrdreService));
-    console.log('ordreService ordreService ordreService ordreService ordreService ordreService ordreService ordreService ');
-    console.log('ordreService ordreService ordreService ordreService ordreService ordreService ordreService ordreService ');
-    console.log('ordreService ordreService ordreService ordreService ordreService ordreService ordreService ordreService ');
-    console.log('ordreService ordreService ordreService ordreService ordreService ordreService ordreService ordreService ');
+    localOrdreService.dateDebut = moment(this.props.route?.params?.row?.dateDebut).format("YYYY-MM-DD HH:mm").toString();
+    localOrdreService.dateFin = moment(this.props.route?.params?.row?.dateFin).format("YYYY-MM-DD HH:mm").toString();
     let rsAEnregistrer = {
 
 
@@ -268,13 +265,24 @@ class ActifsRapportCreationScreen extends Component {
       navigationsMaritimes: this.props.navigationsMaritimes,
       versionRS: null,
       versionsRS: null,
-    };
+      rondesApparition: this.state?.rondesApparitions ? this.state?.rondesApparitions : [],
+      gibPerquisition: this.state?.gibPerquisition ? this.state?.gibPerquisition : {},
 
-    console.log('--------------------------------rsAEnregistrer--------------------------------------------------');
-    console.log(rsAEnregistrer);
-    console.log(JSON.stringify(rsAEnregistrer));
+    };
     //rsAEnregistrer = { "anneeRef": "2021", "autreIncidents": "Autres incidents", "codeCatTI": "1", "codeUORef": "371", "commentaire": null, "dateEnregistrement": null, "dateEnregistrementV0": "", "dateFin": "2021-02-24", "description": "Description", "disableFields": null, "heureFin": "00:30", "idOS": 3, "journeeDU": "2021-02-24", "motif": null, "numOS": null, "numSerieRef": "9005", "ordres": null, "pk": null, "rapportService": { "id": null, "ordreService": { "id": 5719, "numero": 3, "confidentiel": false, "additif": false, "dateDebut": "2021-02-24", "dateFin": "2021-02-24", "description": "test2", "chefEquipe": { "idActeur": "AD6205", "nom": "AD6205", "numeroPaie": -1, "prenom": "AD6205", "refGradeLib": "" }, "vehicules": [], "agentsBrigade": [{ "id": 17374, "agent": { "idActeur": "AGKLO", "nom": "AGKLO", "numeroPaie": -1, "prenom": "AGKLO", "refGradeLib": "" }, "agentBrigade": "AGKLO AGKLO (AGKLO)" }, { "id": 17375, "agent": { "idActeur": "BOUCHRAAG1", "nom": "bouchraAG1", "numeroPaie": -1, "prenom": "bouchraAG1", "refGradeLib": "" }, "agentBrigade": "bouchraAG1 bouchraAG1 (BOUCHRAAG1)" }], "typeService": { "code": "8.1", "libelle": "Entretien des armes", "classeService": "E", "sousService": false, "categorie": { "code": "8", "libelle": "Armement" } }, "heureDebut": "00:00", "heureFin": "00:30", "os_chefBrigade": false, "ronde": false, "maritime": false, "aerien": true, "uniteOrganisationnelle": "Brigade Casa-Port (371)(371)", "refPJ": "371_2021_9005", "journeeDu": "24/02/2021", "libAdditif": "Non", "libChefBrigade": "Non", "libRonde": "Non", "libMaritime": "Non", "libAerien": "Oui", "libConfidentiel": "Non", "defaultConverter": {}, "rapportExiste": false }, "vrs": null }, "reference": "371_2021_9005", "statut": null, "typeAction": "ACTION_AJOUTER", "typeIncident": null, "typesIncidentSelect": ["1.6"], "uniteorganisationnelle": "Brigade Casa-Port (371)(371)", "validations": null, "vehiculesSaisiVO": [{ "natureVehicule": { "code": "2", "libelle": "\tAutocar" }, "libelle": "123", "valeur": "123" }], "marchandisesVO": [{ "marque": { "code": "01-13", "libelle": "Chocolat en poudre (unité) " }, "quantite": "10", "valeur": "100", "uniteMesure": { "codeUniteMesure": "049", "descriptionUniteMesure": "pièce nouvelle" } }], "pvsSaisi": [{ "numPV": "123", "datePV": "2021-05-19" }], "navigationsAeriennes": [{ "dateAtterissage": 1621459105794, "heureAtterissage": 1621459105794, "motifAtterissage": "ddd", "aeroportEntree": "ddd", "provenance": { "codePays": "FR", "nomPays": "FRANCE(FR)" }, "villeProvenance": "nice", "aeroportAttache": "AA", "pavillon": "Paviollon", "dateDepart": 1621459105794, "heureDepart": 1621459105794, "destination": { "codePays": "DE", "nomPays": "ALLEMAGNE(DE)" }, "villeDestination": "berlin", "typeAvion": "type", "immatriculation": "immatriculation", "nomAvion": "nom", "couleur": "Gris", "nbPlaces": "10", "nbMoteurs": "20", "tonnage": "20", "dateDebutControle": 1621459105794, "heureDebutControle": 1621459105794, "dateFinControle": 1621459105794, "heureFinControle": 1621459105794, "documentsVerifies": "document", "observations": "observation", "resultatControle": "resultat", "intervenants": [{ "passager": true, "equipage": false, "professionIntervenant": "ProfessiProfession", "intervenant": { "refTypeDocumentIdentite": "07", "numeroDocumentIndentite": "1A22", "nomIntervenant": "NoNom", "prenomIntervenant": "Prenom", "nationaliteFr": "DE", "adresse": "Adressse" } }], "proprietaires": [{ "professionIntervenant": "pofnoiess", "intervenant": { "numeroRC": "", "refCentreRC": { "codeCentreRC": "" }, "refTypeDocumentIdentite": "02", "numeroDocumentIndentite": "A123", "nomIntervenant": "nom", "prenomIntervenant": "prenom", "nationaliteFr": "FR", "adresse": "Adresse" } }] }], "navigationsMaritimes": [], "versionRS": null, "versionsRS": null };
     cleanOrdreService(rsAEnregistrer);
+    console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
+    console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
+    console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
+    console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
+    console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
+    console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
+    console.log(JSON.stringify(rsAEnregistrer));
+    console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
+    console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
+    console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
+    console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
+    console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
     if (this.checkDatesDebutFinInformations() || this.checkDetail()) {
       return;
     }
@@ -372,7 +380,7 @@ class ActifsRapportCreationScreen extends Component {
             {(this.props.route?.params?.row?.ronde) && (
               <Tab.Screen name={translate('actifsCreation.rondesApparitions.title')} >
                 {() => (
-                  <RondesApparitionsTab />
+                  <RondesApparitionsTab update={this.updateRondesApparitions} />
                 )}
               </Tab.Screen>
             )}

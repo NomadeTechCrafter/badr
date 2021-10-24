@@ -71,8 +71,8 @@ class T6bisInformationsTaxeCoordinationSousBlock extends React.Component {
     }
 
     handlePaysChanged = (pays) => {
-        this.setState({ acNationalite: pays.libelle });
-        this.props.t6bis.paysOrigine = pays.code;
+        this.setState({ acNationalite: pays?.libelle });
+        this.props.t6bis.paysOrigine = pays?.code;
         if (this.props.fieldsetcontext) {
             this.props.fieldsetcontext.paysOrigine = pays;
         }

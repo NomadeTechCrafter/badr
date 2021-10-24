@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { ComAccordionComp, ComBadrButtonIconComp, ComBadrCardBoxComp, ComBadrDatePickerComp, ComBadrLibelleComp, ComBasicDataTableComp } from '../../../../../../commons/component';
+import { ComAccordionComp, ComBadrButtonIconComp, ComBadrCardBoxComp, ComBadrDatePickerComp, ComBadrErrorMessageComp, ComBadrLibelleComp, ComBasicDataTableComp } from '../../../../../../commons/component';
 import translate from '../../../../../../commons/i18n/ComI18nHelper';
 import style from '../../style/actifsCreationStyle';
 import { Col, Grid, Row } from 'react-native-easy-grid';
@@ -8,7 +8,9 @@ import moment from 'moment';
 import { ScrollView, View } from 'react-native';
 import { CustomStyleSheet } from '../../../../../../commons/styles/ComThemeStyle';
 import { TextInput } from 'react-native-paper';
-
+import _ from 'lodash';
+import { FORMAT_DDMMYYYY_HHMM } from '../../../utils/actifsConstants';
+import { cleanOrdreService, convert, format } from '../../../utils/actifsUtils';
 
 class ActifsRapportCreationRondesApparitionsTab extends React.Component {
 
@@ -90,15 +92,15 @@ class ActifsRapportCreationRondesApparitionsTab extends React.Component {
     }
 
     componentDidMount = () => {
-        console.log('=================================================================================');
-        console.log('=================================================================================');
-        console.log('=================================================================================');
-        console.log(JSON.stringify(this.props.value?.rondesApparition));
-        console.log(JSON.stringify(this.props.rondesApparition));
-        console.log(JSON.stringify(this.props.consultation));
-        console.log('=================================================================================');
-        console.log('=================================================================================');
-        console.log('=================================================================================');
+        // console.log('=================================================================================');
+        // console.log('=================================================================================');
+        // console.log('=================================================================================');
+        // console.log(JSON.stringify(this.props.value?.rondesApparition));
+        // console.log(JSON.stringify(this.props.rondesApparition));
+        // console.log(JSON.stringify(this.props.consultation));
+        // console.log('=================================================================================');
+        // console.log('=================================================================================');
+        // console.log('=================================================================================');
 
         this.setState({
             rondesApparitions: this.props.value?.rondesApparition ? this.props.value?.rondesApparition : [],
@@ -112,8 +114,7 @@ class ActifsRapportCreationRondesApparitionsTab extends React.Component {
         let rondesApparitions = this.state.rondesApparitions;
         rondesApparitions.splice(index, 1);
         this.setState({ myArray: [...this.state.rondesApparitions, rondesApparitions] });
-
-
+        this.update();
     };
 
     handleClear = () => {
@@ -133,24 +134,121 @@ class ActifsRapportCreationRondesApparitionsTab extends React.Component {
             },
             modeConsultation: false,
         }))
+        this.update();
     };
+
+    checkDatesDebutFinInformations = () => {
+        let modele = this.state.currentRondeApparition;
+        this.setState({
+            errorMessage: null
+        });
+
+        // let dateDebut = format(modele?.dateDebut);
+
+        moment.suppressDeprecationWarnings = true;
+        let dateHeureDebut = moment(modele ?.dateDebut + ' ' + modele?.heureDebut, FORMAT_DDMMYYYY_HHMM);
+        let dateHeureFin = moment(modele?.dateFin + ' ' + modele?.heureFin, FORMAT_DDMMYYYY_HHMM);
+        console.log("dateHeureDebut : ", dateHeureDebut);
+        console.log("dateHeureFin : ", dateHeureFin);
+        if (dateHeureFin === null) {
+            let message = translate('actifsCreation.entete.errors.dateFinRequired');
+            this.setState({
+                errorMessage: message
+            });
+            return true;
+        }
+        if (dateHeureFin < dateHeureDebut) {
+            let message = translate('actifsCreation.entete.errors.dateDebutFinOrdre');
+
+            this.setState({
+                errorMessage: message
+            });
+            return true;
+        } else {
+            return false
+        }
+    }
+
+    checkRequiredFieldsResultatCtrl = (params) => {
+        let modele = this.state.currentRondeApparition;
+        if (_.isEmpty(modele.dateDebut.toString())) {
+            params.required = true;
+            params.msg += !_.isEmpty(params.msg) ? ", " : "";
+            params.msg += translate('actifsCreation.rondesApparitions.dateDebut');
+        }
+        if (_.isEmpty(modele.heureDebut.toString())) {
+            params.required = true;
+            params.msg += !_.isEmpty(params.msg) ? ", " : "";
+            params.msg += translate('actifsCreation.rondesApparitions.dateFin');
+        }
+        if (_.isEmpty(modele.dateFin)) {
+            params.required = true;
+            params.msg += !_.isEmpty(params.msg) ? ", " : "";
+            params.msg += translate('actifsCreation.rondesApparitions.heureDebut');
+        }
+        if (_.isEmpty(modele.heureFin)) {
+            params.required = true;
+            params.msg += !_.isEmpty(params.msg) ? ", " : "";
+            params.msg += translate('actifsCreation.rondesApparitions.heureFin');
+        }
+        if (_.isEmpty(modele.pointsControle)) {
+            params.required = true;
+            params.msg += !_.isEmpty(params.msg) ? ", " : "";
+            params.msg += translate('actifsCreation.rondesApparitions.pointsServiceControles');
+        }
+        if (_.isEmpty(modele.resultatControle)) {
+            params.required = true;
+            params.msg += !_.isEmpty(params.msg) ? ", " : "";
+            params.msg += translate('actifsCreation.rondesApparitions.resContrRapService');
+        }
+    }
+
+    checkRequiredFields = () => {
+
+        let params = { msg: '', required: false }
+        this.checkRequiredFieldsResultatCtrl(params);
+        if (params.required) {
+            let message = translate('actifsCreation.avionsPrivees.champsObligatoires') + params.msg;
+            this.setState({
+                errorMessage: message
+            });
+        } else {
+            this.setState({
+                errorMessage: null
+            });
+
+        }
+        return params.required;
+    }
 
     addRondeApparition = () => {
-        // console.log(JSON.stringify(this.state));
-        let rondesApparitions = this.state.rondesApparitions;
-
-        let currentRondeApparition = this.state.currentRondeApparition;
-        currentRondeApparition.dateHeureDebut = this.state.currentRondeApparition.dateDebut + ' ' + this.state.currentRondeApparition.heureDebut;
-        currentRondeApparition.dateHeureFin = this.state.currentRondeApparition.dateFin + ' ' + this.state.currentRondeApparition.heureFin;
-        rondesApparitions.push(currentRondeApparition);
-        this.setState({ myArray: [...this.state.rondesApparitions, rondesApparitions] });
-        this.handleClear();
+        if (!this.checkRequiredFields()) {
+            if (!this.checkDatesDebutFinInformations()) {
+                let rondesApparitions = this.state.rondesApparitions;
+                let currentRondeApparition = this.state.currentRondeApparition;
+                currentRondeApparition.dateHeureDebut = this.state.currentRondeApparition.dateDebut + ' ' + this.state.currentRondeApparition.heureDebut;
+                currentRondeApparition.dateHeureFin = this.state.currentRondeApparition.dateFin + ' ' + this.state.currentRondeApparition.heureFin;
+                rondesApparitions.push(currentRondeApparition);
+                this.setState({ myArray: [...this.state.rondesApparitions, rondesApparitions] });
+                this.update();
+                this.handleClear();
+            }
+        }
     };
+
+    update() {
+        this.props.update({
+            rondesApparitions: this.state.rondesApparitions,
+        });
+    }
 
     render() {
         return (
             <ScrollView >
                 <View style={CustomStyleSheet.verticalContainer20}>
+                    {this.state.errorMessage != null && (
+                        <ComBadrErrorMessageComp message={this.state.errorMessage} />
+                    )}
                     <ComAccordionComp title={translate('actifsCreation.rondesApparitions.title')} expanded={true}>
                         {!this.state.modeConsultation && (
                             <View>

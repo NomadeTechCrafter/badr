@@ -14,7 +14,7 @@ export default (state = initialState, action) => {
     value: action.value,
   };
   console.log("actifsRapportCreationReducer action.type : " + action.type);
-  console.log("actifsRapportCreationReducer action.value : " + action.value)
+  console.log("actifsRapportCreationReducer action.value : " + JSON.stringify(action) )
   
   switch (action.type) {
     case Constants.ACTIFS_ENTETE_REQUEST:
@@ -29,8 +29,8 @@ export default (state = initialState, action) => {
     case Constants.ACTIFS_ENTETE_SUCCESS:
       nextState.errorMessage = null;
       nextState.rows = action.value;
-      nextState.rows.dateDebut = nextState.rows.dateDebut.substring(0, 10);
-      nextState.rows.dateFin = nextState.rows.dateFin.substring(0, 10);
+      nextState.rows.dateDebut = nextState?.rows?.dateDebut?.substring(0, 10);
+      nextState.rows.dateFin = nextState?.rows?.dateFin?.substring(0, 10);
       nextState.consultation = action.value.rapportExiste;
       nextState.navigationsAeriennes = [];
       nextState.navigationAerienneModel = getNavigationAerienneModelInitial();
@@ -65,8 +65,8 @@ export default (state = initialState, action) => {
       nextState.showProgress = false;
       nextState.errorMessage = null;
       nextState.rows = action.value.rapportService.ordreService;
-      nextState.rows.dateDebut = nextState.rows.dateDebut.substring(0, 10);
-      nextState.rows.dateFin = nextState.rows.dateFin.substring(0, 10);
+      nextState.rows.dateDebut = nextState?.rows?.dateDebut?.substring(0, 10);
+      nextState.rows.dateFin = nextState?.rows?.dateFin?.substring(0, 10);
       nextState.consultation = nextState.rows.rapportExiste;
       nextState.rondesApparition = action.value?.rondesApparition?.map((ronde) => {
         ronde.dateDebut = format(ronde.dateDebut),
@@ -123,8 +123,8 @@ export default (state = initialState, action) => {
       console.log('--> ACTIFS_SAISIE in progress...');
       return nextState;
     case Constants.ACTIFS_SAISIE_SUCCESS:
-      console.log('--> ACTIFS_SAISIE ---------------------------------------------------------success...', nextState);
-      console.log('--> ACTIFS_SAISIE ---------------------------------------------------------success...', action.value.jsonVO);
+      // console.log('--> ACTIFS_SAISIE ---------------------------------------------------------success...', nextState);
+      // console.log('--> ACTIFS_SAISIE ---------------------------------------------------------success...', action.value.jsonVO);
       let listUnites = [];
       action.value.jsonVO.forEach(element => {
         listUnites.push({ code: element.codeUniteMesure, libelle: element.descriptionUniteMesure });

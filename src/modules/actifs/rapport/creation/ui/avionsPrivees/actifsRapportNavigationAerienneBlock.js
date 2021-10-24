@@ -143,23 +143,23 @@ class ActifsRapportNavigationAerienneBlock extends React.Component {
 
     handleProvenanceChanged = (pays) => {
         this.setState({
-            acProvenance: pays.libelle, navigationAerienneModel: {
+            acProvenance: pays?.libelle, navigationAerienneModel: {
                 ...this.state.navigationAerienneModel,
-                provenance: { codePays: pays.code, nomPays: pays.libelle }
+                provenance: { codePays: pays?.code, nomPays: pays?.libelle }
             }
         });
-        this.state.navigationAerienneModel.provenance = { codePays: pays.code, nomPays: pays.libelle };
-        this.props.update(this.state.navigationAerienneModel);
+        this.state.navigationAerienneModel.provenance = { codePays: pays?.code, nomPays: pays?.libelle };
+        this.props.update(this.state?.navigationAerienneModel);
     }
 
     handleDestinationChanged = (pays) => {
         this.setState({
-            acDestination: pays.libelle, navigationAerienneModel: {
+            acDestination: pays?.libelle, navigationAerienneModel: {
                 ...this.state.navigationAerienneModel,
-                destination: { codePays: pays.code, nomPays: pays.libelle }
+                destination: { codePays: pays?.code, nomPays: pays?.libelle }
             }
         });
-        this.state.navigationAerienneModel.destination = { codePays: pays.code, nomPays: pays.libelle };
+        this.state.navigationAerienneModel.destination = { codePays: pays?.code, nomPays: pays?.libelle };
         this.props.update(this.state.navigationAerienneModel);
 
 

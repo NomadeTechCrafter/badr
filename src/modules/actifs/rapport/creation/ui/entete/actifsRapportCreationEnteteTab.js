@@ -40,30 +40,36 @@ class ActifsRapportCreationEnteteTab extends Component {
       date: '',
       time: '',
       mode: '',
-      
+
       show: false,
       paginate: true,
     };
     this.cols = [
-      {code: 'agent', libelle: 'Agent', width: 100},
-      {code: 'agent', libelle: 'Grade', width: 100},
-      {code: 'agent', libelle: 'Date de validation', width: 150},
-      {code: 'agent', libelle: 'Commentaire', width: 150},
-      {code: 'agent', libelle: 'Validations', width: 100},
+      { code: 'agent', libelle: 'Agent', width: 100 },
+      { code: 'agent', libelle: 'Grade', width: 100 },
+      { code: 'agent', libelle: 'Date de validation', width: 150 },
+      { code: 'agent', libelle: 'Commentaire', width: 150 },
+      { code: 'agent', libelle: 'Validations', width: 100 },
     ];
   }
 
   componentDidMount() {
+    // console.log('********************************************************************************');
+    // console.log('********************************************************************************');
+    // console.log(JSON.stringify(this.props));
+    // console.log('********************************************************************************');
+    // console.log('********************************************************************************');
+
   }
 
   Enregister = () => {
     console.log('this.props : ', this.props);
     let data = this.props.row?.id;
-  
+
     let action = getOsById.request(
       {
         type: Constants.ACTIFS_ENTETE_REQUEST,
-        value: {data: data},
+        value: { data: data },
       } /*,
                     this.props.navigation,
                     this.props.successRedirection,*/,
@@ -111,7 +117,7 @@ class ActifsRapportCreationEnteteTab extends Component {
         show: false,
       });
       this.props.update({ heureFin: this.state.heureFin, dateFin: moment(selectedDate).format("DD/MM/YYYY").toString() });
-      this.state.dateFin = moment(selectedDate).format("DD/MM/YYYY").toString() ;
+      this.state.dateFin = moment(selectedDate).format("DD/MM/YYYY").toString();
     } else {
       this.setState({
         heureFin: moment(selectedDate).format("HH:mm").toString(),
@@ -126,7 +132,7 @@ class ActifsRapportCreationEnteteTab extends Component {
     this.setState({
       errorMessage: null
     });
-    
+
     let dateDebut = format(this.props.rows.dateDebut);
 
     moment.suppressDeprecationWarnings = true;
@@ -134,7 +140,7 @@ class ActifsRapportCreationEnteteTab extends Component {
 
     let dateHeureFin = moment(this.state.dateFin + ' ' + this.state.heureFin, FORMAT_DDMMYYYY_HHMM);
     console.log(dateHeureFin, '   ', _.isNil(dateHeureFin), '   ', typeof dateHeureFin);
-    if (dateHeureFin===null) {
+    if (dateHeureFin === null) {
       let message = translate('actifsCreation.entete.errors.dateFinRequired');
       this.setState({
         errorMessage: message
@@ -150,17 +156,17 @@ class ActifsRapportCreationEnteteTab extends Component {
       });
       return true;
     } else {
-      
+
       return false
     }
 
 
 
   }
-  
+
 
   showMode = (currentMode) => {
-    this.setState({show: true, mode: currentMode});
+    this.setState({ show: true, mode: currentMode });
   };
 
   showDatepicker = () => {
@@ -171,36 +177,36 @@ class ActifsRapportCreationEnteteTab extends Component {
     this.showMode('time');
   };
   onItemSelected = (row) => { };
-  
+
   static getDerivedStateFromProps(props, state) {
     // console.log('getDerivedStateFromProps--------ActifsRapportCreationEnteteTab------------props ', props);
     // console.log('getDerivedStateFromProps--------ActifsRapportCreationEnteteTab------------state ', state);
 
 
-    if ((!state?.rows && props?.rows) || (state?.rows && state.rows?.id!==props?.rows.id)) {
+    if ((!state?.rows && props?.rows) || (state?.rows && state.rows?.id !== props?.rows.id)) {
       return {
         rows: props.rows,
-        dateFin: moment(props.rows.dateFin).format("DD/MM/YYYY").toString(),
-        dateFinTech: ComUtils.convertStringTimeStamp(props.rows.dateFin),
-        heureFinTech: ComUtils.convertStringTimeStamp(props.rows.dateFin),
-        heureFin: props.rows.heureFin,
-        refPJ: props.rows.refPJ,
-        res : props.rows.refPJ.split('_')
+        dateFin: moment(props.rows.ordreService?.dateFin).format("DD/MM/YYYY").toString(),
+        dateFinTech: ComUtils.convertStringTimeStamp(props.rows.ordreService?.dateFin),
+        heureFinTech: ComUtils.convertStringTimeStamp(props.rows.ordreService?.dateFin),
+        heureFin: props?.rows?.ordreService?.heureFin,
+        refPJ: props?.rows?.ordreService?.refPJ,
+        res: props?.rows?.ordreService?.refPJ?.split('_')
       };
     }
     // Return null to indicate no change to state.
     return null;
   }
-  
-  
-  
+
+
+
 
   render() {
-    
+
     let datatable = [];
-   
-    
-   
+
+
+
     datatable.push(this.props.rows);
     return (
       <View style={CustomStyleSheet.fullContainer}>
@@ -227,7 +233,7 @@ class ActifsRapportCreationEnteteTab extends Component {
                     {translate('actifsCreation.entete.enteteTitleLeft')}
                     {this.props.consultation && (
                       <ComBadrLibelleComp withColor={true}>
-                        {this.props.rows?.journeeDu}
+                        {this.props?.rows?.ordreService?.journeeDu}
                       </ComBadrLibelleComp>
                     )}
                   </ComBadrLibelleComp>
@@ -251,19 +257,19 @@ class ActifsRapportCreationEnteteTab extends Component {
                 <Col size={9}>
                   <TextInput
                     mode={'outlined'}
-                    style={{height: 20, fontSize: 11}}
+                    style={{ height: 20, fontSize: 11 }}
                     disabled={true}
                     //maxLength={20}
                     //keyboardType={'number-pad'}
-                    value={this.props.rows?.uniteOrganisationnelle}
+                    value={this.props?.rows?.ordreService?.uniteOrganisationnelle}
                     multiline={false}
                     numberOfLines={1}
                     onChangeText={(text) =>
-                      this.setState({uniteOrganisationnelle: text})
+                      this.setState({ uniteOrganisationnelle: text })
                     }
                   />
                 </Col>
-                <Col size={2} style={{padding: 5}}>
+                <Col size={2} style={{ padding: 5 }}>
                   <ComBadrLibelleComp withColor={true}>
                     {translate('actifsCreation.entete.journeeDu')}
                   </ComBadrLibelleComp>
@@ -271,13 +277,13 @@ class ActifsRapportCreationEnteteTab extends Component {
                 <Col size={4}>
                   <TextInput
                     mode={'outlined'}
-                    style={{height: 20, fontSize: 12}}
+                    style={{ height: 20, fontSize: 12 }}
                     disabled={true}
                     //keyboardType={'number-pad'}
-                    value={this.props.rows?.journeeDu}
+                    value={this.props?.rows?.ordreService?.journeeDu}
                     multiline={true}
                     numberOfLines={1}
-                    onChangeText={(text) => this.setState({journeeDu: text})}
+                    onChangeText={(text) => this.setState({ journeeDu: text })}
                   />
                 </Col>
               </Row>
@@ -289,44 +295,44 @@ class ActifsRapportCreationEnteteTab extends Component {
                     {translate('actifsCreation.entete.reference')}
                   </ComBadrLibelleComp>
                 </Col>
-                <Col size={1} style={{paddingRight: 5}}>
+                <Col size={1} style={{ paddingRight: 5 }}>
                   <TextInput
                     mode={'outlined'}
-                    style={{height: 20, fontSize: 12}}
+                    style={{ height: 20, fontSize: 12 }}
                     disabled={true}
-                    value={_.isArray(this.state?.res) ? this.state?.res[0]:''}
+                    value={_.isArray(this.state?.res) ? this.state?.res[0] : ''}
                     multiline={false}
                     numberOfLines={1}
-                    onChangeText={(text) => this.setState({code1: text})}
+                    onChangeText={(text) => this.setState({ code1: text })}
                   />
                 </Col>
-                <Col size={1} style={{paddingRight: 5}}>
+                <Col size={1} style={{ paddingRight: 5 }}>
                   <TextInput
                     mode={'outlined'}
-                    style={{height: 20, fontSize: 12}}
+                    style={{ height: 20, fontSize: 12 }}
                     disabled={true}
                     //maxLength={8}
                     //keyboardType={'number-pad'}
                     value={_.isArray(this.state?.res) ? this.state?.res[1] : ''}
                     multiline={true}
                     numberOfLines={1}
-                    onChangeText={(text) => this.setState({code2: text})}
+                    onChangeText={(text) => this.setState({ code2: text })}
                   />
                 </Col>
-                <Col size={1} style={{paddingRight: 5}}>
+                <Col size={1} style={{ paddingRight: 5 }}>
                   <TextInput
                     mode={'outlined'}
-                    style={{height: 20, fontSize: 12}}
+                    style={{ height: 20, fontSize: 12 }}
                     disabled={true}
                     //maxLength={8}
                     //keyboardType={'number-pad'}
                     value={_.isArray(this.state?.res) ? this.state?.res[2] : ''}
                     multiline={true}
                     numberOfLines={1}
-                    onChangeText={(text) => this.setState({code3: text})}
+                    onChangeText={(text) => this.setState({ code3: text })}
                   />
                 </Col>
-                <Col size={1} style={{padding: 5}}>
+                <Col size={1} style={{ padding: 5 }}>
                   <ComBadrLibelleComp withColor={true}>
                     {translate('actifsCreation.entete.NumeroOrder')}
                   </ComBadrLibelleComp>
@@ -334,9 +340,9 @@ class ActifsRapportCreationEnteteTab extends Component {
                 <Col size={1}>
                   <TextInput
                     mode={'outlined'}
-                    style={{height: 20, fontSize: 12}}
+                    style={{ height: 20, fontSize: 12 }}
                     disabled={true}
-                    value={(this.props.rows?.numero)?this.props.rows?.numero.toString():''}
+                    value={(this.props.rows?.ordreService?.numero) ? this.props.rows?.ordreService?.numero.toString() : ''}
                   />
                 </Col>
               </Row>
@@ -353,12 +359,12 @@ class ActifsRapportCreationEnteteTab extends Component {
                 <Col size={5}>
                   <TextInput
                     mode={'outlined'}
-                    style={{height: 90, fontSize: 12, textAlignVertical: 'top'}}
+                    style={{ height: 90, fontSize: 12, textAlignVertical: 'top' }}
                     disabled={true}
-                    value={this.props.rows?.description}
+                    value={this.props.rows?.ordreService?.description}
                     multiline={true}
                     numberOfLines={10}
-                    onChangeText={(text) => this.setState({description: text})}
+                    onChangeText={(text) => this.setState({ description: text })}
                   />
                 </Col>
               </Row>
@@ -372,13 +378,13 @@ class ActifsRapportCreationEnteteTab extends Component {
                 <Col size={4}>
                   <TextInput
                     mode={'outlined'}
-                    style={{height: 20, fontSize: 12}}
+                    style={{ height: 20, fontSize: 12 }}
                     disabled={true}
-                    value={moment(this.props.rows?.dateDebut).format("DD/MM/YYYY")}
+                    value={moment(this.props.rows?.ordreService?.dateDebut).format("DD/MM/YYYY")}
                   />
-                 
+
                 </Col>
-                <Col size={2} style={{paddingTop: 5}}>
+                <Col size={2} style={{ paddingTop: 5 }}>
                 </Col>
                 <Col size={6} />
                 <Col size={2}>
@@ -389,7 +395,7 @@ class ActifsRapportCreationEnteteTab extends Component {
                 <Col size={4}>
                   <TextInput
                     mode={'outlined'}
-                    style={{height: 20, fontSize: 12}}
+                    style={{ height: 20, fontSize: 12 }}
                     disabled={this.props.consultation ? true : false}
                     keyboardType={'number-pad'}
                     disabled={true}
@@ -407,7 +413,7 @@ class ActifsRapportCreationEnteteTab extends Component {
                     />
                   )}
                 </Col>
-                <Col size={2} style={{paddingTop: 5}}>
+                <Col size={2} style={{ paddingTop: 5 }}>
                   {!this.props.consultation && <IconButton
                     icon="calendar"
                     onPress={() => this.showMode('date')}
@@ -427,16 +433,16 @@ class ActifsRapportCreationEnteteTab extends Component {
                 <Col size={3}>
                   <TextInput
                     mode={'outlined'}
-                    style={{height: 20, fontSize: 12, alignSelf: 'center'}}
+                    style={{ height: 20, fontSize: 12, alignSelf: 'center' }}
                     disabled={true}
-                    value={this.props.rows?.heureDebut}
+                    value={this.props.rows?.ordreService?.heureDebut}
                     multiline={false}
                     numberOfLines={1}
-                    //onChangeText={text => this.setState({observation: text})}
+                  //onChangeText={text => this.setState({observation: text})}
                   />
                 </Col>
-                <Col size={2} style={{paddingTop: 5}}>
-                  <Text style={{fontSize: 12}}>
+                <Col size={2} style={{ paddingTop: 5 }}>
+                  <Text style={{ fontSize: 12 }}>
                     {translate('actifsCreation.entete.uniteHeure')}
                   </Text>
                 </Col>
@@ -449,17 +455,17 @@ class ActifsRapportCreationEnteteTab extends Component {
                 <Col size={3}>
                   <TextInput
                     mode={'outlined'}
-                    style={{height: 20, fontSize: 12, alignSelf: 'center'}}
+                    style={{ height: 20, fontSize: 12, alignSelf: 'center' }}
                     disabled={this.props.consultation ? true : false}
                     value={this.state.heureFin}
                     onFocus={() => {
                       this.showMode('time');
                     }}
-                    onChangeText={(text) => this.setState({ heureFin: text})}
+                    onChangeText={(text) => this.setState({ heureFin: text })}
                   />
                   {this.state.show && (
                     <DateTimePicker
-                      style={{width: '100%'}}
+                      style={{ width: '100%' }}
                       value={this.state.heureFinTech}
                       mode={this.state.mode}
                       is24Hour={true}
@@ -468,8 +474,8 @@ class ActifsRapportCreationEnteteTab extends Component {
                     />
                   )}
                 </Col>
-                <Col size={2} style={{paddingTop: 5}}>
-                  <Text style={{fontSize: 12}}>
+                <Col size={2} style={{ paddingTop: 5 }}>
+                  <Text style={{ fontSize: 12 }}>
                     {translate('actifsCreation.entete.uniteHeure')}
                   </Text>
                 </Col>
@@ -490,44 +496,44 @@ class ActifsRapportCreationEnteteTab extends Component {
                       <DataTable key="tab00100">
                         <DataTable.Header>
                           {this.cols.map((column, index) => (
-                            <DataTable.Title style={{width: column.width}} key={index}>
+                            <DataTable.Title style={{ width: column.width }} key={index}>
                               {column.libelle}
                             </DataTable.Title>
                           ))}
                         </DataTable.Header>
-                        
+
                         {this.props.rows?.agentsBrigade && this.props.rows?.agentsBrigade.length > 0
                           ? (this.state.paginate
                             ? _(this.props.rows?.agentsBrigade)
-                                  .slice(this.state.offset)
-                                  .take(5)
-                                  .value()
+                              .slice(this.state.offset)
+                              .take(5)
+                              .value()
                             : this.props.rows?.agentsBrigade
-                            ).map((row, index) => (
-                              <DataTable.Row
-                                key={row.numeroChassis}
-                                onPress={() => this.onItemSelected(row)}>
-                                {this.cols.map((column, index) => (
-                                  <>
-                                    <DataTable.Cell
-                                      style={{width: column.width}}>
-                                      {' '}
-                                      {this.render_validations(
-                                        row[column.code],
-                                        column.libelle,
-                                      )}
-                                    </DataTable.Cell>
-                                  </>
-                                ))}
-                              </DataTable.Row>
-                            ))
+                          ).map((row, index) => (
+                            <DataTable.Row
+                              key={row.numeroChassis}
+                              onPress={() => this.onItemSelected(row)}>
+                              {this.cols.map((column, index) => (
+                                <>
+                                  <DataTable.Cell
+                                    style={{ width: column.width }}>
+                                    {' '}
+                                    {this.render_validations(
+                                      row[column.code],
+                                      column.libelle,
+                                    )}
+                                  </DataTable.Cell>
+                                </>
+                              ))}
+                            </DataTable.Row>
+                          ))
                           : !this.props.showProgress && (
-                              <View style={CustomStyleSheet.centerContainer}>
-                                <Text>
-                                  {translate('transverse.noRowFound')}
-                                </Text>
-                              </View>
-                            )}
+                            <View style={CustomStyleSheet.centerContainer}>
+                              <Text>
+                                {translate('transverse.noRowFound')}
+                              </Text>
+                            </View>
+                          )}
                       </DataTable>
                     </ScrollView>
                   </ScrollView>
@@ -596,6 +602,6 @@ const styles = {
   },
 };
 
-const mapStateToProps = (state) => ({ ...state.creationActifsReducer});
+const mapStateToProps = (state) => ({ ...state.creationActifsReducer });
 
 export default connect(mapStateToProps, null)(ActifsRapportCreationEnteteTab);

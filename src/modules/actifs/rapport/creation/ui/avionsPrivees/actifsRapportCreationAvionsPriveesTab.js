@@ -2,7 +2,7 @@ import React from 'react';
 import { ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import { ComBadrInfoMessageComp } from '../../../../../../commons/component';
-import { EDIT_AVION_PRIVEE_TASK } from '../../../utils/actifsConstants';
+import { EDIT_AVION_PRIVEE_TASK, DELETE_AVION_PRIVEE_TASK, RESET_AVION_PRIVEE_TASK } from '../../../utils/actifsConstants';
 import { getNavigationAerienneModelInitial } from '../../../utils/actifsUtils';
 import { ACTIFS_CONFIRMER_AVION_PRIVEE_REQUEST, ACTIFS_DELETE_AVION_PRIVEE_REQUEST, ACTIFS_EDITER_AVION_PRIVEE_REQUEST, ACTIFS_RESET_AVION_PRIVEE_REQUEST } from '../../state/actifsRapportCreationConstants';
 import actifsRapportConfirmerAvionPriveeAction from '../../state/actions/actifsRapportConfirmerAvionPriveeAction';

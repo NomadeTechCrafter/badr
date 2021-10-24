@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import { ComAccordionComp, ComBadrButtonIconComp, ComBadrButtonRadioComp, ComBadrCardBoxComp, ComBadrDatePickerComp, ComBadrLibelleComp, ComBasicDataTableComp } from '../../../../../../commons/component';
+import { ComAccordionComp, ComBadrAutoCompleteChipsComp, ComBadrAutoCompleteComp, ComBadrButtonIconComp, ComBadrButtonRadioComp, ComBadrCardBoxComp, ComBadrDatePickerComp, ComBadrKeyValueComp, ComBadrLibelleComp, ComBadrPickerComp, ComBasicDataTableComp } from '../../../../../../commons/component';
 import translate from '../../../../../../commons/i18n/ComI18nHelper';
 import style from '../../style/actifsCreationStyle';
 import { Col, Grid, Row } from 'react-native-easy-grid';
@@ -9,6 +9,8 @@ import moment from 'moment';
 import { ScrollView, Text, View } from 'react-native';
 import { CustomStyleSheet, primaryColor } from '../../../../../../commons/styles/ComThemeStyle';
 import { Checkbox, RadioButton, TextInput } from 'react-native-paper';
+import ComBadrReferentielPickerComp from '../../../../../../commons/component/shared/pickers/ComBadrReferentielPickerComp';
+import DedRedressementRow from '../../../../../dedouanement/redressement/ui/common/DedRedressementRow';
 
 
 class ActifsRapportCreationPerquisitionTab extends React.Component {
@@ -45,18 +47,17 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
     }
 
     componentDidMount = () => {
-        console.log('********************************************************************************');
-        console.log('********************************************************************************');
-        console.log(JSON.stringify(this.props.value?.gibPerquisition));
-        console.log(JSON.stringify(this.props.consultation));
-        console.log('********************************************************************************');
-        console.log('********************************************************************************');
-
         this.setState({
             gibPerquisition: this.props.value?.gibPerquisition,
             modeConsultation: this.props.consultation,
         });
     }
+
+    handleAccordChanged = (selectedValue, selectedIndex, item) => {
+        console.log(selectedValue);
+        console.log(selectedIndex);
+        console.log(item);
+    };
 
     render() {
         return (
@@ -126,7 +127,62 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
                                         </ComBadrLibelleComp>
                                     </Col>
                                     <Col size={7}>
-
+                                        <ComBadrPickerComp
+                                            // disabled={true}
+                                            key="code"
+                                            style={CustomStyleSheet.badrPicker}
+                                            selectedValue={this.state?.gibPerquisition?.refTypeDocumentIdentite}
+                                            titleStyle={CustomStyleSheet.badrPickerTitle}
+                                            // title={translate('at.typeIdent')}
+                                            cle="code"
+                                            libelle="libelle"
+                                            module="REF_LIB"
+                                            command="getCmbTypeIdentifiant"
+                                            param={null}
+                                            typeService="SP"
+                                            storeWithKey="code"
+                                            storeLibelleWithKey="libelle"
+                                            // onValueChanged={this.handleAccordChanged}
+                                            onValueChange={(selectedValue, selectedIndex, item) =>
+                                                this.handleAccordChanged(
+                                                    selectedValue,
+                                                    selectedIndex,
+                                                    item,
+                                                )
+                                            }
+                                        />
+                                    </Col>
+                                    <Col size={3}>
+                                        <ComBadrLibelleComp withColor={false}>
+                                            {translate('actifsCreation.perquisition.autoritePerquisition')}
+                                        </ComBadrLibelleComp>
+                                    </Col>
+                                    <Col size={7}>
+                                        {/* <ComBadrAutoCompleteChipsComp
+                                            code="numeroOrdreIntervenant"
+                                            disabled={this.props.readOnly}
+                                            placeholder={translate(
+                                                'actifsCreation.avionsPrivees.navigAerienne.provenance'
+                                            )}
+                                            selected={(this.state?.navigationAerienneModel?.provenance?.libelle) ? this.state?.navigationAerienneModel?.provenance?.libelle : this.state?.navigationAerienneModel?.provenance?.nomPays}
+                                            maxItems={3}
+                                            libelle="nomIntervenant"
+                                            command="findIntervenant"
+                                            paramName="numeroDocumentIdentite"
+                                            onDemand={true}
+                                            searchZoneFirst={false}
+                                            onValueChange={this.handleProvenanceChanged}
+                                        /> */}
+                                        <ComBadrAutoCompleteComp
+                                            placeholder={''}
+                                            onRef={(ref) => (this.code = ref)}
+                                            libelle="nomIntervenant"
+                                            key="numeroDocumentIdentite"
+                                            handleSelectItem={this.props.handlenatureMarchnadise}
+                                            command="findIntervenant"
+                                            styleInput={{ width: '100%', marginBottom: 30 }}
+                                        //style={}
+                                        />
                                     </Col>
                                 </Row>
                             </View>
@@ -139,13 +195,20 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
                                     </Col>
                                     <Col size={7}>
                                         <Checkbox
-                                            color={primaryColor}
                                             status={
-                                                this.state.gibPerquisition?.opj
-                                                    ? 'checked'
-                                                    : 'unchecked'
+                                                this.state?.gibPerquisition?.opj ? 'checked' : 'unchecked'
                                             }
-                                            disabled={this.props.consultation}
+                                            // label={translate('t6bisrecherche.fields.enregistree')}
+                                            color={primaryColor}
+                                            onPress={() => {
+                                                this.setState({
+                                                    gibPerquisition: {
+                                                        ...this.state?.gibPerquisition,
+                                                        opj: !this.state?.gibPerquisition?.opj,
+                                                    },
+                                                });
+                                                // this.completeTextInputFields();
+                                            }}
                                         />
                                     </Col>
                                 </Row>
@@ -153,6 +216,35 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
                         </View>
                     </ComAccordionComp>
                     <ComAccordionComp title={translate('actifsCreation.perquisition.personnesConcernees')} expanded={true}>
+                        <DedRedressementRow>
+                            <ComBadrKeyValueComp
+                                libelle={translate('actifsCreation.perquisition.identifiant')}
+                                children={<ComBadrPickerComp
+                                    // disabled={true}
+                                    key="code"
+                                    style={CustomStyleSheet.badrPicker}
+                                    selectedValue={this.state?.gibPerquisition?.refTypeDocumentIdentite}
+                                    titleStyle={CustomStyleSheet.badrPickerTitle}
+                                    // title={translate('at.typeIdent')}
+                                    cle="code"
+                                    libelle="libelle"
+                                    module="REF_LIB"
+                                    command="getCmbTypeIdentifiant"
+                                    param={null}
+                                    typeService="SP"
+                                    storeWithKey="code"
+                                    storeLibelleWithKey="libelle"
+                                    // onValueChanged={this.handleAccordChanged}
+                                    onValueChange={(selectedValue, selectedIndex, item) =>
+                                        this.handleAccordChanged(
+                                            selectedValue,
+                                            selectedIndex,
+                                            item,
+                                        )
+                                    }
+                                />}
+                            />
+                        </DedRedressementRow>
                         <View style={CustomStyleSheet.row}>
                             <ComBasicDataTableComp
                                 id="PerquiTable"
@@ -178,11 +270,11 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
                                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                         <Text>{translate('actifsCreation.perquisition.positif')}</Text>
-                                        <RadioButton value={true} color={primaryColor} disabled={this.props.consultation} />
+                                        <RadioButton value="true" color={primaryColor} disabled={this.props.consultation} />
                                     </View>
                                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                         <Text>{translate('actifsCreation.perquisition.negatif')}</Text>
-                                        <RadioButton value={false}  color={primaryColor} disabled={this.props.consultation} />
+                                        <RadioButton value="false" color={primaryColor} disabled={this.props.consultation} />
                                     </View>
                                 </View>
                             </RadioButton.Group>
