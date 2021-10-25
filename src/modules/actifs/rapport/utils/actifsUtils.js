@@ -96,10 +96,81 @@ export const getNavigationAerienneModelInitial = () => {
     resultatControle: '',
     intervenants: [],
     proprietaires: []
-  }
-
-  
+  }  
 }
+
+export const getNavigationAvitaillementEntreeModelInitial = () => {
+  return {
+    dateEntree: (new Date()).getTime(),
+    heureEntree: (new Date()).getTime(),
+    motifAccostage: '',
+    portEntree: '',
+    provenance: { code: '', libelle: '' },
+    villeProvenance: '',
+    portAttache: '',
+    pavillon: '',
+    dateDepart: (new Date()).getTime(),
+    heureDepart: (new Date()).getTime(),
+    destination: { code: '', libelle: '' },
+    villeDestination: '',
+    typeBateau: '',
+    immatriculation: '',
+    nomBateau: '',
+    couleur: '',
+    longueur: '',
+    profondeur: '',
+    tonnage: '',
+    numDeclaration: '',
+    delivreePar: { code: '', libelle: '' },
+    dateDeclaration: (new Date()).getTime(),
+    dateDebutControle: (new Date()).getTime(),
+    heureDebutControle: (new Date()).getTime(),
+    dateFinControle: (new Date()).getTime(),
+    heureFinControle: (new Date()).getTime(),
+    documentsVerifies: '',
+    observations: '',
+    resultatControle: '',
+    intervenants: [],
+    proprietaires: []
+  }
+}
+
+export const getNavigationAvitaillementSortieModelInitial = () => {
+  return {
+    dateSortie: (new Date()).getTime(),
+    heureSortie: (new Date()).getTime(),
+    motifAccostage: '',
+    portSortie: '',
+    provenance: { code: '', libelle: '' },
+    villeProvenance: '',
+    portAttache: '',
+    pavillon: '',
+    dateDepart: (new Date()).getTime(),
+    heureDepart: (new Date()).getTime(),
+    destination: { code: '', libelle: '' },
+    villeDestination: '',
+    typeBateau: '',
+    immatriculation: '',
+    nomBateau: '',
+    couleur: '',
+    longueur: '',
+    profondeur: '',
+    tonnage: '',
+    numDeclaration: '',
+    delivreePar: { code: '', libelle: '' },
+    dateDeclaration: (new Date()).getTime(),
+    dateDebutControle: (new Date()).getTime(),
+    heureDebutControle: (new Date()).getTime(),
+    dateFinControle: (new Date()).getTime(),
+    heureFinControle: (new Date()).getTime(),
+    documentsVerifies: '',
+    observations: '',
+    resultatControle: '',
+    intervenants: [],
+    proprietaires: []
+  }
+}
+
 export const convert = (date) => {
   var datearray = date.split("/");
   return datearray[2] + '-' + datearray[1] + '-' + datearray[0];

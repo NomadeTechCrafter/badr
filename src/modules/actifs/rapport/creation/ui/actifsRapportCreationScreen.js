@@ -20,6 +20,8 @@ import ActifsRapportCreationEnteteTab from './entete/actifsRapportCreationEntete
 import AtifsRapportCreationSaisieTab from './saisie/actifsRapportCreationSaisieTab';
 import RondesApparitionsTab from './rondesApparitions/actifsRapportCreationRondesApparitionsTab';
 import PerquisitionTab from './perquisition/actifsRapportCreationPerquisitionTab';
+import ActifsRapportCreationAvitaillementEntreeTab from './avitaillementEntree/actifsRapportCreationAvitaillementEntreeTab';
+import ActifsRapportCreationAvitaillementSortieTab from './avitaillementSortie/actifsRapportCreationAvitaillementSortieTab';
 
 
 import moment from 'moment';
@@ -57,6 +59,14 @@ function embarcationsTab({ route, navigation }) {
 
 function avionsPriveesTab({ route, navigation }) {
   return <ActifsRapportCreationAvionsPriveesTab navigation={navigation} route={route} />;
+}
+
+function avitaillementEntreeTab({ route, navigation }) {
+  return <ActifsRapportCreationAvitaillementEntreeTab navigation={navigation} route={route} navigationAvitaillementEntreeModel={getNavigationAvitaillementEntreeModelInitial()} navigationsAvitaillementEntrees={[]}/>;
+}
+
+function avitaillementSortieTab({ route, navigation }) {
+  return <ActifsRapportCreationAvitaillementSortieTab navigation={navigation} route={route} navigationAvitaillementSortieModel={getNavigationAvitaillementSortieModelInitial()} navigationsAvitaillementSorties={[]}/>;
 }
 
 class ActifsRapportCreationScreen extends Component {
@@ -407,6 +417,8 @@ class ActifsRapportCreationScreen extends Component {
               </Tab.Screen>
               // <Tab.Screen name={translate('actifsCreation.embarcations.title')} component={embarcationsTab} />
             )}
+            <Tab.Screen name={translate('actifsCreation.avitaillementEntree.title')} component={avitaillementEntreeTab} />
+            <Tab.Screen name={translate('actifsCreation.avitaillementSortie.title')} component={avitaillementSortieTab} />
           </Tab.Navigator>
 
         </NavigationContainer>
