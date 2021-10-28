@@ -604,7 +604,7 @@ class EcorExpInformationEcorComp extends React.Component {
                 icon="check"
                 compact="true"
                 mode="contained"
-                disabled={this.props.ecorIsSaved}
+                // disabled={this.props.ecorIsSaved}
                 loading={this.props.showProgress}>
                 {translate('confirmationEntree.subTitle')}
               </Button>

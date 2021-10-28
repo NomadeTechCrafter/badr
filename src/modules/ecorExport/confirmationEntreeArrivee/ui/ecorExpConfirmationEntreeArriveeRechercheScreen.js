@@ -119,7 +119,7 @@ class ConfirmationEntreeArriveeRechercheScreen extends Component {
           module: MODULE_ECOREXP,
           typeService: TYPE_SERVICE_SP,
           data: {
-            codeBureau: null,
+            codeBureau: ComSessionService.getInstance().getCodeBureau(),
             numero: this.state.immatriculation,
             referenceDum: '',
             typeSelecte: null,
