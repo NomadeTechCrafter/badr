@@ -709,7 +709,7 @@ const styles = {
 };
 
 function mapStateToProps(state) {
-  return { ...state.vuEmbInitReducer };
+  return { ...state.ecorExportVuEmbInitReducer };
 }
 
 function mapDispatchToProps(dispatch) {

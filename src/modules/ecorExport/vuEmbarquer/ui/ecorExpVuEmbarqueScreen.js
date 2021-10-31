@@ -380,7 +380,7 @@ const styles = {
     padding: 5,
   },
 };
-const mapStateToProps = (state) => ({ ...state.vuEmbInitReducer });
+const mapStateToProps = (state) => ({ ...state.ecorExportVuEmbInitReducer });
 
 function mapDispatchToProps(dispatch) {
   let actions = { dispatch };

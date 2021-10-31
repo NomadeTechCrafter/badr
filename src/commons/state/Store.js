@@ -30,6 +30,7 @@ import controleRegimeInterneReducer from '../../modules/controle/regimeInterne/s
 import controleCommonReducer from '../../modules/controle/common/state/reducers/controleCommonReducer';
 import genericDedReducer from '../../modules/dedouanement/redressement/state/reducers/DedReducer';
 import vuEmbInitReducer from '../../modules/DeclarationD17D20/vuEmbarquer/state/reducers/vuEmbInitReducer';
+import ecorExportVuEmbInitReducer from '../../modules/ecorExport/vuEmbarquer/state/reducers/ecorExpVuEmbInitReducer';
 import vuEmbReducer from '../../modules/DeclarationD17D20/vuEmbarquer/state/reducers/vuEmbUcReducer';
 import vuEmbRefVH from '../../modules/DeclarationD17D20/vuEmbarquer/state/reducers/vuEmRefVhReducer';
 import sortiPortRefVH from '../../modules/DeclarationD17D20/sortiPort/state/reducers/decSortiPortRefVhReducer';
@@ -140,6 +141,7 @@ const allReducers = combineReducers({
   liquidationReducer,
   ecorImportRechercheRefDumReducer,
   vuEmbInitReducer,
+  ecorExportVuEmbInitReducer,
   vuEmbReducer,
   vuEmbRefVH,
   t6bisCreationReducer,

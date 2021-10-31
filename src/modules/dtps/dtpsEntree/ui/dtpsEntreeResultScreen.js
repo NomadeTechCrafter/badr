@@ -175,6 +175,8 @@ class dtpsEntreeResultScreen extends React.Component {
     };
 
     vaiderEntree = () => {
+        console.log(JSON.stringify(this.state.selectedItem));
+        console.log(JSON.stringify(this.state.selectedItem?.id));
         let action = request({
             type: VALIDER_DTPS_ENTREE_REQUEST,
             value: {

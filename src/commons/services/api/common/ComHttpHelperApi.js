@@ -76,7 +76,7 @@ export default class ComHttpHelperApi {
         );
         return response;
       } catch (error) {
-        console.log('---catch error in Api Call--', error.response);
+        // console.log('---catch error in Api Call--', error.response);
         /**Dispatch Action :GENERIC_CATCH_API to custom Middleware*/
         let action = GenericAction.refresh({
           type: Constants.GENERIC_CATCH_API,
