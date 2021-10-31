@@ -106,5 +106,6 @@ const localStore = {
   'ded.findTrypByRef': require('../../../../modules/DeclarationD17D20/rechParRef/service/local-data/ded.findTrypByRef.json'),
   'initAffecterAgentVisiteur': require('../../../../modules/controle/reconnaissance/service/local-data/initAffecterAgentVisiteurData.json'),
   listeDeclarationsRec: require('../../../../modules/controle/reconnaissance/service/local-data/listeDeclarationsRecData.json'),
+  initVuEmbarquer: require('../../../../modules/ecorExport/vuEmbarquer/service/local-data/initVuEmbarquer.json'),
 };
 export default localStore;

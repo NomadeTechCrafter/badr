@@ -244,10 +244,10 @@ class EcorExpInformationEcorComp extends React.Component {
             dateEnregistrement: '',
             depuisDelivrerBonEntree: false,
             fonctionMessage: '',
-            scelles: formattedListeScelles ? formattedListeScelles : {},
+            scelles: formattedListeScelles ? formattedListeScelles : null,
             scellesConfirmationEntree: formattedListeScelles
               ? formattedListeScelles
-              : {},
+              : null,
           };
 
           DumVO.referenceEnregistrement = this.props.data.listDeclaration[

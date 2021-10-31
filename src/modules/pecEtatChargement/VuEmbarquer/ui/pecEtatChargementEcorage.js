@@ -161,8 +161,8 @@ class EtatChargementEcorage extends React.Component {
                         <ComBadrInfoMessageComp message={this.props.infoMessage} />
                     )}
 
-                    {this.props.errorMessage != null && (
-                        <ComBadrErrorMessageComp message={this.props.errorMessage} />
+                    {this.props?.errorMessage != null && (
+                        <ComBadrErrorMessageComp message={this.props?.errorMessage} />
                     )}
 
                     {this.state.errorMessage != null && (

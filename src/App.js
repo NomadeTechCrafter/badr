@@ -71,6 +71,8 @@ import controleACVPScreen from './modules/controle/ACVP/ui/controleACVPScreen';
 import ControleCompteRenduScreen from './modules/controle/ACVP/ui/onglets/compteRendu/ControleCompteRenduScreen';
 import decRechParRefMainScreen from './modules/DeclarationD17D20/rechParRef/ui/decRechParRef/decRechParRefMainScreen';
 import actifsRapportCreationRondesApparitionsTab from './modules/actifs/rapport/creation/ui/rondesApparitions/actifsRapportCreationRondesApparitionsTab';
+import ecorExpVuEmbarqueScreen from './modules/ecorExport/vuEmbarquer/ui/ecorExpVuEmbarqueScreen';
+import VuEmbListeDeclaration2 from './modules/ecorExport/vuEmbarquer/ui/ecorExpVuEmbListeDeclaration';
 
 //setGlobalHandler();
 export default class App extends React.Component {
@@ -93,7 +95,7 @@ export default class App extends React.Component {
                 <Stack.Screen
                   name="test"
                   options={{headerShown: false}}
-                    component={ActifsRapportRechercheScreen}
+                    component={ecorExpVuEmbarqueScreen}
                 />
               )}
               <Stack.Screen
@@ -126,6 +128,13 @@ export default class App extends React.Component {
                 options={{headerShown: false}}
                 component={DedRedressementScreen}
               />
+
+              <Stack.Screen
+                name="VuEmbListeDeclaration2"
+                component={VuEmbListeDeclaration2}
+                options={{ headerShown: false }}
+              />
+
               <Stack.Screen
                 name="SmsVerify"
                 options={{headerShown: false}}

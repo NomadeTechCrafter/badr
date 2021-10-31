@@ -151,6 +151,7 @@ export default {
     info: 'Info',
     vumEmb: {
       rechByRef: 'Reference declaration',
+      rechDecByRef: 'Recherche d\'une déclaration en détail par référence',
       rechByVH: 'Matricule vehicule',
     },
   },

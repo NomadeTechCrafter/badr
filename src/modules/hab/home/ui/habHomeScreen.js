@@ -13,11 +13,14 @@ import Apurement from '../../../at/apurement/ui/ongletAt/apurement/AtCreateApure
 import RechercheAtMulti from '../../../at/apurement/ui/recherche/atRechMultiMainScreen';
 import AtGestion from '../../../at/apurement/ui/ongletAt/AtGestionScreen';
 import VuEmbarqueScreen from '../../../DeclarationD17D20/vuEmbarquer/ui/vuEmbarquer/VuEmbarqueScreen';
+import EcorExportVuEmbarqueScreen from '../../../ecorExport/vuEmbarquer/ui/ecorExpVuEmbarqueScreen';
 import SortiPortScreen from '../../../DeclarationD17D20/sortiPort/ui/decSortiPort/decSortiPortMainScreen';
 import RechParRefTrypScreen from '../../../DeclarationD17D20/rechParRef/ui/decRechParRef/decRechParRefMainScreen';
 import RechParRefListeDeclaration from '../../../DeclarationD17D20/rechParRef/ui/decRechParRef/decRechParRefListeDeclaration';
 import SortiPortListeDeclaration from '../../../DeclarationD17D20/sortiPort/ui/decSortiPort/decSortiPortListeDeclaration';
 import VuEmbListeDeclaration from '../../../DeclarationD17D20/vuEmbarquer/ui/vuEmbarquer/VuEmbListeDeclaration';
+import VuEmbListeDeclaration2 from '../../../ecorExport/vuEmbarquer/ui//ecorExpVuEmbListeDeclaration';
+
 
 import { ComQrCodeScannerComp } from '../../../../commons/component';
 import BloquerOperateur from '../../../referentiel/operateursEconomiques/ui/bloquerOperateur/refBloquerOperateurScreen';
@@ -318,11 +321,19 @@ class habHomeScreen extends React.Component {
           component={VuEmbarqueScreen}
           options={{ headerShown: false }}
         />
+        
+        <Drawer.Screen
+          name="EcorExportVuEmbarqueScreen"
+          component={EcorExportVuEmbarqueScreen}
+          options={{ headerShown: false, unmountOnBlur: true, lazy: false }}
+        />       
+
         <Drawer.Screen
           name="VuEmbListeDeclaration"
           component={VuEmbListeDeclaration}
-          options={{ headerShown: false }}
+          options={{ headerShown: false, unmountOnBlur: true, lazy: false }}
         />
+        
         {/* Fonc Sorti Du Port */}
         <Drawer.Screen
           name="SortiPortScreen"
@@ -449,6 +460,12 @@ class habHomeScreen extends React.Component {
           component={DedRedressementScreen}
           options={{ headerShown: false, unmountOnBlur: true, lazy: false }}
           unmountOnBlur={true}
+        />
+        
+        <Drawer.Screen
+          name="VuEmbListeDeclaration2"
+          component={VuEmbListeDeclaration2}
+          options={{ headerShown: false }}
         />
 
         <Drawer.Screen

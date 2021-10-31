@@ -33,7 +33,7 @@ const initialState = {
   dateDebut: '',
   heureDebut: '',
   avecReserves: null,
-  refReserveConfirmationArrivee: {},
+  refReserveConfirmationArrivee: null,
   showErrorMessage: false,
   generateurNumScelleAu: '',
   generateurNumScelleDu: '',
@@ -231,7 +231,7 @@ class EcorExpInformationEcorComp extends React.Component {
             refAgentEntree: {},
             refAgentAutorisationAcheminement: {},
             refAgentAnnulationEmbarquement: {},
-            refReserveConfirmationArrivee: {},
+            refReserveConfirmationArrivee: null,
             refAgentAutorisation: {},
             refAgentConfirmationArrive: {},
             refMoyenTransport: {},
@@ -250,21 +250,19 @@ class EcorExpInformationEcorComp extends React.Component {
             depuisDelivrerBonEntree: false,
             sousReserve: false,
             fonctionMessage: '',
-            scelles: formattedListeScelles ? formattedListeScelles : {},
+            scelles: formattedListeScelles ? formattedListeScelles : null,
             scellesConfirmationEntree: formattedListeScelles
               ? formattedListeScelles
-              : {},
+              : null,
           };
 
           DumVO.referenceEnregistrement = this.props.data.listDeclaration[
             j
           ].referenceEnregistrement;
           DumVO.documentEntreeEnceinte = this.state.documentEntreeEnceinte;
-          DumVO.refReserveConfirmationArrivee = this.state.refReserveConfirmationArrivee;
+          DumVO.refReserveConfirmationArrivee = this.state.refReserveConfirmationArrivee ? this.state.refReserveConfirmationArrivee : null;
           DumVO.sousReserve = this.state.avecReserves === 'true' ? true : false;
 
-          console.log('   we will save => ');
-          console.log(DumVO);
           console.log(
             '------- dateentree',
             this.state.dateDebut + ' ' + this.state.heureDebut,
@@ -287,6 +285,8 @@ class EcorExpInformationEcorComp extends React.Component {
           dateEffectiveEnregistrement: '',
           listeDumVo: listeDumVo,
         };
+        console.log('   we will save arrivée => ');
+        console.log(JSON.stringify(EtatChargmentDUMVO));
 
         let action = ConfirmationArriveeCRUDAction.request(
           {
@@ -332,12 +332,13 @@ class EcorExpInformationEcorComp extends React.Component {
       </View>
     );
   };
+  
 
   handleRubriqueAvecReserves = (itemValue, itemIndex, selectedItem) => {
     console.log('handleRubriqueAvecReserves itemValue', itemValue);
     console.log('handleRubriqueAvecReserves selectedItem', selectedItem);
     this.setState({
-      refReserveConfirmationArrivee: selectedItem
+      refReserveConfirmationArrivee: selectedItem ? selectedItem : null
     });
   };
 

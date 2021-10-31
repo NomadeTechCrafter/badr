@@ -31,6 +31,7 @@ const mapping = {
   '2302': { screen: 'DTPSEntreeMainScreen', params: {} },
   '2303': { screen: 'DTPSConsultationMainScreen', params: {} },
   '61525': { screen: 'RechercheAutoriserAcheminementScreen', params: {} },
+  '6153': { screen: 'EcorExportVuEmbarqueScreen', params: {} },
   '6160': { screen: 'ConfirmationEntreeArriveeRechercheScreen', params: {} },
   '6151': {
     //CONFIRMATION ENTREE

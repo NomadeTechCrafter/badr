@@ -13,8 +13,8 @@ export default (state = initialState, action) => {
     ...state,
     value: action.value,
   };
-  console.log("actifsRapportCreationReducer action.type : " + action.type);
-  console.log("actifsRapportCreationReducer action.value : " + JSON.stringify(action) )
+  // console.log("actifsRapportCreationReducer action.type : " + action.type);
+  // console.log("actifsRapportCreationReducer action.value : " + JSON.stringify(action) )
   
   switch (action.type) {
     case Constants.ACTIFS_ENTETE_REQUEST:
