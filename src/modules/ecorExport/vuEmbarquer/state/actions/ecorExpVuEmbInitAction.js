@@ -17,6 +17,7 @@ export function request(action, navigation, successRedirection) {
       .then((response) => {
         if (response) {
           const data = response.data;
+          const params = action.value.data;
           if (
             data &&
             (data.dtoHeader.messagesErreur == null ||
@@ -24,7 +25,7 @@ export function request(action, navigation, successRedirection) {
           ) {
             dispatch(success(data));
             navigation.navigate('VuEmbListeDeclaration2', {
-              params: {data},
+              params: { params},
             });
           } else {
             dispatch(failed(data));

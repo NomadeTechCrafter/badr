@@ -7,7 +7,7 @@ import { translate } from '../../../../commons/i18n/ComI18nHelper';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import _ from 'lodash';
 
-import { CustomStyleSheet } from '../../../../commons/styles/ComThemeStyle';
+import { CustomStyleSheet, primaryColor } from '../../../../commons/styles/ComThemeStyle';
 
 /**Custom Components */
 import {
@@ -26,7 +26,7 @@ import {
 /** REDUX **/
 import { connect } from 'react-redux';
 import { Col, Grid, Row } from 'react-native-easy-grid';
-import { Button, TextInput } from 'react-native-paper';
+import { Button, RadioButton, TextInput } from 'react-native-paper';
 
 const initialState = {
   dateVuEmbarquer: '',
@@ -39,6 +39,7 @@ const initialState = {
   commentaire: '',
   showErrorMsg: false,
   erreur: null,
+  modeConsultation: false
 };
 
 class VuEmbListeDeclaration extends React.Component {
@@ -49,7 +50,31 @@ class VuEmbListeDeclaration extends React.Component {
 
   componentDidMount() {
     this.setState({ ...initialState });
-    console.log(JSON.stringify(this.props?.value?.jsonVO));
+
+    if (this.props?.value?.jsonVO?.dateHeureEmbarquement) {
+      let jsonVO = this.props?.value?.jsonVO;
+      this.setState({
+        modeConsultation: true,
+        dateVuEmbarquer: jsonVO?.dateHeureEmbarquement?.slice(0, 10),
+        heureVuEmbarquer: jsonVO?.dateHeureEmbarquement?.slice(11, 16),
+        navire: jsonVO?.refMoyenTransport?.descriptionMoyenTransport + '(' + jsonVO?.refMoyenTransport?.codeMoyenTransport + ')',
+        dateVoyage: jsonVO?.dateHeureVoyage?.slice(0, 10),
+        heureVoyage: jsonVO?.dateHeureVoyage?.slice(11, 16),
+        numeroVoyage: jsonVO?.numeroVoyage,
+        commentaire: jsonVO?.commentaireEmbarquement,
+      });
+    }
+
+    // console.log(JSON.stringify(this.props?.value?.jsonVO));
+    console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+    console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+    console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+    console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+    console.log(JSON.stringify(this.props?.route?.params?.params?.params));
+    console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+    console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+    console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+    console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
   }
 
   getFormattedScelles = (scelles) => {
@@ -80,9 +105,10 @@ class VuEmbListeDeclaration extends React.Component {
   abandonnerVuEmbarquer = () => {
   };
 
-  
+
 
   render() {
+    let reference = this.props?.route?.params?.params?.params;
     return (
       <View style={styles.container}>
         <ComBadrToolbarComp
@@ -99,6 +125,61 @@ class VuEmbListeDeclaration extends React.Component {
           />
         </View>
         <ScrollView>
+          <ComBadrCardBoxComp style={styles.cardBoxInfoDum}>
+            <Row>
+              <Col size={7}>
+                <View style={[styles.flexDirectionRow, styles.margtb]}>
+                  <Text style={styles.libelleS}>
+                    {translate('transverse.bureau')}
+                  </Text>
+                  <Text style={styles.libelleS}>
+                    {translate('transverse.regime')}
+                  </Text>
+                  <Text style={styles.libelleS}>
+                    {translate('transverse.annee')}
+                  </Text>
+                  <Text style={styles.libelleM}>
+                    {translate('transverse.serie')}
+                  </Text>
+                  <Text style={styles.libelleS}>{translate('transverse.cle')}</Text>
+                  {/* <Text style={styles.libelleS}>{translate('controleApresScanner.search.declarationEnDetail.numeroSousDum')}</Text> */}
+
+                </View>
+                <View style={styles.flexDirectionRow}>
+                  <Text style={styles.valueS}>
+                    {reference.bureau}
+                  </Text>
+                  <Text style={styles.valueS}>
+                    {reference.regime}
+                  </Text>
+                  <Text style={styles.valueS}>
+                    {reference.annee}
+                  </Text>
+                  <Text style={styles.valueM}>
+                    {reference.serie}
+                  </Text>
+                  <Text style={styles.valueS}>
+                    {reference.cle}
+                  </Text>
+                  {/* <Text style={styles.valueS}>
+                {reference.cle}
+              </Text> */}
+
+                </View>
+              </Col>
+              <Col size={3}>
+                <Row>
+                  <Col>
+                    <Text style={styles.libelleS}>{translate('controleApresScanner.search.declarationEnDetail.numeroSousDum')}</Text>
+                  </Col>
+                  <Col>
+                    <Text style={styles.valueS}>
+                      {this.props?.value?.jsonVO?.refDUM?.numeroOrdreVoyage}
+                    </Text></Col>
+                </Row>
+              </Col>
+            </Row>
+          </ComBadrCardBoxComp>
           <ComBadrCardBoxComp style={styles.cardBox}>
             <ComAccordionComp title={translate('autoriserAcheminemenMainScreen.declarationDetail.title')} expanded={true}>
               {/* <Grid> */}
@@ -110,7 +191,7 @@ class VuEmbListeDeclaration extends React.Component {
                 </Col>
                 <Col>
                   <ComBadrLibelleComp>
-                    {this.props?.value?.jsonVO?.refDedServices.dateEnregistrement}
+                    {this.props?.value?.jsonVO?.refDedServices?.dateEnregistrement}
                   </ComBadrLibelleComp>
                 </Col>
                 <Col />
@@ -228,7 +309,7 @@ class VuEmbListeDeclaration extends React.Component {
               </Grid>
             </ComAccordionComp>
           </ComBadrCardBoxComp>
-          <ComBadrCardBoxComp noPadding={true}>
+          <ComBadrCardBoxComp>
             {/* Informations ECOR */}
             <ComAccordionComp
               title={translate(
@@ -364,7 +445,7 @@ class VuEmbListeDeclaration extends React.Component {
                         renderItem={(item) => this.renderBoxItem(item)}
                         keyExtractor={(item) => item}
                         nestedScrollEnabled={true}
-                        disabled={this.props.ecorIsSaved}
+                        // disabled={true}
                       />
                     )}
                   </SafeAreaView>
@@ -410,7 +491,7 @@ class VuEmbListeDeclaration extends React.Component {
           </ComBadrCardBoxComp>
 
           {/*Accordion Mainlevée*/}
-          <ComBadrCardBoxComp noPadding={true}>
+          <ComBadrCardBoxComp>
             <ComAccordionComp
               title={translate('ecorimport.mainlevee.title')}
               expanded={true}>
@@ -525,9 +606,249 @@ class VuEmbListeDeclaration extends React.Component {
               </Grid>
             </ComAccordionComp>
           </ComBadrCardBoxComp>
+          
+          {/* Accordion Autorisation acheminement */}
+          <ComBadrCardBoxComp style={styles.cardBox}>
+            <ComAccordionComp expanded={true}
+              title={translate(
+                'autoriserAcheminemenMainScreen.autorisationAcheminement.title',
+              )}>
+              <Grid>
+                <Row style={CustomStyleSheet.whiteRow}>
+                  <Col>
+                    <ComBadrLibelleComp withColor={true}>
+                      {translate('autoriserAcheminemenMainScreen.entreeEnceinteDouaniere.dateHeure')}
+                    </ComBadrLibelleComp>
+                  </Col>
+                  <Col>
+                    <ComBadrLibelleComp>
+                      {this.props?.value?.jsonVO?.dateHeureAcheminement}
+                    </ComBadrLibelleComp>
+                  </Col>
+                  <Col>
+                    <ComBadrLibelleComp withColor={true}>
+                      {translate('autoriserAcheminemenMainScreen.entreeEnceinteDouaniere.agentDouanier')}
+                    </ComBadrLibelleComp>
+                  </Col>
+                  <Col>
+                    <ComBadrLibelleComp>
+                      {this.props?.value?.jsonVO?.refAgentAutorisationAcheminement?.nom}{' '}
+                      {this.props?.value?.jsonVO?.refAgentAutorisationAcheminement?.prenom}
+                    </ComBadrLibelleComp>
+                  </Col>
+                </Row>
+                <Row style={CustomStyleSheet.lightBlueRow}>
+                  <Col>
+                    <ComBadrLibelleComp withColor={true}>
+                      {translate('autoriserAcheminemenMainScreen.informationsEcor.nouveauxScelles')}
+                    </ComBadrLibelleComp>
+                  </Col>
+                  <Col>
+                    <View style={styles.flexRow}>
+                      <RadioButton.Group
+                        value={this.props?.value?.jsonVO?.infoEcorScelle + ''}>
+                        <View style={styles.flexRowRadioButton}>
+                          <Text >
+                            {translate('confirmationArrivee.oui')}
+                          </Text>
+                          <RadioButton value="true" color={primaryColor} disabled={true} />
+                        </View>
+                        <View style={styles.flexRowRadioButton}>
+                          <Text >
+                            {translate('confirmationArrivee.non')}
+                          </Text>
+                          <RadioButton value="false" color={primaryColor} disabled={true} />
+                        </View>
+                      </RadioButton.Group>
+                    </View>
+                  </Col>
+                  <Col />
+                  <Col />
+                </Row>
+              </Grid>
+            </ComAccordionComp>
+          </ComBadrCardBoxComp>
 
+          {/* Accordion Confirmation Arrivée */}
+          <ComBadrCardBoxComp style={styles.cardBox}>
+            <ComAccordionComp expanded={true}
+              title={translate(
+                'autoriserAcheminemenMainScreen.confirmationArrivee.title',
+              )}>
+              <Grid>
+                <Row style={CustomStyleSheet.whiteRow}>
+                  <Col>
+                    <ComBadrLibelleComp withColor={true}>
+                      {translate('autoriserAcheminemenMainScreen.entreeEnceinteDouaniere.dateHeure')}
+                    </ComBadrLibelleComp>
+                  </Col>
+                  <Col>
+                    <ComBadrLibelleComp>
+                      {this.props?.value?.jsonVO?.dateHeureArrive}
+                    </ComBadrLibelleComp>
+                  </Col>
+                  <Col>
+                    <ComBadrLibelleComp withColor={true}>
+                      {translate('autoriserAcheminemenMainScreen.entreeEnceinteDouaniere.agentDouanier')}
+                    </ComBadrLibelleComp>
+                  </Col>
+                  <Col>
+                    <ComBadrLibelleComp>
+                      {this.props?.value?.jsonVO?.refAgentConfirmationArrive?.nom}{' '}
+                      {this.props?.value?.jsonVO?.refAgentConfirmationArrive?.prenom}
+                    </ComBadrLibelleComp>
+                  </Col>
+                </Row>
+                <Row style={CustomStyleSheet.lightBlueRow}>
+                  <Col>
+                    <ComBadrLibelleComp withColor={true}>
+                      {translate('confirmationArrivee.avecReserves')}
+                    </ComBadrLibelleComp>
+                  </Col>
+                  <Col>
+                    <View style={styles.flexRow}>
+                      <RadioButton.Group
+                        value={this.props?.value?.jsonVO?.sousReserve + ''}>
+                        <View style={styles.flexRowRadioButton}>
+                          <Text >
+                            {translate('confirmationArrivee.oui')}
+                          </Text>
+                          <RadioButton value="true" color={primaryColor} disabled={true} />
+                        </View>
+                        <View style={styles.flexRowRadioButton}>
+                          <Text >
+                            {translate('confirmationArrivee.non')}
+                          </Text>
+                          <RadioButton value="false" color={primaryColor} disabled={true} />
+                        </View>
+                      </RadioButton.Group>
+                    </View>
+                  </Col>
+                  <Col />
+                  <Col />
+                </Row>
+              </Grid>
+            </ComAccordionComp>
+          </ComBadrCardBoxComp>
+
+
+          {/* Accordion Contrôle Après Scanner */}
+          <ComBadrCardBoxComp style={styles.cardBox}>
+            <ComAccordionComp expanded={true}
+              title={translate(
+                'confirmationArrivee.controleApresScanner.title',
+              )}>
+              <Grid>
+                <Row style={CustomStyleSheet.whiteRow}>
+                  <Col>
+                    <ComBadrLibelleComp withColor={true}>
+                      {translate('autoriserAcheminemenMainScreen.entreeEnceinteDouaniere.dateHeure')}
+                    </ComBadrLibelleComp>
+                  </Col>
+                  <Col>
+                    <ComBadrLibelleComp>
+                      {this.props?.value?.jsonVO?.dateHeureCtrlApresScanner}
+                    </ComBadrLibelleComp>
+                  </Col>
+                  <Col>
+                    <ComBadrLibelleComp withColor={true}>
+                      {translate('autoriserAcheminemenMainScreen.entreeEnceinteDouaniere.agentDouanier')}
+                    </ComBadrLibelleComp>
+                  </Col>
+                  <Col>
+                    <ComBadrLibelleComp>
+                      {this.props?.value?.jsonVO?.refAgentCrtlApresScanner?.nom}{' '}
+                      {this.props?.value?.jsonVO?.refAgentCrtlApresScanner?.prenom}
+                    </ComBadrLibelleComp>
+                  </Col>
+                </Row>
+                <Row style={CustomStyleSheet.lightBlueRow}>
+                  <Col>
+                    <ComBadrLibelleComp withColor={true}>
+                      {translate('autoriserAcheminemenMainScreen.informationsEcor.nouveauxScelles')}
+                    </ComBadrLibelleComp>
+                  </Col>
+                  <Col>
+                    <View style={styles.flexRow}>
+                      <RadioButton.Group
+                        value={this.props?.value?.jsonVO?.infoEcorScelleCrtlApresScanner + ''}>
+                        <View style={styles.flexRowRadioButton}>
+                          <Text >
+                            {translate('confirmationArrivee.oui')}
+                          </Text>
+                          <RadioButton value="true" color={primaryColor} disabled={true} />
+                        </View>
+                        <View style={styles.flexRowRadioButton}>
+                          <Text >
+                            {translate('confirmationArrivee.non')}
+                          </Text>
+                          <RadioButton value="false" color={primaryColor} disabled={true} />
+                        </View>
+                      </RadioButton.Group>
+                    </View>
+                  </Col>
+                  <Col />
+                  <Col />
+                </Row>
+                <Row style={CustomStyleSheet.whiteRow}>
+                  <Col>
+                    <ComBadrLibelleComp withColor={true}>
+                      {translate('autoriserAcheminemenMainScreen.informationsEcor.numeroPince')}
+                    </ComBadrLibelleComp>
+                  </Col>
+                  <Col>
+                    <ComBadrLibelleComp>
+                      {this.props?.value?.jsonVO?.numeroPinceCrtlApresScanner}
+                    </ComBadrLibelleComp>
+                  </Col>
+                  <Col>
+                    <ComBadrLibelleComp withColor={true}>
+                      {translate('autoriserAcheminemenMainScreen.informationsEcor.nombreScelles')}
+                    </ComBadrLibelleComp>
+                  </Col>
+                  <Col>
+                    <ComBadrLibelleComp>
+                      {this.props?.value?.jsonVO?.nombreScelleCrtlApresScanner}
+                    </ComBadrLibelleComp>
+                  </Col>
+                </Row>
+                <Row style={CustomStyleSheet.lightBlueRow}>
+                  <Col>
+                    <ComBadrLibelleComp withColor={true}>
+                      {translate('autoriserAcheminemenMainScreen.informationsEcor.nombreScelles')}
+                    </ComBadrLibelleComp>
+                  </Col>
+                  <Col style={styles.boxContainer}>
+                    <SafeAreaView style={styles.boxSafeArea}>
+                      {_.isEmpty(this.props?.value?.jsonVO?.scellesCrtlApresScanner) && (
+                        <Text style={styles.boxItemText}>
+                          {translate(
+                            'confirmationEntree.informationsEcor.aucunElement',
+                          )}
+                        </Text>
+                      )}
+
+                      {!_.isEmpty(this.props?.value?.jsonVO?.scellesCrtlApresScanner) && (
+                        <FlatList
+                          data={this.props?.value?.jsonVO?.scellesCrtlApresScanner}
+                          renderItem={(item) => this.renderBoxItem(item)}
+                          keyExtractor={(item) => item}
+                          nestedScrollEnabled={true}
+                          // disabled={true}
+                        />
+                      )}
+                    </SafeAreaView>
+                  </Col>
+                  <Col />
+                  <Col />
+                </Row>
+              </Grid>
+            </ComAccordionComp>
+          </ComBadrCardBoxComp>
+
+          {/* Accordion vuEmbarquee */}
           <ComBadrCardBoxComp>
-            <ComAccordionComp expanded={true}>
+            <ComAccordionComp expanded={true} title={translate('vuEmbarquee.subTitleAction')}>
               <Row style={CustomStyleSheet.lightBlueRow}>
                 <Col>
                   <ComBadrLibelleComp withColor={true}>
@@ -537,6 +858,7 @@ class VuEmbListeDeclaration extends React.Component {
                 <Col size={2}>
                   <ComBadrDatePickerComp
                     dateFormat="DD/MM/YYYY"
+                    readonly={this.props.success || this.state.modeConsultation}
                     value={!_.isEmpty(this.state.dateVuEmbarquer) ? moment(this.state.dateVuEmbarquer, 'DD/MM/yyyy', true) : null}
                     timeValue={!_.isEmpty(this.state.heureVuEmbarquer) ? moment(this.state.heureVuEmbarquer, 'HH:mm', true) : null}
                     labelDate={translate('vuEmbarquee.dateHeure')}
@@ -576,7 +898,7 @@ class VuEmbListeDeclaration extends React.Component {
                 <Col size={150}>
                   <ComBadrAutoCompleteChipsComp
                     code="code"
-                    disabled={this.props.success}
+                    disabled={this.props.success || this.state.modeConsultation}
                     placeholder={translate(
                       'etatChargement.navire',
                     )}
@@ -600,6 +922,7 @@ class VuEmbListeDeclaration extends React.Component {
                 <Col size={2}>
                   <ComBadrDatePickerComp
                     dateFormat="DD/MM/YYYY"
+                    readonly={this.props.success || this.state.modeConsultation}
                     value={!_.isEmpty(this.state.dateVoyage) ? moment(this.state.dateVoyage, 'DD/MM/yyyy', true) : null}
                     timeValue={!_.isEmpty(this.state.heureVoyage) ? moment(this.state.heureVoyage, 'HH:mm', true) : null}
                     labelDate={translate('etatChargementVE.dateHeureVoyage')}
@@ -625,7 +948,7 @@ class VuEmbListeDeclaration extends React.Component {
                 </Col>
                 <Col>
                   <TextInput
-                    disabled={this.props.success}
+                    disabled={this.props.success || this.state.modeConsultation}
                     value={this.state.numeroVoyage}
                     onChangeText={(val) => this.setState({ numeroVoyage: val })}
                   />
@@ -641,7 +964,7 @@ class VuEmbListeDeclaration extends React.Component {
                 <Col size={160}>
                   {/* <ComBadrCardBoxComp style={[styles.cardBoxInfoDum, styles.container, styles.width90]}> */}
                   <TextInput
-                    disabled={this.props.success}
+                    disabled={this.props.success || this.state.modeConsultation}
                     value={this.state.commentaire}
                     multiline={true}
                     numberOfLines={5}
@@ -673,6 +996,18 @@ class VuEmbListeDeclaration extends React.Component {
   }
 }
 
+
+const libelle = {
+  fontSize: 14,
+  color: '#006acd',
+  fontWeight: 'bold',
+};
+
+const value = {
+  fontSize: 14,
+  fontWeight: 'bold',
+};
+
 const styles = {
   messages: {},
   container: { width: '100%', height: '100%' },
@@ -697,6 +1032,47 @@ const styles = {
   },
   width90: { width: '90%', height: '70%' },
   buttonIcon: { margin: 10, marginTop: 40 },
+  cardBoxInfoDum: {
+    flexDirection: 'column',
+    margin: 10,
+  },
+  flexDirectionRow: {
+    flexDirection: 'row',
+  },
+  margtb: {
+    marginBottom: 10,
+  },
+  libelle: { ...libelle },
+  libelleS: {
+    ...libelle,
+    flex: 1,
+  },
+  libelleM: {
+    ...libelle,
+    flex: 2,
+  },
+  libelleL: {
+    ...libelle,
+    flex: 3,
+  },
+  valueS: {
+    ...value,
+    flex: 1,
+  },
+  valueM: {
+    ...value,
+    flex: 2,
+  },
+  valueL: {
+    ...value,
+    flex: 3,
+  },
+  flexColumn: { flexDirection: 'column' },
+  flexRow: { flexDirection: 'row' },
+  flexRowRadioButton: {
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
   // boxSafeArea: {
   //   margin: '5%',
   //   height: 200,
