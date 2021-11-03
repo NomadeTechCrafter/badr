@@ -81,6 +81,11 @@ class EcorExpInformationEcorComp extends React.Component {
       heureDebut: dateHeureArrive,
       listeNombreDeScelles: this.props.listeNombreDeScelles,
     });
+    // var action = ConfirmationArriveeCRUDAction.init({
+    //   type: Constants.CONFIRMERNTREE_INIT,
+    //   value: {},
+    // });
+    // this.props.dispatch(action);
   }
 
 
@@ -883,7 +888,7 @@ class EcorExpInformationEcorComp extends React.Component {
                 icon="check"
                 compact="true"
                 mode="contained"
-                // disabled={this.props.ecorIsSaved}
+                disabled={this.props.ecorIsSaved}
                 loading={this.props.showProgress}>
                 {translate('confirmationArrivee.subTitle')}
               </Button>

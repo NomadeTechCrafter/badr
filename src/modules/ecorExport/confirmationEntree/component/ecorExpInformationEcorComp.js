@@ -79,6 +79,11 @@ class EcorExpInformationEcorComp extends React.Component {
       heureDebut: dateHeureEntree,
       listeNombreDeScelles: this.props.listeNombreDeScelles,
     });
+    // var action = ConfirmationEntreeCRUDAction.init({
+    //   type: Constants.CONFIRMERNTREE_INIT,
+    //   value: {},
+    // });
+    // this.props.dispatch(action);
   }
 
   genererNumeroScelle = () => {
@@ -343,9 +348,9 @@ class EcorExpInformationEcorComp extends React.Component {
 
     return (
       <View>
-        {this.props?.infoMessage != null && (
+        {/* {this.props?.infoMessage != null && (
           <ComBadrInfoMessageComp message={this.props?.infoMessage} />
-        )}
+        )} */}
         <Grid>
           <Row style={CustomStyleSheet.whiteRow}>
             <Col size={2}>
@@ -361,7 +366,7 @@ class EcorExpInformationEcorComp extends React.Component {
                     documentEntreeEnceinte: text,
                   })
                 }
-                disabled={ecorIsSaved}
+                disabled={this.props.ecorIsSaved}
               />
             </Col>
             <Col size={1} />
@@ -372,7 +377,7 @@ class EcorExpInformationEcorComp extends React.Component {
             </Col>
             <Col size={2}>
               <ComBadrDatePickerComp
-                dateFormat="DD/MM/yyyy"
+                dateFormat="DD/MM/YYYY"
                 heureFormat="HH:mm"
                 value={dateDebut ? moment(dateDebut, 'DD/MM/yyyy', true) : ''}
                 timeValue={heureDebut ? moment(heureDebut, 'HH:mm', true) : ''}
@@ -389,7 +394,7 @@ class EcorExpInformationEcorComp extends React.Component {
                   })
                 }
                 inputStyle={style.dateInputStyle}
-                readonly={this.props.data.ecorIsSaved}
+                readonly={this.props.ecorIsSaved}
               />
             </Col>
           </Row>
@@ -604,7 +609,7 @@ class EcorExpInformationEcorComp extends React.Component {
                 icon="check"
                 compact="true"
                 mode="contained"
-                // disabled={this.props.ecorIsSaved}
+                disabled={this.props.ecorIsSaved}
                 loading={this.props.showProgress}>
                 {translate('confirmationEntree.subTitle')}
               </Button>

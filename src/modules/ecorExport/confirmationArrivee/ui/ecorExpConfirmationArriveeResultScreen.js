@@ -12,6 +12,8 @@ import { connect } from 'react-redux';
 import translate from '../../../../commons/i18n/ComI18nHelper';
 import styles from '../style/ecorExpConfirmationArriveeStyle';
 import _ from 'lodash';
+import * as Constants from '../state/ecorExpConfirmationArriveeConstants';
+import * as ConfirmationArriveeCRUDAction from '../state/actions/ecorExpConfirmationArriveeCRUDAction';
 
 class ConfirmationArriveeResultScreen extends React.Component {
   constructor(props) {
@@ -70,7 +72,13 @@ class ConfirmationArriveeResultScreen extends React.Component {
       : [];
   };
 
-  componentDidMount() { }
+  componentDidMount() {
+    // var action = ConfirmationArriveeCRUDAction.init({
+    //   type: Constants.CONFIRMERNTREE_INIT,
+    //   value: {},
+    // });
+    // this.props.actions.dispatch(action);
+   }
 
   componentDidUpdate() {
     /*if (this.props.route.params.first) {
@@ -116,7 +124,7 @@ class ConfirmationArriveeResultScreen extends React.Component {
           {!_.isEmpty(this.props.data) &&
             !_.isEmpty(this.props.data.listDeclaration) && (
               <ComBasicDataTableComp
-                ref="_badrTable"
+                // ref="_badrTable"
                 id="listConfirmationArrivee"
                 rows={this.props.data.listDeclaration}
                 cols={this.cols}

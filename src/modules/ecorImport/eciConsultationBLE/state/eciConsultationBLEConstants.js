@@ -10,5 +10,6 @@ export const CONSULTATION_BLE_INIT =
   '[CONSULTATION_BLE] CONSULTATION_BLE_INIT';
 
 export const status = [
-  { code: 'ENREGISTRE', libelle: 'Enregistrement'},
+  { code: 'ENREGISTRE', libelle: 'Enregistrement' },
+  { code: 'MODIFIE', libelle: 'Modification' },
 ];

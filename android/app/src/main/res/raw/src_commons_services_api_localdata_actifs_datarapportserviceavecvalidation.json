@@ -1,365 +1,391 @@
 {
-  "dtoHeader": {
-    "userLogin": "YAMAGENT",
-    "fonctionnalite": "cf9932",
-    "module": "GIB",
-    "commande": "getRsByIdOs",
-    "typeService": "SP"
-  },
-  "jsonVO": {
-    "pk": {
-      "id_RS": 2241,
-      "num_VERSION": 1
+    "dtoHeader": {
+        "userLogin": "YELM",
+        "fonctionnalite": "cf6160",
+        "module": "GIB",
+        "commande": "getRsByIdOs",
+        "typeService": "SP",
+        "offset": 0,
+        "pageSize": 0,
+        "rowCount": 0
     },
-    "dateEnregistrement": "2017-08-29 17:54:03.0",
-    "description": "fgfdg",
-    "dateFin": 1504036800000,
-    "motif": "gfbf",
-    "statut": "Courante",
-    "rapportService": {
-      "id": 2241,
-      "ordreService": {
-        "id": 3673,
-        "numero": 1,
-        "confidentiel": false,
-        "additif": false,
-        "dateDebut": "2017-08-29 10:00:00.0",
-        "dateFin": "2017-08-29 19:00:00.0",
-        "description": "ddddddddddddddddddddddd\r\ndssssssssssssssssssssssss\r\nsdsssssssssssssssssssssss",
-        "chefEquipe": {
-          "idActeur": "YAMAGENT",
-          "nom": "amdaou",
-          "numeroPaie": -1,
-          "prenom": "youssef",
-          "refGradeLib": ""
+    "jsonVO": {
+        "pk": {
+            "num_VERSION": 0,
+            "id_RS": 3831
         },
-        "vehicules": [
-          {
-            "id": 169,
-            "matricule": "mf48754",
-            "commentaire": "libelle",
-            "codeUO": "280",
-            "dateEffet": 1362658687000,
-            "dateFin": 253387561417000,
-            "ajouterAction": false,
-            "modifierAction": false,
-            "annule": false,
-            "statut": "Valide"
-          },
-          {
-            "id": 170,
-            "matricule": "mf654632",
-            "commentaire": "libelle ancien",
-            "codeUO": "280",
-            "dateEffet": 1362658857000,
-            "dateFin": 253387561417000,
-            "ajouterAction": false,
-            "modifierAction": false,
-            "annule": false,
-            "statut": "Valide"
-          },
-          {
-            "id": 171,
-            "matricule": "568977",
-            "commentaire": "ddd",
-            "codeUO": "280",
-            "dateEffet": 1363614761000,
-            "dateFin": 253390419055000,
-            "ajouterAction": false,
-            "modifierAction": false,
-            "annule": false,
-            "statut": "Valide"
-          },
-          {
-            "id": 191,
-            "matricule": "11111",
-            "commentaire": "testddddedzezezezzeze",
-            "codeUO": "280",
-            "dateEffet": 1366626661000,
-            "dateFin": 253390499226000,
-            "ajouterAction": false,
-            "modifierAction": false,
-            "annule": false,
-            "statut": "Valide"
-          }
-        ],
-        "agentsBrigade": [
-          {
-            "id": 16049,
-            "agent": {
-              "idActeur": "AD6004",
-              "nom": "AD6004",
-              "numeroPaie": -1,
-              "prenom": "AD6004",
-              "refGradeLib": ""
-            },
-            "agentBrigade": "AD6004 AD6004 (AD6004)"
-          },
-          {
-            "id": 16050,
-            "agent": {
-              "idActeur": "AD6005",
-              "nom": "AD6005",
-              "numeroPaie": -1,
-              "prenom": "AD6005",
-              "refGradeLib": ""
-            },
-            "agentBrigade": "AD6005 AD6005 (AD6005)"
-          },
-          {
-            "id": 16051,
-            "agent": {
-              "idActeur": "AD6006",
-              "nom": "AD6006",
-              "numeroPaie": -1,
-              "prenom": "AD6006",
-              "refGradeLib": ""
-            },
-            "agentBrigade": "AD6006 AD6006 (AD6006)"
-          },
-          {
-            "id": 16052,
-            "agent": {
-              "idActeur": "AD6007",
-              "nom": "AD6007",
-              "numeroPaie": -1,
-              "prenom": "AD6007",
-              "refGradeLib": ""
-            },
-            "agentBrigade": "AD6007 AD6007 (AD6007)"
-          },
-          {
-            "id": 16053,
-            "agent": {
-              "idActeur": "AD6008",
-              "nom": "AD6008",
-              "numeroPaie": -1,
-              "prenom": "AD6008",
-              "refGradeLib": ""
-            },
-            "agentBrigade": "AD6008 AD6008 (AD6008)"
-          }
-        ],
-        "typeService": {
-          "code": "3.3",
-          "libelle": "Contre-ecor",
-          "classeService": "R",
-          "categorie": {
-            "code": "3",
-            "libelle": "Surveillance dans les MEAD"
-          }
+        "dateEnregistrement": "2021-10-14 17:00:13.0",
+        "description": "Description du rapport*\tTEST MOBILE MRS",
+        "autreIncidents": "Autre incidents\t TEST MOBILE MRS",
+        "dateFin": 1612221900000,
+        "statut": "Courante",
+        "rapportService": {
+            "id": 3831,
+            "ordreService": {
+                "id": 6879,
+                "numero": 1,
+                "confidentiel": true,
+                "additif": true,
+                "dateDebut": "2021-01-01 08:00:00.0",
+                "dateFin": "2021-01-01 12:00:00.0",
+                "description": "Description OS *\t TEST MOBILE MRS",
+                "chefEquipe": {
+                    "idActeur": "YELM",
+                    "nom": "EL MAJDOUBI",
+                    "numeroPaie": -1,
+                    "prenom": "YOUSSEF",
+                    "refGradeLib": ""
+                },
+                "vehicules": [
+                    {
+                        "id": 273,
+                        "matricule": "ms7895",
+                        "commentaire": "mercedeces benz 320 bis",
+                        "codeUO": "280",
+                        "dateEffet": 1393590129000,
+                        "dateFin": 253387561417000,
+                        "annule": false,
+                        "statut": "Valide",
+                        "modifierAction": false,
+                        "ajouterAction": false
+                    },
+                    {
+                        "id": 353,
+                        "matricule": "67987d12",
+                        "commentaire": "land rover Range Rover",
+                        "codeUO": "280",
+                        "dateEffet": 1413991551000,
+                        "dateFin": 253396222918000,
+                        "annule": false,
+                        "statut": "Valide",
+                        "modifierAction": false,
+                        "ajouterAction": false
+                    }
+                ],
+                "agentsBrigade": [
+                    {
+                        "id": 18116,
+                        "agent": {
+                            "idActeur": "AAMM",
+                            "nom": "AMMARI",
+                            "numeroPaie": -1,
+                            "prenom": "AHMED",
+                            "refGradeLib": ""
+                        },
+                        "agentBrigade": "AMMARI AHMED (AAMM)"
+                    },
+                    {
+                        "id": 18117,
+                        "agent": {
+                            "idActeur": "A 568282",
+                            "nom": "JA",
+                            "numeroPaie": -1,
+                            "prenom": "RAHAL",
+                            "refGradeLib": ""
+                        },
+                        "refGrade": {
+                            "code": "13020302",
+                            "dateEffet": 1302773085000,
+                            "dateFin": 253402214400000,
+                            "libelle": "INSPECTEUR ADJOINT"
+                        },
+                        "agentBrigade": "JA RAHAL (A 568282) (INSPECTEUR ADJOINT)"
+                    }
+                ],
+                "typeService": {
+                    "code": "7.1",
+                    "libelle": "Perquisition et visite des domiciles ",
+                    "classeService": "E",
+                    "sousService": false,
+                    "categorie": {
+                        "code": "7",
+                        "libelle": "Perquisitions et visites"
+                    }
+                },
+                "heureDebut": "08:00",
+                "heureFin": "12:00",
+                "os_chefBrigade": false,
+                "ronde": true,
+                "maritime": true,
+                "aerien": false,
+                "uniteOrganisationnelle": "DIRECTION REGIONALE DE CASA PORT (280)(280)",
+                "refPJ": "280_2021_9023",
+                "journeeDu": "01/01/2021",
+                "defaultConverter": {},
+                "rapportExiste": true,
+                "libConfidentiel": "Oui",
+                "libAdditif": "Oui",
+                "libChefBrigade": "Non",
+                "libRonde": "Oui",
+                "libMaritime": "Oui",
+                "libAerien": "Non"
+            }
         },
-        "heureDebut": "10:00",
-        "heureFin": "19:00",
-        "os_chefBrigade": false,
-        "ronde": false,
-        "maritime": false,
-        "aerien": false,
-        "uniteOrganisationnelle": "DIRECTION REGIONALE DE CASA PORT      (280)",
-        "refPJ": "280_2017_9029",
-        "journeeDu": "29/08/2017",
-        "libAdditif": "Non",
-        "libChefBrigade": "Non",
-        "libRonde": "Non",
-        "libMaritime": "Non",
-        "libAerien": "Non",
-        "libConfidentiel": "Non",
+        "marchandisesVO": [
+            {
+                "id": 1638,
+                "quantite": "25",
+                "valeur": "3750",
+                "uniteMesure": {
+                    "codeUniteMesure": "049",
+                    "descriptionUniteMesure": "pièce nouvelle"
+                },
+                "marque": {
+                    "code": "48-02",
+                    "libelle": "Pneu neuf "
+                },
+                "marqueToString": "Pneu neuf (48-02)",
+                "uniteMesureToString": "pièce nouvelle(049)"
+            }
+        ],
+        "navigationsMaritimes": [
+            {
+                "id": 481,
+                "typeBateau": "yacht",
+                "nomBateau": "habida",
+                "immatriculation": "123solei",
+                "couleur": "or",
+                "longueur": "18",
+                "profondeur": "2",
+                "tonnage": "12",
+                "numDeclaration": "987654321",
+                "dateDeclaration": 1628035200000,
+                "delivreePar": {
+                    "idActeur": "G117498",
+                    "nom": "HADDOUCHI",
+                    "numeroPaie": -1,
+                    "prenom": "ABDELKADER",
+                    "refGradeLib": ""
+                },
+                "dateEntree": 1609504440000,
+                "motifAccostage": "repos TEST MOBILE MRS",
+                "portEntree": "nador TEST MOBILE MRS",
+                "portAttache": "marseille",
+                "pavillon": "francais",
+                "provenance": {
+                    "codePays": "FR",
+                    "commentaire": "فرنسا",
+                    "dateEffet": "2000-01-01",
+                    "dateFin": "9999-12-31",
+                    "nomPays": "FRANCE",
+                    "prohibe": false,
+                    "nomPaysAR": "فرنسا",
+                    "nationalite": "FRANCE",
+                    "nationaliteAR": "فرنسا"
+                },
+                "villeProvenance": "sete",
+                "destination": {
+                    "codePays": "ES",
+                    "commentaire": "إسبانيا",
+                    "dateEffet": "2000-01-01",
+                    "dateFin": "9999-12-31",
+                    "nomPays": "ESPAGNE",
+                    "prohibe": false,
+                    "nomPaysAR": "إسبانيا",
+                    "nationalite": "ESPAGNE",
+                    "nationaliteAR": "إسبانيا"
+                },
+                "villeDestination": "barcelona",
+                "dateDepart": 1612218780000,
+                "dateDebutControle": 1612214460000,
+                "dateFinControle": 1612218120000,
+                "documentsVerifies": "Documents de bord vérifiés *\tCarnet de police MRS TEST MOBILE",
+                "observations": "Observations MRS TEST MOBILE",
+                "resultatControle": "Résultat de contrôle *\tMRS TEST MOBILE",
+                "intervenants": [],
+                "heureEntree": "12:34",
+                "heureDeclaration": "00:00",
+                "heureDepart": "22:33",
+                "heureDebutControle": "21:21",
+                "heureFinControle": "22:22",
+                "defaultConverter": {}
+            }
+        ],
+        "vehiculesSaisiVO": [
+            {
+                "id": 1570,
+                "valeur": "299000",
+                "libelle": "RENAULT master",
+                "natureVehicule": {
+                    "code": "4",
+                    "libelle": "\tFourgon"
+                },
+                "natureVehiculeToString": "\tFourgon"
+            }
+        ],
+        "typesIncident": [
+            {
+                "code": "1.5",
+                "libelle": "Accident lors de l'exécution de service ayant causé collision entre véhicule de service et tierce personne",
+                "categorie": {
+                    "code": "1",
+                    "libelle": "Accident de service"
+                }
+            },
+            {
+                "code": "2.9",
+                "libelle": "Agression avec coups et blessures au moyen:  de séquestration",
+                "categorie": {
+                    "code": "2",
+                    "libelle": "Agression contre les agents"
+                }
+            },
+            {
+                "code": "5.1",
+                "libelle": "Menaces verbales",
+                "categorie": {
+                    "code": "5",
+                    "libelle": "Menaces"
+                }
+            },
+            {
+                "code": "7.2",
+                "libelle": "Opposition faite aux des douanes d'effectuer la visite d'usage dans les moyens de transport",
+                "categorie": {
+                    "code": "7",
+                    "libelle": "Opposition aux fonctions"
+                }
+            }
+        ],
+        "typesIncidentSelect": [],
+        "dateEnregistrementV0": "2021-10-14 17:00:13.0",
+        "rondesApparition": [
+            {
+                "id": 201,
+                "dateDebut": 1609495800000,
+                "dateFin": 1609499460000,
+                "resultatControle": "Résultat du contrôle / Rapport de service *\t TEST MOBILE MRS",
+                "pointsControle": "Points de service contrôlés *\t TEST MOBILE MRS"
+            }
+        ],
+        "navigationsAeriennes": [],
+        "gibPerquisition": {
+            "id": 221,
+            "datePerquisition": 1609506780000,
+            "lieuPerquisition": "fes TEST MOBILE MRS",
+            "resultatPerquisition": true,
+            "autorite": {
+                "code": "2",
+                "libelle": "DIRECTEUR REGIONAL"
+            },
+            "intervenants": [],
+            "intervenantsVO": [
+                {
+                    "id": 201,
+                    "intervenant": {
+                        "numeroOrdreIntervenant": "45649",
+                        "dateEffet": "14/04/2016 00:00:00",
+                        "dateFin": "31/12/9999 00:00:00",
+                        "nomIntervenant": "SAIDI",
+                        "prenomIntervenant": "SAID",
+                        "adresse": "ADRESSE SAIDI SAID",
+                        "numeroDocumentIndentite": "A0000000",
+                        "refTypeIntervenant": "02",
+                        "typeIntervenant": "Personne physique",
+                        "refTypeDocumentIdentite": "01",
+                        "retraite": false,
+                        "lieuNaissance": "nice",
+                        "dateNaissance": "01/01/1955",
+                        "paysFr": "FR",
+                        "nbrRappelInteresse": "0",
+                        "descTypeIntervenant": "Personne physique",
+                        "descTypeDocumentIdentite": "Numero C.I.N.",
+                        "descPaysFr": "FRANCE",
+                        "statut": "valide",
+                        "rechercheAnnules": false,
+                        "rechercheValides": true,
+                        "idPourRecherche": "45649",
+                        "defaultConverter": {}
+                    },
+                    "consentement": true,
+                    "defaultConverter": {}
+                }
+            ],
+            "typeIdentifiant": "",
+            "nomOccupant": "",
+            "prenomOccupant": "",
+            "opj": true,
+            "heurePerquisition": "13:13",
+            "defaultConverter": {}
+        },
+        "coiffeInitiePar": "CHEF_SERVICE_COORDINATION",
+        "de": 1609488000000,
+        "a": 1609502400000,
+        "animateur": "Animateur de la conférence*\tTEST MOBILE MRS",
+        "qualiteAnimateur": "Qualité de l'animateur*\tTEST MOBILE MRS",
+        "themeConference": "Thèmes retenus*\tTEST MOBILE MRS",
+        "marchandise": {
+            "uniteMesure": {},
+            "marque": {},
+            "marqueToString": "null(null)",
+            "uniteMesureToString": "null(null)"
+        },
+        "vehiculeSaisi": {
+            "natureVehicule": {}
+        },
+        "pvSaisi": {},
+        "validations": [
+            {
+                "commentaire": "",
+                "agentValidation": {
+                    "idActeur": "AAMM",
+                    "nom": "AMMARI",
+                    "numeroPaie": -1,
+                    "prenom": "AHMED",
+                    "refGradeLib": ""
+                }
+            },
+            {
+                "commentaire": "",
+                "agentValidation": {
+                    "idActeur": "A 568282",
+                    "nom": "JA",
+                    "numeroPaie": -1,
+                    "prenom": "RAHAL",
+                    "refGradeLib": ""
+                }
+            }
+        ],
+        "modifierAction": false,
+        "ajouterAction": false,
+        "marchandises": [
+            {
+                "id": 1638,
+                "quantite": "25",
+                "valeur": "3750",
+                "uniteMesure": {
+                    "codeUniteMesure": "049",
+                    "descriptionUniteMesure": "pièce nouvelle"
+                },
+                "marque": {
+                    "code": "48-02",
+                    "libelle": "Pneu neuf "
+                },
+                "marqueToString": "Pneu neuf (48-02)",
+                "uniteMesureToString": "pièce nouvelle(049)"
+            }
+        ],
         "defaultConverter": {},
-        "rapportExiste": true
-      }
-    },
-    "marchandisesVO": [
-      {
-        "id": 949,
-        "quantite": "1111",
-        "valeur": "111",
-        "uniteMesure": {
-          "codeUniteMesure": "002",
-          "descriptionUniteMesure": "NOMBRE"
-        },
-        "marque": {
-          "code": "28-11",
-          "libelle": "Ordinateurs (unité) "
-        },
-        "marqueToString": "Ordinateurs (unité) (28-11)",
-        "uniteMesureToString": "NOMBRE(002)"
-      },
-      {
-        "id": 950,
-        "quantite": "1212",
-        "valeur": "4545455",
-        "uniteMesure": {
-          "codeUniteMesure": "558",
-          "descriptionUniteMesure": "Unite Mesure amdaou test"
-        },
-        "marque": {
-          "code": "28-32",
-          "libelle": "ordinnateur portable "
-        },
-        "marqueToString": "ordinnateur portable (28-32)",
-        "uniteMesureToString": "Unite Mesure amdaou test(558)"
-      }
-    ],
-    "vehiculesSaisiVO": [
-      {
-        "id": 888,
-        "valeur": "1212",
-        "libelle": "gfgf",
-        "natureVehicule": {
-          "code": "3",
-          "libelle": "\tCamion"
-        },
-        "natureVehiculeToString": "\tCamion"
-      },
-      {
-        "id": 889,
-        "valeur": "444",
-        "libelle": "fgfg",
-        "natureVehicule": {
-          "code": "6",
-          "libelle": "\tEmbarcation"
-        },
-        "natureVehiculeToString": "\tEmbarcation"
-      }
-    ],
-    "typesIncident": [],
-    "typesIncidentSelect": [],
-    "dateEnregistrementV0": "2017-08-29 17:35:57.0",
-    "marchandise": {
-      "uniteMesure": {},
-      "marque": {},
-      "marqueToString": "null(null)",
-      "uniteMesureToString": "null(null)"
-    },
-    "vehiculeSaisi": {
-      "natureVehicule": {}
-    },
-    "pvSaisi": {},
-    "validations": [
-      {
-        "id": 628,
-        "commentaire": "RAs",
-        "dateValidation": 1514291548000,
-        "dateValidationString": "2017-12-26 12:32:28.0",
-        "agentValidation": {
-          "idActeur": "AD6004",
-          "nom": "AD6004",
-          "numeroPaie": -1,
-          "prenom": "AD6004",
-          "refGradeLib": ""
-        }
-      },
-      {
-        "commentaire": "",
-        "agentValidation": {
-          "idActeur": "AD6005",
-          "nom": "AD6005",
-          "numeroPaie": -1,
-          "prenom": "AD6005",
-          "refGradeLib": ""
-        }
-      },
-      {
-        "commentaire": "",
-        "agentValidation": {
-          "idActeur": "AD6006",
-          "nom": "AD6006",
-          "numeroPaie": -1,
-          "prenom": "AD6006",
-          "refGradeLib": ""
-        }
-      },
-      {
-        "commentaire": "",
-        "agentValidation": {
-          "idActeur": "AD6007",
-          "nom": "AD6007",
-          "numeroPaie": -1,
-          "prenom": "AD6007",
-          "refGradeLib": ""
-        }
-      },
-      {
-        "commentaire": "",
-        "agentValidation": {
-          "idActeur": "AD6008",
-          "nom": "AD6008",
-          "numeroPaie": -1,
-          "prenom": "AD6008",
-          "refGradeLib": ""
-        }
-      }
-    ],
-    "vehiculesSaisi": [
-      {
-        "id": 888,
-        "valeur": "1212",
-        "libelle": "gfgf",
-        "natureVehicule": {
-          "code": "3",
-          "libelle": "\tCamion"
-        },
-        "natureVehiculeToString": "\tCamion"
-      },
-      {
-        "id": 889,
-        "valeur": "444",
-        "libelle": "fgfg",
-        "natureVehicule": {
-          "code": "6",
-          "libelle": "\tEmbarcation"
-        },
-        "natureVehiculeToString": "\tEmbarcation"
-      }
-    ],
-    "pvsSaisi": [
-      {
-        "id": 2999,
-        "numPV": "4545",
-        "datePV": 1503964800000
-      },
-      {
-        "id": 3000,
-        "numPV": "1212",
-        "datePV": 1504051200000
-      }
-    ],
-    "marchandises": [
-      {
-        "id": 949,
-        "quantite": "1111",
-        "valeur": "111",
-        "uniteMesure": {
-          "codeUniteMesure": "002",
-          "descriptionUniteMesure": "NOMBRE"
-        },
-        "marque": {
-          "code": "28-11",
-          "libelle": "Ordinateurs (unité) "
-        },
-        "marqueToString": "Ordinateurs (unité) (28-11)",
-        "uniteMesureToString": "NOMBRE(002)"
-      },
-      {
-        "id": 950,
-        "quantite": "1212",
-        "valeur": "4545455",
-        "uniteMesure": {
-          "codeUniteMesure": "558",
-          "descriptionUniteMesure": "Unite Mesure amdaou test"
-        },
-        "marque": {
-          "code": "28-32",
-          "libelle": "ordinnateur portable "
-        },
-        "marqueToString": "ordinnateur portable (28-32)",
-        "uniteMesureToString": "Unite Mesure amdaou test(558)"
-      }
-    ],
-    "ajouterAction": false,
-    "modifierAction": false,
-    "validerAction": false,
-    "consulterAction": false,
-    "defaultConverter": {}
-  }
+        "validerAction": false,
+        "vehiculesSaisi": [
+            {
+                "id": 1570,
+                "valeur": "299000",
+                "libelle": "RENAULT master",
+                "natureVehicule": {
+                    "code": "4",
+                    "libelle": "\tFourgon"
+                },
+                "natureVehiculeToString": "\tFourgon"
+            }
+        ],
+        "pvsSaisi": [
+            {
+                "id": 3701,
+                "numPV": "123456",
+                "datePV": 1633305600000
+            }
+        ],
+        "consulterAction": false
+    }
 }

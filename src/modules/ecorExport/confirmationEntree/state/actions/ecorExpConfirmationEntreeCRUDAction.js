@@ -20,7 +20,7 @@ export function request(action, navigation) {
     )
       .then((response) => {
         if (response) {
-          console.log('response action confirmationentre', response);
+          // console.log('response action confirmationentre', response);
           const data = response.data;
           if (data && _.isEmpty(data.dtoHeader.messagesErreur)) {
             console.log('data', data);

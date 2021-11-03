@@ -57,8 +57,10 @@ export default (state = initialState, action) => {
     case Constants.INITCONFIRMATIONENTREE_ETATCHARGEMENT_REQUEST:
       nextState.displayError = false;
       nextState.errorMessage = null;
+      nextState.infoMessage = null;
       nextState.showProgress = true;
       nextState.data = [];
+      nextState.ecorIsSaved = false;
       return nextState;
     case Constants.INITCONFIRMATIONENTREE_ETATCHARGEMENT_IN_PROGRESS:
       return nextState;
@@ -101,9 +103,10 @@ export default (state = initialState, action) => {
       return nextState;
     case Constants.CONFIRMERNTREE_SUCCESS:
       nextState.errorMessage = null;
-      if (action.value.dtoHeader) {
-        nextState.infoMessage = action.value.dtoHeader.messagesInfo;
-      }
+      // if (action.value.dtoHeader) {
+      nextState.infoMessage = action?.value?.data?.dtoHeader?.messagesInfo;
+      // }
+      console.log(nextState);
       nextState.showProgress = false;
       //nextState.data = action.value.data;
       nextState.ecorIsSaved = true;

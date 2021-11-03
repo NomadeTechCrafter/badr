@@ -12,6 +12,8 @@ import {connect} from 'react-redux';
 import translate from '../../../../commons/i18n/ComI18nHelper';
 import styles from '../style/ecorExpConfirmationEntreeStyle';
 import _ from 'lodash';
+import * as Constants from '../state/ecorExpConfirmationEntreeConstants';
+import * as ConfirmationEntreeCRUDAction from '../state/actions/ecorExpConfirmationEntreeCRUDAction';
 
 class ConfirmationEntreeResultScreen extends React.Component {
   constructor(props) {
@@ -70,7 +72,13 @@ class ConfirmationEntreeResultScreen extends React.Component {
       : [];
   };
 
-  componentDidMount() {}
+  componentDidMount() {
+    // var action = ConfirmationEntreeCRUDAction.init({
+    //   type: Constants.CONFIRMERNTREE_INIT,
+    //   value: {},
+    // });
+    // this.props.actions.dispatch(action);
+  }
 
   componentDidUpdate() {
     /*if (this.props.route.params.first) {
@@ -116,7 +124,7 @@ class ConfirmationEntreeResultScreen extends React.Component {
           {!_.isEmpty(this.props.data) &&
             !_.isEmpty(this.props.data.listDeclaration) && (
               <ComBasicDataTableComp
-                ref="_badrTable"
+                // ref="_badrTable"
                 id="listConfirmationEntree"
                 rows={this.props.data.listDeclaration}
                 cols={this.cols}
