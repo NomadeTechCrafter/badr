@@ -1,12 +1,12 @@
 import { TYPE_SERVICE_SP, TYPE_SERVICE_UC } from '../../../../../commons/constants/ComGlobalConstants';
 import ComHttpHelperApi from '../../../../../commons/services/api/common/ComHttpHelperApi';
-import { ComComSessionServiceService } from '../../../../../commons/services/ComSessionService/ComComSessionServiceService';
+import { ComSessionService } from '../../../../../commons/services/session/ComSessionService';
 
 export default class DedRedressementApi {
   static initConsultationDum = async (params) => {
     const data = {
       dtoHeader: {
-        userLogin: ComComSessionServiceService.getInstance().getLogin(),
+        userLogin: ComSessionService.getInstance().getLogin(),
         fonctionnalite: 'cf9005',
         module: 'DED_LIB',
         commande: 'ded.RecupererDum',
@@ -21,7 +21,7 @@ export default class DedRedressementApi {
   static consultationDum = async (params) => {
     const data = {
       dtoHeader: {
-        userLogin: ComComSessionServiceService.getInstance().getLogin(),
+        userLogin: ComSessionService.getInstance().getLogin(),
         fonctionnalite: 'cf9005',
         module: 'DED_LIB',
         commande: 'ded.ConsulterDum',
@@ -36,7 +36,7 @@ export default class DedRedressementApi {
   static getDecisionCaution = async (numeroDecision) => {
     const data = {
       dtoHeader: {
-        userLogin: ComComSessionServiceService.getInstance().getLogin(),
+        userLogin: ComSessionService.getInstance().getLogin(),
         fonctionnalite: 'cf9005',
         module: 'DED_LIB',
         commande: 'ded.getDecisionCautionVO',
