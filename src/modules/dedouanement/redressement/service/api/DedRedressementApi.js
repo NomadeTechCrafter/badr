@@ -1,16 +1,12 @@
-import HttpHelper from '../../../../../commons/services/api/common/HttpHelper';
-/** Inmemory session */
-import {Session} from '../../../../../commons/services/session/Session';
-import {
-  TYPE_SERVICE_SP,
-  TYPE_SERVICE_UC,
-} from '../../../../../commons/constants/GlobalConstants';
+import { TYPE_SERVICE_SP, TYPE_SERVICE_UC } from '../../../../../commons/constants/ComGlobalConstants';
+import ComHttpHelperApi from '../../../../../commons/services/api/common/ComHttpHelperApi';
+import { ComComSessionServiceService } from '../../../../../commons/services/ComSessionService/ComComSessionServiceService';
 
 export default class DedRedressementApi {
   static initConsultationDum = async (params) => {
     const data = {
       dtoHeader: {
-        userLogin: Session.getInstance().getLogin(),
+        userLogin: ComComSessionServiceService.getInstance().getLogin(),
         fonctionnalite: 'cf9005',
         module: 'DED_LIB',
         commande: 'ded.RecupererDum',
@@ -18,14 +14,14 @@ export default class DedRedressementApi {
       },
       jsonVO: params,
     };
-    let response = await HttpHelper.process(data);
+    let response = await ComHttpHelperApi.process(data);
     return response;
   };
 
   static consultationDum = async (params) => {
     const data = {
       dtoHeader: {
-        userLogin: Session.getInstance().getLogin(),
+        userLogin: ComComSessionServiceService.getInstance().getLogin(),
         fonctionnalite: 'cf9005',
         module: 'DED_LIB',
         commande: 'ded.ConsulterDum',
@@ -33,14 +29,14 @@ export default class DedRedressementApi {
       },
       jsonVO: params,
     };
-    let response = await HttpHelper.process(data);
+    let response = await ComHttpHelperApi.process(data);
     return response;
   };
 
   static getDecisionCaution = async (numeroDecision) => {
     const data = {
       dtoHeader: {
-        userLogin: Session.getInstance().getLogin(),
+        userLogin: ComComSessionServiceService.getInstance().getLogin(),
         fonctionnalite: 'cf9005',
         module: 'DED_LIB',
         commande: 'ded.getDecisionCautionVO',
@@ -48,7 +44,7 @@ export default class DedRedressementApi {
       },
       jsonVO: numeroDecision,
     };
-    let response = await HttpHelper.process(data);
+    let response = await ComHttpHelperApi.process(data);
     return response;
   };
 
@@ -74,14 +70,14 @@ export default class DedRedressementApi {
             "redressement": "true"
           }
     };
-    let response = await HttpHelper.process(data);
+    let response = await ComHttpHelperApi.process(data);
     return response;
 
   }
   static initRedresserDum = async (idDed) => {
     const data = {
       dtoHeader: {
-        userLogin: Session.getInstance().getLogin(),
+        userLogin: ComSessionService.getInstance().getLogin(),
         fonctionnalite: 'cf9005',
         module: 'DED_LIB',
         commande: 'ded.InitRedresserDum',
@@ -89,7 +85,7 @@ export default class DedRedressementApi {
       },
       jsonVO: idDed,
     };
-    let response = await HttpHelper.process(data);
+    let response = await ComHttpHelperApi.process(data);
     return response;
   };
 
