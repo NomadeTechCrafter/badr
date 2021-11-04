@@ -33,6 +33,8 @@ import ControleInfoScreen from './onglets/info/ControleInfoScreen';
 import ControleReconnaissanceScreen from './onglets/reconnaissance/ControleReconnaissanceScreen';
 import ControleBonDelivrerScreen from './onglets/bonDelivrer/ControleBonDelivrerScreen';
 import ControleDeclarationsApurementScreen from './onglets/declarationsApurement/ControleDeclarationsApurementScreen';
+import * as dedInitRedresserDumAction from '../../../dedouanement/redressement/state/actions/dedInitRedresserDumAction';
+import { GENERIC_REQUEST } from '../../../../commons/constants/generic/ComGenericConstants';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -198,6 +200,32 @@ class ControleACVPScreen extends Component {
     console.log('dispatch fired !!');
   };
 
+
+  redresserDeclaration = () => {
+
+    var data = this.state.declaration.idDed;
+
+    console.log('data----', data);
+    var action = dedInitRedresserDumAction.request(
+      {
+        type: GENERIC_REQUEST,
+        value: {
+          jsonVO: {
+            reference: this.state.refDeclaration,
+            nVoyage: this.state.numeroVoyage,
+            enregistre: true,
+          },
+          idDed: data,
+          cle: this.state.cle,
+        },
+      },
+      this.props.navigation,
+    );
+    this.props.dispatch(action);
+    console.log('dispatch fired !!');
+
+  };
+
   /*static getDerivedStateFromProps(props, state) {
     if (
       props.reponseData &&
@@ -336,38 +364,41 @@ class ControleACVPScreen extends Component {
               </View>*/}
 
             <Row pointerEvents={this.state.isConsultation ? 'none' : 'auto'}>
-                <Col size={1} />
-                <Col size={3}>
-                  <ComBadrButtonIconComp
-                    style={styles.actionBtn}
-                    onPress={() => {
-                      this.sauvgarder('sauvegarder');
-                    }}
-                    disabled={this.state.decisionControle ? false : true}
-                    icon="check-circle-outline"
-                    text={translate('controle.sauvegarder')}
-                  />
-                </Col>
-                <Col size={3}>
-                  <ComBadrButtonIconComp
-                    style={styles.actionBtn}
-                    onPress={() => {
-                      this.sauvgarder('valider');
-                    }}
-                    disabled={this.state.decisionControle ? false : true}
-                    icon="check-circle-outline"
-                    text={translate('controle.validerControle')}
-                  />
-                </Col>
-                <Col size={3}>
-                  <ComBadrButtonIconComp
-                    style={styles.actionBtn}
-                    icon="check-circle-outline"
-                    text={translate('controle.redresserDeclaration')}
-                  />
-                </Col>
-                <Col size={1} />
-              </Row>
+              <Col size={1} />
+              <Col size={3}>
+                <ComBadrButtonIconComp
+                  style={styles.actionBtn}
+                  onPress={() => {
+                    this.sauvgarder('sauvegarder');
+                  }}
+                  disabled={this.state.decisionControle ? false : true}
+                  icon="check-circle-outline"
+                  text={translate('controle.sauvegarder')}
+                />
+              </Col>
+              <Col size={3}>
+                <ComBadrButtonIconComp
+                  style={styles.actionBtn}
+                  onPress={() => {
+                    this.sauvgarder('valider');
+                  }}
+                  disabled={this.state.decisionControle ? false : true}
+                  icon="check-circle-outline"
+                  text={translate('controle.validerControle')}
+                />
+              </Col>
+              <Col size={3}>
+                <ComBadrButtonIconComp
+                  style={styles.actionBtn}
+                  icon="check-circle-outline"
+                  text={translate('controle.redresserDeclaration')}
+                  onPress={() => {
+                    this.redresserDeclaration();
+                  }}
+                />
+              </Col>
+              <Col size={1} />
+            </Row>
           </View>
         </ComContainerComp>
       </View>

@@ -77,6 +77,20 @@ export default class DedRedressementApi {
     let response = await HttpHelper.process(data);
     return response;
 
-}
+  }
+  static initRedresserDum = async (idDed) => {
+    const data = {
+      dtoHeader: {
+        userLogin: Session.getInstance().getLogin(),
+        fonctionnalite: 'cf9005',
+        module: 'DED_LIB',
+        commande: 'ded.InitRedresserDum',
+        typeService: TYPE_SERVICE_UC,
+      },
+      jsonVO: idDed,
+    };
+    let response = await HttpHelper.process(data);
+    return response;
+  };
 
 }

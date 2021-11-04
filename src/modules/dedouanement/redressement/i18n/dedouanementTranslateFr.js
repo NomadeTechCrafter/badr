@@ -8,6 +8,9 @@ export default {
       libelleRegime: 'Régime : ',
       declarationEnreg: 'Déclaration enregistrée',
     },
+    redressement: {
+      title: 'REDRESSER DECLARATION'
+    },
     confirmerEnvoiValeur: 'ENVOYER A LA VALEUR',
     confirmerTraitementValeur: 'TRAITER LA VALEUR',
     info: {
