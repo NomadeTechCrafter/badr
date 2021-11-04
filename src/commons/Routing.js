@@ -80,7 +80,7 @@ const mapping = {
   '5202': {screen: 'LiquidationRechercheScreen', params: {qr: false}},*/
 
   /*T6bis creation*/
-  /* '110001': {screen: 'T6bisCreation', params: {}},
+  '110001': {screen: 'T6bisCreation', params: {}},
   '110002': {
     screen: 'T6bisRecherche',
     params: {title: 'Ecran Modification T6bis'},
@@ -93,7 +93,7 @@ const mapping = {
     screen: 'T6bisRecherche',
     params: {title: 'Ecran  Recherche T6BIS'},
   },
-  */
+  
 };
 
 const ionicMapping = {};
