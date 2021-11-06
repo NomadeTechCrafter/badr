@@ -13,20 +13,20 @@
         "rowCount": 0
     },
     "jsonVO": {
-        "documentEntreeEnceinte": "2121",
+        "documentEntreeEnceinte": "",
         "numeroPince": "",
         "sousReserve": false,
         "nombreScelle": "",
         "nombreScelleConfirmationEntree": "",
-        "numeroVoyage": "21212a2121",
+        "numeroVoyage": "2541",
         "dateHeureAutorisation": "",
-        "dateHeureEntree": "13/07/2021 22:50",
-        "dateHeureAcheminement": "13/07/2021 22:54",
-        "dateHeureVoyage": "13/07/2021 22:59",
-        "dateHeureEmbarquement": "13/07/2021 22:59",
-        "dateHeureArrive": "13/07/2021 22:56",
-        "dateHeureCtrlApresScanner": "",
-        "commentaireEmbarquement": "a221",
+        "dateHeureEntree": "11/07/2021 18:35",
+        "dateHeureAcheminement": "11/07/2021 20:38",
+        "dateHeureVoyage": "11/07/2021 20:46",
+        "dateHeureEmbarquement": "11/07/2021 20:45",
+        "dateHeureArrive": "11/07/2021 20:40",
+        "dateHeureCtrlApresScanner": "12/07/2021 16:02",
+        "commentaireEmbarquement": "a",
         "refAgentEmbarquement": {
             "idActeur": "AGTYAS",
             "nom": "SGHIR",
@@ -123,14 +123,14 @@
             "valeurDeclaree": "1000.0",
             "nombreContenant": "",
             "typeDeD": "DUM",
-            "dateEnregistrement": "13/07/2021 19:39",
+            "dateEnregistrement": "11/07/2021 17:04",
             "nombreContenants": "2",
             "libelleTypeDED": "DUM",
             "defaultConverter": {}
         },
         "refMainlevee": {
-            "dateValidation": "13/07/2021 22:51",
-            "dateImpression": "13/07/2021 22:51",
+            "dateValidation": "11/07/2021 18:35",
+            "dateImpression": "11/07/2021 18:35",
             "refAgentValidation": {
                 "idActeur": "SYSACTOR",
                 "nom": "Système",
@@ -161,8 +161,8 @@
         "depuisDelivrerBonEntree": false,
         "refAgentCrtlApresScanner": {
             "idActeur": "",
-            "nom": "",
-            "prenom": "",
+            "nom": "SGHIR",
+            "prenom": "Yassine",
             "refBureau": {
                 "codeBureau": "",
                 "nomBureauDouane": "",
@@ -170,13 +170,17 @@
             },
             "defaultConverter": {}
         },
-        "numeroPinceCrtlApresScanner": "",
-        "nombreScelleCrtlApresScanner": "",
+        "infoEcorScelleCrtlApresScanner": true,
+        "numeroPinceCrtlApresScanner": "1221",
+        "nombreScelleCrtlApresScanner": "1",
         "scelles": {},
         "scellesConfirmationEntree": {},
         "scellesAutorisationAcheminement": {},
-        "scellesCrtlApresScanner": {},
+        "scellesCrtlApresScanner": {
+            "55224411": "55224411"
+        },
         "infoEcorScelle": false,
+        "transporteurExploitantMEADCrtlApresScanner": "1060",
         "defaultConverter": {}
     }
 }

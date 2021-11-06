@@ -14,8 +14,9 @@ export default {
     numeroVoyage: 'Numéro du voyage',
     dateHeure: 'Date Heure *',
     ABANDONNER: 'ABANDONNER',
+    SUPPRIMER: 'SUPPRIMER',
+    numerosScelles: 'Numéros scellés',
     
-
     //Version
     type: 'Type',
     numeroVersion: 'N°',
