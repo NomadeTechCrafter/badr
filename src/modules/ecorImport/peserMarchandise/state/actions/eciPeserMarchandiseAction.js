@@ -3,7 +3,7 @@ import {
   GENERIC_ECI_FAILED,
   GENERIC_ECI_IN_PROGRESS,
   GENERIC_ECI_SUCCESS,
-} from '../EcorImportConstants';
+} from '../eciPeserMarchandiseConstants';
 import translate from '../../../../../commons/i18n/ComI18nHelper';
 import TransverseApi from '../../../../../commons/services/api/ComTransverseApi';
 import _ from 'lodash';

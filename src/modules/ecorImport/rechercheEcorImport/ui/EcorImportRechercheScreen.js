@@ -9,7 +9,7 @@ import {translate} from '../../../../commons/i18n/ComI18nHelper';
 
 class EcorImportRechercheScreen extends Component {
   getInfoEcorImport = () => {
-    let typeEcorImport = 'EnleverMarchandise'; //this.props.route.params.typeEcorImport;
+    let typeEcorImport = this.props.route.params.typeEcorImport;
     switch (typeEcorImport) {
       case 'EnleverMarchandise':
         return {
@@ -22,6 +22,18 @@ class EcorImportRechercheScreen extends Component {
           successRedirectionScreen: 'EnleverMarchandiseParPesage',
           subtitle: translate('ecorimport.enleverMarchandiseParPesage.title'),
           commande: 'initEnleverMarchandiseParPesage',
+        };
+      case 'PeserMarchandise':
+        return {
+          successRedirectionScreen: 'PeserMarchandise',
+          subtitle: translate('ecorimport.peserMarchandise.title'),
+          commande: 'initPeserMarchandise',
+        };
+      case 'VerifierParContreEcor':
+        return {
+          successRedirectionScreen: 'VerifierParContreEcor',
+          subtitle: translate('ecorimport.verifierParContreEcor.title'),
+          commande: 'initVerifierParContreEcor',
         };
     }
   };

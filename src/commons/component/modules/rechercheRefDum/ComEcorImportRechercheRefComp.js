@@ -31,11 +31,11 @@ import * as RechecheDumAction from '../../../../modules/ecorImport/rechercheEcor
 
 class ComEcorImportRechercheRefComp extends Component {
   defaultState = {
-    bureau: '309',
-    regime: '085',
-    annee: '2020',
-    serie: '0000035',
-    cle: 'T',
+    bureau: '',
+    regime: '',
+    annee: '',
+    serie: '',
+    cle: '',
     cleValide: '',
     login: '',
     numeroVoyage: '',
@@ -99,10 +99,10 @@ class ComEcorImportRechercheRefComp extends Component {
     console.log('retablir');
     this.setState({...this.defaultState});
   };
-  initWSData = (referenceDed) => {
+  initWSData = (referenceDed, numeroVoyage) => {
     return {
       referenceEnregistrement: referenceDed,
-      numeroOrdreVoyage: '',
+      numeroOrdreVoyage: numeroVoyage,
       indentifiant: '',
     };
   };
@@ -119,7 +119,7 @@ class ComEcorImportRechercheRefComp extends Component {
           this.state.regime +
           this.state.annee +
           this.state.serie;
-        var data = this.initWSData(referenceDed);
+        var data = this.initWSData(referenceDed, this.state.numeroVoyage);
         var action = RechecheDumAction.request(
           {
             type: Constants.RECHERCHEREFDUM_REQUEST,
@@ -130,6 +130,7 @@ class ComEcorImportRechercheRefComp extends Component {
               typeService: this.props.typeService,
               data: data,
               referenceDed: referenceDed,
+              numeroVoyage: this.state.numeroVoyage,
               cle: this.state.cle,
             },
           },
