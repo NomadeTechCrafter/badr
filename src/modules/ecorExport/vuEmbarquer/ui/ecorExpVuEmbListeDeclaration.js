@@ -9,7 +9,10 @@ import _ from 'lodash';
 
 import { CustomStyleSheet, primaryColor } from '../../../../commons/styles/ComThemeStyle';
 import * as getCmbOperateurByCodeAction from '../../autoriserAcheminement/mainScreen/state/actions/getCmbOperateurByCodeAction';
+import * as ConfirmerVuEmbAction from '../state/actions/ecorExpVuEmbConfirmerAction';
+import * as SupprimerVuEmbAction from '../state/actions/ecorExpVuEmbSupprimerAction';
 import * as Constants from '../../autoriserAcheminement/mainScreen/state/autoriserAcheminementMainConstants';
+import * as VuEmbConstants from '../state/ecorExpVuEmbarquerConstants';
 import { isCreation, stringNotEmpty } from '../../../t6bis/utils/t6bisUtils';
 
 /**Custom Components */
@@ -20,6 +23,7 @@ import {
   ComBadrCardBoxComp,
   ComBadrDatePickerComp,
   ComBadrErrorMessageComp,
+  ComBadrInfoMessageComp,
   ComBadrLibelleComp,
   ComBadrNumericTextInputComp,
   ComBadrProgressBarComp,
@@ -30,6 +34,7 @@ import {
 import { connect } from 'react-redux';
 import { Col, Grid, Row } from 'react-native-easy-grid';
 import { Button, HelperText, RadioButton, TextInput } from 'react-native-paper';
+import { ComSessionService } from '../../../../commons/services/session/ComSessionService';
 
 const initialState = {
   ecorDUM: null,
@@ -65,7 +70,7 @@ class VuEmbListeDeclaration extends React.Component {
           modeConsultation: true,
           dateVuEmbarquer: jsonVO?.dateHeureEmbarquement?.slice(0, 10),
           heureVuEmbarquer: jsonVO?.dateHeureEmbarquement?.slice(11, 16),
-          navire: jsonVO?.refMoyenTransport?.descriptionMoyenTransport + '(' + jsonVO?.refMoyenTransport?.codeMoyenTransport + ')',
+          navire: jsonVO?.refMoyenTransport?.codeMoyenTransport ? jsonVO?.refMoyenTransport?.descriptionMoyenTransport + '(' + jsonVO?.refMoyenTransport?.codeMoyenTransport + ')' : '',
           dateVoyage: jsonVO?.dateHeureVoyage?.slice(0, 10),
           heureVoyage: jsonVO?.dateHeureVoyage?.slice(11, 16),
           numeroVoyage: jsonVO?.numeroVoyage,
@@ -151,7 +156,71 @@ class VuEmbListeDeclaration extends React.Component {
       this.setState({ erreur: 'Date et Heure embarquement: Valeur obligatoire.' });
     } else {
       this.setState({ erreur: null });
-      console.log(JSON.stringify(this.state));
+      // console.log(JSON.stringify(this.state));
+      let data = this.state?.ecorDUM;
+      let localReference = this.props?.route?.params?.params?.params;
+
+      delete data?.refAgentEmbarquement?.defaultConverter;
+      delete data?.refAgentEmbarquement?.refBureau?.defaultConverter;
+
+      delete data?.refAgentEntree?.defaultConverter;
+      delete data?.refAgentEntree?.refBureau?.defaultConverter;
+
+      delete data?.refAgentAutorisationAcheminement?.defaultConverter;
+      delete data?.refAgentAutorisationAcheminement?.refBureau?.defaultConverter;
+
+      delete data?.refAgentAnnulationEmbarquement?.defaultConverter;
+      delete data?.refAgentAnnulationEmbarquement?.refBureau?.defaultConverter;
+
+      delete data?.refAgentAutorisation?.defaultConverter;
+      delete data?.refAgentAutorisation?.refBureau?.defaultConverter;
+
+      delete data?.refAgentConfirmationArrive?.defaultConverter;
+      delete data?.refAgentConfirmationArrive?.refBureau?.defaultConverter;
+
+      delete data?.refMoyenTransport?.defaultConverter;
+      delete data?.refMoyenTransport?.refModeTransport?.defaultConverter;
+
+      delete data?.refDUM?.defaultConverter;
+      delete data?.refDedServices?.defaultConverter;
+
+      delete data?.refMainlevee?.defaultConverter;
+
+      delete data?.refMainlevee?.refAgentValidation?.defaultConverter;
+      delete data?.refMainlevee?.refAgentValidation?.refBureau?.defaultConverter;
+
+      delete data?.refMainlevee?.refAgentEdition?.defaultConverter;
+      delete data?.refMainlevee?.refAgentEdition?.refBureau?.defaultConverter;
+
+      delete data?.refAgentCrtlApresScanner?.defaultConverter;
+      delete data?.refAgentCrtlApresScanner?.refBureau?.defaultConverter;
+
+      delete data?.defaultConverter;
+
+
+      data.refDUM = localReference;
+      data.dateHeureEmbarquement = this.state.dateVuEmbarquer + ' ' + this.state.heureVuEmbarquer;
+      data.dateHeureVoyage = this.state.dateVoyage + ' ' + this.state.heureVoyage;
+      data.numeroVoyage = this.state.numeroVoyage;
+      data.commentaireEmbarquement = this.state.commentaire;
+      data.refMoyenTransport = {
+        codeMoyenTransport: this.state.moyenTransportCode,
+        descriptionMoyenTransport: this.state.navire
+      };
+
+      var action = ConfirmerVuEmbAction.request(
+        {
+          type: VuEmbConstants.VU_EMB_CONFIRMER_REQUEST,
+          value: {
+            login: ComSessionService.getInstance().getLogin(),
+            commande: "confirmerVuEmbarquer",
+            module: "ECOREXP_LIB",
+            typeService: "UC",
+            data: data,
+          },
+        }
+      );
+      this.props.actions.dispatch(action);
     }
   };
 
@@ -160,6 +229,23 @@ class VuEmbListeDeclaration extends React.Component {
   };
 
   supprimerVuEmbarquer = () => {
+    let localReference = this.props?.route?.params?.params?.params;
+
+    let data = { refDUM: localReference };
+
+    var action = SupprimerVuEmbAction.request(
+      {
+        type: VuEmbConstants.VU_EMB_SUPPRIMER_REQUEST,
+        value: {
+          login: ComSessionService.getInstance().getLogin(),
+          commande: "supprimerVuEmbarquer",
+          module: "ECOREXP_LIB",
+          typeService: "UC",
+          data: data,
+        },
+      }
+    );
+    this.props.actions.dispatch(action);
   };
 
 
@@ -181,6 +267,22 @@ class VuEmbListeDeclaration extends React.Component {
             message={this.state.erreur}
           />
         </View>
+        {this.props?.messageInfo != null && (
+          <View style={styles.messages}>
+            <ComBadrInfoMessageComp
+              style={styles.centerInfoMsg}
+              message={this.props?.messageInfo}
+            />
+          </View>
+        )}
+        {this.props?.errorMessage != null && (
+          <View style={styles.messages}>
+            <ComBadrErrorMessageComp
+              style={styles.centerInfoMsg}
+              message={this.props?.errorMessage}
+            />
+          </View>
+        )}
         <ScrollView>
           <ComBadrCardBoxComp style={styles.cardBoxInfoDum}>
             <Row>
@@ -1057,7 +1159,7 @@ class VuEmbListeDeclaration extends React.Component {
                       text={translate('etatChargementVE.buttonConfirmerVuEmbarquer')}
                     />
                   )}
-                  {(!_.isEmpty(this.props?.value?.jsonVO?.dateHeureEmbarquement) &&
+                  {((!_.isEmpty(this.props?.value?.jsonVO?.dateHeureEmbarquement)) &&
                     <ComBadrButtonIconComp
                       onPress={() => this.supprimerVuEmbarquer()}
                       style={styles.buttonIcon}
