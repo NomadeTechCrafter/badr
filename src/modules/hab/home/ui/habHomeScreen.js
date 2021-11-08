@@ -35,7 +35,6 @@ import RechecheMLV from '../../../../old/screens/mainlevee/rechercheMLV';
 import ListDeclarationMLV from '../../../../old/screens/mainlevee/listedeclarationsMLV';
 import DelivrerMLV from '../../../../old/screens/mainlevee/delivrerMLV';
 import RechercheEcorImport from '../../../../old/screens/ecorImport/rechercheEcorImport';
-import EcorImportRechercheScreen from '../../../ecorImport/rechercheEcorImport/ui/EcorImportRechercheScreen';
 import AjouterReconnaissance from '../../../controle/reconnaissance/ui/ajouterReconnaissance/ctrlAjouterReconnaissanceScreen';
 import ModifierReconnaissance from '../../../controle/reconnaissance/ui/modifierReconnaissance/ctrlModifierReconnaissanceScreen';
 import AnnulerReconnaissance from '../../../controle/reconnaissance/ui/annulerReconnaissance/ctrlAnnulerReconnaissanceScreen';
@@ -94,7 +93,11 @@ import ConfirmationEntreeArriveeRechercheScreen from '../../../ecorExport/confir
 import ConfirmationEntreeResultScreen from '../../../ecorExport/confirmationEntree/ui/ecorExpConfirmationEntreeResultScreen';
 import ConfirmationArriveeResultScreen from '../../../ecorExport/confirmationArrivee/ui/ecorExpConfirmationArriveeResultScreen';
 
-
+import EcorImportRechercheScreen from '../../../ecorImport/rechercheEcorImport/ui/EcorImportRechercheScreen';
+import EcorImportEnleverMarchandiseScreen from '../../../ecorImport/enleverMarchandise/ui/EcorImportEnleverMarchandiseScreen';
+import EciEnleverMarchandiseParPesageScreen from '../../../ecorImport/enleverMarchandiseParPesage/ui/eciEnleverMarchandiseParPesageScreen';
+import EciPeserMarchandiseScreen from '../../../ecorImport/peserMarchandise/ui/eciPeserMarchandiseScreen';
+import EciVerifierParContreEcorScreen from '../../../ecorImport/verifierParContreEcor/ui/eciVerifierParContreEcorScreen';
 
 const Drawer = createDrawerNavigator();
 const deltaScreen = Dimensions.get('window').width / 4;
@@ -217,6 +220,26 @@ class habHomeScreen extends React.Component {
         <Drawer.Screen
           name="RechercheEcorImport"
           component={EcorImportRechercheScreen}
+          options={{ headerShown: false }}
+        />
+        <Drawer.Screen
+          name="EnleverMarchandise"
+          component={EcorImportEnleverMarchandiseScreen}
+          options={{ headerShown: false }}
+        />
+        <Drawer.Screen
+          name="EnleverMarchandiseParPesage"
+          component={EciEnleverMarchandiseParPesageScreen}
+          options={{ headerShown: false }}
+        />
+        <Drawer.Screen
+          name="PeserMarchandise"
+          component={EciPeserMarchandiseScreen}
+          options={{ headerShown: false }}
+        />
+        <Drawer.Screen
+          name="VerifierParContreEcor"
+          component={EciVerifierParContreEcorScreen}
           options={{ headerShown: false }}
         />
         <Drawer.Screen

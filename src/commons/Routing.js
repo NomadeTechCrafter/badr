@@ -53,6 +53,23 @@ const mapping = {
     params: { title: 'Ecran  Recherche Consultation BLE' },
   },
   '9932': { screen: 'ActifsRecherche', params: {} },
+
+  '1201': {
+    screen: 'RechercheEcorImport',
+    params: { typeEcorImport: 'EnleverMarchandise' },
+  },
+  '1202': {
+    screen: 'RechercheEcorImport',
+    params: { typeEcorImport: 'PeserMarchandise' },
+  },
+  '1203': {
+    screen: 'RechercheEcorImport',
+    params: { typeEcorImport: 'EnleverMarchandiseParPesage' },
+  },
+  '1204': {
+    screen: 'RechercheEcorImport',
+    params: { typeEcorImport: 'VerifierParContreEcor' },
+  },
   /*
   '1226': {
     screen: 'ECIAppositionScellesRechercheScreen',
@@ -69,14 +86,6 @@ const mapping = {
 
   '2052': {screen: 'DedRechercheRedressement', params: {qr: false}},
   '5971': {screen: 'RechecheMLV', params: {}},
-  '1201': {
-    screen: 'RechercheEcorImport',
-    params: {typeEcorImport: 'EnleverMarchandise'},
-  },
-  '1203': {
-    screen: 'RechercheEcorImport',
-    params: {typeEcorImport: 'EnleverMarchandiseParPesage'},
-  },
   '5202': {screen: 'LiquidationRechercheScreen', params: {qr: false}},*/
 
   /*T6bis creation*/

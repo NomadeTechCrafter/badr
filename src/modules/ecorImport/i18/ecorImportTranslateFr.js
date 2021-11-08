@@ -73,6 +73,7 @@ export default {
         title: 'Relevé de pesage',
         numPontBascule: 'N° Pont Bascule',
         tares: 'Tares',
+        poidsBrut: 'Poids brut',
       },
       errors: {
         poidsBrutIsSupTare: 'Le Poids brût doit être supérieure à la tares',
