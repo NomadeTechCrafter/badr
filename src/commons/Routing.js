@@ -70,11 +70,12 @@ const mapping = {
     screen: 'RechercheEcorImport',
     params: { typeEcorImport: 'VerifierParContreEcor' },
   },
-  /*
+
   '1226': {
     screen: 'ECIAppositionScellesRechercheScreen',
     params: {},
   },
+    /*
   '6064': {screen: 'PecEtatChargementMainScreen', params: {}},
   '14000010': {screen: 'CreerCompteRenduMission', params: {}},
   '14000011': {screen: 'ModifierCompteRenduMission', params: {}},

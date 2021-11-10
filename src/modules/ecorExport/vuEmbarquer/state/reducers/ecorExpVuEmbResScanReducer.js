@@ -18,6 +18,7 @@ export default (state = initialState, action) => {
       nextState.errorMessage = null;
       nextState.showProgress = true;
       nextState.dataScanner = null;
+      nextState.success = false;
       return nextState;
     case Constants.SCANNER_VU_EMB_IN_PROGRESS:
       return nextState;
@@ -25,6 +26,7 @@ export default (state = initialState, action) => {
       nextState.errorMessage = null;
       nextState.showProgress = false;
       nextState.dataScanner = action?.value?.jsonVO;
+      nextState.success = true;
 
       console.log('nextState Resultat Scanner VuEmbarquer : ' + JSON.stringify(nextState));
       return nextState;
@@ -34,6 +36,7 @@ export default (state = initialState, action) => {
       nextState.errorMessage = action?.value?.dtoHeader?.messagesErreur
         ? action?.value?.dtoHeader?.messagesErreur
         : translate('errors.technicalIssue');
+      nextState.success = false;
       return nextState;
     case Constants.SCANNER_VU_EMB_INIT:
       return initialState;

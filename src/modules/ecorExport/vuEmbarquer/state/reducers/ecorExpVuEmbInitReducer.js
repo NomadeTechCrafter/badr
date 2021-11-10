@@ -37,7 +37,7 @@ export default (state = initialState, action) => {
       nextState.messageInfo = null;
       nextState.errorMessage = null;
       nextState.data = {};
-      nextState.success = false;
+      nextState.successAction = false;
       if (nextState.successMessage) {
         delete nextState.successMessage;
       }
@@ -50,13 +50,13 @@ export default (state = initialState, action) => {
       nextState.showProgress = false;
       nextState.data = action.value.jsonVO;
       nextState.messageInfo = action.value.dtoHeader.messagesInfo;
-      nextState.success = true;
+      nextState.successAction = true;
       return nextState;
     case Constants.VU_EMB_SUPPRIMER_FAILED:
       nextState.showProgress = false;
       nextState.displayError = true;
       nextState.messageInfo = null;
-      nextState.success = false;
+      nextState.successAction = false;
       nextState.errorMessage = action?.value?.dtoHeader?.messagesErreur
         ? action?.value?.dtoHeader?.messagesErreur
         : translate('errors.technicalIssue');
@@ -68,7 +68,7 @@ export default (state = initialState, action) => {
       nextState.messageInfo = null;
       nextState.errorMessage = null;
       nextState.data = {};
-      nextState.success = false;
+      nextState.successAction = false;
       if (nextState.successMessage) {
         delete nextState.successMessage;
       }
@@ -81,13 +81,13 @@ export default (state = initialState, action) => {
       nextState.showProgress = false;
       nextState.data = action.value.jsonVO;
       nextState.messageInfo = action.value.dtoHeader.messagesInfo;
-      nextState.success = true;
+      nextState.successAction = true;
       return nextState;
     case Constants.VU_EMB_CONFIRMER_FAILED:
       nextState.showProgress = false;
       nextState.displayError = true;
       nextState.messageInfo = null;
-      nextState.success = false;
+      nextState.successAction = false;
       console.log('response Confirmer VuEmbarquer : ' + JSON.stringify(action));
       nextState.errorMessage = action?.value?.dtoHeader?.messagesErreur
         ? action?.value?.dtoHeader?.messagesErreur
