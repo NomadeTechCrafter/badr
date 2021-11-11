@@ -27,16 +27,19 @@ class Login extends React.Component {
   state = {
     login: '',
     password: '',
-    startAutoLogin: false,
+    startAutoLogin: true,
     autoLoginParam: {
-      login: 'AD6311',
+      login: 'AD6300',
       password: 'Testtest1+',
       codeSms: '000000',
       bureau: '309',
       codeBureau: '309',
       codeArrondissement: '309',
       arrondissement: '309',
-      profiles: ["0", "AAMAX", "AB", "PRO TEST", "ACTIFS_AD", "ACTIFS", "AR", "ADMINBV",
+      profiles: [
+        // "0", "AAMAX", "AB", "PRO TEST",
+        "ACTIFS_AD", "ACTIFS",
+        "AR", "ADMINBV",
         "ADMSELCOT", "ADT", "AGBRIGADE", "AGDP", "AGENTD", "AGECOR", "AGENT_TEST", "AV",
         "AG_VISIT", "AGLACI", "ALLPROFIL", "ALL", "ALLPRO", "A123", "AMAL2015", "AMAL-PRO",
         "AMMARI", "AMPROF", "ARABBANK", "AT_A_BORD", "AT_VOY", "AT1", "PIF", "TESTAUDI1",
@@ -63,7 +66,8 @@ class Login extends React.Component {
         "TESTLISTEA", "TESTMP", "TESTPM", "TESTPRO", "PROFILAM", "TEST1", "TESTR", "TESTSOFR4", "TESTSOFR7", "TESTSOFR9",
         "TESTSOF8", "TESTSSO", "TESTAAA", "TEST001", "TEST0012", "TEST001254", "TEST003", "545454", "TEST11", "TEST19",
         "TEST2018", "TEST2021", "TEST2090", "TEST24", "TEST90", "TNRPROF", "TOUS", "TRANS", "TT", "PFTRANSPO", "TR", "TRY",
-        "TRYP_AGENT", "TRYP_DECL", "TRYP_C", "TRYPTIQUE", "T6BIS", "T6BIS12", "VE_VE", "VIDPRO"]
+        "TRYP_AGENT", "TRYP_DECL", "TRYP_C", "TRYPTIQUE", "T6BIS", "T6BIS12", "VE_VE", "VIDPRO"
+      ]
     },
   };
 

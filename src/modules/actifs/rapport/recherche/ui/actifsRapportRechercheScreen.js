@@ -43,7 +43,9 @@ class ActifsRapportRechercheScreen extends Component {
       show: false,
       paginate: true,
       code1: ComSessionService.getInstance().getUserObject() ? ComSessionService.getInstance().getUserObject().codeUOR : '',
-      data: 'jj/mm/aaaa', //moment(this.state.date).format("MM/DD/YYYY")
+      code2: '',
+      code3: '',
+      data: '01/01/2021',// 'jj/mm/aaaa', //moment(this.state.date).format("MM/DD/YYYY")
     };
     this.cols = [
       { code: 'numero', libelle: 'N² OS', item: 'numero', width: 50 },
@@ -102,9 +104,17 @@ class ActifsRapportRechercheScreen extends Component {
 
   };
 
-  componentDidMount() { }
+  componentDidMount() {
+    this._unsubscribe = this.props.navigation.addListener('focus', () => {
+      console.log('Actifs componentDidMount');
+    });
+  }
 
-  Enregister = () => {
+  componentWillUnmount() {
+    this._unsubscribe();
+  }
+
+  rechercher = () => {
     this.setState({ errorMessage: null });
     console.log('this.state.data : ', this.state.data);
     if (
@@ -139,11 +149,29 @@ class ActifsRapportRechercheScreen extends Component {
                     this.props.successRedirection,*/,
       );
       this.props.dispatch(action);
-      // console.log('dispatch fired !!');
     } else {
       this.setState({ errorMessage: translate("actifs.recherche.errors.champsSearcheRapportRequired") });
     }
   };
+
+  retablir = () => {
+    console.log('this.state : ', JSON.stringify(this.state));
+    // this.code1.clear();
+    this.code2.clear();
+    this.code3.clear();
+    this.setState({
+      date: new Date(),
+      mode: '',
+      show: false,
+      paginate: true,
+      code1: ComSessionService.getInstance().getUserObject() ? ComSessionService.getInstance().getUserObject().codeUOR : '',
+      code2: '',
+      code3: '',
+      data: 'jj/mm/aaaa',
+    });
+    console.log('this.state : ', JSON.stringify(this.state));
+  };
+
 
   iconAdd = () => {
     return <IconButton icon="calendar" onPress={() => { }} />;
@@ -157,7 +185,7 @@ class ActifsRapportRechercheScreen extends Component {
         data: moment(selectedDate).format('DD/MM/YYYY'),
         errorMessage: null
       },
-      () => console.log('=======', this.state.data),
+      // () => console.log('=======', this.state.data),
     );
   };
 
@@ -185,7 +213,7 @@ class ActifsRapportRechercheScreen extends Component {
       return item.map((object) => {
 
         if (code === 'agentsBrigade') {
-          return <Text key={object.agentBrigade}> {object.agentBrigade}</Text>;
+          return <Row><Text key={object.agentBrigade}> {object.agentBrigade}</Text></Row>;
         }
         if (code === 'vehicules') {
           return <Text key={object.matricule}> {object.matricule}</Text>;
@@ -194,7 +222,7 @@ class ActifsRapportRechercheScreen extends Component {
     }
     if (_.isObject(item)) {
       if (code === 'chefEquipe') {
-        return <Text> {item.idActeur}</Text>;
+        return <Text> {item.nom} {item.prenom} ({item.idActeur})</Text>;
       } else {
         return <Text>{JSON.stringify(item)}</Text>;
       }
@@ -205,6 +233,14 @@ class ActifsRapportRechercheScreen extends Component {
   };
 
   render() {
+
+    console.log('this.props :!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ');
+    console.log('this.props :!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ');
+    console.log('this.props :!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ');
+    console.log(JSON.stringify(this.props));
+    console.log('this.props :!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ');
+    console.log('this.props :!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ');
+    console.log('this.props :!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ');
     let rows = [];
     if (this.props.value && this.props.value.jsonVO) {
       rows = this.props.value.jsonVO;
@@ -264,6 +300,7 @@ class ActifsRapportRechercheScreen extends Component {
                     maxLength={3}
                     style={{ height: 20, fontSize: 12 }}
                     value={this.state.code1}
+                    onRef={(ref) => (this.code1 = ref)}
                     onChangeBadrInput={(text) => this.setState({ code1: text })}
                   />
                 </Col>
@@ -272,6 +309,7 @@ class ActifsRapportRechercheScreen extends Component {
                     style={{ height: 20, fontSize: 12 }}
                     value={this.state.code2}
                     maxLength={4}
+                    onRef={(ref) => (this.code2 = ref)}
                     onChangeBadrInput={(text) => this.setState({ code2: text })}
                   />
                 </Col>
@@ -280,6 +318,7 @@ class ActifsRapportRechercheScreen extends Component {
                     style={{ height: 20, fontSize: 12 }}
                     value={this.state.code3}
                     maxLength={7}
+                    onRef={(ref) => (this.code3 = ref)}
                     onChangeBadrInput={(text) => this.setState({ code3: text })}
                   />
                 </Col>
@@ -324,52 +363,62 @@ class ActifsRapportRechercheScreen extends Component {
             <ComBadrButtonComp
               style={{ width: 100 }}
               onPress={() => {
-                this.Enregister();
+                this.rechercher();
               }}
-              text={translate('actifsCreation.entete.enregister')}
+              text={translate('transverse.rechercher')}
+              disabled={false}
+            />
+            <ComBadrButtonComp
+              style={{ width: 100 }}
+              onPress={() => {
+                this.retablir();
+              }}
+              text={translate('transverse.retablir')}
               disabled={false}
             />
           </View>
 
           <View>
-            <ScrollView
-              ref="_horizontalScrollView"
-              key="horizontalScrollView"
-              horizontal={true}>
-              <ScrollView key="verticalScrollView">
-                <DataTable>
-                  <DataTable.Header>
-                    {this.cols.map((column, index) => (
-                      <DataTable.Title style={{ width: column.width }} key={index}>
-                        {column.libelle}
-                      </DataTable.Title>
-                    ))}
-                  </DataTable.Header>
-                  {/* {console.log('rows recherche ......', rows)} */}
-                  {rows && rows.length > 0
-                    ? (this.state.paginate
-                      ? _(rows).slice(this.state.offset).take(5).value()
-                      : rows
-                    ).map((row, index) => (
-                      <DataTable.Row
-                        key={index}
-                        onPress={() => this.onItemSelected(row)}>
-                        {this.cols.map((column, index) => (
-                          <DataTable.Cell style={{ width: column.width }} key={index}>
-                            {' '}
-                            {this.render_cols(row[column.code], column.code)}
-                          </DataTable.Cell>
-                        ))}
-                      </DataTable.Row>
-                    ))
-                    : !this.props.showProgress && (
-                      <View style={CustomStyleSheet.centerContainer}>
-                        <Text>{translate('transverse.noRowFound')}</Text>
-                      </View>
-                    )}
-                </DataTable>
+            {(rows && rows.length > 0) && (
+              <ScrollView
+                ref="_horizontalScrollView"
+                key="horizontalScrollView"
+                horizontal={true}>
+                <ScrollView key="verticalScrollView">
+                  <DataTable>
+                    <DataTable.Header>
+                      {this.cols.map((column, index) => (
+                        <DataTable.Title style={{ width: column.width }} key={index}>
+                          {column.libelle}
+                        </DataTable.Title>
+                      ))}
+                    </DataTable.Header>
+                    {/* {console.log('rows recherche ......', rows)} */}
+                    {rows && rows.length > 0
+                      ? (this.state.paginate
+                        ? _(rows).slice(this.state.offset).take(5).value()
+                        : rows
+                      ).map((row, index) => (
+                        <DataTable.Row
+                          key={index}
+                          onPress={() => this.onItemSelected(row)}>
+                          {this.cols.map((column, index) => (
+                            <DataTable.Cell style={{ width: column.width }} key={index}>
+                              {' '}
+                              {this.render_cols(row[column.code], column.code)}
+                            </DataTable.Cell>
+                          ))}
+                        </DataTable.Row>
+                      ))
+                      : !this.props.showProgress && (
+                        <View style={CustomStyleSheet.centerContainer}>
+                          <Text>{translate('transverse.noRowFound')}</Text>
+                        </View>
+                      )}
+                  </DataTable>
+                </ScrollView>
               </ScrollView>
-            </ScrollView>
+            )}
           </View>
         </ComContainerComp>
       </View>

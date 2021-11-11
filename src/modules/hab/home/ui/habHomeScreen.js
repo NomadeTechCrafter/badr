@@ -334,7 +334,7 @@ class habHomeScreen extends React.Component {
 
         <Drawer.Screen
           name="ActifsRecherche"
-          options={{ headerShown: false }}
+          options={{ headerShown: false, unmountOnBlur: true, lazy: false }}
           component={ActifsRapportRechercheScreen}
         />
 

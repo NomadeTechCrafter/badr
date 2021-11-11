@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { ComBadrErrorMessageComp, ComBadrInfoMessageComp, ComBadrProgressBarComp, ComBadrToolbarComp } from '../../../../../commons/component';
 import { translate } from '../../../../../commons/i18n/ComI18nHelper';
 import { primaryColor } from '../../../../../commons/styles/ComThemeStyle';
-import { cleanOrdreService, convert, format } from '../../utils/actifsUtils';
+import { getNavigationAvitaillementSortieModelInitial, getNavigationAvitaillementEntreeModelInitial, cleanOrdreService, convert, format } from '../../utils/actifsUtils';
 import * as Constants from '../state/actifsRapportCreationConstants';
 import * as enregistrerRS from '../state/actions/actifsRapportCreationEnregistrerRSAction';
 import * as getOsById from '../state/actions/actifsRapportCreationGetOsByIdAction';
