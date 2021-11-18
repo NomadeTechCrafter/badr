@@ -1,15 +1,15 @@
 import ComHttpHelperApi from '../../../../../commons/services/api/common/ComHttpHelperApi';
 import { ComSessionService } from '../../../../../commons/services/session/ComSessionService';
 
-export default class EciConsultationBLSApi {
-    static findEciRechBls = async (rechercheObject) => {
+export default class CtrlResultatScannerApi {
+    static findCtrlResultatScanner = async (rechercheObject) => {
         console.log(JSON.stringify(rechercheObject));
         const data = {
             dtoHeader: {
                 userLogin: ComSessionService.getInstance().getLogin(),
-                fonctionnalite: 'cf121711',
-                module: 'ECI',
-                commande: 'findEciRechBls',
+                fonctionnalite: 'cf306611',
+                module: 'CONTROL_LIB',
+                commande: 'findResultatScanner',
                 typeService: 'SP',
             },
             jsonVO: rechercheObject,

@@ -13,24 +13,24 @@ import {
 /** REDUX **/
 import { connect } from 'react-redux';
 
-import style from '../style/eciConsultationBLSStyle';
+import style from '../style/ctrlResultatScannerStyle';
 import { primaryColor } from '../../../../commons/styles/ComThemeStyle';
 import translate from '../../../../commons/i18n/ComI18nHelper';
-import ConsultationBLSResult from './ctrlResultatScannerResultScreen';
-import ConsultationBLSSearch from './ctrlResultatScannerSearchScreen';
+import CtrlResultatScannerResultScreen from './ctrlResultatScannerResultScreen';
+import CtrlResultatScannerSearchScreen from './ctrlResultatScannerSearchScreen';
 
 const Tab = createMaterialTopTabNavigator();
 
 /** CONSTANTS **/
 function ResultScreen({ route, navigation }) {
-    return <ConsultationBLSResult navigation={navigation} route={route} />;
+    return <CtrlResultatScannerResultScreen navigation={navigation} route={route} />;
 }
 
  function SearchScreen({ route, navigation }) {
-     return <ConsultationBLSSearch navigation={navigation} route={route} />;
+     return <CtrlResultatScannerSearchScreen navigation={navigation} route={route} />;
  }
 
-class EciConsultationBLSMainScreen extends React.Component {
+class CtrlResultatScannerMainScreen extends React.Component {
 
 constructor(props) {
     super(props);
@@ -43,8 +43,8 @@ render() {
             <ComBadrToolbarComp
                 navigation={this.props.navigation}
                 icon="menu"
-                title={translate('consultationBLS.title')}
-                subtitle={translate('consultationBLS.subTitle')}
+                title={translate('resultatScanner.title')}
+                subtitle={translate('resultatScanner.subTitle')}
             />
             {this.props.showProgress && <ComBadrProgressBarComp circle={false} />}
             <NavigationContainer independent={true}>
@@ -74,7 +74,7 @@ render() {
 }
 
 function mapStateToProps(state) {
-    return { ...state.consultationBLSReducer };
+    return { ...state.resultatScannerReducer };
 }
 
 function mapDispatchToProps(dispatch) {
@@ -87,5 +87,5 @@ function mapDispatchToProps(dispatch) {
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
-)(EciConsultationBLSMainScreen);
+)(CtrlResultatScannerMainScreen);
 
