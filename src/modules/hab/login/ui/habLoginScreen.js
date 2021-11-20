@@ -27,7 +27,7 @@ class Login extends React.Component {
   state = {
     login: '',
     password: '',
-    startAutoLogin: true,
+    startAutoLogin: false,
     autoLoginParam: {
       login: 'AD6300',
       password: 'Testtest1+',

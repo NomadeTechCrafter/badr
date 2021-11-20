@@ -10,10 +10,6 @@ import {
   CustomStyleSheet,
   primaryColor,
 } from '../../../styles/ComThemeStyle';
-/** REDUX **/
-import { connect } from 'react-redux';
-import * as ConstantsBadrApiTable from '../../../constants/components/ComBadrApiTableConstants';
-import * as badrApiAction from '../../../state/actions/ComBadrApiTableAction';
 
 /** i18n **/
 import {translate} from '../../../i18n/ComI18nHelper';
@@ -24,7 +20,7 @@ import _ from 'lodash';
 const FIRST_PAGINATION_SEPARATOR = ' / ';
 const SECOND_PAGINATION_SEPARATOR = ' - ';
 
-class ComBasicDataTableComp extends React.Component {
+export default class ComBasicDataTableComp extends React.Component {
   constructor(props) {
     super(props);
     let checkedItems = [];
@@ -33,7 +29,7 @@ class ComBasicDataTableComp extends React.Component {
         checkedItems.push({ checked: element.isRowSelected });
       });
     }
-    this.state = { currentPage: 0, offset: 0, checkedItems: checkedItems };
+    this.state = {currentPage: 0, offset: 0, checkedItems: checkedItems};
   }
 
   clearSelection = () => {
@@ -43,44 +39,21 @@ class ComBasicDataTableComp extends React.Component {
         checkedItems.push({ checked: false });
       });
     }
-    this.setState({ checkedItems: checkedItems });
+    this.setState({checkedItems: checkedItems});
   };
 
   changeCurrentPage = (page) => {
-    let offsetVar;
     if (page < this.state.currentPage) {
-      offsetVar = this.state.offset - this.props.maxResultsPerPage;
       this.setState({
-        offset: offsetVar,
+        offset: this.state.offset - this.props.maxResultsPerPage,
         currentPage: this.state.currentPage - 1,
       });
     } else {
-      offsetVar = this.state.offset + this.props.maxResultsPerPage
       this.setState({
-        offset: offsetVar,
+        offset: this.state.offset + this.props.maxResultsPerPage,
         currentPage: this.state.currentPage + 1,
       });
     }
-    if (this.props.paginateServer) {
-      let action = this.buildSearchAction(offsetVar);
-      this.props.actions.dispatch(action);
-    }
-  };
-
-  buildSearchAction = (offsetVar) => {
-    let action = badrApiAction.request({
-      type: ConstantsBadrApiTable.BADR_APITABLE_REQUEST,
-      value: {
-        // login: login,
-        module: this.props.module,
-        command: this.props.command,
-        typeService: this.props.typeService,
-        searchObject: this.props.searchObject,
-        pageSize: this.props.maxResultsPerPage,
-        offset: offsetVar,
-      },
-    });
-    return action;
   };
 
   reset = () => {
@@ -161,17 +134,9 @@ class ComBasicDataTableComp extends React.Component {
   };
 
   buildDataTable = () => {
-    let pageCount = 0;
-    let rowData;
-    let rowCount = this.props.paginateServer ? this.props.rowCount : this.props.rows?.length;
-    if (this.state.currentPage === 0 || !this.props.paginateServer) {
-      rowData = this.props.rows;
-    } else {
-      rowData = this.props.data;
-    }
-    if (rowData) {
-      pageCount = Math.ceil(rowCount / this.props.maxResultsPerPage);
-    }
+    const pageCount = Math.ceil(
+      this.props.rows?.length / this.props.maxResultsPerPage,
+    );
     return (
       <View style={styles.width100}>
         <ScrollView
@@ -216,13 +181,13 @@ class ComBasicDataTableComp extends React.Component {
                 ))}
               </DataTable.Header>
 
-              {rowData && rowData.length > 0
-                ? ((this.props.paginate && !this.props.paginateServer)
-                    ? _(rowData)
+              {this.props.rows && this.props.rows.length > 0
+                ? (this.props.paginate
+                    ? _(this.props.rows)
                         .slice(this.state.offset)
                         .take(this.props.maxResultsPerPage)
                         .value()
-                    : rowData
+                    : this.props.rows
                   ).map((row, index) => (
                     <DataTable.Row
                       key={index}
@@ -316,7 +281,7 @@ class ComBasicDataTableComp extends React.Component {
                     </View>
                   )}
               {pageCount > 0 &&
-                rowCount > this.props.maxResultsPerPage &&
+                this.props.rows?.length > this.props.maxResultsPerPage &&
                 this.props.paginate &&
                 this.buildPagination(pageCount)}
             </DataTable>
@@ -326,22 +291,6 @@ class ComBasicDataTableComp extends React.Component {
     );
   };
 }
-
-function mapStateToProps(state) {
-  return { ...state.badrApiTable };
-}
-
-function mapDispatchToProps(dispatch) {
-  let actions = { dispatch };
-  return {
-    actions,
-  };
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(ComBasicDataTableComp);
 
 const styles = StyleSheet.create({
   datatableCell: {width: 50},

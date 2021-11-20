@@ -31,9 +31,9 @@ const mapping = {
   '2302': { screen: 'DTPSEntreeMainScreen', params: {} },
   '2303': { screen: 'DTPSConsultationMainScreen', params: {} },
   '61525': { screen: 'RechercheAutoriserAcheminementScreen', params: {} },
-  '6153': { screen: 'EcorExportVuEmbarqueScreen', params: {} },
+ // '6153': { screen: 'EcorExportVuEmbarqueScreen', params: {} },
   '6160': { screen: 'ConfirmationEntreeArriveeRechercheScreen', params: {} },
-  '6151': {
+ /* '6151': {
     //CONFIRMATION ENTREE
     screen: 'ConfirmationEntreeRechercheScreen',
     params: { title: 'Ecran  Recherche Confirmation entree' },
@@ -42,7 +42,7 @@ const mapping = {
     //CONFIRMATION ARRIVEE
     screen: 'ConfirmationArriveeRechercheScreen',
     params: { title: 'Ecran  Recherche Confirmation arrivee' },
-  },
+  },*/
   '121711': {
     screen: 'EciConsultationBLS',
     params: { title: 'Ecran  Recherche Consultation BLS' },
@@ -52,7 +52,12 @@ const mapping = {
     screen: 'EciConsultationBLE',
     params: { title: 'Ecran  Recherche Consultation BLE' },
   },
-  '9932': { screen: 'ActifsRecherche', params: {} },
+  '30805': {
+	    screen: 'CtrlResultatScannerMainScreen',
+	    params: {
+	      title: 'Résultat de scanner' },
+  },
+ /* '9932': { screen: 'ActifsRecherche', params: {} },
 
   '1201': {
     screen: 'RechercheEcorImport',
@@ -69,7 +74,7 @@ const mapping = {
   '1204': {
     screen: 'RechercheEcorImport',
     params: { typeEcorImport: 'VerifierParContreEcor' },
-  },
+  },*/
 
   '1226': {
     screen: 'ECIAppositionScellesRechercheScreen',
@@ -90,7 +95,7 @@ const mapping = {
   '5202': {screen: 'LiquidationRechercheScreen', params: {qr: false}},*/
 
   /*T6bis creation*/
-  '110001': {screen: 'T6bisCreation', params: {}},
+ /* '110001': {screen: 'T6bisCreation', params: {}},
   '110002': {
     screen: 'T6bisRecherche',
     params: {title: 'Ecran Modification T6bis'},
@@ -101,13 +106,8 @@ const mapping = {
   },
   '110007': {
     screen: 'T6bisRecherche',
-    params: { title: 'Ecran  Recherche T6BIS' },
-  },
-  '30805': {
-    screen: 'CtrlResultatScannerMainScreen',
-    params: {
-      title: 'Résultat de scanner' },
-  },
+    params: {title: 'Ecran  Recherche T6BIS'},
+  },*/
   
 };
 

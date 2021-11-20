@@ -91,30 +91,28 @@ class AtRechMultiResultScreen extends React.Component {
   }
 
   render() {
-    let searchObject = this.props.route && this.props.route.params ? this.props.route.params.atRechercheBean : null;
-    let rowCount = this.props.route && this.props.route.params ? this.props.route.params.rowCount : 0;
     return (
       <ScrollView>
         <ComBadrCardBoxComp style={styles.cardBox}>
           <Text style={styles.margin10}>
-            {translate('at.recherche.titleResult')} : {rowCount}
+            {translate('at.recherche.titleResult')} : {this.props.data.length}
           </Text>
           <ComBasicDataTableComp
             onRef={(ref) => (this.resultTable = ref)}
             key="resultTable"
             id="referenceAt"
             rows={this.props.data}
-            rowCount={rowCount}
+            // rowCount={rowCount}
             cols={this.cols}
-            command="recupererListAt"
-            module= {ConstantsAt.AT_MODULE}
-            typeService="SP"
-            searchObject={searchObject}
+            // command="recupererListAt"
+            // module= {ConstantsAt.AT_MODULE}
+            // typeService="SP"
+            // searchObject={searchObject}
             onItemSelected={this.onItemSelected}
             totalElements={this.props.data.length}
             maxResultsPerPage={10}
             paginate={true}
-            paginateServer={true}
+            // paginateServer={true}
             showProgress={this.props.showProgress}
           />
           
