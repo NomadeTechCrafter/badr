@@ -66,6 +66,8 @@ import DedRedressementRecherche from '../../../dedouanement/redressement/ui/DedR
 import RefControleVehiculeMainScreen from '../../../referentiel/controleVehicules/ui/refControleVehiculeMainScreen';
 import RefPlaquesImmMainScreen from '../../../referentiel/plaquesImmatriculation/ui/refPlaquesImmMainScreen';
 import ConsultationBLEMainScreen from '../../../ecorImport/eciConsultationBLE/ui/eciConsultationBLEMainScreen';
+import CtrlResultatScannerMainScreen from '../../../controle/ctrlResultatScanner/ui/ctrlResultatScannerMainScreen';
+
 import ECIAppositionScellesRechercheScreen from '../../../ecorImport/appositionScelles/recherche/ui/eciAppositionScellesRechercheScreen';
 import ECIAppositionScellesScreen from '../../../ecorImport/appositionScelles/apposition/ui/eciAppositionScellesScreen';
 import ConsultationBLSMainScreen from '../../../ecorImport/eciConsultationBLS/ui/eciConsultationBLSMainScreen';
@@ -390,6 +392,13 @@ class habHomeScreen extends React.Component {
           options={{ headerShown: false, unmountOnBlur: true, lazy: false }}
           unmountOnBlur={true}
         />
+        <Drawer.Screen
+          name="CtrlResultatScannerMainScreen"
+          component={CtrlResultatScannerMainScreen}
+          options={{ headerShown: false, unmountOnBlur: true, lazy: false }}
+          unmountOnBlur={true}
+        />
+        
         {/* Module T6bis start*/}
         <Drawer.Screen
           name="T6bisCreation"

@@ -1,6 +1,6 @@
 import React from 'react';
 import { ScrollView, View } from 'react-native';
-import { HelperText, TextInput } from 'react-native-paper';
+import { HelperText, Text, TextInput } from 'react-native-paper';
 import { Col, Grid, Row } from 'react-native-easy-grid';
 import moment from 'moment';
 import _ from 'lodash';
@@ -9,6 +9,7 @@ import {
     ComBadrButtonIconComp,
     ComBadrDatePickerComp,
     ComBadrItemsPickerComp,
+    ComBadrLibelleComp,
 } from '../../../../commons/component';
 /** REDUX **/
 import { connect } from 'react-redux';
@@ -47,10 +48,14 @@ class CtrlResultatScannerSearchScreen extends React.Component {
     }
 
     handleSearch = () => {
-        this.setState({ showErrorMsg: true });
-        this.state.cleValide = this.cleDUM(this.state.regime, this.state.serie);
-        let action = this.buildSearchResultatScannerAction(this.state.login);
-        this.props.actions.dispatch(action);
+        // if (!_.isEmpty(this.state.bureau) && !_.isEmpty(this.state.regime) && !_.isEmpty(this.state.annee) && !_.isEmpty(this.state.serie)) {
+        //     this.setState({ showErrorMsg: true });
+        // } else {
+            this.setState({ showErrorMsg: false });
+            this.state.cleValide = this.cleDUM(this.state.regime, this.state.serie);
+            let action = this.buildSearchResultatScannerAction(this.state.login);
+            this.props.actions.dispatch(action);
+        // }
     };
 
     handleClear = () => {
@@ -59,11 +64,11 @@ class CtrlResultatScannerSearchScreen extends React.Component {
             dateFin: '',
             resultat: '',
             typeDeclaration: '',
-            bureau: '309',
-            regime: '060',
-            annee: '2021',
-            serie: '0000179',
-            cle: 'L',
+            bureau: '',
+            regime: '',
+            annee: '',
+            serie: '',
+            cle: '',
             cleValide: '',
             showErrorMsg: false,
         });
@@ -101,11 +106,19 @@ class CtrlResultatScannerSearchScreen extends React.Component {
 
 
     hasErrors = (field) => {
-        return this.state.showErrorMsg && _.isEmpty(this.state[field]);
+        if (!_.isEmpty(this.state.bureau) && !_.isEmpty(this.state.regime) && !_.isEmpty(this.state.annee) && !_.isEmpty(this.state.serie)) {
+            return this.state.showErrorMsg && _.isEmpty(this.state[field]);
+        } else {
+            return false;
+        }
     };
 
     isCleValide = () => {
-        return this.state.showErrorMsg && this.state.cle !== this.state.cleValide;
+        if (!_.isEmpty(this.state.bureau) && !_.isEmpty(this.state.regime) && !_.isEmpty(this.state.annee) && !_.isEmpty(this.state.serie)) {
+            return this.state.showErrorMsg && this.state.cle !== this.state.cleValide;
+        } else {
+            return false;
+        }
     };
 
     cleDUM = function (regime, serie) {
@@ -156,6 +169,11 @@ class CtrlResultatScannerSearchScreen extends React.Component {
                     <View style={CustomStyleSheet.row}>
                         <Row>
                             <Col>
+                                <ComBadrLibelleComp>
+                                    {translate('resultatScanner.dateInterval')}
+                                </ComBadrLibelleComp>
+                            </Col>
+                            <Col>
                                 <ComBadrDatePickerComp
                                     dateFormat="DD/MM/YYYY"
                                     value={this.state.dateDebut ? moment(this.state.dateDebut, 'DD/MM/yyyy', true) : ''}
@@ -183,10 +201,16 @@ class CtrlResultatScannerSearchScreen extends React.Component {
                                     }
                                 />
                             </Col>
+                            <Col />
                         </Row>
                     </View>
 
                     <View style={CustomStyleSheet.row}>
+                        <Col>
+                            <ComBadrLibelleComp>
+                                {translate('resultatScanner.resultat')}
+                            </ComBadrLibelleComp>
+                        </Col>
                         <ComBadrItemsPickerComp
                             style={CustomStyleSheet.column}
                             label={translate('resultatScanner.resultat')}
@@ -197,9 +221,16 @@ class CtrlResultatScannerSearchScreen extends React.Component {
                                 resultat: value.code,
                             })}
                         />
+                        <Col />
+                        <Col />
                     </View>
 
                     <View style={CustomStyleSheet.row}>
+                        <Col>
+                            <ComBadrLibelleComp>
+                                {translate('resultatScanner.typeDclaration')}
+                            </ComBadrLibelleComp>
+                        </Col>
                         <ComBadrItemsPickerComp
                             style={CustomStyleSheet.column}
                             label={translate('resultatScanner.typeDclaration')}
@@ -210,12 +241,19 @@ class CtrlResultatScannerSearchScreen extends React.Component {
                                 typeDeclaration: value.code,
                             })}
                         />
+                        <Col />
+                        <Col />
                     </View>
 
-                    <Row>
-                        <Col>
+                    <View style={CustomStyleSheet.row}>
+                        <Col size={4}>
+                            <ComBadrLibelleComp>
+                                {translate('resultatScanner.refDeclaration')}
+                            </ComBadrLibelleComp>
+                        </Col>
+                        <Col size={2}>
                             <TextInput
-                                error={this.hasErrors('bureau')}
+                                // error={this.hasErrors('bureau')}
                                 maxLength={3}
                                 keyboardType={'number-pad'}
                                 value={this.state.bureau}
@@ -229,19 +267,19 @@ class CtrlResultatScannerSearchScreen extends React.Component {
                                 }
                                 style={CustomStyleSheet.largeInput}
                             />
-                            <HelperText
+                            {/* <HelperText
                                 type="error"
                                 padding="none"
                                 visible={this.hasErrors('bureau')}>
                                 {translate('errors.donneeObligatoire', {
                                     champ: translate('transverse.bureau'),
                                 })}
-                            </HelperText>
+                            </HelperText> */}
                         </Col>
 
-                        <Col>
+                        <Col size={2}>
                             <TextInput
-                                error={this.hasErrors('regime')}
+                                // error={this.hasErrors('regime')}
                                 maxLength={3}
                                 keyboardType={'number-pad'}
                                 value={this.state.regime}
@@ -255,19 +293,19 @@ class CtrlResultatScannerSearchScreen extends React.Component {
                                 }
                                 style={CustomStyleSheet.largeInput}
                             />
-                            <HelperText
+                            {/* <HelperText
                                 type="error"
                                 padding="none"
                                 visible={this.hasErrors('regime')}>
                                 {translate('errors.donneeObligatoire', {
                                     champ: translate('transverse.regime'),
                                 })}
-                            </HelperText>
+                            </HelperText> */}
                         </Col>
 
-                        <Col>
+                        <Col size={3}>
                             <TextInput
-                                error={this.hasErrors('annee')}
+                                // error={this.hasErrors('annee')}
                                 maxLength={4}
                                 keyboardType={'number-pad'}
                                 value={this.state.annee}
@@ -281,19 +319,19 @@ class CtrlResultatScannerSearchScreen extends React.Component {
                                 }
                                 style={CustomStyleSheet.largeInput}
                             />
-                            <HelperText
+                            {/* <HelperText
                                 type="error"
                                 padding="none"
                                 visible={this.hasErrors('annee')}>
                                 {translate('errors.donneeObligatoire', {
                                     champ: translate('transverse.annee'),
                                 })}
-                            </HelperText>
+                            </HelperText> */}
                         </Col>
 
-                        <Col>
+                        <Col size={5}>
                             <TextInput
-                                error={this.hasErrors('serie')}
+                                // error={this.hasErrors('serie')}
                                 maxLength={7}
                                 keyboardType={'number-pad'}
                                 value={this.state.serie}
@@ -305,18 +343,18 @@ class CtrlResultatScannerSearchScreen extends React.Component {
                                         maxLength: 7,
                                     })
                                 }
-                                style={CustomStyleSheet.largeInput}
+                                style={CustomStyleSheet.mediumInput}
                             />
-                            <HelperText
+                            {/* <HelperText
                                 type="error"
                                 padding="none"
                                 visible={this.hasErrors('serie')}>
                                 {translate('errors.donneeObligatoire', {
                                     champ: translate('transverse.serie'),
                                 })}
-                            </HelperText>
+                            </HelperText> */}
                         </Col>
-                        <Col>
+                        {/* <Col size={5}>
                             <TextInput
                                 error={this.isCleValide('cle')}
                                 maxLength={1}
@@ -324,7 +362,7 @@ class CtrlResultatScannerSearchScreen extends React.Component {
                                 value={this.state.cle}
                                 label={translate('transverse.cle')}
                                 onChangeText={(val) => this.onChangeInputCle(val)}
-                                style={CustomStyleSheet.mediumInput}
+                                style={CustomStyleSheet.smallInput}
                             />
                             <HelperText
                                 type="error"
@@ -335,8 +373,8 @@ class CtrlResultatScannerSearchScreen extends React.Component {
                                     cle: this.state.cleValide,
                                 })}
                             </HelperText>
-                        </Col>
-                    </Row>
+                        </Col> */}
+                    </View>
                 </View>
 
                 <Grid>

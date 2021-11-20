@@ -21,5 +21,8 @@ export default {
     totalValue: 'Valeur total',
     refDeclaration: 'Référence de la déclaration',
     typeDclaration: 'Type de déclaration',
+    dateInterval: 'Période (Date de Création)',
+    startDate: 'Date de début',
+    endDate: 'Date de fin',
   },
 };

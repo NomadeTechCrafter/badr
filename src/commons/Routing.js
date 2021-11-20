@@ -101,7 +101,12 @@ const mapping = {
   },
   '110007': {
     screen: 'T6bisRecherche',
-    params: {title: 'Ecran  Recherche T6BIS'},
+    params: { title: 'Ecran  Recherche T6BIS' },
+  },
+  '30805': {
+    screen: 'CtrlResultatScannerMainScreen',
+    params: {
+      title: 'Résultat de scanner' },
   },
   
 };
