@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { ComBadrErrorMessageComp, ComBadrInfoMessageComp, ComBadrProgressBarComp, ComBadrToolbarComp } from '../../../../../commons/component';
 import { translate } from '../../../../../commons/i18n/ComI18nHelper';
 import { primaryColor } from '../../../../../commons/styles/ComThemeStyle';
-import { cleanOrdreService, convert, format } from '../../utils/actifsUtils';
+import { getNavigationAvitaillementSortieModelInitial, getNavigationAvitaillementEntreeModelInitial, cleanOrdreService, convert, format } from '../../utils/actifsUtils';
 import * as Constants from '../state/actifsRapportCreationConstants';
 import * as enregistrerRS from '../state/actions/actifsRapportCreationEnregistrerRSAction';
 import * as getOsById from '../state/actions/actifsRapportCreationGetOsByIdAction';
@@ -62,11 +62,11 @@ function avionsPriveesTab({ route, navigation }) {
 }
 
 function avitaillementEntreeTab({ route, navigation }) {
-  return <ActifsRapportCreationAvitaillementEntreeTab navigation={navigation} route={route} navigationAvitaillementEntreeModel={getNavigationAvitaillementEntreeModelInitial()} navigationsAvitaillementEntrees={[]}/>;
+  return <ActifsRapportCreationAvitaillementEntreeTab navigation={navigation} route={route} navigationAvitaillementEntreeModel={getNavigationAvitaillementEntreeModelInitial()} navigationsAvitaillementEntrees={[]} />;
 }
 
 function avitaillementSortieTab({ route, navigation }) {
-  return <ActifsRapportCreationAvitaillementSortieTab navigation={navigation} route={route} navigationAvitaillementSortieModel={getNavigationAvitaillementSortieModelInitial()} navigationsAvitaillementSorties={[]}/>;
+  return <ActifsRapportCreationAvitaillementSortieTab navigation={navigation} route={route} navigationAvitaillementSortieModel={getNavigationAvitaillementSortieModelInitial()} navigationsAvitaillementSorties={[]} />;
 }
 
 class ActifsRapportCreationScreen extends Component {
@@ -149,7 +149,11 @@ class ActifsRapportCreationScreen extends Component {
     this.setState({ rondesApparitions: val.rondesApparitions });
 
   }
+  updatePerquisitions = (val) => {
+    console.log('val :', val);
+    this.setState({ gibPerquisition: val.gibPerquisition });
 
+  }
 
   updateEnteteValue = (val) => {
     console.log('val :', val);
@@ -233,8 +237,15 @@ class ActifsRapportCreationScreen extends Component {
     // console.log('Enregister this.state?.dateFin ', this.state?.dateFin);
     let res = this.props.route?.params?.row?.refPJ?.split('_');
     let localOrdreService = this.props.route?.params?.row;
-    localOrdreService.dateDebut = moment(this.props.route?.params?.row?.dateDebut).format("YYYY-MM-DD HH:mm").toString();
-    localOrdreService.dateFin = moment(this.props.route?.params?.row?.dateFin).format("YYYY-MM-DD HH:mm").toString();
+    localOrdreService.dateDebut = moment(this.props.route?.params?.row?.dateDebut).format();
+    localOrdreService.dateFin = moment(this.props.route?.params?.row?.dateFin).format();
+    let localRondesApparitions = [];
+    this.state?.rondesApparitions?.forEach((rondeApparition) => {
+      let element = rondeApparition;
+      element.dateDebut = rondeApparition?.dateDebut?.split("/").reverse().join("-");
+      element.dateFin = rondeApparition?.dateFin?.split("/").reverse().join("-");
+      localRondesApparitions.push(element);
+    });
     let rsAEnregistrer = {
 
 
@@ -275,7 +286,7 @@ class ActifsRapportCreationScreen extends Component {
       navigationsMaritimes: this.props.navigationsMaritimes,
       versionRS: null,
       versionsRS: null,
-      rondesApparition: this.state?.rondesApparitions ? this.state?.rondesApparitions : [],
+      rondesApparition: localRondesApparitions,
       gibPerquisition: this.state?.gibPerquisition ? this.state?.gibPerquisition : {},
 
     };
@@ -396,7 +407,7 @@ class ActifsRapportCreationScreen extends Component {
             )}
             <Tab.Screen name={translate('actifsCreation.perquisition.title')}>
               {() => (
-                <PerquisitionTab />
+                <PerquisitionTab update={this.updatePerquisitions} />
               )}
             </Tab.Screen>
 

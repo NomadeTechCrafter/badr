@@ -190,6 +190,10 @@ export const cleanOrdreService = (rsAEnregistrer)=>{
   delete rsAEnregistrer.rapportService?.ordreService?.libConfidentiel;
   delete rsAEnregistrer.rapportService?.ordreService?.defaultConverter;
   delete rsAEnregistrer.rapportService?.ordreService?.rapportExiste;
+  delete rsAEnregistrer.rondesApparition?.forEach((rondeApparition) => {
+    delete rondeApparition?.dateHeureDebut;
+    delete rondeApparition?.dateHeureFin;
+  });
 
   if (_.isArray(rsAEnregistrer?.rapportService?.ordreService?.agentsBrigade)) {
     rsAEnregistrer.rapportService?.ordreService?.agentsBrigade?.forEach((agentBrigade) => {

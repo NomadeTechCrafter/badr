@@ -55,9 +55,43 @@ export function init() {
 }
 
 export function success(data) {
+  // ComTransverseApi.doProcess(
+  //   "ECHANGE_LIB",
+  //   "echange.findResultatScannerByDum",
+  //   "SP",
+  //   "30906020210000179",
+  // )
+  //   .then((response) => {
+  //     // console.log('response Resultat Scanner VuEmbarquer : ' + JSON.stringify(response));
+  //     if (response) {
+  //       const scanData = response.data;
+  //       if (
+  //         scanData &&
+  //         (scanData.dtoHeader.messagesErreur == null ||
+  //           scanData.dtoHeader.messagesErreur.length === 0)
+  //       ) {
+
+  //         console.log("++++++++++++++++++++++++++++dispatch(success(data, scanner))+++++++++++++++++++++++++++++++++++++++++++++");
+  //         console.log(JSON.stringify(scanData));
+  //         data.scanData = scanData;
+  //         console.log("+++++++++++++++++++++++++++++dispatch(success(data, scanner))++++++++++++++++++++++++++++++++++++++++++++");
+  //         // dispatch(success(data, scanData?.jsonVO));
+  //       } else {
+  //         dispatch(failed(scanData));
+  //       }
+  //     } else {
+  //       dispatch(failed(translate('errors.technicalIssue')));
+  //     }
+  //   })
+  //   .catch((e) => {
+  //     dispatch(failed(translate('errors.technicalIssue')));
+  //   });
+
   return {
     type: Constants.RECHERCHE_D17_DUM_SUCCESS,
     value: data,
+    // scannerData: scanData,
+    
   };
 }
 

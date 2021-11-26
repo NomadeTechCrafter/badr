@@ -54,10 +54,17 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
     }
 
     handleAccordChanged = (selectedValue, selectedIndex, item) => {
+        this.update();
         console.log(selectedValue);
         console.log(selectedIndex);
         console.log(item);
     };
+
+    update() {
+        this.props.update({
+            gibPerquisition: this.state?.gibPerquisition,
+        });
+    }
 
     render() {
         return (
@@ -76,18 +83,18 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
                                         <ComBadrDatePickerComp
                                             dateFormat="DD/MM/YYYY"
                                             heureFormat="HH:mm"
-                                            value={this.state.gibPerquisition?.datePerquisition ? moment(this.state.gibPerquisition?.datePerquisition, 'DD/MM/YYYY', true) : ''}
-                                            timeValue={this.state.gibPerquisition?.heurePerquisition ? moment(this.state.gibPerquisition?.heurePerquisition, 'HH:mm', true) : ''}
+                                            value={this.state?.gibPerquisition?.datePerquisition ? moment(this.state?.gibPerquisition?.datePerquisition, 'DD/MM/YYYY', true) : ''}
+                                            timeValue={this.state?.gibPerquisition?.heurePerquisition ? moment(this.state?.gibPerquisition?.heurePerquisition, 'HH:mm', true) : ''}
                                             onDateChanged={(date) => this.setState(prevState => ({
                                                 gibPerquisition: {
                                                     ...prevState.gibPerquisition,
-                                                    dateDebut: date,
+                                                    datePerquisition: date,
                                                 }
                                             }))}
                                             onTimeChanged={(time) => this.setState(prevState => ({
                                                 gibPerquisition: {
                                                     ...prevState.gibPerquisition,
-                                                    heureDebut: time,
+                                                    heurePerquisition: time,
                                                 }
                                             }))}
                                             inputStyle={style.dateInputStyle}
@@ -109,12 +116,16 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
                                             multiline
                                             numberOfLines={2}
                                             value={this.state.gibPerquisition?.lieuPerquisition}
-                                            onChangeText={(text) => this.setState(prevState => ({
-                                                gibPerquisition: {
-                                                    ...prevState.gibPerquisition,
-                                                    lieuPerquisition: text,
-                                                }
-                                            }))}
+                                            onChangeText={(text) => {
+                                                this.setState(prevState => ({
+                                                    gibPerquisition: {
+                                                        ...prevState.gibPerquisition,
+                                                        lieuPerquisition: text,
+                                                    }
+                                                }))
+                                                this.update();
+                                            }
+                                            }
                                         />
                                     </Col>
                                 </Row>

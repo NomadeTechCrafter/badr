@@ -11,6 +11,7 @@ import { CustomStyleSheet, primaryColor } from '../../../../commons/styles/ComTh
 import * as getCmbOperateurByCodeAction from '../../autoriserAcheminement/mainScreen/state/actions/getCmbOperateurByCodeAction';
 import * as ConfirmerVuEmbAction from '../state/actions/ecorExpVuEmbConfirmerAction';
 import * as SupprimerVuEmbAction from '../state/actions/ecorExpVuEmbSupprimerAction';
+import * as ResultatScannerVuEmbAction from '../state/actions/ecorExpVuEmbResultatScannerAction';
 import * as Constants from '../../autoriserAcheminement/mainScreen/state/autoriserAcheminementMainConstants';
 import * as VuEmbConstants from '../state/ecorExpVuEmbarquerConstants';
 import { isCreation, stringNotEmpty } from '../../../t6bis/utils/t6bisUtils';
@@ -28,6 +29,7 @@ import {
   ComBadrNumericTextInputComp,
   ComBadrProgressBarComp,
   ComBadrToolbarComp,
+  ComBasicDataTableComp,
 } from '../../../../commons/component';
 
 /** REDUX **/
@@ -48,24 +50,47 @@ const initialState = {
   commentaire: '',
   showErrorMsg: false,
   erreur: null,
-  modeConsultation: false
+  modeConsultation: false,
+  resultatsScanner: null,
 };
 
 class VuEmbListeDeclaration extends React.Component {
   constructor(props) {
     super(props);
     this.state = { ...initialState };
+    this.cols = [
+      {
+        code: 'dateScannage',
+        libelle: translate('etatChargement.dateScannage'),
+        width: 200,
+      },
+      {
+        code: 'agent',
+        libelle: translate('etatChargement.agent'),
+        width: 150,
+      },
+      {
+        code: 'resultat',
+        libelle: translate('etatChargement.resultat'),
+        width: 250,
+      },
+      {
+        code: 'commentaire',
+        libelle: translate('etatChargement.commentaire'),
+        width: 300,
+      }
+    ];
   }
 
   componentDidMount() {
     this._unsubscribe = this.props.navigation.addListener('focus', () => {
       this.setState({ ...initialState });
       this.setState({
-        ecorDUM: this.props?.value?.jsonVO
+        ecorDUM: this.props?.vuEmbInit?.value?.jsonVO
       });
 
-      if (this.props?.value?.jsonVO?.dateHeureEmbarquement) {
-        let jsonVO = this.props?.value?.jsonVO;
+      if (this.props?.vuEmbInit?.value?.jsonVO?.dateHeureEmbarquement) {
+        let jsonVO = this.props?.vuEmbInit?.value?.jsonVO;
         this.setState({
           modeConsultation: true,
           dateVuEmbarquer: jsonVO?.dateHeureEmbarquement?.slice(0, 10),
@@ -79,20 +104,25 @@ class VuEmbListeDeclaration extends React.Component {
       } else {
         this.setState({ navire: '' });
       }
+      this.populateResultatScanner();
+      this.setState({
+        resultatsScanner: this.props?.resScan?.dataScanner ? this.props?.resScan?.dataScanner : null
+      });
       this.populateLibelleTransporteurControleApresScanner();
       this.populateLibelleTransporteur();
 
 
-      // console.log(JSON.stringify(this.props?.value?.jsonVO));
-      console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-      console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-      console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-      console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-      console.log(JSON.stringify(this.props));
-      console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-      console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-      console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-      console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+      console.log("+++++++++++++++++++++++++++++state++++++++++++++++++++++++++++++++++++++++++++");
+      console.log("+++++++++++++++++++++++++++++state++++++++++++++++++++++++++++++++++++++++++++");
+      console.log(JSON.stringify(this.props?.resScan?.dataScanner));
+      console.log("++++++++++++++++++++++++++++++state+++++++++++++++++++++++++++++++++++++++++++");
+      console.log("+++++++++++++++++++++++++++++++state++++++++++++++++++++++++++++++++++++++++++");
+      console.log(JSON.stringify(this.props?.vuEmbInit));
+      console.log("++++++++++++++++++++++++++++++state+++++++++++++++++++++++++++++++++++++++++++");
+      console.log("++++++++++++++++++++++++++++++state+++++++++++++++++++++++++++++++++++++++++++");
+      console.log(JSON.stringify(this.state));
+      console.log("++++++++++++++++++++++++++++++state+++++++++++++++++++++++++++++++++++++++++++");
+      console.log("++++++++++++++++++++++++++++++state+++++++++++++++++++++++++++++++++++++++++++");
     });
   }
 
@@ -100,10 +130,28 @@ class VuEmbListeDeclaration extends React.Component {
     this._unsubscribe();
   }
 
+  populateResultatScanner() {
 
+    let localReference = this.props?.route?.params?.params?.params;
+    let data = localReference?.bureau + localReference?.regime + localReference?.annee + localReference?.serie;
+
+    var action = ResultatScannerVuEmbAction.request(
+      {
+        type: VuEmbConstants.SCANNER_VU_EMB_REQUEST,
+        value: {
+          login: ComSessionService.getInstance().getLogin(),
+          commande: "echange.findResultatScannerByDum",
+          module: "ECHANGE_LIB",
+          typeService: "SP",
+          data: data,
+        },
+      }
+    );
+    this.props.actions.dispatch(action);
+  }
 
   populateLibelleTransporteurControleApresScanner() {
-    let transporteurExploitantMEADCrtlApresScanner = this.props?.value?.jsonVO?.transporteurExploitantMEADCrtlApresScanner;
+    let transporteurExploitantMEADCrtlApresScanner = this.props?.vuEmbInit?.value?.jsonVO?.transporteurExploitantMEADCrtlApresScanner;
     console.log('transporteurExploitantMEADCrtlApresScanner', transporteurExploitantMEADCrtlApresScanner);
     if (!_.isEmpty(transporteurExploitantMEADCrtlApresScanner)) {
       if (_.isEmpty(this.props.transporteurExploitantMEADCtrlApresScanner) || this.props.transporteurExploitantMEADCtrlApresScanner.code !== transporteurExploitantMEADCrtlApresScanner) {
@@ -117,7 +165,7 @@ class VuEmbListeDeclaration extends React.Component {
   }
 
   populateLibelleTransporteur() {
-    let transporteurExploitantMEAD = this.props?.value?.jsonVO?.transporteurExploitantMEAD;
+    let transporteurExploitantMEAD = this.props?.vuEmbInit?.value?.jsonVO?.transporteurExploitantMEAD;
     console.log('populateLibelleTransporteur', transporteurExploitantMEAD);
     if (!_.isEmpty(transporteurExploitantMEAD)) {
       if (_.isEmpty(this.props.transporteurExploitantMEAD) || this.props.transporteurExploitantMEAD.code !== transporteurExploitantMEAD) {
@@ -267,19 +315,19 @@ class VuEmbListeDeclaration extends React.Component {
             message={this.state.erreur}
           />
         </View>
-        {this.props?.messageInfo != null && (
+        {this.props?.vuEmbInit?.messageInfo != null && (
           <View style={styles.messages}>
             <ComBadrInfoMessageComp
               style={styles.centerInfoMsg}
-              message={this.props?.messageInfo}
+              message={this.props?.vuEmbInit?.messageInfo}
             />
           </View>
         )}
-        {this.props?.errorMessage != null && (
+        {this.props?.vuEmbInit?.errorMessage != null && (
           <View style={styles.messages}>
             <ComBadrErrorMessageComp
               style={styles.centerInfoMsg}
-              message={this.props?.errorMessage}
+              message={this.props?.vuEmbInit?.errorMessage}
             />
           </View>
         )}
@@ -1035,7 +1083,7 @@ class VuEmbListeDeclaration extends React.Component {
                 <Col size={2}>
                   <ComBadrDatePickerComp
                     dateFormat="DD/MM/YYYY"
-                    readonly={this.props.success || this.state.modeConsultation}
+                    readonly={this.props?.vuEmbInit?.successAction   || this.state.modeConsultation}
                     value={!_.isEmpty(this.state.dateVuEmbarquer) ? moment(this.state.dateVuEmbarquer, 'DD/MM/yyyy', true) : null}
                     timeValue={!_.isEmpty(this.state.heureVuEmbarquer) ? moment(this.state.heureVuEmbarquer, 'HH:mm', true) : null}
                     labelDate={translate('vuEmbarquee.dateHeure')}
@@ -1075,7 +1123,7 @@ class VuEmbListeDeclaration extends React.Component {
                 <Col size={150}>
                   <ComBadrAutoCompleteChipsComp
                     code="code"
-                    disabled={this.props.success || this.state.modeConsultation}
+                    disabled={this.props?.vuEmbInit?.successAction   || this.state.modeConsultation}
                     placeholder={translate(
                       'etatChargement.navire',
                     )}
@@ -1099,7 +1147,7 @@ class VuEmbListeDeclaration extends React.Component {
                 <Col size={2}>
                   <ComBadrDatePickerComp
                     dateFormat="DD/MM/YYYY"
-                    readonly={this.props.success || this.state.modeConsultation}
+                    readonly={this.props?.vuEmbInit?.successAction   || this.state.modeConsultation}
                     value={!_.isEmpty(this.state.dateVoyage) ? moment(this.state.dateVoyage, 'DD/MM/yyyy', true) : null}
                     timeValue={!_.isEmpty(this.state.heureVoyage) ? moment(this.state.heureVoyage, 'HH:mm', true) : null}
                     labelDate={translate('etatChargementVE.dateHeureVoyage')}
@@ -1125,7 +1173,7 @@ class VuEmbListeDeclaration extends React.Component {
                 </Col>
                 <Col>
                   <TextInput
-                    disabled={this.props.success || this.state.modeConsultation}
+                    disabled={this.props?.vuEmbInit?.successAction   || this.state.modeConsultation}
                     value={this.state.numeroVoyage}
                     onChangeText={(val) => this.setState({ numeroVoyage: val })}
                   />
@@ -1141,7 +1189,7 @@ class VuEmbListeDeclaration extends React.Component {
                 <Col size={160}>
                   {/* <ComBadrCardBoxComp style={[styles.cardBoxInfoDum, styles.container, styles.width90]}> */}
                   <TextInput
-                    disabled={this.props.success || this.state.modeConsultation}
+                    disabled={this.props?.vuEmbInit?.successAction   || this.state.modeConsultation}
                     value={this.state.commentaire}
                     multiline={true}
                     numberOfLines={5}
@@ -1149,33 +1197,56 @@ class VuEmbListeDeclaration extends React.Component {
                   />
                 </Col>
               </Row>
-              <Row style={CustomStyleSheet.lightBlueRow}>
-                <Col>
-                  {(_.isEmpty(this.props?.value?.jsonVO?.dateHeureEmbarquement) &&
-                    <ComBadrButtonIconComp
-                      onPress={() => this.confirmerVuEmbarquer()}
-                      style={styles.buttonIcon}
-                      loading={this.props.showProgress}
-                      text={translate('etatChargementVE.buttonConfirmerVuEmbarquer')}
-                    />
-                  )}
-                  {((!_.isEmpty(this.props?.value?.jsonVO?.dateHeureEmbarquement)) &&
-                    <ComBadrButtonIconComp
-                      onPress={() => this.supprimerVuEmbarquer()}
-                      style={styles.buttonIcon}
-                      loading={this.props.showProgress}
-                      text={translate('vuEmbarquee.SUPPRIMER')}
-                    />
-                  )}
+            </ComAccordionComp>
+          </ComBadrCardBoxComp>
+          {this.props?.resScan?.dataScanner && (
+            <ComBadrCardBoxComp>
+              <ComAccordionComp
+                badr
+                expanded={true}
+                title={translate('etatChargement.resultatScanner')}
+              >
+                <ComBasicDataTableComp
+                  ref="_badrTable"
+                  id="scannerTable"
+                  rows={this.props?.resScan?.dataScanner}
+                  cols={this.cols}
+                  totalElements={this.props?.resScan?.dataScanner?.length}
+                  maxResultsPerPage={10}
+                  paginate={true}
+                  showProgress={this.props.showProgress}
+                  withId={false}
+                />
+              </ComAccordionComp>
+            </ComBadrCardBoxComp>
+          )}
+          <ComBadrCardBoxComp>
+            <Row style={CustomStyleSheet.lightBlueRow}>
+              <Col>
+                {(!this.props?.vuEmbInit?.successAction   && !this.state.modeConsultation) &&
                   <ComBadrButtonIconComp
-                    onPress={() => this.abandonnerVuEmbarquer()}
+                    onPress={() => this.confirmerVuEmbarquer()}
                     style={styles.buttonIcon}
                     loading={this.props.showProgress}
-                    text={translate('vuEmbarquee.ABANDONNER')}
+                    text={translate('etatChargementVE.buttonConfirmerVuEmbarquer')}
                   />
-                </Col>
-              </Row>
-            </ComAccordionComp>
+                }
+                {(!this.props?.vuEmbInit?.successAction   && this.state.modeConsultation) &&
+                  <ComBadrButtonIconComp
+                    onPress={() => this.supprimerVuEmbarquer()}
+                    style={styles.buttonIcon}
+                    loading={this.props.showProgress}
+                    text={translate('vuEmbarquee.SUPPRIMER')}
+                  />
+                }
+                <ComBadrButtonIconComp
+                  onPress={() => this.abandonnerVuEmbarquer()}
+                  style={styles.buttonIcon}
+                  loading={this.props.showProgress}
+                  text={translate('vuEmbarquee.ABANDONNER')}
+                />
+              </Col>
+            </Row>
           </ComBadrCardBoxComp>
         </ScrollView>
       </View >
@@ -1272,7 +1343,18 @@ const styles = {
 };
 
 function mapStateToProps(state) {
-  return { ...state.ecorExportVuEmbInitReducer, resOperateur: state.autoriserAcheminementMainReducer };
+  // console.log("+++++++++++++++++++++++++++++state++++++++++++++++++++++++++++++++++++++++++++");
+  // console.log("+++++++++++++++++++++++++++++state++++++++++++++++++++++++++++++++++++++++++++");
+  // console.log(JSON.stringify(state.ecorExportVuEmbInitReducer));
+  // console.log("++++++++++++++++++++++++++++++state+++++++++++++++++++++++++++++++++++++++++++");
+  // console.log("+++++++++++++++++++++++++++++++state++++++++++++++++++++++++++++++++++++++++++");
+  // console.log(JSON.stringify(state.autoriserAcheminementMainReducer));
+  // console.log("++++++++++++++++++++++++++++++state+++++++++++++++++++++++++++++++++++++++++++");
+  // console.log("++++++++++++++++++++++++++++++state+++++++++++++++++++++++++++++++++++++++++++");
+  // console.log(JSON.stringify(state.ecorExpVuEmbResScanReducer));
+  // console.log("++++++++++++++++++++++++++++++state+++++++++++++++++++++++++++++++++++++++++++");
+  // console.log("++++++++++++++++++++++++++++++state+++++++++++++++++++++++++++++++++++++++++++");
+  return { vuEmbInit: state.ecorExportVuEmbInitReducer, resOperateur: state.autoriserAcheminementMainReducer, resScan: state.ecorExpVuEmbResScanReducer };
 }
 
 function mapDispatchToProps(dispatch) {

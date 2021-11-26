@@ -31,6 +31,7 @@ import controleCommonReducer from '../../modules/controle/common/state/reducers/
 import genericDedReducer from '../../modules/dedouanement/redressement/state/reducers/DedReducer';
 import vuEmbInitReducer from '../../modules/DeclarationD17D20/vuEmbarquer/state/reducers/vuEmbInitReducer';
 import ecorExportVuEmbInitReducer from '../../modules/ecorExport/vuEmbarquer/state/reducers/ecorExpVuEmbInitReducer';
+import ecorExpVuEmbResScanReducer from '../../modules/ecorExport/vuEmbarquer/state/reducers/ecorExpVuEmbResScanReducer';
 import vuEmbReducer from '../../modules/DeclarationD17D20/vuEmbarquer/state/reducers/vuEmbUcReducer';
 import vuEmbRefVH from '../../modules/DeclarationD17D20/vuEmbarquer/state/reducers/vuEmRefVhReducer';
 import sortiPortRefVH from '../../modules/DeclarationD17D20/sortiPort/state/reducers/decSortiPortRefVhReducer';
@@ -74,6 +75,8 @@ import liquidationRechercheRefDumReducer from '../../modules/liquidation/state/r
 import liquidationReducer from '../../modules/liquidation/state/reducers/liquidationReducer';
 import consultationBLSReducer from '../../modules/ecorImport/eciConsultationBLS/state/reducers/eciConsultationBLSReducer';
 import consultationBLEReducer from '../../modules/ecorImport/eciConsultationBLE/state/reducers/eciConsultationBLEReducer';
+import resultatScannerReducer from '../../modules/controle/ctrlResultatScanner/state/reducers/ctrlResultatScannerReducer';
+
 import eciAppositionScellesRechercheReducer from '../../modules/ecorImport/appositionScelles/recherche/state/reducers/eciAppositionScellesRechercheReducer';
 import eciAppositionScellesReducer from '../../modules/ecorImport/appositionScelles/apposition/state/reducers/eciAppositionScellesReducer';
 import pecEtatChargementReducer from '../../modules/pecEtatChargement/rechParRef/state/reducers/pecEtatChargementReducer';
@@ -142,6 +145,7 @@ const allReducers = combineReducers({
   ecorImportRechercheRefDumReducer,
   vuEmbInitReducer,
   ecorExportVuEmbInitReducer,
+  ecorExpVuEmbResScanReducer,
   vuEmbReducer,
   vuEmbRefVH,
   t6bisCreationReducer,
@@ -151,6 +155,7 @@ const allReducers = combineReducers({
   ecorExpConfirmationArriveeReducer,
   consultationBLSReducer,
   consultationBLEReducer,
+  resultatScannerReducer,
   eciAppositionScellesRechercheReducer,
   eciAppositionScellesReducer,
   pecEtatChargementReducer,

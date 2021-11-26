@@ -48,6 +48,7 @@ import actifsRapportConsultationTranslateFr from '../../modules/actifs/rapport/r
 import actifsRapportCreationTranslateFr from '../../modules/actifs/rapport/creation/i18n/actifsRapportCreationTranslateFr';
 import decRechParRefTranslateFr from '../../modules/DeclarationD17D20/rechParRef/i18n/decRechParRefTranslateFr';
 import ecorExpConfirmationEntreeArriveeTranslateFr from '../../modules/ecorExport/confirmationEntreeArrivee/i18n/ecorExpConfirmationEntreeArriveeTranslateFr';
+import ctrlResultatScannerTranslateFr from '../../modules/controle/ctrlResultatScanner/i18n/ctrlResultatScannerTranslateFr';
 
 const locales = RNLocalize.getLocales();
 
@@ -105,7 +106,8 @@ let combined = {
   ...autoriserAcheminementGestionTranslateFr,
   ...pecEtatChargementVETranslateFr,
   ...decRechParRefTranslateFr,
-  ...ecorExpConfirmationEntreeArriveeTranslateFr
+  ...ecorExpConfirmationEntreeArriveeTranslateFr,
+  ...ctrlResultatScannerTranslateFr
 };
 I18n.translations = {
   fr: combined,

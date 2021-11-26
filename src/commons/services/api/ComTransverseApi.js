@@ -21,8 +21,8 @@ export default class ComTransverseApi {
         module: _module,
         commande: _command,
         typeService: _typeService,
-        offset: _offset,
-        pageSize: _pageSize,
+        offset: _.isEmpty(_offset) ? 0 : _offset,
+        pageSize: _.isEmpty(_pageSize) ? 0 : _pageSize,
       },
       jsonVO: _.isEmpty(_jsonVO) ? '' : _jsonVO,
     };

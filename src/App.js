@@ -73,6 +73,7 @@ import decRechParRefMainScreen from './modules/DeclarationD17D20/rechParRef/ui/d
 import actifsRapportCreationRondesApparitionsTab from './modules/actifs/rapport/creation/ui/rondesApparitions/actifsRapportCreationRondesApparitionsTab';
 import ecorExpVuEmbarqueScreen from './modules/ecorExport/vuEmbarquer/ui/ecorExpVuEmbarqueScreen';
 import VuEmbListeDeclaration2 from './modules/ecorExport/vuEmbarquer/ui/ecorExpVuEmbListeDeclaration';
+import CtrlResultatScannerResultScreen from './modules/controle/ctrlResultatScanner/ui/ctrlResultatScannerMainScreen';
 
 //setGlobalHandler();
 export default class App extends React.Component {
@@ -95,7 +96,7 @@ export default class App extends React.Component {
                 <Stack.Screen
                   name="test"
                   options={{headerShown: false}}
-                    component={ecorExpVuEmbarqueScreen}
+                    component={CtrlResultatScannerResultScreen}
                 />
               )}
               <Stack.Screen
