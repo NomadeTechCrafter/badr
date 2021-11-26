@@ -8,7 +8,7 @@ export default {
     referenceBLE: 'Référence BLE',
     creationDate: 'Date création',
     releaseDate: 'Date émission',
-    exitDate: 'Date sortie',
+    exitDate: 'Date d’entrée',
     validationDate: 'Date validation',
     exporter: 'Exportateur',
     importer: 'Importateur',

@@ -68,6 +68,26 @@ class CtrlReconnaissanceSearchComponent extends React.Component {
                 libelle: translate('transverse.dateEnregistrement'),
                 width: 230,
             },
+            {
+                code: 'decision',
+                libelle: translate('transverse.decision'),
+                width: 230,
+            },
+            {
+                code: 'immatAmp',
+                libelle: translate('transverse.amp'),
+                width: 230,
+            },
+            {
+                code: 'immatEc',
+                libelle: translate('transverse.ec'),
+                width: 230,
+            },
+            {
+                code: 'immatTryptique',
+                libelle: translate('transverse.tryptique'),
+                width: 230,
+            },
         ];
     };
 

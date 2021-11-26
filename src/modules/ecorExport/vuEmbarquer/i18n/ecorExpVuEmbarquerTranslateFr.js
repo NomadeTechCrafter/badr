@@ -71,7 +71,7 @@ export default {
     vuEmb: 'Vu Embarquer',
     dateVuEmb: 'Date vu embarquer',
     commentVuEmb: 'Commentaire',
-
+    controleApresScanner: 'Contrôle après scanner',
     versions: {
       title: 'Liste des versions',
       num: 'N°',

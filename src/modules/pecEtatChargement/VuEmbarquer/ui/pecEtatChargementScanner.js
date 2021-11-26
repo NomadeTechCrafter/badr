@@ -40,6 +40,11 @@ class EtatChargementScanner extends React.Component {
                 code: 'commentaire',
                 libelle: translate('etatChargement.commentaire'),
                 width: 300,
+            },
+            {
+                code: 'controleApresScanner',
+                libelle: translate('etatChargement.controleApresScanner'),
+                width: 300,
             }
         ];
     }

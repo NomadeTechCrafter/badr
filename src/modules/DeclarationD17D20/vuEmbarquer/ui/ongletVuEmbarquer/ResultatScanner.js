@@ -41,6 +41,11 @@ class ResultatScanner extends React.Component {
                 code: 'commentaire',
                 libelle: translate('sortiPort.scanner.commentaire'),
                 width: 300,
+            },
+            {
+                code: 'controleApresScanner',
+                libelle: translate('etatChargement.controleApresScanner'),
+                width: 300,
             }
         ];
     }
