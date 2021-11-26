@@ -237,11 +237,11 @@ export function requestCheckVersion(action, navigation) {
                             });
                     }
                 } else {
-                    dispatch(failedCheckVersion(translate('errors.technicalIssue')));
+                    dispatch(failedCheckVersion(translate('errors.technicalIssue')+ translate('errorGetVersionFromBo')));
                 }
             })
             .catch((e) => {
-                dispatch(failedCheckVersion(translate('errors.technicalIssue')));
+                dispatch(failedCheckVersion(translate('errors.technicalIssue')+translate('errorGetVersionFromBo')));
             });
     };
 }

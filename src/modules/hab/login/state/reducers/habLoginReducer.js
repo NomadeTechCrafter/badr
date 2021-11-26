@@ -70,6 +70,7 @@ export default (state = initialState, action) => {
         case Constants.CHECK_VERSION_FAILED:
             nextState.showProgress = false;
             nextState.showModalUpdateVersion = false;
+            nextState.loggedIn = false;
             nextState.msgModalUpdateVersion = '';
             nextState.errorMessage = action.value;
             return nextState;
