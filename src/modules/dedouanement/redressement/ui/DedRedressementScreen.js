@@ -404,6 +404,8 @@ class DedRedressementScreen extends React.Component {
         // console.log('this.props.dedConfirmationReceptionReducer : ', this.props.dedConfirmationReceptionReducer);
         // console.log('this.props.consulterDumReducer : ', this.props.consulterDumReducer);
 
+        console.log('success : ', typeof success != "undefined");
+
 
         return (
             <View style={{ flex: 1 }}>
@@ -412,7 +414,7 @@ class DedRedressementScreen extends React.Component {
                     title={this.props.route.params.title}
                     subtitle={this.props.route.params.subtitle}
                     icon="menu">
-                    {(!success) && <IconButton
+                    {(typeof success != "undefined") && (!success) && <IconButton
                         icon="arrange-bring-forward"
                         size={30}
                         color={primaryColor}

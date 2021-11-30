@@ -19,11 +19,28 @@ class DedRedressementEnteteInfoBlock extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      dedDumVo: this.props.data,
       selectedBureau: '',
     };
   }
 
   componentDidMount() { }
+
+  handleArrondissementChanged = (selectedValue, selectedIndex, item) => {
+
+    this.setState({
+      dedDumVo: { ...this.state.dedDumVo, dedDumSectionEnteteVO: { ...this.state.dedDumVo?.dedDumSectionEnteteVO, arrondissement: selectedValue } }
+    });
+    this.props.handleArrondissementChanged(selectedValue, selectedIndex, item);
+  };
+
+  handleLieuStockageLocalisationChanged = (selectedValue, selectedIndex, item) => {
+  
+    this.setState({
+      dedDumVo: { ...this.state.dedDumVo, dedDumSectionEnteteVO: { ...this.state.dedDumVo?.dedDumSectionEnteteVO, lieuStockageLocalisation: selectedValue } }
+    });
+    this.props.handleLieuStockageLocalisationChanged(selectedValue, selectedIndex, item);
+  };
 
   render() {
     return (
@@ -35,15 +52,12 @@ class DedRedressementEnteteInfoBlock extends React.Component {
               libelleSize={3}
               children={
                 <ComBadrPickerComp
-                  disabled={true}
-                  selected={getValueByPath(
-                    'dedDumSectionEnteteVO.arrondissement',
-                    this.props.data,
-                  )}
+                  disabled={this.props.readOnly}
+                  selected={this.state.dedDumVo?.dedDumSectionEnteteVO?.arrondissement}
                   onRef={(ref) => (this.comboArrondissements = ref)}
                   style={{
                     flex: 1,
-                    marginLeft: -80,
+                    marginLeft: -130,
                   }}
                   titleStyle={{ flex: 1 }}
                   key="arrondissements"
@@ -72,34 +86,39 @@ class DedRedressementEnteteInfoBlock extends React.Component {
 
           <DedRedressementRow>
             <ComBadrKeyValueComp
-              libelle="Lieu de stockage"
+              libelle="Lieu de stockage "
               children={
-                <ComBadrReferentielPickerComp
-                  key="lieuStockage"
-                  disabled={true}
-                  selected={{
-                    code: getValueByPath(
-                      'dedDumSectionEnteteVO.lieuStockageLocalisation',
-                      this.props.data,
-                    ),
-                  }}
-                  module="REF_LIB"
+
+                < ComBadrPickerComp
+                  disabled={this.props.readOnly || this.state.dedDumVo?.dedDumSectionEnteteVO?.regimeInterne}
+                  selected={this.state.dedDumVo?.dedDumSectionEnteteVO?.lieuStockageLocalisation}
                   onRef={(ref) => (this.comboLieuStockage = ref)}
+                  
+                  titleStyle={{ flex: 1 }}
+                  key="lieuStockage"
+                  cle="code"
+                  libelle="libelle"
+                  module="REF_LIB"
                   command="getCmbLieuStockageParBureau"
                   onValueChange={(selectedValue, selectedIndex, item) =>
                     this.handleLieuStockageChanged(
                       selectedValue,
                       selectedIndex,
-                      item,
+                      item
                     )
                   }
-                  params={{
-                    codeBureau: ''
+                  param={{
+                    codeBureau: getValueByPath(
+                      'dedDumSectionEnteteVO.refBureauDedouanement',
+                      this.props.data,
+                    ), dateValidite: getValueByPath(
+                      'dedReferenceVO.dateValidite',
+                      this.props.data,
+                    )
                   }}
                   typeService="SP"
-                  code="code"
-                  libelle="libelle"
                 />
+
               }
             />
           </DedRedressementRow>
@@ -108,41 +127,9 @@ class DedRedressementEnteteInfoBlock extends React.Component {
     );
   }
 
-  isActivehandleBureauChipsChanged = (item) => {
-    this.setState({
-      selectedBureau: item.codeBureau,
-      nomBureauDouane: item.nomBureauDouane,
-      selectedArrondissement: '',
-    });
-    this.comboArrondissements.refresh(item.codeBureau, this.refBureau);
-    this.comboLieuStockage.refresh(
-      { codeBureau: item.codeBureau },
-      this.comboBureaux,
-    );
-    this.comboLieuStockage2.refresh(
-      { codeBureau: selectedValue },
-      this.comboBureaux,
-    );
-  };
 
-  handleBureauChanged = (selectedValue, selectedIndex, item) => {
-    this.setState({
-      selectedBureau: selectedValue,
-      selectedBureauIndex: selectedIndex,
-      nomBureauDouane: item.nomBureauDouane,
-      selectedArrondissement: '',
-    });
-    this.comboArrondissements.refresh(selectedValue, this.refBureau);
-    this.comboLieuStockage.refresh(
-      { codeBureau: selectedValue },
-      this.comboBureaux,
-    );
-    this.comboLieuStockage2.refresh(
-      { codeBureau: selectedValue },
-      this.comboBureaux,
-    );
 
-  };
+
 }
 
 export default DedRedressementEnteteInfoBlock;

@@ -78,7 +78,7 @@ export default class DedRedressementApi {
     const data = {
       dtoHeader: {
         userLogin: ComSessionService.getInstance().getLogin(),
-        fonctionnalite: 'cf9005',
+        fonctionnalite: ComSessionService.getInstance().getFonctionalite(),
         module: 'DED_LIB',
         commande: 'ded.InitRedresserDum',
         typeService: TYPE_SERVICE_UC,
@@ -88,5 +88,38 @@ export default class DedRedressementApi {
     let response = await ComHttpHelperApi.process(data);
     return response;
   };
+
+  static calculerDelaiTransit = async (entete) => {
+    const data = {
+      dtoHeader: {
+        userLogin: ComSessionService.getInstance().getLogin(),
+        fonctionnalite: ComSessionService.getInstance().getFonctionalite(),
+        module: 'DED_LIB',
+        commande: 'ded.calculerDelaiTransit',
+        typeService: TYPE_SERVICE_SP,
+      },
+      jsonVO: entete,
+    };
+    let response = await ComHttpHelperApi.process(data);
+    return response;
+  };
+
+  static traiterNumRC = async (dedDumOperateurVO) => {
+    const data = {
+      dtoHeader: {
+        userLogin: ComSessionService.getInstance().getLogin(),
+        fonctionnalite: ComSessionService.getInstance().getFonctionalite(),
+        module: 'DED_LIB',
+        commande: 'ded.traiterNumRC',
+        typeService: TYPE_SERVICE_SP,
+      },
+      jsonVO: dedDumOperateurVO,
+    };
+    let response = await ComHttpHelperApi.process(data);
+    return response;
+  };
+
+  
+
 
 }

@@ -11,6 +11,9 @@ export default {
     redressement: {
       title: 'REDRESSER DECLARATION'
     },
+    entete: {
+      commentaires: 'Commentaires'
+    },
     confirmerEnvoiValeur: 'ENVOYER A LA VALEUR',
     confirmerTraitementValeur: 'TRAITER LA VALEUR',
     info: {

@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import { CATEGORIE_COMPLEMENTAIRE, CATEGORIE_GLOBALE_INIT, CATEGORIE_GLOBALE_VOY, CATEGORIE_NORMALE, CATEGORIE_PROVISOIRE_INIT, CATEGORIE_PROVISOIRE_VOY, CATEGORIE_SIMPLIFIEE_APU, CATEGORIE_SIMPLIFIEE_DEC, CATEGORIE_TRYPTIQUE_APU, CATEGORIE_TRYPTIQUE_DEC, TYPEDED_APURSIMPLIFIEE, TYPEDED_APURTRIPTYQUE, TYPEDED_DSIMPLIFIEE, TYPEDED_DTRIPTYQUE, TYPEDED_DUM, TYPEDED_DUMGLOB_INIT, TYPEDED_DUMPROV_INIT, TYPEDED_SOUSDUM_GLOB, TYPEDED_SOUSDUM_PROV } from './DedConstants';
 
 export const getValueByPath = (key, object, reducer) => {
   if (key === 'dedDumSectionEnteteVO.typeDUM' || key === 'sousDum') {
@@ -49,3 +50,35 @@ export const getCategorieDum = (typeDum, isSousDum) => {
     return '99';
   }
 };
+
+export const initDedCategorie = (typeDeclarationParam, refDumInit) => {
+
+  let categorie = CATEGORIE_COMPLEMENTAIRE;
+
+  if (typeDeclarationParam == TYPEDED_APURSIMPLIFIEE) {
+    categorie = CATEGORIE_SIMPLIFIEE_APU;
+  } else if (typeDeclarationParam == TYPEDED_DSIMPLIFIEE) {
+    categorie = CATEGORIE_SIMPLIFIEE_DEC;
+  } else if (typeDeclarationParam == TYPEDED_APURTRIPTYQUE) {
+    categorie = CATEGORIE_TRYPTIQUE_APU;
+  } else if (typeDeclarationParam == TYPEDED_DTRIPTYQUE) {
+    categorie = CATEGORIE_TRYPTIQUE_DEC;
+  } else if (typeDeclarationParam == TYPEDED_DUM) {
+    categorie = CATEGORIE_NORMALE;
+  } else if (typeDeclarationParam == TYPEDED_DUMGLOB_INIT) {
+    categorie = CATEGORIE_GLOBALE_INIT;
+  } else if (typeDeclarationParam == TYPEDED_DUMPROV_INIT) {
+    categorie = CATEGORIE_PROVISOIRE_INIT;
+  } else if (typeDeclarationParam == TYPEDED_SOUSDUM_PROV) {
+    categorie = CATEGORIE_PROVISOIRE_VOY;
+  } else if (typeDeclarationParam == TYPEDED_SOUSDUM_GLOB) {
+    categorie = CATEGORIE_GLOBALE_VOY;
+  }
+
+  if (!_.isEmpty(refDumInit)) {
+    categorie = CATEGORIE_PROVISOIRE_VOY;
+  }
+
+  
+  return categorie;
+}

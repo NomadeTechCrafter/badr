@@ -35,6 +35,8 @@ export default (state = initialState, action) => {
       nextState.searchData = action.value.searchParams;
       nextState.fromWhere1 = action.value.fromWhere1;
       nextState.messageInfo = action.value.messageInfo;
+      nextState.readOnly = !(action.value.searchParams === '') ;
+      
       return nextState;
     case Constants.GENERIC_FAILED:
       nextState.showProgress = false;

@@ -3,13 +3,14 @@ import { GENERIC_FAILED, GENERIC_IN_PROGRESS, GENERIC_SUCCESS } from '../../../.
 import translate from '../../../../../commons/i18n/ComI18nHelper';
 import { getValueByPath } from '../../utils/DedUtils';
 import DedRedressementApi from '../../service/api/DedRedressementApi';
+import { TRAITER_NUM_RC_FAILED, TRAITER_NUM_RC_IN_PROGRESS, TRAITER_NUM_RC_SUCCESS } from '../DedRedressementConstants';
 
-export function request(action, navigation) {
+export function request(action) {
     return (dispatch) => {
         dispatch(action);
         dispatch(inProgress(action));
-        DedRedressementApi.initRedresserDum(action.value.idDed).then((response) => {
-
+        DedRedressementApi.traiterNumRC(action.value.dedDumOperateurVO).then((response) => {
+            console.log('response', response);
             const messagesErreurs = getValueByPath(
                 'data.dtoHeader.messagesErreur',
                 response,
@@ -20,13 +21,10 @@ export function request(action, navigation) {
                 response.data.jsonVO &&
                 !messagesErreurs
             ) {
-                dispatch(success(response.data.jsonVO, ''));
-                navigation.navigate('DedRedressementScreen', {
-                    searchData: action.value ? action.value.jsonVO : {}, title: translate('dedouanement.redressement.title'),
-                    subtitle: '', showHeader: true
-                });
+                dispatch(success(action.value.dedDumOperateurVO,action.value.typeOperateur, action.value.operateurEngageFlag,response.data.jsonVO));
+               
             } else {
-                dispatch(failed(messagesErreurs, action.value));
+                dispatch(failed(messagesErreurs));
             }
         })
             .catch((e) => {
@@ -37,28 +35,29 @@ export function request(action, navigation) {
 
 export function inProgress(action) {
     return {
-        type: GENERIC_IN_PROGRESS,
-        value: action.value,
+        type: TRAITER_NUM_RC_IN_PROGRESS,
+        value: action.value
     };
 }
 
 
-export function success(data, searchParams) {
+export function success(dedDumOperateurVO, typeOperateur, operateurEngageFlag,data) {
     return {
-        type: GENERIC_SUCCESS,
+        type: TRAITER_NUM_RC_SUCCESS,
         value: {
-            searchParams: searchParams,
-            data: data,
+            dedDumOperateurVO: dedDumOperateurVO,
+            typeOperateur: typeOperateur,
+            operateurEngageFlag: operateurEngageFlag,
+            data: data
         },
     };
 }
 
-export function failed(data, command) {
+export function failed(data) {
     return {
-        type: GENERIC_FAILED,
+        type: TRAITER_NUM_RC_FAILED,
         value: {
-            command: command,
-            data: data,
+            data: data
         },
     };
 }

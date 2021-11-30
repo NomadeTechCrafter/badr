@@ -48,6 +48,12 @@ const styles = {
     margin: '4%',
     backgroundColor: '#009ab2',
   },
+  cardBox: {
+    flexDirection: 'column',
+    padding: 0,
+    marginTop: 15,
+    marginBottom: 15,
+  }
   // nombreResult: { margin: 20, marginVertical: 10, ...value },
   // libelle: { ...libelle },
 };

@@ -25,6 +25,11 @@ class DedRedressementEnteteScreen extends React.Component {
   constructor(props) {
     super(props);
     this.composantTablesColsD17D20 = this.buildComposantsColumnsD17D20();
+    this.state = {
+     
+      dedDumVo: this.props.data
+     
+    };
   }
 
   componentDidMount() {
@@ -73,26 +78,21 @@ class DedRedressementEnteteScreen extends React.Component {
               data={this.props.data}
             />
             <DedRedressementEnteteVersionBlock
+              data={this.state.dedDumVo}
+              dedDumSectionEnteteVO={this.state.dedDumVo?.dedDumSectionEnteteVO}
+              readOnly={true}
+            />
+            {/* <DedRedressementEnteteInfoBlock
               data={this.props.data}
               dedDumSectionEnteteVO={getValueByPath(
                 'dedDumSectionEnteteVO',
                 this.props.data,
               )}
-
-            />
-            <DedRedressementEnteteInfoBlock
-              data={this.props.data}
-              dedDumSectionEnteteVO={getValueByPath(
-                'dedDumSectionEnteteVO',
-                this.props.data,
-              )}
-            />
+            /> */}
             <DedRedressementEnteteDeclarantOpeBlock
-              data={this.props.data}
-              dedDumSectionEnteteVO={getValueByPath(
-                'dedDumSectionEnteteVO',
-                this.props.data,
-              )}
+              data={this.state.dedDumVo}
+              dedDumSectionEnteteVO={this.state.dedDumVo?.dedDumSectionEnteteVO}
+              readOnly={true}
             />
             <DedRedressementEnteteFacturePaiementBlock
               data={this.props.data}
@@ -177,6 +177,7 @@ class DedRedressementEnteteScreen extends React.Component {
     );
   }
 }
+
 
 function mapStateToProps(state) {
   return { ...state.consulterDumReducer };
