@@ -51,36 +51,32 @@ class T6bisEnteteRedevableSousBlock extends React.Component {
     this.checkType();
   };
 
-  componentDidMount = () => {
-    console.log(
-      'this.state --------------------------------------------------------------------------------------- µµµµµµµµµµµµµµµµµµµµµµµ',
-      this.state,
-    );
-  };
+ 
 
-  componentWillUnmount() {
-    console.log('T6bisEnteteRedevableSousBlock componentWillUnmount');
-  }
-
+ 
   reset = () => {
     console.log('reset');
   };
 
   isParamSetted = function () {
+    console.log('isParamSetted----------------------------  : ');
     if (this.isPasseport()) {
       if (
         this.state.intervenantVO.numeroDocumentIndentite &&
         this.state.intervenantVO.refTypeDocumentIdentite &&
         this.state.intervenantVO.nationaliteFr
       ) {
+        console.log('isParamSetted----------------------------  : true');
         return true;
       }
     } else if (
       this.state.intervenantVO.numeroDocumentIndentite &&
       this.state.intervenantVO.refTypeDocumentIdentite
     ) {
+      console.log('isParamSetted----------------------------  : true');
       return true;
     }
+    console.log('isParamSetted----------------------------  : false');
     return false;
   };
 
@@ -97,10 +93,12 @@ class T6bisEnteteRedevableSousBlock extends React.Component {
   };
 
   checkType = function () {
+    console.log('checkType----------------------------  : ');
     this.syncIntervenantInfo();
   };
 
   syncIntervenantInfo = function () {
+    console.log('syncIntervenantInfo----------------------------  : ');
     if (this.isParamSetted()) {
       this.completeRedevableInfo();
     }
@@ -179,14 +177,14 @@ class T6bisEnteteRedevableSousBlock extends React.Component {
   }
 
   onChangeTypeIdentifiant(text) {
+    console.log('onChangeTypeIdentifiant----------------------------  : ', text);
     this.setState({
       ...this.state,
       intervenantVO: {
         ...this.state.intervenantVO,
         refTypeDocumentIdentite: text,
       },
-    });
-    this.checkType();
+    }, this.checkType());
   }
 
   idNewIntervenant() {
@@ -218,7 +216,7 @@ class T6bisEnteteRedevableSousBlock extends React.Component {
         newIntervenant: props.newIntervenant,
       };
     }
-    if (!props.t6bis.hasOwnProperty('intervenantVO')) {
+    if (!props.t6bis.hasOwnProperty('intervenantVO') && !state.hasOwnProperty('intervenantVO')) {
       return {
 
         intervenantVO: {

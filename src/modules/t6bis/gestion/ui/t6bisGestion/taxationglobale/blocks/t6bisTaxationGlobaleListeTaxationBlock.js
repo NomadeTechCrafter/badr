@@ -298,6 +298,7 @@ class T6bisTaxationGlobaleListeTaxationBlock extends React.Component {
                                 <Col size={60} style={styles.labelContainer}>
                                     <TextInput
                                         mode="outlined"
+                                        keyboardType={'number-pad'}
                                         label={translate('t6bisGestion.tabs.taxation.globale.rubriqueBloc.tauxTaxation')}
                                         value={this.state.ligne?.tauxTaxation}
                                         onChangeText={(text) => this.setState({

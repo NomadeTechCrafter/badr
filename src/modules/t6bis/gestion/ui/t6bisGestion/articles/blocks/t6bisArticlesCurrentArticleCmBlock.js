@@ -407,6 +407,7 @@ class T6bisArticlesCurrentArticleCmBlock extends React.Component {
                             <TextInput
                                 disabled={this.props.readOnly}
                                 mode="outlined"
+                                keyboardType={'number-pad'}
                                 maxLength={24}
                                 label={translate('t6bisGestion.tabs.articles.articleBlock.cm.montantFacture')}
                                 value={this.state.currentArticle?.montantFacture}
