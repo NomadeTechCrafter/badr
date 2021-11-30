@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import { ComAccordionComp, ComBadrAutoCompleteChipsComp, ComBadrAutoCompleteComp, ComBadrButtonIconComp, ComBadrButtonRadioComp, ComBadrCardBoxComp, ComBadrDatePickerComp, ComBadrKeyValueComp, ComBadrLibelleComp, ComBadrPickerComp, ComBasicDataTableComp } from '../../../../../../commons/component';
+import { ComAccordionComp, ComBadrAutoCompleteChipsComp, ComBadrAutoCompleteComp, ComBadrButtonIconComp, ComBadrButtonRadioComp, ComBadrCardBoxComp, ComBadrDatePickerComp, ComBadrItemsPickerComp, ComBadrKeyValueComp, ComBadrLibelleComp, ComBadrPickerComp, ComBasicDataTableComp } from '../../../../../../commons/component';
 import translate from '../../../../../../commons/i18n/ComI18nHelper';
 import style from '../../style/actifsCreationStyle';
 import { Col, Grid, Row } from 'react-native-easy-grid';
@@ -11,6 +11,9 @@ import { CustomStyleSheet, primaryColor } from '../../../../../../commons/styles
 import { Checkbox, RadioButton, TextInput } from 'react-native-paper';
 import ComBadrReferentielPickerComp from '../../../../../../commons/component/shared/pickers/ComBadrReferentielPickerComp';
 import DedRedressementRow from '../../../../../dedouanement/redressement/ui/common/DedRedressementRow';
+import { stringNotEmpty, validateCin } from '../../../../../t6bis/utils/t6bisUtils';
+import * as Constantes from '../../../../../t6bis/utils/t6bisConstants';
+import * as T6BISConstantes from '../../../../../t6bis/gestion/state/t6bisGestionConstants';
 
 
 class ActifsRapportCreationPerquisitionTab extends React.Component {
@@ -43,6 +46,8 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
         this.state = {
             gibPerquisition: {},
             modeConsultation: false,
+            intervenantVO: {},
+            newIntervenant: null,
         };
     }
 
@@ -64,6 +69,116 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
         this.props.update({
             gibPerquisition: this.state?.gibPerquisition,
         });
+    }
+
+    onChangeTypeIdentifiant(text) {
+        this.setState({
+            ...this.state,
+            intervenantVO: {
+                ...this.state.intervenantVO,
+                refTypeDocumentIdentite: text,
+            },
+        });
+        this.checkType();
+    }
+
+    isPasseport = function () {
+        if (this.state.intervenantVO) {
+            return (
+                '05' === this.state.intervenantVO.refTypeDocumentIdentite ||
+                '06' === this.state.intervenantVO.refTypeDocumentIdentite ||
+                '07' === this.state.intervenantVO.refTypeDocumentIdentite
+            );
+        } else {
+            return false;
+        }
+    };
+
+    checkType = function () {
+        this.syncIntervenantInfo();
+    };
+
+    idNewIntervenant() {
+        return this.state?.newIntervenant === false ? false : true;
+    }
+
+    syncIntervenantInfo = function () {
+        if (this.isParamSetted()) {
+            this.completeRedevableInfo();
+        }
+    };
+
+    completeRedevableInfo = function () {
+        if (this.isParamSetted()) {
+            let data = {
+                type: Constantes.FIND_INTERVENANT_REQUEST,
+                value: {
+                    identifiants: this.buildRedevableCompletionParam(),
+                },
+            };
+            this.props.callbackHandler(T6BISConstantes.FIND_INTERVENANT_TASK, data);
+        }
+    };
+    buildRedevableCompletionParam = function () {
+        if (this.isPasseport()) {
+            return {
+                typeIdentifiant: this.state.intervenantVO.refTypeDocumentIdentite,
+                numeroDocumentIdentite: this.state.intervenantVO
+                    .numeroDocumentIndentite,
+                nationalite: this.state.intervenantVO.nationaliteFr,
+            };
+        } else {
+            if (
+                this.state.intervenantVO &&
+                this.state.intervenantVO.numeroDocumentIndentite
+            ) {
+                this.state.intervenantVO.numeroDocumentIndentite = validateCin(
+                    this.state.intervenantVO.numeroDocumentIndentite,
+                );
+            }
+            return {
+                typeIdentifiant: this.state.intervenantVO.refTypeDocumentIdentite,
+                numeroDocumentIdentite: this.state.intervenantVO
+                    .numeroDocumentIndentite,
+            };
+        }
+    };
+    isParamSetted = function () {
+        if (this.isPasseport()) {
+            if (
+                this.state.intervenantVO.numeroDocumentIndentite &&
+                this.state.intervenantVO.refTypeDocumentIdentite &&
+                this.state.intervenantVO.nationaliteFr
+            ) {
+                return true;
+            }
+        } else if (
+            this.state.intervenantVO.numeroDocumentIndentite &&
+            this.state.intervenantVO.refTypeDocumentIdentite
+        ) {
+            return true;
+        }
+        return false;
+    };
+
+    isPasseport = function () {
+        if (this.state.intervenantVO) {
+            return (
+                '05' === this.state.intervenantVO.refTypeDocumentIdentite ||
+                '06' === this.state.intervenantVO.refTypeDocumentIdentite ||
+                '07' === this.state.intervenantVO.refTypeDocumentIdentite
+            );
+        } else {
+            return false;
+        }
+    };
+    
+    onBlurIdentifiant(text) {
+        this.state.intervenantVO = {
+            ...this.state.intervenantVO,
+            numeroDocumentIndentite: text,
+        };
+        this.checkType();
     }
 
     render() {
@@ -147,8 +262,8 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
                                             // title={translate('at.typeIdent')}
                                             cle="code"
                                             libelle="libelle"
-                                            module="REF_LIB"
-                                            command="getCmbTypeIdentifiant"
+                                            module="GIB"
+                                            command="getAllAutorite"
                                             param={null}
                                             typeService="SP"
                                             storeWithKey="code"
@@ -161,38 +276,6 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
                                                     item,
                                                 )
                                             }
-                                        />
-                                    </Col>
-                                    <Col size={3}>
-                                        <ComBadrLibelleComp withColor={false}>
-                                            {translate('actifsCreation.perquisition.autoritePerquisition')}
-                                        </ComBadrLibelleComp>
-                                    </Col>
-                                    <Col size={7}>
-                                        {/* <ComBadrAutoCompleteChipsComp
-                                            code="numeroOrdreIntervenant"
-                                            disabled={this.props.readOnly}
-                                            placeholder={translate(
-                                                'actifsCreation.avionsPrivees.navigAerienne.provenance'
-                                            )}
-                                            selected={(this.state?.navigationAerienneModel?.provenance?.libelle) ? this.state?.navigationAerienneModel?.provenance?.libelle : this.state?.navigationAerienneModel?.provenance?.nomPays}
-                                            maxItems={3}
-                                            libelle="nomIntervenant"
-                                            command="findIntervenant"
-                                            paramName="numeroDocumentIdentite"
-                                            onDemand={true}
-                                            searchZoneFirst={false}
-                                            onValueChange={this.handleProvenanceChanged}
-                                        /> */}
-                                        <ComBadrAutoCompleteComp
-                                            placeholder={''}
-                                            onRef={(ref) => (this.code = ref)}
-                                            libelle="nomIntervenant"
-                                            key="numeroDocumentIdentite"
-                                            handleSelectItem={this.props.handlenatureMarchnadise}
-                                            command="findIntervenant"
-                                            styleInput={{ width: '100%', marginBottom: 30 }}
-                                        //style={}
                                         />
                                     </Col>
                                 </Row>
@@ -228,7 +311,7 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
                     </ComAccordionComp>
                     <ComAccordionComp title={translate('actifsCreation.perquisition.personnesConcernees')} expanded={true}>
                         <DedRedressementRow>
-                            <ComBadrKeyValueComp
+                            {/* <ComBadrKeyValueComp
                                 libelle={translate('actifsCreation.perquisition.identifiant')}
                                 children={<ComBadrPickerComp
                                     // disabled={true}
@@ -254,7 +337,174 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
                                         )
                                     }
                                 />}
+                            /> */}
+
+                            <Col size={30} style={style.labelContainer}>
+                                <Text style={style.labelTextStyle}>
+                                    {translate(
+                                        't6bisGestion.tabs.entete.redevableBlock.typeIdentifiant',
+                                    )}
+                                </Text>
+                            </Col>
+                            <Col size={70} style={style.labelContainer}>
+                                <ComBadrKeyValueComp
+                                libelle={translate('actifsCreation.perquisition.identifiant')}
+                                children={<ComBadrPickerComp
+                                    // disabled={true}
+                                    key="code"
+                                    style={CustomStyleSheet.badrPicker}
+                                    selectedValue={this.state?.gibPerquisition?.refTypeDocumentIdentite}
+                                    titleStyle={CustomStyleSheet.badrPickerTitle}
+                                    // title={translate('at.typeIdent')}
+                                    cle="code"
+                                    libelle="libelle"
+                                    module="REF_LIB"
+                                    command="getCmbTypeIdentifiant"
+                                    param={null}
+                                    typeService="SP"
+                                    storeWithKey="code"
+                                    storeLibelleWithKey="libelle"
+                                    // onValueChanged={this.handleAccordChanged}
+                                    onValueChange={(selectedValue, selectedIndex, item) =>
+
+                                        item?.code ? this.onChangeTypeIdentifiant(item.code) : {}
+                                    }
+                                />}
                             />
+                                <ComBadrItemsPickerComp
+                                    disabled={this.props.readOnly}
+                                    style={{
+                                        ...style.labelTextStyle,
+                                        borderWidth: 1,
+                                        borderColor: '#696969',
+                                        borderRadius: 4,
+                                    }}
+                                    label={translate(
+                                        't6bisGestion.tabs.entete.redevableBlock.typeIdentifiant',
+                                    )}
+                                    selectedValue={this.state.intervenantVO.refTypeDocumentIdentite}
+                                    items={this.props.identifiants}
+                                    onValueChanged={(value, index) =>
+                                        value?.code ? this.onChangeTypeIdentifiant(value.code) : {}
+                                    }
+                                />
+                            </Col>
+                            <Col size={30} style={style.labelContainer}>
+                                <Text style={style.labelTextStyle}>
+                                    {translate(
+                                        't6bisGestion.tabs.entete.redevableBlock.identifiant',
+                                    )}
+                                </Text>
+                            </Col>
+
+                            <Col size={70} style={style.labelContainer}>
+                                <TextInput
+                                    disabled={this.props.readOnly}
+                                    mode="outlined"
+                                    label={translate(
+                                        't6bisGestion.tabs.entete.redevableBlock.identifiant',
+                                    )}
+                                    value={this.state.intervenantVO.numeroDocumentIndentite}
+                                    onEndEditing={(event) =>
+                                        this.onBlurIdentifiant(event.nativeEvent.text)
+                                    }
+                                />
+                            </Col>
+                        </DedRedressementRow>
+                        {this.isPasseport() && (
+                            <DedRedressementRow>
+                                <Col size={30} style={style.labelContainer}>
+                                    <Text style={style.labelTextStyle}>
+                                        {translate(
+                                            't6bisGestion.tabs.entete.redevableBlock.nationalite',
+                                        )}
+                                    </Text>
+                                </Col>
+
+                                <Col size={70} style={style.labelContainer}>
+                                    <ComBadrAutoCompleteChipsComp
+                                        disabled={
+                                            (stringNotEmpty(this.state.intervenantVO.adresse) &&
+                                                !this.idNewIntervenant()) ||
+                                            this.props.readOnly
+                                        }
+                                        code="code"
+                                        placeholder={translate(
+                                            't6bisGestion.tabs.entete.redevableBlock.nationalite',
+                                        )}
+                                        selected={this.state.intervenantVO.nationaliteFr}
+                                        maxItems={3}
+                                        libelle="libelle"
+                                        command="getCmbPays"
+                                        paramName="libellePays"
+                                        onDemand={true}
+                                        searchZoneFirst={false}
+                                        onValueChange={this.handlePaysChanged}
+                                    />
+                                </Col>
+                            </DedRedressementRow>
+                        )}
+                        <DedRedressementRow>
+                            <Col size={30} style={style.labelContainer}>
+                                <Text style={style.labelTextStyle}>
+                                    {translate('t6bisGestion.tabs.entete.redevableBlock.nom')}
+                                </Text>
+                            </Col>
+
+                            <Col size={70} style={style.labelContainer}>
+                                <TextInput
+                                    mode="outlined"
+                                    label={translate('t6bisGestion.tabs.entete.redevableBlock.nom')}
+                                    value={this.state.intervenantVO.nomIntervenant}
+                                    disabled={
+                                        (stringNotEmpty(this.state.intervenantVO.adresse) &&
+                                            !this.idNewIntervenant()) ||
+                                        this.props.readOnly
+                                    }
+                                    onChangeText={(text) =>
+                                        text
+                                            ? this.setState({
+                                                ...this.state,
+                                                intervenantVO: {
+                                                    ...this.state.intervenantVO,
+                                                    nomIntervenant: text,
+                                                },
+                                            })
+                                            : {}
+                                    }
+                                />
+                            </Col>
+                            <Col size={30} style={style.labelContainer}>
+                                <Text style={style.labelTextStyle}>
+                                    {translate('t6bisGestion.tabs.entete.redevableBlock.prenom')}
+                                </Text>
+                            </Col>
+
+                            <Col size={70} style={style.labelContainer}>
+                                <TextInput
+                                    mode="outlined"
+                                    label={translate(
+                                        't6bisGestion.tabs.entete.redevableBlock.prenom',
+                                    )}
+                                    value={this.state.intervenantVO.prenomIntervenant}
+                                    disabled={
+                                        (stringNotEmpty(this.state.intervenantVO.adresse) &&
+                                            !this.idNewIntervenant()) ||
+                                        this.props.readOnly
+                                    }
+                                    onChangeText={(text) =>
+                                        text
+                                            ? this.setState({
+                                                ...this.state,
+                                                intervenantVO: {
+                                                    ...this.state.intervenantVO,
+                                                    prenomIntervenant: text,
+                                                },
+                                            })
+                                            : {}
+                                    }
+                                />
+                            </Col>
                         </DedRedressementRow>
                         <View style={CustomStyleSheet.row}>
                             <ComBasicDataTableComp

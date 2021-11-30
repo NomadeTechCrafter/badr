@@ -8,19 +8,19 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import SectionedMultiSelect from 'react-native-sectioned-multi-select';
-import {ComBadrCircleProgressBarComp} from '../../index';
+import { ComBadrCircleProgressBarComp } from '../../index';
 import _ from 'lodash';
 
-import {primaryColor} from '../../../styles/ComThemeStyle';
-import {darkGris} from '../../../styles/ComColorsStyle';
+import { primaryColor } from '../../../styles/ComThemeStyle';
+import { darkGris } from '../../../styles/ComColorsStyle';
 /** REDUX **/
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 /**ACTIONS */
 import * as Constants from '../../../constants/components/ComBadrPickerConstants';
 import * as badrPickerAction from '../../../state/actions/ComBadrPickerCheckerAction';
 
-import {translate} from '../../../i18n/ComI18nHelper';
+import { translate } from '../../../i18n/ComI18nHelper';
 
 class ComBadrPickerCheckerComp extends React.Component {
   constructor(props) {
@@ -59,12 +59,12 @@ class ComBadrPickerCheckerComp extends React.Component {
   };
 
   onSelectedItemsChange = (selectedItems) => {
-    this.setState({selectedItems: selectedItems});
+    this.setState({ selectedItems: selectedItems });
   };
 
-  icon = ({name, size = 18, style}) => {
+  icon = ({ name, size = 18, style }) => {
     const flat = StyleSheet.flatten(style);
-    const {color, fontSize, ...styles} = flat;
+    const { color, fontSize, ...styles } = flat;
     let iconComponent;
     const iconColor = primaryColor;
     const Search = <Icon size={15} color={iconColor} name="search" />;
@@ -100,12 +100,12 @@ class ComBadrPickerCheckerComp extends React.Component {
   };
 
   toggleExpand = () => {
-    this.setState({expanded: !this.state.expanded});
+    this.setState({ expanded: !this.state.expanded });
   };
 
   render() {
     return (
-      <View style={(styles.container, {...this.props.style})}>
+      <View style={(styles.container, { ...this.props.style })}>
         {this.props.toggle && (
           <TouchableOpacity
             style={styles.toggleTitle}
@@ -127,18 +127,18 @@ class ComBadrPickerCheckerComp extends React.Component {
         {this.state.expanded && (
           <View style={styles.expandedContainer}>
             {this.props.picker[this.props.command] &&
-            this.props.picker[this.props.command].group &&
-            this.props.picker[this.props.command].loaded ? (
+              this.props.picker[this.props.command].group &&
+              this.props.picker[this.props.command].loaded ? (
               <ScrollView>
                 <SectionedMultiSelect
                   styles={{
-                    button: {backgroundColor: '#009ab2'},
+                    button: { backgroundColor: '#009ab2' },
                   }}
-                  items={this.props.picker[this.props.command].group}
-                  uniqueKey={this.props.cle}
+                  items={this.props?.picker[this.props?.command]?.group}
+                  uniqueKey={this.props?.cle}
                   subKey="children"
                   iconRenderer={this.icon}
-                  displayKey={this.props.libelle}
+                  displayKey={this.props?.libelle}
                   selectText={translate(
                     'components.pickerchecker.default_value',
                   )}
@@ -166,7 +166,7 @@ class ComBadrPickerCheckerComp extends React.Component {
                     let profils = [];
                     if (newCollection) {
                       newCollection.forEach((item) => {
-                        profils.push(item.codeProfil);
+                        profils.push(item?.codeProfil);
                       });
                     }
                     this.props.onSelectedItemObjectsChange(profils);
@@ -186,7 +186,7 @@ class ComBadrPickerCheckerComp extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  container: {borderWidth: 0},
+  container: { borderWidth: 0 },
   title: {
     fontWeight: 'bold',
     fontSize: 12,
@@ -204,15 +204,15 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   expandedContainer: {},
-  progressbarStyle: {margin: 0, padding: 0},
+  progressbarStyle: { margin: 0, padding: 0 },
 });
 
 function mapStateToProps(state, ownProps) {
-  return {...state.badrPickerCheckerReducer};
+  return { ...state.badrPickerCheckerReducer };
 }
 
 function mapDispatchToProps(dispatch) {
-  let actions = {dispatch};
+  let actions = { dispatch };
   return {
     actions,
   };

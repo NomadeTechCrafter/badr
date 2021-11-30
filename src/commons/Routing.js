@@ -9,8 +9,6 @@ const mapping = {
   '30661': { screen: 'ControleApresScanner', params: {} },
   '90025': { screen: 'VuEmbarqueScreen', params: { qr: true } },
   '90008': { screen: 'RechParRefTrypScreen', params: {} },
-
-
   '1101': { screen: 'ConsultationTIScreen', params: { modeConsultation: 'E' } },
   '1102': { screen: 'ConsultationTIScreenI', params: { modeConsultation: 'I' } },
   '1103': { screen: 'ConsultationIgTIScreen', params: { modeConsultation: 'E' } },
@@ -26,7 +24,6 @@ const mapping = {
   '306012': { screen: 'ModifierReconnaissance', params: {} },
   '306013': { screen: 'AnnulerReconnaissance', params: {} },
   '306014': { screen: 'AffecterAgentVisiteur', params: {} },
-
   '2301': { screen: 'DTPSSortieMainScreen', params: {} },
   '2302': { screen: 'DTPSEntreeMainScreen', params: {} },
   '2303': { screen: 'DTPSConsultationMainScreen', params: {} },
@@ -47,7 +44,6 @@ const mapping = {
     screen: 'EciConsultationBLS',
     params: { title: 'Ecran  Recherche Consultation BLS' },
   },
-
   '121714': {
     screen: 'EciConsultationBLE',
     params: { title: 'Ecran  Recherche Consultation BLE' },
@@ -57,7 +53,6 @@ const mapping = {
 	    params: {
 	      title: 'Résultat de scanner' },
   },
-
   '1201': {
     screen: 'RechercheEcorImport',
     params: { typeEcorImport: 'EnleverMarchandise' },
@@ -74,14 +69,13 @@ const mapping = {
     screen: 'RechercheEcorImport',
     params: { typeEcorImport: 'VerifierParContreEcor' },
   },
-
   '1226': {
     screen: 'ECIAppositionScellesRechercheScreen',
     params: {},
   },
   '2243': { screen: 'RechercheConfirmationReceptionScreen', params: {} },
-    /*
   '9932': { screen: 'ActifsRecherche', params: {} },
+    /*
   '14000010': {screen: 'CreerCompteRenduMission', params: {}},
   '14000011': {screen: 'ModifierCompteRenduMission', params: {}},
   '14000012': {screen: 'ValiderCompteRenduMission', params: {}},

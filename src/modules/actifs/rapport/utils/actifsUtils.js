@@ -194,6 +194,8 @@ export const cleanOrdreService = (rsAEnregistrer)=>{
     delete rondeApparition?.dateHeureDebut;
     delete rondeApparition?.dateHeureFin;
   });
+  
+  // delete rsAEnregistrer?.gibPerquisition?.heurePerquisition;
 
   if (_.isArray(rsAEnregistrer?.rapportService?.ordreService?.agentsBrigade)) {
     rsAEnregistrer.rapportService?.ordreService?.agentsBrigade?.forEach((agentBrigade) => {

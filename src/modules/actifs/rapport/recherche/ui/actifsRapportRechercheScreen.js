@@ -43,8 +43,8 @@ class ActifsRapportRechercheScreen extends Component {
       show: false,
       paginate: true,
       code1: ComSessionService.getInstance().getUserObject() ? ComSessionService.getInstance().getUserObject().codeUOR : '',
-      code2: '',
-      code3: '',
+      code2: '2020',
+      code3: '0005',
       data: '01/01/2021',// 'jj/mm/aaaa', //moment(this.state.date).format("MM/DD/YYYY")
     };
     this.cols = [
