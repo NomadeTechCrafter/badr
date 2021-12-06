@@ -223,6 +223,7 @@ export default (state = initialState, action) => {
 const startRedevableCompletion = function (t6bis, redevableResponse) {
   console.log('t6bis-----------------------', t6bis);
   console.log('redevableResponse-------------------------', redevableResponse);
+  t6bis = {};
   if (!t6bis.intervenantVO) {
     t6bis.intervenantVO = {};
   }

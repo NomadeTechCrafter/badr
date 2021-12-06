@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import { ComAccordionComp, ComBadrAutoCompleteChipsComp, ComBadrAutoCompleteComp, ComBadrButtonIconComp, ComBadrButtonRadioComp, ComBadrCardBoxComp, ComBadrDatePickerComp, ComBadrItemsPickerComp, ComBadrKeyValueComp, ComBadrLibelleComp, ComBadrPickerComp, ComBasicDataTableComp } from '../../../../../../commons/component';
+import { ComAccordionComp, ComBadrAutoCompleteChipsComp, ComBadrAutoCompleteComp, ComBadrButtonComp, ComBadrButtonIconComp, ComBadrButtonRadioComp, ComBadrCardBoxComp, ComBadrDatePickerComp, ComBadrItemsPickerComp, ComBadrKeyValueComp, ComBadrLibelleComp, ComBadrPickerComp, ComBasicDataTableComp } from '../../../../../../commons/component';
 import translate from '../../../../../../commons/i18n/ComI18nHelper';
 import style from '../../style/actifsCreationStyle';
 import { Col, Grid, Row } from 'react-native-easy-grid';
@@ -9,11 +9,13 @@ import moment from 'moment';
 import { ScrollView, Text, View } from 'react-native';
 import { CustomStyleSheet, primaryColor } from '../../../../../../commons/styles/ComThemeStyle';
 import { Checkbox, RadioButton, TextInput } from 'react-native-paper';
-import ComBadrReferentielPickerComp from '../../../../../../commons/component/shared/pickers/ComBadrReferentielPickerComp';
 import DedRedressementRow from '../../../../../dedouanement/redressement/ui/common/DedRedressementRow';
 import { stringNotEmpty, validateCin } from '../../../../../t6bis/utils/t6bisUtils';
 import * as Constantes from '../../../../../t6bis/utils/t6bisConstants';
 import * as T6BISConstantes from '../../../../../t6bis/gestion/state/t6bisGestionConstants';
+import t6bisUpdatePropsAction from '../../../../../t6bis/gestion/state/actions/t6bisUpdatePropsAction';
+import t6bisFindIntervenantAction from '../../../../../t6bis/gestion/state/actions/t6bisFindIntervenantAction';
+
 
 
 class ActifsRapportCreationPerquisitionTab extends React.Component {
@@ -23,17 +25,17 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
 
         this.cols = [
             {
-                code: 'intervenant.numeroDocumentIndentite',
+                code: 'identifiants.numeroDocumentIdentite',
                 libelle: translate('actifsCreation.perquisition.identifiant'),
                 width: 200,
             },
             {
-                code: 'intervenant.nomIntervenant',
+                code: 'nomIntervenant',
                 libelle: translate('actifsCreation.perquisition.nom'),
                 width: 200,
             },
             {
-                code: 'intervenant.prenomIntervenant',
+                code: 'prenomIntervenant',
                 libelle: translate('actifsCreation.perquisition.prenom'),
                 width: 200,
             },
@@ -44,9 +46,9 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
             },
         ];
         this.state = {
-            gibPerquisition: {},
+            gibPerquisition: { intervenantsVO: [] },
             modeConsultation: false,
-            intervenantVO: {},
+            intervenantVO: this.props?.t6bisReducer?.value,
             newIntervenant: null,
         };
     }
@@ -55,8 +57,17 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
         this.setState({
             gibPerquisition: this.props.value?.gibPerquisition,
             modeConsultation: this.props.consultation,
+            intervenantVO: this.props?.t6bisReducer?.value,
         });
     }
+    
+    // componentDidUpdate = () => {
+    //     this.setState({
+    //         gibPerquisition: this.props.value?.gibPerquisition,
+    //         modeConsultation: this.props.consultation,
+    //         intervenantVO: this.props?.t6bisReducer?.value,
+    //     });
+    // }
 
     handleAccordChanged = (selectedValue, selectedIndex, item) => {
         this.update();
@@ -111,14 +122,42 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
     completeRedevableInfo = function () {
         if (this.isParamSetted()) {
             let data = {
-                type: Constantes.FIND_INTERVENANT_REQUEST,
+                type: T6BISConstantes.FIND_INTERVENANT_REQUEST,
                 value: {
                     identifiants: this.buildRedevableCompletionParam(),
                 },
             };
-            this.props.callbackHandler(T6BISConstantes.FIND_INTERVENANT_TASK, data);
+            this.callbackHandler(Constantes.FIND_INTERVENANT_TASK, data);
         }
     };
+
+    callbackHandler = (type, data) => {
+        console.log(data);
+        console.log(type);
+        switch (type) {
+            case Constantes.FIND_INTERVENANT_TASK:
+                this.props.dispatch(t6bisFindIntervenantAction.request(data));
+                this.setState({
+                    intervenantVO: this.props?.t6bisReducer?.value,
+                });
+                break;
+            case Constantes.UPDATE_INTERVENANT_TASK:
+                let dataToAction = {
+                    type: T6BISConstantes.T6BIS_UPDATE_INTERVENANT_REQUEST,
+                    value: {
+                        fieldsetcontext: data.fieldsetcontext,
+                    },
+                };
+
+                this.props.dispatch(
+                    t6bisUpdatePropsAction.request(dataToAction),
+                );
+                this.setState({ fieldsetcontext: data.fieldsetcontext });
+                break;
+        }
+
+    };
+
     buildRedevableCompletionParam = function () {
         if (this.isPasseport()) {
             return {
@@ -172,16 +211,56 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
             return false;
         }
     };
-    
+
     onBlurIdentifiant(text) {
         this.state.intervenantVO = {
             ...this.state.intervenantVO,
             numeroDocumentIndentite: text,
         };
         this.checkType();
+        this.update();
     }
 
+
+    supprimerIntervenant = (row, index) => {
+        console.log(JSON.stringify(row));
+        console.log(JSON.stringify(index));
+        let intervenantsVO = this.state.gibPerquisition.intervenantsVO;
+        intervenantsVO.splice(index, 1);
+        this.setState({ myArray: [...this.state.gibPerquisition.intervenantsVO, intervenantsVO] });
+        this.update();
+    };
+
+    ajouterIntervenant = () => {
+        console.log('this.state : ' + JSON.stringify(this.state));
+        if (!this.state.gibPerquisition) {
+            this.state.gibPerquisition = {};
+        }
+        if (!this.state.gibPerquisition.intervenantsVO) {
+            this.state.gibPerquisition.intervenantsVO = [];
+        }
+        let intervenantsVO = this.state.gibPerquisition.intervenantsVO;
+        let currentIntervenantVO = this.state.intervenantVO;
+        intervenantsVO.push(currentIntervenantVO);
+        this.setState({ myArray: [...this.state.gibPerquisition.intervenantsVO, intervenantsVO] });
+        this.update();
+        this.retablir();
+
+        // this.state.gibPerquisition.intervenantsVO.push(this.props?.t6bisReducer?.value);
+        console.log('this.props?.t6bisReducer?.value : ' + JSON.stringify(this.props?.t6bisReducer?.value));
+        console.log('this.state.gibPerquisition.intervenantsVO : ' + JSON.stringify(this.state?.gibPerquisition?.intervenantsVO));
+    };
+
+
+    retablir = () => {
+        console.log('retablir');
+        this.setState({
+            intervenantVO: {}
+        });
+    };
+
     render() {
+        // let personneConcernee = this.props?.t6bisReducer?.value;
         return (
             <ScrollView >
                 <View style={CustomStyleSheet.verticalContainer20}>
@@ -347,9 +426,7 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
                                 </Text>
                             </Col>
                             <Col size={70} style={style.labelContainer}>
-                                <ComBadrKeyValueComp
-                                libelle={translate('actifsCreation.perquisition.identifiant')}
-                                children={<ComBadrPickerComp
+                                <ComBadrPickerComp
                                     // disabled={true}
                                     key="code"
                                     style={CustomStyleSheet.badrPicker}
@@ -369,9 +446,8 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
 
                                         item?.code ? this.onChangeTypeIdentifiant(item.code) : {}
                                     }
-                                />}
-                            />
-                                <ComBadrItemsPickerComp
+                                />
+                                {/* <ComBadrItemsPickerComp
                                     disabled={this.props.readOnly}
                                     style={{
                                         ...style.labelTextStyle,
@@ -387,7 +463,7 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
                                     onValueChanged={(value, index) =>
                                         value?.code ? this.onChangeTypeIdentifiant(value.code) : {}
                                     }
-                                />
+                                /> */}
                             </Col>
                             <Col size={30} style={style.labelContainer}>
                                 <Text style={style.labelTextStyle}>
@@ -404,7 +480,7 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
                                     label={translate(
                                         't6bisGestion.tabs.entete.redevableBlock.identifiant',
                                     )}
-                                    value={this.state.intervenantVO.numeroDocumentIndentite}
+                                    value={this.state?.intervenantVO?.numeroDocumentIndentite}
                                     onEndEditing={(event) =>
                                         this.onBlurIdentifiant(event.nativeEvent.text)
                                     }
@@ -424,7 +500,7 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
                                 <Col size={70} style={style.labelContainer}>
                                     <ComBadrAutoCompleteChipsComp
                                         disabled={
-                                            (stringNotEmpty(this.state.intervenantVO.adresse) &&
+                                            (stringNotEmpty(this.state?.intervenantVO?.adresse) &&
                                                 !this.idNewIntervenant()) ||
                                             this.props.readOnly
                                         }
@@ -432,7 +508,7 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
                                         placeholder={translate(
                                             't6bisGestion.tabs.entete.redevableBlock.nationalite',
                                         )}
-                                        selected={this.state.intervenantVO.nationaliteFr}
+                                        selected={this.state?.intervenantVO?.nationaliteFr}
                                         maxItems={3}
                                         libelle="libelle"
                                         command="getCmbPays"
@@ -455,11 +531,8 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
                                 <TextInput
                                     mode="outlined"
                                     label={translate('t6bisGestion.tabs.entete.redevableBlock.nom')}
-                                    value={this.state.intervenantVO.nomIntervenant}
-                                    disabled={
-                                        (stringNotEmpty(this.state.intervenantVO.adresse) &&
-                                            !this.idNewIntervenant()) ||
-                                        this.props.readOnly
+                                    value={this.state?.intervenantVO?.nomIntervenant}
+                                    disabled={stringNotEmpty(this.state?.intervenantVO?.nomIntervenant)
                                     }
                                     onChangeText={(text) =>
                                         text
@@ -486,11 +559,8 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
                                     label={translate(
                                         't6bisGestion.tabs.entete.redevableBlock.prenom',
                                     )}
-                                    value={this.state.intervenantVO.prenomIntervenant}
-                                    disabled={
-                                        (stringNotEmpty(this.state.intervenantVO.adresse) &&
-                                            !this.idNewIntervenant()) ||
-                                        this.props.readOnly
+                                    value={this.state?.intervenantVO?.prenomIntervenant}
+                                    disabled={stringNotEmpty(this.state?.intervenantVO?.prenomIntervenant)
                                     }
                                     onChangeText={(text) =>
                                         text
@@ -506,6 +576,24 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
                                 />
                             </Col>
                         </DedRedressementRow>
+                        <View style={style.containerActionBtn}>
+                            <ComBadrButtonComp
+                                style={{ width: 100 }}
+                                onPress={() => {
+                                    this.ajouterIntervenant();
+                                }}
+                                text={translate('transverse.confirmer')}
+                                disabled={false}
+                            />
+                            <ComBadrButtonComp
+                                style={{ width: 100 }}
+                                onPress={() => {
+                                    this.retablir();
+                                }}
+                                text={translate('transverse.retablir')}
+                                disabled={false}
+                            />
+                        </View>
                         <View style={CustomStyleSheet.row}>
                             <ComBasicDataTableComp
                                 id="PerquiTable"
@@ -547,6 +635,6 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => ({ ...state.creationActifsReducer });
+const mapStateToProps = (state) => ({ ...state.creationActifsReducer, t6bisReducer: state.t6bisGestionReducer });
 
 export default connect(mapStateToProps, null)(ActifsRapportCreationPerquisitionTab);

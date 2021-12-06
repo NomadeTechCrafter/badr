@@ -146,7 +146,7 @@ class ActifsRapportCreationRondesApparitionsTab extends React.Component {
         // let dateDebut = format(modele?.dateDebut);
 
         moment.suppressDeprecationWarnings = true;
-        let dateHeureDebut = moment(modele ?.dateDebut + ' ' + modele?.heureDebut, FORMAT_DDMMYYYY_HHMM);
+        let dateHeureDebut = moment(modele?.dateDebut + ' ' + modele?.heureDebut, FORMAT_DDMMYYYY_HHMM);
         let dateHeureFin = moment(modele?.dateFin + ' ' + modele?.heureFin, FORMAT_DDMMYYYY_HHMM);
         console.log("dateHeureDebut : ", dateHeureDebut);
         console.log("dateHeureFin : ", dateHeureFin);
@@ -204,7 +204,6 @@ class ActifsRapportCreationRondesApparitionsTab extends React.Component {
     }
 
     checkRequiredFields = () => {
-
         let params = { msg: '', required: false }
         this.checkRequiredFieldsResultatCtrl(params);
         if (params.required) {
@@ -216,7 +215,6 @@ class ActifsRapportCreationRondesApparitionsTab extends React.Component {
             this.setState({
                 errorMessage: null
             });
-
         }
         return params.required;
     }

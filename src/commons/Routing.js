@@ -15,9 +15,6 @@ const mapping = {
   '1104': { screen: 'ConsultationIgTIScreenI', params: { modeConsultation: 'I' } },
   '6064': { screen: 'PecEtatChargementMainScreen', params: {} },
   '6060': { screen: 'PecEtatChargementVEMainScreen', params: {} },
-  '3064': { screen: 'controleRechercheDumScreen', params: { typeControle: 'AC' } },
-  '3072': { screen: 'controleRechercheDumScreen', params: { typeControle: 'RI' } },
-  '3086': { screen: 'controleRechercheDumScreen', params: { typeControle: 'TR' } },
   '767': { screen: 'BloquerOperateur', params: {} },
   '42997': { screen: 'DebloquerOperateur', params: {} },
   '306011': { screen: 'AjouterReconnaissance', params: {} },
@@ -53,6 +50,24 @@ const mapping = {
 	    params: {
 	      title: 'Résultat de scanner' },
   },
+  '1226': {
+    screen: 'ECIAppositionScellesRechercheScreen',
+    params: {},
+  },
+  '2243': { screen: 'RechercheConfirmationReceptionScreen', params: {} },
+  '14000011': {screen: 'ModifierCompteRenduMission', params: {}},
+  '14000012': {screen: 'ValiderCompteRenduMission', params: {}},
+  '4096': {screen: 'RefControleVehicule', params: {}},
+  '823': {screen: 'RefPlaquesImm', params: {}},
+  '14000010': { screen: 'CreerCompteRenduMission', params: {} },
+  '9932': { screen: 'ActifsRecherche', params: {} },
+  
+    /*
+  '3064': { screen: 'controleRechercheDumScreen', params: { typeControle: 'AC' } },
+  '3072': { screen: 'controleRechercheDumScreen', params: { typeControle: 'RI' } },
+  '3086': { screen: 'controleRechercheDumScreen', params: { typeControle: 'TR' } },
+  '5971': {screen: 'RechecheMLV', params: {}},
+  '5202': {screen: 'LiquidationRechercheScreen', params: {qr: false}},
   '1201': {
     screen: 'RechercheEcorImport',
     params: { typeEcorImport: 'EnleverMarchandise' },
@@ -69,20 +84,7 @@ const mapping = {
     screen: 'RechercheEcorImport',
     params: { typeEcorImport: 'VerifierParContreEcor' },
   },
-  '1226': {
-    screen: 'ECIAppositionScellesRechercheScreen',
-    params: {},
-  },
-  '2243': { screen: 'RechercheConfirmationReceptionScreen', params: {} },
-  '9932': { screen: 'ActifsRecherche', params: {} },
-    /*
-  '14000010': {screen: 'CreerCompteRenduMission', params: {}},
-  '14000011': {screen: 'ModifierCompteRenduMission', params: {}},
-  '14000012': {screen: 'ValiderCompteRenduMission', params: {}},
-  '4096': {screen: 'RefControleVehicule', params: {}},
-  '823': {screen: 'RefPlaquesImm', params: {}},
-  '5971': {screen: 'RechecheMLV', params: {}},
-  '5202': {screen: 'LiquidationRechercheScreen', params: {qr: false}},*/
+  */
 
   /*T6bis creation*/
   '110001': {screen: 'T6bisCreation', params: {}},
