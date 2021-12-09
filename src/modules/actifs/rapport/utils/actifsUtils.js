@@ -195,11 +195,16 @@ export const cleanOrdreService = (rsAEnregistrer) => {
     delete rondeApparition?.dateHeureFin;
   });
 
-  rsAEnregistrer.gibPerquisition.intervenants = [];
+  // rsAEnregistrer.gibPerquisition.intervenants = [];
   delete rsAEnregistrer?.gibPerquisition?.intervenantsVO?.forEach((intervenantVO) => {
     delete intervenantVO?.defaultConverter;
     delete intervenantVO?.dtoHeader;
     delete intervenantVO?.jsonVO;
+    delete intervenantVO?.module;
+    delete intervenantVO?.command;
+    delete intervenantVO?.payload;
+    delete intervenantVO?.typeService;
+    delete intervenantVO?.param;
     delete intervenantVO?.identifiants;
     delete intervenantVO?.idPourRecherche;
     delete intervenantVO?.rechercheValides;
@@ -221,9 +226,9 @@ export const cleanOrdreService = (rsAEnregistrer) => {
     delete intervenantVO.refTypeDocumentIdentite;
     intervenantVO.intervenant.typeIntervenant = intervenantVO.typeIntervenant;
     delete intervenantVO.typeIntervenant;
-    rsAEnregistrer?.gibPerquisition?.intervenants.push(intervenantVO);
+    // rsAEnregistrer?.gibPerquisition?.intervenants.push(intervenantVO);
   });
-  delete rsAEnregistrer?.gibPerquisition?.intervenantsVO;
+  // delete rsAEnregistrer?.gibPerquisition?.intervenantsVO;
 
   if (_.isArray(rsAEnregistrer?.rapportService?.ordreService?.agentsBrigade)) {
     rsAEnregistrer.rapportService?.ordreService?.agentsBrigade?.forEach((agentBrigade) => {

@@ -112,7 +112,7 @@ class ActifsRapportCreationScreen extends Component {
         let action = getRsByIdOs.request(
           {
             type: Constants.ACTIFS_CONSULTATION_REQUEST,
-            value: { data: data },
+            value: { data: data ? data + '' : '' },
           } /*,
                     this.props.navigation,
                     this.props.successRedirection,*/,
@@ -249,7 +249,7 @@ class ActifsRapportCreationScreen extends Component {
     let localGibPerquisition = this.state?.gibPerquisition;
     let localDatePerquisition = localGibPerquisition?.datePerquisition?.split("/").reverse().join("-");
     localGibPerquisition.datePerquisition = localDatePerquisition;
-    
+
     let rsAEnregistrer = {
 
 

@@ -61,7 +61,7 @@ export default (state = initialState, action) => {
       console.log('--> ACTIFS_CONSULTATION_in progress...');
       return nextState;
     case Constants.ACTIFS_CONSULTATION_SUCCESS:
-      console.log('--> ACTIFS_CONSULTATION success MRS...', nextState);
+      console.log('--> ACTIFS_CONSULTATION success MRS...', JSON.stringify(nextState) );
       nextState.showProgress = false;
       nextState.errorMessage = null;
       nextState.rows = action.value.rapportService.ordreService;

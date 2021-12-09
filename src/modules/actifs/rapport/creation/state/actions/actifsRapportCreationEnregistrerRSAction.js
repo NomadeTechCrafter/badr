@@ -18,7 +18,7 @@ export function request(action, navigation, successRedirection) {
       .then((response) => {
         if (response) {
           const data = response.data;
-          console.log('response enregistrerRS', response);
+          console.log('response enregistrerRS', JSON.stringify(response));
           if (data && !data.dtoHeader.messagesErreur) {
             console.log('data enregistrerRS', data);
             dispatch(success(data));

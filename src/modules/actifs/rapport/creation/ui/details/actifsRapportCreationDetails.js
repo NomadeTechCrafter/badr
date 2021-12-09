@@ -365,7 +365,7 @@ class AtifsRapportCreationDetailsTab extends Component {
                       }
                       }
                       disabled={true}
-                      value={this.props?.rows?.dateDebut.slice(0, 10)}
+                      value={this.props?.rows?.dateDebut?.slice(0, 10)}
                       multiline={false}
 
                     />
@@ -400,7 +400,7 @@ class AtifsRapportCreationDetailsTab extends Component {
                       }
                       }
                       disabled={true}
-                      value={this.props?.rows?.dateFin.slice(0,10)}
+                      value={this.props?.rows?.dateFin?.slice(0,10)}
                       multiline={false}
 
                     />

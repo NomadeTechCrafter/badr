@@ -55,7 +55,7 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
             }
         ];
         this.state = {
-            gibPerquisition: { intervenantsVO: [] },
+            gibPerquisition: { intervenantsVO: [], autorite: {} },
             modeConsultation: false,
             intervenantVO: null,
             newIntervenant: null,
@@ -66,18 +66,20 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
     }
 
     componentDidMount = () => {
+        console.log('------------------------------------------------------ props perquisition ----------------------------------------');
+        console.log('------------------------------------------------------ props perquisition ----------------------------------------');
+        console.log('------------------------------------------------------ props perquisition ----------------------------------------');
+        console.log('------------------------------------------------------ props perquisition ----------------------------------------');
+        console.log(JSON.stringify(this.props));
+        console.log('------------------------------------------------------ props perquisition ----------------------------------------');
+        console.log('------------------------------------------------------ props perquisition ----------------------------------------');
+        console.log('------------------------------------------------------ props perquisition ----------------------------------------');
+        console.log('------------------------------------------------------ props perquisition ----------------------------------------');
         this.setState({
-            gibPerquisition: this.props.value?.gibPerquisition,
+            gibPerquisition: this.props.gibPerquisition,
             modeConsultation: this.props.consultation,
         });
     }
-
-    handleAccordChanged = (selectedValue, selectedIndex, item) => {
-        this.update();
-        console.log(selectedValue);
-        console.log(selectedIndex);
-        console.log(item);
-    };
 
     update() {
         this.props.update({
@@ -102,7 +104,7 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
         });
         this.checkType();
     }
-    
+
     isPasseport = function () {
         if (this.state.intervenantVO) {
             return (
@@ -297,7 +299,7 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
             !props?.newIntervenant &&
             props?.retourFindIntervenant
         ) {
-        console.log('getDerivedStateFromProps - 1 -');
+            console.log('getDerivedStateFromProps - 1 -');
             return {
                 intervenantVO: { ...state.intervenantVO, ...props?.t6bisReducer?.value }, // update the value of specific key
                 newIntervenant: props.newIntervenant,
@@ -365,9 +367,10 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
                                     </Col>
                                     <Col size={7}>
                                         <ComBadrDatePickerComp
+                                            readonly={this.props?.consultation}
                                             dateFormat="DD/MM/YYYY"
                                             heureFormat="HH:mm"
-                                            value={this.state?.gibPerquisition?.datePerquisition ? moment(this.state?.gibPerquisition?.datePerquisition, 'DD/MM/YYYY', true) : ''}
+                                            value={this.state?.gibPerquisition?.datePerquisition ? moment(this.state?.gibPerquisition?.datePerquisition).format('L') : ''}
                                             timeValue={this.state?.gibPerquisition?.heurePerquisition ? moment(this.state?.gibPerquisition?.heurePerquisition, 'HH:mm', true) : ''}
                                             onDateChanged={(date) => this.setState(prevState => ({
                                                 gibPerquisition: {
@@ -423,10 +426,11 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
                                     </Col>
                                     <Col size={7}>
                                         <ComBadrPickerComp
-                                            // disabled={true}
+                                            disabled={this.props?.consultation}
                                             key="code"
                                             style={CustomStyleSheet.badrPicker}
-                                            selectedValue={this.state?.gibPerquisition?.autorite}
+                                            selectedValue={this.state?.gibPerquisition?.autorite?.code}
+                                            selected={this.state?.gibPerquisition?.autorite?.code}
                                             titleStyle={CustomStyleSheet.badrPickerTitle}
                                             cle="code"
                                             libelle="libelle"
@@ -436,13 +440,17 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
                                             typeService="SP"
                                             storeWithKey="code"
                                             storeLibelleWithKey="libelle"
-                                            // onValueChanged={this.handleAccordChanged}
-                                            onValueChange={(selectedValue, selectedIndex, item) =>
-                                                this.handleAccordChanged(
-                                                    selectedValue,
-                                                    selectedIndex,
-                                                    item,
-                                                )
+                                            onValueChange={(selectedValue, selectedIndex, item) => {
+                                                console.log(this.state);
+                                                this.setState({
+                                                    gibPerquisition: {
+                                                        ...this.state?.gibPerquisition,
+                                                        autorite: item,
+                                                    },
+                                                });
+                                                this.update();
+                                                console.log(this.state);
+                                            }
                                             }
                                         />
                                     </Col>
@@ -457,17 +465,21 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
                                     </Col>
                                     <Col size={7}>
                                         <Checkbox
+                                            disabled={this.props?.consultation}
                                             status={
                                                 this.state?.gibPerquisition?.opj ? 'checked' : 'unchecked'
                                             }
                                             color={primaryColor}
                                             onPress={() => {
+                                                console.log(this.state);
                                                 this.setState({
                                                     gibPerquisition: {
                                                         ...this.state?.gibPerquisition,
                                                         opj: !this.state?.gibPerquisition?.opj,
                                                     },
                                                 });
+                                                this.update();
+                                                console.log(this.state);
                                                 // this.completeTextInputFields();
                                             }}
                                         />
@@ -534,7 +546,7 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
                                             })
                                             : {}
                                     }
-                                    
+
                                     onEndEditing={(event) =>
                                         this.onBlurIdentifiant(event.nativeEvent.text)
                                     }
@@ -654,7 +666,7 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
                                     }}
                                 />
                             </Col>
-                          
+
                         </DedRedressementRow>
                         <View style={style.containerActionBtn}>
                             <ComBadrButtonComp
@@ -695,7 +707,7 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
                                     ...prevState.gibPerquisition,
                                     resultatPerquisition: text,
                                 }
-                            }))} value={this.state.gibPerquisition?.resultatPerquisition}>
+                            }))} value={this.state.gibPerquisition?.resultatPerquisition + ''}>
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
                                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                         <Text>{translate('actifsCreation.perquisition.positif')}</Text>
