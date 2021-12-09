@@ -74,31 +74,55 @@ export const validateCin = (cin) => {
   if (cin) {
     var condition1 = cin.charAt(0).match(/[a-z]/i);
     console.log(condition1);
-    var condition2 = cin.charAt(1).match(/[0-9]/i);
+    var condition2 = cin.charAt(1).match(/[a-z]/i);
     console.log(condition2);
+    var condition3 = cin.charAt(1).match(/[0-9]/i);
+    console.log(condition3);
     var c1 = false;
     var c2 = false;
-    var c3 = cin.length >= 2 && cin.length <= 8;
+    var c3 = false;
+    var alphaPart = 1;
+    if (cin.length > 8) {
+      cin = cin.substring(0, 8);
+    }
+    var c4 = cin.length >= 2 && cin.length <= 8;
     if (condition1 && condition1.length > 0) {
       c1 = true;
     }
     if (condition2 && condition2.length > 0) {
       c2 = true;
+      alphaPart = 2;
     }
-    if (c1 && c2 && c3) {
-      var part2 = cin.substr(1).padStart(7, '0');
+    if (condition3 && condition3.length > 0) {
+      c3 = true;
+    }
+    if (c1 && (c2 || c3) && c4) {
+      var part2 = cin.substr(alphaPart).padStart(7 - alphaPart+1, '0');
+      console.log(
+        'validateCin**************************************************************************end cin : ' +
+        cin 
+      );
+      console.log(
+        'validateCin**************************************************************************end cin.substr(1) :' +
+        cin.substr(1)
+      );
+      console.log(
+        'validateCin**************************************************************************end cin.substr(1).padStart(7, 0) :' +
+        cin.substr(alphaPart).padStart(7 - alphaPart+1, '0')
+      );
+
       console.log(
         'validateCin**************************************************************************end' +
           cin.substr(0, 1) +
           part2,
       );
-      return cin.substr(0, 1) + part2;
+      return cin.substr(0, alphaPart) + part2;
     }
   }
   console.log(
     'validateCin**************************************************************************end',
   );
-  return '';
+  return cin;
 };
 
 export const stringNotEmpty = (string) => {

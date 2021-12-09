@@ -94,13 +94,12 @@ export default (state = initialState, action) => {
       startRedevableCompletion(nextState.t6bis, action.value);
       return nextState;
     case Constants.FIND_INTERVENANT_FAILED:
-      console.log(Constants.T6BIS_INIT_ENTETE_FAILED);
       nextState.showProgress = false;
       nextState.cofirmed = false;
       nextState.infoCompleted = true;
       nextState.newIntervenant = true;
       nextState.retourFindIntervenant = true;
-      clearRedevableCompletion(nextState.t6bis);
+      clearRedevableCompletion(nextState.t6bis, action.value);
       return nextState;
     case Constants.T6BIS_UPDATE_PROPS_REQUEST:
       return nextState;
@@ -223,7 +222,7 @@ export default (state = initialState, action) => {
 const startRedevableCompletion = function (t6bis, redevableResponse) {
   console.log('t6bis-----------------------', t6bis);
   console.log('redevableResponse-------------------------', redevableResponse);
-  t6bis = {};
+ // t6bis = {};
   if (!t6bis.intervenantVO) {
     t6bis.intervenantVO = {};
   }
@@ -235,14 +234,18 @@ const startRedevableCompletion = function (t6bis, redevableResponse) {
   t6bis.intervenantVO.refPaysPassPort = redevableResponse.refPaysPassPort;
   t6bis.intervenantVO.refTypeDocumentIdentite = redevableResponse.identifiants.typeIdentifiant;
   t6bis.intervenantVO.numeroDocumentIndentite = redevableResponse.identifiants.numeroDocumentIdentite;
-  console.log('t6bis-----------------------', t6bis);
 }
 
-const clearRedevableCompletion = function (t6bis) {
+const clearRedevableCompletion = function (t6bis, values) {
   if (!t6bis.intervenantVO) {
     t6bis.intervenantVO = {};
   }
   t6bis.intervenantVO.nomIntervenant = "";
   t6bis.intervenantVO.prenomIntervenant = "";
   t6bis.intervenantVO.adresse = "";
+  t6bis.intervenantVO.typeIntervenant = "";
+  t6bis.intervenantVO.numeroOrdreIntervenant = "";
+  t6bis.intervenantVO.refPaysPassPort = "";
+  t6bis.intervenantVO.refTypeDocumentIdentite = values.identifiants.typeIdentifiant;
+  t6bis.intervenantVO.numeroDocumentIndentite = values.identifiants.numeroDocumentIdentite;
 }

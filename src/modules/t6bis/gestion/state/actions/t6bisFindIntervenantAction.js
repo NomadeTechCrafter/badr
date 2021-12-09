@@ -13,7 +13,8 @@ export function request(action) {
                     dispatch(success(action)); 
                     
                 } else {
-                    dispatch(failed({ value: {}}));
+                    action.value = { ...action.value };
+                    dispatch(failed(action));
                 }
             })
             .catch((e) => {
