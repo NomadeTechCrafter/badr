@@ -18,7 +18,7 @@ import * as Constantes from '../state/t6bisRechercheConstants';
 import styles from '../style/t6bisRechercheStyle';
 
 class T6bisRecherche extends React.Component {
-  defaultState = {
+    defaultState = {
     showErrorMsg: false,
     mode: t6bisConstants.MODE_UPDATE,
     bureau: ComSessionService.getInstance().getCodeBureau(),
@@ -93,17 +93,13 @@ class T6bisRecherche extends React.Component {
 
   valider = () => {
     console.log(this.state);
-    if (isRedressement()) {
-      console.log('Redressement');
-      this.setState({mode: t6bisConstants.MODE_REDRESSEMENT});
-    } else {
-      this.setState({mode: t6bisConstants.MODE_UPDATE});
-    }
+    
     this.completeTextInputFields();
     console.log(this.state);
-    if (this.state.mode === 'redressement') {
+    if (isRedressement()) {
       this.state.t6bis.referenceEnregistrement =
         this.state.bureau + '' + this.state.annee + '' + this.state.serie;
+      this.state.t6bis.enregistree = true;
     } else if (!this.state.t6bis.enregistree) {
       console.log('1', this.state.t6bis.enregistree);
       this.state.t6bis.referenceProvisoire =
@@ -176,8 +172,20 @@ class T6bisRecherche extends React.Component {
     if (props?.route?.params.title != state.title) {
       return {
         title: props.route?.params.title,
+        showErrorMsg: false,
+        mode: t6bisConstants.MODE_UPDATE,
+        bureau: ComSessionService.getInstance().getCodeBureau(),
         annee: null,
         serie: null,
+        t6bis: {
+          enregistree: false,
+          annee: '',
+          utilisateur: { idActeur: ComSessionService.getInstance().getLogin() },
+          bureauCourant: {
+            codeBureau: ComSessionService.getInstance().getCodeBureau(),
+            refArrondissement: [],
+          },
+        },
       };
     }
 
@@ -284,7 +292,7 @@ class T6bisRecherche extends React.Component {
             </View>
           </View>
 
-          {!_.isEmpty(this.state.bureau) &&
+          {!isRedressement() && !_.isEmpty(this.state.bureau) &&
             !_.isEmpty(this.state.annee) &&
             !_.isEmpty(this.state.serie) && (
               <View style={styles.enregistreeStyle}>

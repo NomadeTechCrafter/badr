@@ -1,7 +1,7 @@
 import React from 'react';
-import {Text, View} from 'react-native';
-import {Col, Row} from 'react-native-easy-grid';
-import {TextInput} from 'react-native-paper';
+import { Text, View } from 'react-native';
+import { Col, Row } from 'react-native-easy-grid';
+import { TextInput } from 'react-native-paper';
 import {
   ComAccordionComp,
   ComBadrAutoCompleteChipsComp,
@@ -26,9 +26,9 @@ class T6bisEnteteRedevableSousBlock extends React.Component {
         !isCreation() && this.props.t6bis.intervenantVO
           ? this.props.t6bis.intervenantVO
           : {
-              adresse: '',
-              prenomIntervenant: '',
-            },
+            adresse: '',
+            prenomIntervenant: '',
+          },
       infoCompleted: null,
       newIntervenant: null,
       acNationalite: null,
@@ -51,9 +51,9 @@ class T6bisEnteteRedevableSousBlock extends React.Component {
     this.checkType();
   };
 
- 
 
- 
+
+
   reset = () => {
     console.log('reset');
   };
@@ -126,7 +126,7 @@ class T6bisEnteteRedevableSousBlock extends React.Component {
     } else {
       if (
         this.state.intervenantVO &&
-        this.state.intervenantVO.numeroDocumentIndentite
+        this.state.intervenantVO.numeroDocumentIndentite && this.state.intervenantVO.refTypeDocumentIdentite=='01'
       ) {
         this.state.intervenantVO.numeroDocumentIndentite = validateCin(
           this.state.intervenantVO.numeroDocumentIndentite,
@@ -169,11 +169,28 @@ class T6bisEnteteRedevableSousBlock extends React.Component {
   };
 
   onBlurIdentifiant(text) {
-    this.state.intervenantVO = {
+    console.log('onBlurIdentifiant----------------------------  : ', text);
+    /* this.state.intervenantVO = {
       ...this.state.intervenantVO,
       numeroDocumentIndentite: text,
-    };
-    this.checkType();
+    }; */
+    if (!this.isParamSetted()) {
+      this.setState({
+        ...this.state,
+        intervenantVO: {
+          ...this.state.intervenantVO,
+          nationaliteFr: '',
+          nomIntervenant: '',
+          prenomIntervenant: '',
+          adresse: '',
+        },
+        infoCompleted: false,
+        newIntervenant: false,
+        acNationalite: {},
+      });
+    } else {
+      this.checkType();
+    }
   }
 
   onChangeTypeIdentifiant(text) {
@@ -208,15 +225,17 @@ class T6bisEnteteRedevableSousBlock extends React.Component {
     console.log('getDerivedStateFromProps - 03052021 - state  : ', props.t6bis.hasOwnProperty('intervenantVO'));
     if (
       props.t6bis.intervenantVO &&
-      !props?.newIntervenant &&
-      props?.retourFindIntervenant
+      props?.retourFindIntervenant &&
+      props?.t6bis?.intervenantVO?.numeroDocumentIndentite == state?.intervenantVO?.numeroDocumentIndentite
     ) {
+      console.log(' 1 ');
       return {
-        intervenantVO: {...state.intervenantVO, ...props.t6bis?.intervenantVO}, // update the value of specific key
+        intervenantVO: { ...state.intervenantVO, ...props.t6bis?.intervenantVO }, // update the value of specific key
         newIntervenant: props.newIntervenant,
       };
     }
     if (!props.t6bis.hasOwnProperty('intervenantVO') && !state.hasOwnProperty('intervenantVO')) {
+      console.log(' 2 ');
       return {
 
         intervenantVO: {
@@ -232,13 +251,14 @@ class T6bisEnteteRedevableSousBlock extends React.Component {
         acNationalite: {},
       };
     }
-    if (
+    /* if (
       props?.t6bis?.intervenantVO?.numeroDocumentIndentite != state?.intervenantVO?.numeroDocumentIndentite
     ) {
+      console.log(' 3 ');
       return {
         intervenantVO: { ...state.intervenantVO, ...props.t6bis?.intervenantVO }
       };
-    }
+    } */
 
     // Return null to indicate no change to state.
     return null;
@@ -296,6 +316,18 @@ class T6bisEnteteRedevableSousBlock extends React.Component {
                 onEndEditing={(event) =>
                   this.onBlurIdentifiant(event.nativeEvent.text)
                 }
+                onChangeText={(text) => {
+                  console.log('onChangeText => text : ', text);
+                  this.setState({
+                    ...this.state,
+                    intervenantVO: {
+                      ...this.state.intervenantVO,
+                      numeroDocumentIndentite: text,
+                    },
+                  });
+                }
+
+                }
               />
             </Col>
           </Row>
@@ -352,12 +384,12 @@ class T6bisEnteteRedevableSousBlock extends React.Component {
                 onChangeText={(text) =>
                   text
                     ? this.setState({
-                        ...this.state,
-                        intervenantVO: {
-                          ...this.state.intervenantVO,
-                          nomIntervenant: text,
-                        },
-                      })
+                      ...this.state,
+                      intervenantVO: {
+                        ...this.state.intervenantVO,
+                        nomIntervenant: text,
+                      },
+                    })
                     : {}
                 }
               />
@@ -383,12 +415,12 @@ class T6bisEnteteRedevableSousBlock extends React.Component {
                 onChangeText={(text) =>
                   text
                     ? this.setState({
-                        ...this.state,
-                        intervenantVO: {
-                          ...this.state.intervenantVO,
-                          prenomIntervenant: text,
-                        },
-                      })
+                      ...this.state,
+                      intervenantVO: {
+                        ...this.state.intervenantVO,
+                        prenomIntervenant: text,
+                      },
+                    })
                     : {}
                 }
               />
@@ -401,7 +433,7 @@ class T6bisEnteteRedevableSousBlock extends React.Component {
               </Text>
             </Col>
 
-            <Col size={170} style={{...styles.labelContainer, marginLeft: 10}}>
+            <Col size={170} style={{ ...styles.labelContainer, marginLeft: 10 }}>
               <TextInput
                 multiline={true}
                 numberOfLines={4}

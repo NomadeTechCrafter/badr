@@ -23,7 +23,7 @@ export function request(action, navigation) {
                 dispatch(success(response.data.jsonVO, ''));
                 navigation.navigate('DedRedressementScreen', {
                     searchData: action.value ? action.value.jsonVO : {}, title: translate('dedouanement.redressement.title'),
-                    subtitle: '', showHeader: true
+                    subtitle: '', showHeader: true, isConfirmationReception: false
                 });
             } else {
                 dispatch(failed(messagesErreurs, action.value));
