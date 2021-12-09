@@ -57,6 +57,19 @@ export default {
                     cle: 'Clé',
                 },
             },
+            immatriculation: {
+                title: 'Immatriculation',
+                typeListe: 'Type de la liste',
+                typeMoyen: 'Type du moyen',
+                immatriculation: 'Immatriculation',
+                referenceEtatChargement: {
+                    bureau: 'Bureau',
+                    regime: 'Régime',
+                    annee: 'Année',
+                    serie: 'Série',
+                    cle: 'Clé',
+                },
+            },
         },
         controleApresScanner: {
             title: 'Contrôle après scanner',

@@ -36,7 +36,7 @@ export const getNavigationMaritimeModelInitial = () => {
     heureEntree: (new Date()).getTime(),
     motifAccostage: '',
     portEntree: '',
-    provenance: { code: '', libelle: ''},
+    provenance: { code: '', libelle: '' },
     villeProvenance: '',
     portAttache: '',
     pavillon: '',
@@ -96,7 +96,7 @@ export const getNavigationAerienneModelInitial = () => {
     resultatControle: '',
     intervenants: [],
     proprietaires: []
-  }  
+  }
 }
 
 export const getNavigationAvitaillementEntreeModelInitial = () => {
@@ -177,7 +177,7 @@ export const convert = (date) => {
 
 }
 
-export const cleanOrdreService = (rsAEnregistrer)=>{
+export const cleanOrdreService = (rsAEnregistrer) => {
   delete rsAEnregistrer.rapportService?.ordreService?.chefEquipe?.refGradeLib;
   delete rsAEnregistrer.rapportService?.ordreService?.uniteOrganisationnelle;
   delete rsAEnregistrer.rapportService?.ordreService?.refPJ;
@@ -194,8 +194,36 @@ export const cleanOrdreService = (rsAEnregistrer)=>{
     delete rondeApparition?.dateHeureDebut;
     delete rondeApparition?.dateHeureFin;
   });
-  
-  // delete rsAEnregistrer?.gibPerquisition?.heurePerquisition;
+
+  rsAEnregistrer.gibPerquisition.intervenants = [];
+  delete rsAEnregistrer?.gibPerquisition?.intervenantsVO?.forEach((intervenantVO) => {
+    delete intervenantVO?.defaultConverter;
+    delete intervenantVO?.dtoHeader;
+    delete intervenantVO?.jsonVO;
+    delete intervenantVO?.identifiants;
+    delete intervenantVO?.idPourRecherche;
+    delete intervenantVO?.rechercheValides;
+    delete intervenantVO?.rechercheAnnules;
+    intervenantVO.intervenant = {};
+    intervenantVO.intervenant.adresse = intervenantVO.adresse;
+    delete intervenantVO.adresse;
+    intervenantVO.intervenant.nationaliteFr = intervenantVO.nationaliteFr;
+    delete intervenantVO.nationaliteFr;
+    intervenantVO.intervenant.nomIntervenant = intervenantVO.nomIntervenant;
+    delete intervenantVO.nomIntervenant;
+    intervenantVO.intervenant.numeroDocumentIndentite = intervenantVO.numeroDocumentIndentite;
+    delete intervenantVO.numeroDocumentIndentite;
+    intervenantVO.intervenant.numeroOrdreIntervenant = intervenantVO.numeroOrdreIntervenant;
+    delete intervenantVO.numeroOrdreIntervenant;
+    intervenantVO.intervenant.prenomIntervenant = intervenantVO.prenomIntervenant;
+    delete intervenantVO.prenomIntervenant;
+    intervenantVO.intervenant.refTypeDocumentIdentite = intervenantVO.refTypeDocumentIdentite;
+    delete intervenantVO.refTypeDocumentIdentite;
+    intervenantVO.intervenant.typeIntervenant = intervenantVO.typeIntervenant;
+    delete intervenantVO.typeIntervenant;
+    rsAEnregistrer?.gibPerquisition?.intervenants.push(intervenantVO);
+  });
+  delete rsAEnregistrer?.gibPerquisition?.intervenantsVO;
 
   if (_.isArray(rsAEnregistrer?.rapportService?.ordreService?.agentsBrigade)) {
     rsAEnregistrer.rapportService?.ordreService?.agentsBrigade?.forEach((agentBrigade) => {
@@ -203,6 +231,6 @@ export const cleanOrdreService = (rsAEnregistrer)=>{
       delete agentBrigade?.agent?.refGradeLib;
       delete agentBrigade?.agentBrigade;
     });
-    
+
   }
 }

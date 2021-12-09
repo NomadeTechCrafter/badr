@@ -239,6 +239,7 @@ const startRedevableCompletion = function (t6bis, redevableResponse) {
 }
 
 const clearRedevableCompletion = function (t6bis) {
+  t6bis = {};
   if (!t6bis.intervenantVO) {
     t6bis.intervenantVO = {};
   }

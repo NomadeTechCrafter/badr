@@ -12,6 +12,8 @@ import {
 
 import ReferenceTabSearchComponent from './searchTabs/referenceTabSearchComponent';
 import EtatChargementTabSearchComponent from './searchTabs/etatChargementTabSearchComponent';
+import ImmatriculationTabSearchComponent from './searchTabs/immatriculationTabSearchComponent';
+
 
 import {connect} from 'react-redux';
 import {translate} from '../../../../commons/i18n/ComI18nHelper';
@@ -26,6 +28,11 @@ function ReferenceTabSearchTab({route, navigation}) {
 function EtatChargementTabSearchTab({route, navigation, props}) {
     return <EtatChargementTabSearchComponent navigation={navigation} route={route}/>;
 }
+
+function ImmatriculationTabSearchTab({ route, navigation, props }) {
+    return <ImmatriculationTabSearchComponent navigation={navigation} route={route} />;
+}
+
 
 class CtrlControleApresScannerSearchComponent extends React.Component {
     constructor(props) {
@@ -68,6 +75,10 @@ class CtrlControleApresScannerSearchComponent extends React.Component {
                         <Tab.Screen
                             name={translate('controleApresScanner.search.etatChargement.title')}
                             component={EtatChargementTabSearchTab}
+                        />
+                        <Tab.Screen
+                            name={translate('controleApresScanner.search.immatriculation.title')}
+                            component={ImmatriculationTabSearchTab}
                         />
                     </Tab.Navigator>
                 </NavigationContainer>

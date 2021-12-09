@@ -70,6 +70,11 @@ const styles = {
     },
     MontantLabel: { fontSize: 16, fontWeight: 'bold', color: '#009ab2' },
     buttonIcon: { margin: 10, marginTop: 10 },
+    ComContainerCompCheckbox: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+    },
 
 };
 

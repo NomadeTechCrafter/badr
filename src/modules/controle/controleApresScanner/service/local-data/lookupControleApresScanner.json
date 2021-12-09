@@ -1,0 +1,54 @@
+{
+    "dtoHeader": {
+        "userLogin": "AD6311",
+        "fonctionnalite": "cf306011",
+        "module": "CONTROL_LIB",
+        "commande": "lookupControleApresScanner",
+        "typeService": "UC",
+        "messagesInfo": [
+            "??? InitEnregistrerControleApresScanner_MESSAGE_INFO ???"
+        ],
+        "offset": 0,
+        "pageSize": 0,
+        "rowCount": 0
+    },
+    "jsonVO": {
+        "idControle": 30,
+        "listDums": [
+            {
+                "id": 38,
+                "idDum": 525015,
+                "defaultConverter": {}
+            }
+        ],
+        "nombreScelle": "1",
+        "infoEcorScelle": true,
+        "dateCreation": "02/12/2021",
+        "agent": {
+            "code": "AAMM",
+            "libelle": "AMMARI AHMED",
+            "actif": false,
+            "showDropDown": false,
+            "disableAutoComplete": true,
+            "onFocus": "",
+            "disabled": false
+        },
+        "resultat": "OK",
+        "commentaire": "test comm ctrl après scan",
+        "numeroPince": "1",
+        "scelles": {
+            "93123154": "93123154"
+        },
+        "scellesConfirmationEntree": {
+            "99965423": "99965423"
+        },
+        "oldScelles": {
+            "93123154": "93123154"
+        },
+        "actionConsultation": false,
+        "reference": "30900120210000053",
+        "photosControleApresScanner": [],
+        "isMobile": false,
+        "defaultConverter": {}
+    }
+}

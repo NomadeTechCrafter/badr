@@ -1,0 +1,27 @@
+
+{
+    "dtoHeader": {
+        "userLogin": "AD6311",
+        "fonctionnalite": "cf6160",
+        "module": "GIB",
+        "commande": "getAllAutorite",
+        "typeService": "SP",
+        "offset": 0,
+        "pageSize": 0,
+        "rowCount": 0
+    },
+    "jsonVO": [
+        {
+            "code": "1",
+            "libelle": "DIRECTEUR GENERAL"
+        },
+        {
+            "code": "2",
+            "libelle": "DIRECTEUR REGIONAL"
+        },
+        {
+            "code": "3",
+            "libelle": "CHEF DE CIRCONSCRIPTION"
+        }
+    ]
+}

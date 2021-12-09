@@ -107,6 +107,7 @@ const localStore = {
   'initAffecterAgentVisiteur': require('../../../../modules/controle/reconnaissance/service/local-data/initAffecterAgentVisiteurData.json'),
   listeDeclarationsRec: require('../../../../modules/controle/reconnaissance/service/local-data/listeDeclarationsRecData.json'),
   initVuEmbarquer: require('../../../../modules/ecorExport/vuEmbarquer/service/local-data/initVuEmbarquer.json'),
-  findResultatScanner: require('../../../../modules/controle/ctrlResultatScanner/service/local-data/findResultatScanner.json')
+  findResultatScanner: require('../../../../modules/controle/ctrlResultatScanner/service/local-data/findResultatScanner.json'),
+  lookupControleApresScanner: require('../../../../modules/controle/controleApresScanner/service/local-data/lookupControleApresScanner.json')
 };
 export default localStore;

@@ -9,11 +9,11 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {Button} from 'react-native-elements';
+import { Button } from 'react-native-elements';
 import Modal from 'react-native-modal';
 
-import {HelperText, RadioButton, TextInput} from 'react-native-paper';
-import {Col, Grid, Row} from 'react-native-easy-grid';
+import { HelperText, RadioButton, TextInput } from 'react-native-paper';
+import { Col, Grid, Row } from 'react-native-easy-grid';
 import {
   ComAccordionComp,
   ComBadrCameraComp,
@@ -23,8 +23,8 @@ import {
   ComBadrProgressBarComp,
 } from '../../../../commons/component';
 
-import {connect} from 'react-redux';
-import {translate} from '../../../../commons/i18n/ComI18nHelper';
+import { connect } from 'react-redux';
+import { translate } from '../../../../commons/i18n/ComI18nHelper';
 import style from '../style/ctrlControleApresScannerStyle';
 
 import * as Constants from '../state/ctrlControleApresScannerConstants';
@@ -64,10 +64,10 @@ class CtrlControleApresScannerCoreComponent extends React.Component {
   };
 
   prepareState = () => {
-    let bureau = this.props.data.reference.slice(0, 3);
-    let regime = this.props.data.reference.slice(3, 6);
-    let annee = this.props.data.reference.slice(6, 10);
-    let serie = this.props.data.reference.slice(10, 17);
+    let bureau = this.props.controleApresScannerVo.reference.slice(0, 3);
+    let regime = this.props.controleApresScannerVo.reference.slice(3, 6);
+    let annee = this.props.controleApresScannerVo.reference.slice(6, 10);
+    let serie = this.props.controleApresScannerVo.reference.slice(10, 17);
     let cle = this.cleDum(regime, serie);
 
     let photosControleApresScanner = this.props.controleApresScannerVo
@@ -325,7 +325,7 @@ class CtrlControleApresScannerCoreComponent extends React.Component {
     );
   };
 
-  renderBoxItem = ({item}) => {
+  renderBoxItem = ({ item }) => {
     const itemStyle =
       item === this.state.selectedScelle
         ? style.selectedBoxItem
@@ -559,39 +559,87 @@ class CtrlControleApresScannerCoreComponent extends React.Component {
                           <Col size={30} style={style.labelContainer}>
                             <Text style={style.labelTextStyle}>
                               {translate(
-                                'controleApresScanner.core.scelles.scellesConfirmationEntree',
+                                'controleApresScanner.core.scelles.title',
                               )}
                             </Text>
                           </Col>
 
                           <Col size={70} style={style.boxContainer}>
-                            <SafeAreaView style={style.boxSafeArea}>
-                              {(this.state.controleApresScannerVo
-                                .scellesConfirmationEntree == null ||
+                            <SafeAreaView style={style.miniBoxSafeArea}>
+                              <Row>
+                              {((this.state.controleApresScannerVo
+                                .scelles == null ||
                                 this.state.controleApresScannerVo
-                                  .scellesConfirmationEntree.size === 0) && (
-                                <Text style={style.boxItemText}>
-                                  Aucun élément
-                                </Text>
-                              )}
+                                  .scelles.size === 0) && (this.state.controleApresScannerVo
+                                    .scellesConfirmationEntree == null ||
+                                    this.state.controleApresScannerVo
+                                      .scellesConfirmationEntree.size === 0) && (this.state.controleApresScannerVo
+                                        .oldScelles == null ||
+                                        this.state.controleApresScannerVo
+                                          .oldScelles.size === 0)) && (
+                                  <Text style={style.boxItemText}>
+                                    Aucun élément
+                                  </Text>
+                                )}
 
                               {this.state.controleApresScannerVo
                                 .scellesConfirmationEntree != null &&
                                 this.state.controleApresScannerVo
                                   .scellesConfirmationEntree.size !== 0 && (
-                                  <FlatList
-                                    data={Object.values(
-                                      this.state.controleApresScannerVo
-                                        .scellesConfirmationEntree,
-                                    )}
-                                    renderItem={(item) =>
-                                      this.renderBoxItem(item)
-                                    }
-                                    keyExtractor={(item) => item}
-                                    nestedScrollEnabled={true}
-                                  />
+                                  <Col>
+                                    <FlatList
+                                      data={Object.values(
+                                        this.state.controleApresScannerVo
+                                          .scellesConfirmationEntree,
+                                      )}
+                                      renderItem={(item) =>
+                                        this.renderBoxItem(item)
+                                      }
+                                      keyExtractor={(item) => item}
+                                      nestedScrollEnabled={true}
+                                    />
+                                  </Col>
                                 )}
-                            </SafeAreaView>
+
+                              {this.state.controleApresScannerVo
+                                .scelles != null &&
+                                this.state.controleApresScannerVo
+                                  .scelles.size !== 0 && (
+                                  <Col>
+                                    <FlatList
+                                      data={Object.values(
+                                        this.state.controleApresScannerVo
+                                          .scelles,
+                                      )}
+                                      renderItem={(item) =>
+                                        this.renderBoxItem(item)
+                                      }
+                                      keyExtractor={(item) => item}
+                                      nestedScrollEnabled={true}
+                                    />
+                                  </Col>
+                                )}
+
+                              {this.state.controleApresScannerVo
+                                .oldScelles != null &&
+                                this.state.controleApresScannerVo
+                                  .oldScelles.size !== 0 && (
+                                  <Col>
+                                    <FlatList
+                                      data={Object.values(
+                                        this.state.controleApresScannerVo
+                                          .oldScelles,
+                                      )}
+                                      renderItem={(item) =>
+                                        this.renderBoxItem(item)
+                                      }
+                                      keyExtractor={(item) => item}
+                                      nestedScrollEnabled={true}
+                                    />
+                                  </Col>
+                                  )}
+                            </Row>
+                              </SafeAreaView>
                           </Col>
                         </Row>
 
@@ -609,16 +657,16 @@ class CtrlControleApresScannerCoreComponent extends React.Component {
                               value={
                                 this.state.controleApresScannerVo
                                   .infoEcorScelle &&
-                                this.state.controleApresScannerVo
-                                  .infoEcorScelle === true
+                                  this.state.controleApresScannerVo
+                                    .infoEcorScelle === true
                                   ? 'true'
                                   : 'false'
                               }
                               status={
                                 this.state.controleApresScannerVo
                                   .infoEcorScelle &&
-                                this.state.controleApresScannerVo
-                                  .infoEcorScelle === true
+                                  this.state.controleApresScannerVo
+                                    .infoEcorScelle === true
                                   ? 'checked'
                                   : 'unchecked'
                               }
@@ -647,16 +695,16 @@ class CtrlControleApresScannerCoreComponent extends React.Component {
                               value={
                                 this.state.controleApresScannerVo
                                   .infoEcorScelle === null ||
-                                this.state.controleApresScannerVo
-                                  .infoEcorScelle === false
+                                  this.state.controleApresScannerVo
+                                    .infoEcorScelle === false
                                   ? 'true'
                                   : 'false'
                               }
                               status={
                                 this.state.controleApresScannerVo
                                   .infoEcorScelle === null ||
-                                this.state.controleApresScannerVo
-                                  .infoEcorScelle === false
+                                  this.state.controleApresScannerVo
+                                    .infoEcorScelle === false
                                   ? 'checked'
                                   : 'unchecked'
                               }
@@ -685,7 +733,7 @@ class CtrlControleApresScannerCoreComponent extends React.Component {
 
                         {this.state.controleApresScannerVo.infoEcorScelle &&
                           this.state.controleApresScannerVo.infoEcorScelle ===
-                            true && (
+                          true && (
                             <View>
                               <Row size={100}>
                                 <Col size={30} style={style.labelContainer}>
@@ -911,10 +959,10 @@ class CtrlControleApresScannerCoreComponent extends React.Component {
                                       .scelles == null ||
                                       this.state.controleApresScannerVo.scelles
                                         .size === 0) && (
-                                      <Text style={style.boxItemText}>
-                                        Aucun élément
-                                      </Text>
-                                    )}
+                                        <Text style={style.boxItemText}>
+                                          Aucun élément
+                                        </Text>
+                                      )}
 
                                     {this.state.controleApresScannerVo
                                       .scelles != null &&
@@ -1061,11 +1109,11 @@ class CtrlControleApresScannerCoreComponent extends React.Component {
 }
 
 function mapStateToProps(state) {
-  return {...state.ctrlControleApresScannerReducer};
+  return { ...state.ctrlControleApresScannerReducer };
 }
 
 function mapDispatchToProps(dispatch) {
-  let actions = {dispatch};
+  let actions = { dispatch };
   return {
     actions,
   };

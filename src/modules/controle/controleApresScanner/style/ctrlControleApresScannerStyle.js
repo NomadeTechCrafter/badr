@@ -80,6 +80,11 @@ const style = {
         height: 200,
         borderRadius: 4,
     },
+    miniBoxSafeArea: {
+        margin: '5%',
+        height: 50,
+        borderRadius: 4,
+    },
     boxItem: {
         backgroundColor: '#ffffff',
         marginVertical: 2,

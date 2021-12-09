@@ -41,7 +41,7 @@ class Login extends React.Component {
         "ACTIFS_AD", "ACTIFS",
       //   "AR", "ADMINBV",
       //   "ADMSELCOT", "ADT", "AGBRIGADE", "AGDP", "AGENTD", "AGECOR", "AGENT_TEST", "AV",
-      //   "AG_VISIT", "AGLACI", "ALLPROFIL", "ALL", "ALLPRO", "A123", "AMAL2015", "AMAL-PRO",
+        "AG_VISIT", "AGLACI", "ALLPROFIL", "ALL", "ALLPRO", "A123", "AMAL2015", "AMAL-PRO",
       //   "AMMARI", "AMPROF", "ARABBANK", "AT_A_BORD", "AT_VOY", "AT1", "PIF", "TESTAUDI1",
       //   "BATCH", "BLOCAGE", "BROF", "CB-PROFIL", "CAUTION-BA", "CC2015", "CENTRAL", "CHAR", "ETAT",
       //   "CHBRIGADE", "CIMET", "CNF_PROFIL", "CNT-AGENT", "CNT_DEV", "CNT-ORD", "CNT_PERF", "CR3",
