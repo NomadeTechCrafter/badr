@@ -25,7 +25,7 @@ export function request(action, navigation) {
         dispatch(success(response.data.jsonVO, action.value));
         navigation.navigate('DedRedressementScreen', {
           searchData: action.value ? action.value.jsonVO : {}, title:  translate('confimationReception.title'),
-        subtitle:translate('confimationReception.subTitle') , showHeader:true
+          subtitle: translate('confimationReception.subTitle'), showHeader: true, isConfirmationReception: false
         });
       } else {
         dispatch(failed(messagesErreurs, action.value));

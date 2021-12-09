@@ -35,8 +35,10 @@ export function request(action, navigation) {
             dispatch(success(response.data.jsonVO, action.value, action.command, ''));
           }
           navigation.navigate('DedRedressementScreen', {
-            searchData: action.value ? action.value.jsonVO : {},
+            searchData: action.value ? action.value.jsonVO : {}, title: translate('dedouanement.title'),
+            subtitle: translate('dedouanement.subTitle'), showHeader: true, isConfirmationReception: false
           });
+          
 
         } else {
           dispatch(failed(messagesErreurs, action.value));

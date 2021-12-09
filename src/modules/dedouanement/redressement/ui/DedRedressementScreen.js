@@ -400,11 +400,16 @@ class DedRedressementScreen extends React.Component {
             'dedConfirmationReceptionReducer.success',
             this.props,
         );
+        let isConfirmationReception = this.props.route.params.isConfirmationReception;
 
         // console.log('this.props.dedConfirmationReceptionReducer : ', this.props.dedConfirmationReceptionReducer);
         // console.log('this.props.consulterDumReducer : ', this.props.consulterDumReducer);
 
         console.log('success : ', typeof success != "undefined");
+        console.log('success : ', success);
+        console.log('this.props : ', this.props);
+        console.log('isConfirmationReception : ', isConfirmationReception);
+        console.log('(typeof isConfirmationReception != "undefined") ', (typeof isConfirmationReception != "undefined"));
 
 
         return (
@@ -414,7 +419,7 @@ class DedRedressementScreen extends React.Component {
                     title={this.props.route.params.title}
                     subtitle={this.props.route.params.subtitle}
                     icon="menu">
-                    {(typeof success != "undefined") && (!success) && <IconButton
+                    {(((typeof isConfirmationReception != "undefined") && (isConfirmationReception)) && ((typeof success == "undefined") || (!success))) && <IconButton
                         icon="arrange-bring-forward"
                         size={30}
                         color={primaryColor}
