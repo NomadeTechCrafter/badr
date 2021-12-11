@@ -62,13 +62,23 @@ class CtrlControleApresScannerCoreComponent extends React.Component {
       },
     ];
   };
+  
+
+  cleDum2 = function (reference) {
+    let alpha = 'ABCDEFGHJKLMNPRSTUVWXYZ';
+    let RS = reference % 23;
+    return alpha.charAt(RS);
+  };
 
   prepareState = () => {
-    let bureau = this.props.controleApresScannerVo.reference.slice(0, 3);
-    let regime = this.props.controleApresScannerVo.reference.slice(3, 6);
-    let annee = this.props.controleApresScannerVo.reference.slice(6, 10);
-    let serie = this.props.controleApresScannerVo.reference.slice(10, 17);
-    let cle = this.cleDum(regime, serie);
+    console.log('Test test : ' + JSON.stringify(this.props.controleApresScannerVo.reference));
+    let reference = '30900120210000053';
+    let bureau = reference.slice(0, 3);
+    let regime = reference.slice(3, 6);
+    let annee = reference.slice(6, 10);
+    let serie = reference.slice(10, 17);
+    // let cle = this.cleDum(regime, serie);
+    let cle = this.cleDum2(regime + serie + annee);
 
     let photosControleApresScanner = this.props.controleApresScannerVo
       .photosControleApresScanner

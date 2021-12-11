@@ -98,6 +98,7 @@ export default {
       declarant: 'Déclarant',
       bureauSortie: 'Bureau Sortie',
       navire: 'Navire',
+      controleApresScanner: 'Contrôle après scanner',
     },
   },
 };

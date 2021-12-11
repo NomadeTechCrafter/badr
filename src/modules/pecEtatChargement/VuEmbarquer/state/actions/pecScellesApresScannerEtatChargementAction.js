@@ -1,8 +1,8 @@
 import {
-    SCANNER_ETAT_CHARGEMENT_FAILED,
-    SCANNER_ETAT_CHARGEMENT_IN_PROGRESS,
-    SCANNER_ETAT_CHARGEMENT_INIT,
-    SCANNER_ETAT_CHARGEMENT_SUCCESS,
+    SCELLES_APRES_SCANNER_ETAT_CHARGEMENT_VE_FAILED,
+    SCELLES_APRES_SCANNER_ETAT_CHARGEMENT_VE_IN_PROGRESS,
+    SCELLES_APRES_SCANNER_ETAT_CHARGEMENT_VE_INIT,
+    SCELLES_APRES_SCANNER_ETAT_CHARGEMENT_VE_SUCCESS,
 } from '../pecEtatChargementConstants';
 import PecEtatChargementApi from '../../service/api/pecEtatChargementApi';
 import translate from '../../../../../commons/i18n/ComI18nHelper';
@@ -14,7 +14,7 @@ export function request(action, navigation) {
         dispatch(inProgress(action));
         ComTransverseApi.doProcess(
             "AEC_LIB",
-            "findResultatScannerByReferenceEtatChargement",
+            "findScellesApresScannerByRefEtatChargement",
             "SP",
             action.value,
         )
@@ -27,14 +27,7 @@ export function request(action, navigation) {
                             data.dtoHeader.messagesErreur.length === 0)
                     ) {
                         dispatch(success(data));
-                        // console.log('----------------------------------------------------------------');
-                        // console.log('----------------------------------------------------------------');
-                        // console.log('----------------------------------------------------------------');
-                        // console.log(JSON.stringify(data));
-                        // console.log('----------------------------------------------------------------');
-                        // console.log('----------------------------------------------------------------');
-                        // console.log('----------------------------------------------------------------');
-                        navigation.navigate('Resultat', {});
+                        //navigation.navigate('Resultat', {});
                     } else {
                         dispatch(failed(data));
                     }
@@ -49,25 +42,25 @@ export function request(action, navigation) {
 }
 export function inProgress(action) {
     return {
-        type: SCANNER_ETAT_CHARGEMENT_IN_PROGRESS,
+        type: SCELLES_APRES_SCANNER_ETAT_CHARGEMENT_VE_IN_PROGRESS,
         value: action.value,
     };
 }
 export function init(action) {
     return {
-        type: SCANNER_ETAT_CHARGEMENT_INIT,
+        type: SCELLES_APRES_SCANNER_ETAT_CHARGEMENT_VE_INIT,
         value: action.value,
     };
 }
 export function success(data) {
     return {
-        type: SCANNER_ETAT_CHARGEMENT_SUCCESS,
+        type: SCELLES_APRES_SCANNER_ETAT_CHARGEMENT_VE_SUCCESS,
         value: data,
     };
 }
 export function failed(data) {
     return {
-        type: SCANNER_ETAT_CHARGEMENT_FAILED,
+        type: SCELLES_APRES_SCANNER_ETAT_CHARGEMENT_VE_FAILED,
         value: data,
     };
 }

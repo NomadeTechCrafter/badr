@@ -43,7 +43,7 @@ class EtatChargementScanner extends React.Component {
             },
             {
                 code: 'controleApresScanner',
-                libelle: translate('etatChargement.controleApresScanner'),
+                libelle: translate('etatChargementVE.controleApresScanner'),
                 width: 300,
             }
         ];

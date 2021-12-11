@@ -11,7 +11,7 @@ import { TYPE_SERVICE_UC } from "../../../../commons/constants/ComGlobalConstant
 import translate from "../../../../commons/i18n/ComI18nHelper";
 import { ComSessionService } from '../../../../commons/services/session/ComSessionService';
 import pecVuEmbarquer from "../state/actions/pecVuEmbarquer";
-import  { VALIDER_ETAT_CHARGEMENT_VE_REQUEST } from '../state/pecEtatChargementConstants';
+import { VALIDER_ETAT_CHARGEMENT_VE_REQUEST } from '../state/pecEtatChargementConstants';
 import { default as style, default as styles } from '../style/pecEtatChargementStyle';
 import EtatChargementInfosDum from './pecEtatChargementInfosDum';
 
@@ -24,7 +24,7 @@ class EtatChargementEcorage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            
+
 
             navire: '',
             commentaire: '',
@@ -83,18 +83,18 @@ class EtatChargementEcorage extends React.Component {
 
     confirmerVuEmbarquer = () => {
         if (_.isEmpty(this.state.dateHeureVE) || _.isEmpty(this.state.heureVE)) {
-            this.setState({ errorMessage: translate('etatChargementVE.dateHeureVisaErreur')});
+            this.setState({ errorMessage: translate('etatChargementVE.dateHeureVisaErreur') });
             return;
         }
-        if (_.isEmpty(this.state.navire) ) {
+        if (_.isEmpty(this.state.navire)) {
             this.setState({ errorMessage: translate('etatChargementVE.navireVuEmbarquerErreur') });
             return;
-        } 
+        }
 
         this.setState({ errorMessage: null });
         let VuEmbarquerVo = {
 
-            codeBureau : this.props.codeBureau,
+            codeBureau: this.props.codeBureau,
             regime: this.props.regime,
             anneeEnregistrement: this.props.anneeEnregistrement,
             numeroSerieEnregistrement: this.props.numeroSerieEnregistrement,
@@ -107,7 +107,7 @@ class EtatChargementEcorage extends React.Component {
 
 
         };
-         let action = pecVuEmbarquer.request(
+        let action = pecVuEmbarquer.request(
             {
                 type: VALIDER_ETAT_CHARGEMENT_VE_REQUEST,
                 value: {
@@ -119,7 +119,7 @@ class EtatChargementEcorage extends React.Component {
             },
             this.props.navigation,
         );
-        this.props.actions.dispatch(action); 
+        this.props.actions.dispatch(action);
 
 
 
@@ -151,7 +151,14 @@ class EtatChargementEcorage extends React.Component {
             scellesConfirmationEntree += obj[prop] + '\n';
         }
 
-        console.log('this.props', this.props);
+        let scellesControleApresScanner = '';
+        const scelle = this.props?.dataScellesApresScanner;
+        for (const prop in scelle) {
+            scellesControleApresScanner += scelle[prop] + '\n';
+        }
+        
+
+        console.log('this.props MRS123321', JSON.stringify(this.props?.dataScellesApresScanner) );
 
         return (
             <View style={style.container}>
@@ -293,27 +300,27 @@ class EtatChargementEcorage extends React.Component {
                             badr
                             title={translate('etatChargementVE.vuEmbarquer')}>
                             <CardBox style={styles.cardBoxInfoDum}>
-                                
 
-                                    <Row size={200}>
-                                        <Col size={50}>
-                                            <Text style={styles.libelleM}>
-                                                {translate('etatChargementVE.agentEcoreur')}
-                                            </Text>
-                                        </Col>
-                                        <Col size={50}>
-                                            <Text style={styles.valueM}>
+
+                                <Row size={200}>
+                                    <Col size={50}>
+                                        <Text style={styles.libelleM}>
+                                            {translate('etatChargementVE.agentEcoreur')}
+                                        </Text>
+                                    </Col>
+                                    <Col size={50}>
+                                        <Text style={styles.valueM}>
                                             {ComSessionService.getInstance().getLogin()}
-                                            </Text>
-                                        </Col>
-                                        <Col size={50}>
-                                            <Text style={styles.libelleM}>
-                                                {translate('etatChargementVE.dateHeureVoyage')}
-                                            </Text>
-                                        </Col>
-                                        <Col size={50}>
+                                        </Text>
+                                    </Col>
+                                    <Col size={50}>
+                                        <Text style={styles.libelleM}>
+                                            {translate('etatChargementVE.dateHeureVoyage')}
+                                        </Text>
+                                    </Col>
+                                    <Col size={50}>
 
-                                            <Text>
+                                        <Text>
 
                                             {(!this.props.success) && <ComBadrDatePickerComp
                                                 dateFormat="DD/MM/YYYY"
@@ -334,47 +341,36 @@ class EtatChargementEcorage extends React.Component {
                                                     })
                                                 }
                                             />}
-                                            {(this.props.success) && (this.state.dateHeureVE + " "+this.state.heureVE)}
-                                            </Text>
-                                        </Col>
-                                    </Row>
+                                            {(this.props.success) && (this.state.dateHeureVE + " " + this.state.heureVE)}
+                                        </Text>
+                                    </Col>
+                                </Row>
 
-                                    <Row size={200}>
-                                        <Col size={50}>
-
-
-                                            <Text style={styles.libelle}>
-                                                {translate('etatChargementVE.navire')}
-                                            </Text>
-
-
-                                        </Col>
-                                        <Col size={150}>
-
-
-                                       
-
+                                <Row size={200}>
+                                    <Col size={50}>
+                                        <Text style={styles.libelle}>
+                                            {translate('etatChargementVE.navire')}
+                                        </Text>
+                                    </Col>
+                                    <Col size={150}>
                                         <ComBadrAutoCompleteChipsComp
-                                        
                                             code="code"
                                             disabled={this.props.success}
-                                        placeholder={translate(
-                                            'etatChargement.navire',
-                                        )}
+                                            placeholder={translate(
+                                                'etatChargement.navire',
+                                            )}
                                             selected={this.state.navire}
-                                        maxItems={3}
-                                        libelle="libelle"
+                                            maxItems={3}
+                                            libelle="libelle"
                                             command="getCmbMoyenTransport"
                                             paramName="libelleMoyenTransport"
-                                        onDemand={true}
-                                        searchZoneFirst={false}
-                                        onValueChange={this.handleCmbMoyenTransport}
-                />
-                                        </Col>
+                                            onDemand={true}
+                                            searchZoneFirst={false}
+                                            onValueChange={this.handleCmbMoyenTransport}
+                                        />
+                                    </Col>
+                                </Row>
 
-                                        
-                                    </Row>
-                               
                                 <Row size={200}>
                                     <Col size={50}>
                                         <Text style={[styles.libelleM, styles.margtt]}>
@@ -395,12 +391,11 @@ class EtatChargementEcorage extends React.Component {
                                             {(this.props.success) && (<Text>{this.state.commentaire}</Text>)}
 
                                         </CardBox>
-
                                     </Col>
                                 </Row>
                                 <Row size={200}>
                                     <Col size={200}>
-                                    
+
                                         {(!this.props.success) && <ComBadrButtonIconComp
                                             onPress={() => this.confirmerVuEmbarquer()}
                                             style={style.buttonIcon}
@@ -408,8 +403,34 @@ class EtatChargementEcorage extends React.Component {
                                             text={translate('etatChargementVE.buttonConfirmerVuEmbarquer')}
                                         />}
                                     </Col>
-                                </Row>    
+                                </Row>
                             </CardBox>
+                        </Accordion>
+                    </CardBox>
+                    <CardBox style={style.cardBox}>
+                        <Accordion
+                            badr
+                            title={translate('etatChargementVE.controleApresScanner')}>
+                            <CardBox style={styles.cardBoxInfoDum}>
+                                <View style={[styles.flexDirectionRow, styles.margtb]}>
+                                    <View style={[styles.flexDirectionCol, styles.margtb]}>
+                                        <Text style={[styles.libelleM, styles.margtt]}>
+                                            {translate('etatChargementVE.scellesControleApresScanner')}
+                                        </Text>
+                                    </View>
+                                    <View style={[styles.flexDirectionCol, styles.margtb]}>
+                                        <CardBox style={styles.cardBoxInfoDum}>
+                                            <TextInput
+                                                value={scellesControleApresScanner}
+                                                multiline={true}
+                                                numberOfLines={3}
+                                                disabled={true}
+                                            />
+                                        </CardBox>
+                                    </View>
+                                </View>
+                            </CardBox>
+                            
                         </Accordion>
                     </CardBox>
                 </ScrollView>

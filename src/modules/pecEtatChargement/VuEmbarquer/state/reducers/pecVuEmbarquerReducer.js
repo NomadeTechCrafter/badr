@@ -10,6 +10,7 @@ const initialState = {
     dataHistorique: [],
     dataVersions: [],
     dataScanner: [],
+    dataScellesApresScanner: [],
     infoMessage : null,
     success : false
 };
@@ -35,7 +36,7 @@ export default (state = initialState, action) => {
             nextState.showProgress = false;
             nextState.data = action?.value?.jsonVO;
 
-            console.log('testtest ETAT_CHARGEMENT_VE_SUCCESS', nextState);
+            console.log('testtest ETAT_CHARGEMENT_VE_SUCCESS', JSON.stringify(nextState) );
             return nextState;
         case Constants.ETAT_CHARGEMENT_VE_FAILED:
             nextState.showProgress = false;
@@ -51,7 +52,39 @@ export default (state = initialState, action) => {
             return nextState;
         case Constants.ETAT_CHARGEMENT_VE_INIT:
             return initialState;
+        
 
+        case Constants.RECH_IMM_ETAT_CHARGEMENT_VE_REQUEST:
+            nextState.displayError = false;
+            nextState.errorMessage = null;
+            nextState.showProgress = true;
+            nextState.infoMessage = null;
+            nextState.success = false;
+            nextState.data = {};
+            return nextState;
+        case Constants.RECH_IMM_ETAT_CHARGEMENT_VE_IN_PROGRESS:
+            return nextState;
+        case Constants.RECH_IMM_ETAT_CHARGEMENT_VE_SUCCESS:
+            nextState.errorMessage = null;
+            nextState.showProgress = false;
+            nextState.data = action?.value?.jsonVO;
+
+            console.log('RECH_IMM_ETAT_CHARGEMENT_VE_SUCCESS', JSON.stringify(nextState));
+            return nextState;
+        case Constants.RECH_IMM_ETAT_CHARGEMENT_VE_FAILED:
+            nextState.showProgress = false;
+            nextState.displayError = true;
+            if (action?.value?.dtoHeader) {
+                nextState.errorMessage = action?.value?.dtoHeader?.messagesErreur
+                    ? action?.value?.dtoHeader?.messagesErreur
+                    : action.value;
+            } else {
+                nextState.errorMessage = translate('errors.technicalIssue');
+            }
+            console.log('', nextState);
+            return nextState;
+        case Constants.RECH_IMM_ETAT_CHARGEMENT_VE_INIT:
+            return initialState;
 
 
         case Constants.INIT_ETAT_CHARGEMENT_VE_REQUEST:
@@ -120,13 +153,6 @@ export default (state = initialState, action) => {
             return nextState;
         case Constants.VALIDER_ETAT_CHARGEMENT_VE_INIT:
             return initialState;
-
-
-
-
-
-
-
         case Constants.HISTORIQUE_ETAT_CHARGEMENT_VE_REQUEST:
             nextState.displayError = false;
             nextState.errorMessage = null;
@@ -183,6 +209,7 @@ export default (state = initialState, action) => {
             return nextState;
         case Constants.VERSIONS_ETAT_CHARGEMENT_VE_INIT:
             return initialState;
+        
         case Constants.SCANNER_ETAT_CHARGEMENT_VE_REQUEST:
             nextState.displayError = false;
             nextState.errorMessage = null;
@@ -210,6 +237,36 @@ export default (state = initialState, action) => {
             return nextState;
         case Constants.SCANNER_ETAT_CHARGEMENT_VE_INIT:
             return initialState;
+        
+
+        case Constants.SCELLES_APRES_SCANNER_ETAT_CHARGEMENT_VE_REQUEST:
+            nextState.displayError = false;
+            nextState.errorMessage = null;
+            nextState.showProgress = true;
+            nextState.dataScellesApresScanner = [];
+            return nextState;
+        case Constants.SCELLES_APRES_SCANNER_ETAT_CHARGEMENT_VE_IN_PROGRESS:
+            return nextState;
+        case Constants.SCELLES_APRES_SCANNER_ETAT_CHARGEMENT_VE_SUCCESS:
+            nextState.errorMessage = null;
+            nextState.showProgress = false;
+            nextState.dataScellesApresScanner = action?.value?.jsonVO;
+            return nextState;
+        case Constants.SCELLES_APRES_SCANNER_ETAT_CHARGEMENT_VE_FAILED:
+            nextState.showProgress = false;
+            nextState.displayError = true;
+            if (action?.value?.dtoHeader) {
+                nextState.errorMessage = action?.value?.dtoHeader?.messagesErreur
+                    ? action?.value?.dtoHeader?.messagesErreur
+                    : action.value;
+            } else {
+                nextState.errorMessage = translate('errors.technicalIssue');
+            }
+            console.log('testtest SCELLES_APRES_SCANNER_ETAT_CHARGEMENT_VE_FAILED', nextState);
+            return nextState;
+        case Constants.SCELLES_APRES_SCANNER_ETAT_CHARGEMENT_VE_INIT:
+            return initialState;
+        
         default:
             return nextState ? nextState : initialState;
     }

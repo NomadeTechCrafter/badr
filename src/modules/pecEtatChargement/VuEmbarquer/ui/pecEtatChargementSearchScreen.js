@@ -7,6 +7,7 @@ import { Col, Grid, Row } from 'react-native-easy-grid';
 import {
     ComBadrErrorMessageComp,
     ComBadrInfoMessageComp,
+    ComBadrLibelleComp,
     ComBadrProgressBarComp,
 } from '../../../../commons/component';
 
@@ -18,9 +19,13 @@ import _ from 'lodash';
 import * as Constants from '../state/pecEtatChargementConstants';
 
 import * as EtatChargementAction from '../state/actions/pecEtatChargementAction';
+import * as RechEtatChargementParImmAction from '../state/actions/pecRechEtatChargementParImmAction';
+
 import * as HistEtatChargementAction from '../state/actions/pecHistoriqueEtatChargementAction';
 import * as VersionsEtatChargementAction from '../state/actions/pecVersionsEtatChargementAction';
 import * as ScannerEtatChargementAction from '../state/actions/pecScannerEtatChargementAction';
+import * as ScellesApresScannerEtatChargementAction from '../state/actions/pecScellesApresScannerEtatChargementAction';
+import { CustomStyleSheet } from '../../../../commons/styles/ComThemeStyle';
 
 const initialState = {
     bureau: '',
@@ -29,6 +34,7 @@ const initialState = {
     serie: '',
     cle: '',
     validCleDum: '',
+    numeroImmatriculation: '',
     showErrorMessage: false,
 };
 
@@ -95,7 +101,7 @@ class PecEtatChargementSearchScreen extends React.Component {
             maxLength: 7,
         });
 
-        let reference = this.state.regime + this.state.serie + this.state.annee ;
+        let reference = this.state.regime + this.state.serie + this.state.annee;
 
         if (reference && reference.length === 14) {
             let lValidCleDum = this.cleDum(reference);
@@ -106,11 +112,13 @@ class PecEtatChargementSearchScreen extends React.Component {
                 const actionHistorique = this.searchHistorique();
                 const actionVersions = this.searchVersions();
                 const actionScanner = this.searchScanner();
+                const actionScellesApresScanner = this.searchScellesApresScanner();
 
                 this.props.actions.dispatch(actionSearch);
                 this.props.actions.dispatch(actionHistorique);
                 this.props.actions.dispatch(actionVersions);
                 this.props.actions.dispatch(actionScanner);
+                this.props.actions.dispatch(actionScellesApresScanner);
             } else {
                 this.setState({
                     ...this.state,
@@ -135,6 +143,28 @@ class PecEtatChargementSearchScreen extends React.Component {
             this.props.navigation,
         );
         return action
+    };
+
+
+    searchActionByImm = () => {
+        return RechEtatChargementParImmAction.request(
+            {
+                type: Constants.RECH_IMM_ETAT_CHARGEMENT_VE_REQUEST,
+                value: this.state.numeroImmatriculation,
+            },
+            this.props.navigation,
+        );
+    };
+
+    confirmImm = () => {
+        this.displayErrorMessage();
+
+        if (this.state.numeroImmatriculation) {
+            let action = this.searchActionByImm();
+            this.props.actions.dispatch(action);
+        } else {
+            // Do nothing
+        }
     };
 
     searchHistorique = () => {
@@ -173,6 +203,18 @@ class PecEtatChargementSearchScreen extends React.Component {
         let action = ScannerEtatChargementAction.request(
             {
                 type: Constants.SCANNER_ETAT_CHARGEMENT_VE_REQUEST,
+                value: this.state.bureau + this.state.regime + this.state.annee + this.state.serie
+
+            },
+            this.props.navigation,
+        );
+        return action
+    };
+
+    searchScellesApresScanner = () => {
+        let action = ScellesApresScannerEtatChargementAction.request(
+            {
+                type: Constants.SCELLES_APRES_SCANNER_ETAT_CHARGEMENT_VE_REQUEST,
                 value: this.state.bureau + this.state.regime + this.state.annee + this.state.serie
 
             },
@@ -395,6 +437,54 @@ class PecEtatChargementSearchScreen extends React.Component {
                             </Col>
 
                             <Col size={15} />
+                        </Row>
+
+                        <Row style={CustomStyleSheet.whiteRow}>
+                            <Col size={2}>
+                                <ComBadrLibelleComp withColor={true} isRequired={true}>
+                                    {translate('confirmationArrivee.immatriculation')}
+                                </ComBadrLibelleComp>
+                            </Col>
+                            <Col size={4}>
+                                <TextInput
+                                    mode="outlined"
+                                    value={this.state.numeroImmatriculation}
+                                    onChangeText={(text) =>
+                                        this.setState({ numeroImmatriculation: text })
+                                    }
+                                />
+                                <HelperText
+                                    type="error"
+                                    padding="none"
+                                    visible={this.hasErrors('numeroImmatriculation')}>
+                                    {translate('errors.donneeObligatoire', { champ: translate('confirmationArrivee.immatriculation') })}
+                                </HelperText>
+                            </Col>
+                            <Col size={2} />
+                        </Row>
+
+                        <Row size={100}>
+                            <Col size={25} />
+
+                            <Col size={20}>
+                                <Button
+                                    title={translate('transverse.valider')}
+                                    // type={'solid'}
+                                    buttonStyle={style.buttonAction}
+                                    onPress={() => this.confirmImm()} />
+                            </Col>
+
+                            <Col size={2} />
+
+                            <Col size={20}>
+                                <Button
+                                    title={translate('transverse.retablir')}
+                                    // type={'solid'}
+                                    buttonStyle={style.buttonAction}
+                                    onPress={() => this.reset()} />
+                            </Col>
+
+                            <Col size={25} />
                         </Row>
                     </Grid>
                 )}
