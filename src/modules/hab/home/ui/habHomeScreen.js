@@ -408,12 +408,12 @@ class habHomeScreen extends React.Component {
         <Drawer.Screen
           name="T6bisRecherche"
           component={T6bisRecherche}
-          options={{ headerShown: false }}
+          options={{ headerShown: false, unmountOnBlur: true, lazy: false }}
         />
         <Drawer.Screen
           name="T6bisGestion"
           component={T6bisGestion}
-          options={{ headerShown: false }}
+          options={{ headerShown: false, unmountOnBlur: true, lazy: false }}
         />
 
         {/* Module T6bis end*/}
