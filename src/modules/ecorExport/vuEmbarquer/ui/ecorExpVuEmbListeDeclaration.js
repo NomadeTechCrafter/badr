@@ -304,7 +304,7 @@ class VuEmbListeDeclaration extends React.Component {
 
 
   render() {
-    let reference = this.props?.route?.params?.params?.params;
+    let reference = this.state?.ecorDUM?.refDUM;
     return (
       <View style={styles.container}>
         <ComBadrToolbarComp

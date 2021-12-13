@@ -23,11 +23,13 @@ import {
   ComBadrButtonIconComp,
   ComBadrErrorMessageComp,
   ComBadrInfoMessageComp,
+  ComBadrLibelleComp,
   ComBadrProgressBarComp,
   ComBadrToolbarComp,
   ComContainerComp,
 } from '../../../../commons/component';
-import { Button, HelperText, TextInput } from 'react-native-paper';
+import { Button, HelperText, RadioButton, Text, TextInput } from 'react-native-paper';
+import { Col, Row } from 'react-native-easy-grid';
 
 // const Tab = createMaterialTopTabNavigator();
 
@@ -43,9 +45,11 @@ const initialState = {
   annee: '',
   serie: '',
   cle: '',
+  numeroImmatriculation: '',
   cleValide: '',
   login: '',
   showErrorMsg: false,
+  rechParImm: 'true'
 };
 
 class VuEmbarqueScreen extends React.Component {
@@ -111,6 +115,7 @@ class VuEmbarqueScreen extends React.Component {
       annee: '',
       serie: '',
       cle: '',
+      numeroImmatriculation: '',
     });
   };
 
@@ -146,6 +151,40 @@ class VuEmbarqueScreen extends React.Component {
       }
     }
   };
+
+  confirmerParImm = () => {
+    this.displayErrorMessage();
+    // this.setState({ showErrorMsg: true });
+
+    if (this.state.numeroImmatriculation) {
+      var action = InitVuEmbtAction.request(
+        {
+          type: Constants.RECHERCHE_D17_DUM_REQUEST,
+          value: {
+            login: ComSessionService.getInstance().getLogin(),
+            commande: "initVuEmbarquerByNumImm",
+            module: "ECOREXP_LIB",
+            typeService: "UC",
+            data: this.state.numeroImmatriculation,
+          },
+        },
+        this.props.navigation,
+        'VuEmbListeDeclaration2',
+      );
+      this.props.actions.dispatch(action);
+    }
+  };
+  
+  
+  displayErrorMessage = () => {
+    this.setState({
+      ...this.state,
+      showErrorMsg: true,
+    });
+  };
+
+
+
   hasErrors = (field) => {
     return this.state.showErrorMsg && _.isEmpty(this.state[field]);
   };
@@ -197,156 +236,220 @@ class VuEmbarqueScreen extends React.Component {
           )}
 
           <ComContainerComp style={styles.container}>
-            <View style={styles.containerInputs}>
-              <View>
-                <TextInput
-                  error={this.hasErrors('bureau')}
-                  maxLength={3}
-                  keyboardType={'number-pad'}
-                  value={this.state.bureau}
-                  label={translate('transverse.bureau')}
-                  onChangeText={(val) => this.onChangeInput({ bureau: val })}
-                  onEndEditing={(event) =>
-                    this.addZeros({
-                      bureau: event.nativeEvent.text,
-                      maxLength: 3,
-                    })
-                  }
-                  style={CustomStyleSheet.largeInput}
-                />
-                <HelperText
-                  type="error"
-                  padding="none"
-                  visible={this.hasErrors('bureau')}>
-                  {translate('errors.donneeObligatoire', {
-                    champ: translate('transverse.bureau'),
-                  })}
-                </HelperText>
-              </View>
 
-              <View>
-                <TextInput
-                  error={this.hasErrors('regime')}
-                  maxLength={3}
-                  keyboardType={'number-pad'}
-                  value={this.state.regime}
-                  label={translate('transverse.regime')}
-                  onChangeText={(val) => this.onChangeInput({ regime: val })}
-                  onEndEditing={(event) =>
-                    this.addZeros({
-                      regime: event.nativeEvent.text,
-                      maxLength: 3,
-                    })
-                  }
-                  style={CustomStyleSheet.largeInput}
-                />
-                <HelperText
-                  type="error"
-                  padding="none"
-                  visible={this.hasErrors('regime')}>
-                  {translate('errors.donneeObligatoire', {
-                    champ: translate('transverse.regime'),
-                  })}
-                </HelperText>
-              </View>
-
-              <View>
-                <TextInput
-                  error={this.hasErrors('annee')}
-                  maxLength={4}
-                  keyboardType={'number-pad'}
-                  value={this.state.annee}
-                  label={translate('transverse.annee')}
-                  onChangeText={(val) => this.onChangeInput({ annee: val })}
-                  onEndEditing={(event) =>
-                    this.addZeros({
-                      annee: event.nativeEvent.text,
-                      maxLength: 4,
-                    })
-                  }
-                  style={CustomStyleSheet.largeInput}
-                />
-                <HelperText
-                  type="error"
-                  padding="none"
-                  visible={this.hasErrors('annee')}>
-                  {translate('errors.donneeObligatoire', {
-                    champ: translate('transverse.annee'),
-                  })}
-                </HelperText>
-              </View>
-
-              <View>
-                <TextInput
-                  error={this.hasErrors('serie')}
-                  maxLength={7}
-                  keyboardType={'number-pad'}
-                  value={this.state.serie}
-                  label={translate('transverse.serie')}
-                  onChangeText={(val) => this.onChangeInput({ serie: val })}
-                  onEndEditing={(event) =>
-                    this.addZeros({
-                      serie: event.nativeEvent.text,
-                      maxLength: 7,
-                    })
-                  }
-                  style={CustomStyleSheet.largeInput}
-                />
-                <HelperText
-                  type="error"
-                  padding="none"
-                  visible={this.hasErrors('serie')}>
-                  {translate('errors.donneeObligatoire', {
-                    champ: translate('transverse.serie'),
-                  })}
-                </HelperText>
-              </View>
-              <View>
-                <TextInput
-                  error={this.isCleValide('cle')}
-                  maxLength={1}
-                  autoCapitalize={'characters'}
-                  value={this.state.cle}
-                  label={translate('transverse.cle')}
-                  onChangeText={(val) => this.onChangeInputCle(val)}
-                  style={CustomStyleSheet.mediumInput}
-                />
-                <HelperText
-                  type="error"
-                  padding="none"
-                  style={styles.cleHelperMsg}
-                  visible={this.isCleValide('cle')}>
-                  {translate('errors.cleNotValid', {
-                    cle: this.state.cleValide,
-                  })}
-                </HelperText>
-              </View>
+            <View style={styles.flexRow}>
+              <RadioButton.Group onValueChange={(text) => this.setState(prevState => ({
+                ...prevState.rechParImm,
+                rechParImm: text
+              }))} value={this.state.rechParImm + ''}>
+                <Col />
+                <Col>
+                  <Text>{'Declaration détail'}</Text>
+                  <RadioButton value="true" color={primaryColor} />
+                </Col>
+                <Col>
+                  <Text>{'AMP'}</Text>
+                  <RadioButton value="false" color={primaryColor} />
+                </Col>
+              </RadioButton.Group>
             </View>
-            <View style={styles.containerBtn}>
-              <ComBadrButtonIconComp
-                onPress={this.confirmer}
-                icon="check"
-                compact={false}
-                style={styles.btnConfirmer}
-                loading={this.props.showProgress}
-                text={translate('transverse.confirmer')}
-              />
-              <ComBadrButtonIconComp
-                onPress={this.retablir}
-                icon="autorenew"
-                compact={false}
-                style={styles.btnRetablir}
-                loading={this.props.showProgress}
-                text={translate('transverse.retablir')}
-              />
-              {/* <Button
-                onPress={this.retablir}
-                icon="autorenew"
-                mode="contained"
-                style={styles.btnRetablir}>
-                {translate('transverse.retablir')}
-              </Button> */}
-            </View>
+
+            {this.state.rechParImm === 'true' && (
+              <View style={styles.containerInputs}>
+                <View>
+                  <TextInput
+                    error={this.hasErrors('bureau')}
+                    maxLength={3}
+                    keyboardType={'number-pad'}
+                    value={this.state.bureau}
+                    label={translate('transverse.bureau')}
+                    onChangeText={(val) => this.onChangeInput({ bureau: val })}
+                    onEndEditing={(event) =>
+                      this.addZeros({
+                        bureau: event.nativeEvent.text,
+                        maxLength: 3,
+                      })
+                    }
+                    style={CustomStyleSheet.largeInput}
+                  />
+                  <HelperText
+                    type="error"
+                    padding="none"
+                    visible={this.hasErrors('bureau')}>
+                    {translate('errors.donneeObligatoire', {
+                      champ: translate('transverse.bureau'),
+                    })}
+                  </HelperText>
+                </View>
+
+                <View>
+                  <TextInput
+                    error={this.hasErrors('regime')}
+                    maxLength={3}
+                    keyboardType={'number-pad'}
+                    value={this.state.regime}
+                    label={translate('transverse.regime')}
+                    onChangeText={(val) => this.onChangeInput({ regime: val })}
+                    onEndEditing={(event) =>
+                      this.addZeros({
+                        regime: event.nativeEvent.text,
+                        maxLength: 3,
+                      })
+                    }
+                    style={CustomStyleSheet.largeInput}
+                  />
+                  <HelperText
+                    type="error"
+                    padding="none"
+                    visible={this.hasErrors('regime')}>
+                    {translate('errors.donneeObligatoire', {
+                      champ: translate('transverse.regime'),
+                    })}
+                  </HelperText>
+                </View>
+
+                <View>
+                  <TextInput
+                    error={this.hasErrors('annee')}
+                    maxLength={4}
+                    keyboardType={'number-pad'}
+                    value={this.state.annee}
+                    label={translate('transverse.annee')}
+                    onChangeText={(val) => this.onChangeInput({ annee: val })}
+                    onEndEditing={(event) =>
+                      this.addZeros({
+                        annee: event.nativeEvent.text,
+                        maxLength: 4,
+                      })
+                    }
+                    style={CustomStyleSheet.largeInput}
+                  />
+                  <HelperText
+                    type="error"
+                    padding="none"
+                    visible={this.hasErrors('annee')}>
+                    {translate('errors.donneeObligatoire', {
+                      champ: translate('transverse.annee'),
+                    })}
+                  </HelperText>
+                </View>
+
+                <View>
+                  <TextInput
+                    error={this.hasErrors('serie')}
+                    maxLength={7}
+                    keyboardType={'number-pad'}
+                    value={this.state.serie}
+                    label={translate('transverse.serie')}
+                    onChangeText={(val) => this.onChangeInput({ serie: val })}
+                    onEndEditing={(event) =>
+                      this.addZeros({
+                        serie: event.nativeEvent.text,
+                        maxLength: 7,
+                      })
+                    }
+                    style={CustomStyleSheet.largeInput}
+                  />
+                  <HelperText
+                    type="error"
+                    padding="none"
+                    visible={this.hasErrors('serie')}>
+                    {translate('errors.donneeObligatoire', {
+                      champ: translate('transverse.serie'),
+                    })}
+                  </HelperText>
+                </View>
+                <View>
+                  <TextInput
+                    error={this.isCleValide('cle')}
+                    maxLength={1}
+                    autoCapitalize={'characters'}
+                    value={this.state.cle}
+                    label={translate('transverse.cle')}
+                    onChangeText={(val) => this.onChangeInputCle(val)}
+                    style={CustomStyleSheet.mediumInput}
+                  />
+                  <HelperText
+                    type="error"
+                    padding="none"
+                    style={styles.cleHelperMsg}
+                    visible={this.isCleValide('cle')}>
+                    {translate('errors.cleNotValid', {
+                      cle: this.state.cleValide,
+                    })}
+                  </HelperText>
+                </View>
+              </View>
+            )}
+
+            {this.state.rechParImm === 'true' && (
+              <View style={styles.containerBtn}>
+                <ComBadrButtonIconComp
+                  onPress={this.confirmer}
+                  icon="check"
+                  compact={false}
+                  style={styles.btnConfirmer}
+                  loading={this.props.showProgress}
+                  text={translate('transverse.confirmer')}
+                />
+                <ComBadrButtonIconComp
+                  onPress={this.retablir}
+                  icon="autorenew"
+                  compact={false}
+                  style={styles.btnRetablir}
+                  loading={this.props.showProgress}
+                  text={translate('transverse.retablir')}
+                />
+              </View>
+            )}
+
+            {this.state.rechParImm === 'false' && (
+              <Row style={CustomStyleSheet.whiteRow}>
+                <Col size={2}>
+                  <ComBadrLibelleComp withColor={true} isRequired={true}>
+                    {translate('confirmationArrivee.immatriculation')}
+                  </ComBadrLibelleComp>
+                </Col>
+                <Col size={4}>
+                  <TextInput
+                    mode="outlined"
+                    value={this.state.numeroImmatriculation}
+                    onChangeText={(text) =>
+                      this.setState({ numeroImmatriculation: text })
+                    }
+                  />
+                  <HelperText
+                    type="error"
+                    padding="none"
+                    visible={this.hasErrors('numeroImmatriculation')}>
+                    {translate('errors.donneeObligatoire', { champ: translate('confirmationArrivee.immatriculation') })}
+                  </HelperText>
+                </Col>
+                <Col size={2} />
+              </Row>
+            )}
+
+            {this.state.rechParImm === 'false' && (
+
+              <View style={styles.containerBtn}>
+                <ComBadrButtonIconComp
+                  onPress={this.confirmerParImm}
+                  icon="check"
+                  compact={false}
+                  style={styles.btnConfirmer}
+                  loading={this.props.showProgress}
+                  text={translate('transverse.confirmer')}
+                />
+                <ComBadrButtonIconComp
+                  onPress={this.retablir}
+                  icon="autorenew"
+                  compact={false}
+                  style={styles.btnRetablir}
+                  loading={this.props.showProgress}
+                  text={translate('transverse.retablir')}
+                />
+              </View>
+            )}
           </ComContainerComp>
         </ScrollView>
       </View>

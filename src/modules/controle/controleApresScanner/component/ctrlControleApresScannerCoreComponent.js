@@ -62,7 +62,7 @@ class CtrlControleApresScannerCoreComponent extends React.Component {
       },
     ];
   };
-  
+
 
   cleDum2 = function (reference) {
     let alpha = 'ABCDEFGHJKLMNPRSTUVWXYZ';
@@ -577,22 +577,22 @@ class CtrlControleApresScannerCoreComponent extends React.Component {
                           <Col size={70} style={style.boxContainer}>
                             <SafeAreaView style={style.miniBoxSafeArea}>
                               <Row>
-                              {((this.state.controleApresScannerVo
-                                .scelles == null ||
-                                this.state.controleApresScannerVo
-                                  .scelles.size === 0) && (this.state.controleApresScannerVo
-                                    .scellesConfirmationEntree == null ||
-                                    this.state.controleApresScannerVo
-                                      .scellesConfirmationEntree.size === 0) && (this.state.controleApresScannerVo
-                                        .oldScelles == null ||
-                                        this.state.controleApresScannerVo
-                                          .oldScelles.size === 0)) && (
+                                {(_.isEmpty(this.state?.controleApresScannerVo?.listScelles)) && (
                                   <Text style={style.boxItemText}>
                                     Aucun élément
                                   </Text>
                                 )}
 
-                              {this.state.controleApresScannerVo
+                                {(!_.isEmpty(this.state?.controleApresScannerVo?.listScelles)) && (
+                                  <Col>
+                                    <Text style={style.boxItemText}>
+                                      {this.state?.controleApresScannerVo?.listScelles}
+                                    </Text>
+                                     
+                                    </Col>
+                                  )}
+
+                                {/* {this.state.controleApresScannerVo
                                 .scellesConfirmationEntree != null &&
                                 this.state.controleApresScannerVo
                                   .scellesConfirmationEntree.size !== 0 && (
@@ -628,28 +628,9 @@ class CtrlControleApresScannerCoreComponent extends React.Component {
                                       nestedScrollEnabled={true}
                                     />
                                   </Col>
-                                )}
-
-                              {this.state.controleApresScannerVo
-                                .oldScelles != null &&
-                                this.state.controleApresScannerVo
-                                  .oldScelles.size !== 0 && (
-                                  <Col>
-                                    <FlatList
-                                      data={Object.values(
-                                        this.state.controleApresScannerVo
-                                          .oldScelles,
-                                      )}
-                                      renderItem={(item) =>
-                                        this.renderBoxItem(item)
-                                      }
-                                      keyExtractor={(item) => item}
-                                      nestedScrollEnabled={true}
-                                    />
-                                  </Col>
-                                  )}
-                            </Row>
-                              </SafeAreaView>
+                                )} */}
+                              </Row>
+                            </SafeAreaView>
                           </Col>
                         </Row>
 
