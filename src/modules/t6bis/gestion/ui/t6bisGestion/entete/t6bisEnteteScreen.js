@@ -1,12 +1,14 @@
 import React from 'react';
-import {ScrollView} from 'react-native';
-import {connect} from 'react-redux';
-import t6bisFindIntervenantAction from '../../../state/actions/t6bisFindIntervenantAction';
-import T6bisEnteteListBlocks from './blocks/t6bisEnteteListBlocks';
+import { ScrollView } from 'react-native';
+import { connect } from 'react-redux';
+import { ComBadrProgressBarComp } from '../../../../../../commons/component';
 import * as T6BISConstantes from '../../../../utils/t6bisConstants';
+import { isRecherche } from '../../../../utils/t6bisUtils';
+import t6bisFindIntervenantAction from '../../../state/actions/t6bisFindIntervenantAction';
+import t6bisInitT6bisEnteteSectionAction from '../../../state/actions/t6bisInitT6bisEnteteSectionAction';
+import t6bisUpdateIntervenantAction from '../../../state/actions/t6bisUpdateIntervenantAction';
 import * as Constantes from '../../../state/t6bisGestionConstants';
-import {isRecherche} from '../../../../utils/t6bisUtils';
-import t6bisUpdatePropsAction from '../../../state/actions/t6bisUpdatePropsAction';
+import T6bisEnteteListBlocks from './blocks/t6bisEnteteListBlocks';
 
 class T6bisEnteteTab extends React.Component {
   constructor(props) {
@@ -25,12 +27,12 @@ class T6bisEnteteTab extends React.Component {
         let dataToAction = {
           type: Constantes.T6BIS_UPDATE_INTERVENANT_REQUEST,
           value: {
-            fieldsetcontext: data.fieldsetcontext,
+            intervenantVO: data.intervenantVO,
           },
         };
 
         this.props.actions.dispatch(
-          t6bisUpdatePropsAction.request(dataToAction),
+          t6bisUpdateIntervenantAction.request(dataToAction),
         );
         this.setState({fieldsetcontext: data.fieldsetcontext});
         break;
@@ -42,6 +44,7 @@ class T6bisEnteteTab extends React.Component {
   };
 
   componentWillUnmount() {
+    this.props.actions.dispatch(t6bisInitT6bisEnteteSectionAction.init());
     console.log('T6bisEnteteTab   componentWillUnmount');
   }
 
@@ -71,9 +74,13 @@ class T6bisEnteteTab extends React.Component {
   render() {
     console.log('fieldsetcontext ', this.state?.fieldsetcontext);
     console.log('this.props               ', this.props);
+    console.log('this.props.showProgress              ', this.props.showProgress);
     console.log('isRecherche()              ', isRecherche());
     return (
       <ScrollView>
+        {this.props.showProgress && (
+          <ComBadrProgressBarComp  />
+        )}
         <T6bisEnteteListBlocks
           t6bis={this.props.t6bis}
           mode={this.props.mode}

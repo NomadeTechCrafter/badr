@@ -26,18 +26,27 @@ export default (state = initialState, action) => {
     value: action.value,
   };
   switch (action.type) {
+    case Constants.T6BIS_INIT_ENTETE_INIT:
+      nextState.successMessage = null;
+      nextState.errorMessage = null;
+      return nextState;
     case Constants.T6BIS_INIT_ENTETE_REQUEST:
       nextState.displayError = false;
       nextState.correct = false;
       nextState.showProgress = true;
+      nextState.successMessage = null;
+      nextState.errorMessage = null;
       return nextState;
     case Constants.T6BIS_INIT_ENTETE_IN_PROGRESS:
+      nextState.successMessage = null;
+      nextState.errorMessage = null;
       return nextState;
     case Constants.T6BIS_INIT_ENTETE_SUCCES:
       nextState.showProgress = false;
       nextState.confirmed = true;
       nextState.mode = action.value.mode;
-      console.log()
+      nextState.successMessage = null;
+      nextState.errorMessage = null;
       if (action.value.mode === MODE_CREATION) {
         nextState.t6bis = action.value.t6bisMtmDto;
         nextState.currentArticle = getCurrentArticle(nextState.t6bis.codeTypeT6bis, 0);
@@ -75,7 +84,7 @@ export default (state = initialState, action) => {
       nextState.errorMessage = action.value;
       return nextState;
     case Constants.FIND_INTERVENANT_REQUEST:
-      console.log(Constants.T6BIS_INIT_FOR_CREATION_REQUEST);
+      console.log(Constants.FIND_INTERVENANT_REQUEST);
       nextState.displayError = false;
       nextState.correct = false;
       nextState.showProgress = true;
@@ -84,6 +93,7 @@ export default (state = initialState, action) => {
       nextState.retourFindIntervenant = false;
       return nextState;
     case Constants.FIND_INTERVENANT_IN_PROGRESS:
+      nextState.showProgress = true;
       return nextState;
     case Constants.FIND_INTERVENANT_SUCCES:
       nextState.showProgress = false;
@@ -119,7 +129,10 @@ export default (state = initialState, action) => {
     case Constants.T6BIS_UPDATE_INTERVENANT_IN_PROGRESS:
       return nextState;
     case Constants.T6BIS_UPDATE_INTERVENANT_SUCCES:
-      nextState.fieldsetcontext = action.value.fieldsetcontext;
+      nextState.t6bis.intervenantVO.nomIntervenant = action.value.intervenantVO.nomIntervenant;
+      nextState.t6bis.intervenantVO.prenomIntervenant = action.value.intervenantVO.prenomIntervenant;
+      nextState.t6bis.intervenantVO.adresse = action.value.intervenantVO.adresse;
+      nextState.t6bis.intervenantVO.refPaysPassPort = action.value.intervenantVO.refPaysPassPort;
       return nextState;
     case Constants.T6BIS_UPDATE_INTERVENANT_FAILED:
       return nextState;
@@ -173,6 +186,10 @@ export default (state = initialState, action) => {
           nextState.t6bis.listeArticleT6bis = action.value.tempListArticles;
         }
       }
+      nextState.successMessage = action.value.dtoHeader
+        ? action.value.dtoHeader.messagesInfo[0] : null;
+      
+      nextState.errorMessage = null;
       return nextState;
     case Constants.T6BIS_SAUVEGARDER_FAILED:
       nextState.errorMessage = action.value;
@@ -188,6 +205,10 @@ export default (state = initialState, action) => {
           nextState.t6bis.listeArticleT6bis = action.value.tempListArticles;
         }
       }
+      nextState.successMessage = action.value.dtoHeader
+        ? action.value.dtoHeader.messagesInfo[0] : null;
+      nextState.errorMessage = null;
+      
       return nextState;
     case Constants.T6BIS_ENREGISTRER_FAILED:
       nextState.errorMessage = action.value;

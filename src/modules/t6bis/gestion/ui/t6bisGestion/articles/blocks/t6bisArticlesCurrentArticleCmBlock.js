@@ -9,6 +9,7 @@ import { CustomStyleSheet } from '../../../../../../../commons/styles/ComThemeSt
 import * as T6BISConstantes from "../../../../../utils/t6bisConstants";
 import { formatNomenclature, stringNotEmpty } from '../../../../../utils/t6bisUtils';
 import styles from "../../../../style/t6bisGestionStyle";
+import moment from 'moment';
 
 
 
@@ -340,7 +341,7 @@ class T6bisArticlesCurrentArticleCmBlock extends React.Component {
                             <ComBadrDatePickerComp
                                 disabled={this.props.readOnly}
                                 labelDate={translate('t6bisGestion.tabs.articles.articleBlock.cm.dateMiseCirculation')}
-                                value={this.state.currentArticle.dateMiseEnCirculation}
+                                value={this.state.currentArticle.dateMiseEnCirculation ? moment(this.state.currentArticle.dateMiseEnCirculation, 'DD/MM/YYYY', true) : ''}
                                 dateFormat="DD/MM/YYYY"
                                 onDateChanged={(text) => this.setState({
                                     currentArticle: {
