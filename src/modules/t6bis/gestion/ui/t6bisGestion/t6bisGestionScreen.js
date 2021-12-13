@@ -1,19 +1,21 @@
-import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+import _ from 'lodash';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import React from 'react';
-import {View, ScrollView} from 'react-native';
-import {connect} from 'react-redux';
+import { ScrollView, View } from 'react-native';
+import { connect } from 'react-redux';
 import {
   ComBadrButtonComp,
+  ComBadrCircleProgressBarComp,
   ComBadrDialogComp,
   ComBadrErrorMessageComp,
   ComBadrInfoMessageComp,
-  ComBadrToolbarComp,
+  ComBadrToolbarComp
 } from '../../../../../commons/component';
-import {translate} from '../../../../../commons/i18n/ComI18nHelper';
-import {primaryColor} from '../../../../../commons/styles/ComThemeStyle';
+import { translate } from '../../../../../commons/i18n/ComI18nHelper';
+import { CustomStyleSheet, primaryColor } from '../../../../../commons/styles/ComThemeStyle';
 import {
   CMD_ENREGISTRER_T6BIS,
-  CMD_SAUVEGARDER_T6BIS,
+  CMD_SAUVEGARDER_T6BIS
 } from '../../../utils/t6bisConstants';
 import {
   calculerMontantGlobal,
@@ -27,7 +29,7 @@ import {
   preconditions,
   prepareListArticlesCm,
   prepareListArticlesMtm,
-  validate,
+  validate
 } from '../../../utils/t6bisUtils';
 import t6bisinitT6bisEnteteSectionAction from '../../state/actions/t6bisInitT6bisEnteteSectionAction';
 import t6bissauvegarderT6BISAction from '../../state/actions/t6bissauvegarderT6BISAction';
@@ -40,8 +42,6 @@ import T6bisHistoriqueTab from './historique/t6bisHistoriqueScreen';
 import T6bisInformationsTab from './informations/t6bisInformationsScreen';
 import T6bisTaxationGlobaleTab from './taxationglobale/t6bisTaxationGlobaleScreen';
 import T6bisTaxationManuelleTab from './taxationmanuelle/t6bisTaxationManuelleScreen';
-import moment from 'moment';
-
 const Tab = createMaterialTopTabNavigator();
 
 function EnteteTab({route, navigation}) {
@@ -304,7 +304,7 @@ class T6bisGestion extends React.Component {
             <ComBadrInfoMessageComp message={this.state.successMessage} />
           </View>
         )}
-
+        
         <View style={{flex: 1}}>
           {!isMtm(codeTypeT6bis) && !isCm(codeTypeT6bis) && (
             <Tab.Navigator
@@ -394,13 +394,13 @@ class T6bisGestion extends React.Component {
           <View
             style={styles.containerActionBtn}
             pointerEvents={this.state.isConsultation ? 'none' : 'auto'}>
-            <ComBadrButtonComp
-              style={{width: 100}}
+            {_.isEmpty(this.props.t6bis?.referenceEnregistrement) && <ComBadrButtonComp
+              style={{ width: 100 }}
               onPress={() => {
                 this.sauvgarder();
               }}
               text={translate('t6bisGestion.buttons.sauvegarder')}
-            />
+            />}
             <ComBadrButtonComp
               style={{width: 100}}
               onPress={() => {
@@ -408,13 +408,13 @@ class T6bisGestion extends React.Component {
               }}
               text={translate('t6bisGestion.buttons.enregistrer')}
             />
-            <ComBadrButtonComp
-              style={{width: 100}}
+            {_.isEmpty(this.props.t6bis?.referenceEnregistrement) && <ComBadrButtonComp
+              style={{ width: 100 }}
               onPress={() => {
                 this.supprimer();
               }}
               text={translate('t6bisGestion.buttons.supprimer')}
-            />
+            />}
             <ComBadrButtonComp
               style={{width: 100}}
               onPress={() => {

@@ -44,10 +44,18 @@ export function inProgress(action) {
     };
 }
 
+export function init() {
+    return {
+        type: Constants.T6BIS_INIT_ENTETE_INIT,
+        value: null,
+    };
+}
+
 
 
 
 export default {
+    init,
     request,
     success,
     failed,

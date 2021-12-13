@@ -30,11 +30,12 @@ class T6bisEnteteRedevableSousBlock extends React.Component {
             prenomIntervenant: '',
           },
       infoCompleted: null,
-      newIntervenant: null,
+      newIntervenant: isCreation(),
       acNationalite: null,
       readonly: null,
       expanded: false,
       fieldsetcontext: this.props.fieldsetcontext,
+      modificationInProgress: false
     };
   }
 
@@ -45,6 +46,7 @@ class T6bisEnteteRedevableSousBlock extends React.Component {
         ...this.state.intervenantVO,
         nationaliteFr: pays.code,
       },
+      modificationInProgress: true
     });
     this.state.intervenantVO.nationaliteFr = pays.code;
 
@@ -114,6 +116,25 @@ class T6bisEnteteRedevableSousBlock extends React.Component {
       };
       this.props.callbackHandler(T6BISConstantes.FIND_INTERVENANT_TASK, data);
     }
+    this.setState({
+
+      modificationInProgress: false
+    });
+  };
+
+
+  copyIntervenantToProp = function (nomIntervenantParam, prenomIntervenantParam, adresseParam) {
+
+    let data = {
+      intervenantVO:
+      {
+        nomIntervenant: nomIntervenantParam,
+        prenomIntervenant: prenomIntervenantParam,
+        adresse: adresseParam,
+      },
+    };
+    this.props.callbackHandler(T6BISConstantes.UPDATE_INTERVENANT_TASK, data);
+
   };
   buildRedevableCompletionParam = function () {
     if (this.isPasseport()) {
@@ -126,7 +147,7 @@ class T6bisEnteteRedevableSousBlock extends React.Component {
     } else {
       if (
         this.state.intervenantVO &&
-        this.state.intervenantVO.numeroDocumentIndentite && this.state.intervenantVO.refTypeDocumentIdentite=='01'
+        this.state.intervenantVO.numeroDocumentIndentite && this.state.intervenantVO.refTypeDocumentIdentite == '01'
       ) {
         this.state.intervenantVO.numeroDocumentIndentite = validateCin(
           this.state.intervenantVO.numeroDocumentIndentite,
@@ -164,6 +185,7 @@ class T6bisEnteteRedevableSousBlock extends React.Component {
       infoCompleted: false,
       newIntervenant: false,
       acNationalite: {},
+      modificationInProgress: false
     });
     console.log(this.state);
   };
@@ -174,6 +196,11 @@ class T6bisEnteteRedevableSousBlock extends React.Component {
       ...this.state.intervenantVO,
       numeroDocumentIndentite: text,
     }; */
+
+    if (this.props?.t6bis?.intervenantVO?.refTypeDocumentIdentite == this.state?.intervenantVO?.refTypeDocumentIdentite
+      &&
+      this.props?.t6bis?.intervenantVO?.numeroDocumentIndentite == this.state?.intervenantVO?.numeroDocumentIndentite) return;
+
     if (!this.isParamSetted()) {
       this.setState({
         ...this.state,
@@ -187,6 +214,7 @@ class T6bisEnteteRedevableSousBlock extends React.Component {
         infoCompleted: false,
         newIntervenant: false,
         acNationalite: {},
+        modificationInProgress: false
       });
     } else {
       this.checkType();
@@ -196,12 +224,19 @@ class T6bisEnteteRedevableSousBlock extends React.Component {
   onChangeTypeIdentifiant(text) {
     console.log('onChangeTypeIdentifiant----------------------------  : ', text);
     this.setState({
-      ...this.state,
       intervenantVO: {
-        ...this.state.intervenantVO,
         refTypeDocumentIdentite: text,
+        numeroDocumentIndentite: '',
+        nationaliteFr: '',
+        nomIntervenant: '',
+        prenomIntervenant: '',
+        adresse: '',
       },
-    }, this.checkType());
+      infoCompleted: false,
+      newIntervenant: false,
+      acNationalite: {},
+      modificationInProgress: false
+    });
   }
 
   idNewIntervenant() {
@@ -226,11 +261,15 @@ class T6bisEnteteRedevableSousBlock extends React.Component {
     if (
       props.t6bis.intervenantVO &&
       props?.retourFindIntervenant &&
+
+      props?.t6bis?.intervenantVO?.refTypeDocumentIdentite == state?.intervenantVO?.refTypeDocumentIdentite
+      &&
       props?.t6bis?.intervenantVO?.numeroDocumentIndentite == state?.intervenantVO?.numeroDocumentIndentite
+      && !state.modificationInProgress
     ) {
       console.log(' 1 ');
       return {
-        intervenantVO: { ...state.intervenantVO, ...props.t6bis?.intervenantVO }, // update the value of specific key
+        intervenantVO: props.t6bis?.intervenantVO,
         newIntervenant: props.newIntervenant,
       };
     }
@@ -249,6 +288,7 @@ class T6bisEnteteRedevableSousBlock extends React.Component {
         infoCompleted: false,
         newIntervenant: false,
         acNationalite: {},
+        modificationInProgress: false
       };
     }
     /* if (
@@ -381,16 +421,18 @@ class T6bisEnteteRedevableSousBlock extends React.Component {
                     !this.idNewIntervenant()) ||
                   this.props.readOnly
                 }
-                onChangeText={(text) =>
+                onChangeText={(text) => {
                   text
                     ? this.setState({
                       ...this.state,
                       intervenantVO: {
                         ...this.state.intervenantVO,
                         nomIntervenant: text,
-                      },
+                      }, modificationInProgress: true
                     })
-                    : {}
+                    : {};
+                  this.copyIntervenantToProp(text, this.state.intervenantVO.prenomIntervenant, this.state.intervenantVO.adresse);
+                }
                 }
               />
             </Col>
@@ -412,16 +454,18 @@ class T6bisEnteteRedevableSousBlock extends React.Component {
                     !this.idNewIntervenant()) ||
                   this.props.readOnly
                 }
-                onChangeText={(text) =>
+                onChangeText={(text) => {
                   text
                     ? this.setState({
                       ...this.state,
                       intervenantVO: {
                         ...this.state.intervenantVO,
-                        prenomIntervenant: text,
+                        prenomIntervenant: text, modificationInProgress: true
                       },
                     })
-                    : {}
+                    : {};
+                  this.copyIntervenantToProp(this.state.intervenantVO.nomIntervenant, text, this.state.intervenantVO.adresse);
+                }
                 }
               />
             </Col>
@@ -447,14 +491,16 @@ class T6bisEnteteRedevableSousBlock extends React.Component {
                     !this.idNewIntervenant()) ||
                   this.props.readOnly
                 }
-                onChangeText={(text) =>
+                onChangeText={(text) => {
                   this.setState({
                     ...this.state,
                     intervenantVO: {
                       ...this.state.intervenantVO,
-                      adresse: text,
+                      adresse: text, modificationInProgress: true
                     },
-                  })
+                  });
+                  this.copyIntervenantToProp(this.state.intervenantVO.nomIntervenant, this.state.intervenantVO.prenomIntervenant, text);
+                }
                 }
               />
             </Col>

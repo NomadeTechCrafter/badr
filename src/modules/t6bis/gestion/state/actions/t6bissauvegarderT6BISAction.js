@@ -15,7 +15,8 @@ export function request(action) {
                 console.log('--------------------------------------------------------------------------------------------------------response 1', response);
                 if (!Array.isArray(response.data.jsonVO)) {
                     
-                    action.value.t6bis =data.jsonVO;
+                    action.value.t6bis = data.jsonVO;
+                    action.value.dtoHeader = data.dtoHeader;
                     dispatch(success(action));
                     
                     
