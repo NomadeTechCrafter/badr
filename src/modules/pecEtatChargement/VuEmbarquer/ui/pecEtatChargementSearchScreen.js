@@ -2,7 +2,7 @@ import React from 'react';
 
 import { ScrollView, View } from 'react-native';
 import { Button } from 'react-native-elements';
-import { HelperText, TextInput } from 'react-native-paper';
+import { HelperText, RadioButton, Text, TextInput } from 'react-native-paper';
 import { Col, Grid, Row } from 'react-native-easy-grid';
 import {
     ComBadrErrorMessageComp,
@@ -25,7 +25,7 @@ import * as HistEtatChargementAction from '../state/actions/pecHistoriqueEtatCha
 import * as VersionsEtatChargementAction from '../state/actions/pecVersionsEtatChargementAction';
 import * as ScannerEtatChargementAction from '../state/actions/pecScannerEtatChargementAction';
 import * as ScellesApresScannerEtatChargementAction from '../state/actions/pecScellesApresScannerEtatChargementAction';
-import { CustomStyleSheet } from '../../../../commons/styles/ComThemeStyle';
+import { CustomStyleSheet, primaryColor } from '../../../../commons/styles/ComThemeStyle';
 
 const initialState = {
     bureau: '',
@@ -35,6 +35,7 @@ const initialState = {
     cle: '',
     validCleDum: '',
     numeroImmatriculation: '',
+    rechParImm: 'false',
     showErrorMessage: false,
 };
 
@@ -108,17 +109,17 @@ class PecEtatChargementSearchScreen extends React.Component {
             console.log(lValidCleDum);
             console.log(this.state.cle);
             if (lValidCleDum === this.state.cle) {
-                const actionSearch = this.searchAction();
-                const actionHistorique = this.searchHistorique();
-                const actionVersions = this.searchVersions();
-                const actionScanner = this.searchScanner();
-                const actionScellesApresScanner = this.searchScellesApresScanner();
+                // const actionSearch = this.searchAction();
+                // const actionHistorique = this.searchHistorique();
+                // const actionVersions = this.searchVersions();
+                // const actionScanner = this.searchScanner();
+                // const actionScellesApresScanner = this.searchScellesApresScanner();
 
                 this.props.actions.dispatch(actionSearch);
-                this.props.actions.dispatch(actionHistorique);
-                this.props.actions.dispatch(actionVersions);
-                this.props.actions.dispatch(actionScanner);
-                this.props.actions.dispatch(actionScellesApresScanner);
+                // this.props.actions.dispatch(actionHistorique);
+                // this.props.actions.dispatch(actionVersions);
+                // this.props.actions.dispatch(actionScanner);
+                // this.props.actions.dispatch(actionScellesApresScanner);
             } else {
                 this.setState({
                     ...this.state,
@@ -156,12 +157,27 @@ class PecEtatChargementSearchScreen extends React.Component {
         );
     };
 
+    componentDidUpdate() {
+        console.log('componentDidUpdate ');
+    }
+
+
     confirmImm = () => {
         this.displayErrorMessage();
 
         if (this.state.numeroImmatriculation) {
-            let action = this.searchActionByImm();
+            const action = this.searchActionByImm();
+
+            // const actionHistorique = this.searchHistorique();
+            // const actionVersions = this.searchVersions();
+            // const actionScanner = this.searchScanner();
+            // const actionScellesApresScanner = this.searchScellesApresScanner();
+
             this.props.actions.dispatch(action);
+            // this.props.actions.dispatch(actionHistorique);
+            // this.props.actions.dispatch(actionVersions);
+            // this.props.actions.dispatch(actionScanner);
+            // this.props.actions.dispatch(actionScellesApresScanner);
         } else {
             // Do nothing
         }
@@ -265,6 +281,7 @@ class PecEtatChargementSearchScreen extends React.Component {
     };
 
     render() {
+        console.log(this.state.rechParImm);
         return (
             <ScrollView style={style.innerContainer}
                 keyboardShouldPersistTaps={(this.state.autocompleteDropdownOpen || Platform.OS === 'android') ? 'always' : 'never'}>
@@ -282,8 +299,26 @@ class PecEtatChargementSearchScreen extends React.Component {
 
                 {!this.props.showProgress && (
                     <Grid>
+                        <View style={style.flexRow}>
+                            <RadioButton.Group onValueChange={(text) => this.setState(prevState => ({
+                                ...prevState.rechParImm,
+                                rechParImm: text
+                            }))} value={this.state.rechParImm + ''}>
+                                <Col/>
+                                <Col>
+                                    <Text>{'Par Immatriculation'}</Text>
+                                    <RadioButton value="true" color={primaryColor} />
+                                </Col>
+                                <Col>
+                                    <Text>{'Par référence'}</Text>
+                                    <RadioButton value="false" color={primaryColor} />
+                                </Col>
+                            </RadioButton.Group>
+                        </View>
+                        
+                        
                         <View>
-                            <Row>
+                             <Row>
                                 <Col style={style.searchInputContainer}>
                                     <TextInput
                                         label={translate('controleApresScanner.search.etatChargement.referenceEtatChargement.bureau')}

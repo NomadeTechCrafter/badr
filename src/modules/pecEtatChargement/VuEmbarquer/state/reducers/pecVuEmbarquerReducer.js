@@ -36,7 +36,7 @@ export default (state = initialState, action) => {
             nextState.showProgress = false;
             nextState.data = action?.value?.jsonVO;
 
-            console.log('testtest ETAT_CHARGEMENT_VE_SUCCESS', JSON.stringify(nextState) );
+            // console.log('testtest ETAT_CHARGEMENT_VE_SUCCESS', JSON.stringify(nextState) );
             return nextState;
         case Constants.ETAT_CHARGEMENT_VE_FAILED:
             nextState.showProgress = false;

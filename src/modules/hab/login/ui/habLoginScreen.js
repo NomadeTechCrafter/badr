@@ -29,8 +29,8 @@ class Login extends React.Component {
     password: '',
     startAutoLogin: false,
     autoLoginParam: {
-      login: 'AD6300',
-      password: 'Testtest1+',
+      login: 'AAMM',
+      password: 'Test123-',
       codeSms: '000000',
       bureau: '309',
       codeBureau: '309',

@@ -8,6 +8,11 @@ import EtatChargementMarchandisesAutresDocuments from './pecEtatChargementMarcha
 import EtatChargementEcorage from './pecEtatChargementEcorage';
 import EtatChargementInfos from './pecEtatChargementInfos'
 import EtatChargementScanner from './pecEtatChargementScanner'
+import * as ScannerEtatChargementAction from '../state/actions/pecScannerEtatChargementAction';
+import * as HistEtatChargementAction from '../state/actions/pecHistoriqueEtatChargementAction';
+import * as VersionsEtatChargementAction from '../state/actions/pecVersionsEtatChargementAction';
+import * as ScellesApresScannerEtatChargementAction from '../state/actions/pecScellesApresScannerEtatChargementAction';
+import * as Constants from '../state/pecEtatChargementConstants';
 
 
 /**Custom Components */
@@ -56,6 +61,64 @@ class PecEtatChargementResultScreen extends React.Component {
         });
     }
 
+
+    searchScanner = (bureau, regime, annee, serie) => {
+        let action = ScannerEtatChargementAction.request(
+            {
+                type: Constants.SCANNER_ETAT_CHARGEMENT_VE_REQUEST,
+                value: bureau + regime + annee + serie
+
+            },
+            // this.props.navigation,
+        );
+        return action
+    };
+
+    searchScellesApresScanner = (bureau, regime, annee, serie) => {
+        let action = ScellesApresScannerEtatChargementAction.request(
+            {
+                type: Constants.SCELLES_APRES_SCANNER_ETAT_CHARGEMENT_VE_REQUEST,
+                value: bureau + regime + annee + serie
+
+            },
+            this.props.navigation,
+        );
+        return action
+    };
+
+
+    searchHistorique = (bureau, regime, annee, serie)  => {
+        let action = HistEtatChargementAction.request(
+            {
+                type: Constants.HISTORIQUE_ETAT_CHARGEMENT_VE_REQUEST,
+                value: {
+                    bureau: bureau,
+                    regime: regime,
+                    annee: annee,
+                    serie: serie,
+                },
+            },
+            this.props.navigation,
+        );
+        return action
+    };
+
+    searchVersions = (bureau, regime, annee, serie)  => {
+        let action = VersionsEtatChargementAction.request(
+            {
+                type: Constants.VERSIONS_ETAT_CHARGEMENT_VE_REQUEST,
+                value: {
+                    bureau: bureau,
+                    regime: regime,
+                    annee: annee,
+                    serie: serie,
+                },
+            },
+            this.props.navigation,
+        );
+        return action
+    };
+
     componentWillUnmount() {
         this.unsubscribe();
     }
@@ -86,10 +149,68 @@ class PecEtatChargementResultScreen extends React.Component {
                         <Tab.Screen name={translate('etatChargement.enteteEtatChargement')} component={enteteEtatChargement} />
                         <Tab.Screen name={translate('etatChargement.declarationDetail')} component={declarationDetail} />
                         <Tab.Screen name={translate('etatChargement.marchandisesAutresDocuments')} component={marchandisesAutresDocuments} />
-                        <Tab.Screen name={translate('etatChargement.ecorage')} component={ecorage} />
-                        <Tab.Screen name={translate('etatChargement.infos')} component={infos} />
-                        <Tab.Screen name={translate('etatChargement.resultatScanner')} component={scanner} />
-                        
+                        <Tab.Screen
+                            listeners={{
+                                tabPress: e => {
+                                    const bureau = this.props?.data?.refEtatChargement?.refBureauDouane?.codeBureau;
+                                    const regime = this.props?.data?.refEtatChargement?.regime
+                                    const annee = this.props?.data?.refEtatChargement?.anneeEnregistrement;
+                                    const serie = this.props?.data?.refEtatChargement?.numeroSerieEnregistrement;
+
+                                    console.log('******************************************' + JSON.stringify(this.props?.data?.refEtatChargement?.refBureauDouane?.codeBureau));
+                                    console.log('******************************************' + JSON.stringify(this.props?.data?.refEtatChargement?.regime));
+                                    console.log('******************************************' + JSON.stringify(this.props?.data?.refEtatChargement?.anneeEnregistrement));
+                                    console.log('******************************************' + JSON.stringify(this.props?.data?.refEtatChargement?.numeroSerieEnregistrement));
+                                    const actionScellesApresScanner = this.searchScellesApresScanner(bureau, regime, annee, serie);
+                                    this.props.actions.dispatch(actionScellesApresScanner);
+                                },
+                            }}
+                            name={translate('etatChargement.ecorage')}
+                            component={ecorage}
+                        />
+                        <Tab.Screen
+
+                            listeners={{
+                                tabPress: e => {
+                                    const bureau = this.props?.data?.refEtatChargement?.refBureauDouane?.codeBureau;
+                                    const regime = this.props?.data?.refEtatChargement?.regime
+                                    const annee = this.props?.data?.refEtatChargement?.anneeEnregistrement;
+                                    const serie = this.props?.data?.refEtatChargement?.numeroSerieEnregistrement;
+
+                                    console.log('******************************************' + JSON.stringify(this.props?.data?.refEtatChargement?.refBureauDouane?.codeBureau));
+                                    console.log('******************************************' + JSON.stringify(this.props?.data?.refEtatChargement?.regime));
+                                    console.log('******************************************' + JSON.stringify(this.props?.data?.refEtatChargement?.anneeEnregistrement));
+                                    console.log('******************************************' + JSON.stringify(this.props?.data?.refEtatChargement?.numeroSerieEnregistrement));
+
+                                    const actionHistorique = this.searchHistorique(bureau, regime, annee, serie);
+                                    const actionVersions = this.searchVersions(bureau, regime, annee, serie);
+                                    this.props.actions.dispatch(actionHistorique);
+                                    this.props.actions.dispatch(actionVersions);
+                                },
+                            }}
+                            name={translate('etatChargement.infos')}
+                            component={infos}
+                        />
+                        <Tab.Screen
+                            listeners={{
+                                tabPress: e => {
+                                    const bureau = this.props?.data?.refEtatChargement?.refBureauDouane?.codeBureau;
+                                    const regime = this.props?.data?.refEtatChargement?.regime
+                                    const annee = this.props?.data?.refEtatChargement?.anneeEnregistrement;
+                                    const serie = this.props?.data?.refEtatChargement?.numeroSerieEnregistrement;
+
+                                    console.log('******************************************' + JSON.stringify(this.props?.data?.refEtatChargement?.refBureauDouane?.codeBureau));
+                                    console.log('******************************************' + JSON.stringify(this.props?.data?.refEtatChargement?.regime));
+                                    console.log('******************************************' + JSON.stringify(this.props?.data?.refEtatChargement?.anneeEnregistrement));
+                                    console.log('******************************************' + JSON.stringify(this.props?.data?.refEtatChargement?.numeroSerieEnregistrement));
+                                    const actionScanner = this.searchScanner(bureau, regime, annee, serie);
+                                    this.props.actions.dispatch(actionScanner);
+                                },
+                            }}
+                            name={translate('etatChargement.resultatScanner')}
+                            component={scanner}
+                        />
+
                     </Tab.Navigator>
                 </NavigationContainer>
             </View>
