@@ -301,10 +301,24 @@ class VuEmbListeDeclaration extends React.Component {
     this.props.actions.dispatch(action);
   };
 
+  cleDUM = function (regime, serie) {
+    let alpha = 'ABCDEFGHJKLMNPRSTUVWXYZ';
+    if (serie?.length > 6) {
+      let firstSerie = serie.substring(0, 1);
+      if (firstSerie === '0') {
+        serie = serie.substring(1, 7);
+      }
+    }
+    let obj = regime + serie;
+    let RS = obj % 23;
+    alpha = alpha.charAt(RS);
+    return alpha;
+  };
 
 
   render() {
     let reference = this.state?.ecorDUM?.refDUM;
+    let cle = this.cleDUM(reference?.regime, reference?.serie);
     return (
       <View style={styles.container}>
         <ComBadrToolbarComp
@@ -359,19 +373,19 @@ class VuEmbListeDeclaration extends React.Component {
                 </View>
                 <View style={styles.flexDirectionRow}>
                   <Text style={styles.valueS}>
-                    {reference.bureau}
+                    {reference?.bureau}
                   </Text>
                   <Text style={styles.valueS}>
-                    {reference.regime}
+                    {reference?.regime}
                   </Text>
                   <Text style={styles.valueS}>
-                    {reference.annee}
+                    {reference?.annee}
                   </Text>
                   <Text style={styles.valueM}>
-                    {reference.serie}
+                    {reference?.serie}
                   </Text>
                   <Text style={styles.valueS}>
-                    {reference.cle}
+                    {cle}
                   </Text>
                   {/* <Text style={styles.valueS}>
                 {reference.cle}
