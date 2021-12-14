@@ -69,6 +69,7 @@ class EcorImportEnleverMarchandiseScreen extends Component {
       IsChampsAddEnlevementsValid: true,
       isActionMenuOpen: false,
       suppDialogVisibility: false,
+      indexEditItem:null,
       indexsSuppItem: null,
       isConsultationMode: false,
     };
@@ -325,10 +326,11 @@ class EcorImportEnleverMarchandiseScreen extends Component {
         ['id', this.state.selectedLot.id],
       );
       console.log('currentIndex----', currentIndex);
+      console.log('currentIndex 2----', this.state.indexEditItem);
       const myNewArray = Object.assign(
         [...this.state.enleverMarchandiseVO.refMarchandiseEnlevee],
         {
-          [currentIndex]: this.state.selectedLot,
+          [this.state.indexEditItem]: this.state.selectedLot,
         },
       );
       this.setState(
@@ -385,7 +387,7 @@ class EcorImportEnleverMarchandiseScreen extends Component {
       },
       () => this.initEditEnlevement(this.state.selectedLot),
     );
-    this.setState({showEnlevements: true, isUpdateMode: true});
+    this.setState({showEnlevements: true, isUpdateMode: true, indexEditItem: index});
   };
   initEditEnlevement = (selectedLot) => {
     _.forEach(selectedLot.refEquipementEnleve, (equipement) => {
@@ -409,7 +411,7 @@ class EcorImportEnleverMarchandiseScreen extends Component {
         referenceEquipement: equipement.identifiantEquipement,
         tareEquipement: equipement.tareEquipement,
         dateHeureEnlevement: '',
-        typeEquipement: equipement.ligneLotVO.libelleTypeContenant,
+        typeEquipement: equipement?.ligneLotVO?.libelleTypeContenant,
         //set row to not selected
         selected: false,
       };
@@ -472,6 +474,7 @@ class EcorImportEnleverMarchandiseScreen extends Component {
   confirmerEcor = () => {
     console.log('confirmer ecor -----');
     this.scrollViewRef.scrollTo({y: 0, animated: true});
+    this.setState({IsChampsAddEnlevementsValid: true});
     let data = Utils.deepDelete(this.state.enleverMarchandiseVO, [
       '$$hashKey',
       'defaultConverter',
@@ -487,7 +490,7 @@ class EcorImportEnleverMarchandiseScreen extends Component {
             referenceEquipement: equipement.identifiantEquipement,
             tareEquipement: equipement.tareEquipement,
             dateHeureEnlevement: '',
-            typeEquipement: equipement.ligneLotVO.libelleTypeContenant,
+            typeEquipement: equipement?.ligneLotVO?.libelleTypeContenant,
           };
           data.refMarchandiseEnlevee[index].refEquipementEnleve[
             indexEq
@@ -545,7 +548,7 @@ class EcorImportEnleverMarchandiseScreen extends Component {
                 }
               />
             )}
-          
+
           {!_.isEmpty(this.extractCommandData('enleverMarchandise')) &&
             !_.isEmpty(
               this.extractCommandData('enleverMarchandise').errorMessage,
@@ -882,7 +885,7 @@ class EcorImportEnleverMarchandiseScreen extends Component {
                         </Col>
                       </Row>
                       <Row style={CustomStyleSheet.whiteRow}>
-                        <Col size={2}>
+                        <Col size={1}>
                           <ComBadrLibelleComp
                             withColor={true}
                             isRequired={true}>
@@ -891,11 +894,11 @@ class EcorImportEnleverMarchandiseScreen extends Component {
                             )}
                           </ComBadrLibelleComp>
                         </Col>
-                        <Col size={2}>
+                        <Col size={1}>
                           <TextInput
                             ref={(ref) => (this.numeroBonSortie = ref)}
                             mode="outlined"
-                            style={style.columnThree}
+                            style={styles.columnThree}
                             label=""
                             value={selectedLot.numeroBonSortie}
                             onChangeText={(text) =>
@@ -909,7 +912,7 @@ class EcorImportEnleverMarchandiseScreen extends Component {
                             }
                           />
                         </Col>
-                        <Col size={2}>
+                        <Col size={1}>
                           <ComBadrLibelleComp
                             withColor={true}
                             isRequired={true}>
@@ -918,7 +921,7 @@ class EcorImportEnleverMarchandiseScreen extends Component {
                             )}
                           </ComBadrLibelleComp>
                         </Col>
-                        <Col size={2}>
+                        <Col size={4}>
                           <ComBadrAutoCompleteChipsComp
                             onRef={(ref) => (this.acOperateur = ref)}
                             code="code"
@@ -975,7 +978,7 @@ class EcorImportEnleverMarchandiseScreen extends Component {
                         <Col size={6}>
                           <TextInput
                             mode="outlined"
-                            style={style.columnThree}
+                            style={styles.columnThree}
                             label=""
                             value={selectedLot.immatriculationsVehicules}
                             onChangeText={(text) =>
@@ -1191,6 +1194,9 @@ const styles = {
     width: 200,
     height: 50,
   },
+  columnThree:{
+    marginRight: 10,
+  }
 };
 
 function mapStateToProps(state) {
