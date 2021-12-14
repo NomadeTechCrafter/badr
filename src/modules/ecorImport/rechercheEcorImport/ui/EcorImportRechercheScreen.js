@@ -40,7 +40,7 @@ class EcorImportRechercheScreen extends Component {
   render() {
     let infoEcorImport = this.getInfoEcorImport();
     return (
-      <View>
+      <View style={styles.container}>
         <ComBadrToolbarComp
           navigation={this.props.navigation}
           title={translate('ecorimport.title')}
@@ -59,5 +59,7 @@ class EcorImportRechercheScreen extends Component {
     );
   }
 }
-
+const styles = {
+  container: { width: '100%', height: '100%' },
+};
 export default EcorImportRechercheScreen;
