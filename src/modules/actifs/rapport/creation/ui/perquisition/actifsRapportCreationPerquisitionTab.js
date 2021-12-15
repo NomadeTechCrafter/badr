@@ -22,7 +22,28 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
 
     constructor(props) {
         super(props);
-
+        this.colsConsultation = [
+            {
+                code: 'intervenant.numeroDocumentIndentite',
+                libelle: translate('actifsCreation.perquisition.identifiant'),
+                width: 200,
+            },
+            {
+                code: 'intervenant.nomIntervenant',
+                libelle: translate('actifsCreation.perquisition.nom'),
+                width: 200,
+            },
+            {
+                code: 'intervenant.prenomIntervenant',
+                libelle: translate('actifsCreation.perquisition.prenom'),
+                width: 200,
+            },
+            {
+                code: 'consentement',
+                libelle: translate('actifsCreation.perquisition.consentement'),
+                width: 200,
+            }
+        ];
         this.cols = [
             {
                 code: 'identifiants.numeroDocumentIdentite',
@@ -54,6 +75,8 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
                     this.supprimerIntervenant(row, index)
             }
         ];
+
+
         this.state = {
             gibPerquisition: { intervenantsVO: [], autorite: {} },
             modeConsultation: false,
@@ -79,6 +102,7 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
             gibPerquisition: this.props.gibPerquisition,
             modeConsultation: this.props.consultation,
         });
+
     }
 
     update() {
@@ -353,6 +377,21 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
 
     render() {
         // let personneConcernee = this.props?.t6bisReducer?.value;
+        console.log('------------------------------------------------------ props perquisition ----------------------------------------');
+        console.log('------------------------------------------------------ props perquisition ----------------------------------------');
+        console.log('------------------------------------------------------ props perquisition ----------------------------------------');
+        console.log('------------------------------------------------------ props perquisition ----------------------------------------');
+        console.log(JSON.stringify(this.props?.gibPerquisition));
+        console.log('------------------------------------------------------ props perquisition ----------------------------------------');
+        console.log('------------------------------------------------------ props perquisition ----------------------------------------');
+        console.log('------------------------------------------------------ props perquisition ----------------------------------------');
+        console.log('------------------------------------------------------ props perquisition ----------------------------------------');
+        // if () {
+        //     this.setState({
+        //         gibPerquisition: this.props.gibPerquisition,
+        //         modeConsultation: this.props.consultation,
+        //     });
+        // }
         return (
             <ScrollView >
                 <View style={CustomStyleSheet.verticalContainer20}>
@@ -489,70 +528,73 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
                         </View>
                     </ComAccordionComp>
                     <ComAccordionComp title={translate('actifsCreation.perquisition.personnesConcernees')} expanded={true}>
-                        <DedRedressementRow>
-                            <Col size={30} style={style.labelContainer}>
-                                <Text style={style.labelTextStyle}>
-                                    {translate(
-                                        't6bisGestion.tabs.entete.redevableBlock.typeIdentifiant',
-                                    )}
-                                </Text>
-                            </Col>
-                            <Col size={70} style={style.labelContainer}>
-                                <ComBadrPickerComp
-                                    disabled={this.props.readOnly}
-                                    onRef={(ref) => (this.comboArrondissements55 = ref)}
-                                    key="code"
-                                    style={CustomStyleSheet.badrPicker}
-                                    selectedValue={this.state?.intervenantVO?.refTypeDocumentIdentite}
-                                    titleStyle={CustomStyleSheet.badrPickerTitle}
-                                    cle="code"
-                                    libelle="libelle"
-                                    module="REF_LIB"
-                                    command="getCmbTypeIdentifiant"
-                                    param={null}
-                                    typeService="SP"
-                                    storeWithKey="code"
-                                    storeLibelleWithKey="libelle"
-                                    onValueChange={(selectedValue, selectedIndex, item) =>
+                        {(!this.props?.consultation &&
+                            <DedRedressementRow>
+                                <Col size={30} style={style.labelContainer}>
+                                    <Text style={style.labelTextStyle}>
+                                        {translate(
+                                            't6bisGestion.tabs.entete.redevableBlock.typeIdentifiant',
+                                        )}
+                                    </Text>
+                                </Col>
+                                <Col size={70} style={style.labelContainer}>
+                                    <ComBadrPickerComp
+                                        disabled={this.props.readOnly || this.props?.consultation}
+                                        onRef={(ref) => (this.comboArrondissements55 = ref)}
+                                        key="code"
+                                        style={CustomStyleSheet.badrPicker}
+                                        selectedValue={this.state?.intervenantVO?.refTypeDocumentIdentite}
+                                        titleStyle={CustomStyleSheet.badrPickerTitle}
+                                        cle="code"
+                                        libelle="libelle"
+                                        module="REF_LIB"
+                                        command="getCmbTypeIdentifiant"
+                                        param={null}
+                                        typeService="SP"
+                                        storeWithKey="code"
+                                        storeLibelleWithKey="libelle"
+                                        onValueChange={(selectedValue, selectedIndex, item) =>
 
-                                        item?.code ? this.onChangeTypeIdentifiant(item) : {}
-                                    }
-                                />
-                            </Col>
-                            <Col size={30} style={style.labelContainer}>
-                                <Text style={style.labelTextStyle}>
-                                    {translate(
-                                        't6bisGestion.tabs.entete.redevableBlock.identifiant',
-                                    )}
-                                </Text>
-                            </Col>
+                                            item?.code ? this.onChangeTypeIdentifiant(item) : {}
+                                        }
+                                    />
+                                </Col>
+                                <Col size={30} style={style.labelContainer}>
+                                    <Text style={style.labelTextStyle}>
+                                        {translate(
+                                            't6bisGestion.tabs.entete.redevableBlock.identifiant',
+                                        )}
+                                    </Text>
+                                </Col>
 
-                            <Col size={70} style={style.labelContainer}>
-                                <TextInput
-                                    disabled={this.props.readOnly}
-                                    mode="outlined"
-                                    label={translate(
-                                        't6bisGestion.tabs.entete.redevableBlock.identifiant',
-                                    )}
-                                    value={this.state?.intervenantVO?.numeroDocumentIndentite}
-                                    onChangeText={(text) =>
-                                        text
-                                            ? this.setState({
-                                                ...this.state,
-                                                intervenantVO: {
-                                                    ...this.state.intervenantVO,
-                                                    numeroDocumentIndentite: text,
-                                                },
-                                            })
-                                            : {}
-                                    }
+                                <Col size={70} style={style.labelContainer}>
+                                    <TextInput
+                                        disabled={this.props.readOnly || this.props?.consultation}
+                                        mode="outlined"
+                                        label={translate(
+                                            't6bisGestion.tabs.entete.redevableBlock.identifiant',
+                                        )}
+                                        value={this.state?.intervenantVO?.numeroDocumentIndentite}
+                                        onChangeText={(text) =>
+                                            text
+                                                ? this.setState({
+                                                    ...this.state,
+                                                    intervenantVO: {
+                                                        ...this.state.intervenantVO,
+                                                        numeroDocumentIndentite: text,
+                                                    },
+                                                })
+                                                : {}
+                                        }
 
-                                    onEndEditing={(event) =>
-                                        this.onBlurIdentifiant(event.nativeEvent.text)
-                                    }
-                                />
-                            </Col>
-                        </DedRedressementRow>
+                                        onEndEditing={(event) =>
+                                            this.onBlurIdentifiant(event.nativeEvent.text)
+                                        }
+                                    />
+                                </Col>
+                            </DedRedressementRow>
+                        )}
+
                         {this.isPasseport() && (
                             <DedRedressementRow>
                                 <Col size={30} style={style.labelContainer}>
@@ -568,7 +610,7 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
                                         disabled={
                                             (stringNotEmpty(this.state?.intervenantVO?.adresse) &&
                                                 !this.idNewIntervenant()) ||
-                                            this.props.readOnly
+                                            this.props.readOnly || this.props?.consultation
                                         }
                                         code="code"
                                         placeholder={translate(
@@ -586,111 +628,119 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
                                 </Col>
                             </DedRedressementRow>
                         )}
-                        <DedRedressementRow>
-                            <Col size={30} style={style.labelContainer}>
-                                <Text style={style.labelTextStyle}>
-                                    {translate('t6bisGestion.tabs.entete.redevableBlock.nom')}
-                                </Text>
-                            </Col>
+                        
+                        {(!this.props?.consultation &&
+                            <DedRedressementRow>
+                                <Col size={30} style={style.labelContainer}>
+                                    <Text style={style.labelTextStyle}>
+                                        {translate('t6bisGestion.tabs.entete.redevableBlock.nom')}
+                                    </Text>
+                                </Col>
 
-                            <Col size={70} style={style.labelContainer}>
-                                <TextInput
-                                    mode="outlined"
-                                    label={translate('t6bisGestion.tabs.entete.redevableBlock.nom')}
-                                    value={this.state?.intervenantVO?.nomIntervenant}
-                                    disabled={stringNotEmpty(this.state?.intervenantVO?.nomIntervenant)
-                                    }
-                                    onChangeText={(text) =>
-                                        text
-                                            ? this.setState({
-                                                ...this.state,
+                                <Col size={70} style={style.labelContainer}>
+                                    <TextInput
+                                        mode="outlined"
+                                        label={translate('t6bisGestion.tabs.entete.redevableBlock.nom')}
+                                        value={this.state?.intervenantVO?.nomIntervenant}
+                                        disabled={stringNotEmpty(this.state?.intervenantVO?.nomIntervenant) || this.props?.consultation
+                                        }
+                                        onChangeText={(text) =>
+                                            text
+                                                ? this.setState({
+                                                    ...this.state,
+                                                    intervenantVO: {
+                                                        ...this.state.intervenantVO,
+                                                        nomIntervenant: text,
+                                                    },
+                                                })
+                                                : {}
+                                        }
+                                    />
+                                </Col>
+                                <Col size={30} style={style.labelContainer}>
+                                    <Text style={style.labelTextStyle}>
+                                        {translate('t6bisGestion.tabs.entete.redevableBlock.prenom')}
+                                    </Text>
+                                </Col>
+
+                                <Col size={70} style={style.labelContainer}>
+                                    <TextInput
+                                        mode="outlined"
+                                        label={translate(
+                                            't6bisGestion.tabs.entete.redevableBlock.prenom',
+                                        )}
+                                        value={this.state?.intervenantVO?.prenomIntervenant}
+                                        disabled={stringNotEmpty(this.state?.intervenantVO?.prenomIntervenant) || this.props?.consultation
+                                        }
+                                        onChangeText={(text) =>
+                                            text
+                                                ? this.setState({
+                                                    ...this.state,
+                                                    intervenantVO: {
+                                                        ...this.state.intervenantVO,
+                                                        prenomIntervenant: text,
+                                                    },
+                                                })
+                                                : {}
+                                        }
+                                    />
+                                </Col>
+                            </DedRedressementRow>
+                        )}
+                        {(!this.props?.consultation &&
+                            <DedRedressementRow>
+
+                                <Col size={3}>
+                                    <ComBadrLibelleComp withColor={false}>
+                                        {translate('actifsCreation.perquisition.consentement')}
+                                    </ComBadrLibelleComp>
+                                </Col>
+                                <Col size={7}>
+                                    <Checkbox
+                                        status={
+                                            this.state?.intervenantVO?.consentement ? 'checked' : 'unchecked'
+                                        }
+                                        disabled={this.props.readOnly || this.props?.consultation}
+                                        color={primaryColor}
+                                        onPress={() => {
+                                            this.setState({
                                                 intervenantVO: {
-                                                    ...this.state.intervenantVO,
-                                                    nomIntervenant: text,
+                                                    ...this.state?.intervenantVO,
+                                                    consentement: !this.state?.intervenantVO?.consentement,
                                                 },
-                                            })
-                                            : {}
-                                    }
-                                />
-                            </Col>
-                            <Col size={30} style={style.labelContainer}>
-                                <Text style={style.labelTextStyle}>
-                                    {translate('t6bisGestion.tabs.entete.redevableBlock.prenom')}
-                                </Text>
-                            </Col>
+                                            });
+                                            // this.completeTextInputFields();
+                                        }}
+                                    />
+                                </Col>
 
-                            <Col size={70} style={style.labelContainer}>
-                                <TextInput
-                                    mode="outlined"
-                                    label={translate(
-                                        't6bisGestion.tabs.entete.redevableBlock.prenom',
-                                    )}
-                                    value={this.state?.intervenantVO?.prenomIntervenant}
-                                    disabled={stringNotEmpty(this.state?.intervenantVO?.prenomIntervenant)
-                                    }
-                                    onChangeText={(text) =>
-                                        text
-                                            ? this.setState({
-                                                ...this.state,
-                                                intervenantVO: {
-                                                    ...this.state.intervenantVO,
-                                                    prenomIntervenant: text,
-                                                },
-                                            })
-                                            : {}
-                                    }
-                                />
-                            </Col>
-                        </DedRedressementRow>
-                        <DedRedressementRow>
-
-                            <Col size={3}>
-                                <ComBadrLibelleComp withColor={false}>
-                                    {translate('actifsCreation.perquisition.consentement')}
-                                </ComBadrLibelleComp>
-                            </Col>
-                            <Col size={7}>
-                                <Checkbox
-                                    status={
-                                        this.state?.intervenantVO?.consentement ? 'checked' : 'unchecked'
-                                    }
-                                    color={primaryColor}
+                            </DedRedressementRow>
+                        )}
+                        {(!this.props?.consultation &&
+                            <View style={style.containerActionBtn}>
+                                <ComBadrButtonComp
+                                    style={{ width: 100 }}
                                     onPress={() => {
-                                        this.setState({
-                                            intervenantVO: {
-                                                ...this.state?.intervenantVO,
-                                                consentement: !this.state?.intervenantVO?.consentement,
-                                            },
-                                        });
-                                        // this.completeTextInputFields();
+                                        this.ajouterIntervenant();
                                     }}
+                                    text={translate('transverse.confirmer')}
+                                    disabled={false}
                                 />
-                            </Col>
-
-                        </DedRedressementRow>
-                        <View style={style.containerActionBtn}>
-                            <ComBadrButtonComp
-                                style={{ width: 100 }}
-                                onPress={() => {
-                                    this.ajouterIntervenant();
-                                }}
-                                text={translate('transverse.confirmer')}
-                                disabled={false}
-                            />
-                            <ComBadrButtonComp
-                                style={{ width: 100 }}
-                                onPress={() => {
-                                    this.retablir();
-                                }}
-                                text={translate('transverse.retablir')}
-                                disabled={false}
-                            />
-                        </View>
+                                <ComBadrButtonComp
+                                    style={{ width: 100 }}
+                                    onPress={() => {
+                                        this.retablir();
+                                    }}
+                                    text={translate('transverse.retablir')}
+                                    disabled={false}
+                                />
+                            </View>
+                        )}
                         <View style={CustomStyleSheet.row}>
                             <ComBasicDataTableComp
                                 id="PerquiTable"
                                 rows={this.state.gibPerquisition?.intervenantsVO}
-                                cols={this.cols}
+                                cols={this.props?.consultation ? this.colsConsultation : this.cols}
                                 totalElements={this.state.gibPerquisition?.intervenantsVO?.length}
                                 maxResultsPerPage={10}
                                 paginate={true}

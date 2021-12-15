@@ -228,7 +228,7 @@ export const cleanOrdreService = (rsAEnregistrer) => {
     delete intervenantVO.typeIntervenant;
     // rsAEnregistrer?.gibPerquisition?.intervenants.push(intervenantVO);
   });
-  // delete rsAEnregistrer?.gibPerquisition?.intervenantsVO;
+  delete rsAEnregistrer?.gibPerquisition?.intervenantsVO;
 
   if (_.isArray(rsAEnregistrer?.rapportService?.ordreService?.agentsBrigade)) {
     rsAEnregistrer.rapportService?.ordreService?.agentsBrigade?.forEach((agentBrigade) => {

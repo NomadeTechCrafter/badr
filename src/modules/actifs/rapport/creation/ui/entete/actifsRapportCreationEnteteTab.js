@@ -54,11 +54,11 @@ class ActifsRapportCreationEnteteTab extends Component {
   }
 
   componentDidMount() {
-    // console.log('********************************************************************************');
-    // console.log('********************************************************************************');
-    // console.log(JSON.stringify(this.props));
-    // console.log('********************************************************************************');
-    // console.log('********************************************************************************');
+    console.log('********************************************************************************');
+    console.log('********************************************************************************');
+    console.log(JSON.stringify(this.props));
+    console.log('********************************************************************************');
+    console.log('********************************************************************************');
 
   }
 
@@ -233,7 +233,7 @@ class ActifsRapportCreationEnteteTab extends Component {
                     {translate('actifsCreation.entete.enteteTitleLeft')}
                     {this.props.consultation && (
                       <ComBadrLibelleComp withColor={true}>
-                        {this.props?.rows?.ordreService?.journeeDu}
+                        {this.props?.rows?.journeeDu}
                       </ComBadrLibelleComp>
                     )}
                   </ComBadrLibelleComp>
@@ -261,7 +261,7 @@ class ActifsRapportCreationEnteteTab extends Component {
                     disabled={true}
                     //maxLength={20}
                     //keyboardType={'number-pad'}
-                    value={this.props?.rows?.ordreService?.uniteOrganisationnelle}
+                    value={this.props?.rows?.uniteOrganisationnelle ? this.props?.rows?.uniteOrganisationnelle : this.props?.rows?.ordreService?.uniteOrganisationnelle}
                     multiline={false}
                     numberOfLines={1}
                     onChangeText={(text) =>
@@ -300,7 +300,7 @@ class ActifsRapportCreationEnteteTab extends Component {
                     mode={'outlined'}
                     style={{ height: 20, fontSize: 12 }}
                     disabled={true}
-                    value={_.isArray(this.state?.res) ? this.state?.res[0] : ''}
+                    value={this.props?.rows?.refPJ ? this.props?.rows?.refPJ?.substring(0, 3) : this.props?.rows?.ordreService?.refPJ?.substring(0, 3)}
                     multiline={false}
                     numberOfLines={1}
                     onChangeText={(text) => this.setState({ code1: text })}
@@ -311,9 +311,7 @@ class ActifsRapportCreationEnteteTab extends Component {
                     mode={'outlined'}
                     style={{ height: 20, fontSize: 12 }}
                     disabled={true}
-                    //maxLength={8}
-                    //keyboardType={'number-pad'}
-                    value={_.isArray(this.state?.res) ? this.state?.res[1] : ''}
+                    value={this.props?.rows?.refPJ ? this.props?.rows?.refPJ?.substring(4, 8) : this.props?.rows?.ordreService?.refPJ?.substring(4, 8)}
                     multiline={true}
                     numberOfLines={1}
                     onChangeText={(text) => this.setState({ code2: text })}
@@ -324,9 +322,7 @@ class ActifsRapportCreationEnteteTab extends Component {
                     mode={'outlined'}
                     style={{ height: 20, fontSize: 12 }}
                     disabled={true}
-                    //maxLength={8}
-                    //keyboardType={'number-pad'}
-                    value={_.isArray(this.state?.res) ? this.state?.res[2] : ''}
+                    value={this.props?.rows?.refPJ ? this.props?.rows?.refPJ?.substring(9, 13) : this.props?.rows?.ordreService?.refPJ?.substring(9, 13)}
                     multiline={true}
                     numberOfLines={1}
                     onChangeText={(text) => this.setState({ code3: text })}
@@ -342,7 +338,7 @@ class ActifsRapportCreationEnteteTab extends Component {
                     mode={'outlined'}
                     style={{ height: 20, fontSize: 12 }}
                     disabled={true}
-                    value={(this.props.rows?.ordreService?.numero) ? this.props.rows?.ordreService?.numero.toString() : ''}
+                    value={(this.props.rows?.numero) ? this.props.rows?.numero?.toString() : this.props.rows?.ordreService?.numero?.toString()}
                   />
                 </Col>
               </Row>
@@ -361,7 +357,7 @@ class ActifsRapportCreationEnteteTab extends Component {
                     mode={'outlined'}
                     style={{ height: 90, fontSize: 12, textAlignVertical: 'top' }}
                     disabled={true}
-                    value={this.props.rows?.ordreService?.description}
+                    value={this.props.rows?.description ? this.props.rows?.description : this.props.rows?.ordreService?.description}
                     multiline={true}
                     numberOfLines={10}
                     onChangeText={(text) => this.setState({ description: text })}
@@ -380,7 +376,7 @@ class ActifsRapportCreationEnteteTab extends Component {
                     mode={'outlined'}
                     style={{ height: 20, fontSize: 12 }}
                     disabled={true}
-                    value={moment(this.props.rows?.ordreService?.dateDebut).format("DD/MM/YYYY")}
+                    value={this.props.rows?.dateDebut ? moment(this.props.rows?.dateDebut).format("DD/MM/YYYY") : moment(this.props.rows?.ordreService?.dateDebut).format("DD/MM/YYYY") }
                   />
 
                 </Col>
@@ -399,7 +395,7 @@ class ActifsRapportCreationEnteteTab extends Component {
                     disabled={this.props.consultation ? true : false}
                     keyboardType={'number-pad'}
                     disabled={true}
-                    value={this.state.dateFin}
+                    value={this.props.consultation ? moment(this.props.rows?.dateFin).format("DD/MM/YYYY") : this.state.dateFin}
                     onChangeText={(text) => this.changeDateFin(text)}
                   />
                   {this.state.show && (
@@ -435,7 +431,7 @@ class ActifsRapportCreationEnteteTab extends Component {
                     mode={'outlined'}
                     style={{ height: 20, fontSize: 12, alignSelf: 'center' }}
                     disabled={true}
-                    value={this.props.rows?.ordreService?.heureDebut}
+                    value={this.props.rows?.heureDebut ? this.props.rows?.heureDebut : this.props.rows?.ordreService?.heureDebut}
                     multiline={false}
                     numberOfLines={1}
                   //onChangeText={text => this.setState({observation: text})}
@@ -457,7 +453,7 @@ class ActifsRapportCreationEnteteTab extends Component {
                     mode={'outlined'}
                     style={{ height: 20, fontSize: 12, alignSelf: 'center' }}
                     disabled={this.props.consultation ? true : false}
-                    value={this.state.heureFin}
+                    value={this.props.consultation ? this.props.rows?.heureFin: this.state.heureFin }
                     onFocus={() => {
                       this.showMode('time');
                     }}

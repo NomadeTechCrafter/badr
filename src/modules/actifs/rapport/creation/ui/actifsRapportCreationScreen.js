@@ -4,12 +4,14 @@ import React, { Component } from 'react';
 import { Dimensions, View } from 'react-native';
 import { IconButton } from 'react-native-paper';
 import { connect } from 'react-redux';
-import { ComBadrErrorMessageComp, ComBadrInfoMessageComp, ComBadrProgressBarComp, ComBadrToolbarComp } from '../../../../../commons/component';
+import { ComBadrButtonComp, ComBadrErrorMessageComp, ComBadrInfoMessageComp, ComBadrProgressBarComp, ComBadrToolbarComp } from '../../../../../commons/component';
 import { translate } from '../../../../../commons/i18n/ComI18nHelper';
 import { primaryColor } from '../../../../../commons/styles/ComThemeStyle';
 import { getNavigationAvitaillementSortieModelInitial, getNavigationAvitaillementEntreeModelInitial, cleanOrdreService, convert, format } from '../../utils/actifsUtils';
 import * as Constants from '../state/actifsRapportCreationConstants';
 import * as enregistrerRS from '../state/actions/actifsRapportCreationEnregistrerRSAction';
+import * as sauvegarderRS from '../state/actions/actifsRapportCreationSauvegarderRSAction';
+
 import * as getOsById from '../state/actions/actifsRapportCreationGetOsByIdAction';
 
 import * as getRsByIdOs from '../state/actions/actifsRapportConsultationGetRsByIdOsAction';
@@ -232,7 +234,7 @@ class ActifsRapportCreationScreen extends Component {
 
   }
 
-  Enregister = () => {
+  enregisterRS = () => {
     // console.log('Enregister this.props ', JSON.stringify(this.props));
     // console.log('Enregister this.state?.dateFin ', this.state?.dateFin);
     let res = this.props.route?.params?.row?.refPJ?.split('_');
@@ -248,7 +250,9 @@ class ActifsRapportCreationScreen extends Component {
     });
     let localGibPerquisition = this.state?.gibPerquisition;
     let localDatePerquisition = localGibPerquisition?.datePerquisition?.split("/").reverse().join("-");
-    localGibPerquisition.datePerquisition = localDatePerquisition;
+    if (localGibPerquisition) {
+      localGibPerquisition.datePerquisition = localDatePerquisition;
+    }
 
     let rsAEnregistrer = {
 
@@ -322,6 +326,86 @@ class ActifsRapportCreationScreen extends Component {
 
   };
 
+  sauvegarderRS = () => {
+    // console.log('Enregister this.props ', JSON.stringify(this.props));
+    // console.log('Enregister this.state?.dateFin ', this.state?.dateFin);
+    let res = this.props.route?.params?.row?.refPJ?.split('_');
+    let localOrdreService = this.props.route?.params?.row;
+    localOrdreService.dateDebut = moment(this.props.route?.params?.row?.dateDebut).format();
+    localOrdreService.dateFin = moment(this.props.route?.params?.row?.dateFin).format();
+    let localRondesApparitions = [];
+    this.state?.rondesApparitions?.forEach((rondeApparition) => {
+      let element = rondeApparition;
+      element.dateDebut = rondeApparition?.dateDebut?.split("/").reverse().join("-");
+      element.dateFin = rondeApparition?.dateFin?.split("/").reverse().join("-");
+      localRondesApparitions.push(element);
+    });
+    let localGibPerquisition = this.state?.gibPerquisition;
+    let localDatePerquisition = localGibPerquisition?.datePerquisition?.split("/").reverse().join("-");
+    if (localGibPerquisition) {
+      localGibPerquisition.datePerquisition = localDatePerquisition;
+    }
+
+    let rsAEnregistrer = {
+
+
+      anneeRef: _.isArray(res) ? res[1] : '', //....?????getRapportTemp().anneeRef
+      autreIncidents: this.state.autreIncident, //yess details
+      codeCatTI: '1',
+      codeUORef: _.isArray(res) ? res[0] : '',
+      commentaire: null,
+      dateEnregistrement: null,
+      dateEnregistrementV0: '',
+      dateFin: (this.state?.dateFin) ? this.state.dateFin : moment(this.props.route?.params?.row?.dateFin), //yes
+      description: this.state.description, //yess reacherche(description rapport)
+      disableFields: null,
+      heureFin: (this.state?.heureFin) ? this.state.heureFin : this.props.route?.params?.row?.heureFin, //yess entete
+      idOS: this.props.route?.params?.row?.numero, //recherchess
+      journeeDU: this.props.route?.params?.row?.journeeDu ? convert(this.props.route?.params?.row?.journeeDu) : '', //yess entete
+      motif: null,
+      numOS: null,
+      numSerieRef: _.isArray(res) ? res[2] : '',
+      ordres: null,
+      pk: null,
+      rapportService: {
+        id: null,
+        ordreService: localOrdreService,
+        vrs: null,
+      },
+      reference: this.props.route?.params?.row?.refPJ, //yess
+      statut: null,
+      typeAction: 'ACTION_AJOUTER',
+      typeIncident: null,
+      typesIncidentSelect: this.state.typeIncident, //yess
+      uniteorganisationnelle: this.props.route?.params?.row?.uniteOrganisationnelle, //yess
+      validations: null,
+      vehiculesSaisiVO: this.state.vehiculesSaisiVO,
+      marchandisesVO: this.state.marchandisesVO,
+      pvsSaisi: this.state.pvsSaisi,
+      navigationsAeriennes: this.props.navigationsAeriennes,
+      navigationsMaritimes: this.props.navigationsMaritimes,
+      versionRS: null,
+      versionsRS: null,
+      rondesApparition: localRondesApparitions,
+      // gibPerquisition: this.state?.gibPerquisition ? this.state?.gibPerquisition : {},
+      gibPerquisition: localGibPerquisition,
+
+    };
+    cleanOrdreService(rsAEnregistrer);
+    console.log(JSON.stringify(rsAEnregistrer));
+    if (this.checkDatesDebutFinInformations() || this.checkDetail()) {
+      return;
+    }
+
+    let action = sauvegarderRS.request({
+      type: Constants.ACTIFS_CREATION_REQUEST,
+      value: { data: rsAEnregistrer },
+    });
+    this.props.dispatch(action);
+    console.log('dispatch fired !!');
+
+  };
+
 
   parsePvsSaisi = (pvsSaisi) => {
     let array = [];
@@ -348,13 +432,38 @@ class ActifsRapportCreationScreen extends Component {
           navigation={this.props.navigation}
           icon="menu"
           title={translate('actifsCreation.title')}>
-          {(!this.props.consultation) && <IconButton
-            icon="content-save-outline"
-            size={30}
-            color={primaryColor}
-            style={{ backgroundColor: 'white' }}
-            onPress={() => this.Enregister()}
-          />}
+          {(!this.props.consultation) &&
+            <ComBadrButtonComp
+              style={{ width: 100 }}
+              onPress={() => {
+                this.enregisterRS();
+              }}
+              text={translate('transverse.enregistrer')}
+            />
+            //     <IconButton
+            //   icon="content-save-outline"
+            //   size={30}
+            //   color={primaryColor}
+            //   style={{ backgroundColor: 'white' }}
+            //   onPress={() => this.Enregister()}
+            // />
+          }
+          {(!this.props.consultation) &&
+            <ComBadrButtonComp
+              style={{ width: 100 }}
+              onPress={() => {
+                this.sauvegarderRS();
+              }}
+              text={translate('transverse.sauvegarder')}
+            />
+            //   <IconButton
+            // icon="content-save-outline"
+            // size={30}
+            // color={primaryColor}
+            // style={{ backgroundColor: 'white' }}
+            // onPress={() => this.sauvegarderRS()}
+            // />
+          }
         </ComBadrToolbarComp>
         {this.props.showProgress && (
           <ComBadrProgressBarComp width={screenWidth} />
@@ -410,11 +519,13 @@ class ActifsRapportCreationScreen extends Component {
                 )}
               </Tab.Screen>
             )}
-            <Tab.Screen name={translate('actifsCreation.perquisition.title')}>
-              {() => (
-                <PerquisitionTab update={this.updatePerquisitions} />
-              )}
-            </Tab.Screen>
+            {(this.props.route?.params?.row?.typeService?.categorie?.code === '7') && (
+              <Tab.Screen name={translate('actifsCreation.perquisition.title')}>
+                {() => (
+                  <PerquisitionTab update={this.updatePerquisitions} />
+                )}
+              </Tab.Screen>
+            )}
 
             {(this.props.route?.params?.row?.aerien) && (
               <Tab.Screen name={translate('actifsCreation.avionsPrivees.title')}>
@@ -433,8 +544,12 @@ class ActifsRapportCreationScreen extends Component {
               </Tab.Screen>
               // <Tab.Screen name={translate('actifsCreation.embarcations.title')} component={embarcationsTab} />
             )}
-            <Tab.Screen name={translate('actifsCreation.avitaillementEntree.title')} component={avitaillementEntreeTab} />
-            <Tab.Screen name={translate('actifsCreation.avitaillementSortie.title')} component={avitaillementSortieTab} />
+            {(this.props.route?.params?.row?.typeService?.categorie?.code === '5') && (
+              <Tab.Screen name={translate('actifsCreation.avitaillementEntree.title')} component={avitaillementEntreeTab} />
+            )}
+            {(this.props.route?.params?.row?.typeService?.categorie?.code === '5') && (
+              <Tab.Screen name={translate('actifsCreation.avitaillementSortie.title')} component={avitaillementSortieTab} />
+            )}
           </Tab.Navigator>
 
         </NavigationContainer>
