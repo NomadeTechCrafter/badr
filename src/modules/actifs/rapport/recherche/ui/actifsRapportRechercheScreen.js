@@ -234,13 +234,6 @@ class ActifsRapportRechercheScreen extends Component {
 
   render() {
 
-    console.log('this.props :!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ');
-    console.log('this.props :!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ');
-    console.log('this.props :!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ');
-    console.log(JSON.stringify(this.props));
-    console.log('this.props :!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ');
-    console.log('this.props :!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ');
-    console.log('this.props :!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ');
     let rows = [];
     if (this.props.value && this.props.value.jsonVO) {
       rows = this.props.value.jsonVO;

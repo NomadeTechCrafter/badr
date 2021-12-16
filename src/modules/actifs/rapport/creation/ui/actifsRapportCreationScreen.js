@@ -80,6 +80,10 @@ class ActifsRapportCreationScreen extends Component {
       autreIncident: '',
       typeIncident: '',
       description: '',
+      osAvecSaisie: false,
+      osAvecIncident: false,
+      coiffeInitiePar: '',
+      refAgentDetachement: null,
       rows: '',
     };
     // console.log('this.props.===========');
@@ -107,6 +111,10 @@ class ActifsRapportCreationScreen extends Component {
         autreIncident: '',
         typeIncident: '',
         description: '',
+        osAvecSaisie: false,
+        osAvecIncident: false,
+        coiffeInitiePar: '',
+        refAgentDetachement: null,
         rows: '',
       };
       let data = this.props.route.params.row?.id;
@@ -167,8 +175,12 @@ class ActifsRapportCreationScreen extends Component {
     console.log('val 5:', val);
     this.setState({
       description: val.description,
-      typeIncident: val.typeIncident,
-      autreIncident: val.autreIncident
+      // typeIncident: val.typeIncident,
+      // autreIncident: val.autreIncident
+      osAvecSaisie: val.osAvecSaisie,
+      osAvecIncident: val.osAvecIncident,
+      coiffeInitiePar: val.coiffeInitiePar,
+      refAgentDetachement: val.refAgentDetachement
     });
 
   }

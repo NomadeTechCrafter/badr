@@ -205,7 +205,7 @@ class ActifsRapportCreationEnteteTab extends Component {
 
     let datatable = [];
 
-
+    const references = this.props?.rows?.refPJ ? this.props?.rows?.refPJ?.split('_') : this.props?.rows?.ordreService?.refPJ?.split('_')
 
     datatable.push(this.props.rows);
     return (
@@ -300,7 +300,7 @@ class ActifsRapportCreationEnteteTab extends Component {
                     mode={'outlined'}
                     style={{ height: 20, fontSize: 12 }}
                     disabled={true}
-                    value={this.props?.rows?.refPJ ? this.props?.rows?.refPJ?.substring(0, 3) : this.props?.rows?.ordreService?.refPJ?.substring(0, 3)}
+                    value={references ? references[0] : ''}
                     multiline={false}
                     numberOfLines={1}
                     onChangeText={(text) => this.setState({ code1: text })}
@@ -311,7 +311,7 @@ class ActifsRapportCreationEnteteTab extends Component {
                     mode={'outlined'}
                     style={{ height: 20, fontSize: 12 }}
                     disabled={true}
-                    value={this.props?.rows?.refPJ ? this.props?.rows?.refPJ?.substring(4, 8) : this.props?.rows?.ordreService?.refPJ?.substring(4, 8)}
+                    value={references ? references[1] : ''}
                     multiline={true}
                     numberOfLines={1}
                     onChangeText={(text) => this.setState({ code2: text })}
@@ -322,7 +322,7 @@ class ActifsRapportCreationEnteteTab extends Component {
                     mode={'outlined'}
                     style={{ height: 20, fontSize: 12 }}
                     disabled={true}
-                    value={this.props?.rows?.refPJ ? this.props?.rows?.refPJ?.substring(9, 13) : this.props?.rows?.ordreService?.refPJ?.substring(9, 13)}
+                    value={references ? references[2] : ''}
                     multiline={true}
                     numberOfLines={1}
                     onChangeText={(text) => this.setState({ code3: text })}
