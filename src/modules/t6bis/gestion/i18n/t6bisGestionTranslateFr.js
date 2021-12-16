@@ -22,6 +22,7 @@ export default {
                 redevable: 'Redevable',
                 codeRedevable: 'Code redevable',
                 redevableBlock: {
+                    messageError:"Informations du redevable sont incomplètes",
                     title: "Redevable",
                     typeIdentifiant: "Type identifiant",
                     identifiant: "Identifiant",

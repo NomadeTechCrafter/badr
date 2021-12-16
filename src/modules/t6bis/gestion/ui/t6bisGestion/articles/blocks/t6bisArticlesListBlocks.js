@@ -79,7 +79,7 @@ class T6bisArticlesListBlocks extends React.Component {
                     {isCm(codeTypeT6bis) && (
                         <T6bisArticlesCurrentArticleCmBlock currentArticle={this.props.currentArticle} acUniteValue={this.props.acUniteValue} callbackHandler={this.viewCallBackHandler} readOnly={this.props.readOnly} />
                     )}
-                    {(this.props.recapCurrentArticleList && this.props.recapCurrentArticleList.length!=0) && (
+                    {(this.props.currentArticle && this.props.recapCurrentArticleList && this.props.recapCurrentArticleList.length!=0) && (
                         <T6bisArticlesRecapTaxationBlock currentArticle={this.props.currentArticle} recapCurrentArticleList={this.props.recapCurrentArticleList} montantGlobalByArticle={this.props?.montantGlobalByArticle}/>)}
                 </View>
 

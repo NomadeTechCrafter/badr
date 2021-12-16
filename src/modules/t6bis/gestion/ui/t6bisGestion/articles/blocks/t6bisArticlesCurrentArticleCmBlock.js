@@ -130,6 +130,11 @@ class T6bisArticlesCurrentArticleCmBlock extends React.Component {
             msg += !_.isEmpty(msg) ? "," : "";
             msg += translate('t6bisGestion.tabs.articles.articleBlock.cm.valeurTaxable');
         }
+        if (!_.isEmpty(this.state.currentArticle.montantFacture) && _.isEmpty(this.state.currentArticle.devise)) {
+            required = true;
+            msg += !_.isEmpty(msg) ? ',' : '';
+            msg += translate('t6bisGestion.tabs.articles.articleBlock.cm.devise');
+        }
         
         
 
@@ -431,6 +436,14 @@ class T6bisArticlesCurrentArticleCmBlock extends React.Component {
                             <Text style={styles.labelTextStyle}>
                                 {translate('t6bisGestion.tabs.articles.articleBlock.cm.devise')}
                             </Text>
+                            <HelperText
+                                type="error"
+                                padding="none"
+                                visible={stringNotEmpty(this.state.currentArticle?.montantFacture) && !stringNotEmpty(this.state.currentArticle?.devise)}>
+                                {translate(
+                                    't6bisGestion.tabs.articles.articleBlock.mtm.valeurObligatoire',
+                                )}
+                            </HelperText>
                            
 
                         </Col>

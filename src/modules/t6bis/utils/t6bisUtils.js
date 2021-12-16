@@ -673,3 +673,43 @@ export const mapErrorsGestion = function (errorsArray) {
   });
   return messages && messages.length > 0 ? messages : errorsArray;
 };
+
+export const verifyIntervenant = function (intervenantVO) {
+ 
+  return isParamSetted(intervenantVO) && stringNotEmpty(intervenantVO.nomIntervenant) && stringNotEmpty(intervenantVO.prenomIntervenant) && stringNotEmpty(intervenantVO.adresse);
+};
+
+export const isParamSetted = function (intervenantVO) {
+  console.log('isParamSetted----------------------------  : ');
+  if (isPasseport(intervenantVO)) {
+    if (
+      intervenantVO.numeroDocumentIndentite &&
+      intervenantVO.refTypeDocumentIdentite &&
+      intervenantVO.nationaliteFr
+    ) {
+      console.log('isParamSetted----------------------------  : true');
+      return true;
+    }
+  } else if (
+    intervenantVO.numeroDocumentIndentite &&
+    intervenantVO.refTypeDocumentIdentite
+  ) {
+    console.log('isParamSetted----------------------------  : true');
+    return true;
+  }
+  console.log('isParamSetted----------------------------  : false');
+  return false;
+};
+
+isPasseport = function (intervenantVO) {
+  if (intervenantVO) {
+    return (
+      '05' === intervenantVO.refTypeDocumentIdentite ||
+      '06' === intervenantVO.refTypeDocumentIdentite ||
+      '07' === intervenantVO.refTypeDocumentIdentite
+    );
+  } else {
+    return false;
+  }
+};
+

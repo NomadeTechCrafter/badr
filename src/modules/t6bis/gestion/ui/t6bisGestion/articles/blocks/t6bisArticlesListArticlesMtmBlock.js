@@ -37,7 +37,7 @@ class T6bisArticlesListArticlesMtmBlock extends React.Component {
                 width: 120,
             },
             {
-                code: 'uniteQuantite',
+                code: 'libelleUnite',
                 libelle: translate('t6bisGestion.tabs.articles.listeArticlesBlock.mtm.unite'),
                 width: 120,
             },
