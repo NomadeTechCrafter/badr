@@ -15,6 +15,11 @@ export default class ComAccordionComp extends Component {
       expanded: props.expanded,
     };
   }
+  componentDidMount() {
+    if (this.props.onRef) {
+      this.props.onRef(this);
+    }
+  }
 
   render() {
     return (
@@ -49,7 +54,8 @@ export default class ComAccordionComp extends Component {
   }
 
   toggleExpand = () => {
-    this.setState({expanded: !this.state.expanded});
+    this.setState({ expanded: !this.state.expanded });
+    console.log('toggleExpand');
   };
 }
 

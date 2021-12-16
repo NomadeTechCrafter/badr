@@ -169,7 +169,7 @@ class T6bisTaxationGlobaleListeTaxationBlock extends React.Component {
     valider() {
 
 
-        if (_.isEmpty(this.state.ligne?.rubriqueTaxation) || _.isEmpty(this.state.ligne?.tauxTaxation) || _.isEmpty(this.state.ligne?.montantTaxation)) {
+        if (_.isEmpty(this.state.ligne?.rubriqueTaxation)  || _.isEmpty(this.state.ligne?.montantTaxation)) {
             this.setState({
                 errorMessage: translate('t6bisGestion.tabs.taxation.globale.rubriqueBloc.msgErreurRequired')
             });
@@ -266,7 +266,7 @@ class T6bisTaxationGlobaleListeTaxationBlock extends React.Component {
                             <Row size={200}>
                                 <Col size={40} style={styles.labelContainer}>
                                     <Text style={styles.labelTextStyle}>
-                                        {translate('t6bisGestion.tabs.taxation.globale.rubriqueBloc.rubriqueTaxation')}
+                                        {translate('t6bisGestion.tabs.taxation.globale.rubriqueBloc.rubriqueTaxation') + this.state.ligne.rubriqueTaxation?.code}
                                     </Text>
 
                                 </Col>
@@ -278,6 +278,7 @@ class T6bisTaxationGlobaleListeTaxationBlock extends React.Component {
                                         libelle="libelle"
                                         module="REF_LIB"
                                         selectedValue={this.state.ligne.rubriqueTaxation?.code}
+                                        selected={this.state.ligne.rubriqueTaxation?.code}
                                         command={this.getCommandeByCodeType()}
                                         onValueChange={(itemValue, itemIndex, selectedItem) =>
                                             this.handleRubriqueTaxationChanged(itemValue, itemIndex, selectedItem)

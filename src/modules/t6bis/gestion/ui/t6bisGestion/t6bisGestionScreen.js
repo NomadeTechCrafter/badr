@@ -25,11 +25,14 @@ import {
   isCm,
   isCreation,
   isMtm,
+  isParamSetted,
   isRecherche,
+  isRedevableNonOperator,
   preconditions,
   prepareListArticlesCm,
   prepareListArticlesMtm,
-  validate
+  validate,
+  verifyIntervenant
 } from '../../../utils/t6bisUtils';
 import t6bisinitT6bisEnteteSectionAction from '../../state/actions/t6bisInitT6bisEnteteSectionAction';
 import t6bissauvegarderT6BISAction from '../../state/actions/t6bissauvegarderT6BISAction';
@@ -144,6 +147,12 @@ class T6bisGestion extends React.Component {
     this.lancerUC(CMD_SAUVEGARDER_T6BIS);
   };
   lancerUC = (uc) => {
+
+    if (isRedevableNonOperator(this.props.t6bis.codeTypeT6bis) && (this.props.t6bis.hasOwnProperty('intervenantVO') && isParamSetted(this.props.t6bis?.intervenantVO) && !verifyIntervenant(this.props.t6bis?.intervenantVO))) { 
+      var messages = [translate('t6bisGestion.tabs.entete.redevableBlock.messageError')];
+      this.setState({ errorMessage: messages });
+      return;
+    }
     if (
       isCreation() &&
       this.props.t6bis &&
@@ -203,6 +212,9 @@ class T6bisGestion extends React.Component {
           'sauvgarder dataToAction-------------------------------------------',
           dataToAction,
         );
+        this.setState({
+          errorMessage: null, successMessage:null
+        });
         this.props.actions.dispatch(
           t6bissauvegarderT6BISAction.request(dataToAction),
         );
@@ -211,7 +223,7 @@ class T6bisGestion extends React.Component {
           errorMessage: [
             'Champs obligatoires : ' +
               getMessageValidation(this.props.t6bis).join(', '),
-          ],
+          ], successMessage: null
         });
       }
     }
@@ -268,16 +280,18 @@ class T6bisGestion extends React.Component {
   };
 
   static getDerivedStateFromProps(props, state) {
-    // console.log('getDerivedStateFromProps--------------------props ', props);
-    // console.log('getDerivedStateFromProps--------------------state ', state);
+    console.log('T6bisGestion-->getDerivedStateFromProps--------------------props ', props);
+    console.log('T6bisGestion-->getDerivedStateFromProps--------------------state ', state);
 
     if (props.errorMessage) {
       return {
         errorMessage: props.errorMessage, // update the value of specific key
+        successMessage: null,
       };
     }
     if (props.successMessage) {
       return {
+        errorMessage: null,
         successMessage: props.successMessage, // update the value of specific key
       };
     }

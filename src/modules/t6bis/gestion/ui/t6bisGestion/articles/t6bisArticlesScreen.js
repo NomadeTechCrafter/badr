@@ -45,11 +45,11 @@ class T6bisArticlesTab extends React.Component {
                 console.log("                           16022021                         ***********                  ", data);
                 this.state.listeArticles.push(data);
                 console.log("                           16022021                         ***********                  ", this.state.listeArticles);
-                article = this.getCurrentArticle();
+               
                 this.setState({
-                    currentArticle: article
+                    currentArticle: null
                 });
-                this.launchUpdateProps(this.state.listeArticles, article);
+                this.launchUpdateProps(this.state.listeArticles, null);
                 break;
             case T6BISConstantes.EDIT_ARTCLE_MTM_TASK:
             case T6BISConstantes.EDIT_ARTCLE_CM_TASK:
@@ -77,7 +77,7 @@ class T6bisArticlesTab extends React.Component {
                 });
 
                 if (articleToDelete[0].numArticle === this.state.currentArticle.numArticle) {
-                    article = this.getCurrentArticle();
+                    article = null;
                     this.setState({
                         currentArticle: article
                     });
@@ -101,11 +101,10 @@ class T6bisArticlesTab extends React.Component {
                     
                 });
 
-                article = this.getCurrentArticle();
                 this.setState({
-                    currentArticle: article
+                    currentArticle: null
                 });
-                this.launchUpdateProps(listeArticlesOriginal, article);
+                this.launchUpdateProps(listeArticlesOriginal, null);
                 break;
             case T6BISConstantes.ADD_ARTCLE_CM_TASK:
                 data.isNew = false;

@@ -6,6 +6,7 @@ import {
   ComAccordionComp,
   ComBadrAutoCompleteChipsComp,
   ComBadrButtonComp,
+  ComBadrErrorMessageComp,
   ComBadrItemsPickerComp,
 } from '../../../../../../../../commons/component';
 import translate from '../../../../../../../../commons/i18n/ComI18nHelper';
@@ -14,6 +15,7 @@ import {
   isCreation,
   stringNotEmpty,
   validateCin,
+  verifyIntervenant,
 } from '../../../../../../utils/t6bisUtils';
 import * as Constantes from '../../../../../state/t6bisGestionConstants';
 import styles from '../../../../../style/t6bisGestionStyle';
@@ -47,6 +49,7 @@ class T6bisEnteteRedevableSousBlock extends React.Component {
         nationaliteFr: pays.code,
       },
       modificationInProgress: true
+      , errorMessage: null
     });
     this.state.intervenantVO.nationaliteFr = pays.code;
 
@@ -118,7 +121,8 @@ class T6bisEnteteRedevableSousBlock extends React.Component {
     }
     this.setState({
 
-      modificationInProgress: false
+      modificationInProgress: false,
+      errorMessage: null
     });
   };
 
@@ -168,6 +172,17 @@ class T6bisEnteteRedevableSousBlock extends React.Component {
       ? this.props.infoCompleted
       : false;
     console.log('confirmer', this.state.expanded);
+   
+    console.log('confirmer', this.state.expanded);
+
+    if (!verifyIntervenant(this.state.intervenantVO)) {
+      this.setState({
+
+        errorMessage: translate('t6bisGestion.tabs.entete.redevableBlock.messageError')
+      });
+    } else { 
+      this.accordionComp.toggleExpand();
+    }
   };
 
   retablir = () => {
@@ -214,7 +229,8 @@ class T6bisEnteteRedevableSousBlock extends React.Component {
         infoCompleted: false,
         newIntervenant: false,
         acNationalite: {},
-        modificationInProgress: false
+        modificationInProgress: false,
+        errorMessage: null
       });
     } else {
       this.checkType();
@@ -235,7 +251,8 @@ class T6bisEnteteRedevableSousBlock extends React.Component {
       infoCompleted: false,
       newIntervenant: false,
       acNationalite: {},
-      modificationInProgress: false
+      modificationInProgress: false,
+      errorMessage: null
     });
   }
 
@@ -288,7 +305,8 @@ class T6bisEnteteRedevableSousBlock extends React.Component {
         infoCompleted: false,
         newIntervenant: false,
         acNationalite: {},
-        modificationInProgress: false
+        modificationInProgress: false,
+        errorMessage: null
       };
     }
     /* if (
@@ -307,8 +325,15 @@ class T6bisEnteteRedevableSousBlock extends React.Component {
   render() {
     return (
       <ComAccordionComp
+        onRef={(ref) => (this.accordionComp = ref)}
         title={translate('t6bisGestion.tabs.entete.redevableBlock.title')}
         expanded={false}>
+        
+        {this.state.errorMessage != null && (
+          <View style={styles.messages}>
+            <ComBadrErrorMessageComp message={this.state.errorMessage} />
+          </View>
+        )}
         <View>
           <Row size={200}>
             <Col size={30} style={styles.labelContainer}>
@@ -362,8 +387,8 @@ class T6bisEnteteRedevableSousBlock extends React.Component {
                     ...this.state,
                     intervenantVO: {
                       ...this.state.intervenantVO,
-                      numeroDocumentIndentite: text,
-                    },
+                      numeroDocumentIndentite: text.toUpperCase(),
+                    }, errorMessage: null
                   });
                 }
 
@@ -428,7 +453,7 @@ class T6bisEnteteRedevableSousBlock extends React.Component {
                       intervenantVO: {
                         ...this.state.intervenantVO,
                         nomIntervenant: text,
-                      }, modificationInProgress: true
+                      }, modificationInProgress: true, errorMessage: null
                     })
                     : {};
                   this.copyIntervenantToProp(text, this.state.intervenantVO.prenomIntervenant, this.state.intervenantVO.adresse);
@@ -460,7 +485,7 @@ class T6bisEnteteRedevableSousBlock extends React.Component {
                       ...this.state,
                       intervenantVO: {
                         ...this.state.intervenantVO,
-                        prenomIntervenant: text, modificationInProgress: true
+                        prenomIntervenant: text, modificationInProgress: true, errorMessage: null
                       },
                     })
                     : {};
@@ -496,7 +521,7 @@ class T6bisEnteteRedevableSousBlock extends React.Component {
                     ...this.state,
                     intervenantVO: {
                       ...this.state.intervenantVO,
-                      adresse: text, modificationInProgress: true
+                      adresse: text, modificationInProgress: true, errorMessage: null
                     },
                   });
                   this.copyIntervenantToProp(this.state.intervenantVO.nomIntervenant, this.state.intervenantVO.prenomIntervenant, text);

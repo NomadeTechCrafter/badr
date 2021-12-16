@@ -176,8 +176,11 @@ export default (state = initialState, action) => {
     case Constants.T6BIS_ADD_TAXATION_GLOBALE_FAILED:
       return nextState;
     case Constants.T6BIS_SAUVEGARDER_REQUEST:
+      
       return nextState;
     case Constants.T6BIS_SAUVEGARDER_IN_PROGRESS:
+      nextState.successMessage = null;
+      nextState.errorMessage = null;
       return nextState;
     case Constants.T6BIS_SAUVEGARDER_SUCCES:
       nextState.t6bis = action.value.t6bis;
