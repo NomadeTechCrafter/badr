@@ -79,7 +79,6 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
 
         this.state = {
             gibPerquisition: { intervenantsVO: [], autorite: {} },
-            modeConsultation: false,
             intervenantVO: null,
             newIntervenant: null,
             isRetablir: false,
@@ -89,18 +88,9 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
     }
 
     componentDidMount = () => {
-        console.log('------------------------------------------------------ props perquisition ----------------------------------------');
-        console.log('------------------------------------------------------ props perquisition ----------------------------------------');
-        console.log('------------------------------------------------------ props perquisition ----------------------------------------');
-        console.log('------------------------------------------------------ props perquisition ----------------------------------------');
-        console.log(JSON.stringify(this.props));
-        console.log('------------------------------------------------------ props perquisition ----------------------------------------');
-        console.log('------------------------------------------------------ props perquisition ----------------------------------------');
-        console.log('------------------------------------------------------ props perquisition ----------------------------------------');
-        console.log('------------------------------------------------------ props perquisition ----------------------------------------');
+
         this.setState({
             gibPerquisition: this.props.gibPerquisition,
-            modeConsultation: this.props.consultation,
         });
 
     }
@@ -376,22 +366,6 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
     };
 
     render() {
-        // let personneConcernee = this.props?.t6bisReducer?.value;
-        console.log('------------------------------------------------------ props perquisition ----------------------------------------');
-        console.log('------------------------------------------------------ props perquisition ----------------------------------------');
-        console.log('------------------------------------------------------ props perquisition ----------------------------------------');
-        console.log('------------------------------------------------------ props perquisition ----------------------------------------');
-        console.log(JSON.stringify(this.props?.gibPerquisition));
-        console.log('------------------------------------------------------ props perquisition ----------------------------------------');
-        console.log('------------------------------------------------------ props perquisition ----------------------------------------');
-        console.log('------------------------------------------------------ props perquisition ----------------------------------------');
-        console.log('------------------------------------------------------ props perquisition ----------------------------------------');
-        // if () {
-        //     this.setState({
-        //         gibPerquisition: this.props.gibPerquisition,
-        //         modeConsultation: this.props.consultation,
-        //     });
-        // }
         return (
             <ScrollView >
                 <View style={CustomStyleSheet.verticalContainer20}>
@@ -409,7 +383,7 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
                                             readonly={this.props?.consultation}
                                             dateFormat="DD/MM/YYYY"
                                             heureFormat="HH:mm"
-                                            value={this.state?.gibPerquisition?.datePerquisition ? moment(this.state?.gibPerquisition?.datePerquisition).format('L') : ''}
+                                            value={this.state?.gibPerquisition?.datePerquisition ? moment(this.state?.gibPerquisition?.datePerquisition).format('DD/MM/YYYY') : ''}
                                             timeValue={this.state?.gibPerquisition?.heurePerquisition ? moment(this.state?.gibPerquisition?.heurePerquisition, 'HH:mm', true) : ''}
                                             onDateChanged={(date) => this.setState(prevState => ({
                                                 gibPerquisition: {
@@ -441,7 +415,7 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
                                             maxLength={250}
                                             multiline
                                             numberOfLines={2}
-                                            value={this.state.gibPerquisition?.lieuPerquisition}
+                                            value={this.props?.consultation ? this.props?.gibPerquisition?.lieuPerquisition : this.state.gibPerquisition?.lieuPerquisition}
                                             onChangeText={(text) => {
                                                 this.setState(prevState => ({
                                                     gibPerquisition: {

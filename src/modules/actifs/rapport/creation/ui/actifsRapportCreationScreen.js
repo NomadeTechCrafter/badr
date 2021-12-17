@@ -82,7 +82,7 @@ class ActifsRapportCreationScreen extends Component {
       description: '',
       osAvecSaisie: false,
       osAvecIncident: false,
-      coiffeInitiePar: '',
+      coiffeInitiePar: null,
       refAgentDetachement: null,
       rows: '',
     };
@@ -113,7 +113,7 @@ class ActifsRapportCreationScreen extends Component {
         description: '',
         osAvecSaisie: false,
         osAvecIncident: false,
-        coiffeInitiePar: '',
+        coiffeInitiePar: null,
         refAgentDetachement: null,
         rows: '',
       };
@@ -175,12 +175,11 @@ class ActifsRapportCreationScreen extends Component {
     console.log('val 5:', val);
     this.setState({
       description: val.description,
-      // typeIncident: val.typeIncident,
-      // autreIncident: val.autreIncident
       osAvecSaisie: val.osAvecSaisie,
       osAvecIncident: val.osAvecIncident,
       coiffeInitiePar: val.coiffeInitiePar,
-      refAgentDetachement: val.refAgentDetachement
+      refAgentDetachement: val.refAgentDetachement,
+      themeConference: val.themeConference
     });
 
   }
@@ -195,9 +194,7 @@ class ActifsRapportCreationScreen extends Component {
     moment.suppressDeprecationWarnings = true;
     let dateHeureDebut = moment(dateDebut, FORMAT_DDMMYYYY_HHMM);
 
-    console.log('dateHeureEntree : ', dateHeureDebut);
 
-    console.log('this.state.dateFin : ', this.state.dateFin);
     let dateHeureFin = moment(this.state.dateFin + ' ' + this.state.heureFin, FORMAT_DDMMYYYY_HHMM);
     if (dateHeureFin === null) {
       console.log("test : ", dateHeureFin);
@@ -228,8 +225,6 @@ class ActifsRapportCreationScreen extends Component {
     this.setState({
       errorMessage: null
     });
-
-
     if (_.isEmpty(this.state.description)) {
       let message = translate('actifsCreation.detail.errors.requiredDescription');
 
@@ -241,14 +236,9 @@ class ActifsRapportCreationScreen extends Component {
 
       return false
     }
-
-
-
   }
 
-  enregisterRS = () => {
-    // console.log('Enregister this.props ', JSON.stringify(this.props));
-    // console.log('Enregister this.state?.dateFin ', this.state?.dateFin);
+  preparerRSAEnregistrer = () => {
     let res = this.props.route?.params?.row?.refPJ?.split('_');
     let localOrdreService = this.props.route?.params?.row;
     localOrdreService.dateDebut = moment(this.props.route?.params?.row?.dateDebut).format();
@@ -261,8 +251,8 @@ class ActifsRapportCreationScreen extends Component {
       localRondesApparitions.push(element);
     });
     let localGibPerquisition = this.state?.gibPerquisition;
-    let localDatePerquisition = localGibPerquisition?.datePerquisition?.split("/").reverse().join("-");
     if (localGibPerquisition) {
+      let localDatePerquisition = localGibPerquisition?.datePerquisition?.split("/").reverse().join("-");
       localGibPerquisition.datePerquisition = localDatePerquisition;
     }
 
@@ -278,6 +268,13 @@ class ActifsRapportCreationScreen extends Component {
       dateEnregistrementV0: '',
       dateFin: (this.state?.dateFin) ? this.state.dateFin : moment(this.props.route?.params?.row?.dateFin), //yes
       description: this.state.description, //yess reacherche(description rapport)
+
+      osAvecSaisie: this.state.osAvecSaisie,
+      osAvecIncident: this.state.osAvecIncident,
+      coiffeInitiePar: this.state.coiffeInitiePar,
+      refAgentDetachement: this.state.refAgentDetachement,
+      themeConference: this.state.themeConference,
+
       disableFields: null,
       heureFin: (this.state?.heureFin) ? this.state.heureFin : this.props.route?.params?.row?.heureFin, //yess entete
       idOS: this.props.route?.params?.row?.numero, //recherchess
@@ -311,9 +308,11 @@ class ActifsRapportCreationScreen extends Component {
       gibPerquisition: localGibPerquisition,
 
     };
-    //rsAEnregistrer = { "anneeRef": "2021", "autreIncidents": "Autres incidents", "codeCatTI": "1", "codeUORef": "371", "commentaire": null, "dateEnregistrement": null, "dateEnregistrementV0": "", "dateFin": "2021-02-24", "description": "Description", "disableFields": null, "heureFin": "00:30", "idOS": 3, "journeeDU": "2021-02-24", "motif": null, "numOS": null, "numSerieRef": "9005", "ordres": null, "pk": null, "rapportService": { "id": null, "ordreService": { "id": 5719, "numero": 3, "confidentiel": false, "additif": false, "dateDebut": "2021-02-24", "dateFin": "2021-02-24", "description": "test2", "chefEquipe": { "idActeur": "AD6205", "nom": "AD6205", "numeroPaie": -1, "prenom": "AD6205", "refGradeLib": "" }, "vehicules": [], "agentsBrigade": [{ "id": 17374, "agent": { "idActeur": "AGKLO", "nom": "AGKLO", "numeroPaie": -1, "prenom": "AGKLO", "refGradeLib": "" }, "agentBrigade": "AGKLO AGKLO (AGKLO)" }, { "id": 17375, "agent": { "idActeur": "BOUCHRAAG1", "nom": "bouchraAG1", "numeroPaie": -1, "prenom": "bouchraAG1", "refGradeLib": "" }, "agentBrigade": "bouchraAG1 bouchraAG1 (BOUCHRAAG1)" }], "typeService": { "code": "8.1", "libelle": "Entretien des armes", "classeService": "E", "sousService": false, "categorie": { "code": "8", "libelle": "Armement" } }, "heureDebut": "00:00", "heureFin": "00:30", "os_chefBrigade": false, "ronde": false, "maritime": false, "aerien": true, "uniteOrganisationnelle": "Brigade Casa-Port (371)(371)", "refPJ": "371_2021_9005", "journeeDu": "24/02/2021", "libAdditif": "Non", "libChefBrigade": "Non", "libRonde": "Non", "libMaritime": "Non", "libAerien": "Oui", "libConfidentiel": "Non", "defaultConverter": {}, "rapportExiste": false }, "vrs": null }, "reference": "371_2021_9005", "statut": null, "typeAction": "ACTION_AJOUTER", "typeIncident": null, "typesIncidentSelect": ["1.6"], "uniteorganisationnelle": "Brigade Casa-Port (371)(371)", "validations": null, "vehiculesSaisiVO": [{ "natureVehicule": { "code": "2", "libelle": "\tAutocar" }, "libelle": "123", "valeur": "123" }], "marchandisesVO": [{ "marque": { "code": "01-13", "libelle": "Chocolat en poudre (unité) " }, "quantite": "10", "valeur": "100", "uniteMesure": { "codeUniteMesure": "049", "descriptionUniteMesure": "pièce nouvelle" } }], "pvsSaisi": [{ "numPV": "123", "datePV": "2021-05-19" }], "navigationsAeriennes": [{ "dateAtterissage": 1621459105794, "heureAtterissage": 1621459105794, "motifAtterissage": "ddd", "aeroportEntree": "ddd", "provenance": { "codePays": "FR", "nomPays": "FRANCE(FR)" }, "villeProvenance": "nice", "aeroportAttache": "AA", "pavillon": "Paviollon", "dateDepart": 1621459105794, "heureDepart": 1621459105794, "destination": { "codePays": "DE", "nomPays": "ALLEMAGNE(DE)" }, "villeDestination": "berlin", "typeAvion": "type", "immatriculation": "immatriculation", "nomAvion": "nom", "couleur": "Gris", "nbPlaces": "10", "nbMoteurs": "20", "tonnage": "20", "dateDebutControle": 1621459105794, "heureDebutControle": 1621459105794, "dateFinControle": 1621459105794, "heureFinControle": 1621459105794, "documentsVerifies": "document", "observations": "observation", "resultatControle": "resultat", "intervenants": [{ "passager": true, "equipage": false, "professionIntervenant": "ProfessiProfession", "intervenant": { "refTypeDocumentIdentite": "07", "numeroDocumentIndentite": "1A22", "nomIntervenant": "NoNom", "prenomIntervenant": "Prenom", "nationaliteFr": "DE", "adresse": "Adressse" } }], "proprietaires": [{ "professionIntervenant": "pofnoiess", "intervenant": { "numeroRC": "", "refCentreRC": { "codeCentreRC": "" }, "refTypeDocumentIdentite": "02", "numeroDocumentIndentite": "A123", "nomIntervenant": "nom", "prenomIntervenant": "prenom", "nationaliteFr": "FR", "adresse": "Adresse" } }] }], "navigationsMaritimes": [], "versionRS": null, "versionsRS": null };
     cleanOrdreService(rsAEnregistrer);
     console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
+    console.log('this.state.vehiculesSaisiVO : ', this.state.vehiculesSaisiVO);
+    console.log('this.state.marchandisesVO : ', this.state.marchandisesVO);
+    console.log('this.state.pvsSaisi : ', this.state.pvsSaisi);
     console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
     console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
     console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
@@ -328,93 +327,31 @@ class ActifsRapportCreationScreen extends Component {
     if (this.checkDatesDebutFinInformations() || this.checkDetail()) {
       return;
     }
+    return rsAEnregistrer;
+  }
+
+  enregisterRS = () => {
+    let rsAEnregistrer = this.preparerRSAEnregistrer();
 
     let action = enregistrerRS.request({
       type: Constants.ACTIFS_CREATION_REQUEST,
       value: { data: rsAEnregistrer },
     });
+
     this.props.dispatch(action);
-    console.log('dispatch fired !!');
 
   };
 
   sauvegarderRS = () => {
-    // console.log('Enregister this.props ', JSON.stringify(this.props));
-    // console.log('Enregister this.state?.dateFin ', this.state?.dateFin);
-    let res = this.props.route?.params?.row?.refPJ?.split('_');
-    let localOrdreService = this.props.route?.params?.row;
-    localOrdreService.dateDebut = moment(this.props.route?.params?.row?.dateDebut).format();
-    localOrdreService.dateFin = moment(this.props.route?.params?.row?.dateFin).format();
-    let localRondesApparitions = [];
-    this.state?.rondesApparitions?.forEach((rondeApparition) => {
-      let element = rondeApparition;
-      element.dateDebut = rondeApparition?.dateDebut?.split("/").reverse().join("-");
-      element.dateFin = rondeApparition?.dateFin?.split("/").reverse().join("-");
-      localRondesApparitions.push(element);
-    });
-    let localGibPerquisition = this.state?.gibPerquisition;
-    let localDatePerquisition = localGibPerquisition?.datePerquisition?.split("/").reverse().join("-");
-    if (localGibPerquisition) {
-      localGibPerquisition.datePerquisition = localDatePerquisition;
-    }
 
-    let rsAEnregistrer = {
-
-
-      anneeRef: _.isArray(res) ? res[1] : '', //....?????getRapportTemp().anneeRef
-      autreIncidents: this.state.autreIncident, //yess details
-      codeCatTI: '1',
-      codeUORef: _.isArray(res) ? res[0] : '',
-      commentaire: null,
-      dateEnregistrement: null,
-      dateEnregistrementV0: '',
-      dateFin: (this.state?.dateFin) ? this.state.dateFin : moment(this.props.route?.params?.row?.dateFin), //yes
-      description: this.state.description, //yess reacherche(description rapport)
-      disableFields: null,
-      heureFin: (this.state?.heureFin) ? this.state.heureFin : this.props.route?.params?.row?.heureFin, //yess entete
-      idOS: this.props.route?.params?.row?.numero, //recherchess
-      journeeDU: this.props.route?.params?.row?.journeeDu ? convert(this.props.route?.params?.row?.journeeDu) : '', //yess entete
-      motif: null,
-      numOS: null,
-      numSerieRef: _.isArray(res) ? res[2] : '',
-      ordres: null,
-      pk: null,
-      rapportService: {
-        id: null,
-        ordreService: localOrdreService,
-        vrs: null,
-      },
-      reference: this.props.route?.params?.row?.refPJ, //yess
-      statut: null,
-      typeAction: 'ACTION_AJOUTER',
-      typeIncident: null,
-      typesIncidentSelect: this.state.typeIncident, //yess
-      uniteorganisationnelle: this.props.route?.params?.row?.uniteOrganisationnelle, //yess
-      validations: null,
-      vehiculesSaisiVO: this.state.vehiculesSaisiVO,
-      marchandisesVO: this.state.marchandisesVO,
-      pvsSaisi: this.state.pvsSaisi,
-      navigationsAeriennes: this.props.navigationsAeriennes,
-      navigationsMaritimes: this.props.navigationsMaritimes,
-      versionRS: null,
-      versionsRS: null,
-      rondesApparition: localRondesApparitions,
-      // gibPerquisition: this.state?.gibPerquisition ? this.state?.gibPerquisition : {},
-      gibPerquisition: localGibPerquisition,
-
-    };
-    cleanOrdreService(rsAEnregistrer);
-    console.log(JSON.stringify(rsAEnregistrer));
-    if (this.checkDatesDebutFinInformations() || this.checkDetail()) {
-      return;
-    }
+    let rsAEnregistrer = this.preparerRSAEnregistrer();
 
     let action = sauvegarderRS.request({
       type: Constants.ACTIFS_CREATION_REQUEST,
       value: { data: rsAEnregistrer },
     });
+
     this.props.dispatch(action);
-    console.log('dispatch fired !!');
 
   };
 

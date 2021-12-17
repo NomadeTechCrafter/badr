@@ -45,7 +45,7 @@ class ActifsRapportCreationEnteteTab extends Component {
       paginate: true,
     };
     this.cols = [
-      { code: 'agent', libelle: 'Agent', width: 100 },
+      { code: 'agent', libelle: 'Agent', width: 300 },
       { code: 'agent', libelle: 'Grade', width: 100 },
       { code: 'agent', libelle: 'Date de validation', width: 150 },
       { code: 'agent', libelle: 'Commentaire', width: 150 },
@@ -54,11 +54,6 @@ class ActifsRapportCreationEnteteTab extends Component {
   }
 
   componentDidMount() {
-    console.log('********************************************************************************');
-    console.log('********************************************************************************');
-    console.log(JSON.stringify(this.props));
-    console.log('********************************************************************************');
-    console.log('********************************************************************************');
 
   }
 
@@ -78,10 +73,10 @@ class ActifsRapportCreationEnteteTab extends Component {
     ////console.log('dispatch fired !!');
   };
 
-  render_validations = (item, libelle) => {
+  render_validations = (item, libelle, row) => {
     if (_.property(item)) {
       if (libelle === 'Agent') {
-        return <Text> {item.nom}</Text>;
+        return <Text> {row.agentBrigade}</Text>;
       }
       if (libelle === 'Commentaire') {
         return (
@@ -98,7 +93,7 @@ class ActifsRapportCreationEnteteTab extends Component {
       }
 
       if (libelle === 'Grade') {
-        return <Text> {JSON.stringify(item.refGrade)}</Text>;
+        return <Text> {JSON.stringify(item.refGradeLib)}</Text>;
       }
       if (libelle === 'Date de validation') {
         return <Text> {item.dateEffet}</Text>;
@@ -280,7 +275,7 @@ class ActifsRapportCreationEnteteTab extends Component {
                     style={{ height: 20, fontSize: 12 }}
                     disabled={true}
                     //keyboardType={'number-pad'}
-                    value={this.props?.rows?.ordreService?.journeeDu}
+                    value={this.props?.rows?.ordreService?.journeeDu ? this.props?.rows?.ordreService?.journeeDu : this.props?.rows?.journeeDu}
                     multiline={true}
                     numberOfLines={1}
                     onChangeText={(text) => this.setState({ journeeDu: text })}
@@ -517,6 +512,7 @@ class ActifsRapportCreationEnteteTab extends Component {
                                     {this.render_validations(
                                       row[column.code],
                                       column.libelle,
+                                      row
                                     )}
                                   </DataTable.Cell>
                                 </>

@@ -178,6 +178,7 @@ export const convert = (date) => {
 }
 
 export const cleanOrdreService = (rsAEnregistrer) => {
+  delete rsAEnregistrer.typesIncidentSelect;
   delete rsAEnregistrer.rapportService?.ordreService?.chefEquipe?.refGradeLib;
   delete rsAEnregistrer.rapportService?.ordreService?.uniteOrganisationnelle;
   delete rsAEnregistrer.rapportService?.ordreService?.refPJ;

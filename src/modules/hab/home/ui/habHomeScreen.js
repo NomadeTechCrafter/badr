@@ -549,8 +549,8 @@ class habHomeScreen extends React.Component {
 
         <Drawer.Screen
           name="CreationRapport"
+          options={{ headerShown: false, unmountOnBlur: true, lazy: false }}
           component={actifsRapportCreationScreen}
-          options={{ headerShown: false }}
         />
 
         <Drawer.Screen

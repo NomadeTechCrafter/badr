@@ -397,12 +397,20 @@ class AtifsRapportCreationSaisieTab extends Component {
 
 
   update() {
+    console.log('============================== SAISIE ===================================================');
+    console.log('============================== SAISIE ===================================================');
+    console.log('============================== SAISIE ===================================================');
+    console.log((this.state));
+    console.log('============================== SAISIE ===================================================');
+    console.log('============================== SAISIE ===================================================');
+    console.log('============================== SAISIE ===================================================');
 
     this.props.update({
       vehiculesSaisiVO: this.state.dataMTS,
       marchandisesVO: this.state.dataMarchandise,
       pvsSaisi: this.state.dataPV,
     });
+
 
 
   }

@@ -38,12 +38,12 @@ class AtifsRapportCreationDetailsTab extends Component {
 
     this.colsEdition = [
       {
-        code: 'animateurConference',
+        code: 'libelleAnimateur',
         libelle: translate('actifsCreation.detail.animateurConference'),
         width: 400,
       },
       {
-        code: 'qualiteAnimateur',
+        code: 'libelleQualiteAnimateur',
         libelle: translate('actifsCreation.detail.qualiteAnimateur'),
         width: 400,
       },
@@ -59,12 +59,12 @@ class AtifsRapportCreationDetailsTab extends Component {
     ];
     this.colsConsultation = [
       {
-        code: 'animateurConference',
+        code: 'libelleAnimateur',
         libelle: translate('actifsCreation.detail.animateurConference'),
         width: 400,
       },
       {
-        code: 'qualiteAnimateur',
+        code: 'libelleQualiteAnimateur',
         libelle: translate('actifsCreation.detail.qualiteAnimateur'),
         width: 400,
       },
@@ -73,9 +73,10 @@ class AtifsRapportCreationDetailsTab extends Component {
     this.state = {
       osAvecSaisie: false,
       osAvecIncident: false,
-      coiffeInitiePar: '',
+      coiffeInitiePar: null,
       refAgentDetachement: null,
       description: '',
+      themeConference: '',
       command: null,
       selectedvalue: '',
       natureIncident: null,
@@ -100,12 +101,13 @@ class AtifsRapportCreationDetailsTab extends Component {
       osAvecIncident: this.state.osAvecIncident,
       coiffeInitiePar: this.state.coiffeInitiePar,
       refAgentDetachement: this.state.refAgentDetachement,
-      description: this.state.description
+      description: this.state.description,
+      themeConference: this.state.themeConference
     });
   }
   render() {
 
-    console.log('props ----------------===> : ' + JSON.stringify(this.props));
+    // console.log('props ----------------===> : ' + JSON.stringify(this.props));
     return (
       <View style={CustomStyleSheet.fullContainer}>
         <ComContainerComp>
@@ -270,8 +272,7 @@ class AtifsRapportCreationDetailsTab extends Component {
                         selected={this.props?.rows?.refAgentDetachement?.libelle}
                         maxItems={3}
                         libelle="libelle"
-                        command="getCmbPays"
-                        paramName="libellePays"
+                        command="getCmbAgentDouanier"
                         onDemand={true}
                         searchZoneFirst={false}
                       />
@@ -282,8 +283,7 @@ class AtifsRapportCreationDetailsTab extends Component {
                         selected={this.state?.refAgentDetachement}
                         maxItems={3}
                         libelle="libelle"
-                        command="getCmbPays"
-                        paramName="libellePays"
+                        command="getCmbAgentDouanier"
                         onDemand={true}
                         searchZoneFirst={false}
                         onValueChange={(item) => {
@@ -350,49 +350,56 @@ class AtifsRapportCreationDetailsTab extends Component {
                 </Row>
               )}
 
-              {/* {(this.props?.rows?.ordreService?.conference || this.props?.rows?.conference ) && ( */}
-              <Row style={CustomStyleSheet.whiteRow}>
-                <Col>
-                  <ComBasicDataTableComp
-                    id="animateursTable"
-                    rows={this.props.consultation ? this.props.rows?.listAnimateurConferenceVo : this.state.listAnimateurConferenceVo}
-                    cols={this.props.consultation ? this.colsConsultation : this.colsEdition}
-                    totalElements={this.props.consultation ? this.props.rows?.listAnimateurConferenceVo?.length : this.state.listAnimateurConferenceVo?.length}
-                    maxResultsPerPage={10}
-                    paginate={true}
-                    showProgress={this.props.showProgress}
-                  />
-                </Col>
-              </Row>
-              {/* )} */}
+              {(this.props?.rows?.ordreService?.conference || this.props?.rows?.conference) && (
+                <Row style={CustomStyleSheet.whiteRow}>
+                  <Col>
+                    <ComBasicDataTableComp
+                      id="animateursTable"
+                      rows={this.props.consultation ? this.props.rows?.listAnimateurConferenceVo : this.state.listAnimateurConferenceVo}
+                      cols={this.props.consultation ? this.colsConsultation : this.colsEdition}
+                      totalElements={this.props.consultation ? this.props.rows?.listAnimateurConferenceVo?.length : this.state.listAnimateurConferenceVo?.length}
+                      maxResultsPerPage={10}
+                      paginate={true}
+                      showProgress={this.props.showProgress}
+                    />
+                  </Col>
+                </Row>
+              )}
 
 
-              {/* {(this.props?.rows?.ordreService?.conference || this.props?.rows?.conference) && ( */}
-              <Row style={CustomStyleSheet.whiteRow}>
-                <Col size={3}>
-                  <Row>
-                    <ComBadrLibelleComp style={{ paddingRight: 2 }}>
-                      {translate('actifsCreation.detail.themesRetenus')}
-                    </ComBadrLibelleComp>
-                  </Row>
-                </Col>
-                <Col size={6} style={{ paddingRight: 5 }}>
-                  <TextInput
-                    mode={'outlined'}
-                    style={{
-                      fontSize: 12,
-                      backgroundColor: '#f7f7fa'
-                    }
-                    }
-                    disabled={this.props.consultation}
-                    value={this.props.rows?.themeConference}
-                    multiline={true}
-                    numberOfLines={4}
+              {(this.props?.rows?.ordreService?.conference || this.props?.rows?.conference) && (
+                <Row style={CustomStyleSheet.whiteRow}>
+                  <Col size={3}>
+                    <Row>
+                      <ComBadrLibelleComp style={{ paddingRight: 2 }}>
+                        {translate('actifsCreation.detail.themesRetenus')}
+                      </ComBadrLibelleComp>
+                    </Row>
+                  </Col>
+                  <Col size={6} style={{ paddingRight: 5 }}>
+                    <TextInput
+                      mode={'outlined'}
+                      style={{
+                        fontSize: 12,
+                        backgroundColor: '#f7f7fa'
+                      }
+                      }
+                      disabled={this.props.consultation}
+                      value={this.props.consultation ? this.props?.themeConference : this.state.themeConference}
+                      onChangeText={(item) => {
+                        this.setState(prevState => ({
+                          ...prevState.themeConference,
+                          themeConference: item,
+                        }))
+                        this.updateModele();
+                      }}
+                      multiline={true}
+                      numberOfLines={3}
 
-                  />
-                </Col>
-              </Row>
-              {/* )} */}
+                    />
+                  </Col>
+                </Row>
+              )}
 
               <Row style={CustomStyleSheet.whiteRow}>
                 <Col size={3}>
@@ -411,9 +418,16 @@ class AtifsRapportCreationDetailsTab extends Component {
                     }
                     }
                     disabled={this.props.consultation}
-                    value={this.props.description ? this.props.description : this.state.description}
+                    value={this.props.consultation ? this.props.description : this.state.description}
+                    onChangeText={(item) => {
+                      this.setState(prevState => ({
+                        ...prevState.description,
+                        description: item,
+                      }))
+                      this.updateModele();
+                    }}
                     multiline={true}
-                    numberOfLines={4}
+                    numberOfLines={10}
 
                   />
                 </Col>

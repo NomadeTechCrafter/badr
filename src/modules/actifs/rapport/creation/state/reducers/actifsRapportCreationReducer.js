@@ -31,6 +31,7 @@ export default (state = initialState, action) => {
       nextState.rows = action.value;
       nextState.rows.dateDebut = nextState?.rows?.dateDebut?.substring(0, 10);
       nextState.rows.dateFin = nextState?.rows?.dateFin?.substring(0, 10);
+      nextState.rows.listAnimateurConferenceVo = action.value?.listAnimateurConferenceVo;
       nextState.consultation = action.value.rapportExiste;
       nextState.navigationsAeriennes = [];
       nextState.navigationAerienneModel = getNavigationAerienneModelInitial();
@@ -61,12 +62,15 @@ export default (state = initialState, action) => {
       console.log('--> ACTIFS_CONSULTATION_in progress...');
       return nextState;
     case Constants.ACTIFS_CONSULTATION_SUCCESS:
-      console.log('--> ACTIFS_CONSULTATION success MRS...', JSON.stringify(nextState) );
+      console.log('--> ACTIFS_CONSULTATION success MRS...');
+      // console.log('--> ACTIFS_CONSULTATION success MRS...', JSON.stringify(nextState));
       nextState.showProgress = false;
       nextState.errorMessage = null;
       nextState.rows = action.value.rapportService.ordreService;
       nextState.rows.dateDebut = nextState?.rows?.dateDebut?.substring(0, 10);
       nextState.rows.dateFin = nextState?.rows?.dateFin?.substring(0, 10);
+      nextState.rows.listAnimateurConferenceVo = action.value?.listAnimateurConferenceVo;
+      nextState.rows.rondesApparition = action.value?.rondesApparition;
       nextState.consultation = nextState.rows.rapportExiste;
       nextState.rondesApparition = action.value?.rondesApparition?.map((ronde) => {
         ronde.dateDebut = format(ronde.dateDebut),
@@ -86,6 +90,8 @@ export default (state = initialState, action) => {
       nextState.pvsSaisi = action.value.pvsSaisi;
       nextState.autreIncidents = action.value.autreIncidents;
       nextState.description = action.value.description;
+      nextState.themeConference = action.value?.themeConference;
+      
       
       console.log('typesIncidents---------------------------------------------------------- action.value.typesIncidents : ', action.value.typesIncident);
       let typesIncidents = '';

@@ -92,18 +92,9 @@ class ActifsRapportCreationRondesApparitionsTab extends React.Component {
     }
 
     componentDidMount = () => {
-        // console.log('=================================================================================');
-        // console.log('=================================================================================');
-        // console.log('=================================================================================');
-        // console.log(JSON.stringify(this.props.value?.rondesApparition));
-        // console.log(JSON.stringify(this.props.rondesApparition));
-        // console.log(JSON.stringify(this.props.consultation));
-        // console.log('=================================================================================');
-        // console.log('=================================================================================');
-        // console.log('=================================================================================');
 
         this.setState({
-            rondesApparitions: this.props.value?.rondesApparition ? this.props.value?.rondesApparition : [],
+            rondesApparitions: this.props.rows?.rondesApparition ? this.props.rows?.rondesApparition : [],
             modeConsultation: this.props.consultation,
         });
     }
@@ -248,7 +239,7 @@ class ActifsRapportCreationRondesApparitionsTab extends React.Component {
                         <ComBadrErrorMessageComp message={this.state.errorMessage} />
                     )}
                     <ComAccordionComp title={translate('actifsCreation.rondesApparitions.title')} expanded={true}>
-                        {!this.state.modeConsultation && (
+                        {!this.props.consultation && (
                             <View>
                                 <View style={CustomStyleSheet.row}>
                                     <Row style={CustomStyleSheet.whiteRow}>
@@ -386,17 +377,13 @@ class ActifsRapportCreationRondesApparitionsTab extends React.Component {
                         )}
                         <View style={CustomStyleSheet.row}>
                             <ComBasicDataTableComp
-                                // ref="_badrTable_789"
                                 id="RondesApparitionsTable"
-                                rows={this.state.rondesApparitions}
-                                //resultArrayMapping={this.props.data}
-                                //data={this.props}
+                                rows={this.props?.consultation ? this.props?.rows?.rondesApparition: this.state.rondesApparitions}
                                 cols={this.props.consultation ? this.colsConsultation : this.colsEdition}
                                 totalElements={this.state.rondesApparitions?.length}
                                 maxResultsPerPage={10}
                                 paginate={true}
                                 showProgress={this.props.showProgress}
-
                             />
                         </View>
                     </ComAccordionComp>
