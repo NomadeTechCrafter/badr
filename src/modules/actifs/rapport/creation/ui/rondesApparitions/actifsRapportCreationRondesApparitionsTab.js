@@ -134,8 +134,6 @@ class ActifsRapportCreationRondesApparitionsTab extends React.Component {
             errorMessage: null
         });
 
-        // let dateDebut = format(modele?.dateDebut);
-
         moment.suppressDeprecationWarnings = true;
         let dateHeureDebut = moment(modele?.dateDebut + ' ' + modele?.heureDebut, FORMAT_DDMMYYYY_HHMM);
         let dateHeureFin = moment(modele?.dateFin + ' ' + modele?.heureFin, FORMAT_DDMMYYYY_HHMM);

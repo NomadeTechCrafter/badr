@@ -61,3 +61,21 @@ export const ACTIFS_CONSULTATION_SUCCESS = '[ACTIFS] CONSULTATION_SUCCESS';
 export const ACTIFS_CONSULTATION_FAILED = '[ACTIFS] CONSULTATION_FAILED';
 export const ACTIFS_CONSULTATION_IN_PROGRESS = '[ACTIFS] CONSULTATION_IN_PROGRESS';
 export const ACTIFS_CONSULTATION_INIT = '[ACTIFS] CONSULTATION_INIT';
+
+export const qualites = [
+    {
+        code: '01', libelle: 'Chef de subdivision'
+    },
+    {
+        code: '02', libelle: 'Chef de brigade'
+    },
+    {
+        code: '03', libelle: 'Officier de contrôle'
+    },
+];
+
+export const status = [
+    { code: 'ENREGISTRE', libelle: 'Enregistrement' },
+    { code: 'MODIFIE', libelle: 'Modification' },
+];
+

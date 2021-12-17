@@ -10,10 +10,13 @@ import {
 import { connect } from 'react-redux';
 import {
   ComBadrAutoCompleteChipsComp,
+  ComBadrButtonIconComp,
   ComBadrCardBoxComp,
   ComBadrDatePickerComp,
   ComBadrErrorMessageComp,
   ComBadrInfoMessageComp,
+
+  ComBadrItemsPickerComp,
 
   ComBadrLibelleComp,
 
@@ -26,6 +29,7 @@ import {
   CustomStyleSheet,
   primaryColor
 } from '../../../../../../commons/styles/ComThemeStyle';
+import { qualites, status } from '../../state/actifsRapportCreationConstants';
 
 
 const screenHeight = Dimensions.get('window').height;
@@ -54,7 +58,7 @@ class AtifsRapportCreationDetailsTab extends Component {
         component: 'button',
         icon: 'delete-outline',
         action: (row, index) =>
-          this.deleteRow(row, index)
+          this.deleteAnimateur(row, index)
       }
     ];
     this.colsConsultation = [
@@ -81,10 +85,76 @@ class AtifsRapportCreationDetailsTab extends Component {
       selectedvalue: '',
       natureIncident: null,
       show: false,
+      nouveau: false,
+      listAnimateurConferenceVo: [],
+      currentAnimateur: {}
     };
   }
 
   componentDidMount() { }
+
+  nouveau() {
+    this.setState({ nouveau: true });
+  }
+
+  abandonner() {
+    this.setState({ nouveau: false });
+  }
+
+  addAnimateur = () => {
+    if (!this.checkRequiredFields()) {
+      listAnimateurConferenceVo
+    }
+  };
+
+
+  checkRequiredFieldsResultatCtrl = (params) => {
+    let modele = this.state.currentAnimateur;
+    if (_.isEmpty(modele.animateurConference.toString())) {
+      params.required = true;
+      params.msg += !_.isEmpty(params.msg) ? ", " : "";
+      params.msg += translate('actifsCreation.detail.animateurConference');
+    }
+    if (_.isEmpty(modele.qualiteAnimateur.toString())) {
+      params.required = true;
+      params.msg += !_.isEmpty(params.msg) ? ", " : "";
+      params.msg += translate('actifsCreation.detail.qualiteAnimateur');
+    }
+  }
+
+  checkRequiredFields = () => {
+    let params = { msg: '', required: false }
+    this.checkRequiredFieldsResultatCtrl(params);
+    if (params.required) {
+      let message = translate('actifsCreation.avionsPrivees.champsObligatoires') + params.msg;
+      this.setState({
+        errorMessage: message
+      });
+    } else {
+      this.setState({
+        errorMessage: null
+      });
+    }
+    return params.required;
+  }
+
+
+  deleteAnimateur = (row, index) => {
+    let listAnimateurConferenceVo = this.state.listAnimateurConferenceVo;
+    listAnimateurConferenceVo.splice(index, 1);
+    this.setState({ myArray: [...this.state.listAnimateurConferenceVo, listAnimateurConferenceVo] });
+    this.updateModele();
+  };
+
+  handleClearAnimateur = () => {
+    console.log(JSON.stringify(this.state));
+    this.setState(prevState => ({
+      currentAnimateur: {
+        ...prevState.currentAnimateur,
+      },
+    }))
+    this.updateModele();
+  };
 
   handleOnIncidentItemsChanged = (items) => {
     this.setState({ selectedItems: items });
@@ -93,16 +163,16 @@ class AtifsRapportCreationDetailsTab extends Component {
     this.setState({ typeIncident: items }, () => this.updateModele());
   };
 
-
   updateModele() {
-    // console.log('updateModele ----------------===> : ' + JSON.stringify(this.state));
+    console.log('updateModele ----------------===> : ' + JSON.stringify(this.state));
     return this.props.update({
       osAvecSaisie: this.state.osAvecSaisie,
       osAvecIncident: this.state.osAvecIncident,
       coiffeInitiePar: this.state.coiffeInitiePar,
       refAgentDetachement: this.state.refAgentDetachement,
       description: this.state.description,
-      themeConference: this.state.themeConference
+      themeConference: this.state.themeConference,
+      listAnimateurConferenceVo: this.state.listAnimateurConferenceVo,
     });
   }
   render() {
@@ -364,6 +434,119 @@ class AtifsRapportCreationDetailsTab extends Component {
                     />
                   </Col>
                 </Row>
+              )}
+
+              {(!this.props?.consultation && !this.state?.nouveau) && (
+                <Row>
+                  <Col size={40} />
+                  <Col size={20}>
+                    <ComBadrButtonIconComp
+                      onPress={() => this.nouveau()}
+                      icon="check"
+                      style={styles.buttonIcon}
+                      loading={this.props.showProgress}
+                      text={translate('transverse.nouveau')}
+                    />
+                  </Col>
+                  <Col size={40} />
+                </Row>
+              )}
+
+              {this.state?.nouveau && (
+
+
+                <View>
+                  <Row style={CustomStyleSheet.whiteRow}>
+                    <Col size={2}>
+                      <ComBadrLibelleComp style={{ paddingRight: 2 }}>
+                        {'Animateur de la conférence*'}
+                      </ComBadrLibelleComp>
+                    </Col>
+                    <Col size={2}>
+                      {(this.props.consultation &&
+                        <ComBadrAutoCompleteChipsComp
+                          code="code"
+                          disabled={true}
+                          selected={this.props?.rows?.refAgentDetachement?.libelle}
+                          maxItems={3}
+                          libelle="libelle"
+                          command="getCmbAgentDouanier"
+                          onDemand={true}
+                          searchZoneFirst={false}
+                        />
+                      )}
+                      {(!this.props.consultation &&
+                        <ComBadrAutoCompleteChipsComp
+                          code="code"
+                          selected={this.state?.refAgentDetachement}
+                          maxItems={3}
+                          libelle="libelle"
+                          command="getCmbAgentDouanier"
+                          onDemand={true}
+                          searchZoneFirst={false}
+                          onValueChange={(item) => {
+                            this.setState(prevState => ({
+                              ...prevState.refAgentDetachement,
+                              refAgentDetachement: item,
+                            }))
+                            this.updateModele();
+                          }
+                          }
+                        />
+                      )}
+                    </Col>
+                    <Col size={2}>
+                      <ComBadrLibelleComp>
+                        {'Qualité de l\'animateur*'}
+                      </ComBadrLibelleComp>
+                    </Col>
+                    <Col size={5}>
+                      <ComBadrItemsPickerComp
+                        style={CustomStyleSheet.column}
+                        label={translate('controleApresScanner.search.etatChargement.typeListe')}
+                        selectedValue={this.state.currentAnimateurCode ? this.state.currentAnimateurCode : ''}
+                        items={qualites}
+                        onValueChanged={(item) => {
+                          this.setState({
+                            currentAnimateurCode: item.code,
+                            currentAnimateur: item,
+                          })
+                          this.updateModele();
+                        }}
+                      />
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col size={10} />
+                    <Col size={50}>
+                      <ComBadrButtonIconComp
+                        onPress={() => this.addRondeApparition()}
+                        icon="check"
+                        style={styles.buttonIcon}
+                        loading={this.props.showProgress}
+                        text={translate('transverse.confirmer')}
+                        compact={this.state.modeConsultation}
+                      />
+                    </Col>
+                    <Col size={50}>
+                      <ComBadrButtonIconComp
+                        onPress={() => this.handleClear()}
+                        icon="autorenew"
+                        style={styles.buttonIcon}
+                        text={translate('transverse.retablir')}
+                      />
+                    </Col>
+                    <Col size={50}>
+                      <ComBadrButtonIconComp
+                        onPress={() => this.abandonner()}
+                        // icon="remove"
+                        style={styles.buttonIcon}
+                        text={translate('transverse.abandonner')}
+                      />
+                    </Col>
+                    <Col size={10} />
+                  </Row>
+                </View>
               )}
 
 

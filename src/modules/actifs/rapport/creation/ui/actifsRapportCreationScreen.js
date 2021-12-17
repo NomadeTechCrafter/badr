@@ -172,7 +172,7 @@ class ActifsRapportCreationScreen extends Component {
   }
 
   updateDetailsValue = (val) => {
-    console.log('val 5:', val);
+    // console.log('val 5:', val);
     this.setState({
       description: val.description,
       osAvecSaisie: val.osAvecSaisie,
