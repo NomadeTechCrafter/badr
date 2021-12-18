@@ -49,7 +49,7 @@ class AtifsRapportCreationSaisieTab extends Component {
       natureMarchandise: '',
       valeur: '',
       autreMarque: '',
-      natureVehicule: '',
+      natureVehicule: null,
       libelle: '',
       valeurMTS: '',
       dateText: 'jj/mm/aaaa',
@@ -381,7 +381,7 @@ class AtifsRapportCreationSaisieTab extends Component {
         <Row style={CustomStyleSheet.whiteRow} key={index}>
           <Col size={2} />
           <Col size={2}>
-            <ComBadrLibelleComp>{item.natureVehicule.libelle}</ComBadrLibelleComp>
+            <ComBadrLibelleComp>{item.natureVehicule?.libelle}</ComBadrLibelleComp>
           </Col>
           <Col size={2}>
             <ComBadrLibelleComp>{item.libelle}</ComBadrLibelleComp>
@@ -397,13 +397,6 @@ class AtifsRapportCreationSaisieTab extends Component {
 
 
   update() {
-    console.log('============================== SAISIE ===================================================');
-    console.log('============================== SAISIE ===================================================');
-    console.log('============================== SAISIE ===================================================');
-    console.log((this.state));
-    console.log('============================== SAISIE ===================================================');
-    console.log('============================== SAISIE ===================================================');
-    console.log('============================== SAISIE ===================================================');
 
     this.props.update({
       vehiculesSaisiVO: this.state.dataMTS,

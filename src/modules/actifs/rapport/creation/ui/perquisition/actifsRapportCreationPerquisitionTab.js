@@ -602,7 +602,7 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
                                 </Col>
                             </DedRedressementRow>
                         )}
-                        
+
                         {(!this.props?.consultation &&
                             <DedRedressementRow>
                                 <Col size={30} style={style.labelContainer}>
@@ -726,12 +726,18 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
                     <ComAccordionComp title={translate('actifsCreation.perquisition.resultatPerquisition')} expanded={true}>
                         <View style={CustomStyleSheet.row}>
 
-                            <RadioButton.Group onValueChange={(text) => this.setState(prevState => ({
-                                gibPerquisition: {
-                                    ...prevState.gibPerquisition,
-                                    resultatPerquisition: text,
+                            <RadioButton.Group
+                                onValueChange={(text) => {
+                                    this.setState({
+                                        gibPerquisition: {
+                                            ...this.state?.gibPerquisition,
+                                            resultatPerquisition: text,
+                                        },
+                                    });
+                                    this.update();
                                 }
-                            }))} value={this.state.gibPerquisition?.resultatPerquisition + ''}>
+                                }
+                                value={this.state.gibPerquisition?.resultatPerquisition + ''}>
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
                                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                         <Text>{translate('actifsCreation.perquisition.positif')}</Text>

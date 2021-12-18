@@ -10,6 +10,7 @@ import {
   ComBadrToolbarComp,
   ComBadrNumericTextInputComp,
   ComBadrLibelleComp,
+  ComBasicDataTableComp,
 } from '../../../../../commons/component';
 import moment from 'moment';
 
@@ -238,6 +239,7 @@ class ActifsRapportRechercheScreen extends Component {
     if (this.props.value && this.props.value.jsonVO) {
       rows = this.props.value.jsonVO;
     }
+    console.log('---------- rows ---------------> : ' + JSON.stringify(rows));
 
     return (
       <View style={CustomStyleSheet.fullContainer}>
@@ -371,8 +373,8 @@ class ActifsRapportRechercheScreen extends Component {
             />
           </View>
 
-          <View>
-            {(rows && rows.length > 0) && (
+          {(rows && rows.length > 0) && (
+            <View>
               <ScrollView
                 ref="_horizontalScrollView"
                 key="horizontalScrollView"
@@ -389,7 +391,7 @@ class ActifsRapportRechercheScreen extends Component {
                     {/* {console.log('rows recherche ......', rows)} */}
                     {rows && rows.length > 0
                       ? (this.state.paginate
-                        ? _(rows).slice(this.state.offset).take(5).value()
+                        ? _(rows).slice(this.state.offset).take(100).value()
                         : rows
                       ).map((row, index) => (
                         <DataTable.Row
@@ -411,8 +413,8 @@ class ActifsRapportRechercheScreen extends Component {
                   </DataTable>
                 </ScrollView>
               </ScrollView>
-            )}
-          </View>
+            </View>
+          )}
         </ComContainerComp>
       </View>
     );

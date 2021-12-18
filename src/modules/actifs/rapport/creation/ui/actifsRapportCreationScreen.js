@@ -86,24 +86,9 @@ class ActifsRapportCreationScreen extends Component {
       refAgentDetachement: null,
       rows: '',
     };
-    // console.log('this.props.===========');
-    // console.log(JSON.stringify(this.props));
   }
 
   componentDidMount = () => {
-    // console.log('this.props.===========>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
-    // console.log('this.props.===========>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
-    // console.log('this.props.===========>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
-    // console.log('this.props.===========>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
-    // console.log('this.props.===========>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
-    // console.log('this.props.===========>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
-    // console.log(JSON.stringify(this.props));
-    // console.log('this.props.===========>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
-    // console.log('this.props.===========>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
-    // console.log('this.props.===========>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
-    // console.log('this.props.===========>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
-    // console.log('this.props.===========>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
-    // console.log('this.props.===========>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
     this.unsubscribe = this.props.navigation.addListener('focus', () => {
       this.state = {
         consultation: this.props.route.params ? this.props.route.params.consultation : {},
@@ -172,14 +157,15 @@ class ActifsRapportCreationScreen extends Component {
   }
 
   updateDetailsValue = (val) => {
-    // console.log('val 5:', val);
+    console.log('val 5:', val);
     this.setState({
       description: val.description,
       osAvecSaisie: val.osAvecSaisie,
       osAvecIncident: val.osAvecIncident,
       coiffeInitiePar: val.coiffeInitiePar,
       refAgentDetachement: val.refAgentDetachement,
-      themeConference: val.themeConference
+      themeConference: val.themeConference,
+      listAnimateurConferenceVo: val.listAnimateurConferenceVo,
     });
 
   }
@@ -274,6 +260,8 @@ class ActifsRapportCreationScreen extends Component {
       coiffeInitiePar: this.state.coiffeInitiePar,
       refAgentDetachement: this.state.refAgentDetachement,
       themeConference: this.state.themeConference,
+      listAnimateurConferenceVo: this.state.listAnimateurConferenceVo,
+      
 
       disableFields: null,
       heureFin: (this.state?.heureFin) ? this.state.heureFin : this.props.route?.params?.row?.heureFin, //yess entete
@@ -389,13 +377,6 @@ class ActifsRapportCreationScreen extends Component {
               }}
               text={translate('transverse.enregistrer')}
             />
-            //     <IconButton
-            //   icon="content-save-outline"
-            //   size={30}
-            //   color={primaryColor}
-            //   style={{ backgroundColor: 'white' }}
-            //   onPress={() => this.Enregister()}
-            // />
           }
           {(!this.props.consultation) &&
             <ComBadrButtonComp
@@ -405,13 +386,6 @@ class ActifsRapportCreationScreen extends Component {
               }}
               text={translate('transverse.sauvegarder')}
             />
-            //   <IconButton
-            // icon="content-save-outline"
-            // size={30}
-            // color={primaryColor}
-            // style={{ backgroundColor: 'white' }}
-            // onPress={() => this.sauvegarderRS()}
-            // />
           }
         </ComBadrToolbarComp>
         {this.props.showProgress && (

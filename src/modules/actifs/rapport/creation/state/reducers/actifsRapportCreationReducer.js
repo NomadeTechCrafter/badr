@@ -15,7 +15,7 @@ export default (state = initialState, action) => {
   };
   // console.log("actifsRapportCreationReducer action.type : " + action.type);
   // console.log("actifsRapportCreationReducer action.value : " + JSON.stringify(action) )
-  
+
   switch (action.type) {
     case Constants.ACTIFS_ENTETE_REQUEST:
       nextState.showProgress = true;
@@ -63,13 +63,17 @@ export default (state = initialState, action) => {
       return nextState;
     case Constants.ACTIFS_CONSULTATION_SUCCESS:
       console.log('--> ACTIFS_CONSULTATION success MRS...');
-      // console.log('--> ACTIFS_CONSULTATION success MRS...', JSON.stringify(nextState));
+      console.log('--> ACTIFS_CONSULTATION success MRS...', JSON.stringify(action.value));
       nextState.showProgress = false;
       nextState.errorMessage = null;
       nextState.rows = action.value.rapportService.ordreService;
       nextState.rows.dateDebut = nextState?.rows?.dateDebut?.substring(0, 10);
       nextState.rows.dateFin = nextState?.rows?.dateFin?.substring(0, 10);
       nextState.rows.listAnimateurConferenceVo = action.value?.listAnimateurConferenceVo;
+      nextState.rows.osAvecSaisie = action.value?.osAvecSaisie;
+      nextState.rows.osAvecIncident = action.value?.osAvecIncident;
+      nextState.rows.coiffeInitiePar = action.value?.coiffeInitiePar;
+      nextState.rows.refAgentDetachement = action.value?.refAgentDetachement;
       nextState.rows.rondesApparition = action.value?.rondesApparition;
       nextState.consultation = nextState.rows.rapportExiste;
       nextState.rondesApparition = action.value?.rondesApparition?.map((ronde) => {
@@ -78,7 +82,7 @@ export default (state = initialState, action) => {
       });
       nextState.gibPerquisition = action.value?.gibPerquisition;
       nextState.navigationsAeriennes = (action.value.navigationsAeriennes) ? (action.value.navigationsAeriennes) : [];
-      nextState.navigationsMaritimes = (action.value.navigationsMaritimes) ? (action.value.navigationsMaritimes):[];
+      nextState.navigationsMaritimes = (action.value.navigationsMaritimes) ? (action.value.navigationsMaritimes) : [];
       nextState.navigationMaritimeModel = getNavigationMaritimeModelInitial();
       nextState.navigationAerienneModel = getNavigationAerienneModelInitial();
       nextState.rapportExiste = nextState.rows.rapportExiste;
@@ -91,8 +95,8 @@ export default (state = initialState, action) => {
       nextState.autreIncidents = action.value.autreIncidents;
       nextState.description = action.value.description;
       nextState.themeConference = action.value?.themeConference;
-      
-      
+
+
       console.log('typesIncidents---------------------------------------------------------- action.value.typesIncidents : ', action.value.typesIncident);
       let typesIncidents = '';
       if (action.value && action.value.typesIncident) {
