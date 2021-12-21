@@ -61,13 +61,6 @@ const mapping = {
   '823': {screen: 'RefPlaquesImm', params: {}},
   '14000010': { screen: 'CreerCompteRenduMission', params: {} },
   '9932': { screen: 'ActifsRecherche', params: {} },
-  
-    /*
-  '3064': { screen: 'controleRechercheDumScreen', params: { typeControle: 'AC' } },
-  '3072': { screen: 'controleRechercheDumScreen', params: { typeControle: 'RI' } },
-  '3086': { screen: 'controleRechercheDumScreen', params: { typeControle: 'TR' } },
-  '5971': {screen: 'RechecheMLV', params: {}},
-  '5202': {screen: 'LiquidationRechercheScreen', params: {qr: false}},
   '1201': {
     screen: 'RechercheEcorImport',
     params: { typeEcorImport: 'EnleverMarchandise' },
@@ -85,6 +78,13 @@ const mapping = {
     params: { typeEcorImport: 'VerifierParContreEcor' },
   },
 
+  
+    /*
+  '3064': { screen: 'controleRechercheDumScreen', params: { typeControle: 'AC' } },
+  '3072': { screen: 'controleRechercheDumScreen', params: { typeControle: 'RI' } },
+  '3086': { screen: 'controleRechercheDumScreen', params: { typeControle: 'TR' } },
+  '5971': {screen: 'RechecheMLV', params: {}},
+  '5202': {screen: 'LiquidationRechercheScreen', params: {qr: false}},
   '110001': {screen: 'T6bisCreation', params: {}},
   '110002': {
     screen: 'T6bisRecherche',

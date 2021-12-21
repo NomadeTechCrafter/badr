@@ -1,5 +1,5 @@
 import * as Constants from '../enqCompteRenduConstants';
-import {translate} from '../../../../../commons/i18n/ComI18nHelper';
+import { translate } from '../../../../../commons/i18n/ComI18nHelper';
 
 const initialState = {
     showProgress: false,
@@ -104,7 +104,7 @@ export default (state = initialState, action) => {
                 nextState.showResults = true;
                 nextState.data.search.results = action.value;
             }
-
+            // console.log('nextState----------------------------- enqueutes --> ' + JSON.stringify(nextState));
             return nextState;
         case Constants.SEARCH_COMPTE_RENDU_FAILED:
             nextState.showProgress = false;

@@ -38,7 +38,7 @@ class Login extends React.Component {
       arrondissement: '309',
       profiles: [
         // "0", "AAMAX", "AB", "PRO TEST",
-        "ACTIFS_AD", "ACTIFS"// , "ALL"
+        "ACTIFS_AD", "ACTIFS" , "ALL"
       //   "AR", "ADMINBV",
       //   "ADMSELCOT", "ADT", "AGBRIGADE", "AGDP", "AGENTD", "AGECOR", "AGENT_TEST", "AV",
         // "AG_VISIT", "AGLACI", "ALLPROFIL", "ALL", "ALLPRO", "A123", "AMAL2015", "AMAL-PRO",
