@@ -9,6 +9,7 @@ import DocumentPicker from 'react-native-document-picker';
 import FileViewer from 'react-native-file-viewer';
 import {
     ComAccordionComp,
+    ComBadrAutoCompleteChipsComp,
     ComBadrAutoCompleteComp,
     ComBadrErrorMessageComp,
     ComBadrInfoMessageComp,
@@ -101,7 +102,7 @@ class EnqCompteRenduCoreComponent extends React.Component {
                 width: 235,
             },
             {
-                code: 'uniteMesure.codeUniteMesure',
+                code: 'uniteMesure.descriptionUniteMesure',
                 libelle: translate('enquetes.compteRenduMission.core.saisieMarchandises.uniteMesure'),
                 width: 235,
             },
@@ -248,6 +249,13 @@ class EnqCompteRenduCoreComponent extends React.Component {
             this.state.enqueteVo.refMissionSelected.refCompteRenduMission.marchandiseList.push(this.state.marchandiseVo);
             this.resetMarchandise();
         }
+        console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+        console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+        console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+        console.log(JSON.stringify(this.state.enqueteVo.refMissionSelected.refCompteRenduMission.marchandiseList));
+        console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+        console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+        console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
     };
 
     removeMarchandise = (marchandise) => {
@@ -265,7 +273,7 @@ class EnqCompteRenduCoreComponent extends React.Component {
     };
 
     resetMarchandise = () => {
-        this.natureMarchandiseInput.clearInput();
+        // this.natureMarchandiseInput.clearInput();
 
         if (this.state.isActive.autre) {
             this.autreInput.clear();
@@ -757,7 +765,7 @@ class EnqCompteRenduCoreComponent extends React.Component {
                                                         </Text>
                                                     </Col>
 
-                                                    <Col size={20}>
+                                                    <Col size={30}>
                                                         {this.state.isActive.autre && (
                                                             <TextInput
                                                                 mode="outlined"
@@ -767,23 +775,27 @@ class EnqCompteRenduCoreComponent extends React.Component {
                                                         )}
 
                                                         {!this.state.isActive.autre && (
-                                                            <ComBadrAutoCompleteComp
-                                                                onRef={ref => (this.natureMarchandiseInput = ref)}
-                                                                key="natureMarchandiseInput"
-                                                                placeholder={translate('enquetes.compteRenduMission.core.saisieMarchandises.natureMarchandise')}
-                                                                handleSelectItem={(item, id) =>
+                                                            <ComBadrAutoCompleteChipsComp
+                                                                code="code"
+                                                                selected={this.state?.marchandiseVo?.marque}
+                                                                maxItems={3}
+                                                                libelle="libelle"
+                                                                module="ENQ_LIB"
+                                                                command="autocompleteNatureMarchandise"
+                                                                onDemand={true}
+                                                                searchZoneFirst={false}
+                                                                onValueChange={(item, id) =>
                                                                     this.setState({
                                                                         ...this.state,
                                                                         marchandiseVo: {
                                                                             ...this.state.marchandiseVo,
                                                                             marque: {
-                                                                                code: item.code,
-                                                                                libelle: item.libelle,
+                                                                                code: item?.code,
+                                                                                libelle: item?.libelle
                                                                             },
                                                                         },
                                                                     })
                                                                 }
-                                                                command="autocompleteNatureMarchandise"
                                                             />
                                                         )}
                                                     </Col>
@@ -857,7 +869,8 @@ class EnqCompteRenduCoreComponent extends React.Component {
                                                                 marchandiseVo: {
                                                                     ...this.state.marchandiseVo,
                                                                     uniteMesure: {
-                                                                        codeUniteMesure: value,
+                                                                        codeUniteMesure: value.code,
+                                                                        descriptionUniteMesure: value.libelle,
                                                                     },
                                                                 },
                                                             })}

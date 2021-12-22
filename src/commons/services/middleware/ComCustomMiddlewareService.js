@@ -20,7 +20,7 @@ export const comCustomMiddlewareService = (store) => (next) => (action) => {
       console.log('error.request', error.request);
     } else {
       // Something happened in setting up the request that triggered an Error
-      console.log('Error', error.message);
+      console.log('Error from ComCustomMiddlewareService : ', error.message);
     }
     sendCrash(error);
   }
