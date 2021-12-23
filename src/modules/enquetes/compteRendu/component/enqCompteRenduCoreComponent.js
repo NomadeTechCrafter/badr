@@ -1,14 +1,15 @@
 import React from 'react';
 
-import {FlatList, SafeAreaView, ScrollView, Text, TouchableOpacity, View} from 'react-native';
+import { FlatList, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import CheckBox from '@react-native-community/checkbox';
-import {Button} from 'react-native-elements';
-import {TextInput} from 'react-native-paper';
-import {Col, Grid, Row} from 'react-native-easy-grid';
+import { Button } from 'react-native-elements';
+import { TextInput } from 'react-native-paper';
+import { Col, Grid, Row } from 'react-native-easy-grid';
 import DocumentPicker from 'react-native-document-picker';
 import FileViewer from 'react-native-file-viewer';
 import {
     ComAccordionComp,
+    ComBadrAutoCompleteChipsComp,
     ComBadrAutoCompleteComp,
     ComBadrErrorMessageComp,
     ComBadrInfoMessageComp,
@@ -17,8 +18,8 @@ import {
     ComBasicDataTableComp,
 } from '../../../../commons/component';
 
-import {connect} from 'react-redux';
-import {translate} from '../../../../commons/i18n/ComI18nHelper';
+import { connect } from 'react-redux';
+import { translate } from '../../../../commons/i18n/ComI18nHelper';
 import style from '../style/enqCompteRenduStyle';
 
 import * as Constants from '../state/enqCompteRenduConstants';
@@ -26,6 +27,7 @@ import * as Constants from '../state/enqCompteRenduConstants';
 import * as EnqCompteRenduInitAction from '../state/actions/enqCompteRenduInitAction';
 import * as EnqCompteRenduConfirmAction from '../state/actions/enqCompteRenduConfirmAction';
 import * as EnqCompteRenduSearchAction from '../state/actions/enqCompteRenduSearchAction';
+import _ from 'lodash';
 
 let RNFS = require('react-native-fs');
 
@@ -61,6 +63,7 @@ class EnqCompteRenduCoreComponent extends React.Component {
         let uor = this.props.enqueteVo.referenceEnquete.slice(0, 3);
         let annee = this.props.enqueteVo.referenceEnquete.slice(3, 7);
         let serie = this.props.enqueteVo.referenceEnquete.slice(7, 14);
+        let etat = this.props?.enqueteVo?.refMissionSelected?.refCompteRenduMission?.etatCompteRendu;
         let type = 'Mission';
         let numeroMission = this.props.enqueteVo.refMissionSelected.numOrdre;
 
@@ -70,6 +73,7 @@ class EnqCompteRenduCoreComponent extends React.Component {
             uor: uor,
             annee: annee,
             serie: serie,
+            etat: etat,
             type: type,
             numeroMission: numeroMission,
             enqueteVo: this.props.enqueteVo,
@@ -98,7 +102,7 @@ class EnqCompteRenduCoreComponent extends React.Component {
                 width: 235,
             },
             {
-                code: 'uniteMesure.codeUniteMesure',
+                code: 'uniteMesure.descriptionUniteMesure',
                 libelle: translate('enquetes.compteRenduMission.core.saisieMarchandises.uniteMesure'),
                 width: 235,
             },
@@ -159,7 +163,7 @@ class EnqCompteRenduCoreComponent extends React.Component {
     buildDocumentAnnexeTableColumns = () => {
         let documentAnnexeTableColumns = [
             {
-                code: 'idDocannnexe',
+                code: 'idToShow',
                 libelle: translate('enquetes.compteRenduMission.core.documentsAnnexes.numero'),
                 width: 300,
             },
@@ -192,7 +196,32 @@ class EnqCompteRenduCoreComponent extends React.Component {
         return documentAnnexeTableColumns;
     };
 
+    deleteIdToShowFromDocument(document) {
+        delete document.idToShow;
+        let newDocument = document;
+        return newDocument;
+    }
+
     confirm = () => {
+        this.state?.enqueteVo?.refMissionSelected?.refCompteRenduMission?.docList.map((document, index) => this.deleteIdToShowFromDocument(document));
+
+
+        if ('validate' === this.props.mode) {
+            if (_.isEmpty(this.state.enqueteVo.refMissionSelected.refCompteRenduMission.commentaire)) {
+                this.setState({
+                    ...this.state,
+                    errorMessage: 'E00596 Commentaire: Valeur obligatoire.',
+                });
+
+                return;
+            } else {
+                this.setState({
+                    ...this.state,
+                    errorMessage: '',
+                });
+            }
+
+        }
         let action = EnqCompteRenduConfirmAction.request(
             {
                 type: Constants.CONFIRM_COMPTE_RENDU_REQUEST,
@@ -220,6 +249,13 @@ class EnqCompteRenduCoreComponent extends React.Component {
             this.state.enqueteVo.refMissionSelected.refCompteRenduMission.marchandiseList.push(this.state.marchandiseVo);
             this.resetMarchandise();
         }
+        console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+        console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+        console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+        console.log(JSON.stringify(this.state.enqueteVo.refMissionSelected.refCompteRenduMission.marchandiseList));
+        console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+        console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+        console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
     };
 
     removeMarchandise = (marchandise) => {
@@ -237,7 +273,7 @@ class EnqCompteRenduCoreComponent extends React.Component {
     };
 
     resetMarchandise = () => {
-        this.natureMarchandiseInput.clearInput();
+        // this.natureMarchandiseInput.clearInput();
 
         if (this.state.isActive.autre) {
             this.autreInput.clear();
@@ -351,9 +387,11 @@ class EnqCompteRenduCoreComponent extends React.Component {
                 type: [DocumentPicker.types.pdf],
                 readContent: true,
             });
-
+            const docList = this.state?.enqueteVo?.refMissionSelected?.refCompteRenduMission?.docList;
+            const newIdDocAnnexe = docList?.length ? docList?.length + 1 : 1;
+            console.log(JSON.stringify(newIdDocAnnexe));
             this.state.enqueteVo.refMissionSelected.refCompteRenduMission.docList.push({
-                idDocannnexe: null,
+                idDocannnexe: newIdDocAnnexe,
                 urlDoc: result.name,
                 size: null,
                 content: await RNFS.readFile(result.uri, 'base64'),
@@ -386,37 +424,48 @@ class EnqCompteRenduCoreComponent extends React.Component {
         }
     };
 
-    renderBoxItem = ({item}) => {
+    renderBoxItem = ({ item }) => {
         const itemStyle = item.reference === this.state.selectedScelle ? style.selectedBoxItem : style.boxItem;
         const itemTextStyle = item.reference === this.state.selectedScelle ? style.selectedBoxItemText : style.boxItemText;
 
         return (
             <View style={itemStyle}>
                 <TouchableOpacity disabled={this.state.readonly}
-                                  onPress={() => this.setState({
-                                      ...this.state,
-                                      selectedScelle: item.reference,
-                                  })}>
+                    onPress={() => this.setState({
+                        ...this.state,
+                        selectedScelle: item.reference,
+                    })}>
                     <Text style={itemTextStyle}>{item.reference}</Text>
                 </TouchableOpacity>
             </View>
         );
     };
 
+    transformDocument(document, index) {
+        document.idToShow = index + 1;
+        let newDocument = document;
+        return newDocument;
+    }
+
     render() {
+        let filtredDocList = this.state?.enqueteVo?.refMissionSelected?.refCompteRenduMission?.docList.map((document, index) => this.transformDocument(document, index));
         return (
             <ScrollView style={style.innerContainer}
-                        keyboardShouldPersistTaps={(this.state.autocompleteDropdownOpen || Platform.OS === 'android') ? 'always' : 'never'}>
+                keyboardShouldPersistTaps={(this.state.autocompleteDropdownOpen || Platform.OS === 'android') ? 'always' : 'never'}>
                 {this.props.showProgress && (
-                    <ComBadrProgressBarComp/>
+                    <ComBadrProgressBarComp />
                 )}
 
                 {this.props.infoMessage != null && (
-                    <ComBadrInfoMessageComp message={this.props.infoMessage}/>
+                    <ComBadrInfoMessageComp message={this.props.infoMessage} />
                 )}
 
                 {this.props.errorMessage != null && (
-                    <ComBadrErrorMessageComp message={this.props.errorMessage}/>
+                    <ComBadrErrorMessageComp message={this.props.errorMessage} />
+                )}
+
+                {this.state.errorMessage != null && (
+                    <ComBadrErrorMessageComp message={this.state.errorMessage} />
                 )}
 
                 {!this.props.showProgress && (
@@ -452,6 +501,12 @@ class EnqCompteRenduCoreComponent extends React.Component {
                                         {translate('enquetes.compteRenduMission.core.generic.numeroMission')}
                                     </Text>
                                 </Col>
+
+                                <Col>
+                                    <Text style={style.referenceTitleLabel}>
+                                        {translate('at.statut')}
+                                    </Text>
+                                </Col>
                             </Row>
 
                             <Row style={style.referenceValues}>
@@ -482,6 +537,12 @@ class EnqCompteRenduCoreComponent extends React.Component {
                                 <Col>
                                     <Text style={style.referenceValueLabel}>
                                         {this.state.numeroMission}
+                                    </Text>
+                                </Col>
+
+                                <Col>
+                                    <Text style={style.referenceValueLabel}>
+                                        {this.state.etat}
                                     </Text>
                                 </Col>
                             </Row>
@@ -578,7 +639,7 @@ class EnqCompteRenduCoreComponent extends React.Component {
                                         </Text>
                                     </Col>
 
-                                    <Col size={20}/>
+                                    <Col size={20} />
 
                                     <Col size={3} style={style.checkboxContainer}>
                                         <CheckBox
@@ -600,7 +661,7 @@ class EnqCompteRenduCoreComponent extends React.Component {
                                         </Text>
                                     </Col>
 
-                                    <Col size={20}/>
+                                    <Col size={20} />
 
                                     <Col size={3} style={style.checkboxContainer}>
                                         <CheckBox
@@ -644,7 +705,7 @@ class EnqCompteRenduCoreComponent extends React.Component {
                                         </Text>
                                     </Col>
 
-                                    <Col size={20}/>
+                                    <Col size={20} />
 
                                     <Col size={3} style={style.checkboxContainer}>
                                         <CheckBox
@@ -666,7 +727,7 @@ class EnqCompteRenduCoreComponent extends React.Component {
                                         </Text>
                                     </Col>
 
-                                    <Col size={20}/>
+                                    <Col size={20} />
 
                                     <Col size={3} style={style.checkboxContainer}>
                                         <CheckBox
@@ -704,7 +765,7 @@ class EnqCompteRenduCoreComponent extends React.Component {
                                                         </Text>
                                                     </Col>
 
-                                                    <Col size={20}>
+                                                    <Col size={30}>
                                                         {this.state.isActive.autre && (
                                                             <TextInput
                                                                 mode="outlined"
@@ -714,28 +775,32 @@ class EnqCompteRenduCoreComponent extends React.Component {
                                                         )}
 
                                                         {!this.state.isActive.autre && (
-                                                            <ComBadrAutoCompleteComp
-                                                                onRef={ref => (this.natureMarchandiseInput = ref)}
-                                                                key="natureMarchandiseInput"
-                                                                placeholder={translate('enquetes.compteRenduMission.core.saisieMarchandises.natureMarchandise')}
-                                                                handleSelectItem={(item, id) =>
+                                                            <ComBadrAutoCompleteChipsComp
+                                                                code="code"
+                                                                selected={this.state?.marchandiseVo?.marque}
+                                                                maxItems={3}
+                                                                libelle="libelle"
+                                                                module="ENQ_LIB"
+                                                                command="autocompleteNatureMarchandise"
+                                                                onDemand={true}
+                                                                searchZoneFirst={false}
+                                                                onValueChange={(item, id) =>
                                                                     this.setState({
                                                                         ...this.state,
                                                                         marchandiseVo: {
                                                                             ...this.state.marchandiseVo,
                                                                             marque: {
-                                                                                code: item.code,
-                                                                                libelle: item.libelle,
+                                                                                code: item?.code,
+                                                                                libelle: item?.libelle
                                                                             },
                                                                         },
                                                                     })
                                                                 }
-                                                                command="autocompleteNatureMarchandise"
                                                             />
                                                         )}
                                                     </Col>
 
-                                                    <Col size={5}/>
+                                                    <Col size={5} />
 
                                                     <Col size={10} style={style.labelContainer}>
                                                         <Button
@@ -754,10 +819,10 @@ class EnqCompteRenduCoreComponent extends React.Component {
                                                                         autreMarque: null,
                                                                     },
                                                                 });
-                                                            }}/>
+                                                            }} />
                                                     </Col>
 
-                                                    <Col size={5}/>
+                                                    <Col size={5} />
 
                                                     {this.state.isActive.autre && (
                                                         <Col size={20}>
@@ -779,11 +844,11 @@ class EnqCompteRenduCoreComponent extends React.Component {
                                                     )}
 
                                                     {this.state.isActive.autre && (
-                                                        <Col size={20}/>
+                                                        <Col size={20} />
                                                     )}
 
                                                     {!this.state.isActive.autre && (
-                                                        <Col size={40}/>
+                                                        <Col size={40} />
                                                     )}
                                                 </Row>
 
@@ -804,14 +869,15 @@ class EnqCompteRenduCoreComponent extends React.Component {
                                                                 marchandiseVo: {
                                                                     ...this.state.marchandiseVo,
                                                                     uniteMesure: {
-                                                                        codeUniteMesure: value,
+                                                                        codeUniteMesure: value.code,
+                                                                        descriptionUniteMesure: value.libelle,
                                                                     },
                                                                 },
                                                             })}
                                                         />
                                                     </Col>
 
-                                                    <Col size={10}/>
+                                                    <Col size={10} />
 
                                                     <Col size={20} style={style.labelContainer}>
                                                         <Text style={style.labelTextStyle}>
@@ -840,7 +906,7 @@ class EnqCompteRenduCoreComponent extends React.Component {
                                                         />
                                                     </Col>
 
-                                                    <Col size={10}/>
+                                                    <Col size={10} />
                                                 </Row>
 
                                                 <Row size={100}>
@@ -871,31 +937,31 @@ class EnqCompteRenduCoreComponent extends React.Component {
                                                         />
                                                     </Col>
 
-                                                    <Col size={60}/>
+                                                    <Col size={60} />
                                                 </Row>
 
                                                 <Row size={100}>
-                                                    <Col size={25}/>
+                                                    <Col size={25} />
 
                                                     <Col size={20}>
                                                         <Button
                                                             title={translate('transverse.confirmer')}
                                                             type={'solid'}
                                                             buttonStyle={style.buttonAction}
-                                                            onPress={() => this.addMarchandise()}/>
+                                                            onPress={() => this.addMarchandise()} />
                                                     </Col>
 
-                                                    <Col size={2}/>
+                                                    <Col size={2} />
 
                                                     <Col size={20}>
                                                         <Button
                                                             title={translate('transverse.retablir')}
                                                             type={'solid'}
                                                             buttonStyle={style.buttonAction}
-                                                            onPress={() => this.resetMarchandise()}/>
+                                                            onPress={() => this.resetMarchandise()} />
                                                     </Col>
 
-                                                    <Col size={25}/>
+                                                    <Col size={25} />
                                                 </Row>
                                             </View>
                                         )}
@@ -950,7 +1016,7 @@ class EnqCompteRenduCoreComponent extends React.Component {
                                                         />
                                                     </Col>
 
-                                                    <Col size={10}/>
+                                                    <Col size={10} />
 
                                                     <Col size={20} style={style.labelContainer}>
                                                         <Text style={style.labelTextStyle}>
@@ -977,7 +1043,7 @@ class EnqCompteRenduCoreComponent extends React.Component {
                                                         />
                                                     </Col>
 
-                                                    <Col size={10}/>
+                                                    <Col size={10} />
                                                 </Row>
 
                                                 <Row size={100}>
@@ -1008,31 +1074,31 @@ class EnqCompteRenduCoreComponent extends React.Component {
                                                         />
                                                     </Col>
 
-                                                    <Col size={60}/>
+                                                    <Col size={60} />
                                                 </Row>
 
                                                 <Row size={100}>
-                                                    <Col size={25}/>
+                                                    <Col size={25} />
 
                                                     <Col size={20}>
                                                         <Button
                                                             title={translate('transverse.confirmer')}
                                                             type={'solid'}
                                                             buttonStyle={style.buttonAction}
-                                                            onPress={() => this.addVehicule()}/>
+                                                            onPress={() => this.addVehicule()} />
                                                     </Col>
 
-                                                    <Col size={2}/>
+                                                    <Col size={2} />
 
                                                     <Col size={20}>
                                                         <Button
                                                             title={translate('transverse.retablir')}
                                                             type={'solid'}
                                                             buttonStyle={style.buttonAction}
-                                                            onPress={() => this.resetVehicule()}/>
+                                                            onPress={() => this.resetVehicule()} />
                                                     </Col>
 
-                                                    <Col size={25}/>
+                                                    <Col size={25} />
                                                 </Row>
                                             </View>
                                         )}
@@ -1091,7 +1157,7 @@ class EnqCompteRenduCoreComponent extends React.Component {
 
                                             <Col size={10} style={style.labelContainer}>
                                                 <TouchableOpacity style={style.touchableArrow}
-                                                                  disabled={this.props.readonly}>
+                                                    disabled={this.props.readonly}>
                                                     <Button
                                                         type={'outline'}
                                                         icon={{
@@ -1105,7 +1171,7 @@ class EnqCompteRenduCoreComponent extends React.Component {
                                                 </TouchableOpacity>
 
                                                 <TouchableOpacity style={style.touchableArrow}
-                                                                  disabled={this.props.readonly}>
+                                                    disabled={this.props.readonly}>
                                                     <Button
                                                         type={'outline'}
                                                         icon={{
@@ -1221,27 +1287,27 @@ class EnqCompteRenduCoreComponent extends React.Component {
                                                 onRef={(ref) => (this.documentAnnexeTable = ref)}
                                                 id="documentAnnexeTable"
                                                 hasId={false}
-                                                rows={this.state.enqueteVo.refMissionSelected.refCompteRenduMission.docList}
+                                                rows={filtredDocList}
                                                 cols={this.buildDocumentAnnexeTableColumns()}
-                                                totalElements={this.state.enqueteVo.refMissionSelected.refCompteRenduMission.docList ? this.state.enqueteVo.refMissionSelected.refCompteRenduMission.docList.length : 0}
+                                                totalElements={filtredDocList ? filtredDocList?.length : 0}
                                                 maxResultsPerPage={5}
-                                                paginate={true}/>
+                                                paginate={true} />
                                         </Col>
                                     </Row>
 
                                     {!this.state.readonly && (
                                         <Row size={100}>
-                                            <Col size={40}/>
+                                            <Col size={40} />
 
                                             <Col size={20}>
                                                 <Button
                                                     title={translate('transverse.ajouter')}
                                                     type={'solid'}
                                                     buttonStyle={style.buttonAction}
-                                                    onPress={() => this.addDocumentAnnexe()}/>
+                                                    onPress={() => this.addDocumentAnnexe()} />
                                             </Col>
 
-                                            <Col size={40}/>
+                                            <Col size={40} />
                                         </Row>
                                     )}
                                 </ComAccordionComp>
@@ -1249,31 +1315,31 @@ class EnqCompteRenduCoreComponent extends React.Component {
 
                             <View style={style.topMarginStyle}>
                                 <Row size={100}>
-                                    <Col size={40}/>
+                                    <Col size={40} />
 
                                     <Col size={20}>
                                         <Button
                                             title={translate('transverse.confirmer')}
                                             type={'solid'}
                                             buttonStyle={style.buttonAction}
-                                            onPress={() => this.confirm()}/>
+                                            onPress={() => this.confirm()} />
                                     </Col>
 
-                                    <Col size={40}/>
+                                    <Col size={40} />
                                 </Row>
 
                                 <Row size={100}>
-                                    <Col size={40}/>
+                                    <Col size={40} />
 
                                     <Col size={20}>
                                         <Button
                                             title={translate('transverse.back')}
                                             type={'solid'}
                                             buttonStyle={style.buttonAction}
-                                            onPress={() => this.back()}/>
+                                            onPress={() => this.back()} />
                                     </Col>
 
-                                    <Col size={40}/>
+                                    <Col size={40} />
                                 </Row>
                             </View>
                         </Grid>
@@ -1285,11 +1351,11 @@ class EnqCompteRenduCoreComponent extends React.Component {
 }
 
 function mapStateToProps(state) {
-    return {...state.enqCompteRenduReducer};
+    return { ...state.enqCompteRenduReducer };
 }
 
 function mapDispatchToProps(dispatch) {
-    let actions = {dispatch};
+    let actions = { dispatch };
     return {
         actions,
     };
