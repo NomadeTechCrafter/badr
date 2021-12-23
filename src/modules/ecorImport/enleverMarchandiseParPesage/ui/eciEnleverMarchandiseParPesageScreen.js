@@ -63,7 +63,7 @@ const champsObligatoire = [
   'poidsBrutPesage',
 ];
 class EciEnleverMarchandiseParPesageScreen extends Component {
- 
+
   constructor(props) {
     super(props);
     this.state = {
@@ -81,6 +81,7 @@ class EciEnleverMarchandiseParPesageScreen extends Component {
       IsChampsAddEnlevementsValid: true,
       isActionMenuOpen: false,
       suppDialogVisibility: false,
+      indexEditItem:null,
       indexsSuppItem: null,
       isConsultationMode: false,
     };
@@ -278,7 +279,7 @@ class EciEnleverMarchandiseParPesageScreen extends Component {
   };
   validerAjout = () => {
     console.log('valider Ajout');
-   
+
 
     if (this.testIsChampsValid(champsObligatoire) === true) {
       console.log('IsChampsValid selectedLot', this.state.selectedLot);
@@ -341,7 +342,7 @@ class EciEnleverMarchandiseParPesageScreen extends Component {
       const myNewArray = Object.assign(
         [...this.state.enleverMarchandiseVO.refMarchandiseEnlevee],
         {
-          [currentIndex]: this.state.selectedLot,
+          [this.state.indexEditItem]: this.state.selectedLot,
         },
       );
       this.setState(
@@ -398,7 +399,7 @@ class EciEnleverMarchandiseParPesageScreen extends Component {
       },
       () => this.initEditEnlevement(this.state.selectedLot),
     );
-    this.setState({showEnlevements: true, isUpdateMode: true});
+    this.setState({showEnlevements: true, isUpdateMode: true, indexEditItem: index});
   };
   initEditEnlevement = (selectedLot) => {
     _.forEach(selectedLot.refEquipementEnleve, (equipement) => {
@@ -486,6 +487,7 @@ class EciEnleverMarchandiseParPesageScreen extends Component {
   confirmerEcor = () => {
     console.log('confirmer ecor -----');
     this.scrollViewRef.scrollTo({y: 0, animated: true});
+    this.setState({IsChampsAddEnlevementsValid: true});
     let data = Utils.deepDelete(this.state.enleverMarchandiseVO, [
       '$$hashKey',
       'defaultConverter',
@@ -559,7 +561,7 @@ class EciEnleverMarchandiseParPesageScreen extends Component {
                 }
               />
             )}
-          
+
           {!_.isEmpty(this.extractCommandData('enleverMarchandiseParPesage')) &&
             !_.isEmpty(
               this.extractCommandData('enleverMarchandiseParPesage').errorMessage,
@@ -896,7 +898,7 @@ class EciEnleverMarchandiseParPesageScreen extends Component {
                         </Col>
                       </Row>
                       <Row style={CustomStyleSheet.whiteRow}>
-                        <Col size={2}>
+                        <Col size={1}>
                           <ComBadrLibelleComp
                             withColor={true}
                             isRequired={true}>
@@ -905,11 +907,11 @@ class EciEnleverMarchandiseParPesageScreen extends Component {
                             )}
                           </ComBadrLibelleComp>
                         </Col>
-                        <Col size={2}>
+                        <Col size={1}>
                           <TextInput
                             ref={(ref) => (this.numeroBonSortie = ref)}
                             mode="outlined"
-                            style={style.columnThree}
+                            style={styles.columnThree}
                             label=""
                             value={selectedLot.numeroBonSortie}
                             onChangeText={(text) =>
@@ -923,7 +925,7 @@ class EciEnleverMarchandiseParPesageScreen extends Component {
                             }
                           />
                         </Col>
-                        <Col size={2}>
+                        <Col size={1}>
                           <ComBadrLibelleComp
                             withColor={true}
                             isRequired={true}>
@@ -932,7 +934,7 @@ class EciEnleverMarchandiseParPesageScreen extends Component {
                             )}
                           </ComBadrLibelleComp>
                         </Col>
-                        <Col size={2}>
+                        <Col size={4}>
                           <ComBadrAutoCompleteChipsComp
                             onRef={(ref) => (this.acOperateur = ref)}
                             code="code"
@@ -989,7 +991,7 @@ class EciEnleverMarchandiseParPesageScreen extends Component {
                         <Col size={6}>
                           <TextInput
                             mode="outlined"
-                            style={style.columnThree}
+                            style={styles.columnThree}
                             label=""
                             value={selectedLot.immatriculationsVehicules}
                             onChangeText={(text) =>
@@ -1169,7 +1171,7 @@ class EciEnleverMarchandiseParPesageScreen extends Component {
                     </Grid>
                   </ComAccordionComp>
                 </ComBadrCardBoxComp>
-                
+
                 {/* Modal Lot Apures*/}
                 {!_.isNil(lotsApures) && !_.isNil(lotsApures.data) && (
                   <ComBadrModalComp
@@ -1297,6 +1299,9 @@ const styles = {
   actionBtn: {
     width: 200,
     height: 50,
+  },
+  columnThree: {
+    marginRight: 10,
   },
 };
 

@@ -34,7 +34,11 @@ import {load} from '../../../../commons/services/async-storage/ComStorageService
 import {connect} from 'react-redux';
 import style from '../../../referentiel/plaquesImmatriculation/style/refPlaquesImmStyle';
 import {getValueByPath} from '../../../dedouanement/redressement/utils/DedUtils';
-import {request, requestModal, init} from '../state/actions/eciVerifierParContreEcorAction';
+import {
+  request,
+  requestModal,
+  init,
+} from '../state/actions/eciVerifierParContreEcorAction';
 import {
   GENERIC_CLOSE_MODAL,
   GENERIC_ECI_INIT,
@@ -63,7 +67,6 @@ const champsObligatoire = [
   'poidsBrutPesage',
 ];
 class EciVerifierParContreEcorScreen extends Component {
- 
   constructor(props) {
     super(props);
     this.state = {
@@ -83,6 +86,7 @@ class EciVerifierParContreEcorScreen extends Component {
       suppDialogVisibility: false,
       indexsSuppItem: null,
       isConsultationMode: false,
+      bonSortie: {},
     };
   }
 
@@ -119,9 +123,9 @@ class EciVerifierParContreEcorScreen extends Component {
         numeroBonSortie: '',
         dateEffectiveEnlevement: '',
         heureEffectiveEnlevement: '',
-        pontBaculePesage ,
-        tarePesage:'',
-        poidsBrutPesage:'',
+        pontBaculePesage,
+        tarePesage: '',
+        poidsBrutPesage: '',
       },
     });
   };
@@ -146,7 +150,7 @@ class EciVerifierParContreEcorScreen extends Component {
           descriptionLieuChargement: lot.lieuChargement,
         },
         referenceDS: {
-          identifiantDS: "449061",
+          identifiantDS: '449061',
           refBureauDouane: {
             codeBureau: referenceDSTab[0],
             nomBureauDouane: ComSessionService.getInstance().getNomBureauDouane(),
@@ -216,19 +220,12 @@ class EciVerifierParContreEcorScreen extends Component {
   listEquipmentLotsCols = () => {
     return [
       {
-        code: '',
-        libelle: '',
-        width: 100,
-        component: 'checkbox',
-        action: (row, index) => this.selectedEquipmentLotChanged(row, index),
-      },
-      {
-        code: 'identifiantEquipement',
+        code: 'referenceEquipement',
         libelle: translate('ecorimport.listeEquipementsLot.refEquipement'),
         width: 200,
       },
       {
-        code: 'ligneLotVO.libelleTypeContenant',
+        code: 'typeEquipement',
         libelle: translate('ecorimport.listeEquipementsLot.typeEquipement'),
         width: 200,
       },
@@ -249,7 +246,7 @@ class EciVerifierParContreEcorScreen extends Component {
       },
     ];
   };
-  getListeLotsApures = () => {
+  /* getListeLotsApures = () => {
     this.props.dispatch(requestModal({type: GENERIC_OPEN_MODAL, value: {}}));
     let identifiant = getValueByPath(
       'referenceDED.indentifiant',
@@ -260,7 +257,7 @@ class EciVerifierParContreEcorScreen extends Component {
       typeService: 'SP',
       jsonVO: identifiant,
     });
-  };
+  };*/
   getListeEquipementLots = (selectedRow) => {
     let data = Utils.deepDelete(selectedRow, [
       '$$hashKey',
@@ -278,7 +275,6 @@ class EciVerifierParContreEcorScreen extends Component {
   };
   validerAjout = () => {
     console.log('valider Ajout');
-   
 
     if (this.testIsChampsValid(champsObligatoire) === true) {
       console.log('IsChampsValid selectedLot', this.state.selectedLot);
@@ -302,7 +298,9 @@ class EciVerifierParContreEcorScreen extends Component {
         },
       };
 
-      let refEquipementEnleve = this.chargerListeEquipementsLot(this.state.selectedLot.refEquipementEnleve);
+      let refEquipementEnleve = this.chargerListeEquipementsLot(
+        this.state.selectedLot.refEquipementEnleve,
+      );
       this.setState(
         {
           ...this.state,
@@ -316,8 +314,11 @@ class EciVerifierParContreEcorScreen extends Component {
                 refEquipementEnleve: refEquipementEnleve,
                 acteurInterneEnlevement: acteurInterneEnlevement,
                 acteurInternePesage: acteurInternePesage,
-                dateHeureEffectiveEnlevement: this.state.selectedLot.dateEffectiveEnlevement + " " + this.state.selectedLot.heureEffectiveEnlevement,
-                allRefEquipementEnleve : [],
+                dateHeureEffectiveEnlevement:
+                  this.state.selectedLot.dateEffectiveEnlevement +
+                  ' ' +
+                  this.state.selectedLot.heureEffectiveEnlevement,
+                allRefEquipementEnleve: [],
               },
             ],
           },
@@ -513,10 +514,34 @@ class EciVerifierParContreEcorScreen extends Component {
     this.callRedux({
       command: 'verifierParContreEcor',
       typeService: 'UC',
-      module:'ECI_LIB',
+      module: 'ECI_LIB',
       jsonVO: data,
     });
   };
+
+  chargerListeBondeSortie = (idBonSortie) => {
+    console.log('test change  :', idBonSortie);
+    if (idBonSortie) {
+      this.setState({
+        ...this.state,
+        selectedLot: {
+          ...this.state.selectedLot,
+          bonSortie: {
+            id: idBonSortie,
+          },
+        },
+      });
+
+      console.log(' chargerListeBondeSortie -----', idBonSortie);
+      this.callRedux({
+        command: 'getBonSortieById',
+        typeService: 'SP',
+        module: 'ECI',
+        jsonVO: idBonSortie,
+      });
+    }
+  };
+
   render() {
     const {
       enleverMarchandiseVO,
@@ -526,6 +551,7 @@ class EciVerifierParContreEcorScreen extends Component {
       isActionMenuOpen,
       selectedLot,
       isConsultationMode,
+      bonSortie,
     } = this.state;
     // console.log('in render selectedLot ', JSON.stringify(selectedLot));
     let lotsApures = this.extractCommandData('getLotsApures');
@@ -555,18 +581,19 @@ class EciVerifierParContreEcorScreen extends Component {
             ) && (
               <ComBadrInfoMessageComp
                 message={
-                this.extractCommandData('verifierParContreEcor').successMessage
+                  this.extractCommandData('verifierParContreEcor')
+                    .successMessage
                 }
               />
             )}
-          
+
           {!_.isEmpty(this.extractCommandData('verifierParContreEcor')) &&
             !_.isEmpty(
               this.extractCommandData('verifierParContreEcor').errorMessage,
             ) && (
-            <ComBadrErrorMessageComp
+              <ComBadrErrorMessageComp
                 message={
-                this.extractCommandData('verifierParContreEcor').errorMessage
+                  this.extractCommandData('verifierParContreEcor').errorMessage
                 }
               />
             )}
@@ -642,16 +669,6 @@ class EciVerifierParContreEcorScreen extends Component {
                               selectedLot,
                             )}
                           </ComBadrLibelleComp>
-                        </Col>
-                        <Col>
-                          <ComBadrButtonIconComp
-                            onPress={this.getListeLotsApures}
-                            icon="file-eye"
-                            loading={this.props.showProgress}
-                            text={translate(
-                              'ecorimport.declarationSommaire.choisirLotDedouanement',
-                            )}
-                          />
                         </Col>
                       </Row>
                       <Row style={CustomStyleSheet.lightBlueRow}>
@@ -819,7 +836,7 @@ class EciVerifierParContreEcorScreen extends Component {
                         </Col>
                         <Col size={6}>
                           <ComBadrPickerComp
-                            disabled={false}
+                            disabled={true}
                             onRef={(ref) => (this.comboLieuStockage = ref)}
                             style={{
                               flex: 1,
@@ -875,6 +892,7 @@ class EciVerifierParContreEcorScreen extends Component {
                           <ComBadrNumericTextInputComp
                             ref={(ref) => (this.nombreContenant = ref)}
                             mode={'outlined'}
+                            disabled={true}
                             value={selectedLot.nombreContenant}
                             onChangeBadrInput={(text) =>
                               this.setState({
@@ -889,7 +907,7 @@ class EciVerifierParContreEcorScreen extends Component {
                         </Col>
                       </Row>
                       <Row style={CustomStyleSheet.whiteRow}>
-                        <Col size={2}>
+                        <Col size={1}>
                           <ComBadrLibelleComp
                             withColor={true}
                             isRequired={true}>
@@ -898,11 +916,12 @@ class EciVerifierParContreEcorScreen extends Component {
                             )}
                           </ComBadrLibelleComp>
                         </Col>
-                        <Col size={2}>
+                        <Col size={1}>
                           <TextInput
                             ref={(ref) => (this.numeroBonSortie = ref)}
                             mode="outlined"
-                            style={style.columnThree}
+                            disabled={true}
+                            style={styles.columnThree}
                             label=""
                             value={selectedLot.numeroBonSortie}
                             onChangeText={(text) =>
@@ -916,7 +935,7 @@ class EciVerifierParContreEcorScreen extends Component {
                             }
                           />
                         </Col>
-                        <Col size={2}>
+                        <Col size={1}>
                           <ComBadrLibelleComp
                             withColor={true}
                             isRequired={true}>
@@ -925,11 +944,11 @@ class EciVerifierParContreEcorScreen extends Component {
                             )}
                           </ComBadrLibelleComp>
                         </Col>
-                        <Col size={2}>
+                        <Col size={4}>
                           <ComBadrAutoCompleteChipsComp
                             onRef={(ref) => (this.acOperateur = ref)}
                             code="code"
-                            disabled={false}
+                            disabled={true}
                             selected={
                               _.isEmpty(
                                 ComUtils.getValueByPath(
@@ -982,7 +1001,8 @@ class EciVerifierParContreEcorScreen extends Component {
                         <Col size={6}>
                           <TextInput
                             mode="outlined"
-                            style={style.columnThree}
+                            style={styles.columnThree}
+                            disabled={true}
                             label=""
                             value={selectedLot.immatriculationsVehicules}
                             onChangeText={(text) =>
@@ -1046,7 +1066,7 @@ class EciVerifierParContreEcorScreen extends Component {
                               'ecorimport.marchandisesEnlevees.heureEffectiveEnlevement',
                             )}
                             inputStyle={style.dateInputStyle}
-                            readonly={false}
+                            readonly={true}
                           />
                         </Col>
                       </Row>
@@ -1054,91 +1074,207 @@ class EciVerifierParContreEcorScreen extends Component {
                   </ComAccordionComp>
                 </ComBadrCardBoxComp>
 
-                {/* Accordion liste des équipement du lot */}
-                {!_.isNil(selectedLot.refEquipementEnleve) && (
-                  <ComBadrCardBoxComp style={styles.cardBox}>
-                    <ComAccordionComp
-                      title={translate('ecorimport.listeEquipementsLot.title')}
-                      expanded={true}>
-                      <ComBasicDataTableComp
-                        rows={selectedLot.refEquipementEnleve}
-                        cols={this.state.listEquipementLotsCols}
-                        totalElements={selectedLot.refEquipementEnleve.length}
-                        maxResultsPerPage={10}
-                        paginate={true}
-                      />
-                    </ComAccordionComp>
-                  </ComBadrCardBoxComp>
-                )}
-                {/* Accordion Relevé de pesage */}
+                {/* Accordion Bon Sortie  */}
                 <ComBadrCardBoxComp style={styles.cardBox}>
                   <ComAccordionComp
-                    title={translate('ecorimport.peserMarchandise.relevePesage.title')}
-                    extraFieldKey={translate('ecorimport.agentEcoreur')}
-                    extraFieldValue={translate('ecorimport.agentEcoreur')}
+                    title={translate('ecorimport.bonSortie.bonDeSortie')}
                     expanded={true}>
                     <Grid>
+                      <Row style={CustomStyleSheet.whiteRow}>
+                        <Col size={2}>
+                          <ComBadrLibelleComp withColor={true}>
+                            {translate('ecorimport.bonSortie.bonDeSortie')}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col size={6}>
+                          <ComBadrPickerComp
+                            onRef={(ref) => (this.pickerBonSortie = ref)}
+                            style={{
+                              flex: 1,
+                              marginLeft: -80,
+                            }}
+                            titleStyle={{flex: 1}}
+                            key="bonDeSortie"
+                            cle="code"
+                            libelle="libelle"
+                            module="ECI"
+                            command="getListeBonSortie"
+                            typeService="SP"
+                            selectedValue={ComUtils.getValueByPath(
+                              'bonSortie.id',
+                              selectedLot,
+                            )}
+                            onValueChange={(
+                              selectedValue,
+                              selectedIndex,
+                              item,
+                            ) => this.chargerListeBondeSortie(selectedValue)}
+                            param={{
+                              idDs: selectedLot.referenceDS.identifiantDS,
+                              idLot: selectedLot.referenceLot,
+                              refDed:
+                                enleverMarchandiseVO.referenceDED
+                                  .referenceEnregistrement,
+                              idDed:
+                                enleverMarchandiseVO.referenceDED.indentifiant,
+                            }}
+                          />
+                        </Col>
+                      </Row>
                       <Row style={CustomStyleSheet.lightBlueRow}>
                         <Col size={2}>
-                          <ComBadrLibelleComp
-                            withColor={true}
-                            isRequired={true}>
+                          <ComBadrLibelleComp withColor={true}>
                             {translate(
-                              'ecorimport.peserMarchandise.relevePesage.numPontBascule',
+                              'ecorimport.enleverMarchandise.nombreColis',
                             )}
                           </ComBadrLibelleComp>
                         </Col>
                         <Col size={6}>
                           <ComBadrNumericTextInputComp
-                            ref={(ref) => (this.pontBaculePesage = ref)}
+                            ref={(ref) => (this.nombreContenantBS = ref)}
                             mode={'outlined'}
-                            value={selectedLot.pontBaculePesage}
-                            onChangeBadrInput={(text) =>
-                              this.setState({
-                                ...this.state,
-                                selectedLot: {
-                                  ...this.state.selectedLot,
-                                  pontBaculePesage: text,
-                                },
-                              })
-                            }
+                            disabled={true}
+                            value={bonSortie?.nombreColis}
                           />
                         </Col>
                       </Row>
                       <Row style={CustomStyleSheet.whiteRow}>
-                        <Col size={2}>
-                          <ComBadrLibelleComp
-                            withColor={true}
-                            isRequired={true}>
+                        <Col size={1}>
+                          <ComBadrLibelleComp withColor={true}>
+                            {translate('ecorimport.bonSortie.poidsNet')}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col size={1}>
+                          <TextInput
+                            ref={(ref) => (this.numeroBonSortieBS = ref)}
+                            mode="outlined"
+                            disabled={true}
+                            style={styles.columnThree}
+                            label=""
+                            value={bonSortie?.poidsNet}
+                          />
+                        </Col>
+                        <Col size={1}>
+                          <ComBadrLibelleComp withColor={true}>
                             {translate(
-                              'ecorimport.peserMarchandise.relevePesage.tares',
+                              'ecorimport.marchandisesEnlevees.delivrePar',
+                            )}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col size={4}>
+                          <ComBadrLibelleComp withColor={false}>
+                            {bonSortie?.delivrePar}
+                          </ComBadrLibelleComp>
+                        </Col>
+                      </Row>
+                      <Row style={CustomStyleSheet.lightBlueRow}>
+                        <Col size={2}>
+                          <ComBadrLibelleComp withColor={true}>
+                            {translate('ecorimport.bonSortie.dateHeureBS')}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col size={6}>
+                          <TextInput
+                            mode="outlined"
+                            style={styles.columnThree}
+                            disabled={true}
+                            label=""
+                            value={bonSortie?.dateHeureBS}
+                            numberOfLines={6}
+                          />
+                        </Col>
+                      </Row>
+                      <Row style={CustomStyleSheet.lightBlueRow}>
+                        <Col size={2}>
+                          <ComBadrLibelleComp withColor={true}>
+                            {translate(
+                              'ecorimport.bonSortie.immatriculationsVehicules',
                             )}
                           </ComBadrLibelleComp>
                         </Col>
                         <Col size={6}>
-                          <ComBadrNumericTextInputComp
-                            ref={(ref) => (this.tarePesage = ref)}
-                            mode={'outlined'}
-                            value={selectedLot.tarePesage}
-                            onChangeBadrInput={(text) =>
+                          <TextInput
+                            mode="outlined"
+                            style={styles.columnThree}
+                            disabled={true}
+                            label=""
+                            value={bonSortie.immatriculationsVehicules}
+                            numberOfLines={6}
+                          />
+                        </Col>
+                      </Row>
+                    </Grid>
+                  </ComAccordionComp>
+                </ComBadrCardBoxComp>
+
+                {/* Accordion Contre Ecor */}
+                <ComBadrCardBoxComp style={styles.cardBox}>
+                  <ComAccordionComp
+                    title={translate(
+                      'ecorimport.verifierParContreEcor.contreEcor.title',
+                    )}
+                    expanded={true}>
+                    <Grid>
+                      <Row style={CustomStyleSheet.whiteRow}>
+                        <Col>
+                          <ComBadrDatePickerComp
+                            dateFormat="DD/MM/yyyy"
+                            heureFormat="HH:mm"
+                            value={
+                              selectedLot.dateConteEcor
+                                ? moment(
+                                  selectedLot.dateConteEcor,
+                                  'DD/MM/yyyy',
+                                  true,
+                                )
+                                : ''
+                            }
+                            timeValue={
+                              selectedLot.heureConteEcor
+                                ? moment(
+                                  selectedLot.heureConteEcor,
+                                  'HH:mm',
+                                  true,
+                                )
+                                : ''
+                            }
+                            onDateChanged={(date) =>
                               this.setState({
                                 ...this.state,
                                 selectedLot: {
                                   ...this.state.selectedLot,
-                                  tarePesage: text,
+                                  dateConteEcor: date,
                                 },
                               })
                             }
+                            onTimeChanged={(time) =>
+                              this.setState({
+                                ...this.state,
+                                selectedLot: {
+                                  ...this.state.selectedLot,
+                                  heureConteEcor: time,
+                                },
+                              })
+                            }
+                            labelDate={translate(
+                              'ecorimport.verifierParContreEcor.contreEcor.dateHeureSorti',
+                            )}
+                            labelHeure={translate(
+                              'ecorimport.verifierParContreEcor.contreEcor.dateHeureSorti',
+                            )}
+                            inputStyle={style.dateInputStyle}
+                            readonly={false}
                           />
                         </Col>
                       </Row>
+
                       <Row style={CustomStyleSheet.lightBlueRow}>
                         <Col size={2}>
                           <ComBadrLibelleComp
                             withColor={true}
                             isRequired={true}>
                             {translate(
-                              'ecorimport.peserMarchandise.relevePesage.poidsBrut',
+                              'ecorimport.verifierParContreEcor.contreEcor.numeroPorteSorti',
                             )}
                           </ComBadrLibelleComp>
                         </Col>
@@ -1162,7 +1298,26 @@ class EciVerifierParContreEcorScreen extends Component {
                     </Grid>
                   </ComAccordionComp>
                 </ComBadrCardBoxComp>
-                
+
+
+                {/* Accordion liste des équipement du lot */}
+                {!_.isNil(selectedLot.refEquipementEnleve) && (
+                  <ComBadrCardBoxComp style={styles.cardBox}>
+                    <ComAccordionComp
+                      title={translate('ecorimport.listeEquipementsLot.title')}
+                      expanded={true}>
+                      <ComBasicDataTableComp
+                        rows={selectedLot.refEquipementEnleve}
+                        cols={this.state.listEquipementLotsCols}
+                        totalElements={selectedLot.refEquipementEnleve.length}
+                        maxResultsPerPage={10}
+                        paginate={true}
+                        hasId={true}
+                      />
+                    </ComAccordionComp>
+                  </ComBadrCardBoxComp>
+                )}
+
                 {/* Modal Lot Apures*/}
                 {!_.isNil(lotsApures) && !_.isNil(lotsApures.data) && (
                   <ComBadrModalComp
@@ -1291,13 +1446,13 @@ const styles = {
     width: 200,
     height: 50,
   },
+  columnThree: {
+    marginRight: 10,
+  },
 };
 
 function mapStateToProps(state) {
   return {...state.EcorImportReducer};
 }
 
-export default connect(
-  mapStateToProps,
-  null,
-)(EciVerifierParContreEcorScreen);
+export default connect(mapStateToProps, null)(EciVerifierParContreEcorScreen);
