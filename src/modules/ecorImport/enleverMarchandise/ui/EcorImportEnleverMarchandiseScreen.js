@@ -45,8 +45,8 @@ import _ from 'lodash';
 import Utils from '../../../../commons/utils/ComUtils';
 import {load} from '../../../../commons/services/async-storage/ComStorageService';
 import {connect} from 'react-redux';
-import style from '../../../../modules/referentiel/plaquesImmatriculation/style/refPlaquesImmStyle';
-import {getValueByPath} from '../../../../modules/dedouanement/redressement/utils/DedUtils';
+import style from '../../../referentiel/plaquesImmatriculation/style/refPlaquesImmStyle';
+import {getValueByPath} from '../../../dedouanement/redressement/utils/DedUtils';
 import {request, requestModal, init} from '../state/actions/EcorImportAction';
 import {
   GENERIC_CLOSE_MODAL,
@@ -156,7 +156,7 @@ class EcorImportEnleverMarchandiseScreen extends Component {
         referenceDS: {
           refBureauDouane: {
             codeBureau: referenceDSTab[0],
-            nomBureauDouane: '',
+            nomBureauDouane: ComSessionService.getInstance().getNomBureauDouane(),
           },
           refTypeDS: {
             codeTypeDS: lot.codeTypeDS,
@@ -444,9 +444,10 @@ class EcorImportEnleverMarchandiseScreen extends Component {
         //set row to not selected
         selected: false,
       };
-      if (this.testIfEquipementDisponible(equipement)) {
-        // $scope.itemEcor.refEquipementEnleve.push(equipement);
+      if (this.testIfEquipementDisponible(equipementTemp)) {
+        return equipementTemp;
       }
+      return equipement;
     });
   };
   testIfEquipementDisponible = (equipement) => {
@@ -659,14 +660,15 @@ class EcorImportEnleverMarchandiseScreen extends Component {
       numeroVoyage,
       isActionMenuOpen,
       selectedLot,
-      isConsultationMode,
     } = this.state;
     // console.log('in render selectedLot ', JSON.stringify(selectedLot));
     let lotsApures = this.extractCommandData('getLotsApures');
-    /*console.log(
-      'equipementsbyLot----',
-      this.extractCommandData('getEquipementsbyLot'),
-    );*/
+    let isConsultationMode =
+      !_.isEmpty(this.extractCommandData('enleverMarchandise')) &&
+      !_.isEmpty(this.extractCommandData('enleverMarchandise').successMessage)
+        ? true
+        : false;
+    console.log(" isConsultationMode----",isConsultationMode)
     //let equipementsbyLot = this.extractCommandData('getEquipementsbyLot');
     let {
       generateurNumScelleDu,
@@ -732,12 +734,13 @@ class EcorImportEnleverMarchandiseScreen extends Component {
 
               {/*Accordion Mainlevée Scelle*/}
               <EciMainleveeScelleBlock
-                enleverMarchandiseVO={enleverMarchandiseVO} />
+                enleverMarchandiseVO={enleverMarchandiseVO}
+              />
 
               {/*Accordion Liste des Enlevements Effectues*/}
               <EciListEnlevementsEffectuesBlock
                 enleverMarchandiseVO={enleverMarchandiseVO}
-                IsConsultationMode={isConsultationMode}
+                isConsultationMode={isConsultationMode}
                 addEnlevement={this.addEnlevement}
                 editEnlevement={(item, index) =>
                   this.editEnlevement(item, index)
@@ -972,7 +975,7 @@ class EcorImportEnleverMarchandiseScreen extends Component {
                         </Col>
                         <Col size={6}>
                           <ComBadrPickerComp
-                            disabled={false}
+                            disabled={isConsultationMode}
                             onRef={(ref) => (this.comboLieuStockage = ref)}
                             style={{
                               flex: 1,
@@ -1029,6 +1032,7 @@ class EcorImportEnleverMarchandiseScreen extends Component {
                             ref={(ref) => (this.nombreContenant = ref)}
                             mode={'outlined'}
                             value={selectedLot.nombreContenant}
+                            disabled={isConsultationMode}
                             onChangeBadrInput={(text) =>
                               this.setState({
                                 ...this.state,
@@ -1058,6 +1062,7 @@ class EcorImportEnleverMarchandiseScreen extends Component {
                             style={styles.columnThree}
                             label=""
                             value={selectedLot.numeroBonSortie}
+                            disabled={isConsultationMode}
                             onChangeText={(text) =>
                               this.setState({
                                 ...this.state,
@@ -1082,7 +1087,7 @@ class EcorImportEnleverMarchandiseScreen extends Component {
                           <ComBadrAutoCompleteChipsComp
                             onRef={(ref) => (this.acOperateur = ref)}
                             code="code"
-                            disabled={false}
+                            disabled={isConsultationMode}
                             selected={
                               _.isEmpty(
                                 ComUtils.getValueByPath(
@@ -1138,6 +1143,7 @@ class EcorImportEnleverMarchandiseScreen extends Component {
                             style={styles.columnThree}
                             label=""
                             value={selectedLot.immatriculationsVehicules}
+                            disabled={isConsultationMode}
                             onChangeText={(text) =>
                               this.setState({
                                 ...this.state,
@@ -1199,7 +1205,7 @@ class EcorImportEnleverMarchandiseScreen extends Component {
                               'ecorimport.marchandisesEnlevees.heureEffectiveEnlevement',
                             )}
                             inputStyle={style.dateInputStyle}
-                            readonly={false}
+                            readonly={isConsultationMode}
                           />
                         </Col>
                       </Row>
@@ -1223,18 +1229,31 @@ class EcorImportEnleverMarchandiseScreen extends Component {
                         <Col>
                           <View style={styles.flexRow}>
                             <RadioButton.Group
-                              value={selectedLot?.infoEcorScelle}>
+                              onValueChange={(choix) =>
+                                this.setState({
+                                  ...this.state,
+                                  selectedLot: {
+                                    ...this.state.selectedLot,
+                                    infoEcorScelle: choix,
+                                  },
+                                })
+                              }
+                              value={
+                                selectedLot?.infoEcorScelle
+                                  ? selectedLot?.infoEcorScelle.toString()
+                                  : 'true'
+                              }>
                               <View style={styles.flexColumn}>
                                 <Text>
                                   {translate('ecorimport.scelles.oui')}
                                 </Text>
-                                <RadioButton  value="true" />
+                                <RadioButton value="true"  disabled={isConsultationMode} color={primaryColor}/>
                               </View>
                               <View style={styles.flexColumn}>
                                 <Text>
                                   {translate('ecorimport.scelles.non')}
                                 </Text>
-                                <RadioButton  value="false" />
+                                <RadioButton value="false" disabled={isConsultationMode} color={primaryColor} />
                               </View>
                             </RadioButton.Group>
                           </View>
@@ -1250,6 +1269,7 @@ class EcorImportEnleverMarchandiseScreen extends Component {
                             value={selectedLot.numeroPince}
                             label={translate('ecorimport.scelles.numeroPince')}
                             style={CustomStyleSheet.badrInputHeight}
+                            disabled={isConsultationMode}
                             onChangeText={(text) =>
                               this.setState({
                                 ...this.state,
@@ -1266,6 +1286,7 @@ class EcorImportEnleverMarchandiseScreen extends Component {
                           <ComBadrNumericTextInputComp
                             maxLength={8}
                             value={selectedLot.nombreScelle}
+                            disabled={isConsultationMode}
                             label={translate(
                               'ecorimport.scelles.nombreScelles',
                             )}
@@ -1295,6 +1316,7 @@ class EcorImportEnleverMarchandiseScreen extends Component {
                             maxLength={8}
                             value={this.state.generateurNumScelleDu}
                             label={translate('transverse.du')}
+                            disabled={isConsultationMode}
                             onChangeBadrInput={(text) =>
                               this.setState({
                                 generateurNumScelleDu: text,
@@ -1310,6 +1332,7 @@ class EcorImportEnleverMarchandiseScreen extends Component {
                             }}
                             maxLength={8}
                             value={generateurNumScelleAu}
+                            disabled={isConsultationMode}
                             label={translate('transverse.au')}
                             onChangeBadrInput={(text) =>
                               this.setState({
@@ -1323,6 +1346,7 @@ class EcorImportEnleverMarchandiseScreen extends Component {
                           <Button
                             mode="contained"
                             compact="true"
+                            disabled={isConsultationMode}
                             onPress={this.genererNumeroScelle}>
                             {translate('transverse.Ok')}
                           </Button>
@@ -1342,6 +1366,7 @@ class EcorImportEnleverMarchandiseScreen extends Component {
                             maxLength={8}
                             value={numeroScelle}
                             label={translate('ecorimport.scelles.numeroScelle')}
+                            disabled={isConsultationMode}
                             onChangeBadrInput={(text) => {
                               this.setState({
                                 numeroScelle: text,
@@ -1357,6 +1382,7 @@ class EcorImportEnleverMarchandiseScreen extends Component {
                             icon="plus-box"
                             mode="contained"
                             compact="true"
+                            disabled={isConsultationMode}
                             style={style.btnActionList}
                           />
                           <Button
@@ -1364,6 +1390,7 @@ class EcorImportEnleverMarchandiseScreen extends Component {
                             icon="delete"
                             mode="contained"
                             compact="true"
+                            disabled={isConsultationMode}
                             style={style.btnActionList}
                           />
                         </Col>
@@ -1402,7 +1429,7 @@ class EcorImportEnleverMarchandiseScreen extends Component {
                               'ecorimport.scelles.choisirValeur',
                             )}
                             code="code"
-                            disabled={false}
+                            disabled={isConsultationMode}
                             selected={
                               this.state.selectedLot?.transporteurExploitantMEAD
                             }

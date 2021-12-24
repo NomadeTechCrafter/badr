@@ -34,7 +34,11 @@ import {load} from '../../../../commons/services/async-storage/ComStorageService
 import {connect} from 'react-redux';
 import style from '../../../referentiel/plaquesImmatriculation/style/refPlaquesImmStyle';
 import {getValueByPath} from '../../../dedouanement/redressement/utils/DedUtils';
-import {request, requestModal, init} from '../state/actions/eciPeserMarchandiseAction';
+import {
+  request,
+  requestModal,
+  init,
+} from '../state/actions/eciPeserMarchandiseAction';
 import {
   GENERIC_CLOSE_MODAL,
   GENERIC_ECI_INIT,
@@ -63,7 +67,6 @@ const champsObligatoire = [
   'poidsBrutPesage',
 ];
 class EciPeserMarchandiseScreen extends Component {
- 
   constructor(props) {
     super(props);
     this.state = {
@@ -119,9 +122,10 @@ class EciPeserMarchandiseScreen extends Component {
         numeroBonSortie: '',
         dateEffectiveEnlevement: '',
         heureEffectiveEnlevement: '',
-        pontBaculePesage ,
-        tarePesage:'',
-        poidsBrutPesage:'',
+        pontBaculePesage: '',
+        tarePesage: '',
+        poidsBrutPesage: '',
+        errorMessagePesage: '',
       },
     });
   };
@@ -146,7 +150,7 @@ class EciPeserMarchandiseScreen extends Component {
           descriptionLieuChargement: lot.lieuChargement,
         },
         referenceDS: {
-          identifiantDS: "449061",
+          identifiantDS: '449061',
           refBureauDouane: {
             codeBureau: referenceDSTab[0],
             nomBureauDouane: ComSessionService.getInstance().getNomBureauDouane(),
@@ -278,7 +282,6 @@ class EciPeserMarchandiseScreen extends Component {
   };
   validerAjout = () => {
     console.log('valider Ajout');
-   
 
     if (this.testIsChampsValid(champsObligatoire) === true) {
       console.log('IsChampsValid selectedLot', this.state.selectedLot);
@@ -302,7 +305,9 @@ class EciPeserMarchandiseScreen extends Component {
         },
       };
 
-      let refEquipementEnleve = this.chargerListeEquipementsLot(this.state.selectedLot.refEquipementEnleve);
+      let refEquipementEnleve = this.chargerListeEquipementsLot(
+        this.state.selectedLot.refEquipementEnleve,
+      );
       this.setState(
         {
           ...this.state,
@@ -316,8 +321,11 @@ class EciPeserMarchandiseScreen extends Component {
                 refEquipementEnleve: refEquipementEnleve,
                 acteurInterneEnlevement: acteurInterneEnlevement,
                 acteurInternePesage: acteurInternePesage,
-                dateHeureEffectiveEnlevement: this.state.selectedLot.dateEffectiveEnlevement + " " + this.state.selectedLot.heureEffectiveEnlevement,
-                allRefEquipementEnleve : [],
+                dateHeureEffectiveEnlevement:
+                  this.state.selectedLot.dateEffectiveEnlevement +
+                  ' ' +
+                  this.state.selectedLot.heureEffectiveEnlevement,
+                allRefEquipementEnleve: [],
               },
             ],
           },
@@ -333,32 +341,57 @@ class EciPeserMarchandiseScreen extends Component {
   validerUpdate = () => {
     console.log('valider update');
     if (this.testIsChampsValid(champsObligatoire) === true) {
-      const currentIndex = _.findIndex(
-        this.state.enleverMarchandiseVO.refMarchandiseEnlevee,
-        ['id', this.state.selectedLot.id],
-      );
-      console.log('currentIndex----', currentIndex);
-      const myNewArray = Object.assign(
-        [...this.state.enleverMarchandiseVO.refMarchandiseEnlevee],
-        {
-          [currentIndex]: this.state.selectedLot,
-        },
-      );
-      this.setState(
-        {
-          ...this.state,
-          showEnlevements: false,
-          enleverMarchandiseVO: {
-            ...this.state.enleverMarchandiseVO,
-            refMarchandiseEnlevee: myNewArray,
+      if (
+        Number(this.state.selectedLot.poidsBrutPesage) -
+          Number(this.state.selectedLot.tarePesage) >=
+        0
+      ) {
+        const currentIndex = _.findIndex(
+          this.state.enleverMarchandiseVO.refMarchandiseEnlevee,
+          ['id', this.state.selectedLot.id],
+        );
+        console.log('currentIndex----', currentIndex);
+
+        let acteurInternePesage = {
+          idActeur: ComSessionService.getInstance().getLogin(),
+          nom: ComSessionService.getInstance().getUserObject().nomAgent,
+          prenom: ComSessionService.getInstance().getUserObject().prenomAgent,
+          refBureau: {
+            codeBureau: ComSessionService.getInstance().getCodeBureau(),
+            nomBureauDouane: ComSessionService.getInstance().getNomBureauDouane(),
           },
-        },
-        () =>
-          console.log(
-            'enleverMarchandiseVO after update',
-            JSON.stringify(this.state.enleverMarchandiseVO),
+        };
+        let currentLot = this.state.selectedLot;
+        currentLot.acteurInternePesage = acteurInternePesage;
+
+        const myNewArray = Object.assign(
+          [...this.state.enleverMarchandiseVO.refMarchandiseEnlevee],
+          {
+            [currentIndex]: currentLot,
+          },
+        );
+        this.setState(
+          {
+            ...this.state,
+            showEnlevements: false,
+            enleverMarchandiseVO: {
+              ...this.state.enleverMarchandiseVO,
+              refMarchandiseEnlevee: myNewArray,
+            },
+          },
+          () =>
+            console.log(
+              'enleverMarchandiseVO after update',
+              JSON.stringify(this.state.enleverMarchandiseVO),
+            ),
+        );
+      } else {
+        this.setState({
+          errorMessagePesage: translate(
+            'ecorimport.peserMarchandise.errors.poidsBrutIsSupTare',
           ),
-      );
+        });
+      }
     }
   };
   testIsChampsValid = (champsObligatoire) => {
@@ -513,7 +546,7 @@ class EciPeserMarchandiseScreen extends Component {
     this.callRedux({
       command: 'peserMarchandise',
       typeService: 'UC',
-      module:'ECI_LIB',
+      module: 'ECI_LIB',
       jsonVO: data,
     });
   };
@@ -525,10 +558,14 @@ class EciPeserMarchandiseScreen extends Component {
       numeroVoyage,
       isActionMenuOpen,
       selectedLot,
-      isConsultationMode,
     } = this.state;
     // console.log('in render selectedLot ', JSON.stringify(selectedLot));
     let lotsApures = this.extractCommandData('getLotsApures');
+    let isConsultationMode =
+      !_.isEmpty(this.extractCommandData('peserMarchandise')) &&
+      !_.isEmpty(this.extractCommandData('peserMarchandise').successMessage)
+        ? true
+        : false;
     /*console.log(
       'equipementsbyLot----',
       this.extractCommandData('getEquipementsbyLot'),
@@ -555,21 +592,24 @@ class EciPeserMarchandiseScreen extends Component {
             ) && (
               <ComBadrInfoMessageComp
                 message={
-                this.extractCommandData('peserMarchandise').successMessage
+                  this.extractCommandData('peserMarchandise').successMessage
                 }
               />
             )}
-          
+
           {!_.isEmpty(this.extractCommandData('peserMarchandise')) &&
             !_.isEmpty(
               this.extractCommandData('peserMarchandise').errorMessage,
             ) && (
-            <ComBadrErrorMessageComp
+              <ComBadrErrorMessageComp
                 message={
-                this.extractCommandData('peserMarchandise').errorMessage
+                  this.extractCommandData('peserMarchandise').errorMessage
                 }
               />
             )}
+          {!_.isEmpty(this.state.errorMessagePesage) && (
+            <ComBadrErrorMessageComp message={this.state.errorMessagePesage} />
+          )}
           {/* Référence déclaration */}
           <EciReferenceDeclarationBlock
             enleverMarchandiseVO={enleverMarchandiseVO}
@@ -588,10 +628,10 @@ class EciPeserMarchandiseScreen extends Component {
               {/*Accordion Mainlevée*/}
               <EciMainleveeBlock enleverMarchandiseVO={enleverMarchandiseVO} />
 
-              {/*Accordion Liste des Enlevements Effectues*/}
+              {/*Accordion Liste des Pesages Effectues*/}
               <EciListEnlevementsEffectuesBlock
                 enleverMarchandiseVO={enleverMarchandiseVO}
-                IsConsultationMode={isConsultationMode}
+                isConsultationMode={isConsultationMode}
                 editEnlevement={(item, index) =>
                   this.editEnlevement(item, index)
                 }
@@ -819,7 +859,7 @@ class EciPeserMarchandiseScreen extends Component {
                         </Col>
                         <Col size={6}>
                           <ComBadrPickerComp
-                            disabled={false}
+                            disabled={true}
                             onRef={(ref) => (this.comboLieuStockage = ref)}
                             style={{
                               flex: 1,
@@ -875,6 +915,7 @@ class EciPeserMarchandiseScreen extends Component {
                           <ComBadrNumericTextInputComp
                             ref={(ref) => (this.nombreContenant = ref)}
                             mode={'outlined'}
+                            disabled={true}
                             value={selectedLot.nombreContenant}
                             onChangeBadrInput={(text) =>
                               this.setState({
@@ -905,6 +946,7 @@ class EciPeserMarchandiseScreen extends Component {
                             style={style.columnThree}
                             label=""
                             value={selectedLot.numeroBonSortie}
+                            disabled={true}
                             onChangeText={(text) =>
                               this.setState({
                                 ...this.state,
@@ -929,7 +971,7 @@ class EciPeserMarchandiseScreen extends Component {
                           <ComBadrAutoCompleteChipsComp
                             onRef={(ref) => (this.acOperateur = ref)}
                             code="code"
-                            disabled={false}
+                            disabled={true}
                             selected={
                               _.isEmpty(
                                 ComUtils.getValueByPath(
@@ -984,6 +1026,7 @@ class EciPeserMarchandiseScreen extends Component {
                             mode="outlined"
                             style={style.columnThree}
                             label=""
+                            disabled={true}
                             value={selectedLot.immatriculationsVehicules}
                             onChangeText={(text) =>
                               this.setState({
@@ -1046,7 +1089,7 @@ class EciPeserMarchandiseScreen extends Component {
                               'ecorimport.marchandisesEnlevees.heureEffectiveEnlevement',
                             )}
                             inputStyle={style.dateInputStyle}
-                            readonly={false}
+                            readonly={true}
                           />
                         </Col>
                       </Row>
@@ -1073,7 +1116,9 @@ class EciPeserMarchandiseScreen extends Component {
                 {/* Accordion Relevé de pesage */}
                 <ComBadrCardBoxComp style={styles.cardBox}>
                   <ComAccordionComp
-                    title={translate('ecorimport.peserMarchandise.relevePesage.title')}
+                    title={translate(
+                      'ecorimport.peserMarchandise.relevePesage.title',
+                    )}
                     extraFieldKey={translate('ecorimport.agentEcoreur')}
                     extraFieldValue={translate('ecorimport.agentEcoreur')}
                     expanded={true}>
@@ -1089,11 +1134,12 @@ class EciPeserMarchandiseScreen extends Component {
                           </ComBadrLibelleComp>
                         </Col>
                         <Col size={6}>
-                          <ComBadrNumericTextInputComp
+                          <TextInput
                             ref={(ref) => (this.pontBaculePesage = ref)}
                             mode={'outlined'}
                             value={selectedLot.pontBaculePesage}
-                            onChangeBadrInput={(text) =>
+                            disabled={isConsultationMode}
+                            onChangeText={(text) =>
                               this.setState({
                                 ...this.state,
                                 selectedLot: {
@@ -1116,11 +1162,12 @@ class EciPeserMarchandiseScreen extends Component {
                           </ComBadrLibelleComp>
                         </Col>
                         <Col size={6}>
-                          <ComBadrNumericTextInputComp
+                          <TextInput
                             ref={(ref) => (this.tarePesage = ref)}
                             mode={'outlined'}
                             value={selectedLot.tarePesage}
-                            onChangeBadrInput={(text) =>
+                            disabled={isConsultationMode}
+                            onChangeText={(text) =>
                               this.setState({
                                 ...this.state,
                                 selectedLot: {
@@ -1143,11 +1190,12 @@ class EciPeserMarchandiseScreen extends Component {
                           </ComBadrLibelleComp>
                         </Col>
                         <Col size={6}>
-                          <ComBadrNumericTextInputComp
+                          <TextInput
                             ref={(ref) => (this.poidsBrutPesage = ref)}
                             mode={'outlined'}
                             value={selectedLot.poidsBrutPesage}
-                            onChangeBadrInput={(text) =>
+                            disabled={isConsultationMode}
+                            onChangeText={(text) =>
                               this.setState({
                                 ...this.state,
                                 selectedLot: {
@@ -1162,7 +1210,7 @@ class EciPeserMarchandiseScreen extends Component {
                     </Grid>
                   </ComAccordionComp>
                 </ComBadrCardBoxComp>
-                
+
                 {/* Modal Lot Apures*/}
                 {!_.isNil(lotsApures) && !_.isNil(lotsApures.data) && (
                   <ComBadrModalComp
@@ -1297,7 +1345,4 @@ function mapStateToProps(state) {
   return {...state.EcorImportReducer};
 }
 
-export default connect(
-  mapStateToProps,
-  null,
-)(EciPeserMarchandiseScreen);
+export default connect(mapStateToProps, null)(EciPeserMarchandiseScreen);

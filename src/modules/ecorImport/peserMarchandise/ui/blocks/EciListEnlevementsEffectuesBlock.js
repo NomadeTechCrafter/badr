@@ -23,7 +23,7 @@ export default class EciListEnlevementsEffectuesBlock extends React.Component {
       <ComBadrCardBoxComp noPadding={true}>
         <ComAccordionComp
           title={translate(
-            'ecorimport.enleverMarchandise.listeEnlevementsEffectues.title',
+            'ecorimport.peserMarchandise.listePesagesEffectues.title',
           )}
           expanded={true}>
           <Grid>
@@ -45,20 +45,20 @@ export default class EciListEnlevementsEffectuesBlock extends React.Component {
               </Col>
               <Col size={1}>
                 <ComBadrLibelleComp withColor={true}>
-                  {translate('ecorimport.enleverMarchandise.numBonSortie')}
+                  {translate('ecorimport.nbreContenant')}
                 </ComBadrLibelleComp>
               </Col>
               <Col size={1}>
                 <ComBadrLibelleComp withColor={true}>
                   {translate(
-                    'ecorimport.enleverMarchandise.listeEnlevementsEffectues.colis',
+                    'ecorimport.peserMarchandise.listePesagesEffectues.poidsNet',
                   )}
                 </ComBadrLibelleComp>
               </Col>
               <Col size={2}>
                 <ComBadrLibelleComp withColor={true}>
                   {translate(
-                    'ecorimport.enleverMarchandise.listeEnlevementsEffectues.dateHeureEnlevement',
+                    'ecorimport.peserMarchandise.listePesagesEffectues.dateHeurePesage',
                   )}
                 </ComBadrLibelleComp>
               </Col>
@@ -97,7 +97,7 @@ export default class EciListEnlevementsEffectuesBlock extends React.Component {
                   </Col>
                   <Col size={1}>
                     <ComBadrLibelleComp>
-                      {item.numeroBonSortie}
+                      {item.poidsBrutPesage - 0.0 - (item.tarePesage - 0.0)}
                     </ComBadrLibelleComp>
                   </Col>
                   <Col size={1}>
@@ -107,7 +107,7 @@ export default class EciListEnlevementsEffectuesBlock extends React.Component {
                   </Col>
                   <Col size={2}>
                     <ComBadrLibelleComp>
-                      {item.dateHeureEnlevement}
+                      {item.dateHeurePesage}
                     </ComBadrLibelleComp>
                   </Col>
                   <Col size={1}>

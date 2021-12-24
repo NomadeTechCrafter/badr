@@ -550,11 +550,15 @@ class EciVerifierParContreEcorScreen extends Component {
       numeroVoyage,
       isActionMenuOpen,
       selectedLot,
-      isConsultationMode,
       bonSortie,
     } = this.state;
     // console.log('in render selectedLot ', JSON.stringify(selectedLot));
     let lotsApures = this.extractCommandData('getLotsApures');
+    let isConsultationMode =
+      !_.isEmpty(this.extractCommandData('peserMarchandise')) &&
+      !_.isEmpty(this.extractCommandData('peserMarchandise').successMessage)
+        ? true
+        : false;
     /*console.log(
       'equipementsbyLot----',
       this.extractCommandData('getEquipementsbyLot'),
@@ -618,7 +622,7 @@ class EciVerifierParContreEcorScreen extends Component {
               {/*Accordion Liste des Enlevements Effectues*/}
               <EciListEnlevementsEffectuesBlock
                 enleverMarchandiseVO={enleverMarchandiseVO}
-                IsConsultationMode={isConsultationMode}
+                isConsultationMode={isConsultationMode}
                 editEnlevement={(item, index) =>
                   this.editEnlevement(item, index)
                 }
@@ -1220,6 +1224,7 @@ class EciVerifierParContreEcorScreen extends Component {
                           <ComBadrDatePickerComp
                             dateFormat="DD/MM/yyyy"
                             heureFormat="HH:mm"
+                            readonly={isConsultationMode}
                             value={
                               selectedLot.dateConteEcor
                                 ? moment(
@@ -1283,6 +1288,7 @@ class EciVerifierParContreEcorScreen extends Component {
                             ref={(ref) => (this.poidsBrutPesage = ref)}
                             mode={'outlined'}
                             value={selectedLot.poidsBrutPesage}
+                            disabled={isConsultationMode}
                             onChangeBadrInput={(text) =>
                               this.setState({
                                 ...this.state,

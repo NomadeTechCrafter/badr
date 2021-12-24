@@ -83,6 +83,7 @@ export default {
     peserMarchandise: {
       title: 'Peser marchandise',
       listePesagesEffectues: {
+        poidsNet: 'Poids Net',
         title: 'Liste des Pesages Effectués',
         dateHeurePesage: 'Date Heure Pesage',
       },
