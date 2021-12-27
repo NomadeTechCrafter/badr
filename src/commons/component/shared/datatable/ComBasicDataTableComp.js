@@ -216,6 +216,11 @@ export default class ComBasicDataTableComp extends React.Component {
                                     ? 'checked'
                                     : 'unchecked'
                                 }
+                                disabled={
+                                  this.props.readonly
+                                    ? this.props.readonly
+                                    : false
+                                }
                                 onPress={() => {
                                   let items = this.state.checkedItems;
                                   items[index] = {
@@ -239,6 +244,11 @@ export default class ComBasicDataTableComp extends React.Component {
                                   this.state.checkedItems[index].checked
                                     ? 'checked'
                                     : 'unchecked'
+                                }
+                                disabled={
+                                  this.props.readonly
+                                    ? this.props.readonly
+                                    : false
                                 }
                                 onPress={() => {
                                   let items = this.state.checkedItems;
