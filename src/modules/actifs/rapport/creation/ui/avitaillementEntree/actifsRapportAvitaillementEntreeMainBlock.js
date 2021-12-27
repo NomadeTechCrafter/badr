@@ -119,8 +119,6 @@ class ActifsRapportAvitaillementEntreeMainBlock extends React.Component {
                 ...this.state.navigationAvitaillementEntreeModel,
                 heureDepart: moment(selectedHeure).format('HH:mm').toString(),
             }, showHeureDepart: false, heureDepartTech: event.nativeEvent.timestamp
-
-
         });
         this.state.navigationAvitaillementEntreeModel.heureDepart = moment(selectedHeure).format('HH:mm').toString();
         this.props.update(this.state.navigationAvitaillementEntreeModel);

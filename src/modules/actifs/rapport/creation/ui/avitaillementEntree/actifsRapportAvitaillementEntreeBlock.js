@@ -89,7 +89,7 @@ class ActifsRapportAvitaillementEntreeBlock extends React.Component {
         let dateHeureDepart = moment(dateDepart + ' ' + modele.heureDepart, FORMAT_DDMMYYYY_HHMM);
 
         if (dateHeureDepart < dateHeureEntree) {
-            let message = translate('actifsCreation.avitaillementEntree.navigAvitaillementEntree.msgErrorOrdreDateEntreeDepart');
+            let message = translate('actifsCreation.avitaillementEntree.msgErrorOrdreDateEntreeDepart');
             this.setState({
                 errorMessage: message
             });
@@ -136,106 +136,106 @@ class ActifsRapportAvitaillementEntreeBlock extends React.Component {
         let modele = this.state.navigationAvitaillementEntreeModel;
         if (_.isEmpty(modele.dateEntree.toString())) {
             params.required = true;
-            params.msg += translate('actifsCreation.avitaillementEntree.navigAvitaillementEntree.dateEntree');
+            params.msg += translate('actifsCreation.avitaillementEntree.dateEntree');
         }
         if (_.isEmpty(modele.motifAccostage)) {
             params.required = true;
             params.msg += !_.isEmpty(params.msg) ? ", " : "";
-            params.msg += translate('actifsCreation.avitaillementEntree.navigAvitaillementEntree.motifAccostage');
+            params.msg += translate('actifsCreation.avitaillementEntree.motifAccostage');
         }
         if (_.isEmpty(modele.portEntree)) {
             params.required = true;
             params.msg += !_.isEmpty(params.msg) ? ", " : "";
-            params.msg += translate('actifsCreation.avitaillementEntree.navigAvitaillementEntree.portEntree');
+            params.msg += translate('actifsCreation.avitaillementEntree.portEntree');
         }
         if (_.isEmpty(modele.provenance?.codePays)) {
             params.required = true;
             params.msg += !_.isEmpty(params.msg) ? ", " : "";
-            params.msg += translate('actifsCreation.avitaillementEntree.navigAvitaillementEntree.provenance');
+            params.msg += translate('actifsCreation.avitaillementEntree.provenance');
         }
         if (_.isEmpty(modele.villeProvenance)) {
             params.required = true;
             params.msg += !_.isEmpty(params.msg) ? ", " : "";
-            params.msg += translate('actifsCreation.avitaillementEntree.navigAvitaillementEntree.villeProvenance');
+            params.msg += translate('actifsCreation.avitaillementEntree.villeProvenance');
         }
         if (_.isEmpty(modele.portAttache)) {
             params.required = true;
             params.msg += !_.isEmpty(params.msg) ? ", " : "";
-            params.msg += translate('actifsCreation.avitaillementEntree.navigAvitaillementEntree.portAttache');
+            params.msg += translate('actifsCreation.avitaillementEntree.portAttache');
         }
         if (_.isEmpty(modele.pavillon)) {
             params.required = true;
             params.msg += !_.isEmpty(params.msg) ? ", " : "";
-            params.msg += translate('actifsCreation.avitaillementEntree.navigAvitaillementEntree.pavillon');
+            params.msg += translate('actifsCreation.avitaillementEntree.pavillon');
         }
         if (_.isEmpty(modele.dateDepart.toString())) {
             params.required = true;
-            params.msg += translate('actifsCreation.avitaillementEntree.navigAvitaillementEntree.dateDepart');
+            params.msg += translate('actifsCreation.avitaillementEntree.dateDepart');
         }
         if (_.isEmpty(modele.destination?.codePays)) {
             params.required = true;
             params.msg += !_.isEmpty(params.msg) ? ", " : "";
-            params.msg += translate('actifsCreation.avitaillementEntree.navigAvitaillementEntree.destination');
+            params.msg += translate('actifsCreation.avitaillementEntree.destination');
         }
         if (_.isEmpty(modele.villeDestination)) {
             params.required = true;
             params.msg += !_.isEmpty(params.msg) ? ", " : "";
-            params.msg += translate('actifsCreation.avitaillementEntree.navigAvitaillementEntree.villeDestination');
+            params.msg += translate('actifsCreation.avitaillementEntree.villeDestination');
         }
 
 
 
     }
     checkRequiredFieldsCaracteristiquesBateau = (params) => {
-        let modele = this.state.navigationAvitaillementEntreeModel;
-        if (_.isEmpty(modele.typeBateau)) {
+        let modele = this.state?.navigationAvitaillementEntreeModel;
+        if (_.isEmpty(modele?.typeBateau)) {
             params.required = true;
             params.msg += !_.isEmpty(params.msg) ? ", " : "";
             params.msg += translate('actifsCreation.avitaillementEntree.caracteristiques.typeBateau');
         }
-        if (_.isEmpty(modele.nomBateau)) {
+        if (_.isEmpty(modele?.nomBateau)) {
             params.required = true;
             params.msg += !_.isEmpty(params.msg) ? ", " : "";
             params.msg += translate('actifsCreation.avitaillementEntree.caracteristiques.nomBateau');
         }
-        if (_.isEmpty(modele.immatriculation)) {
+        if (_.isEmpty(modele?.immatriculation)) {
             params.required = true;
             params.msg += !_.isEmpty(params.msg) ? ", " : "";
             params.msg += translate('actifsCreation.avitaillementEntree.caracteristiques.immatriculation');
         }
-        if (_.isEmpty(modele.couleur)) {
+        if (_.isEmpty(modele?.couleur)) {
             params.required = true;
             params.msg += !_.isEmpty(params.msg) ? ", " : "";
             params.msg += translate('actifsCreation.avitaillementEntree.caracteristiques.couleur');
         }
-        if (_.isEmpty(modele.longueur)) {
+        if (_.isEmpty(modele?.longueur)) {
             params.required = true;
             params.msg += !_.isEmpty(params.msg) ? ", " : "";
             params.msg += translate('actifsCreation.avitaillementEntree.caracteristiques.longueur');
         }
-        if (_.isEmpty(modele.profondeur)) {
+        if (_.isEmpty(modele?.profondeur)) {
             params.required = true;
             params.msg += !_.isEmpty(params.msg) ? ", " : "";
             params.msg += translate('actifsCreation.avitaillementEntree.caracteristiques.profondeur');
         }
-        if (_.isEmpty(modele.tonnage)) {
+        if (_.isEmpty(modele?.tonnage)) {
             params.required = true;
             params.msg += !_.isEmpty(params.msg) ? ", " : "";
             params.msg += translate('actifsCreation.avitaillementEntree.caracteristiques.tonnage');
         }
-        if (_.isEmpty(modele.numDeclaration)) {
+        if (_.isEmpty(modele?.numDeclaration)) {
             params.required = true;
             params.msg += !_.isEmpty(params.msg) ? ", " : "";
             params.msg += translate('actifsCreation.avitaillementEntree.caracteristiques.numDeclaration');
         }
         console.log('modele.delivreePar?.nom', modele.delivreePar?.idActeur);
         console.log('modele.delivreePar?.nom ', modele.delivreePar?.nom);
-        if (_.isEmpty(modele.delivreePar?.nom)) {
+        if (_.isEmpty(modele?.delivreePar?.nom)) {
             params.required = true;
             params.msg += !_.isEmpty(params.msg) ? ", " : "";
             params.msg += translate('actifsCreation.avitaillementEntree.caracteristiques.delivreePar');
         }
-        if (_.isEmpty(modele.dateDeclaration.toString())) {
+        if (_.isEmpty(modele?.dateDeclaration?.toString())) {
             params.required = true;
             params.msg += !_.isEmpty(params.msg) ? ", " : "";
             params.msg += translate('actifsCreation.avitaillementEntree.caracteristiques.dateDeclaration');
