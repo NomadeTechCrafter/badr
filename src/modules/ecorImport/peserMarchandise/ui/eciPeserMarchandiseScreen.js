@@ -227,12 +227,12 @@ class EciPeserMarchandiseScreen extends Component {
         action: (row, index) => this.selectedEquipmentLotChanged(row, index),
       },
       {
-        code: 'identifiantEquipement',
+        code: 'referenceEquipement',
         libelle: translate('ecorimport.listeEquipementsLot.refEquipement'),
         width: 200,
       },
       {
-        code: 'ligneLotVO.libelleTypeContenant',
+        code: 'typeEquipement',
         libelle: translate('ecorimport.listeEquipementsLot.typeEquipement'),
         width: 200,
       },
@@ -340,6 +340,7 @@ class EciPeserMarchandiseScreen extends Component {
   };
   validerUpdate = () => {
     console.log('valider update');
+    this.scrollViewRef.scrollTo({y: 0, animated: true});
     if (this.testIsChampsValid(champsObligatoire) === true) {
       if (
         Number(this.state.selectedLot.poidsBrutPesage) -
@@ -423,6 +424,7 @@ class EciPeserMarchandiseScreen extends Component {
     });
   };*/
   editEnlevement = (item, index) => {
+    this.scrollViewRef.scrollTo({y: 0, animated: true});
     this.setState(
       {
         selectedLot: this.state.enleverMarchandiseVO.refMarchandiseEnlevee[
@@ -682,16 +684,6 @@ class EciPeserMarchandiseScreen extends Component {
                               selectedLot,
                             )}
                           </ComBadrLibelleComp>
-                        </Col>
-                        <Col>
-                          <ComBadrButtonIconComp
-                            onPress={this.getListeLotsApures}
-                            icon="file-eye"
-                            loading={this.props.showProgress}
-                            text={translate(
-                              'ecorimport.declarationSommaire.choisirLotDedouanement',
-                            )}
-                          />
                         </Col>
                       </Row>
                       <Row style={CustomStyleSheet.lightBlueRow}>

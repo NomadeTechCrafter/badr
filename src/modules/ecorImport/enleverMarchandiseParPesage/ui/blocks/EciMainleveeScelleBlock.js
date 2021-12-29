@@ -5,6 +5,7 @@ import {
   ComAccordionComp,
   ComBadrNumericTextInputComp,
   ComBadrAutoCompleteChipsComp,
+  ComBadrInfoMessageComp,
 } from '../../../../../commons/component';
 import {translate} from '../../../../../commons/i18n/ComI18nHelper';
 import {CustomStyleSheet} from '../../../../../commons/styles/ComThemeStyle';
@@ -67,62 +68,69 @@ export default class EciMainleveeScelleBlockBlock extends React.Component {
                 </View>
               </Col>
             </Row>
-            <Row style={CustomStyleSheet.whiteRow}>
-              <Col size={1}>
-                <TextInput
-                  mode={'outlined'}
-                  maxLength={8}
-                  value={enleverMarchandiseVO?.refMainlevee?.numeroPince}
-                  label={translate('ecorimport.scelles.numeroPince')}
-                  style={CustomStyleSheet.badrInputHeight}
-                  disabled={true}
-                />
-              </Col>
-              <Col size={1} />
-              <Col size={1}>
-                <ComBadrNumericTextInputComp
-                  maxLength={8}
-                  value={enleverMarchandiseVO?.refMainlevee?.nombreDeScelles}
-                  label={translate('ecorimport.scelles.nombreScelles')}
-                  disabled={true}
-                />
-              </Col>
-            </Row>
-            <Row style={[CustomStyleSheet.whiteRow, styles.rowListNumScelle]}>
-              <Col size={2}>
-                <ComBadrLibelleComp withColor={true}>
-                  {translate('ecorimport.scelles.nouveauxScelles')}
-                </ComBadrLibelleComp>
-              </Col>
-              <Col size={4} style={styles.boxContainer}>
-                <SafeAreaView style={styles.boxSafeArea}>
-                  {_.isEmpty(
-                    Object.values(
-                      enleverMarchandiseVO?.refMainlevee?.listScelle,
-                    ),
-                  ) && (
-                    <Text style={styles.boxItemText}>
-                      {translate('ecorimport.scelles.aucunElement')}
-                    </Text>
-                  )}
-
-                  {!_.isEmpty(
-                    Object.values(
-                      enleverMarchandiseVO?.refMainlevee?.listScelle,
-                    ),
-                  ) && (
-                    <FlatList
-                      data={Object.values(
-                        enleverMarchandiseVO?.refMainlevee?.listScelle,
-                      )}
-                      renderItem={(item) => this.renderBoxItem(item)}
-                      keyExtractor={(item) => item}
-                      nestedScrollEnabled={true}
+            {enleverMarchandiseVO?.refMainlevee?.infoEcorScelle == 'true' && (
+              <View>
+                <Row style={CustomStyleSheet.whiteRow}>
+                  <Col size={1}>
+                    <TextInput
+                      mode={'outlined'}
+                      maxLength={8}
+                      value={enleverMarchandiseVO?.refMainlevee?.numeroPince}
+                      label={translate('ecorimport.scelles.numeroPince')}
+                      style={CustomStyleSheet.badrInputHeight}
+                      disabled={true}
                     />
-                  )}
-                </SafeAreaView>
-              </Col>
-            </Row>
+                  </Col>
+                  <Col size={1} />
+                  <Col size={1}>
+                    <ComBadrNumericTextInputComp
+                      maxLength={8}
+                      value={
+                        enleverMarchandiseVO?.refMainlevee?.nombreDeScelles
+                      }
+                      label={translate('ecorimport.scelles.nombreScelles')}
+                      disabled={true}
+                    />
+                  </Col>
+                </Row>
+                <Row
+                  style={[CustomStyleSheet.whiteRow, styles.rowListNumScelle]}>
+                  <Col size={2}>
+                    <ComBadrLibelleComp withColor={true}>
+                      {translate('ecorimport.scelles.nouveauxScelles')}
+                    </ComBadrLibelleComp>
+                  </Col>
+                  <Col size={4} style={styles.boxContainer}>
+                    <SafeAreaView style={styles.boxSafeArea}>
+                      {_.isEmpty(
+                        Object.values(
+                          enleverMarchandiseVO?.refMainlevee?.listScelle,
+                        ),
+                      ) && (
+                        <Text style={styles.boxItemText}>
+                          {translate('ecorimport.scelles.aucunElement')}
+                        </Text>
+                      )}
+
+                      {!_.isEmpty(
+                        Object.values(
+                          enleverMarchandiseVO?.refMainlevee?.listScelle,
+                        ),
+                      ) && (
+                        <FlatList
+                          data={Object.values(
+                            enleverMarchandiseVO?.refMainlevee?.listScelle,
+                          )}
+                          renderItem={(item) => this.renderBoxItem(item)}
+                          keyExtractor={(item) => item}
+                          nestedScrollEnabled={true}
+                        />
+                      )}
+                    </SafeAreaView>
+                  </Col>
+                </Row>
+              </View>
+            )}
           </Grid>
         </ComAccordionComp>
       </ComBadrCardBoxComp>

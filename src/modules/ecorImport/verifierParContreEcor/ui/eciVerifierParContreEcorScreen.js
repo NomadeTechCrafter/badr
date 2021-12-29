@@ -55,16 +55,9 @@ import EciListEnlevementsEffectuesBlock from './blocks/EciListEnlevementsEffectu
 import EciReferenceDeclarationBlock from './blocks/EciReferenceDeclarationBlock';
 const screenHeight = Dimensions.get('window').height;
 const champsObligatoire = [
-  'lieuStockage',
-  'nombreContenant',
-  'numeroBonSortie',
-  'gestionnaireEnceinte',
-  'immatriculationsVehicules',
-  'dateEffectiveEnlevement',
-  'heureEffectiveEnlevement',
-  'pontBaculePesage',
-  'tarePesage',
-  'poidsBrutPesage',
+  'dateConteEcor',
+  'heureConteEcor',
+  'numeroPorteSortie',
 ];
 class EciVerifierParContreEcorScreen extends Component {
   constructor(props) {
@@ -123,7 +116,7 @@ class EciVerifierParContreEcorScreen extends Component {
         numeroBonSortie: '',
         dateEffectiveEnlevement: '',
         heureEffectiveEnlevement: '',
-        pontBaculePesage,
+        pontBaculePesage: '',
         tarePesage: '',
         poidsBrutPesage: '',
       },
@@ -333,6 +326,7 @@ class EciVerifierParContreEcorScreen extends Component {
   };
   validerUpdate = () => {
     console.log('valider update');
+    this.scrollViewRef.scrollTo({y: 0, animated: true});
     if (this.testIsChampsValid(champsObligatoire) === true) {
       const currentIndex = _.findIndex(
         this.state.enleverMarchandiseVO.refMarchandiseEnlevee,
@@ -391,6 +385,7 @@ class EciVerifierParContreEcorScreen extends Component {
     });
   };*/
   editEnlevement = (item, index) => {
+    this.scrollViewRef.scrollTo({y: 0, animated: true});
     this.setState(
       {
         selectedLot: this.state.enleverMarchandiseVO.refMarchandiseEnlevee[
@@ -1093,6 +1088,7 @@ class EciVerifierParContreEcorScreen extends Component {
                         <Col size={6}>
                           <ComBadrPickerComp
                             onRef={(ref) => (this.pickerBonSortie = ref)}
+                            disabled={true}
                             style={{
                               flex: 1,
                               marginLeft: -80,
@@ -1285,16 +1281,16 @@ class EciVerifierParContreEcorScreen extends Component {
                         </Col>
                         <Col size={6}>
                           <ComBadrNumericTextInputComp
-                            ref={(ref) => (this.poidsBrutPesage = ref)}
+                            ref={(ref) => (this.numeroPorteSortie = ref)}
                             mode={'outlined'}
-                            value={selectedLot.poidsBrutPesage}
+                            value={selectedLot.numeroPorteSortie}
                             disabled={isConsultationMode}
                             onChangeBadrInput={(text) =>
                               this.setState({
                                 ...this.state,
                                 selectedLot: {
                                   ...this.state.selectedLot,
-                                  poidsBrutPesage: text,
+                                  numeroPorteSortie: text,
                                 },
                               })
                             }

@@ -249,12 +249,12 @@ class EciEnleverMarchandiseParPesageScreen extends Component {
         action: (row, index) => this.selectedEquipmentLotChanged(row, index),
       },
       {
-        code: 'identifiantEquipement',
+        code: 'referenceEquipement',
         libelle: translate('ecorimport.listeEquipementsLot.refEquipement'),
         width: 200,
       },
       {
-        code: 'ligneLotVO.libelleTypeContenant',
+        code: 'typeEquipement',
         libelle: translate('ecorimport.listeEquipementsLot.typeEquipement'),
         width: 200,
       },
@@ -410,6 +410,7 @@ class EciEnleverMarchandiseParPesageScreen extends Component {
     return _.isEmpty(this.state.selectedLot[field]);
   };
   addEnlevement = () => {
+    this.scrollViewRef.scrollTo({y: 0, animated: true});
     this.props.dispatch(
       init({type: GENERIC_ECI_INIT, value: {command: 'getEquipementsbyLot'}}),
     );
@@ -420,6 +421,7 @@ class EciEnleverMarchandiseParPesageScreen extends Component {
     });
   };
   editEnlevement = (item, index) => {
+    this.scrollViewRef.scrollTo({y: 0, animated: true});
     this.setState(
       {
         selectedLot: this.state.enleverMarchandiseVO.refMarchandiseEnlevee[
@@ -451,6 +453,7 @@ class EciEnleverMarchandiseParPesageScreen extends Component {
     }
   };
   chargerListeEquipementsLot = (selectedLot) => {
+    let listeEquipementsLot = [];
     _.forEach(selectedLot.refEquipementEnleve, (equipement) => {
       let equipementTemp = {
         referenceEquipement: equipement.identifiantEquipement,
@@ -460,11 +463,12 @@ class EciEnleverMarchandiseParPesageScreen extends Component {
         //set row to not selected
         selected: false,
       };
-      if (this.testIfEquipementDisponible(equipementTemp)) {
+      /*if (this.testIfEquipementDisponible(equipementTemp)) {
         return equipementTemp;
-      }
-      return equipement;
+      }*/
+      listeEquipementsLot.push(equipementTemp);
     });
+    return listeEquipementsLot;
   };
   testIfEquipementDisponible = (equipement) => {
     let res = true;
@@ -503,19 +507,53 @@ class EciEnleverMarchandiseParPesageScreen extends Component {
         : null;
 
     if (
-      !_.isEmpty(getEquipementsbyLot) &&
+      !_.isEmpty(getEquipementsbyLot?.data) &&
       prevState.selectedLot.refEquipementEnleve !== getEquipementsbyLot.data
     ) {
-      console.log('getDerivedStateFromProps--- 2', getEquipementsbyLot.data);
+      // console.log('getDerivedStateFromProps--- 2',JSON.stringify( prevState.selectedLot.refEquipementEnleve), JSON.stringify(getEquipementsbyLot.data));
+
+      let listeEquipementsLot = [];
+      _.forEach(getEquipementsbyLot.data?.refEquipementEnleve, (equipement) => {
+        let equipementTemp = {
+          referenceEquipement: equipement.identifiantEquipement,
+          tareEquipement: equipement.tareEquipement,
+          dateHeureEnlevement: '',
+          typeEquipement: equipement?.ligneLotVO?.libelleTypeContenant,
+          //set row to not selected
+          selected: false,
+        };
+        listeEquipementsLot.push(equipementTemp);
+      });
       return {
         selectedLot: {
           ...prevState.selectedLot,
-          refEquipementEnleve: getEquipementsbyLot.data,
+          refEquipementEnleve: listeEquipementsLot,
         },
       };
     }
+    let dataAfterConfirmation =
+      nextProps.picker && nextProps.picker.enleverMarchandise
+        ? nextProps.picker.enleverMarchandise
+        : null;
+    console.log(
+      'getDerivedStateFromProps dataAfterConfirmation 0',
+      dataAfterConfirmation,
+    );
+    if (
+      !_.isEmpty(dataAfterConfirmation?.data) &&
+      prevState.enleverMarchandiseVO !== dataAfterConfirmation.data
+    ) {
+      /*console.log(
+        'getDerivedStateFromProps dataAfterConfirmation 1',
+        JSON.stringify(dataAfterConfirmation),
+      );*/
+
+      return {enleverMarchandiseVO: dataAfterConfirmation.data};
+    }
+
     return null;
   }
+
 
   confirmerEcor = () => {
     console.log('confirmer ecor -----');
@@ -681,7 +719,9 @@ class EciEnleverMarchandiseParPesageScreen extends Component {
     let lotsApures = this.extractCommandData('getLotsApures');
     let isConsultationMode =
       !_.isEmpty(this.extractCommandData('enleverMarchandiseParPesage')) &&
-      !_.isEmpty(this.extractCommandData('enleverMarchandiseParPesage').successMessage)
+      !_.isEmpty(
+        this.extractCommandData('enleverMarchandiseParPesage').successMessage,
+      )
         ? true
         : false;
     console.log(' isConsultationMode----', isConsultationMode);
@@ -820,6 +860,7 @@ class EciEnleverMarchandiseParPesageScreen extends Component {
                           </ComBadrLibelleComp>
                         </Col>
                         <Col>
+                          {!isConsultationMode && (
                           <ComBadrButtonIconComp
                             onPress={this.getListeLotsApures}
                             icon="file-eye"
@@ -828,6 +869,7 @@ class EciEnleverMarchandiseParPesageScreen extends Component {
                               'ecorimport.declarationSommaire.choisirLotDedouanement',
                             )}
                           />
+                          )}
                         </Col>
                       </Row>
                       <Row style={CustomStyleSheet.lightBlueRow}>
@@ -1261,7 +1303,7 @@ class EciEnleverMarchandiseParPesageScreen extends Component {
                               value={
                                 selectedLot?.infoEcorScelle
                                   ? selectedLot?.infoEcorScelle.toString()
-                                  : 'true'
+                                  : 'false'
                               }>
                               <View style={styles.flexColumn}>
                                 <Text>
@@ -1289,195 +1331,210 @@ class EciEnleverMarchandiseParPesageScreen extends Component {
                         <Col />
                         <Col />
                       </Row>
-                      <Row style={CustomStyleSheet.whiteRow}>
-                        <Col size={1}>
-                          <TextInput
-                            mode={'outlined'}
-                            maxLength={8}
-                            value={selectedLot.numeroPince}
-                            label={translate('ecorimport.scelles.numeroPince')}
-                            style={CustomStyleSheet.badrInputHeight}
-                            disabled={isConsultationMode}
-                            onChangeText={(text) =>
-                              this.setState({
-                                ...this.state,
-                                selectedLot: {
-                                  ...this.state.selectedLot,
-                                  numeroPince: text,
-                                },
-                              })
-                            }
-                          />
-                        </Col>
-                        <Col size={1} />
-                        <Col size={1}>
-                          <ComBadrNumericTextInputComp
-                            maxLength={8}
-                            value={selectedLot.nombreScelle}
-                            disabled={isConsultationMode}
-                            label={translate(
-                              'ecorimport.scelles.nombreScelles',
-                            )}
-                            onChangeBadrInput={(text) =>
-                              this.setState({
-                                ...this.state,
-                                selectedLot: {
-                                  ...this.state.selectedLot,
-                                  numeroPince: text,
-                                },
-                              })
-                            }
-                          />
-                        </Col>
-                      </Row>
-                      <Row style={CustomStyleSheet.lightBlueRow}>
-                        <Col size={5}>
-                          <ComBadrLibelleComp withColor={true}>
-                            {translate('ecorimport.scelles.generateurScelle')}
-                          </ComBadrLibelleComp>
-                        </Col>
-                        <Col size={2}>
-                          <ComBadrNumericTextInputComp
-                            onRef={(input) => {
-                              this.generateurNumScelleDu = input;
-                            }}
-                            maxLength={8}
-                            value={this.state.generateurNumScelleDu}
-                            label={translate('transverse.du')}
-                            disabled={isConsultationMode}
-                            onChangeBadrInput={(text) =>
-                              this.setState({
-                                generateurNumScelleDu: text,
-                              })
-                            }
-                          />
-                        </Col>
-                        <Col size={1} />
-                        <Col size={2}>
-                          <ComBadrNumericTextInputComp
-                            onRef={(input) => {
-                              this.generateurNumScelleAu = input;
-                            }}
-                            maxLength={8}
-                            value={generateurNumScelleAu}
-                            disabled={isConsultationMode}
-                            label={translate('transverse.au')}
-                            onChangeBadrInput={(text) =>
-                              this.setState({
-                                generateurNumScelleAu: text,
-                              })
-                            }
-                          />
-                        </Col>
-                        <Col size={2} />
-                        <Col size={1}>
-                          <Button
-                            mode="contained"
-                            compact="true"
-                            disabled={isConsultationMode}
-                            onPress={this.genererNumeroScelle}>
-                            {translate('transverse.Ok')}
-                          </Button>
-                        </Col>
-                        <Col size={2} />
-                      </Row>
-                      <Row
-                        style={[
-                          CustomStyleSheet.whiteRow,
-                          style.rowListNumScelle,
-                        ]}>
-                        <Col size={5}>
-                          <ComBadrNumericTextInputComp
-                            onRef={(input) => {
-                              this.numeroScelleInput = input;
-                            }}
-                            maxLength={8}
-                            value={numeroScelle}
-                            label={translate('ecorimport.scelles.numeroScelle')}
-                            disabled={isConsultationMode}
-                            onChangeBadrInput={(text) => {
-                              this.setState({
-                                numeroScelle: text,
-                              });
-                            }}
-                          />
-                        </Col>
-                        <Col size={2} />
-
-                        <Col size={1}>
-                          <Button
-                            onPress={this.addNumeroScelle}
-                            icon="plus-box"
-                            mode="contained"
-                            compact="true"
-                            disabled={isConsultationMode}
-                            style={style.btnActionList}
-                          />
-                          <Button
-                            onPress={this.deleteNumeroScelle}
-                            icon="delete"
-                            mode="contained"
-                            compact="true"
-                            disabled={isConsultationMode}
-                            style={style.btnActionList}
-                          />
-                        </Col>
-                        <Col size={2} />
-
-                        <Col size={5} style={style.boxContainer}>
-                          <SafeAreaView style={style.boxSafeArea}>
-                            {_.isEmpty(listeNombreDeScelles) && (
-                              <Text style={style.boxItemText}>
-                                {translate('ecorimport.scelles.aucunElement')}
-                              </Text>
-                            )}
-
-                            {!_.isEmpty(listeNombreDeScelles) && (
-                              <FlatList
-                                data={listeNombreDeScelles}
-                                renderItem={(item) => this.renderBoxItem(item)}
-                                keyExtractor={(item) => item}
-                                nestedScrollEnabled={true}
+                      {selectedLot?.infoEcorScelle == 'true' && (
+                        <View>
+                          <Row style={CustomStyleSheet.whiteRow}>
+                            <Col size={1}>
+                              <TextInput
+                                mode={'outlined'}
+                                maxLength={8}
+                                value={selectedLot.numeroPince}
+                                label={translate(
+                                  'ecorimport.scelles.numeroPince',
+                                )}
+                                style={CustomStyleSheet.badrInputHeight}
+                                disabled={isConsultationMode}
+                                onChangeText={(text) =>
+                                  this.setState({
+                                    ...this.state,
+                                    selectedLot: {
+                                      ...this.state.selectedLot,
+                                      numeroPince: text,
+                                    },
+                                  })
+                                }
                               />
-                            )}
-                          </SafeAreaView>
-                        </Col>
-                      </Row>
-                      <Row style={CustomStyleSheet.whiteRow}>
-                        <Col size={1}>
-                          <ComBadrLibelleComp withColor={true}>
-                            {translate(
-                              'ecorimport.scelles.transporteurExploitantMEAD',
-                            )}
-                          </ComBadrLibelleComp>
-                        </Col>
-                        <Col size={2}>
-                          <ComBadrAutoCompleteChipsComp
-                            placeholder={translate(
-                              'ecorimport.scelles.choisirValeur',
-                            )}
-                            code="code"
-                            disabled={isConsultationMode}
-                            selected={
-                              this.state.selectedLot?.transporteurExploitantMEAD
-                            }
-                            maxItems={3}
-                            libelle="libelle"
-                            command="getCmbOperateur"
-                            onDemand={true}
-                            searchZoneFirst={false}
-                            onValueChange={(item) => {
-                              this.setState({
-                                ...this.state,
-                                selectedLot: {
-                                  ...this.state.selectedLot,
-                                  transporteurExploitantMEAD: item.code,
-                                },
-                              });
-                            }}
-                          />
-                        </Col>
-                      </Row>
+                            </Col>
+                            <Col size={1} />
+                            <Col size={1}>
+                              <ComBadrNumericTextInputComp
+                                maxLength={8}
+                                value={selectedLot.nombreScelle}
+                                disabled={isConsultationMode}
+                                label={translate(
+                                  'ecorimport.scelles.nombreScelles',
+                                )}
+                                onChangeBadrInput={(text) =>
+                                  this.setState({
+                                    ...this.state,
+                                    selectedLot: {
+                                      ...this.state.selectedLot,
+                                      numeroPince: text,
+                                    },
+                                  })
+                                }
+                              />
+                            </Col>
+                          </Row>
+                          <Row style={CustomStyleSheet.lightBlueRow}>
+                            <Col size={5}>
+                              <ComBadrLibelleComp withColor={true}>
+                                {translate(
+                                  'ecorimport.scelles.generateurScelle',
+                                )}
+                              </ComBadrLibelleComp>
+                            </Col>
+                            <Col size={2}>
+                              <ComBadrNumericTextInputComp
+                                onRef={(input) => {
+                                  this.generateurNumScelleDu = input;
+                                }}
+                                maxLength={8}
+                                value={this.state.generateurNumScelleDu}
+                                label={translate('transverse.du')}
+                                disabled={isConsultationMode}
+                                onChangeBadrInput={(text) =>
+                                  this.setState({
+                                    generateurNumScelleDu: text,
+                                  })
+                                }
+                              />
+                            </Col>
+                            <Col size={1} />
+                            <Col size={2}>
+                              <ComBadrNumericTextInputComp
+                                onRef={(input) => {
+                                  this.generateurNumScelleAu = input;
+                                }}
+                                maxLength={8}
+                                value={generateurNumScelleAu}
+                                disabled={isConsultationMode}
+                                label={translate('transverse.au')}
+                                onChangeBadrInput={(text) =>
+                                  this.setState({
+                                    generateurNumScelleAu: text,
+                                  })
+                                }
+                              />
+                            </Col>
+                            <Col size={2} />
+                            <Col size={1}>
+                              <Button
+                                mode="contained"
+                                compact="true"
+                                disabled={isConsultationMode}
+                                onPress={this.genererNumeroScelle}>
+                                {translate('transverse.Ok')}
+                              </Button>
+                            </Col>
+                            <Col size={2} />
+                          </Row>
+                          <Row
+                            style={[
+                              CustomStyleSheet.whiteRow,
+                              style.rowListNumScelle,
+                            ]}>
+                            <Col size={5}>
+                              <ComBadrNumericTextInputComp
+                                onRef={(input) => {
+                                  this.numeroScelleInput = input;
+                                }}
+                                maxLength={8}
+                                value={numeroScelle}
+                                label={translate(
+                                  'ecorimport.scelles.numeroScelle',
+                                )}
+                                disabled={isConsultationMode}
+                                onChangeBadrInput={(text) => {
+                                  this.setState({
+                                    numeroScelle: text,
+                                  });
+                                }}
+                              />
+                            </Col>
+                            <Col size={2} />
+
+                            <Col size={1}>
+                              <Button
+                                onPress={this.addNumeroScelle}
+                                icon="plus-box"
+                                mode="contained"
+                                compact="true"
+                                disabled={isConsultationMode}
+                                style={style.btnActionList}
+                              />
+                              <Button
+                                onPress={this.deleteNumeroScelle}
+                                icon="delete"
+                                mode="contained"
+                                compact="true"
+                                disabled={isConsultationMode}
+                                style={style.btnActionList}
+                              />
+                            </Col>
+                            <Col size={2} />
+
+                            <Col size={5} style={style.boxContainer}>
+                              <SafeAreaView style={style.boxSafeArea}>
+                                {_.isEmpty(listeNombreDeScelles) && (
+                                  <Text style={style.boxItemText}>
+                                    {translate(
+                                      'ecorimport.scelles.aucunElement',
+                                    )}
+                                  </Text>
+                                )}
+
+                                {!_.isEmpty(listeNombreDeScelles) && (
+                                  <FlatList
+                                    data={listeNombreDeScelles}
+                                    renderItem={(item) =>
+                                      this.renderBoxItem(item)
+                                    }
+                                    keyExtractor={(item) => item}
+                                    nestedScrollEnabled={true}
+                                  />
+                                )}
+                              </SafeAreaView>
+                            </Col>
+                          </Row>
+                          <Row style={CustomStyleSheet.whiteRow}>
+                            <Col size={1}>
+                              <ComBadrLibelleComp withColor={true}>
+                                {translate(
+                                  'ecorimport.scelles.transporteurExploitantMEAD',
+                                )}
+                              </ComBadrLibelleComp>
+                            </Col>
+                            <Col size={2}>
+                              <ComBadrAutoCompleteChipsComp
+                                placeholder={translate(
+                                  'ecorimport.scelles.choisirValeur',
+                                )}
+                                code="code"
+                                disabled={isConsultationMode}
+                                selected={
+                                  this.state.selectedLot
+                                    ?.transporteurExploitantMEAD
+                                }
+                                maxItems={3}
+                                libelle="libelle"
+                                command="getCmbOperateur"
+                                onDemand={true}
+                                searchZoneFirst={false}
+                                onValueChange={(item) => {
+                                  this.setState({
+                                    ...this.state,
+                                    selectedLot: {
+                                      ...this.state.selectedLot,
+                                      transporteurExploitantMEAD: item.code,
+                                    },
+                                  });
+                                }}
+                              />
+                            </Col>
+                          </Row>
+                        </View>
+                      )}
                     </Grid>
                   </ComAccordionComp>
                 </ComBadrCardBoxComp>
@@ -1494,6 +1551,7 @@ class EciEnleverMarchandiseParPesageScreen extends Component {
                         totalElements={selectedLot.refEquipementEnleve.length}
                         maxResultsPerPage={10}
                         paginate={true}
+                        readonly={isConsultationMode}
                       />
                     </ComAccordionComp>
                   </ComBadrCardBoxComp>
@@ -1522,6 +1580,7 @@ class EciEnleverMarchandiseParPesageScreen extends Component {
                         <Col size={6}>
                           <ComBadrNumericTextInputComp
                             ref={(ref) => (this.pontBaculePesage = ref)}
+                            disabled={isConsultationMode}
                             mode={'outlined'}
                             value={selectedLot.pontBaculePesage}
                             onChangeBadrInput={(text) =>
@@ -1549,6 +1608,7 @@ class EciEnleverMarchandiseParPesageScreen extends Component {
                         <Col size={6}>
                           <ComBadrNumericTextInputComp
                             ref={(ref) => (this.tarePesage = ref)}
+                            disabled={isConsultationMode}
                             mode={'outlined'}
                             value={selectedLot.tarePesage}
                             onChangeBadrInput={(text) =>
@@ -1576,6 +1636,7 @@ class EciEnleverMarchandiseParPesageScreen extends Component {
                         <Col size={6}>
                           <ComBadrNumericTextInputComp
                             ref={(ref) => (this.poidsBrutPesage = ref)}
+                            disabled={isConsultationMode}
                             mode={'outlined'}
                             value={selectedLot.poidsBrutPesage}
                             onChangeBadrInput={(text) =>
@@ -1621,6 +1682,7 @@ class EciEnleverMarchandiseParPesageScreen extends Component {
                 {/* Actions */}
                 <Row>
                   <Col size={1} />
+                  {!isConsultationMode && (
                   <Col size={1}>
                     <ComBadrButtonIconComp
                       style={styles.actionBtn}
@@ -1634,6 +1696,8 @@ class EciEnleverMarchandiseParPesageScreen extends Component {
                       text={translate('transverse.confirmer')}
                     />
                   </Col>
+                  )}
+                  {!isConsultationMode && (
                   <Col size={1}>
                     <ComBadrButtonIconComp
                       style={styles.actionBtn}
@@ -1643,6 +1707,7 @@ class EciEnleverMarchandiseParPesageScreen extends Component {
                       text={translate('transverse.retablir')}
                     />
                   </Col>
+                  )}
                   <Col size={1}>
                     <ComBadrButtonIconComp
                       style={styles.actionBtn}
