@@ -26,7 +26,7 @@ export default class ComBasicDataTableComp extends React.Component {
     let checkedItems = [];
     if (this.props.rows) {
       this.props.rows.forEach((element) => {
-        checkedItems.push({ checked: element.isRowSelected });
+        checkedItems.push({checked: element.isRowSelected});
       });
     }
     this.state = {currentPage: 0, offset: 0, checkedItems: checkedItems};
@@ -36,7 +36,7 @@ export default class ComBasicDataTableComp extends React.Component {
     let checkedItems = [];
     if (this.props.rows) {
       this.props.rows.forEach((element) => {
-        checkedItems.push({ checked: false });
+        checkedItems.push({checked: false});
       });
     }
     this.setState({checkedItems: checkedItems});
@@ -64,6 +64,24 @@ export default class ComBasicDataTableComp extends React.Component {
     return this.buildDataTable();
   }
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+    let checkedItems = [];
+    if (nextProps.rows) {
+      nextProps.rows.forEach((element) => {
+        checkedItems.push({checked: element.isRowSelected});
+      });
+      if (
+        !_.isEmpty(checkedItems) &&
+        _.findIndex(checkedItems, 'checked') > -1 &&
+        prevState.checkedItems !== checkedItems
+      ) {
+        return {
+          checkedItems: checkedItems,
+        };
+      }
+    }
+    return null;
+  }
   buildPagination = (pageCount) => {
     return (
       <DataTable.Pagination

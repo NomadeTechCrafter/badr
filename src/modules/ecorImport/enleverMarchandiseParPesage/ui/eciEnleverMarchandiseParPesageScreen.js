@@ -513,7 +513,7 @@ class EciEnleverMarchandiseParPesageScreen extends Component {
       // console.log('getDerivedStateFromProps--- 2',JSON.stringify( prevState.selectedLot.refEquipementEnleve), JSON.stringify(getEquipementsbyLot.data));
 
       let listeEquipementsLot = [];
-      _.forEach(getEquipementsbyLot.data?.refEquipementEnleve, (equipement) => {
+      _.forEach(getEquipementsbyLot.data, (equipement) => {
         let equipementTemp = {
           referenceEquipement: equipement.identifiantEquipement,
           tareEquipement: equipement.tareEquipement,
@@ -532,13 +532,13 @@ class EciEnleverMarchandiseParPesageScreen extends Component {
       };
     }
     let dataAfterConfirmation =
-      nextProps.picker && nextProps.picker.enleverMarchandise
-        ? nextProps.picker.enleverMarchandise
+      nextProps.picker && nextProps.picker.enleverMarchandiseParPesage
+        ? nextProps.picker.enleverMarchandiseParPesage
         : null;
-    console.log(
+    /*console.log(
       'getDerivedStateFromProps dataAfterConfirmation 0',
       dataAfterConfirmation,
-    );
+    );*/
     if (
       !_.isEmpty(dataAfterConfirmation?.data) &&
       prevState.enleverMarchandiseVO !== dataAfterConfirmation.data
@@ -554,7 +554,6 @@ class EciEnleverMarchandiseParPesageScreen extends Component {
     return null;
   }
 
-
   confirmerEcor = () => {
     console.log('confirmer ecor -----');
     this.scrollViewRef.scrollTo({y: 0, animated: true});
@@ -563,10 +562,11 @@ class EciEnleverMarchandiseParPesageScreen extends Component {
       '$$hashKey',
       'defaultConverter',
       'isRowSelected',
+      'selected',
     ]);
     delete data.referenceDED.regime;
     data.referenceDED.numeroOrdreVoyage = this.state.numeroVoyage;
-    _.forEach(data.refMarchandiseEnlevee, (MarchandiseEnlevee, index) => {
+    /*_.forEach(data.refMarchandiseEnlevee, (MarchandiseEnlevee, index) => {
       _.forEach(
         MarchandiseEnlevee.refEquipementEnleve,
         (equipement, indexEq) => {
@@ -581,7 +581,7 @@ class EciEnleverMarchandiseParPesageScreen extends Component {
           ] = equipementTemp;
         },
       );
-    });
+    });*/
     console.log('confirmer ecor sent data-----', JSON.stringify(data));
     this.callRedux({
       command: 'enleverMarchandiseParPesage',

@@ -424,6 +424,19 @@ class EcorImportEnleverMarchandiseScreen extends Component {
     _.forEach(selectedLot.refEquipementEnleve, (equipement) => {
       equipement.isRowSelected = true;
     });
+
+    /*console.log('initEditEnlevement', JSON.stringify(selectedLot.refEquipementEnleve));
+    this.setState({
+      selectedLot: {
+        refEquipementEnleve: selectedLot.refEquipementEnleve,
+      },
+    },
+      () =>
+        console.log(
+          'initEditEnlevement setstate',
+          JSON.stringify(this.state.selectedLot.refEquipementEnleve),
+        ),
+    );*/
     if (selectedLot.dateHeureEffectiveEnlevement) {
       let tab = selectedLot.dateHeureEffectiveEnlevement.split(' ');
       this.setState({
@@ -485,19 +498,20 @@ class EcorImportEnleverMarchandiseScreen extends Component {
     this.setState({isActionMenuOpen: !this.state.isActionMenuOpen});
   };
   static getDerivedStateFromProps(nextProps, prevState) {
+    console.log('getDerivedStateFromProps--- 1');
     let getEquipementsbyLot =
       nextProps.picker && nextProps.picker.getEquipementsbyLot
         ? nextProps.picker.getEquipementsbyLot
         : null;
-
+    //console.log('getDerivedStateFromProps--- 2',JSON.stringify( prevState.selectedLot?.refEquipementEnleve), JSON.stringify(getEquipementsbyLot?.data));
     if (
       !_.isEmpty(getEquipementsbyLot?.data) &&
       prevState.selectedLot.refEquipementEnleve !== getEquipementsbyLot.data
     ) {
      // console.log('getDerivedStateFromProps--- 2',JSON.stringify( prevState.selectedLot.refEquipementEnleve), JSON.stringify(getEquipementsbyLot.data));
-
+      console.log('getDerivedStateFromProps getEquipementsbyLot--- 2');
       let listeEquipementsLot = [];
-      _.forEach(getEquipementsbyLot.data?.refEquipementEnleve, (equipement) => {
+      _.forEach(getEquipementsbyLot.data, (equipement) => {
         let equipementTemp = {
           referenceEquipement: equipement.identifiantEquipement,
           tareEquipement: equipement.tareEquipement,
@@ -519,10 +533,10 @@ class EcorImportEnleverMarchandiseScreen extends Component {
       nextProps.picker && nextProps.picker.enleverMarchandise
         ? nextProps.picker.enleverMarchandise
         : null;
-    console.log(
+   /* console.log(
       'getDerivedStateFromProps dataAfterConfirmation 0',
       dataAfterConfirmation,
-    );
+    );*/
     if (
       !_.isEmpty(dataAfterConfirmation?.data) &&
       prevState.enleverMarchandiseVO !== dataAfterConfirmation.data
@@ -531,7 +545,7 @@ class EcorImportEnleverMarchandiseScreen extends Component {
         'getDerivedStateFromProps dataAfterConfirmation 1',
         JSON.stringify(dataAfterConfirmation),
       );*/
-
+      console.log('getDerivedStateFromProps enleverMarchandise--- 3');
       return {enleverMarchandiseVO: dataAfterConfirmation.data};
     }
 
@@ -546,10 +560,11 @@ class EcorImportEnleverMarchandiseScreen extends Component {
       '$$hashKey',
       'defaultConverter',
       'isRowSelected',
+      'selected',
     ]);
     delete data.referenceDED.regime;
     data.referenceDED.numeroOrdreVoyage = this.state.numeroVoyage;
-    _.forEach(data.refMarchandiseEnlevee, (MarchandiseEnlevee, index) => {
+   /* _.forEach(data.refMarchandiseEnlevee, (MarchandiseEnlevee, index) => {
       _.forEach(
         MarchandiseEnlevee.refEquipementEnleve,
         (equipement, indexEq) => {
@@ -564,7 +579,7 @@ class EcorImportEnleverMarchandiseScreen extends Component {
           ] = equipementTemp;
         },
       );
-    });
+    });*/
     console.log('confirmer ecor sent data-----', JSON.stringify(data));
     this.callRedux({
       command: 'enleverMarchandise',
@@ -698,7 +713,7 @@ class EcorImportEnleverMarchandiseScreen extends Component {
       isActionMenuOpen,
       selectedLot,
     } = this.state;
-    // console.log('in render selectedLot ', JSON.stringify(selectedLot));
+    console.log('in render selectedLot '/*, JSON.stringify(selectedLot)*/);
     let lotsApures = this.extractCommandData('getLotsApures');
 
     let isConsultationMode =
@@ -706,7 +721,7 @@ class EcorImportEnleverMarchandiseScreen extends Component {
       !_.isEmpty(this.extractCommandData('enleverMarchandise').successMessage)
         ? true
         : false;
-    console.log(' isConsultationMode----', isConsultationMode);
+    //console.log(' isConsultationMode----', isConsultationMode);
     /*let dataAfterConfirmation = this.extractCommandData('enleverMarchandise');
     console.log(
       ' dataAfterConfirmation----',

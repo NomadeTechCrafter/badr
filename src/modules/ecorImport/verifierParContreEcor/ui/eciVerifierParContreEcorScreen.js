@@ -465,17 +465,46 @@ class EciVerifierParContreEcorScreen extends Component {
         : null;
 
     if (
-      !_.isEmpty(getEquipementsbyLot) &&
+      !_.isEmpty(getEquipementsbyLot?.data) &&
       prevState.selectedLot.refEquipementEnleve !== getEquipementsbyLot.data
     ) {
-      console.log('getDerivedStateFromProps--- 2', getEquipementsbyLot.data);
+      // console.log('getDerivedStateFromProps--- 2',JSON.stringify( prevState.selectedLot.refEquipementEnleve), JSON.stringify(getEquipementsbyLot.data));
+
+      let listeEquipementsLot = [];
+      _.forEach(getEquipementsbyLot.data, (equipement) => {
+        let equipementTemp = {
+          referenceEquipement: equipement.identifiantEquipement,
+          tareEquipement: equipement.tareEquipement,
+          dateHeureEnlevement: '',
+          typeEquipement: equipement?.ligneLotVO?.libelleTypeContenant,
+          //set row to not selected
+          selected: false,
+        };
+        listeEquipementsLot.push(equipementTemp);
+      });
       return {
         selectedLot: {
           ...prevState.selectedLot,
-          refEquipementEnleve: getEquipementsbyLot.data,
+          refEquipementEnleve: listeEquipementsLot,
         },
       };
     }
+    let dataAfterConfirmation =
+      nextProps.picker && nextProps.picker.verifierParContreEcor
+        ? nextProps.picker.verifierParContreEcor
+        : null;
+    if (
+      !_.isEmpty(dataAfterConfirmation?.data) &&
+      prevState.enleverMarchandiseVO !== dataAfterConfirmation.data
+    ) {
+      /*console.log(
+        'getDerivedStateFromProps dataAfterConfirmation 1',
+        JSON.stringify(dataAfterConfirmation),
+      );*/
+
+      return {enleverMarchandiseVO: dataAfterConfirmation.data};
+    }
+
     return null;
   }
 
@@ -486,25 +515,10 @@ class EciVerifierParContreEcorScreen extends Component {
       '$$hashKey',
       'defaultConverter',
       'isRowSelected',
+      'selected',
     ]);
     delete data.referenceDED.regime;
     data.referenceDED.numeroOrdreVoyage = this.state.numeroVoyage;
-    _.forEach(data.refMarchandiseEnlevee, (MarchandiseEnlevee, index) => {
-      _.forEach(
-        MarchandiseEnlevee.refEquipementEnleve,
-        (equipement, indexEq) => {
-          let equipementTemp = {
-            referenceEquipement: equipement.identifiantEquipement,
-            tareEquipement: equipement.tareEquipement,
-            dateHeureEnlevement: '',
-            typeEquipement: equipement?.ligneLotVO?.libelleTypeContenant,
-          };
-          data.refMarchandiseEnlevee[index].refEquipementEnleve[
-            indexEq
-          ] = equipementTemp;
-        },
-      );
-    });
     console.log('confirmer ecor sent data-----', JSON.stringify(data));
     this.callRedux({
       command: 'verifierParContreEcor',
@@ -550,8 +564,8 @@ class EciVerifierParContreEcorScreen extends Component {
     // console.log('in render selectedLot ', JSON.stringify(selectedLot));
     let lotsApures = this.extractCommandData('getLotsApures');
     let isConsultationMode =
-      !_.isEmpty(this.extractCommandData('peserMarchandise')) &&
-      !_.isEmpty(this.extractCommandData('peserMarchandise').successMessage)
+      !_.isEmpty(this.extractCommandData('verifierParContreEcor')) &&
+      !_.isEmpty(this.extractCommandData('verifierParContreEcor').successMessage)
         ? true
         : false;
     /*console.log(
@@ -1264,7 +1278,7 @@ class EciVerifierParContreEcorScreen extends Component {
                               'ecorimport.verifierParContreEcor.contreEcor.dateHeureSorti',
                             )}
                             inputStyle={style.dateInputStyle}
-                            readonly={false}
+                            readonly={isConsultationMode}
                           />
                         </Col>
                       </Row>
@@ -1315,6 +1329,7 @@ class EciVerifierParContreEcorScreen extends Component {
                         maxResultsPerPage={10}
                         paginate={true}
                         hasId={true}
+                        readonly={isConsultationMode}
                       />
                     </ComAccordionComp>
                   </ComBadrCardBoxComp>
@@ -1347,6 +1362,7 @@ class EciVerifierParContreEcorScreen extends Component {
                 {/* Actions */}
                 <Row>
                   <Col size={1} />
+                  {!isConsultationMode && (
                   <Col size={1}>
                     <ComBadrButtonIconComp
                       style={styles.actionBtn}
@@ -1360,6 +1376,8 @@ class EciVerifierParContreEcorScreen extends Component {
                       text={translate('transverse.confirmer')}
                     />
                   </Col>
+                  )}
+                  {!isConsultationMode && (
                   <Col size={1}>
                     <ComBadrButtonIconComp
                       style={styles.actionBtn}
@@ -1369,6 +1387,7 @@ class EciVerifierParContreEcorScreen extends Component {
                       text={translate('transverse.retablir')}
                     />
                   </Col>
+                  )}
                   <Col size={1}>
                     <ComBadrButtonIconComp
                       style={styles.actionBtn}

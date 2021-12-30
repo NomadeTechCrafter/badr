@@ -86,6 +86,7 @@ class EciPeserMarchandiseScreen extends Component {
       suppDialogVisibility: false,
       indexsSuppItem: null,
       isConsultationMode: false,
+      indexEditItem: null,
     };
   }
 
@@ -368,7 +369,7 @@ class EciPeserMarchandiseScreen extends Component {
         const myNewArray = Object.assign(
           [...this.state.enleverMarchandiseVO.refMarchandiseEnlevee],
           {
-            [currentIndex]: currentLot,
+            [this.state.indexEditItem]: currentLot,
           },
         );
         this.setState(
@@ -433,7 +434,11 @@ class EciPeserMarchandiseScreen extends Component {
       },
       () => this.initEditEnlevement(this.state.selectedLot),
     );
-    this.setState({showEnlevements: true, isUpdateMode: true});
+    this.setState({
+      showEnlevements: true,
+      isUpdateMode: true,
+      indexEditItem: index,
+    });
   };
   initEditEnlevement = (selectedLot) => {
     _.forEach(selectedLot.refEquipementEnleve, (equipement) => {
@@ -498,22 +503,24 @@ class EciPeserMarchandiseScreen extends Component {
     this.setState({isActionMenuOpen: !this.state.isActionMenuOpen});
   };
   static getDerivedStateFromProps(nextProps, prevState) {
-    let getEquipementsbyLot =
-      nextProps.picker && nextProps.picker.getEquipementsbyLot
-        ? nextProps.picker.getEquipementsbyLot
+    let dataAfterConfirmation =
+      nextProps.picker && nextProps.picker.peserMarchandise
+        ? nextProps.picker.peserMarchandise
         : null;
-
+    /*console.log(
+      'getDerivedStateFromProps dataAfterConfirmation 0',
+      dataAfterConfirmation,
+    );*/
     if (
-      !_.isEmpty(getEquipementsbyLot) &&
-      prevState.selectedLot.refEquipementEnleve !== getEquipementsbyLot.data
+      !_.isEmpty(dataAfterConfirmation?.data) &&
+      prevState.enleverMarchandiseVO !== dataAfterConfirmation.data
     ) {
-      console.log('getDerivedStateFromProps--- 2', getEquipementsbyLot.data);
-      return {
-        selectedLot: {
-          ...prevState.selectedLot,
-          refEquipementEnleve: getEquipementsbyLot.data,
-        },
-      };
+      /*console.log(
+        'getDerivedStateFromProps dataAfterConfirmation 1',
+        JSON.stringify(dataAfterConfirmation),
+      );*/
+
+      return {enleverMarchandiseVO: dataAfterConfirmation.data};
     }
     return null;
   }
@@ -525,10 +532,11 @@ class EciPeserMarchandiseScreen extends Component {
       '$$hashKey',
       'defaultConverter',
       'isRowSelected',
+      'selected',
     ]);
     delete data.referenceDED.regime;
     data.referenceDED.numeroOrdreVoyage = this.state.numeroVoyage;
-    _.forEach(data.refMarchandiseEnlevee, (MarchandiseEnlevee, index) => {
+    /*_.forEach(data.refMarchandiseEnlevee, (MarchandiseEnlevee, index) => {
       _.forEach(
         MarchandiseEnlevee.refEquipementEnleve,
         (equipement, indexEq) => {
@@ -543,7 +551,7 @@ class EciPeserMarchandiseScreen extends Component {
           ] = equipementTemp;
         },
       );
-    });
+    });*/
     console.log('confirmer ecor sent data-----', JSON.stringify(data));
     this.callRedux({
       command: 'peserMarchandise',
@@ -1101,6 +1109,7 @@ class EciPeserMarchandiseScreen extends Component {
                         totalElements={selectedLot.refEquipementEnleve.length}
                         maxResultsPerPage={10}
                         paginate={true}
+                        readonly={isConsultationMode}
                       />
                     </ComAccordionComp>
                   </ComBadrCardBoxComp>
@@ -1126,12 +1135,12 @@ class EciPeserMarchandiseScreen extends Component {
                           </ComBadrLibelleComp>
                         </Col>
                         <Col size={6}>
-                          <TextInput
+                          <ComBadrNumericTextInputComp
                             ref={(ref) => (this.pontBaculePesage = ref)}
                             mode={'outlined'}
                             value={selectedLot.pontBaculePesage}
                             disabled={isConsultationMode}
-                            onChangeText={(text) =>
+                            onChangeBadrInput={(text) =>
                               this.setState({
                                 ...this.state,
                                 selectedLot: {
@@ -1154,12 +1163,12 @@ class EciPeserMarchandiseScreen extends Component {
                           </ComBadrLibelleComp>
                         </Col>
                         <Col size={6}>
-                          <TextInput
+                          <ComBadrNumericTextInputComp
                             ref={(ref) => (this.tarePesage = ref)}
                             mode={'outlined'}
                             value={selectedLot.tarePesage}
                             disabled={isConsultationMode}
-                            onChangeText={(text) =>
+                            onChangeBadrInput={(text) =>
                               this.setState({
                                 ...this.state,
                                 selectedLot: {
@@ -1182,12 +1191,12 @@ class EciPeserMarchandiseScreen extends Component {
                           </ComBadrLibelleComp>
                         </Col>
                         <Col size={6}>
-                          <TextInput
+                          <ComBadrNumericTextInputComp
                             ref={(ref) => (this.poidsBrutPesage = ref)}
                             mode={'outlined'}
                             value={selectedLot.poidsBrutPesage}
                             disabled={isConsultationMode}
-                            onChangeText={(text) =>
+                            onChangeBadrInput={(text) =>
                               this.setState({
                                 ...this.state,
                                 selectedLot: {
@@ -1230,28 +1239,32 @@ class EciPeserMarchandiseScreen extends Component {
                 {/* Actions */}
                 <Row>
                   <Col size={1} />
-                  <Col size={1}>
-                    <ComBadrButtonIconComp
-                      style={styles.actionBtn}
-                      onPress={
-                        this.state.isUpdateMode
-                          ? this.validerUpdate
-                          : this.validerAjout
-                      }
-                      icon="check-circle-outline"
-                      loading={this.props.showProgress}
-                      text={translate('transverse.confirmer')}
-                    />
-                  </Col>
-                  <Col size={1}>
-                    <ComBadrButtonIconComp
-                      style={styles.actionBtn}
-                      onPress={this.onRestAddEnlevements}
-                      icon="restore"
-                      loading={this.props.showProgress}
-                      text={translate('transverse.retablir')}
-                    />
-                  </Col>
+                  {!isConsultationMode && (
+                    <Col size={1}>
+                      <ComBadrButtonIconComp
+                        style={styles.actionBtn}
+                        onPress={
+                          this.state.isUpdateMode
+                            ? this.validerUpdate
+                            : this.validerAjout
+                        }
+                        icon="check-circle-outline"
+                        loading={this.props.showProgress}
+                        text={translate('transverse.confirmer')}
+                      />
+                    </Col>
+                  )}
+                  {!isConsultationMode && (
+                    <Col size={1}>
+                      <ComBadrButtonIconComp
+                        style={styles.actionBtn}
+                        onPress={this.onRestAddEnlevements}
+                        icon="restore"
+                        loading={this.props.showProgress}
+                        text={translate('transverse.retablir')}
+                      />
+                    </Col>
+                  )}
                   <Col size={1}>
                     <ComBadrButtonIconComp
                       style={styles.actionBtn}
