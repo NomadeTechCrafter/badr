@@ -70,7 +70,7 @@ export function init(action) {
   };
 }
 export function requestFindDumByEtatChargement(action, navigation) {
-  console.log('requestFindDumByEtatChargement action');
+  console.log('requestFindDumByEtatChargement action 123 ' + JSON.stringify(action));
   return (dispatch) => {
     dispatch(action);
     dispatch(inProgress(action));
@@ -86,7 +86,9 @@ export function requestFindDumByEtatChargement(action, navigation) {
           const data = response.data;
           if (data && _.isEmpty(data.dtoHeader.messagesErreur)) {
             console.log('data requestFindDumByEtatChargement', data);
-            completerInformationDum(data.jsonVO, dispatch, navigation);
+
+            dispatch(successFindDumByEtatChargement(data.jsonVO));
+            // completerInformationDum(data.jsonVO, dispatch, navigation);
           } else {
             dispatch(failedFindDumByEtatChargement(data));
           }

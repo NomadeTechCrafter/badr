@@ -29,10 +29,11 @@ import {connect} from 'react-redux';
 import * as Constants from '../state/ecorExpConfirmationArriveeConstants';
 import * as RechecheDumAction from '../state/actions/ecorExpConfirmationArriveeRechercheAction';
 import {MODULE_ECOREXP, TYPE_SERVICE_UC} from '../../../../commons/Config';
+import { ComSessionService } from '../../../../commons/services/session/ComSessionService';
 class EcorExpRechercheParRefComp extends Component {
   defaultState = {
     bureau: '',
-    regime: '',
+    regime: this.props.isBureauDisabled ? '001' : '',
     annee: '',
     serie: '',
     cle: '',
@@ -92,13 +93,15 @@ class EcorExpRechercheParRefComp extends Component {
             numeroOrdreVoyage: this.state.numeroVoyage,
           }
         : {
-            codeBureau: null,
-            numero: '',
-            referenceDum: referenceDed,
-            typeSelecte: null,
-            moyenTransport: '',
-            modeTransport: null,
-            idDed: null,
+            codeBureau: ComSessionService.getInstance().getCodeBureau(),
+            numero: referenceDed,
+          // "numeroImmatriculation": "RU789789",
+          // "codeBureau": "411",
+          // "codeActeur": "YEL",
+            // typeSelecte: null,
+            // moyenTransport: '',
+            // modeTransport: null,
+            // idDed: null,
           };
 
     return {

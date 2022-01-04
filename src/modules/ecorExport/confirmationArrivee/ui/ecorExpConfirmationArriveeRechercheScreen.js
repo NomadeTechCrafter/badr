@@ -223,7 +223,7 @@ class ConfirmationArriveeRechercheScreen extends Component {
         )}
         {this.state.typeListeEtatC === 'etatChargement' && (
           <EcorExpRechercheParRefComp
-            commande="findDumByEtatChargement"
+            commande="findListDumConfirmerArrivee"
             typeService="SP"
             isBureauDisabled={true}
             navigation={this.props.navigation}

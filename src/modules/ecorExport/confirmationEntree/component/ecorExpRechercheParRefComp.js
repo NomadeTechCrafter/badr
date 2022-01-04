@@ -103,7 +103,7 @@ class EcorExpRechercheParRefComp extends Component {
   };
 
   confirmer = () => {
-    console.log('confirmer EcorExpRechercheParRefComp');
+    console.log('confirmer EcorExpRechercheParRefComp 123');
     this.setState({showErrorMsg: true});
     if (this.state.regime && this.state.serie && this.state.annee) {
       let cleValide =

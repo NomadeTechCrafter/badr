@@ -13,6 +13,8 @@ export default {
     selectionnerElement: 'sélectionner un élément',
     ref: 'Référence',
     numeroVersion: 'Numéro Version',
+    dateAchem: 'Date Heure Acheminement',
+    scellesApposes: 'Scellés apposés',
     typeDed: 'Type DeD',
     dateEnreg: 'Date Enregistrement',
     operateurDeclarant: 'Opérateur Déclarant',

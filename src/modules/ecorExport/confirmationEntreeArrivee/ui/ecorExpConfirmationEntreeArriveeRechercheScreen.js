@@ -62,6 +62,16 @@ class ConfirmationEntreeArriveeRechercheScreen extends Component {
         width: 200,
       },
       {
+        code: 'dateHeureAcheminement',
+        libelle: translate('confirmationEntree.dateAchem'),
+        width: 200,
+      },
+      {
+        code: 'listeScelles',
+        libelle: translate('confirmationEntree.scellesApposes'),
+        width: 400,
+      },
+      {
         code: 'operateurDeclarant',
         libelle: translate('confirmationEntree.operateurDeclarant'),
         width: 200,
@@ -173,7 +183,7 @@ class ConfirmationEntreeArriveeRechercheScreen extends Component {
   };
 
   render() {
-
+    console.log('render confirmation entree arrive +++ ===> ' + JSON.stringify(this.props?.data));
     return (
       <View>
         <ComBadrToolbarComp

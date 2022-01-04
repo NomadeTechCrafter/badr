@@ -29,16 +29,16 @@ class Login extends React.Component {
     password: '',
     startAutoLogin: true,
     autoLoginParam: {
-      login: 'AD6311',
-      password: 'Testtest1*',
+      login: 'YEL',
+      password: 'Testtest1+',
       codeSms: '000000',
-      bureau: '309',
-      codeBureau: '309',
-      codeArrondissement: '309',
-      arrondissement: '309',
+      bureau: '411',
+      codeBureau: '411',
+      codeArrondissement: '411',
+      arrondissement: '411',
       profiles: [
         // "0", "AAMAX", "AB", "PRO TEST",
-        "ACTIFS_AD", "ACTIFS" //, "ALL"
+        "ACTIFS_AD", "ACTIFS" , "ALL"
       //   "AR", "ADMINBV",
       //   "ADMSELCOT", "ADT", "AGBRIGADE", "AGDP", "AGENTD", "AGECOR", "AGENT_TEST", "AV",
         // "AG_VISIT", "AGLACI", "ALLPROFIL", "ALL", "ALLPRO", "A123", "AMAL2015", "AMAL-PRO",

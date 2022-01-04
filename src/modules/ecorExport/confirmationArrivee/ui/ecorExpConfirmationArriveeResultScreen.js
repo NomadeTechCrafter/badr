@@ -23,45 +23,55 @@ class ConfirmationArriveeResultScreen extends React.Component {
     };
     this.cols = [
       {
-        code: 'referenceEnregistrement',
+        code: 'reference',
         libelle: translate('confirmationArrivee.ref'),
         width: 250,
       },
       {
-        code: 'typeDeD',
-        libelle: translate('confirmationArrivee.typeDed'),
+        code: 'numeroVersion',
+        libelle: translate('confirmationEntree.numeroVersion'),
         width: 100,
       },
       {
         code: 'dateEnregistrement',
-        libelle: translate('confirmationArrivee.dateEnreg'),
-        width: 150,
+        libelle: translate('confirmationEntree.dateEnreg'),
+        width: 200,
+      },
+      {
+        code: 'dateHeureAcheminement',
+        libelle: translate('confirmationEntree.dateAchem'),
+        width: 200,
+      },
+      {
+        code: 'listeScelles',
+        libelle: translate('confirmationEntree.scellesApposes'),
+        width: 300,
       },
       {
         code: 'operateurDeclarant',
         libelle: translate('confirmationArrivee.operateurDeclarant'),
-        width: 150,
+        width: 200,
       },
-      {
-        code: 'valeurDeclaree',
-        libelle: translate('confirmationArrivee.valeurDeclarant'),
-        width: 150,
-      },
-      {
-        code: 'poidsBruts',
-        libelle: translate('confirmationArrivee.poidsBruts'),
-        width: 150,
-      },
-      {
-        code: 'poidsNet',
-        libelle: translate('confirmationArrivee.poidsNet'),
-        width: 150,
-      },
-      {
-        code: 'nombreContenants',
-        libelle: translate('confirmationArrivee.nombreContenants'),
-        width: 150,
-      },
+      // {
+      //   code: 'valeurDeclaree',
+      //   libelle: translate('confirmationArrivee.valeurDeclarant'),
+      //   width: 150,
+      // },
+      // {
+      //   code: 'poidsBruts',
+      //   libelle: translate('confirmationArrivee.poidsBruts'),
+      //   width: 150,
+      // },
+      // {
+      //   code: 'poidsNet',
+      //   libelle: translate('confirmationArrivee.poidsNet'),
+      //   width: 150,
+      // },
+      // {
+      //   code: 'nombreContenants',
+      //   libelle: translate('confirmationArrivee.nombreContenants'),
+      //   width: 150,
+      // },
     ];
   }
 
