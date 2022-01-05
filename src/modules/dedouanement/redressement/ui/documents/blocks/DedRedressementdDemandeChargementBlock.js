@@ -61,7 +61,13 @@ class DedRedressementDocumentsExigiblesBlock extends React.Component {
   };
 
   recupererListeDemandesDocumentDUM = () => {
-    let idDec = getValueByPath('dedReferenceVO.identifiant', this.props.data);
+    let idDec  = getValueByPath(
+      'dedReferenceVO.identifiant',
+      this.props,
+      'consulterDumReducer',
+    );
+    console.log('ded.recupererListeDemandesDocumentDUM dedReferenceVO.identifiant idDec : ', idDec);
+    
     this.callRedux({
       command: 'ded.recupererListeDemandesDocumentDUM',
       typeService: 'SP',

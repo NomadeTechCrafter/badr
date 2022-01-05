@@ -37,6 +37,16 @@ class DedRedressementDocumentsExigiblesBlock extends React.Component {
         code: 'typeDocument',
         libelle: translate('dedouanement.documents.doc'),
         width: 250,
+        render: (row) => {
+          return (
+              <Text>
+              {row.typeDocument +
+                  '(' +
+                row.codeDocumentExigible +
+                  ')'}
+              </Text>
+          );
+        },
       },
       {
         code: 'portee',

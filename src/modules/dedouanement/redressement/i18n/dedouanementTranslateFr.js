@@ -12,7 +12,8 @@ export default {
       title: 'REDRESSER DECLARATION'
     },
     entete: {
-      commentaires: 'Commentaires'
+      commentaires: 'Commentaires',
+      ConsulterAMP:'Consulter AMP'
     },
     confirmerEnvoiValeur: 'ENVOYER A LA VALEUR',
     confirmerTraitementValeur: 'TRAITER LA VALEUR',
@@ -60,6 +61,7 @@ export default {
       assiette: 'Assiette',
       montant: 'Montant',
       total: 'Total',
+      montantTotal: 'Montant total ',
       descp: 'Description',
       montantT: 'Montant total :',
       listeDecl: 'Liste des déclarations couplées avec la déclaration en cours',
@@ -211,7 +213,33 @@ export default {
         detail: 'Détail',
         montant: 'Montant',
         assiette: 'Assiette',
-      },
+      }
     },
+    ampi: {
+      title: 'Recherche amp',
+      numVersAutMvmtPort: 'Version',
+      numAutMvmtPort: 'Numéro AMP',
+      typeUnite: "Type d'unité",
+      sousTypeUnite: "Sous - type d'unité",
+      NumUnit: "Numéro d'unité",
+      NumTract: 'Numéro de tracteur',
+      NumPlateau: 'Numéro de plateau',
+      dateCreation: 'Date de Création',
+      dateImpression: "Date d'impression",
+      dateValidation: "Date de validation",
+      dateAnnulation: "Date d'annulation",
+      etat: 'Etat',
+      declarant: 'Déclarant',
+      videPlein: 'Vide / Plein',
+      matiere: 'matiére dangereuse',
+      agentMaritime: 'Agent maritime',
+      vesselName: 'Nom de navire',
+      IMO: 'IMO de navire',
+      pointActuel: 'Point actuel',
+      dateZRE: 'Date ZRE',
+      numeroZRE: 'Numéro ZRE',
+      refEtatChargement: "Référence d'Etat de déchargement",
+      refDUM: 'Référence DUM'
+    }
   },
 };

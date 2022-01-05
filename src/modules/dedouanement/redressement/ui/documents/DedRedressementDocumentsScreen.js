@@ -37,6 +37,9 @@ class DedRedressementDocumentsScreen extends React.Component {
       this.props,
       'consulterDumReducer',
     );
+
+    console.log('DedRedressementDocumentsScreen this.props : ',
+      this.props);
     // console.log(
     //   '----is render DedRedressementDocumentsScreen -----',
     //   dumSignee,

@@ -36,6 +36,8 @@ import ModalConfirmationReception from './modelIntervention/modalConfirmationRec
 import DedRedressementPreapurementDsScreen from './preapurementDS/DedRedressementPreapurementDsScreen';
 import DedRedressementResultatScannerScreen from './resultatScanner/DedRedressementResultatScannerScreen';
 import DedRedressementMoyenTransportTransitScreen from './moyenTransport/DedRedressementMoyenTransportTransitScreen';
+import { ComSessionService } from '../../../../commons/services/session/ComSessionService';
+import { DED_IMPUTATION_RED_NEW_PROVISIONNELLE, DED_IMPUTATION_TC_NOUVELLE_PROVISIONNELLE, DED_SERV_RECHREFERENCE } from '../utils/DedConstants';
 
 
 
@@ -194,13 +196,16 @@ class DedRedressementScreen extends React.Component {
             'consulterDumReducer',
         );
 
+        console.log('ComSessionService.getInstance().getFonctionalite() :', ComSessionService.getInstance().getFonctionalite());
+        console.log('DED_SERV_RECHREFERENCE :', DED_SERV_RECHREFERENCE);
+        console.log('typeof ComSessionService.getInstance().getFonctionalite() :', typeof ComSessionService.getInstance().getFonctionalite());
         let data = {
             codeRegime: codeRegime,
             categorie: categorie,
             codeBureau: codeBureau,
             identifiant: identifiant,
-            readOnlyAcces: 'false',
-            redressement: 'true',
+            readOnlyAcces: this.isRecherchParReference(),
+            redressement: !this.isRecherchParReference(),
         };
         this.callRedux({
             command: 'ded.isPreapurementDSAccessible',
@@ -208,6 +213,18 @@ class DedRedressementScreen extends React.Component {
             jsonVO: data,
         });
     };
+
+    isRecherchParReference = () => {
+        return ComSessionService.getInstance().getFonctionalite() === DED_SERV_RECHREFERENCE;
+    }
+
+    isImputerTc = ()=>{
+        return ComSessionService.getInstance().getFonctionalite() === DED_IMPUTATION_TC_NOUVELLE_PROVISIONNELLE;
+    }
+
+    actionImputationRedNewProvisionnelle = () => { 
+        return ComSessionService.getInstance().getFonctionalite() === DED_IMPUTATION_RED_NEW_PROVISIONNELLE;
+    }
 
     isImputationCompteREDAccessible = () => {
         let codeRegime = getValueByPath(
@@ -407,9 +424,12 @@ class DedRedressementScreen extends React.Component {
 
         console.log('success : ', typeof success != "undefined");
         console.log('success : ', success);
-        console.log('this.props : ', this.props);
+        console.log('this.props : ', JSON.stringify(this.props) );
         console.log('isConfirmationReception : ', isConfirmationReception);
         console.log('(typeof isConfirmationReception != "undefined") ', (typeof isConfirmationReception != "undefined"));
+        console.log('isImputationCompteREDAccessible ', isImputationCompteREDAccessible);
+        console.log('this.state.isImputationCompteRedVisible ', this.state.isImputationCompteRedVisible);
+        
 
 
         return (
@@ -489,7 +509,7 @@ class DedRedressementScreen extends React.Component {
                             )}
                             <Tab.Screen name="Articles" component={ArticlesScreen} />
                             {((this.state.isPreapurementDSVisible &&
-                                isPreapurementDSAccessible === true)
+                                    isPreapurementDSAccessible?.data && !this.isImputerTc() && !this.actionImputationRedNewProvisionnelle())
                                 || this.props?.consulterDumReducer?.fromWhere1 === 'ded.InitEnvoyerValeur'
                                 || this.props?.consulterDumReducer?.fromWhere1 === 'ded.InitTraiterValeur') && (
                                     <Tab.Screen

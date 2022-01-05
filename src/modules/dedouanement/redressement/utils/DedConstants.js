@@ -89,4 +89,12 @@ export const AUCUN = '';
 
 export const SEPARATEUR = ' - ';
 
+export const DED_SERV_RECHREFERENCE = 'cf2052'; 
+
+export const DED_IMPUTATION_RED_NEW_PROVISIONNELLE = 'cf207511';
+
+export const DED_IMPUTATION_TC_NOUVELLE_PROVISIONNELLE = 'cf20181';
+
+export const CODE_TYPEDUM_NEW_PROVISIONNELLE = '99';
+
 

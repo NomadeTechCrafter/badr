@@ -119,6 +119,23 @@ export default class DedRedressementApi {
     return response;
   };
 
+  static consulterAMPByDed = async (reference) => {
+    const data = {
+      dtoHeader: {
+        userLogin: ComSessionService.getInstance().getLogin(),
+        fonctionnalite: ComSessionService.getInstance().getFonctionalite(),
+        module: 'DED_LIB',
+        commande: 'ded.consulterAMPByDed',
+        typeService: TYPE_SERVICE_SP,
+      },
+      jsonVO: reference,
+    };
+    console.log('data consulterAMPByDed', data);
+    let response = await ComHttpHelperApi.process(data);
+    console.log('response consulterAMPByDed', response);
+    return response;
+  };
+
   
 
 

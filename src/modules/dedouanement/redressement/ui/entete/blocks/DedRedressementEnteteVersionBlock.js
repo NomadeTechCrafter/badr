@@ -1,7 +1,7 @@
 
 import React from 'react';
 import _ from 'lodash';
-import { View } from 'react-native';
+import { View, TouchableOpacity, Text } from 'react-native';
 import { Col, Row } from 'react-native-easy-grid';
 import { Divider } from 'react-native-elements';
 import { Checkbox, TextInput } from 'react-native-paper';
@@ -25,6 +25,7 @@ import { CATEGORIE_GLOBALE_VOY, CATEGORIE_PROVISOIRE_INIT, CATEGORIE_PROVISOIRE_
 import { getValueByPath, initDedCategorie } from '../../../utils/DedUtils';
 import DedRedressementRow from '../../common/DedRedressementRow';
 import DedRedressementEnteteInfoBlock from './DedRedressementEnteteInfoBlock';
+import DedEchangeConsultationAmpiScreen from '../../consultationAmpi/DedEchangeConsultationAmpiScreen';
 
 class DedRedressementEnteteVersionBlock extends React.Component {
   constructor(props) {
@@ -37,6 +38,7 @@ class DedRedressementEnteteVersionBlock extends React.Component {
       bureauDestDisabled: false,
       combineeDisabled: false,
       lieuStockageDisabled: false,
+      showListAMPI:false
     };
   }
 
@@ -64,7 +66,9 @@ class DedRedressementEnteteVersionBlock extends React.Component {
   handleCancelCommentaire = () => {
     this.setState({ isCommentaireDialogVisible: false });
   };
-
+  onDismissConsultationAMPIScreen = () => {
+    this.setState({ showListAMPI: false });
+  };
   handleVersionCouranteClicked = () => {
     this.callRedux({
       idDec: getValueByPath('dedReferenceVO.identifiant', this.props.data),
@@ -160,7 +164,8 @@ class DedRedressementEnteteVersionBlock extends React.Component {
  * @return true, if is combinee checkbox rendered
  */
   isCombineeCheckboxRendered = () => {
-    let dedDumSectionEnteteVO = getValueByPath('dedDumSectionEnteteVO', this.props.data)
+    let dedDumSectionEnteteVO = getValueByPath('dedDumSectionEnteteVO', this.props.data);
+    console.log('isCombineeCheckboxRendered dedDumSectionEnteteVO', dedDumSectionEnteteVO);
     if (dedDumSectionEnteteVO?.occasionnelle)
       return false;
 
@@ -171,11 +176,12 @@ class DedRedressementEnteteVersionBlock extends React.Component {
     let typeDeclarationParam = getValueByPath('typeDeclarationParam', this.props.data);
     console.log('isCombineeCheckboxRendered typeDeclarationParam', typeDeclarationParam);
     let refDumInit = getValueByPath('refDumInit', this.props.data);
+    console.log('isCombineeCheckboxRendered this.props.data', this.props.data);
     console.log('isCombineeCheckboxRendered typeDUM', refDumInit);
     let categorie = initDedCategorie(typeDeclarationParam, refDumInit);
     var rendered = (categorie == CATEGORIE_PROVISOIRE_VOY);
     let transitCase = getValueByPath('transitCase', this.props.data);
-    var transitTrue = !('false' === transitCase) && categorie != CATEGORIE_GLOBALE_VOY && categorie != CATEGORIE_PROVISOIRE_VOY;
+    var transitTrue = !(typeof transitCase == 'undefined' ||'false' === transitCase) && categorie != CATEGORIE_GLOBALE_VOY && categorie != CATEGORIE_PROVISOIRE_VOY;
     rendered = rendered || transitTrue;
     return rendered;
   }
@@ -416,6 +422,26 @@ class DedRedressementEnteteVersionBlock extends React.Component {
               </ComBadrCardBoxComp>
             </Col></Row>
         </ComBadrModalComp>
+
+           <DedEchangeConsultationAmpiScreen
+            reference={
+              getValueByPath(
+                  'dedDumSectionEnteteVO.referenceEnregistrement',
+              this.props.data,
+              'consulterDumReducer',
+                )} 
+            onRef={(ref) => (this.refListAMPI = ref)}
+            visible={this.state.showListAMPI}
+            onDismiss={this.onDismissConsultationAMPIScreen}
+          />
+        <TouchableOpacity
+          style={{ padding: 10 }}
+          onPress={() => {
+            this.refListAMPI.chargeList();
+            this.setState({ showListAMPI: true });
+          }}>
+          <Text style={CustomStyleSheet.badrLibelleBleu}>{translate('dedouanement.entete.ConsulterAMP')}</Text>
+        </TouchableOpacity>
 
         <ComAccordionComp title="Versions" expanded={true}>
           <DedRedressementRow zebra={true}>
@@ -687,25 +713,30 @@ class DedRedressementEnteteVersionBlock extends React.Component {
 
 
           {this.isShownBureauDistBloc1() && <DedRedressementRow zebra={true}>
-            <ComBadrAutoCompleteChipsComp
-              label={
-                (this.isTransitCaseTrue() && (<ComBadrLibelleComp withColor={true}>
+
+            <ComBadrKeyValueComp
+              libelle={
+                (this.isTransitCaseTrue() && (<ComBadrLibelleComp withColor={true} >
                   Bureau destination
                 </ComBadrLibelleComp>)) || (this.isTransitCaseFalse() && (<ComBadrLibelleComp withColor={true}>
                   Bureau d'Entrée / Sortie
                 </ComBadrLibelleComp>))
               }
-              onRef={(ref) => (this.refBureau = ref)}
-              code="codeBureau"
-              selected={this.state?.dedDumVo.dedDumSectionEnteteVO?.bureauDestinationLibelle}
-              maxItems={10}
-              disabled={this.state.bureauDestDisabled || this.props.readOnly}
-              libelle="nomBureauDouane"
-              command="getListeBureaux"
-              onDemand={true}
-              searchZoneFirst={false}
-              onValueChange={this.handleBureauChipsChanged}
-            />
+              children={
+                <ComBadrAutoCompleteChipsComp
+                  placeholder={' '}
+                  onRef={(ref) => (this.refBureau = ref)}
+                  code="codeBureau"
+                  selected={this.state?.dedDumVo.dedDumSectionEnteteVO?.bureauDestinationLibelle}
+                  maxItems={10}
+                  disabled={this.state.bureauDestDisabled || this.props.readOnly}
+                  libelle="nomBureauDouane"
+                  command="getListeBureaux"
+                  onDemand={true}
+                  searchZoneFirst={false}
+                  onValueChange={this.handleBureauChipsChanged}
+                />
+              } />
           </DedRedressementRow>}
           {this.isShownBureauDistBloc2() && <View><DedRedressementRow zebra={true}>
             <ComBadrAutoCompleteChipsComp

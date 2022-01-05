@@ -68,6 +68,33 @@ export default (state = initialState, action) => {
         nextState.errorMessage = translate('errors.technicalIssue');
       }
       return nextState;
+    case Constants.CONSULTER_AMP_DED_INIT:
+      nextState.showProgress = true;
+      nextState.messageInfo = null;
+      nextState.errorMessage = null;
+      return nextState;
+    case Constants.CONSULTER_AMP_DED_IN_PROGRESS:
+      nextState.showProgress = true;
+      nextState.data = action.value.data;
+      return nextState;
+    case Constants.CONSULTER_AMP_DED_SUCCESS:
+      nextState.errorMessage = null;
+      nextState.showProgress = false;
+      nextState.listAMPI = action.value.data;
+
+
+      return nextState;
+    case Constants.CONSULTER_AMP_DED_FAILED:
+      nextState.showProgress = false;
+      nextState.displayError = true;
+      if (action.value.dtoHeader) {
+        nextState.errorMessage = action.value.dtoHeader.messagesErreur
+          ? action.value.dtoHeader.messagesErreur
+          : action.value;
+      } else {
+        nextState.errorMessage = translate('errors.technicalIssue');
+      }
+      return nextState;
     default:
       return nextState ? nextState : initialState;
   }

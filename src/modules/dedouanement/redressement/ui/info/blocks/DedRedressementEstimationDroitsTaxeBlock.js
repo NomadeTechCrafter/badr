@@ -114,6 +114,9 @@ class DedRedressementEstimationDroitsTaxeBlock extends React.Component {
       'ded.recupererEstimationDroitsTaxes',
       'genericDedReducer',
     );
+
+    console.log('27122021 EstimationDroitsTaxesTemp : ', JSON.stringify(EstimationDroitsTaxesTemp));
+
     return (
       <View style={styles.container}>
         {/* Accordion Estimation Driots et taxes*/}
@@ -122,7 +125,7 @@ class DedRedressementEstimationDroitsTaxeBlock extends React.Component {
           expanded={false}>
           {!_.isNil(EstimationDroitsTaxesTemp) &&
             !_.isNil(EstimationDroitsTaxesTemp.data) &&
-            _.keysIn(EstimationDroitsTaxesTemp.data[0]).length === 7 && (
+            !_.isNil(EstimationDroitsTaxesTemp.data.listeSousTaxeVos) && (
               <View>
                 <Row style={CustomStyleSheet.lightBlueRow}>
                   <Col>
@@ -132,15 +135,15 @@ class DedRedressementEstimationDroitsTaxeBlock extends React.Component {
                   </Col>
                   <Col>
                     <ComBadrLibelleComp withColor={true}>
-                      {EstimationDroitsTaxesTemp.data.length}
+                    {EstimationDroitsTaxesTemp.data.listeSousTaxeVos.length}
                     </ComBadrLibelleComp>
                   </Col>
                   <Col />
                 </Row>
                 <ComBasicDataTableComp
-                  rows={EstimationDroitsTaxesTemp.data}
+                rows={EstimationDroitsTaxesTemp.data.listeSousTaxeVos}
                   cols={this.state.cols}
-                  totalElements={EstimationDroitsTaxesTemp.data.length}
+                totalElements={EstimationDroitsTaxesTemp.data.listeSousTaxeVos.length}
                   maxResultsPerPage={5}
                   paginate={true}
                 />
@@ -148,7 +151,7 @@ class DedRedressementEstimationDroitsTaxeBlock extends React.Component {
             )}
           {!_.isNil(EstimationDroitsTaxesTemp) &&
             !_.isNil(EstimationDroitsTaxesTemp.data) &&
-            _.keysIn(EstimationDroitsTaxesTemp.data[0]).length === 4 && (
+            !_.isNil(EstimationDroitsTaxesTemp.data.listeTaxeVos) && (
               <View>
                 <Row style={CustomStyleSheet.whiteRow}>
                   <Col>
@@ -158,12 +161,19 @@ class DedRedressementEstimationDroitsTaxeBlock extends React.Component {
                   </Col>
                 </Row>
                 <ComBasicDataTableComp
-                  rows={EstimationDroitsTaxesTemp.data}
+                rows={EstimationDroitsTaxesTemp.data.listeTaxeVos}
                   cols={this.state.colsTotal}
-                  totalElements={EstimationDroitsTaxesTemp.data.length}
+                  totalElements={EstimationDroitsTaxesTemp.data.listeTaxeVos.length}
                   maxResultsPerPage={5}
                   paginate={true}
-                />
+              />
+              <Row style={CustomStyleSheet.lightBlueRow}>
+                <Col>
+                  <ComBadrLibelleComp>
+                    {translate('dedouanement.info.montantTotal')}:{' '+ EstimationDroitsTaxesTemp.data?.montant}
+                    </ComBadrLibelleComp>
+                </Col>
+              </Row>
               </View>
             )}
         </ComAccordionComp>
