@@ -69,7 +69,7 @@ class ConfirmationEntreeArriveeRechercheScreen extends Component {
       {
         code: 'listeScelles',
         libelle: translate('confirmationEntree.scellesApposes'),
-        width: 400,
+        width: 450,
       },
       {
         code: 'operateurDeclarant',

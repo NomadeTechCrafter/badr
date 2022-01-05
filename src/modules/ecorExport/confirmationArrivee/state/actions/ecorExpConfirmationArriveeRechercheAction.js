@@ -88,6 +88,11 @@ export function requestFindDumByEtatChargement(action, navigation) {
             console.log('data requestFindDumByEtatChargement', data);
 
             dispatch(successFindDumByEtatChargement(data.jsonVO));
+            if (navigation != null) {
+              navigation.navigate('Resultat', {
+                first: true,
+              });
+            }
             // completerInformationDum(data.jsonVO, dispatch, navigation);
           } else {
             dispatch(failedFindDumByEtatChargement(data));
