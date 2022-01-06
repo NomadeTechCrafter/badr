@@ -103,17 +103,17 @@ class ConfirmationEntreeArriveeRechercheScreen extends Component {
       let action = RechecheDumActionEntree.requestFindDumByEtatChargement({
         type: ConstantsConfirmationEntree.INITCONFIRMATIONENTREE_ETATCHARGEMENT_REQUEST,
         value: {
-          commande: 'findDumByEtatChargement',
+          commande: 'findDumByAmp',
           module: MODULE_ECOREXP,
           typeService: TYPE_SERVICE_SP,
           data: {
-            codeBureau: ComSessionService.getInstance().getCodeBureau(),
-            numero: this.state.immatriculation,
-            referenceDum: '',
-            typeSelecte: null,
-            moyenTransport: null,
-            modeTransport: null,
-            idDed: null,
+            codeBureau: null,
+            numeroImmatriculation: this.state.immatriculation,
+            // referenceDum: '',
+            // typeSelecte: null,
+            // moyenTransport: null,
+            // modeTransport: null,
+            // idDed: null,
           },
         },
       }, null);
