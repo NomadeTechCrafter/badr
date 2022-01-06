@@ -129,12 +129,19 @@ export default (state = initialState, action) => {
     case Constants.T6BIS_UPDATE_INTERVENANT_IN_PROGRESS:
       return nextState;
     case Constants.T6BIS_UPDATE_INTERVENANT_SUCCES:
-      nextState.t6bis.intervenantVO.nomIntervenant = action.value.intervenantVO.nomIntervenant;
-      nextState.t6bis.intervenantVO.prenomIntervenant = action.value.intervenantVO.prenomIntervenant;
-      nextState.t6bis.intervenantVO.adresse = action.value.intervenantVO.adresse;
-      nextState.t6bis.intervenantVO.refPaysPassPort = action.value.intervenantVO.refPaysPassPort;
+      nextState.t6bis.intervenantVO.nomIntervenant = action.value?.intervenantVO?.nomIntervenant;
+      nextState.t6bis.intervenantVO.prenomIntervenant = action.value?.intervenantVO?.prenomIntervenant;
+      nextState.t6bis.intervenantVO.adresse = action.value?.intervenantVO?.adresse;
+      nextState.t6bis.intervenantVO.refPaysPassPort = action.value?.intervenantVO?.refPaysPassPort;
       return nextState;
     case Constants.T6BIS_UPDATE_INTERVENANT_FAILED:
+      return nextState;
+    case Constants.T6BIS_UPDATE_OPERATEUR_REQUEST:
+    case Constants.T6BIS_UPDATE_OPERATEUR_IN_PROGRESS:
+    case Constants.T6BIS_UPDATE_OPERATEUR_FAILED:  
+      return nextState;
+    case Constants.T6BIS_UPDATE_OPERATEUR_SUCCES:
+      nextState.t6bis.identifiantOperateur = action.value?.operateur?.code;
       return nextState;
     case Constants.T6BIS_GESTION_GET_UNITE_CODE_REQUEST:
       return nextState;

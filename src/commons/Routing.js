@@ -85,7 +85,7 @@ const mapping = {
     screen: 'RechercheEcorImport',
     params: { typeEcorImport: 'VerifierParContreEcor' },
   },
-
+/*
   '110001': {screen: 'T6bisCreation', params: {}},
   '110002': {
     screen: 'T6bisRecherche',
@@ -99,6 +99,7 @@ const mapping = {
     screen: 'T6bisRecherche',
     params: {title: 'Ecran  Recherche T6BIS'},
   },
+  */
   
 };
 

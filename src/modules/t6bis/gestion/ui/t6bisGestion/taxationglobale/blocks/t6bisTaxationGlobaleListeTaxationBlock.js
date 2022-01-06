@@ -266,7 +266,7 @@ class T6bisTaxationGlobaleListeTaxationBlock extends React.Component {
                             <Row size={200}>
                                 <Col size={40} style={styles.labelContainer}>
                                     <Text style={styles.labelTextStyle}>
-                                        {translate('t6bisGestion.tabs.taxation.globale.rubriqueBloc.rubriqueTaxation') + this.state.ligne.rubriqueTaxation?.code}
+                                        {translate('t6bisGestion.tabs.taxation.globale.rubriqueBloc.rubriqueTaxation')}
                                     </Text>
 
                                 </Col>
@@ -289,27 +289,7 @@ class T6bisTaxationGlobaleListeTaxationBlock extends React.Component {
                                 </Col>
                             </Row>
                             <Row size={200}>
-                                <Col size={40} style={styles.labelContainer}>
-                                    <Text style={styles.labelTextStyle}>
-                                        {translate('t6bisGestion.tabs.taxation.globale.rubriqueBloc.tauxTaxation')}
-                                    </Text>
-
-                                </Col>
-
-                                <Col size={60} style={styles.labelContainer}>
-                                    <TextInput
-                                        mode="outlined"
-                                        keyboardType={'number-pad'}
-                                        label={translate('t6bisGestion.tabs.taxation.globale.rubriqueBloc.tauxTaxation')}
-                                        value={this.state.ligne?.tauxTaxation}
-                                        onChangeText={(text) => this.setState({
-                                            ligne: {
-                                                ...this.state.ligne,
-                                                tauxTaxation: text
-                                            }
-                                        })}
-                                    />
-                                </Col>
+                                
                                 <Col size={40} style={styles.labelContainer}>
                                     <Text style={styles.labelTextStyle}>
                                         {translate('t6bisGestion.tabs.taxation.globale.rubriqueBloc.montantTaxation')}
@@ -317,7 +297,7 @@ class T6bisTaxationGlobaleListeTaxationBlock extends React.Component {
 
                                 </Col>
 
-                                <Col size={60} style={styles.labelContainer}>
+                                <Col size={160} style={styles.labelContainer}>
                                     <TextInput
                                         mode="outlined"
                                         label={translate('t6bisGestion.tabs.taxation.globale.rubriqueBloc.montantTaxation')}

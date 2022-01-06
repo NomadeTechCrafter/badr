@@ -7,6 +7,7 @@ import { isRecherche } from '../../../../utils/t6bisUtils';
 import t6bisFindIntervenantAction from '../../../state/actions/t6bisFindIntervenantAction';
 import t6bisInitT6bisEnteteSectionAction from '../../../state/actions/t6bisInitT6bisEnteteSectionAction';
 import t6bisUpdateIntervenantAction from '../../../state/actions/t6bisUpdateIntervenantAction';
+import t6bisUpdateOperateurAction from '../../../state/actions/t6bisUpdateOperateurAction';
 import * as Constantes from '../../../state/t6bisGestionConstants';
 import T6bisEnteteListBlocks from './blocks/t6bisEnteteListBlocks';
 
@@ -30,9 +31,22 @@ class T6bisEnteteTab extends React.Component {
             intervenantVO: data.intervenantVO,
           },
         };
-
         this.props.actions.dispatch(
           t6bisUpdateIntervenantAction.request(dataToAction),
+        );
+        this.setState({ fieldsetcontext: data.fieldsetcontext });
+        break;
+      case T6BISConstantes.UPDATE_OPERATEUR_TASK:
+        let dataToAction2 = {
+          type: Constantes.T6BIS_UPDATE_OPERATEUR_REQUEST,
+          value: {
+            operateur: data.operateur,
+          },
+        };
+ 
+
+        this.props.actions.dispatch(
+          t6bisUpdateOperateurAction.request(dataToAction2),
         );
         this.setState({fieldsetcontext: data.fieldsetcontext});
         break;

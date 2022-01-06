@@ -32,7 +32,7 @@ class T6bisEnteteRedevableOpeSousBlock extends React.Component {
             acOperateur: operateur,
             fieldsetcontext: { ...this.state.fieldsetcontext, operateur: operateur }
         });
-        this.props.t6bis.identifiantOperateur = operateur.code;
+        this.props.t6bis.identifiantOperateur = operateur?.code;
         let data = {
 
 
@@ -41,7 +41,7 @@ class T6bisEnteteRedevableOpeSousBlock extends React.Component {
             }
         }
         this.props.callbackHandler(
-            T6BISConstantes.UPDATE_INTERVENANT_TASK,
+            T6BISConstantes.UPDATE_OPERATEUR_TASK,
             data
         );
 
@@ -87,10 +87,8 @@ class T6bisEnteteRedevableOpeSousBlock extends React.Component {
     };
 
     confirmer = () => {
-        console.log('confirmer', this.state.expanded);
-        console.log('confirmer', this.props?.infoCompleted);
-        this.state.expanded = (this.props?.infoCompleted) ? this.props.infoCompleted : false;
-        console.log('confirmer', this.state.expanded);
+            this.accordionComp.toggleExpand();
+        
     }
 
     retablir = () => {
@@ -123,7 +121,7 @@ class T6bisEnteteRedevableOpeSousBlock extends React.Component {
         return (
 
 
-            <ComAccordionComp title={translate('t6bisGestion.tabs.entete.redevableBlock.title')} expanded={this.state.expanded}>
+            <ComAccordionComp onRef={(ref) => (this.accordionComp = ref)} title={translate('t6bisGestion.tabs.entete.redevableBlock.title')} expanded={this.state.expanded}>
                 <View>
 
 

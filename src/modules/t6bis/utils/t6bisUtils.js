@@ -184,6 +184,7 @@ export const formatSerie = (numeroSerieAffaire) => {
 
 export const formatNomenclature = function (codeNomenclature) {
   var limit = 10;
+  console.log('formatNomenclature', codeNomenclature);
   if (codeNomenclature && codeNomenclature.length < limit) {
     return codeNomenclature.toString().padStart(limit, '1');
   } else {
@@ -196,7 +197,7 @@ export const getCurrentArticle = (codeTypeT6bis, num = 0) => {
     return {
       id: num + 1,
       numArticle: num + 1,
-      codeNomenclature: null,
+      codeNomenclature: '',
       natureMarchandise: null,
       designation: null,
       valeurTaxable: null,
@@ -433,8 +434,8 @@ export const prepareListArticlesMtm = function (tempListArticles, t6bis) {
       if (current.uniteQuantite.code) {
         current.uniteQuantite = current.uniteQuantite.code;
       }
-      if (current.devise.code) {
-        current.devise = current.devise.code;
+      if (current.devise?.code) {
+        current.devise = current.devise?.code;
       }
       delete current.unite;
       delete current.isNew;
@@ -461,8 +462,8 @@ export const prepareListArticlesCm = function (tempListArticles, t6bis) {
         devise: current.devise,
         listeT6bisLigneTaxation: current.listeT6bisLigneTaxation,
       });
-      if (current.devise.code) {
-        current.devise = current.devise.code;
+      if (current.devise?.code) {
+        current.devise = current.devise?.code;
       }
       delete current.unite;
       delete current.isNew;
