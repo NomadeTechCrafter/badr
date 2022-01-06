@@ -97,12 +97,12 @@ export default class EciListEnlevementsEffectuesBlock extends React.Component {
                   </Col>
                   <Col size={1}>
                     <ComBadrLibelleComp>
-                      {item.poidsBrutPesage - 0.0 - (item.tarePesage - 0.0)}
+                      {item.nombreContenant}
                     </ComBadrLibelleComp>
                   </Col>
                   <Col size={1}>
                     <ComBadrLibelleComp>
-                      {item.nombreContenant}
+                      {item.poidsBrutPesage - 0.0 - (item.tarePesage - 0.0)}
                     </ComBadrLibelleComp>
                   </Col>
                   <Col size={2}>

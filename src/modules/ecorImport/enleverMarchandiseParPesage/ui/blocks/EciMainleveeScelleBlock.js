@@ -20,14 +20,8 @@ export default class EciMainleveeScelleBlockBlock extends React.Component {
     super(props);
   }
   renderBoxItem = ({item}) => {
-    const itemStyle =
-      item === this.state.selectedScelle
-        ? styles.selectedBoxItem
-        : styles.boxItem;
-    const itemTextStyle =
-      item === this.state.selectedScelle
-        ? styles.selectedBoxItemText
-        : styles.boxItemText;
+    const itemStyle = styles.selectedBoxItem;
+    const itemTextStyle = styles.selectedBoxItemText;
 
     return (
       <View style={itemStyle}>
@@ -55,7 +49,12 @@ export default class EciMainleveeScelleBlockBlock extends React.Component {
               <Col size={4}>
                 <View style={styles.flexRow}>
                   <RadioButton.Group
-                    value={enleverMarchandiseVO?.refMainlevee?.infoEcorScelle.toString()}>
+                    value={
+                      enleverMarchandiseVO?.refMainlevee?.infoEcorScelle ===
+                      true
+                        ? 'true'
+                        : 'false'
+                    }>
                     <View style={styles.flexColumn}>
                       <Text>{translate('ecorimport.scelles.oui')}</Text>
                       <RadioButton disabled value="true" />
@@ -68,7 +67,7 @@ export default class EciMainleveeScelleBlockBlock extends React.Component {
                 </View>
               </Col>
             </Row>
-            {enleverMarchandiseVO?.refMainlevee?.infoEcorScelle == 'true' && (
+            {enleverMarchandiseVO?.refMainlevee?.infoEcorScelle == true && (
               <View>
                 <Row style={CustomStyleSheet.whiteRow}>
                   <Col size={1}>

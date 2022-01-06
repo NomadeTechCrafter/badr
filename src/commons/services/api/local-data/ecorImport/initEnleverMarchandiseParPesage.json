@@ -1,30 +1,34 @@
 {
   "dtoHeader": {
-    "userLogin": "YAMAGENT",
-    "fonctionnalite": "cf1201",
+    "userLogin": "AD6203",
+    "fonctionnalite": "cf1203",
     "module": "ECI_LIB",
     "commande": "initEnleverMarchandiseParPesage",
     "typeService": "UC",
     "messagesInfo": [
       "??? InitEnleverMarchandiseParPesage_MESSAGE_INFO ???"
-    ]
+    ],
+    "offset": 0,
+    "pageSize": 0,
+    "rowCount": 0
   },
   "jsonVO": {
-    "dateHeureDebut": "21/11/2017",
+    "numeroOrdreVoyage": "",
+    "dateHeureDebut": "07/11/2021",
     "dateHeureFin": "",
     "referenceDED": {
-      "referenceEnregistrement": "30901020170010154",
-      "indentifiant": "174993",
+      "referenceEnregistrement": "30901020210000527",
+      "indentifiant": "523738",
       "defaultConverter": {},
       "regime": "010"
     },
     "refMainlevee": {
-      "dateValidation": "08/11/2017 11:48",
-      "dateImpression": "08/11/2017 11:54",
+      "dateValidation": "11/10/2021 14:50",
+      "dateImpression": "11/10/2021 14:50",
       "refAgentValidation": {
-        "idActeur": "TESTAG3",
-        "nom": "nom testag3",
-        "prenom": "prenom testag3",
+        "idActeur": "AGTYAS309",
+        "nom": "SGHIR",
+        "prenom": "Yassine",
         "refBureau": {
           "codeBureau": "309",
           "nomBureauDouane": "Casa port (309)",
@@ -33,9 +37,9 @@
         "defaultConverter": {}
       },
       "refAgentEdition": {
-        "idActeur": "TESTAG3",
-        "nom": "nom testag3",
-        "prenom": "prenom testag3",
+        "idActeur": "AGTYAS309",
+        "nom": "SGHIR",
+        "prenom": "Yassine",
         "refBureau": {
           "codeBureau": "309",
           "nomBureauDouane": "Casa port (309)",
@@ -43,40 +47,84 @@
         },
         "defaultConverter": {}
       },
+      "conteneursCibles": [],
+      "avecPesage": true,
+      "avecScanner": false,
+      "sansSortie": false,
+      "sousEscorteGendarmerie": false,
+      "sousEscorteDouane": false,
+      "pourEntrepesage": false,
+      "listScelle": {},
+      "infoEcorScelle": false,
       "defaultConverter": {}
     },
     "refDedServices": {
-      "dateEnregistrement": "05/10/2017 14:09",
-      "operateurDeclarant": "OP DECLATANT T12",
-      "valeurDeclaree": "5000.0",
-      "poidsBruts": "10.0",
-      "poidsNet": "10.0",
-      "nombreContenants": "1",
+      "dateEnregistrement": "11/10/2021 14:45",
+      "operateurDeclarant": "BABYTEX TEST",
+      "valeurDeclaree": "1000.0",
+      "poidsBruts": "1000.0",
+      "poidsNet": "1000.0",
+      "nombreContenants": "0",
       "libelleTypeDED": "DUM",
+      "numeroOrdreVoyage": "",
       "defaultConverter": {}
     },
     "nombreScelle": "",
     "refMarchandiseEnlevee": [
       {
-        "referenceLot": "REF1",
-        "nombreContenant": "1",
-        "immatriculationsVehicules": "matricule",
-        "numeroBonSortie": "123",
-        "dateHeureEnlevement": "27/11/2017 10:00",
-        "dateHeureEffectiveEnlevement": "27/11/2017 12:04",
+        "referenceLot": "CNT01",
+        "nombreContenant": "0",
+        "immatriculationsVehicules": "t",
+        "numeroBonSortie": "1",
+        "dateHeureEnlevement": "07/11/2021 20:23",
+        "dateHeureEffectiveEnlevement": "28/02/2021 20:22",
         "dateHeureAutorisationAcheminement": "",
-        "poidsBrutPesage": "",
-        "tarePesage": "",
-        "dateHeurePesage": "",
+        "poidsBrutPesage": "1.0",
+        "tarePesage": "1.0",
+        "pontBaculePesage": "1",
+        "dateHeurePesage": "07/11/2021 20:23",
         "dateHeureConteEcor": "",
         "dateHeureArrivee": "",
-        "nature": "marque",
-        "marque": "nature",
-        "id": "681453",
+        "nature": "a21",
+        "marque": "a121",
+        "id": "802802",
+        "bonSortie": {
+          "referenceDS": {
+            "refBureauDouane": {
+              "defaultConverter": {}
+            },
+            "refTypeDS": {
+              "defaultConverter": {}
+            },
+            "defaultConverter": {}
+          },
+          "lieuChargement": {
+            "defaultConverter": {}
+          },
+          "lieuStockage": {
+            "refOperateur": {
+              "refAdresse": {
+                "defaultConverter": {}
+              },
+              "defaultConverter": {}
+            },
+            "defaultConverter": {}
+          },
+          "gestionnaireEnceinte": {
+            "refAdresse": {
+              "defaultConverter": {}
+            },
+            "defaultConverter": {}
+          },
+          "equipementBS": [],
+          "jaxbConversion": false,
+          "allRefEquipementBS": [],
+          "defaultConverter": {}
+        },
         "acteurInterneEnlevement": {
-          "idActeur": "TESTAG3",
-          "nom": "nom testag3",
-          "prenom": "prenom testag3",
+          "idActeur": "AD6203",
+          "nom": "AD6203 NOM",
+          "prenom": "PRENOM AD6203",
           "refBureau": {
             "codeBureau": "309",
             "nomBureauDouane": "Casa port (309)",
@@ -85,7 +133,12 @@
           "defaultConverter": {}
         },
         "acteurInternePesage": {
+          "idActeur": "AD6203",
+          "nom": "AD6203 NOM",
+          "prenom": "PRENOM AD6203",
           "refBureau": {
+            "codeBureau": "309",
+            "nomBureauDouane": "Casa port (309)",
             "defaultConverter": {}
           },
           "defaultConverter": {}
@@ -109,7 +162,7 @@
           "defaultConverter": {}
         },
         "referenceDS": {
-          "identifiantDS": "449061",
+          "identifiantDS": "460161",
           "refBureauDouane": {
             "codeBureau": "309",
             "nomBureauDouane": "Casa port (309)",
@@ -120,10 +173,10 @@
             "descriptionTypeDS": "DS",
             "defaultConverter": {}
           },
-          "anneeEnregistrement": "2017",
+          "anneeEnregistrement": "2021",
           "regime": "000",
-          "numeroSerieEnregistrement": "9992222",
-          "cle": "N",
+          "numeroSerieEnregistrement": "0000071",
+          "cle": "L",
           "defaultConverter": {}
         },
         "lieuChargement": {
@@ -132,16 +185,16 @@
           "defaultConverter": {}
         },
         "lieuStockage": {
-          "codeLieuStockage": "309306",
-          "descriptionLieuStockage": "MAGASIN F",
+          "codeLieuStockage": "6523",
+          "descriptionLieuStockage": "AQQQQ",
           "refOperateur": {
-            "identifiantOperateur": "1",
-            "nomOperateur": "OP DOUANE",
-            "numeroRC": "0",
-            "agrementPSATC": "",
+            "identifiantOperateur": "16688",
+            "nomOperateur": "BABYTEX TEST",
+            "numeroRC": "81",
+            "agrementPSATC": "222222",
             "refAdresse": {
-              "ligneAdresse": "1",
-              "adresse": ".",
+              "ligneAdresse": "48815",
+              "adresse": "ZONE INDUSTRIELLE MOULAY RACHID LOT N131 CASA",
               "defaultConverter": {}
             },
             "defaultConverter": {}
@@ -149,13 +202,300 @@
           "defaultConverter": {}
         },
         "gestionnaireEnceinte": {
-          "identifiantOperateur": "10814",
-          "nomOperateur": "ODEP",
-          "numeroRC": "47",
+          "identifiantOperateur": "127465",
+          "nomOperateur": "TESTTT",
+          "numeroRC": "3523513",
           "agrementPSATC": "",
           "refAdresse": {
-            "ligneAdresse": "13095",
-            "adresse": "BD DES ALMOHADES",
+            "ligneAdresse": "7731780",
+            "adresse": "test",
+            "defaultConverter": {}
+          },
+          "defaultConverter": {}
+        },
+        "autreDocument": {
+          "acteurInterneEnlevement": {
+            "refBureau": {
+              "defaultConverter": {}
+            },
+            "defaultConverter": {}
+          },
+          "acteurInterneCloture": {
+            "refBureau": {
+              "defaultConverter": {}
+            },
+            "defaultConverter": {}
+          },
+          "bureauEnlevement": {
+            "defaultConverter": {}
+          },
+          "operateurDeclarant": {
+            "refAdresse": {
+              "defaultConverter": {}
+            },
+            "defaultConverter": {}
+          },
+          "referenceDED": {
+            "defaultConverter": {}
+          },
+          "referenceDS": {
+            "refBureauDouane": {
+              "defaultConverter": {}
+            },
+            "refTypeDS": {
+              "defaultConverter": {}
+            },
+            "defaultConverter": {}
+          },
+          "refLieuChargement": {
+            "defaultConverter": {}
+          },
+          "refLieuStockage": {
+            "refOperateur": {
+              "refAdresse": {
+                "defaultConverter": {}
+              },
+              "defaultConverter": {}
+            },
+            "defaultConverter": {}
+          },
+          "gestionnaireEnceinte": {
+            "refAdresse": {
+              "defaultConverter": {}
+            },
+            "defaultConverter": {}
+          },
+          "refTypeDocument": {
+            "defaultConverter": {}
+          },
+          "refMoyenTransport": {
+            "refModeTransport": {
+              "defaultConverter": {}
+            },
+            "defaultConverter": {}
+          },
+          "refDedServices": {
+            "defaultConverter": {}
+          },
+          "defaultConverter": {}
+        },
+        "refEquipementEnleve": [
+          {
+            "id": "71031",
+            "dateHeureEnlevement": "",
+            "dateHeureContreEcor": "",
+            "referenceEquipement": "EQRE0000003",
+            "tareEquipement": "100",
+            "typeEquipement": "REMORQUE",
+            "statutCodeEcoData": "0",
+            "defaultConverter": {}
+          },
+          {
+            "id": "71032",
+            "dateHeureEnlevement": "",
+            "dateHeureContreEcor": "",
+            "tareEquipement": "100",
+            "statutCodeEcoData": "0",
+            "defaultConverter": {}
+          },
+          {
+            "id": "71658",
+            "dateHeureEnlevement": "",
+            "dateHeureContreEcor": "",
+            "tareEquipement": "100",
+            "statutCodeEcoData": "0",
+            "defaultConverter": {}
+          },
+          {
+            "id": "71659",
+            "dateHeureEnlevement": "",
+            "dateHeureContreEcor": "",
+            "tareEquipement": "100",
+            "statutCodeEcoData": "0",
+            "defaultConverter": {}
+          },
+          {
+            "id": "71788",
+            "dateHeureEnlevement": "",
+            "dateHeureContreEcor": "",
+            "tareEquipement": "100",
+            "statutCodeEcoData": "0",
+            "defaultConverter": {}
+          },
+          {
+            "id": "71789",
+            "dateHeureEnlevement": "",
+            "dateHeureContreEcor": "",
+            "tareEquipement": "100",
+            "statutCodeEcoData": "0",
+            "defaultConverter": {}
+          },
+          {
+            "id": "71790",
+            "dateHeureEnlevement": "",
+            "dateHeureContreEcor": "",
+            "tareEquipement": "100",
+            "statutCodeEcoData": "0",
+            "defaultConverter": {}
+          },
+          {
+            "id": "71791",
+            "dateHeureEnlevement": "",
+            "dateHeureContreEcor": "",
+            "tareEquipement": "100",
+            "statutCodeEcoData": "0",
+            "defaultConverter": {}
+          }
+        ],
+        "refEquipementEcor": [],
+        "nouvelleLigne": false,
+        "numeroLigneMere": 0,
+        "dateConteEcor": "",
+        "heureConteEcor": "",
+        "allRefEquipementEnleve": [],
+        "nombreScelle": "",
+        "scelles": {},
+        "infoEcorScelle": false,
+        "defaultConverter": {}
+      },
+      {
+        "referenceLot": "CNT01",
+        "nombreContenant": "1",
+        "immatriculationsVehicules": "1",
+        "numeroBonSortie": "1",
+        "dateHeureEnlevement": "08/11/2021 02:35",
+        "dateHeureEffectiveEnlevement": "08/11/2021 01:34",
+        "dateHeureAutorisationAcheminement": "",
+        "poidsBrutPesage": "1.0",
+        "tarePesage": "1.0",
+        "pontBaculePesage": "1",
+        "dateHeurePesage": "08/11/2021 02:35",
+        "dateHeureConteEcor": "",
+        "dateHeureArrivee": "",
+        "nature": "a21",
+        "marque": "a121",
+        "id": "802803",
+        "bonSortie": {
+          "referenceDS": {
+            "refBureauDouane": {
+              "defaultConverter": {}
+            },
+            "refTypeDS": {
+              "defaultConverter": {}
+            },
+            "defaultConverter": {}
+          },
+          "lieuChargement": {
+            "defaultConverter": {}
+          },
+          "lieuStockage": {
+            "refOperateur": {
+              "refAdresse": {
+                "defaultConverter": {}
+              },
+              "defaultConverter": {}
+            },
+            "defaultConverter": {}
+          },
+          "gestionnaireEnceinte": {
+            "refAdresse": {
+              "defaultConverter": {}
+            },
+            "defaultConverter": {}
+          },
+          "equipementBS": [],
+          "jaxbConversion": false,
+          "allRefEquipementBS": [],
+          "defaultConverter": {}
+        },
+        "acteurInterneEnlevement": {
+          "idActeur": "AD6203",
+          "nom": "AD6203 NOM",
+          "prenom": "PRENOM AD6203",
+          "refBureau": {
+            "codeBureau": "309",
+            "nomBureauDouane": "Casa port (309)",
+            "defaultConverter": {}
+          },
+          "defaultConverter": {}
+        },
+        "acteurInternePesage": {
+          "idActeur": "AD6203",
+          "nom": "AD6203 NOM",
+          "prenom": "PRENOM AD6203",
+          "refBureau": {
+            "codeBureau": "309",
+            "nomBureauDouane": "Casa port (309)",
+            "defaultConverter": {}
+          },
+          "defaultConverter": {}
+        },
+        "acteurInterneContreEcor": {
+          "refBureau": {
+            "defaultConverter": {}
+          },
+          "defaultConverter": {}
+        },
+        "acteurInterneAutorisationAcheminement": {
+          "refBureau": {
+            "defaultConverter": {}
+          },
+          "defaultConverter": {}
+        },
+        "acteurInterneArrivee": {
+          "refBureau": {
+            "defaultConverter": {}
+          },
+          "defaultConverter": {}
+        },
+        "referenceDS": {
+          "identifiantDS": "460161",
+          "refBureauDouane": {
+            "codeBureau": "309",
+            "nomBureauDouane": "Casa port (309)",
+            "defaultConverter": {}
+          },
+          "refTypeDS": {
+            "codeTypeDS": "01",
+            "descriptionTypeDS": "DS",
+            "defaultConverter": {}
+          },
+          "anneeEnregistrement": "2021",
+          "regime": "000",
+          "numeroSerieEnregistrement": "0000071",
+          "cle": "L",
+          "defaultConverter": {}
+        },
+        "lieuChargement": {
+          "codeLieuChargement": "MACAS",
+          "descriptionLieuChargement": "CASABLANCA",
+          "defaultConverter": {}
+        },
+        "lieuStockage": {
+          "codeLieuStockage": "6523",
+          "descriptionLieuStockage": "AQQQQ",
+          "refOperateur": {
+            "identifiantOperateur": "16688",
+            "nomOperateur": "BABYTEX TEST",
+            "numeroRC": "81",
+            "agrementPSATC": "222222",
+            "refAdresse": {
+              "ligneAdresse": "48815",
+              "adresse": "ZONE INDUSTRIELLE MOULAY RACHID LOT N131 CASA",
+              "defaultConverter": {}
+            },
+            "defaultConverter": {}
+          },
+          "defaultConverter": {}
+        },
+        "gestionnaireEnceinte": {
+          "identifiantOperateur": "1",
+          "nomOperateur": "OP DOUANE",
+          "numeroRC": "0",
+          "agrementPSATC": "",
+          "refAdresse": {
+            "ligneAdresse": "1",
+            "adresse": ".",
             "defaultConverter": {}
           },
           "defaultConverter": {}
@@ -227,12 +567,19 @@
           "defaultConverter": {}
         },
         "refEquipementEnleve": [],
+        "refEquipementEcor": [],
+        "nouvelleLigne": false,
+        "numeroLigneMere": 0,
         "dateConteEcor": "",
         "heureConteEcor": "",
         "allRefEquipementEnleve": [],
+        "nombreScelle": "",
+        "scelles": {},
+        "infoEcorScelle": false,
         "defaultConverter": {}
       }
     ],
+    "bureauSansEcor": false,
     "defaultConverter": {}
   }
 }

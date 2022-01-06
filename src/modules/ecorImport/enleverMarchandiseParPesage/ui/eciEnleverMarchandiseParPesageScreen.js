@@ -861,14 +861,14 @@ class EciEnleverMarchandiseParPesageScreen extends Component {
                         </Col>
                         <Col>
                           {!isConsultationMode && (
-                          <ComBadrButtonIconComp
-                            onPress={this.getListeLotsApures}
-                            icon="file-eye"
-                            loading={this.props.showProgress}
-                            text={translate(
-                              'ecorimport.declarationSommaire.choisirLotDedouanement',
-                            )}
-                          />
+                            <ComBadrButtonIconComp
+                              onPress={this.getListeLotsApures}
+                              icon="file-eye"
+                              loading={this.props.showProgress}
+                              text={translate(
+                                'ecorimport.declarationSommaire.choisirLotDedouanement',
+                              )}
+                            />
                           )}
                         </Col>
                       </Row>
@@ -1683,30 +1683,30 @@ class EciEnleverMarchandiseParPesageScreen extends Component {
                 <Row>
                   <Col size={1} />
                   {!isConsultationMode && (
-                  <Col size={1}>
-                    <ComBadrButtonIconComp
-                      style={styles.actionBtn}
-                      onPress={
-                        this.state.isUpdateMode
-                          ? this.validerUpdate
-                          : this.validerAjout
-                      }
-                      icon="check-circle-outline"
-                      loading={this.props.showProgress}
-                      text={translate('transverse.confirmer')}
-                    />
-                  </Col>
+                    <Col size={1}>
+                      <ComBadrButtonIconComp
+                        style={styles.actionBtn}
+                        onPress={
+                          this.state.isUpdateMode
+                            ? this.validerUpdate
+                            : this.validerAjout
+                        }
+                        icon="check-circle-outline"
+                        loading={this.props.showProgress}
+                        text={translate('transverse.confirmer')}
+                      />
+                    </Col>
                   )}
                   {!isConsultationMode && (
-                  <Col size={1}>
-                    <ComBadrButtonIconComp
-                      style={styles.actionBtn}
-                      onPress={this.onRestAddEnlevements}
-                      icon="restore"
-                      loading={this.props.showProgress}
-                      text={translate('transverse.retablir')}
-                    />
-                  </Col>
+                    <Col size={1}>
+                      <ComBadrButtonIconComp
+                        style={styles.actionBtn}
+                        onPress={this.onRestAddEnlevements}
+                        icon="restore"
+                        loading={this.props.showProgress}
+                        text={translate('transverse.retablir')}
+                      />
+                    </Col>
                   )}
                   <Col size={1}>
                     <ComBadrButtonIconComp
