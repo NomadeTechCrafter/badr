@@ -50,6 +50,12 @@ class T6bisEnteteTab extends React.Component {
         );
         this.setState({fieldsetcontext: data.fieldsetcontext});
         break;
+       case T6BISConstantes.T6BIS_SELECT_TPE_TASK:
+      // if(data=="03")
+     //   this.props.navigation.navigate('T6bisGestion', {tpeSelected:true});
+        //else
+         this.props.navigation.navigate('T6bisGestion', {});
+        break;
     }
   };
 
@@ -100,6 +106,7 @@ class T6bisEnteteTab extends React.Component {
           mode={this.props.mode}
           identifiants={this.props.identifiants}
           listmoyenpaiement={this.props.listmoyenpaiement}
+		  listDesTpes={this.props.listDesTpes}
           fieldsetcontext={this.state?.fieldsetcontext}
           listeRecap={this.props?.listeRecap}
           readOnly={isRecherche()}

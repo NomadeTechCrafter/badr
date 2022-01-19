@@ -24,7 +24,9 @@ export default class T6bisGestiontionApi {
       jsonVO: {
         t6bisMtmDto: {
           codeTypeT6bis: codeType
-        }
+        },
+         codeBureau: ComSessionService.getInstance().getCodeBureau()
+
       },
     };
     console.log(data);
@@ -145,4 +147,50 @@ export default class T6bisGestiontionApi {
     return await ComHttpHelperApi.process(data);
   };
 
+
+/*
+static getAllCmbListTPE = async (codeType) => {
+    console.log('getAllCmbListTPE');
+    const data = {
+      dtoHeader: {
+        userLogin: ComSessionService.getInstance().getLogin(),
+        fonctionnalite: T6BIS_CREATION_FONCTIONNALITE,
+        module: MODULE_T6BIS,
+        commande: 'getAllCmbListTPE',
+        typeService: TYPE_SERVICE_SP,
+        motif: null,
+        messagesInfo: null,
+        messagesErreur: null,
+      },
+      jsonVO: {
+        "utilisateur": { "idActeur": ComSessionService.getInstance().getLogin(), "refBureau": { "codeBureau": ComSessionService.getInstance().getCodeBureau(), "refArrondissement": [] } },
+        "codeTypeT6bis": codeType,
+        "bureauCourant": { "codeBureau": ComSessionService.getInstance().getCodeBureau(), "refArrondissement": [] }
+      },
+    };
+    console.log('mydata',data);
+    return await ComHttpHelperApi.process(data);
+  };*/
+
+
+
+
+  static sauvegarderTPET6BIS = async (cmd,t6bis) => {
+      console.log('sauvegarderTPET6BIS');
+      const data = {
+        dtoHeader: {
+          userLogin: ComSessionService.getInstance().getLogin(),
+          fonctionnalite: ComSessionService.getInstance().getFonctionalite() ? ComSessionService.getInstance().getFonctionalite() : T6BIS_CREATION_FONCTIONNALITE,
+          module: MODULE_T6BIS,
+          commande: cmd,
+          typeService: TYPE_SERVICE_UC,
+          motif: null,
+          messagesInfo: null,
+          messagesErreur: null,
+        },
+        jsonVO: t6bis
+      };
+      console.log('sauvegarderTPET6BIS',data);
+      return await ComHttpHelperApi.process(data);
+    };
 }

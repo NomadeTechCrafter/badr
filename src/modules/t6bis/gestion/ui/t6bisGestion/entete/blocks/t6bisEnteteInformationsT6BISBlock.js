@@ -7,6 +7,8 @@ import T6bisInformationsCmSousBlock from './informationsT6BISSousBlocks/t6bisInf
 import T6bisInformationsContainteCorpsSousBlock from './informationsT6BISSousBlocks/t6bisInformationsContrainteCorpsSousBlock';
 import T6bisInformationsMtmSousBlock from './informationsT6BISSousBlocks/t6bisInformationsMtmSousBlock';
 import T6bisInformationsTaxeCoordinationSousBlock from './informationsT6BISSousBlocks/t6bisInformationsTaxeCoordinationSousBlock';
+import T6bisInformationsTpeMtmSousBlock from './informationsTpeT6BISSousBlocks/t6bisInformationsTpeMtmSousBlock';
+import * as T6BISConstantes from '../../../../../utils/t6bisConstants';
 
 
 
@@ -18,12 +20,24 @@ class T6bisEnteteInformationsT6BISBlock extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+			typeMoyenPaiement:''
         };
     }
 
+   viewCallBackHandler = (type, data) => {
 
 
-    //
+        // manipulate data if required, we have just one case, in case of many actions, we will use switch case
+        this.props.callbackHandler(type, data);
+
+
+    };
+
+
+handleCallback = (childData) =>{
+        this.setState({typeMoyenPaiement: childData})
+          this.props.callbackHandler(T6BISConstantes.T6BIS_SELECT_TPE_TASK, childData);
+    }
 
 
 
@@ -37,6 +51,10 @@ class T6bisEnteteInformationsT6BISBlock extends React.Component {
             <View>
                 {isMtm(codeTypeT6bis) && (
                     <T6bisInformationsMtmSousBlock t6bis={this.props.t6bis} listmoyenpaiement={this.props.listmoyenpaiement} readOnly={this.props.readOnly}/>)}
+           {isMtm(codeTypeT6bis) && this.state.typeMoyenPaiement=='03'&&(
+                     <T6bisInformationsTpeMtmSousBlock t6bis={this.props.t6bis}  listDesTpes={this.props.listDesTpes}     readOnly={this.props.readOnly}/>)}
+
+  
                 {isCm(codeTypeT6bis) && (
                     <T6bisInformationsCmSousBlock t6bis={this.props.t6bis} listmoyenpaiement={this.props.listmoyenpaiement} readOnly={this.props.readOnly} />)}
                 {isTaxeCoordination(codeTypeT6bis) && (
