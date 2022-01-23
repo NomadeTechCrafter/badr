@@ -328,31 +328,58 @@ class EciVerifierParContreEcorScreen extends Component {
     console.log('valider update');
     this.scrollViewRef.scrollTo({y: 0, animated: true});
     if (this.testIsChampsValid(champsObligatoire) === true) {
+      console.log('IsChampsValid selectedLot', this.state.selectedLot);
+      let acteurInterneContreEcor = {
+        idActeur: ComSessionService.getInstance().getLogin(),
+        nom: ComSessionService.getInstance().getUserObject().nomAgent,
+        prenom: ComSessionService.getInstance().getUserObject().prenomAgent,
+        refBureau: {
+          codeBureau: ComSessionService.getInstance().getCodeBureau(),
+          nomBureauDouane: ComSessionService.getInstance().getNomBureauDouane(),
+        },
+      };
+
       const currentIndex = _.findIndex(
         this.state.enleverMarchandiseVO.refMarchandiseEnlevee,
         ['id', this.state.selectedLot.id],
       );
       console.log('currentIndex----', currentIndex);
-      const myNewArray = Object.assign(
-        [...this.state.enleverMarchandiseVO.refMarchandiseEnlevee],
-        {
-          [currentIndex]: this.state.selectedLot,
-        },
-      );
       this.setState(
         {
           ...this.state,
-          showEnlevements: false,
-          enleverMarchandiseVO: {
-            ...this.state.enleverMarchandiseVO,
-            refMarchandiseEnlevee: myNewArray,
+          selectedLot: {
+            ...this.state.selectedLot,
+            acteurInterneContreEcor: acteurInterneContreEcor,
+            dateHeureConteEcor:
+              this.state.selectedLot.dateConteEcor +
+              ' ' +
+              this.state.selectedLot.heureConteEcor,
+            allRefEquipementEnleve: [],
           },
         },
-        () =>
-          console.log(
-            'enleverMarchandiseVO after update',
-            JSON.stringify(this.state.enleverMarchandiseVO),
-          ),
+        () => {
+          const myNewArray = Object.assign(
+            [...this.state.enleverMarchandiseVO.refMarchandiseEnlevee],
+            {
+              [currentIndex]: this.state.selectedLot,
+            },
+          );
+          this.setState(
+            {
+              ...this.state,
+              showEnlevements: false,
+              enleverMarchandiseVO: {
+                ...this.state.enleverMarchandiseVO,
+                refMarchandiseEnlevee: myNewArray,
+              },
+            },
+            () =>
+              console.log(
+                'enleverMarchandiseVO after update',
+                JSON.stringify(this.state.enleverMarchandiseVO),
+              ),
+          );
+        },
       );
     }
   };
@@ -459,6 +486,22 @@ class EciVerifierParContreEcorScreen extends Component {
     this.setState({isActionMenuOpen: !this.state.isActionMenuOpen});
   };
   static getDerivedStateFromProps(nextProps, prevState) {
+    let dataAfterConfirmation =
+      nextProps.picker && nextProps.picker.verifierParContreEcor
+        ? nextProps.picker.verifierParContreEcor
+        : null;
+    if (
+      !_.isEmpty(dataAfterConfirmation?.data) &&
+      prevState.enleverMarchandiseVO !== dataAfterConfirmation.data
+    ) {
+      /*console.log(
+        'getDerivedStateFromProps dataAfterConfirmation 1',
+        JSON.stringify(dataAfterConfirmation),
+      );*/
+
+      return {enleverMarchandiseVO: dataAfterConfirmation.data};
+    }
+
     let getEquipementsbyLot =
       nextProps.picker && nextProps.picker.getEquipementsbyLot
         ? nextProps.picker.getEquipementsbyLot
@@ -488,21 +531,6 @@ class EciVerifierParContreEcorScreen extends Component {
           refEquipementEnleve: listeEquipementsLot,
         },
       };
-    }
-    let dataAfterConfirmation =
-      nextProps.picker && nextProps.picker.verifierParContreEcor
-        ? nextProps.picker.verifierParContreEcor
-        : null;
-    if (
-      !_.isEmpty(dataAfterConfirmation?.data) &&
-      prevState.enleverMarchandiseVO !== dataAfterConfirmation.data
-    ) {
-      /*console.log(
-        'getDerivedStateFromProps dataAfterConfirmation 1',
-        JSON.stringify(dataAfterConfirmation),
-      );*/
-
-      return {enleverMarchandiseVO: dataAfterConfirmation.data};
     }
 
     return null;
@@ -565,7 +593,9 @@ class EciVerifierParContreEcorScreen extends Component {
     let lotsApures = this.extractCommandData('getLotsApures');
     let isConsultationMode =
       !_.isEmpty(this.extractCommandData('verifierParContreEcor')) &&
-      !_.isEmpty(this.extractCommandData('verifierParContreEcor').successMessage)
+      !_.isEmpty(
+        this.extractCommandData('verifierParContreEcor').successMessage,
+      )
         ? true
         : false;
     /*console.log(
@@ -1238,19 +1268,19 @@ class EciVerifierParContreEcorScreen extends Component {
                             value={
                               selectedLot.dateConteEcor
                                 ? moment(
-                                  selectedLot.dateConteEcor,
-                                  'DD/MM/yyyy',
-                                  true,
-                                )
+                                    selectedLot.dateConteEcor,
+                                    'DD/MM/yyyy',
+                                    true,
+                                  )
                                 : ''
                             }
                             timeValue={
                               selectedLot.heureConteEcor
                                 ? moment(
-                                  selectedLot.heureConteEcor,
-                                  'HH:mm',
-                                  true,
-                                )
+                                    selectedLot.heureConteEcor,
+                                    'HH:mm',
+                                    true,
+                                  )
                                 : ''
                             }
                             onDateChanged={(date) =>
@@ -1315,7 +1345,6 @@ class EciVerifierParContreEcorScreen extends Component {
                   </ComAccordionComp>
                 </ComBadrCardBoxComp>
 
-
                 {/* Accordion liste des équipement du lot */}
                 {!_.isNil(selectedLot.refEquipementEnleve) && (
                   <ComBadrCardBoxComp style={styles.cardBox}>
@@ -1363,30 +1392,30 @@ class EciVerifierParContreEcorScreen extends Component {
                 <Row>
                   <Col size={1} />
                   {!isConsultationMode && (
-                  <Col size={1}>
-                    <ComBadrButtonIconComp
-                      style={styles.actionBtn}
-                      onPress={
-                        this.state.isUpdateMode
-                          ? this.validerUpdate
-                          : this.validerAjout
-                      }
-                      icon="check-circle-outline"
-                      loading={this.props.showProgress}
-                      text={translate('transverse.confirmer')}
-                    />
-                  </Col>
+                    <Col size={1}>
+                      <ComBadrButtonIconComp
+                        style={styles.actionBtn}
+                        onPress={
+                          this.state.isUpdateMode
+                            ? this.validerUpdate
+                            : this.validerAjout
+                        }
+                        icon="check-circle-outline"
+                        loading={this.props.showProgress}
+                        text={translate('transverse.confirmer')}
+                      />
+                    </Col>
                   )}
                   {!isConsultationMode && (
-                  <Col size={1}>
-                    <ComBadrButtonIconComp
-                      style={styles.actionBtn}
-                      onPress={this.onRestAddEnlevements}
-                      icon="restore"
-                      loading={this.props.showProgress}
-                      text={translate('transverse.retablir')}
-                    />
-                  </Col>
+                    <Col size={1}>
+                      <ComBadrButtonIconComp
+                        style={styles.actionBtn}
+                        onPress={this.onRestAddEnlevements}
+                        icon="restore"
+                        loading={this.props.showProgress}
+                        text={translate('transverse.retablir')}
+                      />
+                    </Col>
                   )}
                   <Col size={1}>
                     <ComBadrButtonIconComp

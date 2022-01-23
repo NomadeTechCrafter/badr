@@ -501,6 +501,26 @@ class EciEnleverMarchandiseParPesageScreen extends Component {
     this.setState({isActionMenuOpen: !this.state.isActionMenuOpen});
   };
   static getDerivedStateFromProps(nextProps, prevState) {
+    let dataAfterConfirmation =
+      nextProps.picker && nextProps.picker.enleverMarchandiseParPesage
+        ? nextProps.picker.enleverMarchandiseParPesage
+        : null;
+    /*console.log(
+      'getDerivedStateFromProps dataAfterConfirmation 0',
+      dataAfterConfirmation,
+    );*/
+    if (
+      !_.isEmpty(dataAfterConfirmation?.data) &&
+      prevState.enleverMarchandiseVO !== dataAfterConfirmation.data
+    ) {
+      /*console.log(
+        'getDerivedStateFromProps dataAfterConfirmation 1',
+        JSON.stringify(dataAfterConfirmation),
+      );*/
+
+      return {enleverMarchandiseVO: dataAfterConfirmation.data};
+    }
+
     let getEquipementsbyLot =
       nextProps.picker && nextProps.picker.getEquipementsbyLot
         ? nextProps.picker.getEquipementsbyLot
@@ -530,25 +550,6 @@ class EciEnleverMarchandiseParPesageScreen extends Component {
           refEquipementEnleve: listeEquipementsLot,
         },
       };
-    }
-    let dataAfterConfirmation =
-      nextProps.picker && nextProps.picker.enleverMarchandiseParPesage
-        ? nextProps.picker.enleverMarchandiseParPesage
-        : null;
-    /*console.log(
-      'getDerivedStateFromProps dataAfterConfirmation 0',
-      dataAfterConfirmation,
-    );*/
-    if (
-      !_.isEmpty(dataAfterConfirmation?.data) &&
-      prevState.enleverMarchandiseVO !== dataAfterConfirmation.data
-    ) {
-      /*console.log(
-        'getDerivedStateFromProps dataAfterConfirmation 1',
-        JSON.stringify(dataAfterConfirmation),
-      );*/
-
-      return {enleverMarchandiseVO: dataAfterConfirmation.data};
     }
 
     return null;
