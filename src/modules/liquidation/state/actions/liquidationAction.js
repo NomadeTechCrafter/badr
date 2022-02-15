@@ -20,6 +20,7 @@ export function request(action) {
       .then((response) => {
         console.log('----LIQ Action response', response);
         if (response && response.data && !_.isNil(response.data.jsonVO)) {
+          console.log(response.data.jsonVO);
           dispatch(success(response.data.jsonVO, action.value.command));
         } else {
           dispatch(
@@ -32,6 +33,17 @@ export function request(action) {
           failed(translate('errors.technicalIssue'), action.value.command),
         );
       });
+  };
+}
+
+export function handleError(action,error) {
+  
+  return (dispatch) => {
+    dispatch(action);
+    dispatch(inProgress(action));
+    dispatch(
+      failed(translate(error), action.value.command),
+    );
   };
 }
 

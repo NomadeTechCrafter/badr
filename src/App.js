@@ -40,6 +40,7 @@ import ControleRegimeInterneScreen from './modules/controle/regimeInterne/ui/con
 import ControleACVPScreen from './modules/controle/ACVP/ui/controleACVPScreen';
 import EcorImportRechercheScreen from './modules/ecorImport/rechercheEcorImport/ui/EcorImportRechercheScreen';
 import EcorImportEnleverMarchandiseScreen from './modules/ecorImport/enleverMarchandise/ui/EcorImportEnleverMarchandiseScreen';
+import EciEnleverMarchandiseParPesageScreen from './modules/ecorImport/enleverMarchandiseParPesage/ui/eciEnleverMarchandiseParPesageScreen';
 import LiquidationRechercheScreen from './modules/liquidation/ui/rechercheLiquidation/LiquidationRechercheScreen';
 import LiquidationHomeScreen from './modules/liquidation/ui/ongletsLiquidation/home/LiquidationHomeScreen';
 import EciConsultationBLSSearchScreen from './modules/ecorImport/eciConsultationBLS/ui/eciConsultationBLSMainScreen'
@@ -125,6 +126,11 @@ export default class App extends React.Component {
                 name="EnleverMarchandise"
                 options={{headerShown: false}}
                 component={EcorImportEnleverMarchandiseScreen}
+              />
+              <Stack.Screen
+                name="EnleverMarchandiseParPesage"
+                options={{headerShown: false}}
+                component={EciEnleverMarchandiseParPesageScreen}
               />
               <Stack.Screen
                 name="DedRedressementScreen"
