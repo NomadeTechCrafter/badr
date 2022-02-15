@@ -37,6 +37,13 @@ export default {
                     confirmer: "Confirmer",
                     retablir: "Rétablir"
                 },
+                 informationsTpet6bisBlock: {
+                    mtm: {
+                      title: "Informations TPE",
+                      libTpe:"TPE (*)",
+                      choisirElement: 'Choisir un élément',
+                           },
+                      },
                 informationst6bisBlock: {
                     mtm: {
                         title: "Informations T6BIS (Marchandises et taxe de magasinage)",
@@ -44,6 +51,7 @@ export default {
                         immatriculationMoyenTransport: "Immatriculation moyen transport",
                         numeroVol: "Numéro du vol",
                         typeMoyenPaiement: "Type moyen paiement (*)",
+						libTpe:"Information TPE",
                         choisirElement: 'Choisir un élément',
                     },
                     cm: {
@@ -254,6 +262,7 @@ export default {
         buttons: {
             enregistrer: 'Enregistrer',
             sauvegarder: 'Sauvegarder',
+            envoyerTransaction: 'Envoyer Transaction',
             supprimer: 'Supprimer',
             quitter: 'Quitter',
         }

@@ -15,7 +15,8 @@ import { translate } from '../../../../../commons/i18n/ComI18nHelper';
 import { CustomStyleSheet, primaryColor } from '../../../../../commons/styles/ComThemeStyle';
 import {
   CMD_ENREGISTRER_T6BIS,
-  CMD_SAUVEGARDER_T6BIS
+  CMD_SAUVEGARDER_T6BIS,
+  CMD_SAUVEGARDER_TPE_T6BIS
 } from '../../../utils/t6bisConstants';
 import {
   calculerMontantGlobal,
@@ -78,6 +79,7 @@ class T6bisGestion extends React.Component {
       title: props.route.params.title,
       identifiants: null,
       listmoyenpaiement: null,
+      listDesTpes:null,
       haslignetaxation: null,
       tabs: null,
       dialogVisibility: false,
@@ -108,6 +110,7 @@ class T6bisGestion extends React.Component {
         title: this.props.route.params.title,
         identifiants: null,
         listmoyenpaiement: null,
+        listDesTpes:null,
         haslignetaxation: null,
         tabs: null,
         dialogVisibility: false,
@@ -116,10 +119,18 @@ class T6bisGestion extends React.Component {
       console.log('T6bisGestion focus end');
     });
 
-    //this.loadScelles();
+  //  this.loadListTPE();
 
   }
-
+/*
+ loadListTPE = async () => {
+ console.log('request T6BIS_GESTION_ALL_LIST_TPE_REQUEST')
+    let action = await t6bisCreationPaieTPEAction.request({
+      type: Constantes.T6BIS_GESTION_ALL_LIST_TPE_REQUEST,
+      value: null,
+    });
+    this.props.actions.dispatch(action);
+  };*/
   initierT6bisEnteteSection = async (codeType, t6bis, mode) => {
     console.log('this.state.componentDidMount', this.state);
     console.log('this.props.componentDidMount', this.props);
@@ -198,10 +209,15 @@ class T6bisGestion extends React.Component {
         calculerMontantGlobal(this.props.t6bis);
       }
       if (validate(this.props.t6bis)) {
-        var action = uc + this.props.t6bis?.codeTypeT6bis;
+        var requesType=Constantes.T6BIS_SAUVEGARDER_REQUEST;
+              var action = uc + this.props.t6bis?.codeTypeT6bis;
+      if(uc==CMD_SAUVEGARDER_TPE_T6BIS){
+        requesType=Constantes.T6BIS_SAUVEGARDER_TPE_REQUEST;
+         action=uc;
+}
         console.log('sauvgarder 2');
         let dataToAction = {
-          type: Constantes.T6BIS_SAUVEGARDER_REQUEST,
+          type: requesType,
           value: {
             cmd: action,
             t6bis: this.props.t6bis,
@@ -231,6 +247,9 @@ class T6bisGestion extends React.Component {
   enregistrer = () => {
     this.lancerUC(CMD_ENREGISTRER_T6BIS);
   };
+ envoyerTransaction = () => {
+      this.lancerUC(CMD_SAUVEGARDER_TPE_T6BIS);
+    };
   quitter = () => {
     console.log('Quitter la page Bienvenue');
     this.props.navigation.navigate('Bienvenue', {});
@@ -408,20 +427,27 @@ class T6bisGestion extends React.Component {
           <View
             style={styles.containerActionBtn}
             pointerEvents={this.state.isConsultation ? 'none' : 'auto'}>
-            {_.isEmpty(this.props.t6bis?.referenceEnregistrement) && <ComBadrButtonComp
+            {_.isEmpty(this.props.t6bis?.referenceEnregistrement) &&  this.props.t6bis?.typeMoyenPaiement?.code!="03" &&<ComBadrButtonComp
               style={{ width: 100 }}
               onPress={() => {
                 this.sauvgarder();
               }}
               text={translate('t6bisGestion.buttons.sauvegarder')}
             />}
-            <ComBadrButtonComp
+           {this.props.t6bis?.typeMoyenPaiement?.code!="03"? <ComBadrButtonComp
               style={{width: 100}}
               onPress={() => {
                 this.enregistrer();
               }}
               text={translate('t6bisGestion.buttons.enregistrer')}
-            />
+            />:
+            <ComBadrButtonComp
+                          style={{width: 100}}
+                          onPress={() => {
+                            this.envoyerTransaction();
+                          }}
+                          text={translate('t6bisGestion.buttons.envoyerTransaction')}
+                        />}
             {_.isEmpty(this.props.t6bis?.referenceEnregistrement) && <ComBadrButtonComp
               style={{ width: 100 }}
               onPress={() => {

@@ -13,6 +13,7 @@ import {
   ComBadrDatePickerComp,
   ComBadrNumericTextInputComp,
   ComBadrInfoMessageComp,
+  ComBadrAutoCompleteChipsComp,
 } from '../../../../commons/component';
 import {
   Button,
@@ -36,6 +37,7 @@ const initialState = {
   generateurNumScelleAu: '',
   generateurNumScelleDu: '',
   numeroScelle: '',
+  transporteurExploitantMEAD: '',
   messagesErreur: [],
   listeNombreDeScelles: [],
   messageVisibility: false,
@@ -249,6 +251,7 @@ class EcorExpInformationEcorComp extends React.Component {
             dateEnregistrement: '',
             depuisDelivrerBonEntree: false,
             fonctionMessage: '',
+            transporteurExploitantMEAD: this.state?.transporteurExploitantMEAD,
             scelles: formattedListeScelles ? formattedListeScelles : null,
             scellesConfirmationEntree: formattedListeScelles
               ? formattedListeScelles
@@ -284,6 +287,10 @@ class EcorExpInformationEcorComp extends React.Component {
           dateEffectiveEnregistrement: '',
           listeDumVo: listeDumVo,
         };
+
+        console.log("to send to backend -------------------------------------------------------------------");
+        console.log(JSON.stringify(EtatChargmentDUMVO));
+        console.log("to send to backend -------------------------------------------------------------------");
 
         let action = ConfirmationEntreeCRUDAction.request(
           {
@@ -330,6 +337,12 @@ class EcorExpInformationEcorComp extends React.Component {
     );
   };
 
+  handleOperateurChanged = (operateur) => {
+    this.setState({
+      transporteurExploitantMEAD: operateur?.code
+    });
+  };
+
   render() {
     console.log('in render');
     const {ecorIsSaved} = this.props.data;
@@ -344,6 +357,7 @@ class EcorExpInformationEcorComp extends React.Component {
       generateurNumScelleAu,
       listeNombreDeScelles,
       numeroScelle,
+      transporteurExploitantMEAD,
     } = this.state;
 
     return (
@@ -593,6 +607,33 @@ class EcorExpInformationEcorComp extends React.Component {
                               />
                             )}
                           </SafeAreaView>
+                        </Col>
+                      </Row>
+                      <Row size={100}>
+                        <Col size={30} style={style.labelContainer}>
+                          <Text style={style.labelTextStyle}>
+                            {translate(
+                              'appositionScelles.scelles.transporteurExploitantMEAD',
+                            )}
+                          </Text>
+                        </Col>
+
+                        <Col size={70}>
+                          <ComBadrAutoCompleteChipsComp
+                            placeholder={translate(
+                              'appositionScelles.scelles.choisirValeur'
+                            )}
+                            code="code"
+                            // disabled={this.props.readOnly}
+                            disabled={this.props.ecorIsSaved}
+                            selected={this.state.transporteurExploitantMEAD}
+                            maxItems={3}
+                            libelle="libelle"
+                            command="getCmbOperateur"
+                            onDemand={true}
+                            searchZoneFirst={false}
+                            onValueChange={this.handleOperateurChanged}
+                          />
                         </Col>
                       </Row>
                     </Grid>

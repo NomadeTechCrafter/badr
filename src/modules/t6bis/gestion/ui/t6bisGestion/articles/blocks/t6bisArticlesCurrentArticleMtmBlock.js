@@ -46,8 +46,8 @@ class T6bisArticlesCurrentArticleMtmBlock extends React.Component {
       acUniteValue: unite,
       currentArticle: {
         ...this.state.currentArticle,
-        uniteQuantite: unite.code,
-        libelleUnite: unite.libelle,
+        uniteQuantite: unite?.code,
+        libelleUnite: unite?.libelle,
       },
     });
   };
@@ -184,6 +184,7 @@ class T6bisArticlesCurrentArticleMtmBlock extends React.Component {
       props.currentArticle &&
       (props.currentArticle.id !== state.currentArticle?.id   )
     ) {
+      console.log("1");
       return {
         currentArticle: props.currentArticle, 
       };
@@ -191,6 +192,7 @@ class T6bisArticlesCurrentArticleMtmBlock extends React.Component {
     if (
       props.currentArticle ==null
     ) {
+      console.log("2");
       return {
         currentArticle: null, 
       };
@@ -234,6 +236,14 @@ class T6bisArticlesCurrentArticleMtmBlock extends React.Component {
                     't6bisGestion.tabs.articles.articleBlock.mtm.codeNomenclature',
                   )}
                   value={this.state.currentArticle?.codeNomenclature}
+                  onChangeText={(text) =>
+                    this.setState({
+                      currentArticle: {
+                        ...this.state.currentArticle,
+                        codeNomenclature: text,
+                      },
+                    })
+                  }
                   onEndEditing={(event) =>
                     this.handleCodeNomenclatureOnBlur(event.nativeEvent.text)
                   }

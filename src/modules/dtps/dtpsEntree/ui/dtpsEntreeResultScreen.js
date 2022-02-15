@@ -108,12 +108,22 @@ class dtpsEntreeResultScreen extends React.Component {
             {
                 code: 'referenceLot',
                 libelle: translate('dtps.referenceLot'),
-                width: 150,
+                width: 200,
             },
             {
                 code: 'codeLieuChargement',
                 libelle: translate('dtps.codeLieuChargement'),
-                width: 150,
+                width: 200,
+            },
+            {
+                code: 'numLigneMarchandise',
+                libelle: translate('dtps.ligneMarchandise'),
+                width: 200,
+            },
+            {
+                code: 'referenceEquipement',
+                libelle: translate('dtps.refEquipement'),
+                width: 200,
             },
         ];
         this.scannerCols = [
@@ -239,7 +249,7 @@ class dtpsEntreeResultScreen extends React.Component {
                         <ComBadrCardBoxComp style={style.cardBox}>
                             <ComAccordionComp
                                 badr
-                                title={translate('dtps.lots')}
+                                title={translate('dtps.equipement')}
                             // expanded={true}
                             >
                                 <ComBasicDataTableComp

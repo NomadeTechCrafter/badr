@@ -11,6 +11,7 @@ const initialState = {
   t6bis: null,
   identifiants: null,
   listmoyenpaiement: null,
+  listDesTpes:null,
   haslignetaxation: null,
   redevableResponse: null,
   newIntervenant: null,
@@ -47,6 +48,7 @@ export default (state = initialState, action) => {
       nextState.mode = action.value.mode;
       nextState.successMessage = null;
       nextState.errorMessage = null;
+      nextState.listDesTpes = action.value.tpeList;	
       if (action.value.mode === MODE_CREATION) {
         nextState.t6bis = action.value.t6bisMtmDto;
         nextState.currentArticle = getCurrentArticle(nextState.t6bis.codeTypeT6bis, 0);
@@ -129,12 +131,19 @@ export default (state = initialState, action) => {
     case Constants.T6BIS_UPDATE_INTERVENANT_IN_PROGRESS:
       return nextState;
     case Constants.T6BIS_UPDATE_INTERVENANT_SUCCES:
-      nextState.t6bis.intervenantVO.nomIntervenant = action.value.intervenantVO.nomIntervenant;
-      nextState.t6bis.intervenantVO.prenomIntervenant = action.value.intervenantVO.prenomIntervenant;
-      nextState.t6bis.intervenantVO.adresse = action.value.intervenantVO.adresse;
-      nextState.t6bis.intervenantVO.refPaysPassPort = action.value.intervenantVO.refPaysPassPort;
+      nextState.t6bis.intervenantVO.nomIntervenant = action.value?.intervenantVO?.nomIntervenant;
+      nextState.t6bis.intervenantVO.prenomIntervenant = action.value?.intervenantVO?.prenomIntervenant;
+      nextState.t6bis.intervenantVO.adresse = action.value?.intervenantVO?.adresse;
+      nextState.t6bis.intervenantVO.refPaysPassPort = action.value?.intervenantVO?.refPaysPassPort;
       return nextState;
     case Constants.T6BIS_UPDATE_INTERVENANT_FAILED:
+      return nextState;
+    case Constants.T6BIS_UPDATE_OPERATEUR_REQUEST:
+    case Constants.T6BIS_UPDATE_OPERATEUR_IN_PROGRESS:
+    case Constants.T6BIS_UPDATE_OPERATEUR_FAILED:  
+      return nextState;
+    case Constants.T6BIS_UPDATE_OPERATEUR_SUCCES:
+      nextState.t6bis.identifiantOperateur = action.value?.operateur?.code;
       return nextState;
     case Constants.T6BIS_GESTION_GET_UNITE_CODE_REQUEST:
       return nextState;
@@ -234,7 +243,28 @@ export default (state = initialState, action) => {
       return nextState;
     case Constants.T6BIS_GESTION_GET_CMB_OPERATEUR_BY_CODE_FAILED:
       return nextState;
-
+/*case Constants.T6BIS_GESTION_ALL_LIST_TPE_REQUEST:
+      console.log(Constants.T6BIS_GESTION_ALL_LIST_TPE_REQUEST);
+      nextState.displayError = false;
+      nextState.correct = false;
+      nextState.showProgress = true;
+      return nextState;
+   case Constants.T6BIS_GESTION_ALL_LIST_TPE_IN_PROGRESS:
+      return nextState;
+    case Constants.T6BIS_GESTION_ALL_LIST_TPE_SUCCES:
+      console.log('CREATION_T6BIS_ALL_LIST_TPE_SUCCES reducer');
+      nextState.showProgress = false;
+      nextState.confirmed = true;
+      nextState.listDesTpes = action.value;
+      console.log('action.value', action.value);
+            // items = action.value;
+      return nextState;
+    case Constants.T6BIS_GESTION_ALL_LIST_TPE_FAILED:
+      nextState.showProgress = false;
+      nextState.cofirmed = false;
+      nextState.displayError = true;
+      nextState.errorMessage = action.value;
+      return nextState;*/
     default:
       return nextState ? nextState : initialState;
   }
