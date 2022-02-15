@@ -10,27 +10,16 @@ import LiquidationHomeScreen from '../ongletsLiquidation/home/LiquidationHomeScr
 
 class LiquidationRechercheScreen extends Component {
   render() {
-    const isAutomatique = this.props.type === 'automatique';
-    let typeLiq = this.props.route?.params?.typeLiq
-      ? this.props.route?.params?.typeLiq
-      : 'automatique';
-    console.log('LiquidationRechercheScreen', typeLiq);
-
     return (
-      <View style={styles.container}>
+      <View>
         <ComBadrToolbarComp
           navigation={this.props.navigation}
           title={translate('liq.title')}
-          subtitle={
-            typeLiq === 'automatique'
-              ? translate('liq.titleLiqAuto')
-              : translate('liq.liquidationManuelle.title')
-          }
+          subtitle={translate('liq.titleLiqAuto')}
           icon="menu"
         />
-
         <ComLiquidationRechercheRefComp
-          type={typeLiq}
+          commande={'initLiquiderAutomatiquement'}
           module="ALI_DEC"
           typeService="UC"
           successRedirection={'LiquidationHomeScreen'}
@@ -41,7 +30,5 @@ class LiquidationRechercheScreen extends Component {
     );
   }
 }
-const styles = {
-  container: {width: '100%', height: '100%'},
-};
+
 export default LiquidationRechercheScreen;

@@ -94,6 +94,7 @@ import rechercheAutoriserAcheminementReducer from '../../modules/ecorExport/auto
 import autoriserAcheminementMainReducer from '../../modules/ecorExport/autoriserAcheminement/mainScreen/state/reducers/autoriserAcheminementMainReducer';
 import ecorExpConfirmationEntreeArriveeReducer from '../../modules/ecorExport/confirmationEntreeArrivee/state/reducers/ecorExpConfirmationEntreeArriveeReducer';
 import dedEnteteReducer from '../../modules/dedouanement/redressement/state/reducers/DedEnteteReducer';
+import dedEnregisterRedressementReducer from '../../modules/dedouanement/redressement/state/reducers/DedEnregisterRedressementReducer';
 /**
  * combine all reducers
  */
@@ -175,8 +176,8 @@ const allReducers = combineReducers({
   rechParRefUcReducer,
   rechParRefVh,
   ecorExpConfirmationEntreeArriveeReducer,
-  dedEnteteReducer
-
+  dedEnteteReducer,
+  dedEnregisterRedressementReducer
 });
 /**
  * store creation

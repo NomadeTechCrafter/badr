@@ -448,7 +448,7 @@ class T6bisArticlesCurrentArticleMtmBlock extends React.Component {
                 </HelperText>
               </Col>
 
-              <Col size={60} style={styles.labelContainer}>
+              <Col size={160} style={{justifyContent: 'center',marginLeft: 10}}>
                 <TextInput
                   mode="outlined"
                   disabled={this.props.readOnly}
@@ -467,7 +467,8 @@ class T6bisArticlesCurrentArticleMtmBlock extends React.Component {
                   }
                 />
               </Col>
-
+            </Row>
+            <Row size={200}>
               <Col size={40} style={styles.labelContainer}>
                 <Text style={styles.labelTextStyle}>
                   {translate('t6bisGestion.tabs.articles.articleBlock.mtm.unite')}
@@ -481,7 +482,7 @@ class T6bisArticlesCurrentArticleMtmBlock extends React.Component {
                   )}
                 </HelperText>
               </Col>
-              <Col size={60} style={styles.labelContainer}>
+              <Col size={160} style={{ marginLeft: -5 }}>
                 <ComBadrAutoCompleteChipsComp
                   onRef={(ref) => (this.autoCompleteUnite = ref)}
                   placeholder={translate(

@@ -274,15 +274,17 @@ class DedRedressementEnteteVersionBlock extends React.Component {
     } else {
       lieuStockageDisabled = false;
     }
+    let dedDumVo;
     if (lieuStockageDisabled) {
-      this.setState({
-        dedDumVo: { ...this.state.dedDumVo, dedDumSectionEnteteVO: { ...this.state.dedDumVo.dedDumSectionEnteteVO, bureauDestination: bureau?.code, lieuStockage: '' } }
-      });
+      dedDumVo = { ...this.state.dedDumVo, dedDumSectionEnteteVO: { ...this.state.dedDumVo.dedDumSectionEnteteVO, bureauDestination: bureau?.code, lieuStockage: '' } };
     } else {
-      this.setState({
-        dedDumVo: { ...this.state.dedDumVo, dedDumSectionEnteteVO: { ...this.state.dedDumVo.dedDumSectionEnteteVO, bureauDestination: bureau?.code } }
-      });
+      dedDumVo = { ...this.state.dedDumVo, dedDumSectionEnteteVO: { ...this.state.dedDumVo.dedDumSectionEnteteVO, bureauDestination: bureau?.code } };
     }
+    this.setState({
+      dedDumVo: dedDumVo
+    });
+
+    this.props.update(dedDumVo);
 
 
   }
@@ -326,24 +328,35 @@ class DedRedressementEnteteVersionBlock extends React.Component {
 
   handleArrondissementChanged = (selectedValue, selectedIndex, item) => {
    
+   
+    let dedDumVo = { ...this.state.dedDumVo, dedDumSectionEnteteVO: { ...this.state.dedDumVo.dedDumSectionEnteteVO, arrondissement: selectedValue } };
+    
     this.setState({
-      dedDumVo: { ...this.state.dedDumVo, dedDumSectionEnteteVO: { ...this.state.dedDumVo.dedDumSectionEnteteVO, arrondissement: selectedValue } }
+      dedDumVo: dedDumVo
     });
+
+    this.props.update(dedDumVo);
   };
 
   handleLieuStockageLocalisationChanged = (selectedValue, selectedIndex, item) => {
-    this.setState({
-      dedDumVo: { ...this.state.dedDumVo, dedDumSectionEnteteVO: { ...this.state.dedDumVo.dedDumSectionEnteteVO, lieuStockageLocalisation: selectedValue } }
-    });
+    let dedDumVo = { ...this.state.dedDumVo, dedDumSectionEnteteVO: { ...this.state.dedDumVo.dedDumSectionEnteteVO, lieuStockageLocalisation: selectedValue } };
     this.calculerDelaiTransit();
+    this.setState({
+      dedDumVo: dedDumVo
+    });
+
+    this.props.update(dedDumVo);
   };
 
   handleLieuStockageChanged = (selectedValue, selectedIndex, item) => {
    
-    this.setState({
-      dedDumVo: { ...this.state.dedDumVo, dedDumSectionEnteteVO: { ...this.state.dedDumVo.dedDumSectionEnteteVO, lieuStockage: selectedValue } }
-    });
+    let dedDumVo = { ...this.state.dedDumVo, dedDumSectionEnteteVO: { ...this.state.dedDumVo.dedDumSectionEnteteVO, lieuStockage: selectedValue } };
     this.calculerDelaiTransit();
+    this.setState({
+      dedDumVo: dedDumVo
+    });
+
+    this.props.update(dedDumVo);
   };
 
   isShownBureauDistBloc3 = () => {

@@ -667,11 +667,13 @@ export const mapErrorsGestion = function (errorsArray) {
       'E1100025 : La date de sortie doit être  supérieure à la date d’entrée.',
   };
   let messages = [];
+  console.log("errorsArray : ", JSON.stringify(errorsArray));
   errorsArray.forEach(function (error) {
     if (serverErros[error]) {
       messages.push(serverErros[error]);
     }
   });
+  console.log("messages : ", JSON.stringify(messages));
   return messages && messages.length > 0 ? messages : errorsArray;
 };
 

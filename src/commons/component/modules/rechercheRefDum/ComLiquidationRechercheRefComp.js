@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { View } from 'react-native';
+import React, {Component} from 'react';
+import {View} from 'react-native';
 import {
   ComContainerComp,
   ComBadrErrorMessageComp,
@@ -16,19 +16,18 @@ import {
   Paragraph,
 } from 'react-native-paper';
 /**i18n */
-import { translate } from '../../../i18n/ComI18nHelper';
+import {translate} from '../../../i18n/ComI18nHelper';
 import {
   accentColor,
   CustomStyleSheet,
   primaryColor,
 } from '../../../styles/ComThemeStyle';
 import _ from 'lodash';
-import { Col, Row, Grid } from 'react-native-easy-grid';
-import { load } from '../../../services/async-storage/ComStorageService';
-import { connect } from 'react-redux';
+import {Col, Row, Grid} from 'react-native-easy-grid';
+import {load} from '../../../services/async-storage/ComStorageService';
+import {connect} from 'react-redux';
 import * as Constants from '../../../../modules/liquidation/state/liquidationRechercheRefDumConstants';
 import * as RechecheDumAction from '../../../../modules/liquidation/state/actions/liquidationRechercheRefDumAction';
-import { callRedux, extractCommandData } from '../../../../modules/liquidation/utils/LiqUtils';
 
 class ComLiquidationRechercheRefComp extends Component {
   defaultState = {
@@ -47,13 +46,6 @@ class ComLiquidationRechercheRefComp extends Component {
       refBureauLiquidation: '',
       nombreMaxRedevance: '',
     },
-    liquidationManuelle: {
-      maxRAT: '',
-      numeroRAT: '',
-      liquidationAT: false,
-      liquidationOffice: false
-    },
-    indicateurLiquidationArticlesEnFranchiseTotale: false
   };
 
   constructor(props) {
@@ -68,7 +60,7 @@ class ComLiquidationRechercheRefComp extends Component {
     });
     this.props.dispatch(action);
     load('user').then((user) => {
-      this.setState({ login: JSON.parse(user).login });
+      this.setState({login: JSON.parse(user).login});
     });
 
     this.loadRefDumFormScanQrCode();
@@ -77,7 +69,7 @@ class ComLiquidationRechercheRefComp extends Component {
   //load Dum Reference from scan Qrcode
   loadRefDumFormScanQrCode = () => {
     if (this.props.routeParams && this.props.routeParams.refDeclaration) {
-      const { refDeclaration } = this.props.routeParams;
+      const {refDeclaration} = this.props.routeParams;
       console.log('refDeclaration', refDeclaration);
       this.setState({
         bureau: refDeclaration.slice(0, 3),
@@ -90,10 +82,10 @@ class ComLiquidationRechercheRefComp extends Component {
   //accept just Number
   onChangeInput = (input) => {
     let keyImput = _.keys(input)[0];
-    this.setState({ [keyImput]: input[keyImput].replace(/[^0-9]/g, '') });
+    this.setState({[keyImput]: input[keyImput].replace(/[^0-9]/g, '')});
   };
   onChangeInputCle = (cle) => {
-    this.setState({ cle: cle.replace(/[^A-Za-z]/g, '') });
+    this.setState({cle: cle.replace(/[^A-Za-z]/g, '')});
   };
   addZeros = (input) => {
     let keyImput = _.keys(input)[0];
@@ -105,66 +97,19 @@ class ComLiquidationRechercheRefComp extends Component {
   };
   retablir = () => {
     console.log('retablir');
-    this.setState({ ...this.defaultState });
+    this.setState({...this.defaultState});
   };
-
   initWSData = (referenceDed) => {
     return {
       referenceObjetLiquidation: referenceDed,
       refBureauLiquidation: this.state.bureau,
-      // nombreMaxRedevancesAT: this.state.infoLiquidation.nombreMaxRedevance,
+      nombreMaxRedevancesAT: this.state.infoLiquidation.nombreMaxRedevance,
     };
   };
 
-  callLiquidationRedux = (props, data, successRedirection) => {
-    if (props.dispatch) {
-      console.log('calling redux dispatch ...');
-      var action = RechecheDumAction.request(
-        {
-          type: Constants.RECHERCHEREFDUM_REQUEST,
-          value: data,
-        },
-        props.navigation,
-        successRedirection,
-      );
-
-      this.props.dispatch(action);
-      console.log('dispatch fired !!');
-    }
-  };
-
-  initLiquidationData = async (commande, data) => {
-    let type;
-
-    if (this.state.infoLiquidation.redevanceAT) {
-      type = "automatiqueRedevanceAT";
-    } else if (this.state.liquidationManuelle.liquidationAT) {
-      type = "manuelleRedevanceAT";
-    } else if (this.state.liquidationManuelle.liquidationOffice) {
-      type = "manuelleOffice";
-    } else {
-      type = this.props.type;
-    }
-
-
-
-    this.callLiquidationRedux(
-      this.props,
-      {
-        commande: commande,
-        module: this.props.module,
-        typeService: this.props.typeService,
-        data: data,
-        liquidationType: type,
-        indicateurLiquidationArticlesEnFranchiseTotale: this.state.indicateurLiquidationArticlesEnFranchiseTotale
-      },
-      this.props.successRedirection
-    );
-  }
-
   confirmer = () => {
     console.log('confirmer', this.props.successRedirection);
-    this.setState({ showErrorMsg: true });
+    this.setState({showErrorMsg: true});
     if (this.state.regime && this.state.serie) {
       this.state.cleValide = this.cleDUM(this.state.regime, this.state.serie);
 
@@ -175,37 +120,31 @@ class ComLiquidationRechercheRefComp extends Component {
           this.state.annee +
           this.state.serie;
         var data = this.initWSData(referenceDed);
-
-        let commande;
-        if (this.props.type == 'automatique') {
-          if (!this.state.infoLiquidation.redevanceAT) {
-            commande = "initLiquiderAutomatiquement";
-          } else {
-            commande = "initLiquiderAutomatiquementPremiereAT";
-            data.nombreMaxRedevancesAT = this.state.infoLiquidation.nombreMaxRedevance;
-          }
-        } else if (this.props.type == 'manuelle') {
-          data.typeDeclaration = "AutresLiquidationRED";
-          if (this.state.liquidationManuelle.liquidationAT) {
-            commande = "initLiquiderManuellementAT";
-          } else if (this.state.liquidationManuelle.liquidationOffice) {
-            commande = "initLiquiderManuellementOffice";
-            data.typeDeclaration = "AutresLiquidationRED";
-          } else if (this.state.indicateurLiquidationArticlesEnFranchiseTotale) {
-            commande = "initLiquiderManuellementDUM";
-            data.indicateurFranchise = this.state.indicateurLiquidationArticlesEnFranchiseTotale + ""
-          } else {
-            commande = "initLiquiderManuellementDUM";
-          }
-        }
-        this.initLiquidationData(commande, data);
+        var action = RechecheDumAction.request(
+          {
+            type: Constants.RECHERCHEREFDUM_REQUEST,
+            value: {
+              login: this.state.login,
+              commande: this.props.commande,
+              module: this.props.module,
+              typeService: this.props.typeService,
+              data: data,
+              referenceDed: referenceDed,
+              cle: this.state.cle,
+              sousReservePaiementMLV: this.state.sousReservePaiementMLV,
+            },
+          },
+          this.props.navigation,
+          this.props.successRedirection,
+        );
+        this.props.dispatch(action);
+        console.log('dispatch fired !!');
       }
     }
   };
   _hasErrors = (field) => {
     return this.state.showErrorMsg && _.isEmpty(this.state[field]);
   };
-
   isCleValide = () => {
     return this.state.showErrorMsg && this.state.cle !== this.state.cleValide;
   };
@@ -241,7 +180,7 @@ class ComLiquidationRechercheRefComp extends Component {
               keyboardType={'number-pad'}
               value={this.state.bureau}
               label={translate('transverse.bureau')}
-              onChangeText={(val) => this.onChangeInput({ bureau: val })}
+              onChangeText={(val) => this.onChangeInput({bureau: val})}
               onEndEditing={(event) =>
                 this.addZeros({
                   bureau: event.nativeEvent.text,
@@ -267,7 +206,7 @@ class ComLiquidationRechercheRefComp extends Component {
               keyboardType={'number-pad'}
               value={this.state.regime}
               label={translate('transverse.regime')}
-              onChangeText={(val) => this.onChangeInput({ regime: val })}
+              onChangeText={(val) => this.onChangeInput({regime: val})}
               onEndEditing={(event) =>
                 this.addZeros({
                   regime: event.nativeEvent.text,
@@ -293,7 +232,7 @@ class ComLiquidationRechercheRefComp extends Component {
               keyboardType={'number-pad'}
               value={this.state.annee}
               label={translate('transverse.annee')}
-              onChangeText={(val) => this.onChangeInput({ annee: val })}
+              onChangeText={(val) => this.onChangeInput({annee: val})}
               onEndEditing={(event) =>
                 this.addZeros({
                   annee: event.nativeEvent.text,
@@ -319,7 +258,7 @@ class ComLiquidationRechercheRefComp extends Component {
               keyboardType={'number-pad'}
               value={this.state.serie}
               label={translate('transverse.serie')}
-              onChangeText={(val) => this.onChangeInput({ serie: val })}
+              onChangeText={(val) => this.onChangeInput({serie: val})}
               onEndEditing={(event) =>
                 this.addZeros({
                   serie: event.nativeEvent.text,
@@ -339,8 +278,8 @@ class ComLiquidationRechercheRefComp extends Component {
           </View>
         </View>
 
-        <View style={{ flexDirection: 'row' }}>
-          <View style={{ alignItems: 'flex-end', flex: 1 }}>
+        <View style={{flexDirection: 'row'}}>
+          <View style={{alignItems: 'flex-end', flex: 1}}>
             <TextInput
               error={this.isCleValide('cle')}
               maxLength={1}
@@ -360,20 +299,20 @@ class ComLiquidationRechercheRefComp extends Component {
               })}
             </HelperText>
           </View>
-          <View style={{ alignItems: 'flex-start', flex: 1 }}>
+          <View style={{alignItems: 'flex-start', flex: 1}}>
             <TextInput
               keyboardType={'number-pad'}
               value={this.state.numeroVoyage}
               maxLength={1}
               label={translate('transverse.nVoyage')}
-              onChangeText={(val) => this.onChangeInput({ numeroVoyage: val })}
+              onChangeText={(val) => this.onChangeInput({numeroVoyage: val})}
               style={CustomStyleSheet.mediumInput}
             />
           </View>
         </View>
         {/* MainLevee */}
         {this.props.module === 'MLV_LIB' && (
-          <View style={{ flexDirection: 'row' }}>
+          <View style={{flexDirection: 'row'}}>
             <TouchableRipple
               onPress={() => {
                 this.setState({
@@ -397,7 +336,7 @@ class ComLiquidationRechercheRefComp extends Component {
               </View>
             </TouchableRipple>
             <Button
-              style={{ width: 100 }}
+              style={{width: 100}}
               icon="plus-box-outline"
               mode="text"
               compact={true}
@@ -412,210 +351,55 @@ class ComLiquidationRechercheRefComp extends Component {
         {/* Liquidation */}
         {this.props.module === 'ALI_DEC' && (
           <Grid style={CustomStyleSheet.largeInput}>
-            {this.props.type == 'automatique' ?
-              <Row>
-                <TouchableRipple
-                  onPress={() => {
-                    this.setState({
-                      infoLiquidation: {
-                        ...this.state.infoLiquidation,
-                        redevanceAT: !this.state.infoLiquidation.redevanceAT,
+            <Row>
+              <TouchableRipple
+                onPress={() => {
+                  this.setState({
+                    ...this.state.infoLiquidation,
+                    redevanceAT: !this.state.infoLiquidation.redevanceAT,
+                  });
+                }}>
+                <View style={styles.ComContainerCompCheckbox}>
+                  <View pointerEvents="none">
+                    <Checkbox
+                      color={primaryColor}
+                      status={
+                        this.state.infoLiquidation.redevanceAT
+                          ? 'checked'
+                          : 'unchecked'
                       }
-                    });
-                  }}>
-                  <View style={styles.ComContainerCompCheckbox}>
-                    <View pointerEvents="none">
-                      <Checkbox
-                        color={primaryColor}
-                        status={
-                          this.state.infoLiquidation.redevanceAT
-                            ? 'checked'
-                            : 'unchecked'
-                        }
-                      />
-                    </View>
-                    <Paragraph>
-                      {translate(
-                        'liq.rechercheLiquidation.liquidationRedevanceAT',
-                      )}
-                    </Paragraph>
+                    />
                   </View>
-                </TouchableRipple>
-              </Row>
-              :
-              <Row >
-                <TouchableRipple
-                  onPress={() => {
+                  <Paragraph>
+                    {translate(
+                      'liq.rechercheLiquidation.liquidationRedevanceAT',
+                    )}
+                  </Paragraph>
+                </View>
+              </TouchableRipple>
+            </Row>
+            <Row>
+              <Col size={1}>
+                <ComBadrLibelleComp>
+                  {translate('liq.rechercheLiquidation.nombreMaxRedevance')}
+                </ComBadrLibelleComp>
+              </Col>
+              <Col size={1}>
+                <TextInput
+                  style={styles.maxRedevanceInput}
+                  value={this.state.infoLiquidation.nombreMaxRedevance}
+                  onChangeText={(text) =>
                     this.setState({
-                      indicateurLiquidationArticlesEnFranchiseTotale: !this.state.indicateurLiquidationArticlesEnFranchiseTotale,
-                    });
-                  }}>
-                  <View style={styles.ComContainerCompCheckbox}>
-                    <View pointerEvents="none">
-                      <Checkbox
-                        color={primaryColor}
-                        status={
-                          this.state.indicateurLiquidationArticlesEnFranchiseTotale
-                            ? 'checked'
-                            : 'unchecked'
-                        }
-                      />
-                    </View>
-                    <Paragraph>
-                      {translate(
-                        'liq.articleFranchiseTotale',
-                      )}
-                    </Paragraph>
-                  </View>
-                </TouchableRipple>
-              </Row>
-            }
-            {this.props.type == 'automatique' &&
-              <Row>
-                <Col size={1}>
-                  <ComBadrLibelleComp >
-                    {translate('liq.rechercheLiquidation.nombreMaxRedevance')}
-                  </ComBadrLibelleComp>
-                </Col>
-                <Col size={1}>
-                  <TextInput
-                    style={styles.maxRedevanceInput}
-                    value={this.state.infoLiquidation.nombreMaxRedevance}
-                    onChangeText={(text) =>
-                      this.setState({
-                        infoLiquidation: {
-                          ...this.state.infoLiquidation,
-                          nombreMaxRedevance: text,
-                        }
-                      })
-                    }
-                  />
-                </Col>
-              </Row>
-            }
+                      ...this.state.infoLiquidation,
+                      nombreMaxRedevance: text,
+                    })
+                  }
+                />
+              </Col>
+            </Row>
           </Grid>
         )}
 
-        {/* Manuelle Liqudation*/}
-        {this.props.type == 'manuelle' &&
-          <Grid style={CustomStyleSheet.largeInput}>
-            <Row >
-              <TouchableRipple
-                onPress={() => {
-                  this.setState({
-                    liquidationManuelle: {
-                      ...this.state.liquidationManuelle,
-                      liquidationOffice: !this.state.liquidationManuelle.liquidationOffice,
-                    }
-                  });
-                }}>
-                <View style={styles.ComContainerCompCheckbox}>
-                  <View pointerEvents="none">
-                    <Checkbox
-                      color={primaryColor}
-                      status={
-                        this.state.liquidationManuelle.liquidationOffice
-                          ? 'checked'
-                          : 'unchecked'
-                      }
-                    />
-                  </View>
-                  <Paragraph>
-                    {translate('liq.liquidationOffice')}
-                  </Paragraph>
-                </View>
-              </TouchableRipple>
-            </Row>
-            <Row >
-              <TouchableRipple
-                onPress={() => {
-                  this.setState({
-                    liquidationManuelle: {
-                      ...this.state.liquidationManuelle,
-                      liquidationAT: !this.state.liquidationManuelle.liquidationAT,
-                    }
-                  });
-                }}>
-                <View style={styles.ComContainerCompCheckbox}>
-                  <View pointerEvents="none">
-                    <Checkbox
-                      color={primaryColor}
-                      status={
-                        this.state.liquidationManuelle.liquidationAT
-                          ? 'checked'
-                          : 'unchecked'
-                      }
-                    />
-                  </View>
-                  <Paragraph>
-                    {translate('liq.liquidationAT')}
-                  </Paragraph>
-                </View>
-              </TouchableRipple>
-            </Row>
-            <Row >
-              <Col size={1}>
-                <Row>
-                  <Col
-                    size={1}
-                    style={{
-                      alignItems: 'center',
-                      justifyContent: 'center'
-                    }}
-                  >
-                    <ComBadrLibelleComp withColor={true} >
-                      {translate('liq.numeroRAT')}
-                    </ComBadrLibelleComp>
-                  </Col>
-                  <Col size={1}>
-                    <TextInput
-                      style={styles.maxRedevanceInput}
-                      value={this.state.liquidationManuelle.numeroRAT}
-                      editable={this.state.liquidationManuelle.liquidationAT}
-                      onChangeText={(text) =>
-                        this.setState({
-                          liquidationManuelle: {
-                            ...this.state.liquidationManuelle,
-                            numeroRAT: text,
-                          }
-                        })
-                      }
-                    />
-                  </Col>
-                </Row>
-              </Col>
-              <Col size={1}>
-                <Row>
-                  <Col size={1}
-                    style={{
-                      alignItems: 'center',
-                      justifyContent: 'center'
-                    }}
-                  >
-                    <ComBadrLibelleComp withColor={true} >
-                      {translate('liq.maxRAT')}
-                    </ComBadrLibelleComp>
-                  </Col>
-                  <Col size={1}>
-                    <TextInput
-                      style={styles.maxRedevanceInput}
-                      value={this.state.liquidationManuelle.maxRAT}
-                      editable={this.state.liquidationManuelle.liquidationAT}
-                      onChangeText={(text) =>
-                        this.setState({
-                          liquidationManuelle: {
-                            ...this.state.liquidationManuelle,
-                            maxRAT: text,
-                          }
-                        })
-                      }
-                    />
-                  </Col>
-                </Row>
-              </Col>
-            </Row>
-          </Grid>
-        }
         <View style={styles.ComContainerCompBtn}>
           <Button
             onPress={this.confirmer}
@@ -644,14 +428,13 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
     paddingTop: 0,
-    paddingBottom: 100,
   },
   ComContainerCompInputs: {
     flexDirection: 'column',
     alignItems: 'center',
     marginTop: 20,
   },
-  cleHelperMsg: { width: 150 },
+  cleHelperMsg: {width: 150},
   ComContainerCompBtn: {
     flexDirection: 'row',
     justifyContent: 'center',
@@ -683,8 +466,8 @@ const styles = {
     alignItems: 'flex-end',
     flex: 1,
   },
-  BtnWidth: { width: 100 },
-  maxRedevanceInput: { height: 45 },
+  BtnWidth: {width: 100},
+  maxRedevanceInput: {height: 45},
 };
 
 const mapStateToProps = (state) => ({

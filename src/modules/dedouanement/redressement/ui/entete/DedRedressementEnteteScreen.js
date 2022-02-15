@@ -19,6 +19,8 @@ import {
 import translate from "../../../../../commons/i18n/ComI18nHelper";
 import styles from '../../style/DedRedressementStyle';
 import DedRedressementRow from '../common/DedRedressementRow';
+import dedUpdateRedressementAction from '../../state/actions/dedUpdateRedressementAction';
+import { REDRESSEMENT_UPDATE } from '../../state/DedRedressementConstants';
 
 
 class DedRedressementEnteteScreen extends React.Component {
@@ -64,8 +66,26 @@ class DedRedressementEnteteScreen extends React.Component {
     ];
   };
 
+  updateRedressement = (data) => {
+    let action = dedUpdateRedressementAction.update(
+      {
+        type: REDRESSEMENT_UPDATE,
+        value: data,
+
+
+      },
+
+    );
+
+    this.props.dispatch(action);
+
+
+  }
+
   render() {
     let listD17D20 = this.props.data?.dedDumSectionEnteteVO?.declarationsTryptique ? this.props.data?.dedDumSectionEnteteVO?.declarationsTryptique : [];
+    let isRedressementDUM = this.props.isRedressementDUM;
+    console.log('-----------------------------isRedressementDUM 13022022 :', isRedressementDUM)
     return (
       <ScrollView>
         {this.props.data && (
@@ -80,7 +100,8 @@ class DedRedressementEnteteScreen extends React.Component {
             <DedRedressementEnteteVersionBlock
               data={this.state.dedDumVo}
               dedDumSectionEnteteVO={this.state.dedDumVo?.dedDumSectionEnteteVO}
-              readOnly={true}
+              update={this.updateRedressement}
+              readOnly={!isRedressementDUM}
             />
             {/* <DedRedressementEnteteInfoBlock
               data={this.props.data}
@@ -92,7 +113,8 @@ class DedRedressementEnteteScreen extends React.Component {
             <DedRedressementEnteteDeclarantOpeBlock
               data={this.state.dedDumVo}
               dedDumSectionEnteteVO={this.state.dedDumVo?.dedDumSectionEnteteVO}
-              readOnly={true}
+              update={this.updateRedressement}
+              readOnly={!isRedressementDUM}
             />
             <DedRedressementEnteteFacturePaiementBlock
               data={this.props.data}

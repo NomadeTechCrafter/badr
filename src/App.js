@@ -24,6 +24,7 @@ import Login from './modules/hab/login/ui/habLoginScreen';
 import HabProfileScreen from './modules/hab/profile/ui/habProfileScreen';
 import Home from './modules/hab/home/ui/habHomeScreen';
 import SmsVerifyScreen from './modules/hab/smsVerify/ui/habSmsVerifyScreen';
+import HabOperatScreen from './modules/hab/operateur/ui/habOperatScreen';
 
 import {
   primaryColor,
@@ -40,7 +41,6 @@ import ControleRegimeInterneScreen from './modules/controle/regimeInterne/ui/con
 import ControleACVPScreen from './modules/controle/ACVP/ui/controleACVPScreen';
 import EcorImportRechercheScreen from './modules/ecorImport/rechercheEcorImport/ui/EcorImportRechercheScreen';
 import EcorImportEnleverMarchandiseScreen from './modules/ecorImport/enleverMarchandise/ui/EcorImportEnleverMarchandiseScreen';
-import EciEnleverMarchandiseParPesageScreen from './modules/ecorImport/enleverMarchandiseParPesage/ui/eciEnleverMarchandiseParPesageScreen';
 import LiquidationRechercheScreen from './modules/liquidation/ui/rechercheLiquidation/LiquidationRechercheScreen';
 import LiquidationHomeScreen from './modules/liquidation/ui/ongletsLiquidation/home/LiquidationHomeScreen';
 import EciConsultationBLSSearchScreen from './modules/ecorImport/eciConsultationBLS/ui/eciConsultationBLSMainScreen'
@@ -128,11 +128,6 @@ export default class App extends React.Component {
                 component={EcorImportEnleverMarchandiseScreen}
               />
               <Stack.Screen
-                name="EnleverMarchandiseParPesage"
-                options={{headerShown: false}}
-                component={EciEnleverMarchandiseParPesageScreen}
-              />
-              <Stack.Screen
                 name="DedRedressementScreen"
                 options={{headerShown: false}}
                 component={DedRedressementScreen}
@@ -143,7 +138,11 @@ export default class App extends React.Component {
                 component={VuEmbListeDeclaration2}
                 options={{ headerShown: false }}
               />
-
+                 <Stack.Screen
+                name="OperatValidate"
+                options={{headerShown: false}}
+                component={HabOperatScreen}
+              />
               <Stack.Screen
                 name="SmsVerify"
                 options={{headerShown: false}}

@@ -39,5 +39,6 @@ export default {
     dateEnregistrement: 'Date Enregistrement',
     nVoyage: 'N°Voy',
     regimeTransite: 'Régime transit',
+    choixDecisionRequired: "Le choix d'une décision est obligatoire"
   },
 };

@@ -94,7 +94,6 @@ class T6bisInformationsMtmSousBlock extends React.Component {
               <TextInput
                 disabled={this.props.readOnly}
                 mode="outlined"
-                keyboardType={'number-pad'}
                 label={translate(
                   't6bisGestion.tabs.entete.informationst6bisBlock.mtm.numeroVol',
                 )}

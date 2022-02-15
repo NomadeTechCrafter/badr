@@ -1,18 +1,16 @@
-import _ from 'lodash';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import _ from 'lodash';
 import React from 'react';
 import { ScrollView, View } from 'react-native';
 import { connect } from 'react-redux';
 import {
-  ComBadrButtonComp,
-  ComBadrCircleProgressBarComp,
-  ComBadrDialogComp,
+  ComBadrButtonComp, ComBadrDialogComp,
   ComBadrErrorMessageComp,
   ComBadrInfoMessageComp,
   ComBadrToolbarComp
 } from '../../../../../commons/component';
 import { translate } from '../../../../../commons/i18n/ComI18nHelper';
-import { CustomStyleSheet, primaryColor } from '../../../../../commons/styles/ComThemeStyle';
+import { primaryColor } from '../../../../../commons/styles/ComThemeStyle';
 import {
   CMD_ENREGISTRER_T6BIS,
   CMD_SAUVEGARDER_T6BIS,
@@ -98,26 +96,19 @@ class T6bisGestion extends React.Component {
   hideDialog = () => this.setState({dialogVisibility: false});
 
   componentDidMount() {
-    this._unsubscribe = this.props.navigation.addListener('focus', () => {
-      console.log('T6bisGestion focus start');
-      console.log('T6bisGestion focus 1');
-      console.log(this.props.route.params);
-      console.log('T6bisGestion focus 2');
-      this.setState({
-        context: this.props.route.params.context,
-        mode: this.props.route.params.mode,
-        t6bis: this.props.route.params.t6bis,
-        title: this.props.route.params.title,
-        identifiants: null,
-        listmoyenpaiement: null,
-        listDesTpes:null,
-        haslignetaxation: null,
-        tabs: null,
-        dialogVisibility: false,
-      });
-      this.initierT6bisEnteteSection(this.props.route.params.context.selectedType.code, this.props.route.params.t6bis, this.props.route.params.mode);
-      console.log('T6bisGestion focus end');
+    this.setState({
+      context: this.props.route.params.context,
+      mode: this.props.route.params.mode,
+      t6bis: this.props.route.params.t6bis,
+      title: this.props.route.params.title,
+      identifiants: null,
+      listmoyenpaiement: null,
+      listDesTpes: null,
+      haslignetaxation: null,
+      tabs: null,
+      dialogVisibility: false,
     });
+    this.initierT6bisEnteteSection(this.props.route.params.context.selectedType.code, this.props.route.params.t6bis, this.props.route.params.mode);
 
   //  this.loadListTPE();
 
@@ -132,8 +123,6 @@ class T6bisGestion extends React.Component {
     this.props.actions.dispatch(action);
   };*/
   initierT6bisEnteteSection = async (codeType, t6bis, mode) => {
-    console.log('this.state.componentDidMount', this.state);
-    console.log('this.props.componentDidMount', this.props);
     let action = await t6bisinitT6bisEnteteSectionAction.request({
       type: Constantes.T6BIS_INIT_ENTETE_REQUEST,
       value: {
@@ -146,8 +135,6 @@ class T6bisGestion extends React.Component {
   };
 
   componentWillUnmount() {
-    console.log('componentWillUnmount');
-    this._unsubscribe();
   }
 
   reset = () => {
@@ -319,7 +306,7 @@ class T6bisGestion extends React.Component {
   }
   render() {
     let codeTypeT6bis = this.props.t6bis?.codeTypeT6bis;
-
+    console.log('11/02/2022 this.props.hideEnregistrerButton ', this.props.hideEnregistrerButton);
     return (
       <ScrollView style={styles.container}>
         <ComBadrToolbarComp
@@ -434,13 +421,13 @@ class T6bisGestion extends React.Component {
               }}
               text={translate('t6bisGestion.buttons.sauvegarder')}
             />}
-           {this.props.t6bis?.typeMoyenPaiement?.code!="03"? <ComBadrButtonComp
+            {(this.props.t6bis?.typeMoyenPaiement?.code != "03") ? ( !this.props.hideEnregistrerButton && <ComBadrButtonComp
               style={{width: 100}}
               onPress={() => {
                 this.enregistrer();
               }}
               text={translate('t6bisGestion.buttons.enregistrer')}
-            />:
+            />):
             <ComBadrButtonComp
                           style={{width: 100}}
                           onPress={() => {

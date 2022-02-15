@@ -20,6 +20,9 @@ import { request } from '../state/actions/DedAction';
 import {
     CONFIRMER_CERTIFICAT_RECEPTION_INIT,
     CONFIRMER_CERTIFICAT_RECEPTION_REQUEST,
+    ENREGISTRER_REDRESSEMENT_INIT,
+    ENREGISTRER_REDRESSEMENT_REQUEST,
+    ENREGISTRER_REDRESSEMENT_UPDATE,
     GENERIC_DED_INIT,
     GENERIC_DED_REQUEST
 } from '../state/DedRedressementConstants';
@@ -38,6 +41,8 @@ import DedRedressementResultatScannerScreen from './resultatScanner/DedRedressem
 import DedRedressementMoyenTransportTransitScreen from './moyenTransport/DedRedressementMoyenTransportTransitScreen';
 import { ComSessionService } from '../../../../commons/services/session/ComSessionService';
 import { DED_IMPUTATION_RED_NEW_PROVISIONNELLE, DED_IMPUTATION_TC_NOUVELLE_PROVISIONNELLE, DED_SERV_RECHREFERENCE } from '../utils/DedConstants';
+import dedEnregistrerRedressementAction from '../state/actions/dedEnregistrerRedressementAction';
+import ModalIntervention from './modelIntervention/modalIntervention';
 
 
 
@@ -114,7 +119,9 @@ class DedRedressementScreen extends React.Component {
         isImputationTitreChangeVisible: true,
         isImputationCompteRedVisible: true,
         showIntervention: false,
-        indexDialogConfirmationReception: 0
+        indexDialogConfirmationReception: 0,
+        showInterventionRedressement: false,
+        indexDialogRedressement: 0,
     };
     constructor(props) {
         super(props);
@@ -380,6 +387,70 @@ class DedRedressementScreen extends React.Component {
     }
 
 
+    lancerModalRedressement = () => {
+        let index = this.state.indexDialogRedressement
+        
+
+        let action = dedEnregistrerRedressementAction.init(
+            {
+                type: ENREGISTRER_REDRESSEMENT_INIT
+
+
+            },
+
+        );
+        this.props.dispatch(action);
+        this.setState({ showInterventionRedressement: true, indexDialogRedressement: index + 1});
+    }
+
+    updateIntervention = (dedDumMotifIInputVO) => {
+
+
+        let action = dedEnregistrerRedressementAction.update(
+            {
+                type: ENREGISTRER_REDRESSEMENT_UPDATE,
+                value: dedDumMotifIInputVO
+
+
+            },
+
+        );
+        this.props.dispatch(action);
+        this.setState({ etat: true });
+    }
+
+    onDismissModalRedressement = () => {
+        this.setState({
+            showInterventionRedressement: false
+        });
+    };
+
+    retablirRedressement = () => {
+        this.updateIntervention({ "motif": "" });
+    };
+
+    confirmerRedressement = (dedDumMotifIInputVO) => {
+        this.onDismissModalRedressement();
+        let consulterDumReducer = getValueByPath('consulterDumReducer',this.props);
+
+        dedDumMotifIInputVO.dedDumVO = consulterDumReducer.data;
+        let action = dedEnregistrerRedressementAction.request(
+            {
+                type: ENREGISTRER_REDRESSEMENT_REQUEST,
+                value: dedDumMotifIInputVO,
+
+
+            },
+            this.props.navigation, this.props.route.params.successRedirection
+
+        );
+
+        console.log('confirmerRedressement : ', this.props.route.params.successRedirection);
+        this.props.dispatch(action);
+
+
+    }
+
 
     render() {
         let isCautionAccessible = this.extractCommandData(
@@ -419,7 +490,12 @@ class DedRedressementScreen extends React.Component {
         );
         let isConfirmationReception = this.props.route.params.isConfirmationReception;
 
-        // console.log('this.props.dedConfirmationReceptionReducer : ', this.props.dedConfirmationReceptionReducer);
+        let isRedressementDUM = this.props.route.params.isRedressementDUM;
+        let dedDumMotifIInputVO = getValueByPath('dedEnregisterRedressementReducer.dedDumMotifIInputVO', this.props);
+        /* console.log('this.props : ', JSON.stringify(this.props?.dedEnregisterRedressementReducer));
+        
+
+        console.log('dedDumMotifIInputVO (yla 26012021) : ', dedDumMotifIInputVO);
         // console.log('this.props.consulterDumReducer : ', this.props.consulterDumReducer);
 
         console.log('success : ', typeof success != "undefined");
@@ -427,10 +503,12 @@ class DedRedressementScreen extends React.Component {
         console.log('this.props : ', JSON.stringify(this.props) );
         console.log('isConfirmationReception : ', isConfirmationReception);
         console.log('(typeof isConfirmationReception != "undefined") ', (typeof isConfirmationReception != "undefined"));
+        console.log('isRedressementDUM : ', isRedressementDUM);
+        console.log('(typeof isRedressementDUM != "undefined") ', (typeof isRedressementDUM != "undefined"));
         console.log('isImputationCompteREDAccessible ', isImputationCompteREDAccessible);
         console.log('this.state.isImputationCompteRedVisible ', this.state.isImputationCompteRedVisible);
         
-
+ */
 
         return (
             <View style={{ flex: 1 }}>
@@ -445,6 +523,13 @@ class DedRedressementScreen extends React.Component {
                         color={primaryColor}
                         style={{ backgroundColor: 'white' }}
                         onPress={() => this.lancerModal()}
+                    />}
+                    {(((typeof isRedressementDUM != "undefined") && (isRedressementDUM)) && ((typeof success == "undefined") || (!success))) && <IconButton
+                        icon="arrange-bring-forward"
+                        size={30}
+                        color={primaryColor}
+                        style={{ backgroundColor: 'white' }}
+                        onPress={() => this.lancerModalRedressement()}
                     />}
                 </ComBadrToolbarComp>}
                 {errorMessage != null && (
@@ -570,6 +655,16 @@ class DedRedressementScreen extends React.Component {
                     depotageSansPresenceDouaniere={isDumSansPresenceDouaniere?.data}
                     update={this.updateCertificatReception}
                     index={this.state.indexDialogConfirmationReception}
+                />
+                <ModalIntervention
+                    visible={this.state.showInterventionRedressement}
+                    dedReferenceVO={getValueByPath('dedReferenceVO', this.props, 'consulterDumReducer',)}
+                    dedDumMotifIInputVO={dedDumMotifIInputVO}
+                    onDismiss={this.onDismissModalRedressement}
+                    confirmer={this.confirmerRedressement}
+                    retablir={this.retablirRedressement}
+                    update={this.updateIntervention}
+                    index={this.state.indexDialogRedressement}
                 />
             </View>
         );

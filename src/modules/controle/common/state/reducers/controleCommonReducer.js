@@ -1,5 +1,6 @@
 import * as Constants from '../controleCommonConstants';
 import {translate} from '../../../../../commons/i18n/ComI18nHelper';
+import { CONTROLE_UPDATE_CONTROLE_OBJECT_REQUEST } from '../../../ACVP/state/controleACVPConstants';
 
 const initialState = {
   showProgress: false,
@@ -8,6 +9,7 @@ const initialState = {
   searchMode: true,
   resultsMode: false,
   detailMode: false,
+  hideRedressementButton: false,
   data: {
     init: {},
     listDeclaration: [],
@@ -22,6 +24,8 @@ export default (state = initialState, action) => {
     ...state,
     value: action.value,
   };
+  console.log('  action  28012022 : ', action);
+  console.log('  nextState  28012022 : ', nextState);
   switch (action.type) {
     //INIT_CONTROLE
     case Constants.INIT_CONTROLE_COMMUN_INIT:
@@ -32,6 +36,7 @@ export default (state = initialState, action) => {
       nextState.showProgress = true;
       nextState.infoMessage = null;
       nextState.errorMessage = null;
+      nextState.hideRedressementButton = false;
       return nextState;
     case Constants.INIT_CONTROLE_COMMUN_IN_PROGRESS:
       return nextState;
@@ -41,6 +46,7 @@ export default (state = initialState, action) => {
       nextState.errorMessage = null;
       nextState.data.init = action.value.data.jsonVO;
       nextState.data.refDeclaration = action.value.refDeclaration;
+      nextState.hideRedressementButton = false;
       return nextState;
     case Constants.IINIT_CONTROLE_COMMUN_FAILED:
       nextState.showProgress = false;
@@ -137,9 +143,19 @@ export default (state = initialState, action) => {
               : action.value;
           nextState.reponseData = null;
           return nextState;
-
+    case CONTROLE_UPDATE_CONTROLE_OBJECT_REQUEST:
+        nextState.data = action.value;
+      return nextState;
+    case Constants.CONTROLE_SET_ERROR_MESSAGE_REQUEST:
+      console.log('CONTROLE_SET_ERROR_MESSAGE_REQUEST ,', action.value);
+      nextState.errorMessage = action.value;
+      return nextState;
+    case Constants.CONTROLE_HIDE_REDRESSEMENT_REQUEST:
+      console.log('CONTROLE_HIDE_REDRESSEMENT_REQUEST ,', action.value);
+      nextState.hideRedressementButton = action.value;
+      return nextState;
     default:
-      nextState.showProgress = false;
-      return initialState;
+        nextState.showProgress = false;
+      return nextState ? nextState : initialState;
   }
 };

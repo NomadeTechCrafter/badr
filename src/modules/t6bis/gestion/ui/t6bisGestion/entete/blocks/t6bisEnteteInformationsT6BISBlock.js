@@ -50,8 +50,8 @@ handleCallback = (childData) =>{
         return (
             <View>
                 {isMtm(codeTypeT6bis) && (
-                    <T6bisInformationsMtmSousBlock t6bis={this.props.t6bis} listmoyenpaiement={this.props.listmoyenpaiement} readOnly={this.props.readOnly}/>)}
-           {isMtm(codeTypeT6bis) && this.state.typeMoyenPaiement=='03'&&(
+                    <T6bisInformationsMtmSousBlock parentCallback = {this.handleCallback} t6bis={this.props.t6bis} listmoyenpaiement={this.props.listmoyenpaiement}   readOnly={this.props.readOnly}/>)}
+                 {isMtm(codeTypeT6bis) && this.state.typeMoyenPaiement=='03'&&(
                      <T6bisInformationsTpeMtmSousBlock t6bis={this.props.t6bis}  listDesTpes={this.props.listDesTpes}     readOnly={this.props.readOnly}/>)}
 
   

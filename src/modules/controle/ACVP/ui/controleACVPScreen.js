@@ -1,40 +1,35 @@
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { NavigationContainer } from '@react-navigation/native';
+import _ from 'lodash';
 import React, { Component } from 'react';
-import { View, Dimensions } from 'react-native';
-
+import { View } from 'react-native';
+import { Col, Row } from 'react-native-easy-grid';
+import { connect } from 'react-redux';
 import {
-  ComContainerComp,
-  ComBadrCardBoxComp,
-  ComAccordionComp,
-  ComBadrButtonComp,
-  ComBadrErrorMessageComp,
+  ComBadrButtonIconComp, ComBadrErrorMessageComp,
   ComBadrInfoMessageComp,
   ComBadrProgressBarComp,
-  ComBadrToolbarComp,
-  ComBadrLibelleComp,
-  ComBadrButtonIconComp,
+  ComBadrToolbarComp, ComContainerComp
 } from '../../../../commons/component';
-
-import BAD from '../../BAD';
-import { Checkbox, TextInput, Text, RadioButton } from 'react-native-paper';
+import { GENERIC_REQUEST } from '../../../../commons/constants/generic/ComGenericConstants';
 /**i18n */
 import { translate } from '../../../../commons/i18n/ComI18nHelper';
 import { CustomStyleSheet, primaryColor } from '../../../../commons/styles/ComThemeStyle';
-import _ from 'lodash';
-import { Col, Row, Grid } from 'react-native-easy-grid';
-import { load } from '../../../../commons/services/async-storage/ComStorageService';
-import { connect } from 'react-redux';
-import * as ControleRechercheRefDumAction from '../../common/state/actions/controleCommonRechercheRefDumAction';
+import * as dedInitRedresserDumAction from '../../../dedouanement/redressement/state/actions/dedInitRedresserDumAction';
 import * as ControleCommonActionBtnAction from '../../common/state/actions/controleCommonActionBtnAction';
+import * as ControleRechercheRefDumAction from '../../common/state/actions/controleCommonRechercheRefDumAction';
+import controleCommonShowErrorAction from '../../common/state/actions/controleCommonShowErrorAction';
+import controleHideRedressementAction from '../../common/state/actions/controleHideRedressementAction';
 import * as controleCommonConstants from '../../common/state/controleCommonConstants';
-import { NavigationContainer } from '@react-navigation/native';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import ctrlUpdateControleAction from '../state/actions/ctrlUpdateControleAction';
+import { CONTROLE_UPDATE_CONTROLE_OBJECT_REQUEST } from '../state/controleACVPConstants';
+import ControleBonDelivrerScreen from './onglets/bonDelivrer/ControleBonDelivrerScreen';
 import ControleCompteRenduScreen from './onglets/compteRendu/ControleCompteRenduScreen';
+import ControleDeclarationsApurementScreen from './onglets/declarationsApurement/ControleDeclarationsApurementScreen';
 import ControleInfoScreen from './onglets/info/ControleInfoScreen';
 import ControleReconnaissanceScreen from './onglets/reconnaissance/ControleReconnaissanceScreen';
-import ControleBonDelivrerScreen from './onglets/bonDelivrer/ControleBonDelivrerScreen';
-import ControleDeclarationsApurementScreen from './onglets/declarationsApurement/ControleDeclarationsApurementScreen';
-import * as dedInitRedresserDumAction from '../../../dedouanement/redressement/state/actions/dedInitRedresserDumAction';
-import { GENERIC_REQUEST } from '../../../../commons/constants/generic/ComGenericConstants';
+
+
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -43,7 +38,6 @@ class ControleACVPScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      login: '',
       checked: false,
     };
     console.log('-----constructor--');
@@ -52,21 +46,23 @@ class ControleACVPScreen extends Component {
   initControleState = () => {
     console.log('-----initControleState--');
     if (!_.isNil(this.props.data.init)) {
-      let controleVo = this.props.data.init;
-      let refDeclaration = this.props.data.refDeclaration;
+      console.log('JSON.stringify(this.props.data)-----------------------------------------');
+      console.log(JSON.stringify(this.props.data));
+     /*  let controleVo = this.props.data.init;
+      let refDeclaration = this.props.data.refDeclaration; */
       this.setState({
         ...this.state,
-        refDeclaration: refDeclaration,
-        cle: this.cleDUM(refDeclaration?.slice(3, 6), refDeclaration?.slice(10, 17)),
+        /* refDeclaration: refDeclaration,
+        cle: this.cleDUM(refDeclaration?.slice(3, 6), refDeclaration?.slice(10, 17)), */
         numeroVoyage: '',
-        declaration: controleVo,
+        /* declaration: controleVo,
         typeRegime: translate('controle.ACVP'),
         decisionControle: controleVo.decisionControle,
         typeControle: controleVo.decision,
-        observation: controleVo.observation,
+        observation: controleVo.observation, */
         numeroVersionCourante: 0,
         isConsultation: false,
-        compteRendu: '',
+       /*  compteRendu: '', */
       });
     }
   };
@@ -134,11 +130,24 @@ class ControleACVPScreen extends Component {
     this.props.dispatch(action);
   };
 
+  update = () => {
+    console.log('this.props.data : ', JSON.stringify(this.props.data));
+      let action = ctrlUpdateControleAction.update(
+       {
+         type: CONTROLE_UPDATE_CONTROLE_OBJECT_REQUEST,
+         value: this.props.data,
+       }
+     );
+     this.props.dispatch(action);
+    console.log('************update*********');
+    console.log('this.props.data.init : ', JSON.stringify(this.props.data.init));
+  };
+
   // init documentAnnexeResultVOItem JSON field for action save/validate
   initDocumentJSONField = () => {
     let documentAnnexeResultVO = [];
     let documentAnnexeResultVOItem = {};
-    for (let doc of this.state.declaration.documentAnnexeResultVOs) {
+    for (let doc of this.props.data.init?.documentAnnexeResultVOs) {
       documentAnnexeResultVOItem = {};
       documentAnnexeResultVOItem.id = doc.documentAnnexe.identifiant;
       documentAnnexeResultVOItem.decisionMCI = doc.decisionMCI;
@@ -153,13 +162,17 @@ class ControleACVPScreen extends Component {
 
   sauvgarder = (commande) => {
     console.log('---sauvgarder----', commande);
+    if (_.isEmpty(this.props.data.init?.decisionControle)) {
+      this.setMessageError(translate('controle.choixDecisionRequired'));
+      return;
+    } else { this.setMessageError(null); }
     var data = {
-      idControle: this.state.declaration.idControle,
-      idDed: this.state.declaration.idDed,
-      referenceDed: this.state.refDeclaration,
+      idControle: this.props.data.init?.idControle,
+      idDed: this.props.data.init?.idDed,
+      referenceDed: this.props.data?.refDeclaration,
       documentAnnexeResultVO: this.initDocumentJSONField(),
-      observation: this.state.observation,
-      decisions: this.state.decisionControle,
+      observation: this.props.data.init?.observation,
+      decisions: this.props.data.init?.decisionControle,
       numeroVersionCourante: this.state.numeroVersionCourante,
     };
     console.log('data----', data);
@@ -167,7 +180,7 @@ class ControleACVPScreen extends Component {
       {
         type: controleCommonConstants.VALIDATESAVE_CONTROLE_COMMUN_REQUEST,
         value: {
-          commande: commande + this.state.typeControle,
+          commande: commande + this.props.data.init?.decision,
           data: data,
         },
       },
@@ -182,7 +195,7 @@ class ControleACVPScreen extends Component {
 
   genererCompteRendu = () => {
     var data = {
-      idDed: this.state.declaration.idDed,
+      idDed: this.props.data.init?.idDed,
       /*numeroVersionBase: this.state.numeroVersionCourante,
       numeroVersionCourante: this.state.numeroVersionCourante,*/
     };
@@ -190,7 +203,6 @@ class ControleACVPScreen extends Component {
       {
         type: controleCommonConstants.GENERERCR_CONTROLE_COMMUN_REQUEST,
         value: {
-          login: this.state.login,
           data: data,
         },
       },
@@ -203,68 +215,69 @@ class ControleACVPScreen extends Component {
 
   redresserDeclaration = () => {
 
-    var data = this.state.declaration.idDed;
+    var data = this.props.data.init?.idDed;
 
     console.log('data----', data);
+    let refDeclaration = this.props.data.refDeclaration;
+    
+    let cle = this.cleDUM(refDeclaration?.slice(3, 6), refDeclaration?.slice(10, 17));
     var action = dedInitRedresserDumAction.request(
       {
         type: GENERIC_REQUEST,
         value: {
           jsonVO: {
-            reference: this.state.refDeclaration,
+            reference: this.props.data.refDeclaration,
             nVoyage: this.state.numeroVoyage,
             enregistre: true,
           },
           idDed: data,
-          cle: this.state.cle,
+          cle: cle,
+          hideRedressementButton:true
+
         },
       },
-      this.props.navigation,
+      this.props.navigation, this.props.route.params.successRedirection
+    );
+    console.log('dispatch fired redresserDeclaration 1  !!');
+    this.props.dispatch(action);
+    console.log('dispatch fired redresserDeclaration 2  !!');
+    this.hideRedressement(true);
+    console.log('dispatch fired redresserDeclaration 3  !!');
+
+  };
+
+
+
+  setMessageError(msg) {
+    console.log('setMessageError :',msg);
+    var action = controleCommonShowErrorAction.setMessage(
+      {
+        type: controleCommonConstants.CONTROLE_SET_ERROR_MESSAGE_REQUEST,
+        value: msg
+      }
+
     );
     this.props.dispatch(action);
-    console.log('dispatch fired !!');
+  }
 
-  };
+  hideRedressement = (hideRedressementButton)=> {
+    console.log('hideRedressementButton methode:', hideRedressementButton);
+    var action = controleHideRedressementAction.hideRedressement(
+      {
+        type: controleCommonConstants.CONTROLE_HIDE_REDRESSEMENT_REQUEST,
+        value: hideRedressementButton
+      }
 
-  /*static getDerivedStateFromProps(props, state) {
-    if (
-      props.reponseData &&
-      props.reponseData.historiqueCompte &&
-      props.reponseData.historiqueCompte !== state.declaration.historiqueCompte
-    ) {
-      return {
-        declaration: {
-          // object that we want to update
-          ...state.declaration, // keep all other key-value pairs
-          historiqueCompte: props.reponseData.historiqueCompte, // update the value of specific key
-        },
-        isConsultation: true,
-      };
-    }
-    // Return null to indicate no change to state.
-    return null;
-  }*/
-
-  reconnuChange = (index) => {
-    var declaration = { ...this.state.declaration };
-    declaration.documentAnnexeResultVOs[
-      index
-    ].documentAnnexe.reconnu = !declaration.documentAnnexeResultVOs[index]
-      .documentAnnexe.reconnu;
-    this.setState({ declaration });
-  };
-
-  demandeConsignationChange = (index) => {
-    var declaration = { ...this.state.declaration };
-    declaration.documentAnnexeResultVOs[
-      index
-    ].documentAnnexe.demandeConsignation = !declaration.documentAnnexeResultVOs[
-      index
-    ].documentAnnexe.demandeConsignation;
-    this.setState({ declaration });
-  };
+    );
+    this.props.dispatch(action);
+  }
 
   render() {
+    console.log("this.state begin");
+    console.log("this.state :", this.state);
+    console.log("this.props.errorMessage :", this.props.errorMessage);
+    console.log("this.props.hideRedressementButton :", this.props.hideRedressementButton);
+    console.log("this.state end");
     return (
       <View style={CustomStyleSheet.fullContainer}>
         <ComBadrToolbarComp
@@ -282,8 +295,8 @@ class ControleACVPScreen extends Component {
           {this.props.errorMessage != null && (
             <ComBadrErrorMessageComp message={this.props.errorMessage} />
           )}
-          {this.props.successMessage != null && (
-            <ComBadrInfoMessageComp message={this.props.successMessage} />
+          {this.props.infoMessage != null && (
+            <ComBadrInfoMessageComp message={this.props.infoMessage} />
           )}
           <View style={{ flex: 1 }}>
             <NavigationContainer independent={true}>
@@ -308,7 +321,12 @@ class ControleACVPScreen extends Component {
                 }}>
 
                 <Tab.Screen name="Compte rendu" component={() => (
-                  <ControleCompteRenduScreen compteRenduData={this.state} />
+                  <ControleCompteRenduScreen 
+                    controleVo={this.props.data.init}
+                    refDeclaration={this.props.data.refDeclaration}
+                    isConsultation={this.state.isConsultation}
+                    
+                    updateControle={this.update} />
                 )} />
 
                 <Tab.Screen name="info" component={ControleInfoScreen} />
@@ -371,7 +389,7 @@ class ControleACVPScreen extends Component {
                   onPress={() => {
                     this.sauvgarder('sauvegarder');
                   }}
-                  disabled={this.state.decisionControle ? false : true}
+                  disabled={this.props.data.init.decisionControle ? false : true}
                   icon="check-circle-outline"
                   text={translate('controle.sauvegarder')}
                 />
@@ -382,20 +400,20 @@ class ControleACVPScreen extends Component {
                   onPress={() => {
                     this.sauvgarder('valider');
                   }}
-                  disabled={this.state.decisionControle ? false : true}
+                  disabled={this.props.data.init.decisionControle ? false : true}
                   icon="check-circle-outline"
                   text={translate('controle.validerControle')}
                 />
               </Col>
               <Col size={3}>
-                <ComBadrButtonIconComp
+                {(!this.props.hideRedressementButton) &&<ComBadrButtonIconComp
                   style={styles.actionBtn}
                   icon="check-circle-outline"
                   text={translate('controle.redresserDeclaration')}
                   onPress={() => {
                     this.redresserDeclaration();
                   }}
-                />
+                />}
               </Col>
               <Col size={1} />
             </Row>

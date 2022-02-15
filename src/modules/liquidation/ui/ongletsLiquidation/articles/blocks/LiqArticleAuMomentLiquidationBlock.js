@@ -1,38 +1,26 @@
 import React from 'react';
-import _ from 'lodash';
-import Numeral from 'numeral';
-import { StyleSheet, View, Alert } from 'react-native';
-import { connect } from 'react-redux';
-import ItemArticles from './itemArticles';
+import {View, TouchableOpacity} from 'react-native';
 import {
-  ComAccordionComp,
-  ComBadrPickerComp,
   ComBadrCardBoxComp,
   ComBadrLibelleComp,
-  ComBadrDatePickerComp,
-  ComBadrAutoCompleteComp,
+  ComAccordionComp,
+  ComBadrPickerComp,
 } from '../../../../../../commons/component';
-import { Col, Grid, Row } from 'react-native-easy-grid';
 import LiqArticleDetailsLiqBlock from './LiqArticleDetailsLiqBlock';
-import { translate } from '../../../../../../commons/i18n/ComI18nHelper';
-import { TextInput, IconButton, Button, Checkbox } from 'react-native-paper';
 import LiqArticleDetailsLiqLegendeLBlock from './LiqArticleDetailsLiqLegendeLBlock';
-import {
-  primaryColor,
-  CustomStyleSheet,
-} from '../../../../../../commons/styles/ComThemeStyle';
-import { callRedux, callLiquidationUpdateRedux } from '../../../../utils/LiqUtils';
-
+import {translate} from '../../../../../../commons/i18n/ComI18nHelper';
+import {sumByKey} from '../../../../utils/LiqUtils';
+import {connect} from 'react-redux';
+import {CustomStyleSheet} from '../../../../../../commons/styles/ComThemeStyle';
+import {Col, Grid, Row} from 'react-native-easy-grid';
+import Numeral from 'numeral';
+import _ from 'lodash';
 class LiqRecapitulationLiqNormaleInitialeBlock extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       listeArticlesLiquides: [],
       selectedArticle: {},
-      libelleArticle: '',
-      showRubriquesComptables: false,
-      articleEnCours: {},
-      actionType: ''
     };
   }
   componentDidMount() {
@@ -43,7 +31,7 @@ class LiqRecapitulationLiqNormaleInitialeBlock extends React.Component {
       ),
     });
   }
-  handleTypeBorderauChanged = (selectedValue, selectedIndex, item) => { };
+  handleTypeBorderauChanged = (selectedValue, selectedIndex, item) => {};
 
   getListeArticlesLiquides = (
     refOperationPrincipale,
@@ -73,8 +61,8 @@ class LiqRecapitulationLiqNormaleInitialeBlock extends React.Component {
     if (
       refOperationSimultanee &&
       refOperationSimultanee.refArticlesLiquides.length +
-      refOperationPrincipale.refArticlesLiquides.length >
-      articlesLiquides.length
+        refOperationPrincipale.refArticlesLiquides.length >
+        articlesLiquides.length
     ) {
       _.forEach(refOperationSimultanee.refArticlesLiquides, function (
         item,
@@ -96,207 +84,13 @@ class LiqRecapitulationLiqNormaleInitialeBlock extends React.Component {
     }
     return articlesLiquides;
   };
-
-  showDetailArticle = (article, libelleArticle) => {
-    this.props.showDetailArticle(article, libelleArticle)
-    if (this.props.liquidationType == 'manuelle' || this.props.liquidationType == 'manuelleOffice' || this.props.liquidationType == 'manuelleRedevanceAT') {
-      this.setState({
-        articleEnCours: {
-          ...article.refParametresLiquidation,
-          unite: article.refParametresLiquidation.refUniteQuantite,
-        },
-        actionType: 'edit',
-        showRubriquesComptables: true,
-      })
-      console.log('article ======>', article)
-      console.log('articleEnCours ======>', this.state.articleEnCours)
-    }
-    this.setState({ selectedArticle: article, libelleArticle: libelleArticle });
+  showDetailArticle = (article) => {
+    this.setState({selectedArticle: article});
   };
-
-  addRubriquesComptables = () => {
-    this.setState({
-      showRubriquesComptables: true,
-    });
-  };
-
-  handleRubriquesChanged = (selectedValue, selectedIndex, item) => {
-    console.log('selectedValue', selectedValue)
-    this.setState({
-      articleEnCours: {
-        ...this.state.articleEnCours,
-        unite: selectedValue,
-      },
-    })
-  };
-
-  onDateEcheanceConsignationChanged = (date) => {
-    console.log('date', date)
-    this.setState({
-      articleEnCours: {
-        ...this.state.articleEnCours,
-        dateEffetLiquidation: date,
-      },
-    })
-  };
-
-
-  testIsChampsValid = (list) => {
-    // $scope.fermerAlert();
-    // var showErrors = false;
-    // angular.forEach(keys, function (key) {
-    //   if (!list[key]) {
-    //     showErrors = true;
-    //     pushMessages($rootScope.messagesErreurArticles, "liquidation.articles." + key, "liquidation.error.shouldNotBeEmpty", true);
-    //   }
-    // });
-    // return !showErrors;
-    return true;
-  }
-
-  getNumArticle = (listesArticle) => {
-    var numNewArticle = 1;
-    listesArticle.map(function (item, key) {
-      if (numNewArticle <= Number(item.numArticle)) {
-        numNewArticle = Number(item.numArticle)
-      }
-    });
-    return (numNewArticle + 1).toString();
-  }
-
-  confirmerArticle = () => {
-    console.log("----confirmerArticle-----");
-    let { liquidationVO, liquidationType } = this.props;
-    let { articleEnCours, actionType, selectedArticle, listeArticlesLiquides } = this.state;
-    if (this.testIsChampsValid(articleEnCours)) {
-      let articleALiquider = {
-        "indicateurLiquidationManuelleRequise": (
-          liquidationType == "manuelle" ||
-          liquidationType == 'manuelleOffice' ||
-          liquidationType == 'manuelleRedevanceAT') ? "true" : "false",
-        "normalContext": articleEnCours.consignationIntegrale ? "false" : "true",
-        "consignationContext": articleEnCours.consignationIntegrale ? "true" : "false",
-        "refParametresLiquidation": {
-          "indicateurConsignationIntegrale": articleEnCours.consignationIntegrale ? "true" : "false",
-          "codeNomenclature": articleEnCours.codeNomenclature,
-          "dateEffetLiquidation": articleEnCours.dateEffetLiquidation,
-          "designation": articleEnCours.designation,
-          "indicateurFranchiseTotale": articleEnCours.franchiseTotale ? "true" : "false",
-          "quantite": articleEnCours.quantite,
-          "valeurTaxable": articleEnCours.valeurTaxable
-        }
-      };
-
-      var commande = "confirmerArticle";
-      if (actionType == 'add') {
-        articleALiquider.numArticle = this.getNumArticle(listeArticlesLiquides);
-        articleALiquider.refParametresLiquidation.refUniteQuantite = articleEnCours.unite;
-        //En cas d'ajout d'un nouveau article en consignation intégrale,
-        //avec opération simultanée inexistante Supprimer envoyé que refOpertionBase seulement sans refOperationLiquidation
-        if (articleEnCours.consignationIntegrale) {
-          if (liquidationVO.refOperationSimultanee && liquidationType != "manuelleOffice") {
-            articleALiquider.refOperationLiquidation = liquidationVO.refOperationSimultanee.idOperation;
-          }
-        } else {
-          articleALiquider.refOperationLiquidation = liquidationVO.idOperation;
-        }
-        articleALiquider.refOperationDeBase = liquidationVO.idOperation;
-        callRedux(this.props, {
-          command: commande,
-          typeService: 'UC',
-          jsonVO: articleALiquider,
-        });
-      }
-      else if (actionType == 'edit') {
-        articleALiquider.refParametresLiquidation.refUniteQuantite = articleEnCours.unite;
-        articleALiquider.numArticle = selectedArticle.numArticle;
-
-        if (selectedArticle.refArticleLiquideReference) {
-          console.log("modifier consigner article cosnignation");
-          commande = "confirmerConsignerArticle";
-          articleALiquider.idArticleLiquideParOperation = selectedArticle.idArticleLiquideParOperation;
-          articleALiquider.consignationContext = "false";
-          articleALiquider.normalContext = "false";
-          articleALiquider.refParametresLiquidation.idParameterLiquidation = selectedArticle.refParametresLiquidation.idParameterLiquidation;
-          articleALiquider.refArticleLiquideReference = {
-            idArticleLiquideParOperation: selectedArticle.refArticleLiquideReference.idArticleLiquideParOperation
-          }
-        } else {
-          if (selectedArticle.liquidationFinsConsignation) {
-            console.log("ajout d'un nouveau article en consignation");
-            commande = "confirmerConsignerArticle";
-            articleALiquider.consignationContext = "false";
-            articleALiquider.normalContext = "false";
-            articleALiquider.refArticleLiquideReference = {
-              idArticleLiquideParOperation: selectedArticle.idArticleLiquideParOperation
-            }
-          } else {
-            console.log("modification article normale");
-            articleALiquider.idArticleLiquideParOperation = selectedArticle.idArticleLiquideParOperation;
-            if (articleALiquider.refParametresLiquidation.indicateurConsignationIntegrale == "true") {
-              if (liquidationVO.refOperationSimultanee) {
-                articleALiquider.refOperationLiquidation = liquidationVO.refOperationSimultanee.idOperation;
-              }
-            } else {
-              articleALiquider.refOperationLiquidation = liquidationVO.idOperation;
-            }
-            articleALiquider.refOperationDeBase = liquidationVO.idOperation;
-          }
-        }
-        console.log(articleALiquider);
-        callRedux(this.props, {
-          command: commande,
-          typeService: 'UC',
-          jsonVO: articleALiquider,
-        });
-      }
-      console.log(JSON.stringify(articleALiquider, null, 4));
-
-      // you should be change liquidation globale data
-    }
-  }
-
-  deleteArticle = (item,index) => {
-    Alert.alert(
-      "Remove",
-      "Are You sure you want to remove that?",
-      [
-        {
-          text: "Yes",
-          onPress: () => {
-            let listeTaxes = [...this.state.listeArticlesLiquides];
-            listeTaxes.splice(index,1);
-            this.setState({
-              listeArticlesLiquides: listeTaxes
-            })
-            callRedux(
-              this.props,
-              {
-                command: "supprimerArticle",
-                typeService: 'UC',
-                jsonVO: item,
-              },
-              null,
-            );
-            callLiquidationUpdateRedux(
-              this.props,
-              {
-                command: "supprimerArticle",
-                typeService: 'UC',
-                jsonVO: item,
-              },
-            )
-          },
-        },
-        { text: "No", onPress: () => console.log("Cancel Pressed"), style: "cancel" }
-      ]
-    );
-  }
-
   render() {
-    const { liquidationVO, liquidationType } = this.props;
-    console.log('liquidationType ======>', liquidationType)
-    const { listeArticlesLiquides, selectedArticle, libelleArticle, showRubriquesComptables } = this.state;
+    const {liquidationVO} = this.props;
+    console.log('artcile--------', liquidationVO)
+    const {listeArticlesLiquides, selectedArticle} = this.state;
     return (
       <View>
         <ComBadrCardBoxComp noPadding={true}>
@@ -312,89 +106,85 @@ class LiqRecapitulationLiqNormaleInitialeBlock extends React.Component {
                 </ComBadrLibelleComp>
                 <ComBadrLibelleComp>
                   {'  '}
-                  {
+                  {Numeral(
                     liquidationVO.refArticlesLiquides.length +
-                    (liquidationVO.refOperationSimultanee ? liquidationVO.refOperationSimultanee.refArticlesLiquides.length : 0)
-                  }
+                      liquidationVO.refOperationSimultanee.refArticlesLiquides
+                        .length,
+                  ).format('0.00')}
                 </ComBadrLibelleComp>
               </Row>
               <Row style={CustomStyleSheet.lightBlueRow}>
-
-                {(liquidationType == 'manuelle' || liquidationType == 'manuelleOffice' || liquidationType == 'manuelleRedevanceAT') ?
-                  <Col size={0.4}>
-                    <IconButton
-                      icon="plus"
-                      size={20}
-                      color={'white'}
-                      style={{ backgroundColor: primaryColor }}
-                      onPress={() => {
-                        this.setState({
-                          actionType: 'add',
-                          articleEnCours: {},
-                          selectedArticle: {}
-                        })
-                        this.addRubriquesComptables()
-                      }}
-                    />
-                  </Col>
-                  :
-                  <Col size={0.4} />
-                }
-                <Col size={0.6}>
-                  <ComBadrLibelleComp withColor={true} style={{ textAlign: 'center' }}>
+                <Col>
+                  <ComBadrLibelleComp withColor={true}>
                     {translate('liq.articles.numeroArticle')}
                   </ComBadrLibelleComp>
                 </Col>
                 <Col>
-                  <ComBadrLibelleComp withColor={true} style={{ textAlign: 'center' }}>
+                  <ComBadrLibelleComp withColor={true}>
                     {translate('liq.articles.codeNomenclature')}
                   </ComBadrLibelleComp>
                 </Col>
                 <Col>
-                  <ComBadrLibelleComp withColor={true} style={{ textAlign: 'center' }}>
+                  <ComBadrLibelleComp withColor={true}>
                     {translate('liq.articles.valeurTaxableDH')}
                   </ComBadrLibelleComp>
                 </Col>
                 <Col>
-                  <ComBadrLibelleComp withColor={true} style={{ textAlign: 'center' }}>
+                  <ComBadrLibelleComp withColor={true}>
                     {translate('liq.articles.quantite')}
                   </ComBadrLibelleComp>
                 </Col>
-                <Col size={0.6}>
-                  <ComBadrLibelleComp withColor={true} style={{ textAlign: 'center' }}>
+                <Col>
+                  <ComBadrLibelleComp withColor={true}>
                     {translate('liq.articles.unite')}
                   </ComBadrLibelleComp>
                 </Col>
-                <Col size={0.6} />
-                {(liquidationType == 'manuelle' || liquidationType == 'manuelleOffice' || liquidationType == 'manuelleRedevanceAT') && <Col size={0.4} />}
-                {(liquidationType == 'manuelle' || liquidationType == 'manuelleOffice' || liquidationType == 'manuelleRedevanceAT') && <Col size={0.4} />}
               </Row>
               {_.orderBy(listeArticlesLiquides, 'numArticle', 'asc').map(
                 (item, index) => (
-                  <ItemArticles
-                    item={item}
-                    index={index}
-                    deleteArticle={this.deleteArticle}
-                    liquidationType={liquidationType}
-                    showDetailArticle={this.showDetailArticle}
-                  />),
+                  <TouchableOpacity
+                    onPress={() => this.showDetailArticle(item)}>
+                    <Row
+                      key={index}
+                      style={
+                        index % 2 === 0
+                          ? CustomStyleSheet.whiteRow
+                          : CustomStyleSheet.lightBlueRow
+                      }>
+                      <Col>
+                        <ComBadrLibelleComp>
+                          {item.numArticle}
+                        </ComBadrLibelleComp>
+                      </Col>
+                      <Col>
+                        <ComBadrLibelleComp>
+                          {item.refParametresLiquidation.codeNomenclature}
+                        </ComBadrLibelleComp>
+                      </Col>
+                      <Col>
+                        <ComBadrLibelleComp>
+                          {Numeral(
+                            item.refParametresLiquidation.valeurTaxable,
+                          ).format('0.000')}
+                        </ComBadrLibelleComp>
+                      </Col>
+                      <Col>
+                        <ComBadrLibelleComp>
+                          {Numeral(
+                            item.refParametresLiquidation.quantite,
+                          ).format('0.000')}
+                        </ComBadrLibelleComp>
+                      </Col>
+                      <Col>
+                        <ComBadrLibelleComp>
+                          {item.refParametresLiquidation.refUniteQuantiteDesc}
+                        </ComBadrLibelleComp>
+                      </Col>
+                    </Row>
+                  </TouchableOpacity>
+                ),
               )}
-              {showRubriquesComptables &&
-                <Row style={{ ...CustomStyleSheet.whiteRow, alignItems: 'center', justifyContent: 'center' }}>
-                  <Button
-                    onPress={() =>
-                      this.setState({
-                        showRubriquesComptables: false,
-                      })
-                    }
-                    icon="autorenew"
-                    mode="contained"
-                    style={styles.btnQuitter}>
-                    {translate('transverse.quitter')}
-                  </Button>
-                </Row>
-              }
-              {(liquidationType == 'automatique' || liquidationType == 'automatiqueRedevanceAT') && !_.isEmpty(selectedArticle) && (
+              {!_.isEmpty(selectedArticle) && (
                 <View>
                   <Row style={CustomStyleSheet.whiteRow}>
                     <Col>
@@ -493,239 +283,6 @@ class LiqRecapitulationLiqNormaleInitialeBlock extends React.Component {
             </Grid>
           </ComAccordionComp>
         </ComBadrCardBoxComp>
-
-        {showRubriquesComptables &&
-          <ComBadrCardBoxComp>
-            <Grid>
-              <Row style={CustomStyleSheet.lightBlueRow}>
-                <Checkbox
-                  color={'#009ab2'}
-                  status={this.state.articleEnCours.franchiseTotale ? 'checked' : 'unchecked'}
-                  disabled={false}
-                  onPress={() =>
-                    this.setState({
-                      articleEnCours: {
-                        ...this.state.articleEnCours,
-                        franchiseTotale: !this.state.articleEnCours.franchiseTotale,
-                      },
-                    })
-                  }
-                />
-                <ComBadrLibelleComp>
-                  {translate('liq.articles.franchiseTotale')}
-                </ComBadrLibelleComp>
-              </Row>
-              <Row style={CustomStyleSheet.lightBlueRow}>
-                <Checkbox
-                  color={'#009ab2'}
-                  status={this.state.articleEnCours.consignationIntegrale ? 'checked' : 'unchecked'}
-                  disabled={false}
-                  onPress={() =>
-                    this.setState({
-                      articleEnCours: {
-                        ...this.state.articleEnCours,
-                        consignationIntegrale: !this.state.articleEnCours.consignationIntegrale,
-                      },
-                    })
-                  }
-                />
-                <ComBadrLibelleComp>
-                  {translate('liq.articles.consignationIntegrale')}
-                </ComBadrLibelleComp>
-              </Row>
-              <Row style={CustomStyleSheet.whiteRow}>
-                <Col size={1}>
-                  <ComBadrLibelleComp withColor={true}>
-                    {translate('liq.articles.codeNomenclature')}
-                  </ComBadrLibelleComp>
-                </Col>
-                <Col size={1}>
-                  <TextInput
-                    label=""
-                    type="flat"
-                    disabled={false}
-                    style={{
-                      height: 50,
-                      borderRadius: 2,
-                      borderWidth: 0.2,
-                      borderColor: '#009ab2',
-                      backgroundColor: '#d9dfe0',
-                    }}
-                    value={this.state.articleEnCours.codeNomenclature}
-                    onChangeText={(text) => {
-                      this.setState({
-                        articleEnCours: {
-                          ...this.state.articleEnCours,
-                          codeNomenclature: text,
-                        },
-                      });
-                    }}
-                  />
-                </Col>
-                <Col size={1} />
-                <Col size={1} />
-              </Row>
-              <Row style={CustomStyleSheet.whiteRow}>
-                <Col size={1}>
-                  <ComBadrLibelleComp withColor={true}>
-                    {translate('liq.articles.designation')}
-                  </ComBadrLibelleComp>
-                </Col>
-                <Col size={3}>
-                  <TextInput
-                    label=""
-                    type="flat"
-                    disabled={false}
-                    style={{
-                      height: 50,
-                      borderRadius: 2,
-                      borderWidth: 0.2,
-                      borderColor: '#009ab2',
-                      backgroundColor: '#d9dfe0',
-                    }}
-                    value={this.state.articleEnCours.designation}
-                    onChangeText={(text) => {
-                      this.setState({
-                        articleEnCours: {
-                          ...this.state.articleEnCours,
-                          designation: text,
-                        },
-                      });
-                    }}
-                  />
-                </Col>
-              </Row>
-              <Row style={CustomStyleSheet.whiteRow}>
-                <Col size={1}>
-                  <ComBadrLibelleComp withColor={true}>
-                    {translate('liq.articles.valeurTaxableDH')}
-                  </ComBadrLibelleComp>
-                </Col>
-                <Col size={1}>
-                  <TextInput
-                    label=""
-                    type="flat"
-                    disabled={false}
-                    style={{
-                      height: 50,
-                      borderRadius: 2,
-                      borderWidth: 0.2,
-                      borderColor: '#009ab2',
-                      backgroundColor: '#d9dfe0',
-                    }}
-                    value={this.state.articleEnCours.valeurTaxable}
-                    onChangeText={(text) => {
-                      this.setState({
-                        articleEnCours: {
-                          ...this.state.articleEnCours,
-                          valeurTaxable: text,
-                        },
-                      });
-                    }}
-                  />
-                </Col>
-                <Col size={1} />
-                <Col size={1} />
-              </Row>
-              <Row style={CustomStyleSheet.whiteRow}>
-                <Col size={1}>
-                  <ComBadrLibelleComp withColor={true}>
-                    {translate('liq.articles.quantite')}
-                  </ComBadrLibelleComp>
-                </Col>
-                <Col size={1}>
-                  <TextInput
-                    label=""
-                    type="flat"
-                    disabled={false}
-                    style={{
-                      height: 50,
-                      borderRadius: 2,
-                      borderWidth: 0.2,
-                      borderColor: '#009ab2',
-                      backgroundColor: '#d9dfe0',
-                    }}
-                    value={this.state.articleEnCours.quantite}
-                    onChangeText={(text) => {
-                      this.setState({
-                        articleEnCours: {
-                          ...this.state.articleEnCours,
-                          quantite: text,
-                        },
-                      });
-                    }}
-                  />
-                </Col>
-                <Col size={1} style={{ alignItems: 'center' }}>
-                  <ComBadrLibelleComp withColor={true}>
-                    {translate('liq.articles.unite')}
-                  </ComBadrLibelleComp>
-                </Col>
-                <Col size={1}>
-                  <ComBadrAutoCompleteComp
-                    key="code"
-                    libelle=""
-                    placeholder={''}
-                    onRef={(ref) => (this.state.articleEnCours.unite = ref)}
-                    value={this.state.articleEnCours.unite}
-                    handleSelectItem={(item, id) => {
-                      console.log('item select °°°°°°°° ', item)
-                      this.setState({
-                        articleEnCours: {
-                          ...this.state.articleEnCours,
-                          unite: item.code,
-                        },
-                      })
-                    }}
-                    initialValue={this.state.articleEnCours.unite}
-                    command="getCmbUniteQuantite"
-                    styleInput={{ width: '100%', marginBottom: 30 }}
-                  //style={}
-                  />
-                </Col>
-              </Row>
-              <Row style={CustomStyleSheet.whiteRow}>
-                <Col size={1}>
-                  <ComBadrLibelleComp withColor={true}>
-                    {translate('liq.articles.dateEffetLiquidation')}
-                  </ComBadrLibelleComp>
-                </Col>
-                <Col size={3}>
-                  <ComBadrDatePickerComp
-                    labelDate={translate(
-                      'liq.consignationInitiale.dateEcheanceConsignation',
-                    )}
-                    value={this.state.articleEnCours.dateEffetLiquidation ?
-                      this.state.articleEnCours.dateEffetLiquidation
-                      : new Date()}
-                    dateFormat="DD/MM/YYYY"
-                    onDateChanged={this.onDateEcheanceConsignationChanged}
-                    inputStyle={styles.textInputsStyle}
-                  />
-                </Col>
-              </Row>
-              <View style={styles.ComContainerCompBtn}>
-                <Button
-                  onPress={this.confirmerArticle}
-                  icon="check"
-                  compact="true"
-                  mode="contained"
-                  style={styles.btnConfirmer}
-                  loading={this.props.showProgress}>
-                  {translate('transverse.confirmer')}
-                </Button>
-                <Button
-                  // onPress={this.retablir}
-                  icon="autorenew"
-                  mode="contained"
-                  style={styles.btnRetablir}>
-                  {translate('transverse.retablir')}
-                </Button>
-              </View>
-            </Grid>
-          </ComBadrCardBoxComp>
-        }
-
         {!_.isEmpty(selectedArticle) && (
           <ComBadrCardBoxComp noPadding={true}>
             {/* Bloc Liquidation Initiale Normale */}
@@ -742,29 +299,12 @@ class LiqRecapitulationLiqNormaleInitialeBlock extends React.Component {
                     </ComBadrLibelleComp>
                   </Col>
                 </Row>
-                {libelleArticle === 'M' && (
-                  <Row style={CustomStyleSheet.whiteRow}>
-                    <Col size={2} />
-                    <Col>
-                      <ComBadrLibelleComp
-                        withColor={true}
-                        style={{
-                          fontWeight: 'bold',
-                          textDecorationLine: 'underline',
-                        }}>
-                        {translate('liq.liquidationManuelleRequise')}
-                      </ComBadrLibelleComp>
-                    </Col>
-                  </Row>
-                )}
-
-                {libelleArticle.toLowerCase().includes('consignation') && (
-                  <LiqArticleDetailsLiqBlock
-                    article={selectedArticle}
-                    titre={translate('liq.articles.baseConsignation')}
-                  />
-                )}
-
+                <LiqArticleDetailsLiqBlock
+                  article={selectedArticle}
+                  titre={translate(
+                    'liq.articles.baseActuelleLiquidationNormale',
+                  )}
+                />
                 <LiqArticleDetailsLiqBlock
                   article={selectedArticle}
                   titre={translate('liq.articles.baseConsignation')}
@@ -786,44 +326,8 @@ class LiqRecapitulationLiqNormaleInitialeBlock extends React.Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  ComContainerCompBtn: {
-    marginTop: 10,
-    flexDirection: 'row',
-    justifyContent: 'center',
-  },
-
-  btnConfirmer: {
-    color: '#FFF',
-    padding: 5,
-    marginRight: 15,
-  },
-  btnRetablir: {
-    color: '#FFF',
-    padding: 5,
-    // marginRight: 15,
-  },
-  btnQuitter: {
-    padding: 5,
-    color: '#FFF',
-  },
-  badrPicker: {
-    borderRadius: 2,
-    borderWidth: 0.2,
-    borderColor: '#009ab2',
-    backgroundColor: '#d9dfe0',
-  },
-  whiteRow: {
-    paddingVertical: 12,
-    alignItems: 'center',
-    paddingHorizontal: 15,
-  },
-});
-
-
 function mapStateToProps(state) {
-  return { ...state };
+  return {...state.liquidationReducer};
 }
 
 export default connect(

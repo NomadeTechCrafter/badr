@@ -7,6 +7,7 @@ import { Col, Row } from 'react-native-easy-grid';
 import { HelperText, TextInput } from 'react-native-paper';
 import { isCreation, stringNotEmpty } from '../../../../../../utils/t6bisUtils';
 import * as TbisConstantes from '../../../../../../utils/t6bisConstants';
+import moment from 'moment';
 
 
 
@@ -61,6 +62,7 @@ class T6bisInformationsTaxeCoordinationSousBlock extends React.Component {
 
 
     onDateEntreeChanged = (date) => {
+        console.log('onDateEntreeChanged : ', date);
         this.setState({ dateEntree: date });
         this.props.t6bis.dateEntree = date;
     }
@@ -195,7 +197,7 @@ class T6bisInformationsTaxeCoordinationSousBlock extends React.Component {
                             <ComBadrDatePickerComp
                                 disabled={this.props.readOnly}
                                 labelDate={translate('t6bisGestion.tabs.entete.informationst6bisBlock.taxeCoordination.dateEntree')}
-                                value={this.state.dateEntree}
+                                value={this.state.dateEntree ? moment(this.state.dateEntree, 'DD/MM/YYYY', true) : ''}
                                 dateFormat="DD/MM/YYYY"
                                 onDateChanged={this.onDateEntreeChanged}
                                 inputStyle={styles.textInputsStyle} />
@@ -222,7 +224,7 @@ class T6bisInformationsTaxeCoordinationSousBlock extends React.Component {
                             <ComBadrDatePickerComp
                                 disabled={this.props.readOnly}
                                 labelDate={translate('t6bisGestion.tabs.entete.informationst6bisBlock.taxeCoordination.dateSortie')}
-                                value={this.state.dateSortie}
+                                value={this.state.dateSortie ? moment(this.state.dateSortie, 'DD/MM/YYYY', true) : ''}
                                 dateFormat="DD/MM/YYYY"
                                 onDateChanged={this.onDateSortieChanged}
                                 inputStyle={styles.textInputsStyle} />

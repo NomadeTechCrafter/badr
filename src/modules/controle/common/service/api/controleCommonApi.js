@@ -85,7 +85,7 @@ export default class ControleListeDeclarationDumApi {
     return await HttpHelper.process(data);
   };
 
-  static genererCompteRendu = async (login, data) => {
+  static genererCompteRendu = async ( data) => {
     const _data = {
       dtoHeader: {
         userLogin: ComSessionService.getInstance().getLogin(),

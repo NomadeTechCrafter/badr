@@ -1,0 +1,65 @@
+{
+  "dtoHeader": {
+    "userLogin": "AD6203",
+    "fonctionnalite": "cf4011",
+    "module": "HAB_LIB",
+    "commande": "getListeProfil",
+    "typeService": "SP",
+    "offset": 0,
+    "pageSize": 0,
+    "rowCount": 0
+  },
+  "jsonVO": [
+    {
+      "libelleProfil": "ALL*",
+      "codeProfil": "ALLPROFIL",
+      "profilCentral": false,
+      "listeProfils": [],
+      "listeProfilsASupprimer": [],
+      "profilAgentDouanier": false,
+      "profilAgentExterne": false,
+      "profilOperateur": false,
+      "listeNiveauValidation": [],
+      "defaultConverter": {}
+    },
+    {
+      "libelleProfil": "AGENT CAUTION AC",
+      "codeProfil": "AGCAUTAC",
+      "dateDebutEffet": null,
+      "dateFinEffet": null,
+      "profilStandard": null,
+      "refsFonctionnalites": null,
+      "typeUtilisateur": null,
+      "tabProfils": null,
+      "listeProfils": [],
+      "listeProfilsASupprimer": [],
+      "defaultConverter": {}
+    },
+    {
+      "libelleProfil": "AGENT DEPOT DUM",
+      "codeProfil": "AGDP",
+      "dateDebutEffet": null,
+      "dateFinEffet": null,
+      "profilStandard": null,
+      "refsFonctionnalites": null,
+      "typeUtilisateur": null,
+      "tabProfils": null,
+      "listeProfils": [],
+      "listeProfilsASupprimer": [],
+      "defaultConverter": {}
+    },
+    {
+      "libelleProfil": "ADMINISTRATEUR  DES HABILITATION",
+      "codeProfil": "AH",
+      "dateDebutEffet": null,
+      "dateFinEffet": null,
+      "profilStandard": null,
+      "refsFonctionnalites": null,
+      "typeUtilisateur": null,
+      "tabProfils": null,
+      "listeProfils": [],
+      "listeProfilsASupprimer": [],
+      "defaultConverter": {}
+    }
+  ]
+}

@@ -1,8 +1,8 @@
 
 /**Constants */
-import * as Constants from '../t6bisGestionConstants';
+import { CMD_ENREGISTRER_T6BIS, MODE_CREATION } from '../../../utils/t6bisConstants';
 import { calculateTotalT6bis, getCurrentArticle, groupLignesByRubrique, groupLignesByRubriqueByArticle, hasAtLeastOneTaxationLine, isCm, isCreation, isMtm } from "../../../utils/t6bisUtils";
-import { MODE_CREATION } from '../../../utils/t6bisConstants';
+import * as Constants from '../t6bisGestionConstants';
 
 const initialState = {
   confirmed: false,
@@ -15,7 +15,8 @@ const initialState = {
   haslignetaxation: null,
   redevableResponse: null,
   newIntervenant: null,
-  infoCompleted: null
+  infoCompleted: null,
+  hideEnregistrerButton: false
 
 };
 
@@ -32,17 +33,20 @@ export default (state = initialState, action) => {
       nextState.errorMessage = null;
       return nextState;
     case Constants.T6BIS_INIT_ENTETE_REQUEST:
+      console.log('11/02/2022  T6BIS_INIT_ENTETE_REQUEST ', Constants.T6BIS_INIT_ENTETE_REQUEST);
       nextState.displayError = false;
       nextState.correct = false;
       nextState.showProgress = true;
       nextState.successMessage = null;
       nextState.errorMessage = null;
+      nextState.hideEnregistrerButton = false;
       return nextState;
     case Constants.T6BIS_INIT_ENTETE_IN_PROGRESS:
       nextState.successMessage = null;
       nextState.errorMessage = null;
       return nextState;
     case Constants.T6BIS_INIT_ENTETE_SUCCES:
+      console.log('11/02/2022  T6BIS_INIT_ENTETE_SUCCES ', Constants.T6BIS_INIT_ENTETE_SUCCES);
       nextState.showProgress = false;
       nextState.confirmed = true;
       nextState.mode = action.value.mode;
@@ -78,6 +82,7 @@ export default (state = initialState, action) => {
       nextState.identifiants = action.value.listTypeIdentifiant;
       nextState.listmoyenpaiement = action.value.typeMoyenPaiementList;
       nextState.haslignetaxation = hasAtLeastOneTaxationLine(nextState.t6bis);
+      nextState.hideEnregistrerButton = false;
       return nextState;
     case Constants.T6BIS_INIT_ENTETE_FAILED:
       nextState.showProgress = false;
@@ -118,11 +123,8 @@ export default (state = initialState, action) => {
     case Constants.T6BIS_UPDATE_PROPS_IN_PROGRESS:
       return nextState;
     case Constants.T6BIS_UPDATE_PROPS_SUCCES:
-      console.log('                       T6BIS_UPDATE_PROPS_SUCCES                                          ');
-      console.log('                       T6BIS_UPDATE_PROPS_SUCCES                                          ',action.value);
       nextState.t6bis.listeArticleT6bis = action.value.listeArticleT6bis;
       nextState.currentArticle = action.value.currentArticle;
-      console.log('                       T6BIS_UPDATE_PROPS_SUCCES                                          ', nextState);
       return nextState;
     case Constants.T6BIS_UPDATE_PROPS_FAILED:
       return nextState;
@@ -168,6 +170,7 @@ export default (state = initialState, action) => {
       groupLignesByRubrique(nextState.t6bis, listeRecap);
       nextState.t6bis.montantGlobal = calculateTotalT6bis(listeRecap, nextState.t6bis);
       nextState.listeRecap = listeRecap;
+      nextState.successMessage = '';
       return nextState;
     case Constants.T6BIS_ADD_TAXATION_ARTICLE_FAILED:
       return nextState;
@@ -181,6 +184,7 @@ export default (state = initialState, action) => {
       groupLignesByRubrique(nextState.t6bis, listeRecap);
       nextState.t6bis.montantGlobal = calculateTotalT6bis(listeRecap, nextState.t6bis);
       nextState.listeRecap = listeRecap;
+      nextState.successMessage = '';
       return nextState;
     case Constants.T6BIS_ADD_TAXATION_GLOBALE_FAILED:
       return nextState;
@@ -192,6 +196,7 @@ export default (state = initialState, action) => {
       nextState.errorMessage = null;
       return nextState;
     case Constants.T6BIS_SAUVEGARDER_SUCCES:
+      console.log('11/02/2022  ', Constants.T6BIS_SAUVEGARDER_SUCCES);
       nextState.t6bis = action.value.t6bis;
       if (isCreation()) {
         if ((isMtm() || isCm()) && action.value.t6bis) {
@@ -202,6 +207,14 @@ export default (state = initialState, action) => {
         ? action.value.dtoHeader.messagesInfo[0] : null;
       
       nextState.errorMessage = null;
+      console.log('11/02/2022 action.value.cmd == CMD_ENREGISTRER_T6BIS ', action.value.cmd == CMD_ENREGISTRER_T6BIS);
+      console.log('11/02/2022 action.value.cmd ', action.value.cmd);
+      if (action.value.cmd == CMD_ENREGISTRER_T6BIS + nextState.t6bis.codeTypeT6bis) {
+        nextState.hideEnregistrerButton = true;
+        console.log('11/02/2022 nextState ', nextState);
+        console.log('11/02/2022  ', Constants.T6BIS_SAUVEGARDER_SUCCES);
+      }
+
       return nextState;
     case Constants.T6BIS_SAUVEGARDER_FAILED:
       nextState.errorMessage = action.value;
@@ -242,6 +255,18 @@ export default (state = initialState, action) => {
       nextState.fieldsetcontext = { operateur: action.value };
       return nextState;
     case Constants.T6BIS_GESTION_GET_CMB_OPERATEUR_BY_CODE_FAILED:
+      return nextState;
+    
+    case Constants.T6BIS_GESTION_CHECK_NOMENCLATURE_CODE_REQUEST:
+    case Constants.T6BIS_GESTION_CHECK_NOMENCLATURE_CODE_IN_PROGRESS:
+      nextState.errorMessage = null;
+      return nextState;
+    case Constants.T6BIS_GESTION_CHECK_NOMENCLATURE_CODE_SUCCES:
+      nextState.successMessage = 'Code nomencalture existant!';
+      nextState.errorMessage = null;
+      return nextState;
+    case Constants.T6BIS_GESTION_CHECK_NOMENCLATURE_CODE_FAILED:
+      nextState.errorMessage = action.value;
       return nextState;
 /*case Constants.T6BIS_GESTION_ALL_LIST_TPE_REQUEST:
       console.log(Constants.T6BIS_GESTION_ALL_LIST_TPE_REQUEST);

@@ -240,6 +240,20 @@ export default {
       numeroZRE: 'Numéro ZRE',
       refEtatChargement: "Référence d'Etat de déchargement",
       refDUM: 'Référence DUM'
+    }, intervention: {
+      title: 'Intervention',
+      motifRequired: 'Motif : Valeur obligatoire',
+      version: {
+        titreBloc: 'Version',
+        type: 'Type',
+        numero: 'N°',
+        statut:'Statut'  
+      },
+      bloc: {
+        titre: 'Intervention',
+        type: 'Type',
+        motif: 'Motif',
+      }
     }
   },
 };

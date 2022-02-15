@@ -71,8 +71,7 @@ class CtrlControleApresScannerCoreComponent extends React.Component {
   };
 
   prepareState = () => {
-    console.log('Test test : ' + JSON.stringify(this.props.controleApresScannerVo.reference));
-    let reference = '30900120210000053';
+    let reference = this.props?.controleApresScannerVo?.reference;
     let bureau = reference.slice(0, 3);
     let regime = reference.slice(3, 6);
     let annee = reference.slice(6, 10);

@@ -22,7 +22,6 @@ export function request(action, navigation) {
           'data.dtoHeader.messagesErreur',
           response,
         );
-
         if (
           response &&
           response.data &&
@@ -36,7 +35,7 @@ export function request(action, navigation) {
           }
           navigation.navigate('DedRedressementScreen', {
             searchData: action.value ? action.value.jsonVO : {}, title: translate('dedouanement.title'),
-            subtitle: translate('dedouanement.subTitle'), showHeader: true, isConfirmationReception: false
+            subtitle: translate('dedouanement.subTitle'), showHeader: true, isConfirmationReception: false, isRedressementDUM: false, successRedirection: null
           });
           
 
@@ -71,7 +70,8 @@ export function success(data, searchParams, fromWhere1, messagesInfo) {
       searchParams: searchParams,
       data: data,
       fromWhere1: fromWhere1,
-      messageInfo: messagesInfo[0]
+      messageInfo: messagesInfo[0],
+      isRedressementDUM:false
     },
   };
 }

@@ -25,9 +25,6 @@ export default {
         paysPasseportChauffeur: 'Pays Passeport',
         referenceLot: 'Reference Lot',
         codeLieuChargement: 'Lieu de Chargement',
-        equipement: 'Equipement',
-        ligneMarchandise: 'N° de ligne de marchandise',
-        refEquipement: 'Référence d\'équipement',
 
         // Filtre de recherche
         filtreRecherche: {

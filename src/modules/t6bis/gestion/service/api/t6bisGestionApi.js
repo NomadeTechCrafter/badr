@@ -192,5 +192,25 @@ static getAllCmbListTPE = async (codeType) => {
       };
       console.log('sauvegarderTPET6BIS',data);
       return await ComHttpHelperApi.process(data);
+  };
+  
+
+  static getCheckNomenclatureByCode = async (code) => {
+    console.log('getCmbOperateurByCode');
+    const data = {
+      dtoHeader: {
+        userLogin: ComSessionService.getInstance().getLogin(),
+        fonctionnalite: ComSessionService.getInstance().getFonctionalite() ? ComSessionService.getInstance().getFonctionalite() : T6BIS_CREATION_FONCTIONNALITE,
+        module: MODULE_T6BIS,
+        commande: 'checkNomenclatureCode',
+        typeService: TYPE_SERVICE_SP,
+        motif: null,
+        messagesInfo: null,
+        messagesErreur: null,
+      },
+      jsonVO: code
     };
+    console.log(data);
+    return await ComHttpHelperApi.process(data);
+  };
 }

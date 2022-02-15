@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from 'react-native';
 import {
   ComBadrCardBoxComp,
   ComBadrLibelleComp,
@@ -7,15 +7,15 @@ import {
   ComBadrPickerComp,
   ComBadrDatePickerComp,
 } from '../../../../../../commons/component';
-import { RadioButton, Text } from 'react-native-paper';
+import {RadioButton, Text} from 'react-native-paper';
 import {
   CustomStyleSheet,
   primaryColor,
 } from '../../../../../../commons/styles/ComThemeStyle';
-import { translate } from '../../../../../../commons/i18n/ComI18nHelper';
-import { getValueByPath, callRedux, sumByKey } from '../../../../utils/LiqUtils';
-import { connect } from 'react-redux';
-import { Col, Grid, Row } from 'react-native-easy-grid';
+import {translate} from '../../../../../../commons/i18n/ComI18nHelper';
+import {getValueByPath, callRedux, sumByKey} from '../../../../utils/LiqUtils';
+import {connect} from 'react-redux';
+import {Col, Grid, Row} from 'react-native-easy-grid';
 import Numeral from 'numeral';
 
 class LiqRecapitulationConsignationInitialeBlock extends React.Component {
@@ -23,7 +23,6 @@ class LiqRecapitulationConsignationInitialeBlock extends React.Component {
     super(props);
     this.state = {
       refTypeConsignation: '',
-      selectedBorderau: this.props.liquidationVO?.refModePaiement,
     };
   }
   componentDidMount() {
@@ -44,15 +43,11 @@ class LiqRecapitulationConsignationInitialeBlock extends React.Component {
       jsonVO: data,
     });
   };
-  handleTypeBorderauChanged = (selectedValue, selectedIndex, item) => {
-    this.setState({
-      selectedBorderau: selectedValue,
-    });
-  };
-  onDateEcheanceConsignationChanged = (date) => { };
+  handleTypeBorderauChanged = (selectedValue, selectedIndex, item) => {};
+  onDateEcheanceConsignationChanged = (date) => {};
 
   render() {
-    const { liquidationVO, liquidationType, indicateurLiquidationArticlesEnFranchiseTotale } = this.props;
+    const {liquidationVO} = this.props;
     let rubriqueComptableByTypeConsignation = getValueByPath(
       'getRubriqueComptableByTypeConsignation.data',
       this.props.repData,
@@ -65,7 +60,7 @@ class LiqRecapitulationConsignationInitialeBlock extends React.Component {
             <Row>
               <RadioButton.Group
                 onValueChange={(value) =>
-                  this.setState({ refTypeConsignation: value })
+                  this.setState({refTypeConsignation: value})
                 }
                 value={this.state.refTypeConsignation}>
                 <Col style={styles.decisionContainerRB}>
@@ -191,9 +186,7 @@ class LiqRecapitulationConsignationInitialeBlock extends React.Component {
               </Col>
               <Col size={2}>
                 <ComBadrPickerComp
-                  disabled={!(liquidationType == 'automatique' || liquidationType == 'automatiqueRedevanceAT')}
-                  style={styles.badrPicker}
-                  titleStyle={CustomStyleSheet.badrPickerTitle}
+                  disabled={true}
                   onRef={(ref) => (this.comboTypeBorderau = ref)}
                   key="typeBorderau"
                   cle="code"
@@ -208,11 +201,9 @@ class LiqRecapitulationConsignationInitialeBlock extends React.Component {
                       item,
                     )
                   }
-                  selected={this.state.selectedBorderau}
+                  selected={liquidationVO.refModePaiement}
                 />
               </Col>
-              <Col size={1} />
-              <Col size={2} />
             </Row>
             <Row style={CustomStyleSheet.whiteRow}>
               <Col size={1}>
@@ -248,15 +239,9 @@ const styles = StyleSheet.create({
   textRadio: {
     color: '#FFF',
   },
-  badrPicker: {
-    borderRadius: 2,
-    borderWidth: 0.2,
-    borderColor: '#009ab2',
-    backgroundColor: '#d9dfe0',
-  },
 });
 function mapStateToProps(state) {
-  return { ...state.liquidationReducer };
+  return {...state.liquidationReducer};
 }
 
 export default connect(

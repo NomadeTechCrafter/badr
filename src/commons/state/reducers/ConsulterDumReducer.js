@@ -1,4 +1,5 @@
 /**Constants */
+import { REDRESSEMENT_UPDATE } from '../../../modules/dedouanement/redressement/state/DedRedressementConstants';
 import * as Constants from '../../constants/generic/ComGenericConstants';
 
 const initialState = {
@@ -32,6 +33,7 @@ export default (state = initialState, action) => {
       nextState.errorMessage = null;
       nextState.showProgress = false;
       nextState.data = action.value.data;
+      nextState.isRedressementDUM = (typeof action.value.isRedressementDUM != "undefined") && (action.value.isRedressementDUM);
       nextState.searchData = action.value.searchParams;
       nextState.fromWhere1 = action.value.fromWhere1;
       nextState.messageInfo = action.value.messageInfo;
@@ -52,6 +54,9 @@ export default (state = initialState, action) => {
       return nextState;
     case Constants.GENERIC_INIT:
       return initialState;
+    case REDRESSEMENT_UPDATE:
+      nextState.data = action.value;
+      return nextState;
     default:
       return nextState ? nextState : initialState;
   }

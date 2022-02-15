@@ -40,7 +40,7 @@ class T6bisEnteteTab extends React.Component {
         let dataToAction2 = {
           type: Constantes.T6BIS_UPDATE_OPERATEUR_REQUEST,
           value: {
-            operateur: data.operateur,
+            operateur: data.fieldsetcontext?.operateur,
           },
         };
  

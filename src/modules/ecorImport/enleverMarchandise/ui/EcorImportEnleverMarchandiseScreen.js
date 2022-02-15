@@ -498,33 +498,18 @@ class EcorImportEnleverMarchandiseScreen extends Component {
     this.setState({isActionMenuOpen: !this.state.isActionMenuOpen});
   };
   static getDerivedStateFromProps(nextProps, prevState) {
-    console.log('getDerivedStateFromProps--- 0');
-    let dataAfterConfirmation =
-      nextProps.picker && nextProps.picker.enleverMarchandise
-        ? nextProps.picker.enleverMarchandise
-        : null;
-    if (
-      !_.isEmpty(dataAfterConfirmation?.data) &&
-      prevState.enleverMarchandiseVO !== dataAfterConfirmation.data
-    ) {
-      console.log(
-        'getDerivedStateFromProps dataAfterConfirmation 1',
-        JSON.stringify(dataAfterConfirmation.data),
-      );
-      return {enleverMarchandiseVO: dataAfterConfirmation.data};
-    }
-
+    console.log('getDerivedStateFromProps--- 1');
     let getEquipementsbyLot =
       nextProps.picker && nextProps.picker.getEquipementsbyLot
         ? nextProps.picker.getEquipementsbyLot
         : null;
+    //console.log('getDerivedStateFromProps--- 2',JSON.stringify( prevState.selectedLot?.refEquipementEnleve), JSON.stringify(getEquipementsbyLot?.data));
     if (
       !_.isEmpty(getEquipementsbyLot?.data) &&
       prevState.selectedLot.refEquipementEnleve !== getEquipementsbyLot.data
     ) {
-     //console.log('getDerivedStateFromProps--- 3',JSON.stringify( prevState.selectedLot.refEquipementEnleve), JSON.stringify(getEquipementsbyLot.data));
-      console.log('getDerivedStateFromProps getEquipementsbyLot--- 1',JSON.stringify( prevState.selectedLot.refEquipementEnleve));
-      console.log('getDerivedStateFromProps getEquipementsbyLot--- 2',JSON.stringify(getEquipementsbyLot.data));
+     // console.log('getDerivedStateFromProps--- 2',JSON.stringify( prevState.selectedLot.refEquipementEnleve), JSON.stringify(getEquipementsbyLot.data));
+      console.log('getDerivedStateFromProps getEquipementsbyLot--- 2');
       let listeEquipementsLot = [];
       _.forEach(getEquipementsbyLot.data, (equipement) => {
         let equipementTemp = {
@@ -544,7 +529,25 @@ class EcorImportEnleverMarchandiseScreen extends Component {
         },
       };
     }
-
+    let dataAfterConfirmation =
+      nextProps.picker && nextProps.picker.enleverMarchandise
+        ? nextProps.picker.enleverMarchandise
+        : null;
+   /* console.log(
+      'getDerivedStateFromProps dataAfterConfirmation 0',
+      dataAfterConfirmation,
+    );*/
+    if (
+      !_.isEmpty(dataAfterConfirmation?.data) &&
+      prevState.enleverMarchandiseVO !== dataAfterConfirmation.data
+    ) {
+      /*console.log(
+        'getDerivedStateFromProps dataAfterConfirmation 1',
+        JSON.stringify(dataAfterConfirmation),
+      );*/
+      console.log('getDerivedStateFromProps enleverMarchandise--- 3');
+      return {enleverMarchandiseVO: dataAfterConfirmation.data};
+    }
 
     return null;
   }

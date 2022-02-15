@@ -20,7 +20,7 @@ class T6bisTaxationManuelleArticleTaxBlock extends React.Component {
         super(props);
         this.state = {
             errorMessage: null,
-            ligne: {},
+            ligne: { tauxTaxation: ''},
             articleSelected: false,
             fieldRequired: false,
             selectedIndex: -1
@@ -79,7 +79,7 @@ class T6bisTaxationManuelleArticleTaxBlock extends React.Component {
         console.log('removeItem row : ', row);
         console.log('removeItem index : ', index);
         this.props.currentArticle.listeT6bisLigneTaxation.splice(index, 1);
-        this.setState({ errorMessage: null, ligne: { rubriqueTaxation: { code: null }, tauxTaxation: null, montantTaxation: null }, selectedIndex: -1 });
+        this.setState({ errorMessage: null, ligne: { rubriqueTaxation: { code: null }, tauxTaxation: '', montantTaxation: null }, selectedIndex: -1 });
 
     }
 
@@ -150,12 +150,12 @@ class T6bisTaxationManuelleArticleTaxBlock extends React.Component {
     supprimerTout = () => {
         this.props.currentArticle.listeT6bisLigneTaxation = [];
         this.comboRrubriqueTaxation.clearInput();
-        this.setState({ errorMessage: null, ligne: { rubriqueTaxation: { code: null }, tauxTaxation: null, montantTaxation: null }, selectedIndex: -1 });
+        this.setState({ errorMessage: null, ligne: { rubriqueTaxation: { code: null }, tauxTaxation: '', montantTaxation: null }, selectedIndex: -1 });
     }
     valider() {
 
 
-        if (_.isEmpty(this.state.ligne?.rubriqueTaxation) || _.isEmpty(this.state.ligne?.tauxTaxation) || _.isEmpty(this.state.ligne?.montantTaxation)) {
+        if (_.isEmpty(this.state.ligne?.rubriqueTaxation) || _.isEmpty(this.state.ligne?.montantTaxation)) {
             this.setState({ fieldRequired: true });
         } else {
             if (this.state.selectedIndex == -1) {
@@ -165,13 +165,13 @@ class T6bisTaxationManuelleArticleTaxBlock extends React.Component {
             }
             this.props.callbackHandler(ADD_TAXATION_ARTICLE_TASK, this.props.currentArticle);
             this.comboRrubriqueTaxation.clearInput();
-            this.setState({ ligne: { rubriqueTaxation: { code: null }, tauxTaxation: null, montantTaxation: null }, errorMessage: null, selectedIndex: -1 });
+            this.setState({ ligne: { rubriqueTaxation: { code: null }, tauxTaxation: '', montantTaxation: null }, errorMessage: null, selectedIndex: -1 });
         }
     }
 
     retablir() {
         this.comboRrubriqueTaxation.clearInput();
-        this.setState({ ligne: { rubriqueTaxation: { code: null }, tauxTaxation: null, montantTaxation: null }, errorMessage: null, selectedIndex: -1 });
+        this.setState({ ligne: { rubriqueTaxation: { code: null }, tauxTaxation: '', montantTaxation: null }, errorMessage: null, selectedIndex: -1 });
     }
 
 
@@ -439,6 +439,3 @@ class T6bisTaxationManuelleArticleTaxBlock extends React.Component {
 
 
 export default T6bisTaxationManuelleArticleTaxBlock;
-
-
-

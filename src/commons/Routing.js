@@ -60,17 +60,15 @@ const mapping = {
   '4096': {screen: 'RefControleVehicule', params: {}},
   '823': {screen: 'RefPlaquesImm', params: {}},
   '14000010': {screen: 'CreerCompteRenduMission', params: {}},
-
+  
     /*
   '9932': { screen: 'ActifsRecherche', params: {} },
   '3064': { screen: 'controleRechercheDumScreen', params: { typeControle: 'AC' } },
   '3072': { screen: 'controleRechercheDumScreen', params: { typeControle: 'RI' } },
   '3086': { screen: 'controleRechercheDumScreen', params: { typeControle: 'TR' } },
-  '5971': {screen: 'RechecheMLV', params: {}},
+  '5202': {screen: 'LiquidationRechercheScreen', params: {qr: false}},
   */
-  '5202': {screen: 'LiquidationRechercheScreen', params: {typeLiq:'automatique', qr: false}},
-  '5213': {screen: 'LiquidationRechercheScreen', params: {typeLiq:'manuelle', qr: false}},
-
+  '5971': {screen: 'RechecheMLV', params: {}},
   '1201': {
     screen: 'RechercheEcorImport',
     params: { typeEcorImport: 'EnleverMarchandise' },
@@ -102,7 +100,7 @@ const mapping = {
     params: {title: 'Ecran  Recherche T6BIS'},
   },
   */
-
+  
 };
 
 const ionicMapping = {};

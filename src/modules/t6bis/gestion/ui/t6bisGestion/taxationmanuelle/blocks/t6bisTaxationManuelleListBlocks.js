@@ -46,7 +46,7 @@ class T6bisTaxationManuelleListBlocks extends React.Component {
 
 
     render() {
-        console.log("this.props", this.props);
+        console.log("T6bisTaxationManuelleListBlocks this.props", JSON.stringify(this.props));
         return (
 
             <ScrollView>

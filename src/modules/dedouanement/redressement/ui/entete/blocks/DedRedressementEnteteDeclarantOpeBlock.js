@@ -47,22 +47,29 @@ class DedRedressementEnteteDeclarantOpeBlock extends React.Component {
   }
 
   onChangeCodeCentreRCExpediteur = (typeOperateur, text) => {
-    this.setState({
-      dedDumVo: { ...this.state.dedDumVo, dedDumSectionEnteteVO: { ...this.state.dedDumVo.dedDumSectionEnteteVO, codeCentreRCExpediteur: text } }
-    });
+    let dedDumVo = { ...this.state.dedDumVo, dedDumSectionEnteteVO: { ...this.state.dedDumVo.dedDumSectionEnteteVO, codeCentreRCExpediteur: text } };
     let justNumeroRC = this.state.dedDumVo.dedDumSectionEnteteVO.justNumeroRC
     if (!_.isEmpty(text) && !_.isEmpty(justNumeroRC)) {
       this.traiterNumRC(typeOperateur, text, justNumeroRC);
     }
+
+    this.setState({
+      dedDumVo: dedDumVo
+    });
+
+    this.props.update(dedDumVo);
   }
   onChangeJustNumeroRC = (typeOperateur, text) => {
-    this.setState({
-      dedDumVo: { ...this.state.dedDumVo, dedDumSectionEnteteVO: { ...this.state.dedDumVo.dedDumSectionEnteteVO, justNumeroRC: text } }
-    });
+    let dedDumVo = { ...this.state.dedDumVo, dedDumSectionEnteteVO: { ...this.state.dedDumVo.dedDumSectionEnteteVO, justNumeroRC: text } };
     let codeCentreRCExpediteur = this.state.dedDumVo.dedDumSectionEnteteVO.codeCentreRCExpediteur
     if (!_.isEmpty(text) && !_.isEmpty(codeCentreRCExpediteur)) {
       this.traiterNumRC(typeOperateur, codeCentreRCExpediteur, text);
     }
+    this.setState({
+      dedDumVo: dedDumVo
+    });
+
+    this.props.update(dedDumVo);
   }
 
   traiterNumRC = (typeOperateur, codeCentreRC, numeroRC) => {

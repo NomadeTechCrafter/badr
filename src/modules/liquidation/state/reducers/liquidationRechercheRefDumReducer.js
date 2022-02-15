@@ -4,8 +4,7 @@ const initialState = {
   showProgress: false,
   errorMessage: null,
   data: null,
-  liquidationType: null,
-  indicateurLiquidationArticlesEnFranchiseTotale: false,
+  refDeclaration: null,
 };
 
 export default (state = initialState, action) => {
@@ -24,13 +23,7 @@ export default (state = initialState, action) => {
       nextState.showProgress = false;
       nextState.errorMessage = null;
       nextState.data = action.value.data.jsonVO;
-      nextState.liquidationType = action.value.liquidationType;
-      nextState.indicateurLiquidationArticlesEnFranchiseTotale = action.value.indicateurLiquidationArticlesEnFranchiseTotale;
-      return nextState;
-    case Constants.RECHERCHEREFDUM_UPDATE:
-      nextState.showProgress = false;
-      nextState.errorMessage = null;
-      nextState.data = action.value.data.jsonVO;
+      nextState.refDeclaration = action.value.refDeclaration;
       return nextState;
     case Constants.RECHERCHEREFDUM_FAILED:
       nextState.showProgress = false;

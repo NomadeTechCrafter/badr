@@ -1,6 +1,7 @@
 /**Constants */
 import * as Constants from '../ecorExpConfirmationArriveeConstants';
 import {translate} from '../../../../../commons/i18n/ComI18nHelper';
+import { getFormattedScelles } from '../../../autoriserAcheminement/mainScreen/utils/autoriserAcheminementUtil';
 const initialState = {
   showProgress: false,
   errorMessage: '',
@@ -140,6 +141,8 @@ const prepareConfirm = (declaration, referenceDum) => {
       libelleTypeDED: declaration.refDedServices.libelleTypeDED,
       operateurImportateurExportateur: '',
       typeDeD: declaration.refDedServices.typeDeD,
+      dateHeureAcheminement: declaration.dateHeureAcheminement,
+      listeScelles: getFormattedScelles(declaration.scellesAutorisationAcheminement) ,
       numeroVersion: '',
       referenceEnregistrement: referenceDum,
       dedProvisionnelle: false,
@@ -156,6 +159,8 @@ const prepareConfirm = (declaration, referenceDum) => {
       libelleTypeDED: declaration.libelleTypeDED,
       operateurImportateurExportateur: '',
       typeDeD: declaration.typeDeD,
+      dateHeureAcheminement: declaration.dateHeureAcheminement,
+      listeScelles: getFormattedScelles(declaration.scellesAutorisationAcheminement),
       numeroVersion: '',
       referenceEnregistrement: referenceDum,
       dedProvisionnelle: false,

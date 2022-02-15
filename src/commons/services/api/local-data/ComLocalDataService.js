@@ -1,4 +1,7 @@
-const localStore = {
+let localStore
+console.log(process.env.NODE_ENV)
+if(process.env.NODE_ENV === 'dev') {
+    localStore = {
   login: require('../../../../modules/hab/login/service/local-data/habLoginData.json'),
   confirmerConnexionAgent: require('../../../../modules/hab/login/service/local-data/habConfirmerConnexionAgentData.json'),
   verifierCodeGenere: require('../../../../modules/hab/smsVerify/service/local-data/habVerifierCodeGenereData.json'),
@@ -110,4 +113,5 @@ const localStore = {
   findResultatScanner: require('../../../../modules/controle/ctrlResultatScanner/service/local-data/findResultatScanner.json'),
   lookupControleApresScanner: require('../../../../modules/controle/controleApresScanner/service/local-data/lookupControleApresScanner.json')
 };
+}
 export default localStore;

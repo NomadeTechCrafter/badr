@@ -32,6 +32,7 @@ export function request(action, navigation, successRedirection) {
               cle: action.value.cle,
               declarationRI: data.jsonVO,
               sousReservePaiementMLV: action.value.sousReservePaiementMLV,
+              successRedirection: successRedirection
             });
           } else {
             console.log('****dispatch faild ');

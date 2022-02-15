@@ -128,22 +128,12 @@ class dtpsConsultationResultScreen extends React.Component {
             {
                 code: 'referenceLot',
                 libelle: translate('dtps.referenceLot'),
-                width: 200,
+                width: 150,
             },
             {
                 code: 'codeLieuChargement',
                 libelle: translate('dtps.codeLieuChargement'),
-                width: 200,
-            },
-            {
-                code: 'numLigneMarchandise',
-                libelle: translate('dtps.ligneMarchandise'),
-                width: 200,
-            },
-            {
-                code: 'referenceEquipement',
-                libelle: translate('dtps.refEquipement'),
-                width: 200,
+                width: 150,
             },
         ];
         this.scannerCols = [
@@ -206,7 +196,6 @@ class dtpsConsultationResultScreen extends React.Component {
 
 
     render() {
-        console.log(JSON.stringify(this.state.selectedItem));
         return (
             <View style={style.container}>
                 <ScrollView>
@@ -255,7 +244,7 @@ class dtpsConsultationResultScreen extends React.Component {
                         <ComBadrCardBoxComp style={style.cardBox}>
                             <ComAccordionComp
                                 badr
-                                title={translate('dtps.equipement')}
+                                title={translate('dtps.lots')}
                             // expanded={true}
                             >
                                 <ComBasicDataTableComp

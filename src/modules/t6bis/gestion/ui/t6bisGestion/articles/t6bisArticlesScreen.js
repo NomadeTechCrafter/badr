@@ -3,6 +3,7 @@ import { ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import * as T6BISConstantes from "../../../../utils/t6bisConstants";
 import * as t6bisUtils from '../../../../utils/t6bisUtils';
+import t6bisCheckNomenclatureByCodeAction from '../../../state/actions/t6bisCheckNomenclatureByCodeAction';
 import t6bisUpdatePropsAction from '../../../state/actions/t6bisUpdatePropsAction';
 import * as Constantes from '../../../state/t6bisGestionConstants';
 import T6bisArticlesListBlocks from './blocks/t6bisArticlesListBlocks';
@@ -40,16 +41,7 @@ class T6bisArticlesTab extends React.Component {
         let article;
         switch (type) {
             case T6BISConstantes.ADD_ARTCLE_MTM_TASK:
-                data.isNew = false;
-                console.log("                           16022021                        ***********                   ", this.state.listeArticles);
-                console.log("                           16022021                         ***********                  ", data);
-                this.state.listeArticles.push(data);
-                console.log("                           16022021                         ***********                  ", this.state.listeArticles);
-               
-                this.setState({
-                    currentArticle: null
-                });
-                this.launchUpdateProps(this.state.listeArticles, null);
+                this.checkNomenclatureByCode(data?.codeNomenclature, data, this.addArticleMTM);
                 break;
             case T6BISConstantes.EDIT_ARTCLE_MTM_TASK:
             case T6BISConstantes.EDIT_ARTCLE_CM_TASK:
@@ -87,24 +79,7 @@ class T6bisArticlesTab extends React.Component {
                  }
                 break;
             case T6BISConstantes.MODIFY_ARTCLE_MTM_TASK:
-                let articleModified = data;
-                let indexModified = 0;
-                let listeArticlesOriginal = this.state.listeArticles;
-                listeArticlesOriginal.forEach((element, index) => {
-                    if (element.numArticle === articleModified.numArticle) {
-                        indexModified = index;
-                    }
-                });
-                listeArticlesOriginal.splice(indexModified, 1, articleModified);
-                this.setState({
-                    listeArticles: listeArticlesOriginal
-                    
-                });
-
-                this.setState({
-                    currentArticle: null
-                });
-                this.launchUpdateProps(listeArticlesOriginal, null);
+                this.checkNomenclatureByCode(data?.codeNomenclature, data, this.modifyArticleMTM);
                 break;
             case T6BISConstantes.ADD_ARTCLE_CM_TASK:
                 data.isNew = false;
@@ -145,8 +120,38 @@ class T6bisArticlesTab extends React.Component {
         
     }
 
+    addArticleMTM=(data)=> {
+        data.isNew = false;
+        this.state.listeArticles.push(data);
+
+        this.setState({
+            currentArticle: null
+        });
+        this.launchUpdateProps(this.state.listeArticles, null);
+    }
+
+    modifyArticleMTM = (data) => {
+        let articleModified = data;
+        let indexModified = 0;
+        let listeArticlesOriginal = this.state.listeArticles;
+        listeArticlesOriginal.forEach((element, index) => {
+            if (element.numArticle === articleModified.numArticle) {
+                indexModified = index;
+            }
+        });
+        listeArticlesOriginal.splice(indexModified, 1, articleModified);
+        this.setState({
+            listeArticles: listeArticlesOriginal
+
+        });
+
+        this.setState({
+            currentArticle: null
+        });
+        this.launchUpdateProps(listeArticlesOriginal, null);
+    }
+
     launchUpdateProps(listeArticles, currentArticle) {
-    
         let dataToAction = {
             type: Constantes.T6BIS_UPDATE_PROPS_REQUEST,
             value: {
@@ -156,6 +161,17 @@ class T6bisArticlesTab extends React.Component {
         };
 
         this.props.dispatch(t6bisUpdatePropsAction.request(dataToAction));
+    }
+
+    checkNomenclatureByCode = (codeNomenclature,data,callBack) => {
+        let dataToAction = {
+            type: Constantes.T6BIS_GESTION_CHECK_NOMENCLATURE_CODE_REQUEST,
+            value: {
+                codeNomenclature
+            }
+        };
+
+        this.props.dispatch(t6bisCheckNomenclatureByCodeAction.request(dataToAction,data,callBack));
     }
 
     /* getUniteByCode( currentArticle) {

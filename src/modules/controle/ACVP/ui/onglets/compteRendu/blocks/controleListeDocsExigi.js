@@ -1,5 +1,6 @@
 import React from "react";
 import { Col, Grid, Row } from "react-native-easy-grid";
+import { Checkbox } from "react-native-paper";
 import { connect } from "react-redux";
 import { ComAccordionComp, ComBadrCardBoxComp, ComBadrLibelleComp, ComBasicDataTableComp } from "../../../../../../../commons/component";
 import translate from "../../../../../../../commons/i18n/ComI18nHelper";
@@ -34,11 +35,39 @@ class ControleListeDocsExigi extends React.Component {
                 code: 'documentAnnexe.reconnu',
                 libelle: translate('controle.reconnu'),
                 width: 180,
+                render: (row) => {
+                    return (<Checkbox
+                        color={'#009ab2'}
+                        status={
+                            row.documentAnnexe.reconnu
+                                ? 'checked'
+                                : 'unchecked'
+                        }
+                        disabled={this.props.isConsultation || row.reconnuDisabled}
+                        onPress={() => this.reconnuChange(row)}
+                    />);
+                }
             },
             {
+
                 code: 'documentAnnexe.demandeConsignation',
                 libelle: translate('controle.consignation'),
                 width: 180,
+
+                render: (row) => {
+                    return (<Checkbox
+                        color={'#009ab2'}
+                        status={
+                            row.documentAnnexe.demandeConsignation
+                                ? 'checked'
+                                : 'unchecked'
+                        }
+                        disabled={this.props.isConsultation || row.consignationDisabled}
+                        onPress={() => this.demandeConsignationChange(row)}
+                    />);
+                }
+
+                
             },
             {
                 code: 'decisionMCI',
@@ -56,6 +85,49 @@ class ControleListeDocsExigi extends React.Component {
                 width: 180,
             }
         ];
+    };
+
+    reconnuChange = (row) => {
+        
+        row.documentAnnexe.reconnu = !row
+                .documentAnnexe.reconnu;
+        
+        
+        if (row.documentAnnexe.reconnu) {
+            row.documentAnnexe.demandeConsignation=false;
+            row.consignationDisabled=true;
+        } else {
+            if (!row.documentAnnexe.impactFiscal && (!this.props.isRegimeSuspensif || this.props.isRegimeSuspensif==='0')) {
+                row.consignationDisabled=false;
+            } else {
+                row.consignationDisabled =true;
+                row.documentAnnexe.demandeConsignation = false;
+            }
+        }
+        this.props.updateControle();
+        this.setState({etat:true});
+    };
+
+    demandeConsignationChange = (row) => {
+        
+        row.documentAnnexe.demandeConsignation = !row.documentAnnexe.demandeConsignation;
+
+        if (!row.documentAnnexe.demandeConsignation) {
+            if (row.documentAnnexe.impactFiscal && (!this.props.isRegimeSuspensif || this.props.isRegimeSuspensif === '0')) {
+                row.consignationDisabled = false;
+                row.reconnuDisabled = false;
+
+            } else {
+
+                row.consignationDisabled = true;
+                row.reconnuDisabled = false;
+            }
+        } else {
+            row.reconnuDisabled = true;
+        } 
+        this.props.updateControle();
+        this.setState({ etat: true });
+
     };
 
     render() {

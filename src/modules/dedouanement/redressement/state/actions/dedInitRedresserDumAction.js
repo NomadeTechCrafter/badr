@@ -4,7 +4,7 @@ import translate from '../../../../../commons/i18n/ComI18nHelper';
 import { getValueByPath } from '../../utils/DedUtils';
 import DedRedressementApi from '../../service/api/DedRedressementApi';
 
-export function request(action, navigation) {
+export function request(action, navigation,successRedirection) {
     return (dispatch) => {
         dispatch(action);
         dispatch(inProgress(action));
@@ -23,7 +23,7 @@ export function request(action, navigation) {
                 dispatch(success(response.data.jsonVO, ''));
                 navigation.navigate('DedRedressementScreen', {
                     searchData: action.value ? action.value.jsonVO : {}, title: translate('dedouanement.redressement.title'),
-                    subtitle: '', showHeader: true, isConfirmationReception: false
+                    subtitle: '', showHeader: true, isConfirmationReception: false, isRedressementDUM: true, successRedirection:successRedirection
                 });
             } else {
                 dispatch(failed(messagesErreurs, action.value));
@@ -49,6 +49,7 @@ export function success(data, searchParams) {
         value: {
             searchParams: searchParams,
             data: data,
+            isRedressementDUM: true
         },
     };
 }

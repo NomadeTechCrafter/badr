@@ -136,7 +136,20 @@ export default class DedRedressementApi {
     return response;
   };
 
-  
+  static enregistrerDum = async (dedDumMotifIInputVO) => {
+    const data = {
+      dtoHeader: {
+        userLogin: ComSessionService.getInstance().getLogin(),
+        fonctionnalite: ComSessionService.getInstance().getFonctionalite(),
+        module: 'DED_LIB',
+        commande: 'ded.EnregistrerDum',
+        typeService: TYPE_SERVICE_UC,
+      },
+      jsonVO: dedDumMotifIInputVO,
+    };
+    let response = await ComHttpHelperApi.process(data);
+    return response;
+  };
 
 
 }

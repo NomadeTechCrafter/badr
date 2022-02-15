@@ -25,7 +25,7 @@ export function request(action, navigation) {
         dispatch(success(response.data.jsonVO, action.value));
         navigation.navigate('DedRedressementScreen', {
           searchData: action.value ? action.value.jsonVO : {}, title:  translate('confimationReception.title'),
-        subtitle:translate('confimationReception.subTitle') , showHeader:true, isConfirmationReception:true
+          subtitle: translate('confimationReception.subTitle'), showHeader: true, isConfirmationReception: true, isRedressementDUM: false, successRedirection: null
         });
       } else {
         dispatch(failed(messagesErreurs, action.value));
@@ -51,6 +51,7 @@ export function success(data, searchParams) {
     value: {
       searchParams: searchParams,
       data: data,
+      isRedressementDUM: false
     },
   };
 }
