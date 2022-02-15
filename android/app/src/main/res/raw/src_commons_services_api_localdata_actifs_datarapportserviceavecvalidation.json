@@ -1,6 +1,6 @@
 {
     "dtoHeader": {
-        "userLogin": "YELM",
+        "userLogin": "AAMM",
         "fonctionnalite": "cf6160",
         "module": "GIB",
         "commande": "getRsByIdOs",
@@ -25,6 +25,7 @@
                 "id": 6879,
                 "numero": 1,
                 "confidentiel": true,
+                "conference": true,
                 "additif": true,
                 "dateDebut": "2021-01-01 08:00:00.0",
                 "dateFin": "2021-01-01 12:00:00.0",
@@ -108,7 +109,7 @@
                 "ronde": true,
                 "maritime": true,
                 "aerien": false,
-                "uniteOrganisationnelle": "DIRECTION REGIONALE DE CASA PORT (280)(280)",
+                "uniteOrganisationnelle": "ORDONNANCEMENT DE L ARRONDISSEMENT I      (573)",
                 "refPJ": "280_2021_9023",
                 "journeeDu": "01/01/2021",
                 "defaultConverter": {},
