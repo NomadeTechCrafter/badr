@@ -1,52 +1,92 @@
+import _ from 'lodash';
 import React from 'react';
-import {Dimensions, StyleSheet, View} from 'react-native';
-import {Checkbox, RadioButton, Text} from 'react-native-paper';
+import {StyleSheet} from 'react-native';
+import {IconButton} from 'react-native-paper';
 import {
+  ComContainerComp,
   ComBadrLibelleComp,
   ComBadrCardBoxComp,
-  ComBadrToolbarComp,
-  ComContainerComp,
-  ComAccordionComp,
-  ComBadrItemsPickerComp,
-  ComBadrDatePickerComp,
 } from '../../../../../commons/component';
-import {translate} from '../../../../../commons/i18n/ComI18nHelper';
 import {
   primaryColor,
   CustomStyleSheet,
 } from '../../../../../commons/styles/ComThemeStyle';
 import {Col, Row, Grid} from 'react-native-easy-grid';
-import * as ConstantsControleVehicules from '../../../../../old/common/constants/referentiel/controleVehicules';
+import {extractCommandData} from '../../../utils/LiqUtils';
+import {translate} from '../../../../../commons/i18n/ComI18nHelper';
+import {connect} from 'react-redux';
+
 class LiquidationInfoScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      refTypeConsignation: '',
+      liquidationVO: {},
+      emissions: [],
+      consignations: [],
     };
   }
-  onDateEcheanceConsignationChanged = (date) => {};
+
+  componentDidUpdate(prevProps, prevState) {
+    let response = extractCommandData(
+      this.props,
+      'validerOrdonnancerLiquidationDUM',
+      'liquidationReducer',
+    );
+    if (!_.isNil(response) && !_.isNil(response.data) && prevState.liquidationVO != response.data)
+      this.getLiquidationInfo(response);
+  }
+
+  getLiquidationInfo = (response) => {
+    if (response && response.data && response.data.refOperationSimultanee) {
+      let emissions = [];
+      let consignations = [];
+      _.forEach(
+        response.data.refOperationSimultanee.refFichesReference,
+        function (item) {
+          if (item.indicateurRemise == 'false') {
+            consignations.push(item);
+            console.log('-----consignations-------', item);
+          } else if (item.indicateurRemise == 'true') {
+            emissions.push(item);
+            console.log('-----emissions-------', item);
+          }
+        },
+      );
+      this.setState({
+        emissions: emissions,
+        consignations: consignations,
+        liquidationVO: response.data,
+      });
+    }
+  };
+
+  handelClick = (item) => {
+    console.log('LiquidationInfoDetailsScreen', item);
+    this.props.navigation.navigate('LiquidationInfoDetailsScreen', {
+      ficheAvisualiserVO: item,
+    });
+  };
+
   render() {
+    const {liquidationVO, emissions, consignations} = this.state;
+    console.log('liquidationVO', liquidationVO);
     return (
-      <View style={CustomStyleSheet.fullContainer}>
-        <ComBadrToolbarComp
-          navigation={this.props.navigation}
-          title={translate('liq.title')}
-          subtitle={translate('liq.titleLiqAuto')}
-          icon="menu"
-        />
-        <ComContainerComp
-          ContainerRef={(ref) => {
-            this.scrollViewRef = ref;
-          }}>
-          {/* Bloc opération de Liquidation*/}
+      <ComContainerComp
+        ContainerRef={(ref) => {
+          this.scrollViewRef = ref;
+        }}>
+        {/* Bloc opération de Liquidation*/}
+        {liquidationVO && (
           <ComBadrCardBoxComp>
             <Grid>
-              <Row style={CustomStyleSheet.center}>
-                <ComBadrLibelleComp withColor={true}>
+              <Row style={CustomStyleSheet.whiteRow}>
+                <ComBadrLibelleComp
+                  withColor={true}
+                  style={{fontSize: 14, color: 'grey'}}>
                   {translate('liq.recapitulation.operationsLiquidationEC')}
                 </ComBadrLibelleComp>
               </Row>
-              <Row>
+              <Row style={CustomStyleSheet.whiteRow}>
                 <Col size={2}>
                   <ComBadrLibelleComp withColor={true}>
                     {translate('liq.natureOperationPrincipale')}
@@ -54,7 +94,7 @@ class LiquidationInfoScreen extends React.Component {
                 </Col>
                 <Col size={2}>
                   <ComBadrLibelleComp>
-                    {translate('transverse.regime')}
+                    {liquidationVO.refNatureOperationLibelle}
                   </ComBadrLibelleComp>
                 </Col>
                 <Col size={1}>
@@ -64,11 +104,11 @@ class LiquidationInfoScreen extends React.Component {
                 </Col>
                 <Col size={1}>
                   <ComBadrLibelleComp>
-                    {translate('transverse.regime')}
+                    {liquidationVO.numOrdreOperation}
                   </ComBadrLibelleComp>
                 </Col>
               </Row>
-              <Row>
+              <Row style={CustomStyleSheet.whiteRow}>
                 <Col size={2}>
                   <ComBadrLibelleComp withColor={true}>
                     {translate('liq.natureOperationSimultane')}
@@ -76,7 +116,10 @@ class LiquidationInfoScreen extends React.Component {
                 </Col>
                 <Col size={2}>
                   <ComBadrLibelleComp>
-                    {translate('transverse.regime')}
+                    {
+                      liquidationVO.refOperationSimultanee
+                        ?.refNatureOperationLibelle
+                    }
                   </ComBadrLibelleComp>
                 </Col>
                 <Col size={1}>
@@ -86,11 +129,11 @@ class LiquidationInfoScreen extends React.Component {
                 </Col>
                 <Col size={1}>
                   <ComBadrLibelleComp>
-                    {translate('transverse.regime')}
+                    {liquidationVO.refOperationSimultanee?.numOrdreOperation}
                   </ComBadrLibelleComp>
                 </Col>
               </Row>
-              <Row>
+              <Row style={CustomStyleSheet.whiteRow}>
                 <Col size={2}>
                   <ComBadrLibelleComp withColor={true}>
                     {translate('liq.typeRecette')}
@@ -98,412 +141,183 @@ class LiquidationInfoScreen extends React.Component {
                 </Col>
                 <Col size={2}>
                   <ComBadrLibelleComp>
-                    {translate('liq.typeRecette')}
+                    {liquidationVO.refTypeRecetteLibelle}
                   </ComBadrLibelleComp>
                 </Col>
                 <Col size={2} />
               </Row>
             </Grid>
           </ComBadrCardBoxComp>
-
-          {/* Bloc Info opération de Liquidation*/}
+        )}
+        {/* Bloc Info opération de Liquidation*/}
+        {liquidationVO && (
           <ComBadrCardBoxComp>
             <Grid>
-              <Row>
-                <Col size={2}>
-                  <ComBadrLibelleComp withColor={true}>
-                    {translate('liq.bureauOrdonnancement')}
-                  </ComBadrLibelleComp>
-                </Col>
-                <Col size={2}>
-                  <ComBadrLibelleComp />
-                </Col>
-                <Col size={2} />
+              <Row style={CustomStyleSheet.lightBlueRow}>
+                <ComBadrLibelleComp withColor={true}>
+                  {translate('liq.ongletInformations.visualisationFichesTitle')}
+                </ComBadrLibelleComp>
               </Row>
-              <Row>
-                <Col size={2}>
-                  <ComBadrLibelleComp withColor={true}>
-                    {translate('liq.posteOrdonnancement')}
-                  </ComBadrLibelleComp>
-                </Col>
-                <Col size={2}>
-                  <ComBadrLibelleComp>
-                    {translate('liq.typeRecette')}
-                  </ComBadrLibelleComp>
-                </Col>
-                <Col size={2} />
+              <Row style={CustomStyleSheet.lightBlueRow}>
+                <ComBadrLibelleComp>
+                  {translate('liq.ongletInformations.emissionsTitle')}
+                </ComBadrLibelleComp>
               </Row>
-              <Row>
-                <Col size={2}>
-                  <ComBadrLibelleComp withColor={true}>
-                    {translate('liq.agentLiquidateur')}
-                  </ComBadrLibelleComp>
-                </Col>
-                <Col size={2}>
-                  <ComBadrLibelleComp>
-                    {translate('transverse.regime')}
-                  </ComBadrLibelleComp>
-                </Col>
-                <Col size={1}>
-                  <ComBadrLibelleComp withColor={true}>
-                    {translate('liq.code')}
-                  </ComBadrLibelleComp>
-                </Col>
-                <Col size={1}>
-                  <ComBadrLibelleComp>
-                    {translate('transverse.regime')}
-                  </ComBadrLibelleComp>
-                </Col>
-              </Row>
-              <Row>
-                <Col size={2}>
-                  <ComBadrLibelleComp withColor={true}>
-                    {translate('liq.referenceDeclaration')}
-                  </ComBadrLibelleComp>
-                </Col>
-                <Col size={2}>
-                  <ComBadrLibelleComp>
-                    {translate('transverse.regime')}
-                  </ComBadrLibelleComp>
-                </Col>
-                <Col size={1}>
-                  <ComBadrLibelleComp withColor={true}>
-                    {translate('liq.dateEnregistrement')}
-                  </ComBadrLibelleComp>
-                </Col>
-                <Col size={1}>
-                  <ComBadrLibelleComp>
-                    {translate('transverse.regime')}
-                  </ComBadrLibelleComp>
-                </Col>
-              </Row>
-              <Row>
-                <Col size={2}>
-                  <ComBadrLibelleComp withColor={true}>
-                    {translate('liq.typeDeclaration')}
-                  </ComBadrLibelleComp>
-                </Col>
-                <Col size={2}>
-                  <ComBadrLibelleComp>
-                    {translate('transverse.regime')}
-                  </ComBadrLibelleComp>
-                </Col>
-                <Col size={1}>
-                  <ComBadrLibelleComp withColor={true}>
-                    {translate('liq.numeroVersionLiquidee')}
-                  </ComBadrLibelleComp>
-                </Col>
-                <Col size={1}>
-                  <ComBadrLibelleComp>
-                    {translate('transverse.regime')}
-                  </ComBadrLibelleComp>
+              <Row style={CustomStyleSheet.whiteRow}>
+                <Col>
+                  <Row style={CustomStyleSheet.lightBlueRow}>
+                    <Col>
+                      <ComBadrLibelleComp
+                        style={{textAlign: 'center'}}
+                        withColor={true}>
+                        {translate('liq.ongletInformations.numeroOrdre')}
+                      </ComBadrLibelleComp>
+                    </Col>
+                    <Col>
+                      <ComBadrLibelleComp
+                        style={{textAlign: 'center'}}
+                        withColor={true}>
+                        {translate('liq.ongletInformations.typeBordereau')}
+                      </ComBadrLibelleComp>
+                    </Col>
+                    <Col>
+                      <ComBadrLibelleComp
+                        style={{textAlign: 'center'}}
+                        withColor={true}>
+                        {translate('liq.ongletInformations.montantFiche')}
+                      </ComBadrLibelleComp>
+                    </Col>
+                    <Col>
+                      <ComBadrLibelleComp
+                        style={{textAlign: 'center'}}
+                        withColor={true}>
+                        {translate('liq.ongletInformations.statusFiche')}
+                      </ComBadrLibelleComp>
+                    </Col>
+                    <Col size={0.5}></Col>
+                  </Row>
+                  {emissions &&
+                    _.orderBy(emissions, 'numOrdreOperation', 'asc').map(
+                      (item, index) => (
+                        <Row key={index} style={CustomStyleSheet.whiteRow}>
+                          <Col>
+                            <ComBadrLibelleComp style={{textAlign: 'center'}}>
+                              {item.numOrdreOperation}
+                            </ComBadrLibelleComp>
+                          </Col>
+                          <Col>
+                            <ComBadrLibelleComp style={{textAlign: 'center'}}>
+                              {liquidationVO.numOrdreOperation}
+                            </ComBadrLibelleComp>
+                          </Col>
+                          <Col>
+                            <ComBadrLibelleComp style={{textAlign: 'center'}}>
+                              {liquidationVO.numOrdreOperation}
+                            </ComBadrLibelleComp>
+                          </Col>
+                          <Col>
+                            <ComBadrLibelleComp style={{textAlign: 'center'}}>
+                              {liquidationVO.numOrdreOperation}
+                            </ComBadrLibelleComp>
+                          </Col>
+                          <Col size={0.5}>
+                            <IconButton
+                              icon="pencil-outline"
+                              color={'white'}
+                              size={20}
+                              style={{backgroundColor: primaryColor}}
+                              onPress={() => {
+                                this.props.navigation.navigate(
+                                  'LiquidationInfoDetailsScreen',
+                                );
+                              }}
+                            />
+                          </Col>
+                        </Row>
+                      ),
+                    )}
                 </Col>
               </Row>
-              <Row>
-                <Col size={2}>
-                  <ComBadrLibelleComp withColor={true}>
-                    {translate('liq.declarant')}
-                  </ComBadrLibelleComp>
-                </Col>
-                <Col size={2}>
-                  <ComBadrLibelleComp>
-                    {translate('transverse.regime')}
-                  </ComBadrLibelleComp>
-                </Col>
-                <Col size={1}>
-                  <ComBadrLibelleComp withColor={true}>
-                    {translate('liq.code')}
-                  </ComBadrLibelleComp>
-                </Col>
-                <Col size={1}>
-                  <ComBadrLibelleComp>
-                    {translate('transverse.regime')}
-                  </ComBadrLibelleComp>
-                </Col>
+              <Row style={CustomStyleSheet.lightBlueRow}>
+                <ComBadrLibelleComp>
+                  {translate('liq.ongletInformations.consignationsTitle')}
+                </ComBadrLibelleComp>
               </Row>
-              <Row>
-                <Col size={2}>
-                  <ComBadrLibelleComp withColor={true}>
-                    {translate('liq.destinataireExpediteur')}
-                  </ComBadrLibelleComp>
-                </Col>
-                <Col size={2}>
-                  <ComBadrLibelleComp>
-                    {translate('transverse.regime')}
-                  </ComBadrLibelleComp>
-                </Col>
-                <Col size={1}>
-                  <ComBadrLibelleComp withColor={true}>
-                    {translate('liq.code')}
-                  </ComBadrLibelleComp>
-                </Col>
-                <Col size={1}>
-                  <ComBadrLibelleComp>
-                    {translate('transverse.regime')}
-                  </ComBadrLibelleComp>
+              <Row style={CustomStyleSheet.whiteRow}>
+                <Col>
+                  <Row style={CustomStyleSheet.lightBlueRow}>
+                    <Col>
+                      <ComBadrLibelleComp
+                        style={{textAlign: 'center'}}
+                        withColor={true}>
+                        {translate('liq.ongletInformations.numeroOrdre')}
+                      </ComBadrLibelleComp>
+                    </Col>
+                    <Col>
+                      <ComBadrLibelleComp
+                        style={{textAlign: 'center'}}
+                        withColor={true}>
+                        {translate('liq.ongletInformations.typeBordereau')}
+                      </ComBadrLibelleComp>
+                    </Col>
+                    <Col>
+                      <ComBadrLibelleComp
+                        style={{textAlign: 'center'}}
+                        withColor={true}>
+                        {translate('liq.ongletInformations.montantFiche')}
+                      </ComBadrLibelleComp>
+                    </Col>
+                    <Col>
+                      <ComBadrLibelleComp
+                        style={{textAlign: 'center'}}
+                        withColor={true}>
+                        {translate('liq.ongletInformations.statusFiche')}
+                      </ComBadrLibelleComp>
+                    </Col>
+                    <Col size={0.5}></Col>
+                  </Row>
+                  {consignations &&
+                    _.orderBy(consignations, 'numOrdreOperation', 'asc').map(
+                      (item, index) => (
+                        <Row key={index} style={CustomStyleSheet.whiteRow}>
+                          <Col>
+                            <ComBadrLibelleComp style={{textAlign: 'center'}}>
+                              {item.numOrdreFiche}
+                            </ComBadrLibelleComp>
+                          </Col>
+                          <Col>
+                            <ComBadrLibelleComp style={{textAlign: 'center'}}>
+                              {item.refBordereau?.refModePaiementLibelle}
+                            </ComBadrLibelleComp>
+                          </Col>
+                          <Col>
+                            <ComBadrLibelleComp style={{textAlign: 'center'}}>
+                              {item.montantTotalFiche}
+                            </ComBadrLibelleComp>
+                          </Col>
+                          <Col>
+                            <ComBadrLibelleComp style={{textAlign: 'center'}}>
+                              {item.refStatutFicheLibelle}
+                            </ComBadrLibelleComp>
+                          </Col>
+                          <Col size={0.5}>
+                            <IconButton
+                              icon="pencil-outline"
+                              color={'white'}
+                              size={20}
+                              style={{backgroundColor: primaryColor}}
+                              onPress={() => this.handelClick(item)}
+                            />
+                          </Col>
+                        </Row>
+                      ),
+                    )}
                 </Col>
               </Row>
             </Grid>
           </ComBadrCardBoxComp>
-
-          {/* Accordion Liquidation Initiale Normale */}
-          <ComBadrCardBoxComp noPadding={true}>
-            <ComAccordionComp
-              title={translate('liq.liquidationNormaleInitiale.title')}>
-              <Grid>
-                <Row style={CustomStyleSheet.whiteRow}>
-                  <ComBadrLibelleComp withColor={true}>
-                    {translate(
-                      'liq.liquidationNormaleInitiale.totalValeurTaxable',
-                    )}
-                  </ComBadrLibelleComp>
-                </Row>
-                <Row style={CustomStyleSheet.lightBlueRow}>
-                  <Col>
-                    <ComBadrLibelleComp withColor={true}>
-                      {translate('liq.liquidationNormaleInitiale.codeRubrique')}
-                    </ComBadrLibelleComp>
-                  </Col>
-                  <Col>
-                    <ComBadrLibelleComp withColor={true}>
-                      {translate('liq.liquidationNormaleInitiale.designations')}
-                    </ComBadrLibelleComp>
-                  </Col>
-                  <Col>
-                    <ComBadrLibelleComp withColor={true}>
-                      {translate('liq.liquidationNormaleInitiale.montantDH')}
-                    </ComBadrLibelleComp>
-                  </Col>
-                </Row>
-                <Row style={CustomStyleSheet.whiteRow}>
-                  <Col>
-                    <ComBadrLibelleComp>000110</ComBadrLibelleComp>
-                  </Col>
-                  <Col>
-                    <ComBadrLibelleComp>DTS IMPORT NORMAL</ComBadrLibelleComp>
-                  </Col>
-                  <Col>
-                    <ComBadrLibelleComp>(+)100.00</ComBadrLibelleComp>
-                  </Col>
-                </Row>
-                <Row style={CustomStyleSheet.lightBlueRow}>
-                  <Col>
-                    <ComBadrLibelleComp>000110</ComBadrLibelleComp>
-                  </Col>
-                  <Col>
-                    <ComBadrLibelleComp>DTS IMPORT NORMAL</ComBadrLibelleComp>
-                  </Col>
-                  <Col>
-                    <ComBadrLibelleComp>(+)100.00</ComBadrLibelleComp>
-                  </Col>
-                </Row>
-                <Row style={CustomStyleSheet.whiteRow}>
-                  <Col />
-                  <Col>
-                    <ComBadrLibelleComp withColor={true}>
-                      {translate(
-                        'liq.liquidationNormaleInitiale.totalLiquidationDH',
-                      )}
-                    </ComBadrLibelleComp>
-                  </Col>
-                  <Col>
-                    <ComBadrLibelleComp>(+)100.00</ComBadrLibelleComp>
-                  </Col>
-                </Row>
-
-                <Row style={CustomStyleSheet.whiteRow}>
-                  <Col>
-                    <ComBadrLibelleComp withColor={true}>
-                      {translate(
-                        'liq.liquidationNormaleInitiale.typeBordereau',
-                      )}
-                    </ComBadrLibelleComp>
-                  </Col>
-                  <Col>
-                    <ComBadrItemsPickerComp
-                      style={CustomStyleSheet.column}
-                      label={translate(
-                        'liq.liquidationNormaleInitiale.typeBordereau',
-                      )}
-                      selectedValue={''}
-                      items={ConstantsControleVehicules.status}
-                    />
-                  </Col>
-                  <Col />
-                </Row>
-              </Grid>
-            </ComAccordionComp>
-          </ComBadrCardBoxComp>
-
-          {/* Accordion Consignation Initiale  */}
-          <ComBadrCardBoxComp noPadding={true}>
-            <ComAccordionComp
-              title={translate('liq.consignationInitiale.title')}>
-              <Grid>
-                <Row>
-                  <RadioButton.Group
-                    onValueChange={(value) =>
-                      this.setState({refTypeConsignation: value})
-                    }
-                    value={this.state.refTypeConsignation}>
-                    <Col style={styles.decisionContainerRB}>
-                      <Row>
-                        <Col size={1}>
-                          <RadioButton
-                            color={styles.textRadio.color}
-                            value="02"
-                          />
-                        </Col>
-                        <Col size={5}>
-                          <Text style={styles.textRadio}>
-                            {translate(
-                              'liq.consignationInitiale.avecConsignationARC',
-                            )}
-                          </Text>
-                        </Col>
-                      </Row>
-                    </Col>
-                    <Col style={styles.decisionContainerRB}>
-                      <Row>
-                        <Col size={1}>
-                          <RadioButton
-                            color={styles.textRadio.color}
-                            value="03"
-                          />
-                        </Col>
-                        <Col size={5}>
-                          <Text style={styles.textRadio}>
-                            {translate(
-                              'liq.consignationInitiale.avecAutreConsignationDT',
-                            )}
-                          </Text>
-                        </Col>
-                      </Row>
-                    </Col>
-                    <Col style={styles.decisionContainerRB}>
-                      <Row>
-                        <Col size={1}>
-                          <RadioButton
-                            color={styles.textRadio.color}
-                            value="05"
-                          />
-                        </Col>
-                        <Col size={5}>
-                          <Text style={styles.textRadio}>
-                            {translate(
-                              'liq.consignationInitiale.avecConsignationAI',
-                            )}
-                          </Text>
-                        </Col>
-                      </Row>
-                    </Col>
-                  </RadioButton.Group>
-                </Row>
-                <Row style={CustomStyleSheet.whiteRow}>
-                  <ComBadrLibelleComp withColor={true}>
-                    {translate(
-                      'liq.liquidationNormaleInitiale.totalValeurTaxable',
-                    )}
-                  </ComBadrLibelleComp>
-                </Row>
-                <Row style={CustomStyleSheet.lightBlueRow}>
-                  <Col>
-                    <ComBadrLibelleComp withColor={true}>
-                      {translate('liq.liquidationNormaleInitiale.codeRubrique')}
-                    </ComBadrLibelleComp>
-                  </Col>
-                  <Col>
-                    <ComBadrLibelleComp withColor={true}>
-                      {translate('liq.liquidationNormaleInitiale.designations')}
-                    </ComBadrLibelleComp>
-                  </Col>
-                  <Col>
-                    <ComBadrLibelleComp withColor={true}>
-                      {translate('liq.liquidationNormaleInitiale.montantDH')}
-                    </ComBadrLibelleComp>
-                  </Col>
-                </Row>
-                <Row style={CustomStyleSheet.whiteRow}>
-                  <Col>
-                    <ComBadrLibelleComp>000110</ComBadrLibelleComp>
-                  </Col>
-                  <Col>
-                    <ComBadrLibelleComp>DTS IMPORT NORMAL</ComBadrLibelleComp>
-                  </Col>
-                  <Col>
-                    <ComBadrLibelleComp>(+)100.00</ComBadrLibelleComp>
-                  </Col>
-                </Row>
-                <Row style={CustomStyleSheet.lightBlueRow}>
-                  <Col>
-                    <ComBadrLibelleComp>000110</ComBadrLibelleComp>
-                  </Col>
-                  <Col>
-                    <ComBadrLibelleComp>DTS IMPORT NORMAL</ComBadrLibelleComp>
-                  </Col>
-                  <Col>
-                    <ComBadrLibelleComp>(+)100.00</ComBadrLibelleComp>
-                  </Col>
-                </Row>
-                <Row style={CustomStyleSheet.whiteRow}>
-                  <Col />
-                  <Col>
-                    <ComBadrLibelleComp withColor={true}>
-                      {translate(
-                        'liq.liquidationNormaleInitiale.totalLiquidationDH',
-                      )}
-                    </ComBadrLibelleComp>
-                  </Col>
-                  <Col>
-                    <ComBadrLibelleComp>(+)100.00</ComBadrLibelleComp>
-                  </Col>
-                </Row>
-
-                <Row style={CustomStyleSheet.whiteRow}>
-                  <Col>
-                    <ComBadrLibelleComp withColor={true}>
-                      {translate(
-                        'liq.liquidationNormaleInitiale.typeBordereau',
-                      )}
-                    </ComBadrLibelleComp>
-                  </Col>
-                  <Col>
-                    <ComBadrItemsPickerComp
-                      style={CustomStyleSheet.column}
-                      label={translate(
-                        'liq.liquidationNormaleInitiale.typeBordereau',
-                      )}
-                      selectedValue={''}
-                      items={ConstantsControleVehicules.status}
-                    />
-                  </Col>
-                  <Col />
-                </Row>
-                <Row style={CustomStyleSheet.whiteRow}>
-                  <Col size={1}>
-                    <ComBadrLibelleComp withColor={true}>
-                      {translate(
-                        'liq.consignationInitiale.dateEcheanceConsignation',
-                      )}
-                    </ComBadrLibelleComp>
-                  </Col>
-                  <Col size={2}>
-                    <ComBadrDatePickerComp
-                      labelDate={translate(
-                        'liq.consignationInitiale.dateEcheanceConsignation',
-                      )}
-                      value={new Date()}
-                      dateFormat="DD/MM/YYYY"
-                      onDateChanged={this.onDateEcheanceConsignationChanged}
-                      inputStyle={styles.textInputsStyle}
-                    />
-                  </Col>
-                </Row>
-              </Grid>
-            </ComAccordionComp>
-          </ComBadrCardBoxComp>
-        </ComContainerComp>
-      </View>
+        )}
+      </ComContainerComp>
     );
   }
 }
@@ -518,4 +332,8 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LiquidationInfoScreen;
+function mapStateToProps(state) {
+  return {...state};
+}
+
+export default connect(mapStateToProps, null)(LiquidationInfoScreen);
