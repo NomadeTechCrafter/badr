@@ -106,7 +106,7 @@ class DelivrerMLV extends React.Component {
 
   componentDidMount() {
     console.log('componentDidMount DelivrerMLV:');
-    load('user').then((user) => {
+    load('user',false,true).then((user) => {
       this.setState({login: JSON.parse(user).login});
     });
   }

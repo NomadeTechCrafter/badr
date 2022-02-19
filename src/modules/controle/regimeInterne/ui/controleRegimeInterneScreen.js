@@ -49,7 +49,7 @@ class ControleRegimeInterneScreen extends Component {
 
   componentDidMount() {
     console.log('componentDidMount ri:');
-    load('user').then((user) => {
+    load('user',false,true).then((user) => {
       this.setState({login: JSON.parse(user).login});
     });
   }

@@ -27,10 +27,11 @@ class Login extends React.Component {
   state = {
     login: '',
     password: '',
-    startAutoLogin: false,
+    failures:this.props.failures,
+    startAutoLogin: true,
     autoLoginParam: {
       login: 'AD6300',
-      password: 'Testtest1+',
+      password: 'Testtest1-',
       codeSms: '000000',
       bureau: '309',
       codeBureau: '309',
@@ -38,7 +39,7 @@ class Login extends React.Component {
       arrondissement: '309',
       profiles: [
         // "0", "AAMAX", "AB", "PRO TEST",
-        "ACTIFS_AD", "ACTIFS", "ALL"
+        "ACTIFS_AD", "ACTIFS", //"ALL"
       //   "AR", "ADMINBV",
       //   "ADMSELCOT", "ADT", "AGBRIGADE", "AGDP", "AGENTD", "AGECOR", "AGENT_TEST", "AV",
         // "AG_VISIT", "AGLACI", "ALLPROFIL", "ALL", "ALLPRO", "A123", "AMAL2015", "AMAL-PRO",
@@ -89,7 +90,8 @@ class Login extends React.Component {
   }
 
   handleLogin = (forcerConnexion) => {
-    this.props.login(this.state.login, this.state.password, forcerConnexion, "false");
+
+    this.props.login(this.state.login, this.state.password, forcerConnexion, "false",this.state.failures);
   };
 
   initAutoLoginParameters = async () => {
@@ -101,7 +103,7 @@ class Login extends React.Component {
   };
 
   loadOldUserIfExist = async () => {
-    let user = await load('user', true);
+    let user = await load('user',true,true);
     if (user) {
       this.setState({login: user.login});
     }
@@ -227,7 +229,10 @@ const mapStateToProps = (state) => ({...state.loginReducer});
 
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    login: (login, password, forcerConnexion, isFromCohabitation) => {
+    login: (login, password, forcerConnexion, isFromCohabitation,failures) => {
+
+
+
       let action = authAction.request(
           {
             type: LoginConstants.AUTH_LOGIN_REQUEST,
@@ -236,6 +241,7 @@ const mapDispatchToProps = (dispatch, props) => {
               pwd: password,
               forcerConnexion: forcerConnexion,
             isFromCohabitation: isFromCohabitation,
+            failures:failures
             },
           },
           props.navigation,

@@ -7,6 +7,7 @@ import {
   ComBadrToolbarComp,
   ComContainerComp,
 } from '../../../../commons/component/index';
+import {ComSessionService} from '../../../../commons/services/session/ComSessionService';
 import { Button, Checkbox, HelperText, TextInput } from 'react-native-paper';
 import {
   accentColor,
@@ -146,6 +147,7 @@ class ComRedressementRechercheRefComp extends Component {
               jsonVO: {
                 reference: referenceDed,
                 enregistre: this.state.enregistree,
+                identifiantOperateur: ComSessionService.getInstance().getOperateur()
               },
               cle: this.state.cle,
             },

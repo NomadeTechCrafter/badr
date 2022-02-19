@@ -8,6 +8,7 @@ const initialState = {
     errorMessage: null,
     showModalUpdateVersion: false,
     msgModalUpdateVersion: '',
+    failures:{}
 };
 
 export default (state = initialState, action) => {
@@ -26,10 +27,22 @@ export default (state = initialState, action) => {
             nextState.showProgress = false;
             nextState.errorMessage = null;
             nextState.loggedIn = true;
+            delete nextState.failures[action.value.login];
             nextState.user = action.value;
             return nextState;
         case Constants.AUTH_LOGIN_FAILED:
             nextState.showProgress = false;
+            var f=nextState.failures[action.value.login]
+            if (f && f.count>2 && Date.now() > f.nextTry)
+                               delete nextState.failures[action.value.login];
+                               if(action.value.login){
+             f = nextState.failures[action.value.login] = nextState.failures[action.value.login] || {count: 0, nextTry: new Date()};
+            ++f.count;
+
+            if(f.count>2)
+               f.nextTry.setTime(Date.now() + 60*1000*5);
+}
+          //  nextState.nbrRetries=nextState.nbrRetries+1
             nextState.loggedIn = false;
             if (action.value.messagesRetour) {
                 nextState.errorMessage = action.value.messagesRetour

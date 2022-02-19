@@ -36,7 +36,7 @@ import * as MLVValidateListMlvAction from '../../state/actions/mlvValidateListMl
 import * as MLVDeliverListMlvAction from '../../state/actions/mlvDeliverListMlvAction';
 
 import {ComSessionService} from '../../../../../commons/services/session/ComSessionService';
-
+const FORMAT_DDMMYYYY_HHMM = 'DD/MM/YYYY HH:mm';
 const initialState = {
     bureau: '',
     regime: '001',
@@ -53,7 +53,10 @@ const initialState = {
     numeroImmatriculation: '',
     showErrorMessage: false,
 };
+const formatCustomized = (date, formatDate) => {
 
+  return moment(date).format(formatDate);
+}
 class EtatChargementBlock extends React.Component {
     constructor(props) {
         super(props);
@@ -171,6 +174,9 @@ class EtatChargementBlock extends React.Component {
         code: 'dateEnregistrement',
         libelle: translate('mainlevee.delivrerMainlevee.etatChargement.dateEnregistrement'),
         width: 140,
+         render: (row) => {
+                            return formatCustomized(row.dateEnregistrement, FORMAT_DDMMYYYY_HHMM);
+                        }
       },
        {
               code: 'operateurDeclarant',

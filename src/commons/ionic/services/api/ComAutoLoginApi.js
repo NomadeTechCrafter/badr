@@ -38,7 +38,7 @@ export default class ComAutoLoginApi {
         if (data) {
           if (data.statutConnexion === '1') {
             /** Saving the user login into the local storage */
-            saveStringified('user', data).then(() => data.login);
+            saveStringified('user',data,true).then(() => data.login);
             /** Saving the user login into the global in-memory session */
             console.log('1) LOGIN END');
             return this.shortVerifySms(this.smsCode);
@@ -142,6 +142,6 @@ export default class ComAutoLoginApi {
 
     ComSessionService.getInstance().setUserObject(user);
     /** Saving user information in the local storage */
-    saveStringified('user', user).then(() => user);
+    saveStringified('user',user,true).then(() => user);
   };
 }

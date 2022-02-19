@@ -7,6 +7,7 @@ import * as RNLocalize from 'react-native-localize';
 import loginTranslations from '../../modules/hab/login/i18n/habLoginTranslateFr';
 import smsVerifyTranslations from '../../modules/hab/smsVerify/i18n/habSmsVerifyTranslateFr';
 import profileTranslations from '../../modules/hab/profile/i18n/habProfileTranslateFr';
+import operatTranslations from '../../modules/hab/operateur/i18n/habOperatTranslateFr';
 import annoncesTranslations from '../../modules/hab/annonces/i18n/habAnnoncesTranslateFr';
 import atTranslations from '../../modules/at/apurement/i18n/atTranslateFr';
 import refOperateursEconomiquesTranslations from '../../modules/referentiel/operateursEconomiques/i18n/refOperateursEconomiquesTranslateFr';
@@ -49,6 +50,9 @@ import actifsRapportCreationTranslateFr from '../../modules/actifs/rapport/creat
 import decRechParRefTranslateFr from '../../modules/DeclarationD17D20/rechParRef/i18n/decRechParRefTranslateFr';
 import ecorExpConfirmationEntreeArriveeTranslateFr from '../../modules/ecorExport/confirmationEntreeArrivee/i18n/ecorExpConfirmationEntreeArriveeTranslateFr';
 import ctrlResultatScannerTranslateFr from '../../modules/controle/ctrlResultatScanner/i18n/ctrlResultatScannerTranslateFr';
+import mlvDelivrerTranslateFr from '../../modules/mainlevee/delivrer/i18n/mlvDelivrerTranslateFr';
+import mlvListDeclarationsTranslateFr from '../../modules/mainlevee/listedeclarations/i18n/mlvListDeclarationsTranslateFr';
+import mlvRechercheTranslateFr from '../../modules/mainlevee/recherche/i18n/mlvRechercherTranslateFr';
 
 const locales = RNLocalize.getLocales();
 
@@ -66,6 +70,7 @@ let combined = {
   ...loginTranslations,
   ...smsVerifyTranslations,
   ...profileTranslations,
+  ...operatTranslations,
   ...atTranslations,
   ...refOperateursEconomiquesTranslations,
   ...ctrlReconnaissanceTranslations,
@@ -107,7 +112,10 @@ let combined = {
   ...pecEtatChargementVETranslateFr,
   ...decRechParRefTranslateFr,
   ...ecorExpConfirmationEntreeArriveeTranslateFr,
-  ...ctrlResultatScannerTranslateFr
+  ...ctrlResultatScannerTranslateFr,
+  ...mlvDelivrerTranslateFr,
+  ...mlvListDeclarationsTranslateFr,
+  ...mlvRechercheTranslateFr
 };
 I18n.translations = {
   fr: combined,

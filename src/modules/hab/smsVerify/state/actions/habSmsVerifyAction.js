@@ -3,19 +3,30 @@ import {translate} from '../../../../../commons/i18n/ComI18nHelper';
 import * as Constants from '../habSmsVerifyConstants';
 import HabSmsVerifyApi from '../../service/api/habSmsVerifyApi';
 import {ComSessionService} from '../../../../../commons/services/session/ComSessionService';
-
+import {load,saveStringified,encryptData,decryptData} from '../../../../../commons/services/async-storage/ComStorageService';
 export function request(action, navigation) {
+
   return (dispatch) => {
     dispatch(action);
     dispatch(inProgress(action));
-    HabSmsVerifyApi.verify(action.value.code)
+
+    var codeSms=encryptData(action.value.code)
+
+    HabSmsVerifyApi.verify(codeSms,action.value.typeUser)
       .then((response) => {
         const jsonVO = response.data.jsonVO;
-        if (jsonVO.connexion && jsonVO.connexion === 'true') {
+        const decryptedCodeSms=decryptData(jsonVO.codePinSrv)
+       if (decryptedCodeSms === action.value.code) {
+
           dispatch(success(jsonVO));
           ComSessionService.getInstance().setCodeSmsVerify(action.value.code);
           ComSessionService.getInstance().setSessionIdBO(jsonVO.session_id);
+
+          if(action.value.typeUser==='AGENT_DOUANIER')
           navigation.navigate('Profile', {});
+          else
+          navigation.navigate('OperatValidate', {})
+
         } else if (jsonVO.connexion && jsonVO.connexion === 'false') {
           dispatch(failed(translate('smsVerify.codeIncorrect')));
         } else {
@@ -25,9 +36,13 @@ export function request(action, navigation) {
       .catch((e) => {
         dispatch(failed(translate('errors.technicalIssue')));
       });
-  };
-}
 
+
+
+
+
+}
+}
 export function inProgress(action) {
   return {
     type: Constants.SMSVERIFY_IN_PROGRESS,

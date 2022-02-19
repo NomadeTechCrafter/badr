@@ -7,6 +7,7 @@ export class ComSessionService {
   login = '';
   password = '';
   codeSmsVerify = '';
+  typeUser='';
   codeBureau = '';
   nomBureauDouane = '';
   libelleArrondissement = '';
@@ -15,6 +16,7 @@ export class ComSessionService {
   geoCoords;
   fonctionalite = '';
   modeConsultation = '';
+  operateur='';
   /**
     Device information
    */
@@ -49,11 +51,21 @@ export class ComSessionService {
   getLogin() {
     return this.login;
   }
-
+  getOperateur() {
+    return this.operateur;
+  }
+  getTypeUser() {
+      return this.typeUser;
+    }
   setLogin(login) {
     this.login = login;
   }
-
+  setOperateur(operateur) {
+    this.operateur = operateur;
+  }
+    setTypeUser(typeUser) {
+      this.typeUser = typeUser;
+    }
   getGeoCoords() {
     return this.geoCoords;
   }

@@ -49,7 +49,7 @@ class RechParRefRechercheTryptique extends Component {
     // var action1 = RechParRefScanAction.init();
     // this.props.actions.dispatch(action1);
 
-    load('user').then((user) => {
+    load('user',false,true).then((user) => {
       this.setState({ login: JSON.parse(user).login });
     });
 

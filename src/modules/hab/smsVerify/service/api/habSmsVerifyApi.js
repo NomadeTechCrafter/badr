@@ -5,7 +5,7 @@ import packageJson from '../../../../../../package.json';
 import {TYPE_SERVICE_SP, MODULE_HAB} from '../../../../../commons/Config';
 
 export default class HabSmsVerifyApi {
-  static verify = async (code) => {
+  static verify = async (code,typeUser) => {
     const data = {
       dtoHeader: {
         userLogin: ComSessionService.getInstance().getLogin(),
@@ -16,6 +16,7 @@ export default class HabSmsVerifyApi {
       },
       jsonVO: {
         code: code,
+        typeUser:typeUser,
         device_id: ComSessionService.getInstance().getDeviceId(),
         device_manufacturer: ComSessionService.getInstance().getManufacturer(),
         device_model: ComSessionService.getInstance().getModel(),

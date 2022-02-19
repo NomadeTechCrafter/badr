@@ -7,6 +7,7 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 import loginReducer from '../../modules/hab/login/state/reducers/habLoginReducer';
 import smsVerifyReducer from '../../modules/hab/smsVerify/state/reducers/habSmsVerifyReducer';
 import confirmConnexionReducer from '../../modules/hab/profile/state/reducers/habProfileReducer';
+import confirmConnexionDeclarantReducer from '../../modules/hab/operateur/state/reducers/habOperatReducer';
 import genericReducer from './reducers/ComGenericReducer';
 import menuReducer from '../../modules/hab/mainMenu/state/reducers/habMainMenuReducer';
 import autoLoginReducer from '../ionic/state/reducers/ComAutoLoginReducer';
@@ -54,7 +55,7 @@ import ctrlControleApresScannerReducer from '../../modules/controle/controleApre
 import t6bisCreationReducer from '../../modules/t6bis/creation/state/reducers/t6bisCreationReducer';
 import t6bisGestionReducer from '../../modules/t6bis/gestion/state/reducers/t6bisGestionReducer';
 import t6bisRechercheReducer from '../../modules/t6bis/recherche/state/reducers/t6bisRechercheReducer';
-
+import mlvRechercheReducer from '../../modules/mainlevee/recherche/state/reducers/mlvRechercheReducer'
 import crudDatatableReducer from '../state/reducers/ComCrudDataTableReducer';
 
 // import enteteReducer from '../../old/redux/reducers/actifs/rapport/creation/entete';
@@ -102,6 +103,7 @@ const allReducers = combineReducers({
   loginReducer,
   smsVerifyReducer,
   confirmConnexionReducer,
+  confirmConnexionDeclarantReducer,
   menuReducer,
   autoLoginReducer,
   autoCompleteReducer,
@@ -132,6 +134,7 @@ const allReducers = combineReducers({
   controleVehiculesReducer,
   plaquesImmReducer,
   crudDatatableReducer,
+  mlvRechercheReducer,
   rechercheActifsReducer,
   creationActifsReducer,
   // enteteReducer,

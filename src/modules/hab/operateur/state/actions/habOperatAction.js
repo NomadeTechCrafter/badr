@@ -52,7 +52,7 @@ function doAsyncStorageOperations(data) {
 
   ComSessionService.getInstance().setUserObject(user);
   /** Saving user information in the local storage */
-  saveStringified('user', user).then(() => user);
+  saveStringified('user',user,true).then(() => user);
 }
 
 export function inProgress(action) {
@@ -64,7 +64,7 @@ export function inProgress(action) {
 
 export function init(action) {
   return {
-    type: Constants.CONFIRMCNX_INIT,
+    type: Constants.CONFIRMCNX_DECLARANT_INIT,
     value: action.value,
   };
 }

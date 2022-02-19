@@ -113,7 +113,7 @@ class EciEnleverMarchandiseParPesageScreen extends Component {
   }
 
   componentDidMount() {
-    load('user').then((user) => {
+    load('user',false,true).then((user) => {
       this.setState({login: JSON.parse(user).login});
     });
   }

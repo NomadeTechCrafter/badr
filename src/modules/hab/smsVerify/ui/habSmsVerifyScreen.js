@@ -61,7 +61,7 @@ class HabSmsVerifyScreen extends React.Component {
     let action = SmsVerifyActionCreators.request(
       {
         type: Constants.SMSVERIFY_REQUEST,
-        value: {code: this.state.code},
+        value: {code: this.state.code,typeUser:this.props.route.params.typeUser},
       },
       this.props.navigation,
     );

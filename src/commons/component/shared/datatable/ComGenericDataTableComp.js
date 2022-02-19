@@ -33,7 +33,7 @@ class ComGenericDataTableComp extends React.Component {
   }
 
   loadUser = async () => {
-    let user = await load('user', true);
+    let user = await load('user',true, true);
     if (user) {
       this.setState({login: user.login});
       this.loadMore(user.login);

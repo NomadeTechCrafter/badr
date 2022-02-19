@@ -20,57 +20,73 @@ import {getVersion} from 'react-native-device-info';
 import {getApps} from 'react-native-android-installed-apps-unblocking';
 import _ from 'lodash';
 
+
 export function request(action, navigation) {
+
+
     return (dispatch) => {
+  var f = action.value.failures[action.value.login];
+    if (f && Date.now() < f.nextTry) {
+        dispatch(failed('Vous avez atteint la limite d\'essai,Merci de réessayer après 5mn'));
+    }
+    else{
+
         dispatch(action);
         dispatch(inProgress(action));
-        HabLoginApi.login(
-            action.value.login,
-            action.value.pwd,
-            action.value.forcerConnexion,
-            action.value.isFromCohabitation,
-        )
-            .then((data) => {
-                console.log(data);
-                if (data) {
-                    if (data.statutConnexion === '1') {
-                        dispatch(success(data));
-                        /** Saving the user login into the local storage */
-                        saveStringified('user', data).then(() => data.login);
-                        /** Saving the user login into the global in-memory session */
-                        ComSessionService.getInstance().setLogin(data.login);
-                        ComSessionService.getInstance().setPassword(action.value.pwd);
-                        /** skip check verification for specific users */
-                        if (_.includes(USER_SKIP_VERIVICATION_VERSION, data.login)) {
-                            /** Naviguer vers la vue suivant. */
-                            navigation.navigate('SmsVerify', {
-                                login: action.value.login,
+                        HabLoginApi.login(
+                            action.value.login,
+                            action.value.pwd,
+                            action.value.forcerConnexion,
+                            action.value.isFromCohabitation,
+                        )
+                            .then((data) => {
+                                console.log(data);
+                                if (data) {
+                                    if (data.statutConnexion === '1') {
+                                        dispatch(success(data));
+                                        /** Saving the user login into the local storage */
+                                        saveStringified('user', data,true).then(() => data.login);
+                                        /** Saving the user login into the global in-memory session */
+                                        ComSessionService.getInstance().setLogin(data.login);
+                                        ComSessionService.getInstance().setTypeUser(data.typeUtilisateur);
+                                        ComSessionService.getInstance().setPassword(action.value.pwd);
+                                        /** skip check verification for specific users */
+                                        if (_.includes(USER_SKIP_VERIVICATION_VERSION, data.login)) {
+                                            /** Naviguer vers la vue suivant. */
+                                          //  if(data.typeUtilisateur==='AGENT_DOUANIER')
+                                            navigation.navigate('SmsVerify', {
+                                                login: action.value.login,
+                                                typeUser:data.typeUtilisateur
+                                            });
+
+                                        } else {
+                                            /** start the version check for RN && IONIC */
+                                            dispatch(
+                                                requestCheckVersion(
+                                                    {
+                                                        type: Constants.CHECK_VERSION_REQUEST,
+                                                        value: {},
+                                                    },
+                                                    navigation,
+                                                ),
+                                            );
+                                        }
+                                    } else if (data.statutConnexion === '2') {
+                                        /** pour afficher msg de confirmation de connx. */
+                                        dispatch(failed(data));
+                                    } else {
+                                        dispatch(failed(data));
+                                    }
+                                } else {
+                                    dispatch(failed(translate('errors.technicalIssue')));
+                                }
+                            })
+                            .catch((e) => {
+                                dispatch(failed(translate('errors.technicalIssue')));
                             });
-                        } else {
-                            /** start the version check for RN && IONIC */
-                            dispatch(
-                                requestCheckVersion(
-                                    {
-                                        type: Constants.CHECK_VERSION_REQUEST,
-                                        value: {},
-                                    },
-                                    navigation,
-                                ),
-                            );
-                        }
-                    } else if (data.statutConnexion === '2') {
-                        /** pour afficher msg de confirmation de connx. */
-                        dispatch(failed(data));
-                    } else {
-                        dispatch(failed(data));
-                    }
-                } else {
-                    dispatch(failed(translate('errors.technicalIssue')));
-                }
-            })
-            .catch((e) => {
-                dispatch(failed(translate('errors.technicalIssue')));
-            });
+                 // })
+
+            }
     };
 }
 

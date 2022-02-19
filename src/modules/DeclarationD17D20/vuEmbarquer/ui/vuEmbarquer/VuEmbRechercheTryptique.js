@@ -46,7 +46,7 @@ class VuEmbRechercheTryptique extends Component {
   componentDidMount() {
     var action = VuEmbInitAction.init();
     this.props.actions.dispatch(action);
-    load('user').then((user) => {
+    load('user',false,true).then((user) => {
       this.setState({login: JSON.parse(user).login});
     });
 

@@ -43,7 +43,8 @@ class habOperateurScreen extends React.Component {
     navigation,
     operateur
   ) => {
-    var action = confirmCnxAction.request(
+  ComSessionService.getInstance().setOperateur(operateur.codeOperateur);
+     var action = confirmCnxAction.request(
       {
         type: ConstantsConfirmCnx.CONFIRMCNX_DECLARANT_REQUEST,
         value: {
@@ -67,7 +68,7 @@ class habOperateurScreen extends React.Component {
     console.log('-----------------------------handleOperateurChanged-----------------------------------');
     this.setState({
       selectedOperateurIndex: selectedValue,
-      selectedOperateur: item ? item.libelle : '',
+      selectedOperateur: item ? item : '',
     });
   };
 
@@ -81,7 +82,7 @@ class habOperateurScreen extends React.Component {
 
       let action = this.buildConfirmConnexionAction(
         this.props.navigation,
-        this.state.selectedOperateurIndex
+         this.state.selectedOperateur
       );
       /** Update Inmemory session */
     //  ComSessionService.getInstance().selectedOperateurIndex(this.state.selectedOperateurIndex);
