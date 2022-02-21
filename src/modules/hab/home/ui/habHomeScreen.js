@@ -104,6 +104,8 @@ import EciEnleverMarchandiseParPesageScreen from '../../../ecorImport/enleverMar
 import EciPeserMarchandiseScreen from '../../../ecorImport/peserMarchandise/ui/eciPeserMarchandiseScreen';
 import EciVerifierParContreEcorScreen from '../../../ecorImport/verifierParContreEcor/ui/eciVerifierParContreEcorScreen';
 
+import LiquidationRechercheScreen from '../../../liquidation/ui/rechercheLiquidation/LiquidationRechercheScreen';
+
 const Drawer = createDrawerNavigator();
 const deltaScreen = Dimensions.get('window').width / 4;
 
@@ -297,9 +299,9 @@ class habHomeScreen extends React.Component {
           name="AffecterAgentVisiteurMain"
           component={AffecterAgentVisiteurMain}
           options={{ headerShown: false, unmountOnBlur: true, lazy: false }}
-         
+
         />
-        
+
         <Drawer.Screen
           name="CreerCompteRenduMission"
           component={CreerCompteRenduMission}
@@ -349,19 +351,19 @@ class habHomeScreen extends React.Component {
           component={VuEmbarqueScreen}
           options={{ headerShown: false }}
         />
-        
+
         <Drawer.Screen
           name="EcorExportVuEmbarqueScreen"
           component={EcorExportVuEmbarqueScreen}
           options={{ headerShown: false, unmountOnBlur: true, lazy: false }}
-        />       
+        />
 
         <Drawer.Screen
           name="VuEmbListeDeclaration"
           component={VuEmbListeDeclaration}
           options={{ headerShown: false, unmountOnBlur: true, lazy: false }}
         />
-        
+
         {/* Fonc Sorti Du Port */}
         <Drawer.Screen
           name="SortiPortScreen"
@@ -401,7 +403,7 @@ class habHomeScreen extends React.Component {
           options={{ headerShown: false, unmountOnBlur: true, lazy: false }}
           unmountOnBlur={true}
         />
-        
+
         {/* Module T6bis start*/}
         <Drawer.Screen
           name="T6bisCreation"
@@ -496,7 +498,7 @@ class habHomeScreen extends React.Component {
           options={{ headerShown: false, unmountOnBlur: true, lazy: false }}
           unmountOnBlur={true}
         />
-        
+
         <Drawer.Screen
           name="VuEmbListeDeclaration2"
           component={VuEmbListeDeclaration2}
@@ -537,7 +539,7 @@ class habHomeScreen extends React.Component {
           unmountOnBlur={true}
           lazy={false}
         />
-        
+
         <Drawer.Screen
           name="RechercheAutoriserAcheminementScreen"
           component={rechercheAutoriserAcheminementScreen}
@@ -577,8 +579,11 @@ class habHomeScreen extends React.Component {
           unmountOnBlur={true}
         />
 
-        
-
+        <Drawer.Screen
+          name="LiquidationRechercheScreen"
+          component={LiquidationRechercheScreen}
+          options={{headerShown: false}}
+        />
       </Drawer.Navigator>
     );
   }

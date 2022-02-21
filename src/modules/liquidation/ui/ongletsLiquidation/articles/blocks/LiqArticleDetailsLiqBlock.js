@@ -19,6 +19,7 @@ class LiqArticleDetailsLiqBlock extends React.Component {
 
   render() {
     const {article, titre} = this.props;
+    console.log("HEREEEEE")
     return (
       <View>
         <Row style={CustomStyleSheet.whiteRow}>

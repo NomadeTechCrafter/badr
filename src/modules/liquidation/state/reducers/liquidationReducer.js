@@ -42,6 +42,7 @@ export default (state = initialState, action) => {
       return nextState;
     case GENERIC_LIQ_FAILED:
       nextState.showProgress = false;
+      console.log('Error reducer---',action.value.command)
       nextState.repData[action.value.command] = {
         errorMessage: action.value.data,
         displayError: true,
