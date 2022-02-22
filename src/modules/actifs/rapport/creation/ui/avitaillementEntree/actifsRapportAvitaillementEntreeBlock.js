@@ -19,7 +19,7 @@ class ActifsRapportAvitaillementEntreeBlock extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            navigationAvitaillementEntreeModel: getNavigationAvitaillementEntreeModelInitial(),
+            navigationAvitaillementEntreeModel: {},
             errorMessage: null
         };
 
@@ -59,8 +59,8 @@ class ActifsRapportAvitaillementEntreeBlock extends React.Component {
 
         let params = { msg: '', required: false }
         this.checkRequiredFieldsNavigAvitaillementEntree(params);
-        this.checkRequiredFieldsCaracteristiquesBateau(params);
-        this.checkRequiredFieldsResultatCtrl(params);
+        // this.checkRequiredFieldsCaracteristiquesBateau(params);
+        // this.checkRequiredFieldsResultatCtrl(params);
 
         if (params.required) {
             let message = translate('actifsCreation.avitaillementEntree.champsObligatoires') + params.msg;
@@ -134,58 +134,125 @@ class ActifsRapportAvitaillementEntreeBlock extends React.Component {
 
     checkRequiredFieldsNavigAvitaillementEntree = (params) => {
         let modele = this.state.navigationAvitaillementEntreeModel;
-        if (_.isEmpty(modele.dateEntree.toString())) {
-            params.required = true;
-            params.msg += translate('actifsCreation.avitaillementEntree.dateEntree');
-        }
-        if (_.isEmpty(modele.motifAccostage)) {
-            params.required = true;
-            params.msg += !_.isEmpty(params.msg) ? ", " : "";
-            params.msg += translate('actifsCreation.avitaillementEntree.motifAccostage');
-        }
-        if (_.isEmpty(modele.portEntree)) {
+        console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+        console.log(JSON.stringify(modele));
+        console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+        if (_.isEmpty(modele.bonLivraison)) {
             params.required = true;
             params.msg += !_.isEmpty(params.msg) ? ", " : "";
-            params.msg += translate('actifsCreation.avitaillementEntree.portEntree');
-        }
-        if (_.isEmpty(modele.provenance?.codePays)) {
-            params.required = true;
-            params.msg += !_.isEmpty(params.msg) ? ", " : "";
-            params.msg += translate('actifsCreation.avitaillementEntree.provenance');
-        }
-        if (_.isEmpty(modele.villeProvenance)) {
-            params.required = true;
-            params.msg += !_.isEmpty(params.msg) ? ", " : "";
-            params.msg += translate('actifsCreation.avitaillementEntree.villeProvenance');
-        }
-        if (_.isEmpty(modele.portAttache)) {
-            params.required = true;
-            params.msg += !_.isEmpty(params.msg) ? ", " : "";
-            params.msg += translate('actifsCreation.avitaillementEntree.portAttache');
-        }
-        if (_.isEmpty(modele.pavillon)) {
-            params.required = true;
-            params.msg += !_.isEmpty(params.msg) ? ", " : "";
-            params.msg += translate('actifsCreation.avitaillementEntree.pavillon');
-        }
-        if (_.isEmpty(modele.dateDepart.toString())) {
-            params.required = true;
-            params.msg += translate('actifsCreation.avitaillementEntree.dateDepart');
-        }
-        if (_.isEmpty(modele.destination?.codePays)) {
-            params.required = true;
-            params.msg += !_.isEmpty(params.msg) ? ", " : "";
-            params.msg += translate('actifsCreation.avitaillementEntree.destination');
-        }
-        if (_.isEmpty(modele.villeDestination)) {
-            params.required = true;
-            params.msg += !_.isEmpty(params.msg) ? ", " : "";
-            params.msg += translate('actifsCreation.avitaillementEntree.villeDestination');
+            params.msg += translate('actifsCreation.avitaillementEntree.main.bonLivraison');
         }
 
+        if (_.isEmpty(modele.dateLivraison)) {
+            params.required = true;
+            params.msg += !_.isEmpty(params.msg) ? ", " : "";
+            params.msg += translate('actifsCreation.avitaillementEntree.main.dateLivraison');
+        }
 
+        if (_.isEmpty(modele.heureLivraison)) {
+            params.required = true;
+            params.msg += !_.isEmpty(params.msg) ? ", " : "";
+            params.msg += translate('actifsCreation.avitaillementEntree.main.heureLivraison');
+        }
+
+        if (_.isEmpty(modele.immatriculationCamion)) {
+            params.required = true;
+            params.msg += !_.isEmpty(params.msg) ? ", " : "";
+            params.msg += translate('actifsCreation.avitaillementEntree.main.immatriculationCamion');
+        }
+
+        if (_.isEmpty(modele.immatriculationCiterne)) {
+            params.required = true;
+            params.msg += !_.isEmpty(params.msg) ? ", " : "";
+            params.msg += translate('actifsCreation.avitaillementEntree.main.immatriculationCiterne');
+        }
+
+        if (_.isEmpty(modele.raisonSocialeFournisseur)) {
+            params.required = true;
+            params.msg += !_.isEmpty(params.msg) ? ", " : "";
+            params.msg += translate('actifsCreation.avitaillementEntree.main.raisonSocialeFournisseur');
+        }
+
+        if (_.isEmpty(modele.natureProduit)) {
+            params.required = true;
+            params.msg += !_.isEmpty(params.msg) ? ", " : "";
+            params.msg += translate('actifsCreation.avitaillementEntree.main.natureProduit');
+        }
+
+        if (_.isEmpty(modele.dateReception?.toString())) {
+            params.required = true;
+            params.msg += !_.isEmpty(params.msg) ? ", " : "";
+            params.msg += translate('actifsCreation.avitaillementEntree.main.dateReception');
+        }
+
+        if (_.isEmpty(modele.heureReception?.toString())) {
+            params.required = true;
+            params.msg += !_.isEmpty(params.msg) ? ", " : "";
+            params.msg += translate('actifsCreation.avitaillementEntree.main.heureReception');
+        }
+
+        if (_.isEmpty(modele.uniteMesure)) {
+            params.required = true;
+            params.msg += !_.isEmpty(params.msg) ? ", " : "";
+            params.msg += translate('actifsCreation.avitaillementEntree.main.uniteMesure');
+        }
+
+        if (_.isEmpty(modele.volumentApparentEnvoye)) {
+            params.required = true;
+            params.msg += !_.isEmpty(params.msg) ? ", " : "";
+            params.msg += translate('actifsCreation.avitaillementEntree.main.volumentApparentEnvoye');
+        }
+
+        if (_.isEmpty(modele.volumentApparentReceptionne)) {
+            params.required = true;
+            params.msg += !_.isEmpty(params.msg) ? ", " : "";
+            params.msg += translate('actifsCreation.avitaillementEntree.main.volumentApparentReceptionne');
+        }
+
+        if (_.isEmpty(modele.coefficientConvertion)) {
+            params.required = true;
+            params.msg += !_.isEmpty(params.msg) ? ", " : "";
+            params.msg += translate('actifsCreation.avitaillementEntree.main.coefficientConvertion');
+        }
+
+        if (_.isEmpty(modele.volumeA15)) {
+            params.required = true;
+            params.msg += !_.isEmpty(params.msg) ? ", " : "";
+            params.msg += translate('actifsCreation.avitaillementEntree.main.volumeA15');
+        }
+
+        if (_.isEmpty(modele.densiteA15)) {
+            params.required = true;
+            params.msg += !_.isEmpty(params.msg) ? ", " : "";
+            params.msg += translate('actifsCreation.avitaillementEntree.main.densiteA15');
+        }
+
+        if (_.isEmpty(modele.poidsReceptione)) {
+            params.required = true;
+            params.msg += !_.isEmpty(params.msg) ? ", " : "";
+            params.msg += translate('actifsCreation.avitaillementEntree.main.poidsReceptione');
+        }
+
+        if (_.isEmpty(modele.temperature)) {
+            params.required = true;
+            params.msg += !_.isEmpty(params.msg) ? ", " : "";
+            params.msg += translate('actifsCreation.avitaillementEntree.main.temperature');
+        }
+
+        if (_.isEmpty(modele.ecart)) {
+            params.required = true;
+            params.msg += !_.isEmpty(params.msg) ? ", " : "";
+            params.msg += translate('actifsCreation.avitaillementEntree.main.ecart');
+        }
+
+        if (_.isEmpty(modele.observations)) {
+            params.required = true;
+            params.msg += !_.isEmpty(params.msg) ? ", " : "";
+            params.msg += translate('actifsCreation.avitaillementEntree.main.observations');
+        }
 
     }
+
     checkRequiredFieldsCaracteristiquesBateau = (params) => {
         let modele = this.state?.navigationAvitaillementEntreeModel;
         if (_.isEmpty(modele?.typeBateau)) {
@@ -241,9 +308,8 @@ class ActifsRapportAvitaillementEntreeBlock extends React.Component {
             params.msg += translate('actifsCreation.avitaillementEntree.caracteristiques.dateDeclaration');
         }
 
-
-
     }
+
     checkRequiredFieldsResultatCtrl = (params) => {
         let modele = this.state.navigationAvitaillementEntreeModel;
         if (_.isEmpty(modele.dateDebutControle.toString())) {
@@ -278,21 +344,12 @@ class ActifsRapportAvitaillementEntreeBlock extends React.Component {
     }
 
     updateModelNavigationAvitaillementEntree = (modele) => {
-        this.state.navigationAvitaillementEntreeModel.dateEntree = modele.dateEntree;
-        this.state.navigationAvitaillementEntreeModel.heureEntree = modele.heureEntree;
-        this.state.navigationAvitaillementEntreeModel.motifAccostage = modele.motifAccostage;
-        this.state.navigationAvitaillementEntreeModel.portEntree = modele.portEntree;
-        this.state.navigationAvitaillementEntreeModel.provenance = modele.provenance;
-        this.state.navigationAvitaillementEntreeModel.villeProvenance = modele.villeProvenance;
-        this.state.navigationAvitaillementEntreeModel.portAttache = modele.portAttache;
-        this.state.navigationAvitaillementEntreeModel.pavillon = modele.pavillon;
-        this.state.navigationAvitaillementEntreeModel.dateDepart = modele.dateDepart;
-        this.state.navigationAvitaillementEntreeModel.heureDepart = modele.heureDepart;
-        this.state.navigationAvitaillementEntreeModel.destination = modele.destination;
-        this.state.navigationAvitaillementEntreeModel.villeDestination = modele.villeDestination;
-
-
-        //this.state.navigationAvitaillementEntreeModel = model;
+        // console.log('*******************************************************');
+        // console.log(JSON.stringify(modele));
+        // console.log('*******************************************************');
+        this.setState({
+            navigationAvitaillementEntreeModel: modele
+        });
     }
 
     updateModelCaracteristiquesBateau = (modele) => {

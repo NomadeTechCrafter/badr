@@ -28,15 +28,15 @@ class Login extends React.Component {
     login: '',
     password: '',
     failures:this.props.failures,
-    startAutoLogin: false,
+    startAutoLogin: true,
     autoLoginParam: {
       login: 'AD6300',
       password: 'Testtest1-',
       codeSms: '000000',
-      bureau: '309',
-      codeBureau: '309',
-      codeArrondissement: '309',
-      arrondissement: '309',
+      bureau: '',
+      codeBureau: '',
+      codeArrondissement: '',
+      arrondissement: '',
       profiles: [
         // "0", "AAMAX", "AB", "PRO TEST",
         "ACTIFS_AD", "ACTIFS", //"ALL"

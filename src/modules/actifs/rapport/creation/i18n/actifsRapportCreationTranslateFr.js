@@ -389,6 +389,7 @@ export default {
         "dateEnregistrementAcquis": "Date d'enregistrement acquis à caution ",
         "bonLivraison": "N° Bon de livraison",
         "dateLivraison": "Date de livraison",
+        "heureLivraison": "Heure de livraison",
         "immatriculationCamion": "Immatriculation du camion",
         "immatriculationCiterne": "Immatriculation de la citerne",
         "numeroRCFournisseur": "Numéro RC du fournisseur",
