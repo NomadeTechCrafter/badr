@@ -79,9 +79,9 @@ export const qualites = [
     },
 ];
 
-export const status = [
-    { code: 'ENREGISTRE', libelle: 'Enregistrement' },
-    { code: 'MODIFIE', libelle: 'Modification' },
+export const unitesMesure = [
+    { code: 'T', libelle: 'Tonne' },
+    { code: 'L', libelle: 'Litre' },
 ];
 
 export const EDIT_EMBARCATION_TASK = "ACTIFS/EDIT_EMBARCATION";

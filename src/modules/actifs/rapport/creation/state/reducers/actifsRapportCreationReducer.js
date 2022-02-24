@@ -346,6 +346,26 @@ export default (state = initialState, action) => {
 
 
 
+
+    case Constants.ACTIFS_RESET_AVITAILLEMENTENTREE_REQUEST:
+      console.log('ACTIFS_RESET_AVITAILLEMENTENTREE_REQUEST');
+      return nextState;
+    case Constants.ACTIFS_RESET_AVITAILLEMENTENTREE_IN_PROGRESS:
+      console.log('ACTIFS_RESET_AVITAILLEMENTENTREE_IN_PROGRESS');
+      return nextState;
+    case Constants.ACTIFS_RESET_AVITAILLEMENTENTREE_SUCCESS:
+      if (nextState.index < 0) {
+        nextState.index = nextState.index - 1;
+      } else {
+        nextState.index = -1;
+      }
+      nextState.navigationAvitaillementEntreeModel = {};
+      console.log('ACTIFS_RESET_AVITAILLEMENTENTREE_SUCCESS MRS', nextState);
+      return nextState;
+    case Constants.ACTIFS_RESET_AVITAILLEMENTENTREE_FAILED:
+      console.log('ACTIFS_RESET_AVITAILLEMENTENTREE_FAILED');
+      return nextState;
+
     default:
       nextState.showProgress = false;
       return nextState ? nextState : initialState;
