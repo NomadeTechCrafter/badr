@@ -22,10 +22,10 @@ export function request(action, navigation) {
           ComSessionService.getInstance().setCodeSmsVerify(action.value.code);
           ComSessionService.getInstance().setSessionIdBO(jsonVO.session_id);
 
-          if(action.value.typeUser==='AGENT_DOUANIER')
-          navigation.navigate('Profile', {});
+          if(action.value.typeUser==='DECLARANT')
+          navigation.navigate('OperatValidate', {});
           else
-          navigation.navigate('OperatValidate', {})
+          navigation.navigate('Profile', {})
 
         } else if (jsonVO.connexion && jsonVO.connexion === 'false') {
           dispatch(failed(translate('smsVerify.codeIncorrect')));

@@ -32,6 +32,22 @@ class ActifsRapportAvitaillementEntreeMainBlock extends React.Component {
     reset = () => {
     };
 
+    calculerValeurEcart = () => {
+        if (!_.isEmpty(this.state.navigationAvitaillementEntreeModel?.volumentApparentReceptionne)
+            && !_.isEmpty(this.state.navigationAvitaillementEntreeModel?.volumentApparentEnvoye)) {
+            const volumentApparentEnvoye = this.state.navigationAvitaillementEntreeModel?.volumentApparentEnvoye;
+            const volumentApparentReceptionne = this.state.navigationAvitaillementEntreeModel?.volumentApparentReceptionne;
+            if (volumentApparentEnvoye > volumentApparentReceptionne) {
+                const calculatedEcart = volumentApparentEnvoye - volumentApparentReceptionne;
+                this.setState({
+                    navigationAvitaillementEntreeModel: {
+                        ...this.state.navigationAvitaillementEntreeModel, valeurEcart: calculatedEcart
+                    }
+                });
+                this.update();
+            }
+        }
+    };
 
     update() {
         this.props.update(this.state.navigationAvitaillementEntreeModel);
@@ -538,16 +554,17 @@ class ActifsRapportAvitaillementEntreeMainBlock extends React.Component {
                                         mode={'outlined'}
                                         disabled={this.props.readOnly}
                                         style={{ height: 20, fontSize: 12, textAlignVertical: 'top', marginRight: 10 }}
-                                    // value={this.state.navigationAvitaillementEntreeModel.villeProvenance}
-                                    // onChangeText={(text) => {
-                                    //     this.setState({
-                                    //         navigationAvitaillementEntreeModel: {
-                                    //             ...this.state.navigationAvitaillementEntreeModel, villeProvenance: text
-                                    //         }
-                                    //     });
-                                    //     this.state.navigationAvitaillementEntreeModel.villeProvenance = text;
-                                    //     this.props.update(this.state.navigationAvitaillementEntreeModel);
-                                    // }}
+                                        keyboardType={'number-pad'}
+                                        onEndEditing={(event) => this.calculerValeurEcart()}
+                                        value={this.state.navigationAvitaillementEntreeModel.volumentApparentEnvoye}
+                                        onChangeText={(text) => {
+                                            this.setState({
+                                                navigationAvitaillementEntreeModel: {
+                                                    ...this.state.navigationAvitaillementEntreeModel, volumentApparentEnvoye: text
+                                                }
+                                            });
+                                            this.update();
+                                        }}
                                     />
                                 </Col>
                                 <Col size={3}>
@@ -560,16 +577,17 @@ class ActifsRapportAvitaillementEntreeMainBlock extends React.Component {
                                         mode={'outlined'}
                                         disabled={this.props.readOnly}
                                         style={{ height: 20, fontSize: 12, textAlignVertical: 'top' }}
-                                    // value={this.state.navigationAvitaillementEntreeModel.villeProvenance}
-                                    // onChangeText={(text) => {
-                                    //     this.setState({
-                                    //         navigationAvitaillementEntreeModel: {
-                                    //             ...this.state.navigationAvitaillementEntreeModel, villeProvenance: text
-                                    //         }
-                                    //     });
-                                    //     this.state.navigationAvitaillementEntreeModel.villeProvenance = text;
-                                    //     this.props.update(this.state.navigationAvitaillementEntreeModel);
-                                    // }}
+                                        keyboardType={'number-pad'}
+                                        onEndEditing={(event) => this.calculerValeurEcart()}
+                                        value={this.state.navigationAvitaillementEntreeModel.volumentApparentReceptionne}
+                                        onChangeText={(text) => {
+                                            this.setState({
+                                                navigationAvitaillementEntreeModel: {
+                                                    ...this.state.navigationAvitaillementEntreeModel, volumentApparentReceptionne: text
+                                                }
+                                            });
+                                            this.update();
+                                        }}
                                     />
                                 </Col>
                             </Row>
@@ -606,18 +624,9 @@ class ActifsRapportAvitaillementEntreeMainBlock extends React.Component {
                                 <Col size={3}>
                                     <TextInput
                                         mode={'outlined'}
-                                        disabled={this.props.readOnly}
+                                        disabled={true}
                                         style={{ height: 20, fontSize: 12, textAlignVertical: 'top' }}
-                                    // value={this.state.navigationAvitaillementEntreeModel.villeProvenance}
-                                    // onChangeText={(text) => {
-                                    //     this.setState({
-                                    //         navigationAvitaillementEntreeModel: {
-                                    //             ...this.state.navigationAvitaillementEntreeModel, villeProvenance: text
-                                    //         }
-                                    //     });
-                                    //     this.state.navigationAvitaillementEntreeModel.villeProvenance = text;
-                                    //     this.props.update(this.state.navigationAvitaillementEntreeModel);
-                                    // }}
+                                        value={this.state.navigationAvitaillementEntreeModel.volumeA15}
                                     />
                                 </Col>
                             </Row>
@@ -654,18 +663,9 @@ class ActifsRapportAvitaillementEntreeMainBlock extends React.Component {
                                 <Col size={3}>
                                     <TextInput
                                         mode={'outlined'}
-                                        disabled={this.props.readOnly}
+                                        disabled={true}
                                         style={{ height: 20, fontSize: 12, textAlignVertical: 'top' }}
-                                    // value={this.state.navigationAvitaillementEntreeModel.villeProvenance}
-                                    // onChangeText={(text) => {
-                                    //     this.setState({
-                                    //         navigationAvitaillementEntreeModel: {
-                                    //             ...this.state.navigationAvitaillementEntreeModel, villeProvenance: text
-                                    //         }
-                                    //     });
-                                    //     this.state.navigationAvitaillementEntreeModel.villeProvenance = text;
-                                    //     this.props.update(this.state.navigationAvitaillementEntreeModel);
-                                    // }}
+                                        value={this.state.navigationAvitaillementEntreeModel.poidsReceptione}
                                     />
                                 </Col>
                             </Row>
@@ -702,18 +702,9 @@ class ActifsRapportAvitaillementEntreeMainBlock extends React.Component {
                                 <Col size={3}>
                                     <TextInput
                                         mode={'outlined'}
-                                        disabled={this.props.readOnly}
+                                        disabled={true}
                                         style={{ height: 20, fontSize: 12, textAlignVertical: 'top' }}
-                                    // value={this.state.navigationAvitaillementEntreeModel.villeProvenance}
-                                    // onChangeText={(text) => {
-                                    //     this.setState({
-                                    //         navigationAvitaillementEntreeModel: {
-                                    //             ...this.state.navigationAvitaillementEntreeModel, villeProvenance: text
-                                    //         }
-                                    //     });
-                                    //     this.state.navigationAvitaillementEntreeModel.villeProvenance = text;
-                                    //     this.props.update(this.state.navigationAvitaillementEntreeModel);
-                                    // }}
+                                        value={this.state.navigationAvitaillementEntreeModel?.valeurEcart}
                                     />
                                 </Col>
                             </Row>

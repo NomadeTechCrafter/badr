@@ -313,28 +313,7 @@ class RechecheRefDum extends Component {
 
         {this.props.module === 'MLV_LIB' && (
           <View style={styles.flexRow}>
-            <TouchableRipple
-              onPress={() => {
-                this.setState({
-                  sousReservePaiementMLV: !this.state.sousReservePaiementMLV,
-                });
-              }}>
-              <View style={styles.containerCheckbox}>
-                <View pointerEvents="none">
-                  <Checkbox
-                    color={primaryColor}
-                    status={
-                      this.state.sousReservePaiementMLV
-                        ? 'checked'
-                        : 'unchecked'
-                    }
-                  />
-                </View>
-                <Paragraph>
-                  {translate('mainlevee.sousReservePaiement')}
-                </Paragraph>
-              </View>
-            </TouchableRipple>
+
             <Button
               style={styles.BtnWidth}
               icon="plus-box-outline"

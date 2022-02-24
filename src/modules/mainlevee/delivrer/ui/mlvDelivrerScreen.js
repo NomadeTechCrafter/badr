@@ -470,15 +470,7 @@ class DelivrerMLV extends React.Component {
                   </ComBadrLibelleComp>
                 </Col>
               </Row>
-              <Row style={CustomStyleSheet.whiteRow}>
-                <Col size={10} />
-                <Col size={4}>
-                  <ComBadrLibelleComp withColor={true}>
-                    {translate('mainlevee.mainleveeSousReservePaiement')}
-                  </ComBadrLibelleComp>
-                </Col>
-                <Col size={2} />
-              </Row>
+
             </Grid>
           </ComBadrCardBoxComp>
 
