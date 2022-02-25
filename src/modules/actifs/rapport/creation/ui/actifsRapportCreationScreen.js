@@ -63,10 +63,6 @@ function avionsPriveesTab({ route, navigation }) {
   return <ActifsRapportCreationAvionsPriveesTab navigation={navigation} route={route} />;
 }
 
-function avitaillementEntreeTab({ route, navigation }) {
-  return <ActifsRapportCreationAvitaillementEntreeTab navigation={navigation} route={route} navigationAvitaillementEntreeModel={getNavigationAvitaillementEntreeModelInitial()} navigationsAvitaillementEntrees={[]} />;
-}
-
 function avitaillementSortieTab({ route, navigation }) {
   return <ActifsRapportCreationAvitaillementSortieTab navigation={navigation} route={route} navigationAvitaillementSortieModel={getNavigationAvitaillementSortieModelInitial()} navigationsAvitaillementSorties={[]} />;
 }
@@ -144,11 +140,18 @@ class ActifsRapportCreationScreen extends Component {
     this.setState({ rondesApparitions: val.rondesApparitions });
 
   }
+
   updatePerquisitions = (val) => {
     console.log('val 3:', val);
     this.setState({ gibPerquisition: val.gibPerquisition });
 
   }
+
+  updateAvitaillementEntrees = (val) => {
+    console.log('val updateAvitaillementEntrees :', val);
+    this.setState({ avitaillementEntrees: val.updateAvitaillementEntrees });
+
+  }  
 
   updateEnteteValue = (val) => {
     console.log('val 4:', val);
@@ -261,7 +264,7 @@ class ActifsRapportCreationScreen extends Component {
       refAgentDetachement: this.state.refAgentDetachement,
       themeConference: this.state.themeConference,
       listAnimateurConferenceVo: this.state.listAnimateurConferenceVo,
-      
+
 
       disableFields: null,
       heureFin: (this.state?.heureFin) ? this.state.heureFin : this.props.route?.params?.row?.heureFin, //yess entete
@@ -468,7 +471,11 @@ class ActifsRapportCreationScreen extends Component {
               // <Tab.Screen name={translate('actifsCreation.embarcations.title')} component={embarcationsTab} />
             )}
             {(this.props.route?.params?.row?.typeService?.categorie?.code === '5') && (
-              <Tab.Screen name={translate('actifsCreation.avitaillementEntree.title')} component={avitaillementEntreeTab} />
+              <Tab.Screen name={translate('actifsCreation.avitaillementEntree.title')} >
+                {() => (
+                  <ActifsRapportCreationAvitaillementEntreeTab update={this.updateAvitaillementEntrees} />
+                )}
+              </Tab.Screen>
             )}
             {(this.props.route?.params?.row?.typeService?.categorie?.code === '5') && (
               <Tab.Screen name={translate('actifsCreation.avitaillementSortie.title')} component={avitaillementSortieTab} />

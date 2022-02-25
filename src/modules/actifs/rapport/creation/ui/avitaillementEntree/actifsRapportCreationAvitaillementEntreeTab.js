@@ -1408,7 +1408,7 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
 
 
 
-const mapStateToProps = (state) => ({ ...state.creationReducer });
+const mapStateToProps = (state) => ({ ...state.creationActifsReducer });
 
 export default connect(mapStateToProps, null)(ActifsRapportCreationAvitaillementEntreeTab);
 
