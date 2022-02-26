@@ -77,8 +77,6 @@ import VuEmbListeDeclaration2 from './modules/ecorExport/vuEmbarquer/ui/ecorExpV
 import CtrlResultatScannerResultScreen from './modules/controle/ctrlResultatScanner/ui/ctrlResultatScannerMainScreen';
 import etatChargementTabSearchComponent from './modules/controle/controleApresScanner/component/searchTabs/etatChargementTabSearchComponent';
 import ctrlControleApresScannerSearchComponent from './modules/controle/controleApresScanner/component/ctrlControleApresScannerSearchComponent';
-import ActifsRapportAvitaillementEntreeBlock from './modules/actifs/rapport/creation/ui/avitaillementEntree/actifsRapportAvitaillementEntreeBlock';
-import actifsRapportCreationAvitaillementEntreeTab from './modules/actifs/rapport/creation/ui/avitaillementEntree/actifsRapportCreationAvitaillementEntreeTab';
 
 //setGlobalHandler();
 export default class App extends React.Component {
@@ -101,7 +99,7 @@ export default class App extends React.Component {
                 <Stack.Screen
                   name="test"
                   options={{headerShown: false}}
-                    component={actifsRapportCreationAvitaillementEntreeTab}
+                    component={ctrlControleApresScannerSearchComponent}
                 />
               )}
               <Stack.Screen
