@@ -108,17 +108,18 @@ export const getNavigationAvitaillementEntreeModelInitial = () => {
     immatriculationCiterne: '',
     numRCFourn: '',
     centreRCFourn: '',
-    raisonSocialeFournisseur: '',
-    nature: '',
+    raisonSocialeFourn: '',
+    nature: {},
     quantiteReceptionne: '',
-    uniteMesure: '',
+    uniteMesure: {},
     volumeAppEnvoye: '',
     volumeAppReceptionne: '',
     coeffConvert: '',
-    volume15Recep: '',
+    volume15Recep: 0,
     densite15: '',
     temperature: '',
-    valeurEcart: '',
+    valeurEcart: 0,
+    poidsReceptionne: 0,
     observations: ''
   }
 }

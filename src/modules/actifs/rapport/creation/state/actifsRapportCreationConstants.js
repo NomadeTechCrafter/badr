@@ -84,6 +84,14 @@ export const unitesMesure = [
     { code: 'L', libelle: 'Litre' },
 ];
 
+export const naturesProduits = [
+    { code: 'G', libelle: 'Gasoil' },
+    { code: 'E', libelle: 'Essence' },
+    { code: 'GM', libelle: 'Essence mélangé' },
+    { code: 'L', libelle: 'Lubrifiant' },
+    { code: 'JETA1', libelle: 'JET A 1' },
+];
+
 export const EDIT_EMBARCATION_TASK = "ACTIFS/EDIT_EMBARCATION";
 export const DELETE_EMBARCATION_TASK = "ACTIFS/DELETE_EMBARCATION";
 export const RESET_EMBARCATION_TASK = "ACTIFS/RESET_EMBARCATION";

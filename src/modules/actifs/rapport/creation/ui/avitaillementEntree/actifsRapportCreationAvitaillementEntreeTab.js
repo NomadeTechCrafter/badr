@@ -18,7 +18,7 @@ import {
 } from '../../../../../../commons/component';
 import { DELETE_AVITAILLEMENTENTREE_TASK, EDIT_AVITAILLEMENTENTREE_TASK, FORMAT_DDMMYYYY, RESET_AVITAILLEMENTENTREE_TASK } from '../../../utils/actifsConstants';
 import { formatCustomized, getNavigationAvitaillementEntreeModelInitial } from '../../../utils/actifsUtils';
-import { ACTIFS_CONFIRMER_AVITAILLEMENTENTREE_REQUEST, ACTIFS_DELETE_AVITAILLEMENTENTREE_REQUEST, ACTIFS_EDITER_AVITAILLEMENTENTREE_REQUEST, ACTIFS_RESET_AVITAILLEMENTENTREE_REQUEST } from '../../state/actifsRapportCreationConstants';
+import { ACTIFS_CONFIRMER_AVITAILLEMENTENTREE_REQUEST, ACTIFS_DELETE_AVITAILLEMENTENTREE_REQUEST, ACTIFS_EDITER_AVITAILLEMENTENTREE_REQUEST, ACTIFS_RESET_AVITAILLEMENTENTREE_REQUEST, naturesProduits } from '../../state/actifsRapportCreationConstants';
 import actifsRapportConfirmerAvitaillementEntreeAction from '../../state/actions/actifsRapportConfirmerAvitaillementEntreeAction';
 import actifsRapportEditerAvitaillementEntreeAction from '../../state/actions/actifsRapportEditerAvitaillementEntreeAction';
 import actifsRapportResetAvitaillementEntreeAction from '../../state/actions/actifsRapportResetAvitaillementEntreeAction';
@@ -35,30 +35,6 @@ import { unitesMesure } from '../../state/actifsRapportCreationConstants';
 
 
 class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
-
-    defaultState = {
-        navigationAvitaillementEntreeModel: {
-            numBonLivraison: '',
-            dateLivraison: '',
-            heureLivraison: '',
-            immatriculationCamion: '',
-            immatriculationCiterne: '',
-            numRCFourn: '',
-            centreRCFourn: '',
-            raisonSocialeFourn: '',
-            nature: '',
-            quantiteReceptionne: '',
-            uniteMesure: '',
-            volumeAppEnvoye: '',
-            volumeAppReceptionne: '',
-            coeffConvert: '',
-            volume15Recep: '',
-            densite15: '',
-            temperature: '',
-            valeurEcart: '',
-            observations: ''
-        }
-    };
 
     constructor(props) {
         super(props);
@@ -79,7 +55,7 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
                 width: 150,
             },
             {
-                code: 'nature',
+                code: 'nature.libelle',
                 libelle: translate('actifsCreation.avitaillementEntree.natureProduit'),
                 width: 150,
             },
@@ -125,7 +101,7 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
                 width: 150,
             },
             {
-                code: 'nature',
+                code: 'nature.libelle',
                 libelle: translate('actifsCreation.avitaillementEntree.natureProduit'),
                 width: 150,
             },
@@ -230,7 +206,7 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
     nouveau = () => {
         // this.props.callbackHandler(RESET_AVITAILLEMENTENTREE_TASK);
         console.log('retablir');
-        this.setState({ ...this.defaultState });
+        this.setState({ navigationAvitaillementEntreeModel: getNavigationAvitaillementEntreeModelInitial() });
     }
 
     confirmer = () => {
@@ -270,7 +246,7 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
         console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
         console.log(JSON.stringify(modele));
         console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
-        if (_.isEmpty(modele.bonLivraison)) {
+        if (_.isEmpty(modele.numBonLivraison)) {
             params.required = true;
             params.msg += !_.isEmpty(params.msg) ? ", " : "";
             params.msg += translate('actifsCreation.avitaillementEntree.main.bonLivraison');
@@ -300,13 +276,13 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
             params.msg += translate('actifsCreation.avitaillementEntree.main.immatriculationCiterne');
         }
 
-        if (_.isEmpty(modele.raisonSocialeFournisseur)) {
+        if (_.isEmpty(modele.raisonSocialeFourn)) {
             params.required = true;
             params.msg += !_.isEmpty(params.msg) ? ", " : "";
             params.msg += translate('actifsCreation.avitaillementEntree.main.raisonSocialeFournisseur');
         }
 
-        if (_.isEmpty(modele.natureProduit)) {
+        if (_.isEmpty(modele.nature)) {
             params.required = true;
             params.msg += !_.isEmpty(params.msg) ? ", " : "";
             params.msg += translate('actifsCreation.avitaillementEntree.main.natureProduit');
@@ -330,37 +306,37 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
             params.msg += translate('actifsCreation.avitaillementEntree.main.uniteMesure');
         }
 
-        if (_.isEmpty(modele.volumentApparentEnvoye)) {
+        if (_.isEmpty(modele.volumeAppEnvoye)) {
             params.required = true;
             params.msg += !_.isEmpty(params.msg) ? ", " : "";
             params.msg += translate('actifsCreation.avitaillementEntree.main.volumentApparentEnvoye');
         }
 
-        if (_.isEmpty(modele.volumentApparentReceptionne)) {
+        if (_.isEmpty(modele.volumeAppReceptionne)) {
             params.required = true;
             params.msg += !_.isEmpty(params.msg) ? ", " : "";
             params.msg += translate('actifsCreation.avitaillementEntree.main.volumentApparentReceptionne');
         }
 
-        if (_.isEmpty(modele.coefficientConvertion)) {
+        if (_.isEmpty(modele.coeffConvert)) {
             params.required = true;
             params.msg += !_.isEmpty(params.msg) ? ", " : "";
             params.msg += translate('actifsCreation.avitaillementEntree.main.coefficientConvertion');
         }
 
-        if (_.isEmpty(modele.volumeA15)) {
+        if (_.isEmpty(modele.volume15Recep) && modele.volume15Recep < 0) {
             params.required = true;
             params.msg += !_.isEmpty(params.msg) ? ", " : "";
             params.msg += translate('actifsCreation.avitaillementEntree.main.volumeA15');
         }
 
-        if (_.isEmpty(modele.densiteA15)) {
+        if (_.isEmpty(modele.densite15)) {
             params.required = true;
             params.msg += !_.isEmpty(params.msg) ? ", " : "";
             params.msg += translate('actifsCreation.avitaillementEntree.main.densiteA15');
         }
 
-        if (_.isEmpty(modele.poidsReceptione)) {
+        if (_.isEmpty(modele.poidsReceptionne) && modele.poidsReceptionne < 0) {
             params.required = true;
             params.msg += !_.isEmpty(params.msg) ? ", " : "";
             params.msg += translate('actifsCreation.avitaillementEntree.main.poidsReceptione');
@@ -372,7 +348,7 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
             params.msg += translate('actifsCreation.avitaillementEntree.main.temperature');
         }
 
-        if (_.isEmpty(modele.ecart)) {
+        if (_.isEmpty(modele.valeurEcart) && modele.valeurEcart < 0) {
             params.required = true;
             params.msg += !_.isEmpty(params.msg) ? ", " : "";
             params.msg += translate('actifsCreation.avitaillementEntree.main.ecart');
@@ -398,7 +374,7 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
     retablir = () => {
         // this.props.callbackHandler(RESET_AVITAILLEMENTENTREE_TASK);
         console.log('retablir');
-        this.setState({ ...this.defaultState });
+        this.setState({ navigationAvitaillementEntreeModel: getNavigationAvitaillementEntreeModelInitial() });
     }
 
     update = () => {
@@ -1046,29 +1022,21 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
                                             </ComBadrLibelleComp>
                                         </Col>
                                         <Col size={3} style={{ paddingRight: 5 }}>
-                                            <ComBadrCardBoxComp>
-                                                <ComBadrPickerCheckerComp
-                                                    onRef={(ref) => (this.refTypesIncidents = ref)}
-                                                    key={'code'}
-                                                    title={translate('actifsCreation.avitaillementEntree.main.natureProduit')}
-                                                    titleStyle={CustomStyleSheet.badrPickerTitle}
-                                                    style={{ flex: 1 }}
-                                                    cle="code"
-                                                    libelle="libelle"
-                                                    module="GIB"
-                                                    command={'getTypesIncident'}
-                                                    onValueChange={(selectedValue, selectedIndex) => {
-                                                        console.log("selectedValue", selectedValue);
-                                                        this.setState({ typeIncident: selectedValue }, () => this.updateModele());
-                                                    }}
-                                                    param={this.state.natureIncident}
-                                                    typeService="SP"
-                                                    onConfirm={this.handleOnConfirmIncidentType}
-                                                    onSelectedItemObjectsChange={
-                                                        this.handleOnIncidentItemsChanged
-                                                    }
-                                                />
-                                            </ComBadrCardBoxComp>
+                                            <ComBadrItemsPickerComp
+                                                label={translate('actifsCreation.avitaillementEntree.main.natureProduit')}
+                                                disabled={this.props.readOnly}
+                                                selectedValue={this.state.navigationAvitaillementEntreeModel?.nature ? this.state.navigationAvitaillementEntreeModel?.nature?.code : {}}
+                                                items={naturesProduits}
+                                                onValueChanged={(selectedValue) => {
+                                                    console.log(selectedValue);
+                                                    this.setState({
+                                                        navigationAvitaillementEntreeModel: {
+                                                            ...this.state.navigationAvitaillementEntreeModel, nature: selectedValue
+                                                        }
+                                                    });
+                                                    this.update();
+                                                }}
+                                            />
                                         </Col>
                                         <Col size={3} />
                                         <Col size={3} />
@@ -1144,9 +1112,10 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
                                                 // style={CustomStyleSheet.column}
                                                 label={translate('actifsCreation.avitaillementEntree.main.uniteMesure')}
                                                 disabled={this.props.readOnly}
-                                                selectedValue={this.state.navigationAvitaillementEntreeModel?.uniteMesure ? this.state.navigationAvitaillementEntreeModel?.uniteMesure : ''}
+                                                selectedValue={this.state.navigationAvitaillementEntreeModel?.uniteMesure ? this.state.navigationAvitaillementEntreeModel?.uniteMesure?.code : {}}
                                                 items={unitesMesure}
                                                 onValueChanged={(selectedValue) => {
+                                                    console.log(selectedValue);
                                                     this.setState({
                                                         navigationAvitaillementEntreeModel: {
                                                             ...this.state.navigationAvitaillementEntreeModel, uniteMesure: selectedValue
