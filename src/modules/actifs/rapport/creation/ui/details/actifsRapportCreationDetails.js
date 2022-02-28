@@ -194,7 +194,7 @@ class AtifsRapportCreationDetailsTab extends Component {
   
   render() {
 
-    console.log('props ----------------===> : ' + JSON.stringify(this.props?.rows));
+    // console.log('props ----------------===> : ' + JSON.stringify(this.props?.rows));
     return (
       <View style={CustomStyleSheet.fullContainer}>
         <ComContainerComp>

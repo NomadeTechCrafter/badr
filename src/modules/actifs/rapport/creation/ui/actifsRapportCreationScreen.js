@@ -295,6 +295,7 @@ class ActifsRapportCreationScreen extends Component {
       versionRS: null,
       versionsRS: null,
       rondesApparition: localRondesApparitions,
+      listeAvitaillementEntrees: this.state.avitaillementEntrees,
       // gibPerquisition: this.state?.gibPerquisition ? this.state?.gibPerquisition : {},
       gibPerquisition: localGibPerquisition,
 

@@ -18,21 +18,22 @@ import {
 } from '../../../../../../commons/component';
 import { DELETE_AVITAILLEMENTENTREE_TASK, EDIT_AVITAILLEMENTENTREE_TASK, FORMAT_DDMMYYYY, RESET_AVITAILLEMENTENTREE_TASK } from '../../../utils/actifsConstants';
 import { formatCustomized, getNavigationAvitaillementEntreeModelInitial } from '../../../utils/actifsUtils';
-import { ACTIFS_CONFIRMER_AVITAILLEMENTENTREE_REQUEST, ACTIFS_DELETE_AVITAILLEMENTENTREE_REQUEST, ACTIFS_EDITER_AVITAILLEMENTENTREE_REQUEST, ACTIFS_RESET_AVITAILLEMENTENTREE_REQUEST, naturesProduits } from '../../state/actifsRapportCreationConstants';
+import { ACTIFS_CONFIRMER_AVITAILLEMENTENTREE_REQUEST, ACTIFS_DELETE_AVITAILLEMENTENTREE_REQUEST, ACTIFS_EDITER_AVITAILLEMENTENTREE_REQUEST, ACTIFS_RESET_AVITAILLEMENTENTREE_REQUEST, naturesProduits, RECHERCHE_PERSONNE_MORALE_INIT, RECHERCHE_PERSONNE_MORALE_REQUEST } from '../../state/actifsRapportCreationConstants';
 import actifsRapportConfirmerAvitaillementEntreeAction from '../../state/actions/actifsRapportConfirmerAvitaillementEntreeAction';
 import actifsRapportEditerAvitaillementEntreeAction from '../../state/actions/actifsRapportEditerAvitaillementEntreeAction';
 import actifsRapportResetAvitaillementEntreeAction from '../../state/actions/actifsRapportResetAvitaillementEntreeAction';
 import actifsRapportSupprimerAvitaillementEntreeAction from '../../state/actions/actifsRapportSupprimerAvitaillementEntreeAction';
+import RechercherPersonneMoraleAction from '../../state/actions/actifsRapportRechercherPersonneMoraleAction';
 import { translate } from '../../../../../../commons/i18n/ComI18nHelper';
 import styles from '../../style/actifsCreationStyle';
 import { CustomStyleSheet } from '../../../../../../commons/styles/ComThemeStyle';
 import { Col, Grid, Row } from 'react-native-easy-grid';
 import { TextInput, IconButton } from 'react-native-paper';
 import { unitesMesure } from '../../state/actifsRapportCreationConstants';
+import { Dimensions } from 'react-native';
 
 
-
-
+const screenHeight = Dimensions.get('window').height;
 
 class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
 
@@ -130,23 +131,6 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
     componentDidMount() {
     }
 
-    // ajouterNavigationAvitaillementEntreeModel = (model) => {
-    //     let navigationsAvitaillementEntrees = [...this.props.navigationsAvitaillementEntrees];
-    //     let dataToAction = {
-    //         type: ACTIFS_CONFIRMER_AVITAILLEMENTENTREE_REQUEST,
-    //         value: {
-    //             navigationsAvitaillementEntrees: navigationsAvitaillementEntrees,
-    //             index: this.props.index,
-    //             navigationAvitaillementEntreeModel: model
-    //         }
-    //     };
-
-
-    //     this.props.dispatch(actifsRapportConfirmerAvitaillementEntreeAction.request(dataToAction));
-
-
-    // }
-
     componentDidUpdate() {
     }
 
@@ -204,9 +188,7 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
     }
 
     nouveau = () => {
-        // this.props.callbackHandler(RESET_AVITAILLEMENTENTREE_TASK);
-        console.log('retablir');
-        this.setState({ navigationAvitaillementEntreeModel: getNavigationAvitaillementEntreeModelInitial() });
+        this.retablir();
     }
 
     confirmer = () => {
@@ -215,6 +197,9 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
             navigationsAvitaillementEntrees.push(this.state.navigationAvitaillementEntreeModel);
             this.setState({
                 myArray: [...this.state.navigationsAvitaillementEntrees, navigationsAvitaillementEntrees]
+            });
+            this.props.update({
+                updateAvitaillementEntrees: this.state?.navigationsAvitaillementEntrees,
             });
         }
     }
@@ -276,7 +261,7 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
             params.msg += translate('actifsCreation.avitaillementEntree.main.immatriculationCiterne');
         }
 
-        if (_.isEmpty(modele.raisonSocialeFourn)) {
+        if (_.isEmpty(this.props?.raisonSocialeFourn)) {
             params.required = true;
             params.msg += !_.isEmpty(params.msg) ? ", " : "";
             params.msg += translate('actifsCreation.avitaillementEntree.main.raisonSocialeFournisseur');
@@ -362,37 +347,22 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
 
     }
 
-    // updateModelNavigationAvitaillementEntree = (modele) => {
-    //     // console.log('*******************************************************');
-    //     // console.log(JSON.stringify(modele));
-    //     // console.log('*******************************************************');
-    //     this.setState({
-    //         navigationAvitaillementEntreeModel: modele
-    //     });
-    // }
 
     retablir = () => {
         // this.props.callbackHandler(RESET_AVITAILLEMENTENTREE_TASK);
         console.log('retablir');
         this.setState({ navigationAvitaillementEntreeModel: getNavigationAvitaillementEntreeModelInitial() });
+
+        let action = RechercherPersonneMoraleAction.init({
+            type: RECHERCHE_PERSONNE_MORALE_INIT,
+            value: {}
+        });
+        this.props.dispatch(action);
     }
 
-    update = () => {
+    update() {
     }
 
-    // static getDerivedStateFromProps(props, state) {
-
-    //     if (
-    //         props.navigationAvitaillementEntreeModel && props.index !== state.index
-    //     ) {
-    //         return {
-    //             navigationAvitaillementEntreeModel: props.navigationAvitaillementEntreeModel,// update the value of specific key
-    //             index: props.index
-    //         };
-    //     }
-    //     // Return null to indicate no change to state.
-    //     return null;
-    // }
 
 
     calculerValeurEcart = () => {
@@ -471,24 +441,77 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
         this.update();
     };
 
+    // static getDerivedStateFromProps(props, state) {
+
+    //     if (
+    //         props.navigationAvitaillementEntreeModel && props.index !== state.index
+    //     ) {
+    //         console.log("*********************************");
+    //         console.log("*********************************");
+    //         console.log("*********************************");
+    //         console.log("*********************************");
+    //         console.log("*********************************");
+    //         console.log(JSON.stringify(props));
+    //         console.log("*********************************");
+    //         console.log("*********************************");
+    //         console.log("*********************************");
+    //         console.log("*********************************");
+    //         console.log("*********************************");
+
+    //         // this.setState(prevState => {
+    //         //     let navigationAvitaillementEntreeModel = Object.assign({}, prevState.navigationAvitaillementEntreeModel);
+    //         //     navigationAvitaillementEntreeModel.raisonSocialeFourn = this.props?.raisonSocialeFourn;
+    //         //     return { navigationAvitaillementEntreeModel };
+    //         // })
+    //         return {
+    //             // navigationAvitaillementEntreeModel: props.navigationAvitaillementEntreeModel,
+    //             navigationAvitaillementEntreeModel: { ...state.navigationAvitaillementEntreeModel.raisonSocialeFourn, ...props?.raisonSocialeFourn },
+    //             index: props.index
+    //         };
+    //     }
+    //     // Return null to indicate no change to state.
+    //     return null;
+    // }
+
     chercherPersonneConcernee = () => {
         if (!_.isEmpty(this.state.navigationAvitaillementEntreeModel?.numRCFourn)
             && !_.isEmpty(this.state.navigationAvitaillementEntreeModel?.centreRCFourn)) {
-            const centreRCFourn = this.state.navigationAvitaillementEntreeModel?.centreRCFourn;
-            const numRCFourn = this.state.navigationAvitaillementEntreeModel?.numRCFourn;
-            const raisonSocialeFourn = centreRCFourn + ' test ' + numRCFourn;
-            this.setState(prevState => {
-                let navigationAvitaillementEntreeModel = Object.assign({}, prevState.navigationAvitaillementEntreeModel);
-                navigationAvitaillementEntreeModel.raisonSocialeFourn = raisonSocialeFourn;
-                return { navigationAvitaillementEntreeModel };
-            })
-        } else {
-            this.setState(prevState => {
-                let navigationAvitaillementEntreeModel = Object.assign({}, prevState.navigationAvitaillementEntreeModel);
-                navigationAvitaillementEntreeModel.raisonSocialeFourn = '';
-                return { navigationAvitaillementEntreeModel };
-            })
+            const numeroDocumentIdentite = this.state.navigationAvitaillementEntreeModel?.numRCFourn;
+            const nationalite = this.state.navigationAvitaillementEntreeModel?.centreRCFourn;
+
+            let action = RechercherPersonneMoraleAction.request({
+                type: RECHERCHE_PERSONNE_MORALE_REQUEST,
+                value: {
+                    module: "REF_LIB",
+                    command: "findIntervenantMorale",
+                    typeService: "SP",
+                    jsonVO: {
+                        "numeroDocumentIdentite": numeroDocumentIdentite,
+                        "nationalite": nationalite
+                    },
+                },
+            });
+            this.props.dispatch(action);
+
+            console.log("=================================================================================");
+            console.log("=================================================================================");
+            console.log(JSON.stringify(this.props?.raisonSocialeFourn));
+            console.log("=================================================================================");
+            console.log("=================================================================================");
+
+            // this.setState(prevState => {
+            //     let navigationAvitaillementEntreeModel = Object.assign({}, prevState.navigationAvitaillementEntreeModel);
+            //     navigationAvitaillementEntreeModel.raisonSocialeFourn = this.props?.raisonSocialeFourn;
+            //     return { navigationAvitaillementEntreeModel };
+            // })
         }
+        // else {
+        //     this.setState(prevState => {
+        //         let navigationAvitaillementEntreeModel = Object.assign({}, prevState.navigationAvitaillementEntreeModel);
+        //         navigationAvitaillementEntreeModel.raisonSocialeFourn = this.props.raisonSocialeFourn ? this.props?.raisonSocialeFourn : '';
+        //         return { navigationAvitaillementEntreeModel };
+        //     })
+        // }
         this.update();
     };
 
@@ -952,6 +975,7 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
                                             <TextInput
                                                 mode={'outlined'}
                                                 disabled={this.props.readOnly}
+                                                keyboardType={'number-pad'}
                                                 style={{ height: 20, fontSize: 12, textAlignVertical: 'top', marginRight: 10 }}
                                                 value={this.state.navigationAvitaillementEntreeModel?.numRCFourn}
                                                 onChangeText={(text) => {
@@ -976,6 +1000,7 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
                                             <TextInput
                                                 mode={'outlined'}
                                                 disabled={this.props.readOnly}
+                                                keyboardType={'number-pad'}
                                                 style={{ height: 20, fontSize: 12, textAlignVertical: 'top' }}
                                                 value={this.state.navigationAvitaillementEntreeModel?.centreRCFourn}
                                                 onChangeText={(text) => {
@@ -1007,7 +1032,7 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
                                                 mode={'outlined'}
                                                 disabled={true}
                                                 style={{ height: 90, fontSize: 12, textAlignVertical: 'top' }}
-                                                value={this.state.navigationAvitaillementEntreeModel?.raisonSocialeFourn}
+                                                value={this.props?.raisonSocialeFourn}
                                                 multiline={true}
                                                 numberOfLines={10}
                                             />
@@ -1118,7 +1143,7 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
                                                     console.log(selectedValue);
                                                     this.setState({
                                                         navigationAvitaillementEntreeModel: {
-                                                            ...this.state.navigationAvitaillementEntreeModel, uniteMesure: selectedValue
+                                                            ...this.state.navigationAvitaillementEntreeModel, uniteMesure: selectedValue?.code
                                                         }
                                                     });
                                                     this.update();
@@ -1282,6 +1307,7 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
                                             <TextInput
                                                 mode={'outlined'}
                                                 disabled={this.props.readOnly}
+                                                keyboardType={'number-pad'}
                                                 style={{ height: 20, fontSize: 12, textAlignVertical: 'top', marginRight: 10 }}
                                                 value={this.state.navigationAvitaillementEntreeModel?.temperature}
                                                 onChangeText={(text) => {

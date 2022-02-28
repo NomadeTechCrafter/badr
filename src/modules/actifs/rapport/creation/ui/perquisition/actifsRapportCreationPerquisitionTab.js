@@ -304,10 +304,6 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
     };
 
     static getDerivedStateFromProps(props, state) {
-        // console.log('getDerivedStateFromProps - 03052021 - props  : ', props?.t6bisReducer);
-        // console.log('getDerivedStateFromProps - 03052021 - state  : ', state);
-        // console.log('getDerivedStateFromProps - 03052021 - state  : ', !props?.t6bisReducer?.value?.hasOwnProperty('intervenantVO'));
-        // console.log('getDerivedStateFromProps - 03052021 - state  : ', props?.t6bisReducer?.value?.hasOwnProperty('intervenantVO'));
         if (
             props?.t6bisReducer?.value?.intervenantVO &&
             !props?.newIntervenant &&

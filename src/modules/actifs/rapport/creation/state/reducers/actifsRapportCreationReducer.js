@@ -344,14 +344,9 @@ export default (state = initialState, action) => {
       console.log('ACTIF_RESET_AVION_PRIVEE_FAILED');
       return nextState;
 
-
-
-
     case Constants.ACTIFS_RESET_AVITAILLEMENTENTREE_REQUEST:
-      console.log('ACTIFS_RESET_AVITAILLEMENTENTREE_REQUEST');
       return nextState;
     case Constants.ACTIFS_RESET_AVITAILLEMENTENTREE_IN_PROGRESS:
-      console.log('ACTIFS_RESET_AVITAILLEMENTENTREE_IN_PROGRESS');
       return nextState;
     case Constants.ACTIFS_RESET_AVITAILLEMENTENTREE_SUCCESS:
       if (nextState.index < 0) {
@@ -360,11 +355,24 @@ export default (state = initialState, action) => {
         nextState.index = -1;
       }
       nextState.navigationAvitaillementEntreeModel = {};
-      console.log('ACTIFS_RESET_AVITAILLEMENTENTREE_SUCCESS MRS', nextState);
       return nextState;
     case Constants.ACTIFS_RESET_AVITAILLEMENTENTREE_FAILED:
-      console.log('ACTIFS_RESET_AVITAILLEMENTENTREE_FAILED');
       return nextState;
+
+    case Constants.RECHERCHE_PERSONNE_MORALE_REQUEST:
+      return nextState;
+    case Constants.RECHERCHE_PERSONNE_MORALE_IN_PROGRESS:
+      return nextState;
+    case Constants.RECHERCHE_PERSONNE_MORALE_SUCCESS:
+      console.log("RECHERCHE_PERSONNE_MORALE_SUCCESS : " + JSON.stringify(action));
+      nextState.raisonSocialeFourn = action.value;
+      return nextState;
+    case Constants.RECHERCHE_PERSONNE_MORALE_FAILED:
+      return nextState;
+    case Constants.RECHERCHE_PERSONNE_MORALE_INIT:
+      nextState.raisonSocialeFourn = '';
+      return nextState;
+
 
     default:
       nextState.showProgress = false;

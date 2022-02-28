@@ -46,29 +46,28 @@ const mapping = {
     params: { title: 'Ecran  Recherche Consultation BLE' },
   },
   '30805': {
-	    screen: 'CtrlResultatScannerMainScreen',
-	    params: {
-	      title: 'Résultat de scanner' },
+    screen: 'CtrlResultatScannerMainScreen',
+    params: {
+      title: 'Résultat de scanner'
+    },
   },
   '1226': {
     screen: 'ECIAppositionScellesRechercheScreen',
     params: {},
   },
   '2243': { screen: 'RechercheConfirmationReceptionScreen', params: {} },
-  '14000011': {screen: 'ModifierCompteRenduMission', params: {}},
-  '14000012': {screen: 'ValiderCompteRenduMission', params: {}},
-  '4096': {screen: 'RefControleVehicule', params: {}},
-  '823': {screen: 'RefPlaquesImm', params: {}},
-  '14000010': {screen: 'CreerCompteRenduMission', params: {}},
-  
-    /*
+  '14000011': { screen: 'ModifierCompteRenduMission', params: {} },
+  '14000012': { screen: 'ValiderCompteRenduMission', params: {} },
+  '4096': { screen: 'RefControleVehicule', params: {} },
+  '823': { screen: 'RefPlaquesImm', params: {} },
+  '14000010': { screen: 'CreerCompteRenduMission', params: {} },
+
   '9932': { screen: 'ActifsRecherche', params: {} },
   '3064': { screen: 'controleRechercheDumScreen', params: { typeControle: 'AC' } },
   '3072': { screen: 'controleRechercheDumScreen', params: { typeControle: 'RI' } },
   '3086': { screen: 'controleRechercheDumScreen', params: { typeControle: 'TR' } },
-  '5971': {screen: 'RechecheMLV', params: {}},
-  '5202': {screen: 'LiquidationRechercheScreen', params: {qr: false}},
-  */
+  '5971': { screen: 'RechecheMLV', params: {} },
+  '5202': { screen: 'LiquidationRechercheScreen', params: { qr: false } },
   '1201': {
     screen: 'RechercheEcorImport',
     params: { typeEcorImport: 'EnleverMarchandise' },
@@ -85,22 +84,22 @@ const mapping = {
     screen: 'RechercheEcorImport',
     params: { typeEcorImport: 'VerifierParContreEcor' },
   },
-/*
-  '110001': {screen: 'T6bisCreation', params: {}},
-  '110002': {
-    screen: 'T6bisRecherche',
-    params: {title: 'Ecran Modification T6bis'},
-  },
-  '110005': {
-    screen: 'T6bisRecherche',
-    params: {title: 'Ecran Redressement T6bis'},
-  },
-  '110007': {
-    screen: 'T6bisRecherche',
-    params: {title: 'Ecran  Recherche T6BIS'},
-  },
-  */
   
+    '110001': {screen: 'T6bisCreation', params: {}},
+    '110002': {
+      screen: 'T6bisRecherche',
+      params: {title: 'Ecran Modification T6bis'},
+    },
+    '110005': {
+      screen: 'T6bisRecherche',
+      params: {title: 'Ecran Redressement T6bis'},
+    },
+    '110007': {
+      screen: 'T6bisRecherche',
+      params: {title: 'Ecran  Recherche T6BIS'},
+    },
+    
+
 };
 
 const ionicMapping = {};

@@ -24,8 +24,8 @@ export default (state = initialState, action) => {
     ...state,
     value: action.value,
   };
-  console.log('  action  28012022 : ', action);
-  console.log('  nextState  28012022 : ', nextState);
+  // console.log('  action  28012022 : ', action);
+  // console.log('  nextState  28012022 : ', nextState);
   switch (action.type) {
     //INIT_CONTROLE
     case Constants.INIT_CONTROLE_COMMUN_INIT:
