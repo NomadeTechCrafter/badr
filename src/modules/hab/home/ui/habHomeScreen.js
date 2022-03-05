@@ -105,6 +105,8 @@ import EciPeserMarchandiseScreen from '../../../ecorImport/peserMarchandise/ui/e
 import EciVerifierParContreEcorScreen from '../../../ecorImport/verifierParContreEcor/ui/eciVerifierParContreEcorScreen';
 
 import LiquidationRechercheScreen from '../../../liquidation/ui/rechercheLiquidation/LiquidationRechercheScreen';
+import PreConfirmationArriveeMainScreen from '../../../delaiTransit/dtPreConfirmationArrivee/ui/dtPreConfirmationArriveeScreen';
+
 
 const Drawer = createDrawerNavigator();
 const deltaScreen = Dimensions.get('window').width / 4;
@@ -580,10 +582,18 @@ class habHomeScreen extends React.Component {
         />
 
         <Drawer.Screen
+          name="PreConfirmationArriveeMainScreen"
+          component={PreConfirmationArriveeMainScreen}
+          options={{ headerShown: false, unmountOnBlur: true, lazy: false }}
+          unmountOnBlur={true}
+        />
+
+        <Drawer.Screen
           name="LiquidationRechercheScreen"
           component={LiquidationRechercheScreen}
           options={{headerShown: false}}
         />
+        
       </Drawer.Navigator>
     );
   }

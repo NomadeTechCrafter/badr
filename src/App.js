@@ -78,6 +78,7 @@ import CtrlResultatScannerResultScreen from './modules/controle/ctrlResultatScan
 import etatChargementTabSearchComponent from './modules/controle/controleApresScanner/component/searchTabs/etatChargementTabSearchComponent';
 import ctrlControleApresScannerSearchComponent from './modules/controle/controleApresScanner/component/ctrlControleApresScannerSearchComponent';
 import ActifsRapportCreationAvitaillementEntreeTab from './modules/actifs/rapport/creation/ui/avitaillementEntree/actifsRapportCreationAvitaillementEntreeTab';
+import PreConfirmationArriveeMainScreen from './modules/delaiTransit/dtPreConfirmationArrivee/ui/dtPreConfirmationArriveeScreen';
 
 
 //setGlobalHandler();
@@ -101,7 +102,7 @@ export default class App extends React.Component {
                 <Stack.Screen
                   name="test"
                   options={{headerShown: false}}
-                    component={ActifsRapportCreationAvitaillementEntreeTab}
+                    component={PreConfirmationArriveeMainScreen}
                 />
               )}
               <Stack.Screen

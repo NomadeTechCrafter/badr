@@ -1,0 +1,16 @@
+{
+    "dtoHeader": {
+        "userLogin": "YEL",
+        "fonctionnalite": "cf6160",
+        "module": "ECI_LIB",
+        "commande": "initPreConfirmationArrivee",
+        "typeService": "UC",
+        "messagesInfo": [
+            "initPreConfirmationArrivee avec success"
+        ],
+        "offset": 0,
+        "pageSize": 0,
+        "rowCount": 0
+    },
+    "jsonVO": "happyFlow initPreConfirmationArrivee"
+}

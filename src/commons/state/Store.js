@@ -96,6 +96,9 @@ import autoriserAcheminementMainReducer from '../../modules/ecorExport/autoriser
 import ecorExpConfirmationEntreeArriveeReducer from '../../modules/ecorExport/confirmationEntreeArrivee/state/reducers/ecorExpConfirmationEntreeArriveeReducer';
 import dedEnteteReducer from '../../modules/dedouanement/redressement/state/reducers/DedEnteteReducer';
 import dedEnregisterRedressementReducer from '../../modules/dedouanement/redressement/state/reducers/DedEnregisterRedressementReducer';
+
+import preConfirmationArriveeReducer from '../../modules/delaiTransit/dtPreConfirmationArrivee/state/reducers/dtPreConfirmationArriveeReducer';
+
 /**
  * combine all reducers
  */
@@ -180,7 +183,8 @@ const allReducers = combineReducers({
   rechParRefVh,
   ecorExpConfirmationEntreeArriveeReducer,
   dedEnteteReducer,
-  dedEnregisterRedressementReducer
+  dedEnregisterRedressementReducer,
+  preConfirmationArriveeReducer
 });
 /**
  * store creation

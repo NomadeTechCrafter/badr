@@ -53,6 +53,7 @@ import ctrlResultatScannerTranslateFr from '../../modules/controle/ctrlResultatS
 import mlvDelivrerTranslateFr from '../../modules/mainlevee/delivrer/i18n/mlvDelivrerTranslateFr';
 import mlvListDeclarationsTranslateFr from '../../modules/mainlevee/listedeclarations/i18n/mlvListDeclarationsTranslateFr';
 import mlvRechercheTranslateFr from '../../modules/mainlevee/recherche/i18n/mlvRechercherTranslateFr';
+import dtPreConfirmationArriveeTranslateFr from '../../modules/delaiTransit/dtPreConfirmationArrivee/i18n/dtPreConfirmationArriveeTranslateFr'
 
 const locales = RNLocalize.getLocales();
 
@@ -115,7 +116,8 @@ let combined = {
   ...ctrlResultatScannerTranslateFr,
   ...mlvDelivrerTranslateFr,
   ...mlvListDeclarationsTranslateFr,
-  ...mlvRechercheTranslateFr
+  ...mlvRechercheTranslateFr,
+  ...dtPreConfirmationArriveeTranslateFr
 };
 I18n.translations = {
   fr: combined,
