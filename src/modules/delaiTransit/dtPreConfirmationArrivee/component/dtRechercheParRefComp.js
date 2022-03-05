@@ -18,6 +18,7 @@ import { connect } from 'react-redux';
 import * as Constants from '../state/dtPreConfirmationArriveeConstants';
 import * as InitPreConfirmationArriveeAction from '../state/actions/dtInitPreConfirmationArriveeAction';
 import { MODULE_ECI } from '../../../../commons/Config';
+
 class DTRechercheParRefComp extends Component {
   defaultState = {
     bureau: '222',
@@ -62,7 +63,6 @@ class DTRechercheParRefComp extends Component {
   };
 
   retablir = () => {
-    console.log('retablir');
     this.setState({ ...this.defaultState });
   };
 
@@ -235,7 +235,8 @@ class DTRechercheParRefComp extends Component {
           </Row>
         </Grid>
 
-        <View style={styles.ComContainerCompBtn}>
+        {!this.props.initSucces && (
+          <View style={styles.ComContainerCompBtn}>
           <Button
             onPress={this.confirmer}
             icon="check"
@@ -253,6 +254,7 @@ class DTRechercheParRefComp extends Component {
             {translate('transverse.retablir')}
           </Button>
         </View>
+          )}
       </ComContainerComp>
     );
   }
@@ -263,11 +265,6 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
     paddingTop: 0,
-  },
-  ComContainerCompInputs: {
-    flexDirection: 'column',
-    alignItems: 'center',
-    marginTop: 20,
   },
   cleHelperMsg: { width: 150 },
   ComContainerCompBtn: {
@@ -284,29 +281,11 @@ const styles = {
     color: '#FFF',
     padding: 5,
   },
-  ComContainerCompCheckbox: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-
-  flexRow: {
-    flexDirection: 'row',
-  },
-  alignStart: {
-    alignItems: 'flex-start',
-    flex: 1,
-  },
-  alignEnd: {
-    alignItems: 'flex-end',
-    flex: 1,
-  },
-  BtnWidth: { width: 100 },
-  maxRedevanceInput: { height: 45 },
 };
 
 const mapStateToProps = (state) => ({
   ...state.preConfirmationArriveeReducer,
 });
+
 
 export default connect(mapStateToProps, null)(DTRechercheParRefComp);
