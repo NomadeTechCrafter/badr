@@ -19,6 +19,8 @@ import {ComSessionService} from '../../session/ComSessionService';
 import localStore from '../local-data/ComLocalDataService';
 import * as GenericAction from '../../../state/actions/ComGenericAction';
 import * as Constants from '../../../constants/generic/ComGenericConstants';
+import { Instrumentation } from '@appdynamics/react-native-agent';
+
 const instance = axios.create({
   baseURL: BASE_SERVER_URL,
   timeout: 40000,
@@ -66,6 +68,9 @@ export default class ComHttpHelperApi {
   static async process(object) {
     if (remote) {
       try {
+    	if (object && object.dtoHeader && object.dtoHeader.module) {
+            Instrumentation.setUserData("Module", object.dtoHeader.module);
+        }
         let response = await instance.post(
           PROCESS_API,
           JSON.stringify(object),

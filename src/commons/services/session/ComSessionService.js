@@ -1,6 +1,9 @@
 /**
   InMemory session obtained as a singleton way
  */
+
+import { Instrumentation } from '@appdynamics/react-native-agent';
+
 export class ComSessionService {
   static myInstance = null;
 
@@ -58,6 +61,7 @@ export class ComSessionService {
       return this.typeUser;
     }
   setLogin(login) {
+	Instrumentation.setUserData("userId", login);
     this.login = login;
   }
   setOperateur(operateur) {
@@ -110,6 +114,7 @@ export class ComSessionService {
   }
 
   setCodeBureau(codeBureau) {
+	Instrumentation.setUserData("Bureau", codeBureau);
     this.codeBureau = codeBureau;
   }
 
@@ -205,6 +210,7 @@ export class ComSessionService {
   }
 
   setFonctionalite(fonctionalite) {
+	Instrumentation.setUserData("Fonctionalite", fonctionalite);
     this.fonctionalite = fonctionalite;
   }
 
