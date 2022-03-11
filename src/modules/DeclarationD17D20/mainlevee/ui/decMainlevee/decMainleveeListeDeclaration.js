@@ -1,12 +1,12 @@
 import React from 'react';
 
-import {View, Dimensions} from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
+import { View, Dimensions } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
 
-import {translate} from '../../../../../commons/i18n/ComI18nHelper';
-import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+import { translate } from '../../../../../commons/i18n/ComI18nHelper';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
-import {primaryColor} from '../../../../../commons/styles/ComThemeStyle';
+import { primaryColor } from '../../../../../commons/styles/ComThemeStyle';
 
 import MainleveeEntete from '../ongletsMainlevee/decMainleveeEntete';
 import MainleveeInfo from '../ongletsMainlevee/decMainleveeInfo';
@@ -17,18 +17,22 @@ import MainleveeEtatChargement from '../ongletsMainlevee/decMainleveeEtatChargem
 
 /**Custom Components */
 import {
+  ComBadrErrorMessageComp,
   ComBadrProgressBarComp,
   ComBadrToolbarComp,
 } from '../../../../../commons/component';
 
 /** REDUX **/
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 const Tab = createMaterialTopTabNavigator();
 
 class MainleveeListeDeclaration extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      erreur: null,
+    };
   }
 
   render() {
@@ -41,10 +45,16 @@ class MainleveeListeDeclaration extends React.Component {
           subtitle={translate('mainlevee.subTitleAction')}
         />
         {this.props.showProgress && <ComBadrProgressBarComp />}
+        <View style={styles.messages}>
+          <ComBadrErrorMessageComp
+            style={styles.centerErrorMsg}
+            message={this.state.erreur}
+          />
+        </View>
         {/* {this.props.showProgress && <ComBadrCircleProgressBarComp size={30} />} */}
         <NavigationContainer independent={true}>
           <Tab.Navigator
-            initialLayout={{height: Dimensions.get('window').height}}
+            initialLayout={{ height: Dimensions.get('window').height }}
             swipeEnabled={false}
             tabBarOptions={{
               labelStyle: {
@@ -62,7 +72,7 @@ class MainleveeListeDeclaration extends React.Component {
                 borderColor: primaryColor,
               },
               scrollEnabled: true,
-              style: {height: 50},
+              style: { height: 50 },
               tabStyle: {
                 borderRightWidth: 1,
                 borderRightColor: primaryColor,
@@ -74,7 +84,7 @@ class MainleveeListeDeclaration extends React.Component {
               component={() => (
                 <MainleveeEntete dataVo={this.props.route.params.data.jsonVO} />
               )}
-              //component={EnteteScreen}
+            //component={EnteteScreen}
             />
 
             <Tab.Screen
@@ -94,7 +104,22 @@ class MainleveeListeDeclaration extends React.Component {
                 />
               )}
             />
+
+
             <Tab.Screen
+              listeners={{
+                tabPress: e => {
+                  if ('900' === this.props?.route?.params?.data?.jsonVO?.enteteTrypVO?.refRegime) {
+                    this.state.erreur = null;
+                  } else {
+                    e.preventDefault();
+                    this.setState({
+                      erreur: 'E13527: Section non accessible!',
+                    });
+                    console.log('E13527: Section non accessible!');
+                  }
+                },
+              }}
               name={translate('tabs.etatChargement')}
               component={() => (
                 <MainleveeEtatChargement
@@ -124,15 +149,15 @@ class MainleveeListeDeclaration extends React.Component {
 }
 
 const styles = {
-  container: {width: '100%', height: '100%'},
+  container: { width: '100%', height: '100%' },
 };
 
 function mapStateToProps(state) {
-  return {...state.plaquesImmReducer};
+  return { ...state.plaquesImmReducer };
 }
 
 function mapDispatchToProps(dispatch) {
-  let actions = {dispatch};
+  let actions = { dispatch };
   return {
     actions,
   };
