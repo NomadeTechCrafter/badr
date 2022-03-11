@@ -50,7 +50,7 @@ import T6bisCreation from './modules/t6bis/creation/ui/t6bisCreation/t6bisCreati
 import T6bisGestion from './modules/t6bis/gestion/ui/t6bisGestion/t6bisGestionScreen';
 import RechercheEcorImport from './old/screens/ecorImport/rechercheEcorImport';
 
-import SortiPortScreen from './modules/DeclarationD17D20/sortiPort/ui/decSortiPort/decSortiPortMainScreen'
+import MainleveeScreen from './modules/DeclarationD17D20/mainlevee/ui/decMainlevee/decMainleveeMainScreen'
 
 import ConfirmationEntreeResultScreen from './modules/ecorExport/confirmationEntree/ui/ecorExpConfirmationEntreeResultScreen';
 import ConfirmationArriveeResultScreen from './modules/ecorExport/confirmationArrivee/ui/ecorExpConfirmationArriveeResultScreen';
@@ -102,7 +102,7 @@ export default class App extends React.Component {
                 <Stack.Screen
                   name="test"
                   options={{headerShown: false}}
-                    component={PreConfirmationArriveeMainScreen}
+                    component={MainleveeScreen}
                 />
               )}
               <Stack.Screen

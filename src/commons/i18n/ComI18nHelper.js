@@ -54,6 +54,8 @@ import mlvDelivrerTranslateFr from '../../modules/mainlevee/delivrer/i18n/mlvDel
 import mlvListDeclarationsTranslateFr from '../../modules/mainlevee/listedeclarations/i18n/mlvListDeclarationsTranslateFr';
 import mlvRechercheTranslateFr from '../../modules/mainlevee/recherche/i18n/mlvRechercherTranslateFr';
 import dtPreConfirmationArriveeTranslateFr from '../../modules/delaiTransit/dtPreConfirmationArrivee/i18n/dtPreConfirmationArriveeTranslateFr'
+import decMainleveeTranslateFr from '../../modules/DeclarationD17D20/mainlevee/i18n/decMainleveeTranslateFr'
+
 
 const locales = RNLocalize.getLocales();
 
@@ -117,7 +119,8 @@ let combined = {
   ...mlvDelivrerTranslateFr,
   ...mlvListDeclarationsTranslateFr,
   ...mlvRechercheTranslateFr,
-  ...dtPreConfirmationArriveeTranslateFr
+  ...dtPreConfirmationArriveeTranslateFr,
+  ...decMainleveeTranslateFr
 };
 I18n.translations = {
   fr: combined,

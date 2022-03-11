@@ -113,7 +113,8 @@ if (process.env.NODE_ENV === 'development') {
     findResultatScanner: require('../../../../modules/controle/ctrlResultatScanner/service/local-data/findResultatScanner.json'),
     lookupControleApresScanner: require('../../../../modules/controle/controleApresScanner/service/local-data/lookupControleApresScanner.json'),
     initPreConfirmationArrivee: require('../../../../modules/delaiTransit/dtPreConfirmationArrivee/service/local-data/initPreConfirmationArriveeOK.json'),
-    confirmerPreConfirmationArrivee: require('../../../../modules/delaiTransit/dtPreConfirmationArrivee/service/local-data/confirmerPreConfirmationArriveeOK.json')
+    confirmerPreConfirmationArrivee: require('../../../../modules/delaiTransit/dtPreConfirmationArrivee/service/local-data/confirmerPreConfirmationArriveeOK.json'),
+    initMainleveeTrypByRef: require('../../../../modules/DeclarationD17D20/mainlevee/service/local-data/initMainleveeTrypByRef.json')
   };
 }
 export default localStore;

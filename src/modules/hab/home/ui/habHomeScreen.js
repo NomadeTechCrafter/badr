@@ -15,9 +15,12 @@ import AtGestion from '../../../at/apurement/ui/ongletAt/AtGestionScreen';
 import VuEmbarqueScreen from '../../../DeclarationD17D20/vuEmbarquer/ui/vuEmbarquer/VuEmbarqueScreen';
 import EcorExportVuEmbarqueScreen from '../../../ecorExport/vuEmbarquer/ui/ecorExpVuEmbarqueScreen';
 import SortiPortScreen from '../../../DeclarationD17D20/sortiPort/ui/decSortiPort/decSortiPortMainScreen';
+import MainleveeScreen from '../../../DeclarationD17D20/mainlevee/ui/decMainlevee/decMainleveeMainScreen'
 import RechParRefTrypScreen from '../../../DeclarationD17D20/rechParRef/ui/decRechParRef/decRechParRefMainScreen';
 import RechParRefListeDeclaration from '../../../DeclarationD17D20/rechParRef/ui/decRechParRef/decRechParRefListeDeclaration';
 import SortiPortListeDeclaration from '../../../DeclarationD17D20/sortiPort/ui/decSortiPort/decSortiPortListeDeclaration';
+import MainleveeListeDeclaration from '../../../DeclarationD17D20/mainlevee/ui/decMainlevee/decMainleveeListeDeclaration';
+
 import VuEmbListeDeclaration from '../../../DeclarationD17D20/vuEmbarquer/ui/vuEmbarquer/VuEmbListeDeclaration';
 import VuEmbListeDeclaration2 from '../../../ecorExport/vuEmbarquer/ui//ecorExpVuEmbListeDeclaration';
 
@@ -373,6 +376,11 @@ class habHomeScreen extends React.Component {
           options={{ headerShown: false }}
         />
         <Drawer.Screen
+          name="MainleveeScreen"
+          component={MainleveeScreen}
+          options={{ headerShown: false, unmountOnBlur: true, lazy: false }}
+        />
+        <Drawer.Screen
           name="RechParRefTrypScreen"
           component={RechParRefTrypScreen}
           options={{ headerShown: false }}
@@ -385,6 +393,11 @@ class habHomeScreen extends React.Component {
         <Drawer.Screen
           name="SortiPortListeDeclaration"
           component={SortiPortListeDeclaration}
+          options={{ headerShown: false }}
+        />
+        <Drawer.Screen
+          name="MainleveeListeDeclaration"
+          component={MainleveeListeDeclaration}
           options={{ headerShown: false }}
         />
         <Drawer.Screen

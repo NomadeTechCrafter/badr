@@ -3,6 +3,7 @@ const mapping = {
   '9009': { screen: 'RechercheAtMulti', params: { qr: true } },
   '2243': { screen: 'RechercheConfirmationReceptionScreen', params: {} },
   '90023': { screen: 'SortiPortScreen', params: {} },
+  '90019': { screen: 'MainleveeScreen', params: {} },
   '2052': { screen: 'DedRechercheRedressement', params: { qr: false } },
   '20470': { screen: 'DedEnvoyerValeurScreen', params: { qr: false } },
   '20471': { screen: 'DedTraiterValeurScreen', params: { qr: false } },

@@ -38,6 +38,8 @@ import vuEmbRefVH from '../../modules/DeclarationD17D20/vuEmbarquer/state/reduce
 import sortiPortRefVH from '../../modules/DeclarationD17D20/sortiPort/state/reducers/decSortiPortRefVhReducer';
 import sortiPortInitReducer from '../../modules/DeclarationD17D20/sortiPort/state/reducers/decSortiPortInitReducer';
 import sortiPortReducer from '../../modules/DeclarationD17D20/sortiPort/state/reducers/decSortiPortUcReducer';
+import decMainleveeInitReducer from '../../modules/DeclarationD17D20/mainlevee/state/reducers/decMainleveeInitReducer';
+import decMainleveeUCReducer from '../../modules/DeclarationD17D20/mainlevee/state/reducers/decMainleveeUCReducer';
 
 import rechParRefInitReducer from '../../modules/DeclarationD17D20/rechParRef/state/reducers/decRechParRefInitReducer';
 import rechParRefUcReducer from '../../modules/DeclarationD17D20/rechParRef/state/reducers/decRechParRefUcReducer';
@@ -184,7 +186,9 @@ const allReducers = combineReducers({
   ecorExpConfirmationEntreeArriveeReducer,
   dedEnteteReducer,
   dedEnregisterRedressementReducer,
-  preConfirmationArriveeReducer
+  preConfirmationArriveeReducer,
+  decMainleveeInitReducer,
+  decMainleveeUCReducer
 });
 /**
  * store creation
