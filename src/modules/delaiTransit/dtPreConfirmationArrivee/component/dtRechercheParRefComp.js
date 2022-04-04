@@ -21,11 +21,11 @@ import { MODULE_ECOREXP, TYPE_SERVICE_UC } from '../../../../commons/Config';
 
 class DTRechercheParRefComp extends Component {
   defaultState = {
-    bureau: '309',
-    regime: '855',
-    annee: '2022',
-    serie: '0000001',
-    cle: 'C',
+    bureau: '',
+    regime: '',
+    annee: '',
+    serie: '',
+    cle: '',
     cleValide: '',
     login: '',
     numeroVoyage: '',

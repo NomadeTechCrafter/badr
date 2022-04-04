@@ -70,6 +70,12 @@ class CtrlControleApresScannerCoreComponent extends React.Component {
     return alpha.charAt(RS);
   };
 
+  toAlpha = function (reference) {
+    let alpha = 'ABCDEFGHJKLMNPRSTUVWXYZ';
+    let RS = reference % 23;
+    return alpha.charAt(RS+1);
+  };
+
   prepareState = () => {
     let reference = this.props?.controleApresScannerVo?.reference;
     let bureau = reference.slice(0, 3);
@@ -442,9 +448,16 @@ class CtrlControleApresScannerCoreComponent extends React.Component {
                     </Col>
 
                     <Col>
-                      <Text style={style.referenceValueLabel}>
-                        {this.state.cle}
-                      </Text>
+                      {this.props?.data?.typeRecherche === '2' && (
+                        <Text style={style.referenceValueLabel}>
+                          {this.toAlpha(this.props?.data?.reference)}
+                        </Text>
+                      )}
+                      {this.props?.data?.typeRecherche !== '2' && (
+                        <Text style={style.referenceValueLabel}>
+                          {this.cleDum(this.state.regime, this.state.serie)}
+                        </Text>
+                      )}
                     </Col>
                   </Row>
                 </Grid>

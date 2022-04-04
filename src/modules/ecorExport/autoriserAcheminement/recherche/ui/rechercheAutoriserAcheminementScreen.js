@@ -20,11 +20,11 @@ import { INIT_AUTORISER_ACHEMINEMENT_REQUEST } from '../state/rechercheAutoriser
 
 class RechercheAutoriserAcheminementScreen extends React.Component {
   defaultState = {
-    bureau: '309',
-    regime: '866',
-    annee: '2021',
-    serie: '0000005',
-    cle: 'D',
+    bureau: '',
+    regime: '',
+    annee: '',
+    serie: '',
+    cle: '',
     cleValide: '',
     login: '',
     numeroVoyage: '',
