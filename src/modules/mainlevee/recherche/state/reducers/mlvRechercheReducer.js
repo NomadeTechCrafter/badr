@@ -41,6 +41,23 @@ export default (state = initialState, action) => {
     case Constants.MAINLEVEE_RECHERCHEDECLARATION_INIT:
       return initialState;
 
+      case Constants.MAINLEVEE_INIT_RECHERCHEDECLARATION_REQUEST:
+          nextState.showProgress = true;
+          nextState.errorMessage = null;
+          return nextState;
+      case Constants.MAINLEVEE_INIT_RECHERCHEDECLARATION_IN_PROGRESS:
+          return nextState;
+      case Constants.MAINLEVEE_INIT_RECHERCHEDECLARATION_SUCCESS:
+          nextState.showProgress = false;
+          nextState.errorMessage = null;
+          console.log('reduceinitrecherche',nextState.value.jsonVO)
+          return nextState;
+      case Constants.MAINLEVEE_INIT_RECHERCHEDECLARATION_FAILED:
+          nextState.showProgress = false;
+          nextState.errorMessage = action.value.dtoHeader
+              ? action.value.dtoHeader.messagesErreur
+              : action.value;
+          return nextState;
 
     case Constants.INIT_ETAT_CHARGEMENT_INIT:
       initialState.data.init = [];

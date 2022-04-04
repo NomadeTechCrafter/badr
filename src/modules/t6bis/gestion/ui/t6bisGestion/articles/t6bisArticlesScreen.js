@@ -68,7 +68,7 @@ class T6bisArticlesTab extends React.Component {
                     listeArticles:  list
                 });
 
-                if (articleToDelete[0].numArticle === this.state.currentArticle.numArticle) {
+                if (articleToDelete[0].numArticle === this.state.currentArticle?.numArticle) {
                     article = null;
                     this.setState({
                         currentArticle: article

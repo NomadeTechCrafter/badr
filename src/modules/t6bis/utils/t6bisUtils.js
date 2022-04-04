@@ -225,6 +225,7 @@ export const getCurrentArticle = (codeTypeT6bis, num = 0) => {
       quantite: null,
       isNew: true,
       listeT6bisLigneTaxation: [],
+	  listLegendes:[]
     };
   }
   return null;
@@ -497,6 +498,10 @@ export const validate = function (t6bis) {
   ) {
     return t6bis.typeMoyenPaiement && t6bis.descriptifInfraction;
   }
+ /* else if( t6bis.typeMoyenPaiement?.code=="03")
+  {console.log('code03',t6bis?.tpeComboBean)
+      return t6bis?.tpeComboBean;
+  }*/
   return t6bis?.typeMoyenPaiement;
 };
 
@@ -544,6 +549,10 @@ export const getMessageValidation = function (t6bis) {
   } else if (!t6bis.typeMoyenPaiement) {
     messages.push('Type de paiement');
   }
+ if (t6bis.typeMoyenPaiement?.code=="03") {
+    if(!t6bis.tpeComboBean)
+        messages.push('TPE');
+    }
   return messages;
 };
 

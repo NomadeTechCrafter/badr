@@ -102,7 +102,7 @@ export default class App extends React.Component {
                 <Stack.Screen
                   name="test"
                   options={{headerShown: false}}
-                    component={MainleveeScreen}
+                    component={ActifsRapportCreationAvitaillementEntreeTab}
                 />
               )}
               <Stack.Screen

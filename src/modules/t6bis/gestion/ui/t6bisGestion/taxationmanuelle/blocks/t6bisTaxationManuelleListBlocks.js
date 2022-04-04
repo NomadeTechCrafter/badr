@@ -3,6 +3,8 @@ import { View } from 'react-native';
 import { ScrollView } from 'react-native';
 import T6bisInfosCommunsBlock from '../../common/t6bisInfosCommunsBlock';
 import T6bisTaxationManuelleArticleTaxBlock from './t6bisTaxationManuelleArticleTaxBlock';
+import T6bisLegendRubriqueBlock from './t6bisLegendRubriqueBlock';
+import * as T6BISConstantes from "../../../../../utils/t6bisConstants";
 
 
 
@@ -10,11 +12,12 @@ import T6bisTaxationManuelleArticleTaxBlock from './t6bisTaxationManuelleArticle
 
 class T6bisTaxationManuelleListBlocks extends React.Component {
 
-
+defaultState = {
+        listLegendes:[]
+    };
     constructor(props) {
         super(props);
-        this.state = {
-        };
+        this.state = this.defaultState;
     }
 
     callbackHandler = (type, data) => {
@@ -54,6 +57,7 @@ class T6bisTaxationManuelleListBlocks extends React.Component {
                 <View style={{ flex: 1 }}>
                     <T6bisInfosCommunsBlock t6bis={this.props.t6bis} mode={this.props.mode} fieldsetcontext={this.props.fieldsetcontext} />
                     <T6bisTaxationManuelleArticleTaxBlock t6bis={this.props.t6bis} currentArticle={this.props.currentArticle} readOnly={this.props.readOnly} callbackHandler={this.callbackHandler}/>
+ 					< T6bisLegendRubriqueBlock t6bis={this.props.t6bis} listLegendes={this.props.currentArticle?.listLegendes} />
 
                 </View>
 

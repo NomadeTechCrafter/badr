@@ -38,7 +38,7 @@ export default (state = initialState, action) => {
       nextState.errorMessage = null;
       nextState.showProgress = false;
       nextState.initSucces = true;
-      nextState.data = action.value;
+      nextState.data = action.value.jsonVO;
       return nextState;
     case INIT_PRE_CONFIRMATION_ARRIVEE_FAILED:
       nextState.showProgress = false;

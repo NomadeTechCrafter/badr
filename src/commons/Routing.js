@@ -67,7 +67,8 @@ const mapping = {
   '3064': { screen: 'controleRechercheDumScreen', params: { typeControle: 'AC' } },
   '3072': { screen: 'controleRechercheDumScreen', params: { typeControle: 'RI' } },
   '3086': { screen: 'controleRechercheDumScreen', params: { typeControle: 'TR' } },
-  '5971': { screen: 'RechecheMLV', params: {} },
+  '5970': { screen: 'NewRechercheMLV', params: {} },
+  '5971': { screen: 'NewRechercheMLV', params: {} },
   '5202': { screen: 'LiquidationRechercheScreen', params: { qr: false } },
   '1201': {
     screen: 'RechercheEcorImport',
@@ -98,7 +99,8 @@ const mapping = {
     '110007': {
       screen: 'T6bisRecherche',
       params: {title: 'Ecran  Recherche T6BIS'},
-    },
+  },
+  '2401': { screen: 'PreConfirmationArriveeMainScreen', params: {} }, 
     
 
 };

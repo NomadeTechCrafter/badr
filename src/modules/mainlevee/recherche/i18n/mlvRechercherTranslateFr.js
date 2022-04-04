@@ -1,5 +1,5 @@
 export default {
-  mainlevee: {
+  newmlv: {
     title: 'MainLevée',
     operateur: 'Opérateur',
     Aucunenregistrementtrouve: 'Aucun enregistrement trouvé. ',
@@ -52,7 +52,7 @@ export default {
         title: 'Décision',
         redressementAvecContentieux: 'Redressement avec contentieux',
         redressementSansContentieux: 'Redressement sans contentieux',
-        suggererVisitePhysique: 'Suggérer visite physique',
+        suggererVisitePhysique: 'Suggérer Rouge Partiel',
       },
       constationMarchandise: {
         title: 'Constation de la marchandise',

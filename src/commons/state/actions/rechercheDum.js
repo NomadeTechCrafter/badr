@@ -21,7 +21,7 @@ export function request(action, navigation, successRedirection) {
           const data = response.data;
           if (data && !data.dtoHeader.messagesErreur) {
             console.log('data', data);
-            dispatch(success(data));
+            dispatch(success({data:data}));
             /** Naviguer vers la vue suivant. */
             navigation.navigate(successRedirection, {
               login: action.value.login,

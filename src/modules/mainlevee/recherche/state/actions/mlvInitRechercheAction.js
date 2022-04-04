@@ -1,32 +1,31 @@
-import TransverseApi from '../../service/api/mlvDelivrerApi';
+import TransverseApi from '../../service/api/mlvRechercheApi';
 
-import * as Constants from '../mlvDelivrerConstants';
+import * as Constants from '../mlvRechercheConstants';
 
 /**i18n */
 import { translate } from '../../../../../commons/i18n/ComI18nHelper';
 
-const WS_MODULE_PARAM = 'MLV_LIB';
-const WS_TYPESERVICE_PARAM = 'UC';
-export function delivrerMLV(action, navigation) {
+const MODULE = 'MLV_LIB';
+const TYPE_SERVICE = 'SP';
+export function request(action) {
+
   return (dispatch) => {
+        console.log('init3 recherche')
     dispatch(action);
     dispatch(inProgress(action));
-
     TransverseApi.doProcess(
-      WS_MODULE_PARAM,
-      'editerMlv',
-      WS_TYPESERVICE_PARAM,
+      MODULE,
+      'initRechercheMlv',
+      TYPE_SERVICE,
       action.value.data,
     )
       .then((response) => {
         if (response) {
           const data = response.data;
-          if (
-            data &&
-            (data.dtoHeader.messagesErreur == null ||
-              data.dtoHeader.messagesErreur.length === 0)
-          ) {
+          console.log('responseinitrecherche',data)
+          if (data && !data.dtoHeader.messagesErreur) {
             dispatch(success(data));
+
           } else {
             dispatch(failed(data));
           }
@@ -35,41 +34,42 @@ export function delivrerMLV(action, navigation) {
         }
       })
       .catch((e) => {
+        console.log('in action request catch9', e);
         dispatch(failed(translate('errors.technicalIssue')));
       });
   };
 }
 
-export function init(action) {
-  return {
-    type: Constants.DELIVRERMLV_DELIVRERMLV_INIT,
-    value: action.value,
-  };
-}
-
 export function inProgress(action) {
   return {
-    type: Constants.DELIVRERMLV_DELIVRERMLV_IN_PROGRESS,
+    type: Constants.MAINLEVEE_INIT_RECHERCHEDECLARATION_IN_PROGRESS,
     value: action.value,
   };
 }
 
 export function success(data) {
   return {
-    type: Constants.DELIVRERMLV_DELIVRERMLV_SUCCESS,
+    type: Constants.MAINLEVEE_INIT_RECHERCHEDECLARATION_SUCCESS,
     value: data,
   };
 }
 
 export function failed(data) {
   return {
-    type: Constants.DELIVRERMLV_DELIVRERMLV_FAILED,
+    type: Constants.MAINLEVEE_INIT_RECHERCHEDECLARATION_FAILED,
     value: data,
   };
 }
 
+export function init(action) {
+  return {
+    type: Constants.MAINLEVEE_INIT_RECHERCHEDECLARATION_INIT,
+    value: action.value,
+  };
+}
+
 export default {
-  delivrerMLV,
+  request,
   success,
   failed,
   inProgress,

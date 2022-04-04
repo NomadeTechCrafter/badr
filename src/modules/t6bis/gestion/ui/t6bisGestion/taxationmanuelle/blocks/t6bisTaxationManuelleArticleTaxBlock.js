@@ -7,8 +7,8 @@ import translate from "../../../../../../../commons/i18n/ComI18nHelper";
 import { CustomStyleSheet } from '../../../../../../../commons/styles/ComThemeStyle';
 import styles from "../../../../style/t6bisGestionStyle";
 import _ from 'lodash';
-import { ADD_TAXATION_ARTICLE_TASK } from '../../../../../utils/t6bisConstants';
-
+import { ADD_TAXATION_ARTICLE_TASK,DELETE_TAXATION_ARTICLE_TASK } from '../../../../../utils/t6bisConstants';
+import Numeral from 'numeral';
 
 
 
@@ -21,8 +21,10 @@ class T6bisTaxationManuelleArticleTaxBlock extends React.Component {
         this.state = {
             errorMessage: null,
             ligne: { tauxTaxation: ''},
+			listLegendes:[],
             articleSelected: false,
             fieldRequired: false,
+            rubriqueExisted: false,
             selectedIndex: -1
         };
         this.cols = [
@@ -149,6 +151,8 @@ class T6bisTaxationManuelleArticleTaxBlock extends React.Component {
 
     supprimerTout = () => {
         this.props.currentArticle.listeT6bisLigneTaxation = [];
+        this.props.currentArticle.listLegendes = [];
+        this.props.callbackHandler(ADD_TAXATION_ARTICLE_TASK, this.props.currentArticle);
         this.comboRrubriqueTaxation.clearInput();
         this.setState({ errorMessage: null, ligne: { rubriqueTaxation: { code: null }, tauxTaxation: '', montantTaxation: null }, selectedIndex: -1 });
     }
@@ -158,14 +162,25 @@ class T6bisTaxationManuelleArticleTaxBlock extends React.Component {
         if (_.isEmpty(this.state.ligne?.rubriqueTaxation) || _.isEmpty(this.state.ligne?.montantTaxation)) {
             this.setState({ fieldRequired: true });
         } else {
-            if (this.state.selectedIndex == -1) {
-                this.props.currentArticle?.listeT6bisLigneTaxation.push(this.state.ligne);
+            if ( this.props.currentArticle?.listeT6bisLigneTaxation?.some(e => e.rubriqueTaxation.code === this.state.ligne?.rubriqueTaxation?.code)) {
+                this.setState({ rubriqueExisted: true });
+
             } else {
-                this.props.currentArticle.listeT6bisLigneTaxation.splice(this.state.selectedIndex, 1, this.state.ligne);
+                this.props.currentArticle.listLegendes?.push({rubriqueCode:this.state.ligne?.rubriqueTaxation?.code,rubriqueDesignation:this.state.ligne?.rubriqueTaxation?.libelle})
+
+                if (this.state.selectedIndex == -1) {
+                    this.props.currentArticle?.listeT6bisLigneTaxation.push(this.state.ligne);
+                } else {
+                    this.props.currentArticle.listeT6bisLigneTaxation.splice(this.state.selectedIndex, 1, this.state.ligne);
+                }
+                this.props.callbackHandler(ADD_TAXATION_ARTICLE_TASK, this.props.currentArticle);
+                this.comboRrubriqueTaxation.clearInput();
+                this.setState({
+                    ligne: {rubriqueTaxation: {code: null}, tauxTaxation: '', montantTaxation: null},
+                    errorMessage: null,
+                    selectedIndex: -1
+                });
             }
-            this.props.callbackHandler(ADD_TAXATION_ARTICLE_TASK, this.props.currentArticle);
-            this.comboRrubriqueTaxation.clearInput();
-            this.setState({ ligne: { rubriqueTaxation: { code: null }, tauxTaxation: '', montantTaxation: null }, errorMessage: null, selectedIndex: -1 });
         }
     }
 
@@ -195,7 +210,13 @@ class T6bisTaxationManuelleArticleTaxBlock extends React.Component {
                 fieldRequired: false
             };
         }
+        if (state.rubriqueExisted) {
+            return {
 
+                errorMessage: translate('t6bisGestion.tabs.taxation.manuelle.rubriqueBloc.rubriqueTaxationExisted'),
+                rubriqueExisted: false
+            };
+        }
 
         if (
             !(props.currentArticle) || (props.currentArticle.isNew)
@@ -361,10 +382,23 @@ class T6bisTaxationManuelleArticleTaxBlock extends React.Component {
                                         keyboardType={'number-pad'}
                                         label={translate('t6bisGestion.tabs.taxation.manuelle.rubriqueBloc.tauxTaxation')}
                                         value={this.state.ligne?.tauxTaxation}
+                                        onEndEditing={() =>
+                                            this.setState({
+                                                ligne: {
+                                                    ...this.state.ligne,
+                                                    tauxTaxation:
+                                                        Numeral(this.state.ligne?.tauxTaxation).format('0.000')
+
+                                                }
+                                            })
+                                        }
+
                                         onChangeText={(text) => this.setState({
                                             ligne: {
                                                 ...this.state.ligne,
-                                                tauxTaxation: text
+                                                tauxTaxation:
+                                                    text
+
                                             }
                                         })}
                                     />
@@ -380,12 +414,12 @@ class T6bisTaxationManuelleArticleTaxBlock extends React.Component {
                                     <TextInput
                                         mode="outlined"
                                         label={translate('t6bisGestion.tabs.taxation.manuelle.rubriqueBloc.montantTaxation')}
-                                        keyboardType={'phone-pad'}
+                                        keyboardType='numeric'
                                         value={this.state.ligne?.montantTaxation}
                                         onChangeText={(text) => this.setState({
                                             ligne: {
                                                 ...this.state.ligne,
-                                                montantTaxation: text
+                                                montantTaxation: text?.replace(/[^0-9]/g, '')
                                             }
                                         })}
                                     />

@@ -162,17 +162,17 @@ class EtatChargementBlock extends React.Component {
     return [
       {
         code: 'referenceEnregistrement',
-        libelle: translate('mainlevee.delivrerMainlevee.etatChargement.reference'),
+        libelle: translate('newmlv.delivrerMainlevee.etatChargement.reference'),
         width: 180,
       },
       {
               code: 'numeroVersion',
-              libelle: translate('mainlevee.delivrerMainlevee.etatChargement.numeroVersion'),
+              libelle: translate('newmlv.delivrerMainlevee.etatChargement.numeroVersion'),
               width: 120,
         },
       {
         code: 'dateEnregistrement',
-        libelle: translate('mainlevee.delivrerMainlevee.etatChargement.dateEnregistrement'),
+        libelle: translate('newmlv.delivrerMainlevee.etatChargement.dateEnregistrement'),
         width: 140,
          render: (row) => {
                             return formatCustomized(row.dateEnregistrement, FORMAT_DDMMYYYY_HHMM);
@@ -180,7 +180,7 @@ class EtatChargementBlock extends React.Component {
       },
        {
               code: 'operateurDeclarant',
-              libelle: translate('mainlevee.delivrerMainlevee.etatChargement.operateur'),
+              libelle: translate('newmlv.delivrerMainlevee.etatChargement.operateur'),
               width: 180,
             },
 
@@ -404,7 +404,7 @@ class EtatChargementBlock extends React.Component {
                             <ComContainerComp noPadding={true}>
                                                                          <ComAccordionComp
                                                                            title={translate(
-                                                                             'mainlevee.delivrerMainlevee.etatChargement.reference',
+                                                                             'newmlv.delivrerMainlevee.etatChargement.reference',
                                                                            )}>
                                     <Grid>
                                 <Row>
@@ -642,7 +642,7 @@ class EtatChargementBlock extends React.Component {
                         <View>
                          <ComBadrCardBoxComp noPadding={true}>
                                                                             <ComAccordionComp
-                                                                                title={translate('mainlevee.delivrerMainlevee.etatChargement.title')}>
+                                                                                title={translate('newmlv.delivrerMainlevee.etatChargement.title')}>
                                                                               <Grid>
                                                                                 <Row style={CustomStyleSheet.lightBlueRow} size={100}>
                                                                                   <Col size={100}>
@@ -666,13 +666,13 @@ class EtatChargementBlock extends React.Component {
                                            <ComBadrCardBoxComp noPadding={true}>
                                              <ComAccordionComp
                                                title={translate(
-                                                 'mainlevee.delivrerMainlevee.informationsEcor.title',
+                                                 'newmlv.delivrerMainlevee.informationsEcor.title',
                                                )}>
                                                <Grid>
                                                  <Row style={CustomStyleSheet.lightBlueRow}>
                                                    <Col size={30}>
                                                      <ComBadrLibelleComp withColor={true}>
-                                                       {translate('mainlevee.delivrerMainlevee.informationsEcor.scellesConfirmationEntree',)}
+                                                       {translate('newmlv.delivrerMainlevee.informationsEcor.scellesConfirmationEntree',)}
                                                      </ComBadrLibelleComp>
                                                    </Col>
 
@@ -697,7 +697,7 @@ class EtatChargementBlock extends React.Component {
                                                  <Row style={CustomStyleSheet.whiteRow}>
                                                    <Col size={30}>
                                                      <ComBadrLibelleComp withColor={true}>
-                                                       {translate('mainlevee.delivrerMainlevee.informationsEcor.nouveauxScelles',)}
+                                                       {translate('newmlv.delivrerMainlevee.informationsEcor.nouveauxScelles',)}
                                                      </ComBadrLibelleComp>
                                                    </Col>
 
@@ -713,7 +713,7 @@ class EtatChargementBlock extends React.Component {
 
                                                    <Col size={10} style={style.labelContainer}>
                                                      <Text style={style.labelTextStyle}>
-                                                       {translate('mainlevee.delivrerMainlevee.informationsEcor.oui')}
+                                                       {translate('newmlv.delivrerMainlevee.informationsEcor.oui')}
                                                      </Text>
                                                    </Col>
 
@@ -729,7 +729,7 @@ class EtatChargementBlock extends React.Component {
 
                                                    <Col size={10} style={style.labelContainer}>
                                                      <Text style={style.labelTextStyle}>
-                                                       {translate('mainlevee.delivrerMainlevee.informationsEcor.non')}
+                                                       {translate('newmlv.delivrerMainlevee.informationsEcor.non')}
                                                      </Text>
                                                    </Col>
 
@@ -745,7 +745,7 @@ class EtatChargementBlock extends React.Component {
                                                                maxLength={8}
                                                                value={delivrerMainleveeVO?.numeroPince}
                                                                label={translate(
-                                                                   'mainlevee.delivrerMainlevee.informationsEcor.numeroPince',
+                                                                   'newmlv.delivrerMainlevee.informationsEcor.numeroPince',
                                                                )}
                                                                style={CustomStyleSheet.badrInputHeight}
                                                                onChangeText={(text) =>
@@ -764,7 +764,7 @@ class EtatChargementBlock extends React.Component {
                                                                maxLength={8}
                                                                value={delivrerMainleveeVO?.nombreDeScelles}
                                                                label={translate(
-                                                                   'mainlevee.delivrerMainlevee.informationsEcor.nombreScelles',
+                                                                   'newmlv.delivrerMainlevee.informationsEcor.nombreScelles',
                                                                )}
                                                                onChangeBadrInput={(text) =>
                                                                    this.setState({
@@ -781,7 +781,7 @@ class EtatChargementBlock extends React.Component {
                                                          <Col size={5}>
                                                            <ComBadrLibelleComp withColor={true}>
                                                              {translate(
-                                                                 'mainlevee.delivrerMainlevee.informationsEcor.generateurScelle',
+                                                                 'newmlv.delivrerMainlevee.informationsEcor.generateurScelle',
                                                              )}
                                                            </ComBadrLibelleComp>
                                                          </Col>
@@ -837,7 +837,7 @@ class EtatChargementBlock extends React.Component {
                                                                maxLength={8}
                                                                value={this.numeroScelle}
                                                                label={translate(
-                                                                   'mainlevee.delivrerMainlevee.informationsEcor.numeroScelle',
+                                                                   'newmlv.delivrerMainlevee.informationsEcor.numeroScelle',
                                                                )}
                                                                onChangeBadrInput={(text) => {
                                                                  this.numeroScelle = text;
@@ -886,7 +886,7 @@ class EtatChargementBlock extends React.Component {
                  let action = this.validateAction();
                             this.props.actions.dispatch(action);
               }}
-              text={translate('mainlevee.validerMainlevee')}
+              text={translate('newmlv.validerMainlevee')}
 
             />
             <ComBadrButtonComp
@@ -895,7 +895,7 @@ class EtatChargementBlock extends React.Component {
                 let action =  this.deliverAction();
 				 this.props.actions.dispatch(action);
               }}
-              text={translate('mainlevee.delivrerMainlevee.title')}
+              text={translate('newmlv.delivrerMainlevee.title')}
 
             />
           </View>

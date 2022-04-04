@@ -81,6 +81,7 @@ class T6bisGestion extends React.Component {
       haslignetaxation: null,
       tabs: null,
       dialogVisibility: false,
+	  listLegendes:[]
     };
   }
 
@@ -107,6 +108,7 @@ class T6bisGestion extends React.Component {
       haslignetaxation: null,
       tabs: null,
       dialogVisibility: false,
+      listLegendes:[]
     });
     this.initierT6bisEnteteSection(this.props.route.params.context.selectedType.code, this.props.route.params.t6bis, this.props.route.params.mode);
 

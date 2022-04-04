@@ -125,6 +125,10 @@ export default (state = initialState, action) => {
     case Constants.T6BIS_UPDATE_PROPS_SUCCES:
       nextState.t6bis.listeArticleT6bis = action.value.listeArticleT6bis;
       nextState.currentArticle = action.value.currentArticle;
+      let listeRecapD = [];
+      groupLignesByRubrique(nextState.t6bis, listeRecapD);
+      nextState.listeRecap = listeRecapD;
+        nextState.t6bis.montantGlobal = calculateTotalT6bis(listeRecapD, nextState.t6bis);
       return nextState;
     case Constants.T6BIS_UPDATE_PROPS_FAILED:
       return nextState;

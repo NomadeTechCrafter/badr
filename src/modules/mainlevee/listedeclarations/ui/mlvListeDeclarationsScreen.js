@@ -62,8 +62,8 @@ class ListDeclarationMLV extends Component {
       <View>
         <ComBadrToolbarComp
           navigation={this.props.navigation}
-          title={translate('mainlevee.title')}
-          subtitle={translate('mainlevee.delivrerMainlevee.title')}
+          title={translate('newmlv.title')}
+          subtitle={translate('newmlv.delivrerMainlevee.title')}
           icon="menu"
         />
 
@@ -107,22 +107,22 @@ class ListDeclarationMLV extends Component {
               <DataTable>
                 <DataTable.Header>
                   <DataTable.Title style={{width: 150}}>
-                    {translate('mainlevee.referenceDeclaration')}
+                    {translate('newmlv.referenceDeclaration')}
                   </DataTable.Title>
                   <DataTable.Title style={{width: 90}}>
-                    {translate('mainlevee.numVoyage')}
+                    {translate('newmlv.numVoyage')}
                   </DataTable.Title>
                   <DataTable.Title style={{width: 90}}>
-                    {translate('mainlevee.numVersion')}
+                    {translate('newmlv.numVersion')}
                   </DataTable.Title>
                   <DataTable.Title style={{width: 150}}>
-                    {translate('mainlevee.operateurDeclarant')}
+                    {translate('newmlv.operateurDeclarant')}
                   </DataTable.Title>
                   <DataTable.Title style={{width: 140}}>
-                    {translate('mainlevee.dateCreation')}
+                    {translate('newmlv.dateCreation')}
                   </DataTable.Title>
                   <DataTable.Title style={{width: 140}}>
-                    {translate('mainlevee.dateEnregistrement')}
+                    {translate('newmlv.dateEnregistrement')}
                   </DataTable.Title>
                 </DataTable.Header>
                 {rows ? (

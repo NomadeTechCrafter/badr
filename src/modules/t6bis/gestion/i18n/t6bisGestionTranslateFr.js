@@ -197,17 +197,23 @@ export default {
                         numArticle: 'Article N° :',
                         codeNomenclature: 'Code NGP :',
                         valeurTaxable: 'Base taxation :',
+                        legende:'Legende'
                     },
                     rubriquesTable: {
                         rubriqueTaxationLibelle: 'Code rubrique',
                         tauxTaxation: 'Taux',
                         montantTaxation: 'Montant taxe',
                     },
+                    legendeTable:{
+                        rubriqueCode:'Rubrique',
+                        rubriqueDesignation:'Designations'
+                    },
                     buttons: {
                         supprimerTout: 'Supprimer tout'
                     },
                     rubriqueBloc: {
                         rubriqueTaxation: 'Rubrique',
+                        rubriqueTaxationExisted:'La rubrique sélectionée existe déjà dans la liste',
                         tauxTaxation: 'Taux',
                         montantTaxation: 'Montant taxe',
                         msgErreurRequired: 'Merci de rensigner tous les champs obligatoires.'

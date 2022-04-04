@@ -1,14 +1,12 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import {
-  ComAccordionComp,
-  ComBadrButtonIconComp,
   ComBadrDatePickerComp,
   ComBadrErrorMessageComp,
   ComBadrInfoMessageComp,
-  ComBadrLibelleComp,
   ComBadrProgressBarComp,
   ComBadrToolbarComp,
+  ComBadrCardBoxComp as CardBox,
 } from '../../../../commons/component';
 import { connect } from 'react-redux';
 
@@ -17,13 +15,13 @@ import * as Constants from '../state/dtPreConfirmationArriveeConstants';
 import translate from '../../../../commons/i18n/ComI18nHelper';
 import DTRechercheParRefComp from '../component/dtRechercheParRefComp'
 import { View } from 'react-native';
-import { Button, TextInput } from 'react-native-paper';
+import { Button, Text } from 'react-native-paper';
 import * as PreConfirmationArriveeAction from '../state/actions/dtConfirmerPreConfirmationArriveeAction';
 import { Col, Grid, Row } from 'react-native-easy-grid';
 import { CustomStyleSheet } from '../../../../commons/styles/ComThemeStyle';
 import { ScrollView } from 'react-native-gesture-handler';
 import moment from 'moment';
-import { MODULE_ECI, TYPE_SERVICE_UC } from '../../../../commons/Config';
+import { MODULE_ECOREXP, TYPE_SERVICE_UC } from '../../../../commons/Config';
 
 
 class PreConfirmationArriveeMainScreen extends React.Component {
@@ -31,32 +29,28 @@ class PreConfirmationArriveeMainScreen extends React.Component {
     super(props);
     this.state = {
       datePreConfirmation: moment(new Date()).format('DD/MM/YYYY'),
+      heurePreConfirmation: moment(new Date()).format('HH:mm'),
+      referenceDUM: null,
       messageErreur: null
     };
   }
 
   preConfirmationArrivee = () => {
-    if (this.state.datePreConfirmation) {
+    if (this.state.datePreConfirmation && this.state.heurePreConfirmation && this.props?.data?.referenceDUM) {
       this.setState = {
         messageErreur: null
       }
-      // console.log('************************************************');
-      // console.log('************************************************');
-      // console.log('************************************************');
-      // console.log('************************************************');
-      // console.log(JSON.stringify(this.state.datePreConfirmation))
-      // console.log('************************************************');
-      // console.log('************************************************');
-      // console.log('************************************************');
-      // console.log('************************************************');
       let action = PreConfirmationArriveeAction.request(
         {
           type: Constants.PRE_CONFIRMATION_ARRIVEE_REQUEST,
           value: {
             commande: 'confirmerPreConfirmationArrivee',
-            module: MODULE_ECI,
+            module: MODULE_ECOREXP,
             typeService: TYPE_SERVICE_UC,
-            datePreConfirmation: this.state.datePreConfirmation,
+            data: {
+              "referenceDUM": this.props?.data?.referenceDUM,
+              "dateHeurePreConfirmationArrive": this.state.datePreConfirmation + ' ' + this.state.heurePreConfirmation
+            },
           },
         },
         this.props.navigation,
@@ -64,12 +58,33 @@ class PreConfirmationArriveeMainScreen extends React.Component {
       this.props.dispatch(action);
     } else {
       this.setState({
-        messageErreur: 'Date pré confirmation d\'arrivée obligatoire'
+        messageErreur: 'Date et heure de pré confirmation d\'arrivée obligatoire'
       });
     }
   }
 
+  cleDUM = function (regime, serie) {
+    let alpha = 'ABCDEFGHJKLMNPRSTUVWXYZ';
+    if (serie?.length > 6) {
+      let firstSerie = serie?.substring(0, 1);
+      if (firstSerie == '0') {
+        serie = serie.substring(1, 7);
+      }
+    }
+    let obj = regime + serie;
+    let RS = obj % 23;
+    alpha = alpha.charAt(RS);
+    return alpha;
+  };
+
   render() {
+    console.log('+++++++++++++++++++++++++++++++++++++++++++++++');
+    console.log('+++++++++++++++++++++++++++++++++++++++++++++++');
+    console.log('+++++++++++++++++++++++++++++++++++++++++++++++');
+    console.log(JSON.stringify(this.props.data));
+    console.log('+++++++++++++++++++++++++++++++++++++++++++++++');
+    console.log('+++++++++++++++++++++++++++++++++++++++++++++++');
+    console.log('+++++++++++++++++++++++++++++++++++++++++++++++');
     return (
       <View>
         <ComBadrToolbarComp
@@ -84,32 +99,82 @@ class PreConfirmationArriveeMainScreen extends React.Component {
         )}
         {this.props.data?.dtoHeader?.messagesErreur && (
           <ComBadrErrorMessageComp message={this.props.data?.dtoHeader?.messagesErreur} />
-        )}  
+        )}
         {this.state.messageErreur && (
           <ComBadrErrorMessageComp message={this.state.messageErreur} />
         )}
         <NavigationContainer independent={true}>
-          <DTRechercheParRefComp
-            commande="initPreConfirmationArrivee"
-            typeService="UC"
-            navigation={this.props.navigation}
-            routeParams={this.props.route.params}
-          />
+          {(!this.props.initSucces) && (
+            <DTRechercheParRefComp
+              commande="initPreConfirmationArrivee"
+              typeService="UC"
+              navigation={this.props.navigation}
+              routeParams={this.props.route.params}
+            />
+          )}
           {(!this.props.data?.dtoHeader?.messagesErreur && this.props.initSucces) && (
+
             <ScrollView>
+              <View style={styles.fabContainer}>
+                <ScrollView>
+                  {/* Référence déclaration */}
+                  <CardBox style={styles.cardBoxInfoDum}>
+                    <View style={[styles.flexDirectionRow, styles.margtb]}>
+                      <Text style={styles.libelleM}>
+                        {translate('transverse.bureau')}
+                      </Text>
+                      <Text style={styles.libelleM}>
+                        {translate('transverse.regime')}
+                      </Text>
+                      <Text style={styles.libelleM}>
+                        {translate('transverse.annee')}
+                      </Text>
+                      <Text style={styles.libelleM}>
+                        {translate('transverse.serie')}
+                      </Text>
+                      <Text style={styles.libelleM}>{translate('transverse.cle')}</Text>
+                    </View>
+                    <View style={styles.flexDirectionRow}>
+                      <Text style={styles.valueM}>
+                        {this.props?.data?.referenceDUM?.substring(0, 3)}
+                      </Text>
+                      <Text style={styles.valueM}>
+                        {this.props?.data?.referenceDUM?.substring(3, 6)}
+                      </Text>
+                      <Text style={styles.valueM}>
+                        {this.props?.data?.referenceDUM?.substring(6, 10)}
+                      </Text>
+                      <Text style={styles.valueM}>
+                        {this.props?.data?.referenceDUM?.substring(10, 17)}
+                      </Text>
+                      <Text style={styles.valueM}>
+                        {this.cleDUM(this.props?.data?.referenceDUM?.substring(3, 6), this.props?.data?.referenceDUM?.substring(10, 17))}
+                      </Text>
+                    </View>
+                  </CardBox>
+                </ScrollView>
+              </View>
               <View style={CustomStyleSheet.verticalContainer20}>
                 <View style={CustomStyleSheet.row}>
                   <Row>
                     <Col size={3} />
                     <Col size={6}>
                       <ComBadrDatePickerComp
-                        labelDate={translate('preConfirmationArrivee.datePreConfirmation')}
+                        readonly={this.props.confirmerSucces}
                         dateFormat="DD/MM/YYYY"
-                        value={this.state.datePreConfirmation ? moment(this.state.datePreConfirmation, 'DD/MM/YYYY', true) : moment(new Date()).format('DD/MM/YYYY') }
-                        inputStyle={styles.textInputsStyle}
+                        heureFormat="HH:mm"
+                        value={this.state.datePreConfirmation ? moment(this.state.datePreConfirmation, 'DD/MM/YYYY', true) : moment(new Date()).format('DD/MM/YYYY')}
+                        timeValue={this.state.heurePreConfirmation ? moment(this.state.heurePreConfirmation, 'HH:mm', true) : ''}
+
                         onDateChanged={(date) => {
                           this.setState({
                             datePreConfirmation: date
+                          });
+                        }}
+
+                        onTimeChanged={(time) => {
+                          this.setState({
+                            heurePreConfirmation: time
                           });
                         }}
                       />
@@ -144,6 +209,16 @@ class PreConfirmationArriveeMainScreen extends React.Component {
   }
 }
 
+const libelle = {
+  fontSize: 14,
+  color: '#006acd',
+  fontWeight: 'bold',
+};
+
+const value = {
+  fontSize: 14,
+  fontWeight: 'bold',
+};
 
 const styles = {
   ComContainerCompBtn: {
@@ -158,7 +233,43 @@ const styles = {
   },
   textInputsStyle: {
     padding: 10,
-  }
+  },
+  fabContainer: {
+    height: '100%',
+    flex: 1,
+  },
+  cardBoxInfoDum: {
+    flexDirection: 'column',
+    margin: 10,
+  },
+  libelle: { ...libelle },
+  libelleS: {
+    ...libelle,
+    flex: 1,
+  },
+  libelleM: {
+    ...libelle,
+    flex: 2,
+  },
+  libelleL: {
+    ...libelle,
+    flex: 3,
+  },
+  valueS: {
+    ...value,
+    flex: 1,
+  },
+  valueM: {
+    ...value,
+    flex: 2,
+  },
+  valueL: {
+    ...value,
+    flex: 3,
+  },
+  flexDirectionRow: {
+    flexDirection: 'row',
+  },
 
 };
 

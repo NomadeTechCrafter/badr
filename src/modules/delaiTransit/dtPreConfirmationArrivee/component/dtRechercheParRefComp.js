@@ -17,15 +17,15 @@ import { Col, Row, Grid } from 'react-native-easy-grid';
 import { connect } from 'react-redux';
 import * as Constants from '../state/dtPreConfirmationArriveeConstants';
 import * as InitPreConfirmationArriveeAction from '../state/actions/dtInitPreConfirmationArriveeAction';
-import { MODULE_ECI } from '../../../../commons/Config';
+import { MODULE_ECOREXP, TYPE_SERVICE_UC } from '../../../../commons/Config';
 
 class DTRechercheParRefComp extends Component {
   defaultState = {
-    bureau: '222',
-    regime: '222',
-    annee: '2222',
-    serie: '2222222',
-    cle: 'M',
+    bureau: '309',
+    regime: '855',
+    annee: '2022',
+    serie: '0000001',
+    cle: 'C',
     cleValide: '',
     login: '',
     numeroVoyage: '',
@@ -72,15 +72,17 @@ class DTRechercheParRefComp extends Component {
       this.state.cleValide = this.cleDUM(this.state.regime, this.state.serie);
 
       if (this.state.cle === this.state.cleValide) {
-        let reference = this.state.bureau + this.state.bureau + this.state.annee + this.state.serie;
+        let reference = this.state.bureau + this.state.regime + this.state.annee + this.state.serie;
         let dataAction = {
           type: Constants.INIT_PRE_CONFIRMATION_ARRIVEE_REQUEST,
           value: {
             login: this.state.login,
             commande: this.props.commande,
-            module: MODULE_ECI,
-            typeService: this.props.typeService,
-            reference: reference
+            module: MODULE_ECOREXP,
+            typeService: TYPE_SERVICE_UC,
+            data: {
+              "referenceDUM": reference
+            },
           },
         };
         let action = InitPreConfirmationArriveeAction.request(dataAction);
@@ -237,24 +239,24 @@ class DTRechercheParRefComp extends Component {
 
         {!this.props.initSucces && (
           <View style={styles.ComContainerCompBtn}>
-          <Button
-            onPress={this.confirmer}
-            icon="check"
-            compact="true"
-            mode="contained"
-            style={styles.btnConfirmer}
-            loading={this.props.showProgress}>
-            {translate('transverse.confirmer')}
-          </Button>
-          <Button
-            onPress={this.retablir}
-            icon="autorenew"
-            mode="contained"
-            style={styles.btnRetablir}>
-            {translate('transverse.retablir')}
-          </Button>
-        </View>
-          )}
+            <Button
+              onPress={this.confirmer}
+              icon="check"
+              compact="true"
+              mode="contained"
+              style={styles.btnConfirmer}
+              loading={this.props.showProgress}>
+              {translate('transverse.confirmer')}
+            </Button>
+            <Button
+              onPress={this.retablir}
+              icon="autorenew"
+              mode="contained"
+              style={styles.btnRetablir}>
+              {translate('transverse.retablir')}
+            </Button>
+          </View>
+        )}
       </ComContainerComp>
     );
   }

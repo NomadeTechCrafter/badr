@@ -120,7 +120,7 @@ class T6bisArticlesCurrentArticleCmBlock extends React.Component {
             msg += !_.isEmpty(msg) ? "," : "";
             msg += translate('t6bisGestion.tabs.articles.articleBlock.cm.cylindree');
         }
-        if (_.isEmpty(this.state.currentArticle.numeroCadre)) {
+        if (_.isEmpty(this.state.currentArticle?.numeroCadre)) {
             required = true;
             msg += !_.isEmpty(msg) ? "," : "";
             msg += translate('t6bisGestion.tabs.articles.articleBlock.cm.numeroCadre');
