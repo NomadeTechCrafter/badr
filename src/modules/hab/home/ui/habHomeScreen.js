@@ -109,6 +109,7 @@ import EciVerifierParContreEcorScreen from '../../../ecorImport/verifierParContr
 
 import LiquidationRechercheScreen from '../../../liquidation/ui/rechercheLiquidation/LiquidationRechercheScreen';
 import PreConfirmationArriveeMainScreen from '../../../delaiTransit/dtPreConfirmationArrivee/ui/dtPreConfirmationArriveeScreen';
+import JustifRetardTransitMainScreen from '../../../delaiTransit/dtJustifRetardTransit/ui/dtJustifRetardTransitScreen';
 
 
 const Drawer = createDrawerNavigator();
@@ -600,6 +601,12 @@ class habHomeScreen extends React.Component {
           options={{ headerShown: false, unmountOnBlur: true, lazy: false }}
           unmountOnBlur={true}
         />
+          <Drawer.Screen
+              name="JustifRetardTransitMainScreen"
+              component={JustifRetardTransitMainScreen}
+              options={{ headerShown: false, unmountOnBlur: true, lazy: false }}
+              unmountOnBlur={true}
+          />
 
         <Drawer.Screen
           name="LiquidationRechercheScreen"

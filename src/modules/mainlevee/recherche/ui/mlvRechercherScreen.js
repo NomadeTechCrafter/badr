@@ -28,12 +28,12 @@ class NewRechercheMLV extends Component {
 
         this.radioButtonsTypeRecherche = [{
             id: '1',
-            label: translate('mainlevee.typeRecherche.declarationDetaille'),
+            label: translate('newmlv.typeRecherche.declarationDetaille'),
             value: '1'
         },
             {
                 id: '2',
-                label: translate('mainlevee.typeRecherche.etatChargement'),
+                label: translate('newmlv.typeRecherche.etatChargement'),
                 value: '2'
             }]
         this.initRecherche();
@@ -71,8 +71,8 @@ class NewRechercheMLV extends Component {
 
                 <ComBadrToolbarComp
                     navigation={this.props.navigation}
-                    title={translate('mainlevee.title')}
-                    subtitle={translate('mainlevee.delivrerMainlevee.title')}
+                    title={translate('newmlv.title')}
+                    subtitle={translate('newmlv.delivrerMainlevee.title')}
                     icon="menu"
                 />
 
@@ -91,7 +91,7 @@ class NewRechercheMLV extends Component {
                     onValueChange={(value) => this.setState({typeRecherche: value})}
                     disabled={false}
                     value={String(this.state.typeRecherche)}
-                    title={translate('mainlevee.typeRecherche.typeRecherche')}
+                    title={translate('newmlv.typeRecherche.typeRecherche')}
                     radioButtonsData={this.radioButtonsTypeRecherche}
                 />
                 }

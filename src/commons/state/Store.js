@@ -100,6 +100,7 @@ import dedEnteteReducer from '../../modules/dedouanement/redressement/state/redu
 import dedEnregisterRedressementReducer from '../../modules/dedouanement/redressement/state/reducers/DedEnregisterRedressementReducer';
 
 import preConfirmationArriveeReducer from '../../modules/delaiTransit/dtPreConfirmationArrivee/state/reducers/dtPreConfirmationArriveeReducer';
+import justifRetardTransitReducer from '../../modules/delaiTransit/dtJustifRetardTransit/state/reducers/dtJustifRetardTransitReducer';
 
 /**
  * combine all reducers
@@ -187,6 +188,7 @@ const allReducers = combineReducers({
   dedEnteteReducer,
   dedEnregisterRedressementReducer,
   preConfirmationArriveeReducer,
+  justifRetardTransitReducer,
   decMainleveeInitReducer,
   decMainleveeUCReducer
 });

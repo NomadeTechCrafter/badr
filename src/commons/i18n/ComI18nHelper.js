@@ -54,6 +54,7 @@ import mlvDelivrerTranslateFr from '../../modules/mainlevee/delivrer/i18n/mlvDel
 import mlvListDeclarationsTranslateFr from '../../modules/mainlevee/listedeclarations/i18n/mlvListDeclarationsTranslateFr';
 import mlvRechercheTranslateFr from '../../modules/mainlevee/recherche/i18n/mlvRechercherTranslateFr';
 import dtPreConfirmationArriveeTranslateFr from '../../modules/delaiTransit/dtPreConfirmationArrivee/i18n/dtPreConfirmationArriveeTranslateFr'
+import dtJustifRetardTransitTranslateFr from '../../modules/delaiTransit/dtJustifRetardTransit/i18n/dtJustifRetardTransitTranslateFr'
 import decMainleveeTranslateFr from '../../modules/DeclarationD17D20/mainlevee/i18n/decMainleveeTranslateFr'
 
 
@@ -120,6 +121,7 @@ let combined = {
   ...mlvListDeclarationsTranslateFr,
   ...mlvRechercheTranslateFr,
   ...dtPreConfirmationArriveeTranslateFr,
+  ...dtJustifRetardTransitTranslateFr,
   ...decMainleveeTranslateFr
 };
 I18n.translations = {

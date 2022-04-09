@@ -101,8 +101,8 @@ const mapping = {
       params: {title: 'Ecran  Recherche T6BIS'},
   },
   '2401': { screen: 'PreConfirmationArriveeMainScreen', params: {} }, 
-    
 
+    '2402': { screen: 'JustifRetardTransitMainScreen', params: {} },
 };
 
 const ionicMapping = {};
