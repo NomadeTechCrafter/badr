@@ -101,11 +101,4 @@ export default {
       controleApresScanner: 'Contrôle après scanner',
     },
   },
-  D17D20: {
-    errors: {
-      seuleLigneD17 :'Une seule ligne doit être servi pour un régime d\'importation(D17).',
-      memeDUM: 'Une ligne DUM existe portant la même référence.',
-      memeLot: 'Ce lot a déjà été apuré dans la déclaration en cours.',
-    }
-  }
 };

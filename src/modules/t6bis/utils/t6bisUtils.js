@@ -1,6 +1,5 @@
 import _ from 'lodash';
 import moment from 'moment';
-import {ComBadrNumericTextInputComp} from '../../../commons/component';
 import {ComSessionService} from '../../../commons/services/session/ComSessionService';
 import * as Constants from './t6bisConstants';
 
@@ -97,18 +96,18 @@ export const validateCin = (cin) => {
       c3 = true;
     }
     if (c1 && (c2 || c3) && c4) {
-      var part2 = cin.substr(alphaPart).padStart(7 - alphaPart+1, '0');
+      var part2 = cin.substr(alphaPart).padStart(7 - alphaPart + 1, '0');
       console.log(
         'validateCin**************************************************************************end cin : ' +
-        cin 
+          cin,
       );
       console.log(
         'validateCin**************************************************************************end cin.substr(1) :' +
-        cin.substr(1)
+          cin.substr(1),
       );
       console.log(
         'validateCin**************************************************************************end cin.substr(1).padStart(7, 0) :' +
-        cin.substr(alphaPart).padStart(7 - alphaPart+1, '0')
+          cin.substr(alphaPart).padStart(7 - alphaPart + 1, '0'),
       );
 
       console.log(
@@ -208,6 +207,7 @@ export const getCurrentArticle = (codeTypeT6bis, num = 0) => {
       quantite: null,
       isNew: true,
       listeT6bisLigneTaxation: [],
+      listLegendes: [],
     };
   }
   if (isCm(codeTypeT6bis)) {
@@ -225,7 +225,7 @@ export const getCurrentArticle = (codeTypeT6bis, num = 0) => {
       quantite: null,
       isNew: true,
       listeT6bisLigneTaxation: [],
-	  listLegendes:[]
+      listLegendes: [],
     };
   }
   return null;
@@ -275,7 +275,7 @@ const ajouterTaxationGlobale = function (t6bis, groupedList) {
   /*
      Ajouter la taxe timbre si moyen paiement == 'Espece'
      */
-  if (t6bis.typeMoyenPaiement && '01' === t6bis.typeMoyenPaiement.code) {
+  if (t6bis.typeMoyenPaiement && t6bis.typeMoyenPaiement.code === '01') {
     groupedList.push({
       rubrique: '000601',
       designation: 'DT TIMBRE QUIT.(000601)',
@@ -302,8 +302,9 @@ const group = function (collection, property, listeRecap) {
   for (; i < collection.length; i++) {
     val = collection[i][property];
     index = values.indexOf(val);
-    if (index > -1) result[index].push(collection[i]);
-    else {
+    if (index > -1) {
+      result[index].push(collection[i]);
+    } else {
       values.push(val);
       result.push([collection[i]]);
     }
@@ -337,7 +338,7 @@ export const calculateTotalT6bis = function (listRecap, t6bis) {
   if (
     t6bis &&
     t6bis.typeMoyenPaiement &&
-    '01' === t6bis.typeMoyenPaiement.code &&
+    t6bis.typeMoyenPaiement.code === '01' &&
     montantTotal > 0
   ) {
     t6bis.taxationPaiementEspece = Math.ceil(montantTotal * 0.0025);
@@ -498,7 +499,7 @@ export const validate = function (t6bis) {
   ) {
     return t6bis.typeMoyenPaiement && t6bis.descriptifInfraction;
   }
- /* else if( t6bis.typeMoyenPaiement?.code=="03")
+  /* else if( t6bis.typeMoyenPaiement?.code=="03")
   {console.log('code03',t6bis?.tpeComboBean)
       return t6bis?.tpeComboBean;
   }*/
@@ -549,24 +550,25 @@ export const getMessageValidation = function (t6bis) {
   } else if (!t6bis.typeMoyenPaiement) {
     messages.push('Type de paiement');
   }
- if (t6bis.typeMoyenPaiement?.code=="03") {
-    if(!t6bis.tpeComboBean)
-        messages.push('TPE');
+  if (t6bis.typeMoyenPaiement?.code == '03') {
+    if (!t6bis.tpeComboBean) {
+      messages.push('TPE');
     }
+  }
   return messages;
 };
 
 export const preconditions = function (t6bis, action) {
   var messages = [];
-  if ('supprimer' === action) {
+  if (action === 'supprimer') {
     if (t6bis && t6bis.dateEnregistrement) {
       messages.push('Vous ne pouvez pas supprimer une T6Bis déjà enregistrée.');
     }
-  } else if ('sauvegarder' === action) {
+  } else if (action === 'sauvegarder') {
     if (t6bis && !t6bis.typeMoyenPaiement) {
       messages.push('Merci de renseigner le type de paiement.');
     }
-  } else if ('enregistrer' === action) {
+  } else if (action === 'enregistrer') {
     if (t6bis && t6bis.dateEnregistrement && isCreation()) {
       messages.push('T6bis déja enregistrée');
     }
@@ -676,19 +678,23 @@ export const mapErrorsGestion = function (errorsArray) {
       'E1100025 : La date de sortie doit être  supérieure à la date d’entrée.',
   };
   let messages = [];
-  console.log("errorsArray : ", JSON.stringify(errorsArray));
+  console.log('errorsArray : ', JSON.stringify(errorsArray));
   errorsArray.forEach(function (error) {
     if (serverErros[error]) {
       messages.push(serverErros[error]);
     }
   });
-  console.log("messages : ", JSON.stringify(messages));
+  console.log('messages : ', JSON.stringify(messages));
   return messages && messages.length > 0 ? messages : errorsArray;
 };
 
 export const verifyIntervenant = function (intervenantVO) {
- 
-  return isParamSetted(intervenantVO) && stringNotEmpty(intervenantVO.nomIntervenant) && stringNotEmpty(intervenantVO.prenomIntervenant) && stringNotEmpty(intervenantVO.adresse);
+  return (
+    isParamSetted(intervenantVO) &&
+    stringNotEmpty(intervenantVO.nomIntervenant) &&
+    stringNotEmpty(intervenantVO.prenomIntervenant) &&
+    stringNotEmpty(intervenantVO.adresse)
+  );
 };
 
 export const isParamSetted = function (intervenantVO) {
@@ -716,12 +722,11 @@ export const isParamSetted = function (intervenantVO) {
 isPasseport = function (intervenantVO) {
   if (intervenantVO) {
     return (
-      '05' === intervenantVO.refTypeDocumentIdentite ||
-      '06' === intervenantVO.refTypeDocumentIdentite ||
-      '07' === intervenantVO.refTypeDocumentIdentite
+      intervenantVO.refTypeDocumentIdentite === '05' ||
+      intervenantVO.refTypeDocumentIdentite === '06' ||
+      intervenantVO.refTypeDocumentIdentite === '07'
     );
   } else {
     return false;
   }
 };
-

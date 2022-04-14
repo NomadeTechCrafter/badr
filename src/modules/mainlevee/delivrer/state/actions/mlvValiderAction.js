@@ -3,11 +3,11 @@ import TransverseApi from '../../service/api/mlvDelivrerApi';
 import * as Constants from '../mlvDelivrerConstants';
 
 /**i18n */
-import { translate } from '../../../../../commons/i18n/ComI18nHelper';
+import {translate} from '../../../../../commons/i18n/ComI18nHelper';
 
 const WS_MODULE_PARAM = 'MLV_LIB';
 const WS_TYPESERVICE_PARAM = 'UC';
-export function validerMLV(action, navigation) {
+export function request(action, navigation) {
   return (dispatch) => {
     dispatch(action);
     dispatch(inProgress(action));
@@ -21,22 +21,26 @@ export function validerMLV(action, navigation) {
       .then((response) => {
         if (response) {
           const data = response.data;
-            if (
-                data &&
-                (data.dtoHeader.messagesInfo != null ||
-                    data.dtoHeader.messagesInfo.length != 0)
-            )
-                dispatch(failed(data));
+
+          if (
+            data &&
+            (data.dtoHeader.messagesInfo != null ||
+              data.dtoHeader.messagesInfo?.length != 0)
+          ) {
+            dispatch(failed(data));
+          }
+
           if (
             data &&
             (data.dtoHeader.messagesErreur == null ||
-              data.dtoHeader.messagesErreur.length === 0)
+              data.dtoHeader.messagesErreur?.length === 0)
           ) {
             dispatch(success(data));
           } else {
             dispatch(failed(data));
           }
         } else {
+          console.log('error');
           dispatch(failed(translate('errors.technicalIssue')));
         }
       })
@@ -68,6 +72,7 @@ export function success(data) {
 }
 
 export function failed(data) {
+
   return {
     type: Constants.DELIVRERMLV_VALIDERMLV_FAILED,
     value: data,
@@ -75,7 +80,7 @@ export function failed(data) {
 }
 
 export default {
-  validerMLV,
+  request,
   success,
   failed,
   inProgress,

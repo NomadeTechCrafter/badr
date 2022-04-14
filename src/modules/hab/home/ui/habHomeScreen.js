@@ -110,6 +110,8 @@ import EciVerifierParContreEcorScreen from '../../../ecorImport/verifierParContr
 import LiquidationRechercheScreen from '../../../liquidation/ui/rechercheLiquidation/LiquidationRechercheScreen';
 import PreConfirmationArriveeMainScreen from '../../../delaiTransit/dtPreConfirmationArrivee/ui/dtPreConfirmationArriveeScreen';
 import JustifRetardTransitMainScreen from '../../../delaiTransit/dtJustifRetardTransit/ui/dtJustifRetardTransitScreen';
+import RechApurementParRefScreen from '../../../DeclarationD17D20/apurement/ui/initApurement/RechApurementParRefScreen';
+import GestionApurementScreen from '../../../DeclarationD17D20/apurement/ui/initApurement/GestionApurementScreen';
 
 
 const Drawer = createDrawerNavigator();
@@ -357,7 +359,16 @@ class habHomeScreen extends React.Component {
           component={VuEmbarqueScreen}
           options={{ headerShown: false }}
         />
-
+        <Drawer.Screen
+          name="RechApurementParRefScreen"
+          component={RechApurementParRefScreen}
+          options={{ headerShown: false }}
+        />
+        <Drawer.Screen
+          name="GestionApurementScreen"
+          component={GestionApurementScreen}
+          options={{ headerShown: false }}
+        />
         <Drawer.Screen
           name="EcorExportVuEmbarqueScreen"
           component={EcorExportVuEmbarqueScreen}

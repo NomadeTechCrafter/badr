@@ -3,11 +3,11 @@ import TransverseApi from '../../service/api/mlvDelivrerApi';
 import * as Constants from '../mlvDelivrerConstants';
 
 /**i18n */
-import { translate } from '../../../../../commons/i18n/ComI18nHelper';
+import {translate} from '../../../../../commons/i18n/ComI18nHelper';
 
 const WS_MODULE_PARAM = 'MLV_LIB';
 const WS_TYPESERVICE_PARAM = 'UC';
-export function delivrerMLV(action, navigation) {
+export function request(action, navigation) {
   return (dispatch) => {
     dispatch(action);
     dispatch(inProgress(action));
@@ -24,7 +24,7 @@ export function delivrerMLV(action, navigation) {
           if (
             data &&
             (data.dtoHeader.messagesErreur == null ||
-              data.dtoHeader.messagesErreur.length === 0)
+              data.dtoHeader.messagesErreur?.length === 0)
           ) {
             dispatch(success(data));
           } else {
@@ -69,7 +69,7 @@ export function failed(data) {
 }
 
 export default {
-  delivrerMLV,
+  request,
   success,
   failed,
   inProgress,

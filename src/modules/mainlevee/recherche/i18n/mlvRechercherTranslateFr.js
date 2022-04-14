@@ -19,17 +19,22 @@ export default {
       title: 'Liste des liquidations',
       numLiquidation: 'N° Liquidation',
     },
-    typeRecherche:{
-    typeRecherche:'Recherche',
-    declarationDetaille:'Déclaration en détail',
-    etatChargement:'Etat chargement',
+    typeRecherche: {
+      typeRecherche: 'Recherche',
+      declarationDetaille: 'Déclaration en détail',
+      etatChargement: 'Etat chargement',
     },
     delivrerMainlevee: {
       title: 'Délivrer la mainLevée',
       secondTitle: 'Compte rendu du contrôle immédiat',
       annotations: {
         title: 'Annotations',
-        avecPesage: 'Avec pesage',
+        avecPesage: 'Après pesage',
+        avecScanner: 'Avec scanner',
+        sansSortie: "Sans quitter l'enceinte douanière",
+        sousEscorteGendarmerie: 'Sous escorte de la Gendarmerie Royale',
+        sousEscorteDouane: 'Sous escorte douanière',
+        pourEntrepesage: 'Pour entreposage',
       },
       listeDocumentsExigibles: {
         title: 'Liste des documents exigibles',
@@ -92,15 +97,15 @@ export default {
         numeroVersion: 'Numéro de version',
       },
       etatChargement: {
-              title: 'Liste des Déclarations',
-              reference: 'Référence',
+        title: 'Liste des Déclarations',
+        reference: 'Référence',
 
-              numeroVersion: 'Numéro de version',
-              dateEnregistrement: 'Date Enregistrement',
-              operateur: 'Opérateur Déclarant',
-            },
+        numeroVersion: 'Numéro de version',
+        dateEnregistrement: 'Date Enregistrement',
+        operateur: 'Opérateur Déclarant',
+      },
       listeDeclarationsApurementD17D20: {
-        title: 'Liste des déclarations d\'apurement D17/D20',
+        title: "Liste des déclarations d'apurement D17/D20",
         reference: 'Référence',
         dateCreation: 'Date de création',
         numeroVersion: 'Numéro de version',

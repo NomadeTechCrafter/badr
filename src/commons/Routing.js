@@ -9,6 +9,7 @@ const mapping = {
   '20471': { screen: 'DedTraiterValeurScreen', params: { qr: false } },
   '30661': { screen: 'ControleApresScanner', params: {} },
   '90025': { screen: 'VuEmbarqueScreen', params: { qr: true } },
+  '90018': { screen: 'RechApurementParRefScreen', params: {} },
   '90008': { screen: 'RechParRefTrypScreen', params: {} },
   '1101': { screen: 'ConsultationTIScreen', params: { modeConsultation: 'E' } },
   '1102': { screen: 'ConsultationTIScreenI', params: { modeConsultation: 'I' } },

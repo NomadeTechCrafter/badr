@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import {Text, View} from 'react-native';
 import {
   ComAccordionComp,
   ComBadrAutoCompleteChipsComp,
@@ -7,11 +7,11 @@ import {
   ComBadrErrorMessageComp,
   ComBadrPickerComp,
 } from '../../../../../../../commons/component';
-import { CustomStyleSheet } from '../../../../../../../commons/styles/ComThemeStyle';
+import {CustomStyleSheet} from '../../../../../../../commons/styles/ComThemeStyle';
 import styles from '../../../../style/t6bisGestionStyle';
 import translate from '../../../../../../../commons/i18n/ComI18nHelper';
-import { Col, Row } from 'react-native-easy-grid';
-import { HelperText, TextInput } from 'react-native-paper';
+import {Col, Row} from 'react-native-easy-grid';
+import {HelperText, TextInput} from 'react-native-paper';
 import {
   formatNomenclature,
   stringNotEmpty,
@@ -25,7 +25,7 @@ class T6bisArticlesCurrentArticleMtmBlock extends React.Component {
     this.state = {
       currentArticle: this.props.currentArticle,
       acUniteValue: null,
-      errorMessage: null
+      errorMessage: null,
     };
   }
 
@@ -89,7 +89,6 @@ class T6bisArticlesCurrentArticleMtmBlock extends React.Component {
         T6BISConstantes.ADD_ARTCLE_MTM_TASK,
         this.state.currentArticle,
       );
-
     }
   };
 
@@ -129,7 +128,10 @@ class T6bisArticlesCurrentArticleMtmBlock extends React.Component {
       );
     }
 
-    if (!_.isEmpty(this.state.currentArticle.montantFacture) && _.isEmpty(this.state.currentArticle.devise)) {
+    if (
+      !_.isEmpty(this.state.currentArticle.montantFacture) &&
+      _.isEmpty(this.state.currentArticle.devise)
+    ) {
       required = true;
       msg += !_.isEmpty(msg) ? ',' : '';
       msg += translate('t6bisGestion.tabs.articles.articleBlock.mtm.devise');
@@ -145,7 +147,6 @@ class T6bisArticlesCurrentArticleMtmBlock extends React.Component {
       msg += !_.isEmpty(msg) ? ',' : '';
       msg += translate('t6bisGestion.tabs.articles.articleBlock.mtm.unite');
     }
-
 
     if (required) {
       msg =
@@ -165,36 +166,45 @@ class T6bisArticlesCurrentArticleMtmBlock extends React.Component {
   nouveau = () => {
     this.clearComboboxAutoComplete();
     this.setState({
-      errorMessage: null
+      errorMessage: null,
     });
     this.props.callbackHandler(T6BISConstantes.NEW_ARTCLE_MTM_TASK, null);
   };
-  
 
   clearComboboxAutoComplete() {
     this.comboNatureMarchandise.clearInput();
     this.comboDevise.clearInput();
+    this.setState({
+      currentArticle: {
+        ...this.state.currentArticle,
+        libelleUnite: null,
+      },
+    });
   }
 
   static getDerivedStateFromProps(props, state) {
-    console.log('T6bisArticlesCurrentArticleMtmBlock getDerivedStateFromProps--------------------props ', props);
-    console.log('T6bisArticlesCurrentArticleMtmBlock getDerivedStateFromProps--------------------state ', state);
+    console.log(
+      'T6bisArticlesCurrentArticleMtmBlock getDerivedStateFromProps--------------------props ',
+      props,
+    );
+    console.log(
+      'T6bisArticlesCurrentArticleMtmBlock getDerivedStateFromProps--------------------state ',
+      state,
+    );
 
     if (
       props.currentArticle &&
-      (props.currentArticle.id !== state.currentArticle?.id   )
+      props.currentArticle.id !== state.currentArticle?.id
     ) {
-      console.log("1");
+      console.log('1');
       return {
-        currentArticle: props.currentArticle, 
+        currentArticle: props.currentArticle,
       };
     }
-    if (
-      props.currentArticle ==null
-    ) {
-      console.log("2");
+    if (props.currentArticle == null) {
+      console.log('2');
       return {
-        currentArticle: null, 
+        currentArticle: null,
       };
     }
     return null;
@@ -203,343 +213,357 @@ class T6bisArticlesCurrentArticleMtmBlock extends React.Component {
   render() {
     return (
       <View>
+        {!_.isNull(this.state.currentArticle) && (
+          <ComAccordionComp
+            onRef={(ref) => (this.accordionComp = ref)}
+            title={
+              translate('t6bisGestion.tabs.articles.articleBlock.mtm.title') +
+              this.state.currentArticle?.numArticle
+            }
+            expanded={true}>
+            {this.state.errorMessage != null && (
+              <ComBadrErrorMessageComp message={this.state.errorMessage} />
+            )}
 
-      
-
-        {(!_.isNull(this.state.currentArticle)) && <ComAccordionComp
-          onRef={(ref) => (this.accordionComp = ref)}
-          title={
-            translate('t6bisGestion.tabs.articles.articleBlock.mtm.title') +
-            this.state.currentArticle?.numArticle
-          }
-          expanded={true}>
-          {this.state.errorMessage != null && (
-            <ComBadrErrorMessageComp message={this.state.errorMessage} />
-          )}
-
-          <View>
-            <Row size={200}>
-              <Col size={40} style={styles.labelContainer}>
-                <Text style={styles.labelTextStyle}>
-                  {translate(
-                    't6bisGestion.tabs.articles.articleBlock.mtm.codeNomenclature',
-                  )}
-                </Text>
-              </Col>
-
-              <Col size={60} style={styles.labelContainer}>
-                <TextInput
-                  disabled={this.props.readOnly}
-                  mode="outlined"
-                  maxLength={10}
-                  label={translate(
-                    't6bisGestion.tabs.articles.articleBlock.mtm.codeNomenclature',
-                  )}
-                  value={this.state.currentArticle?.codeNomenclature}
-                  onChangeText={(text) =>
-                    this.setState({
-                      currentArticle: {
-                        ...this.state.currentArticle,
-                        codeNomenclature: text,
-                      },
-                    })
-                  }
-                  onEndEditing={(event) =>
-                    this.handleCodeNomenclatureOnBlur(event.nativeEvent.text)
-                  }
-                />
-              </Col>
-
-              <Col size={40} style={styles.labelContainer}>
-                <Text style={styles.labelTextStyle}>
-                  {translate(
-                    't6bisGestion.tabs.articles.articleBlock.mtm.natureMarchandise',
-                  )}
-                </Text>
-                <HelperText
-                  type="error"
-                  padding="none"
-                  visible={
-                    !stringNotEmpty(this.state.currentArticle?.natureMarchandise)
-                  }>
-                  {translate(
-                    't6bisGestion.tabs.articles.articleBlock.mtm.valeurObligatoire',
-                  )}
-                </HelperText>
-              </Col>
-              <Col size={60} style={styles.labelContainer}>
-                <ComBadrPickerComp
-                  onRef={(ref) => (this.comboNatureMarchandise = ref)}
-                  disabled={this.props.readOnly}
-                  style={CustomStyleSheet.badrPicker}
-                  cle="code"
-                  libelle="libelle"
-                  module="REF_LIB"
-                  selectedValue={this.state.currentArticle?.natureMarchandise}
-                  selected={this.state.currentArticle?.natureMarchandise}
-                  command="completeNatureMarchandise"
-                  onValueChange={(itemValue, itemIndex, selectedItem) =>
-                    this.handleNatureMarchandiseChanged(
-                      itemValue,
-                      itemIndex,
-                      selectedItem,
-                    )
-                  }
-                  param=""
-                  typeService="SP"
-                />
-              </Col>
-            </Row>
-            <Row size={200}>
-              <Col size={40} style={styles.labelContainer}>
-                <Text style={styles.labelTextStyle}>
-                  {translate(
-                    't6bisGestion.tabs.articles.articleBlock.mtm.designation',
-                  )}
-                </Text>
-                <HelperText
-                  type="error"
-                  padding="none"
-                  visible={
-                    !stringNotEmpty(this.state.currentArticle?.designation)
-                  }>
-                  {translate(
-                    't6bisGestion.tabs.articles.articleBlock.mtm.valeurObligatoire',
-                  )}
-                </HelperText>
-              </Col>
-
-              <Col size={160} style={{ ...styles.labelContainer, marginLeft: 8 }}>
-                <TextInput
-                  mode="outlined"
-                  disabled={this.props.readOnly}
-                  label={translate(
-                    't6bisGestion.tabs.articles.articleBlock.mtm.designation',
-                  )}
-                  value={this.state.currentArticle?.designation}
-                  onChangeText={(text) =>
-                    this.setState({
-                      currentArticle: {
-                        ...this.state.currentArticle,
-                        designation: text,
-                      },
-                    })
-                  }
-                />
-              </Col>
-            </Row>
-            <Row size={200}>
-              <Col size={40} style={styles.labelContainer}>
-                <Text style={styles.labelTextStyle}>
-                  {translate(
-                    't6bisGestion.tabs.articles.articleBlock.mtm.valeurTaxable',
-                  )}
-                </Text>
-                <HelperText
-                  type="error"
-                  padding="none"
-                  visible={
-                    !stringNotEmpty(this.state.currentArticle?.valeurTaxable)
-                  }>
-                  {translate(
-                    't6bisGestion.tabs.articles.articleBlock.mtm.valeurObligatoire',
-                  )}
-                </HelperText>
-              </Col>
-
-              <Col size={160} style={{ ...styles.labelContainer, marginLeft: 8 }}>
-                <TextInput
-                  mode="outlined"
-                  disabled={this.props.readOnly}
-                  keyboardType={'number-pad'}
-                  label={translate(
-                    't6bisGestion.tabs.articles.articleBlock.mtm.valeurTaxable',
-                  )}
-                  value={this.state.currentArticle?.valeurTaxable}
-                  onChangeText={(text) =>
-                    this.setState({
-                      currentArticle: {
-                        ...this.state.currentArticle,
-                        valeurTaxable: text,
-                      },
-                    })
-                  }
-                />
-              </Col>
-            </Row>
-            <Row size={200}>
-              <Col size={40} style={styles.labelContainer}>
-                <Text style={styles.labelTextStyle}>
-                  {translate(
-                    't6bisGestion.tabs.articles.articleBlock.mtm.montantFacture',
-                  )}
-                </Text>
-
-              </Col>
-
-              <Col size={60} style={styles.labelContainer}>
-                <TextInput
-                  mode="outlined"
-                  disabled={this.props.readOnly}
-                  keyboardType={'number-pad'}
-                  label={translate(
-                    't6bisGestion.tabs.articles.articleBlock.mtm.montantFacture',
-                  )}
-                  value={this.state.currentArticle?.montantFacture}
-                  onChangeText={(text) =>
-                    this.setState({
-                      currentArticle: {
-                        ...this.state.currentArticle,
-                        montantFacture: text,
-                      },
-                    })
-                  }
-                />
-              </Col>
-
-              <Col size={40} style={styles.labelContainer}>
-                <Text style={styles.labelTextStyle}>
-                  {translate(
-                    't6bisGestion.tabs.articles.articleBlock.mtm.devise',
-                  )}
-                </Text>
-                <HelperText
-                  type="error"
-                  padding="none"
-                  visible={stringNotEmpty(this.state.currentArticle?.montantFacture) && !stringNotEmpty(this.state.currentArticle?.devise)}>
-                  {translate(
-                    't6bisGestion.tabs.articles.articleBlock.mtm.valeurObligatoire',
-                  )}
-                </HelperText>
-              </Col>
-              <Col size={60} style={styles.labelContainer}>
-                <ComBadrPickerComp
-                  disabled={this.props.readOnly}
-                  onRef={(ref) => (this.comboDevise = ref)}
-                  style={CustomStyleSheet.badrPicker}
-                  cle="code"
-                  libelle="libelle"
-                  module="REF_LIB"
-                  command="completeDeviseChangeCmb"
-                  selected={this.state.currentArticle?.devise}
-                  selectedValue={this.state.currentArticle?.devise}
-                  onValueChange={(item) => this.handleDeviseChanged(item)}
-                  param=""
-                  typeService="SP"
-                  storeWithKey="devise"
-                  storeLibelleWithKey="libelle"
-                />
-              </Col>
-            </Row>
-            <Row size={200}>
-              <Col size={40} style={styles.labelContainer}>
-                <Text style={styles.labelTextStyle}>
-                  {translate(
-                    't6bisGestion.tabs.articles.articleBlock.mtm.quantite',
-                  )}
-                </Text>
-                <HelperText
-                  type="error"
-                  padding="none"
-                  visible={!stringNotEmpty(this.state.currentArticle?.quantite)}>
-                  {translate(
-                    't6bisGestion.tabs.articles.articleBlock.mtm.valeurObligatoire',
-                  )}
-                </HelperText>
-              </Col>
-
-              <Col size={160} style={{justifyContent: 'center',marginLeft: 10}}>
-                <TextInput
-                  mode="outlined"
-                  disabled={this.props.readOnly}
-                  label={translate(
-                    't6bisGestion.tabs.articles.articleBlock.mtm.quantite',
-                  )}
-                  keyboardType={'phone-pad'}
-                  value={this.state.currentArticle?.quantite}
-                  onChangeText={(text) =>
-                    this.setState({
-                      currentArticle: {
-                        ...this.state.currentArticle,
-                        quantite: text,
-                      },
-                    })
-                  }
-                />
-              </Col>
-            </Row>
-            <Row size={200}>
-              <Col size={40} style={styles.labelContainer}>
-                <Text style={styles.labelTextStyle}>
-                  {translate('t6bisGestion.tabs.articles.articleBlock.mtm.unite')}
-                </Text>
-                <HelperText
-                  type="error"
-                  padding="none"
-                  visible={!stringNotEmpty(this.state.currentArticle.libelleUnite)}>
-                  {translate(
-                    't6bisGestion.tabs.articles.articleBlock.mtm.valeurObligatoire',
-                  )}
-                </HelperText>
-              </Col>
-              <Col size={160} style={{ marginLeft: -5 }}>
-                <ComBadrAutoCompleteChipsComp
-                  onRef={(ref) => (this.autoCompleteUnite = ref)}
-                  placeholder={translate(
-                    't6bisGestion.tabs.articles.articleBlock.mtm.choisirValeur',
-                  )}
-                  code="code"
-                  disabled={this.props.readOnly}
-                  selected={this.state.currentArticle.libelleUnite}
-                  maxItems={3}
-                  libelle="libelle"
-                  command="completeUniteQte"
-                  onDemand={true}
-                  searchZoneFirst={false}
-                  onValueChange={this.handleUniteQuantiteChanged}
-                />
-              </Col>
-            </Row>
-            {!this.props.readOnly && (
+            <View>
               <Row size={200}>
-                <Col size={200}>
-                  <View style={styles.ComContainerCompBtn}>
-                    {this.state.currentArticle?.isNew && (
-                      <ComBadrButtonComp
-                        style={styles.actionBtn}
-                        onPress={() => {
-                          this.ajouter();
-                        }}
-                        text={translate(
-                          't6bisGestion.tabs.articles.articleBlock.buttons.ajouter',
-                        )}
-                      />
+                <Col size={40} style={styles.labelContainer}>
+                  <Text style={styles.labelTextStyle}>
+                    {translate(
+                      't6bisGestion.tabs.articles.articleBlock.mtm.codeNomenclature',
                     )}
+                  </Text>
+                </Col>
 
-                    {!this.state.currentArticle?.isNew && (
-                      <ComBadrButtonComp
-                        style={styles.actionBtn}
-                        onPress={() => {
-                          this.modifier();
-                        }}
-                        text={translate(
-                          't6bisGestion.tabs.articles.articleBlock.buttons.modifier',
-                        )}
-                      />
+                <Col size={60} style={styles.labelContainer}>
+                  <TextInput
+                    disabled={this.props.readOnly}
+                    mode="outlined"
+                    maxLength={10}
+                    label={translate(
+                      't6bisGestion.tabs.articles.articleBlock.mtm.codeNomenclature',
                     )}
-                    
-                  </View>
+                    value={this.state.currentArticle?.codeNomenclature}
+                    onChangeText={(text) =>
+                      this.setState({
+                        currentArticle: {
+                          ...this.state.currentArticle,
+                          codeNomenclature: text,
+                        },
+                      })
+                    }
+                    onEndEditing={(event) =>
+                      this.handleCodeNomenclatureOnBlur(event.nativeEvent.text)
+                    }
+                  />
+                </Col>
+
+                <Col size={40} style={styles.labelContainer}>
+                  <Text style={styles.labelTextStyle}>
+                    {translate(
+                      't6bisGestion.tabs.articles.articleBlock.mtm.natureMarchandise',
+                    )}
+                  </Text>
+                  <HelperText
+                    type="error"
+                    padding="none"
+                    visible={
+                      !stringNotEmpty(
+                        this.state.currentArticle?.natureMarchandise,
+                      )
+                    }>
+                    {translate(
+                      't6bisGestion.tabs.articles.articleBlock.mtm.valeurObligatoire',
+                    )}
+                  </HelperText>
+                </Col>
+                <Col size={60} style={styles.labelContainer}>
+                  <ComBadrPickerComp
+                    onRef={(ref) => (this.comboNatureMarchandise = ref)}
+                    disabled={this.props.readOnly}
+                    style={CustomStyleSheet.badrPicker}
+                    cle="code"
+                    libelle="libelle"
+                    module="REF_LIB"
+                    selectedValue={this.state.currentArticle?.natureMarchandise}
+                    selected={this.state.currentArticle?.natureMarchandise}
+                    command="completeNatureMarchandise"
+                    onValueChange={(itemValue, itemIndex, selectedItem) =>
+                      this.handleNatureMarchandiseChanged(
+                        itemValue,
+                        itemIndex,
+                        selectedItem,
+                      )
+                    }
+                    param=""
+                    typeService="SP"
+                  />
                 </Col>
               </Row>
-            )}
-          </View>
-        </ComAccordionComp>}
+              <Row size={200}>
+                <Col size={40} style={styles.labelContainer}>
+                  <Text style={styles.labelTextStyle}>
+                    {translate(
+                      't6bisGestion.tabs.articles.articleBlock.mtm.designation',
+                    )}
+                  </Text>
+                  <HelperText
+                    type="error"
+                    padding="none"
+                    visible={
+                      !stringNotEmpty(this.state.currentArticle?.designation)
+                    }>
+                    {translate(
+                      't6bisGestion.tabs.articles.articleBlock.mtm.valeurObligatoire',
+                    )}
+                  </HelperText>
+                </Col>
+
+                <Col
+                  size={160}
+                  style={{...styles.labelContainer, marginLeft: 8}}>
+                  <TextInput
+                    mode="outlined"
+                    disabled={this.props.readOnly}
+                    label={translate(
+                      't6bisGestion.tabs.articles.articleBlock.mtm.designation',
+                    )}
+                    value={this.state.currentArticle?.designation}
+                    onChangeText={(text) =>
+                      this.setState({
+                        currentArticle: {
+                          ...this.state.currentArticle,
+                          designation: text,
+                        },
+                      })
+                    }
+                  />
+                </Col>
+              </Row>
+              <Row size={200}>
+                <Col size={40} style={styles.labelContainer}>
+                  <Text style={styles.labelTextStyle}>
+                    {translate(
+                      't6bisGestion.tabs.articles.articleBlock.mtm.valeurTaxable',
+                    )}
+                  </Text>
+                  <HelperText
+                    type="error"
+                    padding="none"
+                    visible={
+                      !stringNotEmpty(this.state.currentArticle?.valeurTaxable)
+                    }>
+                    {translate(
+                      't6bisGestion.tabs.articles.articleBlock.mtm.valeurObligatoire',
+                    )}
+                  </HelperText>
+                </Col>
+
+                <Col
+                  size={160}
+                  style={{...styles.labelContainer, marginLeft: 8}}>
+                  <TextInput
+                    mode="outlined"
+                    disabled={this.props.readOnly}
+                    keyboardType={'number-pad'}
+                    label={translate(
+                      't6bisGestion.tabs.articles.articleBlock.mtm.valeurTaxable',
+                    )}
+                    value={this.state.currentArticle?.valeurTaxable}
+                    onChangeText={(text) =>
+                      this.setState({
+                        currentArticle: {
+                          ...this.state.currentArticle,
+                          valeurTaxable: text,
+                        },
+                      })
+                    }
+                  />
+                </Col>
+              </Row>
+              <Row size={200}>
+                <Col size={40} style={styles.labelContainer}>
+                  <Text style={styles.labelTextStyle}>
+                    {translate(
+                      't6bisGestion.tabs.articles.articleBlock.mtm.montantFacture',
+                    )}
+                  </Text>
+                </Col>
+
+                <Col size={60} style={styles.labelContainer}>
+                  <TextInput
+                    mode="outlined"
+                    disabled={this.props.readOnly}
+                    keyboardType={'number-pad'}
+                    label={translate(
+                      't6bisGestion.tabs.articles.articleBlock.mtm.montantFacture',
+                    )}
+                    value={this.state.currentArticle?.montantFacture}
+                    onChangeText={(text) =>
+                      this.setState({
+                        currentArticle: {
+                          ...this.state.currentArticle,
+                          montantFacture: text,
+                        },
+                      })
+                    }
+                  />
+                </Col>
+
+                <Col size={40} style={styles.labelContainer}>
+                  <Text style={styles.labelTextStyle}>
+                    {translate(
+                      't6bisGestion.tabs.articles.articleBlock.mtm.devise',
+                    )}
+                  </Text>
+                  <HelperText
+                    type="error"
+                    padding="none"
+                    visible={
+                      stringNotEmpty(
+                        this.state.currentArticle?.montantFacture,
+                      ) && !stringNotEmpty(this.state.currentArticle?.devise)
+                    }>
+                    {translate(
+                      't6bisGestion.tabs.articles.articleBlock.mtm.valeurObligatoire',
+                    )}
+                  </HelperText>
+                </Col>
+                <Col size={60} style={styles.labelContainer}>
+                  <ComBadrPickerComp
+                    disabled={this.props.readOnly}
+                    onRef={(ref) => (this.comboDevise = ref)}
+                    style={CustomStyleSheet.badrPicker}
+                    cle="code"
+                    libelle="libelle"
+                    module="REF_LIB"
+                    command="completeDeviseChangeCmb"
+                    selected={this.state.currentArticle?.devise}
+                    selectedValue={this.state.currentArticle?.devise}
+                    onValueChange={(item) => this.handleDeviseChanged(item)}
+                    param=""
+                    typeService="SP"
+                    storeWithKey="devise"
+                    storeLibelleWithKey="libelle"
+                  />
+                </Col>
+              </Row>
+              <Row size={200}>
+                <Col size={40} style={styles.labelContainer}>
+                  <Text style={styles.labelTextStyle}>
+                    {translate(
+                      't6bisGestion.tabs.articles.articleBlock.mtm.quantite',
+                    )}
+                  </Text>
+                  <HelperText
+                    type="error"
+                    padding="none"
+                    visible={
+                      !stringNotEmpty(this.state.currentArticle?.quantite)
+                    }>
+                    {translate(
+                      't6bisGestion.tabs.articles.articleBlock.mtm.valeurObligatoire',
+                    )}
+                  </HelperText>
+                </Col>
+
+                <Col
+                  size={160}
+                  style={{justifyContent: 'center', marginLeft: 10}}>
+                  <TextInput
+                    mode="outlined"
+                    disabled={this.props.readOnly}
+                    label={translate(
+                      't6bisGestion.tabs.articles.articleBlock.mtm.quantite',
+                    )}
+                    keyboardType={'phone-pad'}
+                    value={this.state.currentArticle?.quantite}
+                    onChangeText={(text) =>
+                      this.setState({
+                        currentArticle: {
+                          ...this.state.currentArticle,
+                          quantite: text,
+                        },
+                      })
+                    }
+                  />
+                </Col>
+              </Row>
+              <Row size={200}>
+                <Col size={40} style={styles.labelContainer}>
+                  <Text style={styles.labelTextStyle}>
+                    {translate(
+                      't6bisGestion.tabs.articles.articleBlock.mtm.unite',
+                    )}
+                  </Text>
+                  <HelperText
+                    type="error"
+                    padding="none"
+                    visible={
+                      !stringNotEmpty(this.state.currentArticle.libelleUnite)
+                    }>
+                    {translate(
+                      't6bisGestion.tabs.articles.articleBlock.mtm.valeurObligatoire',
+                    )}
+                  </HelperText>
+                </Col>
+                <Col size={160} style={{marginLeft: -5}}>
+                  <ComBadrAutoCompleteChipsComp
+                    onRef={(ref) => (this.autoCompleteUnite = ref)}
+                    placeholder={translate(
+                      't6bisGestion.tabs.articles.articleBlock.mtm.choisirValeur',
+                    )}
+                    code="code"
+                    disabled={this.props.readOnly}
+                    selected={this.state.currentArticle.libelleUnite}
+                    maxItems={3}
+                    libelle="libelle"
+                    command="completeUniteQte"
+                    onDemand={true}
+                    searchZoneFirst={false}
+                    onValueChange={this.handleUniteQuantiteChanged}
+                  />
+                </Col>
+              </Row>
+              {!this.props.readOnly && (
+                <Row size={200}>
+                  <Col size={200}>
+                    <View style={styles.ComContainerCompBtn}>
+                      {this.state.currentArticle?.isNew && (
+                        <ComBadrButtonComp
+                          style={styles.actionBtn}
+                          onPress={() => {
+                            this.ajouter();
+                          }}
+                          text={translate(
+                            't6bisGestion.tabs.articles.articleBlock.buttons.ajouter',
+                          )}
+                        />
+                      )}
+
+                      {!this.state.currentArticle?.isNew && (
+                        <ComBadrButtonComp
+                          style={styles.actionBtn}
+                          onPress={() => {
+                            this.modifier();
+                          }}
+                          text={translate(
+                            't6bisGestion.tabs.articles.articleBlock.buttons.modifier',
+                          )}
+                        />
+                      )}
+                    </View>
+                  </Col>
+                </Row>
+              )}
+            </View>
+          </ComAccordionComp>
+        )}
 
         {!this.props.readOnly && (
           <Row size={200}>
             <Col size={200}>
               <View style={styles.ComContainerCompBtn}>
-                
                 <ComBadrButtonComp
                   style={styles.actionBtn}
                   onPress={() => {

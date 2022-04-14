@@ -1,16 +1,16 @@
 /** React Components */
 import React from 'react';
-import {Alert, Linking, ScrollView, TextInput, View} from 'react-native';
-import {Button, Title, Modal, Portal, Text} from 'react-native-paper';
+import { Alert, Linking, ScrollView, TextInput, View } from 'react-native';
+import { Button, Title, Modal, Portal, Text } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome';
 /** REDUX **/
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import style from '../style/habLoginStyle';
 /**ACTIONS */
 import * as LoginConstants from '../state/habLoginConstants';
 import * as authAction from '../state/actions/habLoginAction';
 /** i18n **/
-import {translate} from '../../../../commons/i18n/ComI18nHelper';
+import { translate } from '../../../../commons/i18n/ComI18nHelper';
 /** Custom Components */
 import {
   ComBadrErrorMessageComp,
@@ -18,7 +18,7 @@ import {
   ComBadrLoginHeaderComp,
 } from '../../../../commons/component';
 /** Inmemory session */
-import {load} from '../../../../commons/services/async-storage/ComStorageService';
+import { load } from '../../../../commons/services/async-storage/ComStorageService';
 import AutoLoginProcess from '../../../../commons/component/modules/autoLogin/ComAutoLoginProcessComp';
 /** Utils */
 import ComUtils from '../../../../commons/utils/ComUtils';
@@ -27,19 +27,19 @@ class Login extends React.Component {
   state = {
     login: '',
     password: '',
-    failures:this.props.failures,
-    startAutoLogin: true,
+    failures: this.props.failures,
+    startAutoLogin: false,
     autoLoginParam: {
-      login: 'AAMM',
-      password: 'Test123-',
+      login: 'AD6314',
+      password: 'Testtest1+',
       codeSms: '8bXqj1lLva3IEg6iDbJ+eA==',
-      bureau: '411',
-      codeBureau: '411',
-      codeArrondissement: '411',
-      arrondissement: '411',
+      bureau: '309',
+      codeBureau: '309',
+      codeArrondissement: '309311',
+      arrondissement: '309311',
       profiles: [
         // "0", "AAMAX", "AB", "PRO TEST",
-        "ACTIFS_AD", "ACTIFS", "ALL",
+        // "ACTIFS_AD", "ACTIFS", "ALL",
         // "AR", "ADMINBV",
         // "ADMSELCOT", "ADT", "AGBRIGADE", "AGDP", "AGENTD", "AGECOR", "AGENT_TEST", "AV",
         // "AG_VISIT", "AGLACI", "ALLPROFIL", "ALL", "ALLPRO", "A123", "AMAL2015", "AMAL-PRO",
@@ -47,7 +47,7 @@ class Login extends React.Component {
         // "BATCH", "BLOCAGE", "BROF", "CB-PROFIL", "CAUTION-BA", "CC2015", "CENTRAL", "CHAR", "ETAT",
         // "CHBRIGADE", "CIMET", "CNF_PROFIL", "CNT-AGENT", "CNT_DEV", "CNT-ORD", "CNT_PERF", "CR3",
         // "CNT_RECETT", "CODE C", "E00596", "CODEREF2", "CONSULTCTR", "MCV-MCV", "CST", "ANQ", "MCV-CONSUL",
-        // "PROCTRL", "CONT_CTRL", "CONTROL ", "CTRL", "CTRL_I", "CTRLML"
+        "PROCTRL", "CONT_CTRL", "CONTROL ", "CTRL", "CTRL_I", "CTRLML", "CTRLML"
         // "DECOUP_P10", "DECOUP_P15", "DECOUP_P16", "DECOUP_P7", "DECOUP_P8", "DECTNI", "DED12", "DED13", "DED3",
         // "DED-TEST", "DEPO", "AJOUTERTES", "AJOUTERTER", "ECOR_IMPOR", "EID", "YYY", "ELN", "ENQ", "ENTPARAM",
         // "FFFF", "FORCER_CD", "FORM_PRO1", "FORM_PRO2", "FORM_PRO3", "FORM_PRO9", "CD145", "GEST_AUTO", "GESTDEC",
@@ -84,32 +84,32 @@ class Login extends React.Component {
    */
   componentDidMount() {
     ComUtils.setDeviceInformation();
-    this.loadOldUserIfExist().then(() => {});
+    this.loadOldUserIfExist().then(() => { });
     this.props.initialize();
-    this.initAutoLoginParameters().then(() => {});
+    this.initAutoLoginParameters().then(() => { });
   }
 
   handleLogin = (forcerConnexion) => {
 
-    this.props.login(this.state.login, this.state.password, forcerConnexion, "false",this.state.failures);
+    this.props.login(this.state.login, this.state.password, forcerConnexion, "false", this.state.failures);
   };
 
   initAutoLoginParameters = async () => {
     const initialUrl = await Linking.getInitialURL();
     let params = this.extractUrlParams(initialUrl);
     if (Object.keys(params).length > 0) {
-      this.setState({startAutoLogin: true, autoLoginParam: params});
+      this.setState({ startAutoLogin: true, autoLoginParam: params });
     }
   };
 
   loadOldUserIfExist = async () => {
-    let user = await load('user',true,true);
+    let user = await load('user', true, true);
     if (user) {
-      this.setState({login: user.login});
+      this.setState({ login: user.login });
     }
   };
   onLoginChanged = (text) => {
-    this.setState({login: text.toUpperCase()});
+    this.setState({ login: text.toUpperCase() });
   };
 
   extractUrlParams = (initialUrl) => {
@@ -132,119 +132,119 @@ class Login extends React.Component {
 
   render() {
     return (
-        <ScrollView style={style.container}>
-          {/* {this.props.showProgress && <SmartLoader />} */}
+      <ScrollView style={style.container}>
+        {/* {this.props.showProgress && <SmartLoader />} */}
 
-          <Portal>
-            <Modal
-                dismissable={false}
-                visible={this.props.showModalUpdateVersion}
-                contentContainerStyle={style.containerModal}>
-              <Icon
-                  name="warning"
-                  color={'white'}
-                  size={50}
-                  style={style.iconModal}
-              />
-              <Title style={style.textModal}>
-                {this.props.msgModalUpdateVersion}
-              </Title>
-            </Modal>
-          </Portal>
-          <View style={style.loginBlock}>
-            <ComBadrLoginHeaderComp />
-            <View style={style.textInputContainer}>
-              <TextInput
-                  value={this.state.login}
-                  autoCapitalize="characters"
-                  style={style.textInput}
-                  placeholder={translate('userName')}
-                  onChangeText={(text) => this.onLoginChanged(text)}
-                  secureTextEntry={false}
-              />
-            </View>
-            <View style={style.textInputContainer}>
-              <TextInput
-                  value={this.state.password}
-                  style={style.textInput}
-                  autoCapitalize="none"
-                  secureTextEntry={true}
-                  placeholder={translate('password')}
-                  onChangeText={(text) => this.setState({password: text})}
-              />
-            </View>
-            <Button
-                loading={this.props.showProgress}
-                mode="contained"
-                style={style.loginButton}
-                onPress={() => this.handleLogin(false)}>
-              {translate('connexion')}
-            </Button>
-            {!this.props.loggedIn &&
+        <Portal>
+          <Modal
+            dismissable={false}
+            visible={this.props.showModalUpdateVersion}
+            contentContainerStyle={style.containerModal}>
+            <Icon
+              name="warning"
+              color={'white'}
+              size={50}
+              style={style.iconModal}
+            />
+            <Title style={style.textModal}>
+              {this.props.msgModalUpdateVersion}
+            </Title>
+          </Modal>
+        </Portal>
+        <View style={style.loginBlock}>
+          <ComBadrLoginHeaderComp />
+          <View style={style.textInputContainer}>
+            <TextInput
+              value={this.state.login}
+              autoCapitalize="characters"
+              style={style.textInput}
+              placeholder={translate('userName')}
+              onChangeText={(text) => this.onLoginChanged(text)}
+              secureTextEntry={false}
+            />
+          </View>
+          <View style={style.textInputContainer}>
+            <TextInput
+              value={this.state.password}
+              style={style.textInput}
+              autoCapitalize="none"
+              secureTextEntry={true}
+              placeholder={translate('password')}
+              onChangeText={(text) => this.setState({ password: text })}
+            />
+          </View>
+          <Button
+            loading={this.props.showProgress}
+            mode="contained"
+            style={style.loginButton}
+            onPress={() => this.handleLogin(false)}>
+            {translate('connexion')}
+          </Button>
+          {!this.props.loggedIn &&
             this.props.errorMessage != null &&
             this.props.errorMessage !== '2' && (
-                <ComBadrErrorMessageComp message={this.props.errorMessage} />
+              <ComBadrErrorMessageComp message={this.props.errorMessage} />
             )}
-            {!this.props.loggedIn &&
+          {!this.props.loggedIn &&
             this.props.errorMessage === '2' &&
             Alert.alert(
-                translate('alreadyLogged.title'),
-                translate('alreadyLogged.message'),
-                [
-                  {
-                    text: translate('alreadyLogged.cancel'),
-                    onPress: () => {},
-                    style: translate('alreadyLogged.cancel'),
-                  },
-                  {
-                    text: translate('alreadyLogged.connect'),
-                    onPress: () => this.handleLogin(true),
-                  },
-                ],
-                {cancelable: false},
+              translate('alreadyLogged.title'),
+              translate('alreadyLogged.message'),
+              [
+                {
+                  text: translate('alreadyLogged.cancel'),
+                  onPress: () => { },
+                  style: translate('alreadyLogged.cancel'),
+                },
+                {
+                  text: translate('alreadyLogged.connect'),
+                  onPress: () => this.handleLogin(true),
+                },
+              ],
+              { cancelable: false },
             )}
-            {this.props.route.params && this.props.route.params.msg && (
-                <ComBadrInfoMessageComp message={this.props.route.params.msg} />
-            )}
-          </View>
-          {this.state.startAutoLogin && (
-              <AutoLoginProcess
-                  navigation={this.props.navigation}
-                  usr={this.state.autoLoginParam.login}
-                  password={this.state.autoLoginParam.password}
-                  smsCode={this.state.autoLoginParam.codeSms}
-                  bureau={this.state.autoLoginParam.bureau}
-                  bureauCode={this.state.autoLoginParam.codeBureau}
-                  arrondissement={this.state.autoLoginParam.arrondissement}
-                  arrondissementCode={this.state.autoLoginParam.codeArrondissement}
-                  profiles={this.state.autoLoginParam.profiles}
-              />
+          {this.props.route.params && this.props.route.params.msg && (
+            <ComBadrInfoMessageComp message={this.props.route.params.msg} />
           )}
-        </ScrollView>
+        </View>
+        {this.state.startAutoLogin && (
+          <AutoLoginProcess
+            navigation={this.props.navigation}
+            usr={this.state.autoLoginParam.login}
+            password={this.state.autoLoginParam.password}
+            smsCode={this.state.autoLoginParam.codeSms}
+            bureau={this.state.autoLoginParam.bureau}
+            bureauCode={this.state.autoLoginParam.codeBureau}
+            arrondissement={this.state.autoLoginParam.arrondissement}
+            arrondissementCode={this.state.autoLoginParam.codeArrondissement}
+            profiles={this.state.autoLoginParam.profiles}
+          />
+        )}
+      </ScrollView>
     );
   }
 }
 
-const mapStateToProps = (state) => ({...state.loginReducer});
+const mapStateToProps = (state) => ({ ...state.loginReducer });
 
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    login: (login, password, forcerConnexion, isFromCohabitation,failures) => {
+    login: (login, password, forcerConnexion, isFromCohabitation, failures) => {
 
 
 
       let action = authAction.request(
-          {
-            type: LoginConstants.AUTH_LOGIN_REQUEST,
-            value: {
-              login: login,
-              pwd: password,
-              forcerConnexion: forcerConnexion,
+        {
+          type: LoginConstants.AUTH_LOGIN_REQUEST,
+          value: {
+            login: login,
+            pwd: password,
+            forcerConnexion: forcerConnexion,
             isFromCohabitation: isFromCohabitation,
-            failures:failures
-            },
+            failures: failures
           },
-          props.navigation,
+        },
+        props.navigation,
       );
       dispatch(action);
     },

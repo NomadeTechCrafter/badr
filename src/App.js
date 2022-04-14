@@ -79,6 +79,8 @@ import etatChargementTabSearchComponent from './modules/controle/controleApresSc
 import ctrlControleApresScannerSearchComponent from './modules/controle/controleApresScanner/component/ctrlControleApresScannerSearchComponent';
 import ActifsRapportCreationAvitaillementEntreeTab from './modules/actifs/rapport/creation/ui/avitaillementEntree/actifsRapportCreationAvitaillementEntreeTab';
 import PreConfirmationArriveeMainScreen from './modules/delaiTransit/dtPreConfirmationArrivee/ui/dtPreConfirmationArriveeScreen';
+import RechApurementParRefScreen from './modules/DeclarationD17D20/apurement/ui/initApurement/RechApurementParRefScreen'
+import GestionApurementScreen from './modules/DeclarationD17D20/apurement/ui/initApurement/GestionApurementScreen'
 
 
 //setGlobalHandler();
@@ -171,7 +173,16 @@ export default class App extends React.Component {
                 component={ActifsRapportCreationScreen}
               />
 
-
+              <Stack.Screen
+                name="RechApurementParRefScreen"
+                options={{ headerShown: false }}
+                component={RechApurementParRefScreen}
+              />
+              <Stack.Screen
+                name="GestionApurementScreen"
+                options={{ headerShown: false }}
+                component={GestionApurementScreen}
+              />
               <Stack.Screen
                 name="LiquidationHomeScreen"
                 component={LiquidationHomeScreen}
