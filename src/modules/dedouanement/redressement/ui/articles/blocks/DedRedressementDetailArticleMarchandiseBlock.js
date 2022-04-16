@@ -1,5 +1,5 @@
 import React from 'react';
-import {View} from 'react-native';
+import { View } from 'react-native';
 import {
   ComAccordionComp,
   ComBadrAutoCompleteChipsComp,
@@ -11,20 +11,29 @@ import {
   Checkbox,
   Paragraph,
   RadioButton,
+  Text,
   TextInput,
 } from 'react-native-paper';
-import {primaryColor} from '../../../../../../commons/styles/ComThemeStyle';
-import {getValueByPath} from '../../../utils/DedUtils';
-import {request} from '../../../state/actions/DedAction';
+import { primaryColor } from '../../../../../../commons/styles/ComThemeStyle';
+import { getValueByPath } from '../../../utils/DedUtils';
+import { request } from '../../../state/actions/DedAction';
 import {
   GENERIC_DED_INIT,
   GENERIC_DED_REQUEST,
 } from '../../../state/DedRedressementConstants';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 class DedRedressementDetailArticleMarchandiseBlock extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      designationCommerciale: this.props.article?.designationCommerciale,
+      paysOrigineLibelle: this.props.article?.paysOrigineLibelle,
+      paysOrigine: this.props.article?.paysOrigine,
+      paiement: this.props.article.paiement,
+      occasion: this.props.article.occasion,
+
+    }
   }
   componentDidMount() {
     this.getLibelleNGP();
@@ -73,6 +82,50 @@ class DedRedressementDetailArticleMarchandiseBlock extends React.Component {
     });
   };
 
+  update() {
+    this.setState(previousState => ({
+      designationCommerciale: previousState.designationCommerciale,
+      paysOrigineLibelle: previousState.paysOrigineLibelle,
+      paysOrigine: previousState.paysOrigine,
+      paiement: previousState.paiement,
+      occasion: previousState.occasion,
+
+    }), () => {
+      this.props.update({
+        designationCommerciale: this.state?.designationCommerciale,
+        paysOrigineLibelle: this.state?.paysOrigineLibelle,
+        paysOrigine: this.state?.paysOrigine,
+        paiement: this.state?.paiement,
+        occasion: this.state?.occasion,
+
+      });
+    });
+  };
+
+  handlePaysOrigineChipsChanged = (selectedPays) => {
+
+    // { console.log('===================================================confirmer============================================================') }
+    // { console.log('===================================================confirmer============================================================') }
+    // console.log(JSON.stringify(selectedPays));
+    // { console.log('====================================================confirmer===========================================================') }
+    // { console.log('====================================================confirmer===========================================================') }
+    this.setState({
+      designationCommerciale: this.state?.designationCommerciale,
+      paysOrigineLibelle: selectedPays?.libelle,
+      paysOrigine: selectedPays?.nomPays,
+      paiement: this.state?.paiement,
+      occasion: this.state?.occasion,
+    });
+
+    this.update(selectedPays);
+  };
+
+  onChangeTypeDUM = (value) => {
+    console.log('onChangeTypeDUM : ' + value);
+    this.setState({ paiement: value });
+    this.update();
+  }
+
   render() {
     /**
      * Exemple appel redux GENERIC !!
@@ -90,7 +143,7 @@ class DedRedressementDetailArticleMarchandiseBlock extends React.Component {
      */
 
     return (
-      <View style={{flex: 1}}>
+      <View style={{ flex: 1 }}>
         <ComAccordionComp title="Marchandise" expanded={false}>
           <DedRedressementRow>
             <ComBadrKeyValueComp
@@ -109,7 +162,7 @@ class DedRedressementDetailArticleMarchandiseBlock extends React.Component {
               libelleSize={1}
               children={
                 <Button
-                  style={{width: 100, margin: 10}}
+                  style={{ width: 100, margin: 10 }}
                   mode="contained"
                   disabled={true}
                   color={primaryColor}>
@@ -130,12 +183,16 @@ class DedRedressementDetailArticleMarchandiseBlock extends React.Component {
               children={
                 <TextInput
                   type="flat"
-                  disabled={true}
+                  disabled={!this.props.edition}
                   label=""
-                  value={getValueByPath(
-                    'designationCommerciale',
-                    this.props.article,
-                  )}
+                  value={this.state?.designationCommerciale}
+                  onChangeText={(text) => {
+                    this.setState({
+                      designationCommerciale: text
+                    })
+                    this.update();
+                  }
+                  }
                 />
               }
             />
@@ -147,13 +204,10 @@ class DedRedressementDetailArticleMarchandiseBlock extends React.Component {
               libelleSize={2}
               children={
                 <ComBadrAutoCompleteChipsComp
-                  disabled={true}
-                  onRef={(ref) => (this.refPaysOrigine = ref)}
+                  disabled={!this.props.edition || this.props.article?.paysOrigineLibelle}
+                  // onRef={(ref) => (this.refPaysOrigine = ref)}
                   code="code"
-                  selected={getValueByPath(
-                    'paysOrigineLibelle',
-                    this.props.article,
-                  )}
+                  selected={this.state.paysOrigineLibelle}
                   maxItems={3}
                   libelle="libelle"
                   command="getCmbPays"
@@ -165,41 +219,35 @@ class DedRedressementDetailArticleMarchandiseBlock extends React.Component {
               }
             />
           </DedRedressementRow>
-          {console.log("this.props.article", this.props.article)}
-          {console.log("this.props.article.paiement", this.props.article.paiement)}
           <DedRedressementRow>
             <ComBadrKeyValueComp
               libelle="Paiement"
               libelleSize={0.7}
               children={
-                
-                <View style={{flexDirection: 'row'}}>
-                  <ComBadrKeyValueComp
-                    libelle="Avec"
-                    children={
-                      <RadioButton
-                        color={primaryColor}
-                        value="Avec"
-                        disabled={true}
-                        status={
-                          (this.props.article.paiement !== "false") ? 'checked' :'unchecked'
-                        }
-                      />
-                    }
-                  />
-                  <ComBadrKeyValueComp
-                    libelle="Sans"
-                    children={
-                      <RadioButton
-                        color={primaryColor}
-                        value="Sans"
-                        disabled={true}
-                        status={
-                          (this.props.article.paiement === "false")? 'checked' : 'unchecked'
-                        }
-                      />
-                    }
-                  />
+
+                <View style={{ flexDirection: 'row' }}>
+                  <RadioButton.Group onValueChange={this.onChangeTypeDUM} value={this.state.paiement}>
+                    <ComBadrKeyValueComp
+                      libelle="Avec"
+                      children={
+                        <RadioButton
+                          color={primaryColor}
+                          value="true"
+                          disabled={!this.props.edition}
+                        />
+                      }
+                    />
+                    <ComBadrKeyValueComp
+                      libelle="Sans"
+                      children={
+                        <RadioButton
+                          color={primaryColor}
+                          value="false"
+                          disabled={!this.props.edition}
+                        />
+                      }
+                    />
+                  </RadioButton.Group>
 
                   <ComBadrKeyValueComp
                     rtl={true}
@@ -208,12 +256,17 @@ class DedRedressementDetailArticleMarchandiseBlock extends React.Component {
                     children={
                       <Checkbox
                         color={primaryColor}
-                        disabled={true}
-                        status={
-                          getValueByPath('occasion', this.props.article)==="false"
-                            ? 'unchecked'
-                            : 'checked'
+                        disabled={!this.props.edition}
+                        status={this.state.occasion === "false"
+                          ? 'unchecked'
+                          : 'checked'
                         }
+                        onPress={() => {
+                          this.setState({
+                            occasion: this.state.occasion === "false" ? "true" : "false",
+                          })
+                          this.update();
+                        }}
                       />
                     }
                   />
@@ -234,12 +287,12 @@ class DedRedressementDetailArticleMarchandiseBlock extends React.Component {
   callRedux = (jsonVO) => {
     if (this.props.dispatch) {
       console.log('calling redux ...');
-      this.props.dispatch(request({type: GENERIC_DED_REQUEST, value: jsonVO}));
+      this.props.dispatch(request({ type: GENERIC_DED_REQUEST, value: jsonVO }));
     }
   };
 
   init = () => {
-    this.props.dispatch(request({type: GENERIC_DED_INIT, value: {}}));
+    this.props.dispatch(request({ type: GENERIC_DED_INIT, value: {} }));
   };
 
   extractCommandData = (command, reducerName) => {
@@ -255,7 +308,7 @@ class DedRedressementDetailArticleMarchandiseBlock extends React.Component {
 }
 
 function mapStateToProps(state) {
-  return {...state};
+  return { ...state };
 }
 
 export default connect(

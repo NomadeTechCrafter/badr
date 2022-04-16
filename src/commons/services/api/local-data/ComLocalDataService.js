@@ -48,6 +48,7 @@ if (process.env.NODE_ENV === 'development') {
     getCmbLieuStockageParBureau: require('./referential/getCmbLieuStockageParBureau.json'),
     getArrondissementByBureau: require('./referential/getArrondissementByBureau.json'),
     getCmbPays: require('./referential/getCmbPays.json'),
+    getCmbTypeContenant: require('./referential/getCmbTypeContenant.json'),
     getListeBureaux: require('./referential/getListeBureaux'),
     getCmbAllTypeCautionnement: require('./referential/getCmbAllTypeCautionnement.json'),
     'ded.getDecisionCautionVO': require('./dedouanement/caution/getDecisionCautionVO.json'),

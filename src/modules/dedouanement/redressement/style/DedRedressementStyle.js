@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 import {
   darkGrayColor,
   lightBlue,
@@ -14,7 +14,7 @@ import {
 // };
 
 const styles = {
-  row: {flexDirection: 'row', padding: 10, margin: 10},
+  row: { flexDirection: 'row', padding: 10, margin: 10 },
   zRow: {
     flexDirection: 'row',
     padding: 10,
@@ -39,10 +39,10 @@ const styles = {
     margin: 15,
     flex: 1,
   },
-  headingText: {color: primaryColor, fontSize: 15},
-  versionInitialStyle: {paddingLeft: 50, marginLeft: 10},
-  versionEnCoursStyle: {paddingLeft: 50, marginLeft: 10},
-  touchableButtonStyle: {width: 120, height: 50, margin: 5},
+  headingText: { color: primaryColor, fontSize: 15 },
+  versionInitialStyle: { paddingLeft: 50, marginLeft: 10 },
+  versionEnCoursStyle: { paddingLeft: 50, marginLeft: 10 },
+  touchableButtonStyle: { width: 120, height: 50, margin: 5 },
   rtlCheckboxLabelStyle: { fontSize: 17, color: darkGrayColor, marginLeft: -40 },
   buttonAction: {
     margin: '4%',
@@ -53,7 +53,8 @@ const styles = {
     padding: 0,
     marginTop: 15,
     marginBottom: 15,
-  }
+  },
+  btnActions: { margin: 2 },
   // nombreResult: { margin: 20, marginVertical: 10, ...value },
   // libelle: { ...libelle },
 };

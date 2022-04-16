@@ -19,6 +19,31 @@ import { getValueByPath } from '../../../utils/DedUtils';
 export default class DedRedressementDetailArticleValeurQuantiteBlock extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      valeurDeclaree: this.props.article?.valeurDeclaree,
+      quantite: this.props.article?.quantite,
+      uniteLibelle: this.props.article?.uniteLibelle,
+      poidsNet: this.props.article?.poidsNet,
+      quantiteNormalisee: this.props.article?.quantiteNormalisee,
+    }
+  }
+
+  update() {
+    this.setState(previousState => ({
+      valeurDeclaree: previousState.valeurDeclaree,
+      quantite: previousState.quantite,
+      uniteLibelle: previousState.uniteLibelle,
+      poidsNet: previousState.poidsNet,
+      quantiteNormalisee: previousState.quantiteNormalisee,
+    }), () => {
+      this.props.update({
+        valeurDeclaree: this.state?.valeurDeclaree,
+        quantite: this.state?.quantite,
+        uniteLibelle: this.state?.uniteLibelle,
+        poidsNet: this.state?.poidsNet,
+        quantiteNormalisee: this.state?.quantiteNormalisee,
+      });
+    });
   }
 
   componentDidMount() { }
@@ -33,10 +58,18 @@ export default class DedRedressementDetailArticleValeurQuantiteBlock extends Rea
               libelleSize={2}
               children={
                 <TextInput
-                  disabled={true}
+                  disabled={!this.props.edition}
                   type="flat"
                   label=""
-                  value={getValueByPath('valeurDeclaree', this.props.article)}
+                  keyboardType={'number-pad'}
+                  value={this.state.valeurDeclaree}
+                  onChangeText={(text) => {
+                    this.setState({
+                      valeurDeclaree: text
+                    })
+                    this.update();
+                  }
+                  }
                 />
               }
             />
@@ -60,10 +93,18 @@ export default class DedRedressementDetailArticleValeurQuantiteBlock extends Rea
               libelleSize={2}
               children={
                 <TextInput
-                  disabled={true}
+                  disabled={!this.props.edition}
                   type="flat"
                   label=""
-                  value={getValueByPath('quantite', this.props.article)}
+                  keyboardType={'number-pad'}
+                  value={this.state.quantite}
+                  onChangeText={(text) => {
+                    this.setState({
+                      quantite: text
+                    })
+                    this.update();
+                  }
+                  }
                 />
               }
             />
@@ -72,7 +113,7 @@ export default class DedRedressementDetailArticleValeurQuantiteBlock extends Rea
               libelleSize={2}
               children={
                 <ComBadrAutoCompleteChipsComp
-                  disabled={true}
+                  disabled={!this.props.edition}
                   onRef={(ref) => (this.refUnite = ref)}
                   code="code"
                   selected={getValueByPath('uniteLibelle', this.props.article)}
@@ -94,10 +135,18 @@ export default class DedRedressementDetailArticleValeurQuantiteBlock extends Rea
               libelleSize={2}
               children={
                 <TextInput
-                  disabled={true}
+                  disabled={!this.props.edition}
                   type="flat"
                   label=""
-                  value={getValueByPath('poidsNet', this.props.article)}
+                  keyboardType={'number-pad'}
+                  value={this.state.poidsNet}
+                  onChangeText={(text) => {
+                    this.setState({
+                      poidsNet: text
+                    })
+                    this.update();
+                  }
+                  }
                 />
               }
             />
@@ -113,13 +162,18 @@ export default class DedRedressementDetailArticleValeurQuantiteBlock extends Rea
               libelleSize={3}
               children={
                 <TextInput
-                  disabled={true}
+                  disabled={!this.props.edition}
                   type="flat"
                   label=""
-                  value={getValueByPath(
-                    'quantiteNormalisee',
-                    this.props.article,
-                  )}
+                  keyboardType={'number-pad'}
+                  value={this.state.quantiteNormalisee}
+                  onChangeText={(text) => {
+                    this.setState({
+                      quantiteNormalisee: text
+                    })
+                    this.update();
+                  }
+                  }
                 />
               }
             />
@@ -127,6 +181,9 @@ export default class DedRedressementDetailArticleValeurQuantiteBlock extends Rea
               libelle="Unité de quantité normalisée : "
               libelleSize={3}
               value={getValueByPath(
+                'unite',
+                this.props.article,
+              ) + ' ' + getValueByPath(
                 'libelleUniteNormalisee',
                 this.props.article,
               )}

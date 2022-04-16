@@ -81,6 +81,7 @@ import ActifsRapportCreationAvitaillementEntreeTab from './modules/actifs/rappor
 import PreConfirmationArriveeMainScreen from './modules/delaiTransit/dtPreConfirmationArrivee/ui/dtPreConfirmationArriveeScreen';
 import RechApurementParRefScreen from './modules/DeclarationD17D20/apurement/ui/initApurement/RechApurementParRefScreen'
 import GestionApurementScreen from './modules/DeclarationD17D20/apurement/ui/initApurement/GestionApurementScreen'
+import DedRedressementArticlesScreen from './modules/dedouanement/redressement/ui/articles/DedRedressementArticlesScreen';
 
 
 //setGlobalHandler();
@@ -104,7 +105,7 @@ export default class App extends React.Component {
                 <Stack.Screen
                   name="test"
                   options={{headerShown: false}}
-                    component={ActifsRapportCreationAvitaillementEntreeTab}
+                    component={DedRedressementArticlesScreen}
                 />
               )}
               <Stack.Screen

@@ -111,6 +111,7 @@ export default {
     fermer: 'Fermer',
     back: 'Back',
     abandonner: 'Abandonner',
+    supprimer: 'Supprimer',
     rechercher: 'Rechercher',
     nouveau: 'Nouveau',
     du: 'Du',
