@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ScrollView, StyleSheet, Text } from 'react-native';
+import { View, ScrollView, StyleSheet, Text, TextInputBase } from 'react-native';
 import { connect } from 'react-redux';
 import { translate } from '../../../../../commons/i18n/ComI18nHelper';
 import * as Constants from '../../state/decMainleveeConstants';
@@ -13,11 +13,11 @@ import {
   ComBadrDatePickerComp,
   ComBadrActionButtonComp,
 } from '../../../../../commons/component';
-import { Checkbox } from 'react-native-paper';
-import { TextInput } from 'react-native-paper';
+import { Button, Checkbox, TextInput } from 'react-native-paper';
 
-import moment from 'moment';
 import { ComSessionService } from '../../../../../commons/services/session/ComSessionService';
+import { CustomStyleSheet } from '../../../../../commons/styles/ComThemeStyle';
+import { Col, Row } from 'react-native-easy-grid';
 
 const initialState = {
   reference: '',
@@ -140,42 +140,31 @@ class MainleveeEntete extends React.Component {
 
 
 
-  handleConfirmMainlevee = () => {
+  confirmer = () => {
     if (
-      !this.state.dateDebutMainlevee ||
-      this.state.dateDebutMainlevee === '' ||
-      !this.state.heureDebutMainlevee ||
-      this.state.heureDebutMainlevee === '' ||
-      !this.state.commentaire ||
-      this.state.commentaire === ''
+      !this.state.motif
     ) {
       this.setState({
-        errorMessage: translate('mainlevee.dateMainleveeObligatoire'),
+        errorMessage: translate('mainlevee.motifMainleveeObligatoire'),
       });
       this.scrollViewRef.current.scrollTo({ x: 0, y: 0, animated: true });
       return;
     }
 
-    const jsonVO = {};
-    jsonVO.indentifiant = this.props.dataVo?.declarationTriptique?.indentifiant;
-    jsonVO.sortiePort = {
-      dateSortie: this.state.dateDebutMainlevee + ' ' + this.state.heureDebutMainlevee, //'18/01/2021 11:08',
-      commentaire: this.state.commentaire, //'My Comment ',
-      agent: ComSessionService.getInstance().getLogin(), //'AD6025',
-    };
+    let jsonVO = this.props.dataVo;
+    jsonVO.declarationTriptique.motifIntervention = this.state.motif;
 
     +    console.log("-----------------");
     +    console.log(JSON.stringify(jsonVO));
     +    console.log("-----------------");
     +    console.log("-----------------");
 
-
     var action = MainleveeConfirmerAction.request(
       {
         type: Constants.MAINLEVEE_CONFIRMER_REQUEST,
         value: {
           login: this.state.login,
-          commande: 'ded.mainleveeConfirmerDeclarationTrypByRef',
+          commande: 'confirmerMainleveeTryp',
           module: 'DED_LIB',
           typeService: 'UC',
           data: jsonVO,
@@ -187,26 +176,26 @@ class MainleveeEntete extends React.Component {
     this.scrollViewRef.current.scrollTo({ x: 0, y: 0, animated: true });
   };
 
-  handleAnnulerMainlevee = () => {
-    const jsonVO = {};
-    jsonVO.indentifiant = this.props.dataVo?.declarationTriptique?.indentifiant;
+  // handleAnnulerMainlevee = () => {
+  //   const jsonVO = {};
+  //   jsonVO.indentifiant = this.props.dataVo?.declarationTriptique?.indentifiant;
 
-    var action = MainleveeConfirmerAction.request(
-      {
-        type: Constants.MAINLEVEE_CONFIRMER_REQUEST,
-        value: {
-          login: this.state.login,
-          commande: 'ded.mainleveeAnnulerDeclarationTrypByRef',
-          module: 'DED_LIB',
-          typeService: 'UC',
-          data: jsonVO,
-        },
-      },
-      this.props.navigation,
-    );
-    this.props.actions.dispatch(action);
-    this.scrollViewRef.current.scrollTo({ x: 0, y: 0, animated: true });
-  };
+  //   var action = MainleveeConfirmerAction.request(
+  //     {
+  //       type: Constants.MAINLEVEE_CONFIRMER_REQUEST,
+  //       value: {
+  //         login: this.state.login,
+  //         commande: 'ded.mainleveeAnnulerDeclarationTrypByRef',
+  //         module: 'DED_LIB',
+  //         typeService: 'UC',
+  //         data: jsonVO,
+  //       },
+  //     },
+  //     this.props.navigation,
+  //   );
+  //   this.props.actions.dispatch(action);
+  //   this.scrollViewRef.current.scrollTo({ x: 0, y: 0, animated: true });
+  // };
 
   getConducteurById = function (codeConducteur) {
     const vctConducteurs = this.props.dataVo?.vctConducteurs;
@@ -221,45 +210,45 @@ class MainleveeEntete extends React.Component {
   };
 
   render() {
-    const declarationTriptique = this.props.dataVo?.declarationTriptique;
+    // const declarationTriptique = this.props.dataVo?.declarationTriptique;
     const enteteTrypVO = this.props.dataVo?.enteteTrypVO;
     const traceSignature = this.props.dataVo?.traceSignature;
     const referenceEnregistrement = this.props.dataVo?.declarationTriptique?.referenceEnregistrement;
 
-    const renderDateMainlevee = () => {
-      return (
-        <ComBadrDatePickerComp
-          dateFormat="DD/MM/YYYY"
-          heureFormat="HH:mm"
-          value={
-            this.state?.dateDebutMainlevee
-              ? moment(this.state.dateDebutMainlevee, 'DD/MM/yyyy', true)
-              : ''
-          }
-          timeValue={
-            this.state?.heureDebutMainlevee
-              ? moment(this.state.heureDebutMainlevee, 'HH:mm', true)
-              : ''
-          }
-          onDateChanged={(date) => {
-            console.log(' changed date : ' + date);
-            const dateToSet = date ? date : '';
-            this.setState({
-              dateDebutMainlevee: dateToSet,
-            });
-          }}
-          onTimeChanged={(time) =>
-            this.setState({
-              heureDebutMainlevee: time,
-            })
-          }
-          labelDate={translate('operateursEconomiques.core.dateDebut')}
-          labelHeure={translate('operateursEconomiques.core.heureDebut')}
-          // inputStyle={style.dateInputStyle}
-          readonly={this.state.mainleveeExisteDeja || this.state.success}
-        />
-      );
-    };
+    // const renderDateMainlevee = () => {
+    //   return (
+    //     <ComBadrDatePickerComp
+    //       dateFormat="DD/MM/YYYY"
+    //       heureFormat="HH:mm"
+    //       value={
+    //         this.state?.dateDebutMainlevee
+    //           ? moment(this.state.dateDebutMainlevee, 'DD/MM/yyyy', true)
+    //           : ''
+    //       }
+    //       timeValue={
+    //         this.state?.heureDebutMainlevee
+    //           ? moment(this.state.heureDebutMainlevee, 'HH:mm', true)
+    //           : ''
+    //       }
+    //       onDateChanged={(date) => {
+    //         console.log(' changed date : ' + date);
+    //         const dateToSet = date ? date : '';
+    //         this.setState({
+    //           dateDebutMainlevee: dateToSet,
+    //         });
+    //       }}
+    //       onTimeChanged={(time) =>
+    //         this.setState({
+    //           heureDebutMainlevee: time,
+    //         })
+    //       }
+    //       labelDate={translate('operateursEconomiques.core.dateDebut')}
+    //       labelHeure={translate('operateursEconomiques.core.heureDebut')}
+    //       // inputStyle={style.dateInputStyle}
+    //       readonly={this.state.mainleveeExisteDeja || this.state.success}
+    //     />
+    //   );
+    // };
 
     return (
       <View style={styles.fabContainer}>
@@ -620,6 +609,91 @@ class MainleveeEntete extends React.Component {
               </View>
             </Accordion>
           </CardBox>
+
+          {/* Intervention */}
+          <CardBox style={styles.cardBox}>
+            <Accordion badr title={translate('mainlevee.intervention')} expanded>
+
+              <View style={[styles.flexDirectionRow, styles.marg]}>
+                <Text style={styles.libelleM}>
+                  {translate('mainlevee.type')} :
+                </Text>
+                <Text style={styles.valueM}>{enteteTrypVO?.type}</Text>
+                <Text style={styles.libelleS}>
+                  {translate('mainlevee.numeroVersion')} :
+                </Text>
+                <Text style={styles.valueS}>
+                  {enteteTrypVO?.numeroVersion}
+                </Text>
+                <Text style={styles.libelleM}>
+                  {translate('mainlevee.statut')} :
+                </Text>
+                <Text style={styles.valueM}>{enteteTrypVO?.status}</Text>
+              </View>
+
+              <View style={styles.flexColumn}>
+                <View style={[styles.flexDirectionRow, styles.marg]}>
+                  <Row>
+                    <Col>
+                      <Text style={styles.libelleM}>
+                        {translate('mainlevee.type')} :
+                      </Text>
+                    </Col>
+                    <Col size={4}>
+                      <Text style={styles.valueM}>confirmation de la mainlevée</Text>
+                    </Col>
+                    <Col>
+                    </Col>
+                    <Col>
+                    </Col>
+                  </Row>
+                </View>
+              </View>
+              <View style={[styles.flexDirectionRow, styles.marg]}>
+                <Row>
+                  <Col size={1}>
+                    <Text style={styles.libelleS}>
+                      {translate('mainlevee.motif')} :
+                    </Text>
+                  </Col>
+                  <Col size={11}>
+                    <TextInput
+                      mode={'outlined'}
+                      value={this.state.motif}
+                      multiline={true}
+                      // style={CustomStyleSheet.largeInput}
+                      numberOfLines={6}
+                    />
+                  </Col>
+                </Row>
+              </View>
+              <View style={[styles.flexDirectionRow, styles.marg]}>
+                <Row>
+                  <Col />
+                  <Col size={3}>
+                    <Button
+                      onPress={() => this.confirmer()}
+                      mode="contained"
+                      style={styles.btnActions}
+                    >
+                      {translate('transverse.confirmer')}
+                    </Button>
+                  </Col>
+                  <Col size={3}>
+                    <Button
+                      onPress={() => this.abandonner()}
+                      mode="contained"
+                      style={styles.btnActions}
+                    >
+                      {translate('transverse.abandonner')}
+                    </Button>
+                  </Col>
+                  <Col />
+                </Row>
+              </View>
+            </Accordion>
+          </CardBox>
+
           {/* Sorti du Port */}
           {/* <CardBox style={styles.cardBox}>
             <Accordion badr title={translate('mainlevee.mainlevee')} expanded>
@@ -700,13 +774,13 @@ class MainleveeEntete extends React.Component {
           </CardBox> */}
         </ScrollView>
 
-        <ComBadrActionButtonComp
+        {/* <ComBadrActionButtonComp
           style={styles.badrActionsStyle}
           // visible={this.state.dateMainlevee && this.state.commentaire}
           visible={!this.props.success}
           active={false}
           actions={this.state.screenActions}
-        />
+        /> */}
       </View>
     );
   }
@@ -808,6 +882,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     borderColor: 'red',
   },
+  btnActions: { margin: 2 },
 });
 
 function mapStateToProps(state) {

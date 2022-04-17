@@ -836,7 +836,7 @@ class DelivrerMLV extends React.Component {
                       });
                     }}>
                     <View style={styles.containerCheckbox}>
-                      <View pointerEvents="none">
+                      <View>
                         <Checkbox
                           color={primaryColor}
                           status={
@@ -844,6 +844,15 @@ class DelivrerMLV extends React.Component {
                               ? 'checked'
                               : 'unchecked'
                           }
+                          onPress={() => {
+                            this.setState({
+                              delivrerMainleveeVO: {
+                                ...this.state.delivrerMainleveeVO,
+                                avecPesage: !this.state?.delivrerMainleveeVO
+                                  ?.avecPesage,
+                              },
+                            });
+                          }}
                         />
                       </View>
                       <Paragraph>
@@ -863,7 +872,7 @@ class DelivrerMLV extends React.Component {
                       });
                     }}>
                     <View style={styles.containerCheckbox}>
-                      <View pointerEvents="none">
+                      <View>
                         <Checkbox
                           color={primaryColor}
                           status={
@@ -871,6 +880,15 @@ class DelivrerMLV extends React.Component {
                               ? 'checked'
                               : 'unchecked'
                           }
+                          onPress={() => {
+                            this.setState({
+                              delivrerMainleveeVO: {
+                                ...this.state.delivrerMainleveeVO,
+                                avecScanner: !this.state?.delivrerMainleveeVO
+                                  ?.avecScanner,
+                              },
+                            });
+                          }}
                         />
                       </View>
                       <Paragraph>
@@ -890,7 +908,7 @@ class DelivrerMLV extends React.Component {
                       });
                     }}>
                     <View style={styles.containerCheckbox}>
-                      <View pointerEvents="none">
+                      <View>
                         <Checkbox
                           color={primaryColor}
                           status={
@@ -898,6 +916,15 @@ class DelivrerMLV extends React.Component {
                               ? 'checked'
                               : 'unchecked'
                           }
+                          onPress={() => {
+                            this.setState({
+                              delivrerMainleveeVO: {
+                                ...this.state.delivrerMainleveeVO,
+                                sansSortie: !this.state?.delivrerMainleveeVO
+                                  ?.sansSortie,
+                              },
+                            });
+                          }}
                         />
                       </View>
                       <Paragraph>
@@ -917,7 +944,7 @@ class DelivrerMLV extends React.Component {
                       });
                     }}>
                     <View style={styles.containerCheckbox}>
-                      <View pointerEvents="none">
+                      <View>
                         <Checkbox
                           color={primaryColor}
                           status={
@@ -925,6 +952,15 @@ class DelivrerMLV extends React.Component {
                               ? 'checked'
                               : 'unchecked'
                           }
+                          onPress={() => {
+                            this.setState({
+                              delivrerMainleveeVO: {
+                                ...this.state.delivrerMainleveeVO,
+                                sousEscorteGendarmerie: !this.state
+                                  ?.delivrerMainleveeVO?.sousEscorteGendarmerie,
+                              },
+                            });
+                          }}
                         />
                       </View>
                       <Paragraph>
@@ -944,7 +980,7 @@ class DelivrerMLV extends React.Component {
                       });
                     }}>
                     <View style={styles.containerCheckbox}>
-                      <View pointerEvents="none">
+                      <View>
                         <Checkbox
                           color={primaryColor}
                           status={
@@ -952,6 +988,15 @@ class DelivrerMLV extends React.Component {
                               ? 'checked'
                               : 'unchecked'
                           }
+                          onPress={() => {
+                            this.setState({
+                              delivrerMainleveeVO: {
+                                ...this.state.delivrerMainleveeVO,
+                                sousEscorteDouane: !this.state
+                                  ?.delivrerMainleveeVO?.sousEscorteDouane,
+                              },
+                            });
+                          }}
                         />
                       </View>
                       <Paragraph>
@@ -971,7 +1016,7 @@ class DelivrerMLV extends React.Component {
                       });
                     }}>
                     <View style={styles.containerCheckbox}>
-                      <View pointerEvents="none">
+                      <View>
                         <Checkbox
                           color={primaryColor}
                           status={
@@ -979,6 +1024,15 @@ class DelivrerMLV extends React.Component {
                               ? 'checked'
                               : 'unchecked'
                           }
+                          onPress={() => {
+                            this.setState({
+                              delivrerMainleveeVO: {
+                                ...this.state.delivrerMainleveeVO,
+                                pourEntrepesage: !this.state
+                                  ?.delivrerMainleveeVO?.pourEntrepesage,
+                              },
+                            });
+                          }}
                         />
                       </View>
                       <Paragraph>
@@ -1481,7 +1535,6 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(state) {
-
   return {...state.mlvDelivrerReducer};
 }
 

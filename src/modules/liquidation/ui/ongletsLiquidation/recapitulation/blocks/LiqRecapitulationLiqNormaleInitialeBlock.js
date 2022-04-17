@@ -28,7 +28,7 @@ class LiqRecapitulationLiqNormaleInitialeBlock extends React.Component {
       selectedBorderau: selectedValue,
     });
   };
-
+  
   render() {
     const { liquidationVO, liquidationType, indicateurLiquidationArticlesEnFranchiseTotale } = this.props;
     console.log('indicateurLiquidationArticlesEnFranchiseTotale', indicateurLiquidationArticlesEnFranchiseTotale)
@@ -153,16 +153,8 @@ class LiqRecapitulationLiqNormaleInitialeBlock extends React.Component {
                 />
               </Col>
               {/* {this.state.selectedBorderau == "Crédit d'enlèvement(02)"} */}
-              <Col size={1}>
-                <ComBadrLibelleComp withColor={true}>
-                  {translate('liq.delai')}
-                </ComBadrLibelleComp>
-              </Col>
-              <Col size={2}>
-                <ComBadrLibelleComp>
-                  {}
-                </ComBadrLibelleComp>
-              </Col>
+              <Col size={1} />
+              <Col size={2} />
             </Row>
 
             {(indicateurLiquidationArticlesEnFranchiseTotale && liquidationType != 'manuelleOffice') &&

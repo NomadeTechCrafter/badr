@@ -82,6 +82,7 @@ import PreConfirmationArriveeMainScreen from './modules/delaiTransit/dtPreConfir
 import RechApurementParRefScreen from './modules/DeclarationD17D20/apurement/ui/initApurement/RechApurementParRefScreen'
 import GestionApurementScreen from './modules/DeclarationD17D20/apurement/ui/initApurement/GestionApurementScreen'
 import DedRedressementArticlesScreen from './modules/dedouanement/redressement/ui/articles/DedRedressementArticlesScreen';
+import MainleveeListeDeclaration from './modules/DeclarationD17D20/mainlevee/ui/decMainlevee/decMainleveeListeDeclaration';
 
 
 //setGlobalHandler();
@@ -105,7 +106,7 @@ export default class App extends React.Component {
                 <Stack.Screen
                   name="test"
                   options={{headerShown: false}}
-                    component={DedRedressementArticlesScreen}
+                    component={MainleveeListeDeclaration}
                 />
               )}
               <Stack.Screen

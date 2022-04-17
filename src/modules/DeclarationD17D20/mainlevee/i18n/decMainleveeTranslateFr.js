@@ -6,8 +6,11 @@ export default {
     version: 'Version',
     modeAcquisition: "Mode d'acquisition",
     actionAnnuler: 'Annuler',
-    dateMainleveeObligatoire: 'Date et commentaire sont obligatoire',
+    motifMainleveeObligatoire: 'E00596 Motif : Valeur obligatoire',
     matriculeVehicule: 'Matricule Vehicule',
+    motif: 'Motif',
+    intervention: 'Intervention',
+
 
     //Version
     type: 'Type',

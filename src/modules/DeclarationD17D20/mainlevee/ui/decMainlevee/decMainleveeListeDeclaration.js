@@ -82,7 +82,7 @@ class MainleveeListeDeclaration extends React.Component {
             <Tab.Screen
               name={translate('tabs.entete')}
               component={() => (
-                <MainleveeEntete dataVo={this.props.route.params.data.jsonVO} />
+                <MainleveeEntete dataVo={this.props?.route?.params?.data.jsonVO} />
               )}
             //component={EnteteScreen}
             />
@@ -91,7 +91,7 @@ class MainleveeListeDeclaration extends React.Component {
               name={translate('tabs.connaissements')}
               component={() => (
                 <MainleveeConnaissements
-                  dataVo={this.props.route.params.data.jsonVO}
+                  dataVo={this.props?.route?.params?.data.jsonVO}
                 />
               )}
             />
@@ -100,7 +100,7 @@ class MainleveeListeDeclaration extends React.Component {
               name={translate('tabs.declarationDetail')}
               component={() => (
                 <MainleveeDecEnDetail
-                  dataVo={this.props.route.params.data.jsonVO}
+                  dataVo={this.props?.route?.params?.data.jsonVO}
                 />
               )}
             />
@@ -123,7 +123,7 @@ class MainleveeListeDeclaration extends React.Component {
               name={translate('tabs.etatChargement')}
               component={() => (
                 <MainleveeEtatChargement
-                  dataVo={this.props.route.params.data.jsonVO}
+                  dataVo={this.props?.route?.params?.data.jsonVO}
                 />
               )}
             />
@@ -131,14 +131,14 @@ class MainleveeListeDeclaration extends React.Component {
             <Tab.Screen
               name={translate('tabs.resultScanner')}
               component={() => (
-                <MainleveeScanner dataVo={this.props.route.params.data.jsonVO} />
+                <MainleveeScanner dataVo={this.props?.route?.params?.data.jsonVO} />
               )}
             />
 
             <Tab.Screen
               name={translate('tabs.info')}
               component={() => (
-                <MainleveeInfo dataVo={this.props.route.params.data.jsonVO} />
+                <MainleveeInfo dataVo={this.props?.route?.params?.data.jsonVO} />
               )}
             />
           </Tab.Navigator>

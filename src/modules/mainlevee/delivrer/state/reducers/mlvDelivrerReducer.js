@@ -8,8 +8,7 @@ const initialState = {
 };
 
 export default (state = initialState, action) => {
-  console.log(action.type);
-  console.log('reducer');
+
   let nextState = {
     ...state,
     value: action.value,
