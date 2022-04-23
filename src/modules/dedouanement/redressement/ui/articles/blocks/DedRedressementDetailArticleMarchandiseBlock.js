@@ -32,11 +32,13 @@ class DedRedressementDetailArticleMarchandiseBlock extends React.Component {
       paysOrigine: this.props.article?.paysOrigine,
       paiement: this.props.article.paiement,
       occasion: this.props.article.occasion,
-
+      refNgp: this.props.article.refNgp,     
     }
   }
   componentDidMount() {
-    this.getLibelleNGP();
+    // if (!this.props.edition) {
+      this.getLibelleNGP();
+    // }
   }
 
   getLibelleNGP = () => {
@@ -89,6 +91,7 @@ class DedRedressementDetailArticleMarchandiseBlock extends React.Component {
       paysOrigine: previousState.paysOrigine,
       paiement: previousState.paiement,
       occasion: previousState.occasion,
+      refNgp: previousState.refNgp,
 
     }), () => {
       this.props.update({
@@ -97,7 +100,7 @@ class DedRedressementDetailArticleMarchandiseBlock extends React.Component {
         paysOrigine: this.state?.paysOrigine,
         paiement: this.state?.paiement,
         occasion: this.state?.occasion,
-
+        refNgp: this.state?.refNgp,
       });
     });
   };
@@ -115,6 +118,7 @@ class DedRedressementDetailArticleMarchandiseBlock extends React.Component {
       paysOrigine: selectedPays?.nomPays,
       paiement: this.state?.paiement,
       occasion: this.state?.occasion,
+      refNgp: this.state?.refNgp,
     });
 
     this.update(selectedPays);
@@ -151,10 +155,17 @@ class DedRedressementDetailArticleMarchandiseBlock extends React.Component {
               libelleSize={2}
               children={
                 <TextInput
-                  disabled={true}
+                  disabled={!this.props.edition}
                   type="flat"
                   label=""
-                  value={getValueByPath('refNgp', this.props.article)}
+                  value={this.state.refNgp}
+                  onChangeText={(text) => {
+                    this.setState({
+                      refNgp: text
+                    })
+                    this.update();
+                  }
+                  }
                 />
               }
             />
@@ -164,7 +175,8 @@ class DedRedressementDetailArticleMarchandiseBlock extends React.Component {
                 <Button
                   style={{ width: 100, margin: 10 }}
                   mode="contained"
-                  disabled={true}
+                  disabled={!this.props.edition}
+                  onPress={this.getLibelleNGP}
                   color={primaryColor}>
                   OK
                 </Button>

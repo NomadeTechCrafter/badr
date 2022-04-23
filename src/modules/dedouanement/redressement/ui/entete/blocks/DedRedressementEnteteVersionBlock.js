@@ -165,7 +165,7 @@ class DedRedressementEnteteVersionBlock extends React.Component {
  */
   isCombineeCheckboxRendered = () => {
     let dedDumSectionEnteteVO = getValueByPath('dedDumSectionEnteteVO', this.props.data);
-    console.log('isCombineeCheckboxRendered dedDumSectionEnteteVO', dedDumSectionEnteteVO);
+    // console.log('isCombineeCheckboxRendered dedDumSectionEnteteVO', dedDumSectionEnteteVO);
     if (dedDumSectionEnteteVO?.occasionnelle)
       return false;
 
@@ -174,10 +174,10 @@ class DedRedressementEnteteVersionBlock extends React.Component {
       return false;
     }
     let typeDeclarationParam = getValueByPath('typeDeclarationParam', this.props.data);
-    console.log('isCombineeCheckboxRendered typeDeclarationParam', typeDeclarationParam);
+    // console.log('isCombineeCheckboxRendered typeDeclarationParam', typeDeclarationParam);
     let refDumInit = getValueByPath('refDumInit', this.props.data);
-    console.log('isCombineeCheckboxRendered this.props.data', this.props.data);
-    console.log('isCombineeCheckboxRendered typeDUM', refDumInit);
+    // console.log('isCombineeCheckboxRendered this.props.data', this.props.data);
+    // console.log('isCombineeCheckboxRendered typeDUM', refDumInit);
     let categorie = initDedCategorie(typeDeclarationParam, refDumInit);
     var rendered = (categorie == CATEGORIE_PROVISOIRE_VOY);
     let transitCase = getValueByPath('transitCase', this.props.data);

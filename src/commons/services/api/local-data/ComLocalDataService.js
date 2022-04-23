@@ -118,7 +118,9 @@ if (process.env.NODE_ENV === 'development') {
     initMainleveeTrypByRef: require('../../../../modules/DeclarationD17D20/mainlevee/service/local-data/initMainleveeTrypByRef.json'),
     getCmbUniteQuantite: require('../../../../modules/dedouanement/redressement/service/local-data/getCmbUniteQuantite.json'),
     getCmbAccord: require('../../../../modules/dedouanement/redressement/service/local-data/getCmbAccord.json'),
-    getCmbFranchise: require('../../../../modules/dedouanement/redressement/service/local-data/getCmbFranchise.json')    
+    getCmbFranchise: require('../../../../modules/dedouanement/redressement/service/local-data/getCmbFranchise.json'),
+    'ded.calculerUniteNormalisee': require('../../../../modules/dedouanement/redressement/service/local-data/ded.calculerUniteNormalisee.json')
+    
     
   };
 }

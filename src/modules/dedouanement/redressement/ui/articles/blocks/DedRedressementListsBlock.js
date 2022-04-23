@@ -4,6 +4,7 @@ import styles from '../../../style/DedRedressementStyle';
 import {
   ComAccordionComp,
   ComBadrDetailAccordion,
+  ComBadrErrorMessageComp,
   ComBasicDataTableComp,
 } from '../../../../../../commons/component';
 import { getValueByPath } from '../../../utils/DedUtils';
@@ -17,6 +18,7 @@ import { translate } from '../../../../../../commons/i18n/ComI18nHelper';
 import DedRedressementDetailArticleTypeReconnaissanceBlock from './DedRedressementDetailArticleTypeReconnaissanceBlock';
 import DedRedressementDetailArticleLiquidationBlock from './DedRedressementDetailArticleLiquidationBlock';
 import { Col, Row } from 'react-native-easy-grid';
+import _ from 'lodash';
 
 class DedRedressementListsBlock extends React.Component {
   buildArticlesCols = (conteste) => {
@@ -26,7 +28,7 @@ class DedRedressementListsBlock extends React.Component {
         libelle: '',
         width: 100,
         component: 'button',
-        icon: 'eye',
+        icon: this.props?.edition ? 'pencil' : 'eye',
         action: (row, index) =>
           conteste
             ? this.onArticleContesteSelected(row, index)
@@ -39,7 +41,7 @@ class DedRedressementListsBlock extends React.Component {
       { code: 'valeurDeclaree', libelle: 'Valeur declarée', width: 80 },
       { code: 'quantite', libelle: 'Quantité', width: 80 },
       { code: 'unite', libelle: 'Unité', width: 80 },
-      { code: 'issuATPA ', libelle: 'Issu ATPA', width: 120, render: (row) => (row.issuATPA === 'false') ? 'Non' : 'Oui' },
+      { code: 'issuATPA ', libelle: 'Issu ATPA', width: 120, render: (row) => row.issuATPA === true ? 'Oui' : 'Non' },
     ];
   };
 
@@ -58,7 +60,9 @@ class DedRedressementListsBlock extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      dedDumVo: this.props.data,
       articlesContestes: [],
+      newArticle: false,
       articles: [
         {
           "dedDumProprieteTIVO": [],
@@ -96,16 +100,16 @@ class DedRedressementListsBlock extends React.Component {
           "redevanceAt": "null",
           "designationCommerciale": "Désignation Commerciale 2",
           "occasion": "true",
-          "issuATPA": "false",
+          "issuATPA": "true",
           "marquesContenants": "Marques",
-          "nombreContenants": "100",
+          "nombreContenants": "333",
           "numeroOrdre": "1",
           "paiement": "true",
           "paysOrigine": "",
           "poidsNet": "99.000",
           "quantite": "999.000",
           "refNgp": "9999999999",
-          "typeContenant": "216",
+          "typeContenant": "125",
           "typeContenantLibelle": "COLIS",
           "unite": "033",
           "quantiteNormalisee": "9999.000",
@@ -117,17 +121,18 @@ class DedRedressementListsBlock extends React.Component {
           "defaultConverter": {},
           "accord": "QUAD",
           "franchise": "0034",
-        }],
+        }
+      ],
       articlesCols: this.buildArticlesCols(false),
       articlesContesteCols: this.buildArticlesCols(true),
-      edition: true,
+      edition: this.props.edition,
     };
   }
 
   updateArticleContenant = (val) => {
     // console.log('val updateArticleContenant:', val);
     let localArticles = [...this.state.articles];
-    let article = { ...localArticles[this.state.selectedArticleIndex] };
+    let article = { ...this.state.selectedArticle };
 
     article.nombreContenants = val?.nombreContenants;
     article.typeContenant = val?.typeContenant;
@@ -139,30 +144,47 @@ class DedRedressementListsBlock extends React.Component {
       selectedArticle: article,
       articles: localArticles,
     });
+
+    let dedDumVo = { ...this.state.dedDumVo, dedDumSectionArticlesVO: { ...this.state.dedDumVo?.dedDumSectionArticlesVO, dedDumArticleFormVO: this.state.articles } };
+
+    this.setState({
+      dedDumVo: dedDumVo
+    });
+
+    this.props.update(dedDumVo);
   }
 
   updateArticleMarchandise = (val) => {
     // console.log('val updateArticleMarchandise:', val);
     let localArticles = [...this.state.articles];
-    let article = { ...localArticles[this.state.selectedArticleIndex] };
+    let article = { ...this.state.selectedArticle };
 
     article.designationCommerciale = val?.designationCommerciale;
     article.paysOrigineLibelle = val?.paysOrigineLibelle;
     article.paysOrigine = val?.paysOrigine;
     article.paiement = val?.paiement;
     article.occasion = val?.occasion;
+    article.refNgp = val?.refNgp;
 
     localArticles[this.state.selectedArticleIndex] = article;
     this.setState({
       selectedArticle: article,
       articles: localArticles,
     });
+
+    let dedDumVo = { ...this.state.dedDumVo, dedDumSectionArticlesVO: { ...this.state.dedDumVo?.dedDumSectionArticlesVO, dedDumArticleFormVO: this.state.articles } };
+
+    this.setState({
+      dedDumVo: dedDumVo
+    });
+
+    this.props.update(dedDumVo);
   }
 
   updateValeurQuantite = (val) => {
     // console.log('val updateValeurQuantite:', val);
     let localArticles = [...this.state.articles];
-    let article = { ...localArticles[this.state.selectedArticleIndex] };
+    let article = { ...this.state.selectedArticle };
 
     article.valeurDeclaree = val?.valeurDeclaree;
     article.quantite = val?.quantite;
@@ -175,12 +197,20 @@ class DedRedressementListsBlock extends React.Component {
       selectedArticle: article,
       articles: localArticles,
     });
+
+    let dedDumVo = { ...this.state.dedDumVo, dedDumSectionArticlesVO: { ...this.state.dedDumVo?.dedDumSectionArticlesVO, dedDumArticleFormVO: this.state.articles } };
+
+    this.setState({
+      dedDumVo: dedDumVo
+    });
+
+    this.props.update(dedDumVo);
   }
 
   updateAccordFranchisee = (val) => {
     // console.log('val updateAccordFranchisee:', val);
     let localArticles = [...this.state.articles];
-    let article = { ...localArticles[this.state.selectedArticleIndex] };
+    let article = { ...this.state.selectedArticle };
 
     article.accord = val?.accord;
     article.franchise = val?.franchise;
@@ -190,8 +220,47 @@ class DedRedressementListsBlock extends React.Component {
       selectedArticle: article,
       articles: localArticles,
     });
+
+    let dedDumVo = { ...this.state.dedDumVo, dedDumSectionArticlesVO: { ...this.state.dedDumVo?.dedDumSectionArticlesVO, dedDumArticleFormVO: this.state.articles } };
+
+    this.setState({
+      dedDumVo: dedDumVo
+    });
+
+    this.props.update(dedDumVo);
+    // console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+    // console.log('---------------------------------------------------------------------------');
+    // console.log('***********************************************************************************');
+    // console.log('////////////////////////////////////////////////////////////////////////////////');
+    // console.log(JSON.stringify(dedDumVo));
+    // console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+    // console.log('---------------------------------------------------------------------------');
+    // console.log('***********************************************************************************');
+    // console.log('////////////////////////////////////////////////////////////////////////////////');
   }
 
+  updateArticleOrigine = (val) => {
+    // console.log('val updateAccordFranchisee:', val);
+    let localArticles = [...this.state.articles];
+    let article = { ...this.state.selectedArticle };
+
+    article.issuATPA = val?.issuATPA;
+
+    localArticles[this.state.selectedArticleIndex] = article;
+    this.setState({
+      selectedArticle: article,
+      articles: localArticles,
+    });
+
+    let dedDumVo = { ...this.state.dedDumVo, dedDumSectionArticlesVO: { ...this.state.dedDumVo?.dedDumSectionArticlesVO, dedDumArticleFormVO: this.state.articles } };
+
+    this.setState({
+      dedDumVo: dedDumVo
+    });
+
+    this.props.update(dedDumVo);
+  }
+  
 
   splitArticlesArrays = () => {
     const dedDumArticles = getValueByPath(
@@ -227,24 +296,107 @@ class DedRedressementListsBlock extends React.Component {
   };
 
   abandonner = () => {
-    this.setState({ selectedArticle: null });
+    this.setState({ selectedArticle: null, selectedArticleIndex: null, });
+
+    this.splitArticlesArrays();
   };
 
   supprimer = () => {
-    this.setState({ selectedArticle: null });
+    let localArticles = [...this.state.articles];
+    localArticles.splice(this.state.selectedArticleIndex, 1);
+
+    this.setState({
+      articles: localArticles,
+    });
+
+    let dedDumVo = { ...this.state.dedDumVo, dedDumSectionArticlesVO: { ...this.state.dedDumVo?.dedDumSectionArticlesVO, dedDumArticleFormVO: this.state.articles } };
+
+    this.setState({
+      dedDumVo: dedDumVo
+    });
+    this.props.update();
+    this.setState({ selectedArticle: null, selectedArticleIndex: null, });
+    console.log('val supprimer:', JSON.stringify(this.state.articles));
+  };
+
+
+  addNewArticle = (article, index) => {
+    this.setState({
+      selectedArticle: {},
+      newArticle: true
+      // selectedArticleIndex: index,
+    });
+    // this.articleComp?.fillStateByProps();
+  };
+
+  checkRequiredFields = () => {
+    let params = { msg: '', required: false }
+    this.checkRequiredFieldsResultatCtrl(params);
+    if (params.required) {
+      let message = translate('actifsCreation.avionsPrivees.champsObligatoires') + params.msg;
+      this.setState({
+        errorMessage: message
+      });
+    } else {
+      this.setState({
+        errorMessage: null
+      });
+    }
+    return params.required;
+  }
+
+  checkRequiredFieldsResultatCtrl = (params) => {
+    let modele = this.state.selectedArticle;
+    console.log(JSON.stringify(modele));
+    if (_.isEmpty(modele.typeContenant)) {
+      params.required = true;
+      params.msg += !_.isEmpty(params.msg) ? ", " : "";
+      params.msg += "E00596 Nature";
+    }
+    if (_.isEmpty(modele.refNgp)) {
+      params.required = true;
+      params.msg += !_.isEmpty(params.msg) ? ", " : "";
+      params.msg += "E00596 Code NGP";
+    }
+  }
+
+  confirmerAjout = () => {
+    if (!this.checkRequiredFields()) {
+
+      let localArticles = [...this.state.articles];
+      // let newArticle = { ...localArticles[this.state.selectedArticleIndex] };
+      localArticles.push(this.state.selectedArticle);
+
+      this.setState({
+        articles: localArticles,
+      });
+
+      let dedDumVo = { ...this.state.dedDumVo, dedDumSectionArticlesVO: { ...this.state.dedDumVo?.dedDumSectionArticlesVO, dedDumArticleFormVO: this.state.articles } };
+
+      this.setState({
+        dedDumVo: dedDumVo
+      });
+      this.props.update();
+      this.setState({ selectedArticle: null, selectedArticleIndex: null, });
+      console.log('val supprimer:', JSON.stringify(this.state.articles));
+    }
   };
 
   confirmer = () => {
     { console.log('===================================================confirmer============================================================') }
     { console.log('===================================================confirmer============================================================') }
     console.log(JSON.stringify(this.state.selectedArticle));
+    this.props.update();
+    this.setState({ selectedArticle: null, selectedArticleIndex: null, });
     { console.log('====================================================confirmer===========================================================') }
     { console.log('====================================================confirmer===========================================================') }
     // this.setState({ selectedArticle: this.state.selectedArticle });
   };
 
   retablir = () => {
-    this.setState({ selectedArticle: null });
+    this.setState({ selectedArticle: null, selectedArticleIndex: null, });
+
+    this.splitArticlesArrays();
   };
 
   getDetailAccordion = (selectedArticle, onArticleSelectedClosed, edition) => {
@@ -299,22 +451,12 @@ class DedRedressementListsBlock extends React.Component {
           article={selectedArticle}
           update={this.updateAccordFranchisee}
           edition={edition}
-
-          // codeAccord={getValueByPath(
-          //   'dedDumSectionEnteteVO.codeAccord',
-          //   this.props.data,
-          // )}
-          // codeFranchise={getValueByPath(
-          //   'dedDumSectionEnteteVO.codeFranchise',
-          //   this.props.data,
-          // )}
-          // article={
-          //   selectedArticle
-          // }
         ></DedRedressementDetailArticleAccordFranchiseBlocK>
-
         <DedRedressementDetailArticleOrigineBlock
-          article={selectedArticle}></DedRedressementDetailArticleOrigineBlock>
+          article={selectedArticle}
+          update={this.updateArticleOrigine}
+          edition={edition}
+        ></DedRedressementDetailArticleOrigineBlock>
 
         {/* <DedRedressementDetailArticleTypeReconnaissanceBlock
           article={
@@ -330,7 +472,7 @@ class DedRedressementListsBlock extends React.Component {
             <Col />
             <Col>
               <Button
-                onPress={() => this.confirmer()}
+                onPress={() => this.state.newArticle ? this.confirmerAjout() : this.confirmer()}
                 mode="contained"
                 style={styles.btnActions}
               >
@@ -359,6 +501,10 @@ class DedRedressementListsBlock extends React.Component {
         <ComAccordionComp
           title={`Articles : ${this.state.articles.length}`}
           expanded={true}>
+
+          {this.state.errorMessage != null && (
+            <ComBadrErrorMessageComp message={this.state.errorMessage} />
+          )}
           <ComBasicDataTableComp
             rows={this.state.articles}
             cols={this.state.articlesCols}
@@ -370,7 +516,7 @@ class DedRedressementListsBlock extends React.Component {
             this.getDetailAccordion(
               this.state.selectedArticle,
               this.onArticleSelectedClosed,
-              this.state.edition
+              this.state?.edition
             )}
         </ComAccordionComp>
 
@@ -391,6 +537,21 @@ class DedRedressementListsBlock extends React.Component {
               this.state.selectedArticleConteste,
               this.onArticleContesteSelectedClosed,
             )}
+          {this.state?.edition && (
+            <Row>
+              <Col />
+              <Col>
+                <Button
+                  onPress={() => this.addNewArticle()}
+                  mode="contained"
+                  style={styles.btnActions}
+                >
+                  {translate('transverse.nouveau')}
+                </Button>
+              </Col>
+              <Col />
+            </Row>
+          )}
         </ComAccordionComp>
       </View>
     );

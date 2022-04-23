@@ -1,0 +1,18 @@
+{
+  "dtoHeader": {
+    "userLogin": "AD6314",
+    "fonctionnalite": "cf90008",
+    "module": "DED_LIB",
+    "commande": "ded.calculerUniteNormalisee",
+    "typeService": "SP",
+    "offset": 0,
+    "pageSize": 0,
+    "rowCount": 0
+  },
+  "jsonVO": {
+    "ngpValide": true,
+    "uniteNormalisee": "033",
+    "libelleUniteNormalisee": "U",
+    "libelleNGP": "Chevaux, ânes, mulets et bardots, vivants\n-----Autres£- - - chevaux :\n-Autres\n"
+  }
+}

@@ -64,7 +64,10 @@ export default class DedRedressementDetailArticleAccordFranchiseBlocK extends Re
                   libelle="libelle"
                   module="REF_LIB"
                   command="getCmbAccord"
-                  param={"libelleAccord"}
+                  param={{
+                    codeAccord: "",
+                    libelleAccord: "",
+                  }}
                   typeService="SP"
                   storeWithKey="code"
                   storeLibelleWithKey="libelle"
@@ -84,23 +87,7 @@ export default class DedRedressementDetailArticleAccordFranchiseBlocK extends Re
             <ComBadrKeyValueComp
               libelle="Franchise et exonération : "
               libelleSize={2}
-              children={
-                // <ComBadrReferentielPickerComp
-                //   label="Choisir un code franchise"
-                //   selected={{ code: this.props.article.franchise }}
-                //   onRef={(ref) => (this.comboFranchise = ref)}
-                //   command="getCmbFranchise"
-                //   typeService="SP"
-                //   onValueChanged={this.handleFranchiseChanged}
-                //   code="code"
-                //   libelle="libelle"
-                //   disabled={!this.props.edition}
-                //   params={{
-                //     codeFranchise: '',
-                //     libelleFranchise: '',
-                //   }}
-                // />
-                
+              children={                
                 <ComBadrPickerComp
                   disabled={!this.props.edition}
                   onRef={(ref) => (this.combofranchise = ref)}
@@ -112,7 +99,10 @@ export default class DedRedressementDetailArticleAccordFranchiseBlocK extends Re
                   libelle="libelle"
                   module="REF_LIB"
                   command="getCmbFranchise"
-                  param={"libelleFranchise"}
+                  param={{
+                    "codeFranchise": "",
+                    "libelleFranchise": ""
+                  }}
                   typeService="SP"
                   storeWithKey="code"
                   storeLibelleWithKey="libelle"
