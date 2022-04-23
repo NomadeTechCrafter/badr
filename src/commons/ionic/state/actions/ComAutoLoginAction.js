@@ -20,7 +20,11 @@ export function request(action, navigation) {
       .then(() => {
         dispatch(success(action.value));
         if (navigation) {
-          navigation.navigate('Home', {fromIonic: true});
+          navigation.navigate('Home', { fromIonic: false });
+          // navigation.navigate('Home', {
+          //   screen: 'MainleveeScreen',
+            // params: { data },
+          // });
         }
       });
   };

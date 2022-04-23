@@ -24,6 +24,8 @@ export default (state = initialState, action) => {
       nextState.errorMessage = null;
       return nextState;
     case Constants.RECHERCHE_D17_MAINLEVEE_FAILED:
+      // console.log(JSON.stringify(action));
+
       nextState.showProgress = false;
       nextState.errorMessage = action?.value?.dtoHeader?.messagesErreur;
       return nextState;

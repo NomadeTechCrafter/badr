@@ -85,7 +85,9 @@ class DedRedressementListsBlock extends React.Component {
           "uniteLibelle": "U",
           "paysOrigineLibelle": "FRANCE",
           "libelleUniteNormalisee": "U",
-          "defaultConverter": {}
+          "defaultConverter": {},
+          "accord": "QUAD",
+          "franchise": "0036",
         },
         {
           "dedDumProprieteTIVO": [],
@@ -112,7 +114,9 @@ class DedRedressementListsBlock extends React.Component {
           "uniteLibelle": "ABCDEFGHIJKLMNOPQRS",
           "paysOrigineLibelle": "",
           "libelleUniteNormalisee": "U",
-          "defaultConverter": {}
+          "defaultConverter": {},
+          "accord": "QUAD",
+          "franchise": "0034",
         }],
       articlesCols: this.buildArticlesCols(false),
       articlesContesteCols: this.buildArticlesCols(true),
@@ -173,8 +177,20 @@ class DedRedressementListsBlock extends React.Component {
     });
   }
 
+  updateAccordFranchisee = (val) => {
+    // console.log('val updateAccordFranchisee:', val);
+    let localArticles = [...this.state.articles];
+    let article = { ...localArticles[this.state.selectedArticleIndex] };
 
+    article.accord = val?.accord;
+    article.franchise = val?.franchise;
 
+    localArticles[this.state.selectedArticleIndex] = article;
+    this.setState({
+      selectedArticle: article,
+      articles: localArticles,
+    });
+  }
 
 
   splitArticlesArrays = () => {
@@ -280,17 +296,22 @@ class DedRedressementListsBlock extends React.Component {
           update={this.updateValeurQuantite}
           edition={edition}></DedRedressementDetailArticleValeurQuantiteBlock>
         <DedRedressementDetailArticleAccordFranchiseBlocK
-          codeAccord={getValueByPath(
-            'dedDumSectionEnteteVO.codeAccord',
-            this.props.data,
-          )}
-          codeFranchise={getValueByPath(
-            'dedDumSectionEnteteVO.codeFranchise',
-            this.props.data,
-          )}
-          article={
-            selectedArticle
-          }></DedRedressementDetailArticleAccordFranchiseBlocK>
+          article={selectedArticle}
+          update={this.updateAccordFranchisee}
+          edition={edition}
+
+          // codeAccord={getValueByPath(
+          //   'dedDumSectionEnteteVO.codeAccord',
+          //   this.props.data,
+          // )}
+          // codeFranchise={getValueByPath(
+          //   'dedDumSectionEnteteVO.codeFranchise',
+          //   this.props.data,
+          // )}
+          // article={
+          //   selectedArticle
+          // }
+        ></DedRedressementDetailArticleAccordFranchiseBlocK>
 
         <DedRedressementDetailArticleOrigineBlock
           article={selectedArticle}></DedRedressementDetailArticleOrigineBlock>

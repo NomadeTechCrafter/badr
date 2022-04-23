@@ -101,7 +101,7 @@ class SortiPortEntete extends React.Component {
 
   getNatureVehicule = function (idNature) {
     let natureVehicule = '';
-    natureVehicule = this.props.dataVo?.vctNaturesVehicule.filter((vehicule) => {
+    natureVehicule = this.props.dataVo?.vctNaturesVehicule?.filter((vehicule) => {
       return vehicule.code === idNature;
     });
 
@@ -114,7 +114,7 @@ class SortiPortEntete extends React.Component {
 
   getNomVehicule = function (idVehicule) {
     let nomVehicule = '';
-    let vehiculeObjet = this.props.dataVo?.vctVehicules.find((vehicule) => {
+    let vehiculeObjet = this.props.dataVo?.vctVehicules?.find((vehicule) => {
       return vehicule.code === idVehicule;
     });
 
@@ -127,7 +127,7 @@ class SortiPortEntete extends React.Component {
 
   getNomVehiculeSecondaires = function (idVehicule) {
     let nomVehicule = '';
-    let vehiculeObjet = this.props.dataVo?.vctVehiculeSecondaires.find((vehicule) => {
+    let vehiculeObjet = this.props.dataVo?.vctVehiculeSecondaires?.find((vehicule) => {
       return vehicule.code === idVehicule;
     });
 

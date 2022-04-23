@@ -1,0 +1,185 @@
+{
+    "dtoHeader": {
+        "userLogin": "AD6314",
+        "fonctionnalite": "cf2052",
+        "module": "REF_LIB",
+        "commande": "getCmbAccord",
+        "typeService": "SP",
+        "offset": 0,
+        "pageSize": 0,
+        "rowCount": 0
+    },
+    "jsonVO": [
+        {
+            "code": "USA",
+            "libelle": "MAROC - ETATS-UNIS(USA)",
+            "actif": false,
+            "showDropDown": false,
+            "disableAutoComplete": true,
+            "onFocus": "",
+            "disabled": false
+        },
+        {
+            "code": "QUAD",
+            "libelle": "MAROC - QUAD(QUAD)",
+            "actif": false,
+            "showDropDown": false,
+            "disableAutoComplete": true,
+            "onFocus": "",
+            "disabled": false
+        },
+        {
+            "code": "TR",
+            "libelle": "MAROC - TURQUIE(TR)",
+            "actif": false,
+            "showDropDown": false,
+            "disableAutoComplete": true,
+            "onFocus": "",
+            "disabled": false
+        },
+        {
+            "code": "AELE",
+            "libelle": "MAROC-AELE(AELE)",
+            "actif": false,
+            "showDropDown": false,
+            "disableAutoComplete": true,
+            "onFocus": "",
+            "disabled": false
+        },
+        {
+            "code": "DZ",
+            "libelle": "MAROC-ALGERIE(DZ)",
+            "actif": false,
+            "showDropDown": false,
+            "disableAutoComplete": true,
+            "onFocus": "",
+            "disabled": false
+        },
+        {
+            "code": "SA",
+            "libelle": "MAROC-ARABIE SAOUDITE(SA)",
+            "actif": false,
+            "showDropDown": false,
+            "disableAutoComplete": true,
+            "onFocus": "",
+            "disabled": false
+        },
+        {
+            "code": "EG",
+            "libelle": "MAROC-EGYPTE(EG)",
+            "actif": false,
+            "showDropDown": false,
+            "disableAutoComplete": true,
+            "onFocus": "",
+            "disabled": false
+        },
+        {
+            "code": "AE",
+            "libelle": "MAROC-EMIRATS ARABES UNIS(AE)",
+            "actif": false,
+            "showDropDown": false,
+            "disableAutoComplete": true,
+            "onFocus": "",
+            "disabled": false
+        },
+        {
+            "code": "GN",
+            "libelle": "MAROC-GUINEE(GN)",
+            "actif": false,
+            "showDropDown": false,
+            "disableAutoComplete": true,
+            "onFocus": "",
+            "disabled": false
+        },
+        {
+            "code": "IQ",
+            "libelle": "MAROC-IRAQ(IQ)",
+            "actif": false,
+            "showDropDown": false,
+            "disableAutoComplete": true,
+            "onFocus": "",
+            "disabled": false
+        },
+        {
+            "code": "JO",
+            "libelle": "MAROC-JORDANIE(JO)",
+            "actif": false,
+            "showDropDown": false,
+            "disableAutoComplete": true,
+            "onFocus": "",
+            "disabled": false
+        },
+        {
+            "code": "LY",
+            "libelle": "MAROC-LIBYE(LY)",
+            "actif": false,
+            "showDropDown": false,
+            "disableAutoComplete": true,
+            "onFocus": "",
+            "disabled": false
+        },
+        {
+            "code": "LA",
+            "libelle": "MAROC-LIGUE ARABE(LA)",
+            "actif": false,
+            "showDropDown": false,
+            "disableAutoComplete": true,
+            "onFocus": "",
+            "disabled": false
+        },
+        {
+            "code": "MR",
+            "libelle": "MAROC-MAURITANIE(MR)",
+            "actif": false,
+            "showDropDown": false,
+            "disableAutoComplete": true,
+            "onFocus": "",
+            "disabled": false
+        },
+        {
+            "code": "PMA",
+            "libelle": "MAROC-PAYS MOINS AVANCES(PMA)",
+            "actif": false,
+            "showDropDown": false,
+            "disableAutoComplete": true,
+            "onFocus": "",
+            "disabled": false
+        },
+        {
+            "code": "SN",
+            "libelle": "MAROC-SENEGAL(SN)",
+            "actif": false,
+            "showDropDown": false,
+            "disableAutoComplete": true,
+            "onFocus": "",
+            "disabled": false
+        },
+        {
+            "code": "TN",
+            "libelle": "MAROC-TUNISIE(TN)",
+            "actif": false,
+            "showDropDown": false,
+            "disableAutoComplete": true,
+            "onFocus": "",
+            "disabled": false
+        },
+        {
+            "code": "UE",
+            "libelle": "MAROC-UE(UE)",
+            "actif": false,
+            "showDropDown": false,
+            "disableAutoComplete": true,
+            "onFocus": "",
+            "disabled": false
+        },
+        {
+            "code": "UK",
+            "libelle": "MAROC-UK(UK)",
+            "actif": false,
+            "showDropDown": false,
+            "disableAutoComplete": true,
+            "onFocus": "",
+            "disabled": false
+        }
+    ]
+}

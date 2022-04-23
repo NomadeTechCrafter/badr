@@ -28,11 +28,11 @@ import * as MainleveeInitAction from '../../state/actions/decMainleveeInitAction
 
 class MainleveeRechercheTryptique extends Component {
   defaultState = {
-    bureau: '411',
-    regime: '009',
-    annee: '2022',
-    serie: '0000001',
-    cle: 'K',
+    bureau: '',
+    regime: '',
+    annee: '',
+    serie: '',
+    cle: '',
     cleValide: '',
     login: '',
     showErrorMsg: false,
@@ -129,6 +129,9 @@ class MainleveeRechercheTryptique extends Component {
           this.props.successRedirection,
         );
         this.props.actions.dispatch(action);
+        console.log('---------------------------------------------------123');
+        console.log(JSON.stringify(this.props));
+        console.log('---------------------------------------------------123');
       }
     }
   };

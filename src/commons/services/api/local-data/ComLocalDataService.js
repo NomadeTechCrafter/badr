@@ -115,7 +115,11 @@ if (process.env.NODE_ENV === 'development') {
     lookupControleApresScanner: require('../../../../modules/controle/controleApresScanner/service/local-data/lookupControleApresScanner.json'),
     initPreConfirmationArrivee: require('../../../../modules/delaiTransit/dtPreConfirmationArrivee/service/local-data/initPreConfirmationArriveeOK.json'),
     confirmerPreConfirmationArrivee: require('../../../../modules/delaiTransit/dtPreConfirmationArrivee/service/local-data/confirmerPreConfirmationArriveeOK.json'),
-    initMainleveeTrypByRef: require('../../../../modules/DeclarationD17D20/mainlevee/service/local-data/initMainleveeTrypByRef.json')
+    initMainleveeTrypByRef: require('../../../../modules/DeclarationD17D20/mainlevee/service/local-data/initMainleveeTrypByRef.json'),
+    getCmbUniteQuantite: require('../../../../modules/dedouanement/redressement/service/local-data/getCmbUniteQuantite.json'),
+    getCmbAccord: require('../../../../modules/dedouanement/redressement/service/local-data/getCmbAccord.json'),
+    getCmbFranchise: require('../../../../modules/dedouanement/redressement/service/local-data/getCmbFranchise.json')    
+    
   };
 }
 export default localStore;

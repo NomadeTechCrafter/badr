@@ -62,6 +62,8 @@ export function success(data) {
 }
 
 export function failed(data) {
+  // console.log('---------------------------------------------------');
+  // console.log(JSON.stringify(data));
   return {
     type: Constants.RECHERCHE_D17_MAINLEVEE_FAILED,
     value: data,

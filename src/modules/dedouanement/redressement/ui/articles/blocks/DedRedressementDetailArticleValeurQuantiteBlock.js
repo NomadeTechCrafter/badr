@@ -3,6 +3,7 @@ import { View } from 'react-native';
 import {
   ComAccordionComp,
   ComBadrAutoCompleteChipsComp,
+  ComBadrAutoCompleteComp,
   ComBadrKeyValueComp,
 } from '../../../../../../commons/component';
 import DedRedressementRow from '../../common/DedRedressementRow';
@@ -116,14 +117,20 @@ export default class DedRedressementDetailArticleValeurQuantiteBlock extends Rea
                   disabled={!this.props.edition}
                   onRef={(ref) => (this.refUnite = ref)}
                   code="code"
-                  selected={getValueByPath('uniteLibelle', this.props.article)}
+                  selected={this.state.uniteLibelle}
                   maxItems={3}
                   libelle="libelle"
-                  command="getCmbUnite"
-                  paramName="libelleUnite"
+                  command="getCmbUniteQuantite"
+                  paramName="libelleUniteQuantite"
                   onDemand={true}
                   searchZoneFirst={false}
-                  onValueChange={this.handlePaysOrigineChipsChanged}
+                  onValueChange={(text) => {
+                    this.setState({
+                      uniteLibelle: text
+                    })
+                    this.update();
+                  }
+                  }
                 />
               }
             />

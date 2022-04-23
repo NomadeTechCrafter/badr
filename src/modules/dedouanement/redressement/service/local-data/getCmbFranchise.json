@@ -1,0 +1,1067 @@
+{
+  "dtoHeader": {
+    "userLogin": "AD6314",
+    "fonctionnalite": "cf2052",
+    "module": "REF_LIB",
+    "commande": "getCmbFranchise",
+    "typeService": "SP",
+    "offset": 0,
+    "pageSize": 0,
+    "rowCount": 0
+  },
+  "jsonVO": [
+    {
+      "code": "0029",
+      "libelle": "0029(Université Al Akhawayn d'Ifrane)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "0032",
+      "libelle": "0032(Croissant rouge, hors biens d¿équipement matériels et outillages)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "0033",
+      "libelle": "0033(Croissant rouge: biens d¿équipement matériels et outillages)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "0034",
+      "libelle": "0034(Bank Al Maghreb, hors monnaies ayant cours légal et tous métaux précieux)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "0035",
+      "libelle": "0035(Bank Al Maghreb: monnaies ayant cours légal et tous métaux précieux)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "0036",
+      "libelle": "0036(Agence pour la promotion et le Développement Economique et Social ORIENTAL)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "1002",
+      "libelle": "1002(Graines de betteraves à sucre)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "1003",
+      "libelle": "1003(Semences fourragères)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "1004",
+      "libelle": "1004(Aéronefs destinés aux travaux agricoles aériens et leurs parties et pièces détachées)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "1005",
+      "libelle": "1005(Billets de banque étrangers)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "1007",
+      "libelle": "1007(Titres d¿actions ou d¿obligations et autres titres similaires)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "1008",
+      "libelle": "1008(Mais hybrides de semence)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "1009",
+      "libelle": "1009(Les graines de semences de soja et de tournesol)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "1010",
+      "libelle": "1010(Remoulage et autres résidus de criblage de la mouture ou autres traitements des grains de céréales et de légumineuses)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "1011",
+      "libelle": "1011(Les produits d¿origine végétale de la nature de ceux utilisés pour la nourriture des animaux)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "1012",
+      "libelle": "1012(Rutabagas, les betteraves fourragères, les racines fourragères, le foin, la luzerne, le trèfle, le sainfoin, les choux fourragers, le lupin, les vesces et produits fourrages similaires, même agglomérés sous forme de pellets)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "1013",
+      "libelle": "1013(Bourdons pollinisateurs)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "1016",
+      "libelle": "1016(Pulpe sèche de betteraves)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "1019",
+      "libelle": "1019(Paille mélassée pellétisée)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "1022",
+      "libelle": "1022(Semences animales (spermes congelés))",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "1023",
+      "libelle": "1023(Préparations utilisées dans l¿alimentation des veaux)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "1026",
+      "libelle": "1026(Bandes de plastiques et de papiers imprimés destinés à la confection des cartes d¿identité nationale)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "1029",
+      "libelle": "1029(Matériels utilisant des énergies renouvelables : chauffe-eau et chauffe-bains, non électriques utilisant de l¿énergie solaire, pour usages domestiques ou pour autres usages ainsi que leurs parties et pièces détachées)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "1030",
+      "libelle": "1030(Matériels utilisant des énergies renouvelables destinés au secteur agricole)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "1032",
+      "libelle": "1032(Appareils de protection contre les périls aérotoxiques)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "1033",
+      "libelle": "1033(Engrais du chapitre 31- nitrate de potassium à usage d¿engrais,- phosphates de potassium à usage d¿engrais,poly phosphates de potassium à usage d¿engrais,salins de betterave,autres nitrates)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "1034",
+      "libelle": "1034(Semences fourragères)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "1035",
+      "libelle": "1035(Cristallins artificiels)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "1036",
+      "libelle": "1036(Albums à colorier pour enfants en usage dans les établissements d¿enseignements)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "1037",
+      "libelle": "1037(Véhicules affectés à des transports touristiques)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "1040",
+      "libelle": "1040(Les viandes de volailles, de bovins et d¿ovins importées pour le compte des Forces Armées Royales (FAR))",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "1041",
+      "libelle": "1041(Matériels, matériaux et produits consommables destinés à la reconnaissance, à la recherche et à l¿exploitation des hydrocarbures ainsi qu¿aux activités annexes à celle-ci)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "1042",
+      "libelle": "1042(Matériels au sol et matériels d¿instruction importés par certaines entreprises nationales de transport aérien)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "1043",
+      "libelle": "1043(Les carburants, combustibles et lubrifiants devant être consommés au cours de navigations maritimes par les vedettes et canots de sauvetage de vie humaine relevant du Ministère Chargé des Pêches Maritimes)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "1046",
+      "libelle": "1046(Biens d¿équipement acquis par certaines entreprises qui s¿engagent à réaliser un investissement d¿un montant égal ou supérieur à 200 Mdhs)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "1047",
+      "libelle": "1047(Matériels, mobiliers et biens d¿équipement nécessaires à l¿exploitation normale des banques offshore et des sociétés holding offshore)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "1048",
+      "libelle": "1048(Matériels, outillages et biens d¿équipement neufs ou d¿occasion dont l¿importation par l¿administration, importés au profit des lauréats de la formation professionnelle)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "1024",
+      "libelle": "1024(Produits, articles et appareils destinés à l¿hémodialyse)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "1038",
+      "libelle": "1038(Bateaux et matériels y afférent NON soumis à l¿article 126-15-a du livre d¿ass. et de recouv.)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "1039",
+      "libelle": "1039(Bateaux et matériels y afférent soumis à l¿article 126-15-a du livre d¿ass. et de recouv.)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "1044",
+      "libelle": "1044(Carburants, combustibles et lubrifiants pour navigation maritime)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "1045",
+      "libelle": "1045(rejets d'hydrocarbures)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "1076",
+      "libelle": "1076(Aliments pour bétails)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "1072",
+      "libelle": "1072(Fioul lourd pour provinces sahariennes)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "1068",
+      "libelle": "1068(Matériels et autres pour entreprises étrangères de transport aérien)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "1069",
+      "libelle": "1069(Importations Société Phosboucraâ)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "1071",
+      "libelle": "1071(Produits pétroliers pour provinces sahariennes)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "1073",
+      "libelle": "1073(Produits et matières pour la fabrication de la voiture économique)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "1074",
+      "libelle": "1074(Produits et matières pour la fabrication de véhicules utilitaires légers)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "1075",
+      "libelle": "1075(Produits et matières pour la fabrication des cyclomoteurs économiques)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "1070",
+      "libelle": "1070(Huile d'olive vierge pour FAR)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "0001",
+      "libelle": "0001(Articles d¿édition (cf. V.02.01 de la RDII)0)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "0002",
+      "libelle": "0002(Films cinématographiques documentaires ou éducatifs (cf. V.02.04))",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "0003",
+      "libelle": "0003(Franchise UNESCO (cf.V.02.06))",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "0004",
+      "libelle": "0004(Entraide Nationale, Croissant Rouge Marocain)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "0006",
+      "libelle": "0006(Associations de Micro crédit)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "0007",
+      "libelle": "0007(Agence pour la promotion et le Développement Economique et Social NORD et SUD)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "0008",
+      "libelle": "0008(Ligue Nationale de lutte contre les maladies cardio-vasculaires)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "0009",
+      "libelle": "0009(Fondation Hassan II pour la lutte contre le cancer)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "0010",
+      "libelle": "0010(Matériel militaires, parties et accessoires importés par les FAR)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "0011",
+      "libelle": "0011(Matériel spécial importé par la DGSN)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "0012",
+      "libelle": "0012(Marchandises en retour sur le territoire assujetti)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "0013",
+      "libelle": "0013(Franchises diplomatiques (cf. V.02.26))",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "0014",
+      "libelle": "0014(Envois destinés aux organismes internationaux siégeant au Maroc (cf. V.02.26))",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "0015",
+      "libelle": "0015(Dons reçus par les oeuvres de bienfaisance  (cf.V.02.27))",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "0016",
+      "libelle": "0016(Changement de résidence)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "0018",
+      "libelle": "0018(Trousseaux élèves (cf. V.02.30))",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "0019",
+      "libelle": "0019(Trousseaux mariage (cf. V.02.30))",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "0021",
+      "libelle": "0021(Aides financières non remboursables)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "0022",
+      "libelle": "0022(Echantillons sans valeur marchande (cf. V.02.31))",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "0023",
+      "libelle": "0023(Objets d'art, trophées, médailles, insignes commémoratifs, obtenus par des résidents)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "0024",
+      "libelle": "0024(Cercueil et urnes (cf. V.02.31))",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "0025",
+      "libelle": "0025(Médicaments importés par des non résidents (cf. Note n° 19763/311 du 26/10/01))",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "0026",
+      "libelle": "0026(Effets et objets mobiliers importés en suite d'un divorce)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "0027",
+      "libelle": "0027(Franchise royales ( cf art 164 a code))",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "0028",
+      "libelle": "0028(Fondation Chekh Zaid Ibn Soltan)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "1049",
+      "libelle": "1049(Rogues de morues et appâts, filets et engins de pêche et moteurs marins)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "1050",
+      "libelle": "1050(Matériels et matériaux destinés à l’irrigation (cf. la liste de la circulaire de la loi de finances pour l’année 2020))",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "1051",
+      "libelle": "1051(Matériels de forage et de sondage destinés à la recherche et à l¿exploitation des eaux souterraines)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "1052",
+      "libelle": "1052(Décortiqueuse de céréales et leurs parties et pièces détachées)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "1053",
+      "libelle": "1053(Animaux vivants des espèces bovine, ovine, caprine et chevaline, reproducteurs de races pures)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "1054",
+      "libelle": "1054(Animaux vivants de l¿espèce des camélidés)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "1056",
+      "libelle": "1056(Aéronefs destinés à être utilisés pour effectuer des services publics par des entreprises de transport aérien ainsi que leurs matériels et pièces de rechange)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "1057",
+      "libelle": "1057(Matériels et matières premières destinés à une unité de production de farine alimentaire)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "1061",
+      "libelle": "1061(Matériels, articles et documents importés par les entreprise d'assistance en escale)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "1062",
+      "libelle": "1062(Les parties,produits, matières, accessoires et assortiments nécessaires à la fabrication des engins économiques suivants : voitures de tourisme, véhicules utilitaires légers, cyclomoteurs et vélos)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "1063",
+      "libelle": "1063(Les carburants, combustibles et lubrifiants utilisés par les navires et embarcations exploités par les madragues et les fermes aquacoles)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "1064",
+      "libelle": "1064(Les carburants, combustibles et lubrifiants, les vivres et provisions de bord nécessaires aux navigations maritimes et aériennes à destination de l¿étranger)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "1065",
+      "libelle": "1065(Carburants, combusti. et lubrif pour la navig marit. intér. par les unités de la marine et de la gendar. royale, des douanes, de la sûr. nationale, les bat. de pêche marocains, les eng de servitudes portuaires et les unit. de transp. maritime int.)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "1066",
+      "libelle": "1066(Matériels et produits destinés à la lutte anti-acridienne)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "2001",
+      "libelle": "2001(Produits de la pêche maritime marocaine)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "2002",
+      "libelle": "2002(Biens d'investissement)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "2003",
+      "libelle": "2003(Biens d'équipement destinés à l'enseignement privé ou à la formation professionnelle)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "2005",
+      "libelle": "2005(Biens d'équipement importés par des ABNL pour personnes handicapées)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "2006",
+      "libelle": "2006(Médicaments pour diabéte, cardio et sida)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "2007",
+      "libelle": "2007(Biens mobiliers ou immobiliers pour Agence Bayt Mal Al Qods Acharif)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "2008",
+      "libelle": "2008(Biens, matériels importés par la BID)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "2004",
+      "libelle": "2004(Autocars, camions et leurs biens d'équipement importés par les entreprises TIR)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "88",
+      "libelle": "88(Franchise test referentiel.)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "0037",
+      "libelle": "0037(Fondation Cheikh Khalifa Ibn Zaïd)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "1078",
+      "libelle": "1078(Biens d'équipement acquis par certaines entreprises qui s'engagent à réaliser un investissement d'un montant égal ou supérieur à 200 Mdhs, exclus de l'exonération de la TVA)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "1081",
+      "libelle": "1081(Suspension de la perception du droit dimportation applicable au blé tendre\r\n)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "99",
+      "libelle": "99(Franchise test referentiel. 99)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "TTTTTTTTTT",
+      "libelle": "TTTTTTTTTT(TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "A",
+      "libelle": "A(aaaaaaaaaaaaaa   aaaaaaaaaaaaaaaaa)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "101",
+      "libelle": "101(BIENYUU76)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "SA",
+      "libelle": "SA(ABCDEFGHIJKLMNOPQRSTUVWXYZ)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "2019",
+      "libelle": "2019(Aéronefs réservés au transport aérien international régulier, ainsi que le matériel et les pièces de rechange destinés à la réparation de ces aéronefs)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "1083",
+      "libelle": "1083(DI minimum applicable aux produits relevant des positions tarifaires n°s 0402.10.12.00, 0402.21.19.00, Ex1001.90.90.10 (blé tendre biscuitier) et 1701.99.91.99)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "2015",
+      "libelle": "2015(Médicaments anticancéreux, médicaments antiviraux des hépatites B et C et les médicaments destinés au traitement du diabète, de l’asthme, des maladies cardio-vasculaires, du syndrome immunodéficitaire acquis (SIDA) et de la méningite, les vaccins, les médicaments destinés au traitement de la fertilité et au traitement de la sclérose en plaque)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "TE1",
+      "libelle": "TE1(test test)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "TE",
+      "libelle": "TE(test pour franchise pour modifier9023)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "BN",
+      "libelle": "BN(BIEN FAIT OIO)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "1088",
+      "libelle": "1088(Application du droit dimportation de 10% aux ufs de consommation (0407.21.00))",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "V6789",
+      "libelle": "V6789(hanijne hanine ila lmadi)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "FG6754",
+      "libelle": "FG6754(bien fait pour  tous)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "0039",
+      "libelle": "0039(Les voitures, les chaises et les motocycles ainsi que les outils et équipements automatiques spécialement aménagées pour les personnes en situation d’handicap)",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    }
+  ]
+}

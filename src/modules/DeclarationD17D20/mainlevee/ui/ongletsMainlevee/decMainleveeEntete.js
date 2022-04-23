@@ -101,7 +101,7 @@ class MainleveeEntete extends React.Component {
 
   getNatureVehicule = function (idNature) {
     let natureVehicule = '';
-    natureVehicule = this.props.dataVo?.vctNaturesVehicule.filter((vehicule) => {
+    natureVehicule = this.props.dataVo?.vctNaturesVehicule?.filter((vehicule) => {
       return vehicule.code === idNature;
     });
 
@@ -114,7 +114,7 @@ class MainleveeEntete extends React.Component {
 
   getNomVehicule = function (idVehicule) {
     let nomVehicule = '';
-    let vehiculeObjet = this.props.dataVo?.vctVehicules.find((vehicule) => {
+    let vehiculeObjet = this.props.dataVo?.vctVehicules?.find((vehicule) => {
       return vehicule.code === idVehicule;
     });
 
@@ -127,7 +127,7 @@ class MainleveeEntete extends React.Component {
 
   getNomVehiculeSecondaires = function (idVehicule) {
     let nomVehicule = '';
-    let vehiculeObjet = this.props.dataVo?.vctVehiculeSecondaires.find((vehicule) => {
+    let vehiculeObjet = this.props.dataVo?.vctVehiculeSecondaires?.find((vehicule) => {
       return vehicule.code === idVehicule;
     });
 
@@ -141,23 +141,27 @@ class MainleveeEntete extends React.Component {
 
 
   confirmer = () => {
-    if (
-      !this.state.motif
-    ) {
+    if (!this.state.motif) {
       this.setState({
         errorMessage: translate('mainlevee.motifMainleveeObligatoire'),
       });
       this.scrollViewRef.current.scrollTo({ x: 0, y: 0, animated: true });
       return;
+    } else {
+
+      this.setState({
+        errorMessage: null,
+      });
     }
 
     let jsonVO = this.props.dataVo;
+    delete jsonVO.traceSignature;
     jsonVO.declarationTriptique.motifIntervention = this.state.motif;
 
-    +    console.log("-----------------");
-    +    console.log(JSON.stringify(jsonVO));
-    +    console.log("-----------------");
-    +    console.log("-----------------");
+    // +    console.log("-----------------");
+    // +    console.log(JSON.stringify(jsonVO));
+    // +    console.log("-----------------");
+    // +    console.log("-----------------");
 
     var action = MainleveeConfirmerAction.request(
       {
@@ -174,28 +178,13 @@ class MainleveeEntete extends React.Component {
     );
     this.props.actions.dispatch(action);
     this.scrollViewRef.current.scrollTo({ x: 0, y: 0, animated: true });
+    +    console.log("-----------------");
+    +    console.log("-----------------");
+    console.log(JSON.stringify(this.props.messageInfo));
+    +    console.log("-----------------");
+    +    console.log("-----------------");
   };
 
-  // handleAnnulerMainlevee = () => {
-  //   const jsonVO = {};
-  //   jsonVO.indentifiant = this.props.dataVo?.declarationTriptique?.indentifiant;
-
-  //   var action = MainleveeConfirmerAction.request(
-  //     {
-  //       type: Constants.MAINLEVEE_CONFIRMER_REQUEST,
-  //       value: {
-  //         login: this.state.login,
-  //         commande: 'ded.mainleveeAnnulerDeclarationTrypByRef',
-  //         module: 'DED_LIB',
-  //         typeService: 'UC',
-  //         data: jsonVO,
-  //       },
-  //     },
-  //     this.props.navigation,
-  //   );
-  //   this.props.actions.dispatch(action);
-  //   this.scrollViewRef.current.scrollTo({ x: 0, y: 0, animated: true });
-  // };
 
   getConducteurById = function (codeConducteur) {
     const vctConducteurs = this.props.dataVo?.vctConducteurs;
@@ -658,11 +647,17 @@ class MainleveeEntete extends React.Component {
                   </Col>
                   <Col size={11}>
                     <TextInput
+                      disabled={this.props?.success}
                       mode={'outlined'}
                       value={this.state.motif}
                       multiline={true}
                       // style={CustomStyleSheet.largeInput}
                       numberOfLines={6}
+                      onChangeText={(text) => {
+                        this.setState({
+                          motif: text
+                        });
+                      }}
                     />
                   </Col>
                 </Row>
@@ -672,6 +667,7 @@ class MainleveeEntete extends React.Component {
                   <Col />
                   <Col size={3}>
                     <Button
+                      disabled={this.props?.success }
                       onPress={() => this.confirmer()}
                       mode="contained"
                       style={styles.btnActions}
@@ -681,6 +677,7 @@ class MainleveeEntete extends React.Component {
                   </Col>
                   <Col size={3}>
                     <Button
+                      disabled={this.props?.success}
                       onPress={() => this.abandonner()}
                       mode="contained"
                       style={styles.btnActions}
@@ -886,7 +883,7 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps(state) {
-  return { ...state.mainleveeReducer };
+  return { ...state.decMainleveeUCReducer };
 }
 
 function mapDispatchToProps(dispatch) {

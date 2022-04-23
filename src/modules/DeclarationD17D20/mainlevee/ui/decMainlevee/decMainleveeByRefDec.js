@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps(state) {
-  return {...state.initApurementReducer}; //d17RechrcheDum
+  return { ...state.decMainleveeInitReducer}; //d17RechrcheDum
 }
 
 function mapDispatchToProps(dispatch) {

@@ -1,8 +1,9 @@
 import React from 'react';
-import {View} from 'react-native';
+import { View } from 'react-native';
 import {
   ComAccordionComp,
   ComBadrKeyValueComp,
+  ComBadrPickerComp,
 } from '../../../../../../commons/component';
 import DedRedressementRow from '../../common/DedRedressementRow';
 import {
@@ -12,44 +13,68 @@ import {
   TextInput,
   Checkbox,
 } from 'react-native-paper';
-import {primaryColor} from '../../../../../../commons/styles/ComThemeStyle';
-import {getValueByPath} from '../../../utils/DedUtils';
+import { CustomStyleSheet, primaryColor } from '../../../../../../commons/styles/ComThemeStyle';
+import { getValueByPath } from '../../../utils/DedUtils';
 import ComBadrReferentielPickerComp from '../../../../../../commons/component/shared/pickers/ComBadrReferentielPickerComp';
 
 export default class DedRedressementDetailArticleAccordFranchiseBlocK extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      accord: this.props.article?.accord,
+      franchise: this.props.article?.franchise,
+    }
   }
 
-  componentDidMount() {}
+  componentDidMount() { }
 
-  handleAccordChanged = (item) => {};
+  update() {
+    this.setState(previousState => ({
+      accord: previousState.accord,
+      franchise: previousState.franchise
+    }), () => {
+      this.props.update({
+        accord: this.state?.accord,
+        franchise: this.state?.franchise
+      });
+    });
+  }
 
-  handleFranchiseChanged = (item) => {};
+  handleAccordChanged = (item) => { };
+
+  handleFranchiseChanged = (item) => { };
 
   render() {
     return (
-      <View style={{flex: 1}}>
+      <View style={{ flex: 1 }}>
         <ComAccordionComp title="Accord et franchise" expanded={false}>
           <DedRedressementRow>
             <ComBadrKeyValueComp
               libelle="Code accord : "
               libelleSize={2}
               children={
-                <ComBadrReferentielPickerComp
-                  label="Choisir un code accord"
-                  selected={{code: this.props.codeAccord}}
-                  onRef={(ref) => (this.comboAccords = ref)}
-                  command="getCmbAccord"
-                  typeService="SP"
-                  onValueChanged={this.handleAccordChanged}
-                  code="code"
-                  disabled={true}
+                <ComBadrPickerComp
+                  disabled={!this.props.edition}
+                  onRef={(ref) => (this.comboArrondissements55 = ref)}
+                  key="code"
+                  style={CustomStyleSheet.badrPicker}
+                  selectedValue={this.state.accord}
+                  titleStyle={CustomStyleSheet.badrPickerTitle}
+                  cle="code"
                   libelle="libelle"
-                  params={{
-                    codeAccord: '',
-                    libelleAccord: '',
-                  }}
+                  module="REF_LIB"
+                  command="getCmbAccord"
+                  param={"libelleAccord"}
+                  typeService="SP"
+                  storeWithKey="code"
+                  storeLibelleWithKey="libelle"
+                  onValueChange={(text) => {
+                    this.setState({
+                      accord: text
+                    })
+                    this.update();
+                  }
+                  }
                 />
               }
             />
@@ -60,20 +85,44 @@ export default class DedRedressementDetailArticleAccordFranchiseBlocK extends Re
               libelle="Franchise et exonération : "
               libelleSize={2}
               children={
-                <ComBadrReferentielPickerComp
-                  label="Choisir un code franchise"
-                  selected={{code: this.props.article.franchise}}
-                  onRef={(ref) => (this.comboFranchise = ref)}
-                  command="getCmbFranchise"
-                  typeService="SP"
-                  onValueChanged={this.handleFranchiseChanged}
-                  code="code"
+                // <ComBadrReferentielPickerComp
+                //   label="Choisir un code franchise"
+                //   selected={{ code: this.props.article.franchise }}
+                //   onRef={(ref) => (this.comboFranchise = ref)}
+                //   command="getCmbFranchise"
+                //   typeService="SP"
+                //   onValueChanged={this.handleFranchiseChanged}
+                //   code="code"
+                //   libelle="libelle"
+                //   disabled={!this.props.edition}
+                //   params={{
+                //     codeFranchise: '',
+                //     libelleFranchise: '',
+                //   }}
+                // />
+                
+                <ComBadrPickerComp
+                  disabled={!this.props.edition}
+                  onRef={(ref) => (this.combofranchise = ref)}
+                  key="code"
+                  style={CustomStyleSheet.badrPicker}
+                  selectedValue={this.state.franchise}
+                  titleStyle={CustomStyleSheet.badrPickerTitle}
+                  cle="code"
                   libelle="libelle"
-                  disabled={true}
-                  params={{
-                    codeFranchise: '',
-                    libelleFranchise: '',
-                  }}
+                  module="REF_LIB"
+                  command="getCmbFranchise"
+                  param={"libelleFranchise"}
+                  typeService="SP"
+                  storeWithKey="code"
+                  storeLibelleWithKey="libelle"
+                  onValueChange={(text) => {
+                    this.setState({
+                      franchise: text
+                    })
+                    this.update();
+                  }
+                  }
                 />
               }
             />
