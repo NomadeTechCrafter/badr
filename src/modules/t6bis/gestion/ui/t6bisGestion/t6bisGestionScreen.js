@@ -1,20 +1,21 @@
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import _ from 'lodash';
 import React from 'react';
-import { ScrollView, View } from 'react-native';
-import { connect } from 'react-redux';
+import {ScrollView, View} from 'react-native';
+import {connect} from 'react-redux';
 import {
-  ComBadrButtonComp, ComBadrDialogComp,
+  ComBadrButtonComp,
+  ComBadrDialogComp,
   ComBadrErrorMessageComp,
   ComBadrInfoMessageComp,
-  ComBadrToolbarComp
+  ComBadrToolbarComp,
 } from '../../../../../commons/component';
-import { translate } from '../../../../../commons/i18n/ComI18nHelper';
-import { primaryColor } from '../../../../../commons/styles/ComThemeStyle';
+import {translate} from '../../../../../commons/i18n/ComI18nHelper';
+import {primaryColor} from '../../../../../commons/styles/ComThemeStyle';
 import {
   CMD_ENREGISTRER_T6BIS,
   CMD_SAUVEGARDER_T6BIS,
-  CMD_SAUVEGARDER_TPE_T6BIS
+  CMD_SAUVEGARDER_TPE_T6BIS,
 } from '../../../utils/t6bisConstants';
 import {
   calculerMontantGlobal,
@@ -31,7 +32,7 @@ import {
   prepareListArticlesCm,
   prepareListArticlesMtm,
   validate,
-  verifyIntervenant
+  verifyIntervenant,
 } from '../../../utils/t6bisUtils';
 import t6bisinitT6bisEnteteSectionAction from '../../state/actions/t6bisInitT6bisEnteteSectionAction';
 import t6bissauvegarderT6BISAction from '../../state/actions/t6bissauvegarderT6BISAction';
@@ -77,22 +78,19 @@ class T6bisGestion extends React.Component {
       title: props.route.params.title,
       identifiants: null,
       listmoyenpaiement: null,
-      listDesTpes:null,
+      listDesTpes: null,
       haslignetaxation: null,
       tabs: null,
       dialogVisibility: false,
-	  listLegendes:[]
+      listLegendes: [],
     };
   }
-
 
   showDialog = () => {
     this.setState({
       dialogVisibility: true,
     });
   };
-
-
 
   hideDialog = () => this.setState({dialogVisibility: false});
 
@@ -108,14 +106,17 @@ class T6bisGestion extends React.Component {
       haslignetaxation: null,
       tabs: null,
       dialogVisibility: false,
-      listLegendes:[]
+      listLegendes: [],
     });
-    this.initierT6bisEnteteSection(this.props.route.params.context.selectedType.code, this.props.route.params.t6bis, this.props.route.params.mode);
+    this.initierT6bisEnteteSection(
+      this.props.route.params.context.selectedType.code,
+      this.props.route.params.t6bis,
+      this.props.route.params.mode,
+    );
 
-  //  this.loadListTPE();
-
+    //  this.loadListTPE();
   }
-/*
+  /*
  loadListTPE = async () => {
  console.log('request T6BIS_GESTION_ALL_LIST_TPE_REQUEST')
     let action = await t6bisCreationPaieTPEAction.request({
@@ -136,8 +137,7 @@ class T6bisGestion extends React.Component {
     this.props.actions.dispatch(action);
   };
 
-  componentWillUnmount() {
-  }
+  componentWillUnmount() {}
 
   reset = () => {
     console.log('reset');
@@ -147,10 +147,16 @@ class T6bisGestion extends React.Component {
     this.lancerUC(CMD_SAUVEGARDER_T6BIS);
   };
   lancerUC = (uc) => {
-
-    if (isRedevableNonOperator(this.props.t6bis.codeTypeT6bis) && (this.props.t6bis.hasOwnProperty('intervenantVO') && isParamSetted(this.props.t6bis?.intervenantVO) && !verifyIntervenant(this.props.t6bis?.intervenantVO))) { 
-      var messages = [translate('t6bisGestion.tabs.entete.redevableBlock.messageError')];
-      this.setState({ errorMessage: messages });
+    if (
+      isRedevableNonOperator(this.props.t6bis.codeTypeT6bis) &&
+      this.props.t6bis.hasOwnProperty('intervenantVO') &&
+      isParamSetted(this.props.t6bis?.intervenantVO) &&
+      !verifyIntervenant(this.props.t6bis?.intervenantVO)
+    ) {
+      var messages = [
+        translate('t6bisGestion.tabs.entete.redevableBlock.messageError'),
+      ];
+      this.setState({errorMessage: messages});
       return;
     }
     if (
@@ -198,12 +204,12 @@ class T6bisGestion extends React.Component {
         calculerMontantGlobal(this.props.t6bis);
       }
       if (validate(this.props.t6bis)) {
-        var requesType=Constantes.T6BIS_SAUVEGARDER_REQUEST;
-              var action = uc + this.props.t6bis?.codeTypeT6bis;
-      if(uc==CMD_SAUVEGARDER_TPE_T6BIS){
-        requesType=Constantes.T6BIS_SAUVEGARDER_TPE_REQUEST;
-         action=uc;
-}
+        var requesType = Constantes.T6BIS_SAUVEGARDER_REQUEST;
+        var action = uc + this.props.t6bis?.codeTypeT6bis;
+        if (uc == CMD_SAUVEGARDER_TPE_T6BIS) {
+          requesType = Constantes.T6BIS_SAUVEGARDER_TPE_REQUEST;
+          action = uc;
+        }
         console.log('sauvgarder 2');
         let dataToAction = {
           type: requesType,
@@ -218,7 +224,8 @@ class T6bisGestion extends React.Component {
           dataToAction,
         );
         this.setState({
-          errorMessage: null, successMessage:null
+          errorMessage: null,
+          successMessage: null,
         });
         this.props.actions.dispatch(
           t6bissauvegarderT6BISAction.request(dataToAction),
@@ -228,7 +235,8 @@ class T6bisGestion extends React.Component {
           errorMessage: [
             'Champs obligatoires : ' +
               getMessageValidation(this.props.t6bis).join(', '),
-          ], successMessage: null
+          ],
+          successMessage: null,
         });
       }
     }
@@ -236,9 +244,12 @@ class T6bisGestion extends React.Component {
   enregistrer = () => {
     this.lancerUC(CMD_ENREGISTRER_T6BIS);
   };
- envoyerTransaction = () => {
-      this.lancerUC(CMD_SAUVEGARDER_TPE_T6BIS);
-    };
+  envoyerTransaction = () => {
+    this.lancerUC(CMD_SAUVEGARDER_TPE_T6BIS);
+    if (this.state.errorMessage == null) {
+      this.lancerUC(CMD_ENREGISTRER_T6BIS);
+    }
+  };
   quitter = () => {
     console.log('Quitter la page Bienvenue');
     this.props.navigation.navigate('Bienvenue', {});
@@ -288,8 +299,14 @@ class T6bisGestion extends React.Component {
   };
 
   static getDerivedStateFromProps(props, state) {
-    console.log('T6bisGestion-->getDerivedStateFromProps--------------------props ', props);
-    console.log('T6bisGestion-->getDerivedStateFromProps--------------------state ', state);
+    console.log(
+      'T6bisGestion-->getDerivedStateFromProps--------------------props ',
+      props,
+    );
+    console.log(
+      'T6bisGestion-->getDerivedStateFromProps--------------------state ',
+      state,
+    );
 
     if (props.errorMessage) {
       return {
@@ -308,7 +325,10 @@ class T6bisGestion extends React.Component {
   }
   render() {
     let codeTypeT6bis = this.props.t6bis?.codeTypeT6bis;
-    console.log('11/02/2022 this.props.hideEnregistrerButton ', this.props.hideEnregistrerButton);
+    console.log(
+      '11/02/2022 this.props.hideEnregistrerButton ',
+      this.props.hideEnregistrerButton,
+    );
     return (
       <ScrollView style={styles.container}>
         <ComBadrToolbarComp
@@ -326,7 +346,7 @@ class T6bisGestion extends React.Component {
             <ComBadrInfoMessageComp message={this.state.successMessage} />
           </View>
         )}
-        
+
         <View style={{flex: 1}}>
           {!isMtm(codeTypeT6bis) && !isCm(codeTypeT6bis) && (
             <Tab.Navigator
@@ -416,34 +436,44 @@ class T6bisGestion extends React.Component {
           <View
             style={styles.containerActionBtn}
             pointerEvents={this.state.isConsultation ? 'none' : 'auto'}>
-            {_.isEmpty(this.props.t6bis?.referenceEnregistrement) &&  this.props.t6bis?.typeMoyenPaiement?.code!="03" &&<ComBadrButtonComp
-              style={{ width: 100 }}
-              onPress={() => {
-                this.sauvgarder();
-              }}
-              text={translate('t6bisGestion.buttons.sauvegarder')}
-            />}
-            {(this.props.t6bis?.typeMoyenPaiement?.code != "03") ? ( !this.props.hideEnregistrerButton && <ComBadrButtonComp
-              style={{width: 100}}
-              onPress={() => {
-                this.enregistrer();
-              }}
-              text={translate('t6bisGestion.buttons.enregistrer')}
-            />):
-            <ComBadrButtonComp
-                          style={{width: 100}}
-                          onPress={() => {
-                            this.envoyerTransaction();
-                          }}
-                          text={translate('t6bisGestion.buttons.envoyerTransaction')}
-                        />}
-            {_.isEmpty(this.props.t6bis?.referenceEnregistrement) && <ComBadrButtonComp
-              style={{ width: 100 }}
-              onPress={() => {
-                this.supprimer();
-              }}
-              text={translate('t6bisGestion.buttons.supprimer')}
-            />}
+            {_.isEmpty(this.props.t6bis?.referenceEnregistrement) &&
+              this.props.t6bis?.typeMoyenPaiement?.code != '03' && (
+                <ComBadrButtonComp
+                  style={{width: 100}}
+                  onPress={() => {
+                    this.sauvgarder();
+                  }}
+                  text={translate('t6bisGestion.buttons.sauvegarder')}
+                />
+              )}
+            {this.props.t6bis?.typeMoyenPaiement?.code != '03' ? (
+              !this.props.hideEnregistrerButton && (
+                <ComBadrButtonComp
+                  style={{width: 100}}
+                  onPress={() => {
+                    this.enregistrer();
+                  }}
+                  text={translate('t6bisGestion.buttons.enregistrer')}
+                />
+              )
+            ) : (
+              <ComBadrButtonComp
+                style={{width: 100}}
+                onPress={() => {
+                  this.envoyerTransaction();
+                }}
+                text={translate('t6bisGestion.buttons.envoyerTransaction')}
+              />
+            )}
+            {_.isEmpty(this.props.t6bis?.referenceEnregistrement) && (
+              <ComBadrButtonComp
+                style={{width: 100}}
+                onPress={() => {
+                  this.supprimer();
+                }}
+                text={translate('t6bisGestion.buttons.supprimer')}
+              />
+            )}
             <ComBadrButtonComp
               style={{width: 100}}
               onPress={() => {

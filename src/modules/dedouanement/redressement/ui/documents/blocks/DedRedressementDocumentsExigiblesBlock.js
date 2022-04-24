@@ -191,53 +191,16 @@ class DedRedressementDocumentsExigiblesBlock extends React.Component {
     });
   };
 
-  downloadFile = async (nameFile, base64File) => {
-    try {
-      const granted = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-        {
-          title: 'External Storage Permission',
-          message:
-            "L'application a besoin des permissions nécessaires pour procéder.",
-          buttonNeutral: 'Demander ultérieurement',
-          buttonNegative: 'Annuler',
-          buttonPositive: 'OK',
-        },
-      );
-      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-        let pdfLocation = RNFetchBlob.fs.dirs.DocumentDir + '/' + nameFile;
-        RNFetchBlob.fs.writeFile(pdfLocation, base64File, 'base64').then(() => {
-          if (Platform.OS === 'android') {
-            RNFetchBlob.android.actionViewIntent(
-              pdfLocation,
-              'application/pdf',
-            );
-          } else {
-            RNFetchBlob.ios.previewDocument(pdfLocation);
-          }
-        });
-      } else {
-        console.log('External storage permission denied');
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
+ 
   render() {
+    
     let documentsExigibles = this.extractCommandData(
       'ded.recupererDocumentsExigiblesDUM',
       'genericDedReducer',
     );
 
-    let consulterFichier = this.extractCommandData(
-      'ded.consulterFichier',
-      'genericDedReducer',
-    );
-
-    if (!_.isNil(consulterFichier) && !_.isNil(consulterFichier.data)) {
-      this.downloadFile('test.pdf', consulterFichier.data);
-    }
+    
+    
 
     return (
       <View style={styles.container}>

@@ -4,26 +4,22 @@
 import DedRedressementApi from '../../service/api/DedRedressementApi';
 import * as Constants from '../DedRedressementConstants';
 
-export function request(action, navigation, successRedirection) {
+export function request(action, updateVersions,navigation, successRedirection) {
   return (dispatch) => {
     dispatch(action);
     dispatch(inProgress(action));
-    // console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
-    // console.log('---------------------------------------------------------------------------');
-    // console.log('***********************************************************************************');
-    // console.log('////////////////////////////////////////////////////////////////////////////////');
-    // console.log(JSON.stringify(action));
-    // console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
-    // console.log('---------------------------------------------------------------------------');
-    // console.log('***********************************************************************************');
-    // console.log('////////////////////////////////////////////////////////////////////////////////');
+    console.log('response enregistrerDum action : ', action);
     DedRedressementApi.enregistrerDum(action.value).then((response) => {
-      // console.log('response enregistrerDum ', response);
+      console.log('response enregistrerDum ', response);
+      console.log('response && response.data && response.data.jsonVO ', response && response.data && response.data.jsonVO);
       if (response && response.data && response.data.jsonVO) {
         dispatch(success(response.data.dtoHeader));
         navigation.navigate(successRedirection, {
         
         });
+        let numeroVersionBase = action.value.dedDumVO.dedReferenceVO.numeroVersionCourante;
+        let numeroVersionCourante = action.value.dedDumVO.dedReferenceVO.numeroVersion;
+        updateVersions(numeroVersionBase, numeroVersionCourante);
       } else {
         dispatch(failed(response.data));
       }

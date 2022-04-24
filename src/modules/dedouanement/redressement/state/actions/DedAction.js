@@ -8,6 +8,8 @@ import {
 import translate from '../../../../../commons/i18n/ComI18nHelper';
 import TransverseApi from '../../../../../commons/services/api/ComTransverseApi';
 import _ from 'lodash';
+import { downloadFile } from '../../utils/DedUtils';
+import RNFetchBlob from 'rn-fetch-blob';
 
 export function request(action) {
   return (dispatch) => {
@@ -22,6 +24,10 @@ export function request(action) {
     )
       .then((response) => {
         if (response && response.data && !_.isNil(response.data.jsonVO)) {
+          if (action.value.command == "ded.consulterFichier") {
+            downloadFile('test.pdf', RNFetchBlob.base64.encode(response.data.jsonVO));
+            dispatch(success(null, action.value.command));
+          }else  
           dispatch(success(response.data.jsonVO, action.value.command));
         } else {
           dispatch(

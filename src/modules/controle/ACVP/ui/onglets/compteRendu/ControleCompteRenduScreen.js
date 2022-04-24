@@ -161,7 +161,7 @@ class ControleCompteRenduScreen extends React.Component {
                                 <TextInput
                                     mode={'outlined'}
                                     style={styles.flexDirectionRow, styles.libelleM}
-                                    value={this.props?.controleVo?.redressement}
+                                    value={this.props?.reponseData}
                                     multiline={true}
                                     numberOfLines={6}
                                     disabled={true}
@@ -187,7 +187,7 @@ class ControleCompteRenduScreen extends React.Component {
                             <View
                                 style={{ flexDirection: 'row', justifyContent: 'center' }}>
                                 <ComBadrButtonComp
-                                    onPress={this.genererCompteRendu}
+                                    onPress={()=>this.props.genererCompteRendu()}
                                     disabled={this.props?.isConsultation}
                                     text={translate('controle.genererCompte')}
                                 />

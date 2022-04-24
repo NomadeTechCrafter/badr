@@ -129,11 +129,12 @@ export default (state = initialState, action) => {
           console.log('--> GENERERCR in progress...');
           return nextState;
       case Constants.GENERERCR_CONTROLE_COMMUN_SUCCESS:
-          console.log('--> GENERERCR success...');
+          console.log('--> GENERERCR success...', action.value.jsonVO);
           nextState.showProgress = false;
           nextState.errorMessage = null;
           nextState.successMessage = action.value.dtoHeader.messagesInfo;
           nextState.reponseData = action.value.jsonVO;
+          
           return nextState;
       case Constants.GENERERCR_CONTROLE_COMMUN_FAILED:
           console.log('--> GENERERCR failed...');
@@ -154,6 +155,12 @@ export default (state = initialState, action) => {
       console.log('CONTROLE_HIDE_REDRESSEMENT_REQUEST ,', action.value);
       nextState.hideRedressementButton = action.value;
       return nextState;
+    case Constants.CONTROLE_UPDATE_VERSIONS_REQUEST:
+      console.log('CONTROLE_UPDATE_VERSIONS_REQUEST ,', action.value);
+      nextState.numeroVersionBase = action.value.numeroVersionBase;
+      nextState.numeroVersionCourante = action.value.numeroVersionCourante;
+      return nextState;
+    
     default:
         nextState.showProgress = false;
       return nextState ? nextState : initialState;

@@ -145,6 +145,63 @@ updateInfosOperateur = (nextState, operateurEngage, dedDumOperateurVO, typeOpera
     
     
   }
+  if (FLAG_OPER_ENGAGE_DEST === typeOperateur) {
+    nextState.nomAdresseOperateurDestinataireDisabled = false;
+    if (!_.isEmpty(dedDumOperateurVO.codeCentreRC) && !_.isEmpty(dedDumOperateurVO.numeroRC)) {
+      nextState.data.dedDumSectionEnteteVO.adresseOperateurDestinataireR = operateurEngage.refAdresse.adresse;
+      nextState.data.dedDumSectionEnteteVO.nomOperateurDestinataireR = operateurEngage.nomOperateur;
+    } else {
+      nextState.data.dedDumSectionEnteteVO.adresseOperateurDestinataireS = operateurEngage.refAdresse.adresse;
+      nextState.data.dedDumSectionEnteteVO.nomOperateurDestinataireS = operateurEngage.nomOperateur;
+    }
+    nextState.data.dedDumSectionEnteteVO.ifuDestinataire = operateurEngage.ifu;
+    nextState.data.dedDumSectionEnteteVO.activiteOperateurDestinataireR = '';
+
+    if (!_.isEmpty(operateurEngage.nomOperateur)) {
+      nextState.nomAdresseOperateurDestinataireDisabled = true;
+    } else {
+      nextState.nomAdresseOperateurDestinataireDisabled = false;
+    }
+
+    if (operateurEngage.natureActivite != null) {
+      nextState.data.dedDumSectionEnteteVO.activiteOperateurDestinataireR = operateurEngage.natureActivite.libelle;
+      if (operateurEngage.activite != null) {
+        nextState.data.dedDumSectionEnteteVO.activiteOperateurDestinataireR = operateurEngage.natureActivite.libelle + SEPARATEUR + operateurEngage.activite;
+      }
+    } else {
+      nextState.data.dedDumSectionEnteteVO.activiteOperateurDestinataireR = AUCUN;
+      if (operateurEngage.activite != null) {
+        nextState.data.dedDumSectionEnteteVO.activiteOperateurDestinataireR = operateurEngage.activite;
+      }
+    }
+
+
+  }
+
+  if (FLAG_OPER_ENGAGE_LEQUEL === typeOperateur) {
+    if (!_.isEmpty(dedDumOperateurVO.codeCentreRC) && !_.isEmpty(dedDumOperateurVO.numeroRC)) {
+      nextState.data.dedDumSectionEnteteVO.adresseOperateurPourLequel = operateurEngage.refAdresse.adresse;
+      nextState.data.dedDumSectionEnteteVO.nomOperateurPourLequel = operateurEngage.nomOperateur;
+    } 
+    nextState.data.dedDumSectionEnteteVO.ifuOperateurPourLequel = operateurEngage.ifu;
+    nextState.data.dedDumSectionEnteteVO.activiteOperateurPourLequel = '';
+
+    
+
+    if (operateurEngage.natureActivite != null) {
+      nextState.data.dedDumSectionEnteteVO.activiteOperateurPourLequel = operateurEngage.natureActivite.libelle;
+      if (operateurEngage.activite != null) {
+        nextState.data.dedDumSectionEnteteVO.activiteOperateurPourLequel = operateurEngage.natureActivite.libelle + SEPARATEUR + operateurEngage.activite;
+      }
+    } else {
+      nextState.data.dedDumSectionEnteteVO.activiteOperateurPourLequel = AUCUN;
+      if (operateurEngage.activite != null) {
+        nextState.data.dedDumSectionEnteteVO.activiteOperateurPourLequel = operateurEngage.activite;
+      }
+    }
+
+
+  }
 }
 
 setNomAndAdresseForOE = (nextState, operateurEngage, dedDumOperateurVO, operEngageFlag, typeOperateur) => {

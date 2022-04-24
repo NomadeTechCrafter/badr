@@ -43,6 +43,8 @@ import { ComSessionService } from '../../../../commons/services/session/ComSessi
 import { DED_IMPUTATION_RED_NEW_PROVISIONNELLE, DED_IMPUTATION_TC_NOUVELLE_PROVISIONNELLE, DED_SERV_RECHREFERENCE } from '../utils/DedConstants';
 import dedEnregistrerRedressementAction from '../state/actions/dedEnregistrerRedressementAction';
 import ModalIntervention from './modelIntervention/modalIntervention';
+import controleUpdateVersionsAction from '../../../controle/common/state/actions/controleUpdateVersionsAction';
+import { CONTROLE_UPDATE_VERSIONS_REQUEST } from '../../../controle/common/state/controleCommonConstants';
 
 
 
@@ -440,7 +442,7 @@ class DedRedressementScreen extends React.Component {
                 value: dedDumMotifIInputVO,
 
 
-            },
+            }, this.updateVersions,
             this.props.navigation, this.props.route.params.successRedirection
 
         );
@@ -449,6 +451,19 @@ class DedRedressementScreen extends React.Component {
         this.props.dispatch(action);
 
 
+    }
+
+    updateVersions = (numeroVersionBase,numeroVersionCourante) => {
+        console.log('updateVersions numeroVersionBase:', numeroVersionBase);
+        console.log('updateVersions numeroVersionCourante:', numeroVersionCourante);
+        var action = controleUpdateVersionsAction.updateVersions(
+            {
+                type: CONTROLE_UPDATE_VERSIONS_REQUEST,
+                value: { numeroVersionBase, numeroVersionCourante}
+            }
+
+        );
+        this.props.dispatch(action);
     }
 
 
@@ -492,7 +507,7 @@ class DedRedressementScreen extends React.Component {
 
         let isRedressementDUM = this.props.route.params.isRedressementDUM;
         let dedDumMotifIInputVO = getValueByPath('dedEnregisterRedressementReducer.dedDumMotifIInputVO', this.props);
-        /* console.log('this.props : ', JSON.stringify(this.props?.dedEnregisterRedressementReducer));
+         console.log('this.props : ', JSON.stringify(this.props?.dedEnregisterRedressementReducer));
         
 
         console.log('dedDumMotifIInputVO (yla 26012021) : ', dedDumMotifIInputVO);
@@ -500,7 +515,7 @@ class DedRedressementScreen extends React.Component {
 
         console.log('success : ', typeof success != "undefined");
         console.log('success : ', success);
-        console.log('this.props : ', JSON.stringify(this.props) );
+        //console.log('this.props 15042022: ', JSON.stringify(this.props) );
         console.log('isConfirmationReception : ', isConfirmationReception);
         console.log('(typeof isConfirmationReception != "undefined") ', (typeof isConfirmationReception != "undefined"));
         console.log('isRedressementDUM : ', isRedressementDUM);
@@ -508,7 +523,7 @@ class DedRedressementScreen extends React.Component {
         console.log('isImputationCompteREDAccessible ', isImputationCompteREDAccessible);
         console.log('this.state.isImputationCompteRedVisible ', this.state.isImputationCompteRedVisible);
         
- */
+ 
 
         return (
             <View style={{ flex: 1 }}>

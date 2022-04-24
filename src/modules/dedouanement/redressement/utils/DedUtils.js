@@ -1,4 +1,6 @@
 import _ from 'lodash';
+import { PermissionsAndroid } from 'react-native';
+import RNFetchBlob from 'rn-fetch-blob';
 import { CATEGORIE_COMPLEMENTAIRE, CATEGORIE_GLOBALE_INIT, CATEGORIE_GLOBALE_VOY, CATEGORIE_NORMALE, CATEGORIE_PROVISOIRE_INIT, CATEGORIE_PROVISOIRE_VOY, CATEGORIE_SIMPLIFIEE_APU, CATEGORIE_SIMPLIFIEE_DEC, CATEGORIE_TRYPTIQUE_APU, CATEGORIE_TRYPTIQUE_DEC, TYPEDED_APURSIMPLIFIEE, TYPEDED_APURTRIPTYQUE, TYPEDED_DSIMPLIFIEE, TYPEDED_DTRIPTYQUE, TYPEDED_DUM, TYPEDED_DUMGLOB_INIT, TYPEDED_DUMPROV_INIT, TYPEDED_SOUSDUM_GLOB, TYPEDED_SOUSDUM_PROV } from './DedConstants';
 
 export const getValueByPath = (key, object, reducer) => {
@@ -82,3 +84,41 @@ export const initDedCategorie = (typeDeclarationParam, refDumInit) => {
   
   return categorie;
 }
+
+export const downloadFile = async (nameFile, base64File) => {
+  try {
+
+
+    const granted = await PermissionsAndroid.request(
+      PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+      {
+        title: 'External Storage Permission',
+        message:
+          "L'application a besoin des permissions nécessaires pour procéder.",
+        buttonNeutral: 'Demander ultérieurement',
+        buttonNegative: 'Annuler',
+        buttonPositive: 'OK',
+      },
+    );
+
+
+    if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+      let pdfLocation = RNFetchBlob.fs.dirs.DocumentDir + '/' + nameFile;
+
+      RNFetchBlob.fs.writeFile(pdfLocation, base64File, 'base64').then(() => {
+        if (Platform.OS === 'android') {
+          RNFetchBlob.android.actionViewIntent(
+            pdfLocation,
+            'application/pdf',
+          );
+        } else {
+          RNFetchBlob.ios.previewDocument(pdfLocation);
+        }
+      });
+    } else {
+      console.log('External storage permission denied');
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};

@@ -196,8 +196,8 @@ class ControleACVPScreen extends Component {
   genererCompteRendu = () => {
     var data = {
       idDed: this.props.data.init?.idDed,
-      /*numeroVersionBase: this.state.numeroVersionCourante,
-      numeroVersionCourante: this.state.numeroVersionCourante,*/
+      numeroVersionBase: this.props.numeroVersionBase,
+      numeroVersionCourante: this.props.numeroVersionCourante
     };
     var action = ControleCommonActionBtnAction.genererCR(
       {
@@ -273,11 +273,6 @@ class ControleACVPScreen extends Component {
   }
 
   render() {
-    console.log("this.state begin");
-    console.log("this.state :", this.state);
-    console.log("this.props.errorMessage :", this.props.errorMessage);
-    console.log("this.props.hideRedressementButton :", this.props.hideRedressementButton);
-    console.log("this.state end");
     return (
       <View style={CustomStyleSheet.fullContainer}>
         <ComBadrToolbarComp
@@ -324,8 +319,9 @@ class ControleACVPScreen extends Component {
                   <ControleCompteRenduScreen 
                     controleVo={this.props.data.init}
                     refDeclaration={this.props.data.refDeclaration}
+                    reponseData={this.props.reponseData}
                     isConsultation={this.state.isConsultation}
-                    
+                    genererCompteRendu={this.genererCompteRendu}
                     updateControle={this.update} />
                 )} />
 

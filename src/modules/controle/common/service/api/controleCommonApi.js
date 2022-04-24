@@ -85,14 +85,16 @@ export default class ControleListeDeclarationDumApi {
     return await HttpHelper.process(data);
   };
 
-  static genererCompteRendu = async ( data) => {
+  static genererCompteRendu = async (data) => {
+    
+    console.log('genererCompteRendu data :',data);
     const _data = {
       dtoHeader: {
         userLogin: ComSessionService.getInstance().getLogin(),
         fonctionnalite: 'cf4011',
         module: WS_MODULE_PARAM,
         commande: 'genererCompteRenduRedressements',
-        typeService: 'UC',
+        typeService: 'SP',
         motif: null,
         messagesInfo: null,
         messagesErreur: null,
@@ -101,8 +103,11 @@ export default class ControleListeDeclarationDumApi {
         idDed: data.idDed,
         numeroVersionBase: data.numeroVersionBase,
         numeroVersionCourante: data.numeroVersionCourante,
+        typeControle: data?.typeControle
       },
     };
+
+    console.log('data_',_data);
     return await HttpHelper.process(_data);
   };
 

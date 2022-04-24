@@ -42,8 +42,9 @@ class DedRedressementEnteteVersionBlock extends React.Component {
     };
   }
 
-  componentDidMount() {
+  componentDidMount=()=> {
     this.initCombineeDisabled();
+    this.traiterBureauDestination();
   }
 
   isVersionCourante = () => {
@@ -165,7 +166,6 @@ class DedRedressementEnteteVersionBlock extends React.Component {
  */
   isCombineeCheckboxRendered = () => {
     let dedDumSectionEnteteVO = getValueByPath('dedDumSectionEnteteVO', this.props.data);
-    // console.log('isCombineeCheckboxRendered dedDumSectionEnteteVO', dedDumSectionEnteteVO);
     if (dedDumSectionEnteteVO?.occasionnelle)
       return false;
 
@@ -174,10 +174,7 @@ class DedRedressementEnteteVersionBlock extends React.Component {
       return false;
     }
     let typeDeclarationParam = getValueByPath('typeDeclarationParam', this.props.data);
-    // console.log('isCombineeCheckboxRendered typeDeclarationParam', typeDeclarationParam);
     let refDumInit = getValueByPath('refDumInit', this.props.data);
-    // console.log('isCombineeCheckboxRendered this.props.data', this.props.data);
-    // console.log('isCombineeCheckboxRendered typeDUM', refDumInit);
     let categorie = initDedCategorie(typeDeclarationParam, refDumInit);
     var rendered = (categorie == CATEGORIE_PROVISOIRE_VOY);
     let transitCase = getValueByPath('transitCase', this.props.data);
@@ -201,9 +198,7 @@ class DedRedressementEnteteVersionBlock extends React.Component {
       return false;
     }
     let typeDeclarationParam = getValueByPath('typeDeclarationParam', this.props.data);
-    console.log('isCombineeNonTransitCheckboxRendered typeDeclarationParam', typeDeclarationParam);
     let refDumInit = getValueByPath('refDumInit', this.props.data);
-    console.log('isCombineeNonTransitCheckboxRendered typeDUM', refDumInit);
     let categorie = initDedCategorie(typeDeclarationParam, refDumInit);
     var rendered = (categorie != CATEGORIE_GLOBALE_VOY && categorie != CATEGORIE_PROVISOIRE_VOY);
     let transitCase = getValueByPath('transitCase', this.props.data);
@@ -215,14 +210,12 @@ class DedRedressementEnteteVersionBlock extends React.Component {
   traiterBureauDestination = () => {
     let transitCase = getValueByPath('transitCase', this.props.data);
     let typeDeclarationParam = getValueByPath('typeDeclarationParam', this.props.data);
-    console.log('traiterBureauDestination typeDeclarationParam', typeDeclarationParam);
     let refDumInit = getValueByPath('refDumInit', this.props.data);
-    console.log('traiterBureauDestination typeDUM', refDumInit);
     let combineeVar = this.state.dedDumVo.dedDumSectionEnteteVO.combinee;
     if (combineeVar != null && 'true' === combineeVar) {
-      combineeVar = 'false';
-    } else {
       combineeVar = 'true';
+    } else {
+      combineeVar = 'false';
     }
     if (transitCase === 'true') {
       this.setState({ bureauDestDisabled: false, lieuStockageDisabled: false, ...this.state.dedDumVo, dedDumSectionEnteteVO: { ...this.state.dedDumVo.dedDumSectionEnteteVO, bureauDestination: '', combinee: combineeVar } });
@@ -249,11 +242,8 @@ class DedRedressementEnteteVersionBlock extends React.Component {
   isShownBureauDistBloc1 = () => {
 
     let typeDeclarationParam = getValueByPath('typeDeclarationParam', this.props.data);
-    console.log('isShowAnticipee typeDeclarationParam', typeDeclarationParam);
     let refDumInit = getValueByPath('refDumInit', this.props.data);
-    console.log('isShowAnticipee refDumInit', refDumInit);
     let categorie = initDedCategorie(typeDeclarationParam, refDumInit);
-    console.log('isShowAnticipee categorie', categorie);
     let dedDumSectionEnteteVO = getValueByPath('dedDumSectionEnteteVO', this.props.data);
     return categorie !== CATEGORIE_GLOBALE_VOY && categorie !== CATEGORIE_PROVISOIRE_VOY && !(dedDumSectionEnteteVO?.occasionnelle);
   }
@@ -291,11 +281,8 @@ class DedRedressementEnteteVersionBlock extends React.Component {
 
   isShownBureauDistBloc2 = () => {
     let typeDeclarationParam = getValueByPath('typeDeclarationParam', this.props.data);
-    console.log('isShowAnticipee typeDeclarationParam', typeDeclarationParam);
     let refDumInit = getValueByPath('refDumInit', this.props.data);
-    console.log('isShowAnticipee refDumInit', refDumInit);
     let categorie = initDedCategorie(typeDeclarationParam, refDumInit);
-    console.log('isShowAnticipee categorie', categorie);
     return categorie === CATEGORIE_PROVISOIRE_VOY;
   }
 

@@ -57,11 +57,12 @@ export function genererCR(action) {
   return (dispatch) => {
     dispatch(action);
     dispatch(genererCR_inProgress(action));
-
-    ControleApi.genererCompteRendu(action.value.login, action.value.data)
+    console.log('genererCR action.value.data', action.value.data);
+    ControleApi.genererCompteRendu(action.value.data)
       .then((response) => {
         if (response) {
           const data = response.data;
+          console.log('genererCR data', data);
           if (data && _.isEmpty(data.dtoHeader.messagesErreur)) {
             dispatch(genererCR_success(data));
           } else {

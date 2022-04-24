@@ -92,7 +92,9 @@ export default class ControleACVPApi {
       jsonVO: {
         idDed: data.idDed,
         numeroVersionBase: data.numeroVersionBase,
-        numeroVersionCourante: data.numeroVersionCourante,
+        numeroVersionCourante: data.numeroVersionCourante
+
+
       },
     };
     return await HttpHelper.process(_data);

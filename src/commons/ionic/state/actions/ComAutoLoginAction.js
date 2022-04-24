@@ -21,10 +21,6 @@ export function request(action, navigation) {
         dispatch(success(action.value));
         if (navigation) {
           navigation.navigate('Home', { fromIonic: false });
-          // navigation.navigate('Home', {
-          //   screen: 'MainleveeScreen',
-            // params: { data },
-          // });
         }
       });
   };
