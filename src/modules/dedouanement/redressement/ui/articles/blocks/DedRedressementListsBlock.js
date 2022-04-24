@@ -537,7 +537,7 @@ class DedRedressementListsBlock extends React.Component {
               this.state.selectedArticleConteste,
               this.onArticleContesteSelectedClosed,
             )}
-          {this.state?.edition && (
+          {(this.state?.edition && !this.state.selectedArticle) && (
             <Row>
               <Col />
               <Col>
