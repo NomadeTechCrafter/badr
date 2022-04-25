@@ -243,7 +243,7 @@ class LiqRecapitulationInfoLiqBlock extends React.Component {
         </Grid>
 
         {/* Bloc  Compte crédit utilisé */}
-        {liquidationVO.refOperationSimultanese.refModePaiement == '02' && liquidationVO.refModePaiement == '02' && (
+        { liquidationVO?.refModePaiement == '02' && liquidationVO?.refOperationSimultanee?.refModePaiement == '02' && (
             <ComAccordionComp title={translate('liq.compteCreditUtilise')}>
               <Grid>
                 <Row style={CustomStyleSheet.whiteRow}>
