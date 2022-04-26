@@ -40,7 +40,7 @@ import sortiPortInitReducer from '../../modules/DeclarationD17D20/sortiPort/stat
 import sortiPortReducer from '../../modules/DeclarationD17D20/sortiPort/state/reducers/decSortiPortUcReducer';
 import decMainleveeInitReducer from '../../modules/DeclarationD17D20/mainlevee/state/reducers/decMainleveeInitReducer';
 import decMainleveeUCReducer from '../../modules/DeclarationD17D20/mainlevee/state/reducers/decMainleveeUCReducer';
-
+import mlvDelivrerReducer from '../../modules/mainlevee/delivrer/state/reducers/mlvDelivrerReducer';
 import rechParRefInitReducer from '../../modules/DeclarationD17D20/rechParRef/state/reducers/decRechParRefInitReducer';
 import rechParRefUcReducer from '../../modules/DeclarationD17D20/rechParRef/state/reducers/decRechParRefUcReducer';
 import rechParRefVh from '../../modules/DeclarationD17D20/rechParRef/state/reducers/decRechParRefVhReducer';
@@ -145,6 +145,7 @@ const allReducers = combineReducers({
   mlvRechercheReducer,
   rechercheActifsReducer,
   creationActifsReducer,
+  mlvDelivrerReducer,
   // enteteReducer,
   // detailsreducer,
   // recherchereducer,
@@ -200,8 +201,8 @@ const allReducers = combineReducers({
  * store creation
  */
 const store = createStore(
-  allReducers,
-  composeEnhancers(applyMiddleware(thunk, comCustomMiddlewareService)),
+    allReducers,
+    composeEnhancers(applyMiddleware(thunk, comCustomMiddlewareService)),
 );
 
 export default store;
