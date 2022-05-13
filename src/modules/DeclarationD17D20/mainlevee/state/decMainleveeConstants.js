@@ -17,3 +17,18 @@ export const MAINLEVEE_CONFIRMER_REQUEST = '[D17_D20] MAINLEVEE_CONFIRMER_REQUES
 export const MAINLEVEE_CONFIRMER_SUCCESS = '[D17_D20] MAINLEVEE_CONFIRMER_SUCCESS';
 export const MAINLEVEE_CONFIRMER_FAILED = '[D17_D20] MAINLEVEE_CONFIRMER_FAILED';
 export const MAINLEVEE_CONFIRMER_IN_PROGRESS = '[D17_D20] MAINLEVEE_CONFIRMER_IN_PROGRESS';
+
+export const cleDUM = function (regime, serie) {
+    let alpha = 'ABCDEFGHJKLMNPRSTUVWXYZ';
+    if (serie?.length > 6) {
+        let firstSerie = serie?.substring(0, 1);
+        if (firstSerie === '0') {
+            serie = serie?.substring(1, 7);
+        }
+    }
+    let obj = regime + serie;
+    let RS = obj % 23;
+    alpha = alpha.charAt(RS);
+    return alpha;
+};
+

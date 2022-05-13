@@ -76,7 +76,6 @@ class ResultatScannerScreen extends React.Component {
             {
                 type: ApurementConstants.SCANNER_D17_DUM_REQUEST,
                 value: {
-                    login: "SUPSI1059",
                     commande: "findResultatScannerByReferenceEtatChargement",
                     module: "AEC_LIB",
                     typeService: "SP",

@@ -7,6 +7,7 @@ import {
   ComBadrCardBoxComp as CardBox,
   ComBasicDataTableComp,
 } from '../../../../../commons/component';
+import { cleDUM } from '../../state/decMainleveeConstants';
 
 const initialState = {
   reference: '',
@@ -68,19 +69,6 @@ class MainleveeEtatChargement extends React.Component {
     ];
   };
 
-  cleDUM = function (regime, serie) {
-    let alpha = 'ABCDEFGHJKLMNPRSTUVWXYZ';
-    if (serie?.length > 6) {
-      let firstSerie = serie?.substring(0, 1);
-      if (firstSerie === '0') {
-        serie = serie?.substring(1, 7);
-      }
-    }
-    let obj = regime + serie;
-    let RS = obj % 23;
-    alpha = alpha.charAt(RS);
-    return alpha;
-  };
 
   render() {
     const enteteTrypVO = this.props.dataVo?.enteteTrypVO;
@@ -127,7 +115,7 @@ class MainleveeEtatChargement extends React.Component {
                 {referenceEnregistrement?.slice(10, 17)}
               </Text>
               <Text style={styles.valueS}>
-                {this.cleDUM(
+                {cleDUM(
                   referenceEnregistrement?.slice(3, 6),
                   referenceEnregistrement?.slice(10, 17),
                 )}

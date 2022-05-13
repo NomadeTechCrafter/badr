@@ -2,6 +2,7 @@ import React from "react";
 import { ScrollView, Text, View } from "react-native";
 import { connect } from "react-redux";
 import style from '../../style/decMainleveeStyle';
+import { cleDUM } from '../../state/decMainleveeConstants';
 
 import {
     ComAccordionComp as Accordion,
@@ -58,19 +59,7 @@ class Connaissements extends React.Component {
         ];
     }
 
-    cleDUM = function (regime, serie) {
-        let alpha = 'ABCDEFGHJKLMNPRSTUVWXYZ';
-        if (serie?.length > 6) {
-            let firstSerie = serie?.substring(0, 1);
-            if (firstSerie === '0') {
-                serie = serie?.substring(1, 7);
-            }
-        }
-        let obj = regime + serie;
-        let RS = obj % 23;
-        alpha = alpha.charAt(RS);
-        return alpha;
-    };
+
 
     componentDidUpdate() {
         if (this.props.route?.params?.first) {
@@ -126,7 +115,7 @@ class Connaissements extends React.Component {
                                 {referenceEnregistrement?.slice(10, 17)}
                             </Text>
                             <Text style={styles.valueS}>
-                                {this.cleDUM(
+                                {cleDUM(
                                     referenceEnregistrement?.slice(3, 6),
                                     referenceEnregistrement?.slice(10, 17),
                                 )}

@@ -71,7 +71,6 @@ class SortiPortScanner extends React.Component {
             {
                 type: Constants.SCANNER_D17_DUM_REQUEST,
                 value: {
-                    login: "SUPSI1059",
                     commande: "findResultatScannerByReferenceEtatChargement",
                     module: "AEC_LIB",
                     typeService: "SP",
