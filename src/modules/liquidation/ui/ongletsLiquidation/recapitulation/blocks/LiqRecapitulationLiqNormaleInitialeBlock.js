@@ -15,11 +15,13 @@ import Numeral from 'numeral';
 import _ from 'lodash';
 import { StyleSheet } from 'react-native';
 import { View } from 'react-native';
+import ComUtils from "../../../../../../commons/utils/ComUtils";
 class LiqRecapitulationLiqNormaleInitialeBlock extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedBorderau: ''
+      selectedBorderau: '',
+      selectedDelai: ''
     }
   }
 
@@ -28,7 +30,11 @@ class LiqRecapitulationLiqNormaleInitialeBlock extends React.Component {
       selectedBorderau: selectedValue,
     });
   };
-  
+  handleDelaiCreditChanged = (selectedValue, selectedIndex, item) => {
+    this.setState({
+      selectedDelai: selectedValue,
+    });
+  };
   render() {
     const { liquidationVO, liquidationType, indicateurLiquidationArticlesEnFranchiseTotale } = this.props;
     console.log('indicateurLiquidationArticlesEnFranchiseTotale', indicateurLiquidationArticlesEnFranchiseTotale)
@@ -132,8 +138,9 @@ class LiqRecapitulationLiqNormaleInitialeBlock extends React.Component {
                 </ComBadrLibelleComp>
               </Col>
               <Col size={2}>
+
                 <ComBadrPickerComp
-                  disabled={!(liquidationType == 'automatique' || liquidationType == 'automatiqueRedevanceAT')}
+                  disabled={(liquidationType == 'automatique' || liquidationType == 'automatiqueRedevanceAT') && liquidationVO?.montantTotalLiquide != '0.0'}
                   style={styles.badrPicker}
                   titleStyle={CustomStyleSheet.badrPickerTitle}
                   onRef={(ref) => (this.comboTypeBorderau = ref)}
@@ -143,6 +150,7 @@ class LiqRecapitulationLiqNormaleInitialeBlock extends React.Component {
                   module="ALI_DEC"
                   command="typesBordereau"
                   typeService="SP"
+                  selectedValue={liquidationVO?.refModePaiement}
                   onValueChange={(selectedValue, selectedIndex, item) =>
                     this.handleTypeBorderauChanged(
                       selectedValue,
@@ -153,8 +161,38 @@ class LiqRecapitulationLiqNormaleInitialeBlock extends React.Component {
                 />
               </Col>
               {/* {this.state.selectedBorderau == "Crédit d'enlèvement(02)"} */}
-              <Col size={1} />
-              <Col size={2} />
+              <Col size={1}>
+                <ComBadrLibelleComp withColor={true}>
+                  {translate('liq.delai')}
+                </ComBadrLibelleComp>
+              </Col>
+              <Col size={2}>
+                <ComBadrPickerComp
+                  style={styles.badrPicker}
+                  titleStyle={CustomStyleSheet.badrPickerTitle}
+                  onRef={(ref) => (this.comboDelai = ref)}
+                  key="delaiCredit"
+                  cle="numeroCredit"
+                  libelle="delaiCreditEnlevement"
+                  module="ALI_DEC"
+                  command="getCreditParOperateur"
+                  typeService="SP"
+                  param={{
+                    codeBureauDouane: liquidationVO?.refObjetLiquidation?.refBureauLiquidation,
+                    idOperation: liquidationVO?.idOperation,
+                  }}
+                  selectedValue={
+                    liquidationVO?.numeroCredit
+                  }
+                  onValueChange={(selectedValue, selectedIndex, item) =>
+                    this.handleDelaiCreditChanged(
+                      selectedValue,
+                      selectedIndex,
+                      item,
+                    )
+                  }
+                />
+              </Col>
             </Row>
 
             {(indicateurLiquidationArticlesEnFranchiseTotale && liquidationType != 'manuelleOffice') &&

@@ -18,7 +18,7 @@ export function request(action) {
       action.value.jsonVO,
     )
       .then((response) => {
-        console.log('----LIQ Action response', response);
+        console.log('----LIQ Action response', response?.data);
         if (response && response.data && !_.isNil(response.data.jsonVO)) {
           console.log(response.data.jsonVO);
           dispatch(success(response.data.jsonVO, action.value.command));
@@ -37,7 +37,7 @@ export function request(action) {
 }
 
 export function handleError(action,error) {
-  
+
   return (dispatch) => {
     dispatch(action);
     dispatch(inProgress(action));
