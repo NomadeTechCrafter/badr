@@ -30,8 +30,8 @@ class Login extends React.Component {
     failures: this.props.failures,
     startAutoLogin: true,
     autoLoginParam: {
-      login: 'AD6314',
-      password: 'Testtest1+',
+      login: 'YELM',
+      password: 'testtest1+',
       codeSms: '8bXqj1lLva3IEg6iDbJ+eA==',
       bureau: '309',
       codeBureau: '309',

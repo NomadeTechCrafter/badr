@@ -21,7 +21,7 @@ export function request(action, navigation, successRedirection) {
           const data = response.data;
           if (data && !data.dtoHeader.messagesErreur) {
             //console.log('data', data);
-            dispatch(success(data, action.value.liquidationType, action.value.indicateurLiquidationArticlesEnFranchiseTotale));
+            dispatch(success(data, action.value.liquidationType, action.value.indicateurLiquidationArticlesEnFranchiseTotale, navigation));
             /** Naviguer vers la vue suivant. */
             console.log('successRedirection', successRedirection);
             navigation.navigate(successRedirection, {
@@ -80,13 +80,14 @@ export function inProgress(action) {
   };
 }
 
-export function success(data, liquidationType, indicateurLiquidationArticlesEnFranchiseTotale) {
+export function success(data, liquidationType, indicateurLiquidationArticlesEnFranchiseTotale, navigation) {
   return {
     type: Constants.RECHERCHEREFDUM_SUCCESS,
     value: {
       data: data,
       liquidationType: liquidationType,
-      indicateurLiquidationArticlesEnFranchiseTotale: indicateurLiquidationArticlesEnFranchiseTotale
+      indicateurLiquidationArticlesEnFranchiseTotale: indicateurLiquidationArticlesEnFranchiseTotale,
+      navigation: navigation
     },
   };
 }

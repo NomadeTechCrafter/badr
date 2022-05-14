@@ -32,6 +32,7 @@ class DedRedressementArticlesScreen extends React.Component {
           data={this.props.data}
           edition={this.props.isRedressementDUM}
           update={this.updateRedressement}
+          navigation={this.props.navigation}
         />
       </ScrollView>
     );

@@ -12,6 +12,7 @@ import DedRedressementEnteteTransbordementBlock from './blocks/DedRedressementEn
 import { connect } from 'react-redux';
 import { getValueByPath } from '../../utils/DedUtils';
 import DedRedressementEnteteEnvoyerTraiterValeurBlock from './blocks/DedRedressementEnteteEnvoyerTraiterValeurBlock';
+import { IconButton, Button } from 'react-native-paper';
 import {
   ComAccordionComp,
   ComBasicDataTableComp
@@ -21,6 +22,7 @@ import styles from '../../style/DedRedressementStyle';
 import DedRedressementRow from '../common/DedRedressementRow';
 import dedUpdateRedressementAction from '../../state/actions/dedUpdateRedressementAction';
 import { REDRESSEMENT_UPDATE } from '../../state/DedRedressementConstants';
+import { Col, Grid, Row } from 'react-native-easy-grid';
 
 
 class DedRedressementEnteteScreen extends React.Component {
@@ -28,9 +30,9 @@ class DedRedressementEnteteScreen extends React.Component {
     super(props);
     this.composantTablesColsD17D20 = this.buildComposantsColumnsD17D20();
     this.state = {
-     
+
       dedDumVo: this.props.data
-     
+
     };
   }
 
@@ -82,10 +84,21 @@ class DedRedressementEnteteScreen extends React.Component {
 
   }
 
+  redirectToConsultationDUM(navigation) {
+    console.log('++++++++++++++++++++++++++++++++++++++++++++++');
+    console.log('++++++++++++++++++++++++++++++++++++++++++++++');
+    console.log('++++++++++++++++++++++++++++++++++++++++++++++');
+    navigation.navigate('LiquidationHomeScreen', {});
+    console.log('++++++++++++++++++++++++++++++++++++++++++++++');
+    console.log('++++++++++++++++++++++++++++++++++++++++++++++');
+    console.log('++++++++++++++++++++++++++++++++++++++++++++++');
+  };
+
   render() {
     let listD17D20 = this.props.data?.dedDumSectionEnteteVO?.declarationsTryptique ? this.props.data?.dedDumSectionEnteteVO?.declarationsTryptique : [];
     let isRedressementDUM = this.props.isRedressementDUM;
     console.log('-----------------------------isRedressementDUM 13022022 :', isRedressementDUM)
+    console.log('-----------------------------isRedressementDUM 13022022 :', JSON.stringify(this.props))
     return (
       <ScrollView>
         {this.props.data && (
@@ -97,6 +110,22 @@ class DedRedressementEnteteScreen extends React.Component {
               )}
               data={this.props.data}
             />
+            <Grid style={styles.row}>
+              <Row>
+                <Col />
+                <Col>
+                  <Button
+                    mode="contained"
+                    icon="check"
+                    compact="true"
+                    onPress={this.redirectToConsultationDUM.bind(this, this.props.navigation)}
+                  >
+                    {translate('transverse.returnToLiauidqtion')}
+                  </Button>
+                </Col>
+                <Col />
+              </Row>
+            </Grid>
             <DedRedressementEnteteVersionBlock
               data={this.state.dedDumVo}
               dedDumSectionEnteteVO={this.state.dedDumVo?.dedDumSectionEnteteVO}

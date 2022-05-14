@@ -1,29 +1,29 @@
 import _ from 'lodash';
 import React from 'react';
-import {Dimensions, StyleSheet, View} from 'react-native';
+import { Dimensions, StyleSheet, View } from 'react-native';
 
-import {ComBadrToolbarComp} from '../../../../../commons/component';
-import {connect} from 'react-redux';
-import {translate} from '../../../../../commons/i18n/ComI18nHelper';
+import { ComBadrToolbarComp } from '../../../../../commons/component';
+import { connect } from 'react-redux';
+import { translate } from '../../../../../commons/i18n/ComI18nHelper';
 import {
   primaryColor,
   CustomStyleSheet,
 } from '../../../../../commons/styles/ComThemeStyle';
 import LiquidationRecapitulationScreen from '../recapitulation/LiquidationRecapitulationScreen';
 import LiquidationArticlesScreen from '../articles/LiquidationArticlesScreen';
-import {FAB} from 'react-native-paper';
+import { FAB } from 'react-native-paper';
 import LiquidationManuelleScreen from '../liquidationManuelle/LiquidationManuelleScreen';
-import {NavigationContainer} from '@react-navigation/native';
-import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+import { NavigationContainer } from '@react-navigation/native';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import * as confirmCnxAction from '../../../../hab/profile/state/actions/habProfileAction';
 import * as ConstantsConfirmCnx from '../../../../hab/profile/state/habProfileConstants';
-import {MainStackNavigator} from '../informations/InfoStackNavigator';
+import { MainStackNavigator } from '../informations/InfoStackNavigator';
 import * as RootNavigation from './RootNavigation';
-import {callRedux} from '../../../utils/LiqUtils';
+import { callRedux } from '../../../utils/LiqUtils';
 
 const Tab = createMaterialTopTabNavigator();
 
-function RecapitulationScreen({route, navigation}) {
+function RecapitulationScreen({ route, navigation }) {
   console.log('route', route);
   const parentState = navigation.dangerouslyGetParent().dangerouslyGetState();
   console.log('parentState', parentState.routes[parentState.index].params);
@@ -49,7 +49,7 @@ class LiquidationHomeScreen extends React.Component {
   }
 
   onActionMenuStateChange = () => {
-    this.setState({isActionMenuOpen: !this.state.isActionMenuOpen});
+    this.setState({ isActionMenuOpen: !this.state.isActionMenuOpen });
   };
 
   buildConfirmConnexionAction = (
@@ -73,11 +73,11 @@ class LiquidationHomeScreen extends React.Component {
   };
 
   onActionMenuStateChange = () => {
-    this.setState({isActionMenuOpen: !this.state.isActionMenuOpen});
+    this.setState({ isActionMenuOpen: !this.state.isActionMenuOpen });
   };
 
   activerLiquiderArticle = (active, article) => {
-    this.setState({activerLiquiderArticle: active, selectedArticle: article});
+    this.setState({ activerLiquiderArticle: active, selectedArticle: article });
   };
 
   valider = (liquidationVO) => {
@@ -202,10 +202,10 @@ class LiquidationHomeScreen extends React.Component {
             independent={true}
             ref={RootNavigation.navigationRef}>
             <Tab.Navigator
-              initialLayout={{height: Dimensions.get('window').height}}
+              initialLayout={{ height: Dimensions.get('window').height }}
               swipeEnabled={false}
               tabBarOptions={{
-                labelStyle: {fontSize: 16, fontWeight: 'bold'},
+                labelStyle: { fontSize: 16, fontWeight: 'bold' },
                 showLabel: true,
                 allowFontScaling: true,
                 activeBackgroundColor: primaryColor,
@@ -223,6 +223,7 @@ class LiquidationHomeScreen extends React.Component {
                     {...props}
                     data={data}
                     type={liquidationType}
+                    navigation={this.props.navigation}
                     indicateurLiquidationArticlesEnFranchiseTotale={
                       indicateurLiquidationArticlesEnFranchiseTotale
                     }
@@ -236,6 +237,7 @@ class LiquidationHomeScreen extends React.Component {
                     data={data}
                     activerLiquiderArticle={this.activerLiquiderArticle}
                     type={liquidationType}
+                    navigation={this.props.navigation}
                   />
                 )}
               </Tab.Screen>
@@ -313,7 +315,7 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps(state) {
-  return {...state.liquidationRechercheRefDumReducer};
+  return { ...state.liquidationRechercheRefDumReducer };
 }
 
 export default connect(mapStateToProps, null)(LiquidationHomeScreen);

@@ -22,6 +22,10 @@ import {
   CustomStyleSheet,
 } from '../../../../../../commons/styles/ComThemeStyle';
 import { callRedux, callLiquidationUpdateRedux } from '../../../../utils/LiqUtils';
+import * as ConsulterDumAction from '../../../../../../commons/state/actions/ConsulterDumAction';
+import { t } from 'i18n-js';
+import { GENERIC_REQUEST } from '../../../../../../commons/constants/generic/ComGenericConstants';
+import { ComSessionService } from '../../../../../../commons/services/session/ComSessionService';
 
 class LiqRecapitulationLiqNormaleInitialeBlock extends React.Component {
   constructor(props) {
@@ -256,7 +260,7 @@ class LiqRecapitulationLiqNormaleInitialeBlock extends React.Component {
     }
   }
 
-  deleteArticle = (item,index) => {
+  deleteArticle = (item, index) => {
     Alert.alert(
       "Remove",
       "Are You sure you want to remove that?",
@@ -265,7 +269,7 @@ class LiqRecapitulationLiqNormaleInitialeBlock extends React.Component {
           text: "Yes",
           onPress: () => {
             let listeTaxes = [...this.state.listeArticlesLiquides];
-            listeTaxes.splice(index,1);
+            listeTaxes.splice(index, 1);
             this.setState({
               listeArticlesLiquides: listeTaxes
             })
@@ -293,12 +297,57 @@ class LiqRecapitulationLiqNormaleInitialeBlock extends React.Component {
     );
   }
 
+  redirectToConsultationDUM(referenceDum, navigation) {
+    // {liquidationVO.refObjetLiquidation.referenceObjetLiquidation}
+    console.log('++++++++++++++++++++++++++++++++++++++++++++++');
+    console.log('++++++++++++++++++++++++++++++++++++++++++++++');
+    console.log('++++++++++++++++++++++++++++++++++++++++++++++');
+    console.log(JSON.stringify(referenceDum));
+    // navigation.navigate('Bienvenue', {});
+    let action = ConsulterDumAction.request(
+      {
+        type: GENERIC_REQUEST,
+        value: {
+          jsonVO: {
+            reference: referenceDum,
+            enregistre: true,
+            identifiantOperateur: ComSessionService.getInstance().getOperateur()
+          },
+          // cle: 'F',
+        },
+        command: 'ded.ConsulterDum',
+        fromArticle: true
+      },
+      this.props.navigation,
+    );
+    this.props.dispatch(action);
+    console.log('++++++++++++++++++++++++++++++++++++++++++++++');
+    console.log('++++++++++++++++++++++++++++++++++++++++++++++');
+    console.log('++++++++++++++++++++++++++++++++++++++++++++++');
+  };
+
   render() {
     const { liquidationVO, liquidationType } = this.props;
     console.log('liquidationType ======>', liquidationType)
     const { listeArticlesLiquides, selectedArticle, libelleArticle, showRubriquesComptables } = this.state;
     return (
       <View>
+        <Grid>
+          <Row >
+            <Col size={10} />
+            <Col size={5}>
+              <Button
+                mode="contained"
+                icon="check"
+                compact="true"
+                onPress={this.redirectToConsultationDUM.bind(this, this.props.liquidationVO?.refObjetLiquidation?.referenceObjetLiquidation, this.props.navigation)}
+              >
+                {translate('transverse.consulterArticlesFromLiquidation')}
+              </Button>
+            </Col>
+            <Col size={1} />
+          </Row>
+        </Grid>
         <ComBadrCardBoxComp noPadding={true}>
           {/* Bloc Liquidation Initiale Normale */}
           <ComAccordionComp

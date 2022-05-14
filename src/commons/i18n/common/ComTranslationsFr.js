@@ -83,6 +83,8 @@ export default {
   transverse: {
     anonymoususer: 'Anonymous',
     inprogress: 'Veuillez patienter...',
+    returnToLiauidqtion: 'Retourner à la liquidation...',
+    consulterArticlesFromLiquidation: 'consulterles articles à partir de la iquidation...',
     bureau: 'Bureau',
     regime: 'Régime',
     annee: 'Année',

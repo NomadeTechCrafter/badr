@@ -1,5 +1,5 @@
 import React from 'react';
-import {View} from 'react-native';
+import { View } from 'react-native';
 import {
   ComAccordionComp,
   ComBadrCardBoxComp,
@@ -7,14 +7,16 @@ import {
   ComBadrLibelleComp,
   ComBadrPickerComp,
 } from '../../../../../../commons/component';
-import {translate} from '../../../../../../commons/i18n/ComI18nHelper';
-import {getValueByPath, callRedux} from '../../../../utils/LiqUtils';
-import {connect} from 'react-redux';
-import {CustomStyleSheet} from '../../../../../../commons/styles/ComThemeStyle';
-import {Col, Grid, Row} from 'react-native-easy-grid';
-import {ComSessionService} from '../../../../../../commons/services/session/ComSessionService';
-import {RadioButton, Text} from 'react-native-paper';
-import Numeral from 'numeral';
+import { translate } from '../../../../../../commons/i18n/ComI18nHelper';
+import { getValueByPath, callRedux } from '../../../../utils/LiqUtils';
+import { connect } from 'react-redux';
+import { CustomStyleSheet } from '../../../../../../commons/styles/ComThemeStyle';
+import { Col, Grid, Row } from 'react-native-easy-grid';
+import { ComSessionService } from '../../../../../../commons/services/session/ComSessionService';
+import { Button, RadioButton, Text } from 'react-native-paper';
+import * as ConsulterDumAction from '../../../../../../commons/state/actions/ConsulterDumAction';
+import { t } from 'i18n-js';
+import { GENERIC_REQUEST } from '../../../../../../commons/constants/generic/ComGenericConstants';
 
 class LiqRecapitulationInfoLiqBlock extends React.Component {
   constructor(props) {
@@ -40,8 +42,37 @@ class LiqRecapitulationInfoLiqBlock extends React.Component {
       jsonVO: data,
     });
   };
+
+  redirectToConsultationDUM(referenceDum, navigation) {
+                  // {liquidationVO.refObjetLiquidation.referenceObjetLiquidation}
+    console.log('++++++++++++++++++++++++++++++++++++++++++++++');
+    console.log('++++++++++++++++++++++++++++++++++++++++++++++');
+    console.log('++++++++++++++++++++++++++++++++++++++++++++++');
+    console.log(JSON.stringify(referenceDum));
+    // navigation.navigate('Bienvenue', {});
+    let action = ConsulterDumAction.request(
+      {
+        type: GENERIC_REQUEST,
+        value: {
+          jsonVO: {
+            reference: referenceDum,
+            enregistre: true,
+            identifiantOperateur: ComSessionService.getInstance().getOperateur()
+          },
+          // cle: 'F',
+        },
+        command: 'ded.ConsulterDum',
+      },
+      this.props.navigation,
+    );
+    this.props.dispatch(action);
+    console.log('++++++++++++++++++++++++++++++++++++++++++++++');
+    console.log('++++++++++++++++++++++++++++++++++++++++++++++');
+    console.log('++++++++++++++++++++++++++++++++++++++++++++++');
+  };
+
   render() {
-    const {liquidationVO, liquidationType} = this.props;
+    const { liquidationVO, liquidationType } = this.props;
     let getRefEnteteDeclarationEnDouane = getValueByPath(
       'getRefEnteteDeclarationEnDouane.data',
       this.props.repData,
@@ -109,7 +140,14 @@ class LiqRecapitulationInfoLiqBlock extends React.Component {
             </Col>
             <Col size={2}>
               <ComBadrLibelleComp>
-                {liquidationVO.refObjetLiquidation.referenceObjetLiquidation}
+                <Button
+                  mode="contained"
+                  icon="check"
+                  compact="true"
+                  onPress={this.redirectToConsultationDUM.bind(this, this.props.liquidationVO?.refObjetLiquidation?.referenceObjetLiquidation, this.props.navigation)}
+                >
+                  {liquidationVO.refObjetLiquidation.referenceObjetLiquidation}
+                </Button>
               </ComBadrLibelleComp>
             </Col>
             <Col size={1}>
@@ -150,35 +188,35 @@ class LiqRecapitulationInfoLiqBlock extends React.Component {
           </Row>
           {(liquidationType == 'automatique' ||
             liquidationType == 'automatiqueRedevanceAT') && (
-            <Row style={CustomStyleSheet.whiteRow}>
-              <Col size={2}>
-                <ComBadrLibelleComp withColor={true}>
-                  {translate('liq.declarant')}
-                </ComBadrLibelleComp>
-              </Col>
-              <Col size={2}>
-                <ComBadrLibelleComp>
-                  {getValueByPath(
-                    'nomDeclarant',
-                    getRefEnteteDeclarationEnDouane,
-                  )}
-                </ComBadrLibelleComp>
-              </Col>
-              <Col size={1}>
-                <ComBadrLibelleComp withColor={true}>
-                  {translate('liq.code')}
-                </ComBadrLibelleComp>
-              </Col>
-              <Col size={1}>
-                <ComBadrLibelleComp>
-                  {getValueByPath(
-                    'codeDeclarant',
-                    getRefEnteteDeclarationEnDouane,
-                  )}
-                </ComBadrLibelleComp>
-              </Col>
-            </Row>
-          )}
+              <Row style={CustomStyleSheet.whiteRow}>
+                <Col size={2}>
+                  <ComBadrLibelleComp withColor={true}>
+                    {translate('liq.declarant')}
+                  </ComBadrLibelleComp>
+                </Col>
+                <Col size={2}>
+                  <ComBadrLibelleComp>
+                    {getValueByPath(
+                      'nomDeclarant',
+                      getRefEnteteDeclarationEnDouane,
+                    )}
+                  </ComBadrLibelleComp>
+                </Col>
+                <Col size={1}>
+                  <ComBadrLibelleComp withColor={true}>
+                    {translate('liq.code')}
+                  </ComBadrLibelleComp>
+                </Col>
+                <Col size={1}>
+                  <ComBadrLibelleComp>
+                    {getValueByPath(
+                      'codeDeclarant',
+                      getRefEnteteDeclarationEnDouane,
+                    )}
+                  </ComBadrLibelleComp>
+                </Col>
+              </Row>
+            )}
 
           {liquidationType == 'manuelleOffice' && (
             <Row style={CustomStyleSheet.lightBlueRow}>
@@ -213,35 +251,35 @@ class LiqRecapitulationInfoLiqBlock extends React.Component {
 
           {(liquidationType == 'automatique' ||
             liquidationType == 'automatiqueRedevanceAT') && (
-            <Row style={CustomStyleSheet.lightBlueRow}>
-              <Col size={2}>
-                <ComBadrLibelleComp withColor={true}>
-                  {translate('liq.destinataireExpediteur')}
-                </ComBadrLibelleComp>
-              </Col>
-              <Col size={2}>
-                <ComBadrLibelleComp>
-                  {getValueByPath(
-                    'nomOperateurDestinataire',
-                    getRefEnteteDeclarationEnDouane,
-                  )}
-                </ComBadrLibelleComp>
-              </Col>
-              <Col size={1}>
-                <ComBadrLibelleComp withColor={true}>
-                  {translate('liq.code')}
-                </ComBadrLibelleComp>
-              </Col>
-              <Col size={1}>
-                <ComBadrLibelleComp>
-                  {getValueByPath(
-                    'identifiantOperateurDestinataire',
-                    getRefEnteteDeclarationEnDouane,
-                  )}
-                </ComBadrLibelleComp>
-              </Col>
-            </Row>
-          )}
+              <Row style={CustomStyleSheet.lightBlueRow}>
+                <Col size={2}>
+                  <ComBadrLibelleComp withColor={true}>
+                    {translate('liq.destinataireExpediteur')}
+                  </ComBadrLibelleComp>
+                </Col>
+                <Col size={2}>
+                  <ComBadrLibelleComp>
+                    {getValueByPath(
+                      'nomOperateurDestinataire',
+                      getRefEnteteDeclarationEnDouane,
+                    )}
+                  </ComBadrLibelleComp>
+                </Col>
+                <Col size={1}>
+                  <ComBadrLibelleComp withColor={true}>
+                    {translate('liq.code')}
+                  </ComBadrLibelleComp>
+                </Col>
+                <Col size={1}>
+                  <ComBadrLibelleComp>
+                    {getValueByPath(
+                      'identifiantOperateurDestinataire',
+                      getRefEnteteDeclarationEnDouane,
+                    )}
+                  </ComBadrLibelleComp>
+                </Col>
+              </Row>
+            )}
 
           {/* Bloc  Compte crédit utilisé */}
           {liquidationVO?.refModePaiement == '02' &&
@@ -287,7 +325,7 @@ class LiqRecapitulationInfoLiqBlock extends React.Component {
                     </ComBadrLibelleComp>
                   </Col>
                   <Col size={2}>
-                    <ComBadrLibelleComp>{}</ComBadrLibelleComp>
+                    <ComBadrLibelleComp>{ }</ComBadrLibelleComp>
                   </Col>
                 </Row>
               </View>
@@ -298,7 +336,7 @@ class LiqRecapitulationInfoLiqBlock extends React.Component {
   }
 }
 function mapStateToProps(state) {
-  return {...state.liquidationReducer};
+  return { ...state.liquidationReducer };
 }
 
 export default connect(mapStateToProps, null)(LiqRecapitulationInfoLiqBlock);

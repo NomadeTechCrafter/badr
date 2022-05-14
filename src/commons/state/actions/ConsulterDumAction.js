@@ -29,15 +29,23 @@ export function request(action, navigation) {
           !messagesErreurs
         ) {
           if (action.command === 'ded.TraiterValeur' || action.command === 'ded.EnvoyerValeur') {
-            dispatch(success(response.data.jsonVO, action.value, action.command, response.data.dtoHeader.messagesInfo));
+            dispatch(success(response.data.jsonVO, action.value, action.command, response.data.dtoHeader.messagesInfo), null);
           } else {
-            dispatch(success(response.data.jsonVO, action.value, action.command, ''));
+            dispatch(success(response.data.jsonVO, action.value, action.command, ''), navigation);
           }
-          navigation.navigate('DedRedressementScreen', {
-            searchData: action.value ? action.value.jsonVO : {}, title: translate('dedouanement.title'),
-            subtitle: translate('dedouanement.subTitle'), showHeader: true, isConfirmationReception: false, isRedressementDUM: false, successRedirection: null
-          });
-          
+          if (action.fromArticle) {
+            navigation.navigate('DedRedressementScreen', {
+              searchData: action.value ? action.value.jsonVO : {}, title: translate('dedouanement.title'),
+              subtitle: translate('dedouanement.subTitle'), showHeader: true, isConfirmationReception: false, isRedressementDUM: false, successRedirection: null,
+              screen: 'Articles'
+            });
+          } else {
+            navigation.navigate('DedRedressementScreen', {
+              searchData: action.value ? action.value.jsonVO : {}, title: translate('dedouanement.title'),
+              subtitle: translate('dedouanement.subTitle'), showHeader: true, isConfirmationReception: false, isRedressementDUM: false, successRedirection: null
+            });
+          }
+
 
         } else {
           dispatch(failed(messagesErreurs, action.value));
@@ -63,7 +71,7 @@ export function init(action) {
   };
 }
 
-export function success(data, searchParams, fromWhere1, messagesInfo) {
+export function success(data, searchParams, fromWhere1, messagesInfo, navigation) {
   return {
     type: Constants.GENERIC_SUCCESS,
     value: {
@@ -71,7 +79,8 @@ export function success(data, searchParams, fromWhere1, messagesInfo) {
       data: data,
       fromWhere1: fromWhere1,
       messageInfo: messagesInfo[0],
-      isRedressementDUM:false
+      isRedressementDUM: false,
+      navigation: navigation
     },
   };
 }

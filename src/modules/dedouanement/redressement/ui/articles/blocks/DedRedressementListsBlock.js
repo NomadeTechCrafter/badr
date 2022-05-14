@@ -17,7 +17,7 @@ import DedRedressementDetailArticleOrigineBlock from './DedRedressementDetailArt
 import { translate } from '../../../../../../commons/i18n/ComI18nHelper';
 import DedRedressementDetailArticleTypeReconnaissanceBlock from './DedRedressementDetailArticleTypeReconnaissanceBlock';
 import DedRedressementDetailArticleLiquidationBlock from './DedRedressementDetailArticleLiquidationBlock';
-import { Col, Row } from 'react-native-easy-grid';
+import { Grid, Col, Row } from 'react-native-easy-grid';
 import _ from 'lodash';
 
 class DedRedressementListsBlock extends React.Component {
@@ -495,9 +495,36 @@ class DedRedressementListsBlock extends React.Component {
     );
   };
 
+  redirectToConsultationDUM(navigation) {
+    console.log('++++++++++++++++++++++++++++++++++++++++++++++');
+    console.log('++++++++++++++++++++++++++++++++++++++++++++++');
+    console.log('++++++++++++++++++++++++++++++++++++++++++++++');
+    navigation.navigate('LiquidationHomeScreen', {});
+    console.log('++++++++++++++++++++++++++++++++++++++++++++++');
+    console.log('++++++++++++++++++++++++++++++++++++++++++++++');
+    console.log('++++++++++++++++++++++++++++++++++++++++++++++');
+  };
+
+
   render() {
     return (
       <View style={styles.container}>
+        <Grid style={styles.row}>
+          <Row>
+            <Col />
+            <Col>
+              <Button
+                mode="contained"
+                icon="check"
+                compact="true"
+                onPress={this.redirectToConsultationDUM.bind(this, this.props.navigation)}
+              >
+                {translate('transverse.returnToLiauidqtion')}
+              </Button>
+            </Col>
+            <Col />
+          </Row>
+        </Grid>
         <ComAccordionComp
           title={`Articles : ${this.state.articles.length}`}
           expanded={true}>

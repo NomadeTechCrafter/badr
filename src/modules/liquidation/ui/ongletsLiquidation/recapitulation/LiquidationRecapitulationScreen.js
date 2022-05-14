@@ -37,7 +37,7 @@ class LiquidationRecapitulationScreen extends React.Component {
           <LiqRecapitulationOperationLiqBlock liquidationVO={liquidationVO} liquidationType={liquidationType} />
 
           {/* Bloc Info opération de Liquidation*/}
-          <LiqRecapitulationInfoLiqBlock liquidationVO={liquidationVO} liquidationType={liquidationType} />
+          <LiqRecapitulationInfoLiqBlock liquidationVO={liquidationVO} liquidationType={liquidationType} navigation={this.props.navigation}/>
 
           {/* <!--Cas Liquidation manuelle d'office--> */}
 
