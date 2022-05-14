@@ -15,39 +15,64 @@ import {
   primaryColorRgba,
 } from '../../../../../../commons/styles/ComThemeStyle';
 import {translate} from '../../../../../../commons/i18n/ComI18nHelper';
+import TransverseApi from '../../../../../../commons/services/api/ComTransverseApi';
+import {failed, success} from '../../../../state/actions/liquidationAction';
 
 class ItemArticles extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      libelleArticle: null,
+      rStateArticle: null,
+    };
+  }
   componentDidMount() {
-    const {item} = this.props;
-    this.loadLibeleForEachArticle(item);
-    this.loadRStateForEachArticle(item);
+    const {item, liquidationType} = this.props;
+    this.loadLibeleForEachArticle(item, liquidationType);
+    this.loadRStateForEachArticle(item, liquidationType);
   }
 
-  loadLibeleForEachArticle = (item) => {
-    callRedux(this.props, {
-      command: 'getArticleLibelle',
-      typeService: 'SP',
-      jsonVO: {
-        idArticleLiquideParOperation: item.idArticleLiquideParOperation,
-        isLiquidationAutomatique: 'automatique',
-      },
-    });
+  loadLibeleForEachArticle = (item, liquidationType) => {
+    TransverseApi.doProcess('ALI_DEC', 'getArticleLibelle', 'SP', {
+      idArticleLiquideParOperation: item.idArticleLiquideParOperation,
+      isLiquidationAutomatique: liquidationType == 'automatique' ? true : false,
+    })
+      .then((response) => {
+        if (response && response.data && !_.isNil(response.data.jsonVO)) {
+          console.log('getArticleLibelle', response.data.jsonVO);
+          this.setState({libelleArticle: response.data.jsonVO});
+        } else {
+          console.log('----LIQ Action ERR data');
+        }
+      })
+      .catch((e) => {
+        console.log('----LIQ Action ERR loadLibeleForEachArticle', e);
+      });
   };
 
-  loadRStateForEachArticle = (item) => {
-    callRedux(this.props, {
-      command: 'testArticleDisplayRState',
-      typeService: 'SP',
-      jsonVO: {
-        idArticleLiquideParOperation: item.idArticleLiquideParOperation,
-        isLiquidationAutomatique: 'automatique',
-      },
-    });
+  loadRStateForEachArticle = (item, liquidationType) => {
+    TransverseApi.doProcess('ALI_DEC', 'testArticleDisplayRState', 'SP', {
+      idArticleLiquideParOperation: item.idArticleLiquideParOperation,
+      isLiquidationAutomatique: liquidationType == 'automatique' ? true : false,
+    })
+      .then((response) => {
+        if (response && response.data && !_.isNil(response.data.jsonVO)) {
+          console.log('testArticleDisplayRState', response.data.jsonVO);
+          this.setState({rStateArticle: response.data.jsonVO});
+        } else {
+          console.log('----LIQ Action ERR data');
+        }
+      })
+      .catch((e) => {
+        console.log('----LIQ Action ERR testArticleDisplayRState', e);
+      });
   };
 
   render() {
     const {item, index, liquidationType} = this.props;
-    let libelleArticle = extractCommandData(
+    const {libelleArticle, rStateArticle} = this.state;
+
+    /* let libelleArticle = extractCommandData(
       this.props,
       'getArticleLibelle',
       'liquidationReducer',
@@ -56,13 +81,10 @@ class ItemArticles extends React.Component {
       this.props,
       'testArticleDisplayRState',
       'liquidationReducer',
-    );
+    );*/
     return (
       <View>
-        {!_.isNil(rStateArticle) &&
-        !_.isNil(libelleArticle) &&
-        !_.isNil(rStateArticle.data) &&
-        !_.isNil(libelleArticle.data) ? (
+        {!_.isNil(libelleArticle) && !_.isNil(rStateArticle) ? (
           <TouchableOpacity
             disabled={
               !(
@@ -71,7 +93,7 @@ class ItemArticles extends React.Component {
               )
             }
             onPress={() =>
-              this.props.showDetailArticle(item, libelleArticle.data)
+              this.props.showDetailArticle(item, libelleArticle)
             }>
             <Row
               key={index}
@@ -82,7 +104,7 @@ class ItemArticles extends React.Component {
               }>
               <Col size={0.4}>
                 <ComBadrLibelleComp style={{color: 'red'}}>
-                  {rStateArticle.data ? 'R>' : ''}
+                  {rStateArticle ? 'R>' : ''}
                 </ComBadrLibelleComp>
               </Col>
               <Col size={0.6}>
@@ -116,7 +138,7 @@ class ItemArticles extends React.Component {
               </Col>
               <Col size={0.6}>
                 <ComBadrLibelleComp style={{color: 'red', textAlign: 'center'}}>
-                  {libelleArticle.data}
+                  {libelleArticle}
                 </ComBadrLibelleComp>
               </Col>
               {(liquidationType == 'manuelle' ||
@@ -129,7 +151,7 @@ class ItemArticles extends React.Component {
                     color={'white'}
                     style={{backgroundColor: primaryColor}}
                     onPress={() =>
-                      this.props.showDetailArticle(item, libelleArticle.data)
+                      this.props.showDetailArticle(item, libelleArticle)
                     }
                   />
                 </Col>

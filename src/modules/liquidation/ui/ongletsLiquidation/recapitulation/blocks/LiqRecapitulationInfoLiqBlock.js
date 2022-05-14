@@ -1,4 +1,5 @@
 import React from 'react';
+import {View} from 'react-native';
 import {
   ComAccordionComp,
   ComBadrCardBoxComp,
@@ -14,6 +15,7 @@ import {Col, Grid, Row} from 'react-native-easy-grid';
 import {ComSessionService} from '../../../../../../commons/services/session/ComSessionService';
 import {RadioButton, Text} from 'react-native-paper';
 import Numeral from 'numeral';
+
 class LiqRecapitulationInfoLiqBlock extends React.Component {
   constructor(props) {
     super(props);
@@ -240,13 +242,19 @@ class LiqRecapitulationInfoLiqBlock extends React.Component {
               </Col>
             </Row>
           )}
-        </Grid>
 
-        {/* Bloc  Compte crédit utilisé */}
-        { liquidationVO?.refModePaiement == '02' && liquidationVO?.refOperationSimultanee?.refModePaiement == '02' && (
-            <ComAccordionComp title={translate('liq.compteCreditUtilise')}>
-              <Grid>
-                <Row style={CustomStyleSheet.whiteRow}>
+          {/* Bloc  Compte crédit utilisé */}
+          {liquidationVO?.refModePaiement == '02' &&
+            liquidationVO?.refOperationSimultanee?.refModePaiement == '02' && (
+              <View>
+                <Row style={CustomStyleSheet.grisRow}>
+                  <Col size={1}>
+                    <ComBadrLibelleComp >
+                      {translate('liq.compteCreditUtilise')}
+                    </ComBadrLibelleComp>
+                  </Col>
+                </Row>
+                <Row style={CustomStyleSheet.lightBlueRow}>
                   <Col size={2}>
                     <ComBadrLibelleComp withColor={true}>
                       {translate('liq.titulaireCompteCredit')}
@@ -272,7 +280,7 @@ class LiqRecapitulationInfoLiqBlock extends React.Component {
                   </Col>
                 </Row>
 
-                <Row style={CustomStyleSheet.lightBlueRow}>
+                <Row style={CustomStyleSheet.whiteRow}>
                   <Col size={2}>
                     <ComBadrLibelleComp withColor={true}>
                       {translate('liq.delai')}
@@ -282,9 +290,9 @@ class LiqRecapitulationInfoLiqBlock extends React.Component {
                     <ComBadrLibelleComp>{}</ComBadrLibelleComp>
                   </Col>
                 </Row>
-              </Grid>
-            </ComAccordionComp>
-          )}
+              </View>
+            )}
+        </Grid>
       </ComBadrCardBoxComp>
     );
   }

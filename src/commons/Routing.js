@@ -1,7 +1,6 @@
 const mapping = {
   '9005': { screen: 'CreerApurement', params: { qr: true } },
   '9009': { screen: 'RechercheAtMulti', params: { qr: true } },
-  '2243': { screen: 'RechercheConfirmationReceptionScreen', params: {} },
   '90023': { screen: 'SortiPortScreen', params: {} },
   '90019': { screen: 'MainleveeScreen', params: {} },
   '2052': { screen: 'DedRechercheRedressement', params: { qr: false } },
@@ -69,7 +68,10 @@ const mapping = {
   '3086': { screen: 'controleRechercheDumScreen', params: { typeControle: 'TR' } },
   '5970': { screen: 'NewRechercheMLV', params: {} },
   '5971': { screen: 'NewRechercheMLV', params: {} },
-  '5202': { screen: 'LiquidationRechercheScreen', params: { qr: false } },
+ // '5202': { screen: 'LiquidationRechercheScreen', params: { qr: false } },
+  '5202': {screen: 'LiquidationRechercheScreen', params: {typeLiq:'automatique', qr: false}},
+  '5213': {screen: 'LiquidationRechercheScreen', params: {typeLiq:'manuelle', qr: false}},
+
   '1201': {
     screen: 'RechercheEcorImport',
     params: { typeEcorImport: 'EnleverMarchandise' },
@@ -86,7 +88,7 @@ const mapping = {
     screen: 'RechercheEcorImport',
     params: { typeEcorImport: 'VerifierParContreEcor' },
   },
-  
+
     '110001': {screen: 'T6bisCreation', params: {}},
     '110002': {
       screen: 'T6bisRecherche',
@@ -100,7 +102,7 @@ const mapping = {
       screen: 'T6bisRecherche',
       params: {title: 'Ecran  Recherche T6BIS'},
   },
-  '2401': { screen: 'PreConfirmationArriveeMainScreen', params: {} }, 
+  '2401': { screen: 'PreConfirmationArriveeMainScreen', params: {} },
 
     '2402': { screen: 'JustifRetardTransitMainScreen', params: {} },
 };

@@ -33,6 +33,7 @@ import {ECI_INIT_APPOSITION_SCELLES_REQUEST} from '../../../../ecorImport/apposi
 class LiquidationManuelleScreen extends React.Component {
   constructor(props) {
     super(props);
+    console.log('constructorLiquidationManuelleScreen ');
     this.state = {
       liquidationVO: props.data,
       showRubriquesComptables: false,
@@ -47,15 +48,32 @@ class LiquidationManuelleScreen extends React.Component {
   }
 
   componentDidMount() {
-    console.log('params', this.props.route.params);
-    this.setState({
-      selectedArticle:
-        this.props.route && this.props.route.params
-          ? this.props.route.params.selectedArticle
-          : {},
+    console.log(
+      'params componentDidMount LiquidationManuelleScreen ',
+      this.props.route.params,
+    );
+
+    this.unsubscribe = this.props.navigation.addListener('focus', () => {
+      console.log(' componentDidMount LiquidationManuelleScreen addListener ');
+      this.setState(
+        {
+          selectedArticle:
+            this.props.route && this.props.route.params
+              ? this.props.route.params.selectedArticle
+              : {},
+        },
+        () =>
+          this.initLiquidation(
+            this.state.liquidationVO,
+            this.state.selectedArticle,
+          ),
+      );
     });
   }
 
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
   addToListeTaxesGlobales = (listeTaxesGlobales) => {
     console.log('-- listeTaxesGlobales', listeTaxesGlobales);
     this.setState((state) => {
@@ -70,8 +88,12 @@ class LiquidationManuelleScreen extends React.Component {
         articleALiquider.refLignesRubriqueBaseLiquidation,
       );
     }
-    console.log(liquidationVO.refLignesRubriqueOperation);
+
     if (liquidationVO.refLignesRubriqueOperation) {
+      console.log(
+        '----- init loadListeTaxesGlobale ---------',
+        liquidationVO.refLignesRubriqueOperation,
+      );
       this.loadListeTaxesGlobale(
         liquidationVO.refLignesRubriqueOperation,
         false,
@@ -1059,6 +1081,7 @@ class ListeTaxesGlobales extends React.Component {
   }
 
   componentDidMount() {
+    console.log('componentDidMount ListeTaxesGlobales');
     this.getListeTaxesGlobales(this.props.data);
   }
 
@@ -1131,6 +1154,7 @@ class ListeTaxesGlobales extends React.Component {
   };
 
   getListeTaxesGlobales = (data) => {
+    console.log(' ---------getListeTaxesGlobales----------');
     if (data) {
       console.log(' ---------data----------', data);
       if (data.refLignesRubriqueOperation) {

@@ -16,6 +16,7 @@ import * as Alignment from './ComAlignmentStyle';
 
 import {StyleSheet} from 'react-native';
 import {DefaultTheme} from 'react-native-paper';
+import { gridGrisRow } from "./ComRowsStyle";
 
 export const primaryColor = '#009ab2';
 export const primaryColorRgba = '0, 154, 178';
@@ -168,6 +169,9 @@ const CustomStyleSheet = StyleSheet.create({
   },
   lightBlueRow: {
     ...Rows.gridLightBlueRow,
+  },
+  grisRow: {
+    ...Rows.gridGrisRow,
   },
   verticalContainer20: {
     ...Containers.verticalContainer20,
