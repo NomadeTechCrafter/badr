@@ -51,6 +51,8 @@ import * as Constants from '../state/mlvDelivrerConstants';
 import mlvDelivrerAction from '../state/actions/mlvDelivrerAction';
 import mlvValiderAction from '../state/actions/mlvValiderAction';
 import style from '../../../../modules/controle/controleApresScanner/style/ctrlControleApresScannerStyle';
+import * as MLVInitDelivrerAction from '../state/actions/mlvInitDelivrerAction';
+import {DELIVRERMLV_DELIVRERMLV_IN_PROGRESS} from '../state/mlvDelivrerConstants';
 
 const RECONNU = 'reconnu';
 const DEMANDE_CONSIGNATION = 'demandeConsignation';
@@ -117,8 +119,18 @@ class DelivrerMLV extends React.Component {
 
     this.state.conteneurs = conteneurs;
     this.state.conteneursCibles = conteneursCibles;
+    this.initDelivrer();
   }
-
+  initDelivrer = async () => {
+    let action = await MLVInitDelivrerAction.request(
+      {
+        type: Constants.DELIVRERMLV_INIT_DELIVRERMLV_REQUEST,
+        value: {},
+      },
+      this.props.navigation,
+    );
+    this.props.actions.dispatch(action);
+  };
   componentDidMount() {
     console.log('componentDidMount DelivrerMLV:');
     load('user', false, true).then((user) => {
@@ -1502,15 +1514,17 @@ class DelivrerMLV extends React.Component {
           <View
             style={styles.containerActionBtn}
             pointerEvents={this.state.isConsultation ? 'none' : 'auto'}>
-            <ComBadrButtonComp
-              style={styles.actionBtn}
-              onPress={() => {
-                //   this.sauvgarderValider('sauvegarderRI');
-                this.validerMainLevee();
-              }}
-              text={translate('newmlv.validerMainlevee')}
-              //disabled={this.state.decisionControle ? false : true}
-            />
+            {this.props.fusion && (
+              <ComBadrButtonComp
+                style={styles.actionBtn}
+                onPress={() => {
+                  //   this.sauvgarderValider('sauvegarderRI');
+                  this.validerMainLevee();
+                }}
+                text={translate('newmlv.validerMainlevee')}
+                //disabled={this.state.decisionControle ? false : true}
+              />
+            )}
             <ComBadrButtonComp
               style={styles.actionBtn}
               onPress={() => {

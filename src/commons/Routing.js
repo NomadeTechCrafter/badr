@@ -1,6 +1,7 @@
 const mapping = {
   '9005': { screen: 'CreerApurement', params: { qr: true } },
   '9009': { screen: 'RechercheAtMulti', params: { qr: true } },
+  '2243': { screen: 'RechercheConfirmationReceptionScreen', params: {} },
   '90023': { screen: 'SortiPortScreen', params: {} },
   '90019': { screen: 'MainleveeScreen', params: {} },
   '2052': { screen: 'DedRechercheRedressement', params: { qr: false } },

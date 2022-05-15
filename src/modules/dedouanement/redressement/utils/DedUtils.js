@@ -122,3 +122,14 @@ export const downloadFile = async (nameFile, base64File) => {
     console.log(err);
   }
 };
+
+export const newDeclarationFacture=()=>{ 
+  return {
+    numero: null,
+    fournisseur: null,
+    dateFacture: null,
+    valeur: null,
+    devise: null,
+    deviseLibelle: null
+  };
+}

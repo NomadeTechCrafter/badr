@@ -101,7 +101,7 @@ class DedRedressementEnteteInfoBlock extends React.Component {
                   module="REF_LIB"
                   command="getCmbLieuStockageParBureau"
                   onValueChange={(selectedValue, selectedIndex, item) =>
-                    this.handleLieuStockageChanged(
+                    this.handleLieuStockageLocalisationChanged(
                       selectedValue,
                       selectedIndex,
                       item
