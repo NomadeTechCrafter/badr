@@ -503,7 +503,7 @@ class DedRedressementListsBlock extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        {this.props.fromLiquidation && (
+        {/* {this.props.fromLiquidation && ( */}
           <Grid style={styles.row}>
             <Row>
               <Col />
@@ -520,7 +520,7 @@ class DedRedressementListsBlock extends React.Component {
               <Col />
             </Row>
           </Grid>
-        )}
+        {/* )} */}
         <ComAccordionComp
           title={`Articles : ${this.state.articles.length}`}
           expanded={true}>
