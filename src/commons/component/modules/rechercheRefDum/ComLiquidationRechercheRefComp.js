@@ -32,11 +32,11 @@ import { callRedux, extractCommandData } from '../../../../modules/liquidation/u
 
 class ComLiquidationRechercheRefComp extends Component {
   defaultState = {
-    bureau: '',
-    regime: '',
-    annee: '',
-    serie: '',
-    cle: '',
+    bureau: '309',
+    regime: '010',
+    annee: '2022',
+    serie: '0000106',
+    cle: 'F',
     cleValide: '',
     login: '',
     numeroVoyage: '',
