@@ -85,20 +85,19 @@ class DedRedressementEnteteScreen extends React.Component {
   }
 
   redirectToConsultationDUM(navigation) {
-    console.log('++++++++++++++++++++++++++++++++++++++++++++++');
-    console.log('++++++++++++++++++++++++++++++++++++++++++++++');
-    console.log('++++++++++++++++++++++++++++++++++++++++++++++');
     navigation.navigate('LiquidationHomeScreen', {});
-    console.log('++++++++++++++++++++++++++++++++++++++++++++++');
-    console.log('++++++++++++++++++++++++++++++++++++++++++++++');
-    console.log('++++++++++++++++++++++++++++++++++++++++++++++');
   };
 
   render() {
     let listD17D20 = this.props.data?.dedDumSectionEnteteVO?.declarationsTryptique ? this.props.data?.dedDumSectionEnteteVO?.declarationsTryptique : [];
     let isRedressementDUM = this.props.isRedressementDUM;
-    console.log('-----------------------------isRedressementDUM 13022022 :', isRedressementDUM)
-    console.log('-----------------------------isRedressementDUM 13022022 :', JSON.stringify(this.props))
+    // console.log('-----------------------------isRedressementDUM 13022022 :', isRedressementDUM)
+    console.log('---------------------------------------------------------------------');
+    console.log('---------------------------------------------------------------------');
+    console.log('---------------------------------------------------------------------');
+    console.log(JSON.stringify(this.props));
+    console.log('---------------------------------------------------------------------');
+    console.log('---------------------------------------------------------------------');
     return (
       <ScrollView>
         {this.props.data && (
@@ -110,22 +109,24 @@ class DedRedressementEnteteScreen extends React.Component {
               )}
               data={this.props.data}
             />
-            <Grid style={styles.row}>
-              <Row>
-                <Col />
-                <Col>
-                  <Button
-                    mode="contained"
-                    icon="check"
-                    compact="true"
-                    onPress={this.redirectToConsultationDUM.bind(this, this.props.navigation)}
-                  >
-                    {translate('transverse.returnToLiauidqtion')}
-                  </Button>
-                </Col>
-                <Col />
-              </Row>
-            </Grid>
+            {/* {this.props.fromLiquidation && ( */}
+              <Grid style={styles.row}>
+                <Row>
+                  <Col />
+                  <Col>
+                    <Button
+                      mode="contained"
+                      icon="check"
+                      compact="true"
+                      onPress={this.redirectToConsultationDUM.bind(this, this.props.navigation)}
+                    >
+                      {translate('transverse.returnToLiauidqtion')}
+                    </Button>
+                  </Col>
+                  <Col />
+                </Row>
+              </Grid>
+            {/* )} */}
             <DedRedressementEnteteVersionBlock
               data={this.state.dedDumVo}
               dedDumSectionEnteteVO={this.state.dedDumVo?.dedDumSectionEnteteVO}

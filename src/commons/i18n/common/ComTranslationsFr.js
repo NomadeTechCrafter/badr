@@ -84,7 +84,7 @@ export default {
     anonymoususer: 'Anonymous',
     inprogress: 'Veuillez patienter...',
     returnToLiauidqtion: 'Retourner à la liquidation...',
-    consulterArticlesFromLiquidation: 'consulterles articles à partir de la iquidation...',
+    consulterArticlesFromLiquidation: 'consulter les articles à partir de la liquidation...',
     bureau: 'Bureau',
     regime: 'Régime',
     annee: 'Année',

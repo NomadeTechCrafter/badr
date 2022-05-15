@@ -223,9 +223,6 @@
   // Controls whether the cursor should be hidden in the overview ruler.
   "editor.hideCursorInOverviewRuler": false,
 
-  // Controls whether the editor should highlight the active indent guide.
-  "editor.highlightActiveIndentGuide": true,
-
   // Controls the delay in milliseconds after which the hover is shown.
   "editor.hover.delay": 300,
 
@@ -2759,5 +2756,6 @@
     "editor.defaultFormatter": "vscode.typescript-language-features"
   },
   "java.configuration.updateBuildConfiguration": "disabled",
-  "editor.guides.indentation": true
+  "editor.guides.indentation": true,
+  "editor.guides.highlightActiveIndentation": true
 }

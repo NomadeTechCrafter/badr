@@ -260,7 +260,7 @@ class DedRedressementListsBlock extends React.Component {
 
     this.props.update(dedDumVo);
   }
-  
+
 
   splitArticlesArrays = () => {
     const dedDumArticles = getValueByPath(
@@ -496,35 +496,31 @@ class DedRedressementListsBlock extends React.Component {
   };
 
   redirectToConsultationDUM(navigation) {
-    console.log('++++++++++++++++++++++++++++++++++++++++++++++');
-    console.log('++++++++++++++++++++++++++++++++++++++++++++++');
-    console.log('++++++++++++++++++++++++++++++++++++++++++++++');
     navigation.navigate('LiquidationHomeScreen', {});
-    console.log('++++++++++++++++++++++++++++++++++++++++++++++');
-    console.log('++++++++++++++++++++++++++++++++++++++++++++++');
-    console.log('++++++++++++++++++++++++++++++++++++++++++++++');
   };
 
 
   render() {
     return (
       <View style={styles.container}>
-        <Grid style={styles.row}>
-          <Row>
-            <Col />
-            <Col>
-              <Button
-                mode="contained"
-                icon="check"
-                compact="true"
-                onPress={this.redirectToConsultationDUM.bind(this, this.props.navigation)}
-              >
-                {translate('transverse.returnToLiauidqtion')}
-              </Button>
-            </Col>
-            <Col />
-          </Row>
-        </Grid>
+        {this.props.fromLiquidation && (
+          <Grid style={styles.row}>
+            <Row>
+              <Col />
+              <Col>
+                <Button
+                  mode="contained"
+                  icon="check"
+                  compact="true"
+                  onPress={this.redirectToConsultationDUM.bind(this, this.props.navigation)}
+                >
+                  {translate('transverse.returnToLiauidqtion')}
+                </Button>
+              </Col>
+              <Col />
+            </Row>
+          </Grid>
+        )}
         <ComAccordionComp
           title={`Articles : ${this.state.articles.length}`}
           expanded={true}>

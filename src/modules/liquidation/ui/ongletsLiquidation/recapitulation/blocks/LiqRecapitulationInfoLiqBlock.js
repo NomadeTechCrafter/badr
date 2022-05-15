@@ -62,6 +62,7 @@ class LiqRecapitulationInfoLiqBlock extends React.Component {
           // cle: 'F',
         },
         command: 'ded.ConsulterDum',
+        fromLiquidation: true,
       },
       this.props.navigation,
     );

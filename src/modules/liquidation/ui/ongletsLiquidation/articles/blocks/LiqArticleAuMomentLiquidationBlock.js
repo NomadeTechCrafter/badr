@@ -316,7 +316,8 @@ class LiqRecapitulationLiqNormaleInitialeBlock extends React.Component {
           // cle: 'F',
         },
         command: 'ded.ConsulterDum',
-        fromArticle: true
+        fromArticles: true,
+        fromLiquidation: true,
       },
       this.props.navigation,
     );

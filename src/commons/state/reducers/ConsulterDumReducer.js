@@ -11,6 +11,7 @@ const initialState = {
   data: [],
   fromWhere1: '',
   messageInfo: '',
+  fromLiquidation: false,
 };
 
 export default (state = initialState, action) => {
@@ -36,6 +37,7 @@ export default (state = initialState, action) => {
       nextState.isRedressementDUM = (typeof action.value.isRedressementDUM != "undefined") && (action.value.isRedressementDUM);
       nextState.searchData = action.value.searchParams;
       nextState.fromWhere1 = action.value.fromWhere1;
+      nextState.fromLiquidation = action.value.fromLiquidation;
       nextState.messageInfo = action.value.messageInfo;
       nextState.readOnly = !(action.value.searchParams === '') ;
       

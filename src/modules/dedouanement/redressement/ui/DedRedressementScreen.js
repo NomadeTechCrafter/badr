@@ -593,7 +593,7 @@ class DedRedressementScreen extends React.Component {
                             }}>
                             <Tab.Screen name="Entête">
                                 {() => (
-                                    <DedRedressementEnteteScreen navigation={this.props.navigation} />
+                                        <DedRedressementEnteteScreen navigation={this.props.navigation} fromLiquidation={this.props?.consulterDumReducer?.fromLiquidation} />
                                 )}
                             </Tab.Screen>
                             {this.state.isCautionVisible && isCautionAccessible.data === true && (
@@ -612,7 +612,7 @@ class DedRedressementScreen extends React.Component {
                             )}
                             <Tab.Screen name="Articles" >
                                 {() => (
-                                    <DedRedressementArticlesScreen navigation={this.props.navigation} />
+                                        <DedRedressementArticlesScreen navigation={this.props.navigation} fromLiquidation={this.props?.consulterDumReducer?.fromLiquidation} />
                                 )}
                             </Tab.Screen>
                             {((this.state.isPreapurementDSVisible &&
