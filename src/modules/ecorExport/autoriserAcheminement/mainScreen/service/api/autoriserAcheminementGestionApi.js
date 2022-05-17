@@ -85,8 +85,6 @@ export default class AutoriserAcheminementGestionApi {
       },
       jsonVO: ecorDumVO,
     };
-    console.log('data to send');
-    console.log(JSON.stringify(data));
     return await ComHttpHelperApi.process(data);
   };
 

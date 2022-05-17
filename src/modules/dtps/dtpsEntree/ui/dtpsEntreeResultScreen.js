@@ -23,7 +23,7 @@ class dtpsEntreeResultScreen extends React.Component {
             selectedItem: null
         };
         if (this.props.data && this.props.data?.listeNumScelle) {
-            console.log(JSON.stringify(Object.values(this.props.data?.listeNumScelle)));
+            // console.log(JSON.stringify(Object.values(this.props.data?.listeNumScelle)));
         }
         this.cols = [
             {
@@ -171,12 +171,12 @@ class dtpsEntreeResultScreen extends React.Component {
         this.setState({
             selectedItem: item,
         });
-        console.log(JSON.stringify(this.state.selectedItem));
+        // console.log(JSON.stringify(this.state.selectedItem));
     };
 
     vaiderEntree = () => {
-        console.log(JSON.stringify(this.state.selectedItem));
-        console.log(JSON.stringify(this.state.selectedItem?.id));
+        // console.log(JSON.stringify(this.state.selectedItem));
+        // console.log(JSON.stringify(this.state.selectedItem?.id));
         let action = request({
             type: VALIDER_DTPS_ENTREE_REQUEST,
             value: {

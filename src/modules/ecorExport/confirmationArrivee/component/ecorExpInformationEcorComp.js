@@ -290,8 +290,8 @@ class EcorExpInformationEcorComp extends React.Component {
           dateEffectiveEnregistrement: '',
           listeDumVo: listeDumVo,
         };
-        console.log('   we will save arrivée => ');
-        console.log(JSON.stringify(EtatChargmentDUMVO));
+        // console.log('   we will save arrivée => ');
+        // console.log(JSON.stringify(EtatChargmentDUMVO));
 
         let action = ConfirmationArriveeCRUDAction.request(
           {

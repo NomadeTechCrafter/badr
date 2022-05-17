@@ -27,13 +27,6 @@ export function request(action, navigation) {
                             data.dtoHeader.messagesErreur.length === 0)
                     ) {
                         dispatch(success(data));
-                        // console.log('----------------------------------------------------------------');
-                        // console.log('----------------------------------------------------------------');
-                        // console.log('----------------------------------------------------------------');
-                        // console.log(JSON.stringify(data));
-                        // console.log('----------------------------------------------------------------');
-                        // console.log('----------------------------------------------------------------');
-                        // console.log('----------------------------------------------------------------');
                         navigation.navigate('Resultat', {});
                     } else {
                         dispatch(failed(data));

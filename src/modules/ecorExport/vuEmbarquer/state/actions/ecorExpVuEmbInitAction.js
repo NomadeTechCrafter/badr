@@ -7,7 +7,7 @@ export function request(action, navigation, successRedirection) {
   return (dispatch) => {
     dispatch(action);
     dispatch(inProgress(action));
-    console.log(JSON.stringify(action.value.data));
+    // console.log(JSON.stringify(action.value.data));
     ComTransverseApi.doProcess(
       action.value.module,
       action.value.commande,

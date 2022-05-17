@@ -3,7 +3,7 @@ import { ComSessionService } from '../../../../../commons/services/session/ComSe
 
 export default class CtrlResultatScannerApi {
     static findCtrlResultatScanner = async (rechercheObject) => {
-        console.log(JSON.stringify(rechercheObject));
+        // console.log(JSON.stringify(rechercheObject));
         const data = {
             dtoHeader: {
                 userLogin: ComSessionService.getInstance().getLogin(),

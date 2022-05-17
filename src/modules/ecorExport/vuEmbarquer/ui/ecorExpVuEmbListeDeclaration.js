@@ -116,18 +116,6 @@ class VuEmbListeDeclaration extends React.Component {
       this.populateLibelleTransporteurControleApresScanner();
       this.populateLibelleTransporteur();
 
-
-      console.log("+++++++++++++++++++++++++++++state++++++++++++++++++++++++++++++++++++++++++++");
-      console.log("+++++++++++++++++++++++++++++state++++++++++++++++++++++++++++++++++++++++++++");
-      console.log(JSON.stringify(this.props?.resScan?.dataScanner));
-      console.log("++++++++++++++++++++++++++++++state+++++++++++++++++++++++++++++++++++++++++++");
-      console.log("+++++++++++++++++++++++++++++++state++++++++++++++++++++++++++++++++++++++++++");
-      console.log(JSON.stringify(this.props?.vuEmbInit));
-      console.log("++++++++++++++++++++++++++++++state+++++++++++++++++++++++++++++++++++++++++++");
-      console.log("++++++++++++++++++++++++++++++state+++++++++++++++++++++++++++++++++++++++++++");
-      console.log(JSON.stringify(this.state));
-      console.log("++++++++++++++++++++++++++++++state+++++++++++++++++++++++++++++++++++++++++++");
-      console.log("++++++++++++++++++++++++++++++state+++++++++++++++++++++++++++++++++++++++++++");
     });
   }
 
@@ -1362,17 +1350,6 @@ const styles = {
 };
 
 function mapStateToProps(state) {
-  // console.log("+++++++++++++++++++++++++++++state++++++++++++++++++++++++++++++++++++++++++++");
-  // console.log("+++++++++++++++++++++++++++++state++++++++++++++++++++++++++++++++++++++++++++");
-  // console.log(JSON.stringify(state.ecorExportVuEmbInitReducer));
-  // console.log("++++++++++++++++++++++++++++++state+++++++++++++++++++++++++++++++++++++++++++");
-  // console.log("+++++++++++++++++++++++++++++++state++++++++++++++++++++++++++++++++++++++++++");
-  // console.log(JSON.stringify(state.autoriserAcheminementMainReducer));
-  // console.log("++++++++++++++++++++++++++++++state+++++++++++++++++++++++++++++++++++++++++++");
-  // console.log("++++++++++++++++++++++++++++++state+++++++++++++++++++++++++++++++++++++++++++");
-  // console.log(JSON.stringify(state.ecorExpVuEmbResScanReducer));
-  // console.log("++++++++++++++++++++++++++++++state+++++++++++++++++++++++++++++++++++++++++++");
-  // console.log("++++++++++++++++++++++++++++++state+++++++++++++++++++++++++++++++++++++++++++");
   return { vuEmbInit: state.ecorExportVuEmbInitReducer, resOperateur: state.autoriserAcheminementMainReducer, resScan: state.ecorExpVuEmbResScanReducer };
 }
 

@@ -228,9 +228,9 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
 
     checkRequiredFieldsNavigAvitaillementEntree = (params) => {
         let modele = this.state.navigationAvitaillementEntreeModel;
-        console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
-        console.log(JSON.stringify(modele));
-        console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+        // console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+        // console.log(JSON.stringify(modele));
+        // console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
         if (_.isEmpty(modele.numBonLivraison)) {
             params.required = true;
             params.msg += !_.isEmpty(params.msg) ? ", " : "";
@@ -493,11 +493,11 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
             });
             this.props.dispatch(action);
 
-            console.log("=================================================================================");
-            console.log("=================================================================================");
-            console.log(JSON.stringify(this.props?.raisonSocialeFourn));
-            console.log("=================================================================================");
-            console.log("=================================================================================");
+            // console.log("=================================================================================");
+            // console.log("=================================================================================");
+            // console.log(JSON.stringify(this.props?.raisonSocialeFourn));
+            // console.log("=================================================================================");
+            // console.log("=================================================================================");
 
             // this.setState(prevState => {
             //     let navigationAvitaillementEntreeModel = Object.assign({}, prevState.navigationAvitaillementEntreeModel);

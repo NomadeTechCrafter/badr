@@ -100,8 +100,8 @@ class ActifsRapportCreationRondesApparitionsTab extends React.Component {
     }
 
     deleteRow = (row, index) => {
-        console.log(JSON.stringify(row));
-        console.log(JSON.stringify(index));
+        // console.log(JSON.stringify(row));
+        // console.log(JSON.stringify(index));
         let rondesApparitions = this.state.rondesApparitions;
         rondesApparitions.splice(index, 1);
         this.setState({ myArray: [...this.state.rondesApparitions, rondesApparitions] });
@@ -109,7 +109,7 @@ class ActifsRapportCreationRondesApparitionsTab extends React.Component {
     };
 
     handleClear = () => {
-        console.log(JSON.stringify(this.state));
+        // console.log(JSON.stringify(this.state));
         this.setState(prevState => ({
 
             currentRondeApparition: {                   // object that we want to update

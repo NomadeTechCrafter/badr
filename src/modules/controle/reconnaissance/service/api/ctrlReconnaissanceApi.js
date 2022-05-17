@@ -32,7 +32,7 @@ export default class CtrlReconnaissanceApi {
             },
             jsonVO: typeControle,
         };
-        console.log(JSON.stringify(data));
+        // console.log(JSON.stringify(data));
 
         return await HttpHelper.process(data);
     };

@@ -42,7 +42,7 @@ export default class CtrlControleApresScannerApi {
             'disabled', 'transactionId'
         ]);
 
-        console.log(JSON.stringify(data));
+        // console.log(JSON.stringify(data));
 
         return await HttpHelper.process(data);
     };

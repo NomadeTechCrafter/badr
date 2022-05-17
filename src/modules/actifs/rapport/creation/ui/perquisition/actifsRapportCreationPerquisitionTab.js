@@ -247,8 +247,8 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
 
 
     supprimerIntervenant = (row, index) => {
-        console.log(JSON.stringify(row));
-        console.log(JSON.stringify(index));
+        // console.log(JSON.stringify(row));
+        // console.log(JSON.stringify(index));
         let intervenantsVO = this.state.gibPerquisition.intervenantsVO;
         intervenantsVO.splice(index, 1);
         this.setState({ myArray: [...this.state.gibPerquisition.intervenantsVO, intervenantsVO] });

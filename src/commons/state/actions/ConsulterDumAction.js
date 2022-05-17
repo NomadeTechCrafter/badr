@@ -72,11 +72,6 @@ export function init(action) {
 }
 
 export function success(data, searchParams, fromWhere1, messagesInfo, navigation, fromLiquidation) {
-  console.log('55555555555555555555555555555555555555555555555555555555555555');
-  console.log('55555555555555555555555555555555555555555555555555555555555555');
-  console.log(JSON.stringify(fromLiquidation));
-  console.log('55555555555555555555555555555555555555555555555555555555555555');
-  console.log('55555555555555555555555555555555555555555555555555555555555555');
   return {
     type: Constants.GENERIC_SUCCESS,
     value: {

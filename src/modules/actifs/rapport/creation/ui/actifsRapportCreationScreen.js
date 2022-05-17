@@ -300,22 +300,22 @@ class ActifsRapportCreationScreen extends Component {
       gibPerquisition: localGibPerquisition,
 
     };
-    cleanOrdreService(rsAEnregistrer);
-    console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
-    console.log('this.state.vehiculesSaisiVO : ', this.state.vehiculesSaisiVO);
-    console.log('this.state.marchandisesVO : ', this.state.marchandisesVO);
-    console.log('this.state.pvsSaisi : ', this.state.pvsSaisi);
-    console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
-    console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
-    console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
-    console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
-    console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
-    console.log(JSON.stringify(rsAEnregistrer));
-    console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
-    console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
-    console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
-    console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
-    console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
+    // cleanOrdreService(rsAEnregistrer);
+    // console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
+    // console.log('this.state.vehiculesSaisiVO : ', this.state.vehiculesSaisiVO);
+    // console.log('this.state.marchandisesVO : ', this.state.marchandisesVO);
+    // console.log('this.state.pvsSaisi : ', this.state.pvsSaisi);
+    // console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
+    // console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
+    // console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
+    // console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
+    // console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
+    // console.log(JSON.stringify(rsAEnregistrer));
+    // console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
+    // console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
+    // console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
+    // console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
+    // console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
     if (this.checkDatesDebutFinInformations() || this.checkDetail()) {
       return;
     }

@@ -288,9 +288,9 @@ class EcorExpInformationEcorComp extends React.Component {
           listeDumVo: listeDumVo,
         };
 
-        console.log("to send to backend -------------------------------------------------------------------");
-        console.log(JSON.stringify(EtatChargmentDUMVO));
-        console.log("to send to backend -------------------------------------------------------------------");
+        // console.log("to send to backend -------------------------------------------------------------------");
+        // console.log(JSON.stringify(EtatChargmentDUMVO));
+        // console.log("to send to backend -------------------------------------------------------------------");
 
         let action = ConfirmationEntreeCRUDAction.request(
           {

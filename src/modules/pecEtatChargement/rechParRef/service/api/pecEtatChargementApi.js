@@ -72,9 +72,9 @@ export default class PecEtatChargementApi {
             jsonVO:reference
         };
         let response = await ComHttpHelperApi.process(data);
-        console.log('***********************************************************');
-        console.log(JSON.stringify(response));
-        console.log('***********************************************************');
+        // console.log('***********************************************************');
+        // console.log(JSON.stringify(response));
+        // console.log('***********************************************************');
         return response;
     };
         

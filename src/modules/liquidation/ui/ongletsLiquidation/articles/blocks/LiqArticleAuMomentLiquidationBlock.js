@@ -254,7 +254,7 @@ class LiqRecapitulationLiqNormaleInitialeBlock extends React.Component {
           jsonVO: articleALiquider,
         });
       }
-      console.log(JSON.stringify(articleALiquider, null, 4));
+      // console.log(JSON.stringify(articleALiquider, null, 4));
 
       // you should be change liquidation globale data
     }

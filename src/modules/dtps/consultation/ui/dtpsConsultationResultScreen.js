@@ -22,7 +22,7 @@ class dtpsConsultationResultScreen extends React.Component {
             selectedItem: null
         };
         if (this.props.data && this.props.data?.listeNumScelle) {
-            console.log(JSON.stringify(Object.values(this.props.data?.listeNumScelle)));
+            // console.log(JSON.stringify(Object.values(this.props.data?.listeNumScelle)));
         }
         this.cols = [
             {
@@ -191,7 +191,7 @@ class dtpsConsultationResultScreen extends React.Component {
         this.setState({
             selectedItem: item,
         });
-        console.log(JSON.stringify(this.state.selectedItem));
+        // console.log(JSON.stringify(this.state.selectedItem));
     };
 
 

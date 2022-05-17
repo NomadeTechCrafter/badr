@@ -151,11 +151,11 @@ class VuEmbarquerEntete extends React.Component {
       agent: ComSessionService.getInstance().getLogin(), //'AD6025',
     };
 
-    console.log("-----------------");
-    console.log(JSON.stringify(jsonVO));
-    console.log("-----------------");
-    console.log(JSON.stringify(this.state.dateVuEmb));
-    console.log("-----------------");
+    // console.log("-----------------");
+    // console.log(JSON.stringify(jsonVO));
+    // console.log("-----------------");
+    // console.log(JSON.stringify(this.state.dateVuEmb));
+    // console.log("-----------------");
     var action = VuEmbConfirmerAction.request(
       {
         type: Constants.VU_EMB_CONFIRMER_REQUEST,

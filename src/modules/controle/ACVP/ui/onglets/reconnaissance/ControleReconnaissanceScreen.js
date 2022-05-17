@@ -26,7 +26,7 @@ class ControleBonDelivrerScreen extends React.Component {
     }
 
     renderPicture = (item) => {
-        console.log(JSON.stringify(item));
+        // console.log(JSON.stringify(item));
         console.log(item.urlPhoto);
         return (
             <View>

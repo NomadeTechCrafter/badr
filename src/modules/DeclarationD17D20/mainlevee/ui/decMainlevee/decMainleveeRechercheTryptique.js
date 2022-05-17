@@ -129,9 +129,9 @@ class MainleveeRechercheTryptique extends Component {
           this.props.successRedirection,
         );
         this.props.actions.dispatch(action);
-        console.log('---------------------------------------------------123');
-        console.log(JSON.stringify(this.props));
-        console.log('---------------------------------------------------123');
+        // console.log('---------------------------------------------------123');
+        // console.log(JSON.stringify(this.props));
+        // console.log('---------------------------------------------------123');
       }
     }
   };

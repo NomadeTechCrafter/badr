@@ -178,11 +178,11 @@ class MainleveeEntete extends React.Component {
     );
     this.props.actions.dispatch(action);
     this.scrollViewRef.current.scrollTo({ x: 0, y: 0, animated: true });
-    +    console.log("-----------------");
-    +    console.log("-----------------");
-    console.log(JSON.stringify(this.props.messageInfo));
-    +    console.log("-----------------");
-    +    console.log("-----------------");
+    // +    console.log("-----------------");
+    // +    console.log("-----------------");
+    // console.log(JSON.stringify(this.props.messageInfo));
+    // +    console.log("-----------------");
+    // +    console.log("-----------------");
   };
 
 

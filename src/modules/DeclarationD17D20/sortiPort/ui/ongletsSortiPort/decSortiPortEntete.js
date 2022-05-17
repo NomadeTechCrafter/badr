@@ -164,10 +164,10 @@ class SortiPortEntete extends React.Component {
       agent: ComSessionService.getInstance().getLogin(), //'AD6025',
     };
 
-    +    console.log("-----------------");
-    +    console.log(JSON.stringify(jsonVO));
-    +    console.log("-----------------");
-    +    console.log("-----------------");
+    // +    console.log("-----------------");
+    // +    console.log(JSON.stringify(jsonVO));
+    // +    console.log("-----------------");
+    // +    console.log("-----------------");
 
 
     var action = SortiPortConfirmerAction.request(

@@ -90,7 +90,7 @@ class SortiPortListeByRefVh extends React.Component {
       enregistree: true,
     };
 
-    console.log(JSON.stringify(data));
+    // console.log(JSON.stringify(data));
     var action = SortiPortInitAction.request(
       {
         type: Constants.RECHERCHE_D17_DUM_REQUEST,

@@ -29,7 +29,7 @@ export default class LiqManuelleGlobal extends React.Component {
 
   render() {
     const {listeTaxesGlobales} = this.state;
-    console.log('list to show', listeTaxesGlobales);
+    // console.log('list to show', listeTaxesGlobales);
     return (
       <ComBadrCardBoxComp noPadding={true}>
         {/* Bloc Consignation Initiale */}

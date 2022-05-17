@@ -131,7 +131,7 @@ class ControleListeDocsExigi extends React.Component {
     };
 
     render() {
-        console.log(JSON.stringify(this.props?.listeDocs));
+        // console.log(JSON.stringify(this.props?.listeDocs));
         let listeDocs = this.props?.listeDocs ? this.props?.listeDocs : [];
         return (
             < ComBadrCardBoxComp style={styles.cardBox} >

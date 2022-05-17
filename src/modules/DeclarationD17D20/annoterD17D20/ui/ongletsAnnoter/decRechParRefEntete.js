@@ -164,10 +164,10 @@ class RechParRefEntete extends React.Component {
     jsonVO.indentifiant = this.props.dataVo?.declarationTriptique?.indentifiant;
     jsonVO.motifIntervention = this.state.commentaire; //'My Comment ',
 
-    +console.log('-----------------');
-    +console.log(JSON.stringify(jsonVO));
-    +console.log('-----------------');
-    +console.log('-----------------');
+    // +console.log('-----------------');
+    // +console.log(JSON.stringify(jsonVO));
+    // +console.log('-----------------');
+    // +console.log('-----------------');
 
     var action = RechParRefConfirmerAction.request(
       {

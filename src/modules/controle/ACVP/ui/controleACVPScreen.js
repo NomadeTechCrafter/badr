@@ -46,8 +46,8 @@ class ControleACVPScreen extends Component {
   initControleState = () => {
     console.log('-----initControleState--');
     if (!_.isNil(this.props.data.init)) {
-      console.log('JSON.stringify(this.props.data)-----------------------------------------');
-      console.log(JSON.stringify(this.props.data));
+      // console.log('JSON.stringify(this.props.data)-----------------------------------------');
+      // console.log(JSON.stringify(this.props.data));
      /*  let controleVo = this.props.data.init;
       let refDeclaration = this.props.data.refDeclaration; */
       this.setState({
