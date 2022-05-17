@@ -18,8 +18,7 @@ export default class TransverseApi {
         module: _module,
         commande: _command,
         typeService: _typeService,
-        offset: _offset,
-        pageSize: _pageSize,
+
       },
       jsonVO: _jsonVO,
     };

@@ -6,7 +6,7 @@ import _ from 'lodash';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import Spinner from 'react-native-loading-spinner-overlay';
-import { IconButton, Button } from 'react-native-paper';
+import { IconButton } from 'react-native-paper';
 import { connect } from 'react-redux';
 import { ComBadrErrorMessageComp, ComBadrInfoMessageComp, ComBadrToolbarComp } from '../../../../commons/component';
 import { translate } from '../../../../commons/i18n/ComI18nHelper';
@@ -227,11 +227,11 @@ class DedRedressementScreen extends React.Component {
         return ComSessionService.getInstance().getFonctionalite() === DED_SERV_RECHREFERENCE;
     }
 
-    isImputerTc = () => {
+    isImputerTc = ()=>{
         return ComSessionService.getInstance().getFonctionalite() === DED_IMPUTATION_TC_NOUVELLE_PROVISIONNELLE;
     }
 
-    actionImputationRedNewProvisionnelle = () => {
+    actionImputationRedNewProvisionnelle = () => { 
         return ComSessionService.getInstance().getFonctionalite() === DED_IMPUTATION_RED_NEW_PROVISIONNELLE;
     }
 
@@ -391,7 +391,7 @@ class DedRedressementScreen extends React.Component {
 
     lancerModalRedressement = () => {
         let index = this.state.indexDialogRedressement
-
+        
 
         let action = dedEnregistrerRedressementAction.init(
             {
@@ -402,7 +402,7 @@ class DedRedressementScreen extends React.Component {
 
         );
         this.props.dispatch(action);
-        this.setState({ showInterventionRedressement: true, indexDialogRedressement: index + 1 });
+        this.setState({ showInterventionRedressement: true, indexDialogRedressement: index + 1});
     }
 
     updateIntervention = (dedDumMotifIInputVO) => {
@@ -433,7 +433,7 @@ class DedRedressementScreen extends React.Component {
 
     confirmerRedressement = (dedDumMotifIInputVO) => {
         this.onDismissModalRedressement();
-        let consulterDumReducer = getValueByPath('consulterDumReducer', this.props);
+        let consulterDumReducer = getValueByPath('consulterDumReducer',this.props);
 
         dedDumMotifIInputVO.dedDumVO = consulterDumReducer.data;
         let action = dedEnregistrerRedressementAction.request(
@@ -453,18 +453,19 @@ class DedRedressementScreen extends React.Component {
 
     }
 
-    updateVersions = (numeroVersionBase, numeroVersionCourante) => {
+    updateVersions = (numeroVersionBase,numeroVersionCourante) => {
         console.log('updateVersions numeroVersionBase:', numeroVersionBase);
         console.log('updateVersions numeroVersionCourante:', numeroVersionCourante);
         var action = controleUpdateVersionsAction.updateVersions(
             {
                 type: CONTROLE_UPDATE_VERSIONS_REQUEST,
-                value: { numeroVersionBase, numeroVersionCourante }
+                value: { numeroVersionBase, numeroVersionCourante}
             }
 
         );
         this.props.dispatch(action);
     }
+
 
     render() {
         let isCautionAccessible = this.extractCommandData(
@@ -506,8 +507,8 @@ class DedRedressementScreen extends React.Component {
 
         let isRedressementDUM = this.props.route.params.isRedressementDUM;
         let dedDumMotifIInputVO = getValueByPath('dedEnregisterRedressementReducer.dedDumMotifIInputVO', this.props);
-        console.log('this.props : ', JSON.stringify(this.props?.dedEnregisterRedressementReducer));
-
+         console.log('this.props : ', JSON.stringify(this.props?.dedEnregisterRedressementReducer));
+        
 
         console.log('dedDumMotifIInputVO (yla 26012021) : ', dedDumMotifIInputVO);
         // console.log('this.props.consulterDumReducer : ', this.props.consulterDumReducer);
@@ -521,8 +522,12 @@ class DedRedressementScreen extends React.Component {
         console.log('(typeof isRedressementDUM != "undefined") ', (typeof isRedressementDUM != "undefined"));
         console.log('isImputationCompteREDAccessible ', isImputationCompteREDAccessible);
         console.log('this.state.isImputationCompteRedVisible ', this.state.isImputationCompteRedVisible);
+        
+        let errorMessageRedressement = getValueByPath(
+            'dedEnregisterRedressementReducer.errorMessage',
+            this.props
 
-
+        ); 
 
         return (
             <View style={{ flex: 1 }}>
@@ -554,6 +559,16 @@ class DedRedressementScreen extends React.Component {
                         />
                     </View>
                 )}
+                {errorMessageRedressement != null && (
+                    <View>
+                        <ComBadrErrorMessageComp
+                            style={styles.centerErrorMsg}
+                            message={errorMessageRedressement}
+                        />
+                    </View>
+                )}
+
+                
                 {messageInfo != null && (
                     <View>
                         <ComBadrInfoMessageComp
@@ -616,7 +631,7 @@ class DedRedressementScreen extends React.Component {
                                 )}
                             </Tab.Screen>
                             {((this.state.isPreapurementDSVisible &&
-                                isPreapurementDSAccessible?.data && !this.isImputerTc() && !this.actionImputationRedNewProvisionnelle())
+                                    isPreapurementDSAccessible?.data && !this.isImputerTc() && !this.actionImputationRedNewProvisionnelle())
                                 || this.props?.consulterDumReducer?.fromWhere1 === 'ded.InitEnvoyerValeur'
                                 || this.props?.consulterDumReducer?.fromWhere1 === 'ded.InitTraiterValeur') && (
                                     <Tab.Screen

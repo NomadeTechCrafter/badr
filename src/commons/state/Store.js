@@ -37,15 +37,16 @@ import vuEmbReducer from '../../modules/DeclarationD17D20/vuEmbarquer/state/redu
 import vuEmbRefVH from '../../modules/DeclarationD17D20/vuEmbarquer/state/reducers/vuEmRefVhReducer';
 import sortiPortRefVH from '../../modules/DeclarationD17D20/sortiPort/state/reducers/decSortiPortRefVhReducer';
 import sortiPortInitReducer from '../../modules/DeclarationD17D20/sortiPort/state/reducers/decSortiPortInitReducer';
+import annoterInitReducer from '../../modules/DeclarationD17D20/annoterD17D20/state/reducers/decAnnoterInitReducer';
 import sortiPortReducer from '../../modules/DeclarationD17D20/sortiPort/state/reducers/decSortiPortUcReducer';
 import decMainleveeInitReducer from '../../modules/DeclarationD17D20/mainlevee/state/reducers/decMainleveeInitReducer';
 import decMainleveeUCReducer from '../../modules/DeclarationD17D20/mainlevee/state/reducers/decMainleveeUCReducer';
-import mlvDelivrerReducer from '../../modules/mainlevee/delivrer/state/reducers/mlvDelivrerReducer';
+
 import rechParRefInitReducer from '../../modules/DeclarationD17D20/rechParRef/state/reducers/decRechParRefInitReducer';
 import rechParRefUcReducer from '../../modules/DeclarationD17D20/rechParRef/state/reducers/decRechParRefUcReducer';
 import rechParRefVh from '../../modules/DeclarationD17D20/rechParRef/state/reducers/decRechParRefVhReducer';
 
-
+import mlvDelivrerReducer from '../../modules/mainlevee/delivrer/state/reducers/mlvDelivrerReducer';
 import referentielReducer from './reducers/ReferentielReducer';
 import consulterDumReducer from './reducers/ConsulterDumReducer';
 import controleVehiculesReducer from '../../modules/referentiel/controleVehicules/state/reducers/refControleVehiculeReducer';
@@ -101,8 +102,6 @@ import dedEnregisterRedressementReducer from '../../modules/dedouanement/redress
 
 import preConfirmationArriveeReducer from '../../modules/delaiTransit/dtPreConfirmationArrivee/state/reducers/dtPreConfirmationArriveeReducer';
 import justifRetardTransitReducer from '../../modules/delaiTransit/dtJustifRetardTransit/state/reducers/dtJustifRetardTransitReducer';
-import apurementInitReducer from '../../modules/DeclarationD17D20/apurement/state/reducers/ApurementInitReducer';
-import gestionApurementReducer from '../../modules/DeclarationD17D20/apurement/state/reducers/GestionApurementReducer';
 
 /**
  * combine all reducers
@@ -143,9 +142,9 @@ const allReducers = combineReducers({
   plaquesImmReducer,
   crudDatatableReducer,
   mlvRechercheReducer,
+  mlvDelivrerReducer,
   rechercheActifsReducer,
   creationActifsReducer,
-  mlvDelivrerReducer,
   // enteteReducer,
   // detailsreducer,
   // recherchereducer,
@@ -178,6 +177,7 @@ const allReducers = combineReducers({
   sortiPortReducer,
   sortiPortRefVH,
   sortiPortInitReducer,
+  annoterInitReducer,
   dtpsSortieReducer,
   dtpsEntreeReducer,
   dtpsConsultationReducer,
@@ -193,9 +193,7 @@ const allReducers = combineReducers({
   preConfirmationArriveeReducer,
   justifRetardTransitReducer,
   decMainleveeInitReducer,
-  decMainleveeUCReducer,
-  apurementInitReducer,
-  gestionApurementReducer
+  decMainleveeUCReducer
 });
 /**
  * store creation

@@ -14,7 +14,7 @@ export function request(action) {
     dispatch(inProgress(action));
     TransverseApi.doProcess(
       MODULE,
-      'initDelivrerMlv',
+      'initFusionDelivrerMlv',
       TYPE_SERVICE,
       action.value.data,
     )

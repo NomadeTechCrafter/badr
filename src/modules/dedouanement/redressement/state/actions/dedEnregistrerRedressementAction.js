@@ -12,7 +12,7 @@ export function request(action, updateVersions,navigation, successRedirection) {
     DedRedressementApi.enregistrerDum(action.value).then((response) => {
       console.log('response enregistrerDum ', response);
       console.log('response && response.data && response.data.jsonVO ', response && response.data && response.data.jsonVO);
-      if (response && response.data && response.data.jsonVO) {
+      if (response && response.data && response.data.jsonVO && !response.data.dtoHeader.messagesErreur) {
         dispatch(success(response.data.dtoHeader));
         navigation.navigate(successRedirection, {
         

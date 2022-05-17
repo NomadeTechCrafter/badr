@@ -48,7 +48,7 @@ export default (state = initialState, action) => {
     case Constants.DELIVRERMLV_DELIVRERMLV_SUCCESS:
       nextState.errorMessage = null;
       nextState.showProgress = false;
-      nextState.fusion = action.value?.jsonVO;
+
 
       nextState.successMessage = action.value.dtoHeader.messagesInfo;
       nextState.data = action.value;
@@ -75,7 +75,8 @@ export default (state = initialState, action) => {
     case Constants.DELIVRERMLV_INIT_DELIVRERMLV_SUCCESS:
       nextState.showProgress = false;
       nextState.errorMessage = null;
-      console.log('reduceinitdelivrer', nextState.value.jsonVO);
+      nextState.fusion = action.value?.jsonVO;
+      console.log('reduceinitdelivrer', action.value?.jsonVO);
       return nextState;
     case Constants.DELIVRERMLV_INIT_DELIVRERMLV_FAILED:
       nextState.showProgress = false;

@@ -1514,7 +1514,7 @@ class DelivrerMLV extends React.Component {
           <View
             style={styles.containerActionBtn}
             pointerEvents={this.state.isConsultation ? 'none' : 'auto'}>
-            {this.props.fusion && (
+            {!this.props.fusion && (
               <ComBadrButtonComp
                 style={styles.actionBtn}
                 onPress={() => {

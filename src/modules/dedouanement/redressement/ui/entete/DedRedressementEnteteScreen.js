@@ -178,11 +178,10 @@ class DedRedressementEnteteScreen extends React.Component {
               )}
             />
             <DedRedressementEnteteAccordFranchiseBlock
-              data={this.props.data}
-              dedDumSectionEnteteVO={getValueByPath(
-                'dedDumSectionEnteteVO',
-                this.props.data,
-              )}
+              data={this.state.dedDumVo}
+              dedDumSectionEnteteVO={this.state.dedDumVo?.dedDumSectionEnteteVO}
+              update={this.updateRedressement}
+              readOnly={!isRedressementDUM}
             />
             <DedRedressementEnteteTransbordementBlock
               data={this.props.data}
