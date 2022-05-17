@@ -44,12 +44,6 @@ class LiqRecapitulationInfoLiqBlock extends React.Component {
   };
 
   redirectToConsultationDUM(referenceDum, navigation) {
-                  // {liquidationVO.refObjetLiquidation.referenceObjetLiquidation}
-    console.log('++++++++++++++++++++++++++++++++++++++++++++++');
-    console.log('++++++++++++++++++++++++++++++++++++++++++++++');
-    console.log('++++++++++++++++++++++++++++++++++++++++++++++');
-    console.log(JSON.stringify(referenceDum));
-    // navigation.navigate('Bienvenue', {});
     let action = ConsulterDumAction.request(
       {
         type: GENERIC_REQUEST,
@@ -67,9 +61,6 @@ class LiqRecapitulationInfoLiqBlock extends React.Component {
       this.props.navigation,
     );
     this.props.dispatch(action);
-    console.log('++++++++++++++++++++++++++++++++++++++++++++++');
-    console.log('++++++++++++++++++++++++++++++++++++++++++++++');
-    console.log('++++++++++++++++++++++++++++++++++++++++++++++');
   };
 
   render() {

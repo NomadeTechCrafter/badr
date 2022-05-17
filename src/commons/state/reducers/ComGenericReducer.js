@@ -7,6 +7,7 @@ const initialState = {
   errorMessage: '',
   displayError: false,
   data: [],
+  fromLiquidation: false,
 };
 
 export default (state = initialState, action) => {
@@ -28,6 +29,7 @@ export default (state = initialState, action) => {
       nextState.errorMessage = null;
       nextState.showProgress = false;
       nextState.data = action.value;
+      nextState.fromLiquidation = action.value.fromLiquidation;
       return nextState;
     case Constants.GENERIC_FAILED:
       nextState.showProgress = false;

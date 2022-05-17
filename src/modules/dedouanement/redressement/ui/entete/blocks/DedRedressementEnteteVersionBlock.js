@@ -83,17 +83,17 @@ class DedRedressementEnteteVersionBlock extends React.Component {
 
   isShowAnticipeeBloc1 = () => {
     let typeDeclarationParam = getValueByPath('typeDeclarationParam', this.props.data);
-    console.log('isShowAnticipee typeDeclarationParam', typeDeclarationParam);
+    // console.log('isShowAnticipee typeDeclarationParam', typeDeclarationParam);
     let typeDUM = getValueByPath('dedDumSectionEnteteVO.typeDUM', this.props.data);
     let refDumInit = getValueByPath('refDumInit', this.props.data);
-    console.log('isShowAnticipee typeDUM', typeDUM);
-    console.log('isShowAnticipee typeDUM', refDumInit);
+    // console.log('isShowAnticipee typeDUM', typeDUM);
+    // console.log('isShowAnticipee typeDUM', refDumInit);
     let categorie = initDedCategorie(typeDeclarationParam, refDumInit);
-    console.log('isShowAnticipee categorie', categorie);
-    console.log('isShowAnticipee test', categorie != CATEGORIE_PROVISOIRE_INIT);
-    console.log('isShowAnticipee test', !(typeDUM == CODE_TYPEDUM_COMPLEMENTAIRE));
-    console.log('isShowAnticipee test', categorie != CATEGORIE_PROVISOIRE_VOY);
-    console.log('isShowAnticipee test', categorie != CATEGORIE_PROVISOIRE_INIT && !(typeDUM == CODE_TYPEDUM_COMPLEMENTAIRE) && categorie != CATEGORIE_PROVISOIRE_VOY);
+    // console.log('isShowAnticipee categorie', categorie);
+    // console.log('isShowAnticipee test', categorie != CATEGORIE_PROVISOIRE_INIT);
+    // console.log('isShowAnticipee test', !(typeDUM == CODE_TYPEDUM_COMPLEMENTAIRE));
+    // console.log('isShowAnticipee test', categorie != CATEGORIE_PROVISOIRE_VOY);
+    // console.log('isShowAnticipee test', categorie != CATEGORIE_PROVISOIRE_INIT && !(typeDUM == CODE_TYPEDUM_COMPLEMENTAIRE) && categorie != CATEGORIE_PROVISOIRE_VOY);
 
     return categorie != CATEGORIE_PROVISOIRE_INIT && !(typeDUM == CODE_TYPEDUM_COMPLEMENTAIRE) && categorie != CATEGORIE_PROVISOIRE_VOY;
   }
@@ -108,11 +108,11 @@ class DedRedressementEnteteVersionBlock extends React.Component {
 
   isShowAnticipeeBloc2 = () => {
     let typeDeclarationParam = getValueByPath('typeDeclarationParam', this.props.data);
-    console.log('isShowAnticipee typeDeclarationParam', typeDeclarationParam);
+    // console.log('isShowAnticipee typeDeclarationParam', typeDeclarationParam);
     let refDumInit = getValueByPath('refDumInit', this.props.data);
-    console.log('isShowAnticipee typeDUM', refDumInit);
+    // console.log('isShowAnticipee typeDUM', refDumInit);
     let categorie = initDedCategorie(typeDeclarationParam, refDumInit);
-    console.log('isShowAnticipee categorie', categorie);
+    // console.log('isShowAnticipee categorie', categorie);
     return categorie == CATEGORIE_PROVISOIRE_VOY;
   }
 
@@ -122,15 +122,15 @@ class DedRedressementEnteteVersionBlock extends React.Component {
   }
 
   initCombineeDisabled = () => {
-    console.log('isShowAnticipee this.props', this.props);
-    console.log('isShowAnticipee this.props.data', this.props.data);
-    console.log('isShowAnticipee typeDeclarationParam', typeDeclarationParam);
+    // console.log('isShowAnticipee this.props', this.props);
+    // console.log('isShowAnticipee this.props.data', this.props.data);
+    // console.log('isShowAnticipee typeDeclarationParam', typeDeclarationParam);
     let typeDeclarationParam = getValueByPath('typeDeclarationParam', this.props.data);
-    console.log('isShowAnticipee typeDeclarationParam', typeDeclarationParam);
+    // console.log('isShowAnticipee typeDeclarationParam', typeDeclarationParam);
     let refDumInit = getValueByPath('refDumInit', this.props.data);
-    console.log('isShowAnticipee typeDUM', refDumInit);
+    // console.log('isShowAnticipee typeDUM', refDumInit);
     let categorie = initDedCategorie(typeDeclarationParam, refDumInit);
-    console.log('isShowAnticipee categorie', categorie);
+    // console.log('isShowAnticipee categorie', categorie);
     let enregistree = getValueByPath('dedDumSectionEnteteVO.enregistree', this.props.data);
 
     if (categorie != CATEGORIE_PROVISOIRE_VOY) {

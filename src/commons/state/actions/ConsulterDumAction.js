@@ -29,9 +29,9 @@ export function request(action, navigation) {
           !messagesErreurs
         ) {
           if (action.command === 'ded.TraiterValeur' || action.command === 'ded.EnvoyerValeur') {
-            dispatch(success(response.data.jsonVO, action.value, action.command, response.data.dtoHeader.messagesInfo), null, null);
+            dispatch(success(response.data.jsonVO, action.value, action.command, response.data.dtoHeader.messagesInfo, null, null));
           } else {
-            dispatch(success(response.data.jsonVO, action.value, action.command, ''), navigation, action.fromLiquidation);
+            dispatch(success(response.data.jsonVO, action.value, action.command, '', navigation, action.fromLiquidation));
           }
           if (action.fromArticles) {
             navigation.navigate('DedRedressementScreen', {
@@ -72,6 +72,11 @@ export function init(action) {
 }
 
 export function success(data, searchParams, fromWhere1, messagesInfo, navigation, fromLiquidation) {
+  console.log('55555555555555555555555555555555555555555555555555555555555555');
+  console.log('55555555555555555555555555555555555555555555555555555555555555');
+  console.log(JSON.stringify(fromLiquidation));
+  console.log('55555555555555555555555555555555555555555555555555555555555555');
+  console.log('55555555555555555555555555555555555555555555555555555555555555');
   return {
     type: Constants.GENERIC_SUCCESS,
     value: {

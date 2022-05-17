@@ -507,21 +507,21 @@ class DedRedressementScreen extends React.Component {
 
         let isRedressementDUM = this.props.route.params.isRedressementDUM;
         let dedDumMotifIInputVO = getValueByPath('dedEnregisterRedressementReducer.dedDumMotifIInputVO', this.props);
-         console.log('this.props : ', JSON.stringify(this.props?.dedEnregisterRedressementReducer));
+        //  console.log('this.props : ', JSON.stringify(this.props?.dedEnregisterRedressementReducer));
         
 
-        console.log('dedDumMotifIInputVO (yla 26012021) : ', dedDumMotifIInputVO);
-        // console.log('this.props.consulterDumReducer : ', this.props.consulterDumReducer);
+        // console.log('dedDumMotifIInputVO (yla 26012021) : ', dedDumMotifIInputVO);
+        // // console.log('this.props.consulterDumReducer : ', this.props.consulterDumReducer);
 
-        console.log('success : ', typeof success != "undefined");
-        console.log('success : ', success);
-        //console.log('this.props 15042022: ', JSON.stringify(this.props) );
-        console.log('isConfirmationReception : ', isConfirmationReception);
-        console.log('(typeof isConfirmationReception != "undefined") ', (typeof isConfirmationReception != "undefined"));
-        console.log('isRedressementDUM : ', isRedressementDUM);
-        console.log('(typeof isRedressementDUM != "undefined") ', (typeof isRedressementDUM != "undefined"));
-        console.log('isImputationCompteREDAccessible ', isImputationCompteREDAccessible);
-        console.log('this.state.isImputationCompteRedVisible ', this.state.isImputationCompteRedVisible);
+        // console.log('success : ', typeof success != "undefined");
+        // console.log('success : ', success);
+        // //console.log('this.props 15042022: ', JSON.stringify(this.props) );
+        // console.log('isConfirmationReception : ', isConfirmationReception);
+        // console.log('(typeof isConfirmationReception != "undefined") ', (typeof isConfirmationReception != "undefined"));
+        // console.log('isRedressementDUM : ', isRedressementDUM);
+        // console.log('(typeof isRedressementDUM != "undefined") ', (typeof isRedressementDUM != "undefined"));
+        // console.log('isImputationCompteREDAccessible ', isImputationCompteREDAccessible);
+        // console.log('this.state.isImputationCompteRedVisible ', this.state.isImputationCompteRedVisible);
         
         let errorMessageRedressement = getValueByPath(
             'dedEnregisterRedressementReducer.errorMessage',

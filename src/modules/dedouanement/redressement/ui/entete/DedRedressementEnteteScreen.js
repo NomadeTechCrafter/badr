@@ -109,7 +109,7 @@ class DedRedressementEnteteScreen extends React.Component {
               )}
               data={this.props.data}
             />
-            {/* {this.props.fromLiquidation && ( */}
+            {this.props.fromLiquidation && (
               <Grid style={styles.row}>
                 <Row>
                   <Col />
@@ -126,7 +126,7 @@ class DedRedressementEnteteScreen extends React.Component {
                   <Col />
                 </Row>
               </Grid>
-            {/* )} */}
+            )}
             <DedRedressementEnteteVersionBlock
               data={this.state.dedDumVo}
               dedDumSectionEnteteVO={this.state.dedDumVo?.dedDumSectionEnteteVO}

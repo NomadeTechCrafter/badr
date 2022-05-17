@@ -346,7 +346,6 @@ class ComRedressementRechercheRefComp extends Component {
         <View style={styles.enregistreeStyle}>
           <Checkbox.Item
             status={this.state.enregistree ? 'checked' : 'unchecked'}
-            // disabled={this.props.fromWhere1 === 'ENVOYER_VALEUR' || this.props.fromWhere1 === 'TRAITER_VALEUR'}
             label={translate('dedouanement.transverse.declarationEnreg')}
             color={primaryColor}
             onPress={() => {

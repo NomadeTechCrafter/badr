@@ -327,7 +327,7 @@ class DedRedressementEnteteFacturePaiementBlock extends React.Component {
   
   
   render() {
-    console.log('this.state?.dedDumVo?.dedDumSectionEnteteVO? : ', this.state?.dedDumVo?.dedDumSectionEnteteVO);
+    // console.log('this.state?.dedDumVo?.dedDumSectionEnteteVO? : ', this.state?.dedDumVo?.dedDumSectionEnteteVO);
     const factures = this.state?.dedDumVo?.dedDumSectionEnteteVO?.listDeclarationFactureVO ? this.state?.dedDumVo?.dedDumSectionEnteteVO?.listDeclarationFactureVO : [];
     return (
       <View style={styles.container}>

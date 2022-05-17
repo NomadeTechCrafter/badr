@@ -61,7 +61,7 @@ class LiquidationInfoScreen extends React.Component {
   };
 
   handelClick = (item) => {
-    console.log('LiquidationInfoDetailsScreen', item);
+    // console.log('LiquidationInfoDetailsScreen', item);
     this.props.navigation.navigate('LiquidationInfoDetailsScreen', {
       ficheAvisualiserVO: item,
     });
@@ -69,7 +69,7 @@ class LiquidationInfoScreen extends React.Component {
 
   render() {
     const {liquidationVO, emissions, consignations} = this.state;
-    console.log('liquidationVO', liquidationVO);
+    // console.log('liquidationVO', liquidationVO);
     return (
       <ComContainerComp
         ContainerRef={(ref) => {

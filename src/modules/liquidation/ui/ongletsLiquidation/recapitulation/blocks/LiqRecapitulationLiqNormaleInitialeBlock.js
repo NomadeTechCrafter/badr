@@ -37,7 +37,7 @@ class LiqRecapitulationLiqNormaleInitialeBlock extends React.Component {
   };
   render() {
     const { liquidationVO, liquidationType, indicateurLiquidationArticlesEnFranchiseTotale } = this.props;
-    console.log('indicateurLiquidationArticlesEnFranchiseTotale', indicateurLiquidationArticlesEnFranchiseTotale)
+    // console.log('indicateurLiquidationArticlesEnFranchiseTotale', indicateurLiquidationArticlesEnFranchiseTotale)
     return (
       <ComBadrCardBoxComp noPadding={true}>
         {/* Bloc Liquidation Initiale Normale */}

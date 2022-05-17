@@ -28,9 +28,9 @@ class LiquidationArticlesScreen extends React.Component {
   
 
   render() {
-    console.log('liquidationType °°°°°°°°°°°°°°°°°°° ',this.props.liquidationType)
-    console.log('liquidationType °°°°°°°°°°°°°°°°°°° ',this.props.type)
-    console.log('liquidationType °°°°°°°°°°°°°°°°°°° ',this.state.liquidationType)
+    // console.log('liquidationType °°°°°°°°°°°°°°°°°°° ',this.props.liquidationType)
+    // console.log('liquidationType °°°°°°°°°°°°°°°°°°° ',this.props.type)
+    // console.log('liquidationType °°°°°°°°°°°°°°°°°°° ',this.state.liquidationType)
     const { liquidationVO, liquidationType } = this.state;
     return (
       <View style={CustomStyleSheet.fullContainer}>
