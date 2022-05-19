@@ -109,7 +109,7 @@ class DedRedressementEnteteScreen extends React.Component {
               )}
               data={this.props.data}
             />
-            {this.props.fromLiquidation && (
+            {/* {this.props.fromLiquidation && ( */}
               <Grid style={styles.row}>
                 <Row>
                   <Col />
@@ -126,7 +126,7 @@ class DedRedressementEnteteScreen extends React.Component {
                   <Col />
                 </Row>
               </Grid>
-            )}
+            {/* )} */}
             <DedRedressementEnteteVersionBlock
               data={this.state.dedDumVo}
               dedDumSectionEnteteVO={this.state.dedDumVo?.dedDumSectionEnteteVO}
@@ -147,11 +147,10 @@ class DedRedressementEnteteScreen extends React.Component {
               readOnly={!isRedressementDUM}
             />
             <DedRedressementEnteteFacturePaiementBlock
-              data={this.props.data}
-              dedDumSectionEnteteVO={getValueByPath(
-                'dedDumSectionEnteteVO',
-                this.props.data,
-              )}
+              data={this.state.dedDumVo}
+              dedDumSectionEnteteVO={this.state.dedDumVo?.dedDumSectionEnteteVO}
+              update={this.updateRedressement}
+              readOnly={!isRedressementDUM}
             />
             <DedRedressementEnteteLocalisationMarchandiseBlock
               data={this.props.data}
@@ -171,11 +170,10 @@ class DedRedressementEnteteScreen extends React.Component {
               fromWhere1={this.props.fromWhere1}
             />
             <DedRedressementEnteteDocumentPrecedentBlock
-              data={this.props.data}
-              dedDumSectionEnteteVO={getValueByPath(
-                'dedDumSectionEnteteVO',
-                this.props.data,
-              )}
+              data={this.state.dedDumVo}
+              dedDumSectionEnteteVO={this.state.dedDumVo?.dedDumSectionEnteteVO}
+              update={this.updateRedressement}
+              readOnly={!isRedressementDUM}
             />
             <DedRedressementEnteteAccordFranchiseBlock
               data={this.state.dedDumVo}
