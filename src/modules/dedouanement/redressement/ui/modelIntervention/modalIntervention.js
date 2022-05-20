@@ -93,7 +93,7 @@ export default class ModalIntervention extends React.Component {
                             </Col>
                             <Col size={2}>
                               <ComBadrLibelleComp>
-                                {this.props.dedReferenceVO.type}
+                                {this.props.dedReferenceVO?.typetype}
                               </ComBadrLibelleComp>
 
                             </Col>
@@ -107,7 +107,7 @@ export default class ModalIntervention extends React.Component {
                             </Col>
                             <Col size={2}>
                               <ComBadrLibelleComp>
-                                {this.props.dedReferenceVO.numeroVersion}
+                                {this.props.dedReferenceVO?.typenumeroVersion}
                               </ComBadrLibelleComp>
 
                             </Col>
@@ -119,7 +119,7 @@ export default class ModalIntervention extends React.Component {
                             </Col>
                             <Col size={2}>
                               <ComBadrLibelleComp>
-                                {this.props.dedReferenceVO.status}
+                                {this.props.dedReferenceVO?.typestatus}
                               </ComBadrLibelleComp>
 
                             </Col>

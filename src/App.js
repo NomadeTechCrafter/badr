@@ -83,6 +83,8 @@ import RechApurementParRefScreen from './modules/DeclarationD17D20/apurement/ui/
 import GestionApurementScreen from './modules/DeclarationD17D20/apurement/ui/initApurement/GestionApurementScreen'
 import DedRedressementArticlesScreen from './modules/dedouanement/redressement/ui/articles/DedRedressementArticlesScreen';
 import MainleveeListeDeclaration from './modules/DeclarationD17D20/mainlevee/ui/decMainlevee/decMainleveeListeDeclaration';
+import LiqArticleOperationLiqBlock from './modules/liquidation/ui/ongletsLiquidation/articles/blocks/LiqArticleOperationLiqBlock';
+import LiquidationArticlesScreen from './modules/liquidation/ui/ongletsLiquidation/articles/LiquidationArticlesScreen';
 
 
 //setGlobalHandler();
@@ -106,7 +108,7 @@ export default class App extends React.Component {
                 <Stack.Screen
                   name="test"
                   options={{headerShown: false}}
-                    component={DedRedressementEnteteScreen}
+                    component={LiquidationArticlesScreen}
                 />
               )}
               <Stack.Screen

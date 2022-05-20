@@ -89,6 +89,7 @@ export default {
         'Nombre des Articles au moment de la liquidation : ',
       numeroArticle: 'N° Article',
       codeNomenclature: 'Code Nomenclature',
+      refUniteQuantite: 'Ref unite quantite',
       valeurTaxableDH: 'Valeur Taxable(DH)',
       valeurTaxable: 'Valeur Taxable(DH)',
       quantite: 'Quantité',

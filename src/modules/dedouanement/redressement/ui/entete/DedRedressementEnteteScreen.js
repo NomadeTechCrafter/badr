@@ -92,12 +92,12 @@ class DedRedressementEnteteScreen extends React.Component {
     let listD17D20 = this.props.data?.dedDumSectionEnteteVO?.declarationsTryptique ? this.props.data?.dedDumSectionEnteteVO?.declarationsTryptique : [];
     let isRedressementDUM = this.props.isRedressementDUM;
     // console.log('-----------------------------isRedressementDUM 13022022 :', isRedressementDUM)
-    // console.log('---------------------------------------------------------------------');
-    // console.log('---------------------------------------------------------------------');
-    // console.log('---------------------------------------------------------------------');
-    // console.log(JSON.stringify(this.props));
-    // console.log('---------------------------------------------------------------------');
-    // console.log('---------------------------------------------------------------------');
+    console.log('---------------------------------------------------------------------');
+    console.log('---------------------------------------------------------------------');
+    console.log('---------------------------------------------------------------------');
+    console.log(JSON.stringify(this.props));
+    console.log('---------------------------------------------------------------------');
+    console.log('---------------------------------------------------------------------');
     return (
       <ScrollView>
         {this.props.data && (
@@ -109,7 +109,7 @@ class DedRedressementEnteteScreen extends React.Component {
               )}
               data={this.props.data}
             />
-            {/* {this.props.fromLiquidation && ( */}
+            {this.props.fromLiquidation && (
               <Grid style={styles.row}>
                 <Row>
                   <Col />
@@ -126,7 +126,7 @@ class DedRedressementEnteteScreen extends React.Component {
                   <Col />
                 </Row>
               </Grid>
-            {/* )} */}
+            )}
             <DedRedressementEnteteVersionBlock
               data={this.state.dedDumVo}
               dedDumSectionEnteteVO={this.state.dedDumVo?.dedDumSectionEnteteVO}

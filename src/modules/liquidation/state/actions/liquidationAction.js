@@ -10,7 +10,7 @@ export function request(action) {
   return (dispatch) => {
     dispatch(action);
     dispatch(inProgress(action));
-    console.log('----LIQ Action', action);
+    // console.log('----LIQ Action', JSON.stringify(action));
     TransverseApi.doProcess(
       'ALI_DEC',
       action.value.command,
@@ -18,13 +18,13 @@ export function request(action) {
       action.value.jsonVO,
     )
       .then((response) => {
-        console.log('----LIQ Action response', response?.data);
-        if (response && response.data && !_.isNil(response.data.jsonVO)) {
-          console.log(response.data.jsonVO);
-          dispatch(success(response.data.jsonVO, action.value.command));
+        // console.log('----LIQ Action response', response?.data);
+        if (response && response.data && !_.isEmpty(response.data.jsonVO)) {
+          // console.log(response.data.jsonVO);
+          dispatch(success(response.data, action.value.command));
         } else {
           dispatch(
-            failed(translate('errors.technicalIssue'), action.value.command),
+            failed(response.data, action.value.command),
           );
         }
       })
@@ -72,6 +72,7 @@ export function success(data, command) {
 }
 
 export function failed(data, command) {
+  console.log('----LIQ Action failed : ', data);
   return {
     type: Constants.GENERIC_LIQ_FAILED,
     value: {
