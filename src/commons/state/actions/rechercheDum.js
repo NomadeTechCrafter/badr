@@ -30,6 +30,7 @@ export function request(action, navigation, successRedirection) {
               cle: action.value.cle,
               declarationRI: data.jsonVO,
               sousReservePaiementMLV: action.value.sousReservePaiementMLV,
+              infoMessage: data.dtoHeader.messagesInfo
             });
           } else {
             dispatch(failed(data));
