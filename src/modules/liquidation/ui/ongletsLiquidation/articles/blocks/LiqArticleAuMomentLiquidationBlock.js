@@ -801,15 +801,49 @@ class LiqRecapitulationLiqNormaleInitialeBlock extends React.Component {
 
                 {libelleArticle.toLowerCase().includes('consignation') && (
                   <LiqArticleDetailsLiqBlock
-                    article={selectedArticle}
+                    articles={_.orderBy(
+                      selectedArticle.refLignesRubriqueBaseLiquidation,
+                      'refRubriqueComptableCode',
+                      'asc',
+                    )}
+                    total={selectedArticle.montantLiquide}
                     titre={translate('liq.articles.baseConsignation')}
                   />
                 )}
 
                 <LiqArticleDetailsLiqBlock
-                  article={selectedArticle}
-                  titre={translate('liq.articles.baseConsignation')}
+                  articles={_.orderBy(
+                    selectedArticle.refArticleLiquideReference
+                      ? selectedArticle.refArticleLiquideReference
+                        .refLignesRubriqueBaseLiquidation
+                      : selectedArticle.refLignesRubriqueBaseLiquidation,
+                    'refRubriqueComptableCode',
+                    'asc',
+                  )}
+                  total={ selectedArticle.refArticleLiquideReference?
+                    selectedArticle.refArticleLiquideReference.montantLiquide:
+                    selectedArticle.montantLiquide}
+                  titre={translate('liq.articles.baseActuelleLiquidationNormale')}
                 />
+
+                {libelleArticle.toLowerCase().includes('consignation') && (
+                  <Row style={CustomStyleSheet.whiteRow}>
+                    <Col size={2} />
+                    <Col>
+                      <ComBadrLibelleComp withColor={true}>
+                        {translate('liq.articles.totalConsignationArticleDH')}
+                      </ComBadrLibelleComp>
+                    </Col>
+                    <Col>
+                      <ComBadrLibelleComp>
+                        {': '}
+                        {Numeral(selectedArticle.montantConsigne).format('0.00')}
+                      </ComBadrLibelleComp>
+                    </Col>
+
+                  </Row>
+                )}
+
 
                 <Row style={CustomStyleSheet.whiteRow}>
                   <Col>

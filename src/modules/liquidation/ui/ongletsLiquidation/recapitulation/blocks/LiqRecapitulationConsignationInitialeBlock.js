@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {
   ComBadrCardBoxComp,
   ComBadrLibelleComp,
@@ -7,15 +7,15 @@ import {
   ComBadrPickerComp,
   ComBadrDatePickerComp,
 } from '../../../../../../commons/component';
-import { RadioButton, Text } from 'react-native-paper';
+import {RadioButton, Text} from 'react-native-paper';
 import {
   CustomStyleSheet,
   primaryColor,
 } from '../../../../../../commons/styles/ComThemeStyle';
-import { translate } from '../../../../../../commons/i18n/ComI18nHelper';
-import { getValueByPath, callRedux, sumByKey } from '../../../../utils/LiqUtils';
-import { connect } from 'react-redux';
-import { Col, Grid, Row } from 'react-native-easy-grid';
+import {translate} from '../../../../../../commons/i18n/ComI18nHelper';
+import {getValueByPath, callRedux, sumByKey} from '../../../../utils/LiqUtils';
+import {connect} from 'react-redux';
+import {Col, Grid, Row} from 'react-native-easy-grid';
 import Numeral from 'numeral';
 
 class LiqRecapitulationConsignationInitialeBlock extends React.Component {
@@ -49,10 +49,14 @@ class LiqRecapitulationConsignationInitialeBlock extends React.Component {
       selectedBorderau: selectedValue,
     });
   };
-  onDateEcheanceConsignationChanged = (date) => { };
+  onDateEcheanceConsignationChanged = (date) => {};
 
   render() {
-    const { liquidationVO, liquidationType, indicateurLiquidationArticlesEnFranchiseTotale } = this.props;
+    const {
+      liquidationVO,
+      liquidationType,
+      indicateurLiquidationArticlesEnFranchiseTotale,
+    } = this.props;
     let rubriqueComptableByTypeConsignation = getValueByPath(
       'getRubriqueComptableByTypeConsignation.data',
       this.props.repData,
@@ -65,7 +69,7 @@ class LiqRecapitulationConsignationInitialeBlock extends React.Component {
             <Row>
               <RadioButton.Group
                 onValueChange={(value) =>
-                  this.setState({ refTypeConsignation: value })
+                  this.setState({refTypeConsignation: value})
                 }
                 value={this.state.refTypeConsignation}>
                 <Col style={styles.decisionContainerRB}>
@@ -191,7 +195,12 @@ class LiqRecapitulationConsignationInitialeBlock extends React.Component {
               </Col>
               <Col size={2}>
                 <ComBadrPickerComp
-                  disabled={!(liquidationType == 'automatique' || liquidationType == 'automatiqueRedevanceAT')}
+                  disabled={
+                    !(
+                      liquidationType == 'automatique' ||
+                      liquidationType == 'automatiqueRedevanceAT'
+                    )
+                  }
                   style={styles.badrPicker}
                   titleStyle={CustomStyleSheet.badrPickerTitle}
                   onRef={(ref) => (this.comboTypeBorderau = ref)}
@@ -211,8 +220,53 @@ class LiqRecapitulationConsignationInitialeBlock extends React.Component {
                   selected={this.state.selectedBorderau}
                 />
               </Col>
-              <Col size={1} />
-              <Col size={2} />
+
+              {liquidationVO?.refOperationSimultanee?.refModePaiement ==
+                '02' && (
+                <Col size={1}>
+                  <ComBadrLibelleComp withColor={true}>
+                    {translate('liq.delai')}
+                  </ComBadrLibelleComp>
+                </Col>
+              )}
+              {liquidationVO?.refOperationSimultanee?.refModePaiement ==
+                '02' && (
+                <Col size={2}>
+                  <ComBadrPickerComp
+                    style={styles.badrPicker}
+                    titleStyle={CustomStyleSheet.badrPickerTitle}
+                    onRef={(ref) => (this.comboDelai = ref)}
+                    disabled={
+                      !(
+                        liquidationType == 'automatique' ||
+                      liquidationType == 'automatiqueRedevanceAT'
+                      )
+                    }
+                    key="delaiCreditConsignation"
+                    cle="numeroCredit"
+                    libelle="delaiCreditEnlevement"
+                    module="ALI_DEC"
+                    command="getCreditParOperateur"
+                    typeService="SP"
+                    param={{
+                      codeBureauDouane:
+                        liquidationVO?.refObjetLiquidation
+                          ?.refBureauLiquidation,
+                      idOperation: liquidationVO?.idOperation,
+                    }}
+                    selectedValue={
+                      liquidationVO?.refOperationSimultanee?.numeroCredit
+                    }
+                    onValueChange={(selectedValue, selectedIndex, item) =>
+                      this.handleDelaiCreditChanged(
+                        selectedValue,
+                        selectedIndex,
+                        item,
+                      )
+                    }
+                  />
+                </Col>
+              )}
             </Row>
             <Row style={CustomStyleSheet.whiteRow}>
               <Col size={1}>
@@ -256,7 +310,7 @@ const styles = StyleSheet.create({
   },
 });
 function mapStateToProps(state) {
-  return { ...state.liquidationReducer };
+  return {...state.liquidationReducer};
 }
 
 export default connect(

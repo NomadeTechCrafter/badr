@@ -18,8 +18,7 @@ class LiqArticleDetailsLiqBlock extends React.Component {
   }
 
   render() {
-    const {article, titre} = this.props;
-    console.log("HEREEEEE")
+    const {articles, titre, total} = this.props;
     return (
       <View>
         <Row style={CustomStyleSheet.whiteRow}>
@@ -63,14 +62,7 @@ class LiqArticleDetailsLiqBlock extends React.Component {
           </Col>
         </Row>
 
-        {_.orderBy(
-          article.refArticleLiquideReference
-            ? article.refArticleLiquideReference
-                .refLignesRubriqueBaseLiquidation
-            : article.refLignesRubriqueBaseLiquidation,
-          'refRubriqueComptableCode',
-          'asc',
-        ).map((item, index) => (
+        {articles.map((item, index) => (
           <Row
             key={index}
             style={
@@ -121,7 +113,7 @@ class LiqArticleDetailsLiqBlock extends React.Component {
           <Col>
             <ComBadrLibelleComp>
               {': '}
-              {Numeral(article.montantLiquide).format('0.00')}
+              {Numeral(total).format('0.00')}
             </ComBadrLibelleComp>
           </Col>
         </Row>
