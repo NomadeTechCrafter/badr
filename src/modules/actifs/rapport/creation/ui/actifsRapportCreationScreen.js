@@ -300,7 +300,7 @@ class ActifsRapportCreationScreen extends Component {
       gibPerquisition: localGibPerquisition,
 
     };
-    // cleanOrdreService(rsAEnregistrer);
+    cleanOrdreService(rsAEnregistrer);
     // console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
     // console.log('this.state.vehiculesSaisiVO : ', this.state.vehiculesSaisiVO);
     // console.log('this.state.marchandisesVO : ', this.state.marchandisesVO);

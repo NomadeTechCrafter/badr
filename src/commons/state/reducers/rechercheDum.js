@@ -21,6 +21,10 @@ export default (state = initialState, action) => {
     case Constants.RECHERCHEREFDUM_SUCCESS:
       nextState.showProgress = false;
       nextState.errorMessage = null;
+
+
+        nextState.infoMessage = action.value?.data?.dtoHeader?.messagesInfo;
+      console.log('inforeducermlv',nextState.infoMessage)
       return nextState;
     case Constants.RECHERCHEREFDUM_FAILED:
       nextState.showProgress = false;

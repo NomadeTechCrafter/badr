@@ -59,6 +59,7 @@ const DEMANDE_CONSIGNATION = 'demandeConsignation';
 
 class DelivrerMLV extends React.Component {
   constructor(props) {
+    console.log('props inside delivrerscreen',props.route.params)
     super(props);
     this.state = {
       login: '',
@@ -78,6 +79,7 @@ class DelivrerMLV extends React.Component {
       generateurNumScelleAu: '',
       generateurNumScelleDu: '',
       messagesErreur: [],
+      messagesInfo: props.route.params.infoMessage,
       listeNombreDeScelles: [],
       messageVisibility: false,
       message: '',
@@ -119,6 +121,7 @@ class DelivrerMLV extends React.Component {
 
     this.state.conteneurs = conteneurs;
     this.state.conteneursCibles = conteneursCibles;
+    console.log('props deliver',this.props)
     this.initDelivrer();
   }
   initDelivrer = async () => {
@@ -437,6 +440,9 @@ class DelivrerMLV extends React.Component {
           )}
           {this.props.successMessage != null && (
             <ComBadrInfoMessageComp message={this.props.successMessage} />
+          )}
+          {this.state.messagesInfo != null && (
+              <ComBadrInfoMessageComp message={this.state.messagesInfo} />
           )}
           {/* Référence déclaration */}
           <ComBadrCardBoxComp noPadding={true}>

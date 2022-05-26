@@ -1,5 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
+import moment from 'moment';
 import Numeral from 'numeral';
 import { StyleSheet, View, Alert } from 'react-native';
 import { connect } from 'react-redux';
@@ -11,6 +12,10 @@ import {
   ComBadrLibelleComp,
   ComBadrDatePickerComp,
   ComBadrAutoCompleteComp,
+  ComBadrErrorMessageComp,
+  ComBadrProgressBarComp,
+  ComBadrAutoCompleteChipsComp,
+  ComBadrInfoMessageComp,
 } from '../../../../../../commons/component';
 import { Col, Grid, Row } from 'react-native-easy-grid';
 import LiqArticleDetailsLiqBlock from './LiqArticleDetailsLiqBlock';
@@ -36,18 +41,22 @@ class LiqRecapitulationLiqNormaleInitialeBlock extends React.Component {
       libelleArticle: '',
       showRubriquesComptables: false,
       articleEnCours: {},
-      actionType: ''
+      actionType: '',
+      dateEnregistrement: null,
     };
   }
   componentDidMount() {
+    // console.log('+++++++++++++++++++++++++++++++++++++++++++++++++++++');
+    // console.log(JSON.stringify(this.props.liquidationVO));
+    // console.log('+++++++++++++++++++++++++++++++++++++++++++++++++++++');
     this.setState({
       listeArticlesLiquides: this.getListeArticlesLiquides(
         this.props.liquidationVO,
         this.props.liquidationVO.refOperationSimultanee,
       ),
+      dateEnregistrement: this.props.liquidationVO?.refObjetLiquidation?.dateEnregistrement
     });
   }
-  handleTypeBorderauChanged = (selectedValue, selectedIndex, item) => { };
 
   getListeArticlesLiquides = (
     refOperationPrincipale,
@@ -107,7 +116,7 @@ class LiqRecapitulationLiqNormaleInitialeBlock extends React.Component {
       this.setState({
         articleEnCours: {
           ...article.refParametresLiquidation,
-          unite: article.refParametresLiquidation.refUniteQuantite,
+          refUniteQuantite: article.refParametresLiquidation.refUniteQuantite,
         },
         actionType: 'edit',
         showRubriquesComptables: true,
@@ -124,38 +133,51 @@ class LiqRecapitulationLiqNormaleInitialeBlock extends React.Component {
     });
   };
 
-  handleRubriquesChanged = (selectedValue, selectedIndex, item) => {
-    console.log('selectedValue', selectedValue)
-    this.setState({
-      articleEnCours: {
-        ...this.state.articleEnCours,
-        unite: selectedValue,
-      },
-    })
-  };
 
-  onDateEcheanceConsignationChanged = (date) => {
-    console.log('date', date)
-    this.setState({
-      articleEnCours: {
-        ...this.state.articleEnCours,
-        dateEffetLiquidation: date,
-      },
-    })
-  };
+  checkRequiredFieldsResultatCtrl = (params) => {
+    let modele = this.state.articleEnCours;
 
+    if (_.isEmpty(modele.refUniteQuantite)) {
+      params.required = true;
+      params.msg += !_.isEmpty(params.msg) ? "\n" : "";
+      params.msg += '- ' + translate('liq.articles.refUniteQuantite') + ' ' + translate('liq.error.shouldNotBeEmpty');
+    }
+    if (_.isEmpty(modele.codeNomenclature)) {
+      params.required = true;
+      params.msg += !_.isEmpty(params.msg) ? "\n" : "";
+      params.msg += '- ' + translate('liq.articles.codeNomenclature') + ' ' + translate('liq.error.shouldNotBeEmpty');
+    }
+    if (_.isEmpty(modele.valeurTaxable)) {
+      params.required = true;
+      params.msg += !_.isEmpty(params.msg) ? "\n" : "";
+      params.msg += '- ' + translate('liq.articles.valeurTaxable') + ' ' + translate('liq.error.shouldNotBeEmpty');
+    }
+    if (_.isEmpty(modele.designation)) {
+      params.required = true;
+      params.msg += !_.isEmpty(params.msg) ? "\n" : "";
+      params.msg += '- ' + translate('liq.articles.designation') + ' ' + translate('liq.error.shouldNotBeEmpty');
+    }
+    if (_.isEmpty(modele.quantite)) {
+      params.required = true;
+      params.msg += !_.isEmpty(params.msg) ? "\n" : "";
+      params.msg += '- ' + translate('liq.articles.quantite') + ' ' + translate('liq.error.shouldNotBeEmpty');
+    }
+  }
 
-  testIsChampsValid = (list) => {
-    // $scope.fermerAlert();
-    // var showErrors = false;
-    // angular.forEach(keys, function (key) {
-    //   if (!list[key]) {
-    //     showErrors = true;
-    //     pushMessages($rootScope.messagesErreurArticles, "liquidation.articles." + key, "liquidation.error.shouldNotBeEmpty", true);
-    //   }
-    // });
-    // return !showErrors;
-    return true;
+  checkRequiredFields = () => {
+    let params = { msg: '', required: false }
+    this.checkRequiredFieldsResultatCtrl(params);
+    if (params.required) {
+      let message = params.msg;
+      this.setState({
+        errorMessage: message
+      });
+    } else {
+      this.setState({
+        errorMessage: null
+      });
+    }
+    return params.required;
   }
 
   getNumArticle = (listesArticle) => {
@@ -172,7 +194,7 @@ class LiqRecapitulationLiqNormaleInitialeBlock extends React.Component {
     console.log("----confirmerArticle-----");
     let { liquidationVO, liquidationType } = this.props;
     let { articleEnCours, actionType, selectedArticle, listeArticlesLiquides } = this.state;
-    if (this.testIsChampsValid(articleEnCours)) {
+    if (!this.checkRequiredFields()) {
       let articleALiquider = {
         "indicateurLiquidationManuelleRequise": (
           liquidationType == "manuelle" ||
@@ -183,18 +205,20 @@ class LiqRecapitulationLiqNormaleInitialeBlock extends React.Component {
         "refParametresLiquidation": {
           "indicateurConsignationIntegrale": articleEnCours.consignationIntegrale ? "true" : "false",
           "codeNomenclature": articleEnCours.codeNomenclature,
-          "dateEffetLiquidation": articleEnCours.dateEffetLiquidation,
+          "dateEffetLiquidation": articleEnCours.dateEffetLiquidation ? articleEnCours.dateEffetLiquidation : this.props.liquidationVO?.refObjetLiquidation?.dateEnregistrement,
           "designation": articleEnCours.designation,
           "indicateurFranchiseTotale": articleEnCours.franchiseTotale ? "true" : "false",
           "quantite": articleEnCours.quantite,
-          "valeurTaxable": articleEnCours.valeurTaxable
+          "valeurTaxable": articleEnCours.valeurTaxable,
+          "refUniteQuantite": articleEnCours.refUniteQuantite?.code
         }
       };
+
 
       var commande = "confirmerArticle";
       if (actionType == 'add') {
         articleALiquider.numArticle = this.getNumArticle(listeArticlesLiquides);
-        articleALiquider.refParametresLiquidation.refUniteQuantite = articleEnCours.unite;
+        // articleALiquider.refParametresLiquidation.refUniteQuantite = articleEnCours.unite;
         //En cas d'ajout d'un nouveau article en consignation intégrale,
         //avec opération simultanée inexistante Supprimer envoyé que refOpertionBase seulement sans refOperationLiquidation
         if (articleEnCours.consignationIntegrale) {
@@ -205,14 +229,15 @@ class LiqRecapitulationLiqNormaleInitialeBlock extends React.Component {
           articleALiquider.refOperationLiquidation = liquidationVO.idOperation;
         }
         articleALiquider.refOperationDeBase = liquidationVO.idOperation;
+
+        console.log('----LIQ articleALiquider - add : ', JSON.stringify(articleALiquider));
         callRedux(this.props, {
           command: commande,
           typeService: 'UC',
           jsonVO: articleALiquider,
         });
-      }
-      else if (actionType == 'edit') {
-        articleALiquider.refParametresLiquidation.refUniteQuantite = articleEnCours.unite;
+      } else if (actionType == 'edit') {
+        // articleALiquider.refParametresLiquidation.refUniteQuantite = articleEnCours.refUniteQuantite;
         articleALiquider.numArticle = selectedArticle.numArticle;
 
         if (selectedArticle.refArticleLiquideReference) {
@@ -247,7 +272,7 @@ class LiqRecapitulationLiqNormaleInitialeBlock extends React.Component {
             articleALiquider.refOperationDeBase = liquidationVO.idOperation;
           }
         }
-        console.log(articleALiquider);
+        console.log('----LIQ articleALiquider - edit : ', JSON.stringify(articleALiquider));
         callRedux(this.props, {
           command: commande,
           typeService: 'UC',
@@ -256,6 +281,7 @@ class LiqRecapitulationLiqNormaleInitialeBlock extends React.Component {
       }
       // console.log(JSON.stringify(articleALiquider, null, 4));
 
+      console.log('----LIQ Action response  - ', JSON.stringify(this.props.liquidationReducer) );
       // you should be change liquidation globale data
     }
   }
@@ -340,6 +366,18 @@ class LiqRecapitulationLiqNormaleInitialeBlock extends React.Component {
             <Col size={1} />
           </Row>
         </Grid>
+        {this.props.showProgress && <ComBadrProgressBarComp />}
+
+
+        {this.state.errorMessage != null && (
+          <ComBadrErrorMessageComp message={this.state.errorMessage} />
+        )}
+        {this.props.liquidationReducer.errorMessage != null  && (
+          <ComBadrErrorMessageComp message={this.props.liquidationReducer?.errorMessage} />
+        )}
+        {this.props.liquidationReducer.messagesInfo != null  && (
+          <ComBadrInfoMessageComp message={this.props.liquidationReducer?.messagesInfo} />
+        )}
         <ComBadrCardBoxComp noPadding={true}>
           {/* Bloc Liquidation Initiale Normale */}
           <ComAccordionComp
@@ -647,6 +685,7 @@ class LiqRecapitulationLiqNormaleInitialeBlock extends React.Component {
                     label=""
                     type="flat"
                     disabled={false}
+                    keyboardType={'number-pad'}
                     style={{
                       height: 50,
                       borderRadius: 2,
@@ -665,10 +704,7 @@ class LiqRecapitulationLiqNormaleInitialeBlock extends React.Component {
                     }}
                   />
                 </Col>
-                <Col size={1} />
-                <Col size={1} />
-              </Row>
-              <Row style={CustomStyleSheet.whiteRow}>
+                <Col size={1}/>
                 <Col size={1}>
                   <ComBadrLibelleComp withColor={true}>
                     {translate('liq.articles.quantite')}
@@ -679,6 +715,7 @@ class LiqRecapitulationLiqNormaleInitialeBlock extends React.Component {
                     label=""
                     type="flat"
                     disabled={false}
+                    keyboardType={'number-pad'}
                     style={{
                       height: 50,
                       borderRadius: 2,
@@ -697,32 +734,35 @@ class LiqRecapitulationLiqNormaleInitialeBlock extends React.Component {
                     }}
                   />
                 </Col>
+              </Row>
+              <Row style={CustomStyleSheet.whiteRow}>
                 <Col size={1} style={{ alignItems: 'center' }}>
                   <ComBadrLibelleComp withColor={true}>
                     {translate('liq.articles.unite')}
                   </ComBadrLibelleComp>
                 </Col>
                 <Col size={1}>
-                  <ComBadrAutoCompleteComp
-                    key="code"
-                    libelle=""
-                    placeholder={''}
-                    onRef={(ref) => (this.state.articleEnCours.unite = ref)}
-                    value={this.state.articleEnCours.unite}
-                    handleSelectItem={(item, id) => {
-                      console.log('item select °°°°°°°° ', item)
+                  <ComBadrAutoCompleteChipsComp
+                    onRef={(ref) => (this.state.articleEnCours.refUniteQuantite = ref)}
+                    code="code"
+                    selected={this.state.articleEnCours?.refUniteQuantite}
+                    maxItems={3}
+                    libelle="libelle"
+                    command="getCmbUniteQuantite"
+                    paramName="libelleUniteQuantite"
+                    onDemand={true}
+                    searchZoneFirst={false}
+                    onValueChange={(item) => {
                       this.setState({
                         articleEnCours: {
                           ...this.state.articleEnCours,
-                          unite: item.code,
+                          refUniteQuantite: item,
                         },
                       })
-                    }}
-                    initialValue={this.state.articleEnCours.unite}
-                    command="getCmbUniteQuantite"
-                    styleInput={{ width: '100%', marginBottom: 30 }}
-                  //style={}
+                    }
+                    }
                   />
+
                 </Col>
               </Row>
               <Row style={CustomStyleSheet.whiteRow}>
@@ -733,15 +773,16 @@ class LiqRecapitulationLiqNormaleInitialeBlock extends React.Component {
                 </Col>
                 <Col size={3}>
                   <ComBadrDatePickerComp
-                    labelDate={translate(
-                      'liq.consignationInitiale.dateEcheanceConsignation',
-                    )}
-                    value={this.state.articleEnCours.dateEffetLiquidation ?
-                      this.state.articleEnCours.dateEffetLiquidation
-                      : new Date()}
                     dateFormat="DD/MM/YYYY"
-                    onDateChanged={this.onDateEcheanceConsignationChanged}
-                    inputStyle={styles.textInputsStyle}
+                    value={this.state.articleEnCours.dateEffetLiquidation ? moment(this.state.articleEnCours.dateEffetLiquidation, 'DD/MM/YYYY', true) : moment(this.state.dateEnregistrement, 'DD/MM/YYYY', true)}
+                    onDateChanged={(date) => this.setState(prevState => ({
+                      articleEnCours: {
+                        ...prevState.articleEnCours,
+                        dateEffetLiquidation: date,
+                      }
+                    }))}
+
+                    inputStyle={styles.dateInputStyle}
                   />
                 </Col>
               </Row>
