@@ -64,7 +64,8 @@ export function genererCR(action) {
           const data = response.data;
           console.log('genererCR data', data);
           if (data && _.isEmpty(data.dtoHeader.messagesErreur)) {
-            dispatch(genererCR_success(data));
+            
+            dispatch(genererCR_success({ data, numeroVersionCourante: action.value.data.numeroVersionCourante}));
           } else {
             dispatch(genererCR_failed(data));
           }

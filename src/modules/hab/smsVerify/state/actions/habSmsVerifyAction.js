@@ -3,28 +3,34 @@ import {translate} from '../../../../../commons/i18n/ComI18nHelper';
 import * as Constants from '../habSmsVerifyConstants';
 import HabSmsVerifyApi from '../../service/api/habSmsVerifyApi';
 import {ComSessionService} from '../../../../../commons/services/session/ComSessionService';
-import {load,saveStringified,encryptData,decryptData} from '../../../../../commons/services/async-storage/ComStorageService';
+import {
+  load,
+  saveStringified,
+  encryptData,
+  decryptData,
+} from '../../../../../commons/services/async-storage/ComStorageService';
 export function request(action, navigation) {
-
   return (dispatch) => {
     dispatch(action);
     dispatch(inProgress(action));
 
-    var codeSms=encryptData(action.value.code)
+    var codeSms = encryptData(action.value.code);
 
-    HabSmsVerifyApi.verify(codeSms,action.value.typeUser)
+    HabSmsVerifyApi.verify(codeSms, action.value.typeUser)
       .then((response) => {
         const jsonVO = response.data.jsonVO;
-        const decryptedCodeSms=decryptData(jsonVO.codePinSrv)
-       if (decryptedCodeSms === action.value.code) {
-
+        const decryptedCodeSms = decryptData(jsonVO.codePinSrv);
+        if (decryptedCodeSms === action.value.code) {
           dispatch(success(jsonVO));
           ComSessionService.getInstance().setCodeSmsVerify(action.value.code);
           ComSessionService.getInstance().setSessionIdBO(jsonVO.session_id);
+          if (ComSessionService.getInstance().getTypeUser() === 'DECLARANT') {
+            navigation.navigate('OperatValidate', {login: action.value.login});
+          } else {
+            navigation.navigate('Profile', {});
+          }
 
-
-          navigation.navigate('Profile', {})
-
+          //  navigation.navigate('Profile', {});
         } else if (jsonVO.connexion && jsonVO.connexion === 'false') {
           dispatch(failed(translate('smsVerify.codeIncorrect')));
         } else {
@@ -34,12 +40,7 @@ export function request(action, navigation) {
       .catch((e) => {
         dispatch(failed(translate('errors.technicalIssue')));
       });
-
-
-
-
-
-}
+  };
 }
 export function inProgress(action) {
   return {

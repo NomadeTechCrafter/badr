@@ -173,7 +173,7 @@ class ControleACVPScreen extends Component {
       documentAnnexeResultVO: this.initDocumentJSONField(),
       observation: this.props.data.init?.observation,
       decisions: this.props.data.init?.decisionControle,
-      numeroVersionCourante: this.state.numeroVersionCourante,
+      numeroVersionCourante: this.props.data.init?.numeroVersionCourante
     };
     console.log('data----', data);
     var action = ControleCommonActionBtnAction.validateSave(
@@ -273,6 +273,8 @@ class ControleACVPScreen extends Component {
   }
 
   render() {
+    console.log('this.props.data.init?.numeroVersionCourante : ', this.props.data.init?.numeroVersionCourante);
+    console.log('this.props.numeroVersionCourante : ', this.props.numeroVersionCourante);
     return (
       <View style={CustomStyleSheet.fullContainer}>
         <ComBadrToolbarComp

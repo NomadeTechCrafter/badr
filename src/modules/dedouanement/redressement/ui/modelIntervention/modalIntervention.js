@@ -63,6 +63,7 @@ export default class ModalIntervention extends React.Component {
   }
 
   render() {
+    console.log('this.props.dedReferenceVO : ', this.props.dedReferenceVO)
     return (
       <ComBadrModalComp
         visible={this.props.visible}
@@ -93,7 +94,7 @@ export default class ModalIntervention extends React.Component {
                             </Col>
                             <Col size={2}>
                               <ComBadrLibelleComp>
-                                {this.props.dedReferenceVO?.typetype}
+                                {this.props.dedReferenceVO?.type}
                               </ComBadrLibelleComp>
 
                             </Col>
@@ -107,7 +108,7 @@ export default class ModalIntervention extends React.Component {
                             </Col>
                             <Col size={2}>
                               <ComBadrLibelleComp>
-                                {this.props.dedReferenceVO?.typenumeroVersion}
+                                {this.props.dedReferenceVO?.numeroVersion}
                               </ComBadrLibelleComp>
 
                             </Col>
@@ -119,7 +120,7 @@ export default class ModalIntervention extends React.Component {
                             </Col>
                             <Col size={2}>
                               <ComBadrLibelleComp>
-                                {this.props.dedReferenceVO?.typestatus}
+                                {this.props.dedReferenceVO?.status}
                               </ComBadrLibelleComp>
 
                             </Col>

@@ -57,22 +57,6 @@ class ActifsRapportCreationEnteteTab extends Component {
 
   }
 
-  // Enregister = () => {
-  //   console.log('this.props : ', this.props);
-  //   let data = this.props.row?.id;
-
-  //   let action = getOsById.request(
-  //     {
-  //       type: Constants.ACTIFS_ENTETE_REQUEST,
-  //       value: { data: data },
-  //     } /*,
-  //                   this.props.navigation,
-  //                   this.props.successRedirection,*/,
-  //   );
-  //   this.props.dispatch(action);
-  //   ////console.log('dispatch fired !!');
-  // };
-
   render_validations = (item, libelle, row) => {
     if (_.property(item)) {
       if (libelle === 'Agent') {

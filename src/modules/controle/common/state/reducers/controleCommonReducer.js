@@ -96,7 +96,6 @@ export default (state = initialState, action) => {
           nextState.showProgress = true;
           nextState.errorMessage = null;
           nextState.infoMessage = null;
-          nextState.reponseData = null;
           console.log('--> ValiderSave request...');
           return nextState;
       case Constants.VALIDATESAVE_CONTROLE_COMMUN_IN_PROGRESS:
@@ -108,7 +107,7 @@ export default (state = initialState, action) => {
           nextState.showProgress = false;
           nextState.errorMessage = null;
           nextState.infoMessage = action.value.dtoHeader.messagesInfo;
-          nextState.reponseData = action.value.jsonVO;
+          nextState.data.init = action.value.jsonVO;
           return nextState;
       case Constants.VALIDATESAVE_CONTROLE_COMMUN_FAILED:
           console.log('--> ValiderSave failed...');
@@ -116,7 +115,6 @@ export default (state = initialState, action) => {
           nextState.errorMessage = action.value.dtoHeader.messagesErreur
               ? action.value.dtoHeader.messagesErreur
               : action.value;
-          nextState.reponseData = null;
           return nextState;
       case Constants.GENERERCR_CONTROLE_COMMUN_REQUEST:
           nextState.showProgress = true;
@@ -132,8 +130,9 @@ export default (state = initialState, action) => {
           console.log('--> GENERERCR success...', action.value.jsonVO);
           nextState.showProgress = false;
           nextState.errorMessage = null;
-          nextState.successMessage = action.value.dtoHeader.messagesInfo;
-          nextState.reponseData = action.value.jsonVO;
+          nextState.successMessage = action.value.data.dtoHeader.messagesInfo;
+          nextState.reponseData = action.value.data.jsonVO;
+          nextState.data.init.numeroVersionCourante = action.value.data.numeroVersionCourante;
           
           return nextState;
       case Constants.GENERERCR_CONTROLE_COMMUN_FAILED:
@@ -159,6 +158,7 @@ export default (state = initialState, action) => {
       console.log('CONTROLE_UPDATE_VERSIONS_REQUEST ,', action.value);
       nextState.numeroVersionBase = action.value.numeroVersionBase;
       nextState.numeroVersionCourante = action.value.numeroVersionCourante;
+      nextState.data.init.numeroVersionCourante = 0;
       return nextState;
     
     default:

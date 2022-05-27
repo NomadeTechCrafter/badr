@@ -112,7 +112,7 @@ class LiqRecapitulationLiqNormaleInitialeBlock extends React.Component {
   };
 
   showDetailArticle = (article, libelleArticle) => {
-    console.log('article ======>', JSON.stringify(article))
+    //console.log('article ======>', JSON.stringify(article))
     this.props.showDetailArticle(article, libelleArticle)
     if (this.props.liquidationType == 'manuelle' || this.props.liquidationType == 'manuelleOffice' || this.props.liquidationType == 'manuelleRedevanceAT') {
       this.setState({
