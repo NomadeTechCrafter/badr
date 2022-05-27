@@ -9,7 +9,7 @@ import store from '../../state/Store';
 export const comCustomMiddlewareService = (store) => (next) => (action) => {
   if (action.type === Constants.GENERIC_CATCH_API) {
     let error = action.value.data;
-    console.log('customMiddleware GENERIC_CATCH_API ');
+    console.log('customMiddleware GENERIC_CATCH_API ' + JSON.stringify(action));
     if (
       error.response &&
       (error.response.status === 403 || error.response.status === 401)

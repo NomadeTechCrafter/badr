@@ -44,7 +44,7 @@ class Recherche extends Component {
       data: 'jj/mm/aaaa', //moment(this.state.date).format("MM/DD/YYYY")
     };
     this.cols = [
-      {code: 'numero', libelle: 'N² OS', item: 'numero', width: 50},
+      { code: 'numero', libelle: 'N° OS', item: 'numero', width: 50},
       {code: 'confidentiel', libelle: 'Conf', item: 'confidentiel', width: 50},
       {code: 'additif', libelle: 'Add', item: 'additif', width: 50},
       {

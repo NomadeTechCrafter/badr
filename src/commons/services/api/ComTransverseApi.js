@@ -26,6 +26,7 @@ export default class ComTransverseApi {
       },
       jsonVO: _.isEmpty(_jsonVO) ? '' : _jsonVO,
     };
+    console.log(JSON.stringify(data));
     let response = await ComHttpHelperApi.process(data);
     return response;
   };

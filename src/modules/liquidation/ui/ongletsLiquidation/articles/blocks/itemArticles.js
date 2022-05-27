@@ -43,6 +43,7 @@ class ItemArticles extends React.Component {
           this.setState({libelleArticle: response.data.jsonVO});
         } else {
           console.log('----LIQ Action ERR data');
+          console.log(JSON.stringify(response));
         }
       })
       .catch((e) => {
@@ -60,7 +61,8 @@ class ItemArticles extends React.Component {
           console.log('testArticleDisplayRState', response.data.jsonVO);
           this.setState({rStateArticle: response.data.jsonVO});
         } else {
-          console.log('----LIQ Action ERR data');
+          console.log('----LIQ Action ERR data 2 ');
+          console.log(JSON.stringify(response));
         }
       })
       .catch((e) => {

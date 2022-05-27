@@ -43,6 +43,7 @@ class LiqRecapitulationLiqNormaleInitialeBlock extends React.Component {
       articleEnCours: {},
       actionType: '',
       dateEnregistrement: null,
+      compteur: 0,
     };
   }
   componentDidMount() {
@@ -111,6 +112,7 @@ class LiqRecapitulationLiqNormaleInitialeBlock extends React.Component {
   };
 
   showDetailArticle = (article, libelleArticle) => {
+    console.log('article ======>', JSON.stringify(article))
     this.props.showDetailArticle(article, libelleArticle)
     if (this.props.liquidationType == 'manuelle' || this.props.liquidationType == 'manuelleOffice' || this.props.liquidationType == 'manuelleRedevanceAT') {
       this.setState({
@@ -121,11 +123,43 @@ class LiqRecapitulationLiqNormaleInitialeBlock extends React.Component {
         actionType: 'edit',
         showRubriquesComptables: true,
       })
-      console.log('article ======>', article)
-      console.log('articleEnCours ======>', this.state.articleEnCours)
+      // console.log('articleEnCours ======>', this.state.articleEnCours)
     }
     this.setState({ selectedArticle: article, libelleArticle: libelleArticle });
   };
+
+  retablir = () => {
+    // !_.isEmpty(this.state.selectedArticle.numArticle) ?
+    //   this.setState({
+    //     articleEnCours: {}
+    //   })
+    //   :
+    console.log('+++++++++++++++++++++++++++++');
+    console.log('+++++++++++++++++++++++++++++');
+    console.log('+++++++++++++++++++++++++++++');
+    console.log(this.state.articleEnCours?.refUniteQuantite?.state?.selected);
+    console.log('+++++++++++++++++++++++++++++');
+    console.log('+++++++++++++++++++++++++++++');
+    console.log('+++++++++++++++++++++++++++++');
+      this.setState({
+        articleEnCours: {
+          ...this.state.articleEnCours,
+          codeNomenclature: '',
+          franchiseTotale: '',
+          consignationIntegrale: '',
+          codeNomenclature: '',
+          designation: '',
+          valeurTaxable: '',
+          quantite: '',
+          refUniteQuantite: '',
+          refUniteQuantite: {
+            ...this.state.articleEnCours.refUniteQuantite.state,
+            selected: '',
+          },
+          dateEffetLiquidation: '',
+        },
+      })
+  }
 
   addRubriquesComptables = () => {
     this.setState({
@@ -279,9 +313,22 @@ class LiqRecapitulationLiqNormaleInitialeBlock extends React.Component {
           jsonVO: articleALiquider,
         });
       }
-      // console.log(JSON.stringify(articleALiquider, null, 4));
+      if (!this.props.liquidationReducer.errorMessage) {
+        this.setState({
+          showRubriquesComptables: false,
+        })
+      } else {
+        this.setState({
+          showRubriquesComptables: true,
+        })
+      }
+      // let listeTaxes = [...this.state.listeArticlesLiquides];
+      // listeTaxes.push(articleALiquider);
+      // this.setState({
+      //   listeArticlesLiquides: listeTaxes
+      // })
 
-      console.log('----LIQ Action response  - ', JSON.stringify(this.props.liquidationReducer) );
+      console.log('----LIQ Action response  - ', JSON.stringify(this.props.liquidationReducer));
       // you should be change liquidation globale data
     }
   }
@@ -308,14 +355,14 @@ class LiqRecapitulationLiqNormaleInitialeBlock extends React.Component {
               },
               null,
             );
-            callLiquidationUpdateRedux(
-              this.props,
-              {
-                command: "supprimerArticle",
-                typeService: 'UC',
-                jsonVO: item,
-              },
-            )
+            // callLiquidationUpdateRedux(
+            //   this.props,
+            //   {
+            //     command: "supprimerArticle",
+            //     typeService: 'UC',
+            //     jsonVO: item,
+            //   },
+            // )
           },
         },
         { text: "No", onPress: () => console.log("Cancel Pressed"), style: "cancel" }
@@ -346,7 +393,7 @@ class LiqRecapitulationLiqNormaleInitialeBlock extends React.Component {
 
   render() {
     const { liquidationVO, liquidationType } = this.props;
-    console.log('liquidationType ======>', liquidationType)
+    console.log('liquidationType ======>', liquidationType +' ' + this.state.compteur++)
     const { listeArticlesLiquides, selectedArticle, libelleArticle, showRubriquesComptables } = this.state;
     return (
       <View>
@@ -372,10 +419,10 @@ class LiqRecapitulationLiqNormaleInitialeBlock extends React.Component {
         {this.state.errorMessage != null && (
           <ComBadrErrorMessageComp message={this.state.errorMessage} />
         )}
-        {this.props.liquidationReducer.errorMessage != null  && (
+        {this.props.liquidationReducer.errorMessage != null && (
           <ComBadrErrorMessageComp message={this.props.liquidationReducer?.errorMessage} />
         )}
-        {this.props.liquidationReducer.messagesInfo != null  && (
+        {this.props.liquidationReducer.messagesInfo != null && (
           <ComBadrInfoMessageComp message={this.props.liquidationReducer?.messagesInfo} />
         )}
         <ComBadrCardBoxComp noPadding={true}>
@@ -704,7 +751,7 @@ class LiqRecapitulationLiqNormaleInitialeBlock extends React.Component {
                     }}
                   />
                 </Col>
-                <Col size={1}/>
+                <Col size={1} />
                 <Col size={1}>
                   <ComBadrLibelleComp withColor={true}>
                     {translate('liq.articles.quantite')}
@@ -797,7 +844,7 @@ class LiqRecapitulationLiqNormaleInitialeBlock extends React.Component {
                   {translate('transverse.confirmer')}
                 </Button>
                 <Button
-                  // onPress={this.retablir}
+                  onPress={this.retablir}
                   icon="autorenew"
                   mode="contained"
                   style={styles.btnRetablir}>

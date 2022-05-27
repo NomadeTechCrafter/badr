@@ -2,7 +2,7 @@ import _ from 'lodash';
 import React from 'react';
 import { Dimensions, StyleSheet, View } from 'react-native';
 
-import { ComBadrToolbarComp } from '../../../../../commons/component';
+import { ComBadrErrorMessageComp, ComBadrInfoMessageComp, ComBadrProgressBarComp, ComBadrToolbarComp } from '../../../../../commons/component';
 import { connect } from 'react-redux';
 import { translate } from '../../../../../commons/i18n/ComI18nHelper';
 import {
@@ -81,7 +81,13 @@ class LiquidationHomeScreen extends React.Component {
   };
 
   valider = (liquidationVO) => {
-    console.log('valider');
+    console.log('+++++++++++++++++++++++++++++++++++++++++++');
+    console.log('+++++++++++++++++++++++++++++++++++++++++++');
+    console.log('+++++++++++++++++++++++++++++++++++++++++++');
+    console.log(JSON.stringify(this.props.liquidationReducer));
+    console.log('+++++++++++++++++++++++++++++++++++++++++++');
+    console.log('+++++++++++++++++++++++++++++++++++++++++++');
+    console.log('+++++++++++++++++++++++++++++++++++++++++++');
     // let {liquidationVO} = this.state;
     let data = {
       idOperation: liquidationVO.idOperation,
@@ -182,7 +188,7 @@ class LiquidationHomeScreen extends React.Component {
   }
 
   render() {
-    console.log('this.props', this.props);
+    // console.log('this.props', this.props);
     const {
       data,
       liquidationType,
@@ -197,6 +203,15 @@ class LiquidationHomeScreen extends React.Component {
           subtitle={translate('liq.titleLiqAuto')}
           icon="menu"
         />
+
+        {this.props.showProgress && <ComBadrProgressBarComp />}
+
+        {this.props.messagesInfo != null && (
+          <ComBadrInfoMessageComp message={this.props?.messagesInfo} />
+        )}
+        {this.props.errorMessage != null && (
+          <ComBadrErrorMessageComp message={this.props?.errorMessage} />
+        )}
         {!_.isNil(data) && (
           <NavigationContainer
             independent={true}
@@ -262,7 +277,7 @@ class LiquidationHomeScreen extends React.Component {
               color: 'black',
               onPress: () => {
                 console.log('--valider--');
-                this.valider(liquidationVO);
+                this.valider(this.state.liquidationVO);
                 console.log('--valider--');
               },
             },
@@ -315,7 +330,9 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps(state) {
-  return { ...state.liquidationRechercheRefDumReducer };
+  return {
+    ...state.liquidationRechercheRefDumReducer, liquidationReducer: state.liquidationReducer
+};
 }
 
 export default connect(mapStateToProps, null)(LiquidationHomeScreen);

@@ -255,7 +255,7 @@ class ActifsRapportCreationScreen extends Component {
       commentaire: null,
       dateEnregistrement: null,
       dateEnregistrementV0: '',
-      dateFin: (this.state?.dateFin) ? this.state.dateFin : moment(this.props.route?.params?.row?.dateFin), //yes
+      dateFin: (this.state?.dateFin) ? this.state.dateFin?.split("/").reverse().join("-") : moment(this.props.route?.params?.row?.dateFin?.split("/").reverse().join("-")), //yes
       description: this.state.description, //yess reacherche(description rapport)
 
       osAvecSaisie: this.state.osAvecSaisie,
@@ -301,21 +301,6 @@ class ActifsRapportCreationScreen extends Component {
 
     };
     cleanOrdreService(rsAEnregistrer);
-    // console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
-    // console.log('this.state.vehiculesSaisiVO : ', this.state.vehiculesSaisiVO);
-    // console.log('this.state.marchandisesVO : ', this.state.marchandisesVO);
-    // console.log('this.state.pvsSaisi : ', this.state.pvsSaisi);
-    // console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
-    // console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
-    // console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
-    // console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
-    // console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
-    // console.log(JSON.stringify(rsAEnregistrer));
-    // console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
-    // console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
-    // console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
-    // console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
-    // console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
     if (this.checkDatesDebutFinInformations() || this.checkDetail()) {
       return;
     }
@@ -325,6 +310,21 @@ class ActifsRapportCreationScreen extends Component {
   enregisterRS = () => {
     let rsAEnregistrer = this.preparerRSAEnregistrer();
 
+    console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
+    // console.log('this.state.vehiculesSaisiVO : ', this.state.vehiculesSaisiVO);
+    // console.log('this.state.marchandisesVO : ', this.state.marchandisesVO);
+    // console.log('this.state.pvsSaisi : ', this.state.pvsSaisi);
+    console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
+    console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
+    console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
+    console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
+    console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
+    console.log(JSON.stringify(rsAEnregistrer));
+    console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
+    console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
+    console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
+    console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
+    console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
     let action = enregistrerRS.request({
       type: Constants.ACTIFS_CREATION_REQUEST,
       value: { data: rsAEnregistrer },

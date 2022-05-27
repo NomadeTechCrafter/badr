@@ -15,7 +15,7 @@ export const getValueByPaths = (key1, key2, object) => {
 
 export const callRedux = (props, jsonVO, successRedirection) => {
   if (props.dispatch) {
-    console.log('calling redux dispatch ...');
+    console.log('calling redux dispatch ... supprimerArticle callRedux');
     props.dispatch(
       request(
         { type: GENERIC_LIQ_REQUEST, value: jsonVO },
@@ -26,7 +26,7 @@ export const callRedux = (props, jsonVO, successRedirection) => {
 
 export const callLiquidationUpdateRedux = (props, data) => {
   if (props.dispatch) {
-    console.log('calling redux dispatch ...');
+    console.log('calling redux dispatch ... supprimerArticle callLiquidationUpdateRedux ');
     var action = RechecheDumAction.requestUpdate(
       {
         type: Constants.RECHERCHEREFDUM_REQUEST,
