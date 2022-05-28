@@ -35,9 +35,17 @@ export default {
     nbrEnregistrement: 'Nombre Enregistrements',
     declaration: 'Déclaration',
     dateCreation: 'Date Création',
+    reference: 'Référence',
+    numeroVersion: 'Numéro de version',
     dateEnregistrement: 'Date Enregistrement',
     nVoyage: 'N°Voy',
     regimeTransite: 'Régime transit',
-    choixDecisionRequired: "Le choix d'une décision est obligatoire"
+    choixDecisionRequired: "Le choix d'une décision est obligatoire",
+    listeD17D20: {
+      title: 'Liste des D17/D20',
+      reference: 'Référence',
+      dateCreation: 'Date de création',
+      numeroVersion: 'Numéro de version',
+    },
   },
 };

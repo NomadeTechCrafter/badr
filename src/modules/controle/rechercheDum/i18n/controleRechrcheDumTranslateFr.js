@@ -36,6 +36,8 @@ export default {
     nbrEnregistrement: 'Nombre Enregistrements',
     declaration: 'Déclaration',
     dateCreation: 'Date Création',
+    reference: 'Référence',
+    numeroVersion: 'Numéro de version',
     dateEnregistrement: 'Date Enregistrement',
     nVoyage: 'N°Voy',
     regimeTransite: 'Régime transit',

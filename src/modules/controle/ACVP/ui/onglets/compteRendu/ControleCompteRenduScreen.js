@@ -74,17 +74,17 @@ class ControleCompteRenduScreen extends React.Component {
         return [
             {
                 code: 'referenceEnregistrement',
-                libelle: translate('mainlevee.delivrerMainlevee.listeD17D20.reference'),
+                libelle: translate('controle.reference'),
                 width: 180,
             },
             {
                 code: 'dateCreation',
-                libelle: translate('mainlevee.delivrerMainlevee.listeD17D20.dateCreation'),
+                libelle: translate('controle.dateCreation'),
                 width: 180,
             },
             {
                 code: 'numeroVersionCourante',
-                libelle: translate('mainlevee.delivrerMainlevee.listeD17D20.numeroVersion'),
+                libelle: translate('controle.numeroVersion'),
                 width: 180,
             },
         ];

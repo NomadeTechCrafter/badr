@@ -74,7 +74,7 @@ class ControleRefDeclarationBlock extends React.Component {
             leftMargin: {
                 // margin: 10,
                 // marginBottom: 10,
-                marginLeft: 60,
+                marginLeft: 35,
                 // width: 75,
                 color: 'white',
             },
@@ -188,7 +188,7 @@ class ControleRefDeclarationBlock extends React.Component {
                                             </Col>
                                             <Col>
                                                 <ComBadrLibelleComp withColor={true} style={styles.marg}>
-                                                    {translate('mainlevee.numVoyage')}
+                                                    {translate('dedouanement.info.numVoyage')}
                                                 </ComBadrLibelleComp>
                                             </Col>
                                         </Row>

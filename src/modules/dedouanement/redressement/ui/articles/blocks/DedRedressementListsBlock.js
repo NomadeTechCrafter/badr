@@ -205,6 +205,15 @@ class DedRedressementListsBlock extends React.Component {
     });
 
     this.props.update(dedDumVo);
+    console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+    console.log('---------------------------------------------------------------------------');
+    console.log('***********************************************************************************');
+    console.log('////////////////////////////////////////////////////////////////////////////////');
+    console.log(JSON.stringify(dedDumVo));
+    console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+    console.log('---------------------------------------------------------------------------');
+    console.log('***********************************************************************************');
+    console.log('////////////////////////////////////////////////////////////////////////////////');
   }
 
   updateAccordFranchisee = (val) => {
@@ -228,15 +237,6 @@ class DedRedressementListsBlock extends React.Component {
     });
 
     this.props.update(dedDumVo);
-    // console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
-    // console.log('---------------------------------------------------------------------------');
-    // console.log('***********************************************************************************');
-    // console.log('////////////////////////////////////////////////////////////////////////////////');
-    // console.log(JSON.stringify(dedDumVo));
-    // console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
-    // console.log('---------------------------------------------------------------------------');
-    // console.log('***********************************************************************************');
-    // console.log('////////////////////////////////////////////////////////////////////////////////');
   }
 
   updateArticleOrigine = (val) => {
@@ -314,7 +314,7 @@ class DedRedressementListsBlock extends React.Component {
     this.setState({
       dedDumVo: dedDumVo
     });
-    this.props.update();
+    this.props.update(dedDumVo);
     this.setState({ selectedArticle: null, selectedArticleIndex: null, });
     console.log('val supprimer:', JSON.stringify(this.state.articles));
   };
@@ -376,7 +376,7 @@ class DedRedressementListsBlock extends React.Component {
       this.setState({
         dedDumVo: dedDumVo
       });
-      this.props.update();
+      this.props.update(dedDumVo);
       this.setState({ selectedArticle: null, selectedArticleIndex: null, });
       console.log('val supprimer:', JSON.stringify(this.state.articles));
     }
@@ -386,7 +386,12 @@ class DedRedressementListsBlock extends React.Component {
     { console.log('===================================================confirmer============================================================') }
     { console.log('===================================================confirmer============================================================') }
     console.log(JSON.stringify(this.state.selectedArticle));
-    this.props.update();
+    let dedDumVo = { ...this.state.dedDumVo, dedDumSectionArticlesVO: { ...this.state.dedDumVo?.dedDumSectionArticlesVO, dedDumArticleFormVO: this.state.articles } };
+
+    this.setState({
+      dedDumVo: dedDumVo
+    });
+    this.props.update(dedDumVo);
     this.setState({ selectedArticle: null, selectedArticleIndex: null, });
     { console.log('====================================================confirmer===========================================================') }
     { console.log('====================================================confirmer===========================================================') }

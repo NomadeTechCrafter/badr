@@ -88,7 +88,17 @@ class habProfileScreen extends React.Component {
     this.comboArrondissements.refresh(selectedValue, this.comboBureaux);
   };
 
-  handleOnConfirmProfils = (items) => {};
+  handleOnConfirmProfils = (items) => {
+    console.log('----------------------------handleOnProfilItemsChanged------------------------------------');
+    console.log('----------------------------------------------------------------');
+    console.log('----------------------------------------------------------------');
+    console.log('----------------------------------------------------------------');
+    console.log(JSON.stringify(items));
+    console.log('----------------------------------------------------------------');
+    console.log('----------------------------------------------------------------');
+    console.log('----------------------------------------------------------------');
+    console.log('-----------------------------handleOnProfilItemsChanged-----------------------------------');
+};
 
   handleOnProfilItemsChanged = (items) => {
     console.log('----------------------------handleOnProfilItemsChanged------------------------------------');

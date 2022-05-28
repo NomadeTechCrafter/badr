@@ -16,6 +16,15 @@ class DedRedressementArticlesScreen extends React.Component {
   componentDidMount() { }
   
   updateRedressement = (data) => {
+    console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+    console.log('---------------------------------------------------------------------------');
+    console.log('***********************************************************************************');
+    console.log('////////////////////////////////////////////////////////////////////////////////');
+    console.log(JSON.stringify(data));
+    console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+    console.log('---------------------------------------------------------------------------');
+    console.log('***********************************************************************************');
+    console.log('////////////////////////////////////////////////////////////////////////////////');
     let action = dedUpdateRedressementAction.update(
       {
         type: REDRESSEMENT_UPDATE,
@@ -29,7 +38,8 @@ class DedRedressementArticlesScreen extends React.Component {
     return (
       <ScrollView>
         <DedRedressementListsBlock
-          data={this.props.data}
+          // data={this.props.data}
+          data={this.state.dedDumVo}
           edition={this.props.isRedressementDUM}
           update={this.updateRedressement}
           navigation={this.props.navigation}
