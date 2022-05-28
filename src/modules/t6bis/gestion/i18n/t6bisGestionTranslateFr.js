@@ -269,6 +269,7 @@ export default {
             enregistrer: 'Enregistrer',
             sauvegarder: 'Sauvegarder',
             envoyerTransaction: 'Envoyer Transaction',
+                verifierTransaction:'Verifier Transaction',
             supprimer: 'Supprimer',
             quitter: 'Quitter',
         }

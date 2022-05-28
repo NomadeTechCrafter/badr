@@ -82,6 +82,7 @@ export const serverErrors = {
     "??? E1100022 ???": "E1100022 : La quittance est déjà utilisée.",
     "??? E1100020 ???": "E1100020 : APUREMENT : Vous ne pouvez pas apurer une T6Bis déjà liquidée.",
     "??? E1100019 ???": "E1100019 : T6bis encore sauvegardée, elle doit être enregistrée.",
+
 }
 
 

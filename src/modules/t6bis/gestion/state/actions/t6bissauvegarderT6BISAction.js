@@ -1,6 +1,7 @@
 import { mapErrorsGestion } from '../../../utils/t6bisUtils';
 import T6bisGestiontionApi from '../../service/api/t6bisGestionApi';
 import * as Constants from '../t6bisGestionConstants';
+import * as Constantes from "../t6bisGestionConstants";
 
 export function request(action) {
     return (dispatch) => {
@@ -17,6 +18,7 @@ export function request(action) {
                     
                     action.value.t6bis = data.jsonVO;
                     action.value.dtoHeader = data.dtoHeader;
+
                     dispatch(success(action));
                     
                     
@@ -32,6 +34,13 @@ export function request(action) {
 }
 
 export function success(action) {
+    console.log('action type',action.type)
+    if(action.type==Constantes.T6BIS_SAUVEGARDER_TPE_REQUEST)
+        return {
+            type: Constants.T6BIS_SAUVEGARDER_TPE_SUCCES,
+            value: action.value,
+        };
+    else
     return {
         type: Constants.T6BIS_SAUVEGARDER_SUCCES,
         value: action.value,

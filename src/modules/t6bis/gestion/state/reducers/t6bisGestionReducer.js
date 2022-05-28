@@ -16,7 +16,8 @@ const initialState = {
   redevableResponse: null,
   newIntervenant: null,
   infoCompleted: null,
-  hideEnregistrerButton: false
+  hideEnregistrerButton: false,
+  hideVerifierTransaction: false
 
 };
 
@@ -191,17 +192,20 @@ export default (state = initialState, action) => {
       nextState.successMessage = '';
       return nextState;
     case Constants.T6BIS_ADD_TAXATION_GLOBALE_FAILED:
+
       return nextState;
     case Constants.T6BIS_SAUVEGARDER_REQUEST:
-      
+      nextState.showProgress = true;
       return nextState;
     case Constants.T6BIS_SAUVEGARDER_IN_PROGRESS:
+      nextState.showProgress = true;
       nextState.successMessage = null;
       nextState.errorMessage = null;
       return nextState;
     case Constants.T6BIS_SAUVEGARDER_SUCCES:
       console.log('11/02/2022  ', Constants.T6BIS_SAUVEGARDER_SUCCES);
       nextState.t6bis = action.value.t6bis;
+      nextState.showProgress = false;
       if (isCreation()) {
         if ((isMtm() || isCm()) && action.value.t6bis) {
           nextState.t6bis.listeArticleT6bis = action.value.tempListArticles;
@@ -209,8 +213,10 @@ export default (state = initialState, action) => {
       }
       nextState.successMessage = action.value.dtoHeader
         ? action.value.dtoHeader.messagesInfo[0] : null;
-      
-      nextState.errorMessage = null;
+
+      nextState.errorMessage = action.value.dtoHeader
+          ? action.value.dtoHeader.messagesErreur
+          :  action.value;
       console.log('11/02/2022 action.value.cmd == CMD_ENREGISTRER_T6BIS ', action.value.cmd == CMD_ENREGISTRER_T6BIS);
       console.log('11/02/2022 action.value.cmd ', action.value.cmd);
       if (action.value.cmd == CMD_ENREGISTRER_T6BIS + nextState.t6bis.codeTypeT6bis) {
@@ -221,13 +227,20 @@ export default (state = initialState, action) => {
 
       return nextState;
     case Constants.T6BIS_SAUVEGARDER_FAILED:
-      nextState.errorMessage = action.value;
+      nextState.showProgress = false;
+      nextState.errorMessage = action.value.dtoHeader
+          ? action.value.dtoHeader.messagesErreur
+          :  action.value;
       return nextState;
     case Constants.T6BIS_ENREGISTRER_REQUEST:
+      nextState.showProgress = true;
       return nextState;
     case Constants.T6BIS_ENREGISTRER_IN_PROGRESS:
+      nextState.showProgress = true;
       return nextState;
     case Constants.T6BIS_ENREGISTRER_SUCCES:
+      nextState.showProgress = false;
+
       nextState.t6bis = action.value.t6bis;
       if (isCreation()) {
         if ((isMtm() || isCm()) && action.value.t6bis) {
@@ -236,11 +249,16 @@ export default (state = initialState, action) => {
       }
       nextState.successMessage = action.value.dtoHeader
         ? action.value.dtoHeader.messagesInfo[0] : null;
-      nextState.errorMessage = null;
+      nextState.errorMessage = action.value.dtoHeader
+          ? action.value.dtoHeader.messagesErreur
+          :  action.value;
       
       return nextState;
     case Constants.T6BIS_ENREGISTRER_FAILED:
-      nextState.errorMessage = action.value;
+      nextState.showProgress = false;
+      nextState.errorMessage = action.value.dtoHeader
+          ? action.value.dtoHeader.messagesErreur
+          :  action.value;
       return nextState;
     case Constants.T6BIS_SUPPRIMER_REQUEST:
       return nextState;
@@ -272,28 +290,50 @@ export default (state = initialState, action) => {
     case Constants.T6BIS_GESTION_CHECK_NOMENCLATURE_CODE_FAILED:
       nextState.errorMessage = action.value;
       return nextState;
-/*case Constants.T6BIS_GESTION_ALL_LIST_TPE_REQUEST:
-      console.log(Constants.T6BIS_GESTION_ALL_LIST_TPE_REQUEST);
+    case Constants.T6BIS_SAUVEGARDER_TPE_REQUEST:
+      console.log('tpe in progress');
       nextState.displayError = false;
       nextState.correct = false;
       nextState.showProgress = true;
       return nextState;
-   case Constants.T6BIS_GESTION_ALL_LIST_TPE_IN_PROGRESS:
+    case Constants.T6BIS_SAUVEGARDER_TPE_PROGRESS:
+      nextState.showProgress = true;
+      nextState.successMessage = null;
+      nextState.errorMessage = null;
       return nextState;
-    case Constants.T6BIS_GESTION_ALL_LIST_TPE_SUCCES:
-      console.log('CREATION_T6BIS_ALL_LIST_TPE_SUCCES reducer');
+    case Constants.T6BIS_SAUVEGARDER_TPE_SUCCES:
+      console.log('T6BIS_SAUVEGARDER_TPE_SUCCES reducer');
+      console.log('11/02/2022  ', Constants.T6BIS_SAUVEGARDER_SUCCES);
+      nextState.t6bis = action.value.t6bis;
       nextState.showProgress = false;
-      nextState.confirmed = true;
-      nextState.listDesTpes = action.value;
-      console.log('action.value', action.value);
-            // items = action.value;
-      return nextState;
-    case Constants.T6BIS_GESTION_ALL_LIST_TPE_FAILED:
-      nextState.showProgress = false;
+      if (isCreation()) {
+        if ((isMtm() || isCm()) && action.value.t6bis) {
+          nextState.t6bis.listeArticleT6bis = action.value.tempListArticles;
+        }
+      }
+      nextState.successMessage = action.value.dtoHeader
+          ? action.value.dtoHeader.messagesInfo[0] : null;
+
+      nextState.errorMessage = action.value.dtoHeader
+          ? action.value.dtoHeader.messagesErreur
+          :  action.value;
+      console.log('11/02/2022 action.value.cmd == CMD_ENREGISTRER_T6BIS ', action.value.cmd == CMD_ENREGISTRER_T6BIS);
+      console.log('11/02/2022 action.value.cmd ', action.value.cmd);
+      if (action.value.cmd == CMD_ENREGISTRER_T6BIS + nextState.t6bis.codeTypeT6bis) {
+        nextState.hideEnregistrerButton = true;
+        console.log('11/02/2022 nextState ', nextState);
+        console.log('11/02/2022  ', Constants.T6BIS_SAUVEGARDER_SUCCES);
+      }
+      nextState.hideVerifierTransaction=true
+    case Constants.T6BIS_SAUVEGARDER_TPE_FAILD:
+
       nextState.cofirmed = false;
       nextState.displayError = true;
-      nextState.errorMessage = action.value;
-      return nextState;*/
+      nextState.showProgress = false;
+      nextState.errorMessage = action.value.dtoHeader
+          ? action.value.dtoHeader.messagesErreur
+          :  action.value;
+      return nextState;
     default:
       return nextState ? nextState : initialState;
   }

@@ -676,6 +676,7 @@ export const mapErrorsGestion = function (errorsArray) {
       'E1100024 : La date de sortie doit être inférieure ou égal à la date système.',
     '??? E1100025 ???':
       'E1100025 : La date de sortie doit être  supérieure à la date d’entrée.',
+    '??? Erreur BADR (timeout, erreur d’appel ….) ???': 'Erreur BADR (timeout, erreur d’appel ….).',
   };
   let messages = [];
   console.log('errorsArray : ', JSON.stringify(errorsArray));

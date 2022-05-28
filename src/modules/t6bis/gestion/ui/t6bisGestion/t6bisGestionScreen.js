@@ -8,10 +8,15 @@ import {
   ComBadrDialogComp,
   ComBadrErrorMessageComp,
   ComBadrInfoMessageComp,
+  ComBadrProgressBarComp,
   ComBadrToolbarComp,
 } from '../../../../../commons/component';
 import {translate} from '../../../../../commons/i18n/ComI18nHelper';
-import {primaryColor} from '../../../../../commons/styles/ComThemeStyle';
+import {
+  accentColor,
+  primaryColor,
+  primaryColorRgba,
+} from '../../../../../commons/styles/ComThemeStyle';
 import {
   CMD_ENREGISTRER_T6BIS,
   CMD_SAUVEGARDER_T6BIS,
@@ -45,6 +50,7 @@ import T6bisHistoriqueTab from './historique/t6bisHistoriqueScreen';
 import T6bisInformationsTab from './informations/t6bisInformationsScreen';
 import T6bisTaxationGlobaleTab from './taxationglobale/t6bisTaxationGlobaleScreen';
 import T6bisTaxationManuelleTab from './taxationmanuelle/t6bisTaxationManuelleScreen';
+import Spinner from 'react-native-loading-spinner-overlay';
 const Tab = createMaterialTopTabNavigator();
 
 function EnteteTab({route, navigation}) {
@@ -244,11 +250,17 @@ class T6bisGestion extends React.Component {
   enregistrer = () => {
     this.lancerUC(CMD_ENREGISTRER_T6BIS);
   };
-  envoyerTransaction = () => {
-    this.lancerUC(CMD_SAUVEGARDER_TPE_T6BIS);
-    if (this.state.errorMessage == null) {
+  envoyerTransaction =  () => {
+     this.lancerUC(CMD_SAUVEGARDER_TPE_T6BIS);
+    /*if (this.props.errorMessage == null||this.props.messagesErreur.length === 0) {
+      console.log('lancer appel2')
       this.lancerUC(CMD_ENREGISTRER_T6BIS);
-    }
+    }*/
+  };
+  verifierTransaction =  () => {
+
+      this.lancerUC(CMD_ENREGISTRER_T6BIS);
+
   };
   quitter = () => {
     console.log('Quitter la page Bienvenue');
@@ -304,7 +316,7 @@ class T6bisGestion extends React.Component {
       props,
     );
     console.log(
-      'T6bisGestion-->getDerivedStateFromProps--------------------state ',
+      'T6bisGestion-->getDerivedStateFromProps-------------------state ',
       state,
     );
 
@@ -331,14 +343,15 @@ class T6bisGestion extends React.Component {
     );
     return (
       <ScrollView style={styles.container}>
+
         <ComBadrToolbarComp
           navigation={this.props.navigation}
           icon="menu"
           title={this.props.route.params.title}
         />
-        {this.state.errorMessage != null && (
+        {this.props.errorMessage != null && (
           <View style={styles.messages}>
-            <ComBadrErrorMessageComp message={this.state.errorMessage} />
+            <ComBadrErrorMessageComp message={this.props.errorMessage} />
           </View>
         )}
         {this.state.successMessage != null && (
@@ -457,13 +470,24 @@ class T6bisGestion extends React.Component {
                 />
               )
             ) : (
-              <ComBadrButtonComp
-                style={{width: 100}}
-                onPress={() => {
-                  this.envoyerTransaction();
-                }}
-                text={translate('t6bisGestion.buttons.envoyerTransaction')}
-              />
+                this.props.hideVerifierTransaction ? (
+                    <ComBadrButtonComp
+                        style={{width: 100}}
+                        onPress={() => {
+                          this.verifierTransaction();
+                        }}
+                        text={translate('t6bisGestion.buttons.verifierTransaction')}
+                    />
+                ):(
+                    <ComBadrButtonComp
+                        style={{width: 100}}
+                        onPress={() => {
+                          this.envoyerTransaction();
+                        }}
+                        text={translate('t6bisGestion.buttons.envoyerTransaction')}
+                    />
+                )
+
             )}
             {_.isEmpty(this.props.t6bis?.referenceEnregistrement) && (
               <ComBadrButtonComp
