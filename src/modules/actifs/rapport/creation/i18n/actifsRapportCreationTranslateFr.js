@@ -89,7 +89,7 @@ export default {
         "aeroportEntree": "Aéroport d'entrée",
         "portEntree": "Port d'entrée",
         "provenance": "Provenance",
-        "villeProvenance": "Ville provenance",
+        "villeProvenance": "Ville de provenance",
         "aeroportAttache": "Aeroport d'attache",
         "pavillon": "Pavillon",
         "dateDepart": "Date de départ",
@@ -195,7 +195,7 @@ export default {
         "motifAccostage": "Motif d'accostage",
         "portEntree": "Port d'entrée",
         "provenance": "Provenance",
-        "villeProvenance": "Ville provenance",
+        "villeProvenance": "Ville de provenance",
         "portAttache": "Port d'attache",
         "pavillon": "Pavillon",
         "dateDepart": "Date de départ",
@@ -207,7 +207,8 @@ export default {
         "numDeclaration": "Numero de déclaration",
         "delivreePar": "Delivrée par",
         "dateDeclaration": "Date de déclaration",
-        "msgErrorOrdreDateEntreeDepart": "Date départ doit être supérieure à la date entrée"
+        "msgErrorOrdreDateEntreeDepart": "Date départ doit être supérieure à la date entrée",
+        "msgErrorOrdreDateDepartDateFinControle": "La date de départ doit être strictement supérieure à la date de fin de contrôle"
       },
       "caracteristiques": {
         "title": "Caractéristiques du bateau",
@@ -288,7 +289,7 @@ export default {
         "heureFinControle": "Heure fin du contrôle",
         "observations": "Observations",
         "resultatControle": "Résultat du contrôle",
-        "msgErrorOrdreDateDebutFinControle": "Date fin coontôle doit être supérieure à la date fin contrôle"
+        "msgErrorOrdreDateDebutFinControle": "Date fin contôle doit être supérieure à la date début contrôle"
       }
     },
     "rondesApparitions": {
@@ -438,6 +439,8 @@ export default {
         "dateEnregistrementDum": "Date d'enregistrement DUM",
         "bonLivraison": "N° Bon de livraison",
         "dateLivraison": "Date de livraison",
+        "dateSortie": "Date de livraison",
+        "heureSortie": "Heure de livraison",        
         "compagnieAerienne": "Compagnie aérienne",
         "bateau": "Bateau",
         "natureProduit": "Nature produit",

@@ -25,11 +25,11 @@ class ActifsRapportNavigationAerienneBlock extends React.Component {
             index: this.props.index,
             showDateAtterissage: false,
             showHeureAtterissage: false,
-            heureAtterissageTech: this.props.navigationAerienneModel ? this.props.navigationAerienneModel.heureAtterissage : new Date(),
+            heureAtterissageTech:  (new Date()).getTime(),
             acProvenance: this.props.navigationAerienneModel ? this.props.navigationAerienneModel.provenance.nomPays : '',
             showDateDepart: false,
             showHeureDepart: false,
-            heureDepartTech: this.props.navigationAerienneModel ? this.props.navigationAerienneModel.heureDepart : new Date(),
+            heureDepartTech:  (new Date()).getTime(),
             acDestination: this.props.navigationAerienneModel ? this.props.navigationAerienneModel.destination.nomPays : '',
 
         };
@@ -169,6 +169,7 @@ class ActifsRapportNavigationAerienneBlock extends React.Component {
 
 
     render() {
+        console.log("this.state?.navigationAerienneModel?.heureAtterissage : ",this.state?.navigationAerienneModel?.heureAtterissage)
 
         return (
 
@@ -227,7 +228,7 @@ class ActifsRapportNavigationAerienneBlock extends React.Component {
                                     <Col size={2} />
                                     <Col size={4}>
                                         <ComBadrLibelleComp withColor={true}>
-                                            {translate('actifsCreation.avionsPrivees.navigAerienne.heureAtterissage') + 'x' + this.state.navigationAerienneModel.heureAtterissage}
+                                            {translate('actifsCreation.avionsPrivees.navigAerienne.heureAtterissage')}
                                         </ComBadrLibelleComp>
                                     </Col>
                                     <Col size={4}>

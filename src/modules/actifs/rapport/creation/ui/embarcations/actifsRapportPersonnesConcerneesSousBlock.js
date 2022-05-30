@@ -171,9 +171,9 @@ class ActifsRapportPersonnesConcerneesSousBlock extends React.Component {
     }
 
     render() {
-        console.log('Yassine laghouazi' + this.props.index);
-        console.log('Yassine laghouazi' + this.state.selectedIndex);
-        console.log('Yassine laghouazi' + this.props.proprietaires);
+        console.log('29052022' + this.props.index);
+        console.log('29052022' + this.state.selectedIndex);
+        console.log('29052022' + this.props.proprietaires);
         return (
 
             <View>

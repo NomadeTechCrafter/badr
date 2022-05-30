@@ -366,7 +366,7 @@ class ActifsRapportCaracteristiquesBateauBlock extends React.Component {
                                 <Row style={CustomStyleSheet.whiteRow}>
                                     <Col size={6}>
                                         <ComBadrLibelleComp withColor={true}>
-                                            {translate('actifsCreation.embarcations.navigMaritime.dateDeclaration')}
+                                            Du
                                         </ComBadrLibelleComp>
                                     </Col>
                                     <Col size={4}>

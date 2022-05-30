@@ -231,10 +231,29 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
         // console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
         // console.log(JSON.stringify(modele));
         // console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
-        if (_.isEmpty(modele.numBonLivraison)) {
+
+        if (_.isEmpty(modele.uniteMesure)) {
             params.required = true;
             params.msg += !_.isEmpty(params.msg) ? ", " : "";
-            params.msg += translate('actifsCreation.avitaillementEntree.main.bonLivraison');
+            params.msg += translate('actifsCreation.avitaillementEntree.main.uniteMesure');
+        }
+
+        if (_.isEmpty(modele.observations)) {
+            params.required = true;
+            params.msg += !_.isEmpty(params.msg) ? ", " : "";
+            params.msg += translate('actifsCreation.avitaillementEntree.main.observations');
+        }
+
+        if (_.isEmpty(modele.densite15)) {
+            params.required = true;
+            params.msg += !_.isEmpty(params.msg) ? ", " : "";
+            params.msg += translate('actifsCreation.avitaillementEntree.main.densiteA15');
+        }
+
+        if (_.isEmpty(modele.immatriculationCamion)) {
+            params.required = true;
+            params.msg += !_.isEmpty(params.msg) ? ", " : "";
+            params.msg += translate('actifsCreation.avitaillementEntree.main.immatriculationCamion');
         }
 
         if (_.isEmpty(modele.dateLivraison)) {
@@ -249,10 +268,46 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
             params.msg += translate('actifsCreation.avitaillementEntree.main.heureLivraison');
         }
 
-        if (_.isEmpty(modele.immatriculationCamion)) {
+        if (_.isEmpty(modele.coeffConvert)) {
             params.required = true;
             params.msg += !_.isEmpty(params.msg) ? ", " : "";
-            params.msg += translate('actifsCreation.avitaillementEntree.main.immatriculationCamion');
+            params.msg += translate('actifsCreation.avitaillementEntree.main.coefficientConvertion');
+        }
+
+        if (_.isEmpty(modele.volumeAppReceptionne)) {
+            params.required = true;
+            params.msg += !_.isEmpty(params.msg) ? ", " : "";
+            params.msg += translate('actifsCreation.avitaillementEntree.main.volumentApparentReceptionne');
+        }
+
+        if (_.isEmpty(modele.temperature)) {
+            params.required = true;
+            params.msg += !_.isEmpty(params.msg) ? ", " : "";
+            params.msg += translate('actifsCreation.avitaillementEntree.main.temperature');
+        }
+
+        if (_.isEmpty(modele.numBonLivraison)) {
+            params.required = true;
+            params.msg += !_.isEmpty(params.msg) ? ", " : "";
+            params.msg += translate('actifsCreation.avitaillementEntree.main.bonLivraison');
+        }
+
+        if (_.isEmpty(modele.dateReception?.toString())) {
+            params.required = true;
+            params.msg += !_.isEmpty(params.msg) ? ", " : "";
+            params.msg += translate('actifsCreation.avitaillementEntree.main.dateReception');
+        }
+
+        if (_.isEmpty(modele.volumeAppEnvoye)) {
+            params.required = true;
+            params.msg += !_.isEmpty(params.msg) ? ", " : "";
+            params.msg += translate('actifsCreation.avitaillementEntree.main.volumentApparentEnvoye');
+        }
+
+        if (_.isEmpty(modele.heureReception?.toString())) {
+            params.required = true;
+            params.msg += !_.isEmpty(params.msg) ? ", " : "";
+            params.msg += translate('actifsCreation.avitaillementEntree.main.heureReception');
         }
 
         if (_.isEmpty(modele.immatriculationCiterne)) {
@@ -273,52 +328,10 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
             params.msg += translate('actifsCreation.avitaillementEntree.main.natureProduit');
         }
 
-        if (_.isEmpty(modele.dateReception?.toString())) {
-            params.required = true;
-            params.msg += !_.isEmpty(params.msg) ? ", " : "";
-            params.msg += translate('actifsCreation.avitaillementEntree.main.dateReception');
-        }
-
-        if (_.isEmpty(modele.heureReception?.toString())) {
-            params.required = true;
-            params.msg += !_.isEmpty(params.msg) ? ", " : "";
-            params.msg += translate('actifsCreation.avitaillementEntree.main.heureReception');
-        }
-
-        if (_.isEmpty(modele.uniteMesure)) {
-            params.required = true;
-            params.msg += !_.isEmpty(params.msg) ? ", " : "";
-            params.msg += translate('actifsCreation.avitaillementEntree.main.uniteMesure');
-        }
-
-        if (_.isEmpty(modele.volumeAppEnvoye)) {
-            params.required = true;
-            params.msg += !_.isEmpty(params.msg) ? ", " : "";
-            params.msg += translate('actifsCreation.avitaillementEntree.main.volumentApparentEnvoye');
-        }
-
-        if (_.isEmpty(modele.volumeAppReceptionne)) {
-            params.required = true;
-            params.msg += !_.isEmpty(params.msg) ? ", " : "";
-            params.msg += translate('actifsCreation.avitaillementEntree.main.volumentApparentReceptionne');
-        }
-
-        if (_.isEmpty(modele.coeffConvert)) {
-            params.required = true;
-            params.msg += !_.isEmpty(params.msg) ? ", " : "";
-            params.msg += translate('actifsCreation.avitaillementEntree.main.coefficientConvertion');
-        }
-
         if (_.isEmpty(modele.volume15Recep) && modele.volume15Recep < 0) {
             params.required = true;
             params.msg += !_.isEmpty(params.msg) ? ", " : "";
             params.msg += translate('actifsCreation.avitaillementEntree.main.volumeA15');
-        }
-
-        if (_.isEmpty(modele.densite15)) {
-            params.required = true;
-            params.msg += !_.isEmpty(params.msg) ? ", " : "";
-            params.msg += translate('actifsCreation.avitaillementEntree.main.densiteA15');
         }
 
         if (_.isEmpty(modele.poidsReceptionne) && modele.poidsReceptionne < 0) {
@@ -327,22 +340,10 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
             params.msg += translate('actifsCreation.avitaillementEntree.main.poidsReceptione');
         }
 
-        if (_.isEmpty(modele.temperature)) {
-            params.required = true;
-            params.msg += !_.isEmpty(params.msg) ? ", " : "";
-            params.msg += translate('actifsCreation.avitaillementEntree.main.temperature');
-        }
-
         if (_.isEmpty(modele.valeurEcart) && modele.valeurEcart < 0) {
             params.required = true;
             params.msg += !_.isEmpty(params.msg) ? ", " : "";
             params.msg += translate('actifsCreation.avitaillementEntree.main.ecart');
-        }
-
-        if (_.isEmpty(modele.observations)) {
-            params.required = true;
-            params.msg += !_.isEmpty(params.msg) ? ", " : "";
-            params.msg += translate('actifsCreation.avitaillementEntree.main.observations');
         }
 
     }

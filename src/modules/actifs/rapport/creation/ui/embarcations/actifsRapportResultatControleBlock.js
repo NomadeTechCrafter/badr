@@ -25,10 +25,10 @@ class ActifsRapportResultatControleBlock extends React.Component {
             navigationMaritimeModel: this.props.navigationMaritimeModel ? this.props.navigationMaritimeModel : getNavigationMaritimeModelInitial(),
             showDateDebutControle: false,
             showHeureDebutControle: false,
-            heureDebutControleTech: this.props.navigationMaritimeModel ? this.props.navigationMaritimeModel.heureDebutControle : new Date(),
+            heureDebutControleTech:  (new Date()).getTime(),
             showDateFinControle: false,
             showHeureFinControle: false,
-            heureFinControleTech: this.props.navigationMaritimeModel ? this.props.navigationMaritimeModel.heureFinControle : new Date(),
+            heureFinControleTech: (new Date()).getTime(),
 
         };
 

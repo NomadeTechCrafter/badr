@@ -64,7 +64,7 @@ class ActifsRapportAvionPriveeBlock extends React.Component {
         let params = { msg: '', required: false }
         this.checkRequiredFieldsnavigAerienne(params);
         this.checkRequiredFieldsCaracteristiquesAvion(params);
-        this.checkRequiredFieldsResultatCtrl(params);
+        this.checkRequiredFieldsResultatCtrl(params); 
         if (params.required) {
             let message = translate('actifsCreation.avionsPrivees.champsObligatoires') + params.msg;
             this.setState({
@@ -167,7 +167,7 @@ class ActifsRapportAvionPriveeBlock extends React.Component {
             params.msg += !_.isEmpty(params.msg) ? ", " : "";
             params.msg += translate('actifsCreation.avionsPrivees.navigAerienne.aeroportEntree');
         }
-        if (_.isEmpty(modele.provenance?.code)) {
+        if (_.isEmpty(modele.provenance?.codePays)) {
             params.required = true;
             params.msg += !_.isEmpty(params.msg) ? ", " : "";
             params.msg += translate('actifsCreation.avionsPrivees.navigAerienne.provenance');
@@ -191,7 +191,7 @@ class ActifsRapportAvionPriveeBlock extends React.Component {
             params.required = true;
             params.msg += translate('actifsCreation.avionsPrivees.navigAerienne.dateDepart');
         }
-        if (_.isEmpty(modele.destination?.code)) {
+        if (_.isEmpty(modele.destination?.codePays)) {
             params.required = true;
             params.msg += !_.isEmpty(params.msg) ? ", " : "";
             params.msg += translate('actifsCreation.avionsPrivees.navigAerienne.destination');
@@ -207,11 +207,7 @@ class ActifsRapportAvionPriveeBlock extends React.Component {
     }
     checkRequiredFieldsCaracteristiquesAvion = (params) => {
         let modele = this.state.navigationAerienneModel;
-        if (_.isEmpty(modele.nomAvion)) {
-            params.required = true;
-            params.msg += !_.isEmpty(params.msg) ? ", " : "";
-            params.msg += translate('actifsCreation.avionsPrivees.caracteristiques.nomAvion');
-        }
+        
         if (_.isEmpty(modele.typeAvion)) {
             params.required = true;
             params.msg += !_.isEmpty(params.msg) ? ", " : "";
@@ -222,26 +218,13 @@ class ActifsRapportAvionPriveeBlock extends React.Component {
             params.msg += !_.isEmpty(params.msg) ? ", " : "";
             params.msg += translate('actifsCreation.avionsPrivees.caracteristiques.immatriculation');
         }
-        if (_.isEmpty(modele.couleur)) {
-            params.required = true;
-            params.msg += !_.isEmpty(params.msg) ? ", " : "";
-            params.msg += translate('actifsCreation.avionsPrivees.caracteristiques.couleur');
-        }
+        
         if (_.isEmpty(modele.nbPlaces)) {
             params.required = true;
             params.msg += !_.isEmpty(params.msg) ? ", " : "";
             params.msg += translate('actifsCreation.avionsPrivees.caracteristiques.nbPlaces');
         }
-        if (_.isEmpty(modele.nbMoteurs)) {
-            params.required = true;
-            params.msg += !_.isEmpty(params.msg) ? ", " : "";
-            params.msg += translate('actifsCreation.avionsPrivees.caracteristiques.nbMoteurs');
-        }
-        if (_.isEmpty(modele.tonnage)) {
-            params.required = true;
-            params.msg += !_.isEmpty(params.msg) ? ", " : "";
-            params.msg += translate('actifsCreation.avionsPrivees.caracteristiques.tonnage');
-        }
+       
        
 
 
@@ -263,11 +246,6 @@ class ActifsRapportAvionPriveeBlock extends React.Component {
             params.required = true;
             params.msg += !_.isEmpty(params.msg) ? ", " : "";
             params.msg += translate('actifsCreation.avionsPrivees.resultatCtrl.documentsVerifies');
-        }
-        if (_.isEmpty(modele.observations)) {
-            params.required = true;
-            params.msg += !_.isEmpty(params.msg) ? ", " : "";
-            params.msg += translate('actifsCreation.avionsPrivees.resultatCtrl.observations');
         }
         if (_.isEmpty(modele.resultatControle)) {
             params.required = true;

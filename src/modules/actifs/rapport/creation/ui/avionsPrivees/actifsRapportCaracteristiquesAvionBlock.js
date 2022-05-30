@@ -219,6 +219,7 @@ class ActifsRapportCaracteristiquesAvionBlock extends React.Component {
                                     <Col size={6}>
                                         <TextInput
                                             mode={'outlined'}
+                                            keyboardType={'number-pad'}
                                             disabled={this.props.readOnly}
                                             style={{ height: 20, fontSize: 12 }}
                                             value={this.state.navigationAerienneModel.nbPlaces}
@@ -245,6 +246,7 @@ class ActifsRapportCaracteristiquesAvionBlock extends React.Component {
                                     <Col size={6}>
                                         <TextInput
                                             mode={'outlined'}
+                                            keyboardType={'number-pad'}
                                             disabled={this.props.readOnly}
                                             style={{ height: 20, fontSize: 12 }}
                                             value={this.state.navigationAerienneModel.nbMoteurs}
@@ -270,6 +272,7 @@ class ActifsRapportCaracteristiquesAvionBlock extends React.Component {
                                         <TextInput
                                             mode={'outlined'}
                                             disabled={this.props.readOnly}
+                                            keyboardType={'number-pad'}
                                             style={{ height: 20, fontSize: 12 }}
                                             value={this.state.navigationAerienneModel.tonnage}
                                             onChangeText={(text) => {this.setState({

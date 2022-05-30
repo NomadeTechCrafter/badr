@@ -26,11 +26,11 @@ class ActifsRapportNavigationMaritimeBlock extends React.Component {
             index: this.props.index,
             showDateEntree: false,
             showHeureEntree: false,
-            heureEntreeTech: this.props.navigationMaritimeModel ? this.props.navigationMaritimeModel.heureEntree : new Date(),
+            heureEntreeTech: (new Date()).getTime(),
             acProvenance: this.props.navigationMaritimeModel ? this.props.navigationMaritimeModel.provenance.nomPays : '',
             showDateDepart: false,
             showHeureDepart: false,
-            heureDepartTech: this.props.navigationMaritimeModel ? this.props.navigationMaritimeModel.heureDepart : new Date(),
+            heureDepartTech: (new Date()).getTime(),
             acDestination: this.props.navigationMaritimeModel ? this.props.navigationMaritimeModel.destination.nomPays : '',
 
         };

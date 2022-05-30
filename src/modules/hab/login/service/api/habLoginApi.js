@@ -2,7 +2,7 @@ import ComHttpHelperApi from '../../../../../commons/services/api/common/ComHttp
 import { ComSessionService } from '../../../../../commons/services/session/ComSessionService';
 
 export default class HabLoginApi {
-  static login = async (login, pwd, forcerConnexion = false, isFromCohabitation) => {
+  static login = async (login, pwd, forcerConnexion = true, isFromCohabitation) => {
     const response = await ComHttpHelperApi.login({
       login: login,
       password: pwd,
