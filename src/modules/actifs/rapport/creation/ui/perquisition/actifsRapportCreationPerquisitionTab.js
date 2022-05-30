@@ -10,10 +10,8 @@ import { ScrollView, Text, View } from 'react-native';
 import { CustomStyleSheet, primaryColor } from '../../../../../../commons/styles/ComThemeStyle';
 import { Checkbox, RadioButton, TextInput } from 'react-native-paper';
 import DedRedressementRow from '../../../../../dedouanement/redressement/ui/common/DedRedressementRow';
-import { stringNotEmpty, validateCin } from '../../../../../t6bis/utils/t6bisUtils';
+import { isCreation, stringNotEmpty, validateCin } from '../../../../../t6bis/utils/t6bisUtils';
 import * as Constantes from '../../../../../t6bis/utils/t6bisConstants';
-import * as T6BISConstantes from '../../../../../t6bis/gestion/state/t6bisGestionConstants';
-import t6bisUpdatePropsAction from '../../../../../t6bis/gestion/state/actions/t6bisUpdatePropsAction';
 import t6bisFindIntervenantAction from '../../../../../t6bis/gestion/state/actions/t6bisFindIntervenantAction';
 
 
@@ -79,7 +77,7 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
 
         this.state = {
             gibPerquisition: { intervenantsVO: [], autorite: {} },
-            intervenantVO: null,
+            intervenantVO: {},
             newIntervenant: null,
             isRetablir: false,
             updateState: false,
@@ -117,6 +115,7 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
             // isRetablir: true
         });
         this.checkType();
+        this.update();
     }
 
     isPasseport = function () {
@@ -132,6 +131,7 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
     };
 
     checkType = function () {
+        console.log('checkType----------------------------  : ');
         this.syncIntervenantInfo();
     };
 
@@ -140,6 +140,7 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
     }
 
     syncIntervenantInfo = function () {
+        console.log('syncIntervenantInfo----------------------------  : ');
         if (this.isParamSetted()) {
             this.completeRedevableInfo();
         }
@@ -148,44 +149,67 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
     completeRedevableInfo = function () {
         if (this.isParamSetted()) {
             let data = {
-                type: T6BISConstantes.FIND_INTERVENANT_REQUEST,
+                type: Constantes.FIND_INTERVENANT_REQUEST,
                 value: {
                     identifiants: this.buildRedevableCompletionParam(),
                 },
             };
-            this.callbackHandler(Constantes.FIND_INTERVENANT_TASK, data);
+            // this.callbackHandler(Constantes.FIND_INTERVENANT_TASK, data);
+            this.props.dispatch(t6bisFindIntervenantAction.request(data));
         }
+        this.setState({
+
+            modificationInProgress: false,
+            errorMessage: null
+        });
     };
 
     callbackHandler = (type, data) => {
-        // console.log(data);
-        // console.log(type);
+        console.log(data);
+        console.log(type);
         switch (type) {
             case Constantes.FIND_INTERVENANT_TASK:
-                this.props.dispatch(t6bisFindIntervenantAction.request(data));
-                this.setState({ updateState: true });
+                this.props.actions.dispatch(t6bisFindIntervenantAction.request(data));
                 break;
             case Constantes.UPDATE_INTERVENANT_TASK:
                 let dataToAction = {
-                    type: T6BISConstantes.T6BIS_UPDATE_INTERVENANT_REQUEST,
+                    type: Constantes.T6BIS_UPDATE_INTERVENANT_REQUEST,
                     value: {
-                        fieldsetcontext: data.fieldsetcontext,
+                        intervenantVO: data.intervenantVO,
                     },
                 };
-
-                this.props.dispatch(
-                    t6bisUpdatePropsAction.request(dataToAction),
+                this.props.actions.dispatch(
+                    t6bisUpdateIntervenantAction.request(dataToAction),
                 );
                 this.setState({ fieldsetcontext: data.fieldsetcontext });
                 break;
-        }
+            case Constantes.UPDATE_OPERATEUR_TASK:
+                let dataToAction2 = {
+                    type: Constantes.T6BIS_UPDATE_OPERATEUR_REQUEST,
+                    value: {
+                        operateur: data.fieldsetcontext?.operateur,
+                    },
+                };
 
+
+                this.props.actions.dispatch(
+                    t6bisUpdateOperateurAction.request(dataToAction2),
+                );
+                this.setState({ fieldsetcontext: data.fieldsetcontext });
+                break;
+            case Constantes.T6BIS_SELECT_TPE_TASK:
+                // if(data=="03")
+                //   this.props.navigation.navigate('T6bisGestion', {tpeSelected:true});
+                //else
+                this.props.navigation.navigate('T6bisGestion', {});
+                break;
+        }
     };
 
     buildRedevableCompletionParam = function () {
         if (this.isPasseport()) {
             return {
-                typeIdentifiant: this.state?.intervenantVO?.refTypeDocumentIdentite,
+                typeIdentifiant: this.state.intervenantVO.refTypeDocumentIdentite,
                 numeroDocumentIdentite: this.state.intervenantVO
                     .numeroDocumentIndentite,
                 nationalite: this.state.intervenantVO.nationaliteFr,
@@ -193,34 +217,39 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
         } else {
             if (
                 this.state.intervenantVO &&
-                this.state?.intervenantVO?.numeroDocumentIndentite
+                this.state.intervenantVO.numeroDocumentIndentite && this.state.intervenantVO.refTypeDocumentIdentite == '01'
             ) {
                 this.state.intervenantVO.numeroDocumentIndentite = validateCin(
                     this.state.intervenantVO.numeroDocumentIndentite,
                 );
             }
             return {
-                typeIdentifiant: this.state?.intervenantVO?.refTypeDocumentIdentite,
+                typeIdentifiant: this.state.intervenantVO.refTypeDocumentIdentite,
                 numeroDocumentIdentite: this.state.intervenantVO
                     .numeroDocumentIndentite,
             };
         }
     };
+
     isParamSetted = function () {
+        console.log('isParamSetted----------------------------  : ');
         if (this.isPasseport()) {
             if (
-                this.state?.intervenantVO?.numeroDocumentIndentite &&
-                this.state?.intervenantVO?.refTypeDocumentIdentite &&
+                this.state.intervenantVO.numeroDocumentIndentite &&
+                this.state.intervenantVO.refTypeDocumentIdentite &&
                 this.state.intervenantVO.nationaliteFr
             ) {
+                console.log('isParamSetted----------------------------  : true');
                 return true;
             }
         } else if (
-            this.state?.intervenantVO?.numeroDocumentIndentite &&
-            this.state?.intervenantVO?.refTypeDocumentIdentite
+            this.state.intervenantVO.numeroDocumentIndentite &&
+            this.state.intervenantVO.refTypeDocumentIdentite
         ) {
+            console.log('isParamSetted----------------------------  : true');
             return true;
         }
+        console.log('isParamSetted----------------------------  : false');
         return false;
     };
 
@@ -237,12 +266,35 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
     };
 
     onBlurIdentifiant(text) {
-        this.state.intervenantVO = {
-            ...this.state.intervenantVO,
-            numeroDocumentIndentite: text,
-        };
-        this.checkType();
-        // this.update();
+        console.log('onBlurIdentifiant----------------------------  : ', text);
+        /* this.state.intervenantVO = {
+          ...this.state.intervenantVO,
+          numeroDocumentIndentite: text,
+        }; */
+
+        if (this.props?.t6bis?.intervenantVO?.refTypeDocumentIdentite == this.state?.intervenantVO?.refTypeDocumentIdentite
+            &&
+            this.props?.t6bis?.intervenantVO?.numeroDocumentIndentite == this.state?.intervenantVO?.numeroDocumentIndentite) return;
+
+        if (!this.isParamSetted()) {
+            this.setState({
+                ...this.state,
+                intervenantVO: {
+                    ...this.state.intervenantVO,
+                    nationaliteFr: '',
+                    nomIntervenant: '',
+                    prenomIntervenant: '',
+                    adresse: '',
+                },
+                infoCompleted: false,
+                newIntervenant: false,
+                acNationalite: {},
+                modificationInProgress: false,
+                errorMessage: null
+            });
+        } else {
+            this.checkType();
+        }
     }
 
 
@@ -301,18 +353,26 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
             isRetablir: true,
             updateState: false,
         });
+        this.update();
     };
 
     static getDerivedStateFromProps(props, state) {
+        console.log('----------------------------------------------------------------------------------');
+        console.log('----------------------------------------------------------------------------------');
+        console.log('----------------------------------------------------------------------------------');
+        console.log(JSON.stringify(props.t6bisReducer));
+        console.log('----------------------------------------------------------------------------------');
+        console.log('----------------------------------------------------------------------------------');
+        console.log('----------------------------------------------------------------------------------');
         if (
-            props?.t6bisReducer?.value?.intervenantVO &&
-            !props?.newIntervenant &&
-            props?.retourFindIntervenant
+            props?.t6bisReducer?.value &&
+            !props?.t6bisReducer?.newIntervenant &&
+            props?.t6bisReducer?.retourFindIntervenant
         ) {
             console.log('getDerivedStateFromProps - 1 -');
             return {
                 intervenantVO: { ...state.intervenantVO, ...props?.t6bisReducer?.value }, // update the value of specific key
-                newIntervenant: props.newIntervenant,
+                newIntervenant: props.t6bisReducer?.newIntervenant,
             };
         }
         if (state?.isRetablir) {
@@ -359,6 +419,7 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
         this.state.intervenantVO.nationaliteFr = pays.code;
 
         this.checkType();
+        this.update();
     };
 
     render() {
@@ -379,20 +440,37 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
                                             readonly={this.props?.consultation}
                                             dateFormat="DD/MM/YYYY"
                                             heureFormat="HH:mm"
-                                            value={this.state?.gibPerquisition?.datePerquisition ? moment(this.state?.gibPerquisition?.datePerquisition).format('DD/MM/YYYY') : ''}
+                                            value={this.state?.gibPerquisition?.datePerquisition ? moment(this.state?.gibPerquisition?.datePerquisition, 'DD/MM/YYYY', true) : ''}
                                             timeValue={this.state?.gibPerquisition?.heurePerquisition ? moment(this.state?.gibPerquisition?.heurePerquisition, 'HH:mm', true) : ''}
-                                            onDateChanged={(date) => this.setState(prevState => ({
-                                                gibPerquisition: {
-                                                    ...prevState.gibPerquisition,
-                                                    datePerquisition: date,
-                                                }
-                                            }))}
-                                            onTimeChanged={(time) => this.setState(prevState => ({
-                                                gibPerquisition: {
-                                                    ...prevState.gibPerquisition,
-                                                    heurePerquisition: time,
-                                                }
-                                            }))}
+                                            // onDateChanged={(date) => this.setState(prevState => ({
+                                            //     gibPerquisition: {
+                                            //         ...prevState.gibPerquisition,
+                                            //         datePerquisition: date,
+                                            //     }
+                                            // }))}
+
+                                            onDateChanged={(date) => {
+                                                this.setState({
+                                                    gibPerquisition: {
+                                                        ...this.state.gibPerquisition, datePerquisition: date
+                                                    }
+                                                });
+                                                this.update();
+                                            }}
+                                            // onTimeChanged={(time) => this.setState(prevState => ({
+                                            //     gibPerquisition: {
+                                            //         ...prevState.gibPerquisition,
+                                            //         heurePerquisition: time,
+                                            //     }
+                                            // }))}
+                                            onTimeChanged={(time) => {
+                                                this.setState({
+                                                    gibPerquisition: {
+                                                        ...this.state.gibPerquisition, heurePerquisition: time
+                                                    }
+                                                });
+                                                this.update();
+                                            }}
                                             inputStyle={style.dateInputStyle}
                                         />
                                     </Col>
@@ -545,17 +623,29 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
                                             't6bisGestion.tabs.entete.redevableBlock.identifiant',
                                         )}
                                         value={this.state?.intervenantVO?.numeroDocumentIndentite}
-                                        onChangeText={(text) =>
-                                            text
-                                                ? this.setState({
-                                                    ...this.state,
-                                                    intervenantVO: {
-                                                        ...this.state.intervenantVO,
-                                                        numeroDocumentIndentite: text,
-                                                    },
-                                                })
-                                                : {}
-                                        }
+                                        // onChangeText={(text) =>
+                                        //     text
+                                        //         ? this.setState({
+                                        //             ...this.state,
+                                        //             intervenantVO: {
+                                        //                 ...this.state.intervenantVO,
+                                        //                 numeroDocumentIndentite: text,
+                                        //             },
+                                        //         })
+                                                
+                                        //         : {}
+                                        // }
+                                        onChangeText={(text) => {
+                                            this.setState({
+                                                ...this.state,
+                                                intervenantVO: {
+                                                    ...this.state.intervenantVO,
+                                                    numeroDocumentIndentite: text,
+                                                },
+                                            });
+                                            this.update();
+                                            // this.completeTextInputFields();
+                                        }}
 
                                         onEndEditing={(event) =>
                                             this.onBlurIdentifiant(event.nativeEvent.text)
@@ -614,17 +704,28 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
                                         value={this.state?.intervenantVO?.nomIntervenant}
                                         disabled={stringNotEmpty(this.state?.intervenantVO?.nomIntervenant) || this.props?.consultation
                                         }
-                                        onChangeText={(text) =>
-                                            text
-                                                ? this.setState({
-                                                    ...this.state,
-                                                    intervenantVO: {
-                                                        ...this.state.intervenantVO,
-                                                        nomIntervenant: text,
-                                                    },
-                                                })
-                                                : {}
-                                        }
+                                        // onChangeText={(text) =>
+                                        //     text
+                                        //         ? this.setState({
+                                        //             ...this.state,
+                                        //             intervenantVO: {
+                                        //                 ...this.state.intervenantVO,
+                                        //                 nomIntervenant: text,
+                                        //             },
+                                        //         })
+                                        //         : {}
+                                        // }
+                                        onChangeText={(text) => {
+                                            this.setState({
+                                                ...this.state,
+                                                intervenantVO: {
+                                                    ...this.state.intervenantVO,
+                                                    nomIntervenant: text,
+                                                },
+                                            });
+                                            this.update();
+                                            // this.completeTextInputFields();
+                                        }}
                                     />
                                 </Col>
                                 <Col size={30} style={style.labelContainer}>
@@ -642,17 +743,28 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
                                         value={this.state?.intervenantVO?.prenomIntervenant}
                                         disabled={stringNotEmpty(this.state?.intervenantVO?.prenomIntervenant) || this.props?.consultation
                                         }
-                                        onChangeText={(text) =>
-                                            text
-                                                ? this.setState({
-                                                    ...this.state,
-                                                    intervenantVO: {
-                                                        ...this.state.intervenantVO,
-                                                        prenomIntervenant: text,
-                                                    },
-                                                })
-                                                : {}
-                                        }
+                                        // onChangeText={(text) =>
+                                        //     text
+                                        //         ? this.setState({
+                                        //             ...this.state,
+                                        //             intervenantVO: {
+                                        //                 ...this.state.intervenantVO,
+                                        //                 prenomIntervenant: text,
+                                        //             },
+                                        //         })
+                                        //         : {}
+                                        // }
+                                        onChangeText={(text) => {
+                                            this.setState({
+                                                ...this.state,
+                                                intervenantVO: {
+                                                    ...this.state.intervenantVO,
+                                                    prenomIntervenant: text,
+                                                },
+                                            });
+                                            this.update();
+                                            // this.completeTextInputFields();
+                                        }}
                                     />
                                 </Col>
                             </DedRedressementRow>
@@ -679,6 +791,7 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
                                                     consentement: !this.state?.intervenantVO?.consentement,
                                                 },
                                             });
+                                            this.update();
                                             // this.completeTextInputFields();
                                         }}
                                     />

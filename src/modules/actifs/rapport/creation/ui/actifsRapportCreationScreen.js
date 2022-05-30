@@ -301,9 +301,6 @@ class ActifsRapportCreationScreen extends Component {
 
     };
     cleanOrdreService(rsAEnregistrer);
-    if (this.checkDatesDebutFinInformations() || this.checkDetail()) {
-      return;
-    }
     return rsAEnregistrer;
   }
 
@@ -336,6 +333,9 @@ class ActifsRapportCreationScreen extends Component {
 
   sauvegarderRS = () => {
 
+    if (this.checkDatesDebutFinInformations() || this.checkDetail()) {
+      return;
+    }
     let rsAEnregistrer = this.preparerRSAEnregistrer();
 
     let action = sauvegarderRS.request({

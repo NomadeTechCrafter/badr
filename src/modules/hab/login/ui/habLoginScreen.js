@@ -37,8 +37,8 @@ class Login extends React.Component {
       codeSms: '8bXqj1lLva3IEg6iDbJ+eA==',
       bureau: '309',
       codeBureau: '309',
-      codeArrondissement: '309202',
-      arrondissement: '309202',
+      // codeArrondissement: '309202',
+      // arrondissement: '309202',
       profiles: [
         // "0", "AAMAX", "AB", "PRO TEST",
         "ACTIFS_AD", "ACTIFS" 
