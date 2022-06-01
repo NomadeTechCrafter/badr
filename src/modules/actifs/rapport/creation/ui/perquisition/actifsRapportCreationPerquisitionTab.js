@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import { ComAccordionComp, ComBadrAutoCompleteChipsComp, ComBadrAutoCompleteComp, ComBadrButtonComp, ComBadrButtonIconComp, ComBadrButtonRadioComp, ComBadrCardBoxComp, ComBadrDatePickerComp, ComBadrItemsPickerComp, ComBadrKeyValueComp, ComBadrLibelleComp, ComBadrPickerComp, ComBasicDataTableComp } from '../../../../../../commons/component';
+import { ComAccordionComp, ComBadrAutoCompleteChipsComp, ComBadrAutoCompleteComp, ComBadrButtonComp, ComBadrButtonIconComp, ComBadrButtonRadioComp, ComBadrCardBoxComp, ComBadrDatePickerComp, ComBadrErrorMessageComp, ComBadrItemsPickerComp, ComBadrKeyValueComp, ComBadrLibelleComp, ComBadrPickerComp, ComBasicDataTableComp } from '../../../../../../commons/component';
 import translate from '../../../../../../commons/i18n/ComI18nHelper';
 import style from '../../style/actifsCreationStyle';
 import { Col, Grid, Row } from 'react-native-easy-grid';
@@ -13,6 +13,7 @@ import DedRedressementRow from '../../../../../dedouanement/redressement/ui/comm
 import { isCreation, stringNotEmpty, validateCin } from '../../../../../t6bis/utils/t6bisUtils';
 import * as Constantes from '../../../../../t6bis/utils/t6bisConstants';
 import t6bisFindIntervenantAction from '../../../../../t6bis/gestion/state/actions/t6bisFindIntervenantAction';
+import _ from 'lodash';
 
 
 
@@ -308,34 +309,76 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
     };
 
     ajouterIntervenant = () => {
-        console.log('this.state : ' + JSON.stringify(this.state));
-        if (!this.state.gibPerquisition) {
-            this.state.gibPerquisition = {};
+        if (!this.checkRequiredFields()) {
+            console.log('this.state : ' + JSON.stringify(this.state));
+            if (!this.state.gibPerquisition) {
+                this.state.gibPerquisition = {};
+            }
+            if (!this.state.gibPerquisition.intervenantsVO) {
+                this.state.gibPerquisition.intervenantsVO = [];
+            }
+            let intervenantsVO = this.state.gibPerquisition.intervenantsVO;
+            let currentIntervenantVO = this.state.intervenantVO;
+            intervenantsVO.push(currentIntervenantVO);
+            this.setState({
+                myArray: [...this.state.gibPerquisition.intervenantsVO, intervenantsVO],
+                intervenantVO: {
+                    refTypeDocumentIdentite: '',
+                    numeroDocumentIndentite: '',
+                    nationaliteFr: '',
+                    nomIntervenant: '',
+                    prenomIntervenant: '',
+                    adresse: '',
+                    consentement: false
+                },
+                isRetablir: true,
+                updateState: false,
+            });
+            this.comboArrondissements55.clearInput();
+            this.update();
         }
-        if (!this.state.gibPerquisition.intervenantsVO) {
-            this.state.gibPerquisition.intervenantsVO = [];
-        }
-        let intervenantsVO = this.state.gibPerquisition.intervenantsVO;
-        let currentIntervenantVO = this.state.intervenantVO;
-        intervenantsVO.push(currentIntervenantVO);
-        this.setState({
-            myArray: [...this.state.gibPerquisition.intervenantsVO, intervenantsVO],
-            intervenantVO: {
-                refTypeDocumentIdentite: '',
-                numeroDocumentIndentite: '',
-                nationaliteFr: '',
-                nomIntervenant: '',
-                prenomIntervenant: '',
-                adresse: '',
-                consentement: false
-            },
-            isRetablir: true,
-            updateState: false,
-        });
-        this.comboArrondissements55.clearInput();
-        this.update();
     };
 
+    checkRequiredFields = () => {
+        let params = { msg: '', required: false }
+        this.checkRequiredFieldsForIntervenant(params);
+        if (params.required) {
+            let message = translate('actifsCreation.avionsPrivees.champsObligatoires') + params.msg;
+            this.setState({
+                errorMessage: message
+            });
+        } else {
+            this.setState({
+                errorMessage: null
+            });
+        }
+        return params.required;
+    }
+
+
+    checkRequiredFieldsForIntervenant = (params) => {
+        let modele = this.state.intervenantVO;
+        if (_.isEmpty(modele.refTypeDocumentIdentite)) {
+            params.required = true;
+            params.msg += !_.isEmpty(params.msg) ? ", " : "";
+            params.msg += translate('t6bisGestion.tabs.entete.redevableBlock.typeIdentifiant');
+        }
+        if (_.isEmpty(modele.numeroDocumentIndentite)) {
+            params.required = true;
+            params.msg += !_.isEmpty(params.msg) ? ", " : "";
+            params.msg += translate('t6bisGestion.tabs.entete.redevableBlock.identifiant');
+        }
+        if (_.isEmpty(modele.nomIntervenant)) {
+            params.required = true;
+            params.msg += !_.isEmpty(params.msg) ? ", " : "";
+            params.msg += translate('t6bisGestion.tabs.entete.redevableBlock.nom');
+        }
+        if (_.isEmpty(modele.prenomIntervenant)) {
+            params.required = true;
+            params.msg += !_.isEmpty(params.msg) ? ", " : "";
+            params.msg += translate('t6bisGestion.tabs.entete.redevableBlock.prenom');
+        }
+    }
 
     retablir = () => {
         console.log('retablir');
@@ -423,9 +466,19 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
     };
 
     render() {
+
+    console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+    console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+    console.log(JSON.stringify(this.props));
+    console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+    console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+    // console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
         return (
             <ScrollView >
                 <View style={CustomStyleSheet.verticalContainer20}>
+                    {this.state.errorMessage != null && (
+                        <ComBadrErrorMessageComp message={this.state.errorMessage} />
+                    )}
                     <ComAccordionComp title={translate('actifsCreation.perquisition.title')} expanded={true}>
                         <View>
                             <View style={CustomStyleSheet.row}>
@@ -623,18 +676,6 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
                                             't6bisGestion.tabs.entete.redevableBlock.identifiant',
                                         )}
                                         value={this.state?.intervenantVO?.numeroDocumentIndentite}
-                                        // onChangeText={(text) =>
-                                        //     text
-                                        //         ? this.setState({
-                                        //             ...this.state,
-                                        //             intervenantVO: {
-                                        //                 ...this.state.intervenantVO,
-                                        //                 numeroDocumentIndentite: text,
-                                        //             },
-                                        //         })
-                                                
-                                        //         : {}
-                                        // }
                                         onChangeText={(text) => {
                                             this.setState({
                                                 ...this.state,
@@ -644,9 +685,7 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
                                                 },
                                             });
                                             this.update();
-                                            // this.completeTextInputFields();
                                         }}
-
                                         onEndEditing={(event) =>
                                             this.onBlurIdentifiant(event.nativeEvent.text)
                                         }
@@ -655,7 +694,7 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
                             </DedRedressementRow>
                         )}
 
-                        {this.isPasseport() && (
+                        {/* {this.isPasseport() && (
                             <DedRedressementRow>
                                 <Col size={30} style={style.labelContainer}>
                                     <Text style={style.labelTextStyle}>
@@ -687,7 +726,7 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
                                     />
                                 </Col>
                             </DedRedressementRow>
-                        )}
+                        )} */}
 
                         {(!this.props?.consultation &&
                             <DedRedressementRow>
@@ -696,25 +735,13 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
                                         {translate('t6bisGestion.tabs.entete.redevableBlock.nom')}
                                     </Text>
                                 </Col>
-
                                 <Col size={70} style={style.labelContainer}>
                                     <TextInput
                                         mode="outlined"
                                         label={translate('t6bisGestion.tabs.entete.redevableBlock.nom')}
                                         value={this.state?.intervenantVO?.nomIntervenant}
-                                        disabled={stringNotEmpty(this.state?.intervenantVO?.nomIntervenant) || this.props?.consultation
+                                        disabled={stringNotEmpty(this.state?.intervenantVO?.adresse) || this.props?.consultation
                                         }
-                                        // onChangeText={(text) =>
-                                        //     text
-                                        //         ? this.setState({
-                                        //             ...this.state,
-                                        //             intervenantVO: {
-                                        //                 ...this.state.intervenantVO,
-                                        //                 nomIntervenant: text,
-                                        //             },
-                                        //         })
-                                        //         : {}
-                                        // }
                                         onChangeText={(text) => {
                                             this.setState({
                                                 ...this.state,
@@ -724,7 +751,6 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
                                                 },
                                             });
                                             this.update();
-                                            // this.completeTextInputFields();
                                         }}
                                     />
                                 </Col>
@@ -733,7 +759,6 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
                                         {translate('t6bisGestion.tabs.entete.redevableBlock.prenom')}
                                     </Text>
                                 </Col>
-
                                 <Col size={70} style={style.labelContainer}>
                                     <TextInput
                                         mode="outlined"
@@ -741,19 +766,8 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
                                             't6bisGestion.tabs.entete.redevableBlock.prenom',
                                         )}
                                         value={this.state?.intervenantVO?.prenomIntervenant}
-                                        disabled={stringNotEmpty(this.state?.intervenantVO?.prenomIntervenant) || this.props?.consultation
+                                        disabled={stringNotEmpty(this.state?.intervenantVO?.adresse) || this.props?.consultation
                                         }
-                                        // onChangeText={(text) =>
-                                        //     text
-                                        //         ? this.setState({
-                                        //             ...this.state,
-                                        //             intervenantVO: {
-                                        //                 ...this.state.intervenantVO,
-                                        //                 prenomIntervenant: text,
-                                        //             },
-                                        //         })
-                                        //         : {}
-                                        // }
                                         onChangeText={(text) => {
                                             this.setState({
                                                 ...this.state,
@@ -763,7 +777,6 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
                                                 },
                                             });
                                             this.update();
-                                            // this.completeTextInputFields();
                                         }}
                                     />
                                 </Col>
@@ -771,7 +784,6 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
                         )}
                         {(!this.props?.consultation &&
                             <DedRedressementRow>
-
                                 <Col size={3}>
                                     <ComBadrLibelleComp withColor={false}>
                                         {translate('actifsCreation.perquisition.consentement')}

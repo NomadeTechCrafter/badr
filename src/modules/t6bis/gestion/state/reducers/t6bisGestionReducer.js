@@ -362,7 +362,9 @@ const startRedevableCompletion = function (t6bis, redevableResponse) {
   t6bis.intervenantVO.numeroDocumentIndentite = redevableResponse.identifiants.numeroDocumentIdentite;
 }
 
-const clearRedevableCompletion = function (t6bis, values) {
+const clearRedevableCompletion = function (t6bis, values) {  if (!t6bis || t6bis == null) {
+    t6bis = {};
+  }
   if (!t6bis.intervenantVO) {
     t6bis.intervenantVO = {};
   }

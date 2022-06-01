@@ -22,9 +22,11 @@ class ComAutoLoginProcessComp extends React.Component {
   componentDidMount = () => {
     /** charger les infos du user connecté **/
     ComSessionService.getInstance().setLogin(this.props.usr);
+    ComSessionService.getInstance().setUserObject(this.props.usr);
     ComSessionService.getInstance().setPassword(this.props.password);
     ComSessionService.getInstance().setCodeSmsVerify(this.props.smsCode);
     ComSessionService.getInstance().setCodeBureau(this.props.bureauCode);
+    ComSessionService.getInstance().setNomBureauDouane(this.props.bureau);
     ComSessionService.getInstance().setCodeArrondissement(
       this.props.arrondissementCode,
     );

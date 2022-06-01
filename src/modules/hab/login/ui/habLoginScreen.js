@@ -33,15 +33,15 @@ class Login extends React.Component {
       // login: 'YASAG', Redressement
       // password: 'testTest1+',
       login: 'AD6300',
-      password: 'TestTest1+',
+      password: 'Testtest1+',
       codeSms: '8bXqj1lLva3IEg6iDbJ+eA==',
       bureau: '309',
       codeBureau: '309',
-      // codeArrondissement: '309202',
-      // arrondissement: '309202',
+      // codeArrondissement: '309',
+      // arrondissement: '309',
       profiles: [
         // "0", "AAMAX", "AB", "PRO TEST",
-        "ACTIFS_AD", "ACTIFS" 
+        "ACTIFS"
         // "AR", "ADMINBV",
         // "ADMSELCOT", "ADT", "AGBRIGADE", "AGDP", "AGENTD", "AGECOR", "AGENT_TEST", "AV",
         // "AG_VISIT", "AGLACI", "ALLPROFIL", "ALL", "ALLPRO", "A123", "AMAL2015", "AMAL-PRO",

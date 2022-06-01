@@ -79,6 +79,19 @@ class habProfileScreen extends React.Component {
   };
 
   handleBureauChanged = (selectedValue, selectedIndex, item) => {
+    console.log('----------------------------handleBureauChanged------------------------------------');
+    console.log('----------------------------------------------------------------');
+    console.log('----------------------------------------------------------------');
+    console.log('--------------------------------selectedValue--------------------------------');
+    console.log(JSON.stringify(selectedValue));
+    console.log('--------------------------------selectedIndex--------------------------------');
+    console.log(JSON.stringify(selectedIndex));
+    console.log('--------------------------------item--------------------------------');
+    console.log(JSON.stringify(item));
+    console.log('----------------------------------------------------------------');
+    console.log('----------------------------------------------------------------');
+    console.log('----------------------------------------------------------------');
+    console.log('-----------------------------handleBureauChanged-----------------------------------');
     this.setState({
       selectedBureau: selectedValue,
       selectedBureauIndex: selectedIndex,
@@ -89,7 +102,7 @@ class habProfileScreen extends React.Component {
   };
 
   handleOnConfirmProfils = (items) => {
-    console.log('----------------------------handleOnProfilItemsChanged------------------------------------');
+    console.log('----------------------------handleOnConfirmProfils------------------------------------');
     console.log('----------------------------------------------------------------');
     console.log('----------------------------------------------------------------');
     console.log('----------------------------------------------------------------');
@@ -97,7 +110,7 @@ class habProfileScreen extends React.Component {
     console.log('----------------------------------------------------------------');
     console.log('----------------------------------------------------------------');
     console.log('----------------------------------------------------------------');
-    console.log('-----------------------------handleOnProfilItemsChanged-----------------------------------');
+    console.log('-----------------------------handleOnConfirmProfils-----------------------------------');
 };
 
   handleOnProfilItemsChanged = (items) => {
