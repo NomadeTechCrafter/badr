@@ -18,7 +18,7 @@ import {
   primaryColorRgba,
 } from '../../../../../commons/styles/ComThemeStyle';
 import {
-  CMD_ENREGISTRER_T6BIS,
+  CMD_ENREGISTRER_T6BIS, CMD_ENREGISTRER_TPE_T6BIS,
   CMD_SAUVEGARDER_T6BIS,
   CMD_SAUVEGARDER_TPE_T6BIS,
 } from '../../../utils/t6bisConstants';
@@ -41,6 +41,7 @@ import {
 } from '../../../utils/t6bisUtils';
 import t6bisinitT6bisEnteteSectionAction from '../../state/actions/t6bisInitT6bisEnteteSectionAction';
 import t6bissauvegarderT6BISAction from '../../state/actions/t6bissauvegarderT6BISAction';
+import t6bisenregistrerTPET6BISAction from '../../state/actions/t6bisenregistrerTPET6BISAction';
 import t6bissupprimerT6BISAction from '../../state/actions/t6bissupprimerT6BISAction';
 import * as Constantes from '../../state/t6bisGestionConstants';
 import styles from '../../style/t6bisGestionStyle';
@@ -51,6 +52,7 @@ import T6bisInformationsTab from './informations/t6bisInformationsScreen';
 import T6bisTaxationGlobaleTab from './taxationglobale/t6bisTaxationGlobaleScreen';
 import T6bisTaxationManuelleTab from './taxationmanuelle/t6bisTaxationManuelleScreen';
 import Spinner from 'react-native-loading-spinner-overlay';
+
 const Tab = createMaterialTopTabNavigator();
 
 function EnteteTab({route, navigation}) {
@@ -216,6 +218,7 @@ class T6bisGestion extends React.Component {
           requesType = Constantes.T6BIS_SAUVEGARDER_TPE_REQUEST;
           action = uc;
         }
+
         console.log('sauvgarder 2');
         let dataToAction = {
           type: requesType,
@@ -259,9 +262,21 @@ class T6bisGestion extends React.Component {
   };
   verifierTransaction =  () => {
 
-      this.lancerUC(CMD_ENREGISTRER_T6BIS);
+    let action = t6bisenregistrerTPET6BISAction.request(
+        {
+          type: Constantes.T6BIS_ENREGISTRER_TPE_REQUEST,
+          value: {
+            t6bis: this.props.t6bis,
+            cmd: CMD_ENREGISTRER_TPE_T6BIS,
+          },
+        },
+        this.props.navigation,
+        'Bienvenue',
+    );
+    this.props.actions.dispatch(action);
 
   };
+
   quitter = () => {
     console.log('Quitter la page Bienvenue');
     this.props.navigation.navigate('Bienvenue', {});
@@ -349,9 +364,9 @@ class T6bisGestion extends React.Component {
           icon="menu"
           title={this.props.route.params.title}
         />
-        {this.props.errorMessage != null && (
+        {this.state.errorMessage != null && (
           <View style={styles.messages}>
-            <ComBadrErrorMessageComp message={this.props.errorMessage} />
+            <ComBadrErrorMessageComp message={this.state.errorMessage} />
           </View>
         )}
         {this.state.successMessage != null && (

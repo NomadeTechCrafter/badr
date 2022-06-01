@@ -13,7 +13,13 @@ export default {
     },
     entete: {
       commentaires: 'Commentaires',
-      ConsulterAMP:'Consulter AMP'
+      ConsulterAMP: 'Consulter AMP',
+      listeD17D20: {
+        title: 'Liste des D17/D20',
+        reference: 'Référence',
+        dateCreation: 'Date de création',
+        numeroVersion: 'Numéro de version',
+      },
     },
     confirmerEnvoiValeur: 'ENVOYER A LA VALEUR',
     confirmerTraitementValeur: 'TRAITER LA VALEUR',

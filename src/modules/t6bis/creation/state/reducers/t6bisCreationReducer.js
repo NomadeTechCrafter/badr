@@ -23,7 +23,7 @@ export default (state = initialState, action) => {
     case Constants.CREATION_T6BIS_ALL_TYPE_IN_PROGRESS:
       return nextState;
     case Constants.CREATION_T6BIS_ALL_TYPE_SUCCES:
-      console.log('reducer');
+
       nextState.showProgress = false;
       nextState.confirmed = true;
       nextState.types = action.value;

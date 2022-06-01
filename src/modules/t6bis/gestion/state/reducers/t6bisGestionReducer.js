@@ -41,6 +41,7 @@ export default (state = initialState, action) => {
       nextState.successMessage = null;
       nextState.errorMessage = null;
       nextState.hideEnregistrerButton = false;
+      nextState.hideVerifierTransaction=false;
       return nextState;
     case Constants.T6BIS_INIT_ENTETE_IN_PROGRESS:
       nextState.successMessage = null;
@@ -84,6 +85,7 @@ export default (state = initialState, action) => {
       nextState.listmoyenpaiement = action.value.typeMoyenPaiementList;
       nextState.haslignetaxation = hasAtLeastOneTaxationLine(nextState.t6bis);
       nextState.hideEnregistrerButton = false;
+      nextState.hideVerifierTransaction=false;
       return nextState;
     case Constants.T6BIS_INIT_ENTETE_FAILED:
       nextState.showProgress = false;
@@ -260,6 +262,38 @@ export default (state = initialState, action) => {
           ? action.value.dtoHeader.messagesErreur
           :  action.value;
       return nextState;
+
+
+
+
+    case Constants.T6BIS_ENREGISTRER_TPE_REQUEST:
+      nextState.showProgress = true;
+      nextState.errorMessage =null;
+      return nextState;
+    case Constants.T6BIS_ENREGISTRER_TPE_PROGRESS:
+      nextState.showProgress = true;
+      return nextState;
+    case Constants.T6BIS_ENREGISTRER_TPE_SUCCES:
+      nextState.showProgress = false;
+      nextState.errorMessage = null;
+      nextState.t6bis = action.value.t6bis;
+
+      nextState.successMessage = action.value.dtoHeader
+          ? action.value.dtoHeader.messagesInfo[0] : null;
+      nextState.errorMessage = null;
+
+      return nextState;
+    case Constants.T6BIS_ENREGISTRER_TPE_FAILD:
+      nextState.showProgress = false;
+      nextState.errorMessage = action.value.dtoHeader
+          ? action.value.dtoHeader.messagesErreur
+          :  null;
+      return nextState;
+
+
+
+
+
     case Constants.T6BIS_SUPPRIMER_REQUEST:
       return nextState;
     case Constants.T6BIS_SUPPRIMER_IN_PROGRESS:
@@ -288,7 +322,9 @@ export default (state = initialState, action) => {
       nextState.errorMessage = null;
       return nextState;
     case Constants.T6BIS_GESTION_CHECK_NOMENCLATURE_CODE_FAILED:
-      nextState.errorMessage = action.value;
+      nextState.errorMessage = action.value.dtoHeader
+          ? action.value.dtoHeader.messagesErreur
+          :  action.value;;
       return nextState;
     case Constants.T6BIS_SAUVEGARDER_TPE_REQUEST:
       console.log('tpe in progress');

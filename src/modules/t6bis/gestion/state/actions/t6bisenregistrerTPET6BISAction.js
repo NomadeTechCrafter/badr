@@ -6,7 +6,7 @@ export function request(action, navigation,screen) {
         
         dispatch(inProgress(action));
 
-        T6bisGestiontionApi.enregistrerT6BIS(action.value.cmd, action.value.t6bis)
+        T6bisGestiontionApi.enregistrerT6BISTPE(action.value.cmd, action.value.t6bis)
 
             .then((response) => {
                 const data = response.data;
@@ -29,21 +29,21 @@ export function request(action, navigation,screen) {
 
 export function success(action) {
     return {
-        type: Constants.T6BIS_ENREGISTRER_SUCCES,
+        type: Constants.T6BIS_ENREGISTRER_TPE_SUCCES,
         value: action.value,
     };
 }
 
 export function failed(action) {
     return {
-        type: Constants.T6BIS_ENREGISTRER_FAILED,
+        type: Constants.T6BIS_ENREGISTRER_TPE_FAILD,
         value: action.value,
     };
 }
 
 export function inProgress(action) {
     return {
-        type: Constants.T6BIS_ENREGISTRER_IN_PROGRESS,
+        type: Constants.T6BIS_ENREGISTRER_TPE_PROGRESS,
         value: action.value,
     };
 }

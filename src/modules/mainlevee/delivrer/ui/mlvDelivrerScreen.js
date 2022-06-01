@@ -59,7 +59,7 @@ const DEMANDE_CONSIGNATION = 'demandeConsignation';
 
 class DelivrerMLV extends React.Component {
   constructor(props) {
-    console.log('props inside delivrerscreen',props.route.params)
+    console.log('props inside delivrerscreen', props.route.params);
     super(props);
     this.state = {
       login: '',
@@ -121,7 +121,7 @@ class DelivrerMLV extends React.Component {
 
     this.state.conteneurs = conteneurs;
     this.state.conteneursCibles = conteneursCibles;
-    console.log('props deliver',this.props)
+    console.log('props deliver', this.props);
     this.initDelivrer();
   }
   initDelivrer = async () => {
@@ -438,12 +438,10 @@ class DelivrerMLV extends React.Component {
           {this.props.errorMessage != null && (
             <ComBadrErrorMessageComp message={this.props.errorMessage} />
           )}
-          {this.props.successMessage != null && (
-            <ComBadrInfoMessageComp message={this.props.successMessage} />
+          {(this.props.successMessage != null||this.state.messagesInfo != null ) && (
+            <ComBadrInfoMessageComp message={[].concat(this.props.successMessage,this.state.messagesInfo)} />
           )}
-          {this.state.messagesInfo != null && (
-              <ComBadrInfoMessageComp message={this.state.messagesInfo} />
-          )}
+
           {/* Référence déclaration */}
           <ComBadrCardBoxComp noPadding={true}>
             <Grid>
@@ -1149,7 +1147,7 @@ class DelivrerMLV extends React.Component {
                         this.state.includeScelles === true ? 'true' : 'false'
                       }
                       status={
-                        this.state.includeScelles === false
+                        this.state.includeScelles === true
                           ? 'checked'
                           : 'unchecked'
                       }

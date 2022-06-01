@@ -89,6 +89,7 @@ export const serverErrors = {
 export const CMD_SAUVEGARDER_T6BIS = 'sauvegarderT6BIS';
 export const CMD_ENREGISTRER_T6BIS = 'enregistrerT6BIS';
 export const CMD_SAUVEGARDER_TPE_T6BIS = 'sauvegarderT6BisTPE';
+export const CMD_ENREGISTRER_TPE_T6BIS = 'enregistrerT6BisTPE';
 
 export const T6BIS_MODIFICATION_FONCTIONNALITE = 'cf110002';
 export const T6BIS_REDRESSEMENT_FONCTIONNALITE = 'cf110005';

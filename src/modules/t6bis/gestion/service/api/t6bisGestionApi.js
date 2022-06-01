@@ -147,6 +147,24 @@ export default class T6bisGestiontionApi {
     return await ComHttpHelperApi.process(data);
   };
 
+  static enregistrerT6BISTPE = async (cmd, t6bis) => {
+    console.log('enregistrerT6BISTPE');
+    const data = {
+      dtoHeader: {
+        userLogin: ComSessionService.getInstance().getLogin(),
+        fonctionnalite: ComSessionService.getInstance().getFonctionalite() ? ComSessionService.getInstance().getFonctionalite() : T6BIS_CREATION_FONCTIONNALITE,
+        module: MODULE_T6BIS,
+        commande: cmd,
+        typeService: TYPE_SERVICE_UC,
+        motif: null,
+        messagesInfo: null,
+        messagesErreur: null,
+      },
+      jsonVO: t6bis
+    };
+    console.log(data);
+    return await ComHttpHelperApi.process(data);
+  };
 
 /*
 static getAllCmbListTPE = async (codeType) => {
