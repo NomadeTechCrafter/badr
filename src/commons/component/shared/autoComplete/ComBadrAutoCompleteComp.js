@@ -24,7 +24,7 @@ class ComBadrAutoCompleteComp extends Component {
     };
   }
   handleChangeInput = (params) => {
-    if (params.length > this.state.minimumCharacters) {
+    if (params.length >= this.state.minimumCharacters) {
       let action = AutoCompleteAction.request({
         type: Constants.AUTOCOMPLETE_REQUEST,
         value: {

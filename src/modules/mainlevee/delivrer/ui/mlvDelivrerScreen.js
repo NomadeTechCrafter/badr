@@ -81,11 +81,12 @@ class DelivrerMLV extends React.Component {
       messagesErreur: [],
       messagesInfo: props.route.params.infoMessage,
       listeNombreDeScelles: [],
+
       messageVisibility: false,
       message: '',
       messageType: '',
       selectedItemListScelle: '',
-      includeScelles: false,
+      includeScelles: null,
     };
     this.numeroScelle = '';
 
@@ -221,8 +222,10 @@ class DelivrerMLV extends React.Component {
 
   //toggleChoice for field RECONNU && DEMANDE_CONSIGNATION
   toggleChoiceInList = (indexDocument, key) => {
-    let listDoc = this.state.declaration.documentAnnexeResultVOs;
-    if (listDoc[indexDocument].documentAnnexe[key]) {
+    let listDoc = this.state.declaration.documentAnnexeResultVOs || [
+      {documentAnnexe: []},
+    ];
+    if (listDoc[indexDocument]?.documentAnnexe[key]) {
       listDoc[indexDocument].documentAnnexe[key] = false;
     } else {
       listDoc[indexDocument].documentAnnexe[key] = true;
@@ -232,6 +235,7 @@ class DelivrerMLV extends React.Component {
     return listDoc;
   };
   setChoiceDocAnnexe = (indexDocument, key) => {
+    console.log('index', indexDocument);
     this.setState((prevState) => ({
       declaration: {
         ...prevState.declaration,
@@ -438,8 +442,14 @@ class DelivrerMLV extends React.Component {
           {this.props.errorMessage != null && (
             <ComBadrErrorMessageComp message={this.props.errorMessage} />
           )}
-          {(this.props.successMessage != null||this.state.messagesInfo != null ) && (
-            <ComBadrInfoMessageComp message={[].concat(this.props.successMessage,this.state.messagesInfo)} />
+          {(this.props.successMessage != null ||
+            this.state.messagesInfo != null) && (
+            <ComBadrInfoMessageComp
+              message={[].concat(
+                this.props.successMessage,
+                this.state.messagesInfo,
+              )}
+            />
           )}
 
           {/* Référence déclaration */}
@@ -566,7 +576,7 @@ class DelivrerMLV extends React.Component {
           </ComBadrCardBoxComp>
 
           {/* Liste des Docs exigibles */}
-          <ComBadrCardBoxComp noPadding={true}>
+          <ComBadrCardBoxComp noPadding={true} >
             <ComAccordionComp
               title={translate(
                 'newmlv.delivrerMainlevee.listeDocumentsExigibles.title',
@@ -632,7 +642,8 @@ class DelivrerMLV extends React.Component {
                         index % 2 === 0
                           ? CustomStyleSheet.lightBlueRow
                           : CustomStyleSheet.whiteRow
-                      }>
+                      }
+                     >
                       <Col size={3}>
                         <ComBadrLibelleComp withColor={false}>
                           {item.docAnnexe}
@@ -652,7 +663,7 @@ class DelivrerMLV extends React.Component {
                         <Checkbox
                           color={primaryColor}
                           status={item.reconnu ? 'checked' : 'unchecked'}
-                          disabled={this.state.isConsultation}
+
                           onPress={() => {
                             this.setChoiceDocAnnexe(index, RECONNU);
                           }}
@@ -1144,10 +1155,10 @@ class DelivrerMLV extends React.Component {
                     <RadioButton
                       color={primaryColor}
                       value={
-                        this.state.includeScelles === true ? 'true' : 'false'
+                        this.state.includeScelles === false ? 'true' : 'false'
                       }
                       status={
-                        this.state.includeScelles === true
+                        this.state.includeScelles === false
                           ? 'checked'
                           : 'unchecked'
                       }
