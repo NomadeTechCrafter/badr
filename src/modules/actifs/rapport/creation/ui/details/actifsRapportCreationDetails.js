@@ -60,7 +60,17 @@ class AtifsRapportCreationDetailsTab extends Component {
         icon: 'delete-outline',
         action: (row, index) =>
           this.deleteAnimateur(row, index)
-      }
+      },
+      {
+        code: '',
+        // libelle: 'Vu Embarquer',
+        width: 150,
+        icon: 'pencil',
+        size: 25,
+        component: 'button',
+        action: (row, index) => this.editAnimateur(row, index),
+      },
+
     ];
     this.colsConsultation = [
       {
@@ -87,6 +97,7 @@ class AtifsRapportCreationDetailsTab extends Component {
       natureIncident: null,
       show: false,
       nouveau: false,
+      editAnimateur: false,
       listAnimateurConferenceVo: [],
       currentAnimateur: {},
       qualiteAnimateurCode: '',
@@ -102,7 +113,7 @@ class AtifsRapportCreationDetailsTab extends Component {
   }
 
   abandonner() {
-    this.setState({ nouveau: false });
+    this.setState({ nouveau: false, editAnimateur: false });
   }
 
   checkRequiredFieldsResultatCtrl = (params) => {
@@ -135,6 +146,7 @@ class AtifsRapportCreationDetailsTab extends Component {
     }
     return params.required;
   }
+  
 
   addAnimateur = () => {
     if (!this.checkRequiredFields()) {
@@ -142,7 +154,7 @@ class AtifsRapportCreationDetailsTab extends Component {
       let animateur = this.state?.animateur;
       let currentAnimateur = this.state.currentAnimateur;
       currentAnimateur.codeAnimateur = animateur?.code;
-      currentAnimateur.libelleAnimateur =animateur?.libelle ;
+      currentAnimateur.libelleAnimateur = animateur?.libelle;
       currentAnimateur.codeQualiteAnimateur = this.state?.qualiteAnimateurCode;
       currentAnimateur.libelleQualiteAnimateur = this.state?.qualiteAnimateurLibelle;
       listAnimateurConferenceVo.push(currentAnimateur);
@@ -172,6 +184,37 @@ class AtifsRapportCreationDetailsTab extends Component {
     this.updateModele();
   };
 
+  updateAnimateur = () => {
+    if (!this.checkRequiredFields()) {
+      let listAnimateurConferenceVo = this.state?.listAnimateurConferenceVo;
+      let animateur = this.state?.animateur;
+      let currentAnimateur = this.state.currentAnimateur;
+      currentAnimateur.codeAnimateur = animateur?.code;
+      currentAnimateur.libelleAnimateur = animateur?.libelle;
+      currentAnimateur.codeQualiteAnimateur = this.state?.qualiteAnimateurCode;
+      currentAnimateur.libelleQualiteAnimateur = this.state?.qualiteAnimateurLibelle;
+      listAnimateurConferenceVo[this.state.index] = currentAnimateur;
+      this.setState({ myArray: [...this.state?.listAnimateurConferenceVo, listAnimateurConferenceVo] });
+      this.setState({ editAnimateur: false });
+
+      console.log('updateAnimateur :::::::::::::::::::::: ' + JSON.stringify(this.state.listAnimateurConferenceVo));
+
+      this.updateModele();
+      this.handleClearAnimateur();
+    }
+  };
+
+  editAnimateur = (row, index) => {
+    this.setState({
+      editAnimateur: true,
+      nouveau: false,
+      qualiteAnimateurCode: row.codeQualiteAnimateur,
+      animateur: row.libelleAnimateur,
+      index: index
+    });
+    console.log('editAnimateur :::::::::::::::::::::: ' + JSON.stringify(this.state));
+  };
+
   handleOnIncidentItemsChanged = (items) => {
     this.setState({ selectedItems: items });
   };
@@ -191,7 +234,7 @@ class AtifsRapportCreationDetailsTab extends Component {
       listAnimateurConferenceVo: this.state.listAnimateurConferenceVo,
     });
   }
-  
+
   render() {
 
     // console.log('props ----------------===> : ' + JSON.stringify(this.props?.rows));
@@ -456,7 +499,7 @@ class AtifsRapportCreationDetailsTab extends Component {
                 </Row>
               )}
 
-              {(!this.props?.consultation && !this.state?.nouveau) && (
+              {(this.props?.rows?.ordreService?.conference || this.props?.rows?.conference) && (!this.props?.consultation && !this.state?.nouveau) && (
                 <Row>
                   <Col size={40} />
                   <Col size={20}>
@@ -472,7 +515,7 @@ class AtifsRapportCreationDetailsTab extends Component {
                 </Row>
               )}
 
-              {this.state?.nouveau && (
+              { (this.state?.nouveau || this.state?.editAnimateur) && (
 
 
                 <View>
@@ -509,6 +552,7 @@ class AtifsRapportCreationDetailsTab extends Component {
                               ...prevState.animateur,
                               animateur: item,
                             }))
+                            console.log('selected : ' + JSON.stringify(item));
                           }
                           }
                         />
@@ -537,13 +581,24 @@ class AtifsRapportCreationDetailsTab extends Component {
                   <Row>
                     <Col size={10} />
                     <Col size={50}>
-                      <ComBadrButtonIconComp
-                        onPress={() => this.addAnimateur()}
-                        icon="check"
-                        style={styles.buttonIcon}
-                        loading={this.props.showProgress}
-                        text={translate('transverse.confirmer')}
-                      />
+                      {this.state?.nouveau && (
+                        <ComBadrButtonIconComp
+                          onPress={() => this.addAnimateur()}
+                          icon="check"
+                          style={styles.buttonIcon}
+                          loading={this.props.showProgress}
+                          text={translate('transverse.confirmer')}
+                        />
+                      )}
+                      {this.state?.editAnimateur && (
+                        <ComBadrButtonIconComp
+                          onPress={() => this.updateAnimateur()}
+                          icon="check"
+                          style={styles.buttonIcon}
+                          loading={this.props.showProgress}
+                          text={translate('transverse.confirmer')}
+                        />
+                      )}
                     </Col>
                     <Col size={50}>
                       <ComBadrButtonIconComp
