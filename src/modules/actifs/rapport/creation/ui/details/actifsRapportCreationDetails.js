@@ -594,7 +594,6 @@ class AtifsRapportCreationDetailsTab extends Component {
                       }}
                       multiline={true}
                       numberOfLines={3}
-
                     />
                   </Col>
                 </Row>
