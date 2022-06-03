@@ -44,16 +44,14 @@ class ActifsRapportEmbarcationBlock extends React.Component {
     };
 
     confirmer = () => {
-        /* if (!this.checkRequiredFields()) {
+        if (!this.checkRequiredFields()) {
             if (!this.checkDatesEntreeDepartInformations()) {
-                if (!this.checkDatesDebutFinControleInformations()) { */
-                    if (!this.checkDateDepartDateFinControleInformations()) {
+                if (!this.checkDatesDebutFinControleInformations()) { 
                         this.props.push(this.state.navigationMaritimeModel);
-                    }    
                 }
-           /*  }
+             }
         }
-    } */
+    } 
 
 
     retablir = () => {
@@ -137,32 +135,7 @@ class ActifsRapportEmbarcationBlock extends React.Component {
 
     }
 
-    checkDateDepartDateFinControleInformations = () => {
-        let modele = this.state.navigationMaritimeModel;
-        let dateDepart = formatCustomized(modele.dateDepart, FORMAT_DDMMYYYY);
-
-        let dateHeureDepart = moment(dateDepart + ' ' + modele.heureDepart, FORMAT_DDMMYYYY_HHMM);
-        moment.suppressDeprecationWarnings = true;
-        let dateFinControle = formatCustomized(modele.dateFinControle, FORMAT_DDMMYYYY);
-
-        let dateHeureFinControle = moment(dateFinControle + ' ' + modele.heureFinControle, FORMAT_DDMMYYYY_HHMM);
-
-        if (dateHeureDepart < dateHeureFinControle) {
-            let message = translate('actifsCreation.embarcations.resultatCtrl.msgErrorOrdreDateDepartDateFinControle');
-            this.setState({
-                errorMessage: message
-            });
-            return true;
-        } else {
-            this.setState({
-                errorMessage: null
-            });
-            return false
-        }
-
-
-
-    }
+    
 
     
 

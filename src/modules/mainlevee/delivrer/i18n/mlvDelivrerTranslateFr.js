@@ -1,5 +1,5 @@
 export default {
-    newmlv: {
+  newmlv: {
     title: 'MainLevée',
     operateur: 'Opérateur',
     Aucunenregistrementtrouve: 'Aucun enregistrement trouvé. ',
@@ -21,6 +21,7 @@ export default {
     },
     delivrerMainlevee: {
       title: 'Délivrer la mainLevée',
+      obligatoire: 'Nouveaux scélles Valeur obligatoire',
       secondTitle: 'Compte rendu du contrôle immédiat',
       annotations: {
         title: 'Annotations',
@@ -87,7 +88,7 @@ export default {
         numeroVersion: 'Numéro de version',
       },
       listeDeclarationsApurementD17D20: {
-        title: 'Liste des déclarations d\'apurement D17/D20',
+        title: "Liste des déclarations d'apurement D17/D20",
         reference: 'Référence',
         dateCreation: 'Date de création',
         numeroVersion: 'Numéro de version',

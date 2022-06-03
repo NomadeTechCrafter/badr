@@ -33,9 +33,6 @@ export default class ComAutoLoginApi {
 
   shortConnect = async () => {
     console.log('1) LOGIN START');
-    console.log(this.password);
-    console.log(this.usr);
-    console.log('1) LOGIN START');
     return await HabLoginApi.login(this.usr, this.password, true,"true")
       .then((data) => {
         if (data) {

@@ -1,5 +1,6 @@
 /**Constants */
 import * as Constants from '../mlvDelivrerConstants';
+
 const initialState = {
   showProgress: false,
   errorMessage: '',
@@ -49,16 +50,16 @@ export default (state = initialState, action) => {
       nextState.errorMessage = null;
       nextState.showProgress = false;
 
-
       nextState.successMessage = action.value.dtoHeader.messagesInfo;
       nextState.data = action.value;
       return nextState;
     case Constants.DELIVRERMLV_DELIVRERMLV_FAILED:
       nextState.showProgress = false;
       nextState.displayError = true;
-      nextState.errorMessage = action.value.dtoHeader
-        ? action.value.dtoHeader.messagesErreur
-        : action.value;
+      nextState.errorMessage =
+        action.value.dtoHeader
+          ? action.value.dtoHeader.messagesErreur
+          : action.value
       return nextState;
     case Constants.DELIVRERMLV_DELIVRERMLV_INIT:
       return initialState;
