@@ -185,6 +185,11 @@ class LiqRecapitulationLiqNormaleInitialeBlock extends React.Component {
                 <Col size={2}>
                   <ComBadrPickerComp
                     style={styles.badrPicker}
+                    disabled={
+                      (liquidationType == 'automatique' ||
+                        liquidationType == 'automatiqueRedevanceAT') &&
+                      liquidationVO?.montantTotalLiquide != '0.0'
+                    }
                     titleStyle={CustomStyleSheet.badrPickerTitle}
                     onRef={(ref) => (this.comboDelai = ref)}
                     key="delaiCredit"

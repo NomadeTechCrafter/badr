@@ -11,11 +11,14 @@ export function request(action) {
       action.value.jsonVO,
     )
       .then((response) => {
+        console.log('::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::');
+        console.log(JSON.stringify(response?.data));
+        console.log('::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::');
         const data = response.data;
-        if (data) {
+        if (data && data.jsonVO) {
           dispatch(success(data));
         } else {
-          dispatch(failed({ value: 'error while getting data' }));
+          dispatch(failed({ value: 'Centre RC inexistant !' }));
         }
       })
       .catch((e) => {

@@ -114,6 +114,20 @@ class LiqRecapitulationConsignationInitialeBlock extends React.Component {
                     </Col>
                   </Row>
                 </Col>
+                {/* <Col style={styles.decisionContainerRB}>
+                  <Row>
+                    <Col size={1}>
+                      <RadioButton color={styles.textRadio.color} value="0" />
+                    </Col>
+                    <Col size={5}>
+                      <Text style={styles.textRadio}>
+                        {translate(
+                          'liq.consignationInitiale.avecConsignationAV',
+                        )}
+                      </Text>
+                    </Col>
+                  </Row>
+                </Col> */}
               </RadioButton.Group>
             </Row>
 

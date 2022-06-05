@@ -23,6 +23,7 @@ import actifsRapportConfirmerAvitaillementEntreeAction from '../../state/actions
 import actifsRapportEditerAvitaillementEntreeAction from '../../state/actions/actifsRapportEditerAvitaillementEntreeAction';
 import actifsRapportResetAvitaillementEntreeAction from '../../state/actions/actifsRapportResetAvitaillementEntreeAction';
 import actifsRapportSupprimerAvitaillementEntreeAction from '../../state/actions/actifsRapportSupprimerAvitaillementEntreeAction';
+import * as GenericAction from '../../state/actions/GenericAction'
 import RechercherPersonneMoraleAction from '../../state/actions/actifsRapportRechercherPersonneMoraleAction';
 import { translate } from '../../../../../../commons/i18n/ComI18nHelper';
 import styles from '../../style/actifsCreationStyle';
@@ -31,6 +32,7 @@ import { Col, Grid, Row } from 'react-native-easy-grid';
 import { TextInput, IconButton } from 'react-native-paper';
 import { unitesMesure } from '../../state/actifsRapportCreationConstants';
 import { Dimensions } from 'react-native';
+import { ACTIFS_GENERIC_REQUEST } from '../../state/GenericConstants';
 
 
 const screenHeight = Dimensions.get('window').height;
@@ -42,6 +44,11 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
         this.state = {
             navigationsAvitaillementEntrees: this.props.navigationsAvitaillementEntrees ? this.props.navigationsAvitaillementEntrees : [],
             navigationAvitaillementEntreeModel: getNavigationAvitaillementEntreeModelInitial(),
+            bureau: '309',
+            regime: '060',
+            annee: '2022',
+            serie: '0000001',
+            cle: 'T',
             errorMessage: null
         };
         this.cols = [
@@ -70,6 +77,14 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
                 libelle: translate('actifsCreation.avitaillementEntree.volumeApparent'),
                 width: 150,
             },
+            {
+                code: 'dateHeureReception',
+                libelle: translate('actifsCreation.avitaillementEntree.dateHeureReception'),
+                width: 300,
+                render: (row) => {
+                    return formatCustomized(row.dateEntree, FORMAT_DDMMYYYY);
+                }
+            }
             // {
             //     code: '',
             //     libelle: '',
@@ -201,6 +216,7 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
             this.props.update({
                 updateAvitaillementEntrees: this.state?.navigationsAvitaillementEntrees,
             });
+            this.retablir();
         }
     }
 
@@ -516,9 +532,71 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
         this.update();
     };
 
+    isDumExist = () => {
+        if (_.isEmpty(this.state.bureau)
+            || _.isEmpty(this.state.regime)
+            || _.isEmpty(this.state.annee)
+            || _.isEmpty(this.state.serie)
+            || _.isEmpty(this.state.cle)) {
+            this.setState({
+                errorMessage: translate('errors.referenceNotValid')
+            });
+        } else {
+            this.setState({
+                errorMessage: null
+            });
+            console.log(JSON.stringify(this.state));
+
+            let action = GenericAction.request({
+                type: ACTIFS_GENERIC_REQUEST,
+                value: {
+                    module: "GIB",
+                    command: "validerReferenceDumAvitaillementSorties",
+                    typeService: "SP",
+                    jsonVO: {
+                        bureau: this.state.bureau,
+                        regime: this.state.regime,
+                        annee: this.state.annee,
+                        serie: this.state.serie,
+                        cle: this.state.cle
+                    },
+                },
+            });
+            this.props.dispatch(action);
+            console.log('::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::');
+            console.log('::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::');
+            console.log(JSON.stringify(this.props.validerReferenceDumAvitaillementSorties?.dtoHeader?.messagesErreur[0]));
+            console.log('::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::');
+            console.log('::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::');
+            if (this.props?.validerReferenceDumAvitaillementSorties?.dtoHeader?.messagesErreur) {
+                this.setState({
+                    errorMessage: this.props?.validerReferenceDumAvitaillementSorties?.dtoHeader?.messagesErreur[0]
+                });
+            } else {
+                this.setState({
+                    errorMessage: null
+                });
+                this.setState(prevState => {
+                    let navigationAvitaillementEntreeModel = Object.assign({}, prevState.navigationAvitaillementEntreeModel);
+                    navigationAvitaillementEntreeModel.referenceDum = calculatedEcart;
+                    return { navigationAvitaillementEntreeModel };
+                })
+            }
+        }
+        this.update();
+    };
+
+
+
 
 
     render() {
+        console.log('::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::');
+        console.log('::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::');
+        console.log(JSON.stringify(this.props.raisonSocialeFournErreur));
+        console.log('::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::');
+        console.log('::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::');
+
         return (
             <ScrollView>
                 {this.props.successMessage != null && (
@@ -529,6 +607,9 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
                 )}
                 {this.props.errorMessage != null && (
                     <ComBadrErrorMessageComp message={this.props.errorMessage} />
+                )}
+                {this.state.errorMessage != null && (
+                    <ComBadrErrorMessageComp message={this.state.errorMessage} />
                 )}
 
                 <View style={CustomStyleSheet.fullContainer}>
@@ -549,16 +630,12 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
                                             disabled={this.props.readOnly}
                                             style={{ height: 40, fontSize: 12, textAlignVertical: 'top', paddingRight: 12 }}
                                             placeholder={translate('actifsCreation.avitaillementEntree.DUM.bureau')}
-                                        // value={this.state.navigationAvitaillementEntreeModel.villeProvenance}
-                                        // onChangeText={(text) => {
-                                        // this.setState({
-                                        //     navigationAvitaillementEntreeModel: {
-                                        //         ...this.state.navigationAvitaillementEntreeModel, villeProvenance: text
-                                        //     }
-                                        // });
-                                        // this.state.navigationAvitaillementEntreeModel.villeProvenance = text;
-                                        // this.props.update(this.state.navigationAvitaillementEntreeModel);
-                                        // }}
+                                            value={this.state.bureau}
+                                            onChangeText={(text) => {
+                                                this.setState({
+                                                    bureau: text
+                                                });
+                                            }}
                                         />
                                     </Col>
                                     <Col size={1}>
@@ -567,16 +644,12 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
                                             disabled={this.props.readOnly}
                                             style={{ height: 40, fontSize: 12, textAlignVertical: 'top', paddingRight: 12 }}
                                             placeholder={translate('actifsCreation.avitaillementEntree.DUM.regime')}
-                                        // value={this.state.navigationAvitaillementEntreeModel.villeProvenance}
-                                        // onChangeText={(text) => {
-                                        //     this.setState({
-                                        //         navigationAvitaillementEntreeModel: {
-                                        //             ...this.state.navigationAvitaillementEntreeModel, villeProvenance: text
-                                        //         }
-                                        //     });
-                                        //     this.state.navigationAvitaillementEntreeModel.villeProvenance = text;
-                                        //     this.props.update(this.state.navigationAvitaillementEntreeModel);
-                                        // }}
+                                            value={this.state.regime}
+                                            onChangeText={(text) => {
+                                                this.setState({
+                                                    regime: text
+                                                });
+                                            }}
                                         />
                                     </Col>
                                     <Col size={1}>
@@ -585,16 +658,12 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
                                             disabled={this.props.readOnly}
                                             style={{ height: 40, fontSize: 12, textAlignVertical: 'top', paddingRight: 12 }}
                                             placeholder={translate('actifsCreation.avitaillementEntree.DUM.annee')}
-                                        // value={this.state.navigationAvitaillementEntreeModel.villeProvenance}
-                                        // onChangeText={(text) => {
-                                        //     this.setState({
-                                        //         navigationAvitaillementEntreeModel: {
-                                        //             ...this.state.navigationAvitaillementEntreeModel, villeProvenance: text
-                                        //         }
-                                        //     });
-                                        //     this.state.navigationAvitaillementEntreeModel.villeProvenance = text;
-                                        //     this.props.update(this.state.navigationAvitaillementEntreeModel);
-                                        // }}
+                                            value={this.state.annee}
+                                            onChangeText={(text) => {
+                                                this.setState({
+                                                    annee: text
+                                                });
+                                            }}
                                         />
                                     </Col>
                                     <Col size={2}>
@@ -603,16 +672,12 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
                                             disabled={this.props.readOnly}
                                             style={{ height: 40, fontSize: 12, textAlignVertical: 'top', paddingRight: 12 }}
                                             placeholder={translate('actifsCreation.avitaillementEntree.DUM.serie')}
-                                        // value={this.state.navigationAvitaillementEntreeModel.villeProvenance}
-                                        // onChangeText={(text) => {
-                                        //     this.setState({
-                                        //         navigationAvitaillementEntreeModel: {
-                                        //             ...this.state.navigationAvitaillementEntreeModel, villeProvenance: text
-                                        //         }
-                                        //     });
-                                        //     this.state.navigationAvitaillementEntreeModel.villeProvenance = text;
-                                        //     this.props.update(this.state.navigationAvitaillementEntreeModel);
-                                        // }}
+                                            value={this.state.serie}
+                                            onChangeText={(text) => {
+                                                this.setState({
+                                                    serie: text
+                                                });
+                                            }}
                                         />
                                     </Col>
                                     <Col size={1}>
@@ -621,16 +686,21 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
                                             disabled={this.props.readOnly}
                                             style={{ height: 40, fontSize: 12, textAlignVertical: 'top', paddingRight: 12 }}
                                             placeholder={translate('actifsCreation.avitaillementEntree.DUM.cle')}
-                                        // value={this.state.navigationAvitaillementEntreeModel.villeProvenance}
-                                        // onChangeText={(text) => {
-                                        //     this.setState({
-                                        //         navigationAvitaillementEntreeModel: {
-                                        //             ...this.state.navigationAvitaillementEntreeModel, villeProvenance: text
-                                        //         }
-                                        //     });
-                                        //     this.state.navigationAvitaillementEntreeModel.villeProvenance = text;
-                                        //     this.props.update(this.state.navigationAvitaillementEntreeModel);
-                                        // }}
+                                            value={this.state.cle}
+                                            onChangeText={(text) => {
+                                                this.setState({
+                                                    cle: text
+                                                });
+                                            }}
+                                        />
+                                    </Col>
+                                    <Col size={1}>
+                                        <ComBadrButtonComp
+                                            style={styles.okBtn}
+                                            onPress={() => {
+                                                this.isDumExist();
+                                            }}
+                                            text={translate('transverse.Ok')}
                                         />
                                     </Col>
                                 </Row>
@@ -679,16 +749,11 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
                     readOnly={this.props.consultation} /> */}
 
                 <ScrollView>
-                    <ComContainerComp>
-                        {this.state.errorMessage != null && (
-                            <ComBadrErrorMessageComp message={this.state.errorMessage} />
-                        )}
-                    </ComContainerComp>
                     {/* <ActifsRapportAvitaillementEntreeMainBlock index={this.props.index}
                     navigationAvitaillementEntreeModel={this.state.navigationAvitaillementEntreeModel}
                     readOnly={this.props.readOnly}
                     update={this.updateModelNavigationAvitaillementEntree} /> */}
-                    <View style={[CustomStyleSheet.fullContainer, { marginTop: -60 }]}>
+                    <View style={[CustomStyleSheet.fullContainer, { marginTop: -10 }]}>
                         <ComContainerComp>
                             {this.props.showProgress && (
                                 <ComBadrProgressBarComp width={screenHeight} />
@@ -711,7 +776,7 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
                                         </Col>
                                         <Col size={6}>
                                             <ComBadrLibelleComp>
-                                                3090102021000015
+                                                {this.state.navigationAvitaillementEntreeModel.referenceDum}
                                             </ComBadrLibelleComp>
                                         </Col>
                                         <Col size={2} />
@@ -1144,7 +1209,7 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
                                                     console.log(selectedValue);
                                                     this.setState({
                                                         navigationAvitaillementEntreeModel: {
-                                                            ...this.state.navigationAvitaillementEntreeModel, uniteMesure: selectedValue?.code
+                                                            ...this.state.navigationAvitaillementEntreeModel, uniteMesure: selectedValue
                                                         }
                                                     });
                                                     this.update();

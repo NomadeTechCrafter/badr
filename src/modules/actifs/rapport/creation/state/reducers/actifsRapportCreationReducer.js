@@ -1,5 +1,6 @@
 import { getNavigationAerienneModelInitial, getNavigationMaritimeModelInitial, format } from '../../../utils/actifsUtils';
 import * as Constants from '../actifsRapportCreationConstants';
+import * as GenericConstants from '../GenericConstants';
 import { save, saveStringified } from '../../../../../../commons/services/async-storage/ComStorageService';
 import { Rows } from 'react-native-table-component';
 
@@ -365,12 +366,33 @@ export default (state = initialState, action) => {
       return nextState;
     case Constants.RECHERCHE_PERSONNE_MORALE_SUCCESS:
       console.log("RECHERCHE_PERSONNE_MORALE_SUCCESS : " + JSON.stringify(action));
-      nextState.raisonSocialeFourn = action.value;
+      nextState.raisonSocialeFourn = action?.value?.nomIntervenant;
+      nextState.errorMessage = '';
       return nextState;
     case Constants.RECHERCHE_PERSONNE_MORALE_FAILED:
+      console.log("RECHERCHE_PERSONNE_MORALE_FAILED : " + JSON.stringify(action));
+      nextState.errorMessage = action?.value;
+      nextState.raisonSocialeFourn = '';
       return nextState;
     case Constants.RECHERCHE_PERSONNE_MORALE_INIT:
       nextState.raisonSocialeFourn = '';
+      nextState.errorMessage = '';
+      return nextState;
+
+    case GenericConstants.ACTIFS_GENERIC_REQUEST:
+      return nextState;
+    case GenericConstants.ACTIFS_GENERIC_IN_PROGRESS:
+      return nextState;
+    case GenericConstants.ACTIFS_GENERIC_SUCCESS:
+      nextState.validerReferenceDumAvitaillementSorties = action?.value?.data;
+      console.log('reducer success ' + JSON.stringify(action?.value?.data));
+      return nextState;
+    case GenericConstants.ACTIFS_GENERIC_FAILED:
+      nextState.validerReferenceDumAvitaillementSorties = action?.value?.data;
+      console.log('reducer failed ' + JSON.stringify(action?.value?.data));
+      return nextState;
+    case GenericConstants.ACTIFS_GENERIC_INIT:
+      nextState;
       return nextState;
 
 

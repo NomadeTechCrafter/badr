@@ -76,6 +76,7 @@ export default {
         'Avec consignation afférente aux régimes conventionnels',
       avecAutreConsignationDT: 'Avec autre consignation de droits et taxes',
       avecConsignationAI: 'Avec consignation afférente aux investissements',
+      avecConsignationAV: "Avec consignation afférente à l'arbitrage valeur",
       dateEcheanceConsignation: "Date d'écheance Consignation",
       totalConsignationDH: 'Total Consignation (DH)',
     },

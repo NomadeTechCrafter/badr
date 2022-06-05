@@ -44,6 +44,9 @@ const styles = {
     actionBtn: {
         width: 100
     },
+    okBtn: {
+        width: 50
+    },
     messages: {},
     centerErrorMsg: {
         width: '100%',

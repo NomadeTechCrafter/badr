@@ -15,6 +15,7 @@ export default {
     technicalIssue: "Erreur technique, contactez l''administratteur",
     donneeObligatoire: 'la saisie du champ "{{champ}}" est obligatoire !',
     cleNotValid: 'Vérifiez la référence de votre déclaration ({{cle}})',
+    referenceNotValid: 'E13530: Vérifiez la référence de votre déclaration',
     maxNombreScelle: 'Le maximum des scellés generés est 100',
     numScelleInferieur:
       'Le premier numéro de scellé du générateur doit être inférieur au dernier. ',

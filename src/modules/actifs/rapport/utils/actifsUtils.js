@@ -115,11 +115,11 @@ export const getNavigationAvitaillementEntreeModelInitial = () => {
     volumeAppEnvoye: '',
     volumeAppReceptionne: '',
     coeffConvert: '',
-    volume15Recep: 0,
+    volume15Recep: null,
     densite15: '',
     temperature: '',
-    valeurEcart: 0,
-    poidsReceptionne: 0,
+    valeurEcart: null,
+    poidsReceptionne: null,
     observations: ''
   }
 }

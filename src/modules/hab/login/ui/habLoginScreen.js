@@ -34,6 +34,8 @@ class Login extends React.Component {
       // password: 'testTest1+',
       login: 'AD6300',
       password: 'Testtest1+',
+      // login: 'YELM',
+      // password: 'testtest',
       codeSms: '8bXqj1lLva3IEg6iDbJ+eA==',
       bureau: '309',
       codeBureau: '309',
@@ -41,7 +43,8 @@ class Login extends React.Component {
       // arrondissement: '309',
       profiles: [
         // "0", "AAMAX", "AB", "PRO TEST",
-        "ACTIFS"
+        "ACTIFS",
+        // "LIQJSF", "LIQREFREC", "LIQ-TEST", "IMANLIQ" // Liquidation
         // "AR", "ADMINBV",
         // "ADMSELCOT", "ADT", "AGBRIGADE", "AGDP", "AGENTD", "AGECOR", "AGENT_TEST", "AV",
         // "AG_VISIT", "AGLACI", "ALLPROFIL", "ALL", "ALLPRO", "A123", "AMAL2015", "AMAL-PRO",
