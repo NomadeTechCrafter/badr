@@ -141,6 +141,23 @@ export default class ComUtils {
     return alpha;
   };
 
+  static cleDUMRegimeSerie = function (regime, serie) {
+    let alpha = 'ABCDEFGHJKLMNPRSTUVWXYZ';
+    /*while (serie.length < 6) {
+        serie = '0' + serie;
+      }*/
+    if (serie.length > 6) {
+      let firstSerie = serie.substring(0, 1);
+      if (firstSerie == '0') {
+        serie = serie.substring(1, 7);
+      }
+    }
+    let obj = regime + serie;
+    let RS = obj % 23;
+    alpha = alpha.charAt(RS);
+    return alpha;
+  };
+
   static convertStringTimeStamp = (date) => {
     var start_date = new Date(moment(date, "yyyy-MM-dd HH:mm:ss.S"));
     return start_date;

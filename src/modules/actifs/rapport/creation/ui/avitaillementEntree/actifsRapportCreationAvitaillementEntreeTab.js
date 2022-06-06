@@ -33,6 +33,8 @@ import { TextInput, IconButton } from 'react-native-paper';
 import { unitesMesure } from '../../state/actifsRapportCreationConstants';
 import { Dimensions } from 'react-native';
 import { ACTIFS_GENERIC_REQUEST } from '../../state/GenericConstants';
+/** Utils */
+import ComUtils from '../../../../../../commons/utils/ComUtils';
 
 
 const screenHeight = Dimensions.get('window').height;
@@ -153,7 +155,14 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
     componentWillUnmount() {
     }
 
-
+    addZeros = (input) => {
+        let keyImput = _.keys(input)[0];
+        if (input[keyImput] !== '') {
+            this.setState({
+                [keyImput]: _.padStart(input[keyImput], input.maxLength, '0'),
+            });
+        }
+    };
 
     reset = () => {
     };
@@ -364,7 +373,6 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
 
     }
 
-
     retablir = () => {
         // this.props.callbackHandler(RESET_AVITAILLEMENTENTREE_TASK);
         console.log('retablir');
@@ -379,8 +387,6 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
 
     update() {
     }
-
-
 
     calculerValeurEcart = () => {
         console.log('calculerValeurEcart');
@@ -509,26 +515,7 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
                 },
             });
             this.props.dispatch(action);
-
-            // console.log("=================================================================================");
-            // console.log("=================================================================================");
-            // console.log(JSON.stringify(this.props?.raisonSocialeFourn));
-            // console.log("=================================================================================");
-            // console.log("=================================================================================");
-
-            // this.setState(prevState => {
-            //     let navigationAvitaillementEntreeModel = Object.assign({}, prevState.navigationAvitaillementEntreeModel);
-            //     navigationAvitaillementEntreeModel.raisonSocialeFourn = this.props?.raisonSocialeFourn;
-            //     return { navigationAvitaillementEntreeModel };
-            // })
         }
-        // else {
-        //     this.setState(prevState => {
-        //         let navigationAvitaillementEntreeModel = Object.assign({}, prevState.navigationAvitaillementEntreeModel);
-        //         navigationAvitaillementEntreeModel.raisonSocialeFourn = this.props.raisonSocialeFourn ? this.props?.raisonSocialeFourn : '';
-        //         return { navigationAvitaillementEntreeModel };
-        //     })
-        // }
         this.update();
     };
 
@@ -542,60 +529,58 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
                 errorMessage: translate('errors.referenceNotValid')
             });
         } else {
-            this.setState({
-                errorMessage: null
-            });
-            console.log(JSON.stringify(this.state));
+            const cleValide = ComUtils.cleDUMRegimeSerie(this.state.regime, this.state.serie);
 
-            let action = GenericAction.request({
-                type: ACTIFS_GENERIC_REQUEST,
-                value: {
-                    module: "GIB",
-                    command: "validerReferenceDumAvitaillementEntrees",
-                    typeService: "SP",
-                    jsonVO: {
-                        bureau: this.state.bureau,
-                        regime: this.state.regime,
-                        annee: this.state.annee,
-                        serie: this.state.serie,
-                        cle: this.state.cle
+            if (this.state.cle === cleValide) {
+                this.setState({
+                    errorMessage: ''
+                });
+                let action = GenericAction.request({
+                    type: ACTIFS_GENERIC_REQUEST,
+                    value: {
+                        module: "GIB",
+                        command: "validerReferenceDumAvitaillementEntrees",
+                        typeService: "SP",
+                        jsonVO: {
+                            bureau: this.state.bureau,
+                            regime: this.state.regime,
+                            annee: this.state.annee,
+                            serie: this.state.serie,
+                            cle: this.state.cle
+                        },
                     },
-                },
-            });
-            this.props.dispatch(action);
-            console.log('::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::');
-            console.log('::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::');
-            console.log(JSON.stringify(this.props.validerReferenceDumAvitaillementEntrees?.dtoHeader?.messagesErreur[0]));
-            console.log('::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::');
-            console.log('::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::');
-            if (this.props?.validerReferenceDumAvitaillementEntrees?.dtoHeader?.messagesErreur) {
-                this.setState({
-                    errorMessage: this.props?.validerReferenceDumAvitaillementEntrees?.dtoHeader?.messagesErreur[0]
                 });
-            } else {
-                this.setState({
-                    errorMessage: null
-                });
+                this.props.dispatch(action);
                 this.setState(prevState => {
                     let navigationAvitaillementEntreeModel = Object.assign({}, prevState.navigationAvitaillementEntreeModel);
-                    navigationAvitaillementEntreeModel.referenceDum = calculatedEcart;
+                    navigationAvitaillementEntreeModel.referenceDum = this.state.bureau + this.state.regime + this.state.annee + this.state.serie;
+                    navigationAvitaillementEntreeModel.dateEnregistrementDum = this.props?.validerReferenceDumAvitaillementEntreesDate;
                     return { navigationAvitaillementEntreeModel };
                 })
+                // }
+            } else {
+                this.setState({
+                    errorMessage: translate('errors.referenceNotValid') + ' (' + cleValide + ')'
+                });
             }
         }
-        this.update();
     };
 
-
-
-
-
     render() {
-        console.log('::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::');
-        console.log('::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::');
-        console.log(JSON.stringify(this.props.raisonSocialeFournErreur));
-        console.log('::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::');
-        console.log('::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::');
+        // console.log('::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::');
+        // console.log('::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::');
+        // console.log(JSON.stringify(this.props.raisonSocialeFournErreur));
+        // console.log('::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::');
+        // console.log('::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::');
+        // console.log('::::::::::::::::::::::::::::::1::::::::::::::::::::::::::::::::::::::::::');
+        // console.log('::::::::::::::::::::::::::::::1::::::::::::::::::::::::::::::::::::::::::');
+        // console.log(JSON.stringify(this.props?.validerReferenceDumAvitaillementEntreesDate));
+        // console.log(':::::::::::::::::::::::::::::::1:::::::::::::::::::::::::::::::::::::::::');
+        // console.log(JSON.stringify(this.state.navigationAvitaillementEntreeModel.referenceDum));
+        // console.log(':::::::::::::::::::::::::::::::1:::::::::::::::::::::::::::::::::::::::::');
+        // console.log(JSON.stringify(this.props?.validerReferenceDumAvitaillementEntrees));
+        // console.log(':::::::::::::::::::::::::::::::1:::::::::::::::::::::::::::::::::::::::::');
+        // console.log('::::::::::::::::::::::::::::::1::::::::::::::::::::::::::::::::::::::::::');
 
         return (
             <ScrollView>
@@ -607,6 +592,9 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
                 )}
                 {this.props.errorMessage != null && (
                     <ComBadrErrorMessageComp message={this.props.errorMessage} />
+                )}
+                {this.props.validerReferenceDumAvitaillementEntrees?.dtoHeader?.messagesErreur != null && (
+                    <ComBadrErrorMessageComp message={this.props.validerReferenceDumAvitaillementEntrees.dtoHeader.messagesErreur} />
                 )}
                 {this.state.errorMessage != null && (
                     <ComBadrErrorMessageComp message={this.state.errorMessage} />
@@ -627,7 +615,7 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
                                     <Col size={1}>
                                         <TextInput
                                             mode={'outlined'}
-                                            disabled={this.props.readOnly}
+                                            disabled={this.props.consultation}
                                             style={{ height: 40, fontSize: 12, textAlignVertical: 'top', paddingRight: 12 }}
                                             placeholder={translate('actifsCreation.avitaillementEntree.DUM.bureau')}
                                             value={this.state.bureau}
@@ -636,12 +624,18 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
                                                     bureau: text
                                                 });
                                             }}
+                                            onEndEditing={(event) =>
+                                                this.addZeros({
+                                                    bureau: event.nativeEvent.text,
+                                                    maxLength: 3,
+                                                })
+                                            }
                                         />
                                     </Col>
                                     <Col size={1}>
                                         <TextInput
                                             mode={'outlined'}
-                                            disabled={this.props.readOnly}
+                                            disabled={this.props.consultation}
                                             style={{ height: 40, fontSize: 12, textAlignVertical: 'top', paddingRight: 12 }}
                                             placeholder={translate('actifsCreation.avitaillementEntree.DUM.regime')}
                                             value={this.state.regime}
@@ -650,12 +644,18 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
                                                     regime: text
                                                 });
                                             }}
+                                            onEndEditing={(event) =>
+                                                this.addZeros({
+                                                    regime: event.nativeEvent.text,
+                                                    maxLength: 3,
+                                                })
+                                            }
                                         />
                                     </Col>
                                     <Col size={1}>
                                         <TextInput
                                             mode={'outlined'}
-                                            disabled={this.props.readOnly}
+                                            disabled={this.props.consultation}
                                             style={{ height: 40, fontSize: 12, textAlignVertical: 'top', paddingRight: 12 }}
                                             placeholder={translate('actifsCreation.avitaillementEntree.DUM.annee')}
                                             value={this.state.annee}
@@ -664,12 +664,18 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
                                                     annee: text
                                                 });
                                             }}
+                                            onEndEditing={(event) =>
+                                                this.addZeros({
+                                                    annee: event.nativeEvent.text,
+                                                    maxLength: 4,
+                                                })
+                                            }
                                         />
                                     </Col>
                                     <Col size={2}>
                                         <TextInput
                                             mode={'outlined'}
-                                            disabled={this.props.readOnly}
+                                            disabled={this.props.consultation}
                                             style={{ height: 40, fontSize: 12, textAlignVertical: 'top', paddingRight: 12 }}
                                             placeholder={translate('actifsCreation.avitaillementEntree.DUM.serie')}
                                             value={this.state.serie}
@@ -678,12 +684,19 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
                                                     serie: text
                                                 });
                                             }}
+                                            onEndEditing={(event) =>
+                                                this.addZeros({
+                                                    serie: event.nativeEvent.text,
+                                                    maxLength: 7,
+                                                })
+                                            }
                                         />
                                     </Col>
                                     <Col size={1}>
                                         <TextInput
                                             mode={'outlined'}
-                                            disabled={this.props.readOnly}
+                                            maxLength={1}
+                                            disabled={this.props.consultation}
                                             style={{ height: 40, fontSize: 12, textAlignVertical: 'top', paddingRight: 12 }}
                                             placeholder={translate('actifsCreation.avitaillementEntree.DUM.cle')}
                                             value={this.state.cle}
@@ -694,15 +707,17 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
                                             }}
                                         />
                                     </Col>
-                                    <Col size={1}>
-                                        <ComBadrButtonComp
-                                            style={styles.okBtn}
-                                            onPress={() => {
-                                                this.isDumExist();
-                                            }}
-                                            text={translate('transverse.Ok')}
-                                        />
-                                    </Col>
+                                    {(!this.props.consultation) && (
+                                        <Col size={1}>
+                                            <ComBadrButtonComp
+                                                style={styles.okBtn}
+                                                onPress={() => {
+                                                    this.isDumExist();
+                                                }}
+                                                text={translate('transverse.Ok')}
+                                            />
+                                        </Col>
+                                    )}
                                 </Row>
                             </Grid>
                         </ComBadrCardBoxComp>
@@ -710,19 +725,12 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
 
                     </ComContainerComp>
                 </View>
-                {/* <ActifsRapportAvitaillementRefDumBlock
-                    navigationAvitaillementEntreeModel={this.props.navigationAvitaillementEntreeModel}
-                    index={this.props.index}
-                    push={this.ajouterNavigationAvitaillementEntreeModel}
-                    callbackHandler={this.callbackHandler}
-                    readOnly={this.props.consultation} /> */}
-
                 <View style={{ marginLeft: 40 }}>
                     <ComBasicDataTableComp
                         ref="_badrTable"
                         id="avitaillementEntreesTable"
                         rows={this.state.navigationsAvitaillementEntrees}
-                        cols={(this.props.readOnly) ? this.colsRO : this.cols}
+                        cols={(this.props.consultation) ? this.colsRO : this.cols}
                         onItemSelected={this.onItemSelected}
                         totalElements={this.props.avitaillementEntrees?.length}
                         maxResultsPerPage={10}
@@ -730,29 +738,21 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
                         showProgress={this.props.showProgress}
                         hasId={false}
                     />
-                    {(!this.props.readOnly) && (<View style={styles.ComContainerCompBtn}>
-                        <ComBadrButtonComp
-                            style={styles.actionBtn}
-                            onPress={() => {
-                                this.nouveau();
-                            }}
-                            text={translate('transverse.nouveau')}
-                        />
-                    </View>)}
+                    {(!this.props.consultation) && (
+                        <View style={styles.ComContainerCompBtn}>
+                            <ComBadrButtonComp
+                                style={styles.actionBtn}
+
+                                onPress={() => {
+                                    this.nouveau();
+                                }}
+                                text={translate('transverse.nouveau')}
+                            />
+                        </View>
+                    )}
                 </View>
 
-                {/* <ActifsRapportAvitaillementEntreeBlock
-                    navigationAvitaillementEntreeModel={this.props.navigationAvitaillementEntreeModel}
-                    index={this.props.index}
-                    push={this.ajouterNavigationAvitaillementEntreeModel}
-                    callbackHandler={this.callbackHandler}
-                    readOnly={this.props.consultation} /> */}
-
                 <ScrollView>
-                    {/* <ActifsRapportAvitaillementEntreeMainBlock index={this.props.index}
-                    navigationAvitaillementEntreeModel={this.state.navigationAvitaillementEntreeModel}
-                    readOnly={this.props.readOnly}
-                    update={this.updateModelNavigationAvitaillementEntree} /> */}
                     <View style={[CustomStyleSheet.fullContainer, { marginTop: -10 }]}>
                         <ComContainerComp>
                             {this.props.showProgress && (
@@ -776,7 +776,7 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
                                         </Col>
                                         <Col size={6}>
                                             <ComBadrLibelleComp>
-                                                {this.state.navigationAvitaillementEntreeModel.referenceDum}
+                                                {this.state.navigationAvitaillementEntreeModel?.referenceDum}
                                             </ComBadrLibelleComp>
                                         </Col>
                                         <Col size={2} />
@@ -787,7 +787,7 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
                                         </Col>
                                         <Col size={4}>
                                             <ComBadrLibelleComp>
-                                                11/10/2021 10:00
+                                                {this.props.validerReferenceDumAvitaillementSortiesDate}
                                             </ComBadrLibelleComp>
                                         </Col>
                                     </Row>
@@ -803,7 +803,7 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
                                         <Col size={1}>
                                             <TextInput
                                                 mode={'outlined'}
-                                                disabled={this.props.readOnly}
+                                                disabled={this.props.consultation}
                                                 style={{ height: 40, fontSize: 12, textAlignVertical: 'top', paddingRight: 12 }}
                                                 placeholder={translate('actifsCreation.avitaillementEntree.DUM.bureau')}
                                             // value={this.state.navigationAvitaillementEntreeModel?.villeProvenance}
@@ -821,7 +821,7 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
                                         <Col size={1}>
                                             <TextInput
                                                 mode={'outlined'}
-                                                disabled={this.props.readOnly}
+                                                disabled={this.props.consultation}
                                                 style={{ height: 40, fontSize: 12, textAlignVertical: 'top', paddingRight: 12 }}
                                                 placeholder={translate('actifsCreation.avitaillementEntree.DUM.regime')}
                                             // value={this.state.navigationAvitaillementEntreeModel?.villeProvenance}
@@ -839,7 +839,7 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
                                         <Col size={1}>
                                             <TextInput
                                                 mode={'outlined'}
-                                                disabled={this.props.readOnly}
+                                                disabled={this.props.consultation}
                                                 style={{ height: 40, fontSize: 12, textAlignVertical: 'top', paddingRight: 12 }}
                                                 placeholder={translate('actifsCreation.avitaillementEntree.DUM.annee')}
                                             // value={this.state.navigationAvitaillementEntreeModel?.villeProvenance}
@@ -857,7 +857,7 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
                                         <Col size={2}>
                                             <TextInput
                                                 mode={'outlined'}
-                                                disabled={this.props.readOnly}
+                                                disabled={this.props.consultation}
                                                 style={{ height: 40, fontSize: 12, textAlignVertical: 'top', paddingRight: 12 }}
                                                 placeholder={translate('actifsCreation.avitaillementEntree.DUM.serie')}
                                             // value={this.state.navigationAvitaillementEntreeModel?.villeProvenance}
@@ -875,7 +875,7 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
                                         <Col size={1}>
                                             <TextInput
                                                 mode={'outlined'}
-                                                disabled={this.props.readOnly}
+                                                disabled={this.props.consultation}
                                                 style={{ height: 40, fontSize: 12, textAlignVertical: 'top', paddingRight: 12 }}
                                                 placeholder={translate('actifsCreation.avitaillementEntree.DUM.cle')}
                                             // value={this.state.navigationAvitaillementEntreeModel?.villeProvenance}
@@ -900,32 +900,20 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
                                             </ComBadrLibelleComp>
                                         </Col>
                                         <Col size={6}>
-                                            <TextInput
-                                                mode={'outlined'}
-                                                disabled={true}
-                                                style={{ height: 20, fontSize: 12 }}
-                                                // value={moment(this.state.navigationMaritimeModel.dateEntree).format('DD/MM/YYYY')}
-                                                multiline={true}
-                                                numberOfLines={1}
+                                            <ComBadrDatePickerComp
+                                                readonly={this.props.consultation}
+                                                dateFormat="DD/MM/YYYY"
+                                                value={this.state.navigationAvitaillementEntreeModel?.dateEnregistrementAcquis ? moment(this.state.navigationAvitaillementEntreeModel?.dateEnregistrementAcquis, 'DD/MM/YYYY', true) : ''}
+                                                onDateChanged={(date) => {
+                                                    this.setState({
+                                                        navigationAvitaillementEntreeModel: {
+                                                            ...this.state.navigationAvitaillementEntreeModel, dateEnregistrementAcquis: date
+                                                        }
+                                                    });
+                                                    this.update();
+                                                }}
+
                                             />
-                                            {this.state.showDateEntree && (
-                                                <DateTimePicker
-                                                    testID="dateTimePicker"
-                                                    // value={this.state.navigationMaritimeModel.dateEntree}
-                                                    mode="date"
-                                                    is24Hour={true}
-                                                    display="default"
-                                                // onChange={this.onDateEntreeChange}
-                                                />
-                                            )}
-                                        </Col>
-                                        <Col size={2} style={{ paddingTop: 5 }}>
-                                            {!this.props.readOnly && (<IconButton
-                                                icon="calendar"
-                                            // onPress={() => {
-                                            //     this.setState({ showDateEntree: true });
-                                            // }}
-                                            />)}
                                         </Col>
                                     </Row>
 
@@ -939,7 +927,7 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
                                         <Col size={3}>
                                             <TextInput
                                                 mode={'outlined'}
-                                                disabled={this.props.readOnly}
+                                                disabled={this.props.consultation}
                                                 style={{ height: 20, fontSize: 12, textAlignVertical: 'top', marginRight: 10 }}
                                                 value={this.state.navigationAvitaillementEntreeModel?.numBonLivraison}
                                                 onChangeText={(text) => {
@@ -959,6 +947,8 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
                                         </Col>
                                         <Col size={4}>
                                             <ComBadrDatePickerComp
+
+                                                readonly={this.props.consultation}
                                                 dateFormat="DD/MM/YYYY"
                                                 heureFormat="HH:mm"
                                                 value={this.state.navigationAvitaillementEntreeModel?.dateLivraison ? moment(this.state.navigationAvitaillementEntreeModel?.dateLivraison, 'DD/MM/YYYY', true) : ''}
@@ -994,7 +984,7 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
                                         <Col size={3}>
                                             <TextInput
                                                 mode={'outlined'}
-                                                disabled={this.props.readOnly}
+                                                disabled={this.props.consultation}
                                                 style={{ height: 20, fontSize: 12, textAlignVertical: 'top', marginRight: 10 }}
                                                 value={this.state.navigationAvitaillementEntreeModel?.immatriculationCamion}
                                                 onChangeText={(text) => {
@@ -1015,7 +1005,7 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
                                         <Col size={3}>
                                             <TextInput
                                                 mode={'outlined'}
-                                                disabled={this.props.readOnly}
+                                                disabled={this.props.consultation}
                                                 style={{ height: 20, fontSize: 12, textAlignVertical: 'top' }}
                                                 value={this.state.navigationAvitaillementEntreeModel?.immatriculationCiterne}
                                                 onChangeText={(text) => {
@@ -1040,7 +1030,7 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
                                         <Col size={3}>
                                             <TextInput
                                                 mode={'outlined'}
-                                                disabled={this.props.readOnly}
+                                                disabled={this.props.consultation}
                                                 keyboardType={'number-pad'}
                                                 style={{ height: 20, fontSize: 12, textAlignVertical: 'top', marginRight: 10 }}
                                                 value={this.state.navigationAvitaillementEntreeModel?.numRCFourn}
@@ -1065,7 +1055,7 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
                                         <Col size={3}>
                                             <TextInput
                                                 mode={'outlined'}
-                                                disabled={this.props.readOnly}
+                                                disabled={this.props.consultation}
                                                 keyboardType={'number-pad'}
                                                 style={{ height: 20, fontSize: 12, textAlignVertical: 'top' }}
                                                 value={this.state.navigationAvitaillementEntreeModel?.centreRCFourn}
@@ -1115,7 +1105,7 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
                                         <Col size={3} style={{ paddingRight: 5 }}>
                                             <ComBadrItemsPickerComp
                                                 label={translate('actifsCreation.avitaillementEntree.main.natureProduit')}
-                                                disabled={this.props.readOnly}
+                                                disabled={this.props.consultation}
                                                 selectedValue={this.state.navigationAvitaillementEntreeModel?.nature ? this.state.navigationAvitaillementEntreeModel?.nature?.code : {}}
                                                 items={naturesProduits}
                                                 onValueChanged={(selectedValue) => {
@@ -1140,8 +1130,10 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
                                                 {translate('actifsCreation.avitaillementEntree.main.dateReception')}
                                             </ComBadrLibelleComp>
                                         </Col>
-                                        <Col size={4} >
+                                        <Col size={9} >
                                             <ComBadrDatePickerComp
+
+                                                readonly={this.props.consultation}
                                                 dateFormat="DD/MM/YYYY"
                                                 heureFormat="HH:mm"
                                                 value={this.state.navigationAvitaillementEntreeModel?.dateReception ? moment(this.state.navigationAvitaillementEntreeModel?.dateReception, 'DD/MM/YYYY', true) : ''}
@@ -1166,7 +1158,6 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
                                                 }}
                                             />
                                         </Col>
-                                        <Col size={5} />
                                     </Row>
 
                                     {/*eleven Row*/}
@@ -1179,7 +1170,7 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
                                         <Col size={3}>
                                             <TextInput
                                                 mode={'outlined'}
-                                                disabled={this.props.readOnly}
+                                                disabled={this.props.consultation}
                                                 style={{ height: 20, fontSize: 12, textAlignVertical: 'top', marginRight: 10 }}
                                                 value={this.state.navigationAvitaillementEntreeModel?.quantiteReceptionne}
                                                 keyboardType={'number-pad'}
@@ -1202,7 +1193,7 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
                                             <ComBadrItemsPickerComp
                                                 // style={CustomStyleSheet.column}
                                                 label={translate('actifsCreation.avitaillementEntree.main.uniteMesure')}
-                                                disabled={this.props.readOnly}
+                                                disabled={this.props.consultation}
                                                 selectedValue={this.state.navigationAvitaillementEntreeModel?.uniteMesure ? this.state.navigationAvitaillementEntreeModel?.uniteMesure?.code : {}}
                                                 items={unitesMesure}
                                                 onValueChanged={(selectedValue) => {
@@ -1228,7 +1219,7 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
                                         <Col size={3}>
                                             <TextInput
                                                 mode={'outlined'}
-                                                disabled={this.props.readOnly}
+                                                disabled={this.props.consultation}
                                                 style={{ height: 20, fontSize: 12, textAlignVertical: 'top', marginRight: 10 }}
                                                 keyboardType={'number-pad'}
                                                 onEndEditing={(event) => this.calculerValeurEcart()}
@@ -1251,7 +1242,7 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
                                         <Col size={3}>
                                             <TextInput
                                                 mode={'outlined'}
-                                                disabled={this.props.readOnly}
+                                                disabled={this.props.consultation}
                                                 style={{ height: 20, fontSize: 12, textAlignVertical: 'top' }}
                                                 keyboardType={'number-pad'}
                                                 onEndEditing={(event) => {
@@ -1281,7 +1272,7 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
                                         <Col size={3}>
                                             <TextInput
                                                 mode={'outlined'}
-                                                disabled={this.props.readOnly}
+                                                disabled={this.props.consultation}
                                                 style={{ height: 20, fontSize: 12, textAlignVertical: 'top', marginRight: 10 }}
                                                 value={this.state.navigationAvitaillementEntreeModel?.coeffConvert}
                                                 keyboardType={'number-pad'}
@@ -1327,7 +1318,7 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
                                         <Col size={3}>
                                             <TextInput
                                                 mode={'outlined'}
-                                                disabled={this.props.readOnly}
+                                                disabled={this.props.consultation}
                                                 style={{ height: 20, fontSize: 12, textAlignVertical: 'top', marginRight: 10 }}
                                                 keyboardType={'number-pad'}
                                                 value={this.state.navigationAvitaillementEntreeModel?.densite15}
@@ -1372,7 +1363,7 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
                                         <Col size={3}>
                                             <TextInput
                                                 mode={'outlined'}
-                                                disabled={this.props.readOnly}
+                                                disabled={this.props.consultation}
                                                 keyboardType={'number-pad'}
                                                 style={{ height: 20, fontSize: 12, textAlignVertical: 'top', marginRight: 10 }}
                                                 value={this.state.navigationAvitaillementEntreeModel?.temperature}
@@ -1417,7 +1408,7 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
                                         <Col size={9}>
                                             <TextInput
                                                 mode={'outlined'}
-                                                disabled={this.props.readOnly}
+                                                disabled={this.props.consultation}
                                                 style={{ height: 90, fontSize: 12, textAlignVertical: 'top' }}
                                                 value={this.state.navigationAvitaillementEntreeModel?.observations}
                                                 multiline={true}
@@ -1441,7 +1432,7 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
                         </ComContainerComp>
                     </View>
 
-                    {(!this.props.readOnly) && (<View>
+                    {(!this.props.consultation) && (<View>
                         <Row style={{ justifyContent: 'center', paddingTop: 20 }}>
                             <ComBadrButtonComp
                                 style={{ width: 100 }}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, Text, View } from 'react-native';
+import { Dimensions, ScrollView, Text, View } from 'react-native';
 import { connect } from 'react-redux';
 import { Col, Grid, Row } from 'react-native-easy-grid';
 import { IconButton, TextInput, RadioButton } from 'react-native-paper';
@@ -29,8 +29,12 @@ import { CustomStyleSheet, primaryColor } from '../../../../../../commons/styles
 import translate from "../../../../../../commons/i18n/ComI18nHelper";
 import { formatCustomized } from '../../../utils/actifsUtils';
 import styles from '../../style/actifsCreationStyle';
+import ComUtils from '../../../../../../commons/utils/ComUtils';
+import { ACTIFS_GENERIC_REQUEST } from '../../state/GenericConstants';
+import * as GenericAction from '../../state/actions/GenericAction'
 
 
+const screenHeight = Dimensions.get('window').height;
 
 
 
@@ -49,40 +53,47 @@ class ActifsRapportCreationAvitaillementSortieTab extends React.Component {
             acProvenance: this.props.navigationAvitaillementSortieModel ? this.props.navigationAvitaillementSortieModel.provenance.nomPays : '',
             showDateDepart: false,
             showHeureDepart: false,
+            typeDUM: '01',
             heureDepartTech: this.props.navigationAvitaillementSortieModel ? this.props.navigationAvitaillementSortieModel.heureDepart : new Date(),
             acDestination: this.props.navigationAvitaillementSortieModel ? this.props.navigationAvitaillementSortieModel.destination.nomPays : '',
             typeAvitaillement: '01',
+            bureau: '309',
+            regime: '060',
+            annee: '2022',
+            serie: '0000001',
+            cle: 'T',
+            errorMessage: null,
             navigationAvitaillementSortieModel: getNavigationAvitaillementSortieModelInitial(),
         };
         this.cols = [
             {
                 code: 'bonLivraison',
-                libelle: translate('actifsCreation.avitaillementEntree.bonLivraison'),
+                libelle: translate('actifsCreation.avitaillementSortie.bonLivraison'),
                 width: 150,
             },
             {
                 code: 'fournisseur',
-                libelle: translate('actifsCreation.avitaillementEntree.fournisseur'),
+                libelle: translate('actifsCreation.avitaillementSortie.fournisseur'),
                 width: 150,
             },
             {
                 code: 'natureProduit',
-                libelle: translate('actifsCreation.avitaillementEntree.natureProduit'),
+                libelle: translate('actifsCreation.avitaillementSortie.natureProduit'),
                 width: 150,
             },
             {
                 code: 'quantiteReceptionne',
-                libelle: translate('actifsCreation.avitaillementEntree.quantiteReceptionne'),
+                libelle: translate('actifsCreation.avitaillementSortie.quantiteReceptionne'),
                 width: 150,
             },
             {
                 code: 'volumeApparent',
-                libelle: translate('actifsCreation.avitaillementEntree.volumeApparent'),
+                libelle: translate('actifsCreation.avitaillementSortie.volumeApparent'),
                 width: 150,
             },
             {
                 code: 'dateHeureReception',
-                libelle: translate('actifsCreation.avitaillementEntree.dateHeureReception'),
+                libelle: translate('actifsCreation.avitaillementSortie.dateHeureReception'),
                 width: 300,
                 render: (row) => {
                     return formatCustomized(row.dateEntree, FORMAT_DDMMYYYY);
@@ -113,32 +124,32 @@ class ActifsRapportCreationAvitaillementSortieTab extends React.Component {
         this.colsRO = [
             {
                 code: 'bonLivraison',
-                libelle: translate('actifsCreation.avitaillementEntree.bonLivraison'),
+                libelle: translate('actifsCreation.avitaillementSortie.bonLivraison'),
                 width: 150,
             },
             {
                 code: 'fournisseur',
-                libelle: translate('actifsCreation.avitaillementEntree.fournisseur'),
+                libelle: translate('actifsCreation.avitaillementSortie.fournisseur'),
                 width: 150,
             },
             {
                 code: 'natureProduit',
-                libelle: translate('actifsCreation.avitaillementEntree.natureProduit'),
+                libelle: translate('actifsCreation.avitaillementSortie.natureProduit'),
                 width: 150,
             },
             {
                 code: 'quantiteReceptionne',
-                libelle: translate('actifsCreation.avitaillementEntree.quantiteReceptionne'),
+                libelle: translate('actifsCreation.avitaillementSortie.quantiteReceptionne'),
                 width: 150,
             },
             {
                 code: 'volumeApparent',
-                libelle: translate('actifsCreation.avitaillementEntree.volumeApparent'),
+                libelle: translate('actifsCreation.avitaillementSortie.volumeApparent'),
                 width: 150,
             },
             {
                 code: 'dateHeureReception',
-                libelle: translate('actifsCreation.avitaillementEntree.dateHeureReception'),
+                libelle: translate('actifsCreation.avitaillementSortie.dateHeureReception'),
                 width: 300,
                 render: (row) => {
                     return formatCustomized(row.dateEntree, FORMAT_DDMMYYYY);
@@ -162,6 +173,15 @@ class ActifsRapportCreationAvitaillementSortieTab extends React.Component {
 
 
     }
+
+    addZeros = (input) => {
+        let keyImput = _.keys(input)[0];
+        if (input[keyImput] !== '') {
+            this.setState({
+                [keyImput]: _.padStart(input[keyImput], input.maxLength, '0'),
+            });
+        }
+    };
 
     reset = () => {
     };
@@ -472,19 +492,71 @@ class ActifsRapportCreationAvitaillementSortieTab extends React.Component {
                 dataToAction = {
                     type: ACTIFS_RESET_AVITAILLEMENTSORTIE_REQUEST,
                     value: {
-
                     }
                 };
-
                 this.props.dispatch(actifsRapportResetAvitaillementSortieAction.request(dataToAction));
                 break;
-
         }
-
     }
 
+    update() {
+    }
+    isDumExist = () => {
+        if (_.isEmpty(this.state.bureau)
+            || _.isEmpty(this.state.regime)
+            || _.isEmpty(this.state.annee)
+            || _.isEmpty(this.state.serie)
+            || _.isEmpty(this.state.cle)) {
+            this.setState({
+                errorMessage: translate('errors.referenceNotValid')
+            });
+        } else {
+            const cleValide = ComUtils.cleDUMRegimeSerie(this.state.regime, this.state.serie);
+
+            if (this.state.cle === cleValide) {
+                this.setState({
+                    errorMessage: null
+                });
+                console.log(JSON.stringify(this.state));
+
+                let action = GenericAction.request({
+                    type: ACTIFS_GENERIC_REQUEST,
+                    value: {
+                        module: "GIB",
+                        command: "validerReferenceDumAvitaillementSorties",
+                        typeService: "SP",
+                        jsonVO: {
+                            bureau: this.state.bureau,
+                            regime: this.state.regime,
+                            annee: this.state.annee,
+                            serie: this.state.serie,
+                            cle: this.state.cle
+                        },
+                    },
+                });
+                this.props.dispatch(action);
+                this.setState(prevState => {
+                    let navigationAvitaillementSortieModel = Object.assign({}, prevState.navigationAvitaillementSortieModel);
+                    navigationAvitaillementSortieModel.referenceDum = this.state.bureau + this.state.regime + this.state.annee + this.state.serie;
+                    navigationAvitaillementSortieModel.dateEnregistrementDum = this.props?.validerReferenceDumAvitaillementSortiesDate;
+                    return { navigationAvitaillementSortieModel };
+                })
+            } else {
+                this.setState({
+                    errorMessage: translate('errors.referenceNotValid') + ' (' + cleValide + ')'
+                });
+            }
+        }
+    };
 
     render() {
+        console.log(JSON.stringify(this.props?.validerReferenceDumAvitaillementSorties));
+        console.log(':::::::::::::::::::::::::::::::1:::::::::::::::::::::::::::::::::::::::::');
+        console.log(':::::::::::::::::::::::::::::::1:::::::::::::::::::::::::::::::::::::::::');
+        console.log(JSON.stringify(this.props?.validerReferenceDumAvitaillementSorties));
+        console.log(':::::::::::::::::::::::::::::::1:::::::::::::::::::::::::::::::::::::::::');
+        console.log('::::::::::::::::::::::::::::::1::::::::::::::::::::::::::::::::::::::::::');
+
         return (
             <ScrollView>
                 {this.props.successMessage != null && (
@@ -500,13 +572,15 @@ class ActifsRapportCreationAvitaillementSortieTab extends React.Component {
                     {this.state.errorMessage != null && (
                         <ComBadrErrorMessageComp message={this.state.errorMessage} />
                     )}
+                    {this.props.validerReferenceDumAvitaillementSorties?.dtoHeader?.messagesErreur != null && (
+                        <ComBadrErrorMessageComp message={this.props.validerReferenceDumAvitaillementSorties.dtoHeader.messagesErreur} />
+                    )}
                     {this.props.successMessage != null && (
                         <ComBadrInfoMessageComp message={this.props.successMessage} />
                     )}
                     {/* Référence déclaration */}
                     <ComBadrCardBoxComp noPadding={true}>
                         <Grid>
-                            {/*First Row*/}
                             <Row style={CustomStyleSheet.whiteRow}>
                                 <Col size={1} style={{ padding: 5 }}>
                                     <ComBadrLibelleComp withColor={true}>
@@ -514,7 +588,7 @@ class ActifsRapportCreationAvitaillementSortieTab extends React.Component {
                                     </ComBadrLibelleComp>
                                 </Col>
                                 <Col size={6}>
-                                    <RadioButton.Group onValueChange={this.onChangeTypeDUM} value={this.state.typeDUM}>
+                                    <RadioButton.Group onValueChange={newValue => this.setState({ typeDUM: newValue })} value={this.state.typeDUM}>
                                         <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
                                             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                                 <Text>{translate('actifsCreation.avitaillementSortie.dumProvNormale')}</Text>
@@ -528,8 +602,6 @@ class ActifsRapportCreationAvitaillementSortieTab extends React.Component {
                                     </RadioButton.Group>
                                 </Col>
                             </Row>
-
-                            {/*Second Row*/}
                             {(this.state.typeDUM == '01') &&
                                 (<Row style={CustomStyleSheet.whiteRow}>
                                     <Col size={1} style={{ padding: 5 }}>
@@ -540,94 +612,186 @@ class ActifsRapportCreationAvitaillementSortieTab extends React.Component {
                                     <Col size={1}>
                                         <TextInput
                                             mode={'outlined'}
-                                            disabled={this.props.readOnly}
+                                            disabled={this.props.consultation}
                                             style={{ height: 40, fontSize: 12, textAlignVertical: 'top', paddingRight: 12 }}
                                             placeholder={translate('actifsCreation.avitaillementSortie.DUM.bureau')}
-                                        // value={this.state.navigationAvitaillementSortieModel.villeProvenance}
-                                        // onChangeText={(text) => {
-                                        // this.setState({
-                                        //     navigationAvitaillementSortieModel: {
-                                        //         ...this.state.navigationAvitaillementSortieModel, villeProvenance: text
-                                        //     }
-                                        // });
-                                        // this.state.navigationAvitaillementSortieModel.villeProvenance = text;
-                                        // this.props.update(this.state.navigationAvitaillementSortieModel);
-                                        // }}
+                                            value={this.state.bureau}
+                                            onChangeText={(text) => {
+                                                this.setState({
+                                                    bureau: text
+                                                });
+                                            }}
+                                            onEndEditing={(event) =>
+                                                this.addZeros({
+                                                    bureau: event.nativeEvent.text,
+                                                    maxLength: 3,
+                                                })
+                                            }
                                         />
                                     </Col>
                                     <Col size={1}>
                                         <TextInput
                                             mode={'outlined'}
-                                            disabled={this.props.readOnly}
+                                            disabled={this.props.consultation}
                                             style={{ height: 40, fontSize: 12, textAlignVertical: 'top', paddingRight: 12 }}
                                             placeholder={translate('actifsCreation.avitaillementSortie.DUM.regime')}
-                                        // value={this.state.navigationAvitaillementSortieModel.villeProvenance}
-                                        // onChangeText={(text) => {
-                                        //     this.setState({
-                                        //         navigationAvitaillementSortieModel: {
-                                        //             ...this.state.navigationAvitaillementSortieModel, villeProvenance: text
-                                        //         }
-                                        //     });
-                                        //     this.state.navigationAvitaillementSortieModel.villeProvenance = text;
-                                        //     this.props.update(this.state.navigationAvitaillementSortieModel);
-                                        // }}
+                                            value={this.state.regime}
+                                            onChangeText={(text) => {
+                                                this.setState({
+                                                    regime: text
+                                                });
+                                            }}
+                                            onEndEditing={(event) =>
+                                                this.addZeros({
+                                                    regime: event.nativeEvent.text,
+                                                    maxLength: 3,
+                                                })
+                                            }
                                         />
                                     </Col>
                                     <Col size={1}>
                                         <TextInput
                                             mode={'outlined'}
-                                            disabled={this.props.readOnly}
+                                            disabled={this.props.consultation}
                                             style={{ height: 40, fontSize: 12, textAlignVertical: 'top', paddingRight: 12 }}
                                             placeholder={translate('actifsCreation.avitaillementSortie.DUM.annee')}
-                                        // value={this.state.navigationAvitaillementSortieModel.villeProvenance}
-                                        // onChangeText={(text) => {
-                                        //     this.setState({
-                                        //         navigationAvitaillementSortieModel: {
-                                        //             ...this.state.navigationAvitaillementSortieModel, villeProvenance: text
-                                        //         }
-                                        //     });
-                                        //     this.state.navigationAvitaillementSortieModel.villeProvenance = text;
-                                        //     this.props.update(this.state.navigationAvitaillementSortieModel);
-                                        // }}
+                                            value={this.state.annee}
+                                            onChangeText={(text) => {
+                                                this.setState({
+                                                    annee: text
+                                                });
+                                            }}
+                                            onEndEditing={(event) =>
+                                                this.addZeros({
+                                                    annee: event.nativeEvent.text,
+                                                    maxLength: 4,
+                                                })
+                                            }
                                         />
                                     </Col>
                                     <Col size={2}>
                                         <TextInput
                                             mode={'outlined'}
-                                            disabled={this.props.readOnly}
+                                            disabled={this.props.consultation}
                                             style={{ height: 40, fontSize: 12, textAlignVertical: 'top', paddingRight: 12 }}
                                             placeholder={translate('actifsCreation.avitaillementSortie.DUM.serie')}
-                                        // value={this.state.navigationAvitaillementSortieModel.villeProvenance}
-                                        // onChangeText={(text) => {
-                                        //     this.setState({
-                                        //         navigationAvitaillementSortieModel: {
-                                        //             ...this.state.navigationAvitaillementSortieModel, villeProvenance: text
-                                        //         }
-                                        //     });
-                                        //     this.state.navigationAvitaillementSortieModel.villeProvenance = text;
-                                        //     this.props.update(this.state.navigationAvitaillementSortieModel);
-                                        // }}
+                                            value={this.state.serie}
+                                            onChangeText={(text) => {
+                                                this.setState({
+                                                    serie: text
+                                                });
+                                            }}
+                                            onEndEditing={(event) =>
+                                                this.addZeros({
+                                                    serie: event.nativeEvent.text,
+                                                    maxLength: 7,
+                                                })
+                                            }
                                         />
                                     </Col>
                                     <Col size={1}>
                                         <TextInput
                                             mode={'outlined'}
-                                            disabled={this.props.readOnly}
+                                            maxLength={1}
+                                            disabled={this.props.consultation}
                                             style={{ height: 40, fontSize: 12, textAlignVertical: 'top', paddingRight: 12 }}
                                             placeholder={translate('actifsCreation.avitaillementSortie.DUM.cle')}
-                                        // value={this.state.navigationAvitaillementSortieModel.villeProvenance}
-                                        // onChangeText={(text) => {
-                                        //     this.setState({
-                                        //         navigationAvitaillementSortieModel: {
-                                        //             ...this.state.navigationAvitaillementSortieModel, villeProvenance: text
-                                        //         }
-                                        //     });
-                                        //     this.state.navigationAvitaillementSortieModel.villeProvenance = text;
-                                        //     this.props.update(this.state.navigationAvitaillementSortieModel);
-                                        // }}
+                                            value={this.state.cle}
+                                            onChangeText={(text) => {
+                                                this.setState({
+                                                    cle: text
+                                                });
+                                            }}
                                         />
                                     </Col>
-                                </Row>)}
+                                    {(!this.props.consultation) && (
+                                        <Col size={1}>
+                                            <ComBadrButtonComp
+                                                style={styles.okBtn}
+                                                onPress={() => {
+                                                    this.isDumExist();
+                                                }}
+                                                text={translate('transverse.Ok')}
+                                            />
+                                        </Col>
+                                    )}
+                                </Row>
+                                )}
+                            {(this.state.typeDUM == '02') && (
+                                <Row style={CustomStyleSheet.whiteRow}>
+                                    <Col size={3}>
+                                        <ComBadrLibelleComp withColor={true}>
+                                            {translate('actifsCreation.avitaillementSortie.main.numeroRCFournisseur')}
+                                        </ComBadrLibelleComp>
+                                    </Col>
+                                    <Col size={3}>
+                                        <TextInput
+                                            mode={'outlined'}
+                                            disabled={this.props.consultation}
+                                            keyboardType={'number-pad'}
+                                            style={{ height: 20, fontSize: 12, textAlignVertical: 'top', marginRight: 10 }}
+                                            value={this.state.navigationAvitaillementSortieModel?.numRCFourn}
+                                            onChangeText={(text) => {
+                                                this.setState({
+                                                    navigationAvitaillementSortieModel: {
+                                                        ...this.state.navigationAvitaillementSortieModel, numRCFourn: text
+                                                    }
+                                                });
+                                                this.update();
+                                            }}
+                                            onEndEditing={(event) => {
+                                                this.chercherPersonneConcernee();
+                                            }}
+                                        />
+                                    </Col>
+                                    <Col size={3}>
+                                        <ComBadrLibelleComp withColor={true}>
+                                            {translate('actifsCreation.avitaillementSortie.main.centreRCFournisseur')}
+                                        </ComBadrLibelleComp>
+                                    </Col>
+                                    <Col size={3}>
+                                        <TextInput
+                                            mode={'outlined'}
+                                            disabled={this.props.consultation}
+                                            keyboardType={'number-pad'}
+                                            style={{ height: 20, fontSize: 12, textAlignVertical: 'top' }}
+                                            value={this.state.navigationAvitaillementSortieModel?.centreRCFourn}
+                                            onChangeText={(text) => {
+                                                this.setState({
+                                                    navigationAvitaillementSortieModel: {
+                                                        ...this.state.navigationAvitaillementSortieModel, centreRCFourn: text
+                                                    }
+                                                });
+                                                this.update();
+                                            }}
+                                            onEndEditing={(event) => {
+                                                this.chercherPersonneConcernee();
+                                            }}
+                                        />
+                                    </Col>
+                                </Row>
+                            )}
+                            {(this.state.typeDUM == '02') && (
+                                <Row style={CustomStyleSheet.whiteRow}>
+                                    <Col size={3}>
+                                        <Row>
+                                            <ComBadrLibelleComp withColor={true}>
+                                                {translate('actifsCreation.avitaillementSortie.main.raisonSocialeFournisseur')}
+                                            </ComBadrLibelleComp>
+                                        </Row>
+                                    </Col>
+                                    <Col size={9}>
+                                        <TextInput
+                                            mode={'outlined'}
+                                            disabled={true}
+                                            style={{ height: 90, fontSize: 12, textAlignVertical: 'top' }}
+                                            value={this.props?.raisonSocialeFourn}
+                                            multiline={true}
+                                            numberOfLines={10}
+                                        />
+                                    </Col>
+                                </Row>
+                            )}
                         </Grid>
                     </ComBadrCardBoxComp>
                 </ComContainerComp>
@@ -635,11 +799,11 @@ class ActifsRapportCreationAvitaillementSortieTab extends React.Component {
                 <View style={{ marginLeft: 40 }}>
                     <ComBasicDataTableComp
                         ref="_badrTable"
-                        id="avitaillementEntreesTable"
-                        rows={this.props.avitaillementEntrees}
+                        id="avitaillementSortiesTable"
+                        rows={this.props.avitaillementSorties}
                         cols={(this.props.readOnly) ? this.colsRO : this.cols}
                         onItemSelected={this.onItemSelected}
-                        totalElements={this.props.avitaillementEntrees?.length}
+                        totalElements={this.props.avitaillementSorties?.length}
                         maxResultsPerPage={10}
                         paginate={true}
                         showProgress={this.props.showProgress}
@@ -655,32 +819,30 @@ class ActifsRapportCreationAvitaillementSortieTab extends React.Component {
                         />
                     </View>)}
                 </View>
-                {/* <ActifsRapportAvitaillementRefDumBlock navigationAvitaillementSortieModel={this.props.navigationAvitaillementSortieModel} index={this.props.index} push={this.ajouterNavigationAvitaillementSortieModel} callbackHandler={this.callbackHandler} readOnly={this.props.consultation} /> */}
-                {/* {(this.props.navigationsAvitaillementSorties) && (<ActifsRapportCreationAvitaillementSortieTableBlock navigationsAvitaillementSorties={this.props.navigationsAvitaillementSorties} callbackHandler={this.callbackHandler} readOnly={this.props.consultation} />)} */}
-                {/* {(this.props.navigationAvitaillementSortieModel) && (<ActifsRapportAvitaillementSortieBlock navigationAvitaillementSortieModel={this.props.navigationAvitaillementSortieModel} index={this.props.index} push={this.ajouterNavigationAvitaillementSortieModel} callbackHandler={this.callbackHandler} readOnly={this.props.consultation} />)} */}
                 <ComBadrCardBoxComp noPadding={true}>
                     <Grid>
                         { /*first Row*/}
                         <Row style={CustomStyleSheet.whiteRow}>
                             <Col size={4}>
                                 <ComBadrLibelleComp withColor={true}>
-                                    {translate('actifsCreation.avitaillementEntree.main.refDum')}
+                                    {translate('actifsCreation.avitaillementSortie.main.refDum')}
                                 </ComBadrLibelleComp>
                             </Col>
                             <Col size={6}>
                                 <ComBadrLibelleComp>
-                                    3090102021000015
+                                    {this.state.navigationAvitaillementSortieModel?.referenceDum}
                                 </ComBadrLibelleComp>
                             </Col>
                             <Col size={2} />
                             <Col size={4}>
                                 <ComBadrLibelleComp withColor={true}>
-                                    {translate('actifsCreation.avitaillementEntree.main.dateEnregistrementDum')}
+                                    {translate('actifsCreation.avitaillementSortie.main.dateEnregistrementDum')}
                                 </ComBadrLibelleComp>
                             </Col>
                             <Col size={4}>
                                 <ComBadrLibelleComp>
-                                    11/10/2021 10:00
+
+                                    {this.props?.validerReferenceDumAvitaillementSortiesDate}
                                 </ComBadrLibelleComp>
                             </Col>
                         </Row>
@@ -896,7 +1058,7 @@ class ActifsRapportCreationAvitaillementSortieTab extends React.Component {
                                 <Row>
                                     <Col size={10}>
                                         <ComBadrItemsPickerComp
-                                            label={translate('actifsCreation.avitaillementEntree.main.natureProduit')}
+                                            label={translate('actifsCreation.avitaillementSortie.main.natureProduit')}
                                             disabled={this.props.readOnly}
                                             selectedValue={this.state.navigationAvitaillementSortieModel?.nature ? this.state.navigationAvitaillementSortieModel?.nature?.code : {}}
                                             items={naturesProduits}
@@ -910,7 +1072,7 @@ class ActifsRapportCreationAvitaillementSortieTab extends React.Component {
                                                 this.update();
                                             }}
                                         />
-                                                                        </Col>
+                                    </Col>
                                 </Row>
                             </Col>
                         </Row>
@@ -1051,7 +1213,7 @@ class ActifsRapportCreationAvitaillementSortieTab extends React.Component {
 
 
 
-const mapStateToProps = (state) => ({ ...state.creationReducer });
+const mapStateToProps = (state) => ({ ...state.creationActifsReducer });
 
 export default connect(mapStateToProps, null)(ActifsRapportCreationAvitaillementSortieTab);
 

@@ -305,6 +305,9 @@ class ActifsRapportCreationScreen extends Component {
   }
 
   enregisterRS = () => {
+    if (this.checkDatesDebutFinInformations() || this.checkDetail()) {
+      return;
+    }
     let rsAEnregistrer = this.preparerRSAEnregistrer();
 
     console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
