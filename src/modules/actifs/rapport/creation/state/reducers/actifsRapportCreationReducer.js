@@ -384,11 +384,11 @@ export default (state = initialState, action) => {
     case GenericConstants.ACTIFS_GENERIC_IN_PROGRESS:
       return nextState;
     case GenericConstants.ACTIFS_GENERIC_SUCCESS:
-      nextState.validerReferenceDumAvitaillementSorties = action?.value?.data;
+      nextState.validerReferenceDumAvitaillementEntrees = action?.value?.data;
       console.log('reducer success ' + JSON.stringify(action?.value?.data));
       return nextState;
     case GenericConstants.ACTIFS_GENERIC_FAILED:
-      nextState.validerReferenceDumAvitaillementSorties = action?.value?.data;
+      nextState.validerReferenceDumAvitaillementEntrees = action?.value?.data;
       console.log('reducer failed ' + JSON.stringify(action?.value?.data));
       return nextState;
     case GenericConstants.ACTIFS_GENERIC_INIT:

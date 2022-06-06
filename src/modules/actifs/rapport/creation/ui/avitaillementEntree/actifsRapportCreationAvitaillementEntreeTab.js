@@ -551,7 +551,7 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
                 type: ACTIFS_GENERIC_REQUEST,
                 value: {
                     module: "GIB",
-                    command: "validerReferenceDumAvitaillementSorties",
+                    command: "validerReferenceDumAvitaillementEntrees",
                     typeService: "SP",
                     jsonVO: {
                         bureau: this.state.bureau,
@@ -565,12 +565,12 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
             this.props.dispatch(action);
             console.log('::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::');
             console.log('::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::');
-            console.log(JSON.stringify(this.props.validerReferenceDumAvitaillementSorties?.dtoHeader?.messagesErreur[0]));
+            console.log(JSON.stringify(this.props.validerReferenceDumAvitaillementEntrees?.dtoHeader?.messagesErreur[0]));
             console.log('::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::');
             console.log('::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::');
-            if (this.props?.validerReferenceDumAvitaillementSorties?.dtoHeader?.messagesErreur) {
+            if (this.props?.validerReferenceDumAvitaillementEntrees?.dtoHeader?.messagesErreur) {
                 this.setState({
-                    errorMessage: this.props?.validerReferenceDumAvitaillementSorties?.dtoHeader?.messagesErreur[0]
+                    errorMessage: this.props?.validerReferenceDumAvitaillementEntrees?.dtoHeader?.messagesErreur[0]
                 });
             } else {
                 this.setState({
