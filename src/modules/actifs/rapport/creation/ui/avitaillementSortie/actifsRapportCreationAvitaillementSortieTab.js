@@ -56,11 +56,11 @@ class ActifsRapportCreationAvitaillementSortieTab extends React.Component {
             typeDUM: '01',
             acDestination: this.props.navigationAvitaillementSortieModel ? this.props.navigationAvitaillementSortieModel.destination.nomPays : '',
             typeAvitaillement: '01',
-            bureau: '309',
-            regime: '060',
-            annee: '2022',
-            serie: '0000001',
-            cle: 'T',
+            bureau: '',
+            regime: '',
+            annee: '',
+            serie: '',
+            cle: '',
             errorMessage: null,
             navigationAvitaillementSortieModel: getNavigationAvitaillementSortieModelInitial(),
         };
@@ -71,7 +71,7 @@ class ActifsRapportCreationAvitaillementSortieTab extends React.Component {
                 width: 150,
             },
             {
-                code: 'nature.libelle',
+                code: 'natureProduitCombo.libelle',
                 libelle: translate('actifsCreation.avitaillementSortie.natureProduit'),
                 width: 150,
             },
@@ -123,7 +123,7 @@ class ActifsRapportCreationAvitaillementSortieTab extends React.Component {
                 width: 150,
             },
             {
-                code: 'nature.libelle',
+                code: 'natureProduitCombo.libelle',
                 libelle: translate('actifsCreation.avitaillementSortie.natureProduit'),
                 width: 150,
             },
@@ -867,6 +867,19 @@ class ActifsRapportCreationAvitaillementSortieTab extends React.Component {
                                             disabled={true}
                                             style={{ height: 90, fontSize: 12, textAlignVertical: 'top' }}
                                             value={this.props?.raisonSocialeFourn}
+                                            onContentSizeChange={() => {
+                                                this.setState({
+                                                    navigationAvitaillementSortieModel: {
+                                                        ...this.state.navigationAvitaillementSortieModel, keyIntervenant: this.props?.keyIntervenant
+                                                    }
+                                                });
+                                                console.log('---------------------------------');
+                                                console.log('---------------------------------');
+                                                console.log(this.props?.keyIntervenant);
+                                                console.log('---------------------------------');
+                                                console.log('---------------------------------');
+                                                this.update();
+                                            }}
                                             multiline={true}
                                             numberOfLines={10}
                                         />
@@ -1105,13 +1118,13 @@ class ActifsRapportCreationAvitaillementSortieTab extends React.Component {
                                         <ComBadrItemsPickerComp
                                             label={translate('actifsCreation.avitaillementSortie.main.natureProduit')}
                                             disabled={this.props.readOnly}
-                                            selectedValue={this.state.navigationAvitaillementSortieModel?.nature ? this.state.navigationAvitaillementSortieModel?.nature?.code : {}}
+                                            selectedValue={this.state.navigationAvitaillementSortieModel?.natureProduitCombo ? this.state.navigationAvitaillementSortieModel?.natureProduitCombo?.code : {}}
                                             items={naturesProduits}
                                             onValueChanged={(selectedValue) => {
                                                 console.log(selectedValue);
                                                 this.setState({
                                                     navigationAvitaillementSortieModel: {
-                                                        ...this.state.navigationAvitaillementSortieModel, nature: selectedValue
+                                                        ...this.state.navigationAvitaillementSortieModel, natureProduitCombo: selectedValue
                                                     }
                                                 });
                                                 this.update();

@@ -18,11 +18,11 @@ export function request(action) {
       action.value.jsonVO,
     )
       .then((response) => {
-        console.log('ComGenericAction response ' + JSON.stringify(response));
+        // console.log('ComGenericAction response ' + JSON.stringify(response));
         if (response && response.data && response.data.jsonVO) {
-          dispatch(success(response.data.jsonVO));
+          dispatch(success(response.data.jsonVO, action.value.command));
         } else {
-          dispatch(failed(response));
+          dispatch(failed(response, action.value.command));
         }
       })
       .catch((e) => {
@@ -51,18 +51,20 @@ export function init(action) {
   };
 }
 
-export function success(data) {
+export function success(data, command) {
   console.log('ComGenericAction success ' + JSON.stringify(data));
   return {
     type: Constants.ACTIFS_GENERIC_SUCCESS,
     value: data,
+    command: command,
   };
 }
 
-export function failed(data) {
+export function failed(data, command) {
   console.log('Act ComGenericAction failed ' + JSON.stringify(data));
   return {
     type: Constants.ACTIFS_GENERIC_FAILED,
     value: data,
+    command: command,
   };
 }

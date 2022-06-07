@@ -46,11 +46,11 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
         this.state = {
             navigationsAvitaillementEntrees: this.props.navigationsAvitaillementEntrees ? this.props.navigationsAvitaillementEntrees : [],
             navigationAvitaillementEntreeModel: getNavigationAvitaillementEntreeModelInitial(),
-            bureau: '309',
-            regime: '060',
-            annee: '2022',
-            serie: '0000001',
-            cle: 'T',
+            bureau: '',
+            regime: '',
+            annee: '',
+            serie: '',
+            cle: '',
             errorMessage: null
         };
         this.cols = [
@@ -225,6 +225,17 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
             this.props.update({
                 updateAvitaillementEntrees: this.state?.navigationsAvitaillementEntrees,
             });
+                        console.log("*********************************");
+            console.log("*********************************");
+            console.log("*********************************");
+            console.log("*********************************");
+            console.log("*********************************");
+            console.log(JSON.stringify(this.state?.navigationsAvitaillementEntrees));
+            console.log("*********************************");
+            console.log("*********************************");
+            console.log("*********************************");
+            console.log("*********************************");
+            console.log("*********************************");
             this.retablir();
         }
     }
@@ -787,7 +798,7 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
                                         </Col>
                                         <Col size={4}>
                                             <ComBadrLibelleComp>
-                                                {this.props.validerReferenceDumAvitaillementSortiesDate}
+                                                {this.props.validerReferenceDumAvitaillementEntreesDate}
                                             </ComBadrLibelleComp>
                                         </Col>
                                     </Row>
@@ -1089,6 +1100,20 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
                                                 disabled={true}
                                                 style={{ height: 90, fontSize: 12, textAlignVertical: 'top' }}
                                                 value={this.props?.raisonSocialeFourn}
+
+                                                onContentSizeChange={() => {
+                                                    this.setState({
+                                                        navigationAvitaillementEntreeModel: {
+                                                            ...this.state.navigationAvitaillementEntreeModel, keyIntervenant: this.props?.keyIntervenant
+                                                        }
+                                                    });
+                                                    // console.log('---------------------------------');
+                                                    // console.log('---------------------------------');
+                                                    // console.log(this.props?.keyIntervenant);
+                                                    // console.log('---------------------------------');
+                                                    // console.log('---------------------------------');
+                                                    this.update();
+                                                }}
                                                 multiline={true}
                                                 numberOfLines={10}
                                             />
@@ -1194,13 +1219,13 @@ class ActifsRapportCreationAvitaillementEntreeTab extends React.Component {
                                                 // style={CustomStyleSheet.column}
                                                 label={translate('actifsCreation.avitaillementEntree.main.uniteMesure')}
                                                 disabled={this.props.consultation}
-                                                selectedValue={this.state.navigationAvitaillementEntreeModel?.uniteMesure ? this.state.navigationAvitaillementEntreeModel?.uniteMesure?.code : {}}
+                                                selectedValue={this.state.navigationAvitaillementEntreeModel?.uniteMesure ? this.state.navigationAvitaillementEntreeModel?.uniteMesure : ''}
                                                 items={unitesMesure}
                                                 onValueChanged={(selectedValue) => {
                                                     console.log(selectedValue);
                                                     this.setState({
                                                         navigationAvitaillementEntreeModel: {
-                                                            ...this.state.navigationAvitaillementEntreeModel, uniteMesure: selectedValue
+                                                            ...this.state.navigationAvitaillementEntreeModel, uniteMesure: selectedValue.code
                                                         }
                                                     });
                                                     this.update();

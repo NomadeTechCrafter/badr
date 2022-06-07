@@ -367,6 +367,7 @@ export default (state = initialState, action) => {
     case Constants.RECHERCHE_PERSONNE_MORALE_SUCCESS:
       console.log("RECHERCHE_PERSONNE_MORALE_SUCCESS : " + JSON.stringify(action));
       nextState.raisonSocialeFourn = action?.value?.nomIntervenant;
+      nextState.keyIntervenant = action?.value?.numeroOrdreIntervenant
       nextState.errorMessage = '';
       return nextState;
     case Constants.RECHERCHE_PERSONNE_MORALE_FAILED:
@@ -384,21 +385,33 @@ export default (state = initialState, action) => {
     case GenericConstants.ACTIFS_GENERIC_IN_PROGRESS:
       return nextState;
     case GenericConstants.ACTIFS_GENERIC_SUCCESS:
-      nextState.validerReferenceDumAvitaillementEntreesDate = action?.value;
-      nextState.validerReferenceDumAvitaillementSortiesDate = action?.value;
-      nextState.validerReferenceDumAvitaillementSorties = null;
-      nextState.validerReferenceDumAvitaillementEntrees = null;
-      console.log('reducer success ' + JSON.stringify(action?.value));
+      if ("validerReferenceDumAvitaillementSorties" === action.command) {
+        nextState.validerReferenceDumAvitaillementSortiesDate = action?.value;
+        nextState.validerReferenceDumAvitaillementSorties = null;
+      }
+      if ("validerReferenceDumAvitaillementEntrees" === action.command) {
+        nextState.validerReferenceDumAvitaillementEntreesDate = action?.value;
+        nextState.validerReferenceDumAvitaillementEntrees = null;
+      }
+      console.log('reducer success ' + JSON.stringify(action));
       return nextState;
     case GenericConstants.ACTIFS_GENERIC_FAILED:
-      nextState.validerReferenceDumAvitaillementSorties = action?.value?.data;
-      nextState.validerReferenceDumAvitaillementEntrees = action?.value?.data;
-      nextState.validerReferenceDumAvitaillementSortiesDate = null;
-      nextState.validerReferenceDumAvitaillementEntreesDate = null;
+      if ("validerReferenceDumAvitaillementSorties" === action.command) {
+        nextState.validerReferenceDumAvitaillementSorties = action?.value?.data;
+        nextState.validerReferenceDumAvitaillementSortiesDate = null;
+      }
+      if ("validerReferenceDumAvitaillementEntrees" === action.command) {
+        nextState.validerReferenceDumAvitaillementEntrees = action?.value?.data;
+        nextState.validerReferenceDumAvitaillementEntreesDate = null;
+      }
 
-      console.log('reducer failed ' + JSON.stringify(action?.value?.data));
+      console.log('reducer failed ' + JSON.stringify(action));
       return nextState;
     case GenericConstants.ACTIFS_GENERIC_INIT:
+      nextState.validerReferenceDumAvitaillementSortiesDate = null;
+      nextState.validerReferenceDumAvitaillementEntreesDate = null;
+      nextState.validerReferenceDumAvitaillementSorties = null;
+      nextState.validerReferenceDumAvitaillementEntrees = null;
       nextState;
       return nextState;
 

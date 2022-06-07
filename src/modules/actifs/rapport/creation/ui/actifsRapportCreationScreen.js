@@ -301,6 +301,7 @@ class ActifsRapportCreationScreen extends Component {
       versionsRS: null,
       rondesApparition: localRondesApparitions,
       listeAvitaillementEntrees: this.state.avitaillementEntrees,
+      listeAvitaillementSortieVO: this.state.avitaillementSorties,
       // gibPerquisition: this.state?.gibPerquisition ? this.state?.gibPerquisition : {},
       gibPerquisition: localGibPerquisition,
 
@@ -346,6 +347,17 @@ class ActifsRapportCreationScreen extends Component {
     }
     let rsAEnregistrer = this.preparerRSAEnregistrer();
 
+    console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
+    console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
+    console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
+    console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
+    console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
+    console.log(JSON.stringify(rsAEnregistrer));
+    console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
+    console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
+    console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
+    console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
+    console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
     let action = sauvegarderRS.request({
       type: Constants.ACTIFS_CREATION_REQUEST,
       value: { data: rsAEnregistrer },
