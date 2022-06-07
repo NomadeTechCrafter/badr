@@ -151,7 +151,12 @@ class ActifsRapportCreationScreen extends Component {
     console.log('val updateAvitaillementEntrees :', val);
     this.setState({ avitaillementEntrees: val.updateAvitaillementEntrees });
 
-  }  
+  }
+  updateAvitaillementSorties = (val) => {
+    console.log('val updateAvitaillementSorties :', val);
+    this.setState({ avitaillementSorties: val.updateAvitaillementSorties });
+
+  }
 
   updateEnteteValue = (val) => {
     console.log('val 4:', val);
@@ -482,7 +487,11 @@ class ActifsRapportCreationScreen extends Component {
               </Tab.Screen>
             )}
             {(this.props.route?.params?.row?.typeService?.categorie?.code === '5') && (
-              <Tab.Screen name={translate('actifsCreation.avitaillementSortie.title')} component={avitaillementSortieTab} />
+              <Tab.Screen name={translate('actifsCreation.avitaillementSortie.title')} >
+                {() => (
+                  <ActifsRapportCreationAvitaillementSortieTab update={this.updateAvitaillementSorties} />
+                )}
+              </Tab.Screen>
             )}
           </Tab.Navigator>
 

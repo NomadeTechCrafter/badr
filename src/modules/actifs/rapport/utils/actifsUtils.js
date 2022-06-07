@@ -126,37 +126,12 @@ export const getNavigationAvitaillementEntreeModelInitial = () => {
 
 export const getNavigationAvitaillementSortieModelInitial = () => {
   return {
-    dateSortie: '',
-    heureSortie: '',
-    motifAccostage: '',
-    portSortie: '',
-    provenance: { code: '', libelle: '' },
-    villeProvenance: '',
-    portAttache: '',
-    pavillon: '',
-    dateDepart: '',
-    heureDepart: '',
-    destination: { code: '', libelle: '' },
-    villeDestination: '',
-    typeBateau: '',
-    immatriculation: '',
-    nomBateau: '',
-    couleur: '',
-    longueur: '',
-    profondeur: '',
-    tonnage: '',
-    numDeclaration: '',
-    delivreePar: { code: '', libelle: '' },
-    dateDeclaration: (new Date()).getTime(),
-    dateDebutControle: (new Date()).getTime(),
-    heureDebutControle: (new Date()).getTime(),
-    dateFinControle: (new Date()).getTime(),
-    heureFinControle: (new Date()).getTime(),
-    documentsVerifies: '',
-    observations: '',
-    resultatControle: '',
-    intervenants: [],
-    proprietaires: []
+    // heureLivraison: '',
+    numBonLivraison: '',
+    quantiteLivree: '',
+    compteurAvant: '',
+    compteurApres: '',
+    numCarte: '',
   }
 }
 

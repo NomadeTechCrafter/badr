@@ -85,6 +85,7 @@ import DedRedressementArticlesScreen from './modules/dedouanement/redressement/u
 import MainleveeListeDeclaration from './modules/DeclarationD17D20/mainlevee/ui/decMainlevee/decMainleveeListeDeclaration';
 import LiqArticleOperationLiqBlock from './modules/liquidation/ui/ongletsLiquidation/articles/blocks/LiqArticleOperationLiqBlock';
 import LiquidationArticlesScreen from './modules/liquidation/ui/ongletsLiquidation/articles/LiquidationArticlesScreen';
+import actifsRapportCreationAvitaillementSortieTab from './modules/actifs/rapport/creation/ui/avitaillementSortie/actifsRapportCreationAvitaillementSortieTab';
 
 
 //setGlobalHandler();
@@ -108,7 +109,7 @@ export default class App extends React.Component {
                 <Stack.Screen
                   name="test"
                   options={{headerShown: false}}
-                    component={LiquidationArticlesScreen}
+                    component={actifsRapportCreationAvitaillementSortieTab}
                 />
               )}
               <Stack.Screen

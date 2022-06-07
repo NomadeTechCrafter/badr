@@ -3,6 +3,7 @@ import { Dimensions, ScrollView, Text, View } from 'react-native';
 import { connect } from 'react-redux';
 import { Col, Grid, Row } from 'react-native-easy-grid';
 import { IconButton, TextInput, RadioButton } from 'react-native-paper';
+import moment from 'moment';
 import _ from 'lodash';
 import {
     ComBasicDataTableComp,
@@ -17,14 +18,16 @@ import {
     ComBadrAutoCompleteChipsComp,
     ComBadrPickerComp,
     ComBadrItemsPickerComp,
+    ComBadrDatePickerComp,
 } from '../../../../../../commons/component';
-import { DELETE_AVITAILLEMENTSORTIE_TASK, EDIT_AVITAILLEMENTSORTIE_TASK, RESET_AVITAILLEMENTSORTIE_TASK } from '../../../utils/actifsConstants';
+import { DELETE_AVITAILLEMENTSORTIE_TASK, EDIT_AVITAILLEMENTSORTIE_TASK, FORMAT_DDMMYYYY, FORMAT_DDMMYYYY_HHMM, RESET_AVITAILLEMENTSORTIE_TASK } from '../../../utils/actifsConstants';
 import { getNavigationAvitaillementSortieModelInitial } from '../../../utils/actifsUtils';
-import { ACTIFS_CONFIRMER_AVITAILLEMENTSORTIE_REQUEST, ACTIFS_DELETE_AVITAILLEMENTSORTIE_REQUEST, ACTIFS_EDITER_AVITAILLEMENTSORTIE_REQUEST, ACTIFS_RESET_AVITAILLEMENTSORTIE_REQUEST, naturesProduits } from '../../state/actifsRapportCreationConstants';
+import { ACTIFS_CONFIRMER_AVITAILLEMENTSORTIE_REQUEST, ACTIFS_DELETE_AVITAILLEMENTSORTIE_REQUEST, ACTIFS_EDITER_AVITAILLEMENTSORTIE_REQUEST, ACTIFS_RESET_AVITAILLEMENTSORTIE_REQUEST, naturesProduits, RECHERCHE_PERSONNE_MORALE_INIT, RECHERCHE_PERSONNE_MORALE_REQUEST } from '../../state/actifsRapportCreationConstants';
 import actifsRapportConfirmerAvitaillementSortieAction from '../../state/actions/actifsRapportConfirmerAvitaillementSortieAction';
 import actifsRapportEditerAvitaillementSortieAction from '../../state/actions/actifsRapportEditerAvitaillementSortieAction';
 import actifsRapportResetAvitaillementSortieAction from '../../state/actions/actifsRapportResetAvitaillementSortieAction';
 import actifsRapportSupprimerAvitaillementSortieAction from '../../state/actions/actifsRapportSupprimerAvitaillementSortieAction';
+import RechercherPersonneMoraleAction from '../../state/actions/actifsRapportRechercherPersonneMoraleAction';
 import { CustomStyleSheet, primaryColor } from '../../../../../../commons/styles/ComThemeStyle';
 import translate from "../../../../../../commons/i18n/ComI18nHelper";
 import { formatCustomized } from '../../../utils/actifsUtils';
@@ -47,14 +50,10 @@ class ActifsRapportCreationAvitaillementSortieTab extends React.Component {
             navigationsAvitaillementSorties: this.props.navigationsAvitaillementSorties ? this.props.navigationsAvitaillementSorties : [],
             // navigationAvitaillementSortieModel: this.props.navigationAvitaillementSortieModel,
             index: this.props.index,
-            showDateSortie: false,
-            showHeureSortie: false,
-            heureSortieTech: this.props.navigationAvitaillementSortieModel ? this.props.navigationAvitaillementSortieModel.heureSortie : new Date(),
             acProvenance: this.props.navigationAvitaillementSortieModel ? this.props.navigationAvitaillementSortieModel.provenance.nomPays : '',
             showDateDepart: false,
             showHeureDepart: false,
             typeDUM: '01',
-            heureDepartTech: this.props.navigationAvitaillementSortieModel ? this.props.navigationAvitaillementSortieModel.heureDepart : new Date(),
             acDestination: this.props.navigationAvitaillementSortieModel ? this.props.navigationAvitaillementSortieModel.destination.nomPays : '',
             typeAvitaillement: '01',
             bureau: '309',
@@ -67,94 +66,87 @@ class ActifsRapportCreationAvitaillementSortieTab extends React.Component {
         };
         this.cols = [
             {
-                code: 'bonLivraison',
+                code: 'numBonLivraison',
                 libelle: translate('actifsCreation.avitaillementSortie.bonLivraison'),
                 width: 150,
             },
             {
-                code: 'fournisseur',
-                libelle: translate('actifsCreation.avitaillementSortie.fournisseur'),
-                width: 150,
-            },
-            {
-                code: 'natureProduit',
+                code: 'nature.libelle',
                 libelle: translate('actifsCreation.avitaillementSortie.natureProduit'),
                 width: 150,
             },
             {
-                code: 'quantiteReceptionne',
-                libelle: translate('actifsCreation.avitaillementSortie.quantiteReceptionne'),
+                code: 'numCarte',
+                libelle: translate('actifsCreation.avitaillementSortie.main.numCarte'),
                 width: 150,
             },
             {
-                code: 'volumeApparent',
-                libelle: translate('actifsCreation.avitaillementSortie.volumeApparent'),
+                code: 'compteurAvant',
+                libelle: translate('actifsCreation.avitaillementSortie.main.compteurAvant'),
                 width: 150,
             },
             {
-                code: 'dateHeureReception',
-                libelle: translate('actifsCreation.avitaillementSortie.dateHeureReception'),
-                width: 300,
-                render: (row) => {
-                    return formatCustomized(row.dateEntree, FORMAT_DDMMYYYY);
-                }
+                code: 'compteurApres',
+                libelle: translate('actifsCreation.avitaillementSortie.main.compteurApres'),
+                width: 150,
             },
             {
-                code: '',
-                libelle: '',
-                width: 50,
-                component: 'button',
-                icon: 'pencil',
-                action: (row, index) =>
-                    this.updateItem(row, index)
+                code: 'quantiteLivree',
+                libelle: translate('actifsCreation.avitaillementSortie.main.quantiteLivree'),
+                width: 150,
             },
-            {
-                code: '',
-                libelle: '',
-                width: 50,
-                component: 'button',
-                icon: 'delete-outline',
-                action: (row, index) =>
-                    this.removeItem(row, index)
-            }
 
-
+            // {
+            //     code: '',
+            //     libelle: '',
+            //     width: 50,
+            //     component: 'button',
+            //     icon: 'pencil',
+            //     action: (row, index) =>
+            //         this.updateItem(row, index)
+            // },
+            // {
+            //     code: '',
+            //     libelle: '',
+            //     width: 50,
+            //     component: 'button',
+            //     icon: 'delete-outline',
+            //     action: (row, index) =>
+            //         this.removeItem(row, index)
+            // }
         ];
 
         this.colsRO = [
             {
-                code: 'bonLivraison',
+                code: 'numBonLivraison',
                 libelle: translate('actifsCreation.avitaillementSortie.bonLivraison'),
                 width: 150,
             },
             {
-                code: 'fournisseur',
-                libelle: translate('actifsCreation.avitaillementSortie.fournisseur'),
-                width: 150,
-            },
-            {
-                code: 'natureProduit',
+                code: 'nature.libelle',
                 libelle: translate('actifsCreation.avitaillementSortie.natureProduit'),
                 width: 150,
             },
             {
-                code: 'quantiteReceptionne',
-                libelle: translate('actifsCreation.avitaillementSortie.quantiteReceptionne'),
+                code: 'numCarte',
+                libelle: translate('actifsCreation.avitaillementSortie.main.numCarte'),
                 width: 150,
             },
             {
-                code: 'volumeApparent',
-                libelle: translate('actifsCreation.avitaillementSortie.volumeApparent'),
+                code: 'compteurAvant',
+                libelle: translate('actifsCreation.avitaillementSortie.main.compteurAvant'),
                 width: 150,
             },
             {
-                code: 'dateHeureReception',
-                libelle: translate('actifsCreation.avitaillementSortie.dateHeureReception'),
-                width: 300,
-                render: (row) => {
-                    return formatCustomized(row.dateEntree, FORMAT_DDMMYYYY);
-                }
-            }
+                code: 'compteurApres',
+                libelle: translate('actifsCreation.avitaillementSortie.main.compteurApres'),
+                width: 150,
+            },
+            {
+                code: 'quantiteLivree',
+                libelle: translate('actifsCreation.avitaillementSortie.main.quantiteLivree'),
+                width: 150,
+            },
         ];
     }
 
@@ -187,25 +179,36 @@ class ActifsRapportCreationAvitaillementSortieTab extends React.Component {
     };
 
     nouveau = () => {
-        this.props.callbackHandler(RESET_AVITAILLEMENTSORTIE_TASK);
+        this.retablir();
     };
+
+    retablir = () => {
+        console.log('retablir');
+        this.setState({ navigationAvitaillementSortieModel: getNavigationAvitaillementSortieModelInitial() });
+
+        let action = RechercherPersonneMoraleAction.init({
+            type: RECHERCHE_PERSONNE_MORALE_INIT,
+            value: {}
+        });
+        this.props.dispatch(action);
+    }
 
     componentDidMount() {
     }
 
-    ajouterNavigationAvitaillementSortieModel = (model) => {
-        let navigationsAvitaillementSorties = [...this.props.navigationsAvitaillementSorties];
-        let dataToAction = {
-            type: ACTIFS_CONFIRMER_AVITAILLEMENTSORTIE_REQUEST,
-            value: {
-                navigationsAvitaillementSorties: navigationsAvitaillementSorties,
-                index: this.props.index,
-                navigationAvitaillementSortieModel: model
-            }
-        };
+    // ajouterNavigationAvitaillementSortieModel = (model) => {
+    //     let navigationsAvitaillementSorties = [...this.props.navigationsAvitaillementSorties];
+    //     let dataToAction = {
+    //         type: ACTIFS_CONFIRMER_AVITAILLEMENTSORTIE_REQUEST,
+    //         value: {
+    //             navigationsAvitaillementSorties: navigationsAvitaillementSorties,
+    //             index: this.props.index,
+    //             navigationAvitaillementSortieModel: model
+    //         }
+    //     };
 
-        this.props.dispatch(actifsRapportConfirmerAvitaillementSortieAction.request(dataToAction));
-    }
+    //     this.props.dispatch(actifsRapportConfirmerAvitaillementSortieAction.request(dataToAction));
+    // }
 
     componentDidUpdate() {
     }
@@ -216,13 +219,31 @@ class ActifsRapportCreationAvitaillementSortieTab extends React.Component {
     reset = () => {
     };
 
+    // confirmer = () => {
+    //     if (!this.checkRequiredFields()) {
+    //         if (!this.checkDatesSortieDepartInformations()) {
+    //             if (!this.checkDatesDebutFinControleInformations()) {
+    //                 this.props.push(this.state.navigationAvitaillementSortieModel);
+    //             }
+    //         }
+    //     }
+    // }
+
     confirmer = () => {
         if (!this.checkRequiredFields()) {
-            if (!this.checkDatesSortieDepartInformations()) {
-                if (!this.checkDatesDebutFinControleInformations()) {
-                    this.props.push(this.state.navigationAvitaillementSortieModel);
-                }
-            }
+            // if (!this.checkDatesSortieDepartInformations()) {
+            // if (!this.checkDatesDebutFinControleInformations()) {
+            let navigationsAvitaillementSorties = this.state.navigationsAvitaillementSorties;
+            navigationsAvitaillementSorties.push(this.state.navigationAvitaillementSortieModel);
+            this.setState({
+                myArray: [...this.state.navigationsAvitaillementSorties, navigationsAvitaillementSorties]
+            });
+            this.props.update({
+                updateAvitaillementSorties: this.state?.navigationsAvitaillementSorties,
+            });
+            this.retablir();
+            // }
+            // }
         }
     }
 
@@ -250,76 +271,77 @@ class ActifsRapportCreationAvitaillementSortieTab extends React.Component {
 
     }
 
-    checkDatesSortieDepartInformations = () => {
-        let modele = this.state.navigationAvitaillementSortieModel;
-        let dateSortie = formatCustomized(modele.dateSortie, FORMAT_DDMMYYYY);
+    // checkDatesSortieDepartInformations = () => {
+    //     let modele = this.state.navigationAvitaillementSortieModel;
+    //     let dateLivraison = formatCustomized(modele.dateLivraison, FORMAT_DDMMYYYY);
 
-        moment.suppressDeprecationWarnings = true;
-        let dateHeureSortie = moment(dateSortie + ' ' + modele.heureSortie, FORMAT_DDMMYYYY_HHMM);
-        let dateDepart = formatCustomized(modele.dateDepart, FORMAT_DDMMYYYY);
+    //     moment.suppressDeprecationWarnings = true;
+    //     let dateHeureSortie = moment(dateLivraison + ' ' + modele.heureLivraison, FORMAT_DDMMYYYY_HHMM);
+    //     let dateDepart = formatCustomized(modele.dateDepart, FORMAT_DDMMYYYY);
 
-        let dateHeureDepart = moment(dateDepart + ' ' + modele.heureDepart, FORMAT_DDMMYYYY_HHMM);
+    //     let dateHeureDepart = moment(dateDepart + ' ' + modele.heureDepart, FORMAT_DDMMYYYY_HHMM);
 
-        if (dateHeureDepart < dateHeureSortie) {
-            let message = translate('actifsCreation.avitaillementSortie.navigAvitaillementSortie.msgErrorOrdreDateSortieDepart');
-            this.setState({
-                errorMessage: message
-            });
-            return true;
-        } else {
-            this.setState({
-                errorMessage: null
-            });
-            return false
-        }
-
-
-
-    }
-
-    checkDatesDebutFinControleInformations = () => {
-        let modele = this.state.navigationAvitaillementSortieModel;
-        let dateDebutControle = formatCustomized(modele.dateDebutControle, FORMAT_DDMMYYYY);
-
-        moment.suppressDeprecationWarnings = true;
-        let dateHeureDebutControle = moment(dateDebutControle + ' ' + modele.heureDebutControle, FORMAT_DDMMYYYY_HHMM);
-        let dateFinControle = formatCustomized(modele.dateFinControle, FORMAT_DDMMYYYY);
-
-        let dateHeureFinControle = moment(dateFinControle + ' ' + modele.heureFinControle, FORMAT_DDMMYYYY_HHMM);
-
-        if (dateHeureFinControle < dateHeureDebutControle) {
-            let message = translate('actifsCreation.avitaillementSortie.resultatCtrl.msgErrorOrdreDateDebutFinControle');
-            this.setState({
-                errorMessage: message
-            });
-            return true;
-        } else {
-            this.setState({
-                errorMessage: null
-            });
-            return false
-        }
+    //     if (dateHeureDepart < dateHeureSortie) {
+    //         let message = translate('actifsCreation.avitaillementSortie.navigAvitaillementSortie.msgErrorOrdredateLivraisonDepart');
+    //         this.setState({
+    //             errorMessage: message
+    //         });
+    //         return true;
+    //     } else {
+    //         this.setState({
+    //             errorMessage: null
+    //         });
+    //         return false
+    //     }
 
 
 
-    }
+    // }
+
+    // checkDatesDebutFinControleInformations = () => {
+    //     let modele = this.state.navigationAvitaillementSortieModel;
+    //     let dateDebutControle = formatCustomized(modele.dateDebutControle, FORMAT_DDMMYYYY);
+
+    //     moment.suppressDeprecationWarnings = true;
+    //     let dateHeureDebutControle = moment(dateDebutControle + ' ' + modele.heureDebutControle, FORMAT_DDMMYYYY_HHMM);
+    //     let dateFinControle = formatCustomized(modele.dateFinControle, FORMAT_DDMMYYYY);
+
+    //     let dateHeureFinControle = moment(dateFinControle + ' ' + modele.heureFinControle, FORMAT_DDMMYYYY_HHMM);
+
+    //     if (dateHeureFinControle < dateHeureDebutControle) {
+    //         let message = translate('actifsCreation.avitaillementSortie.resultatCtrl.msgErrorOrdreDateDebutFinControle');
+    //         this.setState({
+    //             errorMessage: message
+    //         });
+    //         return true;
+    //     } else {
+    //         this.setState({
+    //             errorMessage: null
+    //         });
+    //         return false
+    //     }
+
+
+
+    // }
 
     checkRequiredFieldsNavigAvitaillementSortie = (params) => {
         let modele = this.state.navigationAvitaillementSortieModel;
 
-        // console.log(JSON.stringify(modele));
+        console.log(JSON.stringify(modele));
 
-        if (_.isEmpty(modele.heureSortie)) {
+        if (_.isEmpty(modele.heureLivraison)) {
             params.required = true;
             params.msg += !_.isEmpty(params.msg) ? ", " : "";
-            params.msg += translate('actifsCreation.avitaillementSortie.main.heureSortie');
+            params.msg += translate('actifsCreation.avitaillementSortie.main.heureLivraison');
         }
 
-        if (_.isEmpty(modele.bonLivraison)) {
+        if (_.isEmpty(modele.numBonLivraison)) {
             params.required = true;
             params.msg += translate('actifsCreation.avitaillementSortie.main.bonLivraison');
         }
-        if (_.isEmpty(modele.quantiteLivree)) {
+        const quantiteLivree = modele.quantiteLivree + ''
+        if (_.isEmpty(quantiteLivree)) {
             params.required = true;
             params.msg += !_.isEmpty(params.msg) ? ", " : "";
             params.msg += translate('actifsCreation.avitaillementSortie.main.quantiteLivree');
@@ -334,15 +356,20 @@ class ActifsRapportCreationAvitaillementSortieTab extends React.Component {
             params.msg += !_.isEmpty(params.msg) ? ", " : "";
             params.msg += translate('actifsCreation.avitaillementSortie.main.compteurApres');
         }
-        if (_.isEmpty(modele.dateSortie.toString())) {
+        if (_.isEmpty(modele.dateLivraison?.toString())) {
             params.required = true;
             params.msg += !_.isEmpty(params.msg) ? ", " : "";
-            params.msg += translate('actifsCreation.avitaillementSortie.main.dateSortie');
+            params.msg += translate('actifsCreation.avitaillementSortie.main.dateLivraison');
         }
         if (_.isEmpty(modele.numCarte)) {
             params.required = true;
             params.msg += !_.isEmpty(params.msg) ? ", " : "";
             params.msg += translate('actifsCreation.avitaillementSortie.main.numCarte');
+        }
+        if (_.isEmpty(modele.referenceDum)) {
+            params.required = true;
+            params.msg += !_.isEmpty(params.msg) ? ", " : "";
+            params.msg += translate('actifsCreation.avitaillementSortie.main.refDum');
         }
         // if (_.isEmpty(modele.pavillon)) {
         //     params.required = true;
@@ -501,6 +528,37 @@ class ActifsRapportCreationAvitaillementSortieTab extends React.Component {
 
     update() {
     }
+
+    calculerQuantiteLivree = () => {
+        console.log('calculerQuantiteLivree');
+        if (!_.isEmpty(this.state.navigationAvitaillementSortieModel?.compteurAvant)
+            && !_.isEmpty(this.state.navigationAvitaillementSortieModel?.compteurApres)) {
+            const compteurApres = _.parseInt(this.state.navigationAvitaillementSortieModel?.compteurApres);
+            const compteurAvant = _.parseInt(this.state.navigationAvitaillementSortieModel?.compteurAvant);
+            if (compteurApres > compteurAvant) {
+                const calculatedQuantiteLivree = compteurApres - compteurAvant;
+                this.setState(prevState => {
+                    let navigationAvitaillementSortieModel = Object.assign({}, prevState.navigationAvitaillementSortieModel);
+                    navigationAvitaillementSortieModel.quantiteLivree = calculatedQuantiteLivree;
+                    return { navigationAvitaillementSortieModel };
+                })
+            } else {
+                this.setState(prevState => {
+                    let navigationAvitaillementSortieModel = Object.assign({}, prevState.navigationAvitaillementSortieModel);
+                    navigationAvitaillementSortieModel.quantiteLivree = '';
+                    return { navigationAvitaillementSortieModel };
+                })
+            }
+        } else {
+            this.setState(prevState => {
+                let navigationAvitaillementSortieModel = Object.assign({}, prevState.navigationAvitaillementSortieModel);
+                navigationAvitaillementSortieModel.quantiteLivree = '';
+                return { navigationAvitaillementSortieModel };
+            })
+        }
+        this.update();
+    };
+
     isDumExist = () => {
         if (_.isEmpty(this.state.bureau)
             || _.isEmpty(this.state.regime)
@@ -549,13 +607,36 @@ class ActifsRapportCreationAvitaillementSortieTab extends React.Component {
         }
     };
 
+    chercherPersonneConcernee = () => {
+        if (!_.isEmpty(this.state.navigationAvitaillementSortieModel?.numRCFourn)
+            && !_.isEmpty(this.state.navigationAvitaillementSortieModel?.centreRCFourn)) {
+            const numeroDocumentIdentite = this.state.navigationAvitaillementSortieModel?.numRCFourn;
+            const nationalite = this.state.navigationAvitaillementSortieModel?.centreRCFourn;
+
+            let action = RechercherPersonneMoraleAction.request({
+                type: RECHERCHE_PERSONNE_MORALE_REQUEST,
+                value: {
+                    module: "REF_LIB",
+                    command: "findIntervenantMorale",
+                    typeService: "SP",
+                    jsonVO: {
+                        "numeroDocumentIdentite": numeroDocumentIdentite,
+                        "nationalite": nationalite
+                    },
+                },
+            });
+            this.props.dispatch(action);
+        }
+        this.update();
+    };
+
     render() {
-        console.log(JSON.stringify(this.props?.validerReferenceDumAvitaillementSorties));
-        console.log(':::::::::::::::::::::::::::::::1:::::::::::::::::::::::::::::::::::::::::');
-        console.log(':::::::::::::::::::::::::::::::1:::::::::::::::::::::::::::::::::::::::::');
-        console.log(JSON.stringify(this.props?.validerReferenceDumAvitaillementSorties));
-        console.log(':::::::::::::::::::::::::::::::1:::::::::::::::::::::::::::::::::::::::::');
-        console.log('::::::::::::::::::::::::::::::1::::::::::::::::::::::::::::::::::::::::::');
+        // console.log(JSON.stringify(this.props?.validerReferenceDumAvitaillementSorties));
+        // console.log(':::::::::::::::::::::::::::::::1:::::::::::::::::::::::::::::::::::::::::');
+        // console.log(':::::::::::::::::::::::::::::::1:::::::::::::::::::::::::::::::::::::::::');
+        // console.log(JSON.stringify(this.props?.validerReferenceDumAvitaillementSorties));
+        // console.log(':::::::::::::::::::::::::::::::1:::::::::::::::::::::::::::::::::::::::::');
+        // console.log('::::::::::::::::::::::::::::::1::::::::::::::::::::::::::::::::::::::::::');
 
         return (
             <ScrollView>
@@ -800,10 +881,10 @@ class ActifsRapportCreationAvitaillementSortieTab extends React.Component {
                     <ComBasicDataTableComp
                         ref="_badrTable"
                         id="avitaillementSortiesTable"
-                        rows={this.props.avitaillementSorties}
+                        rows={(this.props.readOnly) ? this.props.navigationsAvitaillementSorties : this.state.navigationsAvitaillementSorties}
                         cols={(this.props.readOnly) ? this.colsRO : this.cols}
                         onItemSelected={this.onItemSelected}
-                        totalElements={this.props.avitaillementSorties?.length}
+                        totalElements={(this.props.readOnly) ? this.props.navigationsAvitaillementSorties?.length : this.state.navigationsAvitaillementSorties?.length}
                         maxResultsPerPage={10}
                         paginate={true}
                         showProgress={this.props.showProgress}
@@ -858,94 +939,58 @@ class ActifsRapportCreationAvitaillementSortieTab extends React.Component {
                                     mode={'outlined'}
                                     disabled={this.props.readOnly}
                                     style={{ height: 20, fontSize: 12, textAlignVertical: 'top' }}
-                                // value={this.state.navigationAvitaillementSortieModel.villeProvenance}
-                                // onChangeText={(text) => {
-                                //     this.setState({
-                                //         navigationAvitaillementSortieModel: {
-                                //             ...this.state.navigationAvitaillementSortieModel, villeProvenance: text
-                                //         }
-                                //     });
-                                //     this.state.navigationAvitaillementSortieModel.villeProvenance = text;
-                                //     this.props.update(this.state.navigationAvitaillementSortieModel);
-                                // }}
+                                    value={this.state.navigationAvitaillementSortieModel?.numBonLivraison}
+                                    onChangeText={(text) => {
+                                        this.setState({
+                                            navigationAvitaillementSortieModel: {
+                                                ...this.state.navigationAvitaillementSortieModel, numBonLivraison: text
+                                            }
+                                        });
+                                        this.update();
+                                    }}
                                 />
                             </Col>
                         </Row>
 
                         {/*second Row*/}
                         <Row style={CustomStyleSheet.whiteRow}>
-                            <Col size={3}>
+                            <Col size={1}>
                                 <ComBadrLibelleComp withColor={true}>
                                     {translate('actifsCreation.avitaillementSortie.main.dateLivraison')}
                                 </ComBadrLibelleComp>
                             </Col>
-                            <Col size={4}>
-                                <TextInput
-                                    mode={'outlined'}
-                                    disabled={true}
-                                    style={{ height: 20, fontSize: 12 }}
-                                    // value={moment(this.state.navigationMaritimeModel.dateSortie).format('DD/MM/YYYY')}
-                                    multiline={true}
-                                    numberOfLines={1}
-                                />
-                                {this.state.showDateSortie && (
-                                    <DateTimePicker
-                                        testID="dateTimePicker"
-                                        // value={this.state.navigationMaritimeModel.dateSortie}
-                                        mode="date"
-                                        is24Hour={true}
-                                        display="default"
-                                    // onChange={this.onDateSortieChange}
-                                    />
-                                )}
-                            </Col>
-                            <Col size={1} style={{ paddingTop: 5 }}>
-                                {!this.props.readOnly && (<IconButton
-                                    icon="calendar"
-                                // onPress={() => {
-                                //     this.setState({ showDateSortie: true });
+                            <Col size={3}>
+                                <ComBadrDatePickerComp
+                                    readonly={this.props.consultation}
+                                    dateFormat="DD/MM/YYYY"
+                                    heureFormat="HH:mm"
+                                    value={this.state.navigationAvitaillementSortieModel?.dateLivraison ? moment(this.state.navigationAvitaillementSortieModel?.dateLivraison, 'DD/MM/YYYY', true) : ''}
+                                    timeValue={this.state.navigationAvitaillementSortieModel?.heureLivraison ? moment(this.state.navigationAvitaillementSortieModel?.heureLivraison, 'HH:mm', true) : ''}
 
-                                // }}
-                                />)}
-                            </Col>
-                            <Col size={2}>
-                                <TextInput
-                                    mode={'outlined'}
-                                    disabled={this.props.readOnly}
-                                    style={{ height: 20, fontSize: 12, alignSelf: 'center', padding: 15 }}
-                                    // value={this.state.navigationMaritimeModel.heureSortie}
-                                    // onFocus={() => {
-                                    //     this.setState({ showHeureSortie: true });
-                                    // }}
-                                    multiline={false}
-                                    numberOfLines={1}
-                                // onChangeText={(text) => {
-                                //     this.setState({
-                                //         navigationMaritimeModel: {
-                                //             ...this.state.navigationMaritimeModel,
-                                //             heureSortie: text,
-                                //         }
-                                //     });
-                                //     this.state.navigationMaritimeModel.heureSortie = text;
-                                //     this.props.update(this.state.navigationMaritimeModel);
-                                // }}
+                                    onDateChanged={(date) => {
+                                        this.setState({
+                                            navigationAvitaillementSortieModel: {
+                                                ...this.state.navigationAvitaillementSortieModel, dateLivraison: date
+                                            }
+                                        });
+                                        this.update();
+                                    }}
+
+                                    onTimeChanged={(time) => {
+                                        this.setState({
+                                            navigationAvitaillementSortieModel: {
+                                                ...this.state.navigationAvitaillementSortieModel, heureLivraison: time
+                                            }
+                                        });
+                                        this.update();
+                                    }}
                                 />
-                                {this.state.showHeureSortie && (
-                                    <DateTimePicker
-                                        style={{ width: '100%' }}
-                                        // value={this.state.heureSortieTech}
-                                        mode="time"
-                                        is24Hour={true}
-                                        display="default"
-                                    // onChange={this.onHeureSortieChange}
-                                    />
-                                )}
                             </Col>
-                            <Col size={1} style={{ paddingTop: 5 }}>
+                            {/* <Col size={1} style={{ paddingTop: 5 }}>
                                 <Text style={{ fontSize: 12 }}>
                                     {translate('actifsCreation.entete.uniteHeure')}
                                 </Text>
-                            </Col>
+                            </Col> */}
                         </Row>
 
                         {/*third Row*/}
@@ -1090,16 +1135,15 @@ class ActifsRapportCreationAvitaillementSortieTab extends React.Component {
                                     mode={'outlined'}
                                     disabled={this.props.readOnly}
                                     style={{ height: 20, fontSize: 12, textAlignVertical: 'top' }}
-                                // value={this.state.navigationAvitaillementSortieModel.villeProvenance}
-                                // onChangeText={(text) => {
-                                //     this.setState({
-                                //         navigationAvitaillementSortieModel: {
-                                //             ...this.state.navigationAvitaillementSortieModel, villeProvenance: text
-                                //         }
-                                //     });
-                                //     this.state.navigationAvitaillementSortieModel.villeProvenance = text;
-                                //     this.props.update(this.state.navigationAvitaillementSortieModel);
-                                // }}
+                                    value={this.state.navigationAvitaillementSortieModel?.numCarte}
+                                    onChangeText={(text) => {
+                                        this.setState({
+                                            navigationAvitaillementSortieModel: {
+                                                ...this.state.navigationAvitaillementSortieModel, numCarte: text
+                                            }
+                                        });
+                                        this.update();
+                                    }}
                                 />
                             </Col>
                         </Row>
@@ -1116,16 +1160,17 @@ class ActifsRapportCreationAvitaillementSortieTab extends React.Component {
                                     mode={'outlined'}
                                     disabled={this.props.readOnly}
                                     style={{ height: 20, fontSize: 12, textAlignVertical: 'top' }}
-                                // value={this.state.navigationAvitaillementSortieModel.villeProvenance}
-                                // onChangeText={(text) => {
-                                //     this.setState({
-                                //         navigationAvitaillementSortieModel: {
-                                //             ...this.state.navigationAvitaillementSortieModel, villeProvenance: text
-                                //         }
-                                //     });
-                                //     this.state.navigationAvitaillementSortieModel.villeProvenance = text;
-                                //     this.props.update(this.state.navigationAvitaillementSortieModel);
-                                // }}
+                                    keyboardType={'number-pad'}
+                                    value={this.state.navigationAvitaillementSortieModel?.compteurAvant}
+                                    onEndEditing={(event) => this.calculerQuantiteLivree()}
+                                    onChangeText={(text) => {
+                                        this.setState({
+                                            navigationAvitaillementSortieModel: {
+                                                ...this.state.navigationAvitaillementSortieModel, compteurAvant: text
+                                            }
+                                        });
+                                        this.update();
+                                    }}
                                 />
                             </Col>
                         </Row>
@@ -1142,16 +1187,17 @@ class ActifsRapportCreationAvitaillementSortieTab extends React.Component {
                                     mode={'outlined'}
                                     disabled={this.props.readOnly}
                                     style={{ height: 20, fontSize: 12, textAlignVertical: 'top' }}
-                                // value={this.state.navigationAvitaillementSortieModel.villeProvenance}
-                                // onChangeText={(text) => {
-                                //     this.setState({
-                                //         navigationAvitaillementSortieModel: {
-                                //             ...this.state.navigationAvitaillementSortieModel, villeProvenance: text
-                                //         }
-                                //     });
-                                //     this.state.navigationAvitaillementSortieModel.villeProvenance = text;
-                                //     this.props.update(this.state.navigationAvitaillementSortieModel);
-                                // }}
+                                    keyboardType={'number-pad'}
+                                    value={this.state.navigationAvitaillementSortieModel?.compteurApres}
+                                    onEndEditing={(event) => this.calculerQuantiteLivree()}
+                                    onChangeText={(text) => {
+                                        this.setState({
+                                            navigationAvitaillementSortieModel: {
+                                                ...this.state.navigationAvitaillementSortieModel, compteurApres: text
+                                            }
+                                        });
+                                        this.update();
+                                    }}
                                 />
                             </Col>
                         </Row>
@@ -1168,16 +1214,16 @@ class ActifsRapportCreationAvitaillementSortieTab extends React.Component {
                                     mode={'outlined'}
                                     disabled={this.props.readOnly}
                                     style={{ height: 20, fontSize: 12, textAlignVertical: 'top' }}
-                                // value={this.state.navigationAvitaillementSortieModel.villeProvenance}
-                                // onChangeText={(text) => {
-                                //     this.setState({
-                                //         navigationAvitaillementSortieModel: {
-                                //             ...this.state.navigationAvitaillementSortieModel, villeProvenance: text
-                                //         }
-                                //     });
-                                //     this.state.navigationAvitaillementSortieModel.villeProvenance = text;
-                                //     this.props.update(this.state.navigationAvitaillementSortieModel);
-                                // }}
+                                    value={(this.state.navigationAvitaillementSortieModel?.quantiteLivree) ? this.state.navigationAvitaillementSortieModel?.quantiteLivree + '' : ''}
+                                    keyboardType={'number-pad'}
+                                    onChangeText={(text) => {
+                                        this.setState({
+                                            navigationAvitaillementSortieModel: {
+                                                ...this.state.navigationAvitaillementSortieModel, quantiteLivree: text
+                                            }
+                                        });
+                                        this.update();
+                                    }}
                                 />
                             </Col>
                         </Row>

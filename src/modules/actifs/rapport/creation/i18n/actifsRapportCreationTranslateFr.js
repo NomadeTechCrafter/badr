@@ -448,6 +448,10 @@ export default {
         "compteurAvant": "Compteur avant",
         "compteurApres": "Compteur après",
         "quantiteLivree": "Quantité livrée",
+        "numeroRCFournisseur": "Numéro RC du fournisseur",
+        "centreRCFournisseur": "Centre RC du fournisseur ",
+        "raisonSocialeFournisseur": "Raison sociale du fournisseur",
+        "heureLivraison": "Heure de livraison",
       },
       "DUM": {
         "label": "Réference DUM",
