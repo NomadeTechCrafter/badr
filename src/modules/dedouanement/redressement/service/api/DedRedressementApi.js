@@ -118,7 +118,20 @@ export default class DedRedressementApi {
     let response = await ComHttpHelperApi.process(data);
     return response;
   };
-
+  static validerCompteRed = async (rechercheCompteREDVO) => {
+    const data = {
+      dtoHeader: {
+        userLogin: ComSessionService.getInstance().getLogin(),
+        fonctionnalite: ComSessionService.getInstance().getFonctionalite(),
+        module: 'DED_LIB',
+        commande: 'ded.validerCompteRED',
+        typeService: TYPE_SERVICE_SP,
+      },
+      jsonVO: rechercheCompteREDVO,
+    };
+    let response = await ComHttpHelperApi.process(data);
+    return response;
+  };
   static consulterAMPByDed = async (reference) => {
     const data = {
       dtoHeader: {

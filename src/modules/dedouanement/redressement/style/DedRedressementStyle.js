@@ -27,6 +27,7 @@ const styles = {
     borderRadius: 5,
     borderWidth: 3,
     borderColor: lightGris,
+
   },
   subContainer: {
     flex: 1,
@@ -38,6 +39,7 @@ const styles = {
     width: 100,
     margin: 15,
     flex: 1,
+
   },
   headingText: { color: primaryColor, fontSize: 15 },
   versionInitialStyle: { paddingLeft: 50, marginLeft: 10 },

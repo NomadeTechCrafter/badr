@@ -77,7 +77,7 @@ class DedRedressementEnteteLocalisationMarchandiseBlock extends React.Component 
                 libelle="Pays d'origine"
                 children={
                   <ComBadrAutoCompleteChipsComp
-                    disabled={true}
+                   // disabled={true}
                     onRef={(ref) => (this.refPaysOrigine = ref)}
                     code="code"
                     selected={getValueByPath(
@@ -101,7 +101,7 @@ class DedRedressementEnteteLocalisationMarchandiseBlock extends React.Component 
                 libelle="Pays de destination"
                 children={
                   <ComBadrAutoCompleteChipsComp
-                    disabled={true}
+                  //  disabled={true}
                     onRef={(ref) => (this.refPaysDestinationTrans = ref)}
                     code="code"
                     selected={getValueByPath(

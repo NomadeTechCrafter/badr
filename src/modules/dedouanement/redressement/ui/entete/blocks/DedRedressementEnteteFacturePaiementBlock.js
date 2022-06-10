@@ -677,7 +677,7 @@ class DedRedressementEnteteFacturePaiementBlock extends React.Component {
                 libelle="Mode"
                 children={
                   <ComBadrReferentielPickerComp
-                    disabled={true}
+                   // disabled={true}
                     selected={{
                       code: getValueByPath(
                         'dedDumSectionEnteteVO.modePaiement',
@@ -698,7 +698,7 @@ class DedRedressementEnteteFacturePaiementBlock extends React.Component {
                 libelle="Crédit d'enlevement"
                 children={
                   <ComBadrReferentielPickerComp
-                    disabled={true}
+                  //  disabled={true}
                     selected={{
                       code: getValueByPath(
                         'dedDumSectionEnteteVO.numero',
