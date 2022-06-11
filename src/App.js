@@ -86,6 +86,10 @@ import MainleveeListeDeclaration from './modules/DeclarationD17D20/mainlevee/ui/
 import LiqArticleOperationLiqBlock from './modules/liquidation/ui/ongletsLiquidation/articles/blocks/LiqArticleOperationLiqBlock';
 import LiquidationArticlesScreen from './modules/liquidation/ui/ongletsLiquidation/articles/LiquidationArticlesScreen';
 import actifsRapportCreationAvitaillementSortieTab from './modules/actifs/rapport/creation/ui/avitaillementSortie/actifsRapportCreationAvitaillementSortieTab';
+import ControleDeclarationsApurementScreen from './modules/controle/ACVP/ui/onglets/declarationsApurement/ControleDeclarationsApurementScreen';
+import ControleReconnaissanceScreen from './modules/controle/ACVP/ui/onglets/reconnaissance/ControleReconnaissanceScreen';
+import ControleBonDelivrerScreen from './modules/controle/ACVP/ui/onglets/bonDelivrer/ControleBonDelivrerScreen';
+import controleListeDocsExigi from './modules/controle/ACVP/ui/onglets/compteRendu/blocks/controleListeDocsExigi';
 
 
 //setGlobalHandler();
@@ -109,7 +113,7 @@ export default class App extends React.Component {
                 <Stack.Screen
                   name="test"
                   options={{headerShown: false}}
-                    component={actifsRapportCreationAvitaillementSortieTab}
+                    component={ControleCompteRenduScreen}
                 />
               )}
               <Stack.Screen

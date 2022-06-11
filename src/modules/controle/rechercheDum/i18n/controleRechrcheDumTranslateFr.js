@@ -22,6 +22,7 @@ export default {
     redressementOperes: 'Redressements opérés',
     genererCompte: 'Générer compte rendu des redressements',
     observation: 'Observation',
+    certificatDeVisite: 'Certificat de visite',
     votreObservation: 'Votre observation ...',
     historiqueCompteRendu: 'Historique des comptes rendu de contrôle',
     controleConforme: 'Contrôle conforme',

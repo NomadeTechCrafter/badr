@@ -2430,7 +2430,11 @@
   // Configure editor settings to be overridden for [markdown] language.
   "[markdown]": {
     "editor.wordWrap": "on",
-    "editor.quickSuggestions": false
+    "editor.quickSuggestions": {
+      "comments": "off",
+      "strings": "off",
+      "other": "off"
+    }
   },
 
   // Configure editor settings to be overridden for [scss] language.

@@ -21,17 +21,17 @@ class ControleDeclarationsApurementScreen extends React.Component {
         this.cols = [
             {
                 code: 'referenceEnregistrement',
-                libelle: translate('mainlevee.delivrerMainlevee.listeD17D20.reference'),
+                libelle: translate('newmlv.delivrerMainlevee.listeD17D20.reference'),
                 width: 180,
             },
             {
                 code: 'dateCreation',
-                libelle: translate('mainlevee.delivrerMainlevee.listeD17D20.dateCreation'),
+                libelle: translate('newmlv.delivrerMainlevee.listeD17D20.dateCreation'),
                 width: 180,
             },
             {
                 code: 'numeroVersionCourante',
-                libelle: translate('mainlevee.delivrerMainlevee.listeD17D20.numeroVersion'),
+                libelle: translate('newmlv.delivrerMainlevee.listeD17D20.numeroVersion'),
                 width: 180,
             },
         ];

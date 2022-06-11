@@ -32,18 +32,21 @@ class Login extends React.Component {
     autoLoginParam: {
       // login: 'YASAG', Redressement
       // password: 'testTest1+',
-      login: 'AD6300',
-      password: 'Testtest1+',
+      // login: 'AD6300',
+      // password: 'Testtest1+',
+      login: 'AAMM',
+      password: 'Test123+',
       // login: 'YELM',
       // password: 'testtest',
       codeSms: '8bXqj1lLva3IEg6iDbJ+eA==',
       bureau: '309',
       codeBureau: '309',
-      // codeArrondissement: '309',
-      // arrondissement: '309',
+      codeArrondissement: '309',
+      arrondissement: '309',
       profiles: [
         // "0", "AAMAX", "AB", "PRO TEST",
-        "ACTIFS",
+        "CONSULTCTR", "CONTROL", "CONT_CTRL"
+        // "ACTIFS",
         // "LIQJSF", "LIQREFREC", "LIQ-TEST", "IMANLIQ" // Liquidation
         // "AR", "ADMINBV",
         // "ADMSELCOT", "ADT", "AGBRIGADE", "AGDP", "AGENTD", "AGECOR", "AGENT_TEST", "AV",

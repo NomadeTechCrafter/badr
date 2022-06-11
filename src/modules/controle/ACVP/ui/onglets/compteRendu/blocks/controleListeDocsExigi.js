@@ -17,7 +17,7 @@ class ControleListeDocsExigi extends React.Component {
     buildComposantsColumnsListeDocs = () => {
         return [
             {
-                code: 'documentAnnexe.numeroOrdreArticle',
+                code: 'documentAnnexe.libelle',
                 libelle: translate('controle.doc'),
                 width: 180,
             },

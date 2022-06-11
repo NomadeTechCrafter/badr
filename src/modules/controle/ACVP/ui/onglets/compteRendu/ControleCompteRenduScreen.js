@@ -109,6 +109,23 @@ class ControleCompteRenduScreen extends React.Component {
     }
 
     render() {
+
+        let circuit = ''
+        switch (this.props?.declaration?.decision) {
+            case 'AC':
+                circuit = 'Orange';
+                break;
+            case 'VP':
+                circuit = 'Rouge';
+                break;
+            case 'VI':
+                circuit = 'Rouge';
+                break;
+
+            default:
+                break;
+        }
+
         const refDeclaration = this.props?.refDeclaration ? this.props?.refDeclaration : '';
         const declaration = this.props?.controleVo ? this.props?.controleVo : '';
         let annotations = this.props?.controleVo?.autreAnnotationVOs ? this.props?.controleVo?.autreAnnotationVOs : [];
@@ -131,22 +148,24 @@ class ControleCompteRenduScreen extends React.Component {
                             />
 
                         </DedRedressementRow>
-                        <ComBasicDataTableComp
-                            badr
-                            onRef={(ref) => (this.badrComposantsTable = ref)}
-                            ref="_badrTable"
-                            hasId={false}
-                            id="idComposant"
-                            rows={annotations}
-                            cols={this.composantTablesColsAnnotations}
-                            totalElements={
-                                annotations?.length
-                                    ? annotations?.length
-                                    : 0
-                            }
-                            maxResultsPerPage={5}
-                            paginate={true}
-                        />
+                        {(annotations && annotations.length > 0) &&
+                            <ComBasicDataTableComp
+                                badr
+                                onRef={(ref) => (this.badrComposantsTable = ref)}
+                                ref="_badrTable"
+                                hasId={false}
+                                id="idComposant"
+                                rows={annotations}
+                                cols={this.composantTablesColsAnnotations}
+                                totalElements={
+                                    annotations?.length
+                                        ? annotations?.length
+                                        : 0
+                                }
+                                maxResultsPerPage={5}
+                                paginate={true}
+                            />
+                        }
                     </ComAccordionComp>
                 </ComBadrCardBoxComp >
 
@@ -187,7 +206,7 @@ class ControleCompteRenduScreen extends React.Component {
                             <View
                                 style={{ flexDirection: 'row', justifyContent: 'center' }}>
                                 <ComBadrButtonComp
-                                    onPress={()=>this.props.genererCompteRendu()}
+                                    onPress={() => this.props.genererCompteRendu()}
                                     disabled={this.props?.isConsultation}
                                     text={translate('controle.genererCompte')}
                                 />
@@ -198,7 +217,7 @@ class ControleCompteRenduScreen extends React.Component {
 
                 {/* Observation */}
                 < ComBadrCardBoxComp style={styles.cardBox} >
-                    <ComAccordionComp title={translate('controle.observation')} expanded={true}>
+                    <ComAccordionComp title={circuit === 'Rouge' ? translate('controle.certificatDeVisite') : translate('controle.observation')} expanded={true}>
                         <View>
                             <TextInput
                                 placeholder={translate('controle.votreObservation')}
