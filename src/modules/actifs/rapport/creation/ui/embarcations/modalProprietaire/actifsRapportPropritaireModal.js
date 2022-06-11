@@ -18,6 +18,7 @@ import {
 import { translate } from '../../../../../../../commons/i18n/ComI18nHelper';
 import { CustomStyleSheet, primaryColor } from '../../../../../../../commons/styles/ComThemeStyle';
 import { LIST_TYPES_IDENTIFIANT, PROPRIETAIRE_INITIAL } from '../../../../utils/actifsConstants';
+import * as ActifsUtils from '../../../../utils/actifsUtils';
 
 
 export default class ActifsRapportPropritaireModal extends React.Component {
@@ -28,7 +29,7 @@ export default class ActifsRapportPropritaireModal extends React.Component {
       typeProprietaire: '01',
       proprietaire: this.props.proprietaire ? this.props.proprietaire : PROPRIETAIRE_INITIAL,
       acNationalite: '',
-      index:null
+      index: null
     };
   }
 
@@ -58,7 +59,7 @@ export default class ActifsRapportPropritaireModal extends React.Component {
   };
 
   retablirProprietaire = () => {
-    this.setState({ proprietaire: PROPRIETAIRE_INITIAL, acNationalite: { code: '', libelle: '' }, errorMessage: null, index:-1 });
+    this.setState({ proprietaire: PROPRIETAIRE_INITIAL, acNationalite: { code: '', libelle: '' }, errorMessage: null, index: -1 });
   }
 
   confirmerProprietaire = () => {
@@ -72,23 +73,45 @@ export default class ActifsRapportPropritaireModal extends React.Component {
     let msg = [];
     let required = false;
     if (this.state.typeProprietaire == '01') {
+      // if (_.isEmpty(this.state.proprietaire?.intervenant.refTypeDocumentIdentite.code)) {
+      //   required = true;
+      //   msg.push(translate('actifsCreation.embarcations.proprietaires.msgerrors.typeIdentifiant'));
+      // }
+
+      // if (_.isEmpty(this.state.proprietaire?.intervenant.numeroDocumentIndentite)) {
+      //   required = true;
+      //   msg.push(translate('actifsCreation.embarcations.proprietaires.msgerrors.identifiant'));
+      // }
+      // if (_.isEmpty(this.state.proprietaire?.intervenant.nomIntervenant)) {
+      //   required = true;
+      //   msg.push(translate('actifsCreation.embarcations.proprietaires.msgerrors.nomIntervenant'));
+      // }
+      // if (_.isEmpty(this.state.proprietaire?.intervenant.prenomIntervenant)) {
+      //   required = true;
+      //   msg.push(translate('actifsCreation.embarcations.proprietaires.msgerrors.prenomIntervenant'));
+      // }
+
+
       if (_.isEmpty(this.state.proprietaire?.intervenant.refTypeDocumentIdentite.code)) {
         required = true;
-        msg.push(translate('actifsCreation.embarcations.proprietaires.msgerrors.typeIdentifiant'));
+        msg.push(translate('actifsCreation.embarcations.intervenants.msgerrors.typeIdentifiant'));
       }
 
       if (_.isEmpty(this.state.proprietaire?.intervenant.numeroDocumentIndentite)) {
         required = true;
-        msg.push(translate('actifsCreation.embarcations.proprietaires.msgerrors.identifiant'));
+        msg.push(translate('actifsCreation.embarcations.intervenants.msgerrors.identifiant'));
       }
+
       if (_.isEmpty(this.state.proprietaire?.intervenant.nomIntervenant)) {
         required = true;
-        msg.push(translate('actifsCreation.embarcations.proprietaires.msgerrors.nomIntervenant'));
+        msg.push(translate('actifsCreation.embarcations.intervenants.msgerrors.nomIntervenant'));
       }
+
       if (_.isEmpty(this.state.proprietaire?.intervenant.prenomIntervenant)) {
         required = true;
-        msg.push(translate('actifsCreation.embarcations.proprietaires.msgerrors.prenomIntervenant'));
+        msg.push(translate('actifsCreation.embarcations.intervenants.msgerrors.prenomIntervenant'));
       }
+
     }
     if (this.state.typeProprietaire == '02') {
       if (_.isEmpty(this.state.proprietaire?.intervenant.numeroRC)) {
@@ -123,9 +146,57 @@ export default class ActifsRapportPropritaireModal extends React.Component {
 
     }
     return required;
-
-
   }
+
+  chercherPersonneConcernee = () => {
+    let required = false;
+    let msg = [];
+    if (!_.isEmpty(this.state.proprietaire?.intervenant.numeroDocumentIndentite)
+      && !_.isEmpty(this.state.proprietaire?.intervenant.refTypeDocumentIdentite.code)) {
+      if ("01" == this.state.proprietaire?.intervenant.refTypeDocumentIdentite.code) {
+        const result = ActifsUtils.validCIN(this.state.proprietaire?.intervenant.numeroDocumentIndentite);
+        console.log(result);
+        if (result[1] != null) {
+          required = true;
+          console.log(result);
+          msg.push(result[1]);
+        } else {
+          this.setState({
+            proprietaire: {
+              ...this.state.proprietaire, intervenant: {
+                ...this.state.proprietaire?.intervenant, numeroDocumentIndentite: result[0]
+              }
+            }
+          })
+        }
+      }
+      if ("02" == this.state.proprietaire?.intervenant.refTypeDocumentIdentite.code) {
+        const result = ActifsUtils.validCarteSejour(this.state.proprietaire?.intervenant.numeroDocumentIndentite);
+        console.log(result);
+        if (result[1] != null) {
+          required = true;
+          console.log(result);
+          msg.push(result[1]);
+        } else {
+          this.setState({
+            proprietaire: {
+              ...this.state.proprietaire, intervenant: {
+                ...this.state.proprietaire?.intervenant, numeroDocumentIndentite: result[0]
+              }
+            }
+          })
+        }
+      }
+    } if (required) {
+      this.setState({
+        errorMessage: msg
+      });
+    } else {
+      this.setState({
+        errorMessage: null
+      });
+    }
+  };
 
 
   getPersonnePhysiqueForm() {
@@ -181,6 +252,9 @@ export default class ActifsRapportPropritaireModal extends React.Component {
                   }
                 }
               })}
+              onEndEditing={(event) => {
+                this.chercherPersonneConcernee();
+              }}
             />
           </Col>
 
@@ -330,6 +404,7 @@ export default class ActifsRapportPropritaireModal extends React.Component {
           <Col size={10}>
             <TextInput
               mode={'outlined'}
+              keyboardType={'number-pad'}
               disabled={this.props.readOnly}
               style={{ height: 20, fontSize: 12 }}
               value={this.state.proprietaire?.intervenant.numeroRC}
@@ -357,6 +432,7 @@ export default class ActifsRapportPropritaireModal extends React.Component {
           <Col size={6}>
             <TextInput
               mode={'outlined'}
+              keyboardType={'number-pad'}
               disabled={this.props.readOnly}
               style={{ height: 20, fontSize: 12 }}
               value={this.state.proprietaire?.intervenant.refCentreRC.codeCentreRC}

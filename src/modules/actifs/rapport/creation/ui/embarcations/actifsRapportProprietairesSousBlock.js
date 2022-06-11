@@ -110,7 +110,7 @@ class ActifsRapportProprietairesSousBlock extends React.Component {
         return (
             <Col size={2}>
                 <Row>
-                    <Col size={1}>
+                    {/* <Col size={1}>
                         <IconButton
                             icon="pencil-outline"
                             color={'white'}
@@ -118,7 +118,7 @@ class ActifsRapportProprietairesSousBlock extends React.Component {
                             style={{ backgroundColor: primaryColor }}
                             onPress={() => this.selectedProprietaire(index)}
                         />
-                    </Col>
+                    </Col> */}
                     <Col size={1}>
                         <IconButton
                             icon="trash-can-outline"

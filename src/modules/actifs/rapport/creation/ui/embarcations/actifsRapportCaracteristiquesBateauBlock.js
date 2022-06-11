@@ -247,6 +247,7 @@ class ActifsRapportCaracteristiquesBateauBlock extends React.Component {
                                     <Col size={6}>
                                         <TextInput
                                             mode={'outlined'}
+                                            keyboardType={'number-pad'}
                                             disabled={this.props.readOnly}
                                             style={{ height: 20, fontSize: 12 }}
                                             value={this.state.navigationMaritimeModel.longueur}
@@ -273,6 +274,7 @@ class ActifsRapportCaracteristiquesBateauBlock extends React.Component {
                                     <Col size={6}>
                                         <TextInput
                                             mode={'outlined'}
+                                            keyboardType={'number-pad'}
                                             disabled={this.props.readOnly}
                                             style={{ height: 20, fontSize: 12 }}
                                             value={this.state.navigationMaritimeModel.profondeur}
@@ -297,6 +299,7 @@ class ActifsRapportCaracteristiquesBateauBlock extends React.Component {
                                     <Col size={6}>
                                         <TextInput
                                             mode={'outlined'}
+                                            keyboardType={'number-pad'}
                                             disabled={this.props.readOnly}
                                             style={{ height: 20, fontSize: 12 }}
                                             value={this.state.navigationMaritimeModel.tonnage}

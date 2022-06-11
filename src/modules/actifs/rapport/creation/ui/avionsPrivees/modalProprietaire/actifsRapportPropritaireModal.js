@@ -330,6 +330,7 @@ export default class ActifsRapportPropritaireModal extends React.Component {
           <Col size={10}>
             <TextInput
               mode={'outlined'}
+              keyboardType={'number-pad'}
               disabled={this.props.readOnly}
               style={{ height: 20, fontSize: 12 }}
               value={this.state.proprietaire?.intervenant.numeroRC}
@@ -357,6 +358,7 @@ export default class ActifsRapportPropritaireModal extends React.Component {
           <Col size={6}>
             <TextInput
               mode={'outlined'}
+              keyboardType={'number-pad'}
               disabled={this.props.readOnly}
               style={{ height: 20, fontSize: 12 }}
               value={this.state.proprietaire?.intervenant.refCentreRC.codeCentreRC}

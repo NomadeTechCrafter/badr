@@ -117,7 +117,7 @@ class ActifsRapportPersonnesConcerneesSousBlock extends React.Component {
         return (
             <Col size={2}>
                 <Row>
-                    <Col size={1}>
+                    {/* <Col size={1}>
                         <IconButton
                             icon="pencil-outline"
                             color={'white'}
@@ -125,7 +125,7 @@ class ActifsRapportPersonnesConcerneesSousBlock extends React.Component {
                             style={{ backgroundColor: primaryColor }}
                             onPress={() => this.selectedIntervenant(index)}
                         />
-                    </Col>
+                    </Col> */}
                     <Col size={1}>
                         <IconButton
                             icon="trash-can-outline"

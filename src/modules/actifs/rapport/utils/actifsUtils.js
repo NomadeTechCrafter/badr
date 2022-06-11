@@ -141,6 +141,147 @@ export const convert = (date) => {
 
 }
 
+
+export const validCIN = (cin) => {
+  let result = [];
+  result[0] = cin;
+  let buffer = '';
+  if (cin == null || _.isEmpty(cin)) {
+    result[0] = null;
+    result[1] = null;
+    return result;
+  }
+  let charPart = cin.substring(0, 1);
+  if (!charPart.match(/^[A-Z]$/i)) {
+    result[1] = 'E00502: Le premier caractère du CIN doit être une lettre';
+    return result;
+  }
+  if (cin.length < 2 || cin.length > 8) {
+    result[1] = 'E00503: Taille du CIN incorrecte (elle doit etre comprise entre 2 et 8).';
+    return result;
+  }
+  let alphaNumPart = cin.substring(1, 2);
+  if (cin.length == 2) {
+    if (!_.parseInt(alphaNumPart)) {
+      result[1] = 'E00504: La taille minimale du champ est égale à 2 (au moins un caractère alphabétique  et un caractère numérique)';
+      return result;
+    }
+  } else {
+    if (!alphaNumPart.match()) {
+      result[1] = 'E00504: La taille minimale du champ est égale à 2 (au moins un caractère alphabétique  et un caractère numérique)';
+      return result;
+    }
+  }
+  let numPart = cin.substring(2);
+
+  for (let i = 0; i < numPart.length; i++) {
+    let num = numPart.substring(i, i + 1);
+    if (!_.parseInt(num)) {
+      result[1] = 'E00501: Les caractères autres que les deux premiers doivent être numériques ';
+      return result;
+    }
+  }
+  let cp = 0;
+  console.log('result : ' + result + ' ' + cp++);
+  if (_.parseInt(alphaNumPart)) {
+    console.log('result : ' + result + ' ' + cp++);
+    buffer += alphaNumPart + numPart;
+    let numericPart = buffer;
+    if (cin.length < 8) {
+      console.log('result : ' + result + ' ' + cp++);
+      numericPart = addZeros(numericPart, 7);
+    }
+    cin = charPart.toUpperCase() + numericPart;
+  } else {
+    console.log('result : ' + result + ' ' + cp++);
+    buffer += numPart;
+    let numericPart = buffer;
+    if (cin.length < 8) {
+      console.log('result : ' + result + ' ' + cp++);
+      numericPart = addZeros(numericPart, 6);
+    }
+    cin = charPart.toUpperCase() + alphaNumPart.toUpperCase() + numericPart;
+  }
+  result[0] = cin;
+  result[1] = null;
+  console.log('result : ' + result);
+  return result;
+}
+
+export const addZeros = (input, maxLength) => {
+  console.log('input : ' + input);
+  // let keyImput = _.keys(input)[0];
+  // if (input[keyImput] !== '') {
+  let value = _.padStart(input, maxLength, '0');
+  console.log('value : ' + value);
+  return value;
+  // }
+};
+
+// addZeros = (input) => {
+//   let keyImput = _.keys(input)[0];
+//   if (input[keyImput] !== '') {
+//     this.setState({
+//       [keyImput]: _.padStart(input[keyImput], input.maxLength, '0'),
+//     });
+//   }
+// };
+
+export const validCarteSejour = (carteSejour) => {
+  let result = [];
+  result[0] = carteSejour;
+  if (carteSejour == null || _.isEmpty(carteSejour)) {
+    result[0] = null;
+    result[1] = null;
+    return result;
+  }
+  let lengthCarteSejour = carteSejour.length;
+  if (lengthCarteSejour < 2 || lengthCarteSejour > 8) {
+    result[1] = 'E00508: Taille de la carte de séjour incorrecte (elle doit etre comprise entre 2 et 8).';
+    return result;
+  }
+  let numPart = carteSejour.substring(1, 3);
+  console.log('numPart : ' + numPart);
+  if (lengthCarteSejour > 2) {
+    for (let i = 0; i < numPart.length; i++) {
+      let num = numPart.substring(i, i + 1);
+      if (!_.parseInt(num)) {
+        console.log('num : ' + num);
+        result[1] = 'E00507: Les caractères autres que les deux premiers et le dernier doivent être numériques';
+        return result;
+      }
+    }
+  }
+  let dernierChar = carteSejour.substring(lengthCarteSejour - 1);
+  console.log('dernierChar : ' + dernierChar);
+  if (_.parseInt(dernierChar)) {
+    result[1] = 'E00506: Le dernier caractère de la carte de séjour doit être une lettre';
+    return result;
+  }
+
+  //Completer par les zeros
+  let premierElement = String.valueOf(carteSejour.charAt(0));
+  let dexiemeElement = String.valueOf(carteSejour.charAt(1));
+  let indexFirstNumber = 0;
+  if (lengthCarteSejour > 2 && !_.parseInt(premierElement) && !_.parseInt(dexiemeElement)) {
+    indexFirstNumber = 2;
+  } else if (!_.parseInt(premierElement)) {
+    indexFirstNumber = 1;
+  }
+  let complementZero = 8 - lengthCarteSejour;
+  let valideCarteSejour = carteSejour.substring(0, indexFirstNumber);
+  let stringBuilder = "";
+  stringBuilder += (valideCarteSejour);
+
+  for (let i = 0; i < complementZero.length; i++) {
+    stringBuilder = stringBuilder + "0";
+  }
+  valideCarteSejour = stringBuilder + carteSejour.substring(indexFirstNumber);
+  result[0] = valideCarteSejour;
+  result[1] = null;
+  return result;
+}
+
 export const cleanOrdreService = (rsAEnregistrer) => {
   delete rsAEnregistrer.typesIncidentSelect;
   delete rsAEnregistrer.rapportService?.ordreService?.chefEquipe?.refGradeLib;
