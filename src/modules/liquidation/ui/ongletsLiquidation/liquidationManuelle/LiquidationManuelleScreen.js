@@ -1085,49 +1085,6 @@ class ListeTaxesGlobales extends React.Component {
     this.getListeTaxesGlobales(this.props.data);
   }
 
-  editRubriquesComptables = (item, index) => {
-    this.props.editRubriquesComptables(item, index);
-    let listTaxes = [...this.state.listeTaxesGlobales];
-    listTaxes[index] = this.props.ligneRubrique;
-    this.setState({
-      listeTaxesGlobales: listTaxes,
-    });
-  };
-
-  deleteRubriquesComptables = (item, index) => {
-    Alert.alert('Remove', 'Are You sure you want to remove that?', [
-      {
-        text: 'Yes',
-        onPress: () => {
-          let listeTaxes = [...this.state.ListeTaxesGlobales];
-          listeTaxes.splice(index, 1);
-          this.setState({
-            ListeTaxesGlobales: listeTaxes,
-          });
-          callRedux(
-            this.props,
-            {
-              command: 'supprimerTaxeGlobale',
-              typeService: 'UC',
-              jsonVO: item,
-            },
-            null,
-          );
-          callLiquidationUpdateRedux(this.props, {
-            command: 'supprimerTaxeGlobale',
-            typeService: 'UC',
-            jsonVO: item,
-          });
-        },
-      },
-      {
-        text: 'No',
-        onPress: () => console.log('Cancel Pressed'),
-        style: 'cancel',
-      },
-    ]);
-  };
-
   loadListeTaxesGlobale = (refLignesRubriqueOperation, consignation) => {
     console.log('refLignesRubriqueOperation', refLignesRubriqueOperation);
     refLignesRubriqueOperation.map((item, key) => {
@@ -1170,6 +1127,49 @@ class ListeTaxesGlobales extends React.Component {
         );
       }
     }
+  };
+
+  editRubriquesComptables = (item, index) => {
+    this.props.editRubriquesComptables(item, index);
+    let listTaxes = [...this.state.listeTaxesGlobales];
+    listTaxes[index] = this.props.ligneRubrique;
+    this.setState({
+      listeTaxesGlobales: listTaxes,
+    });
+  };
+
+  deleteRubriquesComptables = (item, index) => {
+    Alert.alert('Remove', 'Êtes-vous sûr de vouloir supprimer cela?', [
+      {
+        text: 'Yes',
+        onPress: () => {
+          let listeTaxes = [...this.state.ListeTaxesGlobales];
+          listeTaxes.splice(index, 1);
+          this.setState({
+            ListeTaxesGlobales: listeTaxes,
+          });
+          callRedux(
+            this.props,
+            {
+              command: 'supprimerTaxeGlobale',
+              typeService: 'UC',
+              jsonVO: item,
+            },
+            null,
+          );
+          callLiquidationUpdateRedux(this.props, {
+            command: 'supprimerTaxeGlobale',
+            typeService: 'UC',
+            jsonVO: item,
+          });
+        },
+      },
+      {
+        text: 'No',
+        onPress: () => console.log('Cancel Pressed'),
+        style: 'cancel',
+      },
+    ]);
   };
 
   render() {

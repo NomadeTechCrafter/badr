@@ -12,7 +12,7 @@ import {
   CustomStyleSheet,
 } from '../../../../../commons/styles/ComThemeStyle';
 import {Col, Row, Grid} from 'react-native-easy-grid';
-import {extractCommandData} from '../../../utils/LiqUtils';
+import {callRedux, extractCommandData} from '../../../utils/LiqUtils';
 import {translate} from '../../../../../commons/i18n/ComI18nHelper';
 import {connect} from 'react-redux';
 
@@ -32,8 +32,13 @@ class LiquidationInfoScreen extends React.Component {
       'validerOrdonnancerLiquidationDUM',
       'liquidationReducer',
     );
-    if (!_.isNil(response) && !_.isNil(response.data) && prevState.liquidationVO != response.data)
+    if (
+      !_.isNil(response) &&
+      !_.isNil(response.data) &&
+      prevState.liquidationVO != response.data
+    ) {
       this.getLiquidationInfo(response);
+    }
   }
 
   getLiquidationInfo = (response) => {
@@ -65,6 +70,107 @@ class LiquidationInfoScreen extends React.Component {
     this.props.navigation.navigate('LiquidationInfoDetailsScreen', {
       ficheAvisualiserVO: item,
     });
+  };
+  confirmerOrdonnancerLiquidationDUM = (liquidationVO) => {
+    let data = {
+      idOperation: liquidationVO.idOperation,
+      confirmationOrdonnancement: 'false',
+    };
+    if (
+      liquidationVO.refOperationSimultanee &&
+      liquidationVO.refOperationSimultanee.refModePaiement == '02'
+    ) {
+      data.numeroCreditConsignation =
+        liquidationVO.refOperationSimultanee.numeroCreditConsignation;
+    }
+    if (
+      liquidationVO.refOperationSimultanee &&
+      liquidationVO.refOperationSimultanee.refTypeConsignation
+    ) {
+      data.refTypeConsignation =
+        liquidationVO.refOperationSimultanee.refTypeConsignation;
+    }
+    if (
+      !(
+        liquidationVO.montantTotalLiquide &&
+        +liquidationVO.montantTotalLiquide > 0
+      )
+    ) {
+      data.validationComplementaire = !(
+        liquidationVO.montantTotalLiquide &&
+        +liquidationVO.montantTotalLiquide > 0
+      );
+      data.refModePaiement = liquidationVO.refModePaiement;
+      if (liquidationVO.refModePaiement == '02') {
+        data.numeroCredit = liquidationVO.numeroCredit;
+      }
+      if (
+        liquidationVO.refOperationSimultanee &&
+        liquidationVO.refOperationSimultanee.refModePaiement == '02'
+      ) {
+        data.numeroCreditConsignation =
+          liquidationVO.refOperationSimultanee.numeroCredit;
+      }
+      if (
+        liquidationVO.refOperationSimultanee &&
+        liquidationVO.refOperationSimultanee.refTypeConsignation
+      ) {
+        data.refTypeConsignation =
+          liquidationVO.refOperationSimultanee.refTypeConsignation;
+      }
+      if (liquidationVO.refOperationSimultanee) {
+        data.refModePaiementConsignation =
+          liquidationVO.refOperationSimultanee.refModePaiement;
+      }
+    } else {
+      data.validationComplementaire = 'true';
+      data.refModePaiement = liquidationVO.refModePaiement;
+      if (liquidationVO.refModePaiement == '02') {
+        data.numeroCredit = liquidationVO.numeroCredit;
+      }
+      if (
+        liquidationVO.refOperationSimultanee &&
+        liquidationVO.refOperationSimultanee.refModePaiement == '02'
+      ) {
+        data.numeroCreditConsignation =
+          liquidationVO.refOperationSimultanee.numeroCredit;
+      }
+      if (
+        liquidationVO.refOperationSimultanee &&
+        liquidationVO.refOperationSimultanee.refTypeConsignation
+      ) {
+        data.refTypeConsignation =
+          liquidationVO.refOperationSimultanee.refTypeConsignation;
+      }
+      if (liquidationVO.refOperationSimultanee) {
+        data.refModePaiementConsignation =
+          liquidationVO.refOperationSimultanee.refModePaiement;
+      }
+    }
+    callRedux(
+      this.props,
+      {
+        command: 'validerOrdonnancerLiquidationDUM',
+        typeService: 'UC',
+        jsonVO: data,
+      },
+      'LiquidationInfoScreen',
+    );
+  };
+
+  getReferenceDeclaration = (reference) => {
+    var regime = reference.slice(3, 6);
+    var serie = reference.slice(10, 17);
+    return (
+      reference.slice(0, 3) +
+      ' ' +
+      reference.slice(3, 6) +
+      ' ' +
+      reference.slice(6, 10) +
+      ' ' +
+      reference.slice(10, 17) +
+      ' '
+    );
   };
 
   render() {
@@ -194,7 +300,7 @@ class LiquidationInfoScreen extends React.Component {
                         {translate('liq.ongletInformations.statusFiche')}
                       </ComBadrLibelleComp>
                     </Col>
-                    <Col size={0.5}></Col>
+                    <Col size={0.5} />
                   </Row>
                   {emissions &&
                     _.orderBy(emissions, 'numOrdreOperation', 'asc').map(
@@ -274,7 +380,7 @@ class LiquidationInfoScreen extends React.Component {
                         {translate('liq.ongletInformations.statusFiche')}
                       </ComBadrLibelleComp>
                     </Col>
-                    <Col size={0.5}></Col>
+                    <Col size={0.5} />
                   </Row>
                   {consignations &&
                     _.orderBy(consignations, 'numOrdreOperation', 'asc').map(
