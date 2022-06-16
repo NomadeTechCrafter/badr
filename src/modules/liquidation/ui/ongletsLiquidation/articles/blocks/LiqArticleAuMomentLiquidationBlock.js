@@ -493,7 +493,7 @@ class LiqRecapitulationLiqNormaleInitialeBlock extends React.Component {
         {this.state.errorMessage != null && (
           <ComBadrErrorMessageComp message={this.state.errorMessage} />
         )}
-        {this.props.liquidationReducer.errorMessage != null && (
+{/*        {this.props.liquidationReducer.errorMessage != null && (
           <ComBadrErrorMessageComp
             message={this.props.liquidationReducer?.errorMessage}
           />
@@ -502,7 +502,7 @@ class LiqRecapitulationLiqNormaleInitialeBlock extends React.Component {
           <ComBadrInfoMessageComp
             message={this.props.liquidationReducer?.messagesInfo}
           />
-        )}
+        )}*/}
         <ComBadrCardBoxComp noPadding={true}>
           {/* Bloc Liquidation Initiale Normale */}
           <ComAccordionComp

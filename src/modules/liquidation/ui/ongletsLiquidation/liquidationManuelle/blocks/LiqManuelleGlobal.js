@@ -32,7 +32,7 @@ export default class LiqManuelleGlobal extends React.Component {
     // console.log('list to show', listeTaxesGlobales);
     return (
       <ComBadrCardBoxComp noPadding={true}>
-        {/* Bloc Consignation Initiale */}
+        {/* Bloc Liquidation globale' */}
         <ComAccordionComp
           title={translate('liq.liquidationManuelle.liquidationGlobale')}>
           <Grid>
