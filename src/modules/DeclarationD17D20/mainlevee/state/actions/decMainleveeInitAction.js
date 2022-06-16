@@ -14,6 +14,13 @@ export function request(action, navigation, successRedirection) {
       action.value.data,
     )
       .then((response) => {
+        console.log('///////////////////////////////////////////////');
+        console.log('///////////////////////////////////////////////');
+        console.log('///////////////////////////////////////////////');
+        console.log(JSON.stringify(response));
+        console.log('///////////////////////////////////////////////');
+        console.log('///////////////////////////////////////////////');
+        console.log('///////////////////////////////////////////////');
         if (response) {
           const data = response.data;
           if (

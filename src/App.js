@@ -90,6 +90,7 @@ import ControleDeclarationsApurementScreen from './modules/controle/ACVP/ui/ongl
 import ControleReconnaissanceScreen from './modules/controle/ACVP/ui/onglets/reconnaissance/ControleReconnaissanceScreen';
 import ControleBonDelivrerScreen from './modules/controle/ACVP/ui/onglets/bonDelivrer/ControleBonDelivrerScreen';
 import controleListeDocsExigi from './modules/controle/ACVP/ui/onglets/compteRendu/blocks/controleListeDocsExigi';
+import ComBadrIntervenantComp from './modules/actifs/rapport/creation/ui/ComBadrIntervenantComp';
 
 
 //setGlobalHandler();
@@ -113,7 +114,7 @@ export default class App extends React.Component {
                 <Stack.Screen
                   name="test"
                   options={{headerShown: false}}
-                    component={ControleCompteRenduScreen}
+                    component={ComBadrIntervenantComp}
                 />
               )}
               <Stack.Screen

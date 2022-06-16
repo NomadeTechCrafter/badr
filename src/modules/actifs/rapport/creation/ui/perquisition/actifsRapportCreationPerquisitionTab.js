@@ -14,6 +14,10 @@ import { isCreation, stringNotEmpty, validateCin } from '../../../../../t6bis/ut
 import * as Constantes from '../../../../../t6bis/utils/t6bisConstants';
 import t6bisFindIntervenantAction from '../../../../../t6bis/gestion/state/actions/t6bisFindIntervenantAction';
 import _ from 'lodash';
+import { validCarteSejour, validCIN } from '../../../utils/actifsUtils';
+import ComHttpHelperApi from '../../../../../../commons/services/api/common/ComHttpHelperApi';
+import { ComSessionService } from '../../../../../../commons/services/session/ComSessionService';
+import { TYPE_SERVICE_SP } from '../../../../../../commons/constants/ComGlobalConstants';
 
 
 
@@ -63,7 +67,11 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
                 code: 'consentement',
                 libelle: translate('actifsCreation.perquisition.consentement'),
                 width: 200,
-            }, ,
+                render: (row) => {
+                    return row.consentement === 'true' ? 'Oui' : 'Non';
+                },
+            },
+
             {
                 code: 'isNew',
                 libelle: '',
@@ -266,42 +274,132 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
         }
     };
 
-    onBlurIdentifiant(text) {
-        console.log('onBlurIdentifiant----------------------------  : ', text);
-        /* this.state.intervenantVO = {
-          ...this.state.intervenantVO,
-          numeroDocumentIndentite: text,
-        }; */
+    // onBlurIdentifiant(text) {
+    //     console.log('onBlurIdentifiant----------------------------  : ', text);
+    //     /* this.state.intervenantVO = {
+    //       ...this.state.intervenantVO,
+    //       numeroDocumentIndentite: text,
+    //     }; */
 
-        if (this.props?.t6bis?.intervenantVO?.refTypeDocumentIdentite == this.state?.intervenantVO?.refTypeDocumentIdentite
-            &&
-            this.props?.t6bis?.intervenantVO?.numeroDocumentIndentite == this.state?.intervenantVO?.numeroDocumentIndentite) return;
+    //     if (this.props?.t6bis?.intervenantVO?.refTypeDocumentIdentite == this.state?.intervenantVO?.refTypeDocumentIdentite
+    //         &&
+    //         this.props?.t6bis?.intervenantVO?.numeroDocumentIndentite == this.state?.intervenantVO?.numeroDocumentIndentite) return;
 
-        if (!this.isParamSetted()) {
+    //     if (!this.isParamSetted()) {
+    //         this.setState({
+    //             ...this.state,
+    //             intervenantVO: {
+    //                 ...this.state.intervenantVO,
+    //                 nationaliteFr: '',
+    //                 nomIntervenant: '',
+    //                 prenomIntervenant: '',
+    //                 adresse: '',
+    //             },
+    //             infoCompleted: false,
+    //             newIntervenant: false,
+    //             acNationalite: {},
+    //             modificationInProgress: false,
+    //             errorMessage: null
+    //         });
+    //     } else {
+    //         this.checkType();
+    //     }
+    // }
+
+    chercherPersonneConcernee = () => {
+        console.log('+-+-+-+-+-+-+-+-+-+-+-+-avant+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+        console.log(JSON.stringify(this.state.intervenantVO));
+        console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-avant+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+        let required = false;
+        let msg = [];
+        if (!_.isEmpty(this.state.intervenantVO.numeroDocumentIndentite)
+            && !_.isEmpty(this.state.intervenantVO.refTypeDocumentIdentite)) {
+            if ("01" == this.state.intervenantVO.refTypeDocumentIdentite) {
+
+                const result = validCIN(this.state.intervenantVO.numeroDocumentIndentite);
+
+                if (result[1] != null) {
+                    required = true;
+                    msg.push(result[1]);
+                } else {
+ 
+                    this.setState(prevState => {
+                        let intervenantVO = prevState.intervenantVO;
+                        intervenantVO.numeroDocumentIndentite = result[0];
+                        return { intervenantVO };
+                    })
+                    console.log('+-+-+-+-+-+-+-+-+-+-+-+-apres+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+                    console.log(JSON.stringify(this.state.intervenantVO.numeroDocumentIndentite));
+                    console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-apres+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+                    
+                }
+            }
+            if ("02" == this.state.intervenantVO.refTypeDocumentIdentite) {
+                const result = validCarteSejour(this.state.intervenantVO?.numeroDocumentIndentite);
+                console.log('validCarteSejour');
+                if (result[1] != null) {
+                    required = true;
+                    msg.push(result[1]);
+                } else {
+                    this.setState({
+                        ...this.state,
+                        intervenantVO: {
+                            ...this.state.intervenantVO,
+                            numeroDocumentIndentite: result[0],
+                        },
+                    });
+                }
+            }
+        }
+        if (required) {
             this.setState({
-                ...this.state,
-                intervenantVO: {
-                    ...this.state.intervenantVO,
-                    nationaliteFr: '',
-                    nomIntervenant: '',
-                    prenomIntervenant: '',
-                    adresse: '',
-                },
-                infoCompleted: false,
-                newIntervenant: false,
-                acNationalite: {},
-                modificationInProgress: false,
-                errorMessage: null
+                errorMessage: msg
             });
         } else {
-            this.checkType();
+            this.setState({
+                errorMessage: null,
+                intervenantVO: this.findIntervenant({
+                    "numeroDocumentIdentite": this.state.intervenantVO?.numeroDocumentIndentite,
+                    "typeIdentifiant": this.state.intervenantVO?.refTypeDocumentIdentite
+                })
+            });
+
         }
-    }
+        // console.log('+-+-+-+-+-+-+-+-+-+-+-+-+apres-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+        // console.log(JSON.stringify(this.state.intervenantVO));
+        // console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-apres+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+        this.update();
+    };
+
+    findIntervenant = async (identifiants) => {
+        // findIntervenant = () async => {
+        const data = {
+            dtoHeader: {
+                userLogin: ComSessionService.getInstance().getLogin(),
+                fonctionnalite: ComSessionService.getInstance().getFonctionalite() ? ComSessionService.getInstance().getFonctionalite() : T6BIS_CREATION_FONCTIONNALITE,
+                module: 'REF_LIB',
+                commande: 'findIntervenant',
+                typeService: TYPE_SERVICE_SP,
+                motif: null,
+                messagesInfo: null,
+                messagesErreur: null,
+            },
+            jsonVO: identifiants
+        };
+        const response = await ComHttpHelperApi.process(data)
+        let intervenant = {};
+        if (response && response.data && response.data.jsonVO) {
+            intervenant = response.data.jsonVO;
+            delete intervenant.defaultConverter;
+            console.log('+-+-+-+-+-+-+-+-+-+-+-+-avant+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+            console.log(JSON.stringify(intervenant));
+            console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-avant+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+        }
+        return intervenant;
+    };
 
 
     supprimerIntervenant = (row, index) => {
-        // console.log(JSON.stringify(row));
-        // console.log(JSON.stringify(index));
         let intervenantsVO = this.state.gibPerquisition.intervenantsVO;
         intervenantsVO.splice(index, 1);
         this.setState({ myArray: [...this.state.gibPerquisition.intervenantsVO, intervenantsVO] });
@@ -399,58 +497,51 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
         this.update();
     };
 
-    static getDerivedStateFromProps(props, state) {
-        console.log('----------------------------------------------------------------------------------');
-        console.log('----------------------------------------------------------------------------------');
-        console.log('----------------------------------------------------------------------------------');
-        console.log(JSON.stringify(props.t6bisReducer));
-        console.log('----------------------------------------------------------------------------------');
-        console.log('----------------------------------------------------------------------------------');
-        console.log('----------------------------------------------------------------------------------');
-        if (
-            props?.t6bisReducer?.value &&
-            !props?.t6bisReducer?.newIntervenant &&
-            props?.t6bisReducer?.retourFindIntervenant
-        ) {
-            console.log('getDerivedStateFromProps - 1 -');
-            return {
-                intervenantVO: { ...state.intervenantVO, ...props?.t6bisReducer?.value }, // update the value of specific key
-                newIntervenant: props.t6bisReducer?.newIntervenant,
-            };
-        }
-        if (state?.isRetablir) {
-            console.log('getDerivedStateFromProps - 2 -');
-            return {
-                intervenantVO: {
-                    refTypeDocumentIdentite: '',
-                    numeroDocumentIndentite: '',
-                    nationaliteFr: '',
-                    nomIntervenant: '',
-                    prenomIntervenant: '',
-                    adresse: '',
-                    consentement: false
-                },
-                infoCompleted: false,
-                newIntervenant: false,
-                acNationalite: {},
-                isRetablir: false,
-                updateState: false,
-            };
-        }
-        if (
+    // static getDerivedStateFromProps(props, state) {
+    //     if (
+    //         props?.t6bisReducer?.value &&
+    //         !props?.t6bisReducer?.newIntervenant &&
+    //         props?.t6bisReducer?.retourFindIntervenant
+    //     ) {
+    //         // console.log('getDerivedStateFromProps - 1 -');
+    //         return {
+    //             intervenantVO: { ...state.intervenantVO, ...props?.t6bisReducer?.value }, // update the value of specific key
+    //             newIntervenant: props.t6bisReducer?.newIntervenant,
+    //         };
+    //     }
+    //     if (state?.isRetablir) {
+    //         // console.log('getDerivedStateFromProps - 2 -');
+    //         return {
+    //             intervenantVO: {
+    //                 refTypeDocumentIdentite: '',
+    //                 numeroDocumentIndentite: '',
+    //                 nationaliteFr: '',
+    //                 nomIntervenant: '',
+    //                 prenomIntervenant: '',
+    //                 adresse: '',
+    //                 consentement: false
+    //             },
+    //             infoCompleted: false,
+    //             newIntervenant: false,
+    //             acNationalite: {},
+    //             isRetablir: false,
+    //             updateState: false,
+    //         };
+    //     }
+    //     if (
 
-            state?.updateState && (props?.t6bisReducer?.value?.numeroDocumentIndentite != state?.intervenantVO?.numeroDocumentIndentite)
-        ) {
-            console.log('getDerivedStateFromProps - 3 -');
-            return {
-                intervenantVO: { ...state.intervenantVO, ...props?.t6bisReducer?.value }
-            };
-        }
+    //         state?.updateState && (props?.t6bisReducer?.value?.numeroDocumentIndentite != state?.intervenantVO?.numeroDocumentIndentite)
+    //     ) {
+    //         // console.log('getDerivedStateFromProps - 3 -');
+    //         return {
+    //             intervenantVO: { ...state.intervenantVO, ...props?.t6bisReducer?.value }
+    //         };
+    //     }
 
-        // Return null to indicate no change to state.
-        console.log('getDerivedStateFromProps - 4 -');
-        return null;
-    }
+    //     // Return null to indicate no change to state.
+    //     // console.log('getDerivedStateFromProps - 4 -');
+    //     return null;
+    // }
     handlePaysChanged = (pays) => {
         this.setState({
             acNationalite: pays,
@@ -467,12 +558,12 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
 
     render() {
 
-    console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
-    console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
-    console.log(JSON.stringify(this.props));
-    console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
-    console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
-    // console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+        console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+        console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+        console.log(JSON.stringify(this.props));
+        console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+        console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+        // console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
         return (
             <ScrollView >
                 <View style={CustomStyleSheet.verticalContainer20}>
@@ -684,10 +775,9 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
                                                     numeroDocumentIndentite: text,
                                                 },
                                             });
-                                            this.update();
                                         }}
-                                        onEndEditing={(event) =>
-                                            this.onBlurIdentifiant(event.nativeEvent.text)
+                                        onEndEditing={() =>
+                                            this.chercherPersonneConcernee()
                                         }
                                     />
                                 </Col>
@@ -878,6 +968,7 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => ({ ...state.creationActifsReducer, t6bisReducer: state.t6bisGestionReducer });
+
+const mapStateToProps = (state) => ({ ...state.creationActifsReducer });
 
 export default connect(mapStateToProps, null)(ActifsRapportCreationPerquisitionTab);

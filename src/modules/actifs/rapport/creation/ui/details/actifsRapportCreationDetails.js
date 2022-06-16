@@ -488,7 +488,7 @@ class AtifsRapportCreationDetailsTab extends Component {
                   <Col>
                     <ComBasicDataTableComp
                       id="animateursTable"
-                      rows={this.props.consultation ? this.props.rows?.listAnimateurConferenceVo : this.state.listAnimateurConferenceVo}
+                      rows={this.props.rows?.listAnimateurConferenceVo ? this.props.rows?.listAnimateurConferenceVo : this.state.listAnimateurConferenceVo}
                       cols={this.props.consultation ? this.colsConsultation : this.colsEdition}
                       totalElements={this.props.consultation ? this.props.rows?.listAnimateurConferenceVo?.length : this.state.listAnimateurConferenceVo?.length}
                       maxResultsPerPage={10}

@@ -30,11 +30,11 @@ import * as ControleRechecheDumAction from '../../../../modules/controle/common/
 
 class ComControleRechercheRefComp extends Component {
   defaultState = {
-    bureau: '',
-    regime: '',
-    annee: '',
-    serie: '',
-    cle: '',
+    bureau: '309',
+    regime: '010',
+    annee: '2022',
+    serie: '0999994',
+    cle: 'R',
     cleValide: '',
     login: '',
     numeroVoyage: '',

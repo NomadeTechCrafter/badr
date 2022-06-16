@@ -162,7 +162,7 @@ export const validCIN = (cin) => {
   }
   let alphaNumPart = cin.substring(1, 2);
   if (cin.length == 2) {
-    if (!_.parseInt(alphaNumPart)) {
+    if (!isNumber(alphaNumPart)) {
       result[1] = 'E00504: La taille minimale du champ est égale à 2 (au moins un caractère alphabétique  et un caractère numérique)';
       return result;
     }
@@ -172,18 +172,21 @@ export const validCIN = (cin) => {
       return result;
     }
   }
-  let numPart = cin.substring(2);
+
+  console.log('cin before : ' + cin);
+  let numPart = cin.substring(cin.length - 2, cin.length);
+  console.log('numPart after : ' + numPart);
 
   for (let i = 0; i < numPart.length; i++) {
     let num = numPart.substring(i, i + 1);
-    if (!_.parseInt(num)) {
+    if (!isNumber(num)) {
       result[1] = 'E00501: Les caractères autres que les deux premiers doivent être numériques ';
       return result;
     }
   }
   let cp = 0;
   console.log('result : ' + result + ' ' + cp++);
-  if (_.parseInt(alphaNumPart)) {
+  if (isNumber(alphaNumPart)) {
     console.log('result : ' + result + ' ' + cp++);
     buffer += alphaNumPart + numPart;
     let numericPart = buffer;
@@ -206,6 +209,10 @@ export const validCIN = (cin) => {
   result[1] = null;
   console.log('result : ' + result);
   return result;
+}
+
+function isNumber(n) {
+  return !isNaN(parseFloat(n)) && isFinite(n);
 }
 
 export const addZeros = (input, maxLength) => {
@@ -245,7 +252,7 @@ export const validCarteSejour = (carteSejour) => {
   if (lengthCarteSejour > 2) {
     for (let i = 0; i < numPart.length; i++) {
       let num = numPart.substring(i, i + 1);
-      if (!_.parseInt(num)) {
+      if (!isNumber(num)) {
         console.log('num : ' + num);
         result[1] = 'E00507: Les caractères autres que les deux premiers et le dernier doivent être numériques';
         return result;
@@ -254,7 +261,7 @@ export const validCarteSejour = (carteSejour) => {
   }
   let dernierChar = carteSejour.substring(lengthCarteSejour - 1);
   console.log('dernierChar : ' + dernierChar);
-  if (_.parseInt(dernierChar)) {
+  if (isNumber(dernierChar)) {
     result[1] = 'E00506: Le dernier caractère de la carte de séjour doit être une lettre';
     return result;
   }
@@ -263,9 +270,9 @@ export const validCarteSejour = (carteSejour) => {
   let premierElement = String.valueOf(carteSejour.charAt(0));
   let dexiemeElement = String.valueOf(carteSejour.charAt(1));
   let indexFirstNumber = 0;
-  if (lengthCarteSejour > 2 && !_.parseInt(premierElement) && !_.parseInt(dexiemeElement)) {
+  if (lengthCarteSejour > 2 && !isNumber(premierElement) && !isNumber(dexiemeElement)) {
     indexFirstNumber = 2;
-  } else if (!_.parseInt(premierElement)) {
+  } else if (!isNumber(premierElement)) {
     indexFirstNumber = 1;
   }
   let complementZero = 8 - lengthCarteSejour;

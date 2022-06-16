@@ -162,6 +162,19 @@ class ComLiquidationRechercheRefComp extends Component {
     );
   }
 
+  liquiderAutomatiquement = () => {
+    if (!this.state.infoLiquidation.redevanceAT) {
+      commande = "initLiquiderAutomatiquement";
+    } else {
+      commande = "initLiquiderAutomatiquementPremiereAT";
+      data.nombreMaxRedevancesAT = this.state.infoLiquidation.nombreMaxRedevance;
+    }
+  };
+
+  liquiderAutomatiquementMAC = () => {
+    commande = "initLiquiderAutomatiquementDUMMAC";
+  };
+
   confirmer = () => {
     console.log('confirmer', this.props.successRedirection);
     this.setState({ showErrorMsg: true });
@@ -178,11 +191,17 @@ class ComLiquidationRechercheRefComp extends Component {
 
         let commande;
         if (this.props.type == 'automatique') {
-          if (!this.state.infoLiquidation.redevanceAT) {
-            commande = "initLiquiderAutomatiquement";
+          let typeMac = "02";
+          let isRegimeMac = true;
+
+          if (isRegimeMac) {
+            if (!_.isEmpty(typeMac) && typeMac === '02') {
+              this.liquiderAutomatiquement()
+            } else {
+              this.liquiderAutomatiquementMAC()
+            }
           } else {
-            commande = "initLiquiderAutomatiquementPremiereAT";
-            data.nombreMaxRedevancesAT = this.state.infoLiquidation.nombreMaxRedevance;
+            this.liquiderAutomatiquement()
           }
         } else if (this.props.type == 'manuelle') {
           data.typeDeclaration = "AutresLiquidationRED";

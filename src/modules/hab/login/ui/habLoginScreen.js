@@ -32,21 +32,26 @@ class Login extends React.Component {
     autoLoginParam: {
       // login: 'YASAG', Redressement
       // password: 'testTest1+',
-      // login: 'AD6300',
-      // password: 'Testtest1+',
-      login: 'AAMM',
-      password: 'Test123+',
+      login: 'AD6300', //Actifs
+      password: 'Testtest1+',
+      // login: 'AAMM',
+      // password: 'Test123+',
       // login: 'YELM',
       // password: 'testtest',
       codeSms: '8bXqj1lLva3IEg6iDbJ+eA==',
-      bureau: '309',
-      codeBureau: '309',
+      // bureau: '309',
+      // codeBureau: '309',
+      bureau: '411',
+      codeBureau: '411',
       codeArrondissement: '309',
       arrondissement: '309',
+      // codeArrondissement: '309202', // arrondissement II
+      // arrondissement: '309202', // arrondissement II
       profiles: [
         // "0", "AAMAX", "AB", "PRO TEST",
-        "CONSULTCTR", "CONTROL", "CONT_CTRL"
-        // "ACTIFS",
+        //  "CONTROL", "CONT_CTRL"
+        "ACTIFS",
+        // "TRY", "TRYP_AGENT", "TRYP_DECL", "TRYP_C", "TRYPTIQUE"
         // "LIQJSF", "LIQREFREC", "LIQ-TEST", "IMANLIQ" // Liquidation
         // "AR", "ADMINBV",
         // "ADMSELCOT", "ADT", "AGBRIGADE", "AGDP", "AGENTD", "AGECOR", "AGENT_TEST", "AV",
@@ -74,8 +79,7 @@ class Login extends React.Component {
         // "PECETDC", "TESTMCI", "VEHVOL", "TEST_30", "TESTAG3", "TESTAG4_PR", "TEST-CBAN", "TESTDUM222", "TESTJSF1",
         // "TESTLISTEA", "TESTMP", "TESTPM", "TESTPRO", "PROFILAM", "TEST1", "TESTR", "TESTSOFR4", "TESTSOFR7", "TESTSOFR9",
         // "TESTSOF8", "TESTSSO", "TESTAAA", "TEST001", "TEST0012", "TEST001254", "TEST003", "545454", "TEST11", "TEST19",
-        // "TEST2018", "TEST2021", "TEST2090", "TEST24", "TEST90", "TNRPROF", "TOUS", "TRANS", "TT", "PFTRANSPO", "TR", "TRY",
-        // "TRYP_AGENT", "TRYP_DECL", "TRYP_C", "TRYPTIQUE", "T6BIS", "T6BIS12", "VE_VE", "VIDPRO"
+        // "TEST2018", "TEST2021", "TEST2090", "TEST24", "TEST90", "TNRPROF", "TOUS", "TRANS", "TT", "PFTRANSPO", "TR", , "T6BIS", "T6BIS12", "VE_VE", "VIDPRO"
       ]
     },
   };
