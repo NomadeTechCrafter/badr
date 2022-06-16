@@ -129,8 +129,8 @@ class LiquidationManuelleScreen extends React.Component {
 
   loadListeTaxesGlobale(refLignesRubriqueOperation, consignation) {
     refLignesRubriqueOperation.map(function (item, key) {
-      if (item.indicateurLiquidationGlobale == 'true') {
-        this.state.listeTaxesGlobales.push({
+      if (item?.indicateurLiquidationGlobale == 'true') {
+        this.state?.listeTaxesGlobales.push({
           codeRubriqueComptable: item.refRubriqueComptable,
           libelleAbrege: item.refRubriqueComptableLibelle,
           codeDouane: item.refRubriqueComptableCode,
@@ -481,7 +481,7 @@ class LiquidationManuelleScreen extends React.Component {
               {isArticle && (
                 <View>
                   <Row style={styles.whiteRow}>
-                    {selectedArticle.numArticle && (
+                    {selectedArticle?.numArticle && (
                       <>
                         <Col size={2}>
                           <ComBadrLibelleComp withColor={true}>
