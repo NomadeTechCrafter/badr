@@ -1,4 +1,4 @@
-import * as Constants from '../mlvListDeclarationsConstants';
+import * as Constants from '../mlvListeDeclarationsConstants';
 
 const initialState = {
   showProgress: false,

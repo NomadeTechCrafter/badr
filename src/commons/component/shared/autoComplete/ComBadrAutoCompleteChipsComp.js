@@ -44,6 +44,7 @@ class ComBadrAutoCompleteChipsComp extends Component {
     }
   }
   handleChangeInput = (params) => {
+    console.log('params',params);
     if (!this.props.onDemand) {
       this.setState({
         edited: true,
@@ -90,8 +91,17 @@ class ComBadrAutoCompleteChipsComp extends Component {
   };
 
   prepareParams = (params) => {
+    console.log('prepareParams param', params);
     if (this.props.paramName) {
+      console.log('prepareParams paramName', params);
       let object = {};
+      console.log('prepareParams this.props.params', this.props.params);
+      console.log('prepareParams _.isNull(this.props.params)', _.isNull(this.props.params));
+      console.log('prepareParams _.isNaN(this.props.params)', _.isNaN(this.props.params));
+      if (!_.isNull(this.props.params) && !_.isNaN(this.props.params)) {
+        console.log('prepareParams this.props.params', this.props.params);
+        object = { ...this.props.params };
+      }
       object[this.props.paramName] = params;
       return object;
     }

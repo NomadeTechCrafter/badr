@@ -40,6 +40,7 @@ import consultationIgTI from '../../modules/tarifIntegre/tiConsultationIgTI/i18n
 import consultationTI from '../../modules/tarifIntegre/tiConsultationTI/i18n/tiConsultationTITranslateFr';
 import dedConfirmationReception from '../../modules/dedouanement/confirmationReception/i18n/dedConfirmationReceptionTranslateFr';
 import decSortiPortTranslateFr from '../../modules/DeclarationD17D20/sortiPort/i18n/decSortiPortTranslateFr';
+import decAnnoterTranslateFr from '../../modules/DeclarationD17D20/annoterD17D20/i18n/decAnnoterTranslateFr';
 import dtpsSortieTranslateFr from '../../modules/dtps/dtpsSortie/i18n/sortieDTPSTranslateFr';
 import dtpsEntreeTranslateFr from '../../modules/dtps/dtpsEntree/i18n/entreeDTPSTranslateFr';
 import dtpsConsultationTranslateFr from '../../modules/dtps/consultation/i18n/consultationDTPSTranslateFr';
@@ -106,6 +107,7 @@ let combined = {
   ...dedConfirmationReception,
   ...eciAppositionScellesTranslateFr,
   ...decSortiPortTranslateFr,
+  ...decAnnoterTranslateFr,
   ...ecorExpConfirmationEntreeTranslateFr,
   ...ecorExpConfirmationArriveeTranslateFr,
   ...dtpsSortieTranslateFr,

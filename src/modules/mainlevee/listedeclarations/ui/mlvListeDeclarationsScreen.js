@@ -3,16 +3,17 @@ import {View, StyleSheet, ScrollView} from 'react-native';
 import {
   ComBadrToolbarComp,
   ComBadrAutoCompleteComp,
+  ComBadrProgressBarComp,
 } from '../../../../commons/component';
 import {Button, DataTable} from 'react-native-paper';
 /**i18n */
-import { translate } from '../../../../commons/i18n/ComI18nHelper';
+import {translate} from '../../../../commons/i18n/ComI18nHelper';
 import {connect} from 'react-redux';
 import * as Constants from '../state/mlvListeDeclarationsConstants';
-import mlvListDeclarationsAction from '../state/actions/mlvListeDeclarationsAction';
 //const MAX_RESULTS_PER_PAGE = 10;
 
 import styles from '../style/mlvListDeclarationsStyle';
+import * as listeDeclarationsMLVAction from '../state/actions/mlvListeDeclarationsAction';
 class ListDeclarationMLV extends Component {
   defaultState = {
     operateurCode: '',
@@ -166,7 +167,6 @@ class ListDeclarationMLV extends Component {
   }
 }
 
-
-const mapStateToProps = (state) => ({...state.listeDeclarationsMLVReducer});
+const mapStateToProps = (state) => ({...state.mlvListeDeclarationsReducer});
 
 export default connect(mapStateToProps, null)(ListDeclarationMLV);

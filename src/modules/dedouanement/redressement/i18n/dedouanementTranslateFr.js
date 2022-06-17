@@ -20,6 +20,7 @@ export default {
         dateCreation: 'Date de création',
         numeroVersion: 'Numéro de version',
       },
+      'refDeclarationExport':'Référence déclaration Export'
     },
     confirmerEnvoiValeur: 'ENVOYER A LA VALEUR',
     confirmerTraitementValeur: 'TRAITER LA VALEUR',

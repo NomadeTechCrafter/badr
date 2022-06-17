@@ -32,11 +32,11 @@ import { callRedux, extractCommandData } from '../../../../modules/liquidation/u
 
 class ComLiquidationRechercheRefComp extends Component {
   defaultState = {
-    bureau: '309',
-    regime: '010',
-    annee: '2022',
-    serie: '0000106',
-    cle: 'F',
+    bureau: '',
+    regime: '',
+    annee: '',
+    serie: '',
+    cle: '',
     cleValide: '',
     login: '',
     numeroVoyage: '',
@@ -112,6 +112,7 @@ class ComLiquidationRechercheRefComp extends Component {
     return {
       referenceObjetLiquidation: referenceDed,
       refBureauLiquidation: this.state.bureau,
+      codeRegime: this.state.regime,
       // nombreMaxRedevancesAT: this.state.infoLiquidation.nombreMaxRedevance,
     };
   };
@@ -162,19 +163,6 @@ class ComLiquidationRechercheRefComp extends Component {
     );
   }
 
-  liquiderAutomatiquement = () => {
-    if (!this.state.infoLiquidation.redevanceAT) {
-      commande = "initLiquiderAutomatiquement";
-    } else {
-      commande = "initLiquiderAutomatiquementPremiereAT";
-      data.nombreMaxRedevancesAT = this.state.infoLiquidation.nombreMaxRedevance;
-    }
-  };
-
-  liquiderAutomatiquementMAC = () => {
-    commande = "initLiquiderAutomatiquementDUMMAC";
-  };
-
   confirmer = () => {
     console.log('confirmer', this.props.successRedirection);
     this.setState({ showErrorMsg: true });
@@ -191,17 +179,11 @@ class ComLiquidationRechercheRefComp extends Component {
 
         let commande;
         if (this.props.type == 'automatique') {
-          let typeMac = "02";
-          let isRegimeMac = true;
-
-          if (isRegimeMac) {
-            if (!_.isEmpty(typeMac) && typeMac === '02') {
-              this.liquiderAutomatiquement()
-            } else {
-              this.liquiderAutomatiquementMAC()
-            }
+          if (!this.state.infoLiquidation.redevanceAT) {
+            commande = "initLiquiderAutomatiquement";
           } else {
-            this.liquiderAutomatiquement()
+            commande = "initLiquiderAutomatiquementPremiereAT";
+            data.nombreMaxRedevancesAT = this.state.infoLiquidation.nombreMaxRedevance;
           }
         } else if (this.props.type == 'manuelle') {
           data.typeDeclaration = "AutresLiquidationRED";

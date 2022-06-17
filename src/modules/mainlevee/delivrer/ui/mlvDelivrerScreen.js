@@ -69,6 +69,7 @@ class DelivrerMLV extends React.Component {
       numeroVoyage: props.route.params.numeroVoyage,
       declaration: props.route.params.declarationRI,
       delivrerMainleveeVO: props.route.params.declarationRI,
+      fusion: null,
       typeRegime: translate('controle.regimeInterne'),
       decisionControle: props.route.params.declarationRI.decisionControle,
       observation: props.route.params.declarationRI.observation,
@@ -123,7 +124,6 @@ class DelivrerMLV extends React.Component {
     this.state.conteneurs = conteneurs;
     this.state.conteneursCibles = conteneursCibles;
     console.log('props deliver', this.props);
-    this.initDelivrer();
   }
   initDelivrer = async () => {
     let action = await MLVInitDelivrerAction.request(
@@ -136,6 +136,7 @@ class DelivrerMLV extends React.Component {
     this.props.actions.dispatch(action);
   };
   componentDidMount() {
+    this.initDelivrer();
     console.log('componentDidMount DelivrerMLV:');
     load('user', false, true).then((user) => {
       this.setState({login: JSON.parse(user).login});
@@ -158,24 +159,45 @@ class DelivrerMLV extends React.Component {
     return documentAnnexeResultVO;
   };
   validerMainLevee = () => {
-    var data = this.state.delivrerMainleveeVO;
-    var action = mlvValiderAction.request(
-      {
-        type: Constants.DELIVRERMLV_VALIDERMLV_REQUEST,
-        value: {
-          data: data,
-        },
-      },
-      this.props.navigation,
-    );
-    this.props.actions.dispatch(action);
-  };
-  delivrerMainLevee = () => {
-    if (this.state.decisionControle == null) {
+    if (this.state.includeScelles == null) {
       this.setState({
-        errorMessage: [translate('newmlv.delivrerMainlevee.informationsEcor.nouveauxScelles')],
+        errorMessage: [
+          translate(
+            'newmlv.delivrerMainlevee.informationsEcor.nouveauxScellesMandatory',
+          ),
+        ],
       });
     } else {
+      this.setState({
+        errorMessage: null,
+      });
+      var data = this.state.delivrerMainleveeVO;
+      var action = mlvValiderAction.request(
+        {
+          type: Constants.DELIVRERMLV_VALIDERMLV_REQUEST,
+          value: {
+            data: data,
+          },
+        },
+        this.props.navigation,
+      );
+      this.props.actions.dispatch(action);
+    }
+  };
+  delivrerMainLevee = () => {
+    console.log('decision controle', this.state.includeScelles);
+    if (this.state.includeScelles == null) {
+      this.setState({
+        errorMessage: [
+          translate(
+            'newmlv.delivrerMainlevee.informationsEcor.nouveauxScellesMandatory',
+          ),
+        ],
+      });
+    } else {
+      this.setState({
+        errorMessage: null,
+      });
       var data = this.state.delivrerMainleveeVO;
       var action = mlvDelivrerAction.request(
         {
@@ -227,12 +249,11 @@ class DelivrerMLV extends React.Component {
 
   //toggleChoice for field RECONNU && DEMANDE_CONSIGNATION
   toggleChoiceInList = (indexDocument, key) => {
-    let listDoc = this.state.delivrerMainleveeVO.listeDocsExigibles ;
+    let listDoc = this.state.delivrerMainleveeVO.listeDocsExigibles;
 
     if (listDoc[indexDocument][key]) {
       listDoc[indexDocument][key] = false;
     } else {
-
       listDoc[indexDocument][key] = true;
 
       var otherKey = key === RECONNU ? DEMANDE_CONSIGNATION : RECONNU;
@@ -246,12 +267,22 @@ class DelivrerMLV extends React.Component {
     this.setState((prevState) => ({
       declaration: {
         ...prevState.declaration,
-        delivrerMainleveeVO: { listeDocsExigibles :this.toggleChoiceInList(indexDocument, key)},
+        delivrerMainleveeVO: {
+          listeDocsExigibles: this.toggleChoiceInList(indexDocument, key),
+        },
       },
     }));
   };
 
   static getDerivedStateFromProps(props, state) {
+    console.log(
+      'getDerivedStateFromPropsdelivrer--------------------props ',
+      props,
+    );
+    console.log(
+      'getDerivedStateFromPropsdelivrer--------------------state ',
+      state,
+    );
     if (
       props.reponseData &&
       props.reponseData.historiqueCompte &&
@@ -263,8 +294,15 @@ class DelivrerMLV extends React.Component {
           ...state.declaration, // keep all other key-value pairs
           historiqueCompte: props.reponseData.historiqueCompte, // update the value of specific key
         },
+
         isConsultation: true,
       };
+    }
+    if (props.fusion) {
+      return {fusion: props.fusion};
+    }
+    if (props.errorMessage) {
+      return {errorMessage: props.errorMessage};
     }
     // Return null to indicate no change to state.
     return null;
@@ -446,16 +484,20 @@ class DelivrerMLV extends React.Component {
             visible={this.state.messageVisibility}
             onClosePressed={this.onCloseMessagesPressed}
           />
-          {(this.props.errorMessage != null||this.state.errorMessage != null) && (
-            <ComBadrErrorMessageComp message={[].concat(this.props.errorMessage,this.state.errorMessage)} />
+          {this.state.errorMessage != null && (
+            <ComBadrErrorMessageComp
+              message={[].concat(
+                this.props.errorMessage,
+                this.state.errorMessage,
+              )}
+            />
           )}
           {(this.props.successMessage != null ||
             this.state.messagesInfo != null) && (
             <ComBadrInfoMessageComp
               message={[].concat(
                 this.props.successMessage,
-                this.state.messagesInfo
-
+                this.state.messagesInfo,
               )}
             />
           )}
@@ -1535,7 +1577,7 @@ class DelivrerMLV extends React.Component {
           <View
             style={styles.containerActionBtn}
             pointerEvents={this.state.isConsultation ? 'none' : 'auto'}>
-            {!this.props.fusion && (
+            {!this.state.fusion && (
               <ComBadrButtonComp
                 style={styles.actionBtn}
                 onPress={() => {

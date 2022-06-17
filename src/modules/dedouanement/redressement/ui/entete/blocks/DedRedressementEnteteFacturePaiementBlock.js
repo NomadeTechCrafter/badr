@@ -95,11 +95,31 @@ class DedRedressementEnteteFacturePaiementBlock extends React.Component {
 
    };
 
-  handleModePaiementChanged = (mode) => { };
+  handleModePaiementChanged = (mode) => { 
+    
+    let dedDumVo = { ...this.state.dedDumVo, dedDumSectionEnteteVO: { ...this.state.dedDumVo.dedDumSectionEnteteVO, modePaiement: mode.code, numero: (mode.code == '02') ? this.state.dedDumVo.dedDumSectionEnteteVO.numero:'' } };
+    
+    this.comboCreditEnlevements.enableDisable(!(mode.code == '02') );
+   
+    this.setState({
+      dedDumVo: dedDumVo
+    });
+
+
+    this.props.update(dedDumVo);
+  };
+
+  handleCreditEnlevementChanged = (creditEnlevement) => {
+    let dedDumVo = { ...this.state.dedDumVo, dedDumSectionEnteteVO: { ...this.state.dedDumVo.dedDumSectionEnteteVO, numero: creditEnlevement.code } };
+    this.setState({
+      dedDumVo: dedDumVo
+    });
+
+
+    this.props.update(dedDumVo);
+  };
 
   handleConditionsLivraisonChanged = (condition) => {
-    console.log("handleConditionsLivraisonChanged");
-    console.log(condition);
     let dedDumVo = { ...this.state.dedDumVo, dedDumSectionEnteteVO: { ...this.state.dedDumVo.dedDumSectionEnteteVO, conditionLivraison: condition.code } };
     this.setState({
       dedDumVo: dedDumVo
@@ -327,7 +347,7 @@ class DedRedressementEnteteFacturePaiementBlock extends React.Component {
   
   
   render() {
-    // console.log('this.state?.dedDumVo?.dedDumSectionEnteteVO? : ', this.state?.dedDumVo?.dedDumSectionEnteteVO);
+     console.log('this.state?.dedDumVo?.dedDumSectionEnteteVO? : ', this.state?.dedDumVo?.dedDumSectionEnteteVO);
     const factures = this.state?.dedDumVo?.dedDumSectionEnteteVO?.listDeclarationFactureVO ? this.state?.dedDumVo?.dedDumSectionEnteteVO?.listDeclarationFactureVO : [];
     return (
       <View style={styles.container}>
@@ -624,10 +644,6 @@ class DedRedressementEnteteFacturePaiementBlock extends React.Component {
                     disabled={this.props.readOnly}
                     type="flat"
                     label=""
-                    value={getValueByPath(
-                      'dedDumSectionEnteteVO.poidsBrutTotal',
-                      this.props.data,
-                    )}
                     value={this.state.dedDumVo.dedDumSectionEnteteVO?.poidsBrutTotal}
                     onChangeText={(val) => this.onChangePoidsBrutTotal(val, false)}
                     onEndEditing={(event) => this.onChangePoidsBrutTotal(event.nativeEvent.text, true)}
@@ -646,10 +662,6 @@ class DedRedressementEnteteFacturePaiementBlock extends React.Component {
                     type="flat"
                     label=""
                     disabled={this.props.readOnly}
-                    value={getValueByPath(
-                      'dedDumSectionEnteteVO.montantAutresFrais',
-                      this.props.data,
-                    )}
                     value={this.state.dedDumVo.dedDumSectionEnteteVO?.montantAutresFrais}
                     onChangeText={(val) => this.onChangeMontantAutresFrais(val, false)}
                     onEndEditing={(event) => this.onChangeMontantAutresFrais(event.nativeEvent.text, true)}
@@ -677,13 +689,9 @@ class DedRedressementEnteteFacturePaiementBlock extends React.Component {
                 libelle="Mode"
                 children={
                   <ComBadrReferentielPickerComp
-                   // disabled={true}
+                    disabled={this.props.readOnly}
                     selected={{
-                      code: getValueByPath(
-                        'dedDumSectionEnteteVO.modePaiement',
-                        this.props.data,
-                      ),
-                    }}
+                      code: this.state.dedDumVo.dedDumSectionEnteteVO?.modePaiement}}
                     onRef={(ref) => (this.comboModePaiement = ref)}
                     command="getCmbModePaiement"
                     onValueChanged={this.handleModePaiementChanged}
@@ -695,20 +703,17 @@ class DedRedressementEnteteFacturePaiementBlock extends React.Component {
               />
               <ComBadrKeyValueComp
                 libelleSize={3}
-                libelle="Crédit d'enlevement"
+                libelle={"Crédit d'enlevement "}
                 children={
                   <ComBadrReferentielPickerComp
-                  //  disabled={true}
+                    disabled={this.props.readOnly|| (this.state.dedDumVo.dedDumSectionEnteteVO.modePaiement!='02')}
                     selected={{
-                      code: getValueByPath(
-                        'dedDumSectionEnteteVO.numero',
-                        this.props.data,
-                      ),
+                      code: this.state.dedDumVo.dedDumSectionEnteteVO?.numero
                     }}
                     onRef={(ref) => (this.comboCreditEnlevements = ref)}
                     command="ded.loadCreditEnlevement"
                     module="DED_LIB"
-                    onValueChanged={this.handleModePaiementChanged}
+                    onValueChanged={this.handleCreditEnlevementChanged}
                     typeService="SP"
                     code="code"
                     libelle="libelle"
@@ -723,10 +728,7 @@ class DedRedressementEnteteFacturePaiementBlock extends React.Component {
                       ),
                       cde:
                         'null-' +
-                        getValueByPath(
-                          'dedDumSectionEnteteVO.modePaiement',
-                          this.props.data,
-                        ) +
+                        this.state.dedDumVo.dedDumSectionEnteteVO?.modePaiement+
                         '-null',
                     }}
                   />

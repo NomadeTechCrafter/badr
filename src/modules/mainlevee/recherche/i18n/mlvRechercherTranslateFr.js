@@ -68,6 +68,7 @@ export default {
         title: 'Informations ECOR',
         scellesConfirmationEntree: 'Scellés confirmation entrée',
         nouveauxScelles: 'Nouveaux scellés',
+        nouveauxScellesMandatory: 'E00596 Nouveaux scellés:Valeur obligatoire',
         oui: 'Oui',
         non: 'Non',
         numeroPince: 'Numéro Pince',

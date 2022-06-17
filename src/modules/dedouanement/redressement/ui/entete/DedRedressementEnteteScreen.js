@@ -127,19 +127,13 @@ class DedRedressementEnteteScreen extends React.Component {
                 </Row>
               </Grid>
             )}
-            <DedRedressementEnteteVersionBlock
+             <DedRedressementEnteteVersionBlock
               data={this.state.dedDumVo}
               dedDumSectionEnteteVO={this.state.dedDumVo?.dedDumSectionEnteteVO}
               update={this.updateRedressement}
               readOnly={!isRedressementDUM}
-            />
-            {/* <DedRedressementEnteteInfoBlock
-              data={this.props.data}
-              dedDumSectionEnteteVO={getValueByPath(
-                'dedDumSectionEnteteVO',
-                this.props.data,
-              )}
-            /> */}
+            /> 
+            
             <DedRedressementEnteteDeclarantOpeBlock
               data={this.state.dedDumVo}
               dedDumSectionEnteteVO={this.state.dedDumVo?.dedDumSectionEnteteVO}
@@ -151,13 +145,11 @@ class DedRedressementEnteteScreen extends React.Component {
               dedDumSectionEnteteVO={this.state.dedDumVo?.dedDumSectionEnteteVO}
               update={this.updateRedressement}
               readOnly={!isRedressementDUM}
-            />
+            /> 
             <DedRedressementEnteteLocalisationMarchandiseBlock
-              data={this.props.data}
-              dedDumSectionEnteteVO={getValueByPath(
-                'dedDumSectionEnteteVO',
-                this.props.data,
-              )}
+              data={this.state.dedDumVo}
+              update={this.updateRedressement}
+              readOnly={!isRedressementDUM}
             />
             <DedRedressementEnteteEnvoyerTraiterValeurBlock
               navigation={this.props.navigation}

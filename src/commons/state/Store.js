@@ -1,7 +1,7 @@
 /** Redux Store & middleware */
-import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
+import {applyMiddleware, combineReducers, compose, createStore} from 'redux';
 import thunk from 'redux-thunk';
-import { comCustomMiddlewareService } from '../services/middleware/ComCustomMiddlewareService';
+import {comCustomMiddlewareService} from '../services/middleware/ComCustomMiddlewareService';
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 /** Reducers */
 import loginReducer from '../../modules/hab/login/state/reducers/habLoginReducer';
@@ -47,6 +47,7 @@ import rechParRefUcReducer from '../../modules/DeclarationD17D20/rechParRef/stat
 import rechParRefVh from '../../modules/DeclarationD17D20/rechParRef/state/reducers/decRechParRefVhReducer';
 
 import mlvDelivrerReducer from '../../modules/mainlevee/delivrer/state/reducers/mlvDelivrerReducer';
+import mlvListeDeclarationsReducer from '../../modules/mainlevee/listedeclarations/state/reducers/mlvListeDeclarationsReducer';
 import referentielReducer from './reducers/ReferentielReducer';
 import consulterDumReducer from './reducers/ConsulterDumReducer';
 import controleVehiculesReducer from '../../modules/referentiel/controleVehicules/state/reducers/refControleVehiculeReducer';
@@ -58,7 +59,7 @@ import ctrlControleApresScannerReducer from '../../modules/controle/controleApre
 import t6bisCreationReducer from '../../modules/t6bis/creation/state/reducers/t6bisCreationReducer';
 import t6bisGestionReducer from '../../modules/t6bis/gestion/state/reducers/t6bisGestionReducer';
 import t6bisRechercheReducer from '../../modules/t6bis/recherche/state/reducers/t6bisRechercheReducer';
-import mlvRechercheReducer from '../../modules/mainlevee/recherche/state/reducers/mlvRechercheReducer'
+import mlvRechercheReducer from '../../modules/mainlevee/recherche/state/reducers/mlvRechercheReducer';
 import crudDatatableReducer from '../state/reducers/ComCrudDataTableReducer';
 
 // import enteteReducer from '../../old/redux/reducers/actifs/rapport/creation/entete';
@@ -70,7 +71,7 @@ import crudDatatableReducer from '../state/reducers/ComCrudDataTableReducer';
 // import consultationreducer from '../../old/redux/reducers/actifs/rapport/consultation/consultation';
 
 import rechercheActifsReducer from '../../modules/actifs/rapport/recherche/state/reducers/actifsRapportRechercheReducer';
-import creationActifsReducer from '../../modules/actifs/rapport/creation/state/reducers/actifsRapportCreationReducer'
+import creationActifsReducer from '../../modules/actifs/rapport/creation/state/reducers/actifsRapportCreationReducer';
 
 import EcorImportReducer from '../../modules/ecorImport/enleverMarchandise/state/reducers/EcorImportReducer';
 import ecorImportRechercheRefDumReducer from '../../modules/ecorImport/rechercheEcorImport/state/reducers/ecorImportRechercheRefDumReducer';
@@ -91,9 +92,9 @@ import dedConfirmationReceptionReducer from '../../modules/dedouanement/confirma
 
 import ecorExpConfirmationEntreeReducer from '../../modules/ecorExport/confirmationEntree/state/reducers/ecorExpConfirmationEntreeReducer';
 import ecorExpConfirmationArriveeReducer from '../../modules/ecorExport/confirmationArrivee/state/reducers/ecorExpConfirmationArriveeReducer';
-import dtpsSortieReducer from '../../modules/dtps/dtpsSortie/state/reducers/dtpsSortieReducer'
-import dtpsEntreeReducer from '../../modules/dtps/dtpsEntree/state/reducers/dtpsEntreeReducer'
-import dtpsConsultationReducer from '../../modules/dtps/consultation/state/reducers/dtpsConsultationReducer'
+import dtpsSortieReducer from '../../modules/dtps/dtpsSortie/state/reducers/dtpsSortieReducer';
+import dtpsEntreeReducer from '../../modules/dtps/dtpsEntree/state/reducers/dtpsEntreeReducer';
+import dtpsConsultationReducer from '../../modules/dtps/consultation/state/reducers/dtpsConsultationReducer';
 import rechercheAutoriserAcheminementReducer from '../../modules/ecorExport/autoriserAcheminement/recherche/state/reducers/rechercheAutoriserAcheminementReducer';
 import autoriserAcheminementMainReducer from '../../modules/ecorExport/autoriserAcheminement/mainScreen/state/reducers/autoriserAcheminementMainReducer';
 import ecorExpConfirmationEntreeArriveeReducer from '../../modules/ecorExport/confirmationEntreeArrivee/state/reducers/ecorExpConfirmationEntreeArriveeReducer';
@@ -143,6 +144,7 @@ const allReducers = combineReducers({
   crudDatatableReducer,
   mlvRechercheReducer,
   mlvDelivrerReducer,
+  mlvListeDeclarationsReducer,
   rechercheActifsReducer,
   creationActifsReducer,
   // enteteReducer,
@@ -193,14 +195,14 @@ const allReducers = combineReducers({
   preConfirmationArriveeReducer,
   justifRetardTransitReducer,
   decMainleveeInitReducer,
-  decMainleveeUCReducer
+  decMainleveeUCReducer,
 });
 /**
  * store creation
  */
 const store = createStore(
-    allReducers,
-    composeEnhancers(applyMiddleware(thunk, comCustomMiddlewareService)),
+  allReducers,
+  composeEnhancers(applyMiddleware(thunk, comCustomMiddlewareService)),
 );
 
 export default store;

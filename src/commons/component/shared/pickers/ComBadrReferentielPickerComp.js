@@ -34,6 +34,10 @@ class ComBadrReferentielPickerComp extends React.Component {
       this.caller.setState({disabled: true});
     }
   };
+
+  enableDisable = (disabled) => {
+    this.setState({ disabled: disabled });
+  };
   disableCallerIfPending = (pickerData) => {
     if (this.caller && this.caller.setState) {
       if (pickerData && pickerData.length > 0) {

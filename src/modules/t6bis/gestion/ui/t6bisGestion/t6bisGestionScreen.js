@@ -18,7 +18,8 @@ import {
   primaryColorRgba,
 } from '../../../../../commons/styles/ComThemeStyle';
 import {
-  CMD_ENREGISTRER_T6BIS, CMD_ENREGISTRER_TPE_T6BIS,
+  CMD_ENREGISTRER_T6BIS,
+  CMD_ENREGISTRER_TPE_T6BIS,
   CMD_SAUVEGARDER_T6BIS,
   CMD_SAUVEGARDER_TPE_T6BIS,
 } from '../../../utils/t6bisConstants';
@@ -253,28 +254,26 @@ class T6bisGestion extends React.Component {
   enregistrer = () => {
     this.lancerUC(CMD_ENREGISTRER_T6BIS);
   };
-  envoyerTransaction =  () => {
-     this.lancerUC(CMD_SAUVEGARDER_TPE_T6BIS);
+  envoyerTransaction = () => {
+    this.lancerUC(CMD_SAUVEGARDER_TPE_T6BIS);
     /*if (this.props.errorMessage == null||this.props.messagesErreur.length === 0) {
       console.log('lancer appel2')
       this.lancerUC(CMD_ENREGISTRER_T6BIS);
     }*/
   };
-  verifierTransaction =  () => {
-
+  verifierTransaction = () => {
     let action = t6bisenregistrerTPET6BISAction.request(
-        {
-          type: Constantes.T6BIS_ENREGISTRER_TPE_REQUEST,
-          value: {
-            t6bis: this.props.t6bis,
-            cmd: CMD_ENREGISTRER_TPE_T6BIS,
-          },
+      {
+        type: Constantes.T6BIS_ENREGISTRER_TPE_REQUEST,
+        value: {
+          t6bis: this.props.t6bis,
+          cmd: CMD_ENREGISTRER_TPE_T6BIS,
+          dtoHeader:null
         },
-        this.props.navigation,
-        'Bienvenue',
+      },
+      this.props.navigation,
     );
     this.props.actions.dispatch(action);
-
   };
 
   quitter = () => {
@@ -343,7 +342,7 @@ class T6bisGestion extends React.Component {
     }
     if (props.successMessage) {
       return {
-        errorMessage: null,
+        errorMessage: props.errorMessage,
         successMessage: props.successMessage, // update the value of specific key
       };
     }
@@ -358,7 +357,6 @@ class T6bisGestion extends React.Component {
     );
     return (
       <ScrollView style={styles.container}>
-
         <ComBadrToolbarComp
           navigation={this.props.navigation}
           icon="menu"
@@ -366,12 +364,12 @@ class T6bisGestion extends React.Component {
         />
         {this.state.errorMessage != null && (
           <View style={styles.messages}>
-            <ComBadrErrorMessageComp message={this.state.errorMessage} />
+            <ComBadrErrorMessageComp message={[].concat(this.state.errorMessage)} />
           </View>
         )}
         {this.state.successMessage != null && (
           <View>
-            <ComBadrInfoMessageComp message={this.state.successMessage} />
+            <ComBadrInfoMessageComp message={[].concat(this.state.successMessage)} />
           </View>
         )}
 
@@ -484,25 +482,22 @@ class T6bisGestion extends React.Component {
                   text={translate('t6bisGestion.buttons.enregistrer')}
                 />
               )
+            ) : this.props.hideVerifierTransaction ? (
+              <ComBadrButtonComp
+                style={{width: 100}}
+                onPress={() => {
+                  this.verifierTransaction();
+                }}
+                text={translate('t6bisGestion.buttons.verifierTransaction')}
+              />
             ) : (
-                this.props.hideVerifierTransaction ? (
-                    <ComBadrButtonComp
-                        style={{width: 100}}
-                        onPress={() => {
-                          this.verifierTransaction();
-                        }}
-                        text={translate('t6bisGestion.buttons.verifierTransaction')}
-                    />
-                ):(
-                    <ComBadrButtonComp
-                        style={{width: 100}}
-                        onPress={() => {
-                          this.envoyerTransaction();
-                        }}
-                        text={translate('t6bisGestion.buttons.envoyerTransaction')}
-                    />
-                )
-
+              <ComBadrButtonComp
+                style={{width: 100}}
+                onPress={() => {
+                  this.envoyerTransaction();
+                }}
+                text={translate('t6bisGestion.buttons.envoyerTransaction')}
+              />
             )}
             {_.isEmpty(this.props.t6bis?.referenceEnregistrement) && (
               <ComBadrButtonComp
