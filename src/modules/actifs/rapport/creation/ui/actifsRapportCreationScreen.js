@@ -292,9 +292,9 @@ class ActifsRapportCreationScreen extends Component {
       typesIncidentSelect: this.state.typeIncident, //yess
       uniteorganisationnelle: this.props.route?.params?.row?.uniteOrganisationnelle, //yess
       validations: null,
-      vehiculesSaisiVO: this.state.vehiculesSaisiVO,
-      marchandisesVO: this.state.marchandisesVO,
-      pvsSaisi: this.state.pvsSaisi,
+      vehiculesSaisiVO: this.state.vehiculesSaisiVO ? this.state.vehiculesSaisiVO : [],
+      marchandisesVO: this.state.marchandisesVO ? this.state.marchandisesVO : [],
+      pvsSaisi: this.state.pvsSaisi ? this.state.pvsSaisi : [],
       navigationsAeriennes: this.props.navigationsAeriennes,
       navigationsMaritimes: this.props.navigationsMaritimes,
       versionRS: null,
@@ -303,7 +303,7 @@ class ActifsRapportCreationScreen extends Component {
       listeAvitaillementEntrees: this.state.avitaillementEntrees,
       listeAvitaillementSortieVO: this.state.avitaillementSorties,
       // gibPerquisition: this.state?.gibPerquisition ? this.state?.gibPerquisition : {},
-      gibPerquisition: localGibPerquisition,
+      gibPerquisition: localGibPerquisition ? localGibPerquisition : {},
 
     };
     cleanOrdreService(rsAEnregistrer);

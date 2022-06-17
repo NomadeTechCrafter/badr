@@ -45,11 +45,14 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
                 code: 'consentement',
                 libelle: translate('actifsCreation.perquisition.consentement'),
                 width: 200,
+                render: (row) => {
+                    return row.consentement ? 'Oui' : 'Non';
+                },
             }
         ];
         this.cols = [
             {
-                code: 'identifiants.numeroDocumentIdentite',
+                code: 'numeroDocumentIndentite',
                 libelle: translate('actifsCreation.perquisition.identifiant'),
                 width: 200,
             },
@@ -68,10 +71,9 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
                 libelle: translate('actifsCreation.perquisition.consentement'),
                 width: 200,
                 render: (row) => {
-                    return row.consentement === 'true' ? 'Oui' : 'Non';
+                    return row.consentement ? 'Oui' : 'Non';
                 },
             },
-
             {
                 code: 'isNew',
                 libelle: '',
@@ -82,7 +84,6 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
                     this.supprimerIntervenant(row, index)
             }
         ];
-
 
         this.state = {
             gibPerquisition: { intervenantsVO: [], autorite: {} },
@@ -219,7 +220,7 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
         if (this.isPasseport()) {
             return {
                 typeIdentifiant: this.state.intervenantVO.refTypeDocumentIdentite,
-                numeroDocumentIdentite: this.state.intervenantVO
+                numeroDocumentIndentite: this.state.intervenantVO
                     .numeroDocumentIndentite,
                 nationalite: this.state.intervenantVO.nationaliteFr,
             };
@@ -234,7 +235,7 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
             }
             return {
                 typeIdentifiant: this.state.intervenantVO.refTypeDocumentIdentite,
-                numeroDocumentIdentite: this.state.intervenantVO
+                numeroDocumentIndentite: this.state.intervenantVO
                     .numeroDocumentIndentite,
             };
         }
@@ -322,7 +323,7 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
                     required = true;
                     msg.push(result[1]);
                 } else {
- 
+
                     this.setState(prevState => {
                         let intervenantVO = prevState.intervenantVO;
                         intervenantVO.numeroDocumentIndentite = result[0];
@@ -331,7 +332,7 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
                     console.log('+-+-+-+-+-+-+-+-+-+-+-+-apres+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
                     console.log(JSON.stringify(this.state.intervenantVO.numeroDocumentIndentite));
                     console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-apres+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
-                    
+
                 }
             }
             if ("02" == this.state.intervenantVO.refTypeDocumentIdentite) {
@@ -358,10 +359,10 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
         } else {
             this.setState({
                 errorMessage: null,
-                intervenantVO: this.findIntervenant({
-                    "numeroDocumentIdentite": this.state.intervenantVO?.numeroDocumentIndentite,
-                    "typeIdentifiant": this.state.intervenantVO?.refTypeDocumentIdentite
-                })
+                // intervenantVO: this.findIntervenant({
+                //     "numeroDocumentIndentite": this.state.intervenantVO?.numeroDocumentIndentite,
+                //     "typeIdentifiant": this.state.intervenantVO?.refTypeDocumentIdentite
+                // })
             });
 
         }
@@ -456,6 +457,12 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
 
     checkRequiredFieldsForIntervenant = (params) => {
         let modele = this.state.intervenantVO;
+
+        console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+        console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+        console.log(JSON.stringify(modele));
+        console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+        console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
         if (_.isEmpty(modele.refTypeDocumentIdentite)) {
             params.required = true;
             params.msg += !_.isEmpty(params.msg) ? ", " : "";
@@ -558,11 +565,10 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
 
     render() {
 
-        console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
-        console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
-        console.log(JSON.stringify(this.props));
-        console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
-        console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+        // console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+        // console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+        // console.log(JSON.stringify(this.props));
+        // console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
         // console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
         return (
             <ScrollView >

@@ -146,7 +146,7 @@ class AtifsRapportCreationDetailsTab extends Component {
     }
     return params.required;
   }
-  
+
 
   addAnimateur = () => {
     if (!this.checkRequiredFields()) {
@@ -270,7 +270,7 @@ class AtifsRapportCreationDetailsTab extends Component {
                         color={primaryColor}
                         disabled={true}
                         status={
-                          this.props.rows?.osAvecSaisie
+                          (this.props.rows?.osAvecSaisie || this.state?.osAvecSaisie)
                             ? 'checked'
                             : 'unchecked'
                         }
@@ -313,7 +313,7 @@ class AtifsRapportCreationDetailsTab extends Component {
                         color={primaryColor}
                         disabled={true}
                         status={
-                          this.props.rows?.osAvecIncident
+                          (this.props.rows?.osAvecIncident || this.state?.osAvecIncident)
                             ? 'checked'
                             : 'unchecked'
                         }
@@ -352,7 +352,7 @@ class AtifsRapportCreationDetailsTab extends Component {
                   </Col>
                   <Col size={6} style={{ paddingRight: 5 }}>
                     {(this.props.consultation &&
-                      <RadioButton.Group disabled={true} value={this.props.rows?.coiffeInitiePar}>
+                      <RadioButton.Group disabled={true} value={this.props.rows?.coiffeInitiePar ? this.props.rows?.coiffeInitiePar : this.state?.coiffeInitiePar }>
                         <View style={{ justifyContent: 'space-around' }}>
                           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                             <RadioButton value="OFFICIER_CONTROLE" color={primaryColor} />
@@ -402,7 +402,7 @@ class AtifsRapportCreationDetailsTab extends Component {
                       <ComBadrAutoCompleteChipsComp
                         code="code"
                         disabled={true}
-                        selected={this.props?.rows?.refAgentDetachement?.libelle}
+                      selected={this.props?.rows?.refAgentDetachement?.libelle ? this.props?.rows?.refAgentDetachement?.libelle : this.state?.refAgentDetachement?.libelle}
                         maxItems={3}
                         libelle="libelle"
                         command="getCmbAgentDouanier"
@@ -515,7 +515,7 @@ class AtifsRapportCreationDetailsTab extends Component {
                 </Row>
               )}
 
-              { (this.state?.nouveau || this.state?.editAnimateur) && (
+              {(this.state?.nouveau || this.state?.editAnimateur) && (
 
 
                 <View>
@@ -645,6 +645,9 @@ class AtifsRapportCreationDetailsTab extends Component {
                           ...prevState.themeConference,
                           themeConference: item,
                         }))
+                        // this.updateModele();
+                      }}
+                      onEndEditing={() => {
                         this.updateModele();
                       }}
                       multiline={true}
@@ -677,6 +680,9 @@ class AtifsRapportCreationDetailsTab extends Component {
                         ...prevState.description,
                         description: item,
                       }))
+                      // this.updateModele();
+                    }}
+                    onEndEditing={() => {
                       this.updateModele();
                     }}
                     multiline={true}
