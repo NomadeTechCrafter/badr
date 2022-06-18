@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import { ComAccordionComp, ComBadrAutoCompleteChipsComp, ComBadrAutoCompleteComp, ComBadrButtonComp, ComBadrButtonIconComp, ComBadrButtonRadioComp, ComBadrCardBoxComp, ComBadrDatePickerComp, ComBadrErrorMessageComp, ComBadrItemsPickerComp, ComBadrKeyValueComp, ComBadrLibelleComp, ComBadrPickerComp, ComBasicDataTableComp } from '../../../../../../commons/component';
+import { ComAccordionComp, ComBadrAutoCompleteChipsComp, ComBadrAutoCompleteComp, ComBadrButtonComp, ComBadrButtonIconComp, ComBadrButtonRadioComp, ComBadrCardBoxComp, ComBadrDatePickerComp, ComBadrErrorMessageComp, ComBadrInfoMessageComp, ComBadrItemsPickerComp, ComBadrKeyValueComp, ComBadrLibelleComp, ComBadrPickerComp, ComBasicDataTableComp } from '../../../../../../commons/component';
 import translate from '../../../../../../commons/i18n/ComI18nHelper';
 import style from '../../style/actifsCreationStyle';
 import { Col, Grid, Row } from 'react-native-easy-grid';
@@ -18,6 +18,8 @@ import { validCarteSejour, validCIN } from '../../../utils/actifsUtils';
 import ComHttpHelperApi from '../../../../../../commons/services/api/common/ComHttpHelperApi';
 import { ComSessionService } from '../../../../../../commons/services/session/ComSessionService';
 import { TYPE_SERVICE_SP } from '../../../../../../commons/constants/ComGlobalConstants';
+import RechercherPersonneMoraleAction from '../../state/actions/actifsRapportRechercherPersonneMoraleAction';
+import { RECHERCHE_PERSONNE_MORALE_INIT, RECHERCHE_PERSONNE_MORALE_REQUEST } from '../../state/actifsRapportCreationConstants';
 
 
 
@@ -308,35 +310,35 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
     // }
 
     chercherPersonneConcernee = () => {
-        console.log('+-+-+-+-+-+-+-+-+-+-+-+-avant+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
-        console.log(JSON.stringify(this.state.intervenantVO));
-        console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-avant+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+        let action = RechercherPersonneMoraleAction.init({
+            type: RECHERCHE_PERSONNE_MORALE_INIT,
+            value: {}
+        });
+        this.props.dispatch(action);
         let required = false;
         let msg = [];
+        let result = [];
         if (!_.isEmpty(this.state.intervenantVO.numeroDocumentIndentite)
             && !_.isEmpty(this.state.intervenantVO.refTypeDocumentIdentite)) {
             if ("01" == this.state.intervenantVO.refTypeDocumentIdentite) {
 
-                const result = validCIN(this.state.intervenantVO.numeroDocumentIndentite);
+                result = validCIN(this.state.intervenantVO.numeroDocumentIndentite);
 
                 if (result[1] != null) {
                     required = true;
                     msg.push(result[1]);
                 } else {
-
-                    this.setState(prevState => {
-                        let intervenantVO = prevState.intervenantVO;
-                        intervenantVO.numeroDocumentIndentite = result[0];
-                        return { intervenantVO };
-                    })
-                    console.log('+-+-+-+-+-+-+-+-+-+-+-+-apres+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
-                    console.log(JSON.stringify(this.state.intervenantVO.numeroDocumentIndentite));
-                    console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-apres+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
-
+                    this.setState({
+                        ...this.state,
+                        intervenantVO: {
+                            ...this.state.intervenantVO,
+                            numeroDocumentIndentite: result[0],
+                        },
+                    });
                 }
             }
             if ("02" == this.state.intervenantVO.refTypeDocumentIdentite) {
-                const result = validCarteSejour(this.state.intervenantVO?.numeroDocumentIndentite);
+                result = validCarteSejour(this.state.intervenantVO?.numeroDocumentIndentite);
                 console.log('validCarteSejour');
                 if (result[1] != null) {
                     required = true;
@@ -357,47 +359,72 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
                 errorMessage: msg
             });
         } else {
+            this.chercherPersonneConcerneeRemote(result[0]);
             this.setState({
                 errorMessage: null,
-                // intervenantVO: this.findIntervenant({
-                //     "numeroDocumentIndentite": this.state.intervenantVO?.numeroDocumentIndentite,
-                //     "typeIdentifiant": this.state.intervenantVO?.refTypeDocumentIdentite
-                // })
+                // ...this.state,
+                // intervenantVO: {
+                //     ...this.state.intervenantVO,
+                //     nomIntervenant: this.props?.raisonSocialeFourn,
+                // },
             });
 
         }
-        // console.log('+-+-+-+-+-+-+-+-+-+-+-+-+apres-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
-        // console.log(JSON.stringify(this.state.intervenantVO));
-        // console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-apres+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
         this.update();
     };
 
-    findIntervenant = async (identifiants) => {
-        // findIntervenant = () async => {
-        const data = {
-            dtoHeader: {
-                userLogin: ComSessionService.getInstance().getLogin(),
-                fonctionnalite: ComSessionService.getInstance().getFonctionalite() ? ComSessionService.getInstance().getFonctionalite() : T6BIS_CREATION_FONCTIONNALITE,
-                module: 'REF_LIB',
-                commande: 'findIntervenant',
-                typeService: TYPE_SERVICE_SP,
-                motif: null,
-                messagesInfo: null,
-                messagesErreur: null,
+
+
+    chercherPersonneConcerneeRemote = (numeroDocumentIndentite) => {
+
+        // console.log('+-+-+-+-+-+-+-+-+-+-+-+-+chercherPersonneConcerneeRemote-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+        // console.log('+-+-+-+-+-+-+-+-+-+-+-+-+chercherPersonneConcerneeRemote-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+        // console.log(JSON.stringify(this.state.intervenantVO));
+        // console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-chercherPersonneConcerneeRemote+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+        // console.log('+-+-+-+-+-+-+-+-+-+-+-+-+chercherPersonneConcerneeRemote-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+        let action = RechercherPersonneMoraleAction.request({
+            type: RECHERCHE_PERSONNE_MORALE_REQUEST,
+            value: {
+                module: "REF_LIB",
+                command: "getIntervenant",
+                typeService: "SP",
+                jsonVO: {
+                    "numeroDocumentIdentite": numeroDocumentIndentite,
+                    "typeIdentifiant": this.state.intervenantVO?.refTypeDocumentIdentite
+                },
             },
-            jsonVO: identifiants
-        };
-        const response = await ComHttpHelperApi.process(data)
-        let intervenant = {};
-        if (response && response.data && response.data.jsonVO) {
-            intervenant = response.data.jsonVO;
-            delete intervenant.defaultConverter;
-            console.log('+-+-+-+-+-+-+-+-+-+-+-+-avant+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
-            console.log(JSON.stringify(intervenant));
-            console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-avant+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
-        }
-        return intervenant;
+        });
+
+        this.props.dispatch(action);
+        // this.update();
     };
+
+    // findIntervenant = async (identifiants) => {
+    //     // findIntervenant = () async => {
+    //     const data = {
+    //         dtoHeader: {
+    //             userLogin: ComSessionService.getInstance().getLogin(),
+    //             fonctionnalite: ComSessionService.getInstance().getFonctionalite() ? ComSessionService.getInstance().getFonctionalite() : T6BIS_CREATION_FONCTIONNALITE,
+    //             module: 'REF_LIB',
+    //             commande: 'findIntervenant',
+    //             typeService: TYPE_SERVICE_SP,
+    //             motif: null,
+    //             messagesInfo: null,
+    //             messagesErreur: null,
+    //         },
+    //         jsonVO: identifiants
+    //     };
+    //     const response = await ComHttpHelperApi.process(data)
+    //     let intervenant = {};
+    //     if (response && response.data && response.data.jsonVO) {
+    //         intervenant = response.data.jsonVO;
+    //         delete intervenant.defaultConverter;
+    //         console.log('+-+-+-+-+-+-+-+-+-+-+-+-avant+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+    //         console.log(JSON.stringify(intervenant));
+    //         console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-avant+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+    //     }
+    //     return intervenant;
+    // };
 
 
     supprimerIntervenant = (row, index) => {
@@ -409,7 +436,7 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
 
     ajouterIntervenant = () => {
         if (!this.checkRequiredFields()) {
-            console.log('this.state : ' + JSON.stringify(this.state));
+            // console.log('this.state : ' + JSON.stringify(this.state));
             if (!this.state.gibPerquisition) {
                 this.state.gibPerquisition = {};
             }
@@ -434,6 +461,11 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
                 updateState: false,
             });
             this.comboArrondissements55.clearInput();
+            let action = RechercherPersonneMoraleAction.init({
+                type: RECHERCHE_PERSONNE_MORALE_INIT,
+                value: {}
+            });
+            this.props.dispatch(action);
             this.update();
         }
     };
@@ -458,11 +490,11 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
     checkRequiredFieldsForIntervenant = (params) => {
         let modele = this.state.intervenantVO;
 
-        console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
-        console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
-        console.log(JSON.stringify(modele));
-        console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
-        console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+        // console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+        // console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+        // console.log(JSON.stringify(modele));
+        // console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+        // console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
         if (_.isEmpty(modele.refTypeDocumentIdentite)) {
             params.required = true;
             params.msg += !_.isEmpty(params.msg) ? ", " : "";
@@ -501,6 +533,11 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
             isRetablir: true,
             updateState: false,
         });
+        let action = RechercherPersonneMoraleAction.init({
+            type: RECHERCHE_PERSONNE_MORALE_INIT,
+            value: {}
+        });
+        this.props.dispatch(action);
         this.update();
     };
 
@@ -575,6 +612,9 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
                 <View style={CustomStyleSheet.verticalContainer20}>
                     {this.state.errorMessage != null && (
                         <ComBadrErrorMessageComp message={this.state.errorMessage} />
+                    )}
+                    {(this.props.errorMessage != null && this.props.errorMessage !== '')   && (
+                        <ComBadrInfoMessageComp message={this.props.errorMessage} />
                     )}
                     <ComAccordionComp title={translate('actifsCreation.perquisition.title')} expanded={true}>
                         <View>
@@ -835,19 +875,33 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
                                     <TextInput
                                         mode="outlined"
                                         label={translate('t6bisGestion.tabs.entete.redevableBlock.nom')}
-                                        value={this.state?.intervenantVO?.nomIntervenant}
-                                        disabled={stringNotEmpty(this.state?.intervenantVO?.adresse) || this.props?.consultation
+                                        value={this.props?.nomIntervenant ? this.props?.nomIntervenant : this.state?.intervenantVO?.nomIntervenant}
+                                        disabled={this.props?.nomIntervenant || this.props?.consultation
                                         }
                                         onChangeText={(text) => {
                                             this.setState({
                                                 ...this.state,
                                                 intervenantVO: {
                                                     ...this.state.intervenantVO,
-                                                    nomIntervenant: text,
+                                                    nomIntervenant: this.props?.nomIntervenant ? this.props?.nomIntervenant : text,
                                                 },
                                             });
                                             this.update();
                                         }}
+                                        onContentSizeChange={
+                                            (text) => {
+                                                if (this.props.nomIntervenant) {
+                                                    this.setState({
+                                                        ...this.state,
+                                                        intervenantVO: {
+                                                            ...this.state.intervenantVO,
+                                                            nomIntervenant: this.props?.nomIntervenant ? this.props?.nomIntervenant : text,
+                                                        },
+                                                    });
+                                                    this.update();
+                                                }
+                                            }
+                                        }
                                     />
                                 </Col>
                                 <Col size={30} style={style.labelContainer}>
@@ -861,19 +915,32 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
                                         label={translate(
                                             't6bisGestion.tabs.entete.redevableBlock.prenom',
                                         )}
-                                        value={this.state?.intervenantVO?.prenomIntervenant}
-                                        disabled={stringNotEmpty(this.state?.intervenantVO?.adresse) || this.props?.consultation
+                                        value={this.props?.prenomIntervenant ? this.props?.prenomIntervenant : this.state?.intervenantVO?.prenomIntervenant}
+                                        disabled={this.props?.prenomIntervenant || this.props?.consultation
                                         }
                                         onChangeText={(text) => {
                                             this.setState({
                                                 ...this.state,
                                                 intervenantVO: {
                                                     ...this.state.intervenantVO,
-                                                    prenomIntervenant: text,
+                                                    prenomIntervenant: this.props?.prenomIntervenant ? this.props?.prenomIntervenant : text,
                                                 },
                                             });
                                             this.update();
                                         }}
+                                        onContentSizeChange={(text) => {
+                                            if (this.props.nomIntervenant) {
+                                                this.setState({
+                                                    ...this.state,
+                                                    intervenantVO: {
+                                                        ...this.state.intervenantVO,
+                                                        prenomIntervenant: this.props?.prenomIntervenant ? this.props?.prenomIntervenant : text,
+                                                    },
+                                                });
+                                                this.update();
+                                            }
+                                        }
+                                        }
                                     />
                                 </Col>
                             </DedRedressementRow>

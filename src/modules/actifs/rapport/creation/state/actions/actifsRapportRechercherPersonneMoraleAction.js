@@ -2,6 +2,9 @@ import ComTransverseApi from '../../../../../../commons/services/api/ComTransver
 import * as Constants from '../actifsRapportCreationConstants';
 
 export function request(action) {
+  console.log('+-+-+-+-+-+-+-+-+-+-+-+-+action-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+  console.log(JSON.stringify(action));
+  console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-action+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
   return (dispatch) => {
     dispatch(inProgress(action));
     ComTransverseApi.doProcess(
@@ -18,7 +21,7 @@ export function request(action) {
         if (data && data.jsonVO) {
           dispatch(success(data));
         } else {
-          dispatch(failed({ value: 'Centre RC inexistant !' }));
+          dispatch(failed('getIntervenant' === action.value.command ? { value: response?.data?.dtoHeader?.messagesErreur } : { value: 'Centre RC inexistant !' }));
         }
       })
       .catch((e) => {

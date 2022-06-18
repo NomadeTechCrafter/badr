@@ -174,7 +174,7 @@ export const validCIN = (cin) => {
   }
 
   console.log('cin before : ' + cin);
-  let numPart = cin.substring(cin.length - 2, cin.length);
+  let numPart = cin.length === 2 ? '' :  cin.substring(cin.length - 2, cin.length);
   console.log('numPart after : ' + numPart);
 
   for (let i = 0; i < numPart.length; i++) {
@@ -187,11 +187,13 @@ export const validCIN = (cin) => {
   let cp = 0;
   console.log('result : ' + result + ' ' + cp++);
   if (isNumber(alphaNumPart)) {
-    console.log('result : ' + result + ' ' + cp++);
-    buffer += alphaNumPart + numPart;
+    buffer = alphaNumPart + numPart;
+    console.log('buffer : ' + buffer);
+    console.log('numPart : ' + numPart);
+    console.log('alphaNumPart : ' + alphaNumPart);
     let numericPart = buffer;
     if (cin.length < 8) {
-      console.log('result : ' + result + ' ' + cp++);
+      console.log('result isNumber : ' + result + ' ' + cp++);
       numericPart = addZeros(numericPart, 7);
     }
     cin = charPart.toUpperCase() + numericPart;

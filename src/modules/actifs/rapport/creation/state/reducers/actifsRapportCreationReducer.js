@@ -367,16 +367,26 @@ export default (state = initialState, action) => {
     case Constants.RECHERCHE_PERSONNE_MORALE_SUCCESS:
       console.log("RECHERCHE_PERSONNE_MORALE_SUCCESS : " + JSON.stringify(action));
       nextState.raisonSocialeFourn = action?.value?.nomIntervenant;
+      nextState.nomIntervenant = action?.value?.nomIntervenant;
+      nextState.prenomIntervenant = action?.value?.prenomIntervenant;
       nextState.keyIntervenant = action?.value?.numeroOrdreIntervenant
       nextState.errorMessage = '';
       return nextState;
     case Constants.RECHERCHE_PERSONNE_MORALE_FAILED:
       console.log("RECHERCHE_PERSONNE_MORALE_FAILED : " + JSON.stringify(action));
-      nextState.errorMessage = action?.value;
+      if ('??? gib.rap.service.perquisition.intervenantExiste ???' === action?.value[0]) {
+        nextState.errorMessage = 'Intervenant inexistant';
+      } else {
+        nextState.errorMessage = action?.value;
+      }
       nextState.raisonSocialeFourn = '';
+      nextState.nomIntervenant = '';
+      nextState.prenomIntervenant = '';
       return nextState;
     case Constants.RECHERCHE_PERSONNE_MORALE_INIT:
       nextState.raisonSocialeFourn = '';
+      nextState.nomIntervenant = '';
+      nextState.prenomIntervenant = '';
       nextState.errorMessage = '';
       return nextState;
 
