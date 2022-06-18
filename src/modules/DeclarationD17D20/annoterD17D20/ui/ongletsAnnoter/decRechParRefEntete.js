@@ -164,10 +164,10 @@ class RechParRefEntete extends React.Component {
     jsonVO.indentifiant = this.props.dataVo?.declarationTriptique?.indentifiant;
     jsonVO.motifIntervention = this.state.commentaire; //'My Comment ',
 
-    // +console.log('-----------------');
-    // +console.log(JSON.stringify(jsonVO));
-    // +console.log('-----------------');
-    // +console.log('-----------------');
+    +console.log('-----------------');
+    +console.log(JSON.stringify(jsonVO));
+    +console.log('-----------------');
+    +console.log('-----------------');
 
     var action = RechParRefConfirmerAction.request(
       {
@@ -627,74 +627,70 @@ class RechParRefEntete extends React.Component {
             </Accordion>
           </CardBox>
           {/* Sorti du Port */}
-          {this.props.dataVo?.declarationTriptique?.sortieExisteDeja && (
-            <CardBox style={styles.cardBox}>
-              <Accordion badr title={translate('annoter.annoter')}>
-                <View style={styles.flexColumn}>
-                  <View style={[styles.flexDirectionRow, styles.marg]}>
-                    <Text style={styles.libelleS}>
-                      {translate('annoter.dateAnnoter')} :
-                    </Text>
-                    <View style={styles.libelleM}>
-                      {renderDateRechParRef()}
-                    </View>
-                    <Text style={styles.libelleS} />
-                  </View>
 
-                  <View style={[styles.flexDirectionRow, styles.marg]}>
-                    <Text style={styles.libelleS}>
-                      {translate('annoter.commentAnnoter')} :{' '}
-                    </Text>
+          <CardBox style={styles.cardBox}>
+            <Accordion badr title={translate('annoter.annoter')}>
+              <View style={styles.flexColumn}>
+                <View style={[styles.flexDirectionRow, styles.marg]}>
+                  <Text style={styles.libelleS}>
+                    {translate('annoter.dateAnnoter')} :
+                  </Text>
+                  <View style={styles.libelleM}>{renderDateRechParRef()}</View>
+                  <Text style={styles.libelleS} />
+                </View>
 
-                    <TextInput
-                      style={styles.libelleL}
-                      maxLength={250}
-                      multiline
-                      /*disabled={
+                <View style={[styles.flexDirectionRow, styles.marg]}>
+                  <Text style={styles.libelleS}>
+                    {translate('annoter.commentAnnoter')} :{' '}
+                  </Text>
+
+                  <TextInput
+                    style={styles.libelleL}
+                    maxLength={250}
+                    multiline
+                    /*disabled={
                         this.state.rechParRefExisteDeja || this.props.success
                       }*/
-                      numberOfLines={3}
-                      placeholder={translate('annoter.commentAnnoter')}
-                      value={this.state.commentaire}
-                      onChangeText={(text) =>
-                        this.setState({commentaire: text})
-                      }
-                    />
-                  </View>
+                    numberOfLines={3}
+                    placeholder={translate('annoter.commentAnnoter')}
+                    value={this.state.commentaire}
+                    onChangeText={(text) => this.setState({commentaire: text})}
+                  />
+                </View>
+                <View style={[styles.flexDirectionRow, styles.marg]}>
+                  <Text style={[styles.marg, styles.libelle]}>
+                    {translate('annoter.vide')} :
+                  </Text>
+                  <Checkbox
+                    color="#009ab2"
+                    status={enteteTrypVO?.avide ? 'checked' : 'unchecked'}
+                  />
+                </View>
+                {enteteTrypVO?.refRegime === '009' && (
                   <View style={[styles.flexDirectionRow, styles.marg]}>
                     <Text style={[styles.marg, styles.libelle]}>
-                      {translate('annoter.vide')} :
+                      {translate('vuEmbarquee.sansManifest')} :
                     </Text>
                     <Checkbox
                       color="#009ab2"
-                      status={enteteTrypVO?.avide ? 'checked' : 'unchecked'}
+                      status={
+                        enteteTrypVO?.sansManifest ? 'checked' : 'unchecked'
+                      }
                     />
                   </View>
-                  {enteteTrypVO?.refRegime === '009' && (
-                    <View style={[styles.flexDirectionRow, styles.marg]}>
-                      <Text style={[styles.marg, styles.libelle]}>
-                        {translate('vuEmbarquee.sansManifest')} :
-                      </Text>
-                      <Checkbox
-                        color="#009ab2"
-                        status={
-                          enteteTrypVO?.sansManifest ? 'checked' : 'unchecked'
-                        }
-                      />
-                    </View>
-                  )}
-                  <View style={[styles.flexDirectionRow, styles.marg]}>
-                    <Text style={styles.libelleS}>
-                      {translate('annoter.autresDocument')} :
-                    </Text>
-                    <Text style={styles.valueL}>
-                      {enteteTrypVO?.autreDocument}
-                    </Text>
-                  </View>
+                )}
+                <View style={[styles.flexDirectionRow, styles.marg]}>
+                  <Text style={styles.libelleS}>
+                    {translate('annoter.autresDocument')} :
+                  </Text>
+                  <Text style={styles.valueL}>
+                    {enteteTrypVO?.autreDocument}
+                  </Text>
                 </View>
-              </Accordion>
-            </CardBox>
-          )}
+              </View>
+            </Accordion>
+          </CardBox>
+
           {/* Vu Embarquer */}
           {this.props.dataVo?.declarationTriptique?.vuEmbarqueExisteDeja && (
             <CardBox style={styles.cardBox}>
