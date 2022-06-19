@@ -55,9 +55,9 @@ export const getNavigationMaritimeModelInitial = () => {
     delivreePar: { code: '', libelle: '' },
     dateDeclaration: (new Date()).getTime(),
     dateDebutControle: (new Date()).getTime(),
-    heureDebutControle: '',
+    heureDebutControle: null,
     dateFinControle: (new Date()).getTime(),
-    heureFinControle: '',
+    heureFinControle: null,
     documentsVerifies: '',
     observations: '',
     resultatControle: '',
@@ -88,14 +88,15 @@ export const getNavigationAerienneModelInitial = () => {
     nbMoteurs: '',
     tonnage: '',
     dateDebutControle: (new Date()).getTime(),
-    heureDebutControle: '',
+    heureDebutControle: null,
     dateFinControle: (new Date()).getTime(),
-    heureFinControle: '',
+    heureFinControle: null,
     documentsVerifies: '',
     observations: '',
     resultatControle: '',
     intervenants: [],
-    proprietaires: []
+    proprietaires: [],
+    navigationAerienne: {}
   }
 }
 

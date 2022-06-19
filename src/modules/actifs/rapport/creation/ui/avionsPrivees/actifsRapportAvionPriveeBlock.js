@@ -44,14 +44,16 @@ class ActifsRapportAvionPriveeBlock extends React.Component {
     };
 
     confirmer = () => {
-        if (!this.checkRequiredFields()) {
-            if (!this.checkDatesAtterissageDepartInformations()) {
-                if (!this.checkDatesDebutFinControleInformations()) {
+
+        // if (!this.checkRequiredFields()) {
+        //     if (!this.checkDatesAtterissageDepartInformations()) {
+        //         if (!this.checkDatesDebutFinControleInformations()) {
                     console.log(' confirmation ActifsRapportAvionPriveeBlock this.props.navigationAerienneModel : ', this.state.navigationAerienneModel);
                     this.props.push(this.state.navigationAerienneModel);
-                }
-            }
-        }
+        //         }
+        //     }
+        // }
+
     }
 
 

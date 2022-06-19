@@ -268,6 +268,11 @@ export default {
         "passager": "Passager",
         "equipage": "Membre de l'équipage",
         "actions": "Actions",
+        "dateDelivrancePI": "Délivré le",
+        "lieuDelivrancePI": "à",
+        "dateNaissance": "Date de naissance",
+        "lieuNaissance": "Lieu de naissance",
+        
         msgerrors: {
           typeIdentifiant: 'Type d\'identifiant est une donnée obligatoire !',
           identifiant: 'Identifiant est une donnée obligatoire !',

@@ -75,6 +75,7 @@ class ActifsRapportNavigationAerienneBlock extends React.Component {
 
 
     onDateAtterissageChange = (event, selectedDate) => {
+        console.log('event ' + JSON.stringify(event) + 'selectedDate ' + JSON.stringify(selectedDate) );
         this.setState({
             navigationAerienneModel: {
                 ...this.state.navigationAerienneModel,
@@ -165,7 +166,16 @@ class ActifsRapportNavigationAerienneBlock extends React.Component {
 
     }
 
-
+    handleAeroportEntreeChanged = (aeroport) => {
+        this.setState({
+            aeroportEntree: aeroport?.code, navigationAerienneModel: {
+                ...this.state.navigationAerienneModel,
+                aeroportEntree:aeroport?.code
+            }
+        });
+        this.state.navigationAerienneModel.aeroportEntree = aeroport?.code;
+        this.props.update(this.state?.navigationAerienneModel);
+    }
 
 
     render() {
@@ -311,7 +321,7 @@ class ActifsRapportNavigationAerienneBlock extends React.Component {
                                         </Row>
                                     </Col>
                                     <Col size={20}>
-                                        <TextInput
+                                        {/* <TextInput
                                             mode={'outlined'}
                                             disabled={this.props.readOnly}
                                             style={{ height: 90, fontSize: 12, textAlignVertical: 'top' }}
@@ -327,6 +337,20 @@ class ActifsRapportNavigationAerienneBlock extends React.Component {
                                                 this.state.navigationAerienneModel.aeroportEntree = text;
                                                 this.props.update(this.state.navigationAerienneModel);
                                             }}
+                                        /> */}
+
+                                        <ComBadrAutoCompleteChipsComp
+                                            code="code"
+                                            disabled={this.props.readOnly}
+                                            placeholder={translate('actifsCreation.avionsPrivees.navigAerienne.aeroportEntree')}
+                                            selected={this.state.navigationAerienneModel.aeroportEntree}
+                                            maxItems={3}
+                                            libelle="libelle"
+                                            command="getListLieuChargementByCodeLibelleAndTypeAero"
+                                            module="GIB"
+                                            onDemand={true}
+                                            searchZoneFirst={false}
+                                            onValueChange={this.handleAeroportEntreeChanged}
                                         />
                                     </Col>
                                 </Row>

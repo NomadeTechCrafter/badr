@@ -82,8 +82,8 @@ export default (state = initialState, action) => {
           ronde.dateFin = format(ronde.dateFin)
       });
       nextState.gibPerquisition = action.value?.gibPerquisition;
-      nextState.navigationsAeriennes = (action.value.navigationsAeriennes) ? (action.value.navigationsAeriennes) : [];
-      nextState.navigationsMaritimes = (action.value.navigationsMaritimes) ? (action.value.navigationsMaritimes) : [];
+      nextState.navigationsAeriennes = (action.value?.navigationsAeriennes) ? (action.value?.navigationsAeriennes) : [];
+      nextState.navigationsMaritimes = (action.value?.navigationsMaritimes) ? (action.value?.navigationsMaritimes) : [];
       nextState.navigationMaritimeModel = getNavigationMaritimeModelInitial();
       nextState.navigationAerienneModel = getNavigationAerienneModelInitial();
       nextState.rapportExiste = nextState.rows.rapportExiste;
@@ -269,7 +269,7 @@ export default (state = initialState, action) => {
     case Constants.ACTIFS_CONFIRMER_AVION_PRIVEE_SUCCESS:
       console.log('ACTIFS_CONFIRMER_AVION_PRIVEE_SUCCESS', nextState);
 
-      let navigationsAeriennes = [...action.value.navigationsAeriennes];
+      let navigationsAeriennes = [...action.value?.navigationsAeriennes];
       if (action.value.index < 0) {
         navigationsAeriennes.push(action.value.navigationAerienneModel);
       } else {
@@ -289,9 +289,15 @@ export default (state = initialState, action) => {
       }
 
       return nextState;
-    case Constants.ACTIF_CONFIRMER_AVION_PRIVEE_FAILED:
-      console.log('ACTIF_CONFIRMER_AVION_PRIVEE_FAILED');
+    case Constants.ACTIFS_CONFIRMER_AVION_PRIVEE_FAILED:
+      console.log('ACTIFS_CONFIRMER_AVION_PRIVEE_FAILED');
+      console.log('ACTIFS_CONFIRMER_AVION_PRIVEE_FAILED');
+      console.log(JSON.stringify(action));
+      console.log('ACTIFS_CONFIRMER_AVION_PRIVEE_FAILED');
+      console.log('ACTIFS_CONFIRMER_AVION_PRIVEE_FAILED');
+      nextState.errorMessage = action?.value?.dtoHeader?.errorMessage
       return nextState;
+    
     case Constants.ACTIFS_EDITER_AVION_PRIVEE_REQUEST:
       console.log('ACTIFS_EDITER_AVION_PRIVEE_REQUEST');
       return nextState;

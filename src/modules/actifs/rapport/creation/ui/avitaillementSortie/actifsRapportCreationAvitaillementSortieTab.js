@@ -14,8 +14,6 @@ import {
     ComBadrLibelleComp,
     ComBadrProgressBarComp,
     ComContainerComp,
-    ComBadrPickerCheckerComp,
-    ComBadrAutoCompleteChipsComp,
     ComBadrPickerComp,
     ComBadrItemsPickerComp,
     ComBadrDatePickerComp,

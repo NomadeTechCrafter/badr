@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import moment from 'moment';
 import React from 'react';
 import { View } from 'react-native';
 import { Col, Grid, Row } from 'react-native-easy-grid';
@@ -6,6 +7,7 @@ import { RadioButton, Text, TextInput } from 'react-native-paper';
 import {
   ComBadrAutoCompleteChipsComp, ComBadrButtonComp,
   ComBadrCardBoxComp,
+  ComBadrDatePickerComp,
   ComBadrErrorMessageComp, ComBadrItemsPickerComp, ComBadrLibelleComp,
   ComBadrModalComp
 } from '../../../../../../../commons/component';
@@ -53,7 +55,7 @@ export default class ActifsRapportPersonneConcerneeModal extends React.Component
   };
 
   retablirIntervenant = () => {
-    this.setState({ intervenant: INTERVENANT_INITIAL, acNationalite: { code: '', libelle: '' }, errorMessage: null, index:-1 });
+    this.setState({ intervenant: INTERVENANT_INITIAL, acNationalite: { code: '', libelle: '' }, errorMessage: null, index: -1 });
   }
 
   confirmerIntervenant = () => {
@@ -61,7 +63,7 @@ export default class ActifsRapportPersonneConcerneeModal extends React.Component
       this.props.confirmer(this.state.intervenant);
       this.setState({
         cocherPassager: true,
-        index:-1,
+        index: -1,
         isPassager: 'true', intervenant: INTERVENANT_INITIAL, acNationalite: { code: '', libelle: '' }
       });
     }
@@ -168,6 +170,52 @@ export default class ActifsRapportPersonneConcerneeModal extends React.Component
 
         {/*third Row*/}
         <Row style={CustomStyleSheet.whiteRow}>
+          <Col size={5}>
+            <Row style={{ paddingTop: 15 }}>
+              <ComBadrLibelleComp withColor={true}>
+                {translate('actifsCreation.embarcations.intervenants.dateDelivrancePI')}
+              </ComBadrLibelleComp>
+            </Row>
+          </Col>
+          <Col size={10}>
+            <ComBadrDatePickerComp
+              dateFormat="DD/MM/YYYY"
+              // heureFormat="HH:mm"
+              value={this.state.intervenant.dateDelivrancePI ? moment(this.state.intervenant.dateDelivrancePI, 'DD/MM/YYYY', true) : ''}
+              // timeValue={this.state.currentRondeApparition.heureDebut ? moment(this.state.currentRondeApparition.heureDebut, 'HH:mm', true) : ''}
+              onDateChanged={(date) => this.setState({
+                intervenant: {
+                  ...this.state.intervenant, dateDelivrancePI: date
+                }
+              })}
+            // inputStyle={style.dateInputStyle}
+            />
+          </Col>
+          <Col size={1} />
+          <Col size={3}>
+            <Row style={{ paddingTop: 15 }}>
+              <ComBadrLibelleComp withColor={true}>
+                {translate('actifsCreation.embarcations.intervenants.lieuDelivrancePI')}
+              </ComBadrLibelleComp>
+            </Row>
+          </Col>
+          <Col size={6}>
+            <TextInput
+              mode={'outlined'}
+              disabled={this.props.readOnly}
+              style={{ height: 20, fontSize: 12 }}
+              value={this.state.intervenant?.lieuDelivrancePI}
+              onChangeText={(text) => this.setState({
+                intervenant: {
+                  ...this.state.intervenant, lieuDelivrancePI: text
+                }
+              })}
+            />
+          </Col>
+        </Row>
+
+        {/*third Row*/}
+        <Row style={CustomStyleSheet.whiteRow}>
           <Col size={7}>
             <Row style={{ paddingTop: 15 }}>
               <ComBadrLibelleComp withColor={true}>
@@ -214,6 +262,55 @@ export default class ActifsRapportPersonneConcerneeModal extends React.Component
             />
           </Col>
         </Row>
+
+        <Row style={CustomStyleSheet.whiteRow}>
+          <Col size={5}>
+            <Row style={{ paddingTop: 15 }}>
+              <ComBadrLibelleComp withColor={true}>
+                {translate('actifsCreation.embarcations.intervenants.dateNaissance')}
+              </ComBadrLibelleComp>
+            </Row>
+          </Col>
+          <Col size={10}>
+            <ComBadrDatePickerComp
+              dateFormat="DD/MM/YYYY"
+              value={this.state.intervenant?.intervenant.dateNaissance ? moment(this.state.intervenant?.intervenant.dateNaissance, 'DD/MM/YYYY', true) : ''}
+              onDateChanged={(date) => this.setState({
+                intervenant: {
+                  ...this.state.intervenant, intervenant: {
+                    ...this.state.intervenant?.intervenant, dateNaissance: date
+                  }
+                }
+              })}
+            // inputStyle={style.dateInputStyle}
+            />
+          </Col>
+          <Col size={1} />
+          <Col size={3}>
+            <Row style={{ paddingTop: 15 }}>
+              <ComBadrLibelleComp withColor={true}>
+                {translate('actifsCreation.embarcations.intervenants.lieuNaissance')}
+              </ComBadrLibelleComp>
+            </Row>
+          </Col>
+          <Col size={6}>
+            <TextInput
+              mode={'outlined'}
+              disabled={this.props.readOnly}
+              style={{ height: 20, fontSize: 12 }}
+              value={this.state.intervenant?.intervenant.lieuNaissance}
+              onChangeText={(text) => this.setState({
+                intervenant: {
+                  ...this.state.intervenant, intervenant: {
+                    ...this.state.intervenant?.intervenant, lieuNaissance: text
+                  }
+                }
+              })}
+            />
+          </Col>
+        </Row>
+
+
         {/*fourth Row*/}
         <Row style={CustomStyleSheet.whiteRow}>
           <Col size={7}>
@@ -308,7 +405,7 @@ export default class ActifsRapportPersonneConcerneeModal extends React.Component
       return {
         intervenant: props.intervenant,// update the value of specific key
         index: props.index,
-        isPassager: (props.intervenant.passager)?'true':'false'
+        isPassager: (props.intervenant.passager) ? 'true' : 'false'
 
       };
     }
