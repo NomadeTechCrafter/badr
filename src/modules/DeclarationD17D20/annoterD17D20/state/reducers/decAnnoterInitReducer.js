@@ -26,7 +26,7 @@ export default (state = initialState, action) => {
       return nextState;
     case Constants.ANNOTER_RECHERCHE_D17_DUM_FAILED:
       nextState.showProgress = false;
-      nextState.errorMessage = action?.value?.dtoHeader?.messagesErreur;
+      nextState.errorMessage = action.value.jsonVO;
       return nextState;
     case Constants.ANNOTER_INIT_D17_DUM_REQUEST:
       return initialState;
