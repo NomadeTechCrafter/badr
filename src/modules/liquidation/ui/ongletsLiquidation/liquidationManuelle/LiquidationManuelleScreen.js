@@ -82,7 +82,7 @@ class LiquidationManuelleScreen extends React.Component {
   };
 
   initLiquidation(liquidationVO, articleALiquider) {
-    console.log('----- init ---------');
+    console.log('----- initLiquidation Manuelle---------');
     if (articleALiquider && articleALiquider.refLignesRubriqueBaseLiquidation) {
       this.loadListeTaxesArticle(
         articleALiquider.refLignesRubriqueBaseLiquidation,
@@ -91,7 +91,7 @@ class LiquidationManuelleScreen extends React.Component {
 
     if (liquidationVO.refLignesRubriqueOperation) {
       console.log(
-        '----- init loadListeTaxesGlobale ---------',
+        '----- init loadListeTaxesGlobale 1---------',
         liquidationVO.refLignesRubriqueOperation,
       );
       this.loadListeTaxesGlobale(
@@ -103,6 +103,10 @@ class LiquidationManuelleScreen extends React.Component {
       liquidationVO.refOperationSimultanee &&
       liquidationVO.refOperationSimultanee.refLignesRubriqueOperation
     ) {
+      console.log(
+        '----- init loadListeTaxesGlobale 2---------',
+        liquidationVO.refOperationSimultanee,
+      );
       this.loadListeTaxesGlobale(
         liquidationVO.refOperationSimultanee.refLignesRubriqueOperation,
         true,
@@ -128,9 +132,11 @@ class LiquidationManuelleScreen extends React.Component {
   }
 
   loadListeTaxesGlobale(refLignesRubriqueOperation, consignation) {
+    console.log('in loadListeTaxesGlobale ');
+    let listeTaxesGlobalesTemp = [];
     refLignesRubriqueOperation.map(function (item, key) {
       if (item?.indicateurLiquidationGlobale == 'true') {
-        this.state?.listeTaxesGlobales.push({
+        listeTaxesGlobalesTemp.push({
           codeRubriqueComptable: item.refRubriqueComptable,
           libelleAbrege: item.refRubriqueComptableLibelle,
           codeDouane: item.refRubriqueComptableCode,
@@ -142,6 +148,12 @@ class LiquidationManuelleScreen extends React.Component {
         });
       }
     });
+    console.log('listeTaxesGlobalesTemp', listeTaxesGlobalesTemp);
+    if (listeTaxesGlobalesTemp.length > 0) {
+      this.setState({
+        listeTaxesGlobales: listeTaxesGlobalesTemp,
+      });
+    }
   }
 
   fieldsAreValid = () => {
