@@ -4,15 +4,8 @@ import { View } from 'react-native';
 import { Col, Grid, Row } from 'react-native-easy-grid';
 import { RadioButton, Text, TextInput } from 'react-native-paper';
 import {
-  ComBadrAutoCompleteChipsComp, ComBadrButtonComp,
-
-
-
-
-  ComBadrCardBoxComp,
-
-
-  ComBadrErrorMessageComp, ComBadrItemsPickerComp, ComBadrLibelleComp,
+  ComBadrAutoCompleteChipsComp, ComBadrButtonComp, ComBadrCardBoxComp,
+  ComBadrErrorMessageComp, ComBadrInfoMessageComp, ComBadrItemsPickerComp, ComBadrLibelleComp,
   ComBadrModalComp
 } from '../../../../../../../commons/component';
 import { translate } from '../../../../../../../commons/i18n/ComI18nHelper';
@@ -73,25 +66,6 @@ export default class ActifsRapportPropritaireModal extends React.Component {
     let msg = [];
     let required = false;
     if (this.state.typeProprietaire == '01') {
-      // if (_.isEmpty(this.state.proprietaire?.intervenant.refTypeDocumentIdentite.code)) {
-      //   required = true;
-      //   msg.push(translate('actifsCreation.embarcations.proprietaires.msgerrors.typeIdentifiant'));
-      // }
-
-      // if (_.isEmpty(this.state.proprietaire?.intervenant.numeroDocumentIndentite)) {
-      //   required = true;
-      //   msg.push(translate('actifsCreation.embarcations.proprietaires.msgerrors.identifiant'));
-      // }
-      // if (_.isEmpty(this.state.proprietaire?.intervenant.nomIntervenant)) {
-      //   required = true;
-      //   msg.push(translate('actifsCreation.embarcations.proprietaires.msgerrors.nomIntervenant'));
-      // }
-      // if (_.isEmpty(this.state.proprietaire?.intervenant.prenomIntervenant)) {
-      //   required = true;
-      //   msg.push(translate('actifsCreation.embarcations.proprietaires.msgerrors.prenomIntervenant'));
-      // }
-
-
       if (_.isEmpty(this.state.proprietaire?.intervenant.refTypeDocumentIdentite.code)) {
         required = true;
         msg.push(translate('actifsCreation.embarcations.intervenants.msgerrors.typeIdentifiant'));
@@ -151,50 +125,139 @@ export default class ActifsRapportPropritaireModal extends React.Component {
   chercherPersonneConcernee = () => {
     let required = false;
     let msg = [];
-    if (!_.isEmpty(this.state.proprietaire?.intervenant.numeroDocumentIndentite)
-      && !_.isEmpty(this.state.proprietaire?.intervenant.refTypeDocumentIdentite.code)) {
-      if ("01" == this.state.proprietaire?.intervenant.refTypeDocumentIdentite.code) {
-        const result = ActifsUtils.validCIN(this.state.proprietaire?.intervenant.numeroDocumentIndentite);
-        console.log(result);
-        if (result[1] != null) {
-          required = true;
-          console.log(result);
-          msg.push(result[1]);
-        } else {
-          this.setState({
-            proprietaire: {
-              ...this.state.proprietaire, intervenant: {
-                ...this.state.proprietaire?.intervenant, numeroDocumentIndentite: result[0]
+    let result = [];
+
+
+    if (this.state.typeProprietaire == '01') {
+      if (!_.isEmpty(this.state.proprietaire?.intervenant.numeroDocumentIndentite)
+        && !_.isEmpty(this.state.proprietaire?.intervenant.refTypeDocumentIdentite.code)) {
+        if ("01" == this.state.proprietaire?.intervenant.refTypeDocumentIdentite.code) {
+
+          result = ActifsUtils.validCIN(this.state.proprietaire?.intervenant.numeroDocumentIndentite);
+
+          if (result[1] != null) {
+            required = true;
+            msg.push(result[1]);
+          } else {
+            this.setState({
+              proprietaire: {
+                ...this.state.proprietaire, intervenant: {
+                  ...this.state.proprietaire?.intervenant, numeroDocumentIndentite: result[0]
+                }
               }
-            }
-          })
+            })
+          }
+        }
+        if ("02" == this.state.proprietaire?.intervenant.refTypeDocumentIdentite.code) {
+          result = ActifsUtils.validCarteSejour(this.state.proprietaire?.intervenant.numeroDocumentIndentite);
+          if (result[1] != null) {
+            required = true;
+            msg.push(result[1]);
+          } else {
+            this.setState({
+              proprietaire: {
+                ...this.state.proprietaire, intervenant: {
+                  ...this.state.proprietaire?.intervenant, numeroDocumentIndentite: result[0]
+                }
+              }
+            })
+          }
         }
       }
-      if ("02" == this.state.proprietaire?.intervenant.refTypeDocumentIdentite.code) {
-        const result = ActifsUtils.validCarteSejour(this.state.proprietaire?.intervenant.numeroDocumentIndentite);
-        console.log(result);
-        if (result[1] != null) {
-          required = true;
-          console.log(result);
-          msg.push(result[1]);
-        } else {
-          this.setState({
-            proprietaire: {
-              ...this.state.proprietaire, intervenant: {
-                ...this.state.proprietaire?.intervenant, numeroDocumentIndentite: result[0]
-              }
-            }
-          })
-        }
+      if (required) {
+        this.setState({
+          errorMessage: msg
+        });
+      } else {
+        this.chercherPersonneConcerneeRemote(result[0]);
+        this.setState({
+          errorMessage: null
+        });
       }
-    } if (required) {
-      this.setState({
-        errorMessage: msg
-      });
-    } else {
-      this.setState({
-        errorMessage: null
-      });
+    }
+    if (this.state.typeProprietaire == '02') {
+      this.chercherPersonneMoraleConcernee();
+    }
+
+  };
+
+  chercherPersonneMoraleConcernee = () => {
+  };
+
+  chercherPersonneConcerneeRemote = (numeroDocumentIndentite) => {
+    let action = RechercherPersonneMoraleAction.request({
+      type: RECHERCHE_PERSONNE_MORALE_REQUEST,
+      value: {
+        module: "REF_LIB",
+        command: "getIntervenant",
+        typeService: "SP",
+        jsonVO: {
+          "numeroDocumentIdentite": numeroDocumentIndentite,
+          "typeIdentifiant": this.state.intervenantVO?.refTypeDocumentIdentite
+        },
+      },
+    });
+
+    this.props.dispatch(action);
+  };
+
+  chercherPersonneMoraleConcernee = async () => {
+    console.log('chercherPersonneMoraleConcernee');
+    if (!_.isEmpty(this.state.proprietaire?.intervenant.numeroRC)
+      && !_.isEmpty(this.state.proprietaire?.intervenant.refCentreRC.codeCentreRC)) {
+      const numeroDocumentIdentite = this.state.proprietaire?.intervenant.numeroRC;
+      const nationalite = this.state.proprietaire?.intervenant.refCentreRC.codeCentreRC;
+      const data = {
+        dtoHeader: {
+          userLogin: ComSessionService.getInstance().getLogin(),
+          fonctionnalite: ComSessionService.getInstance().getFonctionalite() ? ComSessionService.getInstance().getFonctionalite() : '9932',
+          module: 'REF_LIB',
+          commande: 'findIntervenantMorale',
+          typeService: TYPE_SERVICE_SP,
+          motif: null,
+          messagesInfo: null,
+          messagesErreur: null,
+        },
+        jsonVO: {
+          "numeroDocumentIdentite": numeroDocumentIdentite,
+          "nationalite": nationalite
+        },
+      };
+      const response = await ComHttpHelperApi.process(data);
+
+      console.log('+-+-+-+-+-+-+-+-+-+-+-+-response+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+      console.log(JSON.stringify(response));
+      console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-response+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+      let intervenant = {};
+      if (response && response.data && response.data.jsonVO) {
+        intervenant = response.data.jsonVO;
+        delete intervenant.defaultConverter;
+        this.setState({
+          infoMessage: null,
+          proprietaireExist: true,
+          proprietaire: {
+            ...this.state.proprietaire, intervenant: {
+              ...this.state.proprietaire?.intervenant, nomIntervenant: intervenant.nomIntervenant,
+              adresse: intervenant.adresse
+            }
+          }
+        })
+      } else {
+
+        this.setState({
+          infoMessage: 'Centre RC inexistant !',
+          proprietaireExist: false,
+          proprietaire: {
+            ...this.state.proprietaire, intervenant: {
+              ...this.state.proprietaire?.intervenant, nomIntervenant: '',
+              adresse: ''
+            }
+          }
+        });
+      }
+      console.log('+-+-+-+-+-+-+-+-+-+-+-+-state+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+      console.log(JSON.stringify(this.state));
+      console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-state+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
     }
   };
 
@@ -390,6 +453,7 @@ export default class ActifsRapportPropritaireModal extends React.Component {
       </Grid>
     </ComBadrCardBoxComp>);
   }
+
   getPersonneMoraleForm() {
 
     return (<ComBadrCardBoxComp noPadding={true}>
@@ -415,6 +479,9 @@ export default class ActifsRapportPropritaireModal extends React.Component {
                   }
                 }
               })}
+              onEndEditing={(event) => {
+                this.chercherPersonneMoraleConcernee();
+              }}
             />
 
           </Col>
@@ -443,6 +510,9 @@ export default class ActifsRapportPropritaireModal extends React.Component {
                   }
                 }
               })}
+              onEndEditing={(event) => {
+                this.chercherPersonneMoraleConcernee();
+              }}
             />
           </Col>
 
@@ -547,6 +617,9 @@ export default class ActifsRapportPropritaireModal extends React.Component {
       >
         {this.state.errorMessage != null && (
           <ComBadrErrorMessageComp message={this.state.errorMessage} />
+        )}
+        {(this.props.errorMessage != null && this.props.errorMessage !== '') && (
+          <ComBadrInfoMessageComp message={this.props.errorMessage} />
         )}
         <View style={CustomStyleSheet.whiteRow}>
           <Text>{translate('actifsCreation.embarcations.proprietaires.title')}</Text>

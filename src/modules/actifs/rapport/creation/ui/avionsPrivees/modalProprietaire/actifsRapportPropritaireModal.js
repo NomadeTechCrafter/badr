@@ -3,21 +3,19 @@ import React from 'react';
 import { View } from 'react-native';
 import { Col, Grid, Row } from 'react-native-easy-grid';
 import { RadioButton, Text, TextInput } from 'react-native-paper';
+import * as ActifsUtils from '../../../../utils/actifsUtils';
 import {
-  ComBadrAutoCompleteChipsComp, ComBadrButtonComp,
-
-
-
-
-  ComBadrCardBoxComp,
-
-
-  ComBadrErrorMessageComp, ComBadrItemsPickerComp, ComBadrLibelleComp,
+  ComBadrAutoCompleteChipsComp, ComBadrButtonComp, ComBadrCardBoxComp,
+  ComBadrErrorMessageComp, ComBadrInfoMessageComp, ComBadrItemsPickerComp, ComBadrLibelleComp,
   ComBadrModalComp
 } from '../../../../../../../commons/component';
 import { translate } from '../../../../../../../commons/i18n/ComI18nHelper';
 import { CustomStyleSheet, primaryColor } from '../../../../../../../commons/styles/ComThemeStyle';
 import { LIST_TYPES_IDENTIFIANT, PROPRIETAIRE_INITIAL } from '../../../../utils/actifsConstants';
+import { ComSessionService } from '../../../../../../../commons/services/session/ComSessionService';
+import { TYPE_SERVICE_SP } from '../../../../../../../commons/constants/ComGlobalConstants';
+import ComHttpHelperApi from '../../../../../../../commons/services/api/common/ComHttpHelperApi';
+
 
 
 export default class ActifsRapportPropritaireModal extends React.Component {
@@ -25,10 +23,12 @@ export default class ActifsRapportPropritaireModal extends React.Component {
     super(props);
     this.state = {
       errorMessage: null,
+      infoMessage: null,
       typeProprietaire: '01',
+      proprietaireExist: false,
       proprietaire: this.props.proprietaire ? this.props.proprietaire : PROPRIETAIRE_INITIAL,
       acNationalite: '',
-      index:null
+      index: null
     };
   }
 
@@ -37,7 +37,7 @@ export default class ActifsRapportPropritaireModal extends React.Component {
       proprietaire: {
         ...this.state.proprietaire, intervenant: {
           ...this.state.proprietaire.intervenant,
-          refTypeDocumentIdentite:  { code: value.code, libelle: value.libelle }
+          refTypeDocumentIdentite: { code: value.code, libelle: value.libelle }
         }
       }
     });
@@ -58,7 +58,7 @@ export default class ActifsRapportPropritaireModal extends React.Component {
   };
 
   retablirProprietaire = () => {
-    this.setState({ proprietaire: PROPRIETAIRE_INITIAL, acNationalite: { code: '', libelle: '' }, errorMessage: null, index:-1 });
+    this.setState({ proprietaire: PROPRIETAIRE_INITIAL, acNationalite: { code: '', libelle: '' }, errorMessage: null, index: -1 }); 
   }
 
   confirmerProprietaire = () => {
@@ -123,11 +123,180 @@ export default class ActifsRapportPropritaireModal extends React.Component {
 
     }
     return required;
-
-
   }
 
 
+  chercherPersonneConcernee = () => {
+    let required = false;
+    let msg = [];
+    let result = [];
+    if (!_.isEmpty(this.state.proprietaire?.intervenant.numeroDocumentIndentite)
+      && !_.isEmpty(this.state.proprietaire?.intervenant.refTypeDocumentIdentite.code)) {
+      if ("01" == this.state.proprietaire?.intervenant.refTypeDocumentIdentite.code) {
+        result = ActifsUtils.validCIN(this.state.proprietaire?.intervenant.numeroDocumentIndentite);
+        if (result[1] != null) {
+          required = true;
+          msg.push(result[1]);
+        } else {
+          this.setState({
+            proprietaire: {
+              ...this.state.proprietaire, intervenant: {
+                ...this.state.proprietaire?.intervenant, numeroDocumentIndentite: result[0]
+              }
+            }
+          })
+        }
+      }
+      if ("02" == this.state.proprietaire?.intervenant.refTypeDocumentIdentite.code) {
+        result = ActifsUtils.validCarteSejour(this.state.proprietaire?.intervenant.numeroDocumentIndentite);
+        if (result[1] != null) {
+          required = true;
+          msg.push(result[1]);
+        } else {
+          this.setState({
+            proprietaire: {
+              ...this.state.proprietaire, intervenant: {
+                ...this.state.proprietaire?.intervenant, numeroDocumentIndentite: result[0]
+              }
+            }
+          })
+        }
+      }
+    } if (required) {
+      this.setState({
+        errorMessage: msg
+      });
+    } else {
+      this.chercherPersonneConcerneeRemote(result[0]);
+      this.setState({
+        errorMessage: null
+      });
+    }
+  };
+
+  chercherPersonneConcerneeRemote = async (numeroDocumentIndentite) => {
+    const typeIdentifiant = this.state.proprietaire?.intervenant.refTypeDocumentIdentite.code;
+    const data = {
+      dtoHeader: {
+        userLogin: ComSessionService.getInstance().getLogin(),
+        fonctionnalite: ComSessionService.getInstance().getFonctionalite() ? ComSessionService.getInstance().getFonctionalite() : '9932',
+        module: 'REF_LIB',
+        commande: 'getIntervenant',
+        typeService: TYPE_SERVICE_SP,
+        motif: null,
+        messagesInfo: null,
+        messagesErreur: null,
+      },
+      jsonVO: {
+        "numeroDocumentIdentite": numeroDocumentIndentite,
+        "typeIdentifiant": typeIdentifiant
+      },
+    };
+    const response = await ComHttpHelperApi.process(data);
+    console.log('+-+-+-+-+-+-+-+-+-+-+-+-response+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+    console.log('+-+-+-+-+-+-+-+-+-+-+-+-response+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+    console.log('+-+-+-+-+-+-+-+-+-+-+-+-response+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+    console.log(JSON.stringify(response));
+    console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-response+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+    console.log('+-+-+-+-+-+-+-+-+-+-+-+-response+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+    console.log('+-+-+-+-+-+-+-+-+-+-+-+-response+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+    console.log('+-+-+-+-+-+-+-+-+-+-+-+-response+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+
+    let intervenant = {};
+    if (response && response.data && response.data.jsonVO) {
+      intervenant = response.data.jsonVO;
+      delete intervenant.defaultConverter;
+      this.setState({
+        infoMessage: null,
+        proprietaireExist: true,
+        proprietaire: {
+          ...this.state.proprietaire, intervenant: {
+            ...this.state.proprietaire?.intervenant, nomIntervenant: intervenant.nomIntervenant,
+            prenomIntervenant: intervenant.prenomIntervenant,
+            adresse: intervenant.adresse,
+            nationaliteFr: intervenant.nationaliteFr
+          }
+        }
+      })
+    } else {
+
+      this.setState({
+        infoMessage: 'Intervenant inexistant',
+        proprietaireExist: false,
+        proprietaire: {
+          ...this.state.proprietaire, intervenant: {
+            ...this.state.proprietaire?.intervenant, nomIntervenant: '',
+            prenomIntervenant: '',
+            adresse: '',
+            nationaliteFr: ''
+          }
+        }
+      });
+    }
+    console.log('+-+-+-+-+-+-+-+-+-+-+-+-state+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+    console.log(JSON.stringify(this.state));
+    console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-state+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+  };
+
+  chercherPersonneMoraleConcernee = async () => {
+    console.log('chercherPersonneMoraleConcernee');
+    if (!_.isEmpty(this.state.proprietaire?.intervenant.numeroRC)
+      && !_.isEmpty(this.state.proprietaire?.intervenant.refCentreRC.codeCentreRC)) {
+      const numeroDocumentIdentite = this.state.proprietaire?.intervenant.numeroRC;
+      const nationalite = this.state.proprietaire?.intervenant.refCentreRC.codeCentreRC;
+      const data = {
+        dtoHeader: {
+          userLogin: ComSessionService.getInstance().getLogin(),
+          fonctionnalite: ComSessionService.getInstance().getFonctionalite() ? ComSessionService.getInstance().getFonctionalite() : '9932',
+          module: 'REF_LIB',
+          commande: 'findIntervenantMorale',
+          typeService: TYPE_SERVICE_SP,
+          motif: null,
+          messagesInfo: null,
+          messagesErreur: null,
+        },
+        jsonVO: {
+          "numeroDocumentIdentite": numeroDocumentIdentite,
+          "nationalite": nationalite
+        },
+      };
+      const response = await ComHttpHelperApi.process(data);
+
+      console.log('+-+-+-+-+-+-+-+-+-+-+-+-response+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+      console.log(JSON.stringify(response));
+      console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-response+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+      let intervenant = {};
+      if (response && response.data && response.data.jsonVO) {
+        intervenant = response.data.jsonVO;
+        delete intervenant.defaultConverter;
+        this.setState({
+          infoMessage: null,
+          proprietaireExist: true,
+          proprietaire: {
+            ...this.state.proprietaire, intervenant: {
+              ...this.state.proprietaire?.intervenant, nomIntervenant: intervenant.nomIntervenant,
+              adresse: intervenant.adresse
+            }
+          }
+        })
+      } else {
+
+        this.setState({
+          infoMessage: 'Centre RC inexistant !',
+          proprietaireExist: false,
+          proprietaire: {
+            ...this.state.proprietaire, intervenant: {
+              ...this.state.proprietaire?.intervenant, nomIntervenant: '',
+               adresse: ''
+            }
+          }
+        });
+      }
+      console.log('+-+-+-+-+-+-+-+-+-+-+-+-state+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+      console.log(JSON.stringify(this.state));
+      console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-state+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+    }
+  };
   getPersonnePhysiqueForm() {
 
     return (<ComBadrCardBoxComp noPadding={true}>
@@ -181,6 +350,9 @@ export default class ActifsRapportPropritaireModal extends React.Component {
                   }
                 }
               })}
+              onEndEditing={(event) => {
+                this.chercherPersonneConcernee();
+              }}
             />
           </Col>
 
@@ -198,7 +370,7 @@ export default class ActifsRapportPropritaireModal extends React.Component {
           <Col size={10}>
             <TextInput
               mode={'outlined'}
-              disabled={this.props.readOnly}
+              disabled={this.props.readOnly || this.state.proprietaireExist}
               style={{ height: 20, fontSize: 12 }}
               value={this.state.proprietaire?.intervenant.nomIntervenant}
               onChangeText={(text) => this.setState({
@@ -221,7 +393,7 @@ export default class ActifsRapportPropritaireModal extends React.Component {
           <Col size={6}>
             <TextInput
               mode={'outlined'}
-              disabled={this.props.readOnly}
+              disabled={this.props.readOnly || this.state.proprietaireExist}
               style={{ height: 20, fontSize: 12 }}
               value={this.state.proprietaire?.intervenant.prenomIntervenant}
               onChangeText={(text) => this.setState({
@@ -296,7 +468,7 @@ export default class ActifsRapportPropritaireModal extends React.Component {
           <Col size={20}>
             <TextInput
               mode={'outlined'}
-              disabled={this.props.readOnly}
+              disabled={this.props.readOnly || this.state.proprietaireExist}
               multiline={true}
               numberOfLines={4}
               style={{ fontSize: 12 }}
@@ -341,6 +513,9 @@ export default class ActifsRapportPropritaireModal extends React.Component {
                   }
                 }
               })}
+              onEndEditing={(event) => {
+                this.chercherPersonneMoraleConcernee();
+              }}
             />
 
           </Col>
@@ -369,6 +544,9 @@ export default class ActifsRapportPropritaireModal extends React.Component {
                   }
                 }
               })}
+              onEndEditing={(event) => {
+                this.chercherPersonneMoraleConcernee();
+              }}
             />
           </Col>
 
@@ -387,7 +565,7 @@ export default class ActifsRapportPropritaireModal extends React.Component {
           <Col size={20}>
             <TextInput
               mode={'outlined'}
-              disabled={this.props.readOnly}
+              disabled={this.props.readOnly || this.state.proprietaireExist}
               multiline={true}
               numberOfLines={4}
               style={{ fontSize: 12 }}
@@ -415,7 +593,7 @@ export default class ActifsRapportPropritaireModal extends React.Component {
           <Col size={20}>
             <TextInput
               mode={'outlined'}
-              disabled={this.props.readOnly}
+              disabled={this.props.readOnly || this.state.proprietaireExist}
               multiline={true}
               numberOfLines={4}
               style={{ fontSize: 12 }}
@@ -473,6 +651,9 @@ export default class ActifsRapportPropritaireModal extends React.Component {
       >
         {this.state.errorMessage != null && (
           <ComBadrErrorMessageComp message={this.state.errorMessage} />
+        )}
+        {(this.state.infoMessage != null && this.state.infoMessage !== '') && (
+          <ComBadrInfoMessageComp message={this.state.infoMessage} />
         )}
         <View style={CustomStyleSheet.whiteRow}>
           <Text>{translate('actifsCreation.embarcations.proprietaires.title')}</Text>
