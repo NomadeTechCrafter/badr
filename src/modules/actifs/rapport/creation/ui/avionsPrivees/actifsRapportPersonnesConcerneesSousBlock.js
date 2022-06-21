@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import moment from 'moment';
 import React from 'react';
 import { View } from 'react-native';
 import { Col, Row } from 'react-native-easy-grid';
@@ -30,7 +31,7 @@ class ActifsRapportPersonnesConcerneesSousBlock extends React.Component {
 
 
 
-   
+
     onDismiss = () => {
         this.setState({
             showDetailIntervenant: false
@@ -38,7 +39,7 @@ class ActifsRapportPersonnesConcerneesSousBlock extends React.Component {
     };
 
     componentDidMount() {
-        
+
     }
 
     componentDidUpdate() {
@@ -51,17 +52,33 @@ class ActifsRapportPersonnesConcerneesSousBlock extends React.Component {
 
     confirmerIntervenant = (intervenant) => {
         if (this.state.selectedIndex == -1) {
+            console.log('==================== before ======================');
+            console.log('==================== before ======================');
+            console.log('==================== before ======================');
+            console.log(JSON.stringify(intervenant));
+            console.log('===================== after =====================');
+            console.log('===================== after =====================');
+            console.log('===================== after =====================');
+            intervenant.dateDelivrancePI ? intervenant.dateDelivrancePI = intervenant.dateDelivrancePI.split("/").reverse().join("-") : intervenant.dateDelivrancePI = '';
+            intervenant.intervenant.dateNaissance ? intervenant.intervenant.dateNaissance = intervenant.intervenant.dateNaissance.split("/").reverse().join("-") : intervenant.intervenant.dateNaissance = '';
+            console.log('==========================================');
+            console.log('==========================================');
+            console.log('==========================================');
+            console.log(JSON.stringify(intervenant));
+            console.log('==========================================');
+            console.log('==========================================');
+            console.log('==========================================');
             this.state.intervenants.push(intervenant);
         } else {
             this.editIntervenant(intervenant);
         }
-        
+
         this.setState({ showDetailIntervenant: false });
         this.props.update(this.state.intervenants);
     };
     editIntervenant = (intervenant) => {
         const dataIntervenant = [...this.state.intervenants];
-        dataIntervenant.splice(this.state.selectedIndex, 1, intervenant );
+        dataIntervenant.splice(this.state.selectedIndex, 1, intervenant);
         this.setState({ intervenants: dataIntervenant }
         );
     };
@@ -70,7 +87,7 @@ class ActifsRapportPersonnesConcerneesSousBlock extends React.Component {
         let intervenant = this.state.intervenants[index];
         if (_.isEmpty(intervenant.intervenant.numeroRC)) {
             this.setState({ typeProprietaire: '01' });
-        } else { 
+        } else {
             this.setState({ typeProprietaire: '02' });
         }
         this.setState({
@@ -89,7 +106,7 @@ class ActifsRapportPersonnesConcerneesSousBlock extends React.Component {
                     <Col size={2}>
                         <ComBadrLibelleComp withColor={true}> {(item.passager) && translate('actifsCreation.avionsPrivees.intervenants.passager')}
                             {(item.equipage) && translate('actifsCreation.avionsPrivees.intervenants.equipage')}
-                           </ComBadrLibelleComp>
+                        </ComBadrLibelleComp>
                     </Col>
                     <Col size={2}>
                         <ComBadrLibelleComp withColor={true}>

@@ -48,8 +48,8 @@ class ActifsRapportCreationAvionsPriveesTab extends React.Component {
         let dataToAction = {
             type: ACTIFS_CONFIRMER_AVION_PRIVEE_REQUEST,
             value: {
-                // navigationsAeriennes: navigationsAeriennes,
-                // index: this.props.index,
+                navigationsAeriennes: navigationsAeriennes,
+                index: this.props.index,
                 rapportService: rapportService,
                 navigationAerienne: model
             }

@@ -260,6 +260,8 @@ export default (state = initialState, action) => {
       console.log('ACTIF_RESET_EMBARCATION_FAILED');
       return nextState;
 
+
+
     case Constants.ACTIFS_CONFIRMER_AVION_PRIVEE_REQUEST:
       console.log('ACTIFS_CONFIRMER_AVION_PRIVEE_REQUEST');
       return nextState;
@@ -271,23 +273,27 @@ export default (state = initialState, action) => {
 
       let navigationsAeriennes = [...action.value?.navigationsAeriennes];
       if (action.value.index < 0) {
-        navigationsAeriennes.push(action.value.navigationAerienneModel);
+        navigationsAeriennes.push(nextState.navigationAerienneModel ? nextState.navigationAerienneModel : action.value.navigationAerienneModel);
       } else {
-        navigationsAeriennes.splice(action.value.index, 1, action.value.navigationAerienneModel);
+        navigationsAeriennes.splice(action.value.index, 1, nextState.navigationAerienneModel ? nextState.navigationAerienneModel : action.value.navigationAerienneModel);
       }
       nextState.navigationsAeriennes = navigationsAeriennes;
       saveStringified('navigationsAeriennes', navigationsAeriennes).then(() =>
         console.log('navigationsAeriennes', navigationsAeriennes),
       );
-
-
       nextState.navigationAerienneModel = getNavigationAerienneModelInitial();
       if (nextState.index < 0) {
         nextState.index = nextState.index - 1;
       } else {
         nextState.index = -1;
       }
-
+      console.log('navigationsAeriennes ');
+      console.log('navigationsAeriennes ');
+      console.log('navigationsAeriennes ');
+      console.log(JSON.stringify(nextState));
+      console.log('navigationsAeriennes ');
+      console.log('navigationsAeriennes ');
+      console.log('navigationsAeriennes ');
       return nextState;
     case Constants.ACTIFS_CONFIRMER_AVION_PRIVEE_FAILED:
       console.log('ACTIFS_CONFIRMER_AVION_PRIVEE_FAILED');
@@ -297,7 +303,7 @@ export default (state = initialState, action) => {
       console.log('ACTIFS_CONFIRMER_AVION_PRIVEE_FAILED');
       nextState.errorMessage = action?.value?.dtoHeader?.errorMessage
       return nextState;
-    
+
     case Constants.ACTIFS_EDITER_AVION_PRIVEE_REQUEST:
       console.log('ACTIFS_EDITER_AVION_PRIVEE_REQUEST');
       return nextState;

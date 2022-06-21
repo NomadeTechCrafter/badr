@@ -32,8 +32,8 @@ class Login extends React.Component {
     autoLoginParam: {
       // login: 'YASAG', Redressement
       // password: 'testTest1+',
-      login: 'AD6300', //Actifs
-      password: 'Testtest1+',
+      login: 'AD6301', //Actifs
+      password: 'Testtest1-',
       // login: 'AAMM',
       // password: 'Test123+',
       // login: 'YELM',
