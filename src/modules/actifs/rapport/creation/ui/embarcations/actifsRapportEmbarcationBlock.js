@@ -44,13 +44,13 @@ class ActifsRapportEmbarcationBlock extends React.Component {
     };
 
     confirmer = () => {
-        if (!this.checkRequiredFields()) {
-            if (!this.checkDatesEntreeDepartInformations()) {
-                if (!this.checkDatesDebutFinControleInformations()) { 
+        // if (!this.checkRequiredFields()) {
+        //     if (!this.checkDatesEntreeDepartInformations()) {
+        //         if (!this.checkDatesDebutFinControleInformations()) { 
                         this.props.push(this.state.navigationMaritimeModel);
-                }
-             }
-        }
+        //         }
+        //      }
+        // }
     } 
 
 

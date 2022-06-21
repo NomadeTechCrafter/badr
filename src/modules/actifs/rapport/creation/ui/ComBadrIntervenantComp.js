@@ -29,7 +29,7 @@ class ComBadrIntervenantComp extends Component {
                             onRef={(ref) => (this.comboArrondissements55 = ref)}
                             key="code"
                             style={CustomStyleSheet.badrPicker}
-                            selectedValue={this.state?.intervenantVO?.refTypeDocumentIdentite}
+                            selectedValue={this.state?.intervenantVO?.numeroDocumentIndentite}
                             titleStyle={CustomStyleSheet.badrPickerTitle}
                             cle="code"
                             libelle="libelle"

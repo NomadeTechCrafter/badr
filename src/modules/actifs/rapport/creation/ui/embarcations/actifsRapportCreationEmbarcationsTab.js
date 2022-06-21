@@ -1,7 +1,8 @@
+import moment from 'moment';
 import React from 'react';
 import { ScrollView } from 'react-native';
 import { connect } from 'react-redux';
-import { ComBadrInfoMessageComp } from '../../../../../../commons/component';
+import { ComBadrErrorMessageComp, ComBadrInfoMessageComp } from '../../../../../../commons/component';
 import { DELETE_EMBARCATION_TASK, EDIT_EMBARCATION_TASK, RESET_EMBARCATION_TASK } from '../../../utils/actifsConstants';
 import { getNavigationMaritimeModelInitial } from '../../../utils/actifsUtils';
 import { ACTIFS_CONFIRMER_EMBARCATION_REQUEST, ACTIFS_DELETE_EMBARCATION_REQUEST, ACTIFS_EDITER_EMBARCATION_REQUEST, ACTIFS_RESET_EMBARCATION_REQUEST } from '../../state/actifsRapportCreationConstants';
@@ -38,19 +39,38 @@ class ActifsRapportCreationEmbarcationsTab extends React.Component {
     }
 
     ajouterNavigationMaritimeModel = (model) => {
+        // let navigationsMaritimes = [...this.props.navigationsMaritimes];
+        // let dataToAction = {
+        //     type: ACTIFS_CONFIRMER_EMBARCATION_REQUEST,
+        //     value: {
+        //         navigationsMaritimes: navigationsMaritimes,
+        //         index: this.props.index,
+        //         navigationMaritimeModel: model
+        //     }
+        // };
+        
+
+        // this.props.dispatch(actifsRapportConfirmerEmbaracationAction.request(dataToAction));
+       
+
         let navigationsMaritimes = [...this.props.navigationsMaritimes];
+        let rapportService = this.props.rows;
+        console.log('before --- : ' + rapportService.ordreService.dateDebut);
+        rapportService.ordreService.dateDebut = moment(this.props.rows?.ordreService?.dateDebut).format("YYYY-MM-DD");
+        rapportService.ordreService.dateFin = moment(this.props.rows?.ordreService?.dateFin).format("YYYY-MM-DD");
+        console.log('after --- : ' + rapportService.ordreService.dateDebut);
         let dataToAction = {
             type: ACTIFS_CONFIRMER_EMBARCATION_REQUEST,
             value: {
                 navigationsMaritimes: navigationsMaritimes,
                 index: this.props.index,
-                navigationMaritimeModel: model
+                rapportService: rapportService,
+                navigationMaritime: model
             }
         };
-        
+
 
         this.props.dispatch(actifsRapportConfirmerEmbaracationAction.request(dataToAction));
-       
 
     }
 
@@ -115,6 +135,9 @@ class ActifsRapportCreationEmbarcationsTab extends React.Component {
             <ScrollView>
                 {this.props.successMessage != null && (
                     <ComBadrInfoMessageComp message={this.props.successMessage} />
+                )}
+                {this.props.value?.dtoHeader?.messagesErreur != null && (
+                    <ComBadrErrorMessageComp message={this.props.value?.dtoHeader?.messagesErreur} />
                 )}
                 {(this.props.navigationsMaritimes) && (<ActifsRapportCreationEmbarcationsTableBlock navigationsMaritimes={this.props.navigationsMaritimes} callbackHandler={this.callbackHandler} readOnly={this.props.consultation}/>)}
                 {(this.props.navigationMaritimeModel) && (<ActifsRapportEmbarcationBlock navigationMaritimeModel={this.props.navigationMaritimeModel} index={this.props.index} push={this.ajouterNavigationMaritimeModel} callbackHandler={this.callbackHandler} readOnly={this.props.consultation} />)}

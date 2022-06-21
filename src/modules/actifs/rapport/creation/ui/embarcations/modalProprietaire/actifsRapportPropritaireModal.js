@@ -8,7 +8,10 @@ import {
   ComBadrErrorMessageComp, ComBadrInfoMessageComp, ComBadrItemsPickerComp, ComBadrLibelleComp,
   ComBadrModalComp
 } from '../../../../../../../commons/component';
+import { TYPE_SERVICE_SP } from '../../../../../../../commons/constants/ComGlobalConstants';
 import { translate } from '../../../../../../../commons/i18n/ComI18nHelper';
+import ComHttpHelperApi from '../../../../../../../commons/services/api/common/ComHttpHelperApi';
+import { ComSessionService } from '../../../../../../../commons/services/session/ComSessionService';
 import { CustomStyleSheet, primaryColor } from '../../../../../../../commons/styles/ComThemeStyle';
 import { LIST_TYPES_IDENTIFIANT, PROPRIETAIRE_INITIAL } from '../../../../utils/actifsConstants';
 import * as ActifsUtils from '../../../../utils/actifsUtils';
@@ -175,30 +178,7 @@ export default class ActifsRapportPropritaireModal extends React.Component {
         });
       }
     }
-    if (this.state.typeProprietaire == '02') {
-      this.chercherPersonneMoraleConcernee();
-    }
 
-  };
-
-  chercherPersonneMoraleConcernee = () => {
-  };
-
-  chercherPersonneConcerneeRemote = (numeroDocumentIndentite) => {
-    let action = RechercherPersonneMoraleAction.request({
-      type: RECHERCHE_PERSONNE_MORALE_REQUEST,
-      value: {
-        module: "REF_LIB",
-        command: "getIntervenant",
-        typeService: "SP",
-        jsonVO: {
-          "numeroDocumentIdentite": numeroDocumentIndentite,
-          "typeIdentifiant": this.state.intervenantVO?.refTypeDocumentIdentite
-        },
-      },
-    });
-
-    this.props.dispatch(action);
   };
 
   chercherPersonneMoraleConcernee = async () => {
@@ -260,6 +240,71 @@ export default class ActifsRapportPropritaireModal extends React.Component {
       console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-state+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
     }
   };
+
+  chercherPersonneConcerneeRemote = async (numeroDocumentIndentite) => {
+    const typeIdentifiant = this.state.proprietaire?.intervenant.refTypeDocumentIdentite.code;
+    const data = {
+      dtoHeader: {
+        userLogin: ComSessionService.getInstance().getLogin(),
+        fonctionnalite: ComSessionService.getInstance().getFonctionalite() ? ComSessionService.getInstance().getFonctionalite() : '9932',
+        module: 'REF_LIB',
+        commande: 'getIntervenant',
+        typeService: TYPE_SERVICE_SP,
+        motif: null,
+        messagesInfo: null,
+        messagesErreur: null,
+      },
+      jsonVO: {
+        "numeroDocumentIdentite": numeroDocumentIndentite,
+        "typeIdentifiant": typeIdentifiant
+      },
+    };
+    const response = await ComHttpHelperApi.process(data);
+    console.log('+-+-+-+-+-+-+-+-+-+-+-+-response+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+    console.log('+-+-+-+-+-+-+-+-+-+-+-+-response+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+    console.log('+-+-+-+-+-+-+-+-+-+-+-+-response+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+    console.log(JSON.stringify(response));
+    console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-response+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+    console.log('+-+-+-+-+-+-+-+-+-+-+-+-response+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+    console.log('+-+-+-+-+-+-+-+-+-+-+-+-response+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+    console.log('+-+-+-+-+-+-+-+-+-+-+-+-response+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+
+    let intervenant = {};
+    if (response && response.data && response.data.jsonVO) {
+      intervenant = response.data.jsonVO;
+      delete intervenant.defaultConverter;
+      this.setState({
+        infoMessage: null,
+        proprietaireExist: true,
+        proprietaire: {
+          ...this.state.proprietaire, intervenant: {
+            ...this.state.proprietaire?.intervenant, nomIntervenant: intervenant.nomIntervenant,
+            prenomIntervenant: intervenant.prenomIntervenant,
+            adresse: intervenant.adresse,
+            nationaliteFr: intervenant.nationaliteFr
+          }
+        }
+      })
+    } else {
+
+      this.setState({
+        infoMessage: 'Intervenant inexistant',
+        proprietaireExist: false,
+        proprietaire: {
+          ...this.state.proprietaire, intervenant: {
+            ...this.state.proprietaire?.intervenant, nomIntervenant: '',
+            prenomIntervenant: '',
+            adresse: '',
+            nationaliteFr: ''
+          }
+        }
+      });
+    }
+    console.log('+-+-+-+-+-+-+-+-+-+-+-+-state+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+    console.log(JSON.stringify(this.state));
+    console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-state+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+  };
+
 
 
   getPersonnePhysiqueForm() {
@@ -618,8 +663,8 @@ export default class ActifsRapportPropritaireModal extends React.Component {
         {this.state.errorMessage != null && (
           <ComBadrErrorMessageComp message={this.state.errorMessage} />
         )}
-        {(this.props.errorMessage != null && this.props.errorMessage !== '') && (
-          <ComBadrInfoMessageComp message={this.props.errorMessage} />
+        {(this.state.infoMessage != null && this.state.infoMessage !== '') && (
+          <ComBadrInfoMessageComp message={this.state.infoMessage} />
         )}
         <View style={CustomStyleSheet.whiteRow}>
           <Text>{translate('actifsCreation.embarcations.proprietaires.title')}</Text>

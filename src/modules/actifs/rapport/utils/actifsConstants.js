@@ -87,7 +87,7 @@ export const NAVIGATION_MARITIME_MODEL_INITIAL = {
 export const PROPRIETAIRE_INITIAL = {
     intervenant:
     {
-        refTypeDocumentIdentite: '',
+        refTypeDocumentIdentite: {},
         numeroDocumentIndentite: '',
         nomIntervenant: '',
         prenomIntervenant: '',
@@ -104,7 +104,7 @@ export const PROPRIETAIRE_INITIAL = {
 export const INTERVENANT_INITIAL = {
     intervenant:
     {
-        refTypeDocumentIdentite: '',
+        refTypeDocumentIdentite: {},
         numeroDocumentIndentite: '',
         nomIntervenant: '',
         prenomIntervenant: '',

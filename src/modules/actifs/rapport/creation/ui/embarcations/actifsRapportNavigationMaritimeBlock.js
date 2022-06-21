@@ -167,7 +167,16 @@ class ActifsRapportNavigationMaritimeBlock extends React.Component {
 
     }
 
-
+    handlePortEntreeChanged = (port) => {
+        this.setState({
+            portEntree: port?.code, navigationMaritimeModel: {
+                ...this.state.navigationMaritimeModel,
+                portEntree: port?.code
+            }
+        });
+        this.state.navigationMaritimeModel.portEntree = port?.code;
+        this.props.update(this.state?.navigationMaritimeModel);
+    }
 
 
     render() {
@@ -312,7 +321,7 @@ class ActifsRapportNavigationMaritimeBlock extends React.Component {
                                         </Row>
                                     </Col>
                                     <Col size={20}>
-                                        <TextInput
+                                        {/* <TextInput
                                             mode={'outlined'}
                                             disabled={this.props.readOnly}
                                             style={{ height: 90, fontSize: 12, textAlignVertical: 'top' }}
@@ -328,6 +337,20 @@ class ActifsRapportNavigationMaritimeBlock extends React.Component {
                                                 this.state.navigationMaritimeModel.portEntree = text;
                                                 this.props.update(this.state.navigationMaritimeModel);
                                             }}
+                                        /> */}
+
+                                        <ComBadrAutoCompleteChipsComp
+                                            code="code"
+                                            disabled={this.props.readOnly}
+                                            placeholder={translate('actifsCreation.embarcations.navigMaritime.portEntree')}
+                                            selected={this.state.navigationMaritimeModel.portEntree}
+                                            maxItems={3}
+                                            libelle="libelle"
+                                            command="getListLieuChargementByCodeLibelleAndTypePort"
+                                            module="GIB"
+                                            onDemand={true}
+                                            searchZoneFirst={false}
+                                            onValueChange={this.handlePortEntreeChanged}
                                         />
                                     </Col>
                                 </Row>

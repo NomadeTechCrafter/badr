@@ -184,11 +184,17 @@ export default (state = initialState, action) => {
     case Constants.ACTIFS_CONFIRMER_EMBARCATION_SUCCESS:
       console.log('ACTIFS_CONFIRMER_EMBARCATION_SUCCESS', nextState);
 
+      // if (action.value.index < 0) {
+      //   navigationsAeriennes.push(nextState.navigationAerienneModel ? nextState.navigationAerienneModel : action.value.navigationAerienneModel);
+      // } else {
+      //   navigationsAeriennes.splice(action.value.index, 1, nextState.navigationAerienneModel ? nextState.navigationAerienneModel : action.value.navigationAerienneModel);
+      // }
+
       let navigationsMaritimes = [...action.value.navigationsMaritimes];
       if (action.value.index < 0) {
-        navigationsMaritimes.push(action.value.navigationMaritimeModel);
+        navigationsMaritimes.push(nextState.navigationMaritimeModel ? nextState.navigationMaritimeModel : action.value.navigationMaritimeModel);
       } else {
-        navigationsMaritimes.splice(action.value.index, 1, action.value.navigationMaritimeModel);
+        navigationsMaritimes.splice(action.value.index, 1, nextState.navigationMaritimeModel ? nextState.navigationMaritimeModel : action.value.navigationMaritimeModel);
       }
       nextState.navigationsMaritimes = navigationsMaritimes;
       saveStringified('navigationsMaritimes', navigationsMaritimes).then(() =>
@@ -206,6 +212,12 @@ export default (state = initialState, action) => {
       return nextState;
     case Constants.ACTIF_CONFIRMER_EMBARCATION_FAILED:
       console.log('ACTIF_CONFIRMER_EMBARCATION_FAILED');
+      console.log('ACTIF_CONFIRMER_EMBARCATION_FAILED');
+      console.log('ACTIF_CONFIRMER_EMBARCATION_FAILED');
+      console.log(JSON.stringify(action));
+      console.log('ACTIF_CONFIRMER_EMBARCATION_FAILED');
+      console.log('ACTIF_CONFIRMER_EMBARCATION_FAILED');
+      nextState.errorMessage = action?.value?.dtoHeader?.errorMessage
       return nextState;
     case Constants.ACTIFS_EDITER_EMBARCATION_REQUEST:
       console.log('ACTIFS_EDITER_EMBARCATION_REQUEST');

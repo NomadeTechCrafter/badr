@@ -8,12 +8,16 @@ import {
   ComBadrAutoCompleteChipsComp, ComBadrButtonComp,
   ComBadrCardBoxComp,
   ComBadrDatePickerComp,
-  ComBadrErrorMessageComp, ComBadrItemsPickerComp, ComBadrLibelleComp,
+  ComBadrErrorMessageComp, ComBadrInfoMessageComp, ComBadrItemsPickerComp, ComBadrLibelleComp,
   ComBadrModalComp
 } from '../../../../../../../commons/component';
+import { TYPE_SERVICE_SP } from '../../../../../../../commons/constants/ComGlobalConstants';
 import { translate } from '../../../../../../../commons/i18n/ComI18nHelper';
+import ComHttpHelperApi from '../../../../../../../commons/services/api/common/ComHttpHelperApi';
+import { ComSessionService } from '../../../../../../../commons/services/session/ComSessionService';
 import { CustomStyleSheet, primaryColor } from '../../../../../../../commons/styles/ComThemeStyle';
 import { INTERVENANT_INITIAL, LIST_TYPES_IDENTIFIANT } from '../../../../utils/actifsConstants';
+import * as ActifsUtils from '../../../../utils/actifsUtils';
 
 
 export default class ActifsRapportPersonneConcerneeModal extends React.Component {
@@ -110,6 +114,120 @@ export default class ActifsRapportPersonneConcerneeModal extends React.Component
   }
 
 
+  chercherPersonneConcernee = () => {
+    let required = false;
+    let msg = [];
+    let result = [];
+    if (!_.isEmpty(this.state.intervenant?.intervenant.numeroDocumentIndentite)
+      && !_.isEmpty(this.state.intervenant?.intervenant.refTypeDocumentIdentite.code)) {
+      if ("01" == this.state.intervenant?.intervenant.refTypeDocumentIdentite.code) {
+        result = ActifsUtils.validCIN(this.state.intervenant?.intervenant.numeroDocumentIndentite);
+        if (result[1] != null) {
+          required = true;
+          msg.push(result[1]);
+        } else {
+          this.setState({
+            intervenant: {
+              ...this.state.intervenant, intervenant: {
+                ...this.state.intervenant?.intervenant, numeroDocumentIndentite: result[0]
+              }
+            }
+          })
+        }
+      }
+      if ("02" == this.state.intervenant?.intervenant.refTypeDocumentIdentite.code) {
+        result = ActifsUtils.validCarteSejour(this.state.intervenant?.intervenant.numeroDocumentIndentite);
+        if (result[1] != null) {
+          required = true;
+          msg.push(result[1]);
+        } else {
+          this.setState({
+            intervenant: {
+              ...this.state.intervenant, intervenant: {
+                ...this.state.intervenant?.intervenant, numeroDocumentIndentite: result[0]
+              }
+            }
+          })
+        }
+      }
+    } if (required) {
+      this.setState({
+        errorMessage: msg
+      });
+    } else {
+      this.chercherPersonneConcerneeRemote(result[0]);
+      this.setState({
+        errorMessage: null
+      });
+    }
+  };
+
+
+  chercherPersonneConcerneeRemote = async (numeroDocumentIndentite) => {
+    const typeIdentifiant = this.state.intervenant?.intervenant.refTypeDocumentIdentite.code;
+    const data = {
+      dtoHeader: {
+        userLogin: ComSessionService.getInstance().getLogin(),
+        fonctionnalite: ComSessionService.getInstance().getFonctionalite() ? ComSessionService.getInstance().getFonctionalite() : '9932',
+        module: 'REF_LIB',
+        commande: 'getIntervenant',
+        typeService: TYPE_SERVICE_SP,
+        motif: null,
+        messagesInfo: null,
+        messagesErreur: null,
+      },
+      jsonVO: {
+        "numeroDocumentIdentite": numeroDocumentIndentite,
+        "typeIdentifiant": typeIdentifiant
+      },
+    };
+    const response = await ComHttpHelperApi.process(data);
+    console.log('+-+-+-+-+-+-+-+-+-+-+-+-response+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+    console.log('+-+-+-+-+-+-+-+-+-+-+-+-response+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+    console.log('+-+-+-+-+-+-+-+-+-+-+-+-response+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+    console.log(JSON.stringify(response));
+    console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-response+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+    console.log('+-+-+-+-+-+-+-+-+-+-+-+-response+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+    console.log('+-+-+-+-+-+-+-+-+-+-+-+-response+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+    console.log('+-+-+-+-+-+-+-+-+-+-+-+-response+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+
+    let intervenant = {};
+    if (response && response.data && response.data.jsonVO) {
+      intervenant = response.data.jsonVO;
+      delete intervenant.defaultConverter;
+      this.setState({
+        infoMessage: null,
+        intervenantExist: true,
+        intervenant: {
+          ...this.state.intervenant, intervenant: {
+            ...this.state.intervenant?.intervenant, nomIntervenant: intervenant.nomIntervenant,
+            prenomIntervenant: intervenant.prenomIntervenant,
+            adresse: intervenant.adresse,
+            nationaliteFr: intervenant.nationaliteFr
+          }
+        }
+      })
+    } else {
+
+      this.setState({
+        infoMessage: 'Intervenant inexistant',
+        intervenantExist: false,
+        intervenant: {
+          ...this.state.intervenant, intervenant: {
+            ...this.state.intervenant?.intervenant, nomIntervenant: '',
+            prenomIntervenant: '',
+            adresse: '',
+            nationaliteFr: ''
+          }
+        }
+      });
+    }
+    console.log('+-+-+-+-+-+-+-+-+-+-+-+-state+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+    console.log(JSON.stringify(this.state));
+    console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-state+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+  };
+
+
   getPersonneForm() {
 
     return (<ComBadrCardBoxComp noPadding={true}>
@@ -163,6 +281,9 @@ export default class ActifsRapportPersonneConcerneeModal extends React.Component
                   }
                 }
               })}
+              onEndEditing={(event) => {
+                this.chercherPersonneConcernee();
+              }}
             />
           </Col>
 
@@ -447,6 +568,9 @@ export default class ActifsRapportPersonneConcerneeModal extends React.Component
       >
         {this.state.errorMessage != null && (
           <ComBadrErrorMessageComp message={this.state.errorMessage} />
+        )}
+        {(this.state.infoMessage != null && this.state.infoMessage !== '') && (
+          <ComBadrInfoMessageComp message={this.state.infoMessage} />
         )}
         <View style={CustomStyleSheet.whiteRow}>
           <Text>{translate('actifsCreation.embarcations.intervenants.title')}</Text>
