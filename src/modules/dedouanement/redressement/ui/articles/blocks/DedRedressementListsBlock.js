@@ -64,64 +64,64 @@ class DedRedressementListsBlock extends React.Component {
       articlesContestes: [],
       newArticle: false,
       articles: [
-        {
-          "dedDumProprieteTIVO": [],
-          "conteste": "false",
-          "aliquider": "null",
-          "redevanceAt": "null",
-          "designationCommerciale": "Désignation Commerciale",
-          "occasion": "false",
-          "issuATPA": "false",
-          "marquesContenants": "Marques",
-          "nombreContenants": "100",
-          "numeroOrdre": "1",
-          "paiement": "false",
-          "paysOrigine": "FR",
-          "poidsNet": "10000.000",
-          "quantite": "10000.000",
-          "refNgp": "9999999999",
-          "typeContenant": "216",
-          "typeContenantLibelle": "COLIS",
-          "unite": "033",
-          "quantiteNormalisee": "1000.000",
-          "valeurDeclaree": "10000.000",
-          "idConvention": "null",
-          "uniteLibelle": "U",
-          "paysOrigineLibelle": "FRANCE",
-          "libelleUniteNormalisee": "U",
-          "defaultConverter": {},
-          "accord": "QUAD",
-          "franchise": "0036",
-        },
-        {
-          "dedDumProprieteTIVO": [],
-          "conteste": "false",
-          "aliquider": "null",
-          "redevanceAt": "null",
-          "designationCommerciale": "Désignation Commerciale 2",
-          "occasion": "true",
-          "issuATPA": "true",
-          "marquesContenants": "Marques",
-          "nombreContenants": "333",
-          "numeroOrdre": "1",
-          "paiement": "true",
-          "paysOrigine": "",
-          "poidsNet": "99.000",
-          "quantite": "999.000",
-          "refNgp": "9999999999",
-          "typeContenant": "125",
-          "typeContenantLibelle": "COLIS",
-          "unite": "033",
-          "quantiteNormalisee": "9999.000",
-          "valeurDeclaree": "99999.000",
-          "idConvention": "null",
-          "uniteLibelle": "ABCDEFGHIJKLMNOPQRS",
-          "paysOrigineLibelle": "",
-          "libelleUniteNormalisee": "U",
-          "defaultConverter": {},
-          "accord": "QUAD",
-          "franchise": "0034",
-        }
+        // {
+        //   "dedDumProprieteTIVO": [],
+        //   "conteste": "false",
+        //   "aliquider": "null",
+        //   "redevanceAt": "null",
+        //   "designationCommerciale": "Désignation Commerciale",
+        //   "occasion": "false",
+        //   "issuATPA": "false",
+        //   "marquesContenants": "Marques",
+        //   "nombreContenants": "100",
+        //   "numeroOrdre": "1",
+        //   "paiement": "false",
+        //   "paysOrigine": "FR",
+        //   "poidsNet": "10000.000",
+        //   "quantite": "10000.000",
+        //   "refNgp": "9999999999",
+        //   "typeContenant": "216",
+        //   "typeContenantLibelle": "COLIS",
+        //   "unite": "033",
+        //   "quantiteNormalisee": "1000.000",
+        //   "valeurDeclaree": "10000.000",
+        //   "idConvention": "null",
+        //   "uniteLibelle": "U",
+        //   "paysOrigineLibelle": "FRANCE",
+        //   "libelleUniteNormalisee": "U",
+        //   "defaultConverter": {},
+        //   "accord": "QUAD",
+        //   "franchise": "0036",
+        // },
+        // {
+        //   "dedDumProprieteTIVO": [],
+        //   "conteste": "false",
+        //   "aliquider": "null",
+        //   "redevanceAt": "null",
+        //   "designationCommerciale": "Désignation Commerciale 2",
+        //   "occasion": "true",
+        //   "issuATPA": "true",
+        //   "marquesContenants": "Marques",
+        //   "nombreContenants": "333",
+        //   "numeroOrdre": "1",
+        //   "paiement": "true",
+        //   "paysOrigine": "",
+        //   "poidsNet": "99.000",
+        //   "quantite": "999.000",
+        //   "refNgp": "9999999999",
+        //   "typeContenant": "125",
+        //   "typeContenantLibelle": "COLIS",
+        //   "unite": "033",
+        //   "quantiteNormalisee": "9999.000",
+        //   "valeurDeclaree": "99999.000",
+        //   "idConvention": "null",
+        //   "uniteLibelle": "ABCDEFGHIJKLMNOPQRS",
+        //   "paysOrigineLibelle": "",
+        //   "libelleUniteNormalisee": "U",
+        //   "defaultConverter": {},
+        //   "accord": "QUAD",
+        //   "franchise": "0034",
+        // }
       ],
       articlesCols: this.buildArticlesCols(false),
       articlesContesteCols: this.buildArticlesCols(true),
@@ -155,7 +155,6 @@ class DedRedressementListsBlock extends React.Component {
   }
 
   updateArticleMarchandise = (val) => {
-    // console.log('val updateArticleMarchandise:', val);
     let localArticles = [...this.state.articles];
     let article = { ...this.state.selectedArticle };
 
@@ -180,6 +179,56 @@ class DedRedressementListsBlock extends React.Component {
 
     this.props.update(dedDumVo);
   }
+
+  updateArticleLiquidation = (val) => {
+    let localArticles = [...this.state.articles];
+    let article = { ...this.state.selectedArticle };
+
+    article.aliquider = val?.aliquider;
+
+    localArticles[this.state.selectedArticleIndex] = article;
+    this.setState({
+      selectedArticle: article,
+      articles: localArticles,
+    });
+
+    let dedDumVo = { ...this.state.dedDumVo, dedDumSectionArticlesVO: { ...this.state.dedDumVo?.dedDumSectionArticlesVO, dedDumArticleFormVO: this.state.articles } };
+
+    this.setState({
+      dedDumVo: dedDumVo
+    });
+
+    this.props.update(dedDumVo);
+  }
+
+  updateArticleTypeReconnaissance = (val) => {
+    console.log('================================================== val ===============================================================');
+    console.log(JSON.stringify(val));
+    console.log('================================================== val ===============================================================');
+    let localArticles = [...this.state.articles];
+    let article = { ...this.state.selectedArticle };
+
+    article.typeReconnaissance = val?.typeReconnaissance;
+
+    localArticles[this.state.selectedArticleIndex] = article;
+    this.setState({
+      selectedArticle: article,
+      articles: localArticles,
+    });
+
+    let dedDumVo = { ...this.state.dedDumVo, dedDumSectionArticlesVO: { ...this.state.dedDumVo?.dedDumSectionArticlesVO, dedDumArticleFormVO: this.state.articles } };
+
+    this.setState({
+      dedDumVo: dedDumVo
+    });
+
+    this.props.update(dedDumVo);
+
+    console.log('================================================== this.state.articles ===============================================================');
+    console.log(JSON.stringify(this.state.articles));
+    console.log('================================================== this.state.articles ===============================================================');
+  }
+  
 
   updateValeurQuantite = (val) => {
     // console.log('val updateValeurQuantite:', val);
@@ -463,14 +512,14 @@ class DedRedressementListsBlock extends React.Component {
           edition={edition}
         ></DedRedressementDetailArticleOrigineBlock>
 
-        {/* <DedRedressementDetailArticleTypeReconnaissanceBlock
-          article={
-            selectedArticle
-          }></DedRedressementDetailArticleTypeReconnaissanceBlock> */}
-        {/* <DedRedressementDetailArticleLiquidationBlock
-          article={
-            selectedArticle
-          }></DedRedressementDetailArticleLiquidationBlock> */}
+        <DedRedressementDetailArticleTypeReconnaissanceBlock
+          article={selectedArticle}
+          update={this.updateArticleTypeReconnaissance}
+          edition={edition}></DedRedressementDetailArticleTypeReconnaissanceBlock>
+        <DedRedressementDetailArticleLiquidationBlock
+          article={selectedArticle}
+          update={this.updateArticleLiquidation}
+          edition={edition}></DedRedressementDetailArticleLiquidationBlock>
 
         {edition && (
           <Row>

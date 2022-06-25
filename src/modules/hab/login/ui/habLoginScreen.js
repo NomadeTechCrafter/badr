@@ -30,29 +30,29 @@ class Login extends React.Component {
     failures: this.props.failures,
     startAutoLogin: true,
     autoLoginParam: {
-      // login: 'YASAG', Redressement
-      // password: 'testTest1+',
+      login: 'YASAG', //Redressement
+      password: 'testTest1*',
       // login: 'AD6301', //Actifs
       // password: 'Testtest1-',
-      login: 'AD6300', //Actifs
-      password: 'Testtest1+',
+      // login: 'AD6300', //Actifs
+      // password: 'Testtest1+',
       // login: 'AAMM',
       // password: 'Test123+',
       // login: 'YELM',
       // password: 'testtest',
       codeSms: '8bXqj1lLva3IEg6iDbJ+eA==',
-      // bureau: '309',
-      // codeBureau: '309',
-      bureau: '411',
-      codeBureau: '411',
-      codeArrondissement: '309',
-      arrondissement: '309',
-      // codeArrondissement: '309202', // arrondissement II
-      // arrondissement: '309202', // arrondissement II
+      bureau: '309',
+      codeBureau: '309',
+      // bureau: '411',
+      // codeBureau: '411',
+      // codeArrondissement: '309',
+      // arrondissement: '309',
+      codeArrondissement: '309202', // arrondissement II
+      arrondissement: '309202', // arrondissement II
       profiles: [
         // "0", "AAMAX", "AB", "PRO TEST",
-        //  "CONTROL", "CONT_CTRL"
-        "ACTIFS",
+         "CONTROL", "CONT_CTRL"
+        // "ACTIFS",
         // "TRY", "TRYP_AGENT", "TRYP_DECL", "TRYP_C", "TRYPTIQUE"
         // "LIQJSF", "LIQREFREC", "LIQ-TEST", "IMANLIQ" // Liquidation
         // "AR", "ADMINBV",

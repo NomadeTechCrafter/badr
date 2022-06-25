@@ -32,16 +32,24 @@ class DedRedressementDetailArticleMarchandiseBlock extends React.Component {
       paysOrigine: this.props.article?.paysOrigine,
       paiement: this.props.article.paiement,
       occasion: this.props.article.occasion,
-      refNgp: this.props.article.refNgp,     
+      refNgp: this.props.article.refNgp,
     }
   }
   componentDidMount() {
     // if (!this.props.edition) {
-      this.getLibelleNGP();
+    this.getLibelleNGP();
     // }
   }
 
   getLibelleNGP = () => {
+    // console.log('================================================== this.props.data ===============================================================');
+    // console.log(JSON.stringify(this.props.data));
+    // console.log('================================================== this.props.data ===============================================================');
+    // console.log('================================================== this.props.article ===============================================================');
+    // console.log(JSON.stringify(this.props.article));
+    // console.log('================================================== this.props.article ===============================================================');
+    // console.log('================================================== getLibelleNGP ===============================================================');
+    // console.log('================================================== getLibelleNGP ===============================================================');
     let refNgp = getValueByPath('refNgp', this.props.article);
     let dateEnreRefdum = getValueByPath(
       'dedReferenceVO.dateEnregistrement_VI',

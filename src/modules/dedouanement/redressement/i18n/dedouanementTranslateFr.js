@@ -207,7 +207,7 @@ export default {
         aLiquider: 'A liquider',
         proprieteTI: 'Propriété T.I.',
         indication:
-          "(*) Cette action sauvegarde l'article avant de calculer les P.T.I.",
+          "(*) Cette action sauvegarde l'article avant de calculer les P. TI",
       },
       proprieteTI: {
         title: 'Propriété T.I.',

@@ -76,15 +76,15 @@ export default class DedRedressementDetailArticleValeurQuantiteBlock extends Rea
             />
             <ComBadrKeyValueComp
               libelleSize={1}
-              children={
-                <Button
-                  style={{ margin: 10 }}
-                  mode="contained"
-                  disabled={true}
-                  color={primaryColor}>
-                  Consulter base valeur
-                </Button>
-              }
+              // children={
+              //   <Button
+              //     style={{ margin: 10 }}
+              //     mode="contained"
+              //     disabled={true}
+              //     color={primaryColor}>
+              //     Consulter base valeur
+              //   </Button>
+              // }
             />
           </DedRedressementRow>
 
