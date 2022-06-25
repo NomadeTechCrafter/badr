@@ -29,6 +29,7 @@ export default (state = initialState, action) => {
       nextState.errorMessage = null;
       nextState.showProgress = false;
       nextState.data = action.value.jsonVO;
+      nextState.messageInfo = action.value.messagesInfo[0];
       return nextState;
     case Constants.ENREGISTRER_REDRESSEMENT_FAILED:
       nextState.showProgress = false;
