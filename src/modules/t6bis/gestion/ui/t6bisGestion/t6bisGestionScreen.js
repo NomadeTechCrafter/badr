@@ -209,7 +209,7 @@ class T6bisGestion extends React.Component {
         /* this.props.t6bis.dateEntree = moment(new Date(this.props.t6bis.dateEntree)).format("DD/MM/YYYY");
                 this.props.t6bis.dateSortie = moment(new Date(this.props.t6bis.dateSortie)).format("DD/MM/YYYY"); */
       }
-      if (CMD_ENREGISTRER_T6BIS === uc) {
+      if (CMD_ENREGISTRER_T6BIS === uc || CMD_SAUVEGARDER_TPE_T6BIS === uc) {
         calculerMontantGlobal(this.props.t6bis);
       }
       if (validate(this.props.t6bis)) {
@@ -268,7 +268,7 @@ class T6bisGestion extends React.Component {
         value: {
           t6bis: this.props.t6bis,
           cmd: CMD_ENREGISTRER_TPE_T6BIS,
-          dtoHeader:null
+          dtoHeader: null,
         },
       },
       this.props.navigation,
@@ -364,12 +364,16 @@ class T6bisGestion extends React.Component {
         />
         {this.state.errorMessage != null && (
           <View style={styles.messages}>
-            <ComBadrErrorMessageComp message={[].concat(this.state.errorMessage)} />
+            <ComBadrErrorMessageComp
+              message={[].concat(this.state.errorMessage)}
+            />
           </View>
         )}
         {this.state.successMessage != null && (
           <View>
-            <ComBadrInfoMessageComp message={[].concat(this.state.successMessage)} />
+            <ComBadrInfoMessageComp
+              message={[].concat(this.state.successMessage)}
+            />
           </View>
         )}
 

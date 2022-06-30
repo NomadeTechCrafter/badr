@@ -89,6 +89,9 @@ class ComBadrAutoCompleteChipsComp extends Component {
     }
 
   };
+  clearInput = () => {
+    this.setState({ selected: {libelle:''} });
+  };
 
   prepareParams = (params) => {
     console.log('prepareParams param', params);

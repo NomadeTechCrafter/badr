@@ -20,6 +20,11 @@ export const cleDS = (obj) => {
   return alpha;
 };
 
+export const addZeros = (input, maxLength) => {
+  return _.padStart(input, maxLength, '0');
+
+};
+
 export const getValueByPaths = (key1, key2, object) => {
   return _.get(object, key1) ? _.get(object, key1) : _.get(object, key2);
 };
@@ -81,7 +86,7 @@ export const initDedCategorie = (typeDeclarationParam, refDumInit) => {
     categorie = CATEGORIE_PROVISOIRE_VOY;
   }
 
-  
+
   return categorie;
 }
 
@@ -123,7 +128,7 @@ export const downloadFile = async (nameFile, base64File) => {
   }
 };
 
-export const newDeclarationFacture=()=>{ 
+export const newDeclarationFacture = () => {
   return {
     numero: null,
     fournisseur: null,
@@ -131,5 +136,31 @@ export const newDeclarationFacture=()=>{
     valeur: null,
     devise: null,
     deviseLibelle: null
+  };
+}
+
+export const newPreapurement = () => {
+  return {
+    dateArrivee: null,
+    lieuChargement: '',
+    modeTransport: null,
+    moyenTransport: null,
+    nombreContenant: null,
+    numeroOrdre: null,
+    poidsLot: null,
+    preapAnnee: null,
+    preapBureau: null,
+    preapRegime: null,
+    preapSerie: null,
+    referenceLot: null,
+    typeDS: '',
+    descLieuChargement: null,
+    destinataire: null,
+    referenceDS: null,
+    natureMarchandise: null,
+    idLot: null,
+    numeroBAD: null,
+    numeroOrdre: -1,
+    preapCle:null
   };
 }

@@ -104,6 +104,8 @@ import dedEnregisterRedressementReducer from '../../modules/dedouanement/redress
 import preConfirmationArriveeReducer from '../../modules/delaiTransit/dtPreConfirmationArrivee/state/reducers/dtPreConfirmationArriveeReducer';
 import justifRetardTransitReducer from '../../modules/delaiTransit/dtJustifRetardTransit/state/reducers/dtJustifRetardTransitReducer';
 
+import dedValiderRefPreapurementReducer from '../../modules/dedouanement/redressement/state/reducers/DedValiderRefPreapurementReducer';
+
 /**
  * combine all reducers
  */
@@ -196,6 +198,7 @@ const allReducers = combineReducers({
   justifRetardTransitReducer,
   decMainleveeInitReducer,
   decMainleveeUCReducer,
+  dedValiderRefPreapurementReducer
 });
 /**
  * store creation
