@@ -55,7 +55,7 @@ export default class ActifsRapportPropritaireModal extends React.Component {
   };
 
   retablirProprietaire = () => {
-    this.setState({ proprietaire: PROPRIETAIRE_INITIAL, acNationalite: { code: '', libelle: '' }, errorMessage: null, index: -1 });
+    this.setState({ proprietaire: PROPRIETAIRE_INITIAL, acNationalite: { code: '', libelle: '' }, errorMessage: null, infoMessage: null, index: -1 });
   }
 
   confirmerProprietaire = () => {

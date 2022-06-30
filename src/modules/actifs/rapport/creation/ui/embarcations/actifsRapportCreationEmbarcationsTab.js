@@ -48,10 +48,10 @@ class ActifsRapportCreationEmbarcationsTab extends React.Component {
         //         navigationMaritimeModel: model
         //     }
         // };
-        
+
 
         // this.props.dispatch(actifsRapportConfirmerEmbaracationAction.request(dataToAction));
-       
+
 
         let navigationsMaritimes = [...this.props.navigationsMaritimes];
         let rapportService = this.props.rows;
@@ -65,7 +65,9 @@ class ActifsRapportCreationEmbarcationsTab extends React.Component {
                 navigationsMaritimes: navigationsMaritimes,
                 index: this.props.index,
                 rapportService: rapportService,
-                navigationMaritime: model
+                navigationMaritime: model,
+                dateFin: rapportService.ordreService.dateFin,
+                heureFin: rapportService.ordreService.heureFin
             }
         };
 
@@ -86,7 +88,7 @@ class ActifsRapportCreationEmbarcationsTab extends React.Component {
     reset = () => {
     };
 
-    callbackHandler=(type, data)=> {
+    callbackHandler = (type, data) => {
         switch (type) {
             case EDIT_EMBARCATION_TASK:
 
@@ -98,7 +100,7 @@ class ActifsRapportCreationEmbarcationsTab extends React.Component {
                     }
                 };
 
-               console.log(this);
+                console.log(this);
 
                 this.props.dispatch(actifsRapportEditerEmbaracationAction.request(dataToAction));
                 break;
@@ -113,7 +115,7 @@ class ActifsRapportCreationEmbarcationsTab extends React.Component {
 
                 this.props.dispatch(actifsRapportSupprimerEmbaracationAction.request(dataToAction));
                 break;
-            
+
             case RESET_EMBARCATION_TASK:
                 dataToAction = {
                     type: ACTIFS_RESET_EMBARCATION_REQUEST,
@@ -129,7 +131,7 @@ class ActifsRapportCreationEmbarcationsTab extends React.Component {
 
     }
 
-     
+
     render() {
         return (
             <ScrollView>
@@ -139,7 +141,7 @@ class ActifsRapportCreationEmbarcationsTab extends React.Component {
                 {this.props.value?.dtoHeader?.messagesErreur != null && (
                     <ComBadrErrorMessageComp message={this.props.value?.dtoHeader?.messagesErreur} />
                 )}
-                {(this.props.navigationsMaritimes) && (<ActifsRapportCreationEmbarcationsTableBlock navigationsMaritimes={this.props.navigationsMaritimes} callbackHandler={this.callbackHandler} readOnly={this.props.consultation}/>)}
+                {(this.props.navigationsMaritimes) && (<ActifsRapportCreationEmbarcationsTableBlock navigationsMaritimes={this.props.navigationsMaritimes} callbackHandler={this.callbackHandler} readOnly={this.props.consultation} />)}
                 {(this.props.navigationMaritimeModel) && (<ActifsRapportEmbarcationBlock navigationMaritimeModel={this.props.navigationMaritimeModel} index={this.props.index} push={this.ajouterNavigationMaritimeModel} callbackHandler={this.callbackHandler} readOnly={this.props.consultation} />)}
             </ScrollView>
 

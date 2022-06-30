@@ -199,6 +199,7 @@ class ActifsRapportCreationScreen extends Component {
       return true;
 
     }
+
     if (dateHeureFin < dateHeureDebut) {
       let message = translate('actifsCreation.entete.errors.dateDebutFinOrdre');
 

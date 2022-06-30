@@ -59,7 +59,7 @@ export default class ActifsRapportPersonneConcerneeModal extends React.Component
   };
 
   retablirIntervenant = () => {
-    this.setState({ intervenant: INTERVENANT_INITIAL, acNationalite: { code: '', libelle: '' }, errorMessage: null, index: -1 });
+    this.setState({ intervenant: INTERVENANT_INITIAL, acNationalite: { code: '', libelle: '' }, errorMessage: null, infoMessage: null, index: -1 });
   }
 
   confirmerIntervenant = () => {
@@ -461,59 +461,69 @@ export default class ActifsRapportPersonneConcerneeModal extends React.Component
     }
   }
 
-  chercherPersonneConcernee = () => {
-    let required = false;
-    let msg = [];
-    if (!_.isEmpty(this.state.intervenant?.intervenant.numeroDocumentIndentite)
-      && !_.isEmpty(this.state.intervenant?.intervenant.refTypeDocumentIdentite.code)) {
-      if ("01" == this.state.intervenant?.intervenant.refTypeDocumentIdentite.code) {
-        const result = ActifsUtils.validCIN(this.state.intervenant?.intervenant.numeroDocumentIndentite);
-        console.log(result);
-        if (result[1] != null) {
-          required = true;
-          console.log(result);
-          msg.push(result[1]);
-        } else {
-          this.setState({
-            intervenant: {
-              ...this.state.intervenant, intervenant: {
-                ...this.state.intervenant?.intervenant, numeroDocumentIndentite: result[0]
-              }
-            }
-          })
-        }
-      }
-      if ("02" == this.state.intervenant?.intervenant.refTypeDocumentIdentite.code) {
-        const result = ActifsUtils.validCarteSejour(this.state.intervenant?.intervenant.numeroDocumentIndentite);
-        console.log(result);
-        if (result[1] != null) {
-          required = true;
-          console.log(result);
-          msg.push(result[1]);
-        } else {
-          this.setState({
-            intervenant: {
-              ...this.state.intervenant, intervenant: {
-                ...this.state.intervenant?.intervenant, numeroDocumentIndentite: result[0]
-              }
-            }
-          })
-        }
-      }
-    } if (required) {
-      this.setState({
-        errorMessage: msg
-      });
-    } else {
-      this.setState({
-        errorMessage: null
-      });
-    }
-  };
+  // chercherPersonneConcernee = () => {
+  //   console.log("+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=");
+  //   console.log("+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=");
+  //   console.log(JSON.stringify(this.state.intervenant?.intervenant));
+  //   console.log("+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=");
+  //   console.log("+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=");
+  //   let required = false;
+  //   let msg = [];
+  //   if (!_.isEmpty(this.state.intervenant?.intervenant.numeroDocumentIndentite)
+  //     && !_.isEmpty(this.state.intervenant?.intervenant.refTypeDocumentIdentite.code)) {
+  //     if ("01" == this.state.intervenant?.intervenant.refTypeDocumentIdentite.code) {
+  //       const result = ActifsUtils.validCIN(this.state.intervenant?.intervenant.numeroDocumentIndentite);
+  //       console.log(result);
+  //       if (result[1] != null) {
+  //         required = true;
+  //         console.log(result);
+  //         msg.push(result[1]);
+  //       } else {
+  //         this.setState({
+  //           intervenant: {
+  //             ...this.state.intervenant, intervenant: {
+  //               ...this.state.intervenant?.intervenant, numeroDocumentIndentite: result[0]
+  //             }
+  //           }
+  //         })
+  //       }
+  //     }
+  //     if ("02" == this.state.intervenant?.intervenant.refTypeDocumentIdentite.code) {
+  //       const result = ActifsUtils.validCarteSejour(this.state.intervenant?.intervenant.numeroDocumentIndentite);
+  //       console.log(result);
+  //       if (result[1] != null) {
+  //         required = true;
+  //         console.log(result);
+  //         msg.push(result[1]);
+  //       } else {
+  //         this.setState({
+  //           intervenant: {
+  //             ...this.state.intervenant, intervenant: {
+  //               ...this.state.intervenant?.intervenant, numeroDocumentIndentite: result[0]
+  //             }
+  //           }
+  //         })
+  //       }
+  //     }
+  //   } if (required) {
+  //     this.setState({
+  //       errorMessage: msg
+  //     });
+  //   } else {
+  //     this.setState({
+  //       errorMessage: null
+  //     });
+  //   }
+  // };
 
 
 
   chercherPersonneConcernee = () => {
+    console.log("+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=");
+    console.log("+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=");
+    console.log(JSON.stringify(this.state.intervenant?.intervenant));
+    console.log("+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=");
+    console.log("+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=");
     let required = false;
     let msg = [];
     let result = [];
@@ -551,7 +561,8 @@ export default class ActifsRapportPersonneConcerneeModal extends React.Component
       }
     } if (required) {
       this.setState({
-        errorMessage: msg
+        errorMessage: msg,
+        infoMessage: null,
       });
     } else {
       this.chercherPersonneConcerneeRemote(result[0]);
