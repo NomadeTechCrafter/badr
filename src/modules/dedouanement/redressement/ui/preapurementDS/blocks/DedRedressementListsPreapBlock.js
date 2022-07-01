@@ -22,7 +22,7 @@ class DedRedressementListsPreapBlock extends React.Component {
         libelle: '',
         width: 100,
         component: 'button',
-        icon: 'eye',
+        icon: this.props?.readOnly ? 'eye' : 'pencil',
         action: (row, index) => this.onItemSelected(row, index),
       },
       { code: 'typeDS', libelle: 'Type DS', width: 60 },
