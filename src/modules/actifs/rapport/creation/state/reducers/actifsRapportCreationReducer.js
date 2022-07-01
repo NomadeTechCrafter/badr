@@ -14,8 +14,6 @@ export default (state = initialState, action) => {
     ...state,
     value: action.value,
   };
-  // console.log("actifsRapportCreationReducer action.type : " + action.type);
-  // console.log("actifsRapportCreationReducer action.value : " + JSON.stringify(action) )
 
   switch (action.type) {
     case Constants.ACTIFS_ENTETE_REQUEST:
@@ -33,6 +31,8 @@ export default (state = initialState, action) => {
       nextState.rows.dateDebut = nextState?.rows?.dateDebut?.substring(0, 10);
       nextState.rows.dateFin = nextState?.rows?.dateFin?.substring(0, 10);
       nextState.rows.listAnimateurConferenceVo = action.value?.listAnimateurConferenceVo;
+      nextState.rows.description = action.value?.description;
+      nextState.rows.themeConference = action.value?.themeConference;
       nextState.consultation = action.value.rapportExiste;
       nextState.navigationsAeriennes = [];
       nextState.navigationAerienneModel = getNavigationAerienneModelInitial();

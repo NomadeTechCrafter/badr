@@ -51,11 +51,27 @@ class ActifsRapportPersonnesConcerneesSousBlock extends React.Component {
 
     confirmerIntervenant = (intervenant) => {
         if (this.state.selectedIndex == -1) {
+            console.log('==================== before ======================');
+            console.log('==================== before ======================');
+            console.log('==================== before ======================');
+            console.log(JSON.stringify(intervenant));
+            console.log('===================== after =====================');
+            console.log('===================== after =====================');
+            console.log('===================== after =====================');
+            intervenant.dateDelivrancePI ? intervenant.dateDelivrancePI = intervenant.dateDelivrancePI.split("/").reverse().join("-") : intervenant.dateDelivrancePI = '';
+            intervenant.intervenant.dateNaissance ? intervenant.intervenant.dateNaissance = intervenant.intervenant.dateNaissance.split("/").reverse().join("-") : intervenant.intervenant.dateNaissance = '';
+            console.log('==========================================');
+            console.log('==========================================');
+            console.log('==========================================');
+            console.log(JSON.stringify(intervenant));
+            console.log('==========================================');
+            console.log('==========================================');
+            console.log('==========================================');
             this.state.intervenants.push(intervenant);
         } else {
             this.editIntervenant(intervenant);
         }
-        
+
         this.setState({ showDetailIntervenant: false });
         this.props.update(this.state.intervenants);
     };
@@ -222,6 +238,7 @@ class ActifsRapportPersonnesConcerneesSousBlock extends React.Component {
                     readOnly={false}
                     confirmer={this.confirmerIntervenant}
                     intervenant={this.state.selectedItem}
+                    intervenants={this.state.intervenants}
                     index={this.state.selectedIndex}
                 />
             </View>

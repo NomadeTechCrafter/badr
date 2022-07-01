@@ -2,12 +2,11 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import { NavigationContainer } from '@react-navigation/native';
 import React, { Component } from 'react';
 import { Dimensions, View } from 'react-native';
-import { IconButton } from 'react-native-paper';
 import { connect } from 'react-redux';
-import { ComBadrButtonComp, ComBadrErrorMessageComp, ComBadrInfoMessageComp, ComBadrProgressBarComp, ComBadrToolbarComp } from '../../../../../commons/component';
+import { ComBadrButtonComp, ComBadrErrorMessageComp, ComBadrProgressBarComp, ComBadrToolbarComp } from '../../../../../commons/component';
 import { translate } from '../../../../../commons/i18n/ComI18nHelper';
 import { primaryColor } from '../../../../../commons/styles/ComThemeStyle';
-import { getNavigationAvitaillementSortieModelInitial, getNavigationAvitaillementEntreeModelInitial, cleanOrdreService, convert, format } from '../../utils/actifsUtils';
+import { getNavigationAvitaillementSortieModelInitial, cleanOrdreService, convert, format } from '../../utils/actifsUtils';
 import * as Constants from '../state/actifsRapportCreationConstants';
 import * as enregistrerRS from '../state/actions/actifsRapportCreationEnregistrerRSAction';
 import * as sauvegarderRS from '../state/actions/actifsRapportCreationSauvegarderRSAction';
@@ -39,21 +38,6 @@ const screenHeight = Dimensions.get('window').height;
 
 
 const screenWidth = Dimensions.get('window').width;
-
-// function EnteteScreen({ route, navigation }) {
-//   return (
-//     <ActifsRapportCreationEnteteTab navigation={navigation} route={route} />
-//   );
-// }
-
-/* function DetailsScreen({ route, navigation }) {
-  return <AtifsRapportCreationDetailsTab navigation={navigation} route={route} />;
-}
-
-function SaisieScreen({ route, navigation }) {
-  return <AtifsRapportCreationSaisieTab navigation={navigation} route={route} />;
-} */
-
 
 function embarcationsTab({ route, navigation }) {
   return <ActifsRapportCreationEmbarcationsTab navigation={navigation} route={route} />;
@@ -96,17 +80,27 @@ class ActifsRapportCreationScreen extends Component {
         osAvecIncident: false,
         coiffeInitiePar: null,
         refAgentDetachement: null,
+        themeConference: '',
+        listAnimateurConferenceVo: null,
         rows: '',
       };
+      console.log('log from reducer');
+      console.log('log from reducer');
+      console.log(JSON.stringify(this.props.route.params.row));
+      console.log('log from reducer');
+      console.log('log from reducer');
+      console.log('log from props');
+      console.log('log from props');
+      console.log(JSON.stringify(this.props.row));
+      console.log('log from props');
+      console.log('log from props');
       let data = this.props.route.params.row?.id;
       if (this.props.route.params.consultation) {
         let action = getRsByIdOs.request(
           {
             type: Constants.ACTIFS_CONSULTATION_REQUEST,
             value: { data: data ? data + '' : '' },
-          } /*,
-                    this.props.navigation,
-                    this.props.successRedirection,*/,
+          }
         );
         this.props.dispatch(action);
       } else {
@@ -114,9 +108,7 @@ class ActifsRapportCreationScreen extends Component {
           {
             type: Constants.ACTIFS_ENTETE_REQUEST,
             value: { data: data ? data + '' : '' },
-          } /*,
-                    this.props.navigation,
-                    this.props.successRedirection,*/,
+          }
         );
         this.props.dispatch(action);
       }
@@ -232,7 +224,6 @@ class ActifsRapportCreationScreen extends Component {
       return false
     }
   }
-
   preparerRSAEnregistrer = () => {
     let res = this.props.route?.params?.row?.refPJ?.split('_');
     let localOrdreService = this.props.route?.params?.row;
@@ -245,10 +236,16 @@ class ActifsRapportCreationScreen extends Component {
       element.dateFin = rondeApparition?.dateFin?.split("/").reverse().join("-");
       localRondesApparitions.push(element);
     });
+    console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+- ');
+    console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+    console.log(JSON.stringify(this.state.gibPerquisition));
+    console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+    console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
     let localGibPerquisition = this.state?.gibPerquisition;
     if (localGibPerquisition) {
       let localDatePerquisition = localGibPerquisition?.datePerquisition?.split("/").reverse().join("-");
       localGibPerquisition.datePerquisition = localDatePerquisition;
+      localGibPerquisition.intervenants = localGibPerquisition.intervenantsVO;
     }
 
     let rsAEnregistrer = {
@@ -318,9 +315,9 @@ class ActifsRapportCreationScreen extends Component {
     let rsAEnregistrer = this.preparerRSAEnregistrer();
 
     console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
-    // console.log('this.state.vehiculesSaisiVO : ', this.state.vehiculesSaisiVO);
-    // console.log('this.state.marchandisesVO : ', this.state.marchandisesVO);
-    // console.log('this.state.pvsSaisi : ', this.state.pvsSaisi);
+    console.log('this.state.vehiculesSaisiVO : ', this.state.vehiculesSaisiVO);
+    console.log('this.state.marchandisesVO : ', this.state.marchandisesVO);
+    console.log('this.state.pvsSaisi : ', this.state.pvsSaisi);
     console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
     console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
     console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
@@ -359,12 +356,12 @@ class ActifsRapportCreationScreen extends Component {
     console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
     console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
     console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
-    let action = sauvegarderRS.request({
-      type: Constants.ACTIFS_CREATION_REQUEST,
-      value: { data: rsAEnregistrer },
-    });
+    // let action = sauvegarderRS.request({
+    //   type: Constants.ACTIFS_CREATION_REQUEST,
+    //   value: { data: rsAEnregistrer },
+    // });
 
-    this.props.dispatch(action);
+    // this.props.dispatch(action);
 
   };
 

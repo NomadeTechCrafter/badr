@@ -236,6 +236,7 @@ class ActifsRapportPersonnesConcerneesSousBlock extends React.Component {
                     readOnly={false}
                     confirmer={this.confirmerIntervenant}
                     intervenant={this.state.selectedItem}
+                    intervenants={this.state.intervenants}
                     index={this.state.selectedIndex}
                 />
             </View>

@@ -209,6 +209,7 @@ class ActifsRapportProprietairesSousBlock extends React.Component {
                     readOnly={false}
                     confirmer={this.confirmerProprietaire}
                     proprietaire={this.state.selectedItem}
+                    proprietaires={this.state.proprietaires}
                     index={this.state.selectedIndex}
                     typeProprietaire={this.state.typeProprietaire}
                 />

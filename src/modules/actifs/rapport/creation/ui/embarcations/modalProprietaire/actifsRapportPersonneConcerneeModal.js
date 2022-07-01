@@ -3,7 +3,6 @@ import React from 'react';
 import { View } from 'react-native';
 import { Col, Grid, Row } from 'react-native-easy-grid';
 import { RadioButton, Text, TextInput } from 'react-native-paper';
-import { connect } from 'react-redux';
 import {
   ComBadrAutoCompleteChipsComp, ComBadrButtonComp,
   ComBadrCardBoxComp,
@@ -28,8 +27,7 @@ export default class ActifsRapportPersonneConcerneeModal extends React.Component
       index: null,
       acNationalite: '',
       cocherPassager: true,
-      isPassager: 'true',
-      intervenants: []
+      isPassager: 'true'
     };
   }
 
@@ -64,10 +62,9 @@ export default class ActifsRapportPersonneConcerneeModal extends React.Component
 
   confirmerIntervenant = () => {
     if (!this.checkTypeIdentifiant()) {
-      // if (!this.checkRequiredFields()) {
       let ifExist = false;
-      for (let i = 0; i < this.state.intervenants.length; i++) {
-        if (this.state.intervenant?.intervenant.numeroDocumentIndentite === this.state.intervenants[i].numeroDocumentIndentite) {
+      for (let localIntervenant of this.props.intervenants) {
+        if (this.state.intervenant?.intervenant.numeroDocumentIndentite === localIntervenant.intervenant.numeroDocumentIndentite) {
           ifExist = true;
         }
       }
@@ -79,7 +76,6 @@ export default class ActifsRapportPersonneConcerneeModal extends React.Component
         this.setState({
           errorMessage: null
         });
-        this.state.intervenants.push(this.state.intervenant?.intervenant);
         this.props.confirmer(this.state.intervenant);
         this.setState({
           cocherPassager: true,
@@ -182,51 +178,6 @@ export default class ActifsRapportPersonneConcerneeModal extends React.Component
   }
 
 
-  // static findIntervenant = async (identifiants) => {
-  //   console.log('findIntervenant');
-  //   const data = {
-  //     dtoHeader: {
-  //       userLogin: ComSessionService.getInstance().getLogin(),
-  //       fonctionnalite: ComSessionService.getInstance().getFonctionalite() ? ComSessionService.getInstance().getFonctionalite() : T6BIS_CREATION_FONCTIONNALITE,
-  //       module: MODULE_REF,
-  //       commande: 'findIntervenant',
-  //       typeService: TYPE_SERVICE_SP,
-  //       motif: null,
-  //       messagesInfo: null,
-  //       messagesErreur: null,
-  //     },
-  //     jsonVO: identifiants
-  //   };
-  //   console.log(data);
-  //   return await ComHttpHelperApi.process(data);
-  // };
-
-  // chercherPersonneConcernee = () => {
-  //   console.log('---------------------------------');
-  //   console.log('---------------------------------');
-  //   console.log('---------------------------------');
-  //   if (!_.isEmpty(this.state.intervenant?.intervenant.refTypeDocumentIdentite.code)
-  //     && !_.isEmpty(this.state.intervenant?.intervenant.numeroDocumentIndentite)) {
-  //     const numeroDocumentIdentite = this.state.intervenant?.intervenant.refTypeDocumentIdentite.code;
-  //     const nationalite = this.state.intervenant?.intervenant.numeroDocumentIndentite;
-
-  //     let action = actifsRapportRechercherPersonneMoraleAction.request({
-  //       type: RECHERCHE_PERSONNE_MORALE_REQUEST,
-  //       value: {
-  //         module: "REF_LIB",
-  //         command: "findIntervenantMorale",
-  //         typeService: "SP",
-  //         jsonVO: {
-  //           "numeroDocumentIdentite": numeroDocumentIdentite,
-  //           "nationalite": nationalite
-  //         },
-  //       },
-  //     });
-  //     this.props.actions.dispatch(action);
-  //   }
-  //   // this.update();
-  // };
-
   getPersonneForm() {
 
     return (<ComBadrCardBoxComp noPadding={true}>
@@ -253,9 +204,6 @@ export default class ActifsRapportPersonneConcerneeModal extends React.Component
               onValueChanged={(value, index) =>
                 (value?.code) ? this.onChangeTypeIdentifiant(value) : {}
               }
-            // onEndEditing={(event) => {
-            //   this.chercherPersonneConcernee();
-            // }}
             />
 
           </Col>
@@ -424,9 +372,6 @@ export default class ActifsRapportPersonneConcerneeModal extends React.Component
 
 
   static getDerivedStateFromProps(props, state) {
-    // console.log('getDerivedStateFromProps--------------------props ', props);
-    // console.log('getDerivedStateFromProps--------------------state ', state);
-
     if (
       props.intervenant && props.index != state.index
     ) {
@@ -460,63 +405,6 @@ export default class ActifsRapportPersonneConcerneeModal extends React.Component
       })
     }
   }
-
-  // chercherPersonneConcernee = () => {
-  //   console.log("+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=");
-  //   console.log("+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=");
-  //   console.log(JSON.stringify(this.state.intervenant?.intervenant));
-  //   console.log("+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=");
-  //   console.log("+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=");
-  //   let required = false;
-  //   let msg = [];
-  //   if (!_.isEmpty(this.state.intervenant?.intervenant.numeroDocumentIndentite)
-  //     && !_.isEmpty(this.state.intervenant?.intervenant.refTypeDocumentIdentite.code)) {
-  //     if ("01" == this.state.intervenant?.intervenant.refTypeDocumentIdentite.code) {
-  //       const result = ActifsUtils.validCIN(this.state.intervenant?.intervenant.numeroDocumentIndentite);
-  //       console.log(result);
-  //       if (result[1] != null) {
-  //         required = true;
-  //         console.log(result);
-  //         msg.push(result[1]);
-  //       } else {
-  //         this.setState({
-  //           intervenant: {
-  //             ...this.state.intervenant, intervenant: {
-  //               ...this.state.intervenant?.intervenant, numeroDocumentIndentite: result[0]
-  //             }
-  //           }
-  //         })
-  //       }
-  //     }
-  //     if ("02" == this.state.intervenant?.intervenant.refTypeDocumentIdentite.code) {
-  //       const result = ActifsUtils.validCarteSejour(this.state.intervenant?.intervenant.numeroDocumentIndentite);
-  //       console.log(result);
-  //       if (result[1] != null) {
-  //         required = true;
-  //         console.log(result);
-  //         msg.push(result[1]);
-  //       } else {
-  //         this.setState({
-  //           intervenant: {
-  //             ...this.state.intervenant, intervenant: {
-  //               ...this.state.intervenant?.intervenant, numeroDocumentIndentite: result[0]
-  //             }
-  //           }
-  //         })
-  //       }
-  //     }
-  //   } if (required) {
-  //     this.setState({
-  //       errorMessage: msg
-  //     });
-  //   } else {
-  //     this.setState({
-  //       errorMessage: null
-  //     });
-  //   }
-  // };
-
-
 
   chercherPersonneConcernee = () => {
     console.log("+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=");

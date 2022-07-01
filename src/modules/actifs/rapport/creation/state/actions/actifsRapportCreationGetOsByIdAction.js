@@ -24,13 +24,6 @@ export function request(action, navigation, successRedirection) {
             /** Naviguer vers la vue suivant. */
 
             console.log('navig success');
-            /* navigation.navigate(successRedirection , {
-                            login: action.value.login,
-                            refDeclaration: action.value.data.referenceDed,
-                            numeroVoyage: action.value.numeroVoyage,
-                            cle: action.value.cle,
-                            declarationRI: data.jsonVO,
-                        });*/
           } else {
             dispatch(failed(data));
           }
