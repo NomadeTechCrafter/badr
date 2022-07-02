@@ -134,7 +134,7 @@ class ActifsRapportCreationScreen extends Component {
   }
 
   updatePerquisitions = (val) => {
-    console.log('val 3:', val);
+    console.log('val 3:', JSON.stringify(val));
     this.setState({ gibPerquisition: val.gibPerquisition });
 
   }
@@ -245,7 +245,6 @@ class ActifsRapportCreationScreen extends Component {
     if (localGibPerquisition) {
       let localDatePerquisition = localGibPerquisition?.datePerquisition?.split("/").reverse().join("-");
       localGibPerquisition.datePerquisition = localDatePerquisition;
-      localGibPerquisition.intervenants = localGibPerquisition.intervenantsVO;
     }
 
     let rsAEnregistrer = {
@@ -356,12 +355,12 @@ class ActifsRapportCreationScreen extends Component {
     console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
     console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
     console.log('--------------------------------After Cleaning rsAEnregistrer--------------------------------------------------');
-    // let action = sauvegarderRS.request({
-    //   type: Constants.ACTIFS_CREATION_REQUEST,
-    //   value: { data: rsAEnregistrer },
-    // });
+    let action = sauvegarderRS.request({
+      type: Constants.ACTIFS_CREATION_REQUEST,
+      value: { data: rsAEnregistrer },
+    });
 
-    // this.props.dispatch(action);
+    this.props.dispatch(action);
 
   };
 

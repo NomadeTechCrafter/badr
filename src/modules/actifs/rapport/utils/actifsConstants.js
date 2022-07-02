@@ -121,14 +121,10 @@ export const INTERVENANT_INITIAL = {
 export const INTERVENANT_INITIAL_PERQUISITION = {
     intervenant:
     {
-        refTypeDocumentIdentite: '',
+        refTypeDocumentIdentite: {},
         numeroDocumentIndentite: '',
         nomIntervenant: '',
         prenomIntervenant: '',
-        nationaliteFr: '',
-        adresse: '',
-        // dateEffet: new Date(),
-        // dateFin: '9999-01-01',
 
     },
     consentement: false

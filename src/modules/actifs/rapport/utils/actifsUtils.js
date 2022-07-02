@@ -314,39 +314,39 @@ export const cleanOrdreService = (rsAEnregistrer) => {
   });
 
   // rsAEnregistrer.gibPerquisition.intervenants = [];
-  delete rsAEnregistrer?.gibPerquisition?.intervenantsVO?.forEach((intervenantVO) => {
-    delete intervenantVO?.defaultConverter;
-    delete intervenantVO?.dtoHeader;
-    delete intervenantVO?.jsonVO;
-    delete intervenantVO?.module;
-    delete intervenantVO?.command;
-    delete intervenantVO?.payload;
-    delete intervenantVO?.typeService;
-    delete intervenantVO?.param;
-    delete intervenantVO?.identifiants;
-    delete intervenantVO?.idPourRecherche;
-    delete intervenantVO?.rechercheValides;
-    delete intervenantVO?.rechercheAnnules;
-    intervenantVO.intervenant = {};
-    intervenantVO.intervenant.adresse = intervenantVO.adresse;
-    delete intervenantVO.adresse;
-    intervenantVO.intervenant.nationaliteFr = intervenantVO.nationaliteFr;
-    delete intervenantVO.nationaliteFr;
-    intervenantVO.intervenant.nomIntervenant = intervenantVO.nomIntervenant;
-    delete intervenantVO.nomIntervenant;
-    intervenantVO.intervenant.numeroDocumentIndentite = intervenantVO.numeroDocumentIndentite;
-    delete intervenantVO.numeroDocumentIndentite;
-    intervenantVO.intervenant.numeroOrdreIntervenant = intervenantVO.numeroOrdreIntervenant;
-    delete intervenantVO.numeroOrdreIntervenant;
-    intervenantVO.intervenant.prenomIntervenant = intervenantVO.prenomIntervenant;
-    delete intervenantVO.prenomIntervenant;
-    intervenantVO.intervenant.refTypeDocumentIdentite = intervenantVO.refTypeDocumentIdentite;
-    delete intervenantVO.refTypeDocumentIdentite;
-    intervenantVO.intervenant.typeIntervenant = intervenantVO.typeIntervenant;
-    delete intervenantVO.typeIntervenant;
+  // delete rsAEnregistrer?.gibPerquisition?.intervenantsVO?.forEach((intervenantVO) => {
+  //   delete intervenantVO?.defaultConverter;
+  //   delete intervenantVO?.dtoHeader;
+  //   delete intervenantVO?.jsonVO;
+  //   delete intervenantVO?.module;
+  //   delete intervenantVO?.command;
+  //   delete intervenantVO?.payload;
+  //   delete intervenantVO?.typeService;
+  //   delete intervenantVO?.param;
+  //   delete intervenantVO?.identifiants;
+  //   delete intervenantVO?.idPourRecherche;
+  //   delete intervenantVO?.rechercheValides;
+  //   delete intervenantVO?.rechercheAnnules;
+  //   intervenantVO.intervenant = {};
+  //   intervenantVO.intervenant.adresse = intervenantVO.adresse;
+  //   delete intervenantVO.adresse;
+  //   intervenantVO.intervenant.nationaliteFr = intervenantVO.nationaliteFr;
+  //   delete intervenantVO.nationaliteFr;
+  //   intervenantVO.intervenant.nomIntervenant = intervenantVO.nomIntervenant;
+  //   delete intervenantVO.nomIntervenant;
+  //   intervenantVO.intervenant.numeroDocumentIndentite = intervenantVO.numeroDocumentIndentite;
+  //   delete intervenantVO.numeroDocumentIndentite;
+  //   intervenantVO.intervenant.numeroOrdreIntervenant = intervenantVO.numeroOrdreIntervenant;
+  //   delete intervenantVO.numeroOrdreIntervenant;
+  //   intervenantVO.intervenant.prenomIntervenant = intervenantVO.prenomIntervenant;
+  //   delete intervenantVO.prenomIntervenant;
+  //   intervenantVO.intervenant.refTypeDocumentIdentite = intervenantVO.refTypeDocumentIdentite;
+  //   delete intervenantVO.refTypeDocumentIdentite;
+  //   intervenantVO.intervenant.typeIntervenant = intervenantVO.typeIntervenant;
+  //   delete intervenantVO.typeIntervenant;
     // rsAEnregistrer?.gibPerquisition?.intervenants.push(intervenantVO);
-  });
-  delete rsAEnregistrer?.gibPerquisition?.intervenantsVO;
+  // });
+  // delete rsAEnregistrer?.gibPerquisition?.intervenantsVO;
 
   if (_.isArray(rsAEnregistrer?.rapportService?.ordreService?.agentsBrigade)) {
     rsAEnregistrer.rapportService?.ordreService?.agentsBrigade?.forEach((agentBrigade) => {

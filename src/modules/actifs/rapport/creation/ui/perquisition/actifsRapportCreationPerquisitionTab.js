@@ -87,7 +87,7 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
         ];
 
         this.state = {
-            gibPerquisition: { intervenantsVO: [], autorite: {} },
+            gibPerquisition: { intervenants: [], autorite: {} },
             intervenantVO: INTERVENANT_INITIAL_PERQUISITION,
             newIntervenant: null,
             isRetablir: false,
@@ -109,7 +109,7 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
         // console.log('+++++++++++++++++++++++++++++++++++++++++++++++++++++');
         // console.log('+++++++++++++++++++++++++++++++++++++++++++++++++++++');
         // console.log('+++++++++++++++++++++++++++++++++++++++++++++++++++++');
-        // console.log(JSON.stringify(this.state.gibPerquisition?.intervenantsVO));
+        // console.log(JSON.stringify(this.state.gibPerquisition?.intervenants));
         // console.log('+++++++++++++++++++++++++++++++++++++++++++++++++++++');
         // console.log('+++++++++++++++++++++++++++++++++++++++++++++++++++++');
         // console.log('+++++++++++++++++++++++++++++++++++++++++++++++++++++');
@@ -120,9 +120,7 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
             }
         }), () => {
             this.props.update({
-                gibPerquisition: {
-                    ...this.state.gibPerquisition
-                }
+                gibPerquisition: this.state?.gibPerquisition,
             });
         });
 
@@ -133,11 +131,16 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
 
 
     onChangeTypeIdentifiant(value) {
+        console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+        console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+        console.log(JSON.stringify(value));
+        console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+        console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
         this.setState({
             intervenantVO: {
                 ...this.state.intervenantVO, intervenant: {
                     ...this.state.intervenantVO.intervenant,
-                    refTypeDocumentIdentite: value
+                    refTypeDocumentIdentite: { code: value.code, libelle: value.libelle }
                 }
             }
         });
@@ -154,8 +157,8 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
         let msg = [];
         let result = [];
         if (!_.isEmpty(this.state.intervenantVO.intervenant.numeroDocumentIndentite)
-            && !_.isEmpty(this.state.intervenantVO.intervenant.refTypeDocumentIdentite)) {
-            if ("01" === this.state.intervenantVO.intervenant.refTypeDocumentIdentite) {
+            && !_.isEmpty(this.state.intervenantVO.intervenant.refTypeDocumentIdentite?.code)) {
+            if ("01" === this.state.intervenantVO.intervenant.refTypeDocumentIdentite?.code) {
 
                 result = validCIN(this.state.intervenantVO.intervenant.numeroDocumentIndentite);
 
@@ -172,7 +175,7 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
                     })
                 }
             }
-            if ("02" === this.state.intervenantVO.intervenant.refTypeDocumentIdentite) {
+            if ("02" === this.state.intervenantVO.intervenant.refTypeDocumentIdentite?.code) {
                 result = validCarteSejour(this.state.intervenantVO?.intervenant.numeroDocumentIndentite);
                 console.log('validCarteSejour');
                 if (result[1] != null) {
@@ -215,7 +218,7 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
                 typeService: "SP",
                 jsonVO: {
                     "numeroDocumentIdentite": numeroDocumentIndentite,
-                    "typeIdentifiant": this.state.intervenantVO?.intervenant.refTypeDocumentIdentite
+                    "typeIdentifiant": this.state.intervenantVO?.intervenant.refTypeDocumentIdentite?.code
                 },
             },
         });
@@ -225,9 +228,9 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
 
 
     supprimerIntervenant = (row, index) => {
-        let intervenantsVO = this.state.gibPerquisition?.intervenantsVO;
-        intervenantsVO.splice(index, 1);
-        this.setState({ myArray: [...this.state.gibPerquisition?.intervenantsVO, intervenantsVO] });
+        let intervenants = this.state.gibPerquisition?.intervenants;
+        intervenants.splice(index, 1);
+        this.setState({ myArray: [...this.state.gibPerquisition?.intervenants, intervenants] });
         this.update();
     };
 
@@ -236,10 +239,10 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
             if (!this.state.gibPerquisition) {
                 this.state.gibPerquisition = {};
             }
-            if (!this.state.gibPerquisition?.intervenantsVO) {
-                this.state.gibPerquisition.intervenantsVO = [];
+            if (!this.state.gibPerquisition?.intervenants) {
+                this.state.gibPerquisition.intervenants = [];
             }
-            let localIntervenantsVO = this.state.gibPerquisition?.intervenantsVO;
+            let localIntervenantsVO = this.state.gibPerquisition?.intervenants;
             let currentIntervenantVO = this.state.intervenantVO;
             console.log('++++++++++++++++++++++++1+++++++++++++++++++++++++++++');
             console.log('+++++++++++++++++++++++++2++++++++++++++++++++++++++++');
@@ -247,10 +250,11 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
             console.log('++++++++++++++++++++++++3+++++++++++++++++++++++++++++');
             console.log(JSON.stringify(localIntervenantsVO));
             console.log('+++++++++++++++++++++++++4++++++++++++++++++++++++++++');
-            this.state.gibPerquisition?.intervenantsVO.push(currentIntervenantVO);
+            currentIntervenantVO.index = this.state.gibPerquisition?.intervenants.length + 1;
+            this.state.gibPerquisition?.intervenants.push(currentIntervenantVO);
 
             this.setState({
-                // intervenantsVO: localIntervenantsVO,
+                // intervenants: localIntervenantsVO,
                 intervenantVO: INTERVENANT_INITIAL_PERQUISITION,
                 isRetablir: true,
                 updateState: false,
@@ -290,7 +294,7 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
         // console.log(JSON.stringify(modele));
         // console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
         // console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
-        if (_.isEmpty(modele.refTypeDocumentIdentite)) {
+        if (_.isEmpty(modele.refTypeDocumentIdentite?.code)) {
             params.required = true;
             params.msg += !_.isEmpty(params.msg) ? ", " : "";
             params.msg += translate('t6bisGestion.tabs.entete.redevableBlock.typeIdentifiant');
@@ -500,7 +504,7 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
                                         onRef={(ref) => (this.comboArrondissements55 = ref)}
                                         key="code"
                                         style={CustomStyleSheet.badrPicker}
-                                        selectedValue={this.state?.intervenantVO?.intervenant.refTypeDocumentIdentite}
+                                        selectedValue={this.state?.intervenantVO?.intervenant.refTypeDocumentIdentite?.code}
                                         titleStyle={CustomStyleSheet.badrPickerTitle}
                                         cle="code"
                                         libelle="libelle"
@@ -510,7 +514,7 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
                                         typeService="SP"
                                         storeWithKey="code"
                                         storeLibelleWithKey="libelle"
-                                        onValueChange={(item) =>
+                                        onValueChange={(selectedValue, selectedIndex, item) =>
 
                                             this.onChangeTypeIdentifiant(item)
                                         }
@@ -690,9 +694,9 @@ class ActifsRapportCreationPerquisitionTab extends React.Component {
                         <View style={CustomStyleSheet.row}>
                             <ComBasicDataTableComp
                                 id="PerquiTable"
-                                rows={this.state.gibPerquisition?.intervenantsVO}
+                                rows={this.state.gibPerquisition?.intervenants}
                                 cols={this.props?.consultation ? this.colsConsultation : this.cols}
-                                totalElements={this.state.gibPerquisition?.intervenantsVO?.length}
+                                totalElements={this.state.gibPerquisition?.intervenants?.length}
                                 maxResultsPerPage={10}
                                 paginate={true}
                                 showProgress={this.props.showProgress}
