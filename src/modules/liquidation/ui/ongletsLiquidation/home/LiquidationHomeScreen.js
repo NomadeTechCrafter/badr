@@ -50,6 +50,8 @@ class LiquidationHomeScreen extends React.Component {
       validerInfo: false,
       indicateurLiquidationArticlesEnFranchiseTotale:
         props.indicateurLiquidationArticlesEnFranchiseTotale,
+      isTabLiqManuelVisible: false,
+      isTabInfoVisible: false,
     };
   }
 
@@ -265,14 +267,18 @@ class LiquidationHomeScreen extends React.Component {
                   />
                 )}
               </Tab.Screen>
-              <Tab.Screen name="Liquidation Manuelle">
-                {(props) => (
-                  <LiquidationManuelleScreen {...props} data={data} />
-                )}
-              </Tab.Screen>
-              <Tab.Screen name="Information">
-                {(props) => <MainStackNavigator {...props} data={data} />}
-              </Tab.Screen>
+              {this.state.isTabLiqManuelVisible && (
+                <Tab.Screen name="Liquidation Manuelle">
+                  {(props) => (
+                    <LiquidationManuelleScreen {...props} data={data} />
+                  )}
+                </Tab.Screen>
+              )}
+              {this.state.isTabInfoVisible && (
+                <Tab.Screen name="Information">
+                  {(props) => <MainStackNavigator {...props} data={data} />}
+                </Tab.Screen>
+              )}
             </Tab.Navigator>
           </NavigationContainer>
         )}
@@ -296,10 +302,12 @@ class LiquidationHomeScreen extends React.Component {
               color: this.state.activerLiquiderArticle ? 'black' : 'grey',
               onPress: () => {
                 if (this.state?.activerLiquiderArticle) {
-                  RootNavigation.navigate('Liquidation Manuelle', {
-                    isArticle: true,
-                    selectedArticle: this.state.selectedArticle,
-                  });
+                  this.setState({isTabLiqManuelVisible: true}, () =>
+                    RootNavigation.navigate('Liquidation Manuelle', {
+                      isArticle: true,
+                      selectedArticle: this.state.selectedArticle,
+                    }),
+                  );
                 }
               },
             },
@@ -309,9 +317,11 @@ class LiquidationHomeScreen extends React.Component {
               color: 'black',
               onPress: () => {
                 console.log('-- Action liquiderGlobalement--');
-                RootNavigation.navigate('Liquidation Manuelle', {
-                  isArticle: false,
-                });
+                this.setState({isTabLiqManuelVisible: true}, () =>
+                  RootNavigation.navigate('Liquidation Manuelle', {
+                    isArticle: false,
+                  }),
+                );
               },
               small: false,
             },
