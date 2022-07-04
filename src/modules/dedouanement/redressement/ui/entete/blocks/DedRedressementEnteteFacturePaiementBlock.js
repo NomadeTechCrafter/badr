@@ -140,12 +140,12 @@ class DedRedressementEnteteFacturePaiementBlock extends React.Component {
     let list = this.state?.dedDumVo?.dedDumSectionEnteteVO?.listDeclarationFactureVO;
     console.log('list before : ', list);
     let declarationFactureVO = this.state.declarationFactureVO;
-    let articleToDelete = list.filter(function (ele) {
+    let factureToDelete = list.filter(function (ele) {
       return ele.numeroOrdre != declarationFactureVO.numeroOrdre;
     });
 
     console.log('list after : ', list);
-    this.updateListFactures(articleToDelete);
+    this.updateListFactures(factureToDelete);
     this.setState({ displayBlocFactureEdition: false });
 
 

@@ -1,8 +1,8 @@
 export const FORMAT_DDMMYYYY_HHMM = 'DD/MM/YYYY HH:mm';
 export const FORMAT_DDMMYYYY = 'DD/MM/YYYY';
 export const FORMAT_HHMM = 'HH:mm';
-export const LIST_TYPES_IDENTIFIANT= [
-   
+export const LIST_TYPES_IDENTIFIANT = [
+
     {
         "code": "02",
         "libelle": "Numero Carte séjour(02)",
@@ -55,7 +55,7 @@ export const NAVIGATION_MARITIME_MODEL_INITIAL = {
     heureEntree: (new Date()).getTime(),
     motifAccostage: '',
     portEntree: '',
-    provenance: { nomPays: ''},
+    provenance: { nomPays: '' },
     villeProvenance: '',
     portAttache: '',
     pavillon: '',
@@ -64,7 +64,7 @@ export const NAVIGATION_MARITIME_MODEL_INITIAL = {
     destination: { code: '', libelle: '' },
     villeDestination: '',
     typeBateau: '',
-    immatriculation:'',
+    immatriculation: '',
     nomBateau: '',
     couleur: '',
     longueur: '',
@@ -91,7 +91,7 @@ export const PROPRIETAIRE_INITIAL = {
         numeroDocumentIndentite: '',
         nomIntervenant: '',
         prenomIntervenant: '',
-        nationaliteFr:'',
+        nationaliteFr: '',
         adresse: '',
         numeroRC: '',
         refCentreRC: { codeCentreRC: '' },
@@ -112,10 +112,22 @@ export const INTERVENANT_INITIAL = {
         adresse: '',
         dateEffet: new Date(),
         dateFin: '9999-01-01',
-        
+
     }, passager: true,
     equipage: false,
     professionIntervenant: '',
+
+}
+export const INTERVENANT_INITIAL_PERQUISITION = {
+    intervenant:
+    {
+        refTypeDocumentIdentite: {},
+        numeroDocumentIndentite: '',
+        nomIntervenant: '',
+        prenomIntervenant: '',
+
+    },
+    consentement: false
 
 }
 

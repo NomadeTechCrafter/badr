@@ -28,7 +28,8 @@ export default class ActifsRapportPropritaireModal extends React.Component {
       proprietaireExist: false,
       proprietaire: this.props.proprietaire ? this.props.proprietaire : PROPRIETAIRE_INITIAL,
       acNationalite: '',
-      index: null
+      index: null,
+      intervenants: []
     };
   }
 
@@ -58,13 +59,36 @@ export default class ActifsRapportPropritaireModal extends React.Component {
   };
 
   retablirProprietaire = () => {
-    this.setState({ proprietaire: PROPRIETAIRE_INITIAL, acNationalite: { code: '', libelle: '' }, errorMessage: null, index: -1 }); 
+    this.setState({ proprietaire: PROPRIETAIRE_INITIAL, acNationalite: { code: '', libelle: '' }, errorMessage: null, index: -1 });
   }
 
   confirmerProprietaire = () => {
     if (!this.checkRequiredFields()) {
-      this.props.confirmer(this.state.proprietaire);
-      this.setState({ typeProprietaire: '01', index: -1, proprietaire: PROPRIETAIRE_INITIAL, acNationalite: { code: '', libelle: '' } });
+      let ifExist = false;
+      for (let localIntervenant of this.props.proprietaires) {
+        if (this.state.typeProprietaire === '01') {
+          if (this.state.proprietaire.intervenant.numeroDocumentIndentite === localIntervenant.intervenant.numeroDocumentIndentite) {
+            ifExist = true;
+          }
+        }
+        if (this.state.typeProprietaire === '02') {
+          if (this.state.proprietaire.intervenant.numeroRC === localIntervenant.intervenant.numeroRC
+            && this.state.proprietaire.intervenant.refCentreRC.codeCentreRC === localIntervenant.intervenant.refCentreRC.codeCentreRC) {
+            ifExist = true;
+          }
+        }
+      }
+      if (ifExist) {
+        this.setState({
+          errorMessage: 'Ce propriétaire a déjà été ajouté !'
+        });
+      } else {
+        this.setState({
+          errorMessage: null
+        });
+        this.props.confirmer(this.state.proprietaire);
+        this.setState({ typeProprietaire: '01', index: -1, proprietaire: PROPRIETAIRE_INITIAL, acNationalite: { code: '', libelle: '' } });
+      }
     }
   }
 
@@ -193,14 +217,6 @@ export default class ActifsRapportPropritaireModal extends React.Component {
       },
     };
     const response = await ComHttpHelperApi.process(data);
-    console.log('+-+-+-+-+-+-+-+-+-+-+-+-response+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
-    console.log('+-+-+-+-+-+-+-+-+-+-+-+-response+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
-    console.log('+-+-+-+-+-+-+-+-+-+-+-+-response+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
-    console.log(JSON.stringify(response));
-    console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-response+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
-    console.log('+-+-+-+-+-+-+-+-+-+-+-+-response+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
-    console.log('+-+-+-+-+-+-+-+-+-+-+-+-response+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
-    console.log('+-+-+-+-+-+-+-+-+-+-+-+-response+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
 
     let intervenant = {};
     if (response && response.data && response.data.jsonVO) {
@@ -287,7 +303,7 @@ export default class ActifsRapportPropritaireModal extends React.Component {
           proprietaire: {
             ...this.state.proprietaire, intervenant: {
               ...this.state.proprietaire?.intervenant, nomIntervenant: '',
-               adresse: ''
+              adresse: ''
             }
           }
         });

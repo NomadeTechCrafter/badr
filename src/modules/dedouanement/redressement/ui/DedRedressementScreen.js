@@ -1,6 +1,5 @@
 /** Drawer navigation */
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import moment from 'moment';
 import { NavigationContainer } from '@react-navigation/native';
 import _ from 'lodash';
 import React from 'react';
@@ -8,15 +7,19 @@ import { StyleSheet, View } from 'react-native';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { IconButton } from 'react-native-paper';
 import { connect } from 'react-redux';
-import { ComBadrErrorMessageComp, ComBadrInfoMessageComp, ComBadrToolbarComp } from '../../../../commons/component';
+import { ComBadrDialogComp, ComBadrErrorMessageComp, ComBadrInfoMessageComp, ComBadrToolbarComp } from '../../../../commons/component';
 import { translate } from '../../../../commons/i18n/ComI18nHelper';
+import { ComSessionService } from '../../../../commons/services/session/ComSessionService';
 import {
     accentColor,
     primaryColor,
     primaryColorRgba
 } from '../../../../commons/styles/ComThemeStyle';
+import controleUpdateVersionsAction from '../../../controle/common/state/actions/controleUpdateVersionsAction';
+import { CONTROLE_UPDATE_VERSIONS_REQUEST } from '../../../controle/common/state/controleCommonConstants';
 import DedConfirmerCertificatReceptionAction from '../../confirmationReception/state/actions/DedConfirmerCertificatReceptionAction';
 import { request } from '../state/actions/DedAction';
+import dedEnregistrerRedressementAction from '../state/actions/dedEnregistrerRedressementAction';
 import {
     CONFIRMER_CERTIFICAT_RECEPTION_INIT,
     CONFIRMER_CERTIFICAT_RECEPTION_REQUEST,
@@ -26,6 +29,7 @@ import {
     GENERIC_DED_INIT,
     GENERIC_DED_REQUEST
 } from '../state/DedRedressementConstants';
+import { DED_IMPUTATION_RED_NEW_PROVISIONNELLE, DED_IMPUTATION_TC_NOUVELLE_PROVISIONNELLE, DED_SERV_RECHREFERENCE } from '../utils/DedConstants';
 import { getCategorieDum, getValueByPath } from '../utils/DedUtils';
 import DedRedressementArticlesScreen from './articles/DedRedressementArticlesScreen';
 import DedRedressementCautionScreen from './caution/DedRedressementCautionScreen';
@@ -36,15 +40,10 @@ import DedRedressementImputationCompteREDScreen from './imputationsCompteRED/Ded
 import DedRedressementImputationTitreChangeScreen from './imputationsTitresChange/DedRedressementImputationTitreChangeScreen';
 import DedRedressementInfoScreen from './info/DedRedressementInfoScreen';
 import ModalConfirmationReception from './modelIntervention/modalConfirmationReception';
+import ModalIntervention from './modelIntervention/modalIntervention';
+import DedRedressementMoyenTransportTransitScreen from './moyenTransport/DedRedressementMoyenTransportTransitScreen';
 import DedRedressementPreapurementDsScreen from './preapurementDS/DedRedressementPreapurementDsScreen';
 import DedRedressementResultatScannerScreen from './resultatScanner/DedRedressementResultatScannerScreen';
-import DedRedressementMoyenTransportTransitScreen from './moyenTransport/DedRedressementMoyenTransportTransitScreen';
-import { ComSessionService } from '../../../../commons/services/session/ComSessionService';
-import { DED_IMPUTATION_RED_NEW_PROVISIONNELLE, DED_IMPUTATION_TC_NOUVELLE_PROVISIONNELLE, DED_SERV_RECHREFERENCE } from '../utils/DedConstants';
-import dedEnregistrerRedressementAction from '../state/actions/dedEnregistrerRedressementAction';
-import ModalIntervention from './modelIntervention/modalIntervention';
-import controleUpdateVersionsAction from '../../../controle/common/state/actions/controleUpdateVersionsAction';
-import { CONTROLE_UPDATE_VERSIONS_REQUEST } from '../../../controle/common/state/controleCommonConstants';
 
 
 
@@ -124,6 +123,7 @@ class DedRedressementScreen extends React.Component {
         indexDialogConfirmationReception: 0,
         showInterventionRedressement: false,
         indexDialogRedressement: 0,
+        dialogVisibility:false
     };
     constructor(props) {
         super(props);
@@ -464,6 +464,7 @@ class DedRedressementScreen extends React.Component {
 
     }
 
+
     updateVersions = (numeroVersionBase,numeroVersionCourante) => {
         console.log('updateVersions numeroVersionBase:', numeroVersionBase);
         console.log('updateVersions numeroVersionCourante:', numeroVersionCourante);
@@ -477,6 +478,61 @@ class DedRedressementScreen extends React.Component {
         this.props.dispatch(action);
     }
 
+    sauvegarde = () => {
+        let consulterDumReducer = getValueByPath('consulterDumReducer', this.props);
+        let dedDumVO = consulterDumReducer.data;
+
+
+        let action = dedEnregistrerRedressementAction.sauvegarde(
+            {
+                type: ENREGISTRER_REDRESSEMENT_REQUEST,
+                value: dedDumVO,
+
+
+            }
+
+        );
+
+        this.props.dispatch(action);
+
+
+    }
+
+    
+
+    hideDialog = () => this.setState({ dialogVisibility: false });
+    showDialog = () => this.setState({ dialogVisibility: true });
+
+    supprimerVersion = () => {
+        let consulterDumReducer = getValueByPath('consulterDumReducer', this.props);
+        let dedDumMotifIInputVO = {motif:''}
+        dedDumMotifIInputVO.dedDumVO = consulterDumReducer.data;
+
+        console.log('===============================================================================================');
+        console.log('===============================================================================================');
+        console.log('===============================================================================================');
+        console.log('===============================================================================================');
+        console.log(JSON.stringify(dedDumMotifIInputVO));
+        console.log('===============================================================================================');
+        console.log('===============================================================================================');
+        console.log('===============================================================================================');
+        console.log('===============================================================================================');
+
+        let action = dedEnregistrerRedressementAction.supprimerVersion(
+            {
+                type: ENREGISTRER_REDRESSEMENT_REQUEST,
+                value: dedDumMotifIInputVO,
+
+
+            },
+            this.props.navigation, this.props.route.params.successRedirection
+
+        );
+
+        this.props.dispatch(action);
+
+
+    }
 
     render() {
         let isCautionAccessible = this.extractCommandData(
@@ -539,6 +595,11 @@ class DedRedressementScreen extends React.Component {
             this.props
 
         ); 
+        let messageInfoRedressement = getValueByPath(
+            'dedEnregisterRedressementReducer.messageInfo',
+            this.props
+
+        ); 
 
         return (
             <View style={{ flex: 1 }}>
@@ -555,12 +616,26 @@ class DedRedressementScreen extends React.Component {
                         onPress={() => this.lancerModal()}
                     />}
                     {(((typeof isRedressementDUM != "undefined") && (isRedressementDUM)) && ((typeof success == "undefined") || (!success))) && <IconButton
+                        icon="database"
+                        size={30}
+                        color={primaryColor}
+                        style={{ backgroundColor: 'white' }}
+                        onPress={() => this.sauvegarde()}
+                    />}
+                    {(((typeof isRedressementDUM != "undefined") && (isRedressementDUM)) && ((typeof success == "undefined") || (!success))) && <IconButton
                         icon="arrange-bring-forward"
                         size={30}
                         color={primaryColor}
                         style={{ backgroundColor: 'white' }}
                         onPress={() => this.lancerModalRedressement()}
                     />}
+                    {(((typeof isRedressementDUM != "undefined") && (isRedressementDUM)) && ((typeof success == "undefined") || (!success))) && <IconButton
+                        icon="delete-outline"
+                        size={30}
+                        color={primaryColor}
+                        style={{ backgroundColor: 'white' }}
+                        onPress={() => this.showDialog()}
+                        /> }
                 </ComBadrToolbarComp>}
                 {errorMessage != null && (
                     <View>
@@ -588,6 +663,16 @@ class DedRedressementScreen extends React.Component {
                         />
                     </View>
                 )}
+                {messageInfoRedressement != null && (
+                    <View>
+                        <ComBadrInfoMessageComp
+                            style={styles.centerInfoMsg}
+                            message={messageInfoRedressement}
+                        />
+                    </View>
+                )}
+
+                
                 <NavigationContainer independent={true}>
                     {/* add test to fix the loading prob in document tab*/}
                     {!_.isNil(isCautionAccessible) &&
@@ -713,6 +798,21 @@ class DedRedressementScreen extends React.Component {
                     retablir={this.retablirRedressement}
                     update={this.updateIntervention}
                     index={this.state.indexDialogRedressement}
+                />
+                <ComBadrDialogComp
+                    title={translate('dedouanement.deleteConfirmDialog.info')}
+                    confirmMessage={translate(
+                        'dedouanement.deleteConfirmDialog.oui',
+                    )}
+                    cancelMessage={translate(
+                        'dedouanement.deleteConfirmDialog.non',
+                    )}
+                    dialogMessage={translate(
+                        'dedouanement.deleteConfirmDialog.confirmationMessage',
+                    )}
+                    onCancel={this.hideDialog}
+                    onOk={() => { this.supprimerVersion(); this.hideDialog(); }}
+                    dialogVisibility={this.state.dialogVisibility}
                 />
             </View>
         );

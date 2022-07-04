@@ -55,13 +55,36 @@ export default class ActifsRapportPropritaireModal extends React.Component {
   };
 
   retablirProprietaire = () => {
-    this.setState({ proprietaire: PROPRIETAIRE_INITIAL, acNationalite: { code: '', libelle: '' }, errorMessage: null, index: -1 });
+    this.setState({ proprietaire: PROPRIETAIRE_INITIAL, acNationalite: { code: '', libelle: '' }, errorMessage: null, infoMessage: null, index: -1 });
   }
 
   confirmerProprietaire = () => {
     if (!this.checkRequiredFields()) {
-      this.props.confirmer(this.state.proprietaire);
-      this.setState({ typeProprietaire: '01', index: -1, proprietaire: PROPRIETAIRE_INITIAL, acNationalite: { code: '', libelle: '' } });
+      let ifExist = false;
+      for (let localIntervenant of  this.props.proprietaires) {
+        if (this.state.typeProprietaire === '01') {
+          if (this.state.proprietaire.intervenant.numeroDocumentIndentite === localIntervenant.intervenant.numeroDocumentIndentite) {
+            ifExist = true;
+          }
+        }
+        if (this.state.typeProprietaire === '02') {
+          if (this.state.proprietaire.intervenant.numeroRC === localIntervenant.intervenant.numeroRC
+            && this.state.proprietaire.intervenant.refCentreRC.codeCentreRC === localIntervenant.intervenant.refCentreRC.codeCentreRC ) {
+            ifExist = true;
+          }
+        }
+      }
+      if (ifExist) {
+        this.setState({
+          errorMessage: 'Ce propriétaire a déjà été ajouté !'
+        });
+      } else {
+        this.setState({
+          errorMessage: null
+        });
+        this.props.confirmer(this.state.proprietaire);
+        this.setState({ typeProprietaire: '01', index: -1, proprietaire: PROPRIETAIRE_INITIAL, acNationalite: { code: '', libelle: '' } });
+      }
     }
   }
 

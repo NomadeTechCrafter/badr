@@ -64,12 +64,27 @@ export default class ActifsRapportPersonneConcerneeModal extends React.Component
 
   confirmerIntervenant = () => {
     if (!this.checkRequiredFields()) {
-      this.props.confirmer(this.state.intervenant);
-      this.setState({
-        cocherPassager: true,
-        index: -1,
-        isPassager: 'true', intervenant: INTERVENANT_INITIAL, acNationalite: { code: '', libelle: '' }
-      });
+      let ifExist = false;
+      for (let localIntervenant of this.props.intervenants) {
+        if (this.state.intervenant?.intervenant.numeroDocumentIndentite === localIntervenant.intervenant.numeroDocumentIndentite) {
+          ifExist = true;
+        }
+      }
+      if (ifExist) {
+        this.setState({
+          errorMessage: 'Ce propriétaire a déjà été ajouté !'
+        });
+      } else {
+        this.setState({
+          errorMessage: null
+        });
+        this.props.confirmer(this.state.intervenant);
+        this.setState({
+          cocherPassager: true,
+          index: -1,
+          isPassager: 'true', intervenant: INTERVENANT_INITIAL, acNationalite: { code: '', libelle: '' }
+        });
+      }
     }
   }
 

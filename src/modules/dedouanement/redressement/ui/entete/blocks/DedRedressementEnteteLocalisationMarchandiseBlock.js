@@ -40,9 +40,11 @@ class DedRedressementEnteteLocalisationMarchandiseBlock extends React.Component 
 
     ];
     this.state = {
-      dedDumVo: this.props.data,
+      dedDumVo: this.props.data, 
       showDateVoyage: false,
       dateVoyageTech: (new Date()).getTime(),
+      paysDestinationTransbordementDisabled: !this.props.data.dedDumSectionEnteteVO?.regimeExport && this.props.data.dedDumSectionEnteteVO.paysDestinationTransbordement == 'MA',
+      paysProvenanceOuDestinationDisabled: this.props.data.dedDumSectionEnteteVO?.regimeExport || this.props.data.dedDumSectionEnteteVO.paysProvenanceOuDestination == 'MA'
     };
   }
 
@@ -203,7 +205,7 @@ class DedRedressementEnteteLocalisationMarchandiseBlock extends React.Component 
                 libelle="Pays de provenance"
                 children={
                   <ComBadrAutoCompleteChipsComp
-                    disabled={this.props.readOnly || this.state.dedDumVo.dedDumSectionEnteteVO?.regimeExport || this.state.dedDumVo.dedDumSectionEnteteVO.paysProvenanceOuDestination == 'MA'}
+                    disabled={this.props.readOnly || this.state.paysProvenanceOuDestinationDisabled}
                     onRef={(ref) => (this.refPaysProv = ref)}
                     code="code"
                     selected={this.state.dedDumVo.dedDumSectionEnteteVO?.paysProvenanceOuDestinationLibelle}
@@ -248,7 +250,7 @@ class DedRedressementEnteteLocalisationMarchandiseBlock extends React.Component 
                 libelle="Pays de destination"
                 children={
                   <ComBadrAutoCompleteChipsComp
-                    disabled={this.props.readOnly}
+                    disabled={this.props.readOnly || this.state.paysDestinationTransbordementDisabled}
                     onRef={(ref) => (this.refPaysDestinationTrans = ref)}
                     code="code"
                     selected={this.state.dedDumVo.dedDumSectionEnteteVO?.paysDestinationTransbordementLibelle}

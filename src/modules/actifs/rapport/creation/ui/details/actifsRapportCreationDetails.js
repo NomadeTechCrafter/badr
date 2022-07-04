@@ -237,7 +237,7 @@ class AtifsRapportCreationDetailsTab extends Component {
 
   render() {
 
-    // console.log('props ----------------===> : ' + JSON.stringify(this.props?.rows));
+    // console.log('props ----------------===> : ' + JSON.stringify(this.props?.rows?.refAgentDetachement));
     return (
       <View style={CustomStyleSheet.fullContainer}>
         <ComContainerComp>
@@ -352,7 +352,7 @@ class AtifsRapportCreationDetailsTab extends Component {
                   </Col>
                   <Col size={6} style={{ paddingRight: 5 }}>
                     {(this.props.consultation &&
-                      <RadioButton.Group disabled={true} value={this.props.rows?.coiffeInitiePar ? this.props.rows?.coiffeInitiePar : this.state?.coiffeInitiePar }>
+                      <RadioButton.Group disabled={true} value={this.props.rows?.coiffeInitiePar ? this.props.rows?.coiffeInitiePar : this.state?.coiffeInitiePar}>
                         <View style={{ justifyContent: 'space-around' }}>
                           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                             <RadioButton value="OFFICIER_CONTROLE" color={primaryColor} />
@@ -400,11 +400,13 @@ class AtifsRapportCreationDetailsTab extends Component {
                   <Col size={6} style={{ paddingRight: 5 }}>
                     {(this.props.consultation &&
                       <ComBadrAutoCompleteChipsComp
-                        code="code"
                         disabled={true}
-                      selected={this.props?.rows?.refAgentDetachement?.libelle ? this.props?.rows?.refAgentDetachement?.libelle : this.state?.refAgentDetachement?.libelle}
+                        selected={this.props?.rows?.refAgentDetachement
+                          ?
+                          this.props?.rows?.refAgentDetachement.nom + ' ' + this.props?.rows?.refAgentDetachement.prenom
+                          :
+                          ''}
                         maxItems={3}
-                        libelle="libelle"
                         command="getCmbAgentDouanier"
                         onDemand={true}
                         searchZoneFirst={false}
@@ -419,12 +421,21 @@ class AtifsRapportCreationDetailsTab extends Component {
                         command="getCmbAgentDouanier"
                         onDemand={true}
                         searchZoneFirst={false}
+                        // onValueChange={(item) => {
+                        //   this.setState(prevState => ({
+                        //     ...prevState.refAgentDetachement,
+                        //     refAgentDetachement: item,
+                        //   }))
+                        //   this.updateModele();
+                        // }
                         onValueChange={(item) => {
-                          this.setState(prevState => ({
-                            ...prevState.refAgentDetachement,
+                          this.setState(previousState => ({
                             refAgentDetachement: item,
-                          }))
-                          this.updateModele();
+                          }), () => {
+                            this.props.update({
+                              refAgentDetachement: item,
+                            });
+                          });
                         }
                         }
                       />

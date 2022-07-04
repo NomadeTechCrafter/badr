@@ -11,6 +11,12 @@ export default {
     redressement: {
       title: 'REDRESSER DECLARATION'
     },
+    deleteConfirmDialog: {
+      info: 'Supprimer la version',
+      oui: 'Confirmer',
+      non: 'Annuler',
+      confirmationMessage: 'Après suppression, toutes les énonciations saisies seront définitivement perdues !',
+    },
     entete: {
       commentaires: 'Commentaires',
       ConsulterAMP: 'Consulter AMP',
@@ -280,6 +286,14 @@ export default {
         type: 'Type',
         motif: 'Motif',
       }
+    }, peapurementds: {
+      preapnum: "Préapurement N° :",
+      lotded: "Lot de dédouanement",
+      modetransport: "Mode de transport",
+      moyentransport: "Moyen de transport",
+      datearrivee: "Date d'arrivée",
+      poidsbrut: "Poids brut",
+      nbrecontenant:"Nbre contenant(s)"
     }
   },
 };

@@ -258,3 +258,9 @@ project.ext.envConfigFiles = [
 ]
 //configuration de .env file
 apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
+
+configurations.all {
+    resolutionStrategy {
+        force 'androidx.core:core-ktx:1.6.0'
+    }
+}

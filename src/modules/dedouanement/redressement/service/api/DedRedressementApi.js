@@ -164,5 +164,51 @@ export default class DedRedressementApi {
     return response;
   };
 
+  static sauvegarderDum = async (dedDumVO) => {
+    const data = {
+      dtoHeader: {
+        userLogin: ComSessionService.getInstance().getLogin(),
+        fonctionnalite: ComSessionService.getInstance().getFonctionalite(),
+        module: 'DED_LIB',
+        commande: 'ded.SauvegarderDum',
+        typeService: TYPE_SERVICE_UC,
+      },
+      jsonVO: dedDumVO,
+    };
+    let response = await ComHttpHelperApi.process(data);
+    return response;
+  };
+  static supprimerDum = async (dedDumMotifIInputVO) => {
+    const data = {
+      dtoHeader: {
+        userLogin: ComSessionService.getInstance().getLogin(),
+        fonctionnalite: ComSessionService.getInstance().getFonctionalite(),
+        module: 'DED_LIB',
+        commande: 'ded.SupprimerDum',
+        typeService: TYPE_SERVICE_UC,
+      },
+      jsonVO: dedDumMotifIInputVO,
+    };
+    let response = await ComHttpHelperApi.process(data);
+    return response;
+  };
+
+  static validerReferencePreapurementDS = async (dedDumPreapVO) => {
+    const data = {
+      dtoHeader: {
+        userLogin: ComSessionService.getInstance().getLogin(),
+        fonctionnalite: ComSessionService.getInstance().getFonctionalite(),
+        module: 'DED_LIB',
+        commande: 'ded.validerReferencePreapurementDS',
+        typeService: TYPE_SERVICE_SP,
+      },
+      jsonVO: dedDumPreapVO,
+    };
+    console.log('data consulterAMPByDed', data);
+    let response = await ComHttpHelperApi.process(data);
+    console.log('response consulterAMPByDed', response);
+    return response;
+  };
+
 
 }

@@ -112,7 +112,7 @@ class ActifsRapportCreationEnteteTab extends Component {
       errorMessage: null
     });
 
-    let dateDebut = format(this.props.rows.dateDebut);
+    let dateDebut = format(this.props.rows.ordreService.dateDebut);
 
     moment.suppressDeprecationWarnings = true;
     let dateHeureDebut = moment(dateDebut, FORMAT_DDMMYYYY_HHMM);

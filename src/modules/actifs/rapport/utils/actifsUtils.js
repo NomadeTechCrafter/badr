@@ -152,6 +152,7 @@ export const validCIN = (cin) => {
     result[1] = null;
     return result;
   }
+
   let charPart = cin.substring(0, 1);
   if (!charPart.match(/^[A-Z]$/i)) {
     result[1] = 'E00502: Le premier caractère du CIN doit être une lettre';
@@ -161,6 +162,7 @@ export const validCIN = (cin) => {
     result[1] = 'E00503: Taille du CIN incorrecte (elle doit etre comprise entre 2 et 8).';
     return result;
   }
+
   let alphaNumPart = cin.substring(1, 2);
   if (cin.length == 2) {
     if (!isNumber(alphaNumPart)) {
@@ -169,13 +171,13 @@ export const validCIN = (cin) => {
     }
   } else {
     if (!alphaNumPart.match()) {
-      result[1] = 'E00504: La taille minimale du champ est égale à 2 (au moins un caractère alphabétique  et un caractère numérique)';
+      result[1] = 'E00505: Le deuxième caractère du CIN doit être alphanumérique';
       return result;
     }
   }
 
   console.log('cin before : ' + cin);
-  let numPart = cin.length === 2 ? '' :  cin.substring(cin.length - 2, cin.length);
+  let numPart = cin.length === 2 ? '' :  cin.substring(2);
   console.log('numPart after : ' + numPart);
 
   for (let i = 0; i < numPart.length; i++) {
@@ -250,10 +252,10 @@ export const validCarteSejour = (carteSejour) => {
     result[1] = 'E00508: Taille de la carte de séjour incorrecte (elle doit etre comprise entre 2 et 8).';
     return result;
   }
-  let numPart = carteSejour.substring(1, 3);
+  let numPart = carteSejour.substring(2);
   console.log('numPart : ' + numPart);
   if (lengthCarteSejour > 2) {
-    for (let i = 0; i < numPart.length; i++) {
+    for (let i = 0; i < numPart.length - 1; i++) {
       let num = numPart.substring(i, i + 1);
       if (!isNumber(num)) {
         console.log('num : ' + num);
@@ -312,39 +314,39 @@ export const cleanOrdreService = (rsAEnregistrer) => {
   });
 
   // rsAEnregistrer.gibPerquisition.intervenants = [];
-  delete rsAEnregistrer?.gibPerquisition?.intervenantsVO?.forEach((intervenantVO) => {
-    delete intervenantVO?.defaultConverter;
-    delete intervenantVO?.dtoHeader;
-    delete intervenantVO?.jsonVO;
-    delete intervenantVO?.module;
-    delete intervenantVO?.command;
-    delete intervenantVO?.payload;
-    delete intervenantVO?.typeService;
-    delete intervenantVO?.param;
-    delete intervenantVO?.identifiants;
-    delete intervenantVO?.idPourRecherche;
-    delete intervenantVO?.rechercheValides;
-    delete intervenantVO?.rechercheAnnules;
-    intervenantVO.intervenant = {};
-    intervenantVO.intervenant.adresse = intervenantVO.adresse;
-    delete intervenantVO.adresse;
-    intervenantVO.intervenant.nationaliteFr = intervenantVO.nationaliteFr;
-    delete intervenantVO.nationaliteFr;
-    intervenantVO.intervenant.nomIntervenant = intervenantVO.nomIntervenant;
-    delete intervenantVO.nomIntervenant;
-    intervenantVO.intervenant.numeroDocumentIndentite = intervenantVO.numeroDocumentIndentite;
-    delete intervenantVO.numeroDocumentIndentite;
-    intervenantVO.intervenant.numeroOrdreIntervenant = intervenantVO.numeroOrdreIntervenant;
-    delete intervenantVO.numeroOrdreIntervenant;
-    intervenantVO.intervenant.prenomIntervenant = intervenantVO.prenomIntervenant;
-    delete intervenantVO.prenomIntervenant;
-    intervenantVO.intervenant.refTypeDocumentIdentite = intervenantVO.refTypeDocumentIdentite;
-    delete intervenantVO.refTypeDocumentIdentite;
-    intervenantVO.intervenant.typeIntervenant = intervenantVO.typeIntervenant;
-    delete intervenantVO.typeIntervenant;
+  // delete rsAEnregistrer?.gibPerquisition?.intervenantsVO?.forEach((intervenantVO) => {
+  //   delete intervenantVO?.defaultConverter;
+  //   delete intervenantVO?.dtoHeader;
+  //   delete intervenantVO?.jsonVO;
+  //   delete intervenantVO?.module;
+  //   delete intervenantVO?.command;
+  //   delete intervenantVO?.payload;
+  //   delete intervenantVO?.typeService;
+  //   delete intervenantVO?.param;
+  //   delete intervenantVO?.identifiants;
+  //   delete intervenantVO?.idPourRecherche;
+  //   delete intervenantVO?.rechercheValides;
+  //   delete intervenantVO?.rechercheAnnules;
+  //   intervenantVO.intervenant = {};
+  //   intervenantVO.intervenant.adresse = intervenantVO.adresse;
+  //   delete intervenantVO.adresse;
+  //   intervenantVO.intervenant.nationaliteFr = intervenantVO.nationaliteFr;
+  //   delete intervenantVO.nationaliteFr;
+  //   intervenantVO.intervenant.nomIntervenant = intervenantVO.nomIntervenant;
+  //   delete intervenantVO.nomIntervenant;
+  //   intervenantVO.intervenant.numeroDocumentIndentite = intervenantVO.numeroDocumentIndentite;
+  //   delete intervenantVO.numeroDocumentIndentite;
+  //   intervenantVO.intervenant.numeroOrdreIntervenant = intervenantVO.numeroOrdreIntervenant;
+  //   delete intervenantVO.numeroOrdreIntervenant;
+  //   intervenantVO.intervenant.prenomIntervenant = intervenantVO.prenomIntervenant;
+  //   delete intervenantVO.prenomIntervenant;
+  //   intervenantVO.intervenant.refTypeDocumentIdentite = intervenantVO.refTypeDocumentIdentite;
+  //   delete intervenantVO.refTypeDocumentIdentite;
+  //   intervenantVO.intervenant.typeIntervenant = intervenantVO.typeIntervenant;
+  //   delete intervenantVO.typeIntervenant;
     // rsAEnregistrer?.gibPerquisition?.intervenants.push(intervenantVO);
-  });
-  delete rsAEnregistrer?.gibPerquisition?.intervenantsVO;
+  // });
+  // delete rsAEnregistrer?.gibPerquisition?.intervenantsVO;
 
   if (_.isArray(rsAEnregistrer?.rapportService?.ordreService?.agentsBrigade)) {
     rsAEnregistrer.rapportService?.ordreService?.agentsBrigade?.forEach((agentBrigade) => {
