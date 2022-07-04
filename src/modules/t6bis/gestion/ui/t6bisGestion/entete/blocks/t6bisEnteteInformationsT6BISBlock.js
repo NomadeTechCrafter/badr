@@ -51,21 +51,21 @@ handleCallback = (childData) =>{
             <View>
                 {isMtm(codeTypeT6bis) && (
                     <T6bisInformationsMtmSousBlock parentCallback = {this.handleCallback} t6bis={this.props.t6bis} listmoyenpaiement={this.props.listmoyenpaiement}   readOnly={this.props.readOnly}/>)}
-                 {isMtm(codeTypeT6bis) && this.state.typeMoyenPaiement=='03'&&(
-                     <T6bisInformationsTpeMtmSousBlock t6bis={this.props.t6bis}  listDesTpes={this.props.listDesTpes}     readOnly={this.props.readOnly}/>)}
 
   
                 {isCm(codeTypeT6bis) && (
-                    <T6bisInformationsCmSousBlock t6bis={this.props.t6bis} listmoyenpaiement={this.props.listmoyenpaiement} readOnly={this.props.readOnly} />)}
+                    <T6bisInformationsCmSousBlock parentCallback = {this.handleCallback} t6bis={this.props.t6bis} listmoyenpaiement={this.props.listmoyenpaiement} readOnly={this.props.readOnly} />)}
                 {isTaxeCoordination(codeTypeT6bis) && (
-                    <T6bisInformationsTaxeCoordinationSousBlock t6bis={this.props.t6bis} fieldsetcontext={this.props.fieldsetcontext} listmoyenpaiement={this.props.listmoyenpaiement} readOnly={this.props.readOnly}/>)}
+                    <T6bisInformationsTaxeCoordinationSousBlock parentCallback = {this.handleCallback} t6bis={this.props.t6bis} fieldsetcontext={this.props.fieldsetcontext} listmoyenpaiement={this.props.listmoyenpaiement} readOnly={this.props.readOnly}/>)}
                 {isContrainteParCorps(codeTypeT6bis) && (
-                    <T6bisInformationsContainteCorpsSousBlock t6bis={this.props.t6bis} listmoyenpaiement={this.props.listmoyenpaiement} readOnly={this.props.readOnly}/>)}
+                    <T6bisInformationsContainteCorpsSousBlock parentCallback = {this.handleCallback} t6bis={this.props.t6bis} listmoyenpaiement={this.props.listmoyenpaiement} readOnly={this.props.readOnly}/>)}
                 {isAffaireChange(codeTypeT6bis) && (
-                    <T6bisInformationsAffaireChangeSousBlock t6bis={this.props.t6bis} listmoyenpaiement={this.props.listmoyenpaiement} readOnly={this.props.readOnly}/>)}
+                    <T6bisInformationsAffaireChangeSousBlock parentCallback = {this.handleCallback} t6bis={this.props.t6bis} listmoyenpaiement={this.props.listmoyenpaiement} readOnly={this.props.readOnly}/>)}
                 {isAmendeTransactionnelle(codeTypeT6bis) && (
-                    <T6bisInformationsAmendeTransactionnelleSousBlock t6bis={this.props.t6bis} listmoyenpaiement={this.props.listmoyenpaiement} readOnly={this.props.readOnly}/>)}
+                    <T6bisInformationsAmendeTransactionnelleSousBlock parentCallback = {this.handleCallback} t6bis={this.props.t6bis} listmoyenpaiement={this.props.listmoyenpaiement} readOnly={this.props.readOnly}/>)}
 
+                {this.state.typeMoyenPaiement=='03'&&(
+                    <T6bisInformationsTpeMtmSousBlock t6bis={this.props.t6bis}  listDesTpes={this.props.listDesTpes}     readOnly={this.props.readOnly}/>)}
 
             </View>
 

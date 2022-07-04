@@ -95,6 +95,7 @@ class T6bisInformationsContainteCorpsSousBlock extends React.Component {
                                 onValueChanged={(value, index) => {
                                     this.setState({ typeMoyenPaiement: value.code });
                                     this.props.t6bis.typeMoyenPaiement = value;
+                                    this.props.parentCallback(value?.code);
                                 }
                                 }
                             />
