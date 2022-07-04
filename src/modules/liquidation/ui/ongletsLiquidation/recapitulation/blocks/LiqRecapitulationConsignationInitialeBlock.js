@@ -22,7 +22,7 @@ class LiqRecapitulationConsignationInitialeBlock extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      refTypeConsignation: '',
+      refTypeConsignation: this.props.liquidationVO?.refOperationSimultanee?.refTypeConsignation,
       selectedBorderau: this.props.liquidationVO?.refModePaiement,
     };
   }
@@ -114,10 +114,10 @@ class LiqRecapitulationConsignationInitialeBlock extends React.Component {
                     </Col>
                   </Row>
                 </Col>
-                {/* <Col style={styles.decisionContainerRB}>
+                <Col style={styles.decisionContainerRB}>
                   <Row>
                     <Col size={1}>
-                      <RadioButton color={styles.textRadio.color} value="0" />
+                      <RadioButton color={styles.textRadio.color} value="06" />
                     </Col>
                     <Col size={5}>
                       <Text style={styles.textRadio}>
@@ -127,7 +127,7 @@ class LiqRecapitulationConsignationInitialeBlock extends React.Component {
                       </Text>
                     </Col>
                   </Row>
-                </Col> */}
+                </Col>
               </RadioButton.Group>
             </Row>
 

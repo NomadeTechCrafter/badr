@@ -11,6 +11,7 @@ import {
   primaryColor,
 } from '../../../../../../commons/styles/ComThemeStyle';
 import {IconButton} from 'react-native-paper';
+import {Alert} from 'react-native';
 
 export default class LiqManuelleGlobal extends React.Component {
   constructor(props) {
@@ -34,9 +35,19 @@ export default class LiqManuelleGlobal extends React.Component {
       <ComBadrCardBoxComp noPadding={true}>
         {/* Bloc Liquidation globale' */}
         <ComAccordionComp
-          title={translate('liq.liquidationManuelle.liquidationGlobale')}>
+          title={translate('liq.liquidationManuelle.liquidationGlobale')}
+          expanded={true}>
           <Grid>
             <Row style={CustomStyleSheet.lightBlueRow}>
+              <Col size={1}>
+                <IconButton
+                  icon="plus"
+                  size={20}
+                  color={'white'}
+                  style={{backgroundColor: primaryColor}}
+                  onPress={() => this.props.addRubriquesComptables()}
+                />
+              </Col>
               <Col>
                 <ComBadrLibelleComp withColor={true}>
                   {translate('liq.liquidationNormaleInitiale.codeRubrique')}
@@ -54,16 +65,17 @@ export default class LiqManuelleGlobal extends React.Component {
                 <ComBadrLibelleComp withColor={true} />
               </Col>
             </Row>
-            {listeTaxesGlobales.map((item, key) => (
-              <Row key={key} style={CustomStyleSheet.whiteRow}>
+            {listeTaxesGlobales.map((item, index) => (
+              <Row key={index} style={CustomStyleSheet.whiteRow}>
+                <Col size={1} />
                 <Col>
                   <ComBadrLibelleComp withColor={false}>
-                    {'uuu'}
+                    {item.codeDouane}
                   </ComBadrLibelleComp>
                 </Col>
                 <Col>
                   <ComBadrLibelleComp withColor={false}>
-                    {'ffffr'}
+                    {item.montantDH}
                   </ComBadrLibelleComp>
                 </Col>
                 <Col>
@@ -73,9 +85,9 @@ export default class LiqManuelleGlobal extends React.Component {
                       color={'white'}
                       size={20}
                       style={{backgroundColor: primaryColor}}
-                      //    onPress={() =>
-                      //       this.editRubriquesComptables('item', 'index')
-                      //  }
+                      onPress={() =>
+                        this.props.editRubriquesComptables(item, index)
+                      }
                     />
                   </ComBadrLibelleComp>
                 </Col>
@@ -86,9 +98,9 @@ export default class LiqManuelleGlobal extends React.Component {
                       color={'white'}
                       size={20}
                       style={{backgroundColor: primaryColor}}
-                      //  onPress={() =>
-                      //      this.deleteRubriquesComptables('item', 'index')
-                      //  }
+                      onPress={() =>
+                        this.props.deleteRubriquesComptables(item, index)
+                      }
                     />
                   </ComBadrLibelleComp>
                 </Col>

@@ -98,6 +98,7 @@ class LiquidationManuelleScreen extends React.Component {
         liquidationVO.refLignesRubriqueOperation,
         false,
       );
+      return false;
     }
     if (
       liquidationVO.refOperationSimultanee &&
@@ -481,73 +482,74 @@ class LiquidationManuelleScreen extends React.Component {
             this.scrollViewRef = ref;
           }}>
           <LiqManuelleConsignationInitialeBlock liquidationVO={liquidationVO} />
-          <ComBadrCardBoxComp>
-            <Grid>
-              <ComBadrLibelleComp
-                withColor={true}
-                style={{fontSize: 14, color: 'grey'}}>
-                {isArticle
-                  ? translate('liq.actions.liquiderArticle')
-                  : translate('liq.actions.liquiderGlobalement')}
-              </ComBadrLibelleComp>
-              {isArticle && (
-                <View>
-                  <Row style={styles.whiteRow}>
-                    {selectedArticle?.numArticle && (
-                      <>
-                        <Col size={2}>
-                          <ComBadrLibelleComp withColor={true}>
-                            {translate('liq.articleNumero')}
-                          </ComBadrLibelleComp>
-                        </Col>
-                        <Col size={2}>
-                          <ComBadrLibelleComp>
-                            {selectedArticle.numArticle}
-                          </ComBadrLibelleComp>
-                        </Col>
-                      </>
-                    )}
-                    {liquidationVO.numOrdreOperation && (
-                      <>
-                        <Col size={1}>
-                          <ComBadrLibelleComp withColor={true}>
-                            {translate('liq.codeNGP')}
-                          </ComBadrLibelleComp>
-                        </Col>
-                        <Col size={1}>
-                          <ComBadrLibelleComp>
-                            {liquidationVO.numOrdreOperation}
-                          </ComBadrLibelleComp>
-                        </Col>
-                      </>
-                    )}
-                  </Row>
-                  <Row style={styles.whiteRow}>
-                    <Col size={2}>
-                      <ComBadrLibelleComp withColor={true}>
-                        {translate(
-                          'liq.articles.baseActuelleLiquidationNormale',
-                        )}
-                      </ComBadrLibelleComp>
-                    </Col>
-                    <Col size={2}>
-                      <ComBadrLibelleComp />
-                    </Col>
-                    <Col size={2} />
-                  </Row>
-                </View>
-              )}
-              <Row style={CustomStyleSheet.lightBlueRow}>
-                <Col size={1}>
-                  <IconButton
-                    icon="plus"
-                    size={20}
-                    color={'white'}
-                    style={{backgroundColor: primaryColor}}
-                    onPress={() => this.addRubriquesComptables()}
-                  />
-                </Col>
-                {!isArticle ? (
+          {isArticle && (
+            <ComBadrCardBoxComp>
+              <Grid>
+                <ComBadrLibelleComp
+                  withColor={true}
+                  style={{fontSize: 14, color: 'grey'}}>
+                  {isArticle
+                    ? translate('liq.actions.liquiderArticle')
+                    : translate('liq.actions.liquiderGlobalement')}
+                </ComBadrLibelleComp>
+                {isArticle && (
+                  <View>
+                    <Row style={styles.whiteRow}>
+                      {selectedArticle?.numArticle && (
+                        <>
+                          <Col size={2}>
+                            <ComBadrLibelleComp withColor={true}>
+                              {translate('liq.articleNumero')}
+                            </ComBadrLibelleComp>
+                          </Col>
+                          <Col size={2}>
+                            <ComBadrLibelleComp>
+                              {selectedArticle.numArticle}
+                            </ComBadrLibelleComp>
+                          </Col>
+                        </>
+                      )}
+                      {liquidationVO.numOrdreOperation && (
+                        <>
+                          <Col size={1}>
+                            <ComBadrLibelleComp withColor={true}>
+                              {translate('liq.codeNGP')}
+                            </ComBadrLibelleComp>
+                          </Col>
+                          <Col size={1}>
+                            <ComBadrLibelleComp>
+                              {liquidationVO.numOrdreOperation}
+                            </ComBadrLibelleComp>
+                          </Col>
+                        </>
+                      )}
+                    </Row>
+                    <Row style={styles.whiteRow}>
+                      <Col size={2}>
+                        <ComBadrLibelleComp withColor={true}>
+                          {translate(
+                            'liq.articles.baseActuelleLiquidationNormale',
+                          )}
+                        </ComBadrLibelleComp>
+                      </Col>
+                      <Col size={2}>
+                        <ComBadrLibelleComp />
+                      </Col>
+                      <Col size={2} />
+                    </Row>
+                  </View>
+                )}
+                <Row style={CustomStyleSheet.lightBlueRow}>
+                  <Col size={1}>
+                    <IconButton
+                      icon="plus"
+                      size={20}
+                      color={'white'}
+                      style={{backgroundColor: primaryColor}}
+                      onPress={() => this.addRubriquesComptables()}
+                    />
+                  </Col>
+                  {/*!isArticle ? (
                   <>
                     <Col size={2}>
                       <ComBadrLibelleComp withColor={true}>
@@ -565,42 +567,38 @@ class LiquidationManuelleScreen extends React.Component {
                     <Col size={1} />
                     <Col size={1} />
                   </>
-                ) : (
-                  <>
-                    <Col size={2}>
-                      <ComBadrLibelleComp withColor={true}>
-                        {translate(
-                          'liq.liquidationNormaleInitiale.codeRubrique',
-                        )}
-                      </ComBadrLibelleComp>
-                    </Col>
-                    <Col size={2}>
-                      <ComBadrLibelleComp withColor={true}>
-                        {translate('liq.articles.assiette')}
-                      </ComBadrLibelleComp>
-                    </Col>
-                    <Col size={2}>
-                      <ComBadrLibelleComp withColor={true}>
-                        {translate('liq.articles.sTVA')}
-                      </ComBadrLibelleComp>
-                    </Col>
-                    <Col size={2}>
-                      <ComBadrLibelleComp withColor={true}>
-                        {translate('liq.articles.sFR')}
-                      </ComBadrLibelleComp>
-                    </Col>
-                    <Col size={2}>
-                      <ComBadrLibelleComp withColor={true}>
-                        {translate('liq.articles.taux')}
-                      </ComBadrLibelleComp>
-                    </Col>
-                    <Col size={1} />
-                    <Col size={1} />
-                  </>
-                )}
-              </Row>
+                ) :*/}
 
-              {!_.isNil(response) &&
+                  <Col size={2}>
+                    <ComBadrLibelleComp withColor={true}>
+                      {translate('liq.liquidationNormaleInitiale.codeRubrique')}
+                    </ComBadrLibelleComp>
+                  </Col>
+                  <Col size={2}>
+                    <ComBadrLibelleComp withColor={true}>
+                      {translate('liq.articles.assiette')}
+                    </ComBadrLibelleComp>
+                  </Col>
+                  <Col size={2}>
+                    <ComBadrLibelleComp withColor={true}>
+                      {translate('liq.articles.sTVA')}
+                    </ComBadrLibelleComp>
+                  </Col>
+                  <Col size={2}>
+                    <ComBadrLibelleComp withColor={true}>
+                      {translate('liq.articles.sFR')}
+                    </ComBadrLibelleComp>
+                  </Col>
+                  <Col size={2}>
+                    <ComBadrLibelleComp withColor={true}>
+                      {translate('liq.articles.taux')}
+                    </ComBadrLibelleComp>
+                  </Col>
+                  <Col size={1} />
+                  <Col size={1} />
+                </Row>
+
+                {/*              {!_.isNil(response) &&
                 !_.isNil(response.data) &&
                 !(
                   this.props.route &&
@@ -612,107 +610,110 @@ class LiquidationManuelleScreen extends React.Component {
                     editRubriquesComptables={this.editRubriquesComptables}
                     ligneRubrique={ligneRubrique}
                   />
+                )}*/}
+                {this.state.listeTaxesArticle.length > 0 && isArticle && (
+                  <View>
+                    {this.state.listeTaxesArticle.map((item, index) => (
+                      <Row
+                        key={index}
+                        style={
+                          index % 2 === 0
+                            ? CustomStyleSheet.whiteRow
+                            : CustomStyleSheet.lightBlueRow
+                        }>
+                        <Col size={1} />
+                        <Col size={2} style={{textAlign: 'center'}}>
+                          <ComBadrLibelleComp>
+                            {item.codeRubriqueComptable}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col size={2}>
+                          <ComBadrLibelleComp>
+                            {item.assiette}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col size={2}>
+                          <ComBadrLibelleComp>
+                            {item.indicateurTVA
+                              ? item.indicateurTVA.toString()
+                              : ''}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col size={2}>
+                          <ComBadrLibelleComp>
+                            {item.indicateurFranchise
+                              ? item.indicateurFranchise.toString()
+                              : ''}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col size={2}>
+                          <ComBadrLibelleComp>{item.taux}</ComBadrLibelleComp>
+                        </Col>
+                        <Col size={1}>
+                          <IconButton
+                            icon="pencil-outline"
+                            color={'white'}
+                            size={20}
+                            style={{backgroundColor: primaryColor}}
+                            onPress={() =>
+                              this.editRubriquesComptables(item, index)
+                            }
+                          />
+                        </Col>
+                        <Col size={1}>
+                          <IconButton
+                            icon="trash-can-outline"
+                            color={'white'}
+                            size={20}
+                            style={{backgroundColor: primaryColor}}
+                            onPress={() =>
+                              this.deleteRubriquesComptables(item, index)
+                            }
+                          />
+                        </Col>
+                      </Row>
+                    ))}
+                  </View>
                 )}
-              {this.state.listeTaxesArticle.length > 0 && isArticle && (
-                <View>
-                  {this.state.listeTaxesArticle.map((item, index) => (
-                    <Row
-                      key={index}
-                      style={
-                        index % 2 === 0
-                          ? CustomStyleSheet.whiteRow
-                          : CustomStyleSheet.lightBlueRow
-                      }>
-                      <Col size={1} />
-                      <Col size={2} style={{textAlign: 'center'}}>
-                        <ComBadrLibelleComp>
-                          {item.codeRubriqueComptable}
-                        </ComBadrLibelleComp>
-                      </Col>
-                      <Col size={2}>
-                        <ComBadrLibelleComp>{item.assiette}</ComBadrLibelleComp>
-                      </Col>
-                      <Col size={2}>
-                        <ComBadrLibelleComp>
-                          {item.indicateurTVA
-                            ? item.indicateurTVA.toString()
-                            : ''}
-                        </ComBadrLibelleComp>
-                      </Col>
-                      <Col size={2}>
-                        <ComBadrLibelleComp>
-                          {item.indicateurFranchise
-                            ? item.indicateurFranchise.toString()
-                            : ''}
-                        </ComBadrLibelleComp>
-                      </Col>
-                      <Col size={2}>
-                        <ComBadrLibelleComp>{item.taux}</ComBadrLibelleComp>
-                      </Col>
-                      <Col size={1}>
-                        <IconButton
-                          icon="pencil-outline"
-                          color={'white'}
-                          size={20}
-                          style={{backgroundColor: primaryColor}}
-                          onPress={() =>
-                            this.editRubriquesComptables(item, index)
-                          }
-                        />
-                      </Col>
-                      <Col size={1}>
-                        <IconButton
-                          icon="trash-can-outline"
-                          color={'white'}
-                          size={20}
-                          style={{backgroundColor: primaryColor}}
-                          onPress={() =>
-                            this.deleteRubriquesComptables(item, index)
-                          }
-                        />
-                      </Col>
-                    </Row>
-                  ))}
-                </View>
-              )}
-              {this.state.listeTaxesArticle.length > 0 && isArticle && (
-                <View style={styles.ComContainerCompBtn}>
-                  <Button
-                    onPress={this.liquiderConsignerArticleManuelle}
-                    icon="check"
-                    compact="true"
-                    mode="contained"
-                    style={styles.btnConfirmer}
-                    loading={this.props.showProgress}>
-                    {translate('transverse.liquider')}
-                  </Button>
-                  <Button
-                    onPress={() => {
-                      this.setState({
-                        listeTaxesArticle: [],
-                      });
-                    }}
-                    icon="autorenew"
-                    mode="contained"
-                    style={styles.btnRetablir}>
-                    {translate('transverse.abandonner')}
-                  </Button>
-                  <Button
-                    onPress={() => {
-                      this.setState({
-                        listeTaxesArticle: [],
-                      });
-                      this.props.navigation.navigate('Articles');
-                    }}
-                    icon="autorenew"
-                    mode="contained"
-                    style={styles.btnQuitter}>
-                    {translate('transverse.annulerTout')}
-                  </Button>
-                </View>
-              )}
-            </Grid>
-          </ComBadrCardBoxComp>
+                {this.state.listeTaxesArticle.length > 0 && isArticle && (
+                  <View style={styles.ComContainerCompBtn}>
+                    <Button
+                      onPress={this.liquiderConsignerArticleManuelle}
+                      icon="check"
+                      compact="true"
+                      mode="contained"
+                      style={styles.btnConfirmer}
+                      loading={this.props.showProgress}>
+                      {translate('transverse.liquider')}
+                    </Button>
+                    <Button
+                      onPress={() => {
+                        this.setState({
+                          listeTaxesArticle: [],
+                        });
+                      }}
+                      icon="autorenew"
+                      mode="contained"
+                      style={styles.btnRetablir}>
+                      {translate('transverse.abandonner')}
+                    </Button>
+                    <Button
+                      onPress={() => {
+                        this.setState({
+                          listeTaxesArticle: [],
+                        });
+                        this.props.navigation.navigate('Articles');
+                      }}
+                      icon="autorenew"
+                      mode="contained"
+                      style={styles.btnQuitter}>
+                      {translate('transverse.annulerTout')}
+                    </Button>
+                  </View>
+                )}
+              </Grid>
+            </ComBadrCardBoxComp>
+          )}
           {response && response.errorMessage && (
             <ComBadrErrorMessageComp message={response.errorMessage} />
           )}
@@ -1077,7 +1078,14 @@ class LiquidationManuelleScreen extends React.Component {
                 </Grid>
               </ComBadrCardBoxComp>
             ))}
-          <LiqManuelleGlobal listeTaxesGlobales={listeTaxesGlobales} />
+          {!isArticle && (
+            <LiqManuelleGlobal
+              listeTaxesGlobales={listeTaxesGlobales}
+              editRubriquesComptables={this.editRubriquesComptables}
+              deleteRubriquesComptables={this.deleteRubriquesComptables}
+              addRubriquesComptables={this.addRubriquesComptables}
+            />
+          )}
         </ComContainerComp>
       </View>
     );
@@ -1088,7 +1096,7 @@ class ListeTaxesGlobales extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      listeTaxesGlobales: [],
+      listeTaxesGlobales: props.data,
     };
   }
 
