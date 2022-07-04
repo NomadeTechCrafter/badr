@@ -59,7 +59,7 @@ export default class ActifsRapportPropritaireModal extends React.Component {
   };
 
   retablirProprietaire = () => {
-    this.setState({ proprietaire: PROPRIETAIRE_INITIAL, acNationalite: { code: '', libelle: '' }, errorMessage: null, index: -1 });
+    this.setState({ proprietaire: PROPRIETAIRE_INITIAL, acNationalite: { code: '', libelle: '' }, errorMessage: null, infoMessage: null, index: -1 });
   }
 
   confirmerProprietaire = () => {
@@ -668,14 +668,14 @@ export default class ActifsRapportPropritaireModal extends React.Component {
         {this.state.errorMessage != null && (
           <ComBadrErrorMessageComp message={this.state.errorMessage} />
         )}
-        {(this.state.infoMessage != null && this.state.infoMessage !== '') && (
+        {this.state.infoMessage != null && (
           <ComBadrInfoMessageComp message={this.state.infoMessage} />
         )}
         <View style={CustomStyleSheet.whiteRow}>
           <Text>{translate('actifsCreation.embarcations.proprietaires.title')}</Text>
           <Row style={CustomStyleSheet.whiteRow}>
             <Col>
-              <RadioButton.Group onValueChange={newValue => this.setState({ typeProprietaire: newValue })} value={this.state.typeProprietaire}>
+              <RadioButton.Group onValueChange={newValue => this.setState({ typeProprietaire: newValue, errorMessage: null, infoMessage: null, proprietaire: PROPRIETAIRE_INITIAL })} value={this.state.typeProprietaire}>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
                   <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                     <Text>{translate('actifsCreation.embarcations.proprietaires.personnePhysique')}</Text>

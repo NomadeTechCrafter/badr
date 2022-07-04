@@ -66,8 +66,15 @@ export default class ActifsRapportPersonneConcerneeModal extends React.Component
     if (!this.checkRequiredFields()) {
       let ifExist = false;
       for (let localIntervenant of this.props.intervenants) {
-        if (this.state.intervenant?.intervenant.numeroDocumentIndentite === localIntervenant.intervenant.numeroDocumentIndentite) {
-          ifExist = true;
+        if (this.state.intervenant.equipage === localIntervenant.equipage) {
+          if (this.state.intervenant?.intervenant.numeroDocumentIndentite === localIntervenant.intervenant.numeroDocumentIndentite) {
+            ifExist = true;
+          }
+        }
+        if (this.state.intervenant.passager === localIntervenant.passager) {
+          if (this.state.intervenant?.intervenant.numeroDocumentIndentite === localIntervenant.intervenant.numeroDocumentIndentite) {
+            ifExist = true;
+          }
         }
       }
       if (ifExist) {
@@ -108,6 +115,22 @@ export default class ActifsRapportPersonneConcerneeModal extends React.Component
     if (_.isEmpty(this.state.intervenant?.intervenant.prenomIntervenant)) {
       required = true;
       msg.push(translate('actifsCreation.embarcations.intervenants.msgerrors.prenomIntervenant'));
+    }
+    console.log('+-+-+-+-+-+-+-+-+-+-+-+-response+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+    console.log('+-+-+-+-+-+-+-+-+-+-+-+-response+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+    console.log('+-+-+-+-+-+-+-+-+-+-+-+-response+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+    console.log(JSON.stringify(this.state.intervenant?.intervenant));
+    console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-response+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+    console.log('+-+-+-+-+-+-+-+-+-+-+-+-response+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+    console.log('+-+-+-+-+-+-+-+-+-+-+-+-response+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+    console.log('+-+-+-+-+-+-+-+-+-+-+-+-response+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+    if (_.isEmpty(this.state.intervenant?.lieuDelivrancePI) || _.isEmpty(this.state.intervenant?.dateDelivrancePI)) {
+      required = true;
+      msg.push(translate('actifsCreation.embarcations.intervenants.msgerrors.dateEtLieuDelivrance'));
+    }
+    if (_.isEmpty(this.state.intervenant?.intervenant.lieuNaissance) || _.isEmpty(this.state.intervenant?.intervenant.dateNaissance)) {
+      required = true;
+      msg.push(translate('actifsCreation.embarcations.intervenants.msgerrors.dateEtLieuNaissance'));
     }
 
 
@@ -197,14 +220,14 @@ export default class ActifsRapportPersonneConcerneeModal extends React.Component
       },
     };
     const response = await ComHttpHelperApi.process(data);
-    console.log('+-+-+-+-+-+-+-+-+-+-+-+-response+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
-    console.log('+-+-+-+-+-+-+-+-+-+-+-+-response+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
-    console.log('+-+-+-+-+-+-+-+-+-+-+-+-response+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
-    console.log(JSON.stringify(response));
-    console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-response+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
-    console.log('+-+-+-+-+-+-+-+-+-+-+-+-response+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
-    console.log('+-+-+-+-+-+-+-+-+-+-+-+-response+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
-    console.log('+-+-+-+-+-+-+-+-+-+-+-+-response+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+    // console.log('+-+-+-+-+-+-+-+-+-+-+-+-response+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+    // console.log('+-+-+-+-+-+-+-+-+-+-+-+-response+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+    // console.log('+-+-+-+-+-+-+-+-+-+-+-+-response+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+    // console.log(JSON.stringify(response));
+    // console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-response+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+    // console.log('+-+-+-+-+-+-+-+-+-+-+-+-response+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+    // console.log('+-+-+-+-+-+-+-+-+-+-+-+-response+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
+    // console.log('+-+-+-+-+-+-+-+-+-+-+-+-response+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-');
 
     let intervenant = {};
     if (response && response.data && response.data.jsonVO) {

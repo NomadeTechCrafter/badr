@@ -64,8 +64,15 @@ export default class ActifsRapportPersonneConcerneeModal extends React.Component
     if (!this.checkTypeIdentifiant()) {
       let ifExist = false;
       for (let localIntervenant of this.props.intervenants) {
-        if (this.state.intervenant?.intervenant.numeroDocumentIndentite === localIntervenant.intervenant.numeroDocumentIndentite) {
-          ifExist = true;
+        if (this.state.intervenant.equipage === localIntervenant.equipage) {
+          if (this.state.intervenant?.intervenant.numeroDocumentIndentite === localIntervenant.intervenant.numeroDocumentIndentite) {
+            ifExist = true;
+          }
+        }
+        if (this.state.intervenant.passager === localIntervenant.passager) {
+          if (this.state.intervenant?.intervenant.numeroDocumentIndentite === localIntervenant.intervenant.numeroDocumentIndentite) {
+            ifExist = true;
+          }
         }
       }
       if (ifExist) {

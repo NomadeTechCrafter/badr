@@ -50,7 +50,7 @@ class ActifsRapportPersonnesConcerneesSousBlock extends React.Component {
     }
 
     confirmerIntervenant = (intervenant) => {
-        if (this.state.selectedIndex == -1) {
+        // if (this.state.selectedIndex == -1) {
             console.log('==================== before ======================');
             console.log('==================== before ======================');
             console.log('==================== before ======================');
@@ -68,9 +68,9 @@ class ActifsRapportPersonnesConcerneesSousBlock extends React.Component {
             console.log('==========================================');
             console.log('==========================================');
             this.state.intervenants.push(intervenant);
-        } else {
-            this.editIntervenant(intervenant);
-        }
+        // } else {
+        //     this.editIntervenant(intervenant);
+        // }
 
         this.setState({ showDetailIntervenant: false });
         this.props.update(this.state.intervenants);

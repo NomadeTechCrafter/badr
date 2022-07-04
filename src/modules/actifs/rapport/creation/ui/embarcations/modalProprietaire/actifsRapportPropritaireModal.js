@@ -22,6 +22,7 @@ export default class ActifsRapportPropritaireModal extends React.Component {
     super(props);
     this.state = {
       errorMessage: null,
+      infoMessage: null,
       typeProprietaire: '01',
       proprietaire: this.props.proprietaire ? this.props.proprietaire : PROPRIETAIRE_INITIAL,
       acNationalite: '',
@@ -686,7 +687,7 @@ export default class ActifsRapportPropritaireModal extends React.Component {
         {this.state.errorMessage != null && (
           <ComBadrErrorMessageComp message={this.state.errorMessage} />
         )}
-        {(this.state.infoMessage != null && this.state.infoMessage !== '') && (
+        {this.state.infoMessage != null && (
           <ComBadrInfoMessageComp message={this.state.infoMessage} />
         )}
         <View style={CustomStyleSheet.whiteRow}>

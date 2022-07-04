@@ -108,6 +108,7 @@ export const INTERVENANT_INITIAL = {
         numeroDocumentIndentite: '',
         nomIntervenant: '',
         prenomIntervenant: '',
+        lieuNaissance: '',
         nationaliteFr: '',
         adresse: '',
         dateEffet: new Date(),
@@ -116,6 +117,7 @@ export const INTERVENANT_INITIAL = {
     }, passager: true,
     equipage: false,
     professionIntervenant: '',
+    lieuDelivrancePI: '',
 
 }
 export const INTERVENANT_INITIAL_PERQUISITION = {

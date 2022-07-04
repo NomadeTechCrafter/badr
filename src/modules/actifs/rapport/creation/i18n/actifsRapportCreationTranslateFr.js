@@ -281,7 +281,9 @@ export default {
           numeroRC: 'Numero RC est une donnée obligatoire !',
           centreRC: 'Centre RC est une donnée obligatoire !',
           raisonSociale: 'Raison sociale est une donnée obligatoire !',
-          adresse: 'Adresse est une donnée obligatoire !'
+          adresse: 'Adresse est une donnée obligatoire !',
+          dateEtLieuDelivrance: 'Date et lieu de délivrance sont obligatoires !',
+          dateEtLieuNaissance: 'Date et lieu de naissance sont obligatoires'
         }
 
       },
