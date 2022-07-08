@@ -51,7 +51,9 @@ class ActifsRapportCreationAvionsPriveesTab extends React.Component {
                 navigationsAeriennes: navigationsAeriennes,
                 index: this.props.index,
                 rapportService: rapportService,
-                navigationAerienne: model
+                navigationAerienne: model,
+                dateFin: rapportService.ordreService.dateFin,
+                heureFin: rapportService.ordreService.heureFin
             }
         };
 

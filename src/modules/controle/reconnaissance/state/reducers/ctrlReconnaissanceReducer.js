@@ -41,7 +41,14 @@ export default (state = initialState, action) => {
             }
             nextState.errorMessage = null;
             nextState.showProgress = false;
-            nextState.readMode = true;
+            nextState.readModeSauvegarde = false;
+            nextState.readMode = false;
+            if ('enregistrement' === action.operationType) {
+                nextState.readMode = true;
+            }
+            if ('sauvegarde' === action.operationType) {
+                nextState.readModeSauvegarde = true;
+            }
             nextState.data.confirm = action.value;
             return nextState;
         case Constants.CONFIRM_RECONNAISSANCE_FAILED:
