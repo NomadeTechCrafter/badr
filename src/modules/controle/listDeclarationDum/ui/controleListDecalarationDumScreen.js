@@ -18,8 +18,6 @@ import {
   ComControleRechercheRefComp,
   ComCopyPasteComp,
 } from '../../../../commons/component';
-import { Col, Row } from 'react-native-easy-grid';
-import { Text } from 'react-native-paper';
 
 class controleListDecalarationDumScreen extends React.Component {
   constructor(props) {
@@ -146,13 +144,6 @@ class controleListDecalarationDumScreen extends React.Component {
         {this.props.errorMessage != null && (
           <ComBadrErrorMessageComp message={this.props.errorMessage} />
         )}
-        <Row size={100}>
-          <Col size={20}>
-            <Text>
-              {translate('transverse.totalEnregistrements') + (rows.length ? rows.length : 0)}
-            </Text>
-          </Col>
-        </Row>
         <ComBasicDataTableComp
           ref="_badrTable"
           id="listeDeclarationControle"
