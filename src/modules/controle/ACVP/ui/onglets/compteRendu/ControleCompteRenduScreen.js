@@ -292,7 +292,7 @@ class ControleCompteRenduScreen extends React.Component {
                     <ComAccordionComp title={translate('etatChargement.listeD17D20')} expanded={true}>
                         <View style={styles.container}>
                             <Text style={styles.nombreResult, styles.libelle}>
-                                {translate('etatChargement.nombreD17D20')} :
+                                {translate('etatChargement.nombreD17D20')}
                                 <Text style={styles.libelle}>
                                     {'    ' + listD17D20?.length}
                                 </Text>

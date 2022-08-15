@@ -40,6 +40,8 @@ class Login extends React.Component {
       // password: 'Test123+',
       // login: 'YELM',// Liquidation
       // password: 'testtest',
+      // login: 'AD6314', // Controle
+      // password: 'Testtest1-',
       codeSms: '8bXqj1lLva3IEg6iDbJ+eA==',
       bureau: '309',
       codeBureau: '309',

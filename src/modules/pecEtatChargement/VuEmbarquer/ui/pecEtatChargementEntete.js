@@ -354,7 +354,7 @@ class EtatChargementEntete extends React.Component {
                                 title={translate('etatChargement.listeD17D20')}
                             >
                                 <Text style={style.nombreResult, style.libelle}>
-                                    {translate('etatChargement.nombreD17D20')} :
+                                    {translate('etatChargement.nombreD17D20')}
                                     <Text style={style.libelle}>
                                         {'    ' + listD17D20.length}
                                     </Text>

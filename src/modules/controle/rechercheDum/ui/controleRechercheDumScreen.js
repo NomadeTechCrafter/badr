@@ -50,7 +50,7 @@ class controleRechercheDumScreen extends Component {
           login: ComSessionService.getInstance().getLogin(),
           typeControle: this.props.route.params.typeControle,
           offset: 0,
-          pageSize: 100,
+          pageSize: 10000,
         },
       },
       this.props.navigation,

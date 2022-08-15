@@ -33,7 +33,7 @@ import {
   isMtm,
   isParamSetted,
   isRecherche,
-  isRedevableNonOperator,
+  isRedevableNonOperator, isRedressement,
   preconditions,
   prepareListArticlesCm,
   prepareListArticlesMtm,
@@ -329,6 +329,15 @@ class T6bisGestion extends React.Component {
       'T6bisGestion-->getDerivedStateFromProps--------------------props ',
       props,
     );
+    if(isRedressement())
+    {
+
+      props.route.params.t6bis.referenceEnregistrement=props.t6bis?.referenceEnregistrement;
+      props.route.params.t6bis.referenceProvisoire=props.t6bis?.referenceProvisoire;
+      props.route.params.t6bis.etat=props.t6bis?.etat;
+   //   console.log(props.t6bis?.referenceEnregistrement);
+   //   console.log(props.t6bis?.referenceProvisoire);
+    }
     console.log(
       'T6bisGestion-->getDerivedStateFromProps-------------------state ',
       state,
