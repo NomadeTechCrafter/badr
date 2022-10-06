@@ -2,7 +2,7 @@ export default {
   controle: {
     title: 'Contrôle',
     RI: 'Régimes internes',
-    ACVP: 'ADMISSION POUR CONFORME / VISITE PHYSIQUE',
+    ACVP: 'Circuits Orange/Rouge',
     annotations: 'Annotations',
     intervention: 'Interventions',
     version: 'N° Version',

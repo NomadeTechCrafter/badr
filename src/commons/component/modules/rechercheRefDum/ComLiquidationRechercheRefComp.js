@@ -32,11 +32,11 @@ import { callRedux, extractCommandData } from '../../../../modules/liquidation/u
 
 class ComLiquidationRechercheRefComp extends Component {
   defaultState = {
-    bureau: '',
-    regime: '',
-    annee: '',
-    serie: '',
-    cle: '',
+    bureau: '309',
+    regime: '040',
+    annee: '2021',
+    serie: '0963966',
+    cle: 'A',
     cleValide: '',
     login: '',
     numeroVoyage: '',
@@ -118,6 +118,17 @@ class ComLiquidationRechercheRefComp extends Component {
   };
 
   callLiquidationRedux = (props, data, successRedirection) => {
+
+
+    console.log('-------------------------------- LIQ Action ------------------------------------');
+    console.log('-------------------------------- LIQ Action ------------------------------------');
+    console.log('-------------------------------- LIQ Action ------------------------------------');
+    console.log('-------------------------------- LIQ Action ------------------------------------');
+    console.log('----LIQ Action', JSON.stringify(data));
+    console.log('----LIQ Action', JSON.stringify(successRedirection));
+    console.log('-------------------------------- LIQ Action ------------------------------------');
+    console.log('-------------------------------- LIQ Action ------------------------------------');
+    console.log('-------------------------------- LIQ Action ------------------------------------');
     if (props.dispatch) {
       console.log('calling redux dispatch ...');
       var action = RechecheDumAction.request(

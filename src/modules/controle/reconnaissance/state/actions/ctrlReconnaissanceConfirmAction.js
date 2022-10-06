@@ -14,7 +14,7 @@ export function request(action, navigation) {
                 if (response) {
                     const data = response.data;
                     if (data && (data.dtoHeader.messagesErreur == null || data.dtoHeader.messagesErreur.length === 0)) {
-                        dispatch(success(data));
+                        dispatch(success(data, action.operationType));
                     } else {
                         dispatch(failed(data));
                     }
@@ -42,10 +42,11 @@ export function inProgress(action) {
     };
 }
 
-export function success(data) {
+export function success(data, operationType) {
     return {
         type: Constants.CONFIRM_RECONNAISSANCE_SUCCESS,
         value: data,
+        operationType: operationType
     };
 }
 

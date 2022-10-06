@@ -14,11 +14,12 @@ import {
   ComBadrDatePickerComp,
   ComBadrActionButtonComp,
 } from '../../../../../commons/component';
-import {Checkbox} from 'react-native-paper';
+import {Button, Checkbox} from 'react-native-paper';
 import {TextInput} from 'react-native-paper';
 
 import moment from 'moment';
 import {ComSessionService} from '../../../../../commons/services/session/ComSessionService';
+import {Col, Row} from "react-native-easy-grid";
 
 const initialState = {
   reference: '',
@@ -44,12 +45,12 @@ class RechParRefEntete extends React.Component {
       icon: 'remove',
       onActionPressed: this.handleAnnulerRechParRef,
     });
-      } else {*/
+      } else {
     screenActions.push({
       title: translate('annoter.subTitleAction'),
       icon: 'check',
       onActionPressed: this.handleConfirmRechParRef,
-    });
+    });*/
     //  }
 
     if (
@@ -144,15 +145,13 @@ class RechParRefEntete extends React.Component {
     return nomVehicule;
   };
 
-  handleConfirmRechParRef = () => {
+  confirmer = () => {
     if (
-      !this.state.dateDebutAnnoter ||
-      this.state.dateDebutAnnoter === '' ||
-      !this.state.heureDebutAnnoter ||
-      this.state.heureDebutAnnoter === '' ||
+
       !this.state.commentaire ||
       this.state.commentaire === ''
     ) {
+      console.log('datetest',this.state.commentaire)
       this.setState({
         errorMessage: translate('annoter.dateVuEmb'),
       });
@@ -186,7 +185,7 @@ class RechParRefEntete extends React.Component {
     this.scrollViewRef.current.scrollTo({x: 0, y: 0, animated: true});
   };
 
-  handleAnnulerRechParRef = () => {
+  abandonner = () => {
     const jsonVO = {};
     jsonVO.indentifiant = this.props.dataVo?.declarationTriptique?.indentifiant;
 
@@ -641,21 +640,10 @@ class RechParRefEntete extends React.Component {
 
                 <View style={[styles.flexDirectionRow, styles.marg]}>
                   <Text style={styles.libelleS}>
-                    {translate('annoter.commentAnnoter')} :{' '}
+                    {translate('annoter.commentAnnoter')}
                   </Text>
 
-                  <TextInput
-                    style={styles.libelleL}
-                    maxLength={250}
-                    multiline
-                    /*disabled={
-                        this.state.rechParRefExisteDeja || this.props.success
-                      }*/
-                    numberOfLines={3}
-                    placeholder={translate('annoter.commentAnnoter')}
-                    value={this.state.commentaire}
-                    onChangeText={(text) => this.setState({commentaire: text})}
-                  />
+
                 </View>
                 <View style={[styles.flexDirectionRow, styles.marg]}>
                   <Text style={[styles.marg, styles.libelle]}>
@@ -691,47 +679,69 @@ class RechParRefEntete extends React.Component {
             </Accordion>
           </CardBox>
 
-          {/* Vu Embarquer */}
-          {this.props.dataVo?.declarationTriptique?.vuEmbarqueExisteDeja && (
-            <CardBox style={styles.cardBox}>
-              <Accordion badr title={translate('vuEmbarquee.vuEmb')} expanded>
-                <View style={styles.flexColumn}>
-                  <View style={[styles.flexDirectionRow, styles.marg]}>
-                    <Text style={styles.libelleS}>
-                      {translate('annoter.dateVuEmb')} :
-                    </Text>
-                    <Text style={styles.valueS}>
-                      {declarationTriptique?.vuEmbarque?.dateVuEmbarque}
-                    </Text>
-                  </View>
+          <CardBox style={styles.cardBox}>
+            <Accordion badr title={translate('annoter.commentAnnoter')}>
+              <View style={styles.flexColumn}>
 
-                  <View style={[styles.flexDirectionRow, styles.marg]}>
-                    <Text style={styles.libelleS}>
-                      {translate('vuEmbarquee.commentVuEmb')} :{' '}
-                    </Text>
-                    <TextInput
+
+                <View style={[styles.flexDirectionRow, styles.marg]}>
+                  <Text style={styles.libelleS}>
+                    {translate('annoter.commentAnnoter')}
+                  </Text>
+
+                  <TextInput
                       style={styles.libelleL}
                       maxLength={250}
                       multiline
-                      disabled={true}
+                      /*disabled={
+                          this.state.rechParRefExisteDeja || this.props.success
+                        }*/
                       numberOfLines={3}
-                      placeholder={translate('vuEmbarquee.commentVuEmb')}
-                      value={declarationTriptique?.vuEmbarque?.commentaire}
-                    />
-                  </View>
+                      //  placeholder={translate('annoter.commentAnnoter')}
+                      value={this.state.commentaire}
+                      onChangeText={(text) => this.setState({commentaire: text})}
+                  />
                 </View>
-              </Accordion>
-            </CardBox>
-          )}
+
+              </View>
+
+            </Accordion>
+          </CardBox>
+          <View style={[styles.flexDirectionRow, styles.marg]}>
+            <Row>
+              <Col />
+              <Col size={3}>
+                <Button
+                    disabled={this.props?.success }
+                    onPress={() => this.confirmer()}
+                    mode="contained"
+                    style={styles.btnActions}
+                >
+                  {translate('transverse.confirmer')}
+                </Button>
+              </Col>
+              <Col size={3}>
+                <Button
+                    disabled={this.props?.success}
+                    onPress={() => this.abandonner()}
+                    mode="contained"
+                    style={styles.btnActions}
+                >
+                  {translate('transverse.abandonner')}
+                </Button>
+              </Col>
+              <Col />
+            </Row>
+          </View>
         </ScrollView>
 
-        <ComBadrActionButtonComp
+        {/* <ComBadrActionButtonComp
           style={styles.badrActionsStyle}
           // visible={this.state.dateRechParRef && this.state.commentaire}
           visible={!this.props.success}
           active={false}
           actions={this.state.screenActions}
-        />
+        />*/}
       </View>
     );
   }
@@ -836,7 +846,7 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps(state) {
-  return {...state.initApurementReducer};
+  return {...state.sortiPortReducer};
 }
 
 function mapDispatchToProps(dispatch) {

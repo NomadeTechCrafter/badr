@@ -437,9 +437,9 @@ class CtrlReconnaissanceSearchComponent extends React.Component {
                         </Row>
 
                         <Row size={100}>
-                            <Col size={40}/>
+                            <Col size={30}/>
 
-                            <Col size={20}>
+                            <Col size={40}>
                                 <Button
                                     title={translate('transverse.declarations')}
                                     type={'solid'}
@@ -447,7 +447,7 @@ class CtrlReconnaissanceSearchComponent extends React.Component {
                                     onPress={() => this.declarations()}/>
                             </Col>
 
-                            <Col size={40}/>
+                            <Col size={30}/>
                         </Row>
                     </Grid>
                 )}

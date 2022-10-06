@@ -9,10 +9,10 @@ import {
     Text,
     View,
 } from 'react-native';
-import {Button} from 'react-native-elements';
+import { Button } from 'react-native-elements';
 import Modal from 'react-native-modal';
-import {HelperText, TextInput} from 'react-native-paper';
-import {Col, Grid, Row} from 'react-native-easy-grid';
+import { HelperText, TextInput } from 'react-native-paper';
+import { Col, Grid, Row } from 'react-native-easy-grid';
 import {
     ComBadrCameraComp,
     ComBadrErrorMessageComp,
@@ -20,8 +20,8 @@ import {
     ComBadrProgressBarComp,
 } from '../../../../commons/component';
 
-import {connect} from 'react-redux';
-import {translate} from '../../../../commons/i18n/ComI18nHelper';
+import { connect } from 'react-redux';
+import { translate } from '../../../../commons/i18n/ComI18nHelper';
 import style from '../style/ctrlReconnaissanceStyle';
 
 import _ from 'lodash';
@@ -193,7 +193,7 @@ class CtrlReconnaissanceCoreComponent extends React.Component {
                 PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
                 {
                     title: 'External Storage Permission',
-                    message: 'L\'application a besoin des permissions nécessaires pour procéder.' ,
+                    message: 'L\'application a besoin des permissions nécessaires pour procéder.',
                     buttonNeutral: 'Demander ultérieurement',
                     buttonNegative: 'Annuler',
                     buttonPositive: 'OK',
@@ -206,7 +206,8 @@ class CtrlReconnaissanceCoreComponent extends React.Component {
                     } else {
                         RNFetchBlob.ios.previewDocument(RNFetchBlob.fs.dirs.DownloadDir + '/' + picture.url);
                     }
-                });            } else {
+                });
+            } else {
                 console.log('External storage permission denied');
             }
         } catch (err) {
@@ -245,10 +246,10 @@ class CtrlReconnaissanceCoreComponent extends React.Component {
                     style={style.pictureStyle}
                     source={{
                         uri: 'data:image/jpeg;base64,' + item.item.contentBase64,
-                    }}/>
+                    }} />
 
                 <Button
-                    type={''}
+                    // type={''}
                     icon={{
                         name: 'image',
                         size: 20,
@@ -260,7 +261,7 @@ class CtrlReconnaissanceCoreComponent extends React.Component {
 
                 {!this.props.readMode && !this.state.readonly && (
                     <Button
-                        type={''}
+                        // type={''}
                         icon={{
                             name: 'delete',
                             size: 20,
@@ -277,17 +278,17 @@ class CtrlReconnaissanceCoreComponent extends React.Component {
     render() {
         return (
             <ScrollView style={style.innerContainer}
-                        keyboardShouldPersistTaps={(this.state.autocompleteDropdownOpen || Platform.OS === 'android') ? 'always' : 'never'}>
+                keyboardShouldPersistTaps={(this.state.autocompleteDropdownOpen || Platform.OS === 'android') ? 'always' : 'never'}>
                 {this.props.showProgress && (
-                    <ComBadrProgressBarComp/>
+                    <ComBadrProgressBarComp />
                 )}
 
                 {this.props.infoMessage != null && (
-                    <ComBadrInfoMessageComp message={this.props.infoMessage}/>
+                    <ComBadrInfoMessageComp message={this.props.infoMessage} />
                 )}
 
                 {this.props.errorMessage != null && (
-                    <ComBadrErrorMessageComp message={this.props.errorMessage}/>
+                    <ComBadrErrorMessageComp message={this.props.errorMessage} />
                 )}
 
                 {!this.props.showProgress && (
@@ -377,7 +378,7 @@ class CtrlReconnaissanceCoreComponent extends React.Component {
                                         </Col>
 
                                         <Col>
-                                            <Text style={style.referenceValueLabel}/>
+                                            <Text style={style.referenceValueLabel} />
                                         </Col>
                                     </Row>
                                 </Grid>
@@ -446,7 +447,7 @@ class CtrlReconnaissanceCoreComponent extends React.Component {
                                                 type="error"
                                                 padding="none"
                                                 visible={this.hasErrors('nature')}>
-                                                {translate('errors.donneeObligatoire', {champ: translate('reconnaissance.core.nature')})}
+                                                {translate('errors.donneeObligatoire', { champ: translate('reconnaissance.core.nature') })}
                                             </HelperText>
                                         </Col>
                                     </Row>
@@ -488,7 +489,7 @@ class CtrlReconnaissanceCoreComponent extends React.Component {
                                                 type="error"
                                                 padding="none"
                                                 visible={this.hasErrors('marque')}>
-                                                {translate('errors.donneeObligatoire', {champ: translate('reconnaissance.core.marque')})}
+                                                {translate('errors.donneeObligatoire', { champ: translate('reconnaissance.core.marque') })}
                                             </HelperText>
                                         </Col>
                                     </Row>
@@ -523,7 +524,7 @@ class CtrlReconnaissanceCoreComponent extends React.Component {
                                             <HelperText
                                                 type="error"
                                                 padding="none"
-                                                visible={false}/>
+                                                visible={false} />
                                         </Col>
                                     </Row>
 
@@ -568,7 +569,7 @@ class CtrlReconnaissanceCoreComponent extends React.Component {
                                                 type="error"
                                                 padding="none"
                                                 visible={this.hasErrors('nbrColis')}>
-                                                {translate('errors.donneeObligatoire', {champ: translate('reconnaissance.core.nombreColisIdentifies')})}
+                                                {translate('errors.donneeObligatoire', { champ: translate('reconnaissance.core.nombreColisIdentifies') })}
                                             </HelperText>
                                         </Col>
                                     </Row>
@@ -614,7 +615,7 @@ class CtrlReconnaissanceCoreComponent extends React.Component {
                                                 type="error"
                                                 padding="none"
                                                 visible={this.hasErrors('nombreColisVisite')}>
-                                                {translate('errors.donneeObligatoire', {champ: translate('reconnaissance.core.nombreColisVisites')})}
+                                                {translate('errors.donneeObligatoire', { champ: translate('reconnaissance.core.nombreColisVisites') })}
                                             </HelperText>
                                         </Col>
                                     </Row>
@@ -658,24 +659,25 @@ class CtrlReconnaissanceCoreComponent extends React.Component {
                                                 type="error"
                                                 padding="none"
                                                 visible={this.hasErrors('descriptionVisite')}>
-                                                {translate('errors.donneeObligatoire', {champ: translate('reconnaissance.core.description')})}
+                                                {translate('errors.donneeObligatoire', { champ: translate('reconnaissance.core.description') })}
                                             </HelperText>
                                         </Col>
                                     </Row>
 
                                     {!this.state.readonly && !this.props.readMode && (
                                         <Row size={100}>
-                                            <Col size={40}/>
+                                            <Col size={40} />
 
                                             <Col size={20}>
                                                 <Button
+                                                    disabled={this.props.readModeSauvegarde || this.props.readMode}
                                                     title={translate('reconnaissance.core.addImage')}
                                                     type={'solid'}
                                                     buttonStyle={style.buttonAction}
-                                                    onPress={() => this.onAddPicture()}/>
+                                                    onPress={() => this.onAddPicture()} />
                                             </Col>
 
-                                            <Col size={40}/>
+                                            <Col size={40} />
                                         </Row>
                                     )}
 
@@ -690,73 +692,77 @@ class CtrlReconnaissanceCoreComponent extends React.Component {
                                         </Col>
                                     </Row>
 
-                                    {!this.props.readMode && (this.props.mode === 'add' || this.props.mode === 'edit') && (
-                                        <Row size={100}>
-                                            <Col size={25}/>
+                                    <Row size={100}>
+                                        <Col size={25} />
 
-                                            <Col size={20}>
+                                        <Col size={20}>
+                                            {(this.props.mode === 'add' || this.props.mode === 'edit') && (
                                                 <Button
                                                     title={translate('transverse.sauvegarder')}
+                                                    disabled={this.props.readModeSauvegarde || this.props.readMode}
                                                     type={'solid'}
                                                     buttonStyle={style.buttonAction}
-                                                    onPress={() => this.confirm('sauvegarde')}/>
-                                            </Col>
+                                                    onPress={() => this.confirm('sauvegarde')} />
+                                            )}
+                                        </Col>
 
-                                            <Col size={2}/>
+                                        <Col size={2} />
 
-                                            <Col size={20}>
+                                        <Col size={20}>
+                                            {(this.props.mode === 'add' || this.props.mode === 'edit') && (
                                                 <Button
                                                     title={translate('transverse.enregistrer')}
+                                                    disabled={this.props.readMode}
                                                     type={'solid'}
                                                     buttonStyle={style.buttonAction}
-                                                    onPress={() => this.confirm('enregistrement')}/>
-                                            </Col>
+                                                    onPress={() => this.confirm('enregistrement')} />
+                                            )}
+                                        </Col>
 
-                                            <Col size={25}/>
-                                        </Row>
-                                    )}
+                                        <Col size={25} />
+                                    </Row>
 
                                     {!this.props.readMode && this.props.mode === 'cancel' && (
                                         <Row size={100}>
-                                            <Col size={40}/>
+                                            <Col size={40} />
 
                                             <Col size={20}>
                                                 <Button
                                                     title={translate('transverse.annuler')}
                                                     type={'solid'}
                                                     buttonStyle={style.buttonAction}
-                                                    onPress={() => this.confirm('annulation')}/>
+                                                    onPress={() => this.confirm('annulation')} />
                                             </Col>
 
-                                            <Col size={40}/>
+                                            <Col size={40} />
                                         </Row>
                                     )}
 
                                     <Row size={100}>
-                                        <Col size={40}/>
+                                        <Col size={40} />
 
                                         <Col size={20}>
                                             <Button
                                                 title={translate('transverse.back')}
                                                 type={'solid'}
                                                 buttonStyle={style.buttonAction}
-                                                onPress={() => this.back()}/>
+                                                onPress={() => this.back()} />
                                         </Col>
 
-                                        <Col size={40}/>
+                                        <Col size={40} />
                                     </Row>
                                 </Grid>
                             </View>
                         )}
 
                         {this.state.cameraMode && (
-                            <ComBadrCameraComp onTakePicture={this.onTakePicture}/>
+                            <ComBadrCameraComp onTakePicture={this.onTakePicture} />
                         )}
 
                         {this.state.deleteMode && (
                             <Modal isVisible={this.state.deleteMode}
-                                   onBackdropPress={this.close}
-                                   style={style.modalContainer}>
+                                onBackdropPress={this.close}
+                                style={style.modalContainer}>
                                 <View>
                                     <Text style={style.modalMessage}>
                                         {translate('reconnaissance.core.removalModal.message')}
@@ -766,13 +772,13 @@ class CtrlReconnaissanceCoreComponent extends React.Component {
                                         title={translate('transverse.confirmer')}
                                         type={'solid'}
                                         buttonStyle={style.modalAction}
-                                        onPress={() => this.confirmPictureRemoval()}/>
+                                        onPress={() => this.confirmPictureRemoval()} />
 
                                     <Button
                                         title={translate('transverse.annuler')}
                                         type={'solid'}
                                         buttonStyle={style.modalAction}
-                                        onPress={() => this.cancelPictureRemoval()}/>
+                                        onPress={() => this.cancelPictureRemoval()} />
                                 </View>
                             </Modal>
                         )}
@@ -784,11 +790,11 @@ class CtrlReconnaissanceCoreComponent extends React.Component {
 }
 
 function mapStateToProps(state) {
-    return {...state.ctrlReconnaissanceReducer};
+    return { ...state.ctrlReconnaissanceReducer };
 }
 
 function mapDispatchToProps(dispatch) {
-    let actions = {dispatch};
+    let actions = { dispatch };
     return {
         actions,
     };

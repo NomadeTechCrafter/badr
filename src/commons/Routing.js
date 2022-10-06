@@ -64,17 +64,19 @@ const mapping = {
   '4096': {screen: 'RefControleVehicule', params: {}},
   '823': {screen: 'RefPlaquesImm', params: {}},
   '14000010': {screen: 'CreerCompteRenduMission', params: {}},
+  '5202': {screen: 'LiquidationRechercheScreen', params: {qr: false}},
   
-
+/*
   '9932': { screen: 'ActifsRecherche', params: {} },
+  */
   '3064': { screen: 'controleRechercheDumScreen', params: { typeControle: 'AC' } },
   '3072': { screen: 'controleRechercheDumScreen', params: { typeControle: 'RI' } },
   '3086': { screen: 'controleRechercheDumScreen', params: { typeControle: 'TR' } },
-  '5202': {screen: 'LiquidationRechercheScreen', params: {qr: false}},
+/*
   '2401': { screen: 'PreConfirmationArriveeMainScreen', params: {} }, 
   '2402': { screen: 'JustifRetardTransitMainScreen', params: {} },
   '90026': {screen: 'AnnoterTrypt', params: {}},
-  
+*/
   '110001': {screen: 'T6bisCreation', params: {}},
   '110002': {
     screen: 'T6bisRecherche',
@@ -88,7 +90,6 @@ const mapping = {
     screen: 'T6bisRecherche',
     params: {title: 'Ecran  Recherche T6BIS'},
   },
-
   
   '1201': {
     screen: 'RechercheEcorImport',
