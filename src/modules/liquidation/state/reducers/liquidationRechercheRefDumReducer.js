@@ -25,7 +25,13 @@ export default (state = initialState, action) => {
       nextState.errorMessage = null;
       nextState.data = action.value.data.jsonVO;
       nextState.liquidationType = action.value.liquidationType;
-      nextState.indicateurLiquidationArticlesEnFranchiseTotale = action.value.indicateurLiquidationArticlesEnFranchiseTotale;
+      nextState.indicateurLiquidationArticlesEnFranchiseTotale =
+        action.value.indicateurLiquidationArticlesEnFranchiseTotale;
+      nextState.infoMessage = action.value?.data?.dtoHeader?.messagesInfo;
+      console.log(
+        'inforeducerm_RECHERCHEREFDUM_SUCCESS',
+        nextState.infoMessage,
+      );
       return nextState;
     case Constants.RECHERCHEREFDUM_UPDATE:
       nextState.showProgress = false;

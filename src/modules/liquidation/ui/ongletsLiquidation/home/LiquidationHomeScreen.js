@@ -47,6 +47,7 @@ class LiquidationHomeScreen extends React.Component {
       activerLiquiderArticle: false,
       selectedArticle: {},
       liquidationVO: props.data,
+      messagesInfo: props.infoMessage,
       validerInfo: false,
       indicateurLiquidationArticlesEnFranchiseTotale:
         props.indicateurLiquidationArticlesEnFranchiseTotale,
@@ -196,6 +197,7 @@ class LiquidationHomeScreen extends React.Component {
 
   render() {
     //console.log('this.props homescreen', this.props);
+    //console.log('____________props homescreen : ',JSON.stringify(this.props));
     const {
       data,
       liquidationType,
@@ -222,6 +224,9 @@ class LiquidationHomeScreen extends React.Component {
           <ComBadrInfoMessageComp
             message={this.props.liquidationReducer?.messagesInfo}
           />
+        )}
+        {this.state.messagesInfo != null && (
+          <ComBadrInfoMessageComp message={this.state?.messagesInfo} />
         )}
         {!_.isNil(data) && (
           <NavigationContainer

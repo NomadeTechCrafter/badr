@@ -193,6 +193,7 @@ class LiquidationManuelleScreen extends React.Component {
     console.log('----- ligneRubrique', ligneRubrique);
     this.setState({
       isConfirmed: false,
+      showRubriquesComptables: false,
     });
     if (
       this.props.route &&
@@ -684,7 +685,7 @@ class LiquidationManuelleScreen extends React.Component {
                       mode="contained"
                       style={styles.btnConfirmer}
                       loading={this.props.showProgress}>
-                      {translate('transverse.liquider')}
+                      {translate('liq.liquider')}
                     </Button>
                     <Button
                       onPress={() => {
@@ -707,7 +708,7 @@ class LiquidationManuelleScreen extends React.Component {
                       icon="autorenew"
                       mode="contained"
                       style={styles.btnQuitter}>
-                      {translate('transverse.annulerTout')}
+                      {translate('liq.annulerTout')}
                     </Button>
                   </View>
                 )}
@@ -717,8 +718,10 @@ class LiquidationManuelleScreen extends React.Component {
           {response && response.errorMessage && (
             <ComBadrErrorMessageComp message={response.errorMessage} />
           )}
+
           {showRubriquesComptables &&
             (isArticle ? (
+              /*Modal Rubriques Comptables Article*/
               <ComBadrCardBoxComp>
                 <Grid>
                   <Row style={CustomStyleSheet.lightBlueRow}>
@@ -737,7 +740,7 @@ class LiquidationManuelleScreen extends React.Component {
                         cle="codeRubriqueComptable"
                         libelle={['libelleAbrege', 'codeDouane']}
                         module="ALI_DEC"
-                        command="getRubriquesComptablesGlobalesVO"
+                        command="getRubriquesComptablesArticleVO"
                         typeService="SP"
                         onValueChange={(selectedValue, selectedIndex, item) =>
                           this.handleRubriquesChanged(
@@ -939,6 +942,7 @@ class LiquidationManuelleScreen extends React.Component {
                 </Grid>
               </ComBadrCardBoxComp>
             ) : (
+              /*Modal Rubriques Comptables Globales*/
               <ComBadrCardBoxComp>
                 <Grid>
                   <Row style={CustomStyleSheet.lightBlueRow}>

@@ -22,8 +22,10 @@ class LiqRecapitulationConsignationInitialeBlock extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      refTypeConsignation: this.props.liquidationVO?.refOperationSimultanee?.refTypeConsignation,
+      refTypeConsignation: this.props.liquidationVO?.refOperationSimultanee
+        ?.refTypeConsignation,
       selectedBorderau: this.props.liquidationVO?.refModePaiement,
+      dateEcheanceConsignation: '',
     };
   }
   componentDidMount() {
@@ -49,7 +51,11 @@ class LiqRecapitulationConsignationInitialeBlock extends React.Component {
       selectedBorderau: selectedValue,
     });
   };
-  onDateEcheanceConsignationChanged = (date) => {};
+  onDateEcheanceConsignationChanged = (date) => {
+    this.setState({
+      dateEcheanceConsignation: date,
+    });
+  };
 
   render() {
     const {
@@ -253,7 +259,7 @@ class LiqRecapitulationConsignationInitialeBlock extends React.Component {
                     disabled={
                       !(
                         liquidationType == 'automatique' ||
-                      liquidationType == 'automatiqueRedevanceAT'
+                        liquidationType == 'automatiqueRedevanceAT'
                       )
                     }
                     key="delaiCreditConsignation"
@@ -295,7 +301,7 @@ class LiqRecapitulationConsignationInitialeBlock extends React.Component {
                   labelDate={translate(
                     'liq.consignationInitiale.dateEcheanceConsignation',
                   )}
-                  value={new Date()}
+                  value={this.state.dateEcheanceConsignation}
                   dateFormat="DD/MM/YYYY"
                   onDateChanged={this.onDateEcheanceConsignationChanged}
                   inputStyle={styles.textInputsStyle}

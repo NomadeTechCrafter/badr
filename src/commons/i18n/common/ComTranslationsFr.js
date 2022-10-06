@@ -85,7 +85,8 @@ export default {
     anonymoususer: 'Anonymous',
     inprogress: 'Veuillez patienter...',
     returnToLiauidqtion: 'Retourner à la liquidation...',
-    consulterArticlesFromLiquidation: 'Consulter les autres paramètres de la liquidation',
+    consulterArticlesFromLiquidation:
+      'Consulter les autres paramètres de la liquidation',
     bureau: 'Bureau',
     regime: 'Régime',
     annee: 'Année',
@@ -148,7 +149,6 @@ export default {
   tabs: {
     entete: 'Entete',
     composant: 'Composants AT',
-    apurement: 'Apurement',
     docAnnexe: 'Documents Annexes',
     historique: 'Historique',
     connaissements: 'Connaissements',
@@ -159,7 +159,7 @@ export default {
     info: 'Info',
     vumEmb: {
       rechByRef: 'Reference declaration',
-      rechDecByRef: 'Recherche d\'une déclaration en détail par référence',
+      rechDecByRef: "Recherche d'une déclaration en détail par référence",
       rechByVH: 'Matricule vehicule',
     },
   },
