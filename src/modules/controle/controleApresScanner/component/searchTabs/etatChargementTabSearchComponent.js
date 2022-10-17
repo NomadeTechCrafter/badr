@@ -137,6 +137,7 @@ class EtatChargementTabSearchComponent extends React.Component {
                     moyenTransport: this.state.moyenTransport,
                     numeroImmatriculation: this.state.numeroImmatriculation,
                     bureauAgentConnecte: ComSessionService.getInstance().getCodeBureau(),
+                    offset:0
                 },
             },
             this.props.navigation,
@@ -348,7 +349,7 @@ class EtatChargementTabSearchComponent extends React.Component {
                                         <TextInput
                                             label={translate('controleApresScanner.search.etatChargement.referenceEtatChargement.cle')}
                                             value={this.state.cle}
-                                            keyboardType={''}
+                                            keyboardType={'number-pad'}
                                             maxLength={1}
                                             onChangeText={(val) => this.onChangeSearchInput({cle: val}, false)}
                                             style={style.searchInput}

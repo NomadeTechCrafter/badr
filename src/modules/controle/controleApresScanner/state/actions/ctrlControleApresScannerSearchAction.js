@@ -16,7 +16,8 @@ export function request(action, navigation) {
             action.value.referenceDed,
             action.value.moyenTransport,
             action.value.numeroImmatriculation,
-            action.value.bureauAgentConnecte)
+            action.value.bureauAgentConnecte,
+            action.value.offset)
             .then((response) => {
                 if (response) {
                     const data = response.data;

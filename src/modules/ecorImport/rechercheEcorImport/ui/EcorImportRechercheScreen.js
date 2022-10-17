@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+﻿import React, {Component} from 'react';
 import {View} from 'react-native';
 import {
   ComBadrToolbarComp,
@@ -23,6 +23,32 @@ class EcorImportRechercheScreen extends Component {
           subtitle: translate('ecorimport.enleverMarchandiseParPesage.title'),
           commande: 'initEnleverMarchandiseParPesage',
         };
+      case 'EnleverMarchandiseSsManifeste':
+        return {
+          successRedirectionScreen: 'EnleverMarchandiseSsManifeste',
+          subtitle: translate('ecorimport.enleverMarchandiseSsManifeste.title'),
+          commande: 'initEnleverMarchandiseSsManifeste',
+        };
+      case 'VerifierPContreEcorSsManifeste':
+        return {
+          successRedirectionScreen: 'VerifierPContreEcorSsManifeste',
+          subtitle: translate('ecorimport.verifierPContreEcorSsManifeste.title'),
+          commande: 'initVerifierParContreEcorSansManifeste',
+        };
+
+      case 'ConfirmerArriveeSsManifeste':
+        return {
+          successRedirectionScreen: 'ConfirmerArriveeSsManifeste',
+          subtitle: translate('ecorimport.confirmerArriveeSsManifeste.title'),
+          commande: 'initConfirmerArriveeSansManifeste',
+        };
+      case 'AutoriserAcheminementSsManifeste':
+        return {
+          successRedirectionScreen: 'AutoriserAcheminementSsManifeste',
+          subtitle: translate('ecorimport.autoriserAcheminementSsManifeste.title'),
+          commande: 'initAutoriserAcheminementSansManifeste',
+        };
+
       case 'PeserMarchandise':
         return {
           successRedirectionScreen: 'PeserMarchandise',

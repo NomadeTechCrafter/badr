@@ -100,6 +100,21 @@ export default {
     enleverMarchandiseParPesage: {
       title: 'Enlever Marchandise par pesage',
     },
+    enleverMarchandiseSsManifeste: {
+      title: 'Enlever Marchandise sans manifeste',
+    },
+    verifierPContreEcorSsManifeste: {
+      title: 'Vérifier par contre ecor sans manifeste',
+    },
+    confirmerArriveeSsManifeste: {
+      title: 'Confirmer Arivee sans manifeste',
+    },
+    autoriserAcheminementSsManifeste: {
+      title: 'Autoriser Acheminement sans manifeste',
+    },
+    autoriserAcheminement: {
+      title: 'Autorisation Acheminement',
+    },
     verifierParContreEcor: {
       title: 'Vérifier par contre ecor',
       dateHeureContreEcor: 'Date Heure Contre Ecor',
@@ -110,6 +125,10 @@ export default {
         heureContreEcor: 'Heure contre Ecor',
         numeroPorteSorti: 'Numéro Porte Sortie',
       },
+
+    },
+    confirmerArrivee: {
+      title: 'Confirmation Arrivée',
     },
     messageConfirmation: {
       title: 'Confirmation',

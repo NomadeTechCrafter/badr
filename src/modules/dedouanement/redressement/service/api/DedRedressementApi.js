@@ -210,5 +210,22 @@ export default class DedRedressementApi {
     return response;
   };
 
+  static fillCautionInfos = async (dedDumSectionCautionVO) => {
+    const data = {
+      dtoHeader: {
+        userLogin: ComSessionService.getInstance().getLogin(),
+        fonctionnalite: ComSessionService.getInstance().getFonctionalite(),
+        module: 'DED_LIB',
+        commande: 'ded.fillCautionInfos',
+        typeService: TYPE_SERVICE_SP,
+      },
+      jsonVO: dedDumSectionCautionVO,
+    };
+    console.log('data fillCautionInfos', data);
+    let response = await ComHttpHelperApi.process(data);
+    console.log('response fillCautionInfos', response);
+    return response;
+  };
+
 
 }

@@ -10,10 +10,10 @@ export default class ComBadrButtonRadioComp extends React.Component {
   render() {
     return (
       <RadioButton.Group onValueChange={this.props.onValueChange} value={this.props.value} >
-        <View style={styles.containerRadio}>
-          <View style={styles.viewRadio}>
+        <View style={this.props.styleContainer ? this.props.styleContainer :styles.containerRadio}>
+          {(this.props.title) &&<View style={styles.viewRadio}>
             <Text style={styles.titleRadioGroup} >{this.props.title} : </Text>
-          </View>
+          </View>}
           {this.props.radioButtonsData.map((radio) => {
             return (
               <View style={styles.viewRadio}>

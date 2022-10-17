@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import { PermissionsAndroid } from 'react-native';
 import RNFetchBlob from 'rn-fetch-blob';
-import { CATEGORIE_COMPLEMENTAIRE, CATEGORIE_GLOBALE_INIT, CATEGORIE_GLOBALE_VOY, CATEGORIE_NORMALE, CATEGORIE_PROVISOIRE_INIT, CATEGORIE_PROVISOIRE_VOY, CATEGORIE_SIMPLIFIEE_APU, CATEGORIE_SIMPLIFIEE_DEC, CATEGORIE_TRYPTIQUE_APU, CATEGORIE_TRYPTIQUE_DEC, TYPEDED_APURSIMPLIFIEE, TYPEDED_APURTRIPTYQUE, TYPEDED_DSIMPLIFIEE, TYPEDED_DTRIPTYQUE, TYPEDED_DUM, TYPEDED_DUMGLOB_INIT, TYPEDED_DUMPROV_INIT, TYPEDED_SOUSDUM_GLOB, TYPEDED_SOUSDUM_PROV } from './DedConstants';
+import { AUCUN, CATEGORIE_COMPLEMENTAIRE, CATEGORIE_GLOBALE_INIT, CATEGORIE_GLOBALE_VOY, CATEGORIE_NORMALE, CATEGORIE_PROVISOIRE_INIT, CATEGORIE_PROVISOIRE_VOY, CATEGORIE_SIMPLIFIEE_APU, CATEGORIE_SIMPLIFIEE_DEC, CATEGORIE_TRYPTIQUE_APU, CATEGORIE_TRYPTIQUE_DEC, TYPEDED_APURSIMPLIFIEE, TYPEDED_APURTRIPTYQUE, TYPEDED_DSIMPLIFIEE, TYPEDED_DTRIPTYQUE, TYPEDED_DUM, TYPEDED_DUMGLOB_INIT, TYPEDED_DUMPROV_INIT, TYPEDED_SOUSDUM_GLOB, TYPEDED_SOUSDUM_PROV } from './DedConstants';
 
 export const getValueByPath = (key, object, reducer) => {
   if (key === 'dedDumSectionEnteteVO.typeDUM' || key === 'sousDum') {
@@ -163,4 +163,17 @@ export const newPreapurement = () => {
     numeroOrdre: -1,
     preapCle:null
   };
+}
+
+export const effacerRubriqueCaution = (dedDumVo) => {
+  return { ...dedDumVo, dedDumSectionCautionVO: { ...dedDumVo.dedDumSectionCautionVO, dateCreation: AUCUN, statut: AUCUN, validite: AUCUN, statutUtilisation: AUCUN, dateEcheance: AUCUN, statutEcheance: AUCUN, idCautionBancaireDUM: null } };
+}
+
+export const effacerRubCautionBancaire = (dedDumVo) => {
+  return { ...dedDumVo, dedDumSectionCautionVO: { ...dedDumVo.dedDumSectionCautionVO, banqueCaution: AUCUN, banqueCautionLibelle: AUCUN, agenceCaution: AUCUN, agenceCautionLibelle: AUCUN, referenceCaution: AUCUN, dateAttributionCaution: AUCUN, montantCaution: AUCUN } };
+}
+
+
+export const effacerValeursBanqueConsign = (dedDumVo) => {
+  return { ...dedDumVo, dedDumSectionCautionVO: { ...dedDumVo.dedDumSectionCautionVO, banque: AUCUN, agence: AUCUN, refCautionBanque: AUCUN, refCautionBanque: AUCUN, montantBanque: AUCUN } };
 }

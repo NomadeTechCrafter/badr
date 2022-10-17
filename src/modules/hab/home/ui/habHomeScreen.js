@@ -1,4 +1,4 @@
-/** React Components */
+﻿/** React Components */
 import React from 'react';
 import {Dimensions} from 'react-native';
 import AnnoterTrypt from '../../../DeclarationD17D20/annoterD17D20/ui/decAnnoter/decAnnoterByRefDec';
@@ -100,12 +100,20 @@ import ConfirmationArriveeResultScreen from '../../../ecorExport/confirmationArr
 import EcorImportRechercheScreen from '../../../ecorImport/rechercheEcorImport/ui/EcorImportRechercheScreen';
 import EcorImportEnleverMarchandiseScreen from '../../../ecorImport/enleverMarchandise/ui/EcorImportEnleverMarchandiseScreen';
 import EciEnleverMarchandiseParPesageScreen from '../../../ecorImport/enleverMarchandiseParPesage/ui/eciEnleverMarchandiseParPesageScreen';
+import EciEnleverMarchandiseSsManifesteScreen from '../../../ecorImport/enleverMarchandiseSsManifeste/ui/eciEnleverMarchandiseSsManifesteScreen';
 import EciPeserMarchandiseScreen from '../../../ecorImport/peserMarchandise/ui/eciPeserMarchandiseScreen';
 import EciVerifierParContreEcorScreen from '../../../ecorImport/verifierParContreEcor/ui/eciVerifierParContreEcorScreen';
 
 import LiquidationRechercheScreen from '../../../liquidation/ui/rechercheLiquidation/LiquidationRechercheScreen';
 import PreConfirmationArriveeMainScreen from '../../../delaiTransit/dtPreConfirmationArrivee/ui/dtPreConfirmationArriveeScreen';
 import JustifRetardTransitMainScreen from '../../../delaiTransit/dtJustifRetardTransit/ui/dtJustifRetardTransitScreen';
+import verifierPContreEcorSsManifesteScreen
+    from "../../../ecorImport/verifierPContreEcorSsManifeste/ui/verifierPContreEcorSsManifesteScreen";
+import confirmerArriveeSsManifesteScreen
+    from "../../../ecorImport/confirmerArriveeSsManifeste/ui/confirmerArriveeSsManifesteScreen";
+import autoriserAcheminementSsManifesteScreen
+    from "../../../ecorImport/autoriserAcheminementSsManifeste/ui/autoriserAcheminementSsManifesteScreen";
+
 import RechApurementParRefScreen from '../../../DeclarationD17D20/apurement/ui/initApurement/RechApurementParRefScreen';
 import GestionApurementScreen from '../../../DeclarationD17D20/apurement/ui/initApurement/GestionApurementScreen';
 
@@ -253,6 +261,27 @@ class habHomeScreen extends React.Component {
           component={EciEnleverMarchandiseParPesageScreen}
           options={{headerShown: false}}
         />
+<Drawer.Screen
+              name="EnleverMarchandiseSsManifeste"
+              component={EciEnleverMarchandiseSsManifesteScreen}
+              options={{headerShown: false}}
+          />
+          <Drawer.Screen
+              name="VerifierPContreEcorSsManifeste"
+              component={verifierPContreEcorSsManifesteScreen}
+              options={{headerShown: false}}
+          />
+          <Drawer.Screen
+              name="ConfirmerArriveeSsManifeste"
+              component={confirmerArriveeSsManifesteScreen}
+              options={{headerShown: false}}
+          />
+          <Drawer.Screen
+              name="AutoriserAcheminementSsManifeste"
+              component={autoriserAcheminementSsManifesteScreen}
+              options={{headerShown: false}}
+          />
+
         <Drawer.Screen
           name="PeserMarchandise"
           component={EciPeserMarchandiseScreen}

@@ -1,5 +1,5 @@
 /**Constants */
-import { REDRESSEMENT_UPDATE } from '../../../modules/dedouanement/redressement/state/DedRedressementConstants';
+import { INIT_CAUTION_SECTION_FAILED, INIT_CAUTION_SECTION_IN_PROGRESS, INIT_CAUTION_SECTION_REQUEST, INIT_CAUTION_SECTION_SUCCESS, REDRESSEMENT_UPDATE } from '../../../modules/dedouanement/redressement/state/DedRedressementConstants';
 import * as Constants from '../../constants/generic/ComGenericConstants';
 
 const initialState = {
@@ -54,10 +54,36 @@ export default (state = initialState, action) => {
     case Constants.GENERIC_INIT_REFRESH:
       nextState.refresh = false;
       return nextState;
+    
     case Constants.GENERIC_INIT:
       return initialState;
     case REDRESSEMENT_UPDATE:
       nextState.data = action.value;
+      return nextState;
+    case INIT_CAUTION_SECTION_REQUEST:
+      nextState.showProgress = true;
+      nextState.messageInfo = null;
+      nextState.errorMessage = null;
+      return nextState;
+    case INIT_CAUTION_SECTION_IN_PROGRESS:
+      nextState.showProgress = true;
+      return nextState;
+    case INIT_CAUTION_SECTION_SUCCESS:
+      console.log(INIT_CAUTION_SECTION_SUCCESS);
+      nextState.errorMessage = null;
+      nextState.showProgress = false;
+      nextState.data = action.value;
+      console.log(INIT_CAUTION_SECTION_SUCCESS);
+      return nextState;
+    case INIT_CAUTION_SECTION_FAILED:
+      nextState.showProgress = false;
+      if (action.value.dtoHeader) {
+        nextState.errorMessage = action.value.dtoHeader.messagesErreur
+          ? action.value.dtoHeader.messagesErreur
+          : action.value;
+      } else {
+        nextState.errorMessage = translate('errors.technicalIssue');
+      }
       return nextState;
     default:
       return nextState ? nextState : initialState;

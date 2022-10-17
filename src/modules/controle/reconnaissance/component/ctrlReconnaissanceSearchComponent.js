@@ -228,6 +228,7 @@ class CtrlReconnaissanceSearchComponent extends React.Component {
                         annulation: this.props.mode === 'cancel',
                         referenceDed: reference,
                         numeroVoyage: numeroVoyage,
+                        offset: 0,
                     },
                 },
                 this.props.navigation

@@ -125,6 +125,40 @@ export default {
       dateEtablissement: "Date établissement",
 
     },
+    caution: {
+      donneurordre: {
+        titre: "Donneur d'ordre",
+        code: 'Code',
+        nomRaisonSociale: 'Nom ou raison sociale',
+        adresseCompelete:'Adresse complète'
+      }, validite: {
+        titre:'Validité',
+        limiterDuree: 'Limitée   une durée de',
+        limiterOperation: 'Limitée   une opération',
+        ILimiterTemps: 'Illimite dans le temps'
+      }, caution: {
+        titre: 'Caution',
+        nomouraisonsociale: 'Nom ou raison sociale',
+        adressecomplete: 'Adresse complète',
+        nrc: 'N°  R.C.',
+        centrerc: 'centre R.C.',
+        ifu: 'IFU'
+      }, banque: {
+        titre: 'Banque',
+        banque: 'Banque',
+        consignation: 'Consignation',
+        referencecaution:''
+        
+      }, consignation: {
+        titre: 'Consignation',
+        banque: 'Banque',
+        consignation: 'Consignation',
+        referencecaution: ''
+
+      }
+
+
+    },
     documents: {
       demandesChargement: 'Demandes de Chargement',
       nbDemandeNouveaux: '( {{nbDemande}} Nouveaux)',

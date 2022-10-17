@@ -97,4 +97,36 @@ export const DED_IMPUTATION_TC_NOUVELLE_PROVISIONNELLE = 'cf20181';
 
 export const CODE_TYPEDUM_NEW_PROVISIONNELLE = '99';
 
+export const TYPE_CAUTION_BANQUE = '01';
+export const TYPE_CAUTION_MIXTE = '02';
+export const TYPE_CAUTION_CEEE = '03';
+export const TYPE_CAUTION_F = '12';
+export const TYPE_CAUTION_GLOBALE_PECHE = '04';
+export const TYPE_CAUTION_GLOBALE_INDUSTRIE = '05';
+export const TYPE_CAUTION_MUTUELLE = '06';
+export const TYPE_CAUTION_DISPENSE = '07';
+export const TYPE_CAUTION_CONSIGNATION = '08';
+export const TYPE_CAUTION_DISPENSE_DO = '09';
+/** The Constant _0. */
+export const CONST_STRING_0 = '0';
+/** The Constant _1. */
+export const CONST_STRING_1 = '1';
+
+/** The Constant _2. */
+export const CONST_STRING_2 = '2';
+
+/** The dc limitee une operation. */
+export const  DC_LIMITEE_UNE_OPERATION = '2';
+
+	/** The dc illimitee. */
+export const  DC_ILLIMITEE = '0';
+
+	/** The dc limitee duree. */
+export const DC_LIMITEE_DUREE = '1';
+
+/** BANQUE. */
+export const BANQUE = '1';
+
+/** CONSIGNATION. */
+export const CONSIGNATION = '2';
 

@@ -1,4 +1,4 @@
-import Config from 'react-native-config';
+﻿import Config from 'react-native-config';
 module.exports = {
   HOST: 'badr4.douane.gov.ma',
   HOST_BO: 'bomobile-recette.douane.gov.ma',

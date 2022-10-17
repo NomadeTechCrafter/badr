@@ -1,19 +1,24 @@
 import React from 'react';
+//import FastImage from 'react-native-fast-image';
 
 import {
   FlatList,
   Image,
+  StyleSheet,
   SafeAreaView,
   ScrollView,
   Text,
   TouchableOpacity,
   View,
+  ActivityIndicator,
+  PermissionsAndroid,
+  Platform,
 } from 'react-native';
-import { Button } from 'react-native-elements';
+import {Button} from 'react-native-elements';
 import Modal from 'react-native-modal';
 
-import { HelperText, RadioButton, TextInput } from 'react-native-paper';
-import { Col, Grid, Row } from 'react-native-easy-grid';
+import {HelperText, RadioButton, TextInput} from 'react-native-paper';
+import {Col, Grid, Row} from 'react-native-easy-grid';
 import {
   ComAccordionComp,
   ComBadrCameraComp,
@@ -23,8 +28,8 @@ import {
   ComBadrProgressBarComp,
 } from '../../../../commons/component';
 
-import { connect } from 'react-redux';
-import { translate } from '../../../../commons/i18n/ComI18nHelper';
+import {connect} from 'react-redux';
+import {translate} from '../../../../commons/i18n/ComI18nHelper';
 import style from '../style/ctrlControleApresScannerStyle';
 
 import * as Constants from '../state/ctrlControleApresScannerConstants';
@@ -32,21 +37,27 @@ import * as Constants from '../state/ctrlControleApresScannerConstants';
 import * as CtrlControleApresScannerConfirmAction from '../state/actions/ctrlControleApresScannerConfirmAction';
 import * as CtrlControleApresScannerSearchAction from '../state/actions/ctrlControleApresScannerSearchAction';
 import _ from 'lodash';
+import {ComSessionService} from '../../../../commons/services/session/ComSessionService';
+import RNFetchBlob from 'rn-fetch-blob';
 
 const initialState = {
   cameraMode: false,
   deleteMode: false,
   toRemovePicture: {},
   scelleVo: {},
-  controleApresScannerVo: {},
+
+  controleApresScannerVo: {
+    offset: 0,
+  },
   showErrorMessage: false,
+  fetching_from_server: false,
 };
 
 class CtrlControleApresScannerCoreComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = initialState;
-
+    //  this.offset = 0;
     this.prepareState();
   }
 
@@ -62,7 +73,64 @@ class CtrlControleApresScannerCoreComponent extends React.Component {
       },
     ];
   };
+  static getDerivedStateFromProps(nextProps, prevState) {
+    //   console.log('props apres search', JSON.stringify(nextProps));
+    //   console.log('offset apres search', nextProps?.controleApresScannerVo.offset);
+    //   console.log('list avant',JSON.stringify(prevState?.controleApresScannerVo.photosControleApresScanner))
+    //   console.log('list apres',JSON.stringify(nextProps?.controleApresScannerVo.photosControleApresScanner))
+    const array1 = prevState?.controleApresScannerVo.photosControleApresScanner;
+    const array2 = nextProps?.controleApresScannerVo.photosControleApresScanner;
 
+    const result = _.unionBy(array1, array2, 'id');
+
+    console.log('result', result);
+
+    return {
+      ...prevState,
+
+      controleApresScannerVo: {
+        ...prevState?.controleApresScannerVo,
+        offset: nextProps?.controleApresScannerVo.offset,
+        photosControleApresScanner: result,
+      },
+    };
+  }
+  searchAction = (reference) => {
+    return CtrlControleApresScannerSearchAction.request(
+      {
+        type: Constants.SEARCH_CONTROLE_APRES_SCANNER_REQUEST,
+        value: {
+          typeRecherche: '1',
+          reference: reference,
+          numeroVoyage: this.state.numeroVoyage,
+          typeRechercheEtatChargement: '',
+
+          referenceDed: {
+            codeBureauDouane: this.state.bureau,
+            regime: this.state.regime,
+            anneeEnregistrement: this.state.annee,
+            numeroSerieEnregistrement: this.state.serie,
+            numeroOrdreVoyage: this.state.numeroVoyage,
+            cle: this.state.cle,
+          },
+          moyenTransport: '',
+          numeroImmatriculation: '',
+          bureauAgentConnecte: ComSessionService.getInstance().getCodeBureau(),
+          offset: this.state.controleApresScannerVo.offset,
+        },
+      },
+      this.props.navigation,
+    );
+  };
+
+  loadMoreData = () => {
+    let reference = this.props?.controleApresScannerVo?.reference;
+    let action = this.searchAction(reference);
+    this.props.actions.dispatch(action);
+    // this.offset = 170;
+    console.log(reference);
+    console.log('offset Load : ' + this.state.offset);
+  };
 
   cleDum2 = function (reference) {
     let alpha = 'ABCDEFGHJKLMNPRSTUVWXYZ';
@@ -73,10 +141,11 @@ class CtrlControleApresScannerCoreComponent extends React.Component {
   toAlpha = function (reference) {
     let alpha = 'ABCDEFGHJKLMNPRSTUVWXYZ';
     let RS = reference % 23;
-    return alpha.charAt(RS+1);
+    return alpha.charAt(RS + 1);
   };
 
   prepareState = () => {
+    console.log('apres search', this.props?.controleApresScannerVo);
     let reference = this.props?.controleApresScannerVo?.reference;
     let bureau = reference.slice(0, 3);
     let regime = reference.slice(3, 6);
@@ -90,9 +159,9 @@ class CtrlControleApresScannerCoreComponent extends React.Component {
       ? this.props.controleApresScannerVo.photosControleApresScanner
       : [];
     photosControleApresScanner.forEach(function (value, index, array) {
-      if (value.id != null) {
-        photosControleApresScanner[index].id = null;
-      }
+      //    if (value.id != null) {
+      //      photosControleApresScanner[index].id = null;
+      //    }
 
       photosControleApresScanner[index].url = markPhotoUrl(value.url);
 
@@ -119,10 +188,11 @@ class CtrlControleApresScannerCoreComponent extends React.Component {
         ...this.state.controleApresScannerVo,
         typeRecherche: this.props.data.typeRecherche,
         reference: this.props.data.reference,
-        photosControleApresScanner: photosControleApresScanner,
+       // photosControleApresScanner: photosControleApresScanner,
         isMobile: true,
       },
     };
+    console.log('new photos', JSON.stringify(photosControleApresScanner));
 
     function markPhotoUrl(photoUrl) {
       var encodingType = '.jpg';
@@ -146,7 +216,23 @@ class CtrlControleApresScannerCoreComponent extends React.Component {
       }
     }
   };
-
+  renderFooter() {
+    return (
+      //Footer View with Load More button
+      <View style={styles.footer}>
+        <TouchableOpacity
+          activeOpacity={0.9}
+          onPress={this.loadMoreData}
+          //On Click of button calling loadMoreData function to load more data
+          style={styles.loadMoreBtn}>
+          <Text style={styles.btnText}>Loading</Text>
+          {this.state.fetching_from_server ? (
+            <ActivityIndicator color="white" style={{marginLeft: 8}} />
+          ) : null}
+        </TouchableOpacity>
+      </View>
+    );
+  }
   confirm = () => {
     let action = CtrlControleApresScannerConfirmAction.request(
       {
@@ -315,7 +401,53 @@ class CtrlControleApresScannerCoreComponent extends React.Component {
       _.isEmpty(this.state.reconnaissanceVo[field])
     );
   };
-
+  downloadPicture = async (picture) => {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+        {
+          title: 'External Storage Permission',
+          message:
+            "L'application a besoin des permissions nécessaires pour procéder.",
+          buttonNeutral: 'Demander ultérieurement',
+          buttonNegative: 'Annuler',
+          buttonPositive: 'OK',
+        },
+      );
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        // RNFetchBlob.fs.writeFile(RNFetchBlob.fs.dirs.DownloadDir + '/' + picture.urlPhoto, picture.contentBase64, 'base64').then(() => {
+        if (Platform.OS === 'android') {
+          // RNFetchBlob.android.actionViewIntent(RNFetchBlob.fs.dirs.DownloadDir + '/' + picture.urlPhoto, 'image/jpeg');
+          RNFetchBlob.config({
+            fileCache: true,
+            appendExt: 'png',
+            indicator: true,
+            IOSBackgroundTask: true,
+            path: RNFetchBlob.fs.dirs.DownloadDir,
+            addAndroidDownloads: {
+              useDownloadManager: true,
+              notification: true,
+              path: RNFetchBlob.fs.dirs.DownloadDir,
+              description: 'Image',
+            },
+          })
+            .fetch('GET', picture.urlPhoto)
+            .then((res) => {
+              console.log(res, 'end downloaded');
+            });
+        } else {
+          RNFetchBlob.ios.previewDocument(
+            RNFetchBlob.fs.dirs.DownloadDir + '/' + picture.urlPhoto,
+          );
+        }
+        // });
+      } else {
+        console.log('External storage permission denied');
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
   renderPicture = (item) => {
     return (
       <View>
@@ -327,7 +459,6 @@ class CtrlControleApresScannerCoreComponent extends React.Component {
         />
 
         <Button
-          type={''}
           icon={{
             name: 'delete',
             size: 12,
@@ -336,11 +467,21 @@ class CtrlControleApresScannerCoreComponent extends React.Component {
           onPress={() => this.onRemovePicture(item.item)}
           disabled={this.state.readonly}
         />
+        <Button
+          type={'clear'}
+          icon={{
+            name: 'image',
+            size: 20,
+            color: 'black',
+          }}
+          onPress={() => this.downloadPicture(item.item)}
+          disabled={false}
+        />
       </View>
     );
   };
 
-  renderBoxItem = ({ item }) => {
+  renderBoxItem = ({item}) => {
     const itemStyle =
       item === this.state.selectedScelle
         ? style.selectedBoxItem
@@ -589,20 +730,28 @@ class CtrlControleApresScannerCoreComponent extends React.Component {
                           <Col size={70} style={style.boxContainer}>
                             <SafeAreaView style={style.miniBoxSafeArea}>
                               <Row>
-                                {(_.isEmpty(this.state?.controleApresScannerVo?.listScelles)) && (
+                                {_.isEmpty(
+                                  this.state?.controleApresScannerVo
+                                    ?.listScelles,
+                                ) && (
                                   <Text style={style.boxItemText}>
                                     Aucun élément
                                   </Text>
                                 )}
 
-                                {(!_.isEmpty(this.state?.controleApresScannerVo?.listScelles)) && (
+                                {!_.isEmpty(
+                                  this.state?.controleApresScannerVo
+                                    ?.listScelles,
+                                ) && (
                                   <Col>
                                     <Text style={style.boxItemText}>
-                                      {this.state?.controleApresScannerVo?.listScelles}
+                                      {
+                                        this.state?.controleApresScannerVo
+                                          ?.listScelles
+                                      }
                                     </Text>
-                                     
-                                    </Col>
-                                  )}
+                                  </Col>
+                                )}
 
                                 {/* {this.state.controleApresScannerVo
                                 .scellesConfirmationEntree != null &&
@@ -660,16 +809,16 @@ class CtrlControleApresScannerCoreComponent extends React.Component {
                               value={
                                 this.state.controleApresScannerVo
                                   .infoEcorScelle &&
-                                  this.state.controleApresScannerVo
-                                    .infoEcorScelle === true
+                                this.state.controleApresScannerVo
+                                  .infoEcorScelle === true
                                   ? 'true'
                                   : 'false'
                               }
                               status={
                                 this.state.controleApresScannerVo
                                   .infoEcorScelle &&
-                                  this.state.controleApresScannerVo
-                                    .infoEcorScelle === true
+                                this.state.controleApresScannerVo
+                                  .infoEcorScelle === true
                                   ? 'checked'
                                   : 'unchecked'
                               }
@@ -698,16 +847,16 @@ class CtrlControleApresScannerCoreComponent extends React.Component {
                               value={
                                 this.state.controleApresScannerVo
                                   .infoEcorScelle === null ||
-                                  this.state.controleApresScannerVo
-                                    .infoEcorScelle === false
+                                this.state.controleApresScannerVo
+                                  .infoEcorScelle === false
                                   ? 'true'
                                   : 'false'
                               }
                               status={
                                 this.state.controleApresScannerVo
                                   .infoEcorScelle === null ||
-                                  this.state.controleApresScannerVo
-                                    .infoEcorScelle === false
+                                this.state.controleApresScannerVo
+                                  .infoEcorScelle === false
                                   ? 'checked'
                                   : 'unchecked'
                               }
@@ -736,7 +885,7 @@ class CtrlControleApresScannerCoreComponent extends React.Component {
 
                         {this.state.controleApresScannerVo.infoEcorScelle &&
                           this.state.controleApresScannerVo.infoEcorScelle ===
-                          true && (
+                            true && (
                             <View>
                               <Row size={100}>
                                 <Col size={30} style={style.labelContainer}>
@@ -962,10 +1111,10 @@ class CtrlControleApresScannerCoreComponent extends React.Component {
                                       .scelles == null ||
                                       this.state.controleApresScannerVo.scelles
                                         .size === 0) && (
-                                        <Text style={style.boxItemText}>
-                                          Aucun élément
-                                        </Text>
-                                      )}
+                                      <Text style={style.boxItemText}>
+                                        Aucun élément
+                                      </Text>
+                                    )}
 
                                     {this.state.controleApresScannerVo
                                       .scelles != null &&
@@ -1030,6 +1179,12 @@ class CtrlControleApresScannerCoreComponent extends React.Component {
                               }
                               keyExtractor={(item) => item.urlPhoto}
                               horizontal={true}
+                              onEndReached={this.loadMoreData}
+                              onEndReachedThreshold={0.1}
+                              ItemSeparatorComponent={() => (
+                                <View style={styles.separator} />
+                              )}
+                              ListFooterComponent={this.renderFooter.bind(this)}
                             />
                           </Col>
                         </Row>
@@ -1112,15 +1267,54 @@ class CtrlControleApresScannerCoreComponent extends React.Component {
 }
 
 function mapStateToProps(state) {
-  return { ...state.ctrlControleApresScannerReducer };
+  return {...state.ctrlControleApresScannerReducer};
 }
 
 function mapDispatchToProps(dispatch) {
-  let actions = { dispatch };
+  let actions = {dispatch};
   return {
     actions,
   };
 }
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingTop: 30,
+  },
+  item: {
+    padding: 10,
+    height: 80,
+  },
+  separator: {
+    height: 0.5,
+    backgroundColor: 'rgba(0,0,0,0.4)',
+  },
+  text: {
+    fontSize: 15,
+    color: 'black',
+  },
+  footer: {
+    padding: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+  loadMoreBtn: {
+    padding: 10,
+    backgroundColor: '#800000',
+    borderRadius: 4,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  btnText: {
+    color: 'white',
+    fontSize: 15,
+    textAlign: 'center',
+  },
+});
 
 export default connect(
   mapStateToProps,
