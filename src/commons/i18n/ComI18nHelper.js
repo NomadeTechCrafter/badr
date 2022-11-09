@@ -5,10 +5,12 @@ import * as RNLocalize from 'react-native-localize';
  1) Import all translation modules imports
  */
 import loginTranslations from '../../modules/hab/login/i18n/habLoginTranslateFr';
+import dedEtudeRetudeTranslateFr from '../../modules/dedouanement/etudeRetude/i18n/dedEtudeRetudeTranslateFr';
 import smsVerifyTranslations from '../../modules/hab/smsVerify/i18n/habSmsVerifyTranslateFr';
 import profileTranslations from '../../modules/hab/profile/i18n/habProfileTranslateFr';
 import operatTranslations from '../../modules/hab/operateur/i18n/habOperatTranslateFr';
 import annoncesTranslations from '../../modules/hab/annonces/i18n/habAnnoncesTranslateFr';
+import dedInitierControlTranslateFr from '../../modules/dedouanement/initierControl/i18n/dedInitierControlTranslateFr';
 import atTranslations from '../../modules/at/apurement/i18n/atTranslateFr';
 import refOperateursEconomiquesTranslations from '../../modules/referentiel/operateursEconomiques/i18n/refOperateursEconomiquesTranslateFr';
 import ctrlReconnaissanceTranslations from '../../modules/controle/reconnaissance/i18n/ctrlReconnaissanceTranslateFr';
@@ -72,7 +74,9 @@ I18n.fallbacks = true;
 let combined = {
   ...commonTranslations,
   ...annoncesTranslations,
+  ...dedInitierControlTranslateFr,
   ...loginTranslations,
+  ...dedEtudeRetudeTranslateFr,
   ...smsVerifyTranslations,
   ...profileTranslations,
   ...operatTranslations,

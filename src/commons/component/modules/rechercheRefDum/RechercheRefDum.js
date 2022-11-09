@@ -107,6 +107,12 @@ class RechecheRefDum extends Component {
           forcerMLV: false,
           flag: 'F',
         });
+      case 'DED_LIB':
+        return (data = {
+          reference: referenceDed,
+          numeroVoyage: this.state.numeroVoyage,
+          enregistre: true,
+        });
       default:
         return data;
     }

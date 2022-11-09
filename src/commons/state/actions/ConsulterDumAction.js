@@ -28,11 +28,18 @@ export function request(action, navigation) {
           response.data.jsonVO &&
           !messagesErreurs
         ) {
-          if (action.command === 'ded.TraiterValeur' || action.command === 'ded.EnvoyerValeur') {
+          if (action.command === 'ded.TraiterValeur' || action.command === 'ded.EnvoyerValeur'|| action.command === 'ded.initEtude'|| action.command === 'ded.initREtude'|| action.command === 'ded.recoterEtude') {
             dispatch(success(response.data.jsonVO, action.value, action.command, response.data.dtoHeader.messagesInfo, null, null));
           } else {
             dispatch(success(response.data.jsonVO, action.value, action.command, '', navigation, action.fromLiquidation));
           }
+          if (action.command === 'ded.recoterEtude') {
+            navigation.navigate('RecoterScreen', {
+              searchData: action.value ? action.value.jsonVO : {}, title: translate('recoter.title'),
+              subtitle: translate('recoter.subTitle'), showHeader: true, isConfirmationReception: false, isRedressementDUM: false, successRedirection: null,
+              screen: 'RecoterScreen'
+            });
+          }else
           if (action.fromArticles) {
             navigation.navigate('DedRedressementScreen', {
               searchData: action.value ? action.value.jsonVO : {}, title: translate('dedouanement.title'),

@@ -92,7 +92,14 @@ import DTPSSortieMainScreen from '../../../dtps/dtpsSortie/ui/dtpsSortieMainScre
 import DTPSEntreeMainScreen from '../../../dtps/dtpsEntree/ui/dtpsEntreeMainScreen';
 import DTPSConsultationMainScreen from '../../../dtps/consultation/ui/dtpsConsultationMainScreen';
 import dedEnvoyerValeurScreen from '../../../dedouanement/envoyerValeur/ui/dedEnvoyerValeurScreen';
+import dedEtudeRetudeScreen from '../../../dedouanement/etudeRetude/ui/dedEtudeRetudeScreen';
+import dedREtudeRetudeScreen from '../../../dedouanement/etudeRetude/ui/dedREtudeRetudeScreen';
+import dedRecoterEtudeScreen from '../../../dedouanement/etudeRetude/ui/dedRecoterEtudeScreen';
+import recoterScreen from '../../../dedouanement/etudeRetude/ui/recoterEtudeScreen';
 import dedTraiterValeurScreen from '../../../dedouanement/traiterValeur/ui/dedTraiterValeurScreen';
+import InitierCtrlRechercherScreen from '../../../dedouanement/initierControl/ui/dedInitierCtrlRechercherScreen';
+import DedInitierControleScreen from '../../../dedouanement/initierControl/ui/dedInitierControleScreen';
+import DedInitierListControleScreen from '../../../dedouanement/initierControl/ui/dedInitierListControleScreen';
 import ConfirmationEntreeArriveeRechercheScreen from '../../../ecorExport/confirmationEntreeArrivee/ui/ecorExpConfirmationEntreeArriveeRechercheScreen';
 import ConfirmationEntreeResultScreen from '../../../ecorExport/confirmationEntree/ui/ecorExpConfirmationEntreeResultScreen';
 import ConfirmationArriveeResultScreen from '../../../ecorExport/confirmationArrivee/ui/ecorExpConfirmationArriveeResultScreen';
@@ -107,12 +114,9 @@ import EciVerifierParContreEcorScreen from '../../../ecorImport/verifierParContr
 import LiquidationRechercheScreen from '../../../liquidation/ui/rechercheLiquidation/LiquidationRechercheScreen';
 import PreConfirmationArriveeMainScreen from '../../../delaiTransit/dtPreConfirmationArrivee/ui/dtPreConfirmationArriveeScreen';
 import JustifRetardTransitMainScreen from '../../../delaiTransit/dtJustifRetardTransit/ui/dtJustifRetardTransitScreen';
-import verifierPContreEcorSsManifesteScreen
-    from "../../../ecorImport/verifierPContreEcorSsManifeste/ui/verifierPContreEcorSsManifesteScreen";
-import confirmerArriveeSsManifesteScreen
-    from "../../../ecorImport/confirmerArriveeSsManifeste/ui/confirmerArriveeSsManifesteScreen";
-import autoriserAcheminementSsManifesteScreen
-    from "../../../ecorImport/autoriserAcheminementSsManifeste/ui/autoriserAcheminementSsManifesteScreen";
+import verifierPContreEcorSsManifesteScreen from '../../../ecorImport/verifierPContreEcorSsManifeste/ui/verifierPContreEcorSsManifesteScreen';
+import confirmerArriveeSsManifesteScreen from '../../../ecorImport/confirmerArriveeSsManifeste/ui/confirmerArriveeSsManifesteScreen';
+import autoriserAcheminementSsManifesteScreen from '../../../ecorImport/autoriserAcheminementSsManifeste/ui/autoriserAcheminementSsManifesteScreen';
 
 import RechApurementParRefScreen from '../../../DeclarationD17D20/apurement/ui/initApurement/RechApurementParRefScreen';
 import GestionApurementScreen from '../../../DeclarationD17D20/apurement/ui/initApurement/GestionApurementScreen';
@@ -234,7 +238,21 @@ class habHomeScreen extends React.Component {
           component={NewRechercheMLV}
           options={{headerShown: false}}
         />
-
+        <Drawer.Screen
+          name="InitierCtrlRechercherScreen"
+          component={InitierCtrlRechercherScreen}
+          options={{headerShown: false}}
+        />
+        <Drawer.Screen
+          name="DedInitierControleScreen"
+          component={DedInitierControleScreen}
+          options={{headerShown: false}}
+        />
+        <Drawer.Screen
+          name="DedInitierListControleScreen"
+          component={DedInitierListControleScreen}
+          options={{headerShown: false}}
+        />
         <Drawer.Screen
           name="DelivrerMLV"
           component={DelivrerMLV}
@@ -261,26 +279,26 @@ class habHomeScreen extends React.Component {
           component={EciEnleverMarchandiseParPesageScreen}
           options={{headerShown: false}}
         />
-<Drawer.Screen
-              name="EnleverMarchandiseSsManifeste"
-              component={EciEnleverMarchandiseSsManifesteScreen}
-              options={{headerShown: false}}
-          />
-          <Drawer.Screen
-              name="VerifierPContreEcorSsManifeste"
-              component={verifierPContreEcorSsManifesteScreen}
-              options={{headerShown: false}}
-          />
-          <Drawer.Screen
-              name="ConfirmerArriveeSsManifeste"
-              component={confirmerArriveeSsManifesteScreen}
-              options={{headerShown: false}}
-          />
-          <Drawer.Screen
-              name="AutoriserAcheminementSsManifeste"
-              component={autoriserAcheminementSsManifesteScreen}
-              options={{headerShown: false}}
-          />
+        <Drawer.Screen
+          name="EnleverMarchandiseSsManifeste"
+          component={EciEnleverMarchandiseSsManifesteScreen}
+          options={{headerShown: false}}
+        />
+        <Drawer.Screen
+          name="VerifierPContreEcorSsManifeste"
+          component={verifierPContreEcorSsManifesteScreen}
+          options={{headerShown: false}}
+        />
+        <Drawer.Screen
+          name="ConfirmerArriveeSsManifeste"
+          component={confirmerArriveeSsManifesteScreen}
+          options={{headerShown: false}}
+        />
+        <Drawer.Screen
+          name="AutoriserAcheminementSsManifeste"
+          component={autoriserAcheminementSsManifesteScreen}
+          options={{headerShown: false}}
+        />
 
         <Drawer.Screen
           name="PeserMarchandise"
@@ -592,6 +610,35 @@ class habHomeScreen extends React.Component {
           unmountOnBlur={true}
           lazy={false}
         />
+        <Drawer.Screen
+          name="DedEtudeRetudeScreen"
+          component={dedEtudeRetudeScreen}
+          options={{headerShown: false, unmountOnBlur: true, lazy: false}}
+          unmountOnBlur={true}
+          lazy={false}
+        />
+          <Drawer.Screen
+              name="DedREtudeRetudeScreen"
+              component={dedREtudeRetudeScreen}
+              options={{headerShown: false, unmountOnBlur: true, lazy: false}}
+              unmountOnBlur={true}
+              lazy={false}
+          />
+          <Drawer.Screen
+              name="DedRecoterEtudeScreen"
+              component={dedRecoterEtudeScreen}
+              options={{headerShown: false, unmountOnBlur: true, lazy: false}}
+              unmountOnBlur={true}
+              lazy={false}
+          />
+          <Drawer.Screen
+              name="RecoterScreen"
+              component={recoterScreen}
+              options={{headerShown: false, unmountOnBlur: true, lazy: false}}
+              unmountOnBlur={true}
+              lazy={false}
+          />
+
         <Drawer.Screen
           name="DedTraiterValeurScreen"
           component={dedTraiterValeurScreen}

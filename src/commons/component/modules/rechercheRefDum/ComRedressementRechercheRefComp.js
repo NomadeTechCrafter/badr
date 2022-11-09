@@ -1,4 +1,4 @@
-/** RN Components **/
+﻿/** RN Components **/
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import {
@@ -39,6 +39,7 @@ class ComRedressementRechercheRefComp extends Component {
     showErrorMsg: false,
     sousReservePaiementMLV: false,
     enregistree: true,
+    reetude: false,
     command: 'ded.ConsulterDum'
   };
 
@@ -90,7 +91,24 @@ class ComRedressementRechercheRefComp extends Component {
           command: 'ded.InitTraiterValeur',
           enregistree: true,
         });
-
+      case 'ETUDE_RETUDE':
+        return this.setState({
+          command: 'ded.initEtude',
+          enregistree: true,
+          reetude: false
+        });
+      case 'RETUDE_RETUDE':
+        return this.setState({
+          command: 'ded.initEtude',
+          enregistree: true,
+          reetude: true
+        });
+      case 'RECOTER_ETUDE':
+        return this.setState({
+          command: 'ded.recoterEtude',
+          enregistree: true,
+          reetude: true
+        });
       default:
         this.setState({
           command: 'ded.ConsulterDum',
@@ -147,7 +165,8 @@ class ComRedressementRechercheRefComp extends Component {
               jsonVO: {
                 reference: referenceDed,
                 enregistre: this.state.enregistree,
-                identifiantOperateur: ComSessionService.getInstance().getOperateur()
+                identifiantOperateur: ComSessionService.getInstance().getOperateur(),
+                reetude: this.state.reetude
               },
               cle: this.state.cle,
             },

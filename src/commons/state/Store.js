@@ -1,10 +1,11 @@
-/** Redux Store & middleware */
+﻿/** Redux Store & middleware */
 import {applyMiddleware, combineReducers, compose, createStore} from 'redux';
 import thunk from 'redux-thunk';
 import {comCustomMiddlewareService} from '../services/middleware/ComCustomMiddlewareService';
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 /** Reducers */
 import loginReducer from '../../modules/hab/login/state/reducers/habLoginReducer';
+import initierControlReducer  from '../../modules/dedouanement/initierControl/state/reducers/dedInitierControlReducer';
 import smsVerifyReducer from '../../modules/hab/smsVerify/state/reducers/habSmsVerifyReducer';
 import confirmConnexionReducer from '../../modules/hab/profile/state/reducers/habProfileReducer';
 import confirmConnexionDeclarantReducer from '../../modules/hab/operateur/state/reducers/habOperatReducer';
@@ -103,6 +104,12 @@ import dedEnregisterRedressementReducer from '../../modules/dedouanement/redress
 
 import preConfirmationArriveeReducer from '../../modules/delaiTransit/dtPreConfirmationArrivee/state/reducers/dtPreConfirmationArriveeReducer';
 import justifRetardTransitReducer from '../../modules/delaiTransit/dtJustifRetardTransit/state/reducers/dtJustifRetardTransitReducer';
+import verifierPContreEcorSsManifesteReducer
+  from "../../modules/ecorImport/verifierPContreEcorSsManifeste/state/reducers/verifierPContreEcorSsManifesteReducer";
+import confirmerArriveeSsManifesteReducer
+  from "../../modules/ecorImport/confirmerArriveeSsManifeste/state/reducers/confirmerArriveeSsManifesteReducer";
+import autoriserAcheminementSsManifesteReducer
+  from "../../modules/ecorImport/autoriserAcheminementSsManifeste/state/reducers/autoriserAcheminementSsManifesteReducer";
 
 import dedValiderRefPreapurementReducer from '../../modules/dedouanement/redressement/state/reducers/DedValiderRefPreapurementReducer';
 
@@ -111,6 +118,7 @@ import dedValiderRefPreapurementReducer from '../../modules/dedouanement/redress
  */
 const allReducers = combineReducers({
   loginReducer,
+  initierControlReducer,
   smsVerifyReducer,
   confirmConnexionReducer,
   confirmConnexionDeclarantReducer,
@@ -156,6 +164,9 @@ const allReducers = combineReducers({
   // saisieReducer,
   // creationReducer,
   EcorImportReducer,
+  verifierPContreEcorSsManifesteReducer,
+  confirmerArriveeSsManifesteReducer,
+  autoriserAcheminementSsManifesteReducer,
   liquidationRechercheRefDumReducer,
   liquidationReducer,
   ecorImportRechercheRefDumReducer,

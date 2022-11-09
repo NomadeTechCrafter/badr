@@ -24,7 +24,18 @@ class DedRechercheRedressementScreen extends React.Component {
         return this.setState({
           title : translate('dedouanement.titleTraiterValeur')
         });
-
+      case 'ETUDE_RETUDE':
+        return this.setState({
+          title : translate('dedouanement.titleEtudeRetude')
+        });
+      case 'RETUDE_RETUDE':
+        return this.setState({
+          title : translate('dedouanement.titleREtudeRetude')
+        });
+      case 'RECOTER_ETUDE':
+        return this.setState({
+          title : translate('dedouanement.titleRecoterEtude')
+        });
       default:
         this.setState({
           title : translate('dedouanement.title')
