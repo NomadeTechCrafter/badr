@@ -1,0 +1,34 @@
+{
+  "dtoHeader": {
+    "userLogin": "AD6300",
+    "fonctionnalite": "cf4011",
+    "module": "CO_LIB",
+    "commande": "accepterCertificatOrigine",
+    "typeService": "UC"
+  },
+  "jsonVO": {
+    "identifiant": 799,
+    "reference": "2021MA0000065",
+    "dateEnregistrement": "18/01/2021 18:33:05",
+    "refArticlesCOVO": [],
+    "statut": "Créé",
+    "codeDeclarant": "CO-DEC2019",
+    "typeCertificat": "05",
+    "destination": "TN",
+    "langue": "AR",
+    "exportateurAdresseAR": "بسثل",
+    "producteurAdresseAR": "سيلب",
+    "importateurAdresseAR": "لبيا",
+    "cumul": false,
+    "showDest": false,
+    "valeurTotalArticleAR": "5421.25",
+    "referenceDUM": "30906020190000114",
+    "versionDUM": "0",
+    "idDUM": "196849",
+    "regimeSpecial": false,
+    "regimeSpecialBeforeConfinment": false,
+    "opPourLequel": false,
+    "idPourRecherche": "2021MA0000065",
+    "defaultConverter": {}
+  }
+}

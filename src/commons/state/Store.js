@@ -5,7 +5,7 @@ import {comCustomMiddlewareService} from '../services/middleware/ComCustomMiddle
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 /** Reducers */
 import loginReducer from '../../modules/hab/login/state/reducers/habLoginReducer';
-import initierControlReducer  from '../../modules/dedouanement/initierControl/state/reducers/dedInitierControlReducer';
+import initierControlReducer from '../../modules/dedouanement/initierControl/state/reducers/dedInitierControlReducer';
 import smsVerifyReducer from '../../modules/hab/smsVerify/state/reducers/habSmsVerifyReducer';
 import confirmConnexionReducer from '../../modules/hab/profile/state/reducers/habProfileReducer';
 import confirmConnexionDeclarantReducer from '../../modules/hab/operateur/state/reducers/habOperatReducer';
@@ -96,6 +96,7 @@ import ecorExpConfirmationArriveeReducer from '../../modules/ecorExport/confirma
 import dtpsSortieReducer from '../../modules/dtps/dtpsSortie/state/reducers/dtpsSortieReducer';
 import dtpsEntreeReducer from '../../modules/dtps/dtpsEntree/state/reducers/dtpsEntreeReducer';
 import dtpsConsultationReducer from '../../modules/dtps/consultation/state/reducers/dtpsConsultationReducer';
+import coReducer from '../../modules/co/state/reducers/coReducer';
 import rechercheAutoriserAcheminementReducer from '../../modules/ecorExport/autoriserAcheminement/recherche/state/reducers/rechercheAutoriserAcheminementReducer';
 import autoriserAcheminementMainReducer from '../../modules/ecorExport/autoriserAcheminement/mainScreen/state/reducers/autoriserAcheminementMainReducer';
 import ecorExpConfirmationEntreeArriveeReducer from '../../modules/ecorExport/confirmationEntreeArrivee/state/reducers/ecorExpConfirmationEntreeArriveeReducer';
@@ -104,12 +105,9 @@ import dedEnregisterRedressementReducer from '../../modules/dedouanement/redress
 
 import preConfirmationArriveeReducer from '../../modules/delaiTransit/dtPreConfirmationArrivee/state/reducers/dtPreConfirmationArriveeReducer';
 import justifRetardTransitReducer from '../../modules/delaiTransit/dtJustifRetardTransit/state/reducers/dtJustifRetardTransitReducer';
-import verifierPContreEcorSsManifesteReducer
-  from "../../modules/ecorImport/verifierPContreEcorSsManifeste/state/reducers/verifierPContreEcorSsManifesteReducer";
-import confirmerArriveeSsManifesteReducer
-  from "../../modules/ecorImport/confirmerArriveeSsManifeste/state/reducers/confirmerArriveeSsManifesteReducer";
-import autoriserAcheminementSsManifesteReducer
-  from "../../modules/ecorImport/autoriserAcheminementSsManifeste/state/reducers/autoriserAcheminementSsManifesteReducer";
+import verifierPContreEcorSsManifesteReducer from '../../modules/ecorImport/verifierPContreEcorSsManifeste/state/reducers/verifierPContreEcorSsManifesteReducer';
+import confirmerArriveeSsManifesteReducer from '../../modules/ecorImport/confirmerArriveeSsManifeste/state/reducers/confirmerArriveeSsManifesteReducer';
+import autoriserAcheminementSsManifesteReducer from '../../modules/ecorImport/autoriserAcheminementSsManifeste/state/reducers/autoriserAcheminementSsManifesteReducer';
 
 import dedValiderRefPreapurementReducer from '../../modules/dedouanement/redressement/state/reducers/DedValiderRefPreapurementReducer';
 
@@ -196,6 +194,7 @@ const allReducers = combineReducers({
   dtpsSortieReducer,
   dtpsEntreeReducer,
   dtpsConsultationReducer,
+  coReducer,
   rechercheAutoriserAcheminementReducer,
   autoriserAcheminementMainReducer,
   pecEtatChargementVEReducer,
@@ -209,7 +208,7 @@ const allReducers = combineReducers({
   justifRetardTransitReducer,
   decMainleveeInitReducer,
   decMainleveeUCReducer,
-  dedValiderRefPreapurementReducer
+  dedValiderRefPreapurementReducer,
 });
 /**
  * store creation

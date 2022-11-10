@@ -1,0 +1,17 @@
+{
+  "dtoHeader": {
+    "userLogin": "AD6300",
+    "fonctionnalite": "cf4011",
+    "module": "CO_LIB",
+    "commande": "findListCoMultiRecherche",
+    "typeService": "SP"
+  },
+  "jsonVO": {
+    "reference": null,
+    "numeroSerie": null,
+    "idDED": null,
+    "dateDebut": "15/01/2021",
+    "dateFin": "20/01/2021",
+    "traiter": true
+  }
+}

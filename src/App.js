@@ -90,6 +90,8 @@ import ControleDeclarationsApurementScreen from './modules/controle/ACVP/ui/ongl
 import ControleReconnaissanceScreen from './modules/controle/ACVP/ui/onglets/reconnaissance/ControleReconnaissanceScreen';
 import ControleBonDelivrerScreen from './modules/controle/ACVP/ui/onglets/bonDelivrer/ControleBonDelivrerScreen';
 import controleListeDocsExigi from './modules/controle/ACVP/ui/onglets/compteRendu/blocks/controleListeDocsExigi';
+import dtpsConsultationRechercheScreen from './modules/dtps/consultation/ui/dtpsConsultationRechercheScreen';
+import coMainScreen from './modules/co/ui/coMainScreen';
 
 
 //setGlobalHandler();
@@ -113,7 +115,7 @@ export default class App extends React.Component {
                 <Stack.Screen
                   name="test"
                   options={{headerShown: false}}
-                    component={controleListeDocsExigi}
+                    component={coMainScreen}
                 />
               )}
               <Stack.Screen

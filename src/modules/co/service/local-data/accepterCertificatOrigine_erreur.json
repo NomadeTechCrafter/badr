@@ -1,0 +1,16 @@
+{
+  "dtoHeader": {
+    "userLogin": "AD6300",
+    "fonctionnalite": "cf4011",
+    "module": "CO_LIB",
+    "commande": "accepterCertificatOrigine",
+    "typeService": "UC",
+    "messagesErreur": [
+      "Seul le certificat d'Origine avec un statut Crée peut être traité."
+    ],
+    "offset": 0,
+    "pageSize": 0,
+    "rowCount": 0
+  },
+  "jsonVO": ""
+}

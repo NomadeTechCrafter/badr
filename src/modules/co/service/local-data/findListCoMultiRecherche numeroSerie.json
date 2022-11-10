@@ -1,0 +1,41 @@
+{
+  "dtoHeader": {
+    "userLogin": "AD6300",
+    "fonctionnalite": "cf4011",
+    "module": "CO_LIB",
+    "commande": "findListCoMultiRecherche",
+    "typeService": "SP",
+    "offset": 0,
+    "pageSize": 0,
+    "rowCount": 0
+  },
+  "jsonVO": [
+    {
+      "identifiant": 1897,
+      "reference": "2022MA0000019",
+      "dateEnregistrement": "04/08/2022 15:26:34",
+      "refArticlesCOVO": [],
+      "statut": "Accepté",
+      "cachet": "CC344",
+      "codeDeclarant": "TESTDEC4",
+      "typeCertificat": "06",
+      "destination": "FR",
+      "langue": "FR",
+      "accordCode": "UE",
+      "cumul": false,
+      "showDest": false,
+      "referenceDUM": "30906020190000114",
+      "versionDUM": "0",
+      "idDUM": "196849",
+      "destinataire": "bandes d'une épaisseur ne dépassant pas 5 mm const,Bandes d'une épaissenr ne dépassant pas 5 mm contituées par une nappe de câbles en acier paraléllisés",
+      "regimeSpecial": false,
+      "regimeSpecialBeforeConfinment": false,
+      "opPourLequel": false,
+      "urlImageCachet": "/fsbadr/srv_badr_recette/FILES/CO/CO_LIB/2020/6/C.C 101_1589385832055_1591958007661.png",
+      "urlImageSignatureValidateur": "/fsbadr/srv_badr_recette/FILES/REF_LIB/SIGNATURE_AGENT/2020/5/ASSRHLI MLY ELBACHIR_1588945016238_1589987572222.jpg",
+      "numeroSerieConfinement": "D3256898",
+      "defaultConverter": {},
+      "idPourRecherche": "2022MA0000019"
+    }
+  ]
+}
