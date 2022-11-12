@@ -1,7 +1,8 @@
 export default {
   co: {
-    title: 'Déclaration transfert ',
-    subTitleCons: 'Consulter',
+    title: 'CERTIFICAT D`ORIGINE',
+    subTitleTraiter: 'TRAITER UNE DEMANDE DE CERTIFICAT D`ORIGINE',
+    subTitleConsulter: 'Consulter',
     subTitle: 'Entree au Port Sec',
     subTitle1: 'Sortie du Port Sec',
     dateSortie: 'Date de sortie',
@@ -34,19 +35,21 @@ export default {
 
     // Filtre de recherche
     filtreRecherche: {
+      critereTitle: 'Critères de recherche (*)',
       title: 'Ecran de recherche',
       referenceDeclaration: 'Référence déclaration',
-      matricule: 'Matricule',
-      refDS: 'Réference DS',
-      refLot: 'Réference Lot',
+      annee: 'Année',
+      reference: 'Réference',
+      numeroSerie: 'Numéro de série',
       lieuChargement: 'Lieu de Chargement',
+      selectionnerCritere: 'Sélectionner un critère',
     },
-    // Bloc scanner
-    scanner: {
-      dateScannage: 'Date scannage',
-      agent: 'Agent',
-      resultat: 'Résultat',
-      commentaire: 'Commentaire',
-    },
+    numeroSerieConfinement:
+      'Numéro de série du document (Disponible sur le pré-imprimé)',
+    reference: "Référence du certificat d'origine",
+    referenceDUM: 'Référence de la déclaration',
+    versionDUM: 'Version de la déclaration',
+    dateEnregistrement: "Date d'enregistrement du certificat d'origine",
+    action: 'Action',
   },
 };

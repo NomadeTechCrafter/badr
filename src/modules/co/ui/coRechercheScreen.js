@@ -6,13 +6,14 @@ import moment from 'moment';
 import {connect} from 'react-redux';
 import {ComSessionService} from '../../../commons/services/session/ComSessionService';
 import {init, request} from '../state/actions/coAction';
-import {CO_CONSULTATION_REQUEST} from '../state/coConstants';
+import {CO_CONSULTATION_REQUEST, critereRecherche} from '../state/coConstants';
 /**Custom Components */
 import {
   ComBadrAutoCompleteChipsComp,
   ComBadrButtonIconComp,
   ComBadrDatePickerComp,
   ComBadrErrorMessageComp,
+  ComBadrItemsPickerComp,
 } from '../../../commons/component';
 import translate from '../../../commons/i18n/ComI18nHelper';
 /**Styling */
@@ -102,6 +103,7 @@ class coRechercheScreen extends React.Component {
     return (
       <ScrollView>
         <View style={CustomStyleSheet.verticalContainer20}>
+
           <Row>
             <Col>
               {this.state?.errorMessage != null && (
