@@ -120,6 +120,7 @@ import autoriserAcheminementSsManifesteScreen from '../../../ecorImport/autorise
 
 import RechApurementParRefScreen from '../../../DeclarationD17D20/apurement/ui/initApurement/RechApurementParRefScreen';
 import GestionApurementScreen from '../../../DeclarationD17D20/apurement/ui/initApurement/GestionApurementScreen';
+import COConsultationDetail from '../../../co/ui/coConsultationDetail';
 
 const Drawer = createDrawerNavigator();
 const deltaScreen = Dimensions.get('window').width / 4;
@@ -617,27 +618,27 @@ class habHomeScreen extends React.Component {
           unmountOnBlur={true}
           lazy={false}
         />
-          <Drawer.Screen
-              name="DedREtudeRetudeScreen"
-              component={dedREtudeRetudeScreen}
-              options={{headerShown: false, unmountOnBlur: true, lazy: false}}
-              unmountOnBlur={true}
-              lazy={false}
-          />
-          <Drawer.Screen
-              name="DedRecoterEtudeScreen"
-              component={dedRecoterEtudeScreen}
-              options={{headerShown: false, unmountOnBlur: true, lazy: false}}
-              unmountOnBlur={true}
-              lazy={false}
-          />
-          <Drawer.Screen
-              name="RecoterScreen"
-              component={recoterScreen}
-              options={{headerShown: false, unmountOnBlur: true, lazy: false}}
-              unmountOnBlur={true}
-              lazy={false}
-          />
+        <Drawer.Screen
+          name="DedREtudeRetudeScreen"
+          component={dedREtudeRetudeScreen}
+          options={{headerShown: false, unmountOnBlur: true, lazy: false}}
+          unmountOnBlur={true}
+          lazy={false}
+        />
+        <Drawer.Screen
+          name="DedRecoterEtudeScreen"
+          component={dedRecoterEtudeScreen}
+          options={{headerShown: false, unmountOnBlur: true, lazy: false}}
+          unmountOnBlur={true}
+          lazy={false}
+        />
+        <Drawer.Screen
+          name="RecoterScreen"
+          component={recoterScreen}
+          options={{headerShown: false, unmountOnBlur: true, lazy: false}}
+          unmountOnBlur={true}
+          lazy={false}
+        />
 
         <Drawer.Screen
           name="DedTraiterValeurScreen"
@@ -702,6 +703,12 @@ class habHomeScreen extends React.Component {
         <Drawer.Screen
           name="LiquidationRechercheScreen"
           component={LiquidationRechercheScreen}
+          options={{headerShown: false}}
+        />
+
+        <Drawer.Screen
+          name="COConsultationDetail"
+          component={COConsultationDetail}
           options={{headerShown: false}}
         />
       </Drawer.Navigator>

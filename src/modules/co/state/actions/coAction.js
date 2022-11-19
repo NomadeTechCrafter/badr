@@ -8,13 +8,13 @@ import translate from '../../../../commons/i18n/ComI18nHelper';
 import ComTransverseApi from '../../../../commons/services/api/ComTransverseApi';
 import Config from 'react-native-config';
 
-export function request(action) {
+export function request(action, navigation, successRedirection) {
   return (dispatch) => {
     dispatch(action);
     dispatch(inProgress(action));
     ComTransverseApi.doProcess(
       Config.MODULE_CO,
-      'findListCoMultiRecherche',
+      action.command,
       'SP',
       action.value,
     )
@@ -27,7 +27,7 @@ export function request(action) {
               data.dtoHeader.messagesErreur.length === 0)
           ) {
             dispatch(success(data));
-            navigation.navigate('Resultat', {});
+            navigation.navigate(successRedirection);
           } else {
             dispatch(failed(data));
           }

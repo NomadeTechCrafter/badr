@@ -42,6 +42,9 @@ const style = {
   },
   nombreResult: {margin: 20, marginVertical: 10, ...value},
   libelle: {...libelle},
+  innerContainer: {
+    margin: '2%',
+  },
 };
 
 export default StyleSheet.create(style);

@@ -19,6 +19,12 @@ export default (state = initialState, action) => {
     ...state,
     value: action.value,
   };
+
+  // console.log('==================action==========================');
+  // console.log('====================action========================');
+  // console.log(JSON.stringify(action));
+  // console.log('=====================action=======================');
+  // console.log('===================action=========================');
   switch (action.type) {
     case CO_CONSULTATION_REQUEST:
       nextState.displayError = false;
@@ -29,6 +35,11 @@ export default (state = initialState, action) => {
     case CO_CONSULTATION_IN_PROGRESS:
       return nextState;
     case CO_CONSULTATION_SUCCESS:
+      // console.log('1111111111111111 CO_CONSULTATION_SUCCESS 111111111111111');
+      // console.log('1111111111111111 CO_CONSULTATION_SUCCESS 111111111111111');
+      // console.log(JSON.stringify(action));
+      // console.log('1111111111111111 CO_CONSULTATION_SUCCESS 111111111111111');
+      // console.log('1111111111111111 CO_CONSULTATION_SUCCESS 111111111111111');
       nextState.errorMessage = null;
       nextState.showProgress = false;
       nextState.data = action.value;

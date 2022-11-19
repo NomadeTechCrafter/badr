@@ -1,4 +1,4 @@
-let localStore
+let localStore;
 
 if (process.env.NODE_ENV === 'development') {
   localStore = {
@@ -108,7 +108,7 @@ if (process.env.NODE_ENV === 'development') {
     'ded.ConsulterDum': require('../../../../modules/dedouanement/redressement/service/local-data/ded.ConsulterDum.json'),
     'ded.initRechercheDeclarationTryp': require('../../../../modules/DeclarationD17D20/rechParRef/service/local-data/ded.initRechercheDeclarationTryp.json'),
     'ded.findTrypByRef': require('../../../../modules/DeclarationD17D20/rechParRef/service/local-data/ded.findTrypByRef.json'),
-    'initAffecterAgentVisiteur': require('../../../../modules/controle/reconnaissance/service/local-data/initAffecterAgentVisiteurData.json'),
+    initAffecterAgentVisiteur: require('../../../../modules/controle/reconnaissance/service/local-data/initAffecterAgentVisiteurData.json'),
     listeDeclarationsRec: require('../../../../modules/controle/reconnaissance/service/local-data/listeDeclarationsRecData.json'),
     initVuEmbarquer: require('../../../../modules/ecorExport/vuEmbarquer/service/local-data/initVuEmbarquer.json'),
     findResultatScanner: require('../../../../modules/controle/ctrlResultatScanner/service/local-data/findResultatScanner.json'),
@@ -119,9 +119,8 @@ if (process.env.NODE_ENV === 'development') {
     getCmbUniteQuantite: require('../../../../modules/dedouanement/redressement/service/local-data/getCmbUniteQuantite.json'),
     getCmbAccord: require('../../../../modules/dedouanement/redressement/service/local-data/getCmbAccord.json'),
     getCmbFranchise: require('../../../../modules/dedouanement/redressement/service/local-data/getCmbFranchise.json'),
-    'ded.calculerUniteNormalisee': require('../../../../modules/dedouanement/redressement/service/local-data/ded.calculerUniteNormalisee.json')
-    
-    
+    'ded.calculerUniteNormalisee': require('../../../../modules/dedouanement/redressement/service/local-data/ded.calculerUniteNormalisee.json'),
+    recupererCertificatOrigineByRef: require('../../../../modules/co/service/local-data/recupererCertificatOrigineByRef.json'),
   };
 }
 export default localStore;

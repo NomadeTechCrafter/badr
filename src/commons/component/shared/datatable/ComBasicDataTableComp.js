@@ -16,6 +16,7 @@ import {translate} from '../../../i18n/ComI18nHelper';
 
 /** Loadash */
 import _ from 'lodash';
+import ComBadrButtonIconComp from '../buttons/ComBadrButtonIconComp';
 
 const FIRST_PAGINATION_SEPARATOR = ' / ';
 const SECOND_PAGINATION_SEPARATOR = ' - ';
@@ -296,6 +297,16 @@ export default class ComBasicDataTableComp extends React.Component {
                                   onPress={() => column.action(row, index)}
                                 />
                               )}
+
+                            {column.component === 'basic-button' && (
+                              <ComBadrButtonIconComp
+                                style={styles.width90}
+                                text={
+                                  column.text ? column.text : row[column.code]
+                                }
+                                onPress={() => column.action(row, index)}
+                              />
+                            )}
                           </View>
                         ) : (
                           this.buildCellChildren(row, column, colindex)
@@ -325,4 +336,5 @@ const styles = StyleSheet.create({
   pagination: {alignSelf: 'flex-start'},
   datatableTitle: {width: 50},
   width100: {width: '100%'},
+  width90: {width: '90%'},
 });

@@ -1,7 +1,6 @@
-import {NavigationContainer} from '@react-navigation/native';
 import React from 'react';
 import {connect} from 'react-redux';
-import {Dimensions, ScrollView, View} from 'react-native';
+import {ScrollView, View} from 'react-native';
 /**Custom Components */
 import {
   ComAccordionComp,
@@ -14,33 +13,18 @@ import {
   ComBadrProgressBarComp,
   ComBadrToolbarComp,
   ComBasicDataTableComp,
-  ComLiquidationRechercheRefComp,
   RechercheRefDum,
 } from '../../../commons/component';
 import translate from '../../../commons/i18n/ComI18nHelper';
 import style from '../style/coStyle';
-import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import {
-  CustomStyleSheet,
-  primaryColor,
-} from '../../../commons/styles/ComThemeStyle';
-import COResult from './coResultScreen';
-import COSearch from './coRechercheScreen';
-import {criteresRecherche} from '../state/coConstants';
+import {CO_CONSULTATION_REQUEST, criteresRecherche} from '../state/coConstants';
 import {ComSessionService} from '../../../commons/services/session/ComSessionService';
-import {Text, TextInput} from 'react-native-paper';
+import {TextInput} from 'react-native-paper';
 import {Col, Grid, Row} from 'react-native-easy-grid';
 import moment from 'moment/moment';
-
-const Tab = createMaterialTopTabNavigator();
-
-function ResultScreen({route, navigation}) {
-  return <COResult navigation={navigation} route={route} />;
-}
-
-function SearchScreen({route, navigation}) {
-  return <COSearch navigation={navigation} route={route} />;
-}
+import * as ConsulterDumAction from '../../../commons/state/actions/ConsulterDumAction';
+import {GENERIC_REQUEST} from '../../../commons/constants/generic/ComGenericConstants';
+import * as COAction from '../state/actions/coAction';
 
 const initialState = {
   login: ComSessionService.getInstance().getLogin(),
@@ -612,12 +596,16 @@ class COMainScreen extends React.Component {
       {
         code: 'reference',
         libelle: translate('co.reference'),
-        width: 200,
+        component: 'basic-button',
+        action: (row, index) => this.redirectToConsultationCO(row, index),
+        width: 250,
       },
       {
         code: 'referenceDUM',
         libelle: translate('co.referenceDUM'),
-        width: 180,
+        component: 'basic-button',
+        action: (row, index) => this.redirectToConsultationDUM(row, index),
+        width: 250,
       },
       {
         code: 'versionDUM',
@@ -630,15 +618,23 @@ class COMainScreen extends React.Component {
         width: 250,
       },
       {
-        code: 'action',
+        code: '',
         libelle: translate('co.action'),
-        component: 'button',
-        icon: 'file-check',
-        // action: (row, index) => this.onComponentChecked(row, index),
-        width: 100,
+        component: 'basic-button',
+        text: 'Traiter',
+        action: (row, index) => this.traiter(row, index),
+        width: 150,
       },
     ];
   }
+
+  traiter = (row, index) => {
+    console.log('traiter 001');
+    console.log(JSON.stringify(row));
+    console.log('traiter 002');
+    console.log(JSON.stringify(index));
+    console.log('traiter 003');
+  };
 
   confirmer = () => {
     if (this.state.critereRecherche) {
@@ -700,6 +696,53 @@ class COMainScreen extends React.Component {
         break;
     }
   };
+
+  redirectToConsultationCO(row, index) {
+    // console.log('============================================');
+    // console.log('============================================');
+    // console.log(JSON.stringify(row?.referenceDum));
+    // console.log('============================================');
+    // console.log('============================================');
+    let action = COAction.request(
+      {
+        type: CO_CONSULTATION_REQUEST,
+        value: {
+          jsonVO: {
+            reference: row?.reference,
+          },
+        },
+        command: 'recupererCertificatOrigineByRef',
+      },
+      this.props.navigation,
+      'COConsultationDetail',
+    );
+    this.props.actions.dispatch(action);
+  }
+
+  redirectToConsultationDUM(row, index) {
+    // console.log('============================================');
+    // console.log('============================================');
+    // console.log(JSON.stringify(row?.referenceDum));
+    // console.log('============================================');
+    // console.log('============================================');
+    let action = ConsulterDumAction.request(
+      {
+        type: GENERIC_REQUEST,
+        value: {
+          jsonVO: {
+            reference: row?.referenceDum,
+            enregistre: true,
+            identifiantOperateur: ComSessionService.getInstance().getOperateur(),
+          },
+          // cle: 'F',
+        },
+        command: 'ded.ConsulterDum',
+        fromCO: true,
+      },
+      this.props.navigation,
+    );
+    this.props.actions.dispatch(action);
+  }
 
   render() {
     const titre = "Nombre d'éléments: " + this.state.rows?.length;
@@ -844,15 +887,29 @@ class COMainScreen extends React.Component {
                       />
                     </Col>
                     <Col size={20} />
+                    {/* <Col size={20}>
+                      <ComBadrLibelleComp>
+                        <Button
+                          mode="contained"
+                          icon="check"
+                          compact="true"
+                          onPress={this.redirectToConsultationDUM.bind(
+                            this,
+                            this.state.rows[5].referenceDUM,
+                            this.props.navigation,
+                          )}>
+                          {this.state.rows[5].referenceDUM}
+                        </Button>
+                      </ComBadrLibelleComp>
+                    </Col> */}
                   </Row>
                 </Grid>
               </View>
             </ScrollView>
           </ComBadrCardWithTileComp>
         </ComBadrCardBoxComp>
-        {/* {this.state.rows && ( */}
-        <ComBadrCardBoxComp style={style.cardBox}>
-          <ScrollView>
+        {this.state.rows && (
+          <ScrollView style={style.innerContainer}>
             <View>
               <ComAccordionComp badr title={titre} expanded={true}>
                 <ComBasicDataTableComp
@@ -864,13 +921,11 @@ class COMainScreen extends React.Component {
                   maxResultsPerPage={10}
                   paginate={true}
                   showProgress={this.props.showProgress}
-                  onItemSelected={(item) => this.onItemSelected(item)}
                 />
               </ComAccordionComp>
             </View>
           </ScrollView>
-        </ComBadrCardBoxComp>
-        {/* )} */}
+        )}
       </View>
     );
   }

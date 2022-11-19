@@ -12,7 +12,10 @@ import {createStackNavigator} from '@react-navigation/stack';
 
 const Stack = createStackNavigator();
 
-import { ComBadrStackNavigatorComp, ComControleRechercheRefComp} from './commons/component';
+import {
+  ComBadrStackNavigatorComp,
+  ComControleRechercheRefComp,
+} from './commons/component';
 import {RootSiblingParent} from 'react-native-root-siblings';
 
 /** REDUX */
@@ -43,18 +46,17 @@ import EcorImportRechercheScreen from './modules/ecorImport/rechercheEcorImport/
 import EcorImportEnleverMarchandiseScreen from './modules/ecorImport/enleverMarchandise/ui/EcorImportEnleverMarchandiseScreen';
 import LiquidationRechercheScreen from './modules/liquidation/ui/rechercheLiquidation/LiquidationRechercheScreen';
 import LiquidationHomeScreen from './modules/liquidation/ui/ongletsLiquidation/home/LiquidationHomeScreen';
-import EciConsultationBLSSearchScreen from './modules/ecorImport/eciConsultationBLS/ui/eciConsultationBLSMainScreen'
-import EciConsultationBLESearchScreen from './modules/ecorImport/eciConsultationBLE/ui/eciConsultationBLEMainScreen'
+import EciConsultationBLSSearchScreen from './modules/ecorImport/eciConsultationBLS/ui/eciConsultationBLSMainScreen';
+import EciConsultationBLESearchScreen from './modules/ecorImport/eciConsultationBLE/ui/eciConsultationBLEMainScreen';
 
 import T6bisCreation from './modules/t6bis/creation/ui/t6bisCreation/t6bisCreationScreen';
 import T6bisGestion from './modules/t6bis/gestion/ui/t6bisGestion/t6bisGestionScreen';
 import RechercheEcorImport from './old/screens/ecorImport/rechercheEcorImport';
 
-import MainleveeScreen from './modules/DeclarationD17D20/mainlevee/ui/decMainlevee/decMainleveeMainScreen'
+import MainleveeScreen from './modules/DeclarationD17D20/mainlevee/ui/decMainlevee/decMainleveeMainScreen';
 
 import ConfirmationEntreeResultScreen from './modules/ecorExport/confirmationEntree/ui/ecorExpConfirmationEntreeResultScreen';
 import ConfirmationArriveeResultScreen from './modules/ecorExport/confirmationArrivee/ui/ecorExpConfirmationArriveeResultScreen';
-
 
 //Actif
 import ActifsRapportCreationScreen from './modules/actifs/rapport/creation/ui/actifsRapportCreationScreen';
@@ -79,8 +81,8 @@ import etatChargementTabSearchComponent from './modules/controle/controleApresSc
 import ctrlControleApresScannerSearchComponent from './modules/controle/controleApresScanner/component/ctrlControleApresScannerSearchComponent';
 import ActifsRapportCreationAvitaillementEntreeTab from './modules/actifs/rapport/creation/ui/avitaillementEntree/actifsRapportCreationAvitaillementEntreeTab';
 import PreConfirmationArriveeMainScreen from './modules/delaiTransit/dtPreConfirmationArrivee/ui/dtPreConfirmationArriveeScreen';
-import RechApurementParRefScreen from './modules/DeclarationD17D20/apurement/ui/initApurement/RechApurementParRefScreen'
-import GestionApurementScreen from './modules/DeclarationD17D20/apurement/ui/initApurement/GestionApurementScreen'
+import RechApurementParRefScreen from './modules/DeclarationD17D20/apurement/ui/initApurement/RechApurementParRefScreen';
+import GestionApurementScreen from './modules/DeclarationD17D20/apurement/ui/initApurement/GestionApurementScreen';
 import DedRedressementArticlesScreen from './modules/dedouanement/redressement/ui/articles/DedRedressementArticlesScreen';
 import MainleveeListeDeclaration from './modules/DeclarationD17D20/mainlevee/ui/decMainlevee/decMainleveeListeDeclaration';
 import LiqArticleOperationLiqBlock from './modules/liquidation/ui/ongletsLiquidation/articles/blocks/LiqArticleOperationLiqBlock';
@@ -92,7 +94,7 @@ import ControleBonDelivrerScreen from './modules/controle/ACVP/ui/onglets/bonDel
 import controleListeDocsExigi from './modules/controle/ACVP/ui/onglets/compteRendu/blocks/controleListeDocsExigi';
 import dtpsConsultationRechercheScreen from './modules/dtps/consultation/ui/dtpsConsultationRechercheScreen';
 import coMainScreen from './modules/co/ui/coMainScreen';
-
+import COConsultationDetail from './modules/co/ui/coConsultationDetail';
 
 //setGlobalHandler();
 export default class App extends React.Component {
@@ -115,22 +117,22 @@ export default class App extends React.Component {
                 <Stack.Screen
                   name="test"
                   options={{headerShown: false}}
-                    component={coMainScreen}
+                  component={coMainScreen}
                 />
               )}
               <Stack.Screen
                 name="ControleRegimeInterneScreen"
-                options={{ headerShown: false }}
+                options={{headerShown: false}}
                 component={ControleRegimeInterneScreen}
               />
               <Stack.Screen
                 name="ConfirmationEntreeResultScreen"
-                options={{ headerShown: false }}
+                options={{headerShown: false}}
                 component={ConfirmationEntreeResultScreen}
               />
               <Stack.Screen
                 name="ConfirmationArriveeResultScreen"
-                options={{ headerShown: false }}
+                options={{headerShown: false}}
                 component={ConfirmationArriveeResultScreen}
               />
               <Stack.Screen
@@ -152,9 +154,10 @@ export default class App extends React.Component {
               <Stack.Screen
                 name="VuEmbListeDeclaration2"
                 component={VuEmbListeDeclaration2}
-                options={{ headerShown: false }}
+                options={{headerShown: false}}
               />
-                 <Stack.Screen
+
+              <Stack.Screen
                 name="OperatValidate"
                 options={{headerShown: false}}
                 component={HabOperatScreen}
@@ -186,12 +189,12 @@ export default class App extends React.Component {
 
               <Stack.Screen
                 name="RechApurementParRefScreen"
-                options={{ headerShown: false }}
+                options={{headerShown: false}}
                 component={RechApurementParRefScreen}
               />
               <Stack.Screen
                 name="GestionApurementScreen"
-                options={{ headerShown: false }}
+                options={{headerShown: false}}
                 component={GestionApurementScreen}
               />
               <Stack.Screen
@@ -207,7 +210,12 @@ export default class App extends React.Component {
               <Stack.Screen
                 name="AutoriserAcheminementMainScreen"
                 component={autoriserAcheminementMainScreen}
-                options={{ headerShown: false }}
+                options={{headerShown: false}}
+              />
+              <Stack.Screen
+                name="COConsultationDetail"
+                component={COConsultationDetail}
+                options={{headerShown: false}}
               />
             </ComBadrStackNavigatorComp>
           </PaperProvider>

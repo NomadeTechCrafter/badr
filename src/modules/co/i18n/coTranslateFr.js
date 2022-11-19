@@ -51,5 +51,18 @@ export default {
     versionDUM: 'Version de la déclaration',
     dateEnregistrement: "Date d'enregistrement du certificat d'origine",
     action: 'Action',
+    operateurCertificatOrigine: "Opérateur du certificat d'origine",
+    cachet: 'Cachet',
+    dateEnregistrementDum: "Date d'enregistrement",
+    dateMLV: 'Date Mainlevée',
+    statut: 'Statut',
+    accord: 'Accord',
+    exportateurAdresseAR: 'المصدر وعنوانه كاملا',
+    producteurAdresseAR: 'المنتج و عنوانه كاملا',
+    accord: 'Accord',
+    accord: 'Accord',
+    accord: 'Accord',
+    accord: 'Accord',
+    
   },
 };
