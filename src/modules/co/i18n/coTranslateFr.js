@@ -2,6 +2,7 @@ export default {
   co: {
     title: 'CERTIFICAT D`ORIGINE',
     subTitleTraiter: 'TRAITER UNE DEMANDE DE CERTIFICAT D`ORIGINE',
+    demandeCertificatOrigine: 'DEMANDE CERTIFICAT ORIGINE',
     subTitleConsulter: 'Consulter',
     subTitle: 'Entree au Port Sec',
     subTitle1: 'Sortie du Port Sec',
@@ -57,12 +58,11 @@ export default {
     dateMLV: 'Date Mainlevée',
     statut: 'Statut',
     accord: 'Accord',
-    exportateurAdresseAR: 'المصدر وعنوانه كاملا',
-    producteurAdresseAR: 'المنتج و عنوانه كاملا',
-    accord: 'Accord',
-    accord: 'Accord',
-    accord: 'Accord',
-    accord: 'Accord',
-    
+    exportateurAdresseAR: 'المصدر وعنوانه كاملا *',
+    producteurAdresseAR: 'المنتج و عنوانه كاملا *',
+    importateurAdresseAR: 'المستورد وعنوانه كاملا *',
+    cumul: 'تطبيق التراكم *',
+    detailExpeditionAR: 'تفاصيل الشحن *',
+    remarques: 'ملاحظات',
   },
 };

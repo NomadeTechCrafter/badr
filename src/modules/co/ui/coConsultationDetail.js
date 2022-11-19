@@ -8,6 +8,7 @@ import {
   ComBadrCardBoxComp,
   ComBadrKeyValueComp,
   ComBadrLibelleComp,
+  ComBadrToolbarComp,
 } from '../../../commons/component';
 /**Custom Components */
 import translate from '../../../commons/i18n/ComI18nHelper';
@@ -27,6 +28,12 @@ class COConsultationDetail extends React.Component {
     const co = this.props.value;
     return (
       <View>
+        <ComBadrToolbarComp
+          navigation={this.props.navigation}
+          icon="menu"
+          title={translate('co.title')}
+          subtitle={translate('co.demandeCertificatOrigine')}
+        />
         <ScrollView>
           <ComBadrCardBoxComp>
             <Grid>
@@ -81,7 +88,7 @@ class COConsultationDetail extends React.Component {
               <Row style={CustomStyleSheet.lightBlueRow}>
                 <ComBadrKeyValueComp
                   libelle={translate('co.accord')}
-                  libelleSize={2}
+                  // libelleSize={2}
                   value={co.accord}
                 />
               </Row>
@@ -91,14 +98,46 @@ class COConsultationDetail extends React.Component {
             <Grid>
               <Row style={CustomStyleSheet.lightBlueRow}>
                 <ComBadrKeyValueComp
+                  rtl={true}
                   libelle={translate('co.producteurAdresseAR')}
                   libelleSize={2}
                   value={co.producteurAdresseAR}
                 />
                 <ComBadrKeyValueComp
+                  rtl={true}
                   libelle={translate('co.exportateurAdresseAR')}
                   libelleSize={2}
                   value={co.exportateurAdresseAR}
+                />
+              </Row>
+              <Row style={CustomStyleSheet.lightBlueRow}>
+                <ComBadrKeyValueComp
+                  rtl={true}
+                  libelle={translate('co.cumul')}
+                  libelleSize={2}
+                  value={co.cumul}
+                />
+                <ComBadrKeyValueComp
+                  rtl={true}
+                  libelle={translate('co.importateurAdresseAR')}
+                  libelleSize={2}
+                  value={co.importateurAdresseAR}
+                />
+              </Row>
+              <Row style={CustomStyleSheet.lightBlueRow}>
+                <ComBadrKeyValueComp
+                  rtl={true}
+                  libelle={translate('co.detailExpeditionAR')}
+                  // libelleSize={2}
+                  value={co.detailExpeditionAR}
+                />
+              </Row>
+              <Row style={CustomStyleSheet.lightBlueRow}>
+                <ComBadrKeyValueComp
+                  rtl={true}
+                  libelle={translate('co.remarques')}
+                  // libelleSize={2}
+                  value={co.remarques}
                 />
               </Row>
             </Grid>
