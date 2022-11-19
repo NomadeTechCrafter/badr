@@ -1,0 +1,86 @@
+{
+  "dtoHeader": {
+    "userLogin": "YELM",
+    "fonctionnalite": "cf4011",
+    "module": "CO_LIB",
+    "commande": "recupererCertificatOrigineByRef",
+    "typeService": "SP",
+    "offset": 0,
+    "pageSize": 0,
+    "rowCount": 0
+  },
+  "jsonVO": {
+    "reference": "2021MA0000022",
+    "dateEnregistrement": "12/01/2021",
+    "dateHeureEnregistrement": "12/01/2021 16:47:17",
+    "refArticlesCOVO": [
+      {
+        "idDed": 196849,
+        "numVersionDed": 0,
+        "numeroOrdreArticle": 1,
+        "nomenclature": "0805100011",
+        "paysOrigine": "MAROC",
+        "nombreContenant": "100",
+        "quantite": "500.000",
+        "unite": "029",
+        "refFacturesVO": [
+          {
+            "numeroFacture": "تانتلسيش",
+            "dateFacture": "12/01/2021",
+            "defaultConverter": {
+              
+            }
+          }
+        ],
+        "qteBrut": "54217.250",
+        "codePaysOrigine": "MA",
+        "designationAR": "وصف السلع",
+        "codeAccord": "UE",
+        "identifiant": "1048",
+        "groupArcticles": [
+          "3"
+        ],
+        "defaultConverter": {
+          
+        }
+      }
+    ],
+    "dateValidation": "12/01/2021",
+    "statut": "Accepté",
+    "cachet": "CC371",
+    "numeroSerie": "2400018",
+    "typeCertificat": "02",
+    "langue": "AR",
+    "exportateurAdresseAR": "المصدر وعنوانه كاملا",
+    "producteurAdresseAR": "المنتج و عنوانه كاملا",
+    "importateurAdresseAR": "المستورد وعنوانه كاملا",
+    "cumul": false,
+    "showDest": false,
+    "detailExpeditionAR": "تفاصيل الشحن",
+    "remarques": "ملاحظات",
+    "referenceDUM": "30906020190000114 R",
+    "idDUM": "196849",
+    "dateEnrDum": "22/07/2019 11:19",
+    "dateMlv": "01/07/2019 12:16",
+    "soumissionnaire": "BABYTEX TEST",
+    "adresseSoumissionnaire": "ZONE INDUSTRIELLE MOULAY RACHID LOT N131 CASA",
+    "destinataire": "bandes d'une épaisseur ne dépassant pas 5 mm const",
+    "adresseDestinataire": "Bandes d'une épaissenr ne dépassant pas 5 mm contituées par une nappe de câbles en acier paraléllisés",
+    "paysProvenance": "MA",
+    "paysDestination": "QA",
+    "libelleUorCachet": "Brigade Casa-Port (371)",
+    "libelleBureau": "Port of Casablanca",
+    "issued": true,
+    "numDateFacture": "",
+    "regimeSpecial": false,
+    "regimeSpecialBeforeConfinment": false,
+    "opPourLequel": false,
+    "urlImageCachet": "/fsbadr/srv_badr_recette/FILES/CO/CO_LIB/2021/1/Scan2_1610118183023.png",
+    "urlImageSignatureValidateur": "/fsbadr/srv_badr_recette/FILES/REF_LIB/SIGNATURE_AGENT/2020/5/ASSRHLI MLY ELBACHIR_1588945016238_1589987572222.jpg",
+    "numeroSerieConfinement": "2400018",
+    "idPourRecherche": "2021MA0000022",
+    "defaultConverter": {
+      
+    }
+  }
+}
