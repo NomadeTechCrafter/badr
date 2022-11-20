@@ -1,0 +1,68 @@
+{
+  "dtoHeader": {
+    "userLogin": "YELM",
+    "fonctionnalite": "cf4011",
+    "module": "CO_LIB",
+    "commande": "vctDestinationJaune",
+    "typeService": "SP",
+    "offset": 0,
+    "pageSize": 0,
+    "rowCount": 0
+  },
+  "jsonVO": [
+    {
+      "code": "EG",
+      "libelle": "مصر",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "IQ",
+      "libelle": "العراق",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "JO",
+      "libelle": "الأردن",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "LY",
+      "libelle": "ليبيا",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "MR",
+      "libelle": "موريتانيا",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "SA",
+      "libelle": "العربية السعودية",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    }
+  ]
+}

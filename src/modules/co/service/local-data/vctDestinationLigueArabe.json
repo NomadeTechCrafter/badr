@@ -1,0 +1,167 @@
+{
+  "dtoHeader": {
+    "userLogin": "YELM",
+    "fonctionnalite": "cf4011",
+    "module": "CO_LIB",
+    "commande": "vctDestinationLigueArabe",
+    "typeService": "SP",
+    "offset": 0,
+    "pageSize": 0,
+    "rowCount": 0
+  },
+  "jsonVO": [
+    {
+      "code": "OM",
+      "libelle": "سلطنة عمان",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "QA",
+      "libelle": "قطر",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "SY",
+      "libelle": "سوريا",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "TN",
+      "libelle": "تونس",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "YE",
+      "libelle": "اليمن",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "BH",
+      "libelle": "البحرين",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "EG",
+      "libelle": "مصر",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "JO",
+      "libelle": "الأردن",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "LB",
+      "libelle": " لبنان",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "PS",
+      "libelle": "فلسطين",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "SA",
+      "libelle": "العربية السعودية",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "DZ",
+      "libelle": "الجزائر",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "KW",
+      "libelle": "الكويت",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "LY",
+      "libelle": "ليبيا",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "SD",
+      "libelle": "السودان",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "IQ",
+      "libelle": "العراق",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "AE",
+      "libelle": "الإمارات العربية المتحدة",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    }
+  ]
+}

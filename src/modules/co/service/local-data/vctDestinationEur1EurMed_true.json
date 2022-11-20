@@ -1,0 +1,77 @@
+{
+  "dtoHeader": {
+    "userLogin": "YELM",
+    "fonctionnalite": "cf4011",
+    "module": "CO_LIB",
+    "commande": "vctDestinationEur1EurMed",
+    "typeService": "SP",
+    "offset": 0,
+    "pageSize": 0,
+    "rowCount": 0
+  },
+  "jsonVO": [
+    {
+      "code": "TR",
+      "libelle": "TURQUIE",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "TN",
+      "libelle": "TUNISIE",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "EG",
+      "libelle": "EGYPTE",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "JO",
+      "libelle": "JORDANIE",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "UE",
+      "libelle": "UE",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "AELE",
+      "libelle": "AELE",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    {
+      "code": "UK",
+      "libelle": "UK",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    }
+  ]
+}
