@@ -45,6 +45,9 @@ const style = {
   innerContainer: {
     margin: '2%',
   },
+  paddingLeft: {
+    paddingLeft: 10,
+  },
 };
 
 export default StyleSheet.create(style);

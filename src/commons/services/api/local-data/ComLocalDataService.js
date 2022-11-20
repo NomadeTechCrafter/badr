@@ -121,6 +121,8 @@ if (process.env.NODE_ENV === 'development') {
     getCmbFranchise: require('../../../../modules/dedouanement/redressement/service/local-data/getCmbFranchise.json'),
     'ded.calculerUniteNormalisee': require('../../../../modules/dedouanement/redressement/service/local-data/ded.calculerUniteNormalisee.json'),
     recupererCertificatOrigineByRef: require('../../../../modules/co/service/local-data/recupererCertificatOrigineByRef.json'),
+    vctDestination: require('../../../../modules/co/service/local-data/vctDestination.json'),
+    vctDestinationLigueArabe: require('../../../../modules/co/service/local-data/vctDestinationLigueArabe.json'),
   };
 }
 export default localStore;

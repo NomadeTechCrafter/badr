@@ -913,7 +913,6 @@ class COMainScreen extends React.Component {
             <View>
               <ComAccordionComp badr title={titre} expanded={true}>
                 <ComBasicDataTableComp
-                  ref="coTable"
                   id="coLots"
                   rows={this.state.rows}
                   cols={this.coCols}

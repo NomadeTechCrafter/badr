@@ -20,3 +20,62 @@ export const criteresRecherche = [
     libelle: "Date d'enregistrement du certificat d'enregistrement",
   },
 ];
+
+export const typesCertificats = [
+  {
+    code: '01',
+    libelle: 'SGP FORMULE A	AU,BY,JP,KZ,RU,TR,CA,NZ',
+  },
+  {
+    code: '02',
+    libelle: 'Certificat d’origine arabe',
+  },
+  {
+    code: '03',
+    libelle: 'Certificat d’origine émirats arabes unis',
+  },
+  {
+    code: '04',
+    libelle: 'Certificat d’origine jaune	EG,JO,LY,IQ,SA,MR',
+  },
+  {
+    code: '05',
+    libelle: 'Certificat d’origine tunisie',
+  },
+  {
+    code: '06',
+    libelle: 'Certificat d’origine EUR-MED TR,TN,EG,JO,UE,AELE,UK',
+  },
+  {
+    code: '07',
+    libelle: 'Certificat d’origine EUR.1 TR,TN,EG,JO,UE,AELE,UK',
+  },
+];
+
+export const languesImpression = [
+  {
+    code: 'AR',
+    libelle: 'ARABE',
+  },
+  {
+    code: 'EN',
+    libelle: 'Anglais',
+  },
+  {
+    code: 'FR',
+    libelle: 'Français',
+  },
+];
+
+export const radioButtonsDataCumulAR = [
+  {
+    id: '2',
+    label: 'نعم',
+    value: 'true',
+  },
+  {
+    id: '1',
+    label: 'لا',
+    value: 'false',
+  },
+];
