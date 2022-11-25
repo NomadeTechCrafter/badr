@@ -38,11 +38,12 @@ export default {
     filtreRecherche: {
       critereTitle: 'Critères de recherche (*)',
       title: 'Ecran de recherche',
-      referenceDeclaration: 'Référence déclaration',
+      referenceDUM: 'Référence déclaration',
       annee: 'Année',
       reference: 'Réference',
       numeroSerie: 'Numéro de série',
-      lieuChargement: 'Lieu de Chargement',
+      dateAu: 'Date début',
+      dateDu: 'Date fin',
       selectionnerCritere: 'Sélectionner un critère',
     },
     numeroSerieConfinement:
@@ -50,7 +51,7 @@ export default {
     reference: "Référence du certificat d'origine",
     referenceDUM: 'Référence de la déclaration',
     versionDUM: 'Version de la déclaration',
-    dateEnregistrement: "Date d'enregistrement du certificat d'origine",
+    dateEnregistrement: "Date d'enregistrement du certificat d'origine (*)",
     action: 'Action',
     operateurCertificatOrigine: "Opérateur du certificat d'origine",
     cachet: 'Cachet',

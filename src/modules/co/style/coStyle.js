@@ -19,6 +19,10 @@ const style = {
   flexDirectionRow: {
     flexDirection: 'row',
   },
+  row: {
+    padding: 10,
+    margin: 10,
+  },
   centerErrorMsg: {
     width: '100%',
     justifyContent: 'center',
@@ -47,6 +51,11 @@ const style = {
   },
   paddingLeft: {
     paddingLeft: 10,
+  },
+  picker: {
+    borderWidth: 3,
+    borderColor: '#009ab2',
+    borderRadius: 4,
   },
 };
 

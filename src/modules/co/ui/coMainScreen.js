@@ -25,6 +25,7 @@ import moment from 'moment/moment';
 import * as ConsulterDumAction from '../../../commons/state/actions/ConsulterDumAction';
 import {GENERIC_REQUEST} from '../../../commons/constants/generic/ComGenericConstants';
 import * as COAction from '../state/actions/coAction';
+import _ from 'lodash';
 
 const initialState = {
   login: ComSessionService.getInstance().getLogin(),
@@ -636,11 +637,68 @@ class COMainScreen extends React.Component {
     console.log('traiter 003');
   };
 
+  checkRequiredFields = () => {
+    let msg = [];
+    let required = false;
+    switch (this.state.critereRecherche) {
+      case 'numeroSerie':
+        msg = [];
+        if (_.isEmpty(this.state.numeroSerie)) {
+          required = true;
+          msg.push(translate('co.filtreRecherche.numeroSerie'));
+        }
+        break;
+      case 'reference':
+        msg = [];
+        if (_.isEmpty(this.state.reference)) {
+          required = true;
+          msg.push(translate('co.filtreRecherche.reference'));
+        }
+        break;
+      case 'referenceDUM':
+        msg = [];
+        if (_.isEmpty(this.state.referenceDUM)) {
+          required = true;
+          msg.push(translate('co.filtreRecherche.referenceDUM'));
+        }
+        break;
+      case 'dates':
+        msg = [];
+        if (_.isEmpty(this.state.dateDu)) {
+          required = true;
+          msg.push(translate('co.filtreRecherche.dateDu'));
+        }
+        if (_.isEmpty(this.state.dateAu)) {
+          required = true;
+          msg.push(translate('co.filtreRecherche.dateAu'));
+        }
+        break;
+
+      default:
+        break;
+    }
+
+    if (required) {
+      let message =
+        translate('actifsCreation.avionsPrivees.champsObligatoires') + msg;
+      this.setState({
+        errorMessage: message,
+      });
+    } else {
+      this.setState({
+        errorMessage: null,
+      });
+    }
+    return required;
+  };
+
   confirmer = () => {
     if (this.state.critereRecherche) {
       this.setState({
         errorMessage: '',
       });
+
+      this.checkRequiredFields();
     } else {
       this.setState({
         errorMessage:
@@ -720,11 +778,6 @@ class COMainScreen extends React.Component {
   }
 
   redirectToConsultationDUM(row, index) {
-    // console.log('============================================');
-    // console.log('============================================');
-    // console.log(JSON.stringify(row?.referenceDum));
-    // console.log('============================================');
-    // console.log('============================================');
     let action = ConsulterDumAction.request(
       {
         type: GENERIC_REQUEST,
@@ -772,8 +825,10 @@ class COMainScreen extends React.Component {
                   onValueChanged={(v, i) =>
                     this.onCritereRecherchePickerChanged(v, i)
                   }
+                  style={style.picker}
                 />
                 <Grid>
+                  <Row style={style.row} />
                   {this.state.blocNumeroSerie && (
                     <Row>
                       <Col size={1} />
@@ -824,7 +879,14 @@ class COMainScreen extends React.Component {
                   )}
                   {this.state.blocReferenceDUM && (
                     <Row>
-                      <RechercheRefDum />
+                      <RechercheRefDum
+                        commande={'findListCoMultiRecherche'}
+                        module="CO_LIB"
+                        typeService="SP"
+                        // successRedirection={'DelivrerMLV'}
+                        navigation={this.props.navigation}
+                        // routeParams={this.props.route.params}
+                      />
                     </Row>
                   )}
                   {this.state.blocDates && (

@@ -29,11 +29,11 @@ import * as Constants from '../../../constants/components/rechercheRefDum';
 import * as RechecheDumAction from '../../../state/actions/rechercheDum';
 class RechecheRefDum extends Component {
   defaultState = {
-    bureau: '',
-    regime: '',
-    annee: '',
-    serie: '',
-    cle: '',
+    bureau: '309',
+    regime: '010',
+    annee: '2021',
+    serie: '1234567',
+    cle: 'Y',
     cleValide: '',
     login: '',
     numeroVoyage: '',
