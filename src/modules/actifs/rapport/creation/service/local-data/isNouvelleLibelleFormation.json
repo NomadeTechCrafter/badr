@@ -1,0 +1,13 @@
+{
+  "dtoHeader": {
+    "userLogin": "YELM",
+    "fonctionnalite": "cf6160",
+    "module": "GIB",
+    "commande": "isNouvelleLibelleFormation",
+    "typeService": "SP",
+    "offset": 0,
+    "pageSize": 0,
+    "rowCount": 0
+  },
+  "jsonVO": false
+}
