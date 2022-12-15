@@ -1,13 +1,9 @@
 import moment from 'moment';
-import React, { Component } from 'react';
-import { Dimensions, View } from 'react-native';
-import { Col, Grid, Row } from 'react-native-easy-grid';
-import {
-  Checkbox,
-  RadioButton,
-  TextInput, Text
-} from 'react-native-paper';
-import { connect } from 'react-redux';
+import React, {Component} from 'react';
+import {Dimensions, View} from 'react-native';
+import {Col, Grid, Row} from 'react-native-easy-grid';
+import {Checkbox, RadioButton, TextInput, Text} from 'react-native-paper';
+import {connect} from 'react-redux';
 import {
   ComBadrAutoCompleteChipsComp,
   ComBadrButtonIconComp,
@@ -15,31 +11,28 @@ import {
   ComBadrDatePickerComp,
   ComBadrErrorMessageComp,
   ComBadrInfoMessageComp,
-
   ComBadrItemsPickerComp,
-
   ComBadrLibelleComp,
-
-  ComBadrPickerCheckerComp, ComBadrPickerComp, ComBadrProgressBarComp, ComBasicDataTableComp, ComContainerComp
+  ComBadrPickerComp,
+  ComBadrProgressBarComp,
+  ComBasicDataTableComp,
+  ComContainerComp,
 } from '../../../../../../commons/component';
 /**i18n */
-import { translate } from '../../../../../../commons/i18n/ComI18nHelper';
-import { save } from '../../../../../../commons/services/async-storage/ComStorageService';
+import {translate} from '../../../../../../commons/i18n/ComI18nHelper';
+import {save} from '../../../../../../commons/services/async-storage/ComStorageService';
 import {
   CustomStyleSheet,
-  primaryColor
+  primaryColor,
 } from '../../../../../../commons/styles/ComThemeStyle';
-import { qualites, status } from '../../state/actifsRapportCreationConstants';
+import {qualites, status} from '../../state/actifsRapportCreationConstants';
 import _ from 'lodash';
 
-
 const screenHeight = Dimensions.get('window').height;
-
 
 class AtifsRapportCreationDetailsTab extends Component {
   constructor(props) {
     super(props);
-
 
     this.colsEdition = [
       {
@@ -58,8 +51,7 @@ class AtifsRapportCreationDetailsTab extends Component {
         width: 150,
         component: 'button',
         icon: 'delete-outline',
-        action: (row, index) =>
-          this.deleteAnimateur(row, index)
+        action: (row, index) => this.deleteAnimateur(row, index),
       },
       {
         code: '',
@@ -70,7 +62,6 @@ class AtifsRapportCreationDetailsTab extends Component {
         component: 'button',
         action: (row, index) => this.editAnimateur(row, index),
       },
-
     ];
     this.colsConsultation = [
       {
@@ -102,18 +93,18 @@ class AtifsRapportCreationDetailsTab extends Component {
       currentAnimateur: {},
       qualiteAnimateurCode: '',
       qualiteAnimateurLibelle: '',
-      animateur: {}
+      animateur: {},
     };
   }
 
-  componentDidMount() { }
+  componentDidMount() {}
 
   nouveau() {
-    this.setState({ nouveau: true });
+    this.setState({nouveau: true});
   }
 
   abandonner() {
-    this.setState({ nouveau: false, editAnimateur: false });
+    this.setState({nouveau: false, editAnimateur: false});
   }
 
   checkRequiredFieldsResultatCtrl = (params) => {
@@ -121,32 +112,33 @@ class AtifsRapportCreationDetailsTab extends Component {
     console.log('===========================>>>>>>  ' + JSON.stringify(modele));
     if (_.isEmpty(modele?.qualiteAnimateurCode?.toString())) {
       params.required = true;
-      params.msg += !_.isEmpty(params.msg) ? ", " : "";
+      params.msg += !_.isEmpty(params.msg) ? ', ' : '';
       params.msg += translate('actifsCreation.detail.qualiteAnimateur');
     }
     if (_.isEmpty(modele?.animateur?.code?.toString())) {
       params.required = true;
-      params.msg += !_.isEmpty(params.msg) ? ", " : "";
+      params.msg += !_.isEmpty(params.msg) ? ', ' : '';
       params.msg += translate('actifsCreation.detail.animateurConference');
     }
-  }
+  };
 
   checkRequiredFields = () => {
-    let params = { msg: '', required: false }
+    let params = {msg: '', required: false};
     this.checkRequiredFieldsResultatCtrl(params);
     if (params.required) {
-      let message = translate('actifsCreation.avionsPrivees.champsObligatoires') + params.msg;
+      let message =
+        translate('actifsCreation.avionsPrivees.champsObligatoires') +
+        params.msg;
       this.setState({
-        errorMessage: message
+        errorMessage: message,
       });
     } else {
       this.setState({
-        errorMessage: null
+        errorMessage: null,
       });
     }
     return params.required;
-  }
-
+  };
 
   addAnimateur = () => {
     if (!this.checkRequiredFields()) {
@@ -158,10 +150,18 @@ class AtifsRapportCreationDetailsTab extends Component {
       currentAnimateur.codeQualiteAnimateur = this.state?.qualiteAnimateurCode;
       currentAnimateur.libelleQualiteAnimateur = this.state?.qualiteAnimateurLibelle;
       listAnimateurConferenceVo.push(currentAnimateur);
-      this.setState({ myArray: [...this.state?.listAnimateurConferenceVo, listAnimateurConferenceVo] });
-      this.setState({ nouveau: false });
+      this.setState({
+        myArray: [
+          ...this.state?.listAnimateurConferenceVo,
+          listAnimateurConferenceVo,
+        ],
+      });
+      this.setState({nouveau: false});
 
-      console.log('this.state.listAnimateurConferenceVo :::::::::::::::::::::: ' + JSON.stringify(this.state.listAnimateurConferenceVo));
+      console.log(
+        'this.state.listAnimateurConferenceVo :::::::::::::::::::::: ' +
+          JSON.stringify(this.state.listAnimateurConferenceVo),
+      );
 
       this.updateModele();
       this.handleClearAnimateur();
@@ -173,14 +173,19 @@ class AtifsRapportCreationDetailsTab extends Component {
       currentAnimateur: {},
       qualiteAnimateurCode: '',
       qualiteAnimateurLibelle: '',
-      animateur: {}
+      animateur: {},
     });
   };
 
   deleteAnimateur = (row, index) => {
     let listAnimateurConferenceVo = this.state.listAnimateurConferenceVo;
     listAnimateurConferenceVo.splice(index, 1);
-    this.setState({ myArray: [...this.state.listAnimateurConferenceVo, listAnimateurConferenceVo] });
+    this.setState({
+      myArray: [
+        ...this.state.listAnimateurConferenceVo,
+        listAnimateurConferenceVo,
+      ],
+    });
     this.updateModele();
   };
 
@@ -194,10 +199,18 @@ class AtifsRapportCreationDetailsTab extends Component {
       currentAnimateur.codeQualiteAnimateur = this.state?.qualiteAnimateurCode;
       currentAnimateur.libelleQualiteAnimateur = this.state?.qualiteAnimateurLibelle;
       listAnimateurConferenceVo[this.state.index] = currentAnimateur;
-      this.setState({ myArray: [...this.state?.listAnimateurConferenceVo, listAnimateurConferenceVo] });
-      this.setState({ editAnimateur: false });
+      this.setState({
+        myArray: [
+          ...this.state?.listAnimateurConferenceVo,
+          listAnimateurConferenceVo,
+        ],
+      });
+      this.setState({editAnimateur: false});
 
-      console.log('updateAnimateur :::::::::::::::::::::: ' + JSON.stringify(this.state.listAnimateurConferenceVo));
+      console.log(
+        'updateAnimateur :::::::::::::::::::::: ' +
+          JSON.stringify(this.state.listAnimateurConferenceVo),
+      );
 
       this.updateModele();
       this.handleClearAnimateur();
@@ -210,20 +223,24 @@ class AtifsRapportCreationDetailsTab extends Component {
       nouveau: false,
       qualiteAnimateurCode: row.codeQualiteAnimateur,
       animateur: row.libelleAnimateur,
-      index: index
+      index: index,
     });
-    console.log('editAnimateur :::::::::::::::::::::: ' + JSON.stringify(this.state));
+    console.log(
+      'editAnimateur :::::::::::::::::::::: ' + JSON.stringify(this.state),
+    );
   };
 
   handleOnIncidentItemsChanged = (items) => {
-    this.setState({ selectedItems: items });
+    this.setState({selectedItems: items});
   };
   handleOnConfirmIncidentType = (items) => {
-    this.setState({ typeIncident: items }, () => this.updateModele());
+    this.setState({typeIncident: items}, () => this.updateModele());
   };
 
   updateModele() {
-    console.log('updateModele ----------------===> : ' + JSON.stringify(this.state));
+    console.log(
+      'updateModele ----------------===> : ' + JSON.stringify(this.state),
+    );
     return this.props.update({
       osAvecSaisie: this.state.osAvecSaisie,
       osAvecIncident: this.state.osAvecIncident,
@@ -236,8 +253,9 @@ class AtifsRapportCreationDetailsTab extends Component {
   }
 
   render() {
-
-    // console.log('props ----------------===> : ' + JSON.stringify(this.props?.rows?.refAgentDetachement));
+    const typeService = this.props?.rows?.ordreService?.typeService;
+    console.log('--------------- typeService?.categorie -------------------');
+    console.log(JSON.stringify(typeService?.categorie));
     return (
       <View style={CustomStyleSheet.fullContainer}>
         <ComContainerComp>
@@ -258,19 +276,20 @@ class AtifsRapportCreationDetailsTab extends Component {
               <Row style={CustomStyleSheet.whiteRow}>
                 <Col size={3}>
                   <Row>
-                    <ComBadrLibelleComp style={{ paddingRight: 2 }}>
+                    <ComBadrLibelleComp style={{paddingRight: 2}}>
                       {translate('actifsCreation.detail.osAvecSaisies')}
                     </ComBadrLibelleComp>
                   </Row>
                 </Col>
-                <Col size={6} style={{ paddingRight: 5 }}>
+                <Col size={6} style={{paddingRight: 5}}>
                   <View style={styles.ComContainerCompCheckbox}>
                     {this.props.consultation && (
                       <Checkbox
                         color={primaryColor}
                         disabled={true}
                         status={
-                          (this.props.rows?.osAvecSaisie || this.state?.osAvecSaisie)
+                          this.props.rows?.osAvecSaisie ||
+                          this.state?.osAvecSaisie
                             ? 'checked'
                             : 'unchecked'
                         }
@@ -280,16 +299,13 @@ class AtifsRapportCreationDetailsTab extends Component {
                       <Checkbox
                         color={primaryColor}
                         status={
-                          this.state?.osAvecSaisie
-                            ? 'checked'
-                            : 'unchecked'
+                          this.state?.osAvecSaisie ? 'checked' : 'unchecked'
                         }
                         onPress={() => {
                           this.setState({
                             ...this.state,
                             osAvecSaisie: !this.state?.osAvecSaisie,
-                          },
-                          );
+                          });
                           this.updateModele();
                         }}
                       />
@@ -300,20 +316,20 @@ class AtifsRapportCreationDetailsTab extends Component {
               <Row style={CustomStyleSheet.whiteRow}>
                 <Col size={3}>
                   <Row>
-                    <ComBadrLibelleComp style={{ paddingRight: 2 }}>
+                    <ComBadrLibelleComp style={{paddingRight: 2}}>
                       {translate('actifsCreation.detail.osAvecIncidents')}
                     </ComBadrLibelleComp>
                   </Row>
                 </Col>
-                <Col size={6} style={{ paddingRight: 5 }}>
-
+                <Col size={6} style={{paddingRight: 5}}>
                   <View style={styles.ComContainerCompCheckbox}>
                     {this.props.consultation && (
                       <Checkbox
                         color={primaryColor}
                         disabled={true}
                         status={
-                          (this.props.rows?.osAvecIncident || this.state?.osAvecIncident)
+                          this.props.rows?.osAvecIncident ||
+                          this.state?.osAvecIncident
                             ? 'checked'
                             : 'unchecked'
                         }
@@ -323,16 +339,13 @@ class AtifsRapportCreationDetailsTab extends Component {
                       <Checkbox
                         color={primaryColor}
                         status={
-                          this.state?.osAvecIncident
-                            ? 'checked'
-                            : 'unchecked'
+                          this.state?.osAvecIncident ? 'checked' : 'unchecked'
                         }
                         onPress={() => {
                           this.setState({
                             ...this.state,
                             osAvecIncident: !this.state?.osAvecIncident,
-                          },
-                          );
+                          });
                           this.updateModele();
                         }}
                       />
@@ -341,45 +354,88 @@ class AtifsRapportCreationDetailsTab extends Component {
                 </Col>
               </Row>
 
-              {(this.props?.rows?.typeService?.classeService === 'E' || this.props?.rows?.ordreService?.typeService?.classeService === 'E') && (
+              {(this.props?.rows?.typeService?.classeService === 'E' ||
+                this.props?.rows?.ordreService?.typeService?.classeService ===
+                  'E') && (
                 <Row style={CustomStyleSheet.whiteRow}>
                   <Col size={3}>
                     <Row>
-                      <ComBadrLibelleComp style={{ paddingRight: 2 }}>
+                      <ComBadrLibelleComp style={{paddingRight: 2}}>
                         {translate('actifsCreation.detail.coiffeInitiePar')}
                       </ComBadrLibelleComp>
                     </Row>
                   </Col>
-                  <Col size={6} style={{ paddingRight: 5 }}>
-                    {(this.props.consultation &&
-                      <RadioButton.Group disabled={true} value={this.props.rows?.coiffeInitiePar ? this.props.rows?.coiffeInitiePar : this.state?.coiffeInitiePar}>
-                        <View style={{ justifyContent: 'space-around' }}>
-                          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <RadioButton value="OFFICIER_CONTROLE" color={primaryColor} />
-                            <Text>{translate('actifsCreation.detail.officierControle')}</Text>
-                            <RadioButton value="CHEF_SUBDIVISION" color={primaryColor} />
-                            <Text>{translate('actifsCreation.detail.chefSubdivision')}</Text>
+                  <Col size={6} style={{paddingRight: 5}}>
+                    {this.props.consultation && (
+                      <RadioButton.Group
+                        disabled={true}
+                        value={
+                          this.props.rows?.coiffeInitiePar
+                            ? this.props.rows?.coiffeInitiePar
+                            : this.state?.coiffeInitiePar
+                        }>
+                        <View style={{justifyContent: 'space-around'}}>
+                          <View
+                            style={{
+                              flexDirection: 'row',
+                              alignItems: 'center',
+                            }}>
+                            <RadioButton
+                              value="OFFICIER_CONTROLE"
+                              color={primaryColor}
+                            />
+                            <Text>
+                              {translate(
+                                'actifsCreation.detail.officierControle',
+                              )}
+                            </Text>
+                            <RadioButton
+                              value="CHEF_SUBDIVISION"
+                              color={primaryColor}
+                            />
+                            <Text>
+                              {translate(
+                                'actifsCreation.detail.chefSubdivision',
+                              )}
+                            </Text>
                           </View>
                         </View>
                       </RadioButton.Group>
                     )}
-                    {(!this.props.consultation &&
+                    {!this.props.consultation && (
                       <RadioButton.Group
                         onValueChange={(text) => {
-                          this.setState(prevState => ({
+                          this.setState((prevState) => ({
                             ...prevState.coiffeInitiePar,
                             coiffeInitiePar: text,
-                          }))
+                          }));
                           this.updateModele();
-                        }
-                        }
+                        }}
                         value={this.state?.coiffeInitiePar}>
-                        <View style={{ justifyContent: 'space-around' }}>
-                          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <RadioButton value="OFFICIER_CONTROLE" color={primaryColor} />
-                            <Text>{translate('actifsCreation.detail.officierControle')}</Text>
-                            <RadioButton value="CHEF_SUBDIVISION" color={primaryColor} />
-                            <Text>{translate('actifsCreation.detail.chefSubdivision')}</Text>
+                        <View style={{justifyContent: 'space-around'}}>
+                          <View
+                            style={{
+                              flexDirection: 'row',
+                              alignItems: 'center',
+                            }}>
+                            <RadioButton
+                              value="OFFICIER_CONTROLE"
+                              color={primaryColor}
+                            />
+                            <Text>
+                              {translate(
+                                'actifsCreation.detail.officierControle',
+                              )}
+                            </Text>
+                            <RadioButton
+                              value="CHEF_SUBDIVISION"
+                              color={primaryColor}
+                            />
+                            <Text>
+                              {translate(
+                                'actifsCreation.detail.chefSubdivision',
+                              )}
+                            </Text>
                           </View>
                         </View>
                       </RadioButton.Group>
@@ -388,31 +444,35 @@ class AtifsRapportCreationDetailsTab extends Component {
                 </Row>
               )}
 
-              {(this.props?.rows?.typeService?.classeService === 'E' || this.props?.rows?.ordreService?.typeService?.classeService === 'E') && (
+              {(this.props?.rows?.typeService?.classeService === 'E' ||
+                this.props?.rows?.ordreService?.typeService?.classeService ===
+                  'E') && (
                 <Row style={CustomStyleSheet.whiteRow}>
                   <Col size={3}>
                     <Row>
-                      <ComBadrLibelleComp style={{ paddingRight: 2 }}>
+                      <ComBadrLibelleComp style={{paddingRight: 2}}>
                         {translate('actifsCreation.detail.nomPrenom')}
                       </ComBadrLibelleComp>
                     </Row>
                   </Col>
-                  <Col size={6} style={{ paddingRight: 5 }}>
-                    {(this.props.consultation &&
+                  <Col size={6} style={{paddingRight: 5}}>
+                    {this.props.consultation && (
                       <ComBadrAutoCompleteChipsComp
                         disabled={true}
-                        selected={this.props?.rows?.refAgentDetachement
-                          ?
-                          this.props?.rows?.refAgentDetachement.nom + ' ' + this.props?.rows?.refAgentDetachement.prenom
-                          :
-                          ''}
+                        selected={
+                          this.props?.rows?.refAgentDetachement
+                            ? this.props?.rows?.refAgentDetachement.nom +
+                              ' ' +
+                              this.props?.rows?.refAgentDetachement.prenom
+                            : ''
+                        }
                         maxItems={3}
                         command="getCmbAgentDouanier"
                         onDemand={true}
                         searchZoneFirst={false}
                       />
                     )}
-                    {(!this.props.consultation &&
+                    {!this.props.consultation && (
                       <ComBadrAutoCompleteChipsComp
                         code="code"
                         selected={this.state?.refAgentDetachement}
@@ -429,25 +489,29 @@ class AtifsRapportCreationDetailsTab extends Component {
                         //   this.updateModele();
                         // }
                         onValueChange={(item) => {
-                          this.setState(previousState => ({
-                            refAgentDetachement: item,
-                          }), () => {
-                            this.props.update({
+                          this.setState(
+                            (previousState) => ({
                               refAgentDetachement: item,
-                            });
-                          });
-                        }
-                        }
+                            }),
+                            () => {
+                              this.props.update({
+                                refAgentDetachement: item,
+                              });
+                            },
+                          );
+                        }}
                       />
                     )}
                   </Col>
                 </Row>
               )}
 
-              {(this.props?.rows?.typeService?.classeService === 'E' || this.props?.rows?.ordreService?.typeService?.classeService === 'E') && (
+              {(this.props?.rows?.typeService?.classeService === 'E' ||
+                this.props?.rows?.ordreService?.typeService?.classeService ===
+                  'E') && (
                 <Row style={CustomStyleSheet.whiteRow}>
                   <Col size={3}>
-                    <ComBadrLibelleComp style={{ paddingRight: 2 }}>
+                    <ComBadrLibelleComp style={{paddingRight: 2}}>
                       {translate('actifsCreation.detail.du')}
                     </ComBadrLibelleComp>
                   </Col>
@@ -456,21 +520,41 @@ class AtifsRapportCreationDetailsTab extends Component {
                       dateFormat="DD/MM/YYYY"
                       heureFormat="HH:mm"
                       readonly={this.props.consultation}
-                      value={this.props.rows?.dateDebut ? moment(this.props.rows?.dateDebut).format("YYYY-MM-DD") : moment(this.props.rows?.ordreService?.dateDebut).format("YYYY-MM-DD")}
-                      timeValue={this.props.rows?.heureDebut ? moment(this.props.rows?.heureDebut, 'HH:mm', true) : moment(this.props.rows?.ordreService?.heureDebut, 'HH:mm', true)}
-                      onDateChanged={(date) => this.setState(prevState => ({
-                        ...prevState,
-                        dateDebut: date,
-                      }))}
-                      onTimeChanged={(time) => this.setState(prevState => ({
-                        ...prevState,
-                        heureDebut: time,
-                      }))}
+                      value={
+                        this.props.rows?.dateDebut
+                          ? moment(this.props.rows?.dateDebut).format(
+                              'YYYY-MM-DD',
+                            )
+                          : moment(
+                              this.props.rows?.ordreService?.dateDebut,
+                            ).format('YYYY-MM-DD')
+                      }
+                      timeValue={
+                        this.props.rows?.heureDebut
+                          ? moment(this.props.rows?.heureDebut, 'HH:mm', true)
+                          : moment(
+                              this.props.rows?.ordreService?.heureDebut,
+                              'HH:mm',
+                              true,
+                            )
+                      }
+                      onDateChanged={(date) =>
+                        this.setState((prevState) => ({
+                          ...prevState,
+                          dateDebut: date,
+                        }))
+                      }
+                      onTimeChanged={(time) =>
+                        this.setState((prevState) => ({
+                          ...prevState,
+                          heureDebut: time,
+                        }))
+                      }
                     />
                   </Col>
 
                   <Col size={1}>
-                    <ComBadrLibelleComp style={{ paddingLeft: 15 }}>
+                    <ComBadrLibelleComp style={{paddingLeft: 15}}>
                       {translate('actifsCreation.detail.au')}
                     </ComBadrLibelleComp>
                   </Col>
@@ -479,29 +563,62 @@ class AtifsRapportCreationDetailsTab extends Component {
                       dateFormat="DD/MM/YYYY"
                       heureFormat="HH:mm"
                       readonly={this.props.consultation}
-                      value={this.props.rows?.dateFin ? moment(this.props.rows?.dateFin).format("YYYY-MM-DD") : moment(this.props.rows?.ordreService?.dateFin).format("YYYY-MM-DD")}
-                      timeValue={this.props.rows?.heureFin ? moment(this.props.rows?.heureFin, 'HH:mm', true) : moment(this.props.rows?.ordreService?.heureFin, 'HH:mm', true)}
-                      onDateChanged={(date) => this.setState(prevState => ({
-                        ...prevState,
-                        dateFin: date,
-                      }))}
-                      onTimeChanged={(time) => this.setState(prevState => ({
-                        ...prevState,
-                        heureFin: time,
-                      }))}
+                      value={
+                        this.props.rows?.dateFin
+                          ? moment(this.props.rows?.dateFin).format(
+                              'YYYY-MM-DD',
+                            )
+                          : moment(
+                              this.props.rows?.ordreService?.dateFin,
+                            ).format('YYYY-MM-DD')
+                      }
+                      timeValue={
+                        this.props.rows?.heureFin
+                          ? moment(this.props.rows?.heureFin, 'HH:mm', true)
+                          : moment(
+                              this.props.rows?.ordreService?.heureFin,
+                              'HH:mm',
+                              true,
+                            )
+                      }
+                      onDateChanged={(date) =>
+                        this.setState((prevState) => ({
+                          ...prevState,
+                          dateFin: date,
+                        }))
+                      }
+                      onTimeChanged={(time) =>
+                        this.setState((prevState) => ({
+                          ...prevState,
+                          heureFin: time,
+                        }))
+                      }
                     />
                   </Col>
                 </Row>
               )}
 
-              {(this.props?.rows?.ordreService?.conference || this.props?.rows?.conference) && (
+              {(this.props?.rows?.ordreService?.conference ||
+                this.props?.rows?.conference) && (
                 <Row style={CustomStyleSheet.whiteRow}>
                   <Col>
                     <ComBasicDataTableComp
                       id="animateursTable"
-                      rows={this.props.rows?.listAnimateurConferenceVo ? this.props.rows?.listAnimateurConferenceVo : this.state.listAnimateurConferenceVo}
-                      cols={this.props.consultation ? this.colsConsultation : this.colsEdition}
-                      totalElements={this.props.consultation ? this.props.rows?.listAnimateurConferenceVo?.length : this.state.listAnimateurConferenceVo?.length}
+                      rows={
+                        this.props.rows?.listAnimateurConferenceVo
+                          ? this.props.rows?.listAnimateurConferenceVo
+                          : this.state.listAnimateurConferenceVo
+                      }
+                      cols={
+                        this.props.consultation
+                          ? this.colsConsultation
+                          : this.colsEdition
+                      }
+                      totalElements={
+                        this.props.consultation
+                          ? this.props.rows?.listAnimateurConferenceVo?.length
+                          : this.state.listAnimateurConferenceVo?.length
+                      }
                       maxResultsPerPage={10}
                       paginate={true}
                       showProgress={this.props.showProgress}
@@ -510,38 +627,41 @@ class AtifsRapportCreationDetailsTab extends Component {
                 </Row>
               )}
 
-              {(this.props?.rows?.ordreService?.conference || this.props?.rows?.conference) && (!this.props?.consultation && !this.state?.nouveau) && (
-                <Row>
-                  <Col size={40} />
-                  <Col size={20}>
-                    <ComBadrButtonIconComp
-                      onPress={() => this.nouveau()}
-                      icon="check"
-                      style={styles.buttonIcon}
-                      loading={this.props.showProgress}
-                      text={translate('transverse.nouveau')}
-                    />
-                  </Col>
-                  <Col size={40} />
-                </Row>
-              )}
+              {(this.props?.rows?.ordreService?.conference ||
+                this.props?.rows?.conference) &&
+                !this.props?.consultation &&
+                !this.state?.nouveau && (
+                  <Row>
+                    <Col size={40} />
+                    <Col size={20}>
+                      <ComBadrButtonIconComp
+                        onPress={() => this.nouveau()}
+                        icon="check"
+                        style={styles.buttonIcon}
+                        loading={this.props.showProgress}
+                        text={translate('transverse.nouveau')}
+                      />
+                    </Col>
+                    <Col size={40} />
+                  </Row>
+                )}
 
               {(this.state?.nouveau || this.state?.editAnimateur) && (
-
-
                 <View>
                   <Row style={CustomStyleSheet.whiteRow}>
                     <Col size={3}>
-                      <ComBadrLibelleComp style={{ paddingRight: 2 }}>
+                      <ComBadrLibelleComp style={{paddingRight: 2}}>
                         {'Animateur de la conférence*'}
                       </ComBadrLibelleComp>
                     </Col>
                     <Col size={6}>
-                      {(this.props.consultation &&
+                      {this.props.consultation && (
                         <ComBadrAutoCompleteChipsComp
                           code="code"
                           disabled={true}
-                          selected={this.props?.rows?.refAgentDetachement?.libelle}
+                          selected={
+                            this.props?.rows?.refAgentDetachement?.libelle
+                          }
                           maxItems={3}
                           libelle="libelle"
                           command="getCmbAgentDouanier"
@@ -549,7 +669,7 @@ class AtifsRapportCreationDetailsTab extends Component {
                           searchZoneFirst={false}
                         />
                       )}
-                      {(!this.props.consultation &&
+                      {!this.props.consultation && (
                         <ComBadrAutoCompleteChipsComp
                           code="code"
                           selected={this.state?.animateur}
@@ -559,32 +679,37 @@ class AtifsRapportCreationDetailsTab extends Component {
                           onDemand={true}
                           searchZoneFirst={false}
                           onValueChange={(item) => {
-                            this.setState(prevState => ({
+                            this.setState((prevState) => ({
                               ...prevState.animateur,
                               animateur: item,
-                            }))
+                            }));
                             console.log('selected : ' + JSON.stringify(item));
-                          }
-                          }
+                          }}
                         />
                       )}
                     </Col>
                     <Col size={3}>
                       <ComBadrLibelleComp>
-                        {'Qualité de l\'animateur*'}
+                        {"Qualité de l'animateur*"}
                       </ComBadrLibelleComp>
                     </Col>
                     <Col size={4}>
                       <ComBadrItemsPickerComp
                         // style={CustomStyleSheet.column}
-                        label={translate('controleApresScanner.search.etatChargement.typeListe')}
-                        selectedValue={this.state.qualiteAnimateurCode ? this.state.qualiteAnimateurCode : ''}
+                        label={translate(
+                          'controleApresScanner.search.etatChargement.typeListe',
+                        )}
+                        selectedValue={
+                          this.state.qualiteAnimateurCode
+                            ? this.state.qualiteAnimateurCode
+                            : ''
+                        }
                         items={qualites}
                         onValueChanged={(item) => {
                           this.setState({
                             qualiteAnimateurCode: item.code,
                             qualiteAnimateurLibelle: item.libelle,
-                          })
+                          });
                         }}
                       />
                     </Col>
@@ -631,39 +756,75 @@ class AtifsRapportCreationDetailsTab extends Component {
                 </View>
               )}
 
-
-              {(this.props?.rows?.ordreService?.conference || this.props?.rows?.conference) && (
+              <Row style={CustomStyleSheet.whiteRow} />
+              {(this.props?.rows?.ordreService?.conference ||
+                this.props?.rows?.conference) && (
                 <Row style={CustomStyleSheet.whiteRow}>
                   <Col size={3}>
                     <Row>
-                      <ComBadrLibelleComp style={{ paddingRight: 2 }}>
+                      <ComBadrLibelleComp style={{paddingRight: 2}}>
                         {translate('actifsCreation.detail.themesRetenus')}
                       </ComBadrLibelleComp>
                     </Row>
                   </Col>
-                  <Col size={6} style={{ paddingRight: 5 }}>
-                    <TextInput
-                      mode={'outlined'}
-                      style={{
-                        fontSize: 12,
-                        backgroundColor: '#f7f7fa'
-                      }
-                      }
-                      disabled={this.props.consultation}
-                      value={this.props.consultation ? this.props?.themeConference : this.state.themeConference}
-                      onChangeText={(item) => {
-                        this.setState(prevState => ({
-                          ...prevState.themeConference,
-                          themeConference: item,
-                        }))
-                        // this.updateModele();
-                      }}
-                      onEndEditing={() => {
-                        this.updateModele();
-                      }}
-                      multiline={true}
-                      numberOfLines={3}
-                    />
+                  <Col size={6} style={{paddingRight: 5}}>
+                    {typeService?.categorie?.code !== '12' && (
+                      <TextInput
+                        mode={'outlined'}
+                        style={{
+                          fontSize: 12,
+                          backgroundColor: '#f7f7fa',
+                        }}
+                        disabled={this.props.consultation}
+                        value={
+                          this.props.consultation
+                            ? this.props?.themeConference
+                            : this.state.themeConference
+                        }
+                        onChangeText={(item) => {
+                          this.setState((prevState) => ({
+                            ...prevState.themeConference,
+                            themeConference: item,
+                          }));
+                          // this.updateModele();
+                        }}
+                        onEndEditing={() => {
+                          this.updateModele();
+                        }}
+                        multiline={true}
+                        numberOfLines={3}
+                      />
+                    )}
+                    {typeService?.categorie?.code === '12' && (
+                      <ComBadrPickerComp
+                        disabled={this.props?.consultation}
+                        onRef={(ref) => (this.code = ref)}
+                        key="code"
+                        titleStyle={CustomStyleSheet.badrPickerTitle}
+                        // title={translate('actifsCreation.saisie.choisirNature')}
+                        cle="code"
+                        libelle="libelle"
+                        module="GIB"
+                        command="getListThemesFormation"
+                        selectedValue={
+                          this.props.consultation
+                            ? this.props?.themeConference
+                            : this.state.themeConference
+                        }
+                        selected={
+                          this.props.consultation
+                            ? this.props?.themeConference
+                            : this.state.themeConference
+                        }
+                        onValueChange={(item, index) => {
+                          this.setState({themeConference: item});
+                        }}
+                        param={'this.state.value'}
+                        typeService="SP"
+                        storeWithKey="code"
+                        storeLibelleWithKey="code"
+                      />
+                    )}
                   </Col>
                 </Row>
               )}
@@ -671,26 +832,29 @@ class AtifsRapportCreationDetailsTab extends Component {
               <Row style={CustomStyleSheet.whiteRow}>
                 <Col size={3}>
                   <Row>
-                    <ComBadrLibelleComp style={{ paddingRight: 2 }}>
+                    <ComBadrLibelleComp style={{paddingRight: 2}}>
                       {translate('actifsCreation.detail.descriptionRapport')}
                     </ComBadrLibelleComp>
                   </Row>
                 </Col>
-                <Col size={6} style={{ paddingRight: 5 }}>
+                <Col size={6} style={{paddingRight: 5}}>
                   <TextInput
                     mode={'outlined'}
                     style={{
                       fontSize: 12,
-                      backgroundColor: '#f7f7fa'
-                    }
-                    }
+                      backgroundColor: '#f7f7fa',
+                    }}
                     disabled={this.props.consultation}
-                    value={this.props.consultation ? this.props.description : this.state.description}
+                    value={
+                      this.props.consultation
+                        ? this.props.description
+                        : this.state.description
+                    }
                     onChangeText={(item) => {
-                      this.setState(prevState => ({
+                      this.setState((prevState) => ({
                         ...prevState.description,
                         description: item,
-                      }))
+                      }));
                       // this.updateModele();
                     }}
                     onEndEditing={() => {
@@ -698,20 +862,15 @@ class AtifsRapportCreationDetailsTab extends Component {
                     }}
                     multiline={true}
                     numberOfLines={10}
-
                   />
                 </Col>
               </Row>
             </Grid>
           </ComBadrCardBoxComp>
-
-
         </ComContainerComp>
       </View>
     );
   }
-
-
 }
 
 const libelle = {
@@ -786,6 +945,6 @@ const styles = {
   },
 };
 
-const mapStateToProps = (state) => ({ ...state.creationActifsReducer });
+const mapStateToProps = (state) => ({...state.creationActifsReducer});
 
 export default connect(mapStateToProps, null)(AtifsRapportCreationDetailsTab);

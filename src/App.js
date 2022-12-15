@@ -73,7 +73,6 @@ import DedRedressementEnteteScreen from './modules/dedouanement/redressement/ui/
 import controleACVPScreen from './modules/controle/ACVP/ui/controleACVPScreen';
 import ControleCompteRenduScreen from './modules/controle/ACVP/ui/onglets/compteRendu/ControleCompteRenduScreen';
 import decRechParRefMainScreen from './modules/DeclarationD17D20/rechParRef/ui/decRechParRef/decRechParRefMainScreen';
-import actifsRapportCreationRondesApparitionsTab from './modules/actifs/rapport/creation/ui/rondesApparitions/actifsRapportCreationRondesApparitionsTab';
 import ecorExpVuEmbarqueScreen from './modules/ecorExport/vuEmbarquer/ui/ecorExpVuEmbarqueScreen';
 import VuEmbListeDeclaration2 from './modules/ecorExport/vuEmbarquer/ui/ecorExpVuEmbListeDeclaration';
 import CtrlResultatScannerResultScreen from './modules/controle/ctrlResultatScanner/ui/ctrlResultatScannerMainScreen';
@@ -95,6 +94,9 @@ import controleListeDocsExigi from './modules/controle/ACVP/ui/onglets/compteRen
 import dtpsConsultationRechercheScreen from './modules/dtps/consultation/ui/dtpsConsultationRechercheScreen';
 import coMainScreen from './modules/co/ui/coMainScreen';
 import COConsultationDetail from './modules/co/ui/coConsultationDetail';
+import actifsRapportCreationSaisieTab from './modules/actifs/rapport/creation/ui/saisie/actifsRapportCreationSaisieTab';
+import actifsRapportCreationDetails from './modules/actifs/rapport/creation/ui/details/actifsRapportCreationDetails';
+
 
 //setGlobalHandler();
 export default class App extends React.Component {
@@ -117,7 +119,7 @@ export default class App extends React.Component {
                 <Stack.Screen
                   name="test"
                   options={{headerShown: false}}
-                  component={coMainScreen}
+                    component={actifsRapportCreationDetails}
                 />
               )}
               <Stack.Screen

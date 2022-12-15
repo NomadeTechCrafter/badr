@@ -30,14 +30,14 @@ class Login extends React.Component {
     failures: this.props.failures,
     startAutoLogin: true,
     autoLoginParam: {
-      login: 'YASAG', //Redressement
-      password: 'testTest1*',
+      // login: 'YASAG', //Redressement
+      // password: 'testTest1*',
       // login: 'AD6301', //Actifs
       // password: 'Testtest1-',
-      // login: 'AD6300', //Actifs
-      // password: 'Testtest1+',
+      login: 'AD6300', //Actifs
+      password: 'Testtest1-',
       // login: 'AAMM',
-      // password: 'Test123+',
+      // password: 'Test123-',
       // login: 'YELM',// Liquidation
       // password: 'testtest',
       // login: 'AD6314', // Controle
@@ -54,7 +54,7 @@ class Login extends React.Component {
       profiles: [
         // "0", "AAMAX", "AB", "PRO TEST",
         // "CONTROL", "CONT_CTRL" // Controle
-        // "ACTIFS",
+        'ACTIFS',
         // "ALL",
         // "TRY", "TRYP_AGENT", "TRYP_DECL", "TRYP_C", "TRYPTIQUE"
         // "LIQJSF", "LIQREFREC", "LIQ-TEST", "IMANLIQ" // Liquidation
@@ -65,7 +65,7 @@ class Login extends React.Component {
         // "BATCH", "BLOCAGE", "BROF", "CB-PROFIL", "CAUTION-BA", "CC2015", "CENTRAL", "CHAR", "ETAT",
         // "CHBRIGADE", "CIMET", "CNF_PROFIL", "CNT-AGENT", "CNT_DEV", "CNT-ORD", "CNT_PERF", "CR3",
         // "CNT_RECETT", "CODE C", "E00596", "CODEREF2", "CONSULTCTR", "MCV-MCV", "CST", "ANQ", "MCV-CONSUL",
-        "PROCTRL", "CONT_CTRL", "CONTROL ", "CTRL", "CTRL_I", "CTRLML", "CTRLML",
+        // "PROCTRL", "CONT_CTRL", "CONTROL ", "CTRL", "CTRL_I", "CTRLML", "CTRLML",
         // "DECOUP_P10", "DECOUP_P15", "DECOUP_P16", "DECOUP_P7", "DECOUP_P8", "DECTNI", "DED12", "DED13", "DED3",
         // "DED-TEST", "DEPO", "AJOUTERTES", "AJOUTERTER", "ECOR_IMPOR", "EID", "YYY", "ELN", "ENQ", "ENTPARAM",
         // "FFFF", "FORCER_CD", "FORM_PRO1", "FORM_PRO2", "FORM_PRO3", "FORM_PRO9", "CD145", "GEST_AUTO", "GESTDEC",
