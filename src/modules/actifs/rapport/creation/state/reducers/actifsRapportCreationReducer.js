@@ -1,8 +1,15 @@
-import { getNavigationAerienneModelInitial, getNavigationMaritimeModelInitial, format } from '../../../utils/actifsUtils';
+import {
+  getNavigationAerienneModelInitial,
+  getNavigationMaritimeModelInitial,
+  format,
+} from '../../../utils/actifsUtils';
 import * as Constants from '../actifsRapportCreationConstants';
 import * as GenericConstants from '../GenericConstants';
-import { save, saveStringified } from '../../../../../../commons/services/async-storage/ComStorageService';
-import { Rows } from 'react-native-table-component';
+import {
+  save,
+  saveStringified,
+} from '../../../../../../commons/services/async-storage/ComStorageService';
+import {Rows} from 'react-native-table-component';
 
 const initialState = {
   showProgress: false,
@@ -30,9 +37,11 @@ export default (state = initialState, action) => {
       nextState.rows = action.value;
       nextState.rows.dateDebut = nextState?.rows?.dateDebut?.substring(0, 10);
       nextState.rows.dateFin = nextState?.rows?.dateFin?.substring(0, 10);
-      nextState.rows.listAnimateurConferenceVo = action.value?.listAnimateurConferenceVo;
+      nextState.rows.listAnimateurConferenceVo =
+        action.value?.listAnimateurConferenceVo;
       nextState.rows.description = action.value?.description;
       nextState.rows.themeConference = action.value?.themeConference;
+      nextState.refThemeFormation = action.value?.refThemeFormation;
       nextState.consultation = action.value.rapportExiste;
       nextState.navigationsAeriennes = [];
       nextState.navigationAerienneModel = getNavigationAerienneModelInitial();
@@ -64,26 +73,36 @@ export default (state = initialState, action) => {
       return nextState;
     case Constants.ACTIFS_CONSULTATION_SUCCESS:
       console.log('--> ACTIFS_CONSULTATION success MRS...');
-      console.log('--> ACTIFS_CONSULTATION success MRS...', JSON.stringify(action.value));
+      console.log(
+        '--> ACTIFS_CONSULTATION success MRS...',
+        JSON.stringify(action.value),
+      );
       nextState.showProgress = false;
       nextState.errorMessage = null;
       nextState.rows = action.value.rapportService.ordreService;
       nextState.rows.dateDebut = nextState?.rows?.dateDebut?.substring(0, 10);
       nextState.rows.dateFin = nextState?.rows?.dateFin?.substring(0, 10);
-      nextState.rows.listAnimateurConferenceVo = action.value?.listAnimateurConferenceVo;
+      nextState.rows.listAnimateurConferenceVo =
+        action.value?.listAnimateurConferenceVo;
       nextState.rows.osAvecSaisie = action.value?.osAvecSaisie;
       nextState.rows.osAvecIncident = action.value?.osAvecIncident;
       nextState.rows.coiffeInitiePar = action.value?.coiffeInitiePar;
       nextState.rows.refAgentDetachement = action.value?.refAgentDetachement;
       nextState.rows.rondesApparition = action.value?.rondesApparition;
       nextState.consultation = nextState.rows.rapportExiste;
-      nextState.rondesApparition = action.value?.rondesApparition?.map((ronde) => {
-        ronde.dateDebut = format(ronde.dateDebut),
-          ronde.dateFin = format(ronde.dateFin)
-      });
+      nextState.rondesApparition = action.value?.rondesApparition?.map(
+        (ronde) => {
+          (ronde.dateDebut = format(ronde.dateDebut)),
+            (ronde.dateFin = format(ronde.dateFin));
+        },
+      );
       nextState.gibPerquisition = action.value?.gibPerquisition;
-      nextState.navigationsAeriennes = (action.value?.navigationsAeriennes) ? (action.value?.navigationsAeriennes) : [];
-      nextState.navigationsMaritimes = (action.value?.navigationsMaritimes) ? (action.value?.navigationsMaritimes) : [];
+      nextState.navigationsAeriennes = action.value?.navigationsAeriennes
+        ? action.value?.navigationsAeriennes
+        : [];
+      nextState.navigationsMaritimes = action.value?.navigationsMaritimes
+        ? action.value?.navigationsMaritimes
+        : [];
       nextState.navigationMaritimeModel = getNavigationMaritimeModelInitial();
       nextState.navigationAerienneModel = getNavigationAerienneModelInitial();
       nextState.rapportExiste = nextState.rows.rapportExiste;
@@ -96,23 +115,20 @@ export default (state = initialState, action) => {
       nextState.autreIncidents = action.value.autreIncidents;
       nextState.description = action.value.description;
       nextState.themeConference = action.value?.themeConference;
+      nextState.refThemeFormation = action.value?.refThemeFormation;
 
-
-      console.log('typesIncidents---------------------------------------------------------- action.value.typesIncidents : ', action.value.typesIncident);
+      console.log(
+        'typesIncidents---------------------------------------------------------- action.value.typesIncidents : ',
+        action.value.typesIncident,
+      );
       let typesIncidents = '';
       if (action.value && action.value.typesIncident) {
         let typesIncidentSelect = action.value.typesIncident;
-        for (
-          var i = 0;
-          i < typesIncidentSelect.length;
-          i++
-        ) {
+        for (var i = 0; i < typesIncidentSelect.length; i++) {
           if (i < typesIncidentSelect.length - 1) {
-            typesIncidents +=
-              typesIncidentSelect[i].libelle + "\n";
+            typesIncidents += typesIncidentSelect[i].libelle + '\n';
           } else {
-            typesIncidents +=
-              typesIncidentSelect[i].libelle;
+            typesIncidents += typesIncidentSelect[i].libelle;
           }
         }
       }
@@ -137,8 +153,11 @@ export default (state = initialState, action) => {
       // console.log('--> ACTIFS_SAISIE ---------------------------------------------------------success...', nextState);
       // console.log('--> ACTIFS_SAISIE ---------------------------------------------------------success...', action.value.jsonVO);
       let listUnites = [];
-      action.value.jsonVO.forEach(element => {
-        listUnites.push({ code: element.codeUniteMesure, libelle: element.descriptionUniteMesure });
+      action.value.jsonVO.forEach((element) => {
+        listUnites.push({
+          code: element.codeUniteMesure,
+          libelle: element.descriptionUniteMesure,
+        });
       });
 
       nextState.listUnites = listUnites;
@@ -165,7 +184,8 @@ export default (state = initialState, action) => {
       nextState.showProgress = false;
       nextState.errorMessage = null;
       nextState.successMessage = action.value.dtoHeader
-        ? action.value.dtoHeader.messagesInfo : action.value;
+        ? action.value.dtoHeader.messagesInfo
+        : action.value;
       nextState.consultation = true;
       return nextState;
     case Constants.ACTIFS_CREATION_FAILED:
@@ -192,15 +212,24 @@ export default (state = initialState, action) => {
 
       let navigationsMaritimes = [...action.value.navigationsMaritimes];
       if (action.value.index < 0) {
-        navigationsMaritimes.push(nextState.navigationMaritimeModel ? nextState.navigationMaritimeModel : action.value.navigationMaritimeModel);
+        navigationsMaritimes.push(
+          nextState.navigationMaritimeModel
+            ? nextState.navigationMaritimeModel
+            : action.value.navigationMaritimeModel,
+        );
       } else {
-        navigationsMaritimes.splice(action.value.index, 1, nextState.navigationMaritimeModel ? nextState.navigationMaritimeModel : action.value.navigationMaritimeModel);
+        navigationsMaritimes.splice(
+          action.value.index,
+          1,
+          nextState.navigationMaritimeModel
+            ? nextState.navigationMaritimeModel
+            : action.value.navigationMaritimeModel,
+        );
       }
       nextState.navigationsMaritimes = navigationsMaritimes;
       saveStringified('navigationsMaritimes', navigationsMaritimes).then(() =>
         console.log('navigationsMaritimes', navigationsMaritimes),
       );
-
 
       nextState.navigationMaritimeModel = getNavigationMaritimeModelInitial();
       if (nextState.index < 0) {
@@ -217,7 +246,7 @@ export default (state = initialState, action) => {
       console.log(JSON.stringify(action));
       console.log('ACTIF_CONFIRMER_EMBARCATION_FAILED');
       console.log('ACTIF_CONFIRMER_EMBARCATION_FAILED');
-      nextState.errorMessage = action?.value?.dtoHeader?.errorMessage
+      nextState.errorMessage = action?.value?.dtoHeader?.errorMessage;
       return nextState;
     case Constants.ACTIFS_EDITER_EMBARCATION_REQUEST:
       console.log('ACTIFS_EDITER_EMBARCATION_REQUEST');
@@ -272,8 +301,6 @@ export default (state = initialState, action) => {
       console.log('ACTIF_RESET_EMBARCATION_FAILED');
       return nextState;
 
-
-
     case Constants.ACTIFS_CONFIRMER_AVION_PRIVEE_REQUEST:
       console.log('ACTIFS_CONFIRMER_AVION_PRIVEE_REQUEST');
       return nextState;
@@ -285,9 +312,19 @@ export default (state = initialState, action) => {
 
       let navigationsAeriennes = [...action.value?.navigationsAeriennes];
       if (action.value.index < 0) {
-        navigationsAeriennes.push(nextState.navigationAerienneModel ? nextState.navigationAerienneModel : action.value.navigationAerienneModel);
+        navigationsAeriennes.push(
+          nextState.navigationAerienneModel
+            ? nextState.navigationAerienneModel
+            : action.value.navigationAerienneModel,
+        );
       } else {
-        navigationsAeriennes.splice(action.value.index, 1, nextState.navigationAerienneModel ? nextState.navigationAerienneModel : action.value.navigationAerienneModel);
+        navigationsAeriennes.splice(
+          action.value.index,
+          1,
+          nextState.navigationAerienneModel
+            ? nextState.navigationAerienneModel
+            : action.value.navigationAerienneModel,
+        );
       }
       nextState.navigationsAeriennes = navigationsAeriennes;
       saveStringified('navigationsAeriennes', navigationsAeriennes).then(() =>
@@ -313,7 +350,7 @@ export default (state = initialState, action) => {
       console.log(JSON.stringify(action));
       console.log('ACTIFS_CONFIRMER_AVION_PRIVEE_FAILED');
       console.log('ACTIFS_CONFIRMER_AVION_PRIVEE_FAILED');
-      nextState.errorMessage = action?.value?.dtoHeader?.errorMessage
+      nextState.errorMessage = action?.value?.dtoHeader?.errorMessage;
       return nextState;
 
     case Constants.ACTIFS_EDITER_AVION_PRIVEE_REQUEST:
@@ -389,16 +426,23 @@ export default (state = initialState, action) => {
     case Constants.RECHERCHE_PERSONNE_MORALE_IN_PROGRESS:
       return nextState;
     case Constants.RECHERCHE_PERSONNE_MORALE_SUCCESS:
-      console.log("RECHERCHE_PERSONNE_MORALE_SUCCESS : " + JSON.stringify(action));
+      console.log(
+        'RECHERCHE_PERSONNE_MORALE_SUCCESS : ' + JSON.stringify(action),
+      );
       nextState.raisonSocialeFourn = action?.value?.nomIntervenant;
       nextState.nomIntervenant = action?.value?.nomIntervenant;
       nextState.prenomIntervenant = action?.value?.prenomIntervenant;
-      nextState.keyIntervenant = action?.value?.numeroOrdreIntervenant
+      nextState.keyIntervenant = action?.value?.numeroOrdreIntervenant;
       nextState.errorMessage = '';
       return nextState;
     case Constants.RECHERCHE_PERSONNE_MORALE_FAILED:
-      console.log("RECHERCHE_PERSONNE_MORALE_FAILED : " + JSON.stringify(action));
-      if ('??? gib.rap.service.perquisition.intervenantExiste ???' === action?.value[0]) {
+      console.log(
+        'RECHERCHE_PERSONNE_MORALE_FAILED : ' + JSON.stringify(action),
+      );
+      if (
+        action?.value[0] ===
+        '??? gib.rap.service.perquisition.intervenantExiste ???'
+      ) {
         nextState.errorMessage = 'Intervenant inexistant';
       } else {
         nextState.errorMessage = action?.value;
@@ -419,22 +463,22 @@ export default (state = initialState, action) => {
     case GenericConstants.ACTIFS_GENERIC_IN_PROGRESS:
       return nextState;
     case GenericConstants.ACTIFS_GENERIC_SUCCESS:
-      if ("validerReferenceDumAvitaillementSorties" === action.command) {
+      if (action.command === 'validerReferenceDumAvitaillementSorties') {
         nextState.validerReferenceDumAvitaillementSortiesDate = action?.value;
         nextState.validerReferenceDumAvitaillementSorties = null;
       }
-      if ("validerReferenceDumAvitaillementEntrees" === action.command) {
+      if (action.command === 'validerReferenceDumAvitaillementEntrees') {
         nextState.validerReferenceDumAvitaillementEntreesDate = action?.value;
         nextState.validerReferenceDumAvitaillementEntrees = null;
       }
       console.log('reducer success ' + JSON.stringify(action));
       return nextState;
     case GenericConstants.ACTIFS_GENERIC_FAILED:
-      if ("validerReferenceDumAvitaillementSorties" === action.command) {
+      if (action.command === 'validerReferenceDumAvitaillementSorties') {
         nextState.validerReferenceDumAvitaillementSorties = action?.value?.data;
         nextState.validerReferenceDumAvitaillementSortiesDate = null;
       }
-      if ("validerReferenceDumAvitaillementEntrees" === action.command) {
+      if (action.command === 'validerReferenceDumAvitaillementEntrees') {
         nextState.validerReferenceDumAvitaillementEntrees = action?.value?.data;
         nextState.validerReferenceDumAvitaillementEntreesDate = null;
       }
@@ -448,7 +492,6 @@ export default (state = initialState, action) => {
       nextState.validerReferenceDumAvitaillementEntrees = null;
       nextState;
       return nextState;
-
 
     default:
       nextState.showProgress = false;

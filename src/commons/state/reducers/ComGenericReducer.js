@@ -8,6 +8,7 @@ const initialState = {
   displayError: false,
   data: [],
   fromLiquidation: false,
+  isNouvelleLibelleFormation: false,
 };
 
 export default (state = initialState, action) => {
@@ -28,6 +29,7 @@ export default (state = initialState, action) => {
     case Constants.GENERIC_SUCCESS:
       nextState.errorMessage = null;
       nextState.showProgress = false;
+      nextState.isNouvelleLibelleFormation = action.value;
       nextState.data = action.value;
       nextState.fromLiquidation = action.value.fromLiquidation;
       return nextState;

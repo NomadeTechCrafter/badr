@@ -16,10 +16,14 @@ export function request(action) {
       action.value.jsonVO,
     )
       .then((response) => {
-        if (response && response.data && response.data.jsonVO) {
+        if (action.value.command === 'isNouvelleLibelleFormation') {
           dispatch(success(response.data.jsonVO));
         } else {
-          dispatch(failed(translate('errors.technicalIssue')));
+          if (response && response.data && response.data.jsonVO) {
+            dispatch(success(response.data.jsonVO));
+          } else {
+            dispatch(failed(translate('errors.technicalIssue')));
+          }
         }
       })
       .catch((e) => {

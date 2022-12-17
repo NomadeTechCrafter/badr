@@ -20,13 +20,14 @@ import {
 } from '../../../../../../commons/component';
 /**i18n */
 import {translate} from '../../../../../../commons/i18n/ComI18nHelper';
-import {save} from '../../../../../../commons/services/async-storage/ComStorageService';
 import {
   CustomStyleSheet,
   primaryColor,
 } from '../../../../../../commons/styles/ComThemeStyle';
 import {qualites, status} from '../../state/actifsRapportCreationConstants';
 import _ from 'lodash';
+import {GENERIC_REQUEST} from '../../../../../../commons/constants/generic/ComGenericConstants';
+import * as GenericAction from '../../../../../../commons/state/actions/ComGenericAction';
 
 const screenHeight = Dimensions.get('window').height;
 
@@ -94,10 +95,38 @@ class AtifsRapportCreationDetailsTab extends Component {
       qualiteAnimateurCode: '',
       qualiteAnimateurLibelle: '',
       animateur: {},
+      refThemeFormation: {},
     };
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    // console.log('============= isNouvelleLibelleFormation ===================');
+    // console.log('============= isNouvelleLibelleFormation ===================');
+    // console.log('============= isNouvelleLibelleFormation ===================');
+    this.isNouvelleLibelleFormation();
+    // console.log('============= isNouvelleLibelleFormation ===================');
+    // console.log('============= isNouvelleLibelleFormation ===================');
+    // console.log('============= isNouvelleLibelleFormation ===================');
+  }
+
+  isNouvelleLibelleFormation = () => {
+    this.callRedux({
+      module: 'GIB',
+      command: 'isNouvelleLibelleFormation',
+      typeService: 'SP',
+      jsonVO: this.props?.rows?.ordreService?.journeeDu
+        ? this.props?.rows?.ordreService?.journeeDu
+        : this.props?.rows?.journeeDu,
+    });
+  };
+
+  callRedux = (actionValue) => {
+    if (this.props.dispatch) {
+      this.props.dispatch(
+        GenericAction.request({type: GENERIC_REQUEST, value: actionValue}),
+      );
+    }
+  };
 
   nouveau() {
     this.setState({nouveau: true});
@@ -248,14 +277,21 @@ class AtifsRapportCreationDetailsTab extends Component {
       refAgentDetachement: this.state.refAgentDetachement,
       description: this.state.description,
       themeConference: this.state.themeConference,
+      refThemeFormation: this.state.refThemeFormation,
       listAnimateurConferenceVo: this.state.listAnimateurConferenceVo,
     });
   }
 
   render() {
-    const typeService = this.props?.rows?.ordreService?.typeService;
-    console.log('--------------- typeService?.categorie -------------------');
-    console.log(JSON.stringify(typeService?.categorie));
+    const isNouvelleLibelleFormation = this.props?.genericReducer
+      ?.isNouvelleLibelleFormation;
+    console.log('============================================');
+    console.log('============================================');
+    console.log('============================================');
+    console.log(JSON.stringify(this.props?.refThemeFormation));
+    console.log('============================================');
+    console.log('============================================');
+    console.log('============================================');
     return (
       <View style={CustomStyleSheet.fullContainer}>
         <ComContainerComp>
@@ -768,7 +804,7 @@ class AtifsRapportCreationDetailsTab extends Component {
                     </Row>
                   </Col>
                   <Col size={6} style={{paddingRight: 5}}>
-                    {typeService?.categorie?.code !== '12' && (
+                    {!isNouvelleLibelleFormation && (
                       <TextInput
                         mode={'outlined'}
                         style={{
@@ -795,7 +831,7 @@ class AtifsRapportCreationDetailsTab extends Component {
                         numberOfLines={3}
                       />
                     )}
-                    {typeService?.categorie?.code === '12' && (
+                    {isNouvelleLibelleFormation && (
                       <ComBadrPickerComp
                         disabled={this.props?.consultation}
                         onRef={(ref) => (this.code = ref)}
@@ -808,18 +844,26 @@ class AtifsRapportCreationDetailsTab extends Component {
                         command="getListThemesFormation"
                         selectedValue={
                           this.props.consultation
-                            ? this.props?.themeConference
-                            : this.state.themeConference
+                            ? this.props?.refThemeFormation?.code
+                            : this.state.refThemeFormation
                         }
                         selected={
                           this.props.consultation
-                            ? this.props?.themeConference
-                            : this.state.themeConference
+                            ? this.props?.refThemeFormation?.code
+                            : this.state.refThemeFormation?.code
                         }
-                        onValueChange={(item, index) => {
-                          this.setState({themeConference: item});
+                        onValueChange={(selectedValue, selectedIndex, item) => {
+                          console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-+-+');
+                          console.log(JSON.stringify(item));
+                          console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-+-+');
+                          // console.log(JSON.stringify(selectedValue));
+                          // console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-+-+');
+                          // console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-+-+');
+                          // console.log(JSON.stringify(selectedIndex));
+                          // console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-+-+');
+                          this.setState({refThemeFormation: item});
                         }}
-                        param={'this.state.value'}
+                        // param={'this.state.value'}
                         typeService="SP"
                         storeWithKey="code"
                         storeLibelleWithKey="code"
@@ -945,6 +989,9 @@ const styles = {
   },
 };
 
-const mapStateToProps = (state) => ({...state.creationActifsReducer});
+const mapStateToProps = (state) => ({
+  ...state.creationActifsReducer,
+  genericReducer: state.genericReducer,
+});
 
 export default connect(mapStateToProps, null)(AtifsRapportCreationDetailsTab);
