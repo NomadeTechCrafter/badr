@@ -30,7 +30,9 @@ export default {
     bureau: 'Bureau',
     annee: 'Année',
     serie: 'Série',
+    regime: 'Regime',
+    cle:'Clé',
     type: 'Type',
-    libelleRegime: 'Libellé du régime'
+    libelleRegime: 'Libellé du régime',
   },
 };

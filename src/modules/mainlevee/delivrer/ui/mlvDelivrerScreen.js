@@ -492,8 +492,16 @@ class DelivrerMLV extends React.Component {
               )}
             />
           )}
-          {(this.props.successMessage != null ||
-            this.state.messagesInfo != null) && (
+          {(!_.isEmpty(
+            this.props.successMessage?.filter((elt) => {
+              return elt != '';
+            }),
+          ) ||
+            !_.isEmpty(
+              this.state.messagesInfo?.filter((elt) => {
+                return elt != '';
+              }),
+            )) && (
             <ComBadrInfoMessageComp
               message={[].concat(
                 this.props.successMessage,

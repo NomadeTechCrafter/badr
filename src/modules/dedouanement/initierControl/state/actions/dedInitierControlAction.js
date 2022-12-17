@@ -12,7 +12,7 @@ export function request(action) {
       console.log('response initierControle ', response)
      // alert('inprogress')
       if (response && response.data && response.data.jsonVO) {
-        alert(response.data.jsonVO)
+       // alert(response.data.jsonVO)
         if (response.data.jsonVO = "")
           dispatch(failed(response.data));
         else{

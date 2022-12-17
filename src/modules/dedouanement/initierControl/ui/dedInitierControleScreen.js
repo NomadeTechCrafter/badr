@@ -2,7 +2,8 @@ import {default as React} from 'react';
 import {ScrollView, View} from 'react-native';
 import {connect} from 'react-redux';
 import {
-  ComBadrErrorMessageComp, ComBadrInfoMessageComp,
+  ComBadrErrorMessageComp,
+  ComBadrInfoMessageComp,
   ComBadrToolbarComp,
   ComBasicDataTableComp,
 } from '../../../../commons/component';
@@ -16,10 +17,16 @@ import dedInitierControlAction from '../state/actions/dedInitierControlAction';
 class DedInitierControleScreen extends React.Component {
   constructor(props) {
     super(props);
-    console.log(
-      'recherche init',
-      JSON.stringify(props.route.params.declarationRI),
-    );
+    this.state = {
+      dedReferenceVO: props?.route.params.declarationRI.dedReferenceVO,
+      type: props?.route.params.declarationRI.typeDeclarationParam,
+      success:false,
+      messageInfo:props.messageInfo,
+      errorMessage:props.errorMessage
+    };
+
+    console.log("const_props_init",this.props)
+    console.log("const_state_init",this.state)
     this.cols = [
       {
         code: 'numeroVersion',
@@ -58,15 +65,48 @@ class DedInitierControleScreen extends React.Component {
       },
     ];
   }
+  static getDerivedStateFromProps(props, state) {
+    console.log("deriv_props_init",props?.route.params.declarationRI.dedReferenceVO)
+    console.log("succprop:successtate",props.success+":"+state.success)
+    console.log("deriv_state_init",state)
+ //   console.log("derived status",JSON.stringify(props))
+    if (state.success) {
+      return {
+        success: false,
+        ...state,
+        messageInfo:props.messageInfo,
+        errorMessage:null,
+        dedReferenceVO: {
+          ...state.dedReferenceVO, // keep all other key-value pairs
+          statusVersionCourante: 'Déposée', // update the value of specific key
+        },
+      };
+    }
+else
+    return {
+      success:false,
+      errorMessage:null,
+      messageInfo:null,
+      dedReferenceVO: props?.route.params.declarationRI.dedReferenceVO,
+    }
+  }
 
+  componentDidMount = () => {
+    this._unsubscribe = this.props.navigation.addListener('focus', () => {
+      this.setState({
+
+        success:false
+      });
+    });
+  };
   confirmer = () => {
-    this.setState({showErrorMsg: true});
+    this.setState({showErrorMsg: true,success:true});
 
     var action = dedInitierControlAction.request(
       {
         type: Constants.DED_INIT_CONTROLE_COMMUN_REQUEST,
         value: {
-          reference: this.props?.route.params.declarationRI.dedReferenceVO.reference,
+          reference: this.state.dedReferenceVO.reference,
           numeroVoyage: '',
           enregistre: true,
         },
@@ -75,6 +115,7 @@ class DedInitierControleScreen extends React.Component {
       this.props.successRedirection,
     );
     this.props.dispatch(action);
+
     console.log('dispatch fired !!');
   };
 
@@ -88,19 +129,23 @@ class DedInitierControleScreen extends React.Component {
             subtitle={translate('initierControl.title')}
             icon="menu"
           />
-          {this.props.errorMessage != null && (
-              <ComBadrErrorMessageComp message={this.props.errorMessage} />
+          {this.state.errorMessage != null && (
+            <ComBadrErrorMessageComp message={this.state.errorMessage} />
           )}
-          {this.props.messageInfo != null && (
-              <ComBadrInfoMessageComp message={this.props.messageInfo} />
+          {this.state.messageInfo != null && (
+            <ComBadrInfoMessageComp message={this.state.messageInfo} />
           )}
           <DedInfosCommunsBlock
-            dedRef={this.props?.route.params.declarationRI.dedReferenceVO}
+            dedRef={{
+              reference: this.state.dedReferenceVO.reference,
+              libelleRegime: this.state.dedReferenceVO.libelleRegime,
+              type: this.state.type,
+            }}
           />
           <ComBasicDataTableComp
             ref="_badrTable"
             id="resultatInitCtrl"
-            rows={[{...this.props?.route.params.declarationRI.dedReferenceVO}]}
+            rows={[{...this.state.dedReferenceVO}]}
             cols={this.cols}
             totalElements={1}
             maxResultsPerPage={10}
@@ -112,6 +157,7 @@ class DedInitierControleScreen extends React.Component {
           <Button
             onPress={this.confirmer}
             icon="check"
+            disabled={this.state.success}
             compact="true"
             mode="contained"
             style={styles.btnConfirmer}
@@ -123,6 +169,7 @@ class DedInitierControleScreen extends React.Component {
     );
   }
 }
+
 
 const mapStateToProps = (state) => ({
   ...state.initierControlReducer,

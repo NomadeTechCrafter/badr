@@ -15,6 +15,7 @@ import {
 } from '../../../../commons/styles/ComThemeStyle';
 
 import _ from 'lodash';
+import ComUtils from '../../../../commons/utils/ComUtils';
 
 class DedInfosCommunsBlock extends React.Component {
   defaultState = {
@@ -34,16 +35,29 @@ class DedInfosCommunsBlock extends React.Component {
     // if (this.props.route.params?.declarationRI.dedReferenceVO) {
     const refDeclaration = this.props.dedRef.reference;
     const libRegime=this.props.dedRef.libelleRegime;
+    const type=this.props.dedRef.type;
   //  alert(JSON.stringify(this.props.dedRef.reference));
     this.setState({
       bureau: refDeclaration.slice(0, 3),
       regime: refDeclaration.slice(3, 6),
       annee: refDeclaration.slice(6, 10),
       serie: refDeclaration.slice(10, 17),
-      libRegime: libRegime
+      libRegime: libRegime,
+      type: type
     });
     //}
   };
+  static getDerivedStateFromProps(props, state) {
+    const refDeclaration = props.dedRef.reference
+    return{
+      ...state,
+      bureau: refDeclaration.slice(0, 3),
+      regime: refDeclaration.slice(3, 6),
+      annee: refDeclaration.slice(6, 10),
+      serie: refDeclaration.slice(10, 17),
+      libRegime: props.dedRef.libelleRegime,
+      type: props.dedRef.type
+    }};
 
   componentWillUnmount() {}
 
@@ -78,6 +92,9 @@ class DedInfosCommunsBlock extends React.Component {
               <Text style={styles.libelleTitleL}>
                 {translate('dedCommunInfo.serie')}
               </Text>
+              <Text style={styles.libelleTitleL}>
+                {translate('dedCommunInfo.cle')}
+              </Text>
             </View>
 
             <View style={styles.containerLibRow}>
@@ -87,17 +104,21 @@ class DedInfosCommunsBlock extends React.Component {
               <Text style={styles.libelleValM}>{this.state.regime}</Text>
               <Text style={styles.libelleValM}>{this.state.annee}</Text>
               <Text style={styles.libelleValL}>{this.state.serie}</Text>
+              <Text style={styles.libelleValL}>{ComUtils.cleDUM(this.props.dedRef.reference)}</Text>
             </View>
-            {/*<View style={styles.containerLibRow}>
-
+            <View style={styles.containerLibRow}>
+              <Text style={styles.libelleTitleL}>
+                {translate('dedCommunInfo.type')}
+              </Text>
               <Text style={styles.libelleTitleM}>
                 {translate('dedCommunInfo.libelleRegime')}
               </Text>
             </View>
             <View style={styles.containerLibRow}>
-
+              <Text style={styles.libelleValL}>{this.state.type}</Text>
               <Text style={styles.libelleValL}>{this.state.libRegime}</Text>
-            </View>*/}
+            </View>
+
           </ComBadrCardSectionComp>
         </ComAccordionComp>
       </View>

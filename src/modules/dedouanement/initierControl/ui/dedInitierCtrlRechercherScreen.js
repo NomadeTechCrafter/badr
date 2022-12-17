@@ -24,6 +24,7 @@ class InitierCtrlRechercherScreen extends Component {
       typeRecherche: null,
       periodeDu: '',
       periodeAu: '',
+      success:false
     };
 
     this.radioButtonsTypeRecherche = [
@@ -48,6 +49,7 @@ class InitierCtrlRechercherScreen extends Component {
         typeRecherche: null,
         periodeDu: '',
         periodeAu: '',
+        success:false
       });
     });
   };
