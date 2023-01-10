@@ -6,7 +6,11 @@ import {
   ComBadrInfoMessageComp,
   ComBadrToolbarComp,
   ComBasicDataTableComp,
+  ComBadrCardBoxComp,
+  ComAccordionComp
 } from '../../../../commons/component';
+
+
 import translate from '../../../../commons/i18n/ComI18nHelper';
 import DedInfosCommunsBlock from './dednfosCommunsBlock';
 import {Button} from 'react-native-paper';
@@ -19,14 +23,36 @@ class DedInitierControleScreen extends React.Component {
     super(props);
     this.state = {
       dedReferenceVO: props?.route.params.declarationRI.dedReferenceVO,
+      decDepotPhysiqueVos:
+        props?.route.params.declarationRI.decDepotPhysiqueVos,
       type: props?.route.params.declarationRI.typeDeclarationParam,
-      success:false,
-      messageInfo:props.messageInfo,
-      errorMessage:props.errorMessage
+      success: false,
+      messageInfo: props.messageInfo,
+      errorMessage: props.errorMessage,
+      couplee:props?.route.params.declarationRI.couplee,
+      enAttenteCouplage:props?.route.params.declarationRI.enAttenteCouplage,
     };
 
-    console.log("const_props_init",this.props)
-    console.log("const_state_init",this.state)
+    console.log('const_props_init', this.props);
+    console.log('const_state_init', this.state);
+    this.colCouple = [
+      {
+        code: 'referenceDUM',
+        libelle: translate('resultatInitCtrl.ref'),
+        width: 200,
+      },
+      {
+        code: 'dateCreationDUM',
+        libelle: translate('resultatInitCtrl.dateCreation'),
+        width: 200,
+      },
+      {
+        code: 'dateEnregDUM',
+        libelle: translate('resultatInitCtrl.dateEnreg'),
+        width: 200,
+      },
+    ];
+
     this.cols = [
       {
         code: 'numeroVersion',
@@ -66,41 +92,45 @@ class DedInitierControleScreen extends React.Component {
     ];
   }
   static getDerivedStateFromProps(props, state) {
-    console.log("deriv_props_init",props?.route.params.declarationRI.dedReferenceVO)
-    console.log("succprop:successtate",props.success+":"+state.success)
-    console.log("deriv_state_init",state)
- //   console.log("derived status",JSON.stringify(props))
+    console.log(
+      'deriv_props_init',
+      props?.route.params.declarationRI.dedReferenceVO,
+    );
+    console.log('succprop:successtate', props.success + ':' + state.success);
+    console.log('deriv_state_init', state);
+    //   console.log("derived status",JSON.stringify(props))
     if (state.success) {
       return {
         success: false,
         ...state,
-        messageInfo:props.messageInfo,
-        errorMessage:null,
+        messageInfo: props.messageInfo,
+        errorMessage: props.errorMessage,
         dedReferenceVO: {
           ...state.dedReferenceVO, // keep all other key-value pairs
           statusVersionCourante: 'Déposée', // update the value of specific key
         },
       };
-    }
-else
-    return {
-      success:false,
-      errorMessage:null,
-      messageInfo:null,
-      dedReferenceVO: props?.route.params.declarationRI.dedReferenceVO,
+    } else {
+      return {
+        ...state,
+        success: false,
+        errorMessage: null,
+        messageInfo: null,
+        decDepotPhysiqueVos: props?.route.params.declarationRI.decDepotPhysiqueVos,
+        dedReferenceVO: props?.route.params.declarationRI.dedReferenceVO,
+      };
     }
   }
 
   componentDidMount = () => {
     this._unsubscribe = this.props.navigation.addListener('focus', () => {
       this.setState({
-
-        success:false
+        success: false,
       });
     });
   };
   confirmer = () => {
-    this.setState({showErrorMsg: true,success:true});
+    this.setState({showErrorMsg: true, success: true});
 
     var action = dedInitierControlAction.request(
       {
@@ -109,6 +139,8 @@ else
           reference: this.state.dedReferenceVO.reference,
           numeroVoyage: '',
           enregistre: true,
+          identifiant:this.state.dedReferenceVO.identifiant,
+          numVesrsCour:this.state.dedReferenceVO.numeroVersionCourante
         },
       },
       this.props.navigation,
@@ -119,7 +151,7 @@ else
     console.log('dispatch fired !!');
   };
 
-  render() {
+    render() {
     return (
       <ScrollView>
         <View style={{flex: 1}}>
@@ -127,6 +159,7 @@ else
             navigation={this.props.navigation}
             title={translate('initierControl.title')}
             subtitle={translate('initierControl.title')}
+
             icon="menu"
           />
           {this.state.errorMessage != null && (
@@ -142,6 +175,7 @@ else
               type: this.state.type,
             }}
           />
+          {!this.state.couplee&&!this.state.enAttenteCouplage&&
           <ComBasicDataTableComp
             ref="_badrTable"
             id="resultatInitCtrl"
@@ -151,7 +185,27 @@ else
             maxResultsPerPage={10}
             paginate={true}
             showProgress={this.props.showProgress}
+          />}
+          {(this.state.couplee||this.state.enAttenteCouplage)&&
+              <ComBadrCardBoxComp style={styles.cardBox}>
+                            <ComAccordionComp
+                                badr
+                                title={translate('resultatInitCtrl.decEnAttente')+this.state.decDepotPhysiqueVos.length}
+                             expanded={true}
+                            >
+          <ComBasicDataTableComp
+
+            ref="_badrTable"
+            id="resultatInitCtrl"
+            rows={this.state.decDepotPhysiqueVos}
+            cols={this.colCouple}
+            // totalElements={1}
+            maxResultsPerPage={10}
+            paginate={true}
+            showProgress={this.props.showProgress}
           />
+           </ComAccordionComp>
+            </ComBadrCardBoxComp>}
         </View>
         <View style={{padding: 50}}>
           <Button
@@ -169,7 +223,6 @@ else
     );
   }
 }
-
 
 const mapStateToProps = (state) => ({
   ...state.initierControlReducer,

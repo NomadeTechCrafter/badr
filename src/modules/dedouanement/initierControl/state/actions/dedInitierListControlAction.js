@@ -14,16 +14,15 @@ export function request(action, navigation) {
       console.log('response initierListControle ', response);
       if (response && response.data && response.data.jsonVO) {
         const data = response.data.jsonVO;
-       // alert(JSON.stringify("initlistcontrol"+data));
         if ((response.data.jsonVO = '')) {
-          dispatch(failed(response.data));
+          dispatch(failed(response));
         } else {
           dispatch(success(response.data.dtoHeader));
           navigation.navigate('DedInitierListControleScreen', {data});
         }
       } else {
-        //  alert('ko')
-        dispatch(failed(response.data));
+
+        dispatch(failed(response));
       }
     });
   };

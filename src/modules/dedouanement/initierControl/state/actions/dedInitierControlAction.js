@@ -11,9 +11,9 @@ export function request(action) {
     dedInitierControlApi.initierControle(action.value).then((response) => {
       console.log('response initierControle ', response)
      // alert('inprogress')
-      if (response && response.data && response.data.jsonVO) {
+      if (response && response.data) {
        // alert(response.data.jsonVO)
-        if (response.data.jsonVO = "")
+        if (response.data.jsonVO === "")
           dispatch(failed(response.data));
         else{
           dispatch(success(response.data.dtoHeader));

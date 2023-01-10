@@ -62,10 +62,6 @@ export default (state = initialState, action) => {
       nextState.messageInfo = null;
       nextState.success = false;
       return nextState;
-
-
-
-
     case DED_INIT_LIST_CONTROLE_COMMUN_REQUEST:
       nextState.showProgress = true;
       nextState.displayError = false;
@@ -85,12 +81,12 @@ export default (state = initialState, action) => {
       nextState.success = true;
       return nextState;
     case DED_INIT_LIST_CONTROLE_COMMUN_FAILED:
-      console.log('DED_INIT_LIST_CONTROLE_COMMUN_FAILED : ',action);
+      console.log('DED_INIT_LIST_CONTROLE_COMMUN_FAILEDD : ',action);
       nextState.showProgress = false;
       nextState.displayError = true;
-      if (action.value.dtoHeader) {
-        nextState.errorMessage = action.value.dtoHeader.messagesErreur
-            ? action.value.dtoHeader.messagesErreur
+      if (action.value.data.dtoHeader) {
+        nextState.errorMessage = action.value.data.dtoHeader.messagesErreur
+            ? action.value.data.dtoHeader.messagesErreur
             : action.value;
       } else {
         nextState.errorMessage = translate('errors.technicalIssue');

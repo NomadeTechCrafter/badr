@@ -3,17 +3,12 @@ const mapping = {
   '9009': { screen: 'RechercheAtMulti', params: { qr: true } },
   '2243': { screen: 'RechercheConfirmationReceptionScreen', params: {} },
   '90023': { screen: 'SortiPortScreen', params: {} },
-  '90026': { screen: 'AnnoterTrypt', params: {} },
-  '100001': { screen: 'InitierCtrlRechercherScreen', params: {} },
-  '90019': { screen: 'MainleveeScreen', params: {} },
-  '5970': { screen: 'NewRechercheMLV', params: {} },
-  '5971': { screen: 'NewRechercheMLV', params: {} },
+  '90019': {screen: 'MainleveeScreen', params: {}},
+  '5970': {screen: 'NewRechercheMLV', params: {}},
+  '5971': {screen: 'NewRechercheMLV', params: {}},
   '2052': { screen: 'DedRechercheRedressement', params: { qr: false } },
   '20470': { screen: 'DedEnvoyerValeurScreen', params: { qr: false } },
   '20471': { screen: 'DedTraiterValeurScreen', params: { qr: false } },
-  '3202': { screen: 'DedEtudeRetudeScreen', params: { qr: false } },
-  '3203': { screen: 'DedRecoterEtudeScreen', params: { qr: false } },
-  '3204': { screen: 'DedREtudeRetudeScreen', params: { qr: false } },
   '30661': { screen: 'ControleApresScanner', params: {} },
   '90025': { screen: 'VuEmbarqueScreen', params: { qr: true } },
   '90018': { screen: 'RechApurementParRefScreen', params: {} },
@@ -36,115 +31,43 @@ const mapping = {
   '61525': { screen: 'RechercheAutoriserAcheminementScreen', params: {} },
   '6153': { screen: 'EcorExportVuEmbarqueScreen', params: {} },
   '6160': { screen: 'ConfirmationEntreeArriveeRechercheScreen', params: {} },
-  '6151': {
-    //CONFIRMATION ENTREE
-    screen: 'ConfirmationEntreeRechercheScreen',
-    params: { title: 'Ecran  Recherche Confirmation entree' },
-  },
-  '61530': {
-    //CONFIRMATION ARRIVEE
-    screen: 'ConfirmationArriveeRechercheScreen',
-    params: { title: 'Ecran  Recherche Confirmation arrivee' },
-  },
-  '121711': {
-    screen: 'EciConsultationBLS',
-    params: { title: 'Ecran  Recherche Consultation BLS' },
-  },
-  '121714': {
-    screen: 'EciConsultationBLE',
-    params: { title: 'Ecran  Recherche Consultation BLE' },
-  },
-  '30805': {
-    screen: 'CtrlResultatScannerMainScreen',
-    params: {
-      title: 'Résultat de scanner',
-    },
-  },
-  '1226': {
-    screen: 'ECIAppositionScellesRechercheScreen',
-    params: {},
-  },
-  '2243': { screen: 'RechercheConfirmationReceptionScreen', params: {} },
-  '14000011': { screen: 'ModifierCompteRenduMission', params: {} },
-  '14000012': { screen: 'ValiderCompteRenduMission', params: {} },
-  '4096': { screen: 'RefControleVehicule', params: {} },
-  '823': { screen: 'RefPlaquesImm', params: {} },
-  '14000010': { screen: 'CreerCompteRenduMission', params: {} },
-  '5202': { screen: 'LiquidationRechercheScreen', params: { qr: false } },
-
+  '6151': { screen: 'ConfirmationEntreeRechercheScreen', params: { title: 'Ecran  Recherche Confirmation entree' } },
+  '61530': { screen: 'ConfirmationArriveeRechercheScreen', params: { title: 'Ecran  Recherche Confirmation arrivee' } },
+  '121711': { screen: 'EciConsultationBLS', params: { title: 'Ecran  Recherche Consultation BLS' } },
+  '121714': { screen: 'EciConsultationBLE', params: { title: 'Ecran  Recherche Consultation BLE' } },
+  '30805': { screen: 'CtrlResultatScannerMainScreen', params: { title: 'Résultat de scanner' } },
+  '1226': { screen: 'ECIAppositionScellesRechercheScreen', params: {} },
+  '14000011': {screen: 'ModifierCompteRenduMission', params: {}},
+  '14000012': {screen: 'ValiderCompteRenduMission', params: {}},
+  '4096': {screen: 'RefControleVehicule', params: {}},
+  '823': {screen: 'RefPlaquesImm', params: {}},
+  '14000010': {screen: 'CreerCompteRenduMission', params: {}},
+  '100001': {screen: 'InitierCtrlRechercherScreen', params: {}},
+  '110001': {screen: 'T6bisCreation', params: {}},
+  '110002': {screen: 'T6bisRecherche',params: {title: 'Ecran Modification T6bis'}},
+  '110005': {screen: 'T6bisRecherche',params: {title: 'Ecran Redressement T6bis'}},
+  '110007': {screen: 'T6bisRecherche',params: {title: 'Ecran  Recherche T6BIS'}},
+  '1201': {screen: 'RechercheEcorImport',params: { typeEcorImport: 'EnleverMarchandise' }},
+  '1202': {screen: 'RechercheEcorImport',params: { typeEcorImport: 'PeserMarchandise' }},
+  '1203': {screen: 'RechercheEcorImport',params: { typeEcorImport: 'EnleverMarchandiseParPesage' }},
+  '1204': {screen: 'RechercheEcorImport',params: { typeEcorImport: 'VerifierParContreEcor' }},
 
   '9932': { screen: 'ActifsRecherche', params: {} },
-
   '3064': { screen: 'controleRechercheDumScreen', params: { typeControle: 'AC' } },
   '3072': { screen: 'controleRechercheDumScreen', params: { typeControle: 'RI' } },
   '3086': { screen: 'controleRechercheDumScreen', params: { typeControle: 'TR' } },
-  /*
-  '2401': { screen: 'PreConfirmationArriveeMainScreen', params: {} },
+  '5202': {screen: 'LiquidationRechercheScreen', params: {qr: false}},
+  '2401': { screen: 'PreConfirmationArriveeMainScreen', params: {} }, 
   '2402': { screen: 'JustifRetardTransitMainScreen', params: {} },
   '90026': {screen: 'AnnoterTrypt', params: {}},
-*/
-  '110001': { screen: 'T6bisCreation', params: {} },
-  '110002': {
-    screen: 'T6bisRecherche',
-    params: { title: 'Ecran Modification T6bis' },
-  },
-  '110005': {
-    screen: 'T6bisRecherche',
-    params: { title: 'Ecran Redressement T6bis' },
-  },
-  '110007': {
-    screen: 'T6bisRecherche',
-    params: { title: 'Ecran  Recherche T6BIS' },
-  },
+  '3202': {screen: 'DedEtudeRetudeScreen', params: {qr: false}},
+  '3203': {screen: 'DedRecoterEtudeScreen', params: {qr: false}},
+  '3204': {screen: 'DedREtudeRetudeScreen', params: {qr: false}},
+  '1213': {screen: 'RechercheEcorImport',params: {typeEcorImport: 'EnleverMarchandiseSsManifeste'}},
+  '1220': {screen: 'RechercheEcorImport',params: {typeEcorImport: 'VerifierPContreEcorSsManifeste'}},
+  '1219': {screen: 'RechercheEcorImport',params: {typeEcorImport: 'ConfirmerArriveeSsManifeste'}},
+  '1218': {screen: 'RechercheEcorImport',params: {typeEcorImport: 'AutoriserAcheminementSsManifeste'}},
 
-  '1201': {
-    screen: 'RechercheEcorImport',
-    params: { typeEcorImport: 'EnleverMarchandise' },
-  },
-  '1202': {
-    screen: 'RechercheEcorImport',
-    params: { typeEcorImport: 'PeserMarchandise' },
-  },
-  '1203': {
-    screen: 'RechercheEcorImport',
-    params: { typeEcorImport: 'EnleverMarchandiseParPesage' },
-  },
-  '1213': {
-    screen: 'RechercheEcorImport',
-    params: { typeEcorImport: 'EnleverMarchandiseSsManifeste' },
-  },
-  '1220': {
-    screen: 'RechercheEcorImport',
-    params: { typeEcorImport: 'VerifierPContreEcorSsManifeste' },
-  },
-  '1219': {
-    screen: 'RechercheEcorImport',
-    params: { typeEcorImport: 'ConfirmerArriveeSsManifeste' },
-  },
-  '1218': {
-    screen: 'RechercheEcorImport',
-    params: { typeEcorImport: 'AutoriserAcheminementSsManifeste' },
-  },
-
-  '1204': {
-    screen: 'RechercheEcorImport',
-    params: { typeEcorImport: 'VerifierParContreEcor' },
-  },
-  '110001': { screen: 'T6bisCreation', params: {} },
-  '110002': {
-    screen: 'T6bisRecherche',
-    params: { title: 'Ecran Modification T6bis' },
-  },
-  '110005': {
-    screen: 'T6bisRecherche',
-    params: { title: 'Ecran Redressement T6bis' },
-  },
-  '110007': {
-    screen: 'T6bisRecherche',
-    params: { title: 'Ecran  Recherche T6BIS' },
-  },
-  '2401': { screen: 'PreConfirmationArriveeMainScreen', params: {} },
-  '2402': { screen: 'JustifRetardTransitMainScreen', params: {} },
 };
 
 const ionicMapping = {};

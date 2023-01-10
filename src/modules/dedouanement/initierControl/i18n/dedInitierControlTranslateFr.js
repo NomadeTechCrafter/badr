@@ -13,6 +13,8 @@ export default {
   resultatInitCtrl: {
     id: 'N°',
     type: 'Type',
+    ref: 'Référence',
+    decEnAttente: 'Nombre des déclarations en attente de couplage : ',
     reference: 'Déclaration',
     opeDeclarant: 'Opérateur Déclarant',
     opeSouimiss: 'Opérateur Soumissionnaire',
@@ -31,7 +33,7 @@ export default {
     annee: 'Année',
     serie: 'Série',
     regime: 'Regime',
-    cle:'Clé',
+    cle: 'Clé',
     type: 'Type',
     libelleRegime: 'Libellé du régime',
   },
