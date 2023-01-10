@@ -1,16 +1,16 @@
 /** React Components */
 import React from 'react';
-import { Alert, Linking, ScrollView, TextInput, View } from 'react-native';
-import { Button, Title, Modal, Portal, Text } from 'react-native-paper';
+import {Alert, Linking, ScrollView, TextInput, View} from 'react-native';
+import {Button, Title, Modal, Portal, Text} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome';
 /** REDUX **/
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import style from '../style/habLoginStyle';
 /**ACTIONS */
 import * as LoginConstants from '../state/habLoginConstants';
 import * as authAction from '../state/actions/habLoginAction';
 /** i18n **/
-import { translate } from '../../../../commons/i18n/ComI18nHelper';
+import {translate} from '../../../../commons/i18n/ComI18nHelper';
 /** Custom Components */
 import {
   ComBadrErrorMessageComp,
@@ -18,7 +18,7 @@ import {
   ComBadrLoginHeaderComp,
 } from '../../../../commons/component';
 /** Inmemory session */
-import { load } from '../../../../commons/services/async-storage/ComStorageService';
+import {load} from '../../../../commons/services/async-storage/ComStorageService';
 import AutoLoginProcess from '../../../../commons/component/modules/autoLogin/ComAutoLoginProcessComp';
 /** Utils */
 import ComUtils from '../../../../commons/utils/ComUtils';
@@ -34,10 +34,10 @@ class Login extends React.Component {
       // password: 'testTest1*',
       // login: 'AD6301', //Actifs
       // password: 'Testtest1-',
-      login: 'AD6300', //Actifs
-      password: 'Testtest1-',
-      // login: 'AAMM',
-      // password: 'Test123-',
+      // login: 'AD6300', //Actifs
+      // password: 'Testtest1+',
+      login: 'AAMM',
+      password: 'Test123+',
       // login: 'YELM',// Liquidation
       // password: 'testtest',
       // login: 'AD6314', // Controle
@@ -52,40 +52,267 @@ class Login extends React.Component {
       // codeArrondissement: '309202', // arrondissement II
       // arrondissement: '309202', // arrondissement II
       profiles: [
-        // "0", "AAMAX", "AB", "PRO TEST",
-        // "CONTROL", "CONT_CTRL" // Controle
-        'ACTIFS',
-        // "ALL",
-        // "TRY", "TRYP_AGENT", "TRYP_DECL", "TRYP_C", "TRYPTIQUE"
-        // "LIQJSF", "LIQREFREC", "LIQ-TEST", "IMANLIQ" // Liquidation
-        // "AR", "ADMINBV",
-        // "ADMSELCOT", "ADT", "AGBRIGADE", "AGDP", "AGENTD", "AGECOR", "AGENT_TEST", "AV",
-        // "AG_VISIT", "AGLACI", "ALLPROFIL", "ALL", "ALLPRO", "A123", "AMAL2015", "AMAL-PRO",
-        // "AMMARI", "AMPROF", "ARABBANK", "AT_A_BORD", "AT_VOY", "AT1", "PIF", "TESTAUDI1",
-        // "BATCH", "BLOCAGE", "BROF", "CB-PROFIL", "CAUTION-BA", "CC2015", "CENTRAL", "CHAR", "ETAT",
-        // "CHBRIGADE", "CIMET", "CNF_PROFIL", "CNT-AGENT", "CNT_DEV", "CNT-ORD", "CNT_PERF", "CR3",
-        // "CNT_RECETT", "CODE C", "E00596", "CODEREF2", "CONSULTCTR", "MCV-MCV", "CST", "ANQ", "MCV-CONSUL",
-        // "PROCTRL", "CONT_CTRL", "CONTROL ", "CTRL", "CTRL_I", "CTRLML", "CTRLML",
-        // "DECOUP_P10", "DECOUP_P15", "DECOUP_P16", "DECOUP_P7", "DECOUP_P8", "DECTNI", "DED12", "DED13", "DED3",
-        // "DED-TEST", "DEPO", "AJOUTERTES", "AJOUTERTER", "ECOR_IMPOR", "EID", "YYY", "ELN", "ENQ", "ENTPARAM",
-        // "FFFF", "FORCER_CD", "FORM_PRO1", "FORM_PRO2", "FORM_PRO3", "FORM_PRO9", "CD145", "GEST_AUTO", "GESTDEC",
-        // "GESACCESS", "GESAGDOUAN", "PF-CAUTION", "GEST_ENQ", "GESNAVIRES", "PGOE", "PROCURAT", "GIB", "HABPRODEL",
-        // "IMANLIQ", "INFO", "INSGC", "ISVAL", "INSP_VENTE", "INSVEX", "INSVI", "INTRVNT", "KHALID", "CODEP1",
-        // "CODE155555", "CODE111111", "CODEP", "RADPROF", "LIQJSF", "LIQREFREC", "LIQ-TEST", "LSTRI-AT", "MA",
-        // "MLV", "MCV", "MCV-REC1", "MCV-REDSCP", "MCV-ORD", "MCV-REC", "MCV-AGORD", "MCV-CONS", "MCV-GESREF",
-        // "MFB", "MYPROFIL", "MOYTRANS", "NETHAH", "T2", "NEW_PROFIL", "OPDECTEST", "OPDECL", "OPRDEC", "OUBEDDAAG1",
-        // "OUBEDDADEC", "PERSO_BLOQ", "PF DECLARA", "PFDECLARA", "PFTRANSIT", "PFKARIM", "PFREFCT15", "PF_TEST_DE",
-        // "PROTESTCEN", "PRNONCENT", "MOB", "PRO_AT", "PROCTRL", "PRO_CNT", "PROFADMIN", "PROFB", "PROFD", "NEWPROFIL",
-        // "DEMAT", "PF PEC ", "PRO_MVT", "PF141212", "CTRLML", "REGIME", "OPTESTT", "TEST2", "PROFILEDI", "PROF_LPC",
-        // "PROFT", "PROFTEST2", "PROJ_LPC", "PRO_MCV", "PRO_T6BIS", "OPE-PROV", "PRO_YELM", "HELLP", "HELLOP", "REFAC3",
-        // "REFAC5", "PROSOFR", "REFACT9", "REFACTOR45", "REFCAT15", "REF-ETAT", "REF-ETAT-1", "RESP_GESCP", "RESP_EXPOR",
-        // "RESP_IMPOR", "SC-P", "SDEV_PRO", "TESTTES2", "SELCOT-EC", "PF SELECT", "SIGNDTP", "SIGNATURE", "SIGN_DEC",
-        // "TST BTC", "TSTBTCDED", "TDP", "TEST_DEC1", "TESTDEP", "TESTDUM", "TEST ENCOD", "TST_LEGISL", "TESTHABILI",
-        // "PECETDC", "TESTMCI", "VEHVOL", "TEST_30", "TESTAG3", "TESTAG4_PR", "TEST-CBAN", "TESTDUM222", "TESTJSF1",
-        // "TESTLISTEA", "TESTMP", "TESTPM", "TESTPRO", "PROFILAM", "TEST1", "TESTR", "TESTSOFR4", "TESTSOFR7", "TESTSOFR9",
-        // "TESTSOF8", "TESTSSO", "TESTAAA", "TEST001", "TEST0012", "TEST001254", "TEST003", "545454", "TEST11", "TEST19",
-        // "TEST2018", "TEST2021", "TEST2090", "TEST24", "TEST90", "TNRPROF", "TOUS", "TRANS", "TT", "PFTRANSPO", "TR", , "T6BIS", "T6BIS12", "VE_VE", "VIDPRO"
-      ]
+        // '0',
+        // 'AAMAX',
+        // 'AB',
+        // 'PRO TEST',
+        // 'CONTROL',
+        // 'CONT_CTRL',
+        // 'ACTIFS',
+        'ALL',
+        // 'TRY',
+        // 'TRYP_AGENT',
+        // 'TRYP_DECL',
+        // 'TRYP_C',
+        // 'TRYPTIQUE',
+        // 'LIQJSF',
+        // 'LIQREFREC',
+        // 'LIQ-TEST',
+        // 'IMANLIQ', // Liquidation
+        // 'AR',
+        // 'ADMINBV',
+        // 'ADMSELCOT',
+        // 'ADT',
+        // 'AGBRIGADE',
+        // 'AGDP',
+        // 'AGENTD',
+        // 'AGECOR',
+        // 'AGENT_TEST',
+        // 'AV',
+        // 'AG_VISIT',
+        // 'AGLACI',
+        // 'ALLPROFIL',
+        // 'ALL',
+        // 'ALLPRO',
+        // 'A123',
+        // 'AMAL2015',
+        // 'AMAL-PRO',
+        // 'AMMARI',
+        // 'AMPROF',
+        // 'ARABBANK',
+        // 'AT_A_BORD',
+        // 'AT_VOY',
+        // 'AT1',
+        // 'PIF',
+        // 'TESTAUDI1',
+        // 'BATCH',
+        // 'BLOCAGE',
+        // 'BROF',
+        // 'CB-PROFIL',
+        // 'CAUTION-BA',
+        // 'CC2015',
+        // 'CENTRAL',
+        // 'CHAR',
+        // 'ETAT',
+        // 'CHBRIGADE',
+        // 'CIMET',
+        // 'CNF_PROFIL',
+        // 'CNT-AGENT',
+        // 'CNT_DEV',
+        // 'CNT-ORD',
+        // 'CNT_PERF',
+        // 'CR3',
+        // 'CNT_RECETT',
+        // 'CODE C',
+        // 'E00596',
+        // 'CODEREF2',
+        // 'CONSULTCTR',
+        // 'MCV-MCV',
+        // 'CST',
+        // 'ANQ',
+        // 'MCV-CONSUL',
+        // 'PROCTRL',
+        // 'CONT_CTRL',
+        // 'CONTROL ',
+        // 'CTRL',
+        // 'CTRL_I',
+        // 'CTRLML',
+        // 'CTRLML',
+        // 'DECOUP_P10',
+        // 'DECOUP_P15',
+        // 'DECOUP_P16',
+        // 'DECOUP_P7',
+        // 'DECOUP_P8',
+        // 'DECTNI',
+        // 'DED12',
+        // 'DED13',
+        // 'DED3',
+        // 'DED-TEST',
+        // 'DEPO',
+        // 'AJOUTERTES',
+        // 'AJOUTERTER',
+        // 'ECOR_IMPOR',
+        // 'EID',
+        // 'YYY',
+        // 'ELN',
+        // 'ENQ',
+        // 'ENTPARAM',
+        // 'FFFF',
+        // 'FORCER_CD',
+        // 'FORM_PRO1',
+        // 'FORM_PRO2',
+        // 'FORM_PRO3',
+        // 'FORM_PRO9',
+        // 'CD145',
+        // 'GEST_AUTO',
+        // 'GESTDEC',
+        // 'GESACCESS',
+        // 'GESAGDOUAN',
+        // 'PF-CAUTION',
+        // 'GEST_ENQ',
+        // 'GESNAVIRES',
+        // 'PGOE',
+        // 'PROCURAT',
+        // 'GIB',
+        // 'HABPRODEL',
+        // 'IMANLIQ',
+        // 'INFO',
+        // 'INSGC',
+        // 'ISVAL',
+        // 'INSP_VENTE',
+        // 'INSVEX',
+        // 'INSVI',
+        // 'INTRVNT',
+        // 'KHALID',
+        // 'CODEP1',
+        // 'CODE155555',
+        // 'CODE111111',
+        // 'CODEP',
+        // 'RADPROF',
+        // 'LIQJSF',
+        // 'LIQREFREC',
+        // 'LIQ-TEST',
+        // 'LSTRI-AT',
+        // 'MA',
+        // 'MLV',
+        // 'MCV',
+        // 'MCV-REC1',
+        // 'MCV-REDSCP',
+        // 'MCV-ORD',
+        // 'MCV-REC',
+        // 'MCV-AGORD',
+        // 'MCV-CONS',
+        // 'MCV-GESREF',
+        // 'MFB',
+        // 'MYPROFIL',
+        // 'MOYTRANS',
+        // 'NETHAH',
+        // 'T2',
+        // 'NEW_PROFIL',
+        // 'OPDECTEST',
+        // 'OPDECL',
+        // 'OPRDEC',
+        // 'OUBEDDAAG1',
+        // 'OUBEDDADEC',
+        // 'PERSO_BLOQ',
+        // 'PF DECLARA',
+        // 'PFDECLARA',
+        // 'PFTRANSIT',
+        // 'PFKARIM',
+        // 'PFREFCT15',
+        // 'PF_TEST_DE',
+        // 'PROTESTCEN',
+        // 'PRNONCENT',
+        // 'MOB',
+        // 'PRO_AT',
+        // 'PROCTRL',
+        // 'PRO_CNT',
+        // 'PROFADMIN',
+        // 'PROFB',
+        // 'PROFD',
+        // 'NEWPROFIL',
+        // 'DEMAT',
+        // 'PF PEC ',
+        // 'PRO_MVT',
+        // 'PF141212',
+        // 'CTRLML',
+        // 'REGIME',
+        // 'OPTESTT',
+        // 'TEST2',
+        // 'PROFILEDI',
+        // 'PROF_LPC',
+        // 'PROFT',
+        // 'PROFTEST2',
+        // 'PROJ_LPC',
+        // 'PRO_MCV',
+        // 'PRO_T6BIS',
+        // 'OPE-PROV',
+        // 'PRO_YELM',
+        // 'HELLP',
+        // 'HELLOP',
+        // 'REFAC3',
+        // 'REFAC5',
+        // 'PROSOFR',
+        // 'REFACT9',
+        // 'REFACTOR45',
+        // 'REFCAT15',
+        // 'REF-ETAT',
+        // 'REF-ETAT-1',
+        // 'RESP_GESCP',
+        // 'RESP_EXPOR',
+        // 'RESP_IMPOR',
+        // 'SC-P',
+        // 'SDEV_PRO',
+        // 'TESTTES2',
+        // 'SELCOT-EC',
+        // 'PF SELECT',
+        // 'SIGNDTP',
+        // 'SIGNATURE',
+        // 'SIGN_DEC',
+        // 'TST BTC',
+        // 'TSTBTCDED',
+        // 'TDP',
+        // 'TEST_DEC1',
+        // 'TESTDEP',
+        // 'TESTDUM',
+        // 'TEST ENCOD',
+        // 'TST_LEGISL',
+        // 'TESTHABILI',
+        // 'PECETDC',
+        // 'TESTMCI',
+        // 'VEHVOL',
+        // 'TEST_30',
+        // 'TESTAG3',
+        // 'TESTAG4_PR',
+        // 'TEST-CBAN',
+        // 'TESTDUM222',
+        // 'TESTJSF1',
+        // 'TESTLISTEA',
+        // 'TESTMP',
+        // 'TESTPM',
+        // 'TESTPRO',
+        // 'PROFILAM',
+        // 'TEST1',
+        // 'TESTR',
+        // 'TESTSOFR4',
+        // 'TESTSOFR7',
+        // 'TESTSOFR9',
+        // 'TESTSOF8',
+        // 'TESTSSO',
+        // 'TESTAAA',
+        // 'TEST001',
+        // 'TEST0012',
+        // 'TEST001254',
+        // 'TEST003',
+        // '545454',
+        // 'TEST11',
+        // 'TEST19',
+        // 'TEST2018',
+        // 'TEST2021',
+        // 'TEST2090',
+        // 'TEST24',
+        // 'TEST90',
+        // 'TNRPROF',
+        // 'TOUS',
+        // 'TRANS',
+        // 'TT',
+        // 'PFTRANSPO',
+        // 'TR',
+        // 'T6BIS',
+        // 'T6BIS12',
+        // 'VE_VE',
+        // 'VIDPRO',
+      ],
     },
   };
 
@@ -101,32 +328,37 @@ class Login extends React.Component {
    */
   componentDidMount() {
     ComUtils.setDeviceInformation();
-    this.loadOldUserIfExist().then(() => { });
+    this.loadOldUserIfExist().then(() => {});
     this.props.initialize();
-    this.initAutoLoginParameters().then(() => { });
+    this.initAutoLoginParameters().then(() => {});
   }
 
   handleLogin = (forcerConnexion) => {
-
-    this.props.login(this.state.login, this.state.password, forcerConnexion, "false", this.state.failures);
+    this.props.login(
+      this.state.login,
+      this.state.password,
+      forcerConnexion,
+      'false',
+      this.state.failures,
+    );
   };
 
   initAutoLoginParameters = async () => {
     const initialUrl = await Linking.getInitialURL();
     let params = this.extractUrlParams(initialUrl);
     if (Object.keys(params).length > 0) {
-      this.setState({ startAutoLogin: true, autoLoginParam: params });
+      this.setState({startAutoLogin: true, autoLoginParam: params});
     }
   };
 
   loadOldUserIfExist = async () => {
     let user = await load('user', true, true);
     if (user) {
-      this.setState({ login: user.login });
+      this.setState({login: user.login});
     }
   };
   onLoginChanged = (text) => {
-    this.setState({ login: text.toUpperCase() });
+    this.setState({login: text.toUpperCase()});
   };
 
   extractUrlParams = (initialUrl) => {
@@ -187,7 +419,7 @@ class Login extends React.Component {
               autoCapitalize="none"
               secureTextEntry={true}
               placeholder={translate('password')}
-              onChangeText={(text) => this.setState({ password: text })}
+              onChangeText={(text) => this.setState({password: text})}
             />
           </View>
           <Button
@@ -210,7 +442,7 @@ class Login extends React.Component {
               [
                 {
                   text: translate('alreadyLogged.cancel'),
-                  onPress: () => { },
+                  onPress: () => {},
                   style: translate('alreadyLogged.cancel'),
                 },
                 {
@@ -218,7 +450,7 @@ class Login extends React.Component {
                   onPress: () => this.handleLogin(true),
                 },
               ],
-              { cancelable: false },
+              {cancelable: false},
             )}
           {this.props.route.params && this.props.route.params.msg && (
             <ComBadrInfoMessageComp message={this.props.route.params.msg} />
@@ -242,14 +474,11 @@ class Login extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({ ...state.loginReducer });
+const mapStateToProps = (state) => ({...state.loginReducer});
 
 const mapDispatchToProps = (dispatch, props) => {
   return {
     login: (login, password, forcerConnexion, isFromCohabitation, failures) => {
-
-
-
       let action = authAction.request(
         {
           type: LoginConstants.AUTH_LOGIN_REQUEST,
@@ -258,7 +487,7 @@ const mapDispatchToProps = (dispatch, props) => {
             pwd: password,
             forcerConnexion: forcerConnexion,
             isFromCohabitation: isFromCohabitation,
-            failures: failures
+            failures: failures,
           },
         },
         props.navigation,

@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { View, ScrollView } from 'react-native';
-import { TextInput, Button } from 'react-native-paper';
-import { Col, Grid, Row } from 'react-native-easy-grid';
+import React, {Component} from 'react';
+import {View, ScrollView} from 'react-native';
+import {TextInput, Button} from 'react-native-paper';
+import {Col, Grid, Row} from 'react-native-easy-grid';
 import {
   ComAccordionComp,
   ComBadrLibelleComp,
@@ -14,28 +14,25 @@ import {
   ComBadrPopupComp,
   ComBasicDataTableComp,
 } from '../../../../commons/component';
-import {
-  CustomStyleSheet,
-} from '../../../../commons/styles/ComThemeStyle';
+import {CustomStyleSheet} from '../../../../commons/styles/ComThemeStyle';
 import styles from '../style/ecorExpConfirmationEntreeArriveeStyle';
 import _ from 'lodash';
 /**i18n */
-import { translate } from '../../../../commons/i18n/ComI18nHelper';
-import { connect } from 'react-redux';
+import {translate} from '../../../../commons/i18n/ComI18nHelper';
+import {connect} from 'react-redux';
 import * as Constants from '../state/ecorExpConfirmationEntreeArriveeConstants';
 import * as ConstantsArrivee from '../../confirmationArrivee/state/ecorExpConfirmationArriveeConstants';
 import * as ConstantsEntree from '../../confirmationEntree/state/ecorExpConfirmationEntreeConstants';
 import * as ConfirmationEntreeArriveeRechercheAction from '../state/actions/ecorExpConfirmationEntreeArriveeRechercheAction';
 import * as ConfirmationArrivee from '../../confirmationArrivee/state/actions/ecorExpConfirmationArriveeRechercheAction';
 import * as ConfirmationEntree from '../../confirmationEntree/state/actions/ecorExpConfirmationEntreeRechercheAction';
-import { MODULE_ECOREXP, TYPE_SERVICE_SP } from '../../../../commons/Config';
-import { ComSessionService } from '../../../../commons/services/session/ComSessionService';
-import { TYPE_SERVICE_UC } from '../../../../commons/constants/ComGlobalConstants';
+import {MODULE_ECOREXP, TYPE_SERVICE_SP} from '../../../../commons/Config';
+import {ComSessionService} from '../../../../commons/services/session/ComSessionService';
+import {TYPE_SERVICE_UC} from '../../../../commons/constants/ComGlobalConstants';
 import * as RechecheDumActionEntree from '../../confirmationEntree/state/actions/ecorExpConfirmationEntreeRechercheAction';
 import * as RechecheDumActionArrivee from '../../confirmationArrivee/state/actions/ecorExpConfirmationArriveeRechercheAction';
 import * as ConstantsConfirmationEntree from '../../confirmationEntree/state/ecorExpConfirmationEntreeConstants';
 import * as ConstantsConfirmationArrivee from '../../confirmationArrivee/state/ecorExpConfirmationArriveeConstants';
-
 
 class ConfirmationEntreeArriveeRechercheScreen extends Component {
   constructor(props) {
@@ -86,12 +83,9 @@ class ConfirmationEntreeArriveeRechercheScreen extends Component {
       //   action: (row, index) => this.onDeclarationChecked(row, index),
       // },
     ];
-
   }
 
-
   confirmerEntreeArrivee = () => {
-
     // console.log('+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
     // console.log('+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
     // console.log(JSON.stringify(this.props?.data));
@@ -99,52 +93,59 @@ class ConfirmationEntreeArriveeRechercheScreen extends Component {
     // console.log('+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
 
     const row = this.props?.data[0];
-    if (true === row.confirmationEntree) {
-      let action = RechecheDumActionEntree.requestFindDumByEtatChargement({
-        type: ConstantsConfirmationEntree.INITCONFIRMATIONENTREE_ETATCHARGEMENT_REQUEST,
-        value: {
-          commande: 'findDumByAmp',
-          module: MODULE_ECOREXP,
-          typeService: TYPE_SERVICE_SP,
-          data: {
-            codeBureau: null,
-            numeroImmatriculation: this.state.immatriculation,
-            // referenceDum: '',
-            // typeSelecte: null,
-            // moyenTransport: null,
-            // modeTransport: null,
-            // idDed: null,
+    if (row.confirmationEntree === true) {
+      let action = RechecheDumActionEntree.requestFindDumByEtatChargement(
+        {
+          type:
+            ConstantsConfirmationEntree.INITCONFIRMATIONENTREE_ETATCHARGEMENT_REQUEST,
+          value: {
+            commande: 'findDumByAmp',
+            module: MODULE_ECOREXP,
+            typeService: TYPE_SERVICE_SP,
+            data: {
+              codeBureau: null,
+              numeroImmatriculation: this.state.immatriculation,
+              // referenceDum: '',
+              // typeSelecte: null,
+              // moyenTransport: null,
+              // modeTransport: null,
+              // idDed: null,
+            },
           },
         },
-      }, null);
+        null,
+      );
       this.props.navigation.navigate('ConfirmationEntreeResultScreen', {
         first: true,
       });
       this.props.actions.dispatch(action);
     } else {
-      let action2 = RechecheDumActionArrivee.requestFindDumByEtatChargement({
-        type: ConstantsConfirmationArrivee.INITCONFIRMATIONARRIVEE_ETATCHARGEMENT_REQUEST,
-        value: {
-          commande: 'findDumByEtatChargementConfirmerArrivee',
-          module: MODULE_ECOREXP,
-          typeService: TYPE_SERVICE_SP,
-          data: {
-            codeBureau: ComSessionService.getInstance().getCodeBureau(),
-            numero: this.state.immatriculation,
-            referenceDum: '',
-            typeSelecte: null,
-            moyenTransport: null,
-            modeTransport: null,
-            idDed: null,
+      let action2 = RechecheDumActionArrivee.requestFindDumByEtatChargement(
+        {
+          type:
+            ConstantsConfirmationArrivee.INITCONFIRMATIONARRIVEE_ETATCHARGEMENT_REQUEST,
+          value: {
+            commande: 'findListDumConfirmerArrivee',
+            module: MODULE_ECOREXP,
+            typeService: TYPE_SERVICE_SP,
+            data: {
+              codeBureau: ComSessionService.getInstance().getCodeBureau(),
+              numero: this.state.immatriculation,
+              referenceDum: '',
+              typeSelecte: null,
+              moyenTransport: null,
+              modeTransport: null,
+              idDed: null,
+            },
           },
         },
-      }, null);
+        null,
+      );
       this.props.navigation.navigate('ConfirmationArriveeResultScreen', {
         first: true,
       });
       this.props.actions.dispatch(action2);
     }
-
   };
 
   retablir = () => {
@@ -156,9 +157,8 @@ class ConfirmationEntreeArriveeRechercheScreen extends Component {
   };
 
   confirmer = () => {
-    this.setState({ showErrorMsg: true });
+    this.setState({showErrorMsg: true});
     if (this.state.immatriculation) {
-
       this.setState({
         localErrorMessage: '',
       });
@@ -183,7 +183,10 @@ class ConfirmationEntreeArriveeRechercheScreen extends Component {
   };
 
   render() {
-    console.log('render confirmation entree arrive +++ ===> ' + JSON.stringify(this.props?.data));
+    console.log(
+      'render confirmation entree arrive +++ ===> ' +
+        JSON.stringify(this.props?.data),
+    );
     return (
       <View>
         <ComBadrToolbarComp
@@ -225,7 +228,7 @@ class ConfirmationEntreeArriveeRechercheScreen extends Component {
                   mode="outlined"
                   value={this.state.immatriculation}
                   onChangeText={(text) =>
-                    this.setState({ immatriculation: text })
+                    this.setState({immatriculation: text})
                   }
                 />
               </Col>
@@ -245,7 +248,10 @@ class ConfirmationEntreeArriveeRechercheScreen extends Component {
               </Col>
               <Col size={1} />
               <Col size={2}>
-                <Button onPress={this.retablir} icon="autorenew" mode="contained">
+                <Button
+                  onPress={this.retablir}
+                  icon="autorenew"
+                  mode="contained">
                   {translate('transverse.retablir')}
                 </Button>
               </Col>
@@ -288,11 +294,11 @@ class ConfirmationEntreeArriveeRechercheScreen extends Component {
 }
 
 function mapStateToProps(state) {
-  return { ...state.ecorExpConfirmationEntreeArriveeReducer };
+  return {...state.ecorExpConfirmationEntreeArriveeReducer};
 }
 
 function mapDispatchToProps(dispatch) {
-  let actions = { dispatch };
+  let actions = {dispatch};
   return {
     actions,
   };

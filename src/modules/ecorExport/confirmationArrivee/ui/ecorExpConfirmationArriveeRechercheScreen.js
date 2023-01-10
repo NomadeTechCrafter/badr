@@ -63,7 +63,7 @@ class ConfirmationArriveeRechercheScreen extends Component {
       let action = RechecheDumAction.requestFindDumByEtatChargement({
         type: Constants.INITCONFIRMATIONARRIVEE_ETATCHARGEMENT_REQUEST,
         value: {
-          commande: 'findDumByEtatChargementConfirmerArrivee',
+          commande: 'findListDumConfirmerArrivee',
           module: MODULE_ECOREXP,
           typeService: TYPE_SERVICE_SP,
           data: {

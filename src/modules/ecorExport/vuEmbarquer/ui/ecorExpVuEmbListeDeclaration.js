@@ -1,20 +1,23 @@
 import React from 'react';
 
-import { View, ScrollView, Text, SafeAreaView, FlatList } from 'react-native';
+import {View, ScrollView, Text, SafeAreaView, FlatList} from 'react-native';
 import moment from 'moment';
 
-import { translate } from '../../../../commons/i18n/ComI18nHelper';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import {translate} from '../../../../commons/i18n/ComI18nHelper';
+import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import _ from 'lodash';
 
-import { CustomStyleSheet, primaryColor } from '../../../../commons/styles/ComThemeStyle';
+import {
+  CustomStyleSheet,
+  primaryColor,
+} from '../../../../commons/styles/ComThemeStyle';
 import * as getCmbOperateurByCodeAction from '../../autoriserAcheminement/mainScreen/state/actions/getCmbOperateurByCodeAction';
 import * as ConfirmerVuEmbAction from '../state/actions/ecorExpVuEmbConfirmerAction';
 import * as SupprimerVuEmbAction from '../state/actions/ecorExpVuEmbSupprimerAction';
 import * as ResultatScannerVuEmbAction from '../state/actions/ecorExpVuEmbResultatScannerAction';
 import * as Constants from '../../autoriserAcheminement/mainScreen/state/autoriserAcheminementMainConstants';
 import * as VuEmbConstants from '../state/ecorExpVuEmbarquerConstants';
-import { isCreation, stringNotEmpty } from '../../../t6bis/utils/t6bisUtils';
+import {isCreation, stringNotEmpty} from '../../../t6bis/utils/t6bisUtils';
 
 /**Custom Components */
 import {
@@ -33,10 +36,10 @@ import {
 } from '../../../../commons/component';
 
 /** REDUX **/
-import { connect } from 'react-redux';
-import { Col, Grid, Row } from 'react-native-easy-grid';
-import { Button, HelperText, RadioButton, TextInput } from 'react-native-paper';
-import { ComSessionService } from '../../../../commons/services/session/ComSessionService';
+import {connect} from 'react-redux';
+import {Col, Grid, Row} from 'react-native-easy-grid';
+import {Button, HelperText, RadioButton, TextInput} from 'react-native-paper';
+import {ComSessionService} from '../../../../commons/services/session/ComSessionService';
 
 const initialState = {
   ecorDUM: null,
@@ -57,7 +60,7 @@ const initialState = {
 class VuEmbListeDeclaration extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { ...initialState };
+    this.state = {...initialState};
     this.cols = [
       {
         code: 'dateScannage',
@@ -83,15 +86,15 @@ class VuEmbListeDeclaration extends React.Component {
         code: 'controleApresScanner',
         libelle: translate('etatChargement.controleApresScanner'),
         width: 300,
-      }
+      },
     ];
   }
 
   componentDidMount() {
     this._unsubscribe = this.props.navigation.addListener('focus', () => {
-      this.setState({ ...initialState });
+      this.setState({...initialState});
       this.setState({
-        ecorDUM: this.props?.vuEmbInit?.value?.jsonVO
+        ecorDUM: this.props?.vuEmbInit?.value?.jsonVO,
       });
 
       if (this.props?.vuEmbInit?.value?.jsonVO?.dateHeureEmbarquement) {
@@ -100,22 +103,28 @@ class VuEmbListeDeclaration extends React.Component {
           modeConsultation: true,
           dateVuEmbarquer: jsonVO?.dateHeureEmbarquement?.slice(0, 10),
           heureVuEmbarquer: jsonVO?.dateHeureEmbarquement?.slice(11, 16),
-          navire: jsonVO?.refMoyenTransport?.codeMoyenTransport ? jsonVO?.refMoyenTransport?.descriptionMoyenTransport + '(' + jsonVO?.refMoyenTransport?.codeMoyenTransport + ')' : '',
+          navire: jsonVO?.refMoyenTransport?.codeMoyenTransport
+            ? jsonVO?.refMoyenTransport?.descriptionMoyenTransport +
+              '(' +
+              jsonVO?.refMoyenTransport?.codeMoyenTransport +
+              ')'
+            : '',
           dateVoyage: jsonVO?.dateHeureVoyage?.slice(0, 10),
           heureVoyage: jsonVO?.dateHeureVoyage?.slice(11, 16),
           numeroVoyage: jsonVO?.numeroVoyage,
           commentaire: jsonVO?.commentaireEmbarquement,
         });
       } else {
-        this.setState({ navire: '' });
+        this.setState({navire: ''});
       }
       this.populateResultatScanner();
       this.setState({
-        resultatsScanner: this.props?.resScan?.dataScanner ? this.props?.resScan?.dataScanner : null
+        resultatsScanner: this.props?.resScan?.dataScanner
+          ? this.props?.resScan?.dataScanner
+          : null,
       });
       this.populateLibelleTransporteurControleApresScanner();
       this.populateLibelleTransporteur();
-
     });
   }
 
@@ -124,33 +133,51 @@ class VuEmbListeDeclaration extends React.Component {
   }
 
   populateResultatScanner() {
-
     let localReference = this.props?.route?.params?.params?.params;
-    let data = localReference?.bureau + localReference?.regime + localReference?.annee + localReference?.serie;
+    let data =
+      localReference?.bureau +
+      localReference?.regime +
+      localReference?.annee +
+      localReference?.serie;
 
-    var action = ResultatScannerVuEmbAction.request(
-      {
-        type: VuEmbConstants.SCANNER_VU_EMB_REQUEST,
-        value: {
-          login: ComSessionService.getInstance().getLogin(),
-          commande: "echange.findResultatScannerByDum",
-          module: "ECHANGE_LIB",
-          typeService: "SP",
-          data: data,
-        },
-      }
-    );
+    var action = ResultatScannerVuEmbAction.request({
+      type: VuEmbConstants.SCANNER_VU_EMB_REQUEST,
+      value: {
+        login: ComSessionService.getInstance().getLogin(),
+        commande: 'echange.findResultatScannerByDum',
+        module: 'ECHANGE_LIB',
+        typeService: 'SP',
+        data: data,
+      },
+    });
     this.props.actions.dispatch(action);
   }
 
   populateLibelleTransporteurControleApresScanner() {
-    let transporteurExploitantMEADCrtlApresScanner = this.props?.vuEmbInit?.value?.jsonVO?.transporteurExploitantMEADCrtlApresScanner;
-    console.log('transporteurExploitantMEADCrtlApresScanner', transporteurExploitantMEADCrtlApresScanner);
+    let transporteurExploitantMEADCrtlApresScanner = this.props?.vuEmbInit
+      ?.value?.jsonVO?.transporteurExploitantMEADCrtlApresScanner;
+    console.log(
+      'transporteurExploitantMEADCrtlApresScanner',
+      transporteurExploitantMEADCrtlApresScanner,
+    );
     if (!_.isEmpty(transporteurExploitantMEADCrtlApresScanner)) {
-      if (_.isEmpty(this.props.transporteurExploitantMEADCtrlApresScanner) || this.props.transporteurExploitantMEADCtrlApresScanner.code !== transporteurExploitantMEADCrtlApresScanner) {
-        console.log('transporteurExploitantMEADCtrlApresScannerLibelle', this.props.transporteurExploitantMEADCtrlApresScanner);
+      if (
+        _.isEmpty(this.props.transporteurExploitantMEADCtrlApresScanner) ||
+        this.props.transporteurExploitantMEADCtrlApresScanner.code !==
+          transporteurExploitantMEADCrtlApresScanner
+      ) {
+        console.log(
+          'transporteurExploitantMEADCtrlApresScannerLibelle',
+          this.props.transporteurExploitantMEADCtrlApresScanner,
+        );
         let action = getCmbOperateurByCodeAction.request({
-          type: Constants.AUTORISER_ACHEMINEMENT_GET_CMB_OPERATEUR_BY_CODE_REQUEST, value: { idOperateur: transporteurExploitantMEADCrtlApresScanner, isCtrlApresScanner: true, isAutoAchemin: false }
+          type:
+            Constants.AUTORISER_ACHEMINEMENT_GET_CMB_OPERATEUR_BY_CODE_REQUEST,
+          value: {
+            idOperateur: transporteurExploitantMEADCrtlApresScanner,
+            isCtrlApresScanner: true,
+            isAutoAchemin: false,
+          },
         });
         this.props.actions.dispatch(action);
       }
@@ -158,13 +185,27 @@ class VuEmbListeDeclaration extends React.Component {
   }
 
   populateLibelleTransporteur() {
-    let transporteurExploitantMEAD = this.props?.vuEmbInit?.value?.jsonVO?.transporteurExploitantMEAD;
+    let transporteurExploitantMEAD = this.props?.vuEmbInit?.value?.jsonVO
+      ?.transporteurExploitantMEAD;
     console.log('populateLibelleTransporteur', transporteurExploitantMEAD);
     if (!_.isEmpty(transporteurExploitantMEAD)) {
-      if (_.isEmpty(this.props.transporteurExploitantMEAD) || this.props.transporteurExploitantMEAD.code !== transporteurExploitantMEAD) {
-        console.log('transporteurExploitantMEADCtrl', this.props.transporteurExploitantMEAD);
+      if (
+        _.isEmpty(this.props.transporteurExploitantMEAD) ||
+        this.props.transporteurExploitantMEAD.code !==
+          transporteurExploitantMEAD
+      ) {
+        console.log(
+          'transporteurExploitantMEADCtrl',
+          this.props.transporteurExploitantMEAD,
+        );
         let action = getCmbOperateurByCodeAction.request({
-          type: Constants.AUTORISER_ACHEMINEMENT_GET_CMB_OPERATEUR_BY_CODE_REQUEST, value: { idOperateur: transporteurExploitantMEAD, isCtrlApresScanner: false, isAutoAchemin: false }
+          type:
+            Constants.AUTORISER_ACHEMINEMENT_GET_CMB_OPERATEUR_BY_CODE_REQUEST,
+          value: {
+            idOperateur: transporteurExploitantMEAD,
+            isCtrlApresScanner: false,
+            isAutoAchemin: false,
+          },
         });
         this.props.actions.dispatch(action);
       }
@@ -173,14 +214,14 @@ class VuEmbListeDeclaration extends React.Component {
 
   getFormattedScelles = (scelles) => {
     let listeNombreDeScelles = [];
-    Object.entries(scelles).map(item => {
+    Object.entries(scelles).map((item) => {
       console.log(item[0]);
       listeNombreDeScelles.push(item[0]);
-    })
+    });
     return listeNombreDeScelles;
-  }
+  };
 
-  renderBoxItem = ({ item }) => {
+  renderBoxItem = ({item}) => {
     return (
       <View style={styles.boxItem}>
         <Text style={styles.boxItemText}>{item}</Text>
@@ -189,14 +230,19 @@ class VuEmbListeDeclaration extends React.Component {
   };
 
   handleCmbMoyenTransport = (item, id) => {
-    this.setState({ moyenTransportCode: item.code, navire: item.libelle });
+    this.setState({moyenTransportCode: item.code, navire: item.libelle});
   };
 
   confirmerVuEmbarquer = () => {
-    if (!stringNotEmpty(this.state.dateVuEmbarquer) || !stringNotEmpty(this.state.heureVuEmbarquer)) {
-      this.setState({ erreur: 'Date et Heure embarquement: Valeur obligatoire.' });
+    if (
+      !stringNotEmpty(this.state.dateVuEmbarquer) ||
+      !stringNotEmpty(this.state.heureVuEmbarquer)
+    ) {
+      this.setState({
+        erreur: 'Date et Heure embarquement: Valeur obligatoire.',
+      });
     } else {
-      this.setState({ erreur: null });
+      this.setState({erreur: null});
       // console.log(JSON.stringify(this.state));
       let data = this.state?.ecorDUM;
       let localReference = this.props?.route?.params?.params?.params;
@@ -208,7 +254,8 @@ class VuEmbListeDeclaration extends React.Component {
       delete data?.refAgentEntree?.refBureau?.defaultConverter;
 
       delete data?.refAgentAutorisationAcheminement?.defaultConverter;
-      delete data?.refAgentAutorisationAcheminement?.refBureau?.defaultConverter;
+      delete data?.refAgentAutorisationAcheminement?.refBureau
+        ?.defaultConverter;
 
       delete data?.refAgentAnnulationEmbarquement?.defaultConverter;
       delete data?.refAgentAnnulationEmbarquement?.refBureau?.defaultConverter;
@@ -228,7 +275,8 @@ class VuEmbListeDeclaration extends React.Component {
       delete data?.refMainlevee?.defaultConverter;
 
       delete data?.refMainlevee?.refAgentValidation?.defaultConverter;
-      delete data?.refMainlevee?.refAgentValidation?.refBureau?.defaultConverter;
+      delete data?.refMainlevee?.refAgentValidation?.refBureau
+        ?.defaultConverter;
 
       delete data?.refMainlevee?.refAgentEdition?.defaultConverter;
       delete data?.refMainlevee?.refAgentEdition?.refBureau?.defaultConverter;
@@ -238,29 +286,28 @@ class VuEmbListeDeclaration extends React.Component {
 
       delete data?.defaultConverter;
 
-
       data.refDUM = localReference;
-      data.dateHeureEmbarquement = this.state.dateVuEmbarquer + ' ' + this.state.heureVuEmbarquer;
-      data.dateHeureVoyage = this.state.dateVoyage + ' ' + this.state.heureVoyage;
+      data.dateHeureEmbarquement =
+        this.state.dateVuEmbarquer + ' ' + this.state.heureVuEmbarquer;
+      data.dateHeureVoyage =
+        this.state.dateVoyage + ' ' + this.state.heureVoyage;
       data.numeroVoyage = this.state.numeroVoyage;
       data.commentaireEmbarquement = this.state.commentaire;
       data.refMoyenTransport = {
         codeMoyenTransport: this.state.moyenTransportCode,
-        descriptionMoyenTransport: this.state.navire
+        descriptionMoyenTransport: this.state.navire,
       };
 
-      var action = ConfirmerVuEmbAction.request(
-        {
-          type: VuEmbConstants.VU_EMB_CONFIRMER_REQUEST,
-          value: {
-            login: ComSessionService.getInstance().getLogin(),
-            commande: "confirmerVuEmbarquer",
-            module: "ECOREXP_LIB",
-            typeService: "UC",
-            data: data,
-          },
-        }
-      );
+      var action = ConfirmerVuEmbAction.request({
+        type: VuEmbConstants.VU_EMB_CONFIRMER_REQUEST,
+        value: {
+          login: ComSessionService.getInstance().getLogin(),
+          commande: 'confirmerVuEmbarquer',
+          module: 'ECOREXP_LIB',
+          typeService: 'UC',
+          data: data,
+        },
+      });
       this.props.actions.dispatch(action);
     }
   };
@@ -272,20 +319,18 @@ class VuEmbListeDeclaration extends React.Component {
   supprimerVuEmbarquer = () => {
     let localReference = this.props?.route?.params?.params?.params;
 
-    let data = { refDUM: localReference };
+    let data = {refDUM: localReference};
 
-    var action = SupprimerVuEmbAction.request(
-      {
-        type: VuEmbConstants.VU_EMB_SUPPRIMER_REQUEST,
-        value: {
-          login: ComSessionService.getInstance().getLogin(),
-          commande: "supprimerVuEmbarquer",
-          module: "ECOREXP_LIB",
-          typeService: "UC",
-          data: data,
-        },
-      }
-    );
+    var action = SupprimerVuEmbAction.request({
+      type: VuEmbConstants.VU_EMB_SUPPRIMER_REQUEST,
+      value: {
+        login: ComSessionService.getInstance().getLogin(),
+        commande: 'supprimerVuEmbarquer',
+        module: 'ECOREXP_LIB',
+        typeService: 'UC',
+        data: data,
+      },
+    });
     this.props.actions.dispatch(action);
   };
 
@@ -302,7 +347,6 @@ class VuEmbListeDeclaration extends React.Component {
     alpha = alpha.charAt(RS);
     return alpha;
   };
-
 
   render() {
     let reference = this.state?.ecorDUM?.refDUM;
@@ -355,52 +399,53 @@ class VuEmbListeDeclaration extends React.Component {
                   <Text style={styles.libelleM}>
                     {translate('transverse.serie')}
                   </Text>
-                  <Text style={styles.libelleS}>{translate('transverse.cle')}</Text>
+                  <Text style={styles.libelleS}>
+                    {translate('transverse.cle')}
+                  </Text>
                   {/* <Text style={styles.libelleS}>{translate('controleApresScanner.search.declarationEnDetail.numeroSousDum')}</Text> */}
-
                 </View>
                 <View style={styles.flexDirectionRow}>
-                  <Text style={styles.valueS}>
-                    {reference?.bureau}
-                  </Text>
-                  <Text style={styles.valueS}>
-                    {reference?.regime}
-                  </Text>
-                  <Text style={styles.valueS}>
-                    {reference?.annee}
-                  </Text>
-                  <Text style={styles.valueM}>
-                    {reference?.serie}
-                  </Text>
-                  <Text style={styles.valueS}>
-                    {cle}
-                  </Text>
+                  <Text style={styles.valueS}>{reference?.bureau}</Text>
+                  <Text style={styles.valueS}>{reference?.regime}</Text>
+                  <Text style={styles.valueS}>{reference?.annee}</Text>
+                  <Text style={styles.valueM}>{reference?.serie}</Text>
+                  <Text style={styles.valueS}>{cle}</Text>
                   {/* <Text style={styles.valueS}>
                 {reference.cle}
               </Text> */}
-
                 </View>
               </Col>
               <Col size={3}>
                 <Row>
                   <Col>
-                    <Text style={styles.libelleS}>{translate('controleApresScanner.search.declarationEnDetail.numeroSousDum')}</Text>
+                    <Text style={styles.libelleS}>
+                      {translate(
+                        'controleApresScanner.search.declarationEnDetail.numeroSousDum',
+                      )}
+                    </Text>
                   </Col>
                   <Col>
                     <Text style={styles.valueS}>
                       {this.state?.ecorDUM?.refDUM?.numeroOrdreVoyage}
-                    </Text></Col>
+                    </Text>
+                  </Col>
                 </Row>
               </Col>
             </Row>
           </ComBadrCardBoxComp>
           <ComBadrCardBoxComp style={styles.cardBox}>
-            <ComAccordionComp title={translate('autoriserAcheminemenMainScreen.declarationDetail.title')} expanded={true}>
+            <ComAccordionComp
+              title={translate(
+                'autoriserAcheminemenMainScreen.declarationDetail.title',
+              )}
+              expanded={true}>
               {/* <Grid> */}
               <Row style={CustomStyleSheet.lightBlueRow}>
                 <Col>
                   <ComBadrLibelleComp withColor={true}>
-                    {translate('autoriserAcheminemenMainScreen.declarationDetail.dateHeureEnreg')}
+                    {translate(
+                      'autoriserAcheminemenMainScreen.declarationDetail.dateHeureEnreg',
+                    )}
                   </ComBadrLibelleComp>
                 </Col>
                 <Col>
@@ -414,7 +459,9 @@ class VuEmbListeDeclaration extends React.Component {
               <Row style={CustomStyleSheet.whiteRow}>
                 <Col>
                   <ComBadrLibelleComp withColor={true}>
-                    {translate('autoriserAcheminemenMainScreen.declarationDetail.typeDed')}
+                    {translate(
+                      'autoriserAcheminemenMainScreen.declarationDetail.typeDed',
+                    )}
                   </ComBadrLibelleComp>
                 </Col>
                 <Col>
@@ -436,7 +483,9 @@ class VuEmbListeDeclaration extends React.Component {
               <Row style={CustomStyleSheet.lightBlueRow}>
                 <Col>
                   <ComBadrLibelleComp withColor={true}>
-                    {translate('autoriserAcheminemenMainScreen.declarationDetail.operateurDeclarant')}
+                    {translate(
+                      'autoriserAcheminemenMainScreen.declarationDetail.operateurDeclarant',
+                    )}
                   </ComBadrLibelleComp>
                 </Col>
                 <Col>
@@ -458,7 +507,9 @@ class VuEmbListeDeclaration extends React.Component {
               <Row style={CustomStyleSheet.whiteRow}>
                 <Col size={1}>
                   <ComBadrLibelleComp withColor={true}>
-                    {translate('autoriserAcheminemenMainScreen.declarationDetail.valeurDeclaree')}
+                    {translate(
+                      'autoriserAcheminemenMainScreen.declarationDetail.valeurDeclaree',
+                    )}
                   </ComBadrLibelleComp>
                 </Col>
                 <Col size={1}>
@@ -468,7 +519,9 @@ class VuEmbListeDeclaration extends React.Component {
                 </Col>
                 <Col>
                   <ComBadrLibelleComp withColor={true}>
-                    {translate('autoriserAcheminemenMainScreen.declarationDetail.nbreContenant')}
+                    {translate(
+                      'autoriserAcheminemenMainScreen.declarationDetail.nbreContenant',
+                    )}
                   </ComBadrLibelleComp>
                 </Col>
                 <Col>
@@ -481,12 +534,18 @@ class VuEmbListeDeclaration extends React.Component {
             </ComAccordionComp>
           </ComBadrCardBoxComp>
           <ComBadrCardBoxComp style={styles.cardBox}>
-            <ComAccordionComp title={translate('autoriserAcheminemenMainScreen.entreeEnceinteDouaniere.title')} expanded={true}>
+            <ComAccordionComp
+              title={translate(
+                'autoriserAcheminemenMainScreen.entreeEnceinteDouaniere.title',
+              )}
+              expanded={true}>
               <Grid>
                 <Row style={CustomStyleSheet.whiteRow}>
                   <Col>
                     <ComBadrLibelleComp withColor={true}>
-                      {translate('autoriserAcheminemenMainScreen.entreeEnceinteDouaniere.dateHeure')}
+                      {translate(
+                        'autoriserAcheminemenMainScreen.entreeEnceinteDouaniere.dateHeure',
+                      )}
                     </ComBadrLibelleComp>
                   </Col>
                   <Col>
@@ -496,7 +555,9 @@ class VuEmbListeDeclaration extends React.Component {
                   </Col>
                   <Col>
                     <ComBadrLibelleComp withColor={true}>
-                      {translate('autoriserAcheminemenMainScreen.entreeEnceinteDouaniere.agentDouanier')}
+                      {translate(
+                        'autoriserAcheminemenMainScreen.entreeEnceinteDouaniere.agentDouanier',
+                      )}
                     </ComBadrLibelleComp>
                   </Col>
                   <Col>
@@ -509,7 +570,9 @@ class VuEmbListeDeclaration extends React.Component {
                 <Row style={CustomStyleSheet.lightBlueRow}>
                   <Col size={2}>
                     <ComBadrLibelleComp withColor={true}>
-                      {translate('autoriserAcheminemenMainScreen.entreeEnceinteDouaniere.refDocument')}
+                      {translate(
+                        'autoriserAcheminemenMainScreen.entreeEnceinteDouaniere.refDocument',
+                      )}
                     </ComBadrLibelleComp>
                   </Col>
                   <Col size={2}>
@@ -528,12 +591,15 @@ class VuEmbListeDeclaration extends React.Component {
             <ComAccordionComp
               title={translate(
                 'autoriserAcheminemenMainScreen.informationsEcor.title',
-              )} expanded={true}>
+              )}
+              expanded={true}>
               <Grid>
                 <Row style={CustomStyleSheet.whiteRow}>
                   <Col>
                     <ComBadrLibelleComp withColor={true}>
-                      {translate('autoriserAcheminemenMainScreen.informationsEcor.numeroPince')}
+                      {translate(
+                        'autoriserAcheminemenMainScreen.informationsEcor.numeroPince',
+                      )}
                     </ComBadrLibelleComp>
                   </Col>
                   <Col>
@@ -543,7 +609,9 @@ class VuEmbListeDeclaration extends React.Component {
                   </Col>
                   <Col>
                     <ComBadrLibelleComp withColor={true}>
-                      {translate('autoriserAcheminemenMainScreen.informationsEcor.nombreScelles')}
+                      {translate(
+                        'autoriserAcheminemenMainScreen.informationsEcor.nombreScelles',
+                      )}
                     </ComBadrLibelleComp>
                   </Col>
                   <Col>
@@ -560,7 +628,7 @@ class VuEmbListeDeclaration extends React.Component {
                       )}
                     </ComBadrLibelleComp>
                   </Col>
-                  <Col >
+                  <Col>
                     <ComBadrNumericTextInputComp
                       // onRef={(input) => {
                       //   this.generateurNumScelleDu = input;
@@ -659,7 +727,7 @@ class VuEmbListeDeclaration extends React.Component {
                         renderItem={(item) => this.renderBoxItem(item)}
                         keyExtractor={(item) => item}
                         nestedScrollEnabled={true}
-                      // disabled={true}
+                        // disabled={true}
                       />
                     )}
                   </SafeAreaView>
@@ -676,7 +744,9 @@ class VuEmbListeDeclaration extends React.Component {
                   {!_.isEmpty(this.state?.ecorDUM?.scelles) && (
                     <SafeAreaView style={styles.boxSafeArea}>
                       <FlatList
-                        data={this.getFormattedScelles(this.state?.ecorDUM?.scelles)}
+                        data={this.getFormattedScelles(
+                          this.state?.ecorDUM?.scelles,
+                        )}
                         renderItem={(item) => this.renderBoxItem(item)}
                         keyExtractor={(item) => item}
                         nestedScrollEnabled={true}
@@ -690,12 +760,17 @@ class VuEmbListeDeclaration extends React.Component {
                 <Row style={CustomStyleSheet.lightBlueRow}>
                   <Col size={40} style={styles.labelContainer}>
                     <ComBadrLibelleComp withColor={true}>
-                      {translate('autoriserAcheminemenMainScreen.informationsEcor.transporteurExploitantMEAD')}
+                      {translate(
+                        'autoriserAcheminemenMainScreen.informationsEcor.transporteurExploitantMEAD',
+                      )}
                     </ComBadrLibelleComp>
                   </Col>
                   <Col size={70}>
                     <TextInput
-                      value={this.props?.resOperateur?.transporteurExploitantMEAD?.libelle}
+                      value={
+                        this.props?.resOperateur?.transporteurExploitantMEAD
+                          ?.libelle
+                      }
                       disabled={true}
                     />
                   </Col>
@@ -713,7 +788,9 @@ class VuEmbListeDeclaration extends React.Component {
                 <Row style={CustomStyleSheet.whiteRow}>
                   <Col>
                     <ComBadrLibelleComp withColor={true}>
-                      {translate('ecorimport.mainlevee.dateValidationMainlevee')}
+                      {translate(
+                        'ecorimport.mainlevee.dateValidationMainlevee',
+                      )}
                     </ComBadrLibelleComp>
                   </Col>
                   <Col>
@@ -723,20 +800,30 @@ class VuEmbListeDeclaration extends React.Component {
                   </Col>
                   <Col>
                     <ComBadrLibelleComp withColor={true}>
-                      {translate('ecorimport.mainlevee.agentValidationMainlevee')}
+                      {translate(
+                        'ecorimport.mainlevee.agentValidationMainlevee',
+                      )}
                     </ComBadrLibelleComp>
                   </Col>
                   <Col>
                     <ComBadrLibelleComp>
-                      {this.state?.ecorDUM?.refMainlevee?.refAgentValidation?.nom}{' '}
-                      {this.state?.ecorDUM?.refMainlevee?.refAgentValidation?.prenom}
+                      {
+                        this.state?.ecorDUM?.refMainlevee?.refAgentValidation
+                          ?.nom
+                      }{' '}
+                      {
+                        this.state?.ecorDUM?.refMainlevee?.refAgentValidation
+                          ?.prenom
+                      }
                     </ComBadrLibelleComp>
                   </Col>
                 </Row>
                 <Row style={CustomStyleSheet.lightBlueRow}>
                   <Col>
                     <ComBadrLibelleComp withColor={true}>
-                      {translate('ecorimport.mainlevee.dateDelivranceMainlevee')}
+                      {translate(
+                        'ecorimport.mainlevee.dateDelivranceMainlevee',
+                      )}
                     </ComBadrLibelleComp>
                   </Col>
                   <Col>
@@ -746,7 +833,9 @@ class VuEmbListeDeclaration extends React.Component {
                   </Col>
                   <Col>
                     <ComBadrLibelleComp withColor={true}>
-                      {translate('ecorimport.mainlevee.agentDelivranceMainlevee')}
+                      {translate(
+                        'ecorimport.mainlevee.agentDelivranceMainlevee',
+                      )}
                     </ComBadrLibelleComp>
                   </Col>
                   <Col>
@@ -763,7 +852,9 @@ class VuEmbListeDeclaration extends React.Component {
                     </ComBadrLibelleComp>
                   </Col>
                   <Col>
-                    {_.isEmpty(this.state?.ecorDUM?.refMainlevee?.conteneursCibles) && (
+                    {_.isEmpty(
+                      this.state?.ecorDUM?.refMainlevee?.conteneursCibles,
+                    ) && (
                       <Text>
                         {translate(
                           'autoriserAcheminemenMainScreen.informationsEcor.aucunElement',
@@ -771,10 +862,14 @@ class VuEmbListeDeclaration extends React.Component {
                       </Text>
                     )}
 
-                    {!_.isEmpty(this.state?.ecorDUM?.refMainlevee?.conteneursCibles) && (
+                    {!_.isEmpty(
+                      this.state?.ecorDUM?.refMainlevee?.conteneursCibles,
+                    ) && (
                       <SafeAreaView style={styles.boxSafeArea}>
                         <FlatList
-                          data={this.state?.ecorDUM?.refMainlevee?.conteneursCibles}
+                          data={
+                            this.state?.ecorDUM?.refMainlevee?.conteneursCibles
+                          }
                           renderItem={(item) => this.renderBoxItem(item)}
                           keyExtractor={(item) => item}
                           nestedScrollEnabled={true}
@@ -786,7 +881,7 @@ class VuEmbListeDeclaration extends React.Component {
                   <Col />
                   <Col />
                 </Row>
-                <Row style={CustomStyleSheet.lightBlueRow} >
+                <Row style={CustomStyleSheet.lightBlueRow}>
                   <Col>
                     <ComBadrLibelleComp withColor={true}>
                       {translate(
@@ -795,17 +890,23 @@ class VuEmbListeDeclaration extends React.Component {
                     </ComBadrLibelleComp>
                   </Col>
                   <Col>
-                    {_.isEmpty(this.state?.ecorDUM?.refMainlevee?.listScelle) && (
-                      <Text >
+                    {_.isEmpty(
+                      this.state?.ecorDUM?.refMainlevee?.listScelle,
+                    ) && (
+                      <Text>
                         {translate(
                           'autoriserAcheminemenMainScreen.informationsEcor.aucunElement',
                         )}
                       </Text>
                     )}
-                    {!_.isEmpty(this.state?.ecorDUM?.refMainlevee?.listScelle) && (
+                    {!_.isEmpty(
+                      this.state?.ecorDUM?.refMainlevee?.listScelle,
+                    ) && (
                       <SafeAreaView>
                         <FlatList
-                          data={this.getFormattedScelles(this.state?.ecorDUM?.refMainlevee?.listScelle)}
+                          data={this.getFormattedScelles(
+                            this.state?.ecorDUM?.refMainlevee?.listScelle,
+                          )}
                           renderItem={(item) => this.renderBoxItem(item)}
                           keyExtractor={(item) => item}
                           nestedScrollEnabled={true}
@@ -822,9 +923,10 @@ class VuEmbListeDeclaration extends React.Component {
           </ComBadrCardBoxComp>
 
           {/* Accordion Autorisation acheminement */}
-          {(!_.isEmpty(this.state?.ecorDUM?.dateHeureAcheminement)) &&
+          {!_.isEmpty(this.state?.ecorDUM?.dateHeureAcheminement) && (
             <ComBadrCardBoxComp style={styles.cardBox}>
-              <ComAccordionComp expanded={true}
+              <ComAccordionComp
+                expanded={true}
                 title={translate(
                   'autoriserAcheminemenMainScreen.autorisationAcheminement.title',
                 )}>
@@ -832,7 +934,9 @@ class VuEmbListeDeclaration extends React.Component {
                   <Row style={CustomStyleSheet.whiteRow}>
                     <Col>
                       <ComBadrLibelleComp withColor={true}>
-                        {translate('autoriserAcheminemenMainScreen.entreeEnceinteDouaniere.dateHeure')}
+                        {translate(
+                          'autoriserAcheminemenMainScreen.entreeEnceinteDouaniere.dateHeure',
+                        )}
                       </ComBadrLibelleComp>
                     </Col>
                     <Col>
@@ -842,20 +946,30 @@ class VuEmbListeDeclaration extends React.Component {
                     </Col>
                     <Col>
                       <ComBadrLibelleComp withColor={true}>
-                        {translate('autoriserAcheminemenMainScreen.entreeEnceinteDouaniere.agentDouanier')}
+                        {translate(
+                          'autoriserAcheminemenMainScreen.entreeEnceinteDouaniere.agentDouanier',
+                        )}
                       </ComBadrLibelleComp>
                     </Col>
                     <Col>
                       <ComBadrLibelleComp>
-                        {this.state?.ecorDUM?.refAgentAutorisationAcheminement?.nom}{' '}
-                        {this.state?.ecorDUM?.refAgentAutorisationAcheminement?.prenom}
+                        {
+                          this.state?.ecorDUM?.refAgentAutorisationAcheminement
+                            ?.nom
+                        }{' '}
+                        {
+                          this.state?.ecorDUM?.refAgentAutorisationAcheminement
+                            ?.prenom
+                        }
                       </ComBadrLibelleComp>
                     </Col>
                   </Row>
                   <Row style={CustomStyleSheet.lightBlueRow}>
                     <Col>
                       <ComBadrLibelleComp withColor={true}>
-                        {translate('autoriserAcheminemenMainScreen.informationsEcor.nouveauxScelles')}
+                        {translate(
+                          'autoriserAcheminemenMainScreen.informationsEcor.nouveauxScelles',
+                        )}
                       </ComBadrLibelleComp>
                     </Col>
                     <Col>
@@ -863,16 +977,20 @@ class VuEmbListeDeclaration extends React.Component {
                         <RadioButton.Group
                           value={this.state?.ecorDUM?.infoEcorScelle + ''}>
                           <View style={styles.flexRowRadioButton}>
-                            <Text >
-                              {translate('confirmationArrivee.oui')}
-                            </Text>
-                            <RadioButton value="true" color={primaryColor} disabled={true} />
+                            <Text>{translate('confirmationArrivee.oui')}</Text>
+                            <RadioButton
+                              value="true"
+                              color={primaryColor}
+                              disabled={true}
+                            />
                           </View>
                           <View style={styles.flexRowRadioButton}>
-                            <Text >
-                              {translate('confirmationArrivee.non')}
-                            </Text>
-                            <RadioButton value="false" color={primaryColor} disabled={true} />
+                            <Text>{translate('confirmationArrivee.non')}</Text>
+                            <RadioButton
+                              value="false"
+                              color={primaryColor}
+                              disabled={true}
+                            />
                           </View>
                         </RadioButton.Group>
                       </View>
@@ -883,11 +1001,12 @@ class VuEmbListeDeclaration extends React.Component {
                 </Grid>
               </ComAccordionComp>
             </ComBadrCardBoxComp>
-          }
+          )}
           {/* Accordion Confirmation Arrivée */}
-          {(!_.isEmpty(this.state?.ecorDUM?.dateHeureArrive)) &&
+          {!_.isEmpty(this.state?.ecorDUM?.dateHeureArrive) && (
             <ComBadrCardBoxComp style={styles.cardBox}>
-              <ComAccordionComp expanded={true}
+              <ComAccordionComp
+                expanded={true}
                 title={translate(
                   'autoriserAcheminemenMainScreen.confirmationArrivee.title',
                 )}>
@@ -895,7 +1014,9 @@ class VuEmbListeDeclaration extends React.Component {
                   <Row style={CustomStyleSheet.whiteRow}>
                     <Col>
                       <ComBadrLibelleComp withColor={true}>
-                        {translate('autoriserAcheminemenMainScreen.entreeEnceinteDouaniere.dateHeure')}
+                        {translate(
+                          'autoriserAcheminemenMainScreen.entreeEnceinteDouaniere.dateHeure',
+                        )}
                       </ComBadrLibelleComp>
                     </Col>
                     <Col>
@@ -905,13 +1026,18 @@ class VuEmbListeDeclaration extends React.Component {
                     </Col>
                     <Col>
                       <ComBadrLibelleComp withColor={true}>
-                        {translate('autoriserAcheminemenMainScreen.entreeEnceinteDouaniere.agentDouanier')}
+                        {translate(
+                          'autoriserAcheminemenMainScreen.entreeEnceinteDouaniere.agentDouanier',
+                        )}
                       </ComBadrLibelleComp>
                     </Col>
                     <Col>
                       <ComBadrLibelleComp>
                         {this.state?.ecorDUM?.refAgentConfirmationArrive?.nom}{' '}
-                        {this.state?.ecorDUM?.refAgentConfirmationArrive?.prenom}
+                        {
+                          this.state?.ecorDUM?.refAgentConfirmationArrive
+                            ?.prenom
+                        }
                       </ComBadrLibelleComp>
                     </Col>
                   </Row>
@@ -926,16 +1052,20 @@ class VuEmbListeDeclaration extends React.Component {
                         <RadioButton.Group
                           value={this.state?.ecorDUM?.sousReserve + ''}>
                           <View style={styles.flexRowRadioButton}>
-                            <Text >
-                              {translate('confirmationArrivee.oui')}
-                            </Text>
-                            <RadioButton value="true" color={primaryColor} disabled={true} />
+                            <Text>{translate('confirmationArrivee.oui')}</Text>
+                            <RadioButton
+                              value="true"
+                              color={primaryColor}
+                              disabled={true}
+                            />
                           </View>
                           <View style={styles.flexRowRadioButton}>
-                            <Text >
-                              {translate('confirmationArrivee.non')}
-                            </Text>
-                            <RadioButton value="false" color={primaryColor} disabled={true} />
+                            <Text>{translate('confirmationArrivee.non')}</Text>
+                            <RadioButton
+                              value="false"
+                              color={primaryColor}
+                              disabled={true}
+                            />
                           </View>
                         </RadioButton.Group>
                       </View>
@@ -946,13 +1076,13 @@ class VuEmbListeDeclaration extends React.Component {
                 </Grid>
               </ComAccordionComp>
             </ComBadrCardBoxComp>
-          }
-
+          )}
 
           {/* Accordion Contrôle Après Scanner */}
-          {(!_.isEmpty(this.state?.ecorDUM?.dateHeureAcheminement)) &&
+          {!_.isEmpty(this.state?.ecorDUM?.dateHeureAcheminement) && (
             <ComBadrCardBoxComp style={styles.cardBox}>
-              <ComAccordionComp expanded={true}
+              <ComAccordionComp
+                expanded={true}
                 title={translate(
                   'confirmationArrivee.controleApresScanner.title',
                 )}>
@@ -960,7 +1090,9 @@ class VuEmbListeDeclaration extends React.Component {
                   <Row style={CustomStyleSheet.whiteRow}>
                     <Col>
                       <ComBadrLibelleComp withColor={true}>
-                        {translate('autoriserAcheminemenMainScreen.entreeEnceinteDouaniere.dateHeure')}
+                        {translate(
+                          'autoriserAcheminemenMainScreen.entreeEnceinteDouaniere.dateHeure',
+                        )}
                       </ComBadrLibelleComp>
                     </Col>
                     <Col>
@@ -970,7 +1102,9 @@ class VuEmbListeDeclaration extends React.Component {
                     </Col>
                     <Col>
                       <ComBadrLibelleComp withColor={true}>
-                        {translate('autoriserAcheminemenMainScreen.entreeEnceinteDouaniere.agentDouanier')}
+                        {translate(
+                          'autoriserAcheminemenMainScreen.entreeEnceinteDouaniere.agentDouanier',
+                        )}
                       </ComBadrLibelleComp>
                     </Col>
                     <Col>
@@ -983,24 +1117,33 @@ class VuEmbListeDeclaration extends React.Component {
                   <Row style={CustomStyleSheet.lightBlueRow}>
                     <Col>
                       <ComBadrLibelleComp withColor={true}>
-                        {translate('autoriserAcheminemenMainScreen.informationsEcor.nouveauxScelles')}
+                        {translate(
+                          'autoriserAcheminemenMainScreen.informationsEcor.nouveauxScelles',
+                        )}
                       </ComBadrLibelleComp>
                     </Col>
                     <Col>
                       <View style={styles.flexRow}>
                         <RadioButton.Group
-                          value={this.state?.ecorDUM?.infoEcorScelleCrtlApresScanner + ''}>
+                          value={
+                            this.state?.ecorDUM
+                              ?.infoEcorScelleCrtlApresScanner + ''
+                          }>
                           <View style={styles.flexRowRadioButton}>
-                            <Text >
-                              {translate('confirmationArrivee.oui')}
-                            </Text>
-                            <RadioButton value="true" color={primaryColor} disabled={true} />
+                            <Text>{translate('confirmationArrivee.oui')}</Text>
+                            <RadioButton
+                              value="true"
+                              color={primaryColor}
+                              disabled={true}
+                            />
                           </View>
                           <View style={styles.flexRowRadioButton}>
-                            <Text >
-                              {translate('confirmationArrivee.non')}
-                            </Text>
-                            <RadioButton value="false" color={primaryColor} disabled={true} />
+                            <Text>{translate('confirmationArrivee.non')}</Text>
+                            <RadioButton
+                              value="false"
+                              color={primaryColor}
+                              disabled={true}
+                            />
                           </View>
                         </RadioButton.Group>
                       </View>
@@ -1011,7 +1154,9 @@ class VuEmbListeDeclaration extends React.Component {
                   <Row style={CustomStyleSheet.whiteRow}>
                     <Col>
                       <ComBadrLibelleComp withColor={true}>
-                        {translate('autoriserAcheminemenMainScreen.informationsEcor.numeroPince')}
+                        {translate(
+                          'autoriserAcheminemenMainScreen.informationsEcor.numeroPince',
+                        )}
                       </ComBadrLibelleComp>
                     </Col>
                     <Col>
@@ -1021,7 +1166,9 @@ class VuEmbListeDeclaration extends React.Component {
                     </Col>
                     <Col>
                       <ComBadrLibelleComp withColor={true}>
-                        {translate('autoriserAcheminemenMainScreen.informationsEcor.nombreScelles')}
+                        {translate(
+                          'autoriserAcheminemenMainScreen.informationsEcor.nombreScelles',
+                        )}
                       </ComBadrLibelleComp>
                     </Col>
                     <Col>
@@ -1038,7 +1185,9 @@ class VuEmbListeDeclaration extends React.Component {
                     </Col>
                     <Col style={styles.boxContainer}>
                       <SafeAreaView style={styles.boxSafeArea}>
-                        {_.isEmpty(this.state?.ecorDUM?.scellesCrtlApresScanner) && (
+                        {_.isEmpty(
+                          this.state?.ecorDUM?.scellesCrtlApresScanner,
+                        ) && (
                           <Text style={styles.boxItemText}>
                             {translate(
                               'confirmationEntree.informationsEcor.aucunElement',
@@ -1046,13 +1195,17 @@ class VuEmbListeDeclaration extends React.Component {
                           </Text>
                         )}
 
-                        {!_.isEmpty(this.state?.ecorDUM?.scellesCrtlApresScanner) && (
+                        {!_.isEmpty(
+                          this.state?.ecorDUM?.scellesCrtlApresScanner,
+                        ) && (
                           <FlatList
-                            data={this.getFormattedScelles(this.state?.ecorDUM?.scellesCrtlApresScanner)}
+                            data={this.getFormattedScelles(
+                              this.state?.ecorDUM?.scellesCrtlApresScanner,
+                            )}
                             renderItem={(item) => this.renderBoxItem(item)}
                             keyExtractor={(item) => item}
                             nestedScrollEnabled={true}
-                          // disabled={true}
+                            // disabled={true}
                           />
                         )}
                       </SafeAreaView>
@@ -1063,12 +1216,18 @@ class VuEmbListeDeclaration extends React.Component {
                   <Row style={CustomStyleSheet.lightBlueRow}>
                     <Col size={40} style={styles.labelContainer}>
                       <ComBadrLibelleComp withColor={true}>
-                        {translate('autoriserAcheminemenMainScreen.informationsEcor.transporteurExploitantMEAD')}
+                        {translate(
+                          'autoriserAcheminemenMainScreen.informationsEcor.transporteurExploitantMEAD',
+                        )}
                       </ComBadrLibelleComp>
                     </Col>
                     <Col size={70}>
                       <TextInput
-                        value={this.props?.resOperateur?.transporteurExploitantMEADCtrlApresScanner?.libelle}
+                        value={
+                          this.props?.resOperateur
+                            ?.transporteurExploitantMEADCtrlApresScanner
+                            ?.libelle
+                        }
                         disabled={true}
                       />
                     </Col>
@@ -1076,11 +1235,13 @@ class VuEmbListeDeclaration extends React.Component {
                 </Grid>
               </ComAccordionComp>
             </ComBadrCardBoxComp>
-          }
+          )}
 
           {/* Accordion vuEmbarquee */}
           <ComBadrCardBoxComp>
-            <ComAccordionComp expanded={true} title={translate('vuEmbarquee.subTitleAction')}>
+            <ComAccordionComp
+              expanded={true}
+              title={translate('vuEmbarquee.subTitleAction')}>
               <Row style={CustomStyleSheet.lightBlueRow}>
                 <Col>
                   <ComBadrLibelleComp withColor={true}>
@@ -1090,9 +1251,20 @@ class VuEmbListeDeclaration extends React.Component {
                 <Col size={2}>
                   <ComBadrDatePickerComp
                     dateFormat="DD/MM/YYYY"
-                    readonly={this.props?.vuEmbInit?.successAction   || this.state.modeConsultation}
-                    value={!_.isEmpty(this.state.dateVuEmbarquer) ? moment(this.state.dateVuEmbarquer, 'DD/MM/yyyy', true) : null}
-                    timeValue={!_.isEmpty(this.state.heureVuEmbarquer) ? moment(this.state.heureVuEmbarquer, 'HH:mm', true) : null}
+                    readonly={
+                      this.props?.vuEmbInit?.successAction ||
+                      this.state.modeConsultation
+                    }
+                    value={
+                      !_.isEmpty(this.state.dateVuEmbarquer)
+                        ? moment(this.state.dateVuEmbarquer, 'DD/MM/yyyy', true)
+                        : null
+                    }
+                    timeValue={
+                      !_.isEmpty(this.state.heureVuEmbarquer)
+                        ? moment(this.state.heureVuEmbarquer, 'HH:mm', true)
+                        : null
+                    }
                     labelDate={translate('vuEmbarquee.dateHeure')}
                     // inputStyle={styles.textInputsStyle}
                     onDateChanged={(date) =>
@@ -1111,7 +1283,9 @@ class VuEmbListeDeclaration extends React.Component {
                 </Col>
                 <Col>
                   <ComBadrLibelleComp withColor={true}>
-                    {translate('autoriserAcheminemenMainScreen.autorisationAcheminement.agentDouanier')}
+                    {translate(
+                      'autoriserAcheminemenMainScreen.autorisationAcheminement.agentDouanier',
+                    )}
                   </ComBadrLibelleComp>
                 </Col>
                 <Col>
@@ -1130,10 +1304,11 @@ class VuEmbListeDeclaration extends React.Component {
                 <Col size={150}>
                   <ComBadrAutoCompleteChipsComp
                     code="code"
-                    disabled={this.props?.vuEmbInit?.successAction   || this.state.modeConsultation}
-                    placeholder={translate(
-                      'etatChargement.navire',
-                    )}
+                    disabled={
+                      this.props?.vuEmbInit?.successAction ||
+                      this.state.modeConsultation
+                    }
+                    placeholder={translate('etatChargement.navire')}
                     selected={this.state.navire}
                     maxItems={3}
                     libelle="libelle"
@@ -1154,9 +1329,20 @@ class VuEmbListeDeclaration extends React.Component {
                 <Col size={2}>
                   <ComBadrDatePickerComp
                     dateFormat="DD/MM/YYYY"
-                    readonly={this.props?.vuEmbInit?.successAction   || this.state.modeConsultation}
-                    value={!_.isEmpty(this.state.dateVoyage) ? moment(this.state.dateVoyage, 'DD/MM/yyyy', true) : null}
-                    timeValue={!_.isEmpty(this.state.heureVoyage) ? moment(this.state.heureVoyage, 'HH:mm', true) : null}
+                    readonly={
+                      this.props?.vuEmbInit?.successAction ||
+                      this.state.modeConsultation
+                    }
+                    value={
+                      !_.isEmpty(this.state.dateVoyage)
+                        ? moment(this.state.dateVoyage, 'DD/MM/yyyy', true)
+                        : null
+                    }
+                    timeValue={
+                      !_.isEmpty(this.state.heureVoyage)
+                        ? moment(this.state.heureVoyage, 'HH:mm', true)
+                        : null
+                    }
                     labelDate={translate('etatChargementVE.dateHeureVoyage')}
                     // inputStyle={styles.textInputsStyle}
                     onDateChanged={(date) =>
@@ -1180,9 +1366,12 @@ class VuEmbListeDeclaration extends React.Component {
                 </Col>
                 <Col>
                   <TextInput
-                    disabled={this.props?.vuEmbInit?.successAction   || this.state.modeConsultation}
+                    disabled={
+                      this.props?.vuEmbInit?.successAction ||
+                      this.state.modeConsultation
+                    }
                     value={this.state.numeroVoyage}
-                    onChangeText={(val) => this.setState({ numeroVoyage: val })}
+                    onChangeText={(val) => this.setState({numeroVoyage: val})}
                   />
                 </Col>
               </Row>
@@ -1196,11 +1385,14 @@ class VuEmbListeDeclaration extends React.Component {
                 <Col size={160}>
                   {/* <ComBadrCardBoxComp style={[styles.cardBoxInfoDum, styles.container, styles.width90]}> */}
                   <TextInput
-                    disabled={this.props?.vuEmbInit?.successAction   || this.state.modeConsultation}
+                    disabled={
+                      this.props?.vuEmbInit?.successAction ||
+                      this.state.modeConsultation
+                    }
                     value={this.state.commentaire}
                     multiline={true}
                     numberOfLines={5}
-                    onChangeText={(val) => this.setState({ commentaire: val })}
+                    onChangeText={(val) => this.setState({commentaire: val})}
                   />
                 </Col>
               </Row>
@@ -1211,8 +1403,7 @@ class VuEmbListeDeclaration extends React.Component {
               <ComAccordionComp
                 badr
                 expanded={true}
-                title={translate('etatChargement.resultatScanner')}
-              >
+                title={translate('etatChargement.resultatScanner')}>
                 <ComBasicDataTableComp
                   ref="_badrTable"
                   id="scannerTable"
@@ -1230,22 +1421,26 @@ class VuEmbListeDeclaration extends React.Component {
           <ComBadrCardBoxComp>
             <Row style={CustomStyleSheet.lightBlueRow}>
               <Col>
-                {(!this.props?.vuEmbInit?.successAction   && !this.state.modeConsultation) &&
-                  <ComBadrButtonIconComp
-                    onPress={() => this.confirmerVuEmbarquer()}
-                    style={styles.buttonIcon}
-                    loading={this.props.showProgress}
-                    text={translate('etatChargementVE.buttonConfirmerVuEmbarquer')}
-                  />
-                }
-                {(!this.props?.vuEmbInit?.successAction   && this.state.modeConsultation) &&
-                  <ComBadrButtonIconComp
-                    onPress={() => this.supprimerVuEmbarquer()}
-                    style={styles.buttonIcon}
-                    loading={this.props.showProgress}
-                    text={translate('vuEmbarquee.SUPPRIMER')}
-                  />
-                }
+                {!this.props?.vuEmbInit?.successAction &&
+                  !this.state.modeConsultation && (
+                    <ComBadrButtonIconComp
+                      onPress={() => this.confirmerVuEmbarquer()}
+                      style={styles.buttonIcon}
+                      loading={this.props.showProgress}
+                      text={translate(
+                        'etatChargementVE.buttonConfirmerVuEmbarquer',
+                      )}
+                    />
+                  )}
+                {!this.props?.vuEmbInit?.successAction &&
+                  this.state.modeConsultation && (
+                    <ComBadrButtonIconComp
+                      onPress={() => this.supprimerVuEmbarquer()}
+                      style={styles.buttonIcon}
+                      loading={this.props.showProgress}
+                      text={translate('vuEmbarquee.SUPPRIMER')}
+                    />
+                  )}
                 <ComBadrButtonIconComp
                   onPress={() => this.abandonnerVuEmbarquer()}
                   style={styles.buttonIcon}
@@ -1256,11 +1451,10 @@ class VuEmbListeDeclaration extends React.Component {
             </Row>
           </ComBadrCardBoxComp>
         </ScrollView>
-      </View >
+      </View>
     );
   }
 }
-
 
 const libelle = {
   fontSize: 14,
@@ -1275,7 +1469,7 @@ const value = {
 
 const styles = {
   messages: {},
-  container: { width: '100%', height: '100%' },
+  container: {width: '100%', height: '100%'},
   centerErrorMsg: {
     width: '100%',
     justifyContent: 'center',
@@ -1292,11 +1486,8 @@ const styles = {
     paddingLeft: '4%',
     color: '#000000',
   },
-  cardBoxInfoDum: {
-    flexDirection: 'column',
-  },
-  width90: { width: '90%', height: '70%' },
-  buttonIcon: { margin: 10, marginTop: 40 },
+  width90: {width: '90%', height: '70%'},
+  buttonIcon: {margin: 10, marginTop: 40},
   cardBoxInfoDum: {
     flexDirection: 'column',
     margin: 10,
@@ -1307,7 +1498,7 @@ const styles = {
   margtb: {
     marginBottom: 10,
   },
-  libelle: { ...libelle },
+  libelle: {...libelle},
   libelleS: {
     ...libelle,
     flex: 1,
@@ -1332,11 +1523,11 @@ const styles = {
     ...value,
     flex: 3,
   },
-  flexColumn: { flexDirection: 'column' },
-  flexRow: { flexDirection: 'row' },
+  flexColumn: {flexDirection: 'column'},
+  flexRow: {flexDirection: 'row'},
   flexRowRadioButton: {
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   // boxSafeArea: {
   //   margin: '5%',
@@ -1350,11 +1541,15 @@ const styles = {
 };
 
 function mapStateToProps(state) {
-  return { vuEmbInit: state.ecorExportVuEmbInitReducer, resOperateur: state.autoriserAcheminementMainReducer, resScan: state.ecorExpVuEmbResScanReducer };
+  return {
+    vuEmbInit: state.ecorExportVuEmbInitReducer,
+    resOperateur: state.autoriserAcheminementMainReducer,
+    resScan: state.ecorExpVuEmbResScanReducer,
+  };
 }
 
 function mapDispatchToProps(dispatch) {
-  let actions = { dispatch };
+  let actions = {dispatch};
   return {
     actions,
   };
