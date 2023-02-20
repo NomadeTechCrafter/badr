@@ -36,10 +36,10 @@ class Login extends React.Component {
       // password: 'Testtest1-',
       // login: 'AD6300', //Actifs
       // password: 'Testtest1+',
-      login: 'AAMM',
-      password: 'Test123+',
-      // login: 'YELM',// Liquidation
-      // password: 'testtest',
+      //login: 'AAMM',
+      //password: 'Test123+',
+      login: 'YELM',// Liquidation
+      password: 'testtest',
       // login: 'AD6314', // Controle
       // password: 'Testtest1-',
       codeSms: '8bXqj1lLva3IEg6iDbJ+eA==',
