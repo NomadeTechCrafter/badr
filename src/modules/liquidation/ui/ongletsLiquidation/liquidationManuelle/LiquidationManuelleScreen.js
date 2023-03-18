@@ -158,6 +158,7 @@ class LiquidationManuelleScreen extends React.Component {
   }
 
   fieldsAreValid = () => {
+    console.log('---------test  ligneRubrique ', this.state.ligneRubrique);
     // if (!ligneRubrique.taux) {
     //   messagesErreurRubriqueArticle.push(
     //     translate('liquidation.error.veuillezSaisir') + translate('liquidation.error.taux'))
@@ -170,10 +171,16 @@ class LiquidationManuelleScreen extends React.Component {
     //   messagesErreurRubriqueArticle.push(
     //     translate('liquidation.error.veuillezSaisir') + translate('liquidation.error.rubrique'))
     // }
+    console.log(
+      '---------test  ligneRubrique return  ',
+      !_.isNil(this.state.ligneRubrique.codeRubriqueComptable) &&
+        !_.isNil(this.state.ligneRubrique.taux) &&
+        !_.isNil(this.state.ligneRubrique.assiette),
+    );
     return (
-      this.state.ligneRubrique.codeRubriqueComptable != '' &&
-      this.state.ligneRubrique.taux != '' &&
-      this.state.ligneRubrique.assiette != ''
+      !_.isNil(this.state.ligneRubrique.codeRubriqueComptable) &&
+      !_.isNil(this.state.ligneRubrique.taux) &&
+      !_.isNil(this.state.ligneRubrique.assiette)
     );
   };
 
@@ -201,6 +208,7 @@ class LiquidationManuelleScreen extends React.Component {
       this.props.route.params.isArticle
     ) {
       if (this.fieldsAreValid()) {
+        console.log('----- is article true');
         if (
           ligneRubrique &&
           ligneRubrique.tauxVirtuel &&
@@ -510,7 +518,7 @@ class LiquidationManuelleScreen extends React.Component {
                           </Col>
                         </>
                       )}
-                      {liquidationVO.numOrdreOperation && (
+                      {selectedArticle?.refParametresLiquidation && (
                         <>
                           <Col size={1}>
                             <ComBadrLibelleComp withColor={true}>
@@ -519,7 +527,10 @@ class LiquidationManuelleScreen extends React.Component {
                           </Col>
                           <Col size={1}>
                             <ComBadrLibelleComp>
-                              {liquidationVO.numOrdreOperation}
+                              {
+                                selectedArticle?.refParametresLiquidation
+                                  ?.codeNomenclature
+                              }
                             </ComBadrLibelleComp>
                           </Col>
                         </>
