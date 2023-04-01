@@ -1,11 +1,11 @@
 ﻿/** React Components */
 import React from 'react';
-import {Dimensions} from 'react-native';
+import { Dimensions } from 'react-native';
 import AnnoterTrypt from '../../../DeclarationD17D20/annoterD17D20/ui/decAnnoter/decAnnoterByRefDec';
 import DecAnnoterListeDeclaration from '../../../DeclarationD17D20/annoterD17D20/ui/decAnnoter/decAnnoterListDeclaration';
 
 /** REDUX **/
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 /** Screens */
 import WelcomeScreen from '../../annonces/ui/habAnnoncesScreen';
@@ -26,7 +26,7 @@ import MainleveeListeDeclaration from '../../../DeclarationD17D20/mainlevee/ui/d
 import VuEmbListeDeclaration from '../../../DeclarationD17D20/vuEmbarquer/ui/vuEmbarquer/VuEmbListeDeclaration';
 import VuEmbListeDeclaration2 from '../../../ecorExport/vuEmbarquer/ui//ecorExpVuEmbListeDeclaration';
 
-import {ComQrCodeScannerComp} from '../../../../commons/component';
+import { ComQrCodeScannerComp } from '../../../../commons/component';
 import BloquerOperateur from '../../../referentiel/operateursEconomiques/ui/bloquerOperateur/refBloquerOperateurScreen';
 import DebloquerOperateur from '../../../referentiel/operateursEconomiques/ui/debloquerOperateur/refDebloquerOperateurScreen';
 import DedRedressementScreen from '../../../dedouanement/redressement/ui/DedRedressementScreen';
@@ -65,7 +65,7 @@ import * as Constants from '../../../../commons/constants/generic/ComGenericCons
 import * as GenericAction from '../../../../commons/state/actions/ComGenericAction';
 
 /** Drawer navigation */
-import {createDrawerNavigator} from '@react-navigation/drawer';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import DedRedressementRecherche from '../../../dedouanement/redressement/ui/DedRechercheRedressementScreen';
 import RefControleVehiculeMainScreen from '../../../referentiel/controleVehicules/ui/refControleVehiculeMainScreen';
 import RefPlaquesImmMainScreen from '../../../referentiel/plaquesImmatriculation/ui/refPlaquesImmMainScreen';
@@ -121,11 +121,12 @@ import autoriserAcheminementSsManifesteScreen from '../../../ecorImport/autorise
 import RechApurementParRefScreen from '../../../DeclarationD17D20/apurement/ui/initApurement/RechApurementParRefScreen';
 import GestionApurementScreen from '../../../DeclarationD17D20/apurement/ui/initApurement/GestionApurementScreen';
 import COConsultationDetail from '../../../co/ui/coConsultationDetail';
+import COMainScreen from '../../../co/ui/coMainScreen';
 
 const Drawer = createDrawerNavigator();
 const deltaScreen = Dimensions.get('window').width / 4;
 
-function DedRedressementRechercheScreen({route, navigation}) {
+function DedRedressementRechercheScreen({ route, navigation }) {
   return <DedRedressementRecherche navigation={navigation} route={route} />;
 }
 
@@ -174,153 +175,153 @@ class habHomeScreen extends React.Component {
         <Drawer.Screen
           name="CreerApurement"
           component={CreerApurement}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Drawer.Screen
           name="Apurement"
           component={Apurement}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Drawer.Screen
           name="RechercheAtMulti"
           component={RechercheAtMulti}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Drawer.Screen
           name="AtGestion"
           component={AtGestion}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Drawer.Screen
           name="DedRechercheRedressement"
           component={DedRedressementRechercheScreen}
-          options={{headerShown: false, unmountOnBlur: true, lazy: false}}
+          options={{ headerShown: false, unmountOnBlur: true, lazy: false }}
           unmountOnBlur={true}
           lazy={false}
         />
         <Drawer.Screen
           name="controleRechercheDumScreen"
           component={controleRechercheDumScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Drawer.Screen
           name="controleListDecalarationDumScreen"
           component={controleListDecalarationDumScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Drawer.Screen
           name="ControleRegimeInterneScreen"
           component={ControleRegimeInterneScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Drawer.Screen
           name="ControleRegimeTransitScreen"
           component={ControleRegimeTransitScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Drawer.Screen
           name="AnnoterTrypt"
           component={AnnoterTrypt}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
 
         <Drawer.Screen
           name="DecAnnoterListeDeclaration"
           component={DecAnnoterListeDeclaration}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Drawer.Screen
           name="ControleACVPScreen"
           component={ControleACVPScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Drawer.Screen
           name="NewRechercheMLV"
           component={NewRechercheMLV}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Drawer.Screen
           name="InitierCtrlRechercherScreen"
           component={InitierCtrlRechercherScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Drawer.Screen
           name="DedInitierControleScreen"
           component={DedInitierControleScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Drawer.Screen
           name="DedInitierListControleScreen"
           component={DedInitierListControleScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Drawer.Screen
           name="DelivrerMLV"
           component={DelivrerMLV}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
 
         <Drawer.Screen
           name="ListDeclarationMLV"
           component={ListDeclarationMLV}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Drawer.Screen
           name="RechercheEcorImport"
           component={EcorImportRechercheScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Drawer.Screen
           name="EnleverMarchandise"
           component={EcorImportEnleverMarchandiseScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Drawer.Screen
           name="EnleverMarchandiseParPesage"
           component={EciEnleverMarchandiseParPesageScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Drawer.Screen
           name="EnleverMarchandiseSsManifeste"
           component={EciEnleverMarchandiseSsManifesteScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Drawer.Screen
           name="VerifierPContreEcorSsManifeste"
           component={verifierPContreEcorSsManifesteScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Drawer.Screen
           name="ConfirmerArriveeSsManifeste"
           component={confirmerArriveeSsManifesteScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Drawer.Screen
           name="AutoriserAcheminementSsManifeste"
           component={autoriserAcheminementSsManifesteScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
 
         <Drawer.Screen
           name="PeserMarchandise"
           component={EciPeserMarchandiseScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Drawer.Screen
           name="VerifierParContreEcor"
           component={EciVerifierParContreEcorScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Drawer.Screen
           name="ComQrCodeScannerComp"
           component={ComQrCodeScannerComp}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
 
         <Drawer.Screen
           name="BloquerOperateur"
           component={BloquerOperateur}
-          options={{headerShown: false, unmountOnBlur: true, lazy: false}}
+          options={{ headerShown: false, unmountOnBlur: true, lazy: false }}
           unmountOnBlur={true}
           lazy={false}
         />
@@ -328,7 +329,7 @@ class habHomeScreen extends React.Component {
         <Drawer.Screen
           name="DebloquerOperateur"
           component={DebloquerOperateur}
-          options={{headerShown: false, unmountOnBlur: true, lazy: false}}
+          options={{ headerShown: false, unmountOnBlur: true, lazy: false }}
           unmountOnBlur={true}
           lazy={false}
         />
@@ -336,73 +337,73 @@ class habHomeScreen extends React.Component {
         <Drawer.Screen
           name="AjouterReconnaissance"
           component={AjouterReconnaissance}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
 
         <Drawer.Screen
           name="ModifierReconnaissance"
           component={ModifierReconnaissance}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
 
         <Drawer.Screen
           name="AnnulerReconnaissance"
           component={AnnulerReconnaissance}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
 
         <Drawer.Screen
           name="AffecterAgentVisiteur"
           component={AffecterAgentVisiteur}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
 
         <Drawer.Screen
           name="AffecterAgentVisiteurMain"
           component={AffecterAgentVisiteurMain}
-          options={{headerShown: false, unmountOnBlur: true, lazy: false}}
+          options={{ headerShown: false, unmountOnBlur: true, lazy: false }}
         />
 
         <Drawer.Screen
           name="CreerCompteRenduMission"
           component={CreerCompteRenduMission}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
 
         <Drawer.Screen
           name="ModifierCompteRenduMission"
           component={ModifierCompteRenduMission}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
 
         <Drawer.Screen
           name="ValiderCompteRenduMission"
           component={ValiderCompteRenduMission}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
 
         <Drawer.Screen
           name="ControleApresScanner"
           component={ControleApresScanner}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
 
         <Drawer.Screen
           name="RefControleVehicule"
           component={RefControleVehiculeMainScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
 
         <Drawer.Screen
           name="RefPlaquesImm"
           component={RefPlaquesImmMainScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         {/* Actif Module*/}
 
         <Drawer.Screen
           name="ActifsRecherche"
-          options={{headerShown: false, unmountOnBlur: true, lazy: false}}
+          options={{ headerShown: false, unmountOnBlur: true, lazy: false }}
           component={ActifsRapportRechercheScreen}
         />
 
@@ -410,77 +411,77 @@ class habHomeScreen extends React.Component {
         <Drawer.Screen
           name="VuEmbarqueScreen"
           component={VuEmbarqueScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Drawer.Screen
           name="RechApurementParRefScreen"
           component={RechApurementParRefScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Drawer.Screen
           name="GestionApurementScreen"
           component={GestionApurementScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Drawer.Screen
           name="EcorExportVuEmbarqueScreen"
           component={EcorExportVuEmbarqueScreen}
-          options={{headerShown: false, unmountOnBlur: true, lazy: false}}
+          options={{ headerShown: false, unmountOnBlur: true, lazy: false }}
         />
 
         <Drawer.Screen
           name="VuEmbListeDeclaration"
           component={VuEmbListeDeclaration}
-          options={{headerShown: false, unmountOnBlur: true, lazy: false}}
+          options={{ headerShown: false, unmountOnBlur: true, lazy: false }}
         />
 
         {/* Fonc Sorti Du Port */}
         <Drawer.Screen
           name="SortiPortScreen"
           component={SortiPortScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Drawer.Screen
           name="MainleveeScreen"
           component={MainleveeScreen}
-          options={{headerShown: false, unmountOnBlur: true, lazy: false}}
+          options={{ headerShown: false, unmountOnBlur: true, lazy: false }}
         />
         <Drawer.Screen
           name="RechParRefTrypScreen"
           component={RechParRefTrypScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Drawer.Screen
           name="RechParRefListeDeclaration"
           component={RechParRefListeDeclaration}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Drawer.Screen
           name="SortiPortListeDeclaration"
           component={SortiPortListeDeclaration}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Drawer.Screen
           name="MainleveeListeDeclaration"
           component={MainleveeListeDeclaration}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Drawer.Screen
           name="EciConsultationBLS"
           component={ConsultationBLSMainScreen}
-          options={{headerShown: false, unmountOnBlur: true, lazy: false}}
+          options={{ headerShown: false, unmountOnBlur: true, lazy: false }}
           unmountOnBlur={true}
         />
         <Drawer.Screen
           name="EciConsultationBLE"
           component={ConsultationBLEMainScreen}
-          options={{headerShown: false, unmountOnBlur: true, lazy: false}}
+          options={{ headerShown: false, unmountOnBlur: true, lazy: false }}
           unmountOnBlur={true}
         />
         <Drawer.Screen
           name="CtrlResultatScannerMainScreen"
           component={CtrlResultatScannerMainScreen}
-          options={{headerShown: false, unmountOnBlur: true, lazy: false}}
+          options={{ headerShown: false, unmountOnBlur: true, lazy: false }}
           unmountOnBlur={true}
         />
 
@@ -488,17 +489,17 @@ class habHomeScreen extends React.Component {
         <Drawer.Screen
           name="T6bisCreation"
           component={T6bisCreation}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Drawer.Screen
           name="T6bisRecherche"
           component={T6bisRecherche}
-          options={{headerShown: false, unmountOnBlur: true, lazy: false}}
+          options={{ headerShown: false, unmountOnBlur: true, lazy: false }}
         />
         <Drawer.Screen
           name="T6bisGestion"
           component={T6bisGestion}
-          options={{headerShown: false, unmountOnBlur: true, lazy: false}}
+          options={{ headerShown: false, unmountOnBlur: true, lazy: false }}
         />
 
         {/* Module T6bis end*/}
@@ -506,25 +507,25 @@ class habHomeScreen extends React.Component {
         <Drawer.Screen
           name="ECIAppositionScellesRechercheScreen"
           component={ECIAppositionScellesRechercheScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Drawer.Screen
           name="AppositionScellesScreen"
           component={ECIAppositionScellesScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
 
         <Drawer.Screen
           name="ConfirmationEntreeRechercheScreen"
           component={ConfirmationEntreeMainScreen}
-          options={{headerShown: false, unmountOnBlur: true, lazy: false}}
+          options={{ headerShown: false, unmountOnBlur: true, lazy: false }}
           unmountOnBlur={true}
         />
 
         <Drawer.Screen
           name="ConfirmationArriveeRechercheScreen"
           component={ConfirmationArriveeMainScreen}
-          options={{headerShown: false, unmountOnBlur: true, lazy: false}}
+          options={{ headerShown: false, unmountOnBlur: true, lazy: false }}
           unmountOnBlur={true}
         />
 
@@ -532,110 +533,110 @@ class habHomeScreen extends React.Component {
         <Drawer.Screen
           name="PecEtatChargementMainScreen"
           component={PecEtatChargementMainScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
 
         <Drawer.Screen
           name="PecEtatChargementVEMainScreen"
           component={PecEtatChargementVEMainScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
 
         <Drawer.Screen
           name="ConsultationIgTIScreen"
           component={ConsultationIgTIScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
 
         <Drawer.Screen
           name="ConsultationIgTIScreenI"
           component={ConsultationIgTIScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
 
         <Drawer.Screen
           name="ConsultationTIScreen"
           component={ConsultationTIScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
 
         <Drawer.Screen
           name="ConsultationTIScreenI"
           component={ConsultationTIScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
 
         <Drawer.Screen
           name="RechercheConfirmationReceptionScreen"
           component={DedRechercheConfirmationReceptionScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
 
         <Drawer.Screen
           name="DedRedressementScreen"
           component={DedRedressementScreen}
-          options={{headerShown: false, unmountOnBlur: true, lazy: false}}
+          options={{ headerShown: false, unmountOnBlur: true, lazy: false }}
           unmountOnBlur={true}
         />
 
         <Drawer.Screen
           name="VuEmbListeDeclaration2"
           component={VuEmbListeDeclaration2}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
 
         <Drawer.Screen
           name="DTPSSortieMainScreen"
           component={DTPSSortieMainScreen}
-          options={{headerShown: false, unmountOnBlur: true, lazy: false}}
+          options={{ headerShown: false, unmountOnBlur: true, lazy: false }}
           unmountOnBlur={true}
         />
 
         <Drawer.Screen
           name="DTPSEntreeMainScreen"
           component={DTPSEntreeMainScreen}
-          options={{headerShown: false, unmountOnBlur: true, lazy: false}}
+          options={{ headerShown: false, unmountOnBlur: true, lazy: false }}
           unmountOnBlur={true}
         />
 
         <Drawer.Screen
           name="DTPSConsultationMainScreen"
           component={DTPSConsultationMainScreen}
-          options={{headerShown: false, unmountOnBlur: true, lazy: false}}
+          options={{ headerShown: false, unmountOnBlur: true, lazy: false }}
           unmountOnBlur={true}
         />
         <Drawer.Screen
           name="DedEnvoyerValeurScreen"
           component={dedEnvoyerValeurScreen}
-          options={{headerShown: false, unmountOnBlur: true, lazy: false}}
+          options={{ headerShown: false, unmountOnBlur: true, lazy: false }}
           unmountOnBlur={true}
           lazy={false}
         />
         <Drawer.Screen
           name="DedEtudeRetudeScreen"
           component={dedEtudeRetudeScreen}
-          options={{headerShown: false, unmountOnBlur: true, lazy: false}}
+          options={{ headerShown: false, unmountOnBlur: true, lazy: false }}
           unmountOnBlur={true}
           lazy={false}
         />
         <Drawer.Screen
           name="DedREtudeRetudeScreen"
           component={dedREtudeRetudeScreen}
-          options={{headerShown: false, unmountOnBlur: true, lazy: false}}
+          options={{ headerShown: false, unmountOnBlur: true, lazy: false }}
           unmountOnBlur={true}
           lazy={false}
         />
         <Drawer.Screen
           name="DedRecoterEtudeScreen"
           component={dedRecoterEtudeScreen}
-          options={{headerShown: false, unmountOnBlur: true, lazy: false}}
+          options={{ headerShown: false, unmountOnBlur: true, lazy: false }}
           unmountOnBlur={true}
           lazy={false}
         />
         <Drawer.Screen
           name="RecoterScreen"
           component={recoterScreen}
-          options={{headerShown: false, unmountOnBlur: true, lazy: false}}
+          options={{ headerShown: false, unmountOnBlur: true, lazy: false }}
           unmountOnBlur={true}
           lazy={false}
         />
@@ -643,7 +644,7 @@ class habHomeScreen extends React.Component {
         <Drawer.Screen
           name="DedTraiterValeurScreen"
           component={dedTraiterValeurScreen}
-          options={{headerShown: false, unmountOnBlur: true, lazy: false}}
+          options={{ headerShown: false, unmountOnBlur: true, lazy: false }}
           unmountOnBlur={true}
           lazy={false}
         />
@@ -651,70 +652,76 @@ class habHomeScreen extends React.Component {
         <Drawer.Screen
           name="RechercheAutoriserAcheminementScreen"
           component={rechercheAutoriserAcheminementScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
 
         <Drawer.Screen
           name="AutoriserAcheminementMainScreen"
           component={autoriserAcheminementMainScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
 
         <Drawer.Screen
           name="CreationRapport"
-          options={{headerShown: false, unmountOnBlur: true, lazy: false}}
+          options={{ headerShown: false, unmountOnBlur: true, lazy: false }}
           component={actifsRapportCreationScreen}
         />
 
         <Drawer.Screen
           name="ConfirmationEntreeArriveeRechercheScreen"
           component={ConfirmationEntreeArriveeRechercheScreen}
-          options={{headerShown: false, unmountOnBlur: true, lazy: false}}
+          options={{ headerShown: false, unmountOnBlur: true, lazy: false }}
           unmountOnBlur={true}
         />
 
         <Drawer.Screen
           name="ConfirmationEntreeResultScreen"
           component={ConfirmationEntreeResultScreen}
-          options={{headerShown: false, unmountOnBlur: true, lazy: false}}
+          options={{ headerShown: false, unmountOnBlur: true, lazy: false }}
           unmountOnBlur={true}
         />
 
         <Drawer.Screen
           name="ConfirmationArriveeResultScreen"
           component={ConfirmationArriveeResultScreen}
-          options={{headerShown: false, unmountOnBlur: true, lazy: false}}
+          options={{ headerShown: false, unmountOnBlur: true, lazy: false }}
           unmountOnBlur={true}
         />
 
         <Drawer.Screen
           name="PreConfirmationArriveeMainScreen"
           component={PreConfirmationArriveeMainScreen}
-          options={{headerShown: false, unmountOnBlur: true, lazy: false}}
+          options={{ headerShown: false, unmountOnBlur: true, lazy: false }}
           unmountOnBlur={true}
         />
         <Drawer.Screen
           name="JustifRetardTransitMainScreen"
           component={JustifRetardTransitMainScreen}
-          options={{headerShown: false, unmountOnBlur: true, lazy: false}}
+          options={{ headerShown: false, unmountOnBlur: true, lazy: false }}
           unmountOnBlur={true}
         />
 
         <Drawer.Screen
           name="LiquidationRechercheScreen"
           component={LiquidationRechercheScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
 
         <Drawer.Screen
           name="COConsultationDetail"
           component={COConsultationDetail}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
+        <Drawer.Screen
+          name="COMainScreen"
+          component={COMainScreen}
+          options={{ headerShown: false }}
+        />
+
       </Drawer.Navigator>
     );
   }
 }
 
-const mapStateToProps = (state) => ({...state.genericReducer});
+const mapStateToProps = (state) => ({ ...state.genericReducer });
 export default connect(mapStateToProps, null)(habHomeScreen);

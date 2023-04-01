@@ -92,7 +92,7 @@ import ControleReconnaissanceScreen from './modules/controle/ACVP/ui/onglets/rec
 import ControleBonDelivrerScreen from './modules/controle/ACVP/ui/onglets/bonDelivrer/ControleBonDelivrerScreen';
 import controleListeDocsExigi from './modules/controle/ACVP/ui/onglets/compteRendu/blocks/controleListeDocsExigi';
 import dtpsConsultationRechercheScreen from './modules/dtps/consultation/ui/dtpsConsultationRechercheScreen';
-import coMainScreen from './modules/co/ui/coMainScreen';
+import COMainScreen from './modules/co/ui/coMainScreen';
 import COConsultationDetail from './modules/co/ui/coConsultationDetail';
 import actifsRapportCreationSaisieTab from './modules/actifs/rapport/creation/ui/saisie/actifsRapportCreationSaisieTab';
 import actifsRapportCreationDetails from './modules/actifs/rapport/creation/ui/details/actifsRapportCreationDetails';
@@ -119,7 +119,7 @@ export default class App extends React.Component {
                 <Stack.Screen
                   name="test"
                   options={{headerShown: false}}
-                    component={actifsRapportCreationDetails}
+                    component={COMainScreen}
                 />
               )}
               <Stack.Screen

@@ -6,18 +6,14 @@ import {
 } from '../coConstants';
 import translate from '../../../../commons/i18n/ComI18nHelper';
 import ComTransverseApi from '../../../../commons/services/api/ComTransverseApi';
-import Config from 'react-native-config';
+
+import {MODULE_CO} from '../../../../commons/Config';
 
 export function request(action, navigation, successRedirection) {
   return (dispatch) => {
     dispatch(action);
     dispatch(inProgress(action));
-    ComTransverseApi.doProcess(
-      Config.MODULE_CO,
-      action.command,
-      'SP',
-      action.value,
-    )
+    ComTransverseApi.doProcess(MODULE_CO, action.command, 'SP', action.value)
       .then((response) => {
         if (response) {
           const data = response?.data;
@@ -27,7 +23,9 @@ export function request(action, navigation, successRedirection) {
               data.dtoHeader.messagesErreur.length === 0)
           ) {
             dispatch(success(data));
-            navigation.navigate(successRedirection);
+            if (successRedirection) {
+              navigation.navigate(successRedirection);
+            }
           } else {
             dispatch(failed(data));
           }

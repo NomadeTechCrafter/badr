@@ -13,575 +13,45 @@ import {
   ComBadrProgressBarComp,
   ComBadrToolbarComp,
   ComBasicDataTableComp,
+  ComContainerComp,
   RechercheRefDum,
 } from '../../../commons/component';
 import translate from '../../../commons/i18n/ComI18nHelper';
 import style from '../style/coStyle';
 import {CO_CONSULTATION_REQUEST, criteresRecherche} from '../state/coConstants';
 import {ComSessionService} from '../../../commons/services/session/ComSessionService';
-import {TextInput} from 'react-native-paper';
+import {HelperText, TextInput} from 'react-native-paper';
 import {Col, Grid, Row} from 'react-native-easy-grid';
 import moment from 'moment/moment';
 import * as ConsulterDumAction from '../../../commons/state/actions/ConsulterDumAction';
 import {GENERIC_REQUEST} from '../../../commons/constants/generic/ComGenericConstants';
 import * as COAction from '../state/actions/coAction';
 import _ from 'lodash';
+import {CustomStyleSheet} from '../../../commons/styles/ComThemeStyle';
 
 const initialState = {
   login: ComSessionService.getInstance().getLogin(),
-  dateDu: '',
-  dateAu: '',
-  matricule: '',
-  referenceDS: '',
-  referenceLot: '',
-  codeLieuChargement: '',
+  dateDebut: '15/01/2021',
+  dateFin: '30/01/2021',
+  numeroSerie: '',
+  anneeRef: '2021',
+  reference: '0000065',
+  idDED: '196849',
+  referenceDUM: '',
+  bureau: '309',
+  regime: '060',
+  annee: '2019',
+  serie: '0000114',
+  cle: 'M',
+  cleValide: '',
+  traite: false,
   errorMessage: '',
-  lieuChargement: {},
   critereRecherche: '',
   blocNumeroSerie: false,
   blocReference: false,
   blocReferenceDUM: false,
   blocDates: false,
   pays: 'MA',
-  rows: [
-    {
-      identifiant: 809,
-      reference: '2021MA0000075',
-      dateEnregistrement: '28/01/2021 13:39:08',
-      refArticlesCOVO: [],
-      statut: 'Créé',
-      codeDeclarant: 'CO-DEC2019',
-      moyenTransport: 'Moyen de transport',
-      typeCertificat: '06',
-      destination: 'TN',
-      langue: 'FR',
-      accordCode: 'QUAD',
-      cumul: false,
-      showDest: false,
-      referenceDUM: '30906020190000114',
-      versionDUM: '0',
-      idDUM: '196849',
-      destinataire:
-        "bandes d'une épaisseur ne dépassant pas 5 mm const,Bandes d'une épaissenr ne dépassant pas 5 mm contituées par une nappe de câbles en acier paraléllisés",
-      regimeSpecial: false,
-      regimeSpecialBeforeConfinment: false,
-      opPourLequel: false,
-      numeroSerieConfinement: 'G0021540',
-      defaultConverter: {},
-      idPourRecherche: '2021MA0000075',
-    },
-    {
-      identifiant: 808,
-      reference: '2021MA0000074',
-      dateEnregistrement: '26/01/2021 20:44:00',
-      refArticlesCOVO: [],
-      statut: 'Créé',
-      codeDeclarant: 'TESTDEC3',
-      moyenTransport: 'de transport',
-      typeCertificat: '06',
-      destination: 'TN',
-      langue: 'FR',
-      accordCode: 'UE',
-      cumul: false,
-      showDest: false,
-      referenceDUM: '30906020190000114',
-      versionDUM: '0',
-      idDUM: '196849',
-      destinataire:
-        "bandes d'une épaisseur ne dépassant pas 5 mm const,Bandes d'une épaissenr ne dépassant pas 5 mm contituées par une nappe de câbles en acier paraléllisés",
-      regimeSpecial: false,
-      regimeSpecialBeforeConfinment: false,
-      opPourLequel: false,
-      numeroSerieConfinement: 'A8765786',
-      defaultConverter: {},
-      idPourRecherche: '2021MA0000074',
-    },
-    {
-      identifiant: 795,
-      reference: '2021MA0000061',
-      dateEnregistrement: '18/01/2021 18:25:40',
-      refArticlesCOVO: [],
-      statut: 'Créé',
-      codeDeclarant: 'CO-DEC2019',
-      moyenTransport: 'Moyen de transport',
-      typeCertificat: '06',
-      destination: 'DK',
-      langue: 'FR',
-      accordCode: 'UE',
-      cumul: false,
-      showDest: false,
-      referenceDUM: '30906020190000114',
-      versionDUM: '0',
-      idDUM: '196849',
-      destinataire:
-        "bandes d'une épaisseur ne dépassant pas 5 mm const,Bandes d'une épaissenr ne dépassant pas 5 mm contituées par une nappe de câbles en acier paraléllisés",
-      regimeSpecial: false,
-      regimeSpecialBeforeConfinment: false,
-      opPourLequel: false,
-      numeroSerieConfinement: 'J5402150',
-      defaultConverter: {},
-      idPourRecherche: '2021MA0000061',
-    },
-    {
-      identifiant: 794,
-      reference: '2021MA0000060',
-      dateEnregistrement: '18/01/2021 18:22:45',
-      refArticlesCOVO: [],
-      statut: 'Créé',
-      codeDeclarant: 'CO-DEC2019',
-      moyenTransport: 'Moyen de transport',
-      typeCertificat: '07',
-      destination: 'DK',
-      langue: 'FR',
-      accordCode: 'AELE',
-      cumul: false,
-      showDest: false,
-      referenceDUM: '30906020190000114',
-      versionDUM: '0',
-      idDUM: '196849',
-      destinataire:
-        "bandes d'une épaisseur ne dépassant pas 5 mm const,Bandes d'une épaissenr ne dépassant pas 5 mm contituées par une nappe de câbles en acier paraléllisés",
-      regimeSpecial: false,
-      regimeSpecialBeforeConfinment: false,
-      opPourLequel: false,
-      numeroSerieConfinement: 'D5421888',
-      defaultConverter: {},
-      idPourRecherche: '2021MA0000060',
-    },
-    {
-      identifiant: 793,
-      reference: '2021MA0000059',
-      dateEnregistrement: '18/01/2021 18:21:12',
-      refArticlesCOVO: [],
-      statut: 'Créé',
-      codeDeclarant: 'CO-DEC2019',
-      moyenTransport: 'Moyen de transport',
-      typeCertificat: '07',
-      destination: 'ES',
-      langue: 'FR',
-      accordCode: 'UE',
-      cumul: false,
-      showDest: false,
-      referenceDUM: '30986620190000003',
-      versionDUM: '0',
-      idDUM: '202261',
-      destinataire:
-        'mélanges constitués essentiellement d’hydrogènoalk,mélanges constitués essentiellement d’hydrogènoalk essentiellement d’hydrogènoalk',
-      regimeSpecial: false,
-      regimeSpecialBeforeConfinment: false,
-      opPourLequel: false,
-      numeroSerieConfinement: 'I5421800',
-      defaultConverter: {},
-      idPourRecherche: '2021MA0000059',
-    },
-    {
-      identifiant: 792,
-      reference: '2021MA0000058',
-      dateEnregistrement: '18/01/2021 18:19:57',
-      refArticlesCOVO: [],
-      statut: 'Créé',
-      codeDeclarant: 'CO-DEC2019',
-      moyenTransport: 'Moyen de transport',
-      typeCertificat: '07',
-      destination: 'ES',
-      langue: 'FR',
-      accordCode: 'UE',
-      cumul: false,
-      showDest: false,
-      referenceDUM: '30986620190000003',
-      versionDUM: '0',
-      idDUM: '202261',
-      destinataire:
-        'mélanges constitués essentiellement d’hydrogènoalk,mélanges constitués essentiellement d’hydrogènoalk essentiellement d’hydrogènoalk',
-      regimeSpecial: false,
-      regimeSpecialBeforeConfinment: false,
-      opPourLequel: false,
-      numeroSerieConfinement: 'G5411111',
-      defaultConverter: {},
-      idPourRecherche: '2021MA0000058',
-    },
-    {
-      identifiant: 791,
-      reference: '2021MA0000057',
-      dateEnregistrement: '18/01/2021 18:16:48',
-      refArticlesCOVO: [],
-      statut: 'Créé',
-      codeDeclarant: 'CO-DEC2019',
-      moyenTransport: 'Moyen de transport',
-      typeCertificat: '07',
-      destination: 'FR',
-      langue: 'FR',
-      accordCode: 'UK',
-      cumul: false,
-      showDest: false,
-      referenceDUM: '30986620210000002',
-      versionDUM: '2',
-      idDUM: '514366',
-      destinataire: 'Nom ou raison sociale,Adresse complète',
-      regimeSpecial: false,
-      regimeSpecialBeforeConfinment: false,
-      opPourLequel: false,
-      numeroSerieConfinement: 'D5240000',
-      defaultConverter: {},
-      idPourRecherche: '2021MA0000057',
-    },
-    {
-      identifiant: 790,
-      reference: '2021MA0000056',
-      dateEnregistrement: '18/01/2021 17:51:43',
-      refArticlesCOVO: [],
-      statut: 'Créé',
-      codeDeclarant: 'TESTDEC3',
-      moyenTransport: 'azsdzsz',
-      typeCertificat: '07',
-      destination: 'DK',
-      langue: 'FR',
-      accordCode: 'TR',
-      cumul: false,
-      showDest: false,
-      referenceDUM: '30906020190000114',
-      versionDUM: '0',
-      idDUM: '196849',
-      destinataire:
-        "bandes d'une épaisseur ne dépassant pas 5 mm const,Bandes d'une épaissenr ne dépassant pas 5 mm contituées par une nappe de câbles en acier paraléllisés",
-      regimeSpecial: false,
-      regimeSpecialBeforeConfinment: false,
-      opPourLequel: false,
-      numeroSerieConfinement: 'Z1548963',
-      defaultConverter: {},
-      idPourRecherche: '2021MA0000056',
-    },
-    {
-      identifiant: 789,
-      reference: '2021MA0000055',
-      dateEnregistrement: '18/01/2021 17:49:52',
-      refArticlesCOVO: [],
-      statut: 'Créé',
-      codeDeclarant: 'TESTDEC3',
-      moyenTransport: 'anspo',
-      typeCertificat: '07',
-      destination: 'DK',
-      langue: 'FR',
-      accordCode: 'AELE',
-      cumul: false,
-      showDest: false,
-      referenceDUM: '30906020190000114',
-      versionDUM: '0',
-      idDUM: '196849',
-      destinataire:
-        "bandes d'une épaisseur ne dépassant pas 5 mm const,Bandes d'une épaissenr ne dépassant pas 5 mm contituées par une nappe de câbles en acier paraléllisés",
-      regimeSpecial: false,
-      regimeSpecialBeforeConfinment: false,
-      opPourLequel: false,
-      numeroSerieConfinement: 'B1255674',
-      defaultConverter: {},
-      idPourRecherche: '2021MA0000055',
-    },
-    {
-      identifiant: 788,
-      reference: '2021MA0000054',
-      dateEnregistrement: '18/01/2021 17:45:55',
-      refArticlesCOVO: [],
-      statut: 'Créé',
-      codeDeclarant: 'TESTDEC3',
-      typeCertificat: '05',
-      destination: 'TN',
-      langue: 'AR',
-      exportateurAdresseAR: 'ثصبيصق',
-      producteurAdresseAR: 'صثقصثق',
-      importateurAdresseAR: 'صثصثق',
-      cumul: false,
-      showDest: false,
-      valeurTotalArticleAR: 'ثيبصثب',
-      referenceDUM: '30906020190000114',
-      versionDUM: '0',
-      idDUM: '196849',
-      regimeSpecial: false,
-      regimeSpecialBeforeConfinment: false,
-      opPourLequel: false,
-      defaultConverter: {},
-      idPourRecherche: '2021MA0000054',
-    },
-    {
-      identifiant: 787,
-      reference: '2021MA0000053',
-      dateEnregistrement: '18/01/2021 17:44:07',
-      refArticlesCOVO: [],
-      statut: 'Créé',
-      codeDeclarant: 'TESTDEC3',
-      typeCertificat: '02',
-      destination: 'QA',
-      langue: 'AR',
-      exportateurAdresseAR: 'شسيشسي',
-      producteurAdresseAR: 'شسيشي',
-      importateurAdresseAR: 'ليلثقف',
-      cumul: false,
-      showDest: false,
-      detailExpeditionAR: 'ثقفثقف',
-      remarques: 'ثقفثقف',
-      referenceDUM: '30906020190000114',
-      versionDUM: '0',
-      idDUM: '196849',
-      regimeSpecial: false,
-      regimeSpecialBeforeConfinment: false,
-      opPourLequel: false,
-      numeroSerieConfinement: '4568456',
-      defaultConverter: {},
-      idPourRecherche: '2021MA0000053',
-    },
-    {
-      identifiant: 786,
-      reference: '2021MA0000052',
-      dateEnregistrement: '18/01/2021 17:42:04',
-      refArticlesCOVO: [],
-      statut: 'Créé',
-      codeDeclarant: 'TESTDEC3',
-      typeCertificat: '03',
-      destination: 'AE',
-      langue: 'AR',
-      exportateurAdresseAR: 'شسي',
-      producteurAdresseAR: 'شسيي',
-      importateurAdresseAR: 'شسي',
-      cumul: false,
-      showDest: false,
-      detailExpeditionAR: 'شسي',
-      remarques: 'شسي',
-      referenceDUM: '30906020190000114',
-      versionDUM: '0',
-      idDUM: '196849',
-      regimeSpecial: false,
-      regimeSpecialBeforeConfinment: false,
-      opPourLequel: false,
-      numeroSerieConfinement: '1546878',
-      defaultConverter: {},
-      idPourRecherche: '2021MA0000052',
-    },
-    {
-      identifiant: 785,
-      reference: '2021MA0000051',
-      dateEnregistrement: '18/01/2021 17:40:33',
-      refArticlesCOVO: [],
-      statut: 'Créé',
-      codeDeclarant: 'TESTDEC3',
-      moyenTransport: 'sdfsdf',
-      typeCertificat: '01',
-      destination: 'BY',
-      langue: 'FR',
-      cumul: false,
-      showDest: false,
-      referenceDUM: '30906020190000114',
-      versionDUM: '0',
-      idDUM: '196849',
-      regimeSpecial: false,
-      regimeSpecialBeforeConfinment: false,
-      opPourLequel: false,
-      defaultConverter: {},
-      idPourRecherche: '2021MA0000051',
-    },
-    {
-      identifiant: 784,
-      reference: '2021MA0000050',
-      dateEnregistrement: '18/01/2021 17:39:17',
-      refArticlesCOVO: [],
-      statut: 'Créé',
-      codeDeclarant: 'TESTDEC3',
-      moyenTransport: 'qqdfsdf',
-      typeCertificat: '01',
-      destination: 'BY',
-      langue: 'FR',
-      cumul: false,
-      showDest: false,
-      referenceDUM: '30986620190000003',
-      versionDUM: '0',
-      idDUM: '202261',
-      regimeSpecial: false,
-      regimeSpecialBeforeConfinment: false,
-      opPourLequel: false,
-      defaultConverter: {},
-      idPourRecherche: '2021MA0000050',
-    },
-    {
-      identifiant: 783,
-      reference: '2021MA0000049',
-      dateEnregistrement: '18/01/2021 17:34:24',
-      refArticlesCOVO: [],
-      statut: 'Créé',
-      codeDeclarant: 'TESTDEC3',
-      moyenTransport: 'Moyen de transport',
-      typeCertificat: '07',
-      destination: 'DK',
-      langue: 'FR',
-      accordCode: 'UE',
-      cumul: false,
-      showDest: false,
-      referenceDUM: '30906020190000114',
-      versionDUM: '0',
-      idDUM: '196849',
-      destinataire:
-        "bandes d'une épaisseur ne dépassant pas 5 mm const,Bandes d'une épaissenr ne dépassant pas 5 mm contituées par une nappe de câbles en acier paraléllisés",
-      regimeSpecial: false,
-      regimeSpecialBeforeConfinment: false,
-      opPourLequel: false,
-      numeroSerieConfinement: 'A5512254',
-      defaultConverter: {},
-      idPourRecherche: '2021MA0000049',
-    },
-    {
-      identifiant: 782,
-      reference: '2021MA0000048',
-      dateEnregistrement: '18/01/2021 17:31:51',
-      refArticlesCOVO: [],
-      statut: 'Créé',
-      codeDeclarant: 'TESTDEC3',
-      moyenTransport: 'de transport',
-      typeCertificat: '07',
-      destination: 'ES',
-      langue: 'FR',
-      accordCode: 'UE',
-      cumul: false,
-      showDest: false,
-      referenceDUM: '30986620190000003',
-      versionDUM: '0',
-      idDUM: '202261',
-      destinataire:
-        'mélanges constitués essentiellement d’hydrogènoalk,mélanges constitués essentiellement d’hydrogènoalk essentiellement d’hydrogènoalk',
-      regimeSpecial: false,
-      regimeSpecialBeforeConfinment: false,
-      opPourLequel: false,
-      numeroSerieConfinement: 'B1224563',
-      defaultConverter: {},
-      idPourRecherche: '2021MA0000048',
-    },
-    {
-      identifiant: 781,
-      reference: '2021MA0000047',
-      dateEnregistrement: '18/01/2021 17:30:46',
-      refArticlesCOVO: [],
-      statut: 'Créé',
-      codeDeclarant: 'TESTDEC3',
-      moyenTransport: 'de transport',
-      typeCertificat: '06',
-      destination: 'ES',
-      langue: 'FR',
-      accordCode: 'UE',
-      cumul: false,
-      showDest: false,
-      referenceDUM: '30986620190000003',
-      versionDUM: '0',
-      idDUM: '202261',
-      destinataire:
-        'mélanges constitués essentiellement d’hydrogènoalk,mélanges constitués essentiellement d’hydrogènoalk essentiellement d’hydrogènoalk',
-      regimeSpecial: false,
-      regimeSpecialBeforeConfinment: false,
-      opPourLequel: false,
-      numeroSerieConfinement: 'B1234567',
-      defaultConverter: {},
-      idPourRecherche: '2021MA0000047',
-    },
-    {
-      identifiant: 780,
-      reference: '2021MA0000046',
-      dateEnregistrement: '18/01/2021 17:09:20',
-      refArticlesCOVO: [],
-      statut: 'Créé',
-      codeDeclarant: 'TESTDEC5',
-      moyenTransport: 'Moyen de transport',
-      typeCertificat: '07',
-      destination: 'FR',
-      langue: 'FR',
-      accordCode: 'UK',
-      cumul: false,
-      showDest: false,
-      referenceDUM: '30986620210000002',
-      versionDUM: '2',
-      idDUM: '514366',
-      destinataire: 'Nom ou raison sociale,Adresse complète',
-      regimeSpecial: false,
-      regimeSpecialBeforeConfinment: false,
-      opPourLequel: false,
-      numeroSerieConfinement: 'K2333331',
-      defaultConverter: {},
-      idPourRecherche: '2021MA0000046',
-    },
-    {
-      identifiant: 779,
-      reference: '2021MA0000045',
-      dateEnregistrement: '18/01/2021 16:31:24',
-      refArticlesCOVO: [],
-      statut: 'Créé',
-      codeDeclarant: 'CO-DEC2019',
-      moyenTransport: 'Moyen de transport',
-      typeCertificat: '02',
-      destination: 'SY',
-      langue: 'AR',
-      exportateurAdresseAR: 'المصدر وعنوانه كاملا',
-      producteurAdresseAR: 'المنتج و عنوانه كاملا  المصدر وعنوانه كاملا',
-      importateurAdresseAR: 'المستورد وعنوانه كاملا',
-      cumul: false,
-      showDest: false,
-      detailExpeditionAR: 'تفاصيل الشحن',
-      remarques: 'ملاحظات',
-      referenceDUM: '30906020190000114',
-      versionDUM: '0',
-      idDUM: '196849',
-      regimeSpecial: false,
-      regimeSpecialBeforeConfinment: false,
-      opPourLequel: false,
-      numeroSerieConfinement: '0001214',
-      defaultConverter: {},
-      idPourRecherche: '2021MA0000045',
-    },
-    {
-      identifiant: 770,
-      reference: '2021MA0000036',
-      dateEnregistrement: '15/01/2021 15:52:13',
-      refArticlesCOVO: [],
-      statut: 'Créé',
-      codeDeclarant: 'CO-DEC2019',
-      moyenTransport: 'Moyen de transport',
-      typeCertificat: '07',
-      destination: 'ES',
-      langue: 'FR',
-      cumul: false,
-      showDest: false,
-      referenceDUM: '30986620190000003',
-      versionDUM: '0',
-      idDUM: '202261',
-      destinataire:
-        'mélanges constitués essentiellement d’hydrogènoalk,mélanges constitués essentiellement d’hydrogènoalk essentiellement d’hydrogènoalk',
-      regimeSpecial: false,
-      regimeSpecialBeforeConfinment: false,
-      opPourLequel: false,
-      defaultConverter: {},
-      idPourRecherche: '2021MA0000036',
-    },
-    {
-      identifiant: 769,
-      reference: '2021MA0000035',
-      dateEnregistrement: '15/01/2021 15:39:34',
-      refArticlesCOVO: [],
-      statut: 'Créé',
-      codeDeclarant: 'CO-DEC2019',
-      moyenTransport: 'Moyen de transport',
-      typeCertificat: '07',
-      destination: 'ES',
-      langue: 'FR',
-      accordCode: 'UE',
-      cumul: false,
-      showDest: false,
-      referenceDUM: '30986620190000003',
-      versionDUM: '0',
-      idDUM: '202261',
-      destinataire:
-        'mélanges constitués essentiellement d’hydrogènoalk,mélanges constitués essentiellement d’hydrogènoalk essentiellement d’hydrogènoalk',
-      regimeSpecial: false,
-      regimeSpecialBeforeConfinment: false,
-      opPourLequel: false,
-      numeroSerieConfinement: 'X2547125',
-      defaultConverter: {},
-      idPourRecherche: '2021MA0000035',
-    },
-  ],
 };
 
 class COMainScreen extends React.Component {
@@ -657,20 +127,55 @@ class COMainScreen extends React.Component {
         break;
       case 'referenceDUM':
         msg = [];
-        if (_.isEmpty(this.state.referenceDUM)) {
+        if (_.isEmpty(this.state.bureau)) {
           required = true;
-          msg.push(translate('co.filtreRecherche.referenceDUM'));
+          msg.push(translate('co.filtreRecherche.bureau'));
+        }
+        if (_.isEmpty(this.state.regime)) {
+          required = true;
+          msg.push(translate('co.filtreRecherche.regime'));
+        }
+        if (_.isEmpty(this.state.annee)) {
+          required = true;
+          msg.push(translate('co.filtreRecherche.annee'));
+        }
+        if (_.isEmpty(this.state.serie)) {
+          required = true;
+          msg.push(translate('co.filtreRecherche.serie'));
+        }
+        if (_.isEmpty(this.state.cle)) {
+          required = true;
+          msg.push(translate('co.filtreRecherche.cle'));
+
+          this.state.cleValide = this.cleDUM(
+            this.state.regime,
+            this.state.serie,
+          );
+        } else {
+          this.state.cleValide = this.cleDUM(
+            this.state.regime,
+            this.state.serie,
+          );
+          if (this.state.cle !== this.state.cleValide) {
+            required = true;
+            msg.push(
+              translate('co.filtreRecherche.cleValide') +
+                '(' +
+                this.state.cleValide +
+                ')',
+            );
+          }
         }
         break;
       case 'dates':
         msg = [];
-        if (_.isEmpty(this.state.dateDu)) {
+        if (_.isEmpty(this.state.dateDebut)) {
           required = true;
-          msg.push(translate('co.filtreRecherche.dateDu'));
+          msg.push(translate('co.filtreRecherche.dateDebut'));
         }
-        if (_.isEmpty(this.state.dateAu)) {
+        if (_.isEmpty(this.state.dateFin)) {
           required = true;
-          msg.push(translate('co.filtreRecherche.dateAu'));
+          msg.push(translate('co.filtreRecherche.dateFin'));
         }
         break;
 
@@ -693,12 +198,43 @@ class COMainScreen extends React.Component {
   };
 
   confirmer = () => {
+    let myVO = {};
     if (this.state.critereRecherche) {
       this.setState({
         errorMessage: '',
       });
+      const validation = this.checkRequiredFields();
 
-      this.checkRequiredFields();
+      switch (this.state.critereRecherche) {
+        case 'numeroSerie':
+          myVO.numeroSerie = this.state.numeroSerie;
+          break;
+        case 'reference':
+          myVO.reference = this.state.reference;
+          break;
+        case 'referenceDUM':
+          myVO.idDED = this.state.idDED;
+          break;
+        case 'dates':
+          myVO.dateDebut = this.state.dateDebut;
+          myVO.dateFin = this.state.dateFin;
+          break;
+
+        default:
+          break;
+      }
+      if (validation === false) {
+        let action = COAction.request(
+          {
+            type: CO_CONSULTATION_REQUEST,
+            value: myVO,
+            command: 'findListCoMultiRecherche',
+          },
+          this.props.navigation,
+          null,
+        );
+        this.props.actions.dispatch(action);
+      }
     } else {
       this.setState({
         errorMessage:
@@ -709,14 +245,24 @@ class COMainScreen extends React.Component {
 
   handleClear = () => {
     this.setState(initialState);
+    let action = COAction.init(
+      {
+        type: CO_CONSULTATION_REQUEST,
+        value: {},
+        command: 'findListCoMultiRecherche',
+      },
+      null,
+      null,
+    );
+    this.props.actions.dispatch(action);
   };
 
   onCritereRecherchePickerChanged = (v, i) => {
     this.setState({
-      critereRecherche: v.code,
+      critereRecherche: v?.code,
       errorMessage: '',
     });
-    switch (v.code) {
+    switch (v?.code) {
       case 'numeroSerie':
         this.setState({
           blocNumeroSerie: true,
@@ -765,9 +311,7 @@ class COMainScreen extends React.Component {
       {
         type: CO_CONSULTATION_REQUEST,
         value: {
-          jsonVO: {
-            reference: row?.reference,
-          },
+          reference: row?.reference,
         },
         command: 'recupererCertificatOrigineByRef',
       },
@@ -797,8 +341,35 @@ class COMainScreen extends React.Component {
     this.props.actions.dispatch(action);
   }
 
+  onChangeInputCle = (cle) => {
+    this.setState({cle: cle.replace(/[^A-Za-z]/g, '')});
+  };
+
+  cleDUM = function (regime, serie) {
+    let alpha = 'ABCDEFGHJKLMNPRSTUVWXYZ';
+    if (serie.length > 6) {
+      let firstSerie = serie.substring(0, 1);
+      if (firstSerie === '0') {
+        serie = serie.substring(1, 7);
+      }
+    }
+    let obj = regime + serie;
+    let RS = obj % 23;
+    alpha = alpha.charAt(RS);
+    return alpha;
+  };
+
+  addZeros = (input) => {
+    let keyImput = _.keys(input)[0];
+    if (input[keyImput] !== '') {
+      this.setState({
+        [keyImput]: _.padStart(input[keyImput], input.maxLength, '0'),
+      });
+    }
+  };
+
   render() {
-    const titre = "Nombre d'éléments: " + this.state.rows?.length;
+    const titre = "Nombre d'éléments: " + this.props?.data?.length;
     return (
       <View style={style.container}>
         <ComBadrToolbarComp
@@ -852,8 +423,10 @@ class COMainScreen extends React.Component {
                         <TextInput
                           mode="outlined"
                           label={translate('co.filtreRecherche.annee')}
-                          value={this.state.annee}
-                          onChangeText={(text) => this.setState({annee: text})}
+                          value={this.state.anneeRef}
+                          onChangeText={(text) =>
+                            this.setState({anneeRef: text})
+                          }
                         />
                       </Col>
                       <Col size={1} />
@@ -879,14 +452,95 @@ class COMainScreen extends React.Component {
                   )}
                   {this.state.blocReferenceDUM && (
                     <Row>
-                      <RechercheRefDum
-                        commande={'findListCoMultiRecherche'}
-                        module="CO_LIB"
-                        typeService="SP"
-                        // successRedirection={'DelivrerMLV'}
-                        navigation={this.props.navigation}
-                        // routeParams={this.props.route.params}
-                      />
+                      <ComContainerComp style={style.container}>
+                        <View style={style.containerInputs}>
+                          <View>
+                            <TextInput
+                              maxLength={3}
+                              keyboardType={'number-pad'}
+                              value={this.state.bureau}
+                              label={translate('transverse.bureau')}
+                              onChangeText={(val) =>
+                                this.onChangeInput({bureau: val})
+                              }
+                              onEndEditing={(event) =>
+                                this.addZeros({
+                                  bureau: event.nativeEvent.text,
+                                  maxLength: 3,
+                                })
+                              }
+                              style={CustomStyleSheet.largeInput}
+                            />
+                          </View>
+
+                          <View>
+                            <TextInput
+                              maxLength={3}
+                              keyboardType={'number-pad'}
+                              value={this.state.regime}
+                              label={translate('transverse.regime')}
+                              onChangeText={(val) =>
+                                this.onChangeInput({regime: val})
+                              }
+                              onEndEditing={(event) =>
+                                this.addZeros({
+                                  regime: event.nativeEvent.text,
+                                  maxLength: 3,
+                                })
+                              }
+                              style={CustomStyleSheet.largeInput}
+                            />
+                          </View>
+
+                          <View>
+                            <TextInput
+                              maxLength={4}
+                              keyboardType={'number-pad'}
+                              value={this.state.annee}
+                              label={translate('transverse.annee')}
+                              onChangeText={(val) =>
+                                this.onChangeInput({annee: val})
+                              }
+                              onEndEditing={(event) =>
+                                this.addZeros({
+                                  annee: event.nativeEvent.text,
+                                  maxLength: 4,
+                                })
+                              }
+                              style={CustomStyleSheet.largeInput}
+                            />
+                          </View>
+
+                          <View>
+                            <TextInput
+                              maxLength={7}
+                              keyboardType={'number-pad'}
+                              value={this.state.serie}
+                              label={translate('transverse.serie')}
+                              onChangeText={(val) =>
+                                this.onChangeInput({serie: val})
+                              }
+                              onEndEditing={(event) =>
+                                this.addZeros({
+                                  serie: event.nativeEvent.text,
+                                  maxLength: 7,
+                                })
+                              }
+                              style={CustomStyleSheet.largeInput}
+                            />
+                          </View>
+                          <View>
+                            <TextInput
+                              maxLength={1}
+                              autoCapitalize={'characters'}
+                              value={this.state.cle}
+                              label={translate('transverse.cle')}
+                              onChangeText={(val) => this.onChangeInputCle(val)}
+                              style={CustomStyleSheet.largeInput}
+                            />
+                          </View>
+                        </View>
+                      </ComContainerComp>
                     </Row>
                   )}
                   {this.state.blocDates && (
@@ -895,8 +549,8 @@ class COMainScreen extends React.Component {
                         <ComBadrDatePickerComp
                           dateFormat="DD/MM/YYYY"
                           value={
-                            this.state.dateDu
-                              ? moment(this.state.dateDu, 'DD/MM/yyyy', true)
+                            this.state.dateDebut
+                              ? moment(this.state.dateDebut, 'DD/MM/yyyy', true)
                               : ''
                           }
                           labelDate={translate('consultationBLS.startDate')}
@@ -904,7 +558,7 @@ class COMainScreen extends React.Component {
                           onDateChanged={(date) =>
                             this.setState({
                               ...this.state,
-                              dateDu: date,
+                              dateDebut: date,
                             })
                           }
                         />
@@ -913,8 +567,8 @@ class COMainScreen extends React.Component {
                         <ComBadrDatePickerComp
                           dateFormat="DD/MM/YYYY"
                           value={
-                            this.state.dateAu
-                              ? moment(this.state.dateAu, 'DD/MM/yyyy', true)
+                            this.state.dateFin
+                              ? moment(this.state.dateFin, 'DD/MM/yyyy', true)
                               : ''
                           }
                           labelDate={translate('consultationBLS.endDate')}
@@ -922,7 +576,7 @@ class COMainScreen extends React.Component {
                           onDateChanged={(date) =>
                             this.setState({
                               ...this.state,
-                              dateAu: date,
+                              dateFin: date,
                             })
                           }
                         />
@@ -970,15 +624,15 @@ class COMainScreen extends React.Component {
             </ScrollView>
           </ComBadrCardWithTileComp>
         </ComBadrCardBoxComp>
-        {this.state.rows && (
+        {this.props?.data?.length > 0 && (
           <ScrollView style={style.innerContainer}>
             <View>
               <ComAccordionComp badr title={titre} expanded={true}>
                 <ComBasicDataTableComp
                   id="coLots"
-                  rows={this.state.rows}
+                  rows={this.props?.data}
                   cols={this.coCols}
-                  totalElements={this.state.rows?.length}
+                  totalElements={this.props?.data?.length}
                   maxResultsPerPage={10}
                   paginate={true}
                   showProgress={this.props.showProgress}

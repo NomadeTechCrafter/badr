@@ -123,6 +123,7 @@ if (process.env.NODE_ENV === 'development') {
     recupererCertificatOrigineByRef: require('../../../../modules/co/service/local-data/recupererCertificatOrigineByRef.json'),
     vctDestination: require('../../../../modules/co/service/local-data/vctDestination.json'),
     vctDestinationLigueArabe: require('../../../../modules/co/service/local-data/vctDestinationLigueArabe.json'),
+    findListCoMultiRecherche: require('../../../../modules/co/service/local-data/findListCoMultiRecherche.json'),
   };
 }
 export default localStore;
