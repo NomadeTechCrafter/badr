@@ -135,8 +135,11 @@ class COConsultationDetail extends React.Component {
     );
   }
 
-  toShowDestination(typeCertificat) {
+  toShowDestinationAR(typeCertificat) {
     return typeCertificat !== '06' || typeCertificat !== '07';
+  }
+  toShowDestination(typeCertificat) {
+    return typeCertificat === '06' || typeCertificat === '07';
   }
 
   toShowMoyenTransport(typeCertificat) {
@@ -214,7 +217,7 @@ class COConsultationDetail extends React.Component {
                 <ComBadrKeyValueComp
                   libelle={translate('co.dateEnregistrement')}
                   libelleSize={2}
-                  value={co?.dateEnregistrement}
+                  value={co?.dateHeureEnregistrement}
                 />
               </Row>
               {co?.typeCertificat && this.toShow(co.typeCertificat) && (
@@ -230,32 +233,32 @@ class COConsultationDetail extends React.Component {
           <ComBadrCardBoxComp>
             <Grid>
               <Row style={CustomStyleSheet.lightBlueRow}>
-                <Col size={2} />
+                <Col size={1} />
                 <Col size={4}>
                   <ComBadrLibelleComp>
                     {translate('co.typeCertificat')}
                   </ComBadrLibelleComp>
                 </Col>
-                <Col size={4}>
+                <Col size={6}>
                   <ComBadrItemsPickerComp
                     selectedValue={co?.typeCertificat}
                     items={typesCertificats}
                     disabled={true}
                   />
                 </Col>
-                <Col size={2} />
+                <Col size={1} />
               </Row>
 
               {co?.paysDestination &&
                 this.toShowDestination(co?.typeCertificat) && (
                   <Row style={CustomStyleSheet.lightBlueRow}>
-                    <Col size={2} />
+                    <Col size={1} />
                     <Col size={4}>
                       <ComBadrLibelleComp>
                         {translate('co.destination')}
                       </ComBadrLibelleComp>
                     </Col>
-                    <Col size={4}>
+                    <Col size={6}>
                       <ComBadrPickerComp
                         disabled={true}
                         key="code"
@@ -270,46 +273,74 @@ class COConsultationDetail extends React.Component {
                         storeLibelleWithKey="libelle"
                       />
                     </Col>
-                    <Col size={2} />
+                    <Col size={1} />
+                  </Row>
+                )}
+
+              {co?.paysDestination &&
+                this.toShowDestinationAR(co?.typeCertificat) && (
+                  <Row style={CustomStyleSheet.lightBlueRow}>
+                    <Col size={1} />
+                    <Col size={4}>
+                      <ComBadrLibelleComp>
+                        {translate('co.destination')}
+                      </ComBadrLibelleComp>
+                    </Col>
+                    <Col size={6}>
+                      <ComBadrPickerComp
+                        disabled={true}
+                        key="code"
+                        selectedValue={co?.paysDestination}
+                        selected={co?.paysDestination}
+                        cle="code"
+                        libelle="libelle"
+                        command="vctDestinationLigueArabe"
+                        param={null}
+                        typeService="SP"
+                        storeWithKey="code"
+                        storeLibelleWithKey="libelle"
+                      />
+                    </Col>
+                    <Col size={1} />
                   </Row>
                 )}
 
               {co?.moyenTransport &&
                 this.toShowMoyenTransport(co?.typeCertificat) && (
                   <Row style={CustomStyleSheet.lightBlueRow}>
-                    <Col size={2} />
+                    <Col size={1} />
                     <Col size={4}>
                       <ComBadrLibelleComp>
                         {translate('co.destination')}
                       </ComBadrLibelleComp>
                     </Col>
-                    <Col size={4}>
+                    <Col size={6}>
                       <ComBadrLibelleComp>
                         {co?.moyenTransport}
                       </ComBadrLibelleComp>
                     </Col>
-                    <Col size={2} />
+                    <Col size={1} />
                   </Row>
                 )}
               <Row style={CustomStyleSheet.lightBlueRow}>
-                <Col size={2} />
+                <Col size={1} />
                 <Col size={4}>
                   <ComBadrLibelleComp>
                     {translate('co.langue')}
                   </ComBadrLibelleComp>
                 </Col>
-                <Col size={4}>
+                <Col size={6}>
                   <ComBadrItemsPickerComp
                     selectedValue={co?.langue}
                     items={languesImpression}
                     disabled={true}
                   />
                 </Col>
-                <Col size={2} />
+                <Col size={1} />
               </Row>
             </Grid>
           </ComBadrCardBoxComp>
-          {co?.moyenTransport && this.toShowAR(co?.typeCertificat) && (
+          {co?.typeCertificat && this.toShowAR(co?.typeCertificat) && (
             <ComBadrCardBoxComp>
               <Grid>
                 <Row style={CustomStyleSheet.lightBlueRow}>
@@ -425,6 +456,49 @@ class COConsultationDetail extends React.Component {
           </ComBadrCardBoxComp>
           {this.state.selectedArticle && (
             <ComBadrCardBoxComp>
+              <Grid>
+                <Row style={CustomStyleSheet.lightBlueRow}>
+                  <Col size={3} />
+                  <Col size={9}>
+                    <TextInput
+                      mode={'outlined'}
+                      disabled={true}
+                      direction="rtl"
+                      value={this.state.selectedArticle?.designationAR}
+                      textAlign="right"
+                      style={coStyle.paddingLeft}
+                    />
+                  </Col>
+                  <Col size={4}>
+                    <ComBadrLibelleComp>
+                      {translate('co.designationAR')}
+                    </ComBadrLibelleComp>
+                  </Col>
+                </Row>
+                <Row style={CustomStyleSheet.lightBlueRow}>
+                  <Col size={7} />
+                  <Col size={5}>
+                    <TextInput
+                      mode={'outlined'}
+                      disabled={true}
+                      direction="rtl"
+                      value={this.state.selectedArticle?.qteBrut}
+                      textAlign="right"
+                      style={coStyle.paddingLeft}
+                    />
+                  </Col>
+                  <Col size={4}>
+                    <ComBadrLibelleComp>
+                      {translate('co.qteBrut')}
+                    </ComBadrLibelleComp>
+                  </Col>
+                </Row>
+              </Grid>
+            </ComBadrCardBoxComp>
+          )}
+
+          {this.state.selectedArticle && (
+            <ComBadrCardBoxComp>
               <ComBasicDataTableComp
                 id="coFacturesTable"
                 rows={this.state.selectedArticle?.refFacturesVO}
@@ -438,6 +512,7 @@ class COConsultationDetail extends React.Component {
               />
             </ComBadrCardBoxComp>
           )}
+
           {this.state.selectedFacture && (
             <ComBadrCardBoxComp>
               <ComBadrKeyValueComp
@@ -453,6 +528,13 @@ class COConsultationDetail extends React.Component {
             </ComBadrCardBoxComp>
           )}
         </ScrollView>
+        {co?.numeroSerieConfinement && (
+          <ComBadrKeyValueComp
+            libelle={translate('co.numeroSerieConfinement')}
+            libelleSize={4}
+            value={co?.numeroSerieConfinement}
+          />
+        )}
       </View>
     );
   }

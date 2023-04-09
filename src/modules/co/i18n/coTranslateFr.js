@@ -35,8 +35,8 @@ export default {
     codeLieuChargement: 'Lieu de Chargement',
     destination: 'Destination *',
     moyenTransport: 'Moyen de transport',
-    dateFacture: 'Date Facture',
-    numeroFacture: 'Numéro Facture',
+    dateFacture: 'Date Facture *',
+    numeroFacture: 'Numéro Facture *',
     id: 'id',
 
     // Filtre de recherche
@@ -78,6 +78,9 @@ export default {
     cumul: 'تطبيق التراكم *',
     detailExpeditionAR: 'تفاصيل الشحن *',
     remarques: 'ملاحظات',
+    designationAR: 'وصف السلع *',
+    qteBrut: ' الوزن الإجمالي(كجم) *',
+
     numeroOrdreArticle: 'Id',
     paysOrigine: "Pays d'Origine",
     nomenclature: 'Nomenclature',
