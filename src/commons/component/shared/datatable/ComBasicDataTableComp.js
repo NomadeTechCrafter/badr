@@ -298,15 +298,16 @@ export default class ComBasicDataTableComp extends React.Component {
                                 />
                               )}
 
-                            {column.component === 'basic-button' && (
-                              <ComBadrButtonIconComp
-                                style={styles.width90}
-                                text={
-                                  column.text ? column.text : row[column.code]
-                                }
-                                onPress={() => column.action(row, index)}
-                              />
-                            )}
+                            {column.component === 'basic-button' &&
+                              row[column.attrCondition] && (
+                                <ComBadrButtonIconComp
+                                  style={styles.width90}
+                                  text={
+                                    column.text ? column.text : row[column.code]
+                                  }
+                                  onPress={() => column.action(row, index)}
+                                />
+                              )}
                           </View>
                         ) : (
                           this.buildCellChildren(row, column, colindex)

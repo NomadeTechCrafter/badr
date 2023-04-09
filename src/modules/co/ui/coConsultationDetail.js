@@ -5,6 +5,7 @@ import {Text, TextInput} from 'react-native-paper';
 import {connect} from 'react-redux';
 import {
   ComAccordionComp,
+  ComBadrAutoCompleteChipsComp,
   ComBadrButtonRadioComp,
   ComBadrCardBoxComp,
   ComBadrItemsPickerComp,
@@ -28,7 +29,7 @@ import coStyle from '../style/coStyle';
 class COConsultationDetail extends React.Component {
   constructor(props) {
     super(props);
-
+    this.state = {};
     this.coCols = [
       {
         code: 'numeroOrdreArticle',
@@ -75,10 +76,43 @@ class COConsultationDetail extends React.Component {
         libelle: 'Action',
         component: 'basic-button',
         text: 'Complément',
-        action: (row, index) => this.traiter(row, index),
+        attrCondition: 'numeroOrdreArticle',
+        action: (row, index) => this.complement(row, index),
         width: 180,
       },
     ];
+    this.coFacturesCols = [
+      {
+        code: '',
+        libelle: translate('co.id'),
+        icon: 'eye',
+        component: 'button',
+        action: (row, index) => this.afficherFacture(row, index),
+        width: 50,
+      },
+      {
+        code: 'numeroFacture',
+        libelle: translate('co.numeroFacture'),
+        width: 120,
+      },
+      {
+        code: 'dateFacture',
+        libelle: translate('co.dateFacture'),
+        width: 120,
+      },
+    ];
+  }
+
+  complement(row, index) {
+    this.setState({
+      selectedArticle: row,
+    });
+  }
+
+  afficherFacture(row, index) {
+    this.setState({
+      selectedFacture: row,
+    });
   }
 
   redirectToConsultationDUM(row, index) {
@@ -90,6 +124,36 @@ class COConsultationDetail extends React.Component {
     console.log(JSON.stringify(index));
     console.log('============================================');
     console.log('============================================');
+  }
+
+  toShow(typeCertificat) {
+    return (
+      typeCertificat === '06' ||
+      typeCertificat === '07' ||
+      typeCertificat === '02' ||
+      typeCertificat === '03'
+    );
+  }
+
+  toShowDestination(typeCertificat) {
+    return typeCertificat !== '06' || typeCertificat !== '07';
+  }
+
+  toShowMoyenTransport(typeCertificat) {
+    return (
+      typeCertificat === '01' ||
+      typeCertificat === '06' ||
+      typeCertificat === '07'
+    );
+  }
+
+  toShowAR(typeCertificat) {
+    return (
+      typeCertificat === '02' ||
+      typeCertificat === '03' ||
+      typeCertificat === '04' ||
+      typeCertificat === '05'
+    );
   }
 
   render() {
@@ -153,13 +217,14 @@ class COConsultationDetail extends React.Component {
                   value={co?.dateEnregistrement}
                 />
               </Row>
-              <Row style={CustomStyleSheet.lightBlueRow}>
-                <ComBadrKeyValueComp
-                  libelle={translate('co.accord')}
-                  // libelleSize={2}
-                  value={co?.accord}
-                />
-              </Row>
+              {co?.typeCertificat && this.toShow(co.typeCertificat) && (
+                <Row style={CustomStyleSheet.lightBlueRow}>
+                  <ComBadrKeyValueComp
+                    libelle={translate('co.accord')}
+                    value={co?.accordCode}
+                  />
+                </Row>
+              )}
             </Grid>
           </ComBadrCardBoxComp>
           <ComBadrCardBoxComp>
@@ -180,33 +245,52 @@ class COConsultationDetail extends React.Component {
                 </Col>
                 <Col size={2} />
               </Row>
-              <Row style={CustomStyleSheet.lightBlueRow}>
-                <Col size={2} />
-                <Col size={4}>
-                  <ComBadrLibelleComp>
-                    {translate('co.typeCertificat')}
-                  </ComBadrLibelleComp>
-                </Col>
-                <Col size={4}>
-                  <ComBadrPickerComp
-                    disabled={true}
-                    key="code"
-                    // style={CustomStyleSheet.badrPicker}
-                    selectedValue={co?.paysDestination}
-                    selected={co?.paysDestination}
-                    // titleStyle={CustomStyleSheet.badrPickerTitle}
-                    cle="code"
-                    libelle="libelle"
-                    module="CO_LIB"
-                    command="vctDestinationLigueArabe"
-                    param={null}
-                    typeService="SP"
-                    storeWithKey="code"
-                    storeLibelleWithKey="libelle"
-                  />
-                </Col>
-                <Col size={2} />
-              </Row>
+
+              {co?.paysDestination &&
+                this.toShowDestination(co?.typeCertificat) && (
+                  <Row style={CustomStyleSheet.lightBlueRow}>
+                    <Col size={2} />
+                    <Col size={4}>
+                      <ComBadrLibelleComp>
+                        {translate('co.destination')}
+                      </ComBadrLibelleComp>
+                    </Col>
+                    <Col size={4}>
+                      <ComBadrPickerComp
+                        disabled={true}
+                        key="code"
+                        selectedValue={co?.paysDestination}
+                        selected={co?.paysDestination}
+                        cle="code"
+                        libelle="libelle"
+                        command="getCmbPays"
+                        param={null}
+                        typeService="SP"
+                        storeWithKey="code"
+                        storeLibelleWithKey="libelle"
+                      />
+                    </Col>
+                    <Col size={2} />
+                  </Row>
+                )}
+
+              {co?.moyenTransport &&
+                this.toShowMoyenTransport(co?.typeCertificat) && (
+                  <Row style={CustomStyleSheet.lightBlueRow}>
+                    <Col size={2} />
+                    <Col size={4}>
+                      <ComBadrLibelleComp>
+                        {translate('co.destination')}
+                      </ComBadrLibelleComp>
+                    </Col>
+                    <Col size={4}>
+                      <ComBadrLibelleComp>
+                        {co?.moyenTransport}
+                      </ComBadrLibelleComp>
+                    </Col>
+                    <Col size={2} />
+                  </Row>
+                )}
               <Row style={CustomStyleSheet.lightBlueRow}>
                 <Col size={2} />
                 <Col size={4}>
@@ -225,107 +309,109 @@ class COConsultationDetail extends React.Component {
               </Row>
             </Grid>
           </ComBadrCardBoxComp>
-          <ComBadrCardBoxComp>
-            <Grid>
-              <Row style={CustomStyleSheet.lightBlueRow}>
-                <Col size={5}>
-                  <TextInput
-                    mode={'outlined'}
-                    disabled={true}
-                    direction="rtl"
-                    value={co?.exportateurAdresseAR}
-                    textAlign="right"
-                    style={coStyle.paddingLeft}
-                  />
-                </Col>
-                <Col size={2}>
-                  <ComBadrLibelleComp>
-                    {translate('co.exportateurAdresseAR')}
-                  </ComBadrLibelleComp>
-                </Col>
-                <Col size={5}>
-                  <TextInput
-                    mode={'outlined'}
-                    disabled={true}
-                    direction="rtl"
-                    value={co?.producteurAdresseAR}
-                    textAlign="right"
-                    style={coStyle.paddingLeft}
-                  />
-                </Col>
-                <Col size={2}>
-                  <ComBadrLibelleComp>
-                    {translate('co.producteurAdresseAR')}
-                  </ComBadrLibelleComp>
-                </Col>
-              </Row>
-              <Row style={CustomStyleSheet.lightBlueRow}>
-                <Col size={5}>
-                  <ComBadrButtonRadioComp
-                    disabled={true}
-                    value={String(co?.cumul)}
-                    radioButtonsData={radioButtonsDataCumulAR}
-                  />
-                </Col>
-                <Col size={2}>
-                  <ComBadrLibelleComp>
-                    {translate('co.cumul')}
-                  </ComBadrLibelleComp>
-                </Col>
-                <Col size={5}>
-                  <TextInput
-                    mode={'outlined'}
-                    disabled={true}
-                    direction="rtl"
-                    value={co?.importateurAdresseAR}
-                    textAlign="right"
-                    style={coStyle.paddingLeft}
-                  />
-                </Col>
-                <Col size={2}>
-                  <ComBadrLibelleComp>
-                    {translate('co.importateurAdresseAR')}
-                  </ComBadrLibelleComp>
-                </Col>
-              </Row>
-              <Row style={CustomStyleSheet.lightBlueRow}>
-                <Col size={7} />
-                <Col size={5}>
-                  <TextInput
-                    mode={'outlined'}
-                    disabled={true}
-                    direction="rtl"
-                    value={co?.detailExpeditionAR}
-                    textAlign="right"
-                    style={coStyle.paddingLeft}
-                  />
-                </Col>
-                <Col size={2}>
-                  <ComBadrLibelleComp>
-                    {translate('co.detailExpeditionAR')}
-                  </ComBadrLibelleComp>
-                </Col>
-              </Row>
-              <Row style={CustomStyleSheet.lightBlueRow}>
-                <Col size={7} />
-                <Col size={5}>
-                  <TextInput
-                    mode={'outlined'}
-                    disabled={true}
-                    direction="rtl"
-                    value={co?.remarques}
-                    textAlign="right"
-                    style={coStyle.paddingLeft}
-                  />
-                </Col>
-                <Col size={2}>
-                  <ComBadrLibelleComp>
-                    {translate('co.remarques')}
-                  </ComBadrLibelleComp>
-                </Col>
-              </Row>
-            </Grid>
-          </ComBadrCardBoxComp>
+          {co?.moyenTransport && this.toShowAR(co?.typeCertificat) && (
+            <ComBadrCardBoxComp>
+              <Grid>
+                <Row style={CustomStyleSheet.lightBlueRow}>
+                  <Col size={5}>
+                    <TextInput
+                      mode={'outlined'}
+                      disabled={true}
+                      direction="rtl"
+                      value={co?.exportateurAdresseAR}
+                      textAlign="right"
+                      style={coStyle.paddingLeft}
+                    />
+                  </Col>
+                  <Col size={2}>
+                    <ComBadrLibelleComp>
+                      {translate('co.exportateurAdresseAR')}
+                    </ComBadrLibelleComp>
+                  </Col>
+                  <Col size={5}>
+                    <TextInput
+                      mode={'outlined'}
+                      disabled={true}
+                      direction="rtl"
+                      value={co?.producteurAdresseAR}
+                      textAlign="right"
+                      style={coStyle.paddingLeft}
+                    />
+                  </Col>
+                  <Col size={2}>
+                    <ComBadrLibelleComp>
+                      {translate('co.producteurAdresseAR')}
+                    </ComBadrLibelleComp>
+                  </Col>
+                </Row>
+                <Row style={CustomStyleSheet.lightBlueRow}>
+                  <Col size={5}>
+                    <ComBadrButtonRadioComp
+                      disabled={true}
+                      value={String(co?.cumul)}
+                      radioButtonsData={radioButtonsDataCumulAR}
+                    />
+                  </Col>
+                  <Col size={2}>
+                    <ComBadrLibelleComp>
+                      {translate('co.cumul')}
+                    </ComBadrLibelleComp>
+                  </Col>
+                  <Col size={5}>
+                    <TextInput
+                      mode={'outlined'}
+                      disabled={true}
+                      direction="rtl"
+                      value={co?.importateurAdresseAR}
+                      textAlign="right"
+                      style={coStyle.paddingLeft}
+                    />
+                  </Col>
+                  <Col size={2}>
+                    <ComBadrLibelleComp>
+                      {translate('co.importateurAdresseAR')}
+                    </ComBadrLibelleComp>
+                  </Col>
+                </Row>
+                <Row style={CustomStyleSheet.lightBlueRow}>
+                  <Col size={7} />
+                  <Col size={5}>
+                    <TextInput
+                      mode={'outlined'}
+                      disabled={true}
+                      direction="rtl"
+                      value={co?.detailExpeditionAR}
+                      textAlign="right"
+                      style={coStyle.paddingLeft}
+                    />
+                  </Col>
+                  <Col size={2}>
+                    <ComBadrLibelleComp>
+                      {translate('co.detailExpeditionAR')}
+                    </ComBadrLibelleComp>
+                  </Col>
+                </Row>
+                <Row style={CustomStyleSheet.lightBlueRow}>
+                  <Col size={7} />
+                  <Col size={5}>
+                    <TextInput
+                      mode={'outlined'}
+                      disabled={true}
+                      direction="rtl"
+                      value={co?.remarques}
+                      textAlign="right"
+                      style={coStyle.paddingLeft}
+                    />
+                  </Col>
+                  <Col size={2}>
+                    <ComBadrLibelleComp>
+                      {translate('co.remarques')}
+                    </ComBadrLibelleComp>
+                  </Col>
+                </Row>
+              </Grid>
+            </ComBadrCardBoxComp>
+          )}
           <ComBadrCardBoxComp>
             <ComBasicDataTableComp
               id="coArticlesTable"
@@ -337,6 +423,35 @@ class COConsultationDetail extends React.Component {
               showProgress={this.props.showProgress}
             />
           </ComBadrCardBoxComp>
+          {this.state.selectedArticle && (
+            <ComBadrCardBoxComp>
+              <ComBasicDataTableComp
+                id="coFacturesTable"
+                rows={this.state.selectedArticle?.refFacturesVO}
+                cols={this.coFacturesCols}
+                totalElements={
+                  this.state.selectedArticle?.refFacturesVO?.length
+                }
+                maxResultsPerPage={10}
+                paginate={true}
+                showProgress={this.props.showProgress}
+              />
+            </ComBadrCardBoxComp>
+          )}
+          {this.state.selectedFacture && (
+            <ComBadrCardBoxComp>
+              <ComBadrKeyValueComp
+                libelle={translate('co.numeroFacture')}
+                libelleSize={2}
+                value={this.state.selectedFacture?.numeroFacture}
+              />
+              <ComBadrKeyValueComp
+                libelle={translate('co.dateFacture')}
+                libelleSize={2}
+                value={this.state.selectedFacture?.dateFacture}
+              />
+            </ComBadrCardBoxComp>
+          )}
         </ScrollView>
       </View>
     );

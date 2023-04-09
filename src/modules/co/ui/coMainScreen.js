@@ -62,18 +62,23 @@ class COMainScreen extends React.Component {
       {
         code: 'numeroSerieConfinement',
         libelle: translate('co.numeroSerieConfinement'),
+        component: 'basic-button',
+        attrCondition: 'numeroSerieConfinement',
+        action: (row, index) => this.redirectToConsultationCO(row, index),
         width: 340,
       },
       {
         code: 'reference',
         libelle: translate('co.reference'),
         component: 'basic-button',
+        attrCondition: 'reference',
         action: (row, index) => this.redirectToConsultationCO(row, index),
         width: 250,
       },
       {
         code: 'referenceDUM',
         libelle: translate('co.referenceDUM'),
+        attrCondition: 'referenceDUM',
         component: 'basic-button',
         action: (row, index) => this.redirectToConsultationDUM(row, index),
         width: 250,
@@ -110,6 +115,7 @@ class COMainScreen extends React.Component {
   checkRequiredFields = () => {
     let msg = [];
     let required = false;
+    let validation = false;
     switch (this.state.critereRecherche) {
       case 'numeroSerie':
         msg = [];
@@ -177,6 +183,31 @@ class COMainScreen extends React.Component {
           required = true;
           msg.push(translate('co.filtreRecherche.dateFin'));
         }
+
+        console.log('++++++++++++++++++++++++++++++++++++++++++++++++');
+        console.log('++++++++++++++++++++++++++++++++++++++++++++++++');
+        console.log('++++++++++++++++++++++++++++++++++++++++++++++++');
+        let start = new Date(moment(this.state.dateDebut, 'DD/MM/YYYY', true));
+        let end = new Date(moment(this.state.dateFin, 'DD/MM/YYYY', true));
+        const diffTime = Math.abs(end - start);
+        const absolutDiff = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+        if (absolutDiff < 0) {
+          required = true;
+          validation = true;
+          msg.push(translate('co.filtreRecherche.periodeInvalide'));
+        }
+        if (diffDays > 15) {
+          required = true;
+          validation = true;
+          msg.push(translate('co.filtreRecherche.periode'));
+        }
+        console.log(diffDays + ' days');
+        console.log(absolutDiff + ' absolutDiff');
+        console.log('++++++++++++++++++++++++++++++++++++++++++++++++');
+        console.log('++++++++++++++++++++++++++++++++++++++++++++++++');
+        console.log('++++++++++++++++++++++++++++++++++++++++++++++++');
         break;
 
       default:
@@ -186,6 +217,9 @@ class COMainScreen extends React.Component {
     if (required) {
       let message =
         translate('actifsCreation.avionsPrivees.champsObligatoires') + msg;
+      if (validation) {
+        message = msg;
+      }
       this.setState({
         errorMessage: message,
       });

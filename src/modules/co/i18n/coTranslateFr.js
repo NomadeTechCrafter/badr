@@ -33,6 +33,11 @@ export default {
     paysPasseportChauffeur: 'Pays Passeport',
     referenceLot: 'Reference Lot',
     codeLieuChargement: 'Lieu de Chargement',
+    destination: 'Destination *',
+    moyenTransport: 'Moyen de transport',
+    dateFacture: 'Date Facture',
+    numeroFacture: 'Numéro Facture',
+    id: 'id',
 
     // Filtre de recherche
     filtreRecherche: {
@@ -49,6 +54,9 @@ export default {
       dateDebut: 'Date début',
       dateFin: 'Date fin',
       cleValide: 'E13530: Vérifiez la référence de votre déclaration ',
+      periode: 'La période ne doit pas excéder [15] jours.',
+      periodeInvalide:
+        'La date de début doit être inférieure à la date de fin.',
       selectionnerCritere: 'Sélectionner un critère',
     },
     numeroSerieConfinement:
@@ -56,7 +64,7 @@ export default {
     reference: "Référence du certificat d'origine",
     referenceDUM: 'Référence de la déclaration',
     versionDUM: 'Version de la déclaration',
-    dateEnregistrement: "Date d'enregistrement du certificat d'origine (*)",
+    dateEnregistrement: "Date d'enregistrement du certificat d'origine",
     action: 'Action',
     operateurCertificatOrigine: "Opérateur du certificat d'origine",
     cachet: 'Cachet',

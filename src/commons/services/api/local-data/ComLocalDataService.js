@@ -122,6 +122,7 @@ if (process.env.NODE_ENV === 'development') {
     'ded.calculerUniteNormalisee': require('../../../../modules/dedouanement/redressement/service/local-data/ded.calculerUniteNormalisee.json'),
     recupererCertificatOrigineByRef: require('../../../../modules/co/service/local-data/recupererCertificatOrigineByRef.json'),
     vctDestination: require('../../../../modules/co/service/local-data/vctDestination.json'),
+    getCmbPays: require('../../../../modules/co/service/local-data/getCmbPays.json'),
     vctDestinationLigueArabe: require('../../../../modules/co/service/local-data/vctDestinationLigueArabe.json'),
     findListCoMultiRecherche: require('../../../../modules/co/service/local-data/findListCoMultiRecherche.json'),
   };
