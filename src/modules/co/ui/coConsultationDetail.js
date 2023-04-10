@@ -162,14 +162,14 @@ class COConsultationDetail extends React.Component {
   render() {
     const co = this.props.data;
     return (
-      <View>
-        <ComBadrToolbarComp
-          navigation={this.props.navigation}
-          icon="menu"
-          title={translate('co.title')}
-          subtitle={translate('co.demandeCertificatOrigine')}
-        />
-        <ScrollView>
+      <ScrollView>
+        <View>
+          <ComBadrToolbarComp
+            navigation={this.props.navigation}
+            icon="menu"
+            title={translate('co.title')}
+            subtitle={translate('co.demandeCertificatOrigine')}
+          />
           <ComBadrCardBoxComp>
             <Grid>
               <Row style={CustomStyleSheet.lightBlueRow}>
@@ -527,15 +527,15 @@ class COConsultationDetail extends React.Component {
               />
             </ComBadrCardBoxComp>
           )}
-        </ScrollView>
-        {co?.numeroSerieConfinement && (
-          <ComBadrKeyValueComp
-            libelle={translate('co.numeroSerieConfinement')}
-            libelleSize={4}
-            value={co?.numeroSerieConfinement}
-          />
-        )}
-      </View>
+          {co?.numeroSerieConfinement && (
+            <ComBadrKeyValueComp
+              libelle={translate('co.numeroSerieConfinement')}
+              libelleSize={4}
+              value={co?.numeroSerieConfinement}
+            />
+          )}
+        </View>
+      </ScrollView>
     );
   }
 }
