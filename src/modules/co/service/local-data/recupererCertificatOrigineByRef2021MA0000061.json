@@ -1,0 +1,62 @@
+{
+  "dtoHeader": {
+    "userLogin": "YELM",
+    "fonctionnalite": "cf4011",
+    "module": "CO_LIB",
+    "commande": "recupererCertificatOrigineByRef",
+    "typeService": "SP",
+    "offset": 0,
+    "pageSize": 0,
+    "rowCount": 0
+  },
+  "jsonVO": {
+    "reference": "2021MA0000061",
+    "dateEnregistrement": "18/01/2021",
+    "dateHeureEnregistrement": "18/01/2021 18:25:40",
+    "refArticlesCOVO": [
+      {
+        "idDed": 196849,
+        "numVersionDed": 0,
+        "numeroOrdreArticle": 1,
+        "designation": "descr",
+        "nomenclature": "0805100011",
+        "paysOrigine": "MAROC",
+        "nombreContenant": "100",
+        "quantite": "500.000",
+        "unite": "029",
+        "refFacturesVO": [],
+        "qteBrut": "24512.320",
+        "codePaysOrigine": "MA",
+        "codeAccord": "UE",
+        "identifiant": "1094",
+        "groupArcticles": ["3"],
+        "defaultConverter": {}
+      }
+    ],
+    "dateValidation": "",
+    "statut": "Créé",
+    "moyenTransport": "Moyen de transport",
+    "typeCertificat": "06",
+    "langue": "FR",
+    "accordCode": "UE",
+    "cumul": false,
+    "showDest": false,
+    "referenceDUM": "30906020190000114 R",
+    "idDUM": "196849",
+    "dateEnrDum": "22/07/2019 11:19",
+    "dateMlv": "01/07/2019 12:16",
+    "soumissionnaire": "BABYTEX TEST",
+    "adresseSoumissionnaire": "ZONE INDUSTRIELLE MOULAY RACHID LOT N131 CASA",
+    "destinataire": "bandes d'une épaisseur ne dépassant pas 5 mm const,Bandes d'une épaissenr ne dépassant pas 5 mm contituées par une nappe de câbles en acier paraléllisés",
+    "paysProvenance": "MA",
+    "paysDestination": "DK",
+    "libelleBureau": "Port de Casablanca",
+    "numDateFacture": "",
+    "regimeSpecial": false,
+    "regimeSpecialBeforeConfinment": false,
+    "opPourLequel": false,
+    "numeroSerieConfinement": "J5402150",
+    "idPourRecherche": "2021MA0000061",
+    "defaultConverter": {}
+  }
+}

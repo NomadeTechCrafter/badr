@@ -1,0 +1,73 @@
+{
+  "dtoHeader": {
+    "userLogin": "AD6300",
+    "fonctionnalite": "cf4011",
+    "module": "CO_LIB",
+    "commande": "recupererCertificatOrigineByRef",
+    "typeService": "SP",
+    "offset": 0,
+    "pageSize": 0,
+    "rowCount": 0
+  },
+  "jsonVO": {
+    "reference": "2021MA0000062",
+    "dateEnregistrement": "18/01/2021",
+    "dateHeureEnregistrement": "18/01/2021 18:27:49",
+    "refArticlesCOVO": [
+      {
+        "idDed": 196849,
+        "numVersionDed": 0,
+        "numeroOrdreArticle": 7,
+        "designation": "descr",
+        "critereOrigine": "20",
+        "nomenclature": "0805100011",
+        "paysOrigine": "MAROC",
+        "nombreContenant": "12",
+        "quantite": "100.000",
+        "unite": "029",
+        "refFacturesVO": [
+          {
+            "numeroFacture": "FSFQ",
+            "dateFacture": "18/01/2021",
+            "defaultConverter": {}
+          }
+        ],
+        "marque": "dgfdsq",
+        "qteBrut": "1245.250",
+        "type": "TRANSFORMATION",
+        "codePaysOrigine": "MA",
+        "codeAccord": "QUAD",
+        "identifiant": "1095",
+        "groupArcticles": ["11", "14"],
+        "defaultConverter": {}
+      }
+    ],
+    "dateValidation": "30/09/2022",
+    "statut": "Accepté",
+    "cachet": "CC344",
+    "moyenTransport": "Moyen de transport",
+    "typeCertificat": "01",
+    "langue": "FR",
+    "cumul": false,
+    "showDest": false,
+    "referenceDUM": "30906020190000114 R",
+    "idDUM": "196849",
+    "dateEnrDum": "22/07/2019 11:19",
+    "dateMlv": "01/07/2019 12:16",
+    "soumissionnaire": "BABYTEX TEST",
+    "adresseSoumissionnaire": "ZONE INDUSTRIELLE MOULAY RACHID LOT N131 CASA",
+    "destinataire": "bandes d'une épaisseur ne dépassant pas 5 mm const",
+    "adresseDestinataire": "Bandes d'une épaissenr ne dépassant pas 5 mm contituées par une nappe de câbles en acier paraléllisés",
+    "paysProvenance": "MA",
+    "paysDestination": "CA",
+    "libelleUorCachet": "DIRECTION REGIONALE DU NORD OUEST      ",
+    "libelleBureau": "Port de Casablanca",
+    "issued": true,
+    "numDateFacture": "",
+    "regimeSpecial": false,
+    "regimeSpecialBeforeConfinment": false,
+    "opPourLequel": false,
+    "defaultConverter": {},
+    "idPourRecherche": "2021MA0000062"
+  }
+}

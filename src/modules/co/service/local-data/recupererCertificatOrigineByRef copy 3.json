@@ -1,0 +1,71 @@
+{
+    "dtoHeader": {
+        "userLogin": "AD6300",
+        "fonctionnalite": "cf4011",
+        "module": "CO_LIB",
+        "commande": "recupererCertificatOrigineByRef",
+        "typeService": "SP",
+        "offset": 0,
+        "pageSize": 0,
+        "rowCount": 0
+    },
+    "jsonVO": {
+        "reference": "2022MA0000017",
+        "dateEnregistrement": "29/07/2022",
+        "dateHeureEnregistrement": "29/07/2022 11:53:16",
+        "refArticlesCOVO": [
+            {
+                "idDed": 190904,
+                "numVersionDed": 3,
+                "numeroOrdreArticle": 1,
+                "designation": "dsdsds",
+                "nomenclature": "0302340000",
+                "paysOrigine": "MAROC",
+                "nombreContenant": "1",
+                "quantite": "100.000",
+                "unite": "029",
+                "refFacturesVO": [
+                    {
+                        "numeroFacture": "111",
+                        "dateFacture": "29/07/2022",
+                        "defaultConverter": {}
+                    }
+                ],
+                "marque": "11",
+                "qteBrut": "11.000",
+                "type": "ENTIERE OBTENTION",
+                "codePaysOrigine": "MA",
+                "identifiant": "2200",
+                "groupArcticles": [
+                    "3"
+                ],
+                "defaultConverter": {}
+            }
+        ],
+        "dateValidation": "",
+        "statut": "Créé",
+        "numeroSerie": "S5548689",
+        "moyenTransport": "Moyen de transport",
+        "typeCertificat": "01",
+        "langue": "FR",
+        "cumul": false,
+        "showDest": false,
+        "referenceDUM": "30906020190000003 V",
+        "idDUM": "190904",
+        "dateEnrDum": "28/01/2019 10:46",
+        "dateMlv": "28/01/2019 11:10",
+        "soumissionnaire": "BABYTEX TEST",
+        "adresseSoumissionnaire": "ZONE INDUSTRIELLE MOULAY RACHID LOT N131 CASA",
+        "destinataire": "OSMOS IVANOVA",
+        "adresseDestinataire": "STREET, 28 LENINGRADSKAYA  OBLAST, 188480 KINGISEPP RUSSIA",
+        "paysProvenance": "MA",
+        "paysDestination": "AU",
+        "libelleBureau": "Port de Casablanca",
+        "numDateFacture": "",
+        "regimeSpecial": false,
+        "regimeSpecialBeforeConfinment": false,
+        "opPourLequel": false,
+        "defaultConverter": {},
+        "idPourRecherche": "2022MA0000017"
+    }
+}
