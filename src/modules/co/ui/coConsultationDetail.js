@@ -8,6 +8,7 @@ import {
   ComBadrAutoCompleteChipsComp,
   ComBadrButtonRadioComp,
   ComBadrCardBoxComp,
+  ComBadrCardWithTileComp,
   ComBadrItemsPickerComp,
   ComBadrKeyValueComp,
   ComBadrLibelleComp,
@@ -136,10 +137,14 @@ class COConsultationDetail extends React.Component {
   }
 
   toShowDestinationAR(typeCertificat) {
-    return typeCertificat !== '06' || typeCertificat !== '07';
+    return typeCertificat === '03' || typeCertificat === '04';
   }
   toShowDestination(typeCertificat) {
-    return typeCertificat === '06' || typeCertificat === '07';
+    return (
+      typeCertificat === '06' ||
+      typeCertificat === '07' ||
+      typeCertificat === '01'
+    );
   }
 
   toShowMoyenTransport(typeCertificat) {
@@ -157,6 +162,14 @@ class COConsultationDetail extends React.Component {
       typeCertificat === '04' ||
       typeCertificat === '05'
     );
+  }
+
+  toShowDetailExpedition(typeCertificat) {
+    return typeCertificat === '02' || typeCertificat === '03';
+  }
+
+  toShowValeurTotalArticleAR(typeCertificat) {
+    return typeCertificat === '04' || typeCertificat === '05';
   }
 
   render() {
@@ -305,23 +318,6 @@ class COConsultationDetail extends React.Component {
                   </Row>
                 )}
 
-              {co?.moyenTransport &&
-                this.toShowMoyenTransport(co?.typeCertificat) && (
-                  <Row style={CustomStyleSheet.lightBlueRow}>
-                    <Col size={1} />
-                    <Col size={4}>
-                      <ComBadrLibelleComp>
-                        {translate('co.destination')}
-                      </ComBadrLibelleComp>
-                    </Col>
-                    <Col size={6}>
-                      <ComBadrLibelleComp>
-                        {co?.moyenTransport}
-                      </ComBadrLibelleComp>
-                    </Col>
-                    <Col size={1} />
-                  </Row>
-                )}
               <Row style={CustomStyleSheet.lightBlueRow}>
                 <Col size={1} />
                 <Col size={4}>
@@ -338,6 +334,24 @@ class COConsultationDetail extends React.Component {
                 </Col>
                 <Col size={1} />
               </Row>
+
+              {co?.moyenTransport &&
+                this.toShowMoyenTransport(co?.typeCertificat) && (
+                  <Row style={CustomStyleSheet.lightBlueRow}>
+                    <Col size={1} />
+                    <Col size={4}>
+                      <ComBadrLibelleComp>
+                        {translate('co.moyenTransport')}
+                      </ComBadrLibelleComp>
+                    </Col>
+                    <Col size={6}>
+                      <ComBadrLibelleComp>
+                        {co?.moyenTransport}
+                      </ComBadrLibelleComp>
+                    </Col>
+                    <Col size={1} />
+                  </Row>
+                )}
             </Grid>
           </ComBadrCardBoxComp>
           {co?.typeCertificat && this.toShowAR(co?.typeCertificat) && (
@@ -359,6 +373,8 @@ class COConsultationDetail extends React.Component {
                       {translate('co.exportateurAdresseAR')}
                     </ComBadrLibelleComp>
                   </Col>
+                </Row>
+                <Row style={CustomStyleSheet.lightBlueRow}>
                   <Col size={5}>
                     <TextInput
                       mode={'outlined'}
@@ -375,19 +391,24 @@ class COConsultationDetail extends React.Component {
                     </ComBadrLibelleComp>
                   </Col>
                 </Row>
+
                 <Row style={CustomStyleSheet.lightBlueRow}>
-                  <Col size={5}>
-                    <ComBadrButtonRadioComp
-                      disabled={true}
-                      value={String(co?.cumul)}
-                      radioButtonsData={radioButtonsDataCumulAR}
-                    />
-                  </Col>
-                  <Col size={2}>
-                    <ComBadrLibelleComp>
-                      {translate('co.cumul')}
-                    </ComBadrLibelleComp>
-                  </Col>
+                  {co?.typeCertificat && co?.typeCertificat === '06' && (
+                    <Col size={5}>
+                      <ComBadrButtonRadioComp
+                        disabled={true}
+                        value={String(co?.cumul)}
+                        radioButtonsData={radioButtonsDataCumulAR}
+                      />
+                    </Col>
+                  )}
+                  {co?.typeCertificat && co?.typeCertificat === '06' && (
+                    <Col size={2}>
+                      <ComBadrLibelleComp>
+                        {translate('co.cumul')}
+                      </ComBadrLibelleComp>
+                    </Col>
+                  )}
                   <Col size={5}>
                     <TextInput
                       mode={'outlined'}
@@ -404,42 +425,48 @@ class COConsultationDetail extends React.Component {
                     </ComBadrLibelleComp>
                   </Col>
                 </Row>
-                <Row style={CustomStyleSheet.lightBlueRow}>
-                  <Col size={7} />
-                  <Col size={5}>
-                    <TextInput
-                      mode={'outlined'}
-                      disabled={true}
-                      direction="rtl"
-                      value={co?.detailExpeditionAR}
-                      textAlign="right"
-                      style={coStyle.paddingLeft}
-                    />
-                  </Col>
-                  <Col size={2}>
-                    <ComBadrLibelleComp>
-                      {translate('co.detailExpeditionAR')}
-                    </ComBadrLibelleComp>
-                  </Col>
-                </Row>
-                <Row style={CustomStyleSheet.lightBlueRow}>
-                  <Col size={7} />
-                  <Col size={5}>
-                    <TextInput
-                      mode={'outlined'}
-                      disabled={true}
-                      direction="rtl"
-                      value={co?.remarques}
-                      textAlign="right"
-                      style={coStyle.paddingLeft}
-                    />
-                  </Col>
-                  <Col size={2}>
-                    <ComBadrLibelleComp>
-                      {translate('co.remarques')}
-                    </ComBadrLibelleComp>
-                  </Col>
-                </Row>
+                {co?.typeCertificat &&
+                  this.toShowDetailExpedition(co?.typeCertificat) && (
+                    <Row style={CustomStyleSheet.lightBlueRow}>
+                      <Col size={7} />
+                      <Col size={5}>
+                        <TextInput
+                          mode={'outlined'}
+                          disabled={true}
+                          direction="rtl"
+                          value={co?.detailExpeditionAR}
+                          textAlign="right"
+                          style={coStyle.paddingLeft}
+                        />
+                      </Col>
+                      <Col size={2}>
+                        <ComBadrLibelleComp>
+                          {translate('co.detailExpeditionAR')}
+                        </ComBadrLibelleComp>
+                      </Col>
+                    </Row>
+                  )}
+                {co?.typeCertificat &&
+                  this.toShowDetailExpedition(co?.typeCertificat) && (
+                    <Row style={CustomStyleSheet.lightBlueRow}>
+                      <Col size={7} />
+                      <Col size={5}>
+                        <TextInput
+                          mode={'outlined'}
+                          disabled={true}
+                          direction="rtl"
+                          value={co?.remarques}
+                          textAlign="right"
+                          style={coStyle.paddingLeft}
+                        />
+                      </Col>
+                      <Col size={2}>
+                        <ComBadrLibelleComp>
+                          {translate('co.remarques')}
+                        </ComBadrLibelleComp>
+                      </Col>
+                    </Row>
+                  )}
               </Grid>
             </ComBadrCardBoxComp>
           )}
@@ -454,48 +481,154 @@ class COConsultationDetail extends React.Component {
               showProgress={this.props.showProgress}
             />
           </ComBadrCardBoxComp>
-          {this.state.selectedArticle && (
-            <ComBadrCardBoxComp>
-              <Grid>
-                <Row style={CustomStyleSheet.lightBlueRow}>
-                  <Col size={3} />
-                  <Col size={9}>
-                    <TextInput
-                      mode={'outlined'}
-                      disabled={true}
-                      direction="rtl"
-                      value={this.state.selectedArticle?.designationAR}
-                      textAlign="right"
-                      style={coStyle.paddingLeft}
-                    />
-                  </Col>
-                  <Col size={4}>
-                    <ComBadrLibelleComp>
-                      {translate('co.designationAR')}
-                    </ComBadrLibelleComp>
-                  </Col>
-                </Row>
-                <Row style={CustomStyleSheet.lightBlueRow}>
-                  <Col size={7} />
-                  <Col size={5}>
-                    <TextInput
-                      mode={'outlined'}
-                      disabled={true}
-                      direction="rtl"
-                      value={this.state.selectedArticle?.qteBrut}
-                      textAlign="right"
-                      style={coStyle.paddingLeft}
-                    />
-                  </Col>
-                  <Col size={4}>
-                    <ComBadrLibelleComp>
-                      {translate('co.qteBrut')}
-                    </ComBadrLibelleComp>
-                  </Col>
-                </Row>
-              </Grid>
-            </ComBadrCardBoxComp>
-          )}
+
+          {co?.typeCertificat &&
+            this.toShowValeurTotalArticleAR(co?.typeCertificat) && (
+              <ComBadrCardBoxComp>
+                <Grid>
+                  <Row style={CustomStyleSheet.lightBlueRow}>
+                    <Col size={16}>
+                      <TextInput
+                        mode={'outlined'}
+                        disabled={true}
+                        direction="rtl"
+                        value={co?.valeurTotalArticleAR}
+                        textAlign="right"
+                        style={coStyle.paddingLeft}
+                      />
+                    </Col>
+                    <Col size={4}>
+                      <ComBadrLibelleComp>
+                        {translate('co.valeurTotalArticleAR')}
+                      </ComBadrLibelleComp>
+                    </Col>
+                  </Row>
+                </Grid>
+              </ComBadrCardBoxComp>
+            )}
+
+          {co?.typeCertificat &&
+            this.toShowValeurTotalArticleAR(co?.typeCertificat) &&
+            this.state.selectedArticle && (
+              <ComBadrCardWithTileComp title={translate('co.elemProd')}>
+                <Grid>
+                  <Row style={CustomStyleSheet.lightBlueRow}>
+                    <Col size={16}>
+                      <TextInput
+                        mode={'outlined'}
+                        disabled={true}
+                        direction="rtl"
+                        value={co?.libElementProdDevAR1}
+                        textAlign="right"
+                        style={coStyle.paddingLeft}
+                      />
+                    </Col>
+                    <Col size={4}>
+                      <ComBadrLibelleComp>
+                        {translate('co.libElementProdDevAR1')}
+                      </ComBadrLibelleComp>
+                    </Col>
+                  </Row>
+                </Grid>
+              </ComBadrCardWithTileComp>
+            )}
+          {co?.typeCertificat &&
+            this.toShowAR(co?.typeCertificat) &&
+            this.toShowDetailExpedition(co?.typeCertificat) &&
+            this.state.selectedArticle && (
+              <ComBadrCardBoxComp>
+                <Grid>
+                  <Row style={CustomStyleSheet.lightBlueRow}>
+                    <Col size={3} />
+                    <Col size={9}>
+                      <TextInput
+                        mode={'outlined'}
+                        disabled={true}
+                        direction="rtl"
+                        value={this.state.selectedArticle?.designationAR}
+                        textAlign="right"
+                        style={coStyle.paddingLeft}
+                      />
+                    </Col>
+                    <Col size={4}>
+                      <ComBadrLibelleComp>
+                        {translate('co.designationAR')}
+                      </ComBadrLibelleComp>
+                    </Col>
+                  </Row>
+                  <Row style={CustomStyleSheet.lightBlueRow}>
+                    <Col size={7} />
+                    <Col size={5}>
+                      <TextInput
+                        mode={'outlined'}
+                        disabled={true}
+                        direction="rtl"
+                        value={this.state.selectedArticle?.qteBrut}
+                        textAlign="right"
+                        style={coStyle.paddingLeft}
+                      />
+                    </Col>
+                    <Col size={4}>
+                      <ComBadrLibelleComp>
+                        {translate('co.qteBrut')}
+                      </ComBadrLibelleComp>
+                    </Col>
+                  </Row>
+                </Grid>
+              </ComBadrCardBoxComp>
+            )}
+
+          {co?.typeCertificat &&
+            this.toShowMoyenTransport(co?.typeCertificat) &&
+            this.state.selectedArticle && (
+              <ComBadrCardBoxComp>
+                <Grid>
+                  <Row>
+                    <Col>
+                      <ComBadrKeyValueComp
+                        libelle={translate('co.descriptionMarchandise')}
+                        libelleSize={3}
+                        value={this.state.selectedArticle?.designation}
+                      />
+                    </Col>
+                    <Col>
+                      <ComBadrKeyValueComp
+                        libelle={translate('co.critereMarchandise')}
+                        libelleSize={3}
+                        value={this.state.selectedArticle?.type}
+                      />
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col>
+                      <ComBadrKeyValueComp
+                        libelle={translate('co.poidsBrute')}
+                        libelleSize={3}
+                        value={this.state.selectedArticle?.qteBrut}
+                      />
+                    </Col>
+                    <Col>
+                      <ComBadrKeyValueComp
+                        libelle={translate('co.marque')}
+                        libelleSize={3}
+                        value={this.state.selectedArticle?.marque}
+                      />
+                    </Col>
+                    {this.state.selectedArticle?.critereOrigine && (
+                      <Col>
+                        <ComBadrKeyValueComp
+                          libelle={translate('co.taux')}
+                          libelleSize={2}
+                          value={
+                            this.state.selectedArticle?.critereOrigine + ' %'
+                          }
+                        />
+                      </Col>
+                    )}
+                  </Row>
+                </Grid>
+              </ComBadrCardBoxComp>
+            )}
 
           {this.state.selectedArticle && (
             <ComBadrCardBoxComp>
