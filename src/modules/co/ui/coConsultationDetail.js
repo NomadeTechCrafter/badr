@@ -137,7 +137,11 @@ class COConsultationDetail extends React.Component {
   }
 
   toShowDestinationAR(typeCertificat) {
-    return typeCertificat === '03' || typeCertificat === '04';
+    return (
+      typeCertificat === '03' ||
+      typeCertificat === '04' ||
+      typeCertificat === '05'
+    );
   }
   toShowDestination(typeCertificat) {
     return (
@@ -153,6 +157,10 @@ class COConsultationDetail extends React.Component {
       typeCertificat === '06' ||
       typeCertificat === '07'
     );
+  }
+
+  toShowDestinataire(typeCertificat) {
+    return typeCertificat === '06' || typeCertificat === '07';
   }
 
   toShowAR(typeCertificat) {
@@ -352,6 +360,23 @@ class COConsultationDetail extends React.Component {
                     <Col size={1} />
                   </Row>
                 )}
+              {co?.typeCertificat &&
+                this.toShowDestinataire(co?.typeCertificat) && (
+                  <Row style={CustomStyleSheet.lightBlueRow}>
+                    <Col size={1} />
+                    <Col size={4}>
+                      <ComBadrLibelleComp>
+                        {translate('co.destinataire')}
+                      </ComBadrLibelleComp>
+                    </Col>
+                    <Col size={6}>
+                      <ComBadrLibelleComp>
+                        {co?.destinataire}
+                      </ComBadrLibelleComp>
+                    </Col>
+                    <Col size={1} />
+                  </Row>
+                )}
             </Grid>
           </ComBadrCardBoxComp>
           {co?.typeCertificat && this.toShowAR(co?.typeCertificat) && (
@@ -513,25 +538,120 @@ class COConsultationDetail extends React.Component {
               <ComBadrCardWithTileComp title={translate('co.elemProd')}>
                 <Grid>
                   <Row style={CustomStyleSheet.lightBlueRow}>
-                    <Col size={16}>
+                    <Col size={9}>
                       <TextInput
                         mode={'outlined'}
                         disabled={true}
                         direction="rtl"
-                        value={co?.libElementProdDevAR1}
+                        value={this.state.selectedArticle?.marqueAR}
+                        textAlign="right"
+                        style={coStyle.paddingLeft}
+                      />
+                    </Col>
+                    <Col size={5}>
+                      <ComBadrLibelleComp>
+                        {translate('co.marqueAR')}
+                      </ComBadrLibelleComp>
+                    </Col>
+                    <Col size={4}>
+                      <TextInput
+                        mode={'outlined'}
+                        disabled={true}
+                        direction="rtl"
+                        value={this.state.selectedArticle?.designationARCount}
                         textAlign="right"
                         style={coStyle.paddingLeft}
                       />
                     </Col>
                     <Col size={4}>
                       <ComBadrLibelleComp>
-                        {translate('co.libElementProdDevAR1')}
+                        {translate('co.designationARCount')}
+                      </ComBadrLibelleComp>
+                    </Col>
+                    <Col size={10}>
+                      <TextInput
+                        mode={'outlined'}
+                        disabled={true}
+                        direction="rtl"
+                        value={this.state.selectedArticle?.designationAR}
+                        textAlign="right"
+                        style={coStyle.paddingLeft}
+                      />
+                    </Col>
+                    <Col size={4}>
+                      <ComBadrLibelleComp>
+                        {translate('co.articleDesignationAR')}
+                      </ComBadrLibelleComp>
+                    </Col>
+                  </Row>
+                  <Row style={CustomStyleSheet.lightBlueRow}>
+                    <Col size={8}>
+                      <TextInput
+                        mode={'outlined'}
+                        disabled={true}
+                        direction="rtl"
+                        value={this.state.selectedArticle?.qteNetAR}
+                        textAlign="right"
+                        style={coStyle.paddingLeft}
+                      />
+                    </Col>
+                    <Col size={6}>
+                      <ComBadrLibelleComp>
+                        {translate('co.qteNetAR')}
+                      </ComBadrLibelleComp>
+                    </Col>
+                    <Col size={8}>
+                      <TextInput
+                        mode={'outlined'}
+                        disabled={true}
+                        direction="rtl"
+                        value={this.state.selectedArticle?.qteBrut}
+                        textAlign="right"
+                        style={coStyle.paddingLeft}
+                      />
+                    </Col>
+                    <Col size={6}>
+                      <ComBadrLibelleComp>
+                        {translate('co.articleQteBrut')}
+                      </ComBadrLibelleComp>
+                    </Col>
+                  </Row>
+                  <Row style={CustomStyleSheet.lightBlueRow}>
+                    <Col size={8}>
+                      <TextInput
+                        mode={'outlined'}
+                        disabled={true}
+                        direction="rtl"
+                        value={this.state.selectedArticle?.valeurLocalAR}
+                        textAlign="right"
+                        style={coStyle.paddingLeft}
+                      />
+                    </Col>
+                    <Col size={6}>
+                      <ComBadrLibelleComp>
+                        {translate('co.valeurLocalAR')}
+                      </ComBadrLibelleComp>
+                    </Col>
+                    <Col size={8}>
+                      <TextInput
+                        mode={'outlined'}
+                        disabled={true}
+                        direction="rtl"
+                        value={this.state.selectedArticle?.valeurQTAR}
+                        textAlign="right"
+                        style={coStyle.paddingLeft}
+                      />
+                    </Col>
+                    <Col size={6}>
+                      <ComBadrLibelleComp>
+                        {translate('co.valeurQTAR')}
                       </ComBadrLibelleComp>
                     </Col>
                   </Row>
                 </Grid>
               </ComBadrCardWithTileComp>
             )}
+
           {co?.typeCertificat &&
             this.toShowAR(co?.typeCertificat) &&
             this.toShowDetailExpedition(co?.typeCertificat) &&
@@ -660,10 +780,299 @@ class COConsultationDetail extends React.Component {
               />
             </ComBadrCardBoxComp>
           )}
+          {co?.typeCertificat &&
+            this.toShowValeurTotalArticleAR(co?.typeCertificat) && (
+              <ComBadrCardWithTileComp title={translate('co.elemProd')}>
+                <Grid>
+                  <Row style={CustomStyleSheet.lightBlueRow}>
+                    <Col size={8}>
+                      <TextInput
+                        mode={'outlined'}
+                        disabled={true}
+                        direction="rtl"
+                        value={co?.valeurElementProdDevAR1}
+                        textAlign="right"
+                        style={coStyle.paddingLeft}
+                      />
+                    </Col>
+                    <Col size={3}>
+                      <ComBadrLibelleComp>
+                        {translate('co.valeurElementProdDevAR')}
+                      </ComBadrLibelleComp>
+                    </Col>
+                    <Col size={8}>
+                      <TextInput
+                        mode={'outlined'}
+                        disabled={true}
+                        direction="rtl"
+                        value={co?.qtElementProdDevAR1}
+                        textAlign="right"
+                        style={coStyle.paddingLeft}
+                      />
+                    </Col>
+                    <Col size={3}>
+                      <ComBadrLibelleComp>
+                        {translate('co.qtElementProdDevAR')}
+                      </ComBadrLibelleComp>
+                    </Col>
+                    <Col size={16}>
+                      <TextInput
+                        mode={'outlined'}
+                        disabled={true}
+                        direction="rtl"
+                        value={co?.libElementProdDevAR1}
+                        textAlign="right"
+                        style={coStyle.paddingLeft}
+                      />
+                    </Col>
+                    <Col size={5}>
+                      <ComBadrLibelleComp>
+                        {translate('co.libElementProdDevAR1')}
+                      </ComBadrLibelleComp>
+                    </Col>
+                  </Row>
+                  <Row style={CustomStyleSheet.lightBlueRow}>
+                    <Col size={8}>
+                      <TextInput
+                        mode={'outlined'}
+                        disabled={true}
+                        direction="rtl"
+                        value={co?.valeurElementProdDevAR2}
+                        textAlign="right"
+                        style={coStyle.paddingLeft}
+                      />
+                    </Col>
+                    <Col size={3}>
+                      <ComBadrLibelleComp>
+                        {translate('co.valeurElementProdDevAR')}
+                      </ComBadrLibelleComp>
+                    </Col>
+                    <Col size={8}>
+                      <TextInput
+                        mode={'outlined'}
+                        disabled={true}
+                        direction="rtl"
+                        value={co?.qtElementProdDevAR2}
+                        textAlign="right"
+                        style={coStyle.paddingLeft}
+                      />
+                    </Col>
+                    <Col size={3}>
+                      <ComBadrLibelleComp>
+                        {translate('co.qtElementProdDevAR')}
+                      </ComBadrLibelleComp>
+                    </Col>
+                    <Col size={16}>
+                      <TextInput
+                        mode={'outlined'}
+                        disabled={true}
+                        direction="rtl"
+                        value={co?.libElementProdDevAR2}
+                        textAlign="right"
+                        style={coStyle.paddingLeft}
+                      />
+                    </Col>
+                    <Col size={5}>
+                      <ComBadrLibelleComp>
+                        {translate('co.libElementProdDevAR2')}
+                      </ComBadrLibelleComp>
+                    </Col>
+                  </Row>
+                  <Row style={CustomStyleSheet.lightBlueRow}>
+                    <Col size={8}>
+                      <TextInput
+                        mode={'outlined'}
+                        disabled={true}
+                        direction="rtl"
+                        value={co?.valeurElementProdDevAR3}
+                        textAlign="right"
+                        style={coStyle.paddingLeft}
+                      />
+                    </Col>
+                    <Col size={3}>
+                      <ComBadrLibelleComp>
+                        {translate('co.valeurElementProdDevAR')}
+                      </ComBadrLibelleComp>
+                    </Col>
+                    <Col size={8}>
+                      <TextInput
+                        mode={'outlined'}
+                        disabled={true}
+                        direction="rtl"
+                        value={co?.qtElementProdDevAR3}
+                        textAlign="right"
+                        style={coStyle.paddingLeft}
+                      />
+                    </Col>
+                    <Col size={3}>
+                      <ComBadrLibelleComp>
+                        {translate('co.qtElementProdDevAR')}
+                      </ComBadrLibelleComp>
+                    </Col>
+                    <Col size={16}>
+                      <TextInput
+                        mode={'outlined'}
+                        disabled={true}
+                        direction="rtl"
+                        value={co?.libElementProdDevAR3}
+                        textAlign="right"
+                        style={coStyle.paddingLeft}
+                      />
+                    </Col>
+                    <Col size={5}>
+                      <ComBadrLibelleComp>
+                        {translate('co.libElementProdDevAR3')}
+                      </ComBadrLibelleComp>
+                    </Col>
+                  </Row>
+                  <Row style={CustomStyleSheet.lightBlueRow}>
+                    <Col size={8}>
+                      <TextInput
+                        mode={'outlined'}
+                        disabled={true}
+                        direction="rtl"
+                        value={co?.valeurElementProdExterneAR}
+                        textAlign="right"
+                        style={coStyle.paddingLeft}
+                      />
+                    </Col>
+                    <Col size={3}>
+                      <ComBadrLibelleComp>
+                        {translate('co.valeurElementProdDevAR')}
+                      </ComBadrLibelleComp>
+                    </Col>
+                    <Col size={8}>
+                      <TextInput
+                        mode={'outlined'}
+                        disabled={true}
+                        direction="rtl"
+                        value={co?.qtElementProdExterneAR}
+                        textAlign="right"
+                        style={coStyle.paddingLeft}
+                      />
+                    </Col>
+                    <Col size={3}>
+                      <ComBadrLibelleComp>
+                        {translate('co.qtElementProdDevAR')}
+                      </ComBadrLibelleComp>
+                    </Col>
+                    <Col size={10}>
+                      {/* <TextInput
+                      mode={'outlined'}
+                      disabled={true}
+                      direction="rtl"
+                      value={co?.libElementProdDevAR3}
+                      textAlign="right"
+                      style={coStyle.paddingLeft}
+                    /> */}
+                    </Col>
+                    <Col size={11}>
+                      <ComBadrLibelleComp>
+                        {translate('co.libElementProdDevAR4')}
+                      </ComBadrLibelleComp>
+                    </Col>
+                  </Row>
+                  <Row style={CustomStyleSheet.lightBlueRow}>
+                    <Col size={8}>
+                      <TextInput
+                        mode={'outlined'}
+                        disabled={true}
+                        direction="rtl"
+                        value={co?.sommeValeurElementProdAR}
+                        textAlign="right"
+                        style={coStyle.paddingLeft}
+                      />
+                    </Col>
+                    <Col size={3}>
+                      <ComBadrLibelleComp>
+                        {translate('co.valeurElementProdDevAR')}
+                      </ComBadrLibelleComp>
+                    </Col>
+                    <Col size={8}>
+                      <TextInput
+                        mode={'outlined'}
+                        disabled={true}
+                        direction="rtl"
+                        value={co?.sommeQtElementProdAR}
+                        textAlign="right"
+                        style={coStyle.paddingLeft}
+                      />
+                    </Col>
+                    <Col size={3}>
+                      <ComBadrLibelleComp>
+                        {translate('co.qtElementProdDevAR')}
+                      </ComBadrLibelleComp>
+                    </Col>
+                    <Col size={16}>
+                      {/* <TextInput
+                      mode={'outlined'}
+                      disabled={true}
+                      direction="rtl"
+                      value={co?.libElementProdDevAR3}
+                      textAlign="right"
+                      style={coStyle.paddingLeft}
+                    /> */}
+                    </Col>
+                    <Col size={5}>
+                      <ComBadrLibelleComp>
+                        {translate('co.libElementProdDevAR5')}
+                      </ComBadrLibelleComp>
+                    </Col>
+                  </Row>
+                  <Row style={CustomStyleSheet.lightBlueRow}>
+                    <Col size={8}>
+                      <TextInput
+                        mode={'outlined'}
+                        disabled={true}
+                        direction="rtl"
+                        value={co?.valeurFinaleElementProdAR}
+                        textAlign="right"
+                        style={coStyle.paddingLeft}
+                      />
+                    </Col>
+                    <Col size={3}>
+                      <ComBadrLibelleComp>
+                        {translate('co.valeurElementProdDevAR')}
+                      </ComBadrLibelleComp>
+                    </Col>
+                    <Col size={8}>
+                      <TextInput
+                        mode={'outlined'}
+                        disabled={true}
+                        direction="rtl"
+                        value={co?.qtFinaleElementProdAR}
+                        textAlign="right"
+                        style={coStyle.paddingLeft}
+                      />
+                    </Col>
+                    <Col size={3}>
+                      <ComBadrLibelleComp>
+                        {translate('co.qtElementProdDevAR')}
+                      </ComBadrLibelleComp>
+                    </Col>
+                    <Col size={10}>
+                      {/* <TextInput
+                      mode={'outlined'}
+                      disabled={true}
+                      direction="rtl"
+                      value={co?.libElementProdDevAR3}
+                      textAlign="right"
+                      style={coStyle.paddingLeft}
+                    /> */}
+                    </Col>
+                    <Col size={11}>
+                      <ComBadrLibelleComp>
+                        {translate('co.libElementProdDevAR6')}
+                      </ComBadrLibelleComp>
+                    </Col>
+                  </Row>
+                </Grid>
+              </ComBadrCardWithTileComp>
+            )}
           {co?.numeroSerieConfinement && (
             <ComBadrKeyValueComp
               libelle={translate('co.numeroSerieConfinement')}
-              libelleSize={4}
+              libelleSize={6}
               value={co?.numeroSerieConfinement}
             />
           )}
