@@ -173,24 +173,38 @@ class LiquidationManuelleScreen extends React.Component {
     // }
     console.log(
       '---------test  ligneRubrique return  ',
-      !_.isNil(this.state.ligneRubrique.codeRubriqueComptable) &&
-        !_.isNil(this.state.ligneRubrique.taux) &&
-        !_.isNil(this.state.ligneRubrique.assiette),
+      !_.isEmpty(this.state.ligneRubrique.codeRubriqueComptable) &&
+        !_.isEmpty(this.state.ligneRubrique.taux) &&
+        !_.isEmpty(this.state.ligneRubrique.assiette),
     );
     return (
-      !_.isNil(this.state.ligneRubrique.codeRubriqueComptable) &&
-      !_.isNil(this.state.ligneRubrique.taux) &&
-      !_.isNil(this.state.ligneRubrique.assiette)
+      !_.isEmpty(this.state.ligneRubrique.codeRubriqueComptable) &&
+      !_.isEmpty(this.state.ligneRubrique.taux) &&
+      !_.isEmpty(this.state.ligneRubrique.assiette)
     );
   };
 
   handleRubriquesChanged = (selectedValue, selectedIndex, item) => {
+    //init de tous les champs apres changement de la rubrique
     console.log('----**** --- befor', item);
+    let articleALiquider = this.state.selectedArticle;
     this.setState({
       ligneRubrique: {
         ...item,
         consignation: this.state.ligneRubrique.consignation,
         montantDH: this.state.ligneRubrique.montantDH,
+        taux: '',
+        tauxVirtuel: '',
+        indicateurTVA: false,
+        assiette:
+          this.state.ligneRubrique.adValorem == 'true'
+            ? articleALiquider.refParametresLiquidation.valeurTaxable
+            : articleALiquider.refParametresLiquidation.quantite,
+        statusRubrique:
+          this.state.ligneRubrique.adValorem == 'true'
+            ? 'liq.adValorem'
+            : 'liq.valeuSpecifique',
+        indicateurFranchise: articleALiquider.refParametresLiquidation.indicateurFranchiseTotale =='true'? true : false,
       },
     });
   };

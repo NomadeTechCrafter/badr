@@ -146,6 +146,7 @@ export default {
     actions: {
       liquiderGlobalement: 'Liquider Globalement',
       liquiderArticle: 'Liquider un Article',
+      supprimer: 'Supprimer',
     },
     articleFranchiseTotale: 'Articles en franchise totale',
     numeroRAT: 'N° R.AT',
