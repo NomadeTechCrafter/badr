@@ -330,6 +330,16 @@ class LiquidationHomeScreen extends React.Component {
               },
               small: false,
             },
+            {
+              icon: 'delete-outline',
+              label: translate('liq.actions.supprimer'),
+              color: 'black',
+              onPress: () => {
+                console.log('-- Action supprimer--');
+                //this.deleteLiq(this.state.liquidationVO);
+              },
+              small: false,
+            },
           ]}
           onStateChange={() => this.onActionMenuStateChange()}
           onPress={() => {

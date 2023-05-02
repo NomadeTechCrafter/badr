@@ -17,6 +17,7 @@ import {getValueByPath, callRedux, sumByKey} from '../../../../utils/LiqUtils';
 import {connect} from 'react-redux';
 import {Col, Grid, Row} from 'react-native-easy-grid';
 import Numeral from 'numeral';
+import moment from "moment/moment";
 
 class LiqRecapitulationConsignationInitialeBlock extends React.Component {
   constructor(props) {
@@ -58,15 +59,18 @@ class LiqRecapitulationConsignationInitialeBlock extends React.Component {
   };
 
   render() {
+
     const {
       liquidationVO,
       liquidationType,
       indicateurLiquidationArticlesEnFranchiseTotale,
     } = this.props;
+
     let rubriqueComptableByTypeConsignation = getValueByPath(
       'getRubriqueComptableByTypeConsignation.data',
       this.props.repData,
     );
+    //console.log('----test liq----', rubriqueComptableByTypeConsignation);
     return (
       <ComBadrCardBoxComp noPadding={true}>
         {/* Bloc Consignation Initiale */}
@@ -169,7 +173,7 @@ class LiqRecapitulationConsignationInitialeBlock extends React.Component {
               <Col>
                 <ComBadrLibelleComp>
                   {getValueByPath(
-                    'codeDouane',
+                    'jsonVO.codeDouane',
                     rubriqueComptableByTypeConsignation,
                   )}
                 </ComBadrLibelleComp>
@@ -177,7 +181,7 @@ class LiqRecapitulationConsignationInitialeBlock extends React.Component {
               <Col>
                 <ComBadrLibelleComp>
                   {getValueByPath(
-                    'libelleAbrege',
+                    'jsonVO.libelleAbrege',
                     rubriqueComptableByTypeConsignation,
                   )}
                 </ComBadrLibelleComp>
@@ -301,7 +305,15 @@ class LiqRecapitulationConsignationInitialeBlock extends React.Component {
                   labelDate={translate(
                     'liq.consignationInitiale.dateEcheanceConsignation',
                   )}
-                  value={this.state.dateEcheanceConsignation}
+                  value={
+                    this.state.dateEcheanceConsignation
+                      ? moment(
+                          this.state.dateEcheanceConsignation,
+                          'DD/MM/YYYY',
+                          true,
+                        )
+                      : ''
+                  }
                   dateFormat="DD/MM/YYYY"
                   onDateChanged={this.onDateEcheanceConsignationChanged}
                   inputStyle={styles.textInputsStyle}

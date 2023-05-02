@@ -158,6 +158,7 @@ class LiquidationManuelleScreen extends React.Component {
   }
 
   fieldsAreValid = () => {
+    console.log('---------test  ligneRubrique ', this.state.ligneRubrique);
     // if (!ligneRubrique.taux) {
     //   messagesErreurRubriqueArticle.push(
     //     translate('liquidation.error.veuillezSaisir') + translate('liquidation.error.taux'))
@@ -170,20 +171,40 @@ class LiquidationManuelleScreen extends React.Component {
     //   messagesErreurRubriqueArticle.push(
     //     translate('liquidation.error.veuillezSaisir') + translate('liquidation.error.rubrique'))
     // }
+    console.log(
+      '---------test  ligneRubrique return  ',
+      !_.isEmpty(this.state.ligneRubrique.codeRubriqueComptable) &&
+        !_.isEmpty(this.state.ligneRubrique.taux) &&
+        !_.isEmpty(this.state.ligneRubrique.assiette),
+    );
     return (
-      this.state.ligneRubrique.codeRubriqueComptable != '' &&
-      this.state.ligneRubrique.taux != '' &&
-      this.state.ligneRubrique.assiette != ''
+      !_.isEmpty(this.state.ligneRubrique.codeRubriqueComptable) &&
+      !_.isEmpty(this.state.ligneRubrique.taux) &&
+      !_.isEmpty(this.state.ligneRubrique.assiette)
     );
   };
 
   handleRubriquesChanged = (selectedValue, selectedIndex, item) => {
+    //init de tous les champs apres changement de la rubrique
     console.log('----**** --- befor', item);
+    let articleALiquider = this.state.selectedArticle;
     this.setState({
       ligneRubrique: {
         ...item,
         consignation: this.state.ligneRubrique.consignation,
         montantDH: this.state.ligneRubrique.montantDH,
+        taux: '',
+        tauxVirtuel: '',
+        indicateurTVA: false,
+        assiette:
+          this.state.ligneRubrique.adValorem == 'true'
+            ? articleALiquider.refParametresLiquidation.valeurTaxable
+            : articleALiquider.refParametresLiquidation.quantite,
+        statusRubrique:
+          this.state.ligneRubrique.adValorem == 'true'
+            ? 'liq.adValorem'
+            : 'liq.valeuSpecifique',
+        indicateurFranchise: articleALiquider.refParametresLiquidation.indicateurFranchiseTotale =='true'? true : false,
       },
     });
   };
@@ -201,6 +222,7 @@ class LiquidationManuelleScreen extends React.Component {
       this.props.route.params.isArticle
     ) {
       if (this.fieldsAreValid()) {
+        console.log('----- is article true');
         if (
           ligneRubrique &&
           ligneRubrique.tauxVirtuel &&
@@ -510,7 +532,7 @@ class LiquidationManuelleScreen extends React.Component {
                           </Col>
                         </>
                       )}
-                      {liquidationVO.numOrdreOperation && (
+                      {selectedArticle?.refParametresLiquidation && (
                         <>
                           <Col size={1}>
                             <ComBadrLibelleComp withColor={true}>
@@ -519,7 +541,10 @@ class LiquidationManuelleScreen extends React.Component {
                           </Col>
                           <Col size={1}>
                             <ComBadrLibelleComp>
-                              {liquidationVO.numOrdreOperation}
+                              {
+                                selectedArticle?.refParametresLiquidation
+                                  ?.codeNomenclature
+                              }
                             </ComBadrLibelleComp>
                           </Col>
                         </>
