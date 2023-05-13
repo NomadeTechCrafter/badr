@@ -1,28 +1,28 @@
 import React from 'react';
 import {ScrollView, View} from 'react-native';
 import {Col, Grid, Row} from 'react-native-easy-grid';
-import {Text, TextInput} from 'react-native-paper';
+import {TextInput} from 'react-native-paper';
 import {connect} from 'react-redux';
 import {
-  ComAccordionComp,
-  ComBadrAutoCompleteChipsComp,
   ComBadrButtonRadioComp,
   ComBadrCardBoxComp,
   ComBadrCardWithTileComp,
+  ComBadrCheckboxTreeComp,
   ComBadrItemsPickerComp,
   ComBadrKeyValueComp,
   ComBadrLibelleComp,
+  ComBadrListComp,
   ComBadrPickerComp,
   ComBadrToolbarComp,
   ComBasicDataTableComp,
 } from '../../../commons/component';
-import ComBadrReferentielPickerComp from '../../../commons/component/shared/pickers/ComBadrReferentielPickerComp';
 /**Custom Components */
 import translate from '../../../commons/i18n/ComI18nHelper';
 import {CustomStyleSheet} from '../../../commons/styles/ComThemeStyle';
 import {
   languesImpression,
   radioButtonsDataCumulAR,
+  radioButtonsDataCumulFR,
   typesCertificats,
 } from '../state/coConstants';
 import coStyle from '../style/coStyle';
@@ -355,6 +355,32 @@ class COConsultationDetail extends React.Component {
                     <Col size={6}>
                       <ComBadrLibelleComp>
                         {co?.moyenTransport}
+                      </ComBadrLibelleComp>
+                    </Col>
+                    <Col size={1} />
+                  </Row>
+                )}
+              {co?.accordsCodeList &&
+                this.toShowMoyenTransport(co?.typeCertificat) && (
+                  <Row style={CustomStyleSheet.lightBlueRow}>
+                    <Col size={1} />
+                    <Col size={4}>
+                      <ComBadrLibelleComp>
+                        {translate('co.cumulationApplied')}
+                      </ComBadrLibelleComp>
+                      {co?.typeCertificat && co?.typeCertificat === '06' && (
+                        <Col size={5}>
+                          <ComBadrButtonRadioComp
+                            disabled={true}
+                            value={String(co?.cumul)}
+                            radioButtonsData={radioButtonsDataCumulFR}
+                          />
+                        </Col>
+                      )}
+                    </Col>
+                    <Col size={6}>
+                      <ComBadrLibelleComp>
+                        <ComBadrListComp data={co?.accordsCodeList} />
                       </ComBadrLibelleComp>
                     </Col>
                     <Col size={1} />

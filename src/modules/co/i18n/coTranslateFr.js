@@ -102,9 +102,9 @@ export default {
     qteNetAR: 'الوزن الصافي (كجم) *',
     valeurQTAR: 'الكمية *',
     valeurLocalAR: 'القيمة *',
-
     numeroOrdreArticle: 'Id',
     destinataire: 'Destinataire',
+    cumulationApplied: 'Cumulation applied',
     paysOrigine: "Pays d'Origine",
     nomenclature: 'Nomenclature',
     nombreContenant: 'Nombre de colis	',

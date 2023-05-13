@@ -79,3 +79,15 @@ export const radioButtonsDataCumulAR = [
     value: 'false',
   },
 ];
+export const radioButtonsDataCumulFR = [
+  {
+    id: '2',
+    label: 'Oui',
+    value: 'true',
+  },
+  {
+    id: '1',
+    label: 'Non',
+    value: 'false',
+  },
+];
