@@ -1,7 +1,7 @@
 export default {
   co: {
-    title: 'CERTIFICAT D`ORIGINE',
-    subTitleTraiter: 'TRAITER UNE DEMANDE DE CERTIFICAT D`ORIGINE',
+    titleConsultation: ' UNE DEMANDE DE CERTIFICAT D`ORIGINE',
+    subTitleTraiter: "Recherche du Certificat d'Origine",
     demandeCertificatOrigine: 'DEMANDE CERTIFICAT ORIGINE',
     subTitleConsulter: 'Consulter',
     descriptionMarchandise: 'Description marchandise *',

@@ -4,6 +4,7 @@ import {Col, Grid, Row} from 'react-native-easy-grid';
 import {TextInput} from 'react-native-paper';
 import {connect} from 'react-redux';
 import {
+  ComBadrAutoCompleteChipsComp,
   ComBadrButtonRadioComp,
   ComBadrCardBoxComp,
   ComBadrCardWithTileComp,
@@ -24,6 +25,7 @@ import {
   radioButtonsDataCumulAR,
   radioButtonsDataCumulFR,
   typesCertificats,
+  vctDestination,
 } from '../state/coConstants';
 import coStyle from '../style/coStyle';
 
@@ -150,6 +152,13 @@ class COConsultationDetail extends React.Component {
       typeCertificat === '01'
     );
   }
+  toShow1(typeCertificat) {
+    return typeCertificat !== '06' && typeCertificat !== '07';
+  }
+
+  toShow2(typeCertificat) {
+    return typeCertificat === '06' || typeCertificat === '07';
+  }
 
   toShowMoyenTransport(typeCertificat) {
     return (
@@ -188,7 +197,7 @@ class COConsultationDetail extends React.Component {
           <ComBadrToolbarComp
             navigation={this.props.navigation}
             icon="menu"
-            title={translate('co.title')}
+            title={translate('co.titleConsultation')}
             subtitle={translate('co.demandeCertificatOrigine')}
           />
           <ComBadrCardBoxComp>
@@ -280,19 +289,36 @@ class COConsultationDetail extends React.Component {
                       </ComBadrLibelleComp>
                     </Col>
                     <Col size={6}>
-                      <ComBadrPickerComp
-                        disabled={true}
-                        key="code"
-                        selectedValue={co?.paysDestination}
-                        selected={co?.paysDestination}
-                        cle="code"
-                        libelle="libelle"
-                        command="getCmbPays"
-                        param={null}
-                        typeService="SP"
-                        storeWithKey="code"
-                        storeLibelleWithKey="libelle"
-                      />
+                      {this.toShow1(co?.typeCertificat) && (
+                        <ComBadrPickerComp
+                          disabled={true}
+                          key="code"
+                          selectedValue={co?.paysDestination}
+                          selected={co?.paysDestination}
+                          cle="code"
+                          libelle="libelle"
+                          command="vctDestination"
+                          param={null}
+                          typeService="SP"
+                          storeWithKey="code"
+                          storeLibelleWithKey="libelle"
+                        />
+                      )}
+                      {this.toShow2(co?.typeCertificat) && (
+                        <ComBadrAutoCompleteChipsComp
+                          disabled={true}
+                          key="code"
+                          selectedValue={co?.paysDestination}
+                          selected={co?.paysDestination}
+                          cle="code"
+                          libelle="libelle"
+                          command="getCmbPays"
+                          param={null}
+                          typeService="SP"
+                          storeWithKey="code"
+                          storeLibelleWithKey="libelle"
+                        />
+                      )}
                     </Col>
                     <Col size={1} />
                   </Row>

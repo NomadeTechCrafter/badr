@@ -97,9 +97,46 @@ class COMainScreen extends React.Component {
         code: '',
         libelle: translate('co.action'),
         component: 'basic-button',
+        // attrCondition: this.props?.route?.params?.ecran === 'CONSULTER',
         text: 'Traiter',
         action: (row, index) => this.traiter(row, index),
         width: 150,
+      },
+    ];
+    this.coColsWithoutAction = [
+      {
+        code: 'numeroSerieConfinement',
+        libelle: translate('co.numeroSerieConfinement'),
+        component: 'basic-button',
+        attrCondition: 'numeroSerieConfinement',
+        action: (row, index) => this.redirectToConsultationCO(row, index),
+        width: 340,
+      },
+      {
+        code: 'reference',
+        libelle: translate('co.reference'),
+        component: 'basic-button',
+        attrCondition: 'reference',
+        action: (row, index) => this.redirectToConsultationCO(row, index),
+        width: 250,
+      },
+      {
+        code: 'referenceDUM',
+        libelle: translate('co.referenceDUM'),
+        attrCondition: 'referenceDUM',
+        component: 'basic-button',
+        action: (row, index) => this.redirectToConsultationDUM(row, index),
+        width: 250,
+      },
+      {
+        code: 'versionDUM',
+        libelle: translate('co.versionDUM'),
+        width: 150,
+      },
+      {
+        code: 'dateEnregistrement',
+        libelle: translate('co.dateEnregistrement'),
+        width: 250,
       },
     ];
   }
@@ -336,11 +373,6 @@ class COMainScreen extends React.Component {
   };
 
   redirectToConsultationCO(row, index) {
-    // console.log('============================================');
-    // console.log('============================================');
-    // console.log(JSON.stringify(row?.referenceDum));
-    // console.log('============================================');
-    // console.log('============================================');
     let action = COAction.request(
       {
         type: CO_CONSULTATION_REQUEST,
@@ -403,13 +435,20 @@ class COMainScreen extends React.Component {
   };
 
   render() {
+    console.log('***********************************************************');
+    console.log('***********************************************************');
+    console.log(JSON.stringify(this.props?.route?.params?.ecran));
+    console.log('***********************************************************');
+    console.log('***********************************************************');
     const titre = "Nombre d'éléments: " + this.props?.data?.length;
     return (
       <View style={style.container}>
         <ComBadrToolbarComp
           navigation={this.props.navigation}
           icon="menu"
-          title={translate('co.title')}
+          title={
+            this.props?.route?.params?.ecran + translate('co.titleConsultation')
+          }
           subtitle={translate('co.subTitleTraiter')}
         />
         {this.props.showProgress && <ComBadrProgressBarComp circle={false} />}
@@ -579,7 +618,7 @@ class COMainScreen extends React.Component {
                   )}
                   {this.state.blocDates && (
                     <Row>
-                      <Col>
+                      <Col size={4}>
                         <ComBadrDatePickerComp
                           dateFormat="DD/MM/YYYY"
                           value={
@@ -597,7 +636,8 @@ class COMainScreen extends React.Component {
                           }
                         />
                       </Col>
-                      <Col>
+                      <Col size={1}></Col>
+                      <Col size={4}>
                         <ComBadrDatePickerComp
                           dateFormat="DD/MM/YYYY"
                           value={
@@ -665,7 +705,11 @@ class COMainScreen extends React.Component {
                 <ComBasicDataTableComp
                   id="coLots"
                   rows={this.props?.data}
-                  cols={this.coCols}
+                  cols={
+                    this.props?.route?.params?.ecran === 'CONSULTER'
+                      ? this.coColsWithoutAction
+                      : this.coCols
+                  }
                   totalElements={this.props?.data?.length}
                   maxResultsPerPage={10}
                   paginate={true}

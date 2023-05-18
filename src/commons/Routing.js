@@ -115,11 +115,10 @@ const mapping = {
     screen: 'RechercheEcorImport',
     params: {typeEcorImport: 'AutoriserAcheminementSsManifeste'},
   },
-  '40001': {screen: 'COMainScreen', params: {}},
-  '40002': {screen: 'COMainScreen', params: {}},
-  '40003': {screen: 'COMainScreen', params: {}},
-  '40004': {screen: 'COMainScreen', params: {}},
-  '40005': {screen: 'COMainScreen', params: {}},
+  '40002': {screen: 'COMainScreen', params: {ecran: 'TRAITER'}},
+  '40004': {screen: 'COMainScreen', params: {ecran: 'CONSULTER'}},
+  '40005': {screen: 'COMainScreen', params: {ecran: 'ANNULER'}},
+  '40008': {screen: 'COMainScreen', params: {ecran: 'Traiter Duplicata'}},
 };
 
 const ionicMapping = {};
