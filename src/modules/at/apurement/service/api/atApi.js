@@ -155,6 +155,24 @@ export default class AtApi {
     };
     return await ComHttpHelperApi.process(data);
   };
+
+  static verifierExistanceAutreATVoyVehMoto = async (atVo) => {
+    const data = {
+      dtoHeader: {
+        userLogin: ComSessionService.getInstance().getLogin(),
+        fonctionnalite: 'cf9005',
+        module: AT_MODULE,
+        commande: 'verifierExistanceAutreATVoyVehMoto',
+        typeService: TYPE_SERVICE_SP,
+        motif: null,
+        messagesInfo: null,
+        messagesErreur: null,
+      },
+      jsonVO: atVo,
+    };
+    return await ComHttpHelperApi.process(data);
+  };
+
   static recupererListAt = async (atRechercheBean, pageSize, offset) => {
     console.log('atRechercheBean');
     console.log(atRechercheBean);

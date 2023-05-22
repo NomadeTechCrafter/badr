@@ -7,9 +7,11 @@ import ComHttpHelperApi from '../../services/api/common/ComHttpHelperApi';
 import store from '../../state/Store';
 
 export const comCustomMiddlewareService = (store) => (next) => (action) => {
-  if (action.type === Constants.GENERIC_CATCH_API) {
+  if(action ){
+  if ( action?.type === Constants.GENERIC_CATCH_API) {
     let error = action.value.data;
     console.log('customMiddleware GENERIC_CATCH_API ');
+    console.log('action : ',action);
     if (
       error.response &&
       (error.response.status === 403 || error.response.status === 401)
@@ -25,6 +27,7 @@ export const comCustomMiddlewareService = (store) => (next) => (action) => {
     sendCrash(error);
   }
   next(action);
+  }
 };
 const sendCrash = async (error) => {
   return await ComHttpHelperApi.sendCrash(

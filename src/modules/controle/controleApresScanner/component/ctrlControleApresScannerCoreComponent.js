@@ -1,4 +1,5 @@
-import React from 'react';
+﻿import React from 'react';
+//import FastImage from 'react-native-fast-image';
 //import FastImage from 'react-native-fast-image';
 
 import {
@@ -271,7 +272,7 @@ class CtrlControleApresScannerCoreComponent extends React.Component {
   removeScelle = () => {
     if (this.state.selectedScelle) {
       for (let [key, value] of Object.entries(
-        this.state.controleApresScannerVo.scelles,
+          this.state.controleApresScannerVo.scelles,
       )) {
         if (value === this.state.selectedScelle) {
           delete this.state.controleApresScannerVo.scelles[key];
@@ -296,7 +297,7 @@ class CtrlControleApresScannerCoreComponent extends React.Component {
 
   containsScelle = (scelleReference) => {
     for (let [key, value] of Object.entries(
-      this.state.controleApresScannerVo.scelles,
+        this.state.controleApresScannerVo.scelles,
     )) {
       if (value === scelleReference) {
         return true;
@@ -307,15 +308,15 @@ class CtrlControleApresScannerCoreComponent extends React.Component {
 
   generateScelles = () => {
     if (
-      this.state.generateurDu.length === 8 &&
-      this.state.generateurAu.length === 8 &&
-      this.state.generateurDu < this.state.generateurAu &&
-      this.state.generateurAu - this.state.generateurDu < 100
+        this.state.generateurDu.length === 8 &&
+        this.state.generateurAu.length === 8 &&
+        this.state.generateurDu < this.state.generateurAu &&
+        this.state.generateurAu - this.state.generateurDu < 100
     ) {
       for (
-        let scelle = this.state.generateurDu;
-        scelle <= this.state.generateurAu;
-        scelle++
+          let scelle = this.state.generateurDu;
+          scelle <= this.state.generateurAu;
+          scelle++
       ) {
         if (!this.containsScelle(scelle)) {
           this.state.controleApresScannerVo.scelles[scelle] = scelle;
@@ -360,12 +361,12 @@ class CtrlControleApresScannerCoreComponent extends React.Component {
 
   confirmPictureRemoval = () => {
     let imageIndex = this.state.controleApresScannerVo.photosControleApresScanner.indexOf(
-      this.state.toRemovePicture,
+        this.state.toRemovePicture,
     );
     if (imageIndex > -1) {
       this.state.controleApresScannerVo.photosControleApresScanner.splice(
-        imageIndex,
-        1,
+          imageIndex,
+          1,
       );
     }
 
@@ -526,190 +527,190 @@ class CtrlControleApresScannerCoreComponent extends React.Component {
           <ComBadrErrorMessageComp message={this.props.errorMessage} />
         )}
 
-        {!this.props.showProgress && (
-          <View>
-            {!this.state.cameraMode && (
+          {!this.props.showProgress && (
               <View>
-                <Grid style={style.referenceCardInfo}>
-                  <Row style={style.referenceTitles}>
-                    <Col>
-                      <Text style={style.referenceTitleLabel}>
-                        {translate('controleApresScanner.core.generic.bureau')}
-                      </Text>
-                    </Col>
-
-                    <Col>
-                      <Text style={style.referenceTitleLabel}>
-                        {translate('controleApresScanner.core.generic.regime')}
-                      </Text>
-                    </Col>
-
-                    <Col>
-                      <Text style={style.referenceTitleLabel}>
-                        {translate('controleApresScanner.core.generic.annee')}
-                      </Text>
-                    </Col>
-
-                    <Col>
-                      <Text style={style.referenceTitleLabel}>
-                        {translate('controleApresScanner.core.generic.serie')}
-                      </Text>
-                    </Col>
-
-                    <Col>
-                      <Text style={style.referenceTitleLabel}>
-                        {translate('controleApresScanner.core.generic.cle')}
-                      </Text>
-                    </Col>
-                  </Row>
-
-                  <Row style={style.referenceValues}>
-                    <Col>
-                      <Text style={style.referenceValueLabel}>
-                        {this.state.bureau}
-                      </Text>
-                    </Col>
-
-                    <Col>
-                      <Text style={style.referenceValueLabel}>
-                        {this.state.regime}
-                      </Text>
-                    </Col>
-
-                    <Col>
-                      <Text style={style.referenceValueLabel}>
-                        {this.state.annee}
-                      </Text>
-                    </Col>
-
-                    <Col>
-                      <Text style={style.referenceValueLabel}>
-                        {this.state.serie}
-                      </Text>
-                    </Col>
-
-                    <Col>
-                      {this.props?.data?.typeRecherche === '2' && (
-                        <Text style={style.referenceValueLabel}>
-                          {this.toAlpha(this.props?.data?.reference)}
-                        </Text>
-                      )}
-                      {this.props?.data?.typeRecherche !== '2' && (
-                        <Text style={style.referenceValueLabel}>
-                          {this.cleDum(this.state.regime, this.state.serie)}
-                        </Text>
-                      )}
-                    </Col>
-                  </Row>
-                </Grid>
-
-                <Grid style={style.topMarginStyle}>
-                  <Row size={100}>
-                    <Col size={100} />
-                  </Row>
-
-                  <View style={style.topMarginStyle}>
-                    <ComAccordionComp
-                      expanded={false}
-                      title={translate(
-                        'controleApresScanner.core.resultatControle.title',
-                      )}>
-                      <View>
-                        <Row size={100}>
-                          <Col size={30}>
-                            <Row>
-                              <Col style={style.labelContainer}>
-                                <Text style={style.labelTextStyle}>
-                                  {translate(
-                                    'controleApresScanner.core.resultatControle.commentaire',
-                                  )}
-                                </Text>
-                              </Col>
-
-                              <Col style={style.labelContainer}>
-                                <Text style={style.labelRequiredStyle}>*</Text>
-                              </Col>
-                            </Row>
+                {!this.state.cameraMode && (
+                    <View>
+                      <Grid style={style.referenceCardInfo}>
+                        <Row style={style.referenceTitles}>
+                          <Col>
+                            <Text style={style.referenceTitleLabel}>
+                              {translate('controleApresScanner.core.generic.bureau')}
+                            </Text>
                           </Col>
 
-                          <Col size={70} style={style.labelContainer}>
-                            <TextInput
-                              multiline={true}
-                              numberOfLines={4}
-                              mode="outlined"
-                              label={translate(
-                                'controleApresScanner.core.resultatControle.commentaire',
-                              )}
-                              value={
-                                this.state.controleApresScannerVo.commentaire
-                              }
-                              onChangeText={(text) =>
-                                this.setState({
-                                  ...this.state,
-                                  controleApresScannerVo: {
-                                    ...this.state.controleApresScannerVo,
-                                    commentaire: text,
-                                  },
-                                })
-                              }
-                            />
+                          <Col>
+                            <Text style={style.referenceTitleLabel}>
+                              {translate('controleApresScanner.core.generic.regime')}
+                            </Text>
                           </Col>
 
-                          <HelperText
-                            type="error"
-                            padding="none"
-                            visible={this.hasErrors('commentaire')}>
-                            {translate('errors.donneeObligatoire', {
-                              champ: translate(
-                                'controleApresScanner.core.resultatControle.commentaire',
-                              ),
-                            })}
-                          </HelperText>
-                        </Row>
-
-                        <Row size={100}>
-                          <Col size={30}>
-                            <Row>
-                              <Col style={style.labelContainer}>
-                                <Text style={style.labelTextStyle}>
-                                  {translate(
-                                    'controleApresScanner.core.resultatControle.resultatControle',
-                                  )}
-                                </Text>
-                              </Col>
-
-                              <Col style={style.labelContainer}>
-                                <Text style={style.labelRequiredStyle}>*</Text>
-                              </Col>
-                            </Row>
+                          <Col>
+                            <Text style={style.referenceTitleLabel}>
+                              {translate('controleApresScanner.core.generic.annee')}
+                            </Text>
                           </Col>
 
-                          <Col size={70} style={style.labelContainer}>
-                            <ComBadrItemsPickerComp
-                              label={translate(
-                                'controleApresScanner.core.resultatControle.resultatControle',
-                              )}
-                              selectedValue={
-                                this.state.controleApresScannerVo.resultat
-                                  ? this.state.controleApresScannerVo.resultat
-                                  : ''
-                              }
-                              items={this.typeResultatScanner()}
-                              onValueChanged={(value, index) =>
-                                this.setState({
-                                  ...this.state,
-                                  controleApresScannerVo: {
-                                    ...this.state.controleApresScannerVo,
-                                    resultat: value.code,
-                                  },
-                                })
-                              }
-                            />
+                          <Col>
+                            <Text style={style.referenceTitleLabel}>
+                              {translate('controleApresScanner.core.generic.serie')}
+                            </Text>
+                          </Col>
+
+                          <Col>
+                            <Text style={style.referenceTitleLabel}>
+                              {translate('controleApresScanner.core.generic.cle')}
+                            </Text>
                           </Col>
                         </Row>
-                      </View>
-                    </ComAccordionComp>
-                  </View>
+
+                        <Row style={style.referenceValues}>
+                          <Col>
+                            <Text style={style.referenceValueLabel}>
+                              {this.state.bureau}
+                            </Text>
+                          </Col>
+
+                          <Col>
+                            <Text style={style.referenceValueLabel}>
+                              {this.state.regime}
+                            </Text>
+                          </Col>
+
+                          <Col>
+                            <Text style={style.referenceValueLabel}>
+                              {this.state.annee}
+                            </Text>
+                          </Col>
+
+                          <Col>
+                            <Text style={style.referenceValueLabel}>
+                              {this.state.serie}
+                            </Text>
+                          </Col>
+
+                          <Col>
+                            {this.props?.data?.typeRecherche === '2' && (
+                                <Text style={style.referenceValueLabel}>
+                                  {this.toAlpha(this.props?.data?.reference)}
+                                </Text>
+                            )}
+                            {this.props?.data?.typeRecherche !== '2' && (
+                                <Text style={style.referenceValueLabel}>
+                                  {this.cleDum(this.state.regime, this.state.serie)}
+                                </Text>
+                            )}
+                          </Col>
+                        </Row>
+                      </Grid>
+
+                      <Grid style={style.topMarginStyle}>
+                        <Row size={100}>
+                          <Col size={100} />
+                        </Row>
+
+                        <View style={style.topMarginStyle}>
+                          <ComAccordionComp
+                              expanded={false}
+                              title={translate(
+                                  'controleApresScanner.core.resultatControle.title',
+                              )}>
+                            <View>
+                              <Row size={100}>
+                                <Col size={30}>
+                                  <Row>
+                                    <Col style={style.labelContainer}>
+                                      <Text style={style.labelTextStyle}>
+                                        {translate(
+                                            'controleApresScanner.core.resultatControle.commentaire',
+                                        )}
+                                      </Text>
+                                    </Col>
+
+                                    <Col style={style.labelContainer}>
+                                      <Text style={style.labelRequiredStyle}>*</Text>
+                                    </Col>
+                                  </Row>
+                                </Col>
+
+                                <Col size={70} style={style.labelContainer}>
+                                  <TextInput
+                                      multiline={true}
+                                      numberOfLines={4}
+                                      mode="outlined"
+                                      label={translate(
+                                          'controleApresScanner.core.resultatControle.commentaire',
+                                      )}
+                                      value={
+                                        this.state.controleApresScannerVo.commentaire
+                                      }
+                                      onChangeText={(text) =>
+                                          this.setState({
+                                            ...this.state,
+                                            controleApresScannerVo: {
+                                              ...this.state.controleApresScannerVo,
+                                              commentaire: text,
+                                            },
+                                          })
+                                      }
+                                  />
+                                </Col>
+
+                                <HelperText
+                                    type="error"
+                                    padding="none"
+                                    visible={this.hasErrors('commentaire')}>
+                                  {translate('errors.donneeObligatoire', {
+                                    champ: translate(
+                                        'controleApresScanner.core.resultatControle.commentaire',
+                                    ),
+                                  })}
+                                </HelperText>
+                              </Row>
+
+                              <Row size={100}>
+                                <Col size={30}>
+                                  <Row>
+                                    <Col style={style.labelContainer}>
+                                      <Text style={style.labelTextStyle}>
+                                        {translate(
+                                            'controleApresScanner.core.resultatControle.resultatControle',
+                                        )}
+                                      </Text>
+                                    </Col>
+
+                                    <Col style={style.labelContainer}>
+                                      <Text style={style.labelRequiredStyle}>*</Text>
+                                    </Col>
+                                  </Row>
+                                </Col>
+
+                                <Col size={70} style={style.labelContainer}>
+                                  <ComBadrItemsPickerComp
+                                      label={translate(
+                                          'controleApresScanner.core.resultatControle.resultatControle',
+                                      )}
+                                      selectedValue={
+                                        this.state.controleApresScannerVo.resultat
+                                            ? this.state.controleApresScannerVo.resultat
+                                            : ''
+                                      }
+                                      items={this.typeResultatScanner()}
+                                      onValueChanged={(value, index) =>
+                                          this.setState({
+                                            ...this.state,
+                                            controleApresScannerVo: {
+                                              ...this.state.controleApresScannerVo,
+                                              resultat: value.code,
+                                            },
+                                          })
+                                      }
+                                  />
+                                </Col>
+                              </Row>
+                            </View>
+                          </ComAccordionComp>
+                        </View>
 
                   <View style={style.topMarginStyle}>
                     <ComAccordionComp
@@ -753,7 +754,7 @@ class CtrlControleApresScannerCoreComponent extends React.Component {
                                   </Col>
                                 )}
 
-                                {/* {this.state.controleApresScannerVo
+                                      {/* {this.state.controleApresScannerVo
                                 .scellesConfirmationEntree != null &&
                                 this.state.controleApresScannerVo
                                   .scellesConfirmationEntree.size !== 0 && (
@@ -790,10 +791,10 @@ class CtrlControleApresScannerCoreComponent extends React.Component {
                                     />
                                   </Col>
                                 )} */}
+                                    </Row>
+                                  </SafeAreaView>
+                                </Col>
                               </Row>
-                            </SafeAreaView>
-                          </Col>
-                        </Row>
 
                         <Row size={100} style={style.topMarginStyle}>
                           <Col size={30} style={style.labelContainer}>
@@ -872,300 +873,397 @@ class CtrlControleApresScannerCoreComponent extends React.Component {
                             />
                           </Col>
 
-                          <Col size={10} style={style.labelContainer}>
-                            <Text style={style.labelTextStyle}>
-                              {translate(
-                                'controleApresScanner.core.scelles.non',
-                              )}
-                            </Text>
-                          </Col>
-
-                          <Col size={40} />
-                        </Row>
-
-                        {this.state.controleApresScannerVo.infoEcorScelle &&
-                          this.state.controleApresScannerVo.infoEcorScelle ===
-                            true && (
-                            <View>
-                              <Row size={100}>
-                                <Col size={30} style={style.labelContainer}>
-                                  <Text style={style.labelTextStyle}>
-                                    {translate(
-                                      'controleApresScanner.core.scelles.numeroPince',
-                                    )}
-                                  </Text>
-                                </Col>
-
-                                <Col size={70}>
-                                  <TextInput
-                                    mode="outlined"
-                                    label={translate(
-                                      'controleApresScanner.core.scelles.numeroPince',
-                                    )}
-                                    value={
-                                      this.state.controleApresScannerVo
-                                        .numeroPince
-                                    }
-                                    keyboardType={'number-pad'}
-                                    maxLength={8}
-                                    onChangeText={(text) => {
-                                      text = text.replace(/[^0-9.]/g, '');
-                                      this.setState({
-                                        ...this.state,
-                                        controleApresScannerVo: {
-                                          ...this.state.controleApresScannerVo,
-                                          numeroPince: text,
-                                        },
-                                      });
-                                    }}
-                                    disabled={this.state.readonly}
-                                  />
-                                </Col>
-                              </Row>
-
-                              <Row size={100}>
-                                <Col size={30} style={style.labelContainer}>
-                                  <Text style={style.labelTextStyle}>
-                                    {translate(
-                                      'controleApresScanner.core.scelles.nombreScelles',
-                                    )}
-                                  </Text>
-                                </Col>
-
-                                <Col size={70}>
-                                  <TextInput
-                                    mode="outlined"
-                                    label={translate(
-                                      'controleApresScanner.core.scelles.nombreScelles',
-                                    )}
-                                    value={
-                                      this.state.controleApresScannerVo
-                                        .nombreScelle
-                                    }
-                                    keyboardType={'number-pad'}
-                                    maxLength={8}
-                                    onChangeText={(text) => {
-                                      text = text.replace(/[^0-9.]/g, '');
-                                      this.setState({
-                                        ...this.state,
-                                        controleApresScannerVo: {
-                                          ...this.state.controleApresScannerVo,
-                                          nombreScelle: text,
-                                        },
-                                      });
-                                    }}
-                                    disabled={this.state.readonly}
-                                  />
-                                </Col>
-                              </Row>
-
-                              <Row size={100}>
-                                <Col size={30} style={style.labelContainer}>
-                                  <Text style={style.labelTextStyle}>
-                                    {translate(
-                                      'controleApresScanner.core.scelles.generateurNumerosScelles',
-                                    )}
-                                  </Text>
-                                </Col>
-
-                                <Col size={5} style={style.labelContainer}>
-                                  <Text style={style.labelTextStyle}>
-                                    {translate(
-                                      'controleApresScanner.core.scelles.du',
-                                    )}
-                                  </Text>
-                                </Col>
-
-                                <Col size={20}>
-                                  <TextInput
-                                    mode="outlined"
-                                    label={translate(
-                                      'controleApresScanner.core.scelles.du',
-                                    )}
-                                    value={this.state.generateurDu}
-                                    keyboardType={'number-pad'}
-                                    maxLength={8}
-                                    onChangeText={(text) => {
-                                      text = text.replace(/[^0-9.]/g, '');
-                                      this.setState({
-                                        ...this.state,
-                                        generateurDu: text,
-                                      });
-                                    }}
-                                    disabled={this.state.readonly}
-                                  />
-                                </Col>
-
-                                <Col size={5} />
-
-                                <Col size={5} style={style.labelContainer}>
-                                  <Text style={style.labelTextStyle}>
-                                    {translate(
-                                      'controleApresScanner.core.scelles.au',
-                                    )}
-                                  </Text>
-                                </Col>
-
-                                <Col size={20}>
-                                  <TextInput
-                                    mode="outlined"
-                                    label={translate(
-                                      'controleApresScanner.core.scelles.au',
-                                    )}
-                                    value={this.state.generateurAu}
-                                    keyboardType={'number-pad'}
-                                    maxLength={8}
-                                    onChangeText={(text) => {
-                                      text = text.replace(/[^0-9.]/g, '');
-                                      this.setState({
-                                        ...this.state,
-                                        generateurAu: text,
-                                      });
-                                    }}
-                                    disabled={this.state.readonly}
-                                  />
-                                </Col>
-
-                                <Col size={5} />
-
                                 <Col size={10} style={style.labelContainer}>
-                                  <Button
-                                    title={translate('transverse.Ok')}
-                                    type={'solid'}
-                                    buttonStyle={style.buttonAction}
-                                    onPress={() => this.generateScelles()}
-                                  />
+                                  <Text style={style.labelTextStyle}>
+                                    {translate(
+                                        'controleApresScanner.core.scelles.non',
+                                    )}
+                                  </Text>
                                 </Col>
+
+                                <Col size={40} />
                               </Row>
+
+                              {this.state.controleApresScannerVo.infoEcorScelle &&
+                                  this.state.controleApresScannerVo.infoEcorScelle ===
+                                  true && (
+                                      <View>
+                                        <Row size={100}>
+                                          <Col size={30} style={style.labelContainer}>
+                                            <Text style={style.labelTextStyle}>
+                                              {translate(
+                                                  'controleApresScanner.core.scelles.numeroPince',
+                                              )}
+                                            </Text>
+                                          </Col>
+
+                                          <Col size={70}>
+                                            <TextInput
+                                                mode="outlined"
+                                                label={translate(
+                                                    'controleApresScanner.core.scelles.numeroPince',
+                                                )}
+                                                value={
+                                                  this.state.controleApresScannerVo
+                                                      .numeroPince
+                                                }
+                                                keyboardType={'number-pad'}
+                                                maxLength={8}
+                                                onChangeText={(text) => {
+                                                  text = text.replace(/[^0-9.]/g, '');
+                                                  this.setState({
+                                                    ...this.state,
+                                                    controleApresScannerVo: {
+                                                      ...this.state.controleApresScannerVo,
+                                                      numeroPince: text,
+                                                    },
+                                                  });
+                                                }}
+                                                disabled={this.state.readonly}
+                                            />
+                                          </Col>
+                                        </Row>
+
+                                        <Row size={100}>
+                                          <Col size={30} style={style.labelContainer}>
+                                            <Text style={style.labelTextStyle}>
+                                              {translate(
+                                                  'controleApresScanner.core.scelles.nombreScelles',
+                                              )}
+                                            </Text>
+                                          </Col>
+
+                                          <Col size={70}>
+                                            <TextInput
+                                                mode="outlined"
+                                                label={translate(
+                                                    'controleApresScanner.core.scelles.nombreScelles',
+                                                )}
+                                                value={
+                                                  this.state.controleApresScannerVo
+                                                      .nombreScelle
+                                                }
+                                                keyboardType={'number-pad'}
+                                                maxLength={8}
+                                                onChangeText={(text) => {
+                                                  text = text.replace(/[^0-9.]/g, '');
+                                                  this.setState({
+                                                    ...this.state,
+                                                    controleApresScannerVo: {
+                                                      ...this.state.controleApresScannerVo,
+                                                      nombreScelle: text,
+                                                    },
+                                                  });
+                                                }}
+                                                disabled={this.state.readonly}
+                                            />
+                                          </Col>
+                                        </Row>
+
+                                        <Row size={100}>
+                                          <Col size={30} style={style.labelContainer}>
+                                            <Text style={style.labelTextStyle}>
+                                              {translate(
+                                                  'controleApresScanner.core.scelles.generateurNumerosScelles',
+                                              )}
+                                            </Text>
+                                          </Col>
+
+                                          <Col size={5} style={style.labelContainer}>
+                                            <Text style={style.labelTextStyle}>
+                                              {translate(
+                                                  'controleApresScanner.core.scelles.du',
+                                              )}
+                                            </Text>
+                                          </Col>
+
+                                          <Col size={20}>
+                                            <TextInput
+                                                mode="outlined"
+                                                label={translate(
+                                                    'controleApresScanner.core.scelles.du',
+                                                )}
+                                                value={this.state.generateurDu}
+                                                keyboardType={'number-pad'}
+                                                maxLength={8}
+                                                onChangeText={(text) => {
+                                                  text = text.replace(/[^0-9.]/g, '');
+                                                  this.setState({
+                                                    ...this.state,
+                                                    generateurDu: text,
+                                                  });
+                                                }}
+                                                disabled={this.state.readonly}
+                                            />
+                                          </Col>
+
+                                          <Col size={5} />
+
+                                          <Col size={5} style={style.labelContainer}>
+                                            <Text style={style.labelTextStyle}>
+                                              {translate(
+                                                  'controleApresScanner.core.scelles.au',
+                                              )}
+                                            </Text>
+                                          </Col>
+
+                                          <Col size={20}>
+                                            <TextInput
+                                                mode="outlined"
+                                                label={translate(
+                                                    'controleApresScanner.core.scelles.au',
+                                                )}
+                                                value={this.state.generateurAu}
+                                                keyboardType={'number-pad'}
+                                                maxLength={8}
+                                                onChangeText={(text) => {
+                                                  text = text.replace(/[^0-9.]/g, '');
+                                                  this.setState({
+                                                    ...this.state,
+                                                    generateurAu: text,
+                                                  });
+                                                }}
+                                                disabled={this.state.readonly}
+                                            />
+                                          </Col>
+
+                                          <Col size={5} />
+
+                                          <Col size={10} style={style.labelContainer}>
+                                            <Button
+                                                title={translate('transverse.Ok')}
+                                                type={'solid'}
+                                                buttonStyle={style.buttonAction}
+                                                onPress={() => this.generateScelles()}
+                                            />
+                                          </Col>
+                                        </Row>
+
+                                        <Row size={100} style={style.topMarginStyle}>
+                                          <Col size={30} style={style.labelContainer}>
+                                            <Text style={style.labelTextStyle}>
+                                              {translate(
+                                                  'controleApresScanner.core.scelles.numeroScelle',
+                                              )}
+                                            </Text>
+                                          </Col>
+
+                                          <Col size={20} style={style.labelContainer}>
+                                            <TextInput
+                                                ref={(ref) => (this.scelleInput = ref)}
+                                                key="scelleInput"
+                                                mode="outlined"
+                                                value={this.state.scelleVo.reference}
+                                                keyboardType={'number-pad'}
+                                                maxLength={8}
+                                                onChangeText={(text) => {
+                                                  text = text.replace(/[^0-9.]/g, '');
+                                                  this.setState({
+                                                    ...this.state,
+                                                    scelleVo: {
+                                                      ...this.state.scelleVo,
+                                                      reference: text,
+                                                    },
+                                                  });
+                                                }}
+                                                disabled={this.state.readonly}
+                                            />
+                                          </Col>
+
+                                          <Col size={5} />
+
+                                          <Col size={10} style={style.labelContainer}>
+                                            <TouchableOpacity
+                                                style={style.touchableArrow}
+                                                disabled={this.props.readonly}>
+                                              <Button
+                                                  type={'outline'}
+                                                  icon={{
+                                                    name: 'chevron-right',
+                                                    size: 12,
+                                                    color: 'black',
+                                                  }}
+                                                  onPress={() => this.addScelle()}
+                                                  disabled={this.props.readonly}
+                                              />
+                                            </TouchableOpacity>
+
+                                            <TouchableOpacity
+                                                style={style.touchableArrow}
+                                                disabled={this.props.readonly}>
+                                              <Button
+                                                  type={'outline'}
+                                                  icon={{
+                                                    name: 'chevron-left',
+                                                    size: 12,
+                                                    color: 'black',
+                                                  }}
+                                                  onPress={() => this.removeScelle()}
+                                                  disabled={this.props.readonly}
+                                              />
+                                            </TouchableOpacity>
+                                          </Col>
+
+                                          <Col size={5} />
+
+                                          <Col size={40} style={style.boxContainer}>
+                                            <SafeAreaView style={style.boxSafeArea}>
+                                              {(this.state.controleApresScannerVo
+                                                      .scelles == null ||
+                                                  this.state.controleApresScannerVo.scelles
+                                                      .size === 0) && (
+                                                  <Text style={style.boxItemText}>
+                                                    Aucun élément
+                                                  </Text>
+                                              )}
+
+                                              {this.state.controleApresScannerVo
+                                                      .scelles != null &&
+                                                  this.state.controleApresScannerVo.scelles
+                                                      .size !== 0 && (
+                                                      <FlatList
+                                                          data={Object.values(
+                                                              this.state.controleApresScannerVo
+                                                                  .scelles,
+                                                          )}
+                                                          renderItem={(item) =>
+                                                              this.renderBoxItem(item)
+                                                          }
+                                                          keyExtractor={(item) => item}
+                                                          nestedScrollEnabled={true}
+                                                      />
+                                                  )}
+                                            </SafeAreaView>
+                                          </Col>
+                                        </Row>
+                                      </View>
+                                  )}
+                            </View>
+                          </ComAccordionComp>
+                        </View>
+                        <View style={style.topMarginStyle}>
+                          <ComAccordionComp
+                              expanded={false}
+                              title={translate(
+                                  'controleApresScanner.core.depotageEffectue.title',
+                              )}>
+                            <View>
 
                               <Row size={100} style={style.topMarginStyle}>
-                                <Col size={30} style={style.labelContainer}>
+                                {/*<Col size={30} style={style.labelContainer}>
+                            <Text style={style.labelTextStyle}>
+                              {translate(
+                                  'controleApresScanner.core.scelles.nouveauxScelles',
+                              )}
+                            </Text>
+                          </Col>*/}
+
+                                <Col size={5}>
+                                  <RadioButton
+                                      value={
+                                        this.state.controleApresScannerVo
+                                            .depotageEffectue &&
+                                        this.state.controleApresScannerVo
+                                            .depotageEffectue === true
+                                            ? 'true'
+                                            : 'false'
+                                      }
+                                      status={
+                                        this.state.controleApresScannerVo
+                                            .depotageEffectue &&
+                                        this.state.controleApresScannerVo
+                                            .depotageEffectue === true
+                                            ? 'checked'
+                                            : 'unchecked'
+                                      }
+                                      onPress={() =>
+                                          this.setState({
+                                            ...this.state,
+                                            controleApresScannerVo: {
+                                              ...this.state.controleApresScannerVo,
+                                              depotageEffectue: true,
+                                            },
+                                          })
+                                      }
+                                  />
+                                </Col>
+
+                                <Col size={5} style={style.labelContainer}>
                                   <Text style={style.labelTextStyle}>
                                     {translate(
-                                      'controleApresScanner.core.scelles.numeroScelle',
+                                        'controleApresScanner.core.scelles.oui',
                                     )}
                                   </Text>
                                 </Col>
 
-                                <Col size={20} style={style.labelContainer}>
-                                  <TextInput
-                                    ref={(ref) => (this.scelleInput = ref)}
-                                    key="scelleInput"
-                                    mode="outlined"
-                                    value={this.state.scelleVo.reference}
-                                    keyboardType={'number-pad'}
-                                    maxLength={8}
-                                    onChangeText={(text) => {
-                                      text = text.replace(/[^0-9.]/g, '');
-                                      this.setState({
-                                        ...this.state,
-                                        scelleVo: {
-                                          ...this.state.scelleVo,
-                                          reference: text,
-                                        },
-                                      });
-                                    }}
-                                    disabled={this.state.readonly}
+                                <Col size={5}>
+                                  <RadioButton
+                                      value={
+                                        this.state.controleApresScannerVo
+                                            .depotageEffectue === null ||
+                                        this.state.controleApresScannerVo
+                                            .depotageEffectue === false
+                                            ? 'true'
+                                            : 'false'
+                                      }
+                                      status={
+                                        this.state.controleApresScannerVo
+                                            .depotageEffectue === null ||
+                                        this.state.controleApresScannerVo
+                                            .depotageEffectue === false
+                                            ? 'checked'
+                                            : 'unchecked'
+                                      }
+                                      onPress={() =>
+                                          this.setState({
+                                            ...this.state,
+                                            controleApresScannerVo: {
+                                              ...this.state.controleApresScannerVo,
+                                              depotageEffectue: false,
+                                            },
+                                          })
+                                      }
                                   />
                                 </Col>
 
-                                <Col size={5} />
-
-                                <Col size={10} style={style.labelContainer}>
-                                  <TouchableOpacity
-                                    style={style.touchableArrow}
-                                    disabled={this.props.readonly}>
-                                    <Button
-                                      type={'outline'}
-                                      icon={{
-                                        name: 'chevron-right',
-                                        size: 12,
-                                        color: 'black',
-                                      }}
-                                      onPress={() => this.addScelle()}
-                                      disabled={this.props.readonly}
-                                    />
-                                  </TouchableOpacity>
-
-                                  <TouchableOpacity
-                                    style={style.touchableArrow}
-                                    disabled={this.props.readonly}>
-                                    <Button
-                                      type={'outline'}
-                                      icon={{
-                                        name: 'chevron-left',
-                                        size: 12,
-                                        color: 'black',
-                                      }}
-                                      onPress={() => this.removeScelle()}
-                                      disabled={this.props.readonly}
-                                    />
-                                  </TouchableOpacity>
-                                </Col>
-
-                                <Col size={5} />
-
-                                <Col size={40} style={style.boxContainer}>
-                                  <SafeAreaView style={style.boxSafeArea}>
-                                    {(this.state.controleApresScannerVo
-                                      .scelles == null ||
-                                      this.state.controleApresScannerVo.scelles
-                                        .size === 0) && (
-                                      <Text style={style.boxItemText}>
-                                        Aucun élément
-                                      </Text>
+                                <Col size={5} style={style.labelContainer}>
+                                  <Text style={style.labelTextStyle}>
+                                    {translate(
+                                        'controleApresScanner.core.scelles.non',
                                     )}
-
-                                    {this.state.controleApresScannerVo
-                                      .scelles != null &&
-                                      this.state.controleApresScannerVo.scelles
-                                        .size !== 0 && (
-                                        <FlatList
-                                          data={Object.values(
-                                            this.state.controleApresScannerVo
-                                              .scelles,
-                                          )}
-                                          renderItem={(item) =>
-                                            this.renderBoxItem(item)
-                                          }
-                                          keyExtractor={(item) => item}
-                                          nestedScrollEnabled={true}
-                                        />
-                                      )}
-                                  </SafeAreaView>
+                                  </Text>
                                 </Col>
+
+                                <Col size={20} />
                               </Row>
                             </View>
-                          )}
-                      </View>
-                    </ComAccordionComp>
-                  </View>
+                          </ComAccordionComp>
+                        </View>
+                        <View style={style.topMarginStyle}>
+                          <ComAccordionComp
+                              expanded={false}
+                              title={translate(
+                                  'controleApresScanner.core.photosControle.title',
+                              )}>
+                            <View>
+                              {!this.state.readonly && (
+                                  <Row size={100}>
+                                    <Col size={40} />
 
-                  <View style={style.topMarginStyle}>
-                    <ComAccordionComp
-                      expanded={false}
-                      title={translate(
-                        'controleApresScanner.core.photosControle.title',
-                      )}>
-                      <View>
-                        {!this.state.readonly && (
-                          <Row size={100}>
-                            <Col size={40} />
+                                    <Col size={20}>
+                                      <Button
+                                          title={translate(
+                                              'controleApresScanner.core.photosControle.addImage',
+                                          )}
+                                          type={'solid'}
+                                          buttonStyle={style.buttonAction}
+                                          onPress={() => this.onAddPicture()}
+                                      />
+                                    </Col>
 
-                            <Col size={20}>
-                              <Button
-                                title={translate(
-                                  'controleApresScanner.core.photosControle.addImage',
-                                )}
-                                type={'solid'}
-                                buttonStyle={style.buttonAction}
-                                onPress={() => this.onAddPicture()}
-                              />
-                            </Col>
-
-                            <Col size={40} />
-                          </Row>
-                        )}
+                                    <Col size={40} />
+                                  </Row>
+                              )}
 
                         <Row size={100}>
                           <Col size={100}>
@@ -1192,21 +1290,21 @@ class CtrlControleApresScannerCoreComponent extends React.Component {
                     </ComAccordionComp>
                   </View>
 
-                  <View style={style.topMarginStyle}>
-                    <Row size={100}>
-                      <Col size={40} />
+                        <View style={style.topMarginStyle}>
+                          <Row size={100}>
+                            <Col size={40} />
 
-                      <Col size={20}>
-                        <Button
-                          title={translate('transverse.confirmer')}
-                          type={'solid'}
-                          buttonStyle={style.buttonAction}
-                          onPress={() => this.confirm()}
-                        />
-                      </Col>
+                            <Col size={20}>
+                              <Button
+                                  title={translate('transverse.confirmer')}
+                                  type={'solid'}
+                                  buttonStyle={style.buttonAction}
+                                  onPress={() => this.confirm()}
+                              />
+                            </Col>
 
-                      <Col size={40} />
-                    </Row>
+                            <Col size={40} />
+                          </Row>
 
                     <Row size={100}>
                       <Col size={40} />
@@ -1220,48 +1318,48 @@ class CtrlControleApresScannerCoreComponent extends React.Component {
                         />
                       </Col>
 
-                      <Col size={40} />
-                    </Row>
-                  </View>
-                </Grid>
+                            <Col size={40} />
+                          </Row>
+                        </View>
+                      </Grid>
+                    </View>
+                )}
+
+                {this.state.cameraMode && (
+                    <ComBadrCameraComp onTakePicture={this.onTakePicture} />
+                )}
+
+                {this.state.deleteMode && (
+                    <Modal
+                        isVisible={this.state.deleteMode}
+                        onBackdropPress={this.close}
+                        style={style.modalContainer}>
+                      <View>
+                        <Text style={style.modalMessage}>
+                          {translate(
+                              'controleApresScanner.core.photosControle.removalModal.message',
+                          )}
+                        </Text>
+
+                        <Button
+                            title={translate('transverse.confirmer')}
+                            type={'solid'}
+                            buttonStyle={style.modalAction}
+                            onPress={() => this.confirmPictureRemoval()}
+                        />
+
+                        <Button
+                            title={translate('transverse.annuler')}
+                            type={'solid'}
+                            buttonStyle={style.modalAction}
+                            onPress={() => this.cancelPictureRemoval()}
+                        />
+                      </View>
+                    </Modal>
+                )}
               </View>
-            )}
-
-            {this.state.cameraMode && (
-              <ComBadrCameraComp onTakePicture={this.onTakePicture} />
-            )}
-
-            {this.state.deleteMode && (
-              <Modal
-                isVisible={this.state.deleteMode}
-                onBackdropPress={this.close}
-                style={style.modalContainer}>
-                <View>
-                  <Text style={style.modalMessage}>
-                    {translate(
-                      'controleApresScanner.core.photosControle.removalModal.message',
-                    )}
-                  </Text>
-
-                  <Button
-                    title={translate('transverse.confirmer')}
-                    type={'solid'}
-                    buttonStyle={style.modalAction}
-                    onPress={() => this.confirmPictureRemoval()}
-                  />
-
-                  <Button
-                    title={translate('transverse.annuler')}
-                    type={'solid'}
-                    buttonStyle={style.modalAction}
-                    onPress={() => this.cancelPictureRemoval()}
-                  />
-                </View>
-              </Modal>
-            )}
-          </View>
-        )}
-      </ScrollView>
+          )}
+        </ScrollView>
     );
   }
 }
@@ -1317,6 +1415,6 @@ const styles = StyleSheet.create({
 });
 
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
+    mapStateToProps,
+    mapDispatchToProps,
 )(CtrlControleApresScannerCoreComponent);

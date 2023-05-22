@@ -64,6 +64,8 @@ export default {
         nombreScelles: 'Nombre de Scellés',
         generateurScelle: 'Génerateur de numéros de scellés ',
         numeroScelle: 'Numéro scellé ',
+          transporteurExploitantMEAD: 'Transporteur/ Exploitant MEAD',
+          choisirValeur: 'Choisir une valeur',
       },
       dedouanementRemorque: {
         title: 'Dédouanement sur remorque',

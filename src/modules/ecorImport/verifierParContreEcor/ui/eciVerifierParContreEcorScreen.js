@@ -281,7 +281,7 @@ class EciVerifierParContreEcorScreen extends Component {
         },
       };
 
-      let acteurInternePesage = {
+      let acteurInterneContreEcor = {
         idActeur: ComSessionService.getInstance().getLogin(),
         nom: ComSessionService.getInstance().getUserObject().nomAgent,
         prenom: ComSessionService.getInstance().getUserObject().prenomAgent,
@@ -306,12 +306,16 @@ class EciVerifierParContreEcorScreen extends Component {
                 ...this.state.selectedLot,
                 refEquipementEnleve: refEquipementEnleve,
                 acteurInterneEnlevement: acteurInterneEnlevement,
-                acteurInternePesage: acteurInternePesage,
+                acteurInterneContreEcor: acteurInterneContreEcor,
                 dateHeureEffectiveEnlevement:
                   this.state.selectedLot.dateEffectiveEnlevement +
                   ' ' +
                   this.state.selectedLot.heureEffectiveEnlevement,
                 allRefEquipementEnleve: [],
+                dateHeureConteEcor:
+                    this.state.selectedLot.dateConteEcor +
+                    ' ' +
+                    this.state.selectedLot.heureConteEcor,
               },
             ],
           },
@@ -326,6 +330,15 @@ class EciVerifierParContreEcorScreen extends Component {
   };
   validerUpdate = () => {
     console.log('valider update');
+    let acteurInterneContreEcor = {
+      idActeur: ComSessionService.getInstance().getLogin(),
+      nom: ComSessionService.getInstance().getUserObject().nomAgent,
+      prenom: ComSessionService.getInstance().getUserObject().prenomAgent,
+      refBureau: {
+        codeBureau: ComSessionService.getInstance().getCodeBureau(),
+        nomBureauDouane: ComSessionService.getInstance().getNomBureauDouane(),
+      },
+    };
     this.scrollViewRef.scrollTo({y: 0, animated: true});
     if (this.testIsChampsValid(champsObligatoire) === true) {
       const currentIndex = _.findIndex(
@@ -353,6 +366,32 @@ class EciVerifierParContreEcorScreen extends Component {
             'enleverMarchandiseVO after update',
             JSON.stringify(this.state.enleverMarchandiseVO),
           ),
+      );
+      const march= this.state.enleverMarchandiseVO.refMarchandiseEnlevee.map(obj=>Object.assign({},obj,{
+        ...this.state.selectedLot,
+        acteurInterneContreEcor: acteurInterneContreEcor,
+        dateHeureConteEcor:
+            this.state.selectedLot.dateConteEcor +
+            ' ' +
+            this.state.selectedLot.heureConteEcor,
+
+      },))
+      console.log("new val",JSON.stringify(march))
+      this.setState(
+          {
+            ...this.state,
+            showEnlevements: false,
+            enleverMarchandiseVO: {
+              ...this.state.enleverMarchandiseVO,
+              refMarchandiseEnlevee: march,
+            },
+          },
+
+          () =>
+              console.log(
+                  'march after update',
+                  JSON.stringify(this.state.enleverMarchandiseVO),
+              ),
       );
     }
   };

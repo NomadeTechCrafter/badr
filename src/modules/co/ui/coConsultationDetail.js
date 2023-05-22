@@ -191,6 +191,36 @@ class COConsultationDetail extends React.Component {
 
   render() {
     const co = this.props.data;
+    let destinationCommand = '';
+    let destinationParam = null;
+    switch (co.typeCertificat) {
+      case '01':
+        destinationCommand = 'vctDestination';
+        break;
+      case '02':
+        destinationCommand = 'vctDestinationLigueArabe';
+        break;
+      case '03':
+        destinationCommand = 'vctDestinationLigueArabe';
+        break;
+      case '04':
+        destinationCommand = 'vctDestinationJaune';
+        break;
+      case '05':
+        destinationCommand = 'vctDestinationLigueArabe';
+        break;
+      case '06':
+        destinationCommand = 'getCmbPays';
+        destinationParam = {code: co?.paysDestination};
+        break;
+      case '07':
+        destinationCommand = 'getCmbPays';
+        destinationParam = {code: co?.paysDestination};
+        break;
+      default:
+        destinationCommand = 'vctDestination';
+        break;
+    }
     return (
       <ScrollView>
         <View>
@@ -289,36 +319,33 @@ class COConsultationDetail extends React.Component {
                       </ComBadrLibelleComp>
                     </Col>
                     <Col size={6}>
-                      {this.toShow1(co?.typeCertificat) && (
-                        <ComBadrPickerComp
-                          disabled={true}
-                          key="code"
-                          selectedValue={co?.paysDestination}
-                          selected={co?.paysDestination}
-                          cle="code"
-                          libelle="libelle"
-                          command="vctDestination"
-                          param={null}
-                          typeService="SP"
-                          storeWithKey="code"
-                          storeLibelleWithKey="libelle"
-                        />
-                      )}
+                      {/* {this.toShow1(co?.typeCertificat) && ( */}
+                      <ComBadrPickerComp
+                        disabled={true}
+                        key="code"
+                        selectedValue={co?.paysDestination}
+                        selected={co?.paysDestination}
+                        cle="code"
+                        libelle="libelle"
+                        command={destinationCommand}
+                        module="REF_LIB"
+                        param={destinationParam}
+                        typeService="SP"
+                        storeWithKey="code"
+                        storeLibelleWithKey="libelle"
+                      />
+                      {/* )}
                       {this.toShow2(co?.typeCertificat) && (
                         <ComBadrAutoCompleteChipsComp
+                          code="libelle"
                           disabled={true}
-                          key="code"
-                          selectedValue={co?.paysDestination}
                           selected={co?.paysDestination}
-                          cle="code"
+                          maxItems={3}
                           libelle="libelle"
                           command="getCmbPays"
-                          param={null}
-                          typeService="SP"
-                          storeWithKey="code"
-                          storeLibelleWithKey="libelle"
+                          paramName="libellePays"
                         />
-                      )}
+                      )} */}
                     </Col>
                     <Col size={1} />
                   </Row>
@@ -764,11 +791,13 @@ class COConsultationDetail extends React.Component {
                       />
                     </Col>
                     <Col>
-                      <ComBadrKeyValueComp
-                        libelle={translate('co.critereMarchandise')}
-                        libelleSize={3}
-                        value={this.state.selectedArticle?.type}
-                      />
+                      {this.state.selectedArticle?.type && (
+                        <ComBadrKeyValueComp
+                          libelle={translate('co.critereMarchandise')}
+                          libelleSize={3}
+                          value={this.state.selectedArticle?.type}
+                        />
+                      )}
                     </Col>
                   </Row>
                   <Row>
@@ -780,11 +809,13 @@ class COConsultationDetail extends React.Component {
                       />
                     </Col>
                     <Col>
-                      <ComBadrKeyValueComp
-                        libelle={translate('co.marque')}
-                        libelleSize={3}
-                        value={this.state.selectedArticle?.marque}
-                      />
+                      {this.state.selectedArticle?.marque && (
+                        <ComBadrKeyValueComp
+                          libelle={translate('co.marque')}
+                          libelleSize={3}
+                          value={this.state.selectedArticle?.marque}
+                        />
+                      )}
                     </Col>
                     {this.state.selectedArticle?.critereOrigine && (
                       <Col>

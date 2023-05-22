@@ -25,7 +25,11 @@ export function request(action, navigation) {
               data.dtoHeader.messagesErreur.length === 0)
           ) {
             dispatch(success(data));
-            navigation.navigate('AtGestion', {data});
+            navigation.navigate('AtGestion', {
+              screen: "AtEntete",
+              data: data,
+              consultation: true
+            });
           } else {
             dispatch(failed(data));
           }

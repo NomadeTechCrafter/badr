@@ -24,11 +24,13 @@ export function request(action, navigation) {
               data.dtoHeader.messagesErreur.length === 0)
           ) {
             dispatch(success(data));
-            navigation.navigate('Resultat', {
-              first: true,
-              rowCount: data.dtoHeader.rowCount,
-              atRechercheBean: action.value.atRechercheBean
-            });
+            if (!action.value.isApurement){
+              navigation.navigate('Resultat', {
+                first: true,
+                rowCount: data.dtoHeader.rowCount,
+                atRechercheBean: action.value.atRechercheBean
+              });
+            }
           } else {
             dispatch(failed(data));
           }

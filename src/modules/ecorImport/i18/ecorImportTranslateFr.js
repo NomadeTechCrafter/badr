@@ -32,6 +32,7 @@ export default {
       pourEntreposage: 'Pour entreposage',
     },
     bonSortie: {
+      referencebonDeSortie: 'Référence bon sortie',
       bonDeSortie: 'Bon de Sortie',
       nombreColis: 'Nombre colis',
       poidsNet: 'Poids Net',

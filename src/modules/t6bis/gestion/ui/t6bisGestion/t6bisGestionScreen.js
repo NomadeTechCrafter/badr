@@ -1,4 +1,4 @@
-import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+﻿import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import _ from 'lodash';
 import React from 'react';
 import {ScrollView, View} from 'react-native';
@@ -168,6 +168,33 @@ class T6bisGestion extends React.Component {
       this.setState({errorMessage: messages});
       return;
     }
+    let message = translate('t6bisGestion.tabs.articles.articleBlock.mtm.champsObligatoires');
+    let msg='';
+    if (_.isEmpty(this.props.t6bis.typeMoyenPaiement)) {
+
+
+      msg += translate('t6bisGestion.tabs.entete.informationst6bisBlock.mtm.typeMoyenPaiement');
+      this.setState({
+        errorMessage: message+msg
+      });
+      return;
+    }
+    else {
+      msg='';
+      if(this.props.t6bis.typeMoyenPaiement.code=="03")
+      {
+        if (_.isEmpty(this.props.t6bis.tpeComboBean)) {
+
+
+          msg += translate('t6bisGestion.tabs.entete.informationsTpet6bisBlock.mtm.libTpe');
+          this.setState({
+            errorMessage: message+msg
+          });
+          return;
+        }
+      }
+    }
+    //console.log('t6bis:enregistrer props',JSON.stringify(this.props.t6bis))
     if (
       isCreation() &&
       this.props.t6bis &&

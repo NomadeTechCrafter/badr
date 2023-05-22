@@ -52,40 +52,6 @@ class AtComposant extends React.Component {
       errorMessage: null,
       typeComposant: ConstantsAt.CODE_TYPE_COMP_REMORQUE,
     };
-    this.rows = [
-      {
-        typeComposant: translate('at.composants.vehicule'),
-        nombre: this.props.data.vehiculeVOs ? this.props.data.vehiculeVOs.length : 0,
-      },
-      {
-        typeComposant: translate('at.composants.motoQuad'),
-        nombre: this.props.data.motoQuadVOs ? this.props.data.motoQuadVOs.length : 0,
-      },
-      {
-        typeComposant: translate('at.composants.remorque'),
-        nombre: this.props.data.remorqueVOs ? this.props.data.remorqueVOs.length : 0,
-      },
-      {
-        typeComposant: translate('at.composants.arme'),
-        nombre: this.props.data.armeVOs ? this.props.data.armeVOs.length : 0,
-      },
-      {
-        typeComposant: translate('at.composants.enginVolant'),
-        nombre: this.props.data.droneVOs ? this.props.data.droneVOs.length : 0,
-      },
-      {
-        typeComposant: translate('at.composants.jetsky'),
-        nombre: this.props.data.jetSkiVOs ? this.props.data.jetSkiVOs.length : 0,
-      },
-      {
-        typeComposant: translate('at.composants.bateauPlaisance'),
-        nombre: this.props.data.bateauPlaisanceVOs ? this.props.data.bateauPlaisanceVOs.length : 0,
-      },
-      {
-        typeComposant: translate('at.composants.marchandise'),
-        nombre: this.props.data.marchandiseVOs ? this.props.data.marchandiseVOs.length : 0,
-      },
-    ];
     this.cols = [
       {
         code: 'typeComposant',
@@ -117,7 +83,46 @@ class AtComposant extends React.Component {
   }
 
   render() {
-    const atVo: any = this.props.data;
+    let atVo;
+    if (!_.isEmpty(this.props.initApurement?.data)) {
+      atVo = this.props.initApurement.data;
+    } else {
+      atVo = this.props.atConsulter.data;
+    }
+    this.rows = [
+      {
+        typeComposant: translate('at.composants.vehicule'),
+        nombre: atVo.vehiculeVOs ? atVo.vehiculeVOs.length : 0,
+      },
+      {
+        typeComposant: translate('at.composants.motoQuad'),
+        nombre: atVo.motoQuadVOs ? atVo.motoQuadVOs.length : 0,
+      },
+      {
+        typeComposant: translate('at.composants.remorque'),
+        nombre: atVo.remorqueVOs ? atVo.remorqueVOs.length : 0,
+      },
+      {
+        typeComposant: translate('at.composants.arme'),
+        nombre: atVo.armeVOs ? atVo.armeVOs.length : 0,
+      },
+      {
+        typeComposant: translate('at.composants.enginVolant'),
+        nombre: atVo.droneVOs ? atVo.droneVOs.length : 0,
+      },
+      {
+        typeComposant: translate('at.composants.jetsky'),
+        nombre: atVo.jetSkiVOs ? atVo.jetSkiVOs.length : 0,
+      },
+      {
+        typeComposant: translate('at.composants.bateauPlaisance'),
+        nombre: atVo.bateauPlaisanceVOs ? atVo.bateauPlaisanceVOs.length : 0,
+      },
+      {
+        typeComposant: translate('at.composants.marchandise'),
+        nombre: atVo.marchandiseVOs ? atVo.marchandiseVOs.length : 0,
+      },
+    ];
     return (
       <View style={styles.fabContainer}>
         <ScrollView
@@ -241,7 +246,11 @@ class AtComposant extends React.Component {
   }
 }
 function mapStateToProps(state) {
-  return { ...state.atConsulterReducer };
+  const combinedState = {
+    initApurement: { ...state.initApurementReducer },
+    atConsulter: { ...state.atConsulterReducer },
+  };
+  return combinedState;
 }
 
 function mapDispatchToProps(dispatch) {

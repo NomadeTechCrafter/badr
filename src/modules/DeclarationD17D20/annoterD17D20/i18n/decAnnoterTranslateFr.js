@@ -8,7 +8,7 @@ export default {
     actionAnnoter: 'Annoter',
     dateVuEmb: 'Date et commentaire sont obligatoire',
     matriculeVehicule: 'Matricule Vehicule',
-
+    listeDeclarationsDetail: 'Liste Déclaration en Détail',
     //Version
     type: 'Type',
     numeroVersion: 'N°',
@@ -52,7 +52,7 @@ export default {
     natureMarch: 'Nature de la marchandise',
 
     //Autorisation MA
-    autorisation: 'Annoter',
+    autorisation: 'Autorisation MA',
     numAutorisation: "Numéro d'autorisation",
     du: 'Du',
     au: 'Au',
@@ -63,10 +63,11 @@ export default {
     annoter: 'Autorisation MA',
     dateAnnoter: 'Date Annoter',
     autresDocument: 'Autre Documents',
-    commentAnnoter: 'Commentaire',
+    commentAnnoter: 'Annotation',
     listeEtatChargement: 'Liste Etat de chargement',
+    listeLosDs: 'Liste Lots DS',
     versions: {
-      title: 'Liste des versions',
+      title: 'Liste des annotations',
       num: 'N°',
       type: 'Type',
       statut: 'Statut',
@@ -85,7 +86,8 @@ export default {
     },
     decEnDetail: {
       ref: 'Référence',
-      operateur: 'opérateur',
+      operateur: 'Opérateur',
+      exportateur: 'Exportateur',
       nbreContenant: 'Nombre Contenant',
       poidsBrut: 'Poids Brut',
       poidsNet: 'Poids Net',
@@ -100,6 +102,7 @@ export default {
     },
     scanner: {
       dateScannage: 'Date scannage',
+      ctrlApresScn:'Contrôle après scanner',
       agent: 'Agent',
       resultat: 'Résultat',
       commentaire: 'Commentaire',

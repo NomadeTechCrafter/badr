@@ -87,38 +87,28 @@ const mapping = {
     screen: 'RechercheEcorImport',
     params: {typeEcorImport: 'VerifierParContreEcor'},
   },
-
-  '9932': {screen: 'ActifsRecherche', params: {}},
-  '3064': {screen: 'controleRechercheDumScreen', params: {typeControle: 'AC'}},
-  '3072': {screen: 'controleRechercheDumScreen', params: {typeControle: 'RI'}},
-  '3086': {screen: 'controleRechercheDumScreen', params: {typeControle: 'TR'}},
-  '5202': {screen: 'LiquidationRechercheScreen', params: {qr: false}},
-  '2401': {screen: 'PreConfirmationArriveeMainScreen', params: {}},
-  '2402': {screen: 'JustifRetardTransitMainScreen', params: {}},
-  '90026': {screen: 'AnnoterTrypt', params: {}},
-  '3202': {screen: 'DedEtudeRetudeScreen', params: {qr: false}},
-  '3203': {screen: 'DedRecoterEtudeScreen', params: {qr: false}},
-  '3204': {screen: 'DedREtudeRetudeScreen', params: {qr: false}},
-  '1213': {
-    screen: 'RechercheEcorImport',
-    params: {typeEcorImport: 'EnleverMarchandiseSsManifeste'},
-  },
-  '1220': {
-    screen: 'RechercheEcorImport',
-    params: {typeEcorImport: 'VerifierPContreEcorSsManifeste'},
-  },
-  '1219': {
-    screen: 'RechercheEcorImport',
-    params: {typeEcorImport: 'ConfirmerArriveeSsManifeste'},
-  },
-  '1218': {
-    screen: 'RechercheEcorImport',
-    params: {typeEcorImport: 'AutoriserAcheminementSsManifeste'},
-  },
   '40002': {screen: 'COMainScreen', params: {ecran: 'TRAITER'}},
   '40004': {screen: 'COMainScreen', params: {ecran: 'CONSULTER'}},
   '40005': {screen: 'COMainScreen', params: {ecran: 'ANNULER'}},
   '40008': {screen: 'COMainScreen', params: {ecran: 'Traiter Duplicata'}},
+
+  /*
+  '9932': { screen: 'ActifsRecherche', params: {} },
+  '3064': { screen: 'controleRechercheDumScreen', params: { typeControle: 'AC' } },
+  '3072': { screen: 'controleRechercheDumScreen', params: { typeControle: 'RI' } },
+  '3086': { screen: 'controleRechercheDumScreen', params: { typeControle: 'TR' } },
+  '5202': {screen: 'LiquidationRechercheScreen', params: {qr: false}},
+  '2401': { screen: 'PreConfirmationArriveeMainScreen', params: {} },
+  '2402': { screen: 'JustifRetardTransitMainScreen', params: {} },
+  '90026': {screen: 'AnnoterTrypt', params: {}},
+  '3202': {screen: 'DedEtudeRetudeScreen', params: {qr: false}},
+  '3203': {screen: 'DedRecoterEtudeScreen', params: {qr: false}},
+  '3204': {screen: 'DedREtudeRetudeScreen', params: {qr: false}},
+  '1213': {screen: 'RechercheEcorImport',params: {typeEcorImport: 'EnleverMarchandiseSsManifeste'}},
+  '1220': {screen: 'RechercheEcorImport',params: {typeEcorImport: 'VerifierPContreEcorSsManifeste'}},
+  '1219': {screen: 'RechercheEcorImport',params: {typeEcorImport: 'ConfirmerArriveeSsManifeste'}},
+  '1218': {screen: 'RechercheEcorImport',params: {typeEcorImport: 'AutoriserAcheminementSsManifeste'}},
+  */
 };
 
 const ionicMapping = {};

@@ -24,7 +24,7 @@ class RechParRefApurement extends React.Component {
       },
       {
         code: 'dedServicesVO.operateurDeclarant',
-        libelle: translate('annoter.decEnDetail.operateur'),
+        libelle: translate('annoter.decEnDetail.exportateur'),
         width: 160,
       },
       {
@@ -50,7 +50,7 @@ class RechParRefApurement extends React.Component {
       {
         code: 'dedServicesVO.valeurDeclaree',
         libelle: translate('annoter.decEnDetail.valDeclaree'),
-        width: 100,
+        width: 200,
       },
     ];
   };
@@ -59,7 +59,7 @@ class RechParRefApurement extends React.Component {
     return [
       {
         code: 'referenceEnregistrement',
-        libelle: translate('annoter.etatChargement.ref'),
+        libelle: translate('annoter.decEnDetail.ref'),
         width: 160,
       },
       {
@@ -108,120 +108,120 @@ class RechParRefApurement extends React.Component {
     const enteteTrypVO = this.props.dataVo?.enteteTrypVO;
     const listEtatChargementVO = this.props.dataVo?.listEtatChargementApuresVO;
     const listDeclarationEnDouaneVO = this.props.dataVo
-      ?.listDeclarationEnDouaneApuresVO;
+        ?.listDeclarationEnDouaneApuresVO;
     const referenceEnregistrement = this.props.dataVo?.declarationTriptique
-      ?.referenceEnregistrement;
+        ?.referenceEnregistrement;
     return (
-      <View style={styles.fabContainer}>
-        <ScrollView>
-          {/* Référence déclaration */}
-          <CardBox style={styles.cardBoxInfoDum}>
-            <View style={[styles.flexDirectionRow, styles.margtb]}>
-              <Text style={styles.libelleM}>
-                {translate('transverse.bureau')}
-              </Text>
-              <Text style={styles.libelleM}>
-                {translate('transverse.regime')}
-              </Text>
-              <Text style={styles.libelleM}>
-                {translate('transverse.annee')}
-              </Text>
-              <Text style={styles.libelleL}>
-                {translate('transverse.serie')}
-              </Text>
-              <Text style={styles.libelleS}>{translate('transverse.cle')}</Text>
-              <Text style={styles.libelleL}>
-                {translate('transverse.type')}
-              </Text>
-              <Text style={styles.libelleL}>
-                {translate('transverse.libRegime')}
-              </Text>
-            </View>
-            <View style={styles.flexDirectionRow}>
-              <Text style={styles.valueM}>
-                {referenceEnregistrement?.slice(0, 3)}
-              </Text>
-              <Text style={styles.valueM}>
-                {referenceEnregistrement?.slice(3, 6)}
-              </Text>
-              <Text style={styles.valueM}>
-                {referenceEnregistrement?.slice(6, 10)}
-              </Text>
-              <Text style={styles.valueL}>
-                {referenceEnregistrement?.slice(10, 17)}
-              </Text>
-              <Text style={styles.valueS}>
-                {this.cleDUM(
-                  referenceEnregistrement?.slice(3, 6),
-                  referenceEnregistrement?.slice(10, 17),
-                )}
-              </Text>
-              <Text style={styles.valueL}>TRYPTIQUE</Text>
-              <Text style={styles.valueL}>{enteteTrypVO?.libelleRegime}</Text>
-            </View>
-          </CardBox>
-          <CardBox style={styles.cardBox}>
-            <Accordion
-              badr
-              title={translate('annoter.listeDeclarationsDetail')}
-              expanded>
-              <Text style={styles.nombreResult}>
-                {translate('annoter.versions.nbreVersions')} :
-                <Text style={styles.libelle}>
-                  {'    ' + listDeclarationEnDouaneVO?.length}
+        <View style={styles.fabContainer}>
+          <ScrollView>
+            {/* Référence déclaration */}
+            <CardBox style={styles.cardBoxInfoDum}>
+              <View style={[styles.flexDirectionRow, styles.margtb]}>
+                <Text style={styles.libelleM}>
+                  {translate('transverse.bureau')}
                 </Text>
-              </Text>
-              {listDeclarationEnDouaneVO && (
-                <ComBasicDataTableComp
+                <Text style={styles.libelleM}>
+                  {translate('transverse.regime')}
+                </Text>
+                <Text style={styles.libelleM}>
+                  {translate('transverse.annee')}
+                </Text>
+                <Text style={styles.libelleL}>
+                  {translate('transverse.serie')}
+                </Text>
+                <Text style={styles.libelleS}>{translate('transverse.cle')}</Text>
+                <Text style={styles.libelleL}>
+                  {translate('transverse.type')}
+                </Text>
+                <Text style={styles.libelleL}>
+                  {translate('transverse.libRegime')}
+                </Text>
+              </View>
+              <View style={styles.flexDirectionRow}>
+                <Text style={styles.valueM}>
+                  {referenceEnregistrement?.slice(0, 3)}
+                </Text>
+                <Text style={styles.valueM}>
+                  {referenceEnregistrement?.slice(3, 6)}
+                </Text>
+                <Text style={styles.valueM}>
+                  {referenceEnregistrement?.slice(6, 10)}
+                </Text>
+                <Text style={styles.valueL}>
+                  {referenceEnregistrement?.slice(10, 17)}
+                </Text>
+                <Text style={styles.valueS}>
+                  {this.cleDUM(
+                      referenceEnregistrement?.slice(3, 6),
+                      referenceEnregistrement?.slice(10, 17),
+                  )}
+                </Text>
+                <Text style={styles.valueL}>TRYPTIQUE</Text>
+                <Text style={styles.valueL}>{enteteTrypVO?.libelleRegime}</Text>
+              </View>
+            </CardBox>
+            <CardBox style={styles.cardBox}>
+              <Accordion
                   badr
-                  onRef={(ref) => (this.badrComposantsTable = ref)}
-                  hasId={false}
-                  id="idComposant01"
-                  rows={listDeclarationEnDouaneVO}
-                  cols={this.composantTablesColsDecEnDetail}
-                  // onItemSelected={this.onComposantSelected}
-                  totalElements={
-                    listDeclarationEnDouaneVO?.length
-                      ? listDeclarationEnDouaneVO?.length
-                      : 0
-                  }
-                  maxResultsPerPage={5}
-                  paginate={true}
+                  title={translate('annoter.listeDeclarationsDetail')}
+                  expanded>
+                <Text style={styles.nombreResult}>
+                  {translate('annoter.versions.nbreVersions')} :
+                  <Text style={styles.libelle}>
+                    {'    ' + listDeclarationEnDouaneVO?.length}
+                  </Text>
+                </Text>
+                {listDeclarationEnDouaneVO && (
+                    <ComBasicDataTableComp
+                        badr
+                        onRef={(ref) => (this.badrComposantsTable = ref)}
+                        hasId={false}
+                        id="idComposant01"
+                        rows={listDeclarationEnDouaneVO}
+                        cols={this.composantTablesColsDecEnDetail}
+                        // onItemSelected={this.onComposantSelected}
+                        totalElements={
+                          listDeclarationEnDouaneVO?.length
+                              ? listDeclarationEnDouaneVO?.length
+                              : 0
+                        }
+                        maxResultsPerPage={5}
+                        paginate={true}
+                    />
+                )}
+              </Accordion>
+            </CardBox>
+            <CardBox style={styles.cardBox}>
+              <Accordion
+                  badr
+                  title={enteteTrypVO?.libelleRegime=='D20'?translate('annoter.listeLosDs'):translate('annoter.listeEtatChargement')}
+                  expanded>
+                <Text style={styles.nombreResult}>
+                  {translate('annoter.versions.nbreVersions')} :{' '}
+                  {listEtatChargementVO?.length
+                      ? listEtatChargementVO?.length
+                      : 0}
+                </Text>
+                <ComBasicDataTableComp
+                    badr
+                    onRef={(ref) => (this.badrComposantsTable = ref)}
+                    hasId={false}
+                    id="idComposant02"
+                    rows={listEtatChargementVO}
+                    cols={this.composantTablesCols}
+                    // onItemSelected={this.onComposantSelected}
+                    totalElements={
+                      listEtatChargementVO?.length
+                          ? listEtatChargementVO?.length
+                          : 0
+                    }
+                    maxResultsPerPage={5}
+                    paginate={true}
                 />
-              )}
-            </Accordion>
-          </CardBox>
-          <CardBox style={styles.cardBox}>
-            <Accordion
-              badr
-              title={translate('annoter.listeEtatChargement')}
-              expanded>
-              <Text style={styles.nombreResult}>
-                {translate('annoter.versions.nbreVersions')} :{' '}
-                {listEtatChargementVO?.length
-                  ? listEtatChargementVO?.length
-                  : 0}
-              </Text>
-              <ComBasicDataTableComp
-                badr
-                onRef={(ref) => (this.badrComposantsTable = ref)}
-                hasId={false}
-                id="idComposant02"
-                rows={listEtatChargementVO}
-                cols={this.composantTablesCols}
-                // onItemSelected={this.onComposantSelected}
-                totalElements={
-                  listEtatChargementVO?.length
-                    ? listEtatChargementVO?.length
-                    : 0
-                }
-                maxResultsPerPage={5}
-                paginate={true}
-              />
-            </Accordion>
-          </CardBox>
-        </ScrollView>
-      </View>
+              </Accordion>
+            </CardBox>
+          </ScrollView>
+        </View>
     );
   }
 }

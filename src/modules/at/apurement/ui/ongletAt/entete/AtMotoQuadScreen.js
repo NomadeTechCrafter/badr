@@ -245,7 +245,11 @@ class AtMotoQuad extends React.Component {
   }
 }
 function mapStateToProps(state) {
-  return { ...state.atConsulterReducer };
+  const combinedState = {
+    initApurement: { ...state.initApurementReducer },
+    atConsulter: { ...state.atConsulterReducer },
+  };
+  return combinedState;
 }
 
 function mapDispatchToProps(dispatch) {

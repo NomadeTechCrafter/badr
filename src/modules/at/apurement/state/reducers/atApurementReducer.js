@@ -168,7 +168,24 @@ export default (state = initialState, action) => {
         nextState.errorMessage = translate('errors.technicalIssue');
       }
       return nextState;
-
+    case Constants.VERIFIER_EXISTANCE_AUTRE_AT_VOY_VEH_MOTO_REQUEST:
+      return nextState;
+    case Constants.VERIFIER_EXISTANCE_AUTRE_AT_VOY_VEH_MOTO_IN_PROGRESS:
+      nextState.showProgress = true;
+      return nextState;
+    case Constants.VERIFIER_EXISTANCE_AUTRE_AT_VOY_VEH_MOTO_SUCCESS:
+      nextState.errorMessage = null;
+      nextState.showProgress = false;
+      return nextState;
+    case Constants.VERIFIER_EXISTANCE_AUTRE_AT_VOY_VEH_MOTO_FAILED:
+      nextState.showProgress = false;
+      nextState.displayError = true;
+      if (action.value.dtoHeader) {
+        nextState.errorMessage = action.value.dtoHeader.messagesErreur;
+      } else {
+        nextState.errorMessage = translate('errors.technicalIssue');
+      }
+      return nextState;
     default:
       if (nextState.successMessage) {
         delete nextState.successMessage;

@@ -56,6 +56,7 @@ class AtEntete extends React.Component {
 
 
   componentDidMount = () => {
+    
   };
 
   componentWillUnmount() {
@@ -71,7 +72,12 @@ class AtEntete extends React.Component {
   };
 
   render() {
-    const atVo: any = this.props.data;
+    let atVo;
+    if (!_.isEmpty(this.props.initApurement?.data)) {
+      atVo = this.props.initApurement.data;
+    } else {
+      atVo = this.props.atConsulter.data;
+    }
     return (
       <View style={styles.fabContainer}>
         <ScrollView
@@ -385,7 +391,11 @@ class AtEntete extends React.Component {
   }
 }
 function mapStateToProps(state) {
-  return { ...state.atConsulterReducer };
+  const combinedState = {
+    initApurement: { ...state.initApurementReducer },
+    atConsulter: { ...state.atConsulterReducer },
+  };
+  return combinedState;
 }
 
 function mapDispatchToProps(dispatch) {

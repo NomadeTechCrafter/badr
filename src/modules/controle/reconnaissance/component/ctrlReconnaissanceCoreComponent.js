@@ -59,17 +59,17 @@ class CtrlReconnaissanceCoreComponent extends React.Component {
   }
   renderFooter() {
     return (
-        //Footer View with Load More button
-        <View style={styles.footer}>
-          <TouchableOpacity
-              activeOpacity={0.9}
-              onPress={this.loadMoreData}
-              //On Click of button calling loadMoreData function to load more data
-              style={styles.loadMoreBtn}>
-            <Text style={styles.btnText}>Loading</Text>
-            {this.state.fetching_from_server ? <ComBadrProgressBarComp /> : null}
-          </TouchableOpacity>
-        </View>
+      //Footer View with Load More button
+      <View style={styles.footer}>
+        <TouchableOpacity
+          activeOpacity={0.9}
+          // onPress={this.loadMoreData}
+          //On Click of button calling loadMoreData function to load more data
+          style={styles.loadMoreBtn}>
+          <Text style={styles.btnText}>Loading</Text>
+          {this.state.fetching_from_server ? <ComBadrProgressBarComp /> : null}
+        </TouchableOpacity>
+      </View>
     );
   }
   prepareState = () => {
@@ -81,8 +81,8 @@ class CtrlReconnaissanceCoreComponent extends React.Component {
     let numeroVoyage = this.props.reconnaissanceVo.numeroVoyage;
 
     let photoList = this.props.reconnaissanceVo.photoList
-        ? this.props.reconnaissanceVo.photoList
-        : [];
+      ? this.props.reconnaissanceVo.photoList
+      : [];
     photoList.forEach(function (value, index, array) {
       if (value.idPhoto != null) {
         photoList[index].idPhoto = null;
@@ -105,6 +105,8 @@ class CtrlReconnaissanceCoreComponent extends React.Component {
       serie: serie,
       cle: cle,
       numeroVoyage: numeroVoyage,
+      onEndReachedCalledDuringMomentum: true,
+      lastLoadCount: 0,
       reconnaissanceVo: {
         ...this.state.reconnaissanceVo,
         creation: this.props.mode === 'add',
@@ -117,11 +119,11 @@ class CtrlReconnaissanceCoreComponent extends React.Component {
         poids: this.props.reconnaissanceVo.poids,
         offset: 0,
         nbrColis: this.props.reconnaissanceVo.nbrColis
-            ? this.props.reconnaissanceVo.nbrColis.toString()
-            : null,
+          ? this.props.reconnaissanceVo.nbrColis.toString()
+          : null,
         nombreColisVisite: this.props.reconnaissanceVo.nombreColisVisite
-            ? this.props.reconnaissanceVo.nombreColisVisite.toString()
-            : null,
+          ? this.props.reconnaissanceVo.nombreColisVisite.toString()
+          : null,
         descriptionVisite: this.props.reconnaissanceVo.descriptionVisite,
         //   photoList: photoList,
         isMobile: true,
@@ -132,20 +134,20 @@ class CtrlReconnaissanceCoreComponent extends React.Component {
       var encodingType = '.jpg';
       if (!photoUrl.includes('_')) {
         return (
-            photoUrl.substring(
-                photoUrl.lastIndexOf('/'),
-                photoUrl.indexOf(encodingType),
-            ) +
-            '_' +
-            Date.now() +
-            encodingType
+          photoUrl.substring(
+            photoUrl.lastIndexOf('/'),
+            photoUrl.indexOf(encodingType),
+          ) +
+          '_' +
+          Date.now() +
+          encodingType
         );
       } else {
         return (
-            photoUrl.substring(photoUrl.lastIndexOf('/'), photoUrl.indexOf('_')) +
-            '_' +
-            Date.now() +
-            encodingType
+          photoUrl.substring(photoUrl.lastIndexOf('/'), photoUrl.indexOf('_')) +
+          '_' +
+          Date.now() +
+          encodingType
         );
       }
     }
@@ -155,19 +157,19 @@ class CtrlReconnaissanceCoreComponent extends React.Component {
     this.displayErrorMessage();
 
     if (
-        this.state.reconnaissanceVo.nature &&
-        this.state.reconnaissanceVo.marque &&
-        this.state.reconnaissanceVo.nbrColis &&
-        this.state.reconnaissanceVo.nombreColisVisite &&
-        this.state.reconnaissanceVo.descriptionVisite
+      this.state.reconnaissanceVo.nature &&
+      this.state.reconnaissanceVo.marque &&
+      this.state.reconnaissanceVo.nbrColis &&
+      this.state.reconnaissanceVo.nombreColisVisite &&
+      this.state.reconnaissanceVo.descriptionVisite
     ) {
       let action = CtrlReconnaissanceConfirmAction.request(
-          {
-            type: Constants.CONFIRM_RECONNAISSANCE_REQUEST,
-            value: this.state.reconnaissanceVo,
-            operationType: operationType,
-          },
-          this.props.navigation,
+        {
+          type: Constants.CONFIRM_RECONNAISSANCE_REQUEST,
+          value: this.state.reconnaissanceVo,
+          operationType: operationType,
+        },
+        this.props.navigation,
       );
       this.props.actions.dispatch(action);
     }
@@ -175,11 +177,11 @@ class CtrlReconnaissanceCoreComponent extends React.Component {
 
   back = () => {
     let action = CtrlReconnaissanceSearchAction.init(
-        {
-          type: Constants.SEARCH_RECONNAISSANCE_INIT,
-          value: {},
-        },
-        this.props.navigation,
+      {
+        type: Constants.SEARCH_RECONNAISSANCE_INIT,
+        value: {},
+      },
+      this.props.navigation,
     );
     this.props.actions.dispatch(action);
   };
@@ -212,13 +214,15 @@ class CtrlReconnaissanceCoreComponent extends React.Component {
     const array1 = prevState?.reconnaissanceVo.photoList;
     const array2 = nextProps?.reconnaissanceVo.photoList;
 
-    const result = _.unionBy(array1, array2, 'id');
+    const result = _.unionBy(array1, array2, 'urlPhoto');
 
     console.log('result', result);
 
     return {
       ...prevState,
-
+      lastLoadCount: result.length,
+      onEndReachedCalledDuringMomentum:  false,
+      notFinalLoad: result.length >= 20 ? true : false,
       reconnaissanceVo: {
         ...prevState?.reconnaissanceVo,
         offset: nextProps?.reconnaissanceVo.offset,
@@ -228,22 +232,23 @@ class CtrlReconnaissanceCoreComponent extends React.Component {
   }
   lancerInitAction(reference, numeroVoyage) {
     let action = CtrlReconnaissanceDetailAction.request(
-        {
-          type: Constants.DETAIL_RECONNAISSANCE_REQUEST,
-          value: {
-            creation: this.props.mode === 'add',
-            modification: this.props.mode === 'edit',
-            annulation: this.props.mode === 'cancel',
-            referenceDed: reference,
-            numeroVoyage: numeroVoyage,
-            offset: this.state.reconnaissanceVo.offset,
-          },
+      {
+        type: Constants.DETAIL_RECONNAISSANCE_REQUEST,
+        value: {
+          creation: this.props.mode === 'add',
+          modification: this.props.mode === 'edit',
+          annulation: this.props.mode === 'cancel',
+          referenceDed: reference,
+          numeroVoyage: numeroVoyage,
+          offset: this.state.reconnaissanceVo.offset,
         },
-        this.props.navigation,
+      },
+      this.props.navigation,
     );
     this.props.actions.dispatch(action);
   }
-  loadMoreData = () => {
+  _onMomentumScrollBegin = () => this.setState({ onEndReachedCalledDuringMomentum: false });
+  _callTheAPIToFetchMoreData = () => {
     let reference = this.props?.reconnaissanceVo?.referenceDed;
     let numeroVoyage = this.props?.reconnaissanceVo?.numeroVoyage;
     if (this.state.reconnaissanceVo.offset) {
@@ -255,6 +260,24 @@ class CtrlReconnaissanceCoreComponent extends React.Component {
     console.log(reference);
     console.log('offset Load : ' + this.state.offset);
   };
+  _loadMoreData = () => {
+    if (!this.state.onEndReachedCalledDuringMomentum) {
+      this.setState({ onEndReachedCalledDuringMomentum: true }, () => {
+
+        setTimeout(() => {
+        //  if (this.state.lastLoadCount >= 3 && this.state.notFinalLoad) {
+            this.setState({
+
+              page: this.state.page + 1,
+            }, () => {
+              // Then we fetch more data;
+              this._callTheAPIToFetchMoreData();
+            });
+       //   };
+        }, 1500);
+      });
+    };
+  };
   onRemovePicture = (picture) => {
     this.setState({
       ...this.state,
@@ -265,7 +288,7 @@ class CtrlReconnaissanceCoreComponent extends React.Component {
 
   confirmPictureRemoval = () => {
     let imageIndex = this.state.reconnaissanceVo.photoList.indexOf(
-        this.state.toRemovePicture,
+      this.state.toRemovePicture,
     );
     if (imageIndex > -1) {
       this.state.reconnaissanceVo.photoList.splice(imageIndex, 1);
@@ -287,35 +310,35 @@ class CtrlReconnaissanceCoreComponent extends React.Component {
   downloadPicture = async (picture) => {
     try {
       const granted = await PermissionsAndroid.request(
-          PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-          {
-            title: 'External Storage Permission',
-            message:
-                "L'application a besoin des permissions nécessaires pour procéder.",
-            buttonNeutral: 'Demander ultérieurement',
-            buttonNegative: 'Annuler',
-            buttonPositive: 'OK',
-          },
+        PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+        {
+          title: 'External Storage Permission',
+          message:
+            "L'application a besoin des permissions nécessaires pour procéder.",
+          buttonNeutral: 'Demander ultérieurement',
+          buttonNegative: 'Annuler',
+          buttonPositive: 'OK',
+        },
       );
       if (granted === PermissionsAndroid.RESULTS.GRANTED) {
         RNFetchBlob.fs
-            .writeFile(
-                RNFetchBlob.fs.dirs.DownloadDir + '/' + picture.urlPhoto,
-                picture.contentBase64,
-                'base64',
-            )
-            .then(() => {
-              if (Platform.OS === 'android') {
-                RNFetchBlob.android.actionViewIntent(
-                    RNFetchBlob.fs.dirs.DownloadDir + '/' + picture.url,
-                    'image/jpeg',
-                );
-              } else {
-                RNFetchBlob.ios.previewDocument(
-                    RNFetchBlob.fs.dirs.DownloadDir + '/' + picture.url,
-                );
-              }
-            });
+          .writeFile(
+            RNFetchBlob.fs.dirs.DownloadDir + '/' + picture.urlPhoto,
+            picture.contentBase64,
+            'base64',
+          )
+          .then(() => {
+            if (Platform.OS === 'android') {
+              RNFetchBlob.android.actionViewIntent(
+                RNFetchBlob.fs.dirs.DownloadDir + '/' + picture.url,
+                'image/jpeg',
+              );
+            } else {
+              RNFetchBlob.ios.previewDocument(
+                RNFetchBlob.fs.dirs.DownloadDir + '/' + picture.url,
+              );
+            }
+          });
       } else {
         console.log('External storage permission denied');
       }
@@ -339,8 +362,8 @@ class CtrlReconnaissanceCoreComponent extends React.Component {
 
   hasErrors = (field) => {
     return (
-        this.state.showErrorMessage &&
-        _.isEmpty(this.state.reconnaissanceVo[field])
+      this.state.showErrorMessage &&
+      _.isEmpty(this.state.reconnaissanceVo[field])
     );
   };
 
@@ -353,582 +376,585 @@ class CtrlReconnaissanceCoreComponent extends React.Component {
 
   renderPicture = (item) => {
     return (
-        <View>
-          <Image
-              style={style.pictureStyle}
-              source={{
-                uri: 'data:image/jpeg;base64,' + item.item.contentBase64,
-              }}
-          />
+      <View>
+        <Image
+          style={style.pictureStyle}
+          source={{
+            uri: 'data:image/jpeg;base64,' + item.item.contentBase64,
+          }}
+        />
 
+        <Button
+          type={''}
+          icon={{
+            name: 'image',
+            size: 20,
+            color: 'black',
+          }}
+          onPress={() => this.downloadPicture(item.item)}
+          disabled={false}
+        />
+
+        {!this.props.readMode && !this.state.readonly && (
           <Button
-              type={''}
-              icon={{
-                name: 'image',
-                size: 20,
-                color: 'black',
-              }}
-              onPress={() => this.downloadPicture(item.item)}
-              disabled={false}
+            type={''}
+            icon={{
+              name: 'delete',
+              size: 20,
+              color: 'black',
+            }}
+            onPress={() => this.onRemovePicture(item.item)}
+            disabled={false}
           />
-
-          {!this.props.readMode && !this.state.readonly && (
-              <Button
-                  type={''}
-                  icon={{
-                    name: 'delete',
-                    size: 20,
-                    color: 'black',
-                  }}
-                  onPress={() => this.onRemovePicture(item.item)}
-                  disabled={false}
-              />
-          )}
-        </View>
+        )}
+      </View>
     );
   };
 
   render() {
     return (
-        <ScrollView
-            style={style.innerContainer}
-            keyboardShouldPersistTaps={
-              this.state.autocompleteDropdownOpen || Platform.OS === 'android'
-                  ? 'always'
-                  : 'never'
-            }>
-          {this.props.showProgress && <ComBadrProgressBarComp />}
+      <ScrollView
+        style={style.innerContainer}
+        keyboardShouldPersistTaps={
+          this.state.autocompleteDropdownOpen || Platform.OS === 'android'
+            ? 'always'
+            : 'never'
+        }>
+        {this.props.showProgress && <ComBadrProgressBarComp />}
 
-          {this.props.infoMessage != null && (
-              <ComBadrInfoMessageComp message={this.props.infoMessage} />
-          )}
+        {this.props.infoMessage != null && (
+          <ComBadrInfoMessageComp message={this.props.infoMessage} />
+        )}
 
-          {this.props.errorMessage != null && (
-              <ComBadrErrorMessageComp message={this.props.errorMessage} />
-          )}
+        {this.props.errorMessage != null && (
+          <ComBadrErrorMessageComp message={this.props.errorMessage} />
+        )}
 
-          {!this.props.showProgress && (
+        {!this.props.showProgress && (
+          <View>
+            {!this.state.cameraMode && (
               <View>
-                {!this.state.cameraMode && (
-                    <View>
-                      <Grid style={style.referenceCardInfo}>
-                        <Row style={style.referenceTitles}>
-                          <Col>
-                            <Text style={style.referenceTitleLabel}>
-                              {translate('transverse.bureau')}
-                            </Text>
-                          </Col>
+                <Grid style={style.referenceCardInfo}>
+                  <Row style={style.referenceTitles}>
+                    <Col>
+                      <Text style={style.referenceTitleLabel}>
+                        {translate('transverse.bureau')}
+                      </Text>
+                    </Col>
 
-                          <Col>
-                            <Text style={style.referenceTitleLabel}>
-                              {translate('transverse.regime')}
-                            </Text>
-                          </Col>
+                    <Col>
+                      <Text style={style.referenceTitleLabel}>
+                        {translate('transverse.regime')}
+                      </Text>
+                    </Col>
 
-                          <Col>
-                            <Text style={style.referenceTitleLabel}>
-                              {translate('transverse.annee')}
-                            </Text>
-                          </Col>
+                    <Col>
+                      <Text style={style.referenceTitleLabel}>
+                        {translate('transverse.annee')}
+                      </Text>
+                    </Col>
 
-                          <Col>
-                            <Text style={style.referenceTitleLabel}>
-                              {translate('transverse.serie')}
-                            </Text>
-                          </Col>
+                    <Col>
+                      <Text style={style.referenceTitleLabel}>
+                        {translate('transverse.serie')}
+                      </Text>
+                    </Col>
 
-                          <Col>
-                            <Text style={style.referenceTitleLabel}>
-                              {translate('transverse.cle')}
-                            </Text>
-                          </Col>
+                    <Col>
+                      <Text style={style.referenceTitleLabel}>
+                        {translate('transverse.cle')}
+                      </Text>
+                    </Col>
 
-                          <Col>
-                            <Text style={style.referenceTitleLabel}>
-                              {translate('transverse.nVoyage')}
-                            </Text>
-                          </Col>
+                    <Col>
+                      <Text style={style.referenceTitleLabel}>
+                        {translate('transverse.nVoyage')}
+                      </Text>
+                    </Col>
 
-                          <Col>
-                            <Text style={style.referenceTitleLabel}>
-                              {translate('transverse.type')}
-                            </Text>
-                          </Col>
-                        </Row>
+                    <Col>
+                      <Text style={style.referenceTitleLabel}>
+                        {translate('transverse.type')}
+                      </Text>
+                    </Col>
+                  </Row>
 
-                        <Row style={style.referenceValues}>
-                          <Col>
-                            <Text style={style.referenceValueLabel}>
-                              {this.state.bureau}
-                            </Text>
-                          </Col>
+                  <Row style={style.referenceValues}>
+                    <Col>
+                      <Text style={style.referenceValueLabel}>
+                        {this.state.bureau}
+                      </Text>
+                    </Col>
 
-                          <Col>
-                            <Text style={style.referenceValueLabel}>
-                              {this.state.regime}
-                            </Text>
-                          </Col>
+                    <Col>
+                      <Text style={style.referenceValueLabel}>
+                        {this.state.regime}
+                      </Text>
+                    </Col>
 
-                          <Col>
-                            <Text style={style.referenceValueLabel}>
-                              {this.state.annee}
-                            </Text>
-                          </Col>
+                    <Col>
+                      <Text style={style.referenceValueLabel}>
+                        {this.state.annee}
+                      </Text>
+                    </Col>
 
-                          <Col>
-                            <Text style={style.referenceValueLabel}>
-                              {this.state.serie}
-                            </Text>
-                          </Col>
+                    <Col>
+                      <Text style={style.referenceValueLabel}>
+                        {this.state.serie}
+                      </Text>
+                    </Col>
 
-                          <Col>
-                            <Text style={style.referenceValueLabel}>
-                              {this.state.cle}
-                            </Text>
-                          </Col>
+                    <Col>
+                      <Text style={style.referenceValueLabel}>
+                        {this.state.cle}
+                      </Text>
+                    </Col>
 
-                          <Col>
-                            <Text style={style.referenceValueLabel}>
-                              {this.state.numeroVoyage}
-                            </Text>
-                          </Col>
+                    <Col>
+                      <Text style={style.referenceValueLabel}>
+                        {this.state.numeroVoyage}
+                      </Text>
+                    </Col>
 
-                          <Col>
-                            <Text style={style.referenceValueLabel} />
-                          </Col>
-                        </Row>
-                      </Grid>
+                    <Col>
+                      <Text style={style.referenceValueLabel} />
+                    </Col>
+                  </Row>
+                </Grid>
 
-                      <Grid>
-                        <Row size={100}>
-                          <Col size={30} style={style.labelContainer}>
-                            <Text style={style.labelTextStyle}>
-                              {translate('reconnaissance.core.commentaire')}
-                            </Text>
-                          </Col>
+                <Grid>
+                  <Row size={100}>
+                    <Col size={30} style={style.labelContainer}>
+                      <Text style={style.labelTextStyle}>
+                        {translate('reconnaissance.core.commentaire')}
+                      </Text>
+                    </Col>
 
-                          <Col size={70}>
-                            <TextInput
-                                multiline={true}
-                                numberOfLines={4}
-                                mode="outlined"
-                                value={this.state.reconnaissanceVo.motifAffectation}
-                                maxLength={250}
-                                onChangeText={(text) =>
-                                    this.setState({
-                                      ...this.state,
-                                      reconnaissanceVo: {
-                                        ...this.state.reconnaissanceVo,
-                                        motifAffectation: text,
-                                      },
-                                    })
-                                }
-                                disabled={true}
-                            />
-                          </Col>
-                        </Row>
+                    <Col size={70}>
+                      <TextInput
+                        multiline={true}
+                        numberOfLines={4}
+                        mode="outlined"
+                        value={this.state.reconnaissanceVo.motifAffectation}
+                        maxLength={250}
+                        onChangeText={(text) =>
+                          this.setState({
+                            ...this.state,
+                            reconnaissanceVo: {
+                              ...this.state.reconnaissanceVo,
+                              motifAffectation: text,
+                            },
+                          })
+                        }
+                        disabled={true}
+                      />
+                    </Col>
+                  </Row>
 
-                        <Row size={100}>
-                          <Col size={30}>
-                            <Row>
-                              <Col style={style.labelContainer}>
-                                <Text style={style.labelTextStyle}>
-                                  {translate('reconnaissance.core.nature')}
-                                </Text>
-                              </Col>
+                  <Row size={100}>
+                    <Col size={30}>
+                      <Row>
+                        <Col style={style.labelContainer}>
+                          <Text style={style.labelTextStyle}>
+                            {translate('reconnaissance.core.nature')}
+                          </Text>
+                        </Col>
 
-                              <Col style={style.labelContainer}>
-                                <Text style={style.labelRequiredStyle}>*</Text>
-                              </Col>
-                            </Row>
-                          </Col>
+                        <Col style={style.labelContainer}>
+                          <Text style={style.labelRequiredStyle}>*</Text>
+                        </Col>
+                      </Row>
+                    </Col>
 
-                          <Col size={70}>
-                            <TextInput
-                                mode="outlined"
-                                label={translate('reconnaissance.core.nature')}
-                                value={this.state.reconnaissanceVo.nature}
-                                maxLength={128}
-                                onChangeText={(text) =>
-                                    this.setState({
-                                      ...this.state,
-                                      reconnaissanceVo: {
-                                        ...this.state.reconnaissanceVo,
-                                        nature: text,
-                                      },
-                                    })
-                                }
-                                disabled={this.state.readonly || this.props.readMode}
-                            />
+                    <Col size={70}>
+                      <TextInput
+                        mode="outlined"
+                        label={translate('reconnaissance.core.nature')}
+                        value={this.state.reconnaissanceVo.nature}
+                        maxLength={128}
+                        onChangeText={(text) =>
+                          this.setState({
+                            ...this.state,
+                            reconnaissanceVo: {
+                              ...this.state.reconnaissanceVo,
+                              nature: text,
+                            },
+                          })
+                        }
+                        disabled={this.state.readonly || this.props.readMode}
+                      />
 
-                            <HelperText
-                                type="error"
-                                padding="none"
-                                visible={this.hasErrors('nature')}>
-                              {translate('errors.donneeObligatoire', {
-                                champ: translate('reconnaissance.core.nature'),
-                              })}
-                            </HelperText>
-                          </Col>
-                        </Row>
+                      <HelperText
+                        type="error"
+                        padding="none"
+                        visible={this.hasErrors('nature')}>
+                        {translate('errors.donneeObligatoire', {
+                          champ: translate('reconnaissance.core.nature'),
+                        })}
+                      </HelperText>
+                    </Col>
+                  </Row>
 
-                        <Row size={100}>
-                          <Col size={30}>
-                            <Row>
-                              <Col style={style.labelContainer}>
-                                <Text style={style.labelTextStyle}>
-                                  {translate('reconnaissance.core.marque')}
-                                </Text>
-                              </Col>
+                  <Row size={100}>
+                    <Col size={30}>
+                      <Row>
+                        <Col style={style.labelContainer}>
+                          <Text style={style.labelTextStyle}>
+                            {translate('reconnaissance.core.marque')}
+                          </Text>
+                        </Col>
 
-                              <Col style={style.labelContainer}>
-                                <Text style={style.labelRequiredStyle}>*</Text>
-                              </Col>
-                            </Row>
-                          </Col>
+                        <Col style={style.labelContainer}>
+                          <Text style={style.labelRequiredStyle}>*</Text>
+                        </Col>
+                      </Row>
+                    </Col>
 
-                          <Col size={70}>
-                            <TextInput
-                                mode="outlined"
-                                label={translate('reconnaissance.core.marque')}
-                                value={this.state.reconnaissanceVo.marque}
-                                maxLength={128}
-                                onChangeText={(text) =>
-                                    this.setState({
-                                      ...this.state,
-                                      reconnaissanceVo: {
-                                        ...this.state.reconnaissanceVo,
-                                        marque: text,
-                                      },
-                                    })
-                                }
-                                disabled={this.state.readonly || this.props.readMode}
-                            />
+                    <Col size={70}>
+                      <TextInput
+                        mode="outlined"
+                        label={translate('reconnaissance.core.marque')}
+                        value={this.state.reconnaissanceVo.marque}
+                        maxLength={128}
+                        onChangeText={(text) =>
+                          this.setState({
+                            ...this.state,
+                            reconnaissanceVo: {
+                              ...this.state.reconnaissanceVo,
+                              marque: text,
+                            },
+                          })
+                        }
+                        disabled={this.state.readonly || this.props.readMode}
+                      />
 
-                            <HelperText
-                                type="error"
-                                padding="none"
-                                visible={this.hasErrors('marque')}>
-                              {translate('errors.donneeObligatoire', {
-                                champ: translate('reconnaissance.core.marque'),
-                              })}
-                            </HelperText>
-                          </Col>
-                        </Row>
+                      <HelperText
+                        type="error"
+                        padding="none"
+                        visible={this.hasErrors('marque')}>
+                        {translate('errors.donneeObligatoire', {
+                          champ: translate('reconnaissance.core.marque'),
+                        })}
+                      </HelperText>
+                    </Col>
+                  </Row>
 
-                        <Row size={100}>
-                          <Col size={30} style={style.labelContainer}>
-                            <Text style={style.labelTextStyle}>
-                              {translate('reconnaissance.core.poids')}
-                            </Text>
-                          </Col>
+                  <Row size={100}>
+                    <Col size={30} style={style.labelContainer}>
+                      <Text style={style.labelTextStyle}>
+                        {translate('reconnaissance.core.poids')}
+                      </Text>
+                    </Col>
 
-                          <Col size={70}>
-                            <TextInput
-                                mode="outlined"
-                                label={translate('reconnaissance.core.poids')}
-                                value={this.state.reconnaissanceVo.poids}
-                                keyboardType={'number-pad'}
-                                maxLength={13}
-                                onChangeText={(text) => {
-                                  text = text.replace(/[^0-9.]/g, '');
-                                  this.setState({
-                                    ...this.state,
-                                    reconnaissanceVo: {
-                                      ...this.state.reconnaissanceVo,
-                                      poids: text,
-                                    },
-                                  });
-                                }}
-                                disabled={this.state.readonly || this.props.readMode}
-                            />
+                    <Col size={70}>
+                      <TextInput
+                        mode="outlined"
+                        label={translate('reconnaissance.core.poids')}
+                        value={this.state.reconnaissanceVo.poids}
+                        keyboardType={'number-pad'}
+                        maxLength={13}
+                        onChangeText={(text) => {
+                          text = text.replace(/[^0-9.]/g, '');
+                          this.setState({
+                            ...this.state,
+                            reconnaissanceVo: {
+                              ...this.state.reconnaissanceVo,
+                              poids: text,
+                            },
+                          });
+                        }}
+                        disabled={this.state.readonly || this.props.readMode}
+                      />
 
-                            <HelperText type="error" padding="none" visible={false} />
-                          </Col>
-                        </Row>
+                      <HelperText type="error" padding="none" visible={false} />
+                    </Col>
+                  </Row>
 
-                        <Row size={100}>
-                          <Col size={30}>
-                            <Row>
-                              <Col style={style.labelContainer}>
-                                <Text style={style.labelTextStyle}>
-                                  {translate(
-                                      'reconnaissance.core.nombreColisIdentifies',
-                                  )}
-                                </Text>
-                              </Col>
-
-                              <Col style={style.labelContainer}>
-                                <Text style={style.labelRequiredStyle}>*</Text>
-                              </Col>
-                            </Row>
-                          </Col>
-
-                          <Col size={70}>
-                            <TextInput
-                                mode="outlined"
-                                label={translate(
-                                    'reconnaissance.core.nombreColisIdentifies',
-                                )}
-                                value={this.state.reconnaissanceVo.nbrColis}
-                                keyboardType={'number-pad'}
-                                maxLength={10}
-                                onChangeText={(text) => {
-                                  text = text.replace(/[^0-9]/g, '');
-                                  this.setState({
-                                    ...this.state,
-                                    reconnaissanceVo: {
-                                      ...this.state.reconnaissanceVo,
-                                      nbrColis: text,
-                                    },
-                                  });
-                                }}
-                                disabled={this.state.readonly || this.props.readMode}
-                            />
-
-                            <HelperText
-                                type="error"
-                                padding="none"
-                                visible={this.hasErrors('nbrColis')}>
-                              {translate('errors.donneeObligatoire', {
-                                champ: translate(
-                                    'reconnaissance.core.nombreColisIdentifies',
-                                ),
-                              })}
-                            </HelperText>
-                          </Col>
-                        </Row>
-
-                        <Row size={100}>
-                          <Col size={30}>
-                            <Row>
-                              <Col style={style.labelContainer}>
-                                <Text style={style.labelTextStyle}>
-                                  {translate(
-                                      'reconnaissance.core.nombreColisVisites',
-                                  )}
-                                </Text>
-                              </Col>
-
-                              <Col style={style.labelContainer}>
-                                <Text style={style.labelRequiredStyle}>*</Text>
-                              </Col>
-                            </Row>
-                          </Col>
-
-                          <Col size={70}>
-                            <TextInput
-                                mode="outlined"
-                                label={translate(
-                                    'reconnaissance.core.nombreColisVisites',
-                                )}
-                                value={this.state.reconnaissanceVo.nombreColisVisite}
-                                keyboardType={'number-pad'}
-                                maxLength={10}
-                                onChangeText={(text) => {
-                                  text = text.replace(/[^0-9]/g, '');
-                                  this.setState({
-                                    ...this.state,
-                                    reconnaissanceVo: {
-                                      ...this.state.reconnaissanceVo,
-                                      nombreColisVisite: text,
-                                    },
-                                  });
-                                }}
-                                disabled={this.state.readonly || this.props.readMode}
-                            />
-
-                            <HelperText
-                                type="error"
-                                padding="none"
-                                visible={this.hasErrors('nombreColisVisite')}>
-                              {translate('errors.donneeObligatoire', {
-                                champ: translate(
-                                    'reconnaissance.core.nombreColisVisites',
-                                ),
-                              })}
-                            </HelperText>
-                          </Col>
-                        </Row>
-
-                        <Row size={100}>
-                          <Col size={30}>
-                            <Row>
-                              <Col style={style.labelContainer}>
-                                <Text style={style.labelTextStyle}>
-                                  {translate('reconnaissance.core.description')}
-                                </Text>
-                              </Col>
-
-                              <Col style={style.labelContainer}>
-                                <Text style={style.labelRequiredStyle}>*</Text>
-                              </Col>
-                            </Row>
-                          </Col>
-
-                          <Col size={70}>
-                            <TextInput
-                                multiline={true}
-                                numberOfLines={4}
-                                mode="outlined"
-                                label={translate('reconnaissance.core.description')}
-                                value={this.state.reconnaissanceVo.descriptionVisite}
-                                maxLength={4000}
-                                onChangeText={(text) =>
-                                    this.setState({
-                                      ...this.state,
-                                      reconnaissanceVo: {
-                                        ...this.state.reconnaissanceVo,
-                                        descriptionVisite: text,
-                                      },
-                                    })
-                                }
-                                disabled={this.state.readonly || this.props.readMode}
-                            />
-
-                            <HelperText
-                                type="error"
-                                padding="none"
-                                visible={this.hasErrors('descriptionVisite')}>
-                              {translate('errors.donneeObligatoire', {
-                                champ: translate('reconnaissance.core.description'),
-                              })}
-                            </HelperText>
-                          </Col>
-                        </Row>
-
-                        {!this.state.readonly && !this.props.readMode && (
-                            <Row size={100}>
-                              <Col size={40} />
-
-                              <Col size={20}>
-                                <Button
-                                    title={translate('reconnaissance.core.addImage')}
-                                    type={'solid'}
-                                    buttonStyle={style.buttonAction}
-                                    onPress={() => this.onAddPicture()}
-                                />
-                              </Col>
-
-                              <Col size={40} />
-                            </Row>
-                        )}
-
-                        <Row size={100}>
-                          <Col size={100}>
-                            <FlatList
-                                data={this.state.reconnaissanceVo.photoList}
-                                renderItem={(picture) => this.renderPicture(picture)}
-                                keyExtractor={(item) => item.urlPhoto}
-                                ItemSeparatorComponent={() => (
-                                    <View style={styles.separator} />
-                                )}
-                                onEndReached={this.loadMoreData}
-                                onEndReachedThreshold={0.1}
-                                ListFooterComponent={this.renderFooter.bind(this)}
-                                horizontal={true}
-                            />
-                          </Col>
-                        </Row>
-
-                        {!this.props.readMode &&
-                            (this.props.mode === 'add' ||
-                                this.props.mode === 'edit') && (
-                                <Row size={100}>
-                                  <Col size={25} />
-
-                                  <Col size={20}>
-                                    <Button
-                                        title={translate('transverse.sauvegarder')}
-                                        type={'solid'}
-                                        buttonStyle={style.buttonAction}
-                                        onPress={() => this.confirm('sauvegarde')}
-                                    />
-                                  </Col>
-
-                                  <Col size={2} />
-
-                                  <Col size={20}>
-                                    <Button
-                                        title={translate('transverse.enregistrer')}
-                                        type={'solid'}
-                                        buttonStyle={style.buttonAction}
-                                        onPress={() => this.confirm('enregistrement')}
-                                    />
-                                  </Col>
-
-                                  <Col size={25} />
-                                </Row>
+                  <Row size={100}>
+                    <Col size={30}>
+                      <Row>
+                        <Col style={style.labelContainer}>
+                          <Text style={style.labelTextStyle}>
+                            {translate(
+                              'reconnaissance.core.nombreColisIdentifies',
                             )}
+                          </Text>
+                        </Col>
 
-                        {!this.props.readMode && this.props.mode === 'cancel' && (
-                            <Row size={100}>
-                              <Col size={40} />
+                        <Col style={style.labelContainer}>
+                          <Text style={style.labelRequiredStyle}>*</Text>
+                        </Col>
+                      </Row>
+                    </Col>
 
-                              <Col size={20}>
-                                <Button
-                                    title={translate('transverse.annuler')}
-                                    type={'solid'}
-                                    buttonStyle={style.buttonAction}
-                                    onPress={() => this.confirm('annulation')}
-                                />
-                              </Col>
-
-                              <Col size={40} />
-                            </Row>
+                    <Col size={70}>
+                      <TextInput
+                        mode="outlined"
+                        label={translate(
+                          'reconnaissance.core.nombreColisIdentifies',
                         )}
+                        value={this.state.reconnaissanceVo.nbrColis}
+                        keyboardType={'number-pad'}
+                        maxLength={10}
+                        onChangeText={(text) => {
+                          text = text.replace(/[^0-9]/g, '');
+                          this.setState({
+                            ...this.state,
+                            reconnaissanceVo: {
+                              ...this.state.reconnaissanceVo,
+                              nbrColis: text,
+                            },
+                          });
+                        }}
+                        disabled={this.state.readonly || this.props.readMode}
+                      />
 
-                        <Row size={100}>
-                          <Col size={40} />
+                      <HelperText
+                        type="error"
+                        padding="none"
+                        visible={this.hasErrors('nbrColis')}>
+                        {translate('errors.donneeObligatoire', {
+                          champ: translate(
+                            'reconnaissance.core.nombreColisIdentifies',
+                          ),
+                        })}
+                      </HelperText>
+                    </Col>
+                  </Row>
 
-                          <Col size={20}>
-                            <Button
-                                title={translate('transverse.back')}
-                                type={'solid'}
-                                buttonStyle={style.buttonAction}
-                                onPress={() => this.back()}
-                            />
-                          </Col>
+                  <Row size={100}>
+                    <Col size={30}>
+                      <Row>
+                        <Col style={style.labelContainer}>
+                          <Text style={style.labelTextStyle}>
+                            {translate(
+                              'reconnaissance.core.nombreColisVisites',
+                            )}
+                          </Text>
+                        </Col>
 
-                          <Col size={40} />
-                        </Row>
-                      </Grid>
-                    </View>
-                )}
+                        <Col style={style.labelContainer}>
+                          <Text style={style.labelRequiredStyle}>*</Text>
+                        </Col>
+                      </Row>
+                    </Col>
 
-                {this.state.cameraMode && (
-                    <ComBadrCameraComp onTakePicture={this.onTakePicture} />
-                )}
+                    <Col size={70}>
+                      <TextInput
+                        mode="outlined"
+                        label={translate(
+                          'reconnaissance.core.nombreColisVisites',
+                        )}
+                        value={this.state.reconnaissanceVo.nombreColisVisite}
+                        keyboardType={'number-pad'}
+                        maxLength={10}
+                        onChangeText={(text) => {
+                          text = text.replace(/[^0-9]/g, '');
+                          this.setState({
+                            ...this.state,
+                            reconnaissanceVo: {
+                              ...this.state.reconnaissanceVo,
+                              nombreColisVisite: text,
+                            },
+                          });
+                        }}
+                        disabled={this.state.readonly || this.props.readMode}
+                      />
 
-                {this.state.deleteMode && (
-                    <Modal
-                        isVisible={this.state.deleteMode}
-                        onBackdropPress={this.close}
-                        style={style.modalContainer}>
-                      <View>
-                        <Text style={style.modalMessage}>
-                          {translate('reconnaissance.core.removalModal.message')}
-                        </Text>
+                      <HelperText
+                        type="error"
+                        padding="none"
+                        visible={this.hasErrors('nombreColisVisite')}>
+                        {translate('errors.donneeObligatoire', {
+                          champ: translate(
+                            'reconnaissance.core.nombreColisVisites',
+                          ),
+                        })}
+                      </HelperText>
+                    </Col>
+                  </Row>
 
+                  <Row size={100}>
+                    <Col size={30}>
+                      <Row>
+                        <Col style={style.labelContainer}>
+                          <Text style={style.labelTextStyle}>
+                            {translate('reconnaissance.core.description')}
+                          </Text>
+                        </Col>
+
+                        <Col style={style.labelContainer}>
+                          <Text style={style.labelRequiredStyle}>*</Text>
+                        </Col>
+                      </Row>
+                    </Col>
+
+                    <Col size={70}>
+                      <TextInput
+                        multiline={true}
+                        numberOfLines={4}
+                        mode="outlined"
+                        label={translate('reconnaissance.core.description')}
+                        value={this.state.reconnaissanceVo.descriptionVisite}
+                        maxLength={4000}
+                        onChangeText={(text) =>
+                          this.setState({
+                            ...this.state,
+                            reconnaissanceVo: {
+                              ...this.state.reconnaissanceVo,
+                              descriptionVisite: text,
+                            },
+                          })
+                        }
+                        disabled={this.state.readonly || this.props.readMode}
+                      />
+
+                      <HelperText
+                        type="error"
+                        padding="none"
+                        visible={this.hasErrors('descriptionVisite')}>
+                        {translate('errors.donneeObligatoire', {
+                          champ: translate('reconnaissance.core.description'),
+                        })}
+                      </HelperText>
+                    </Col>
+                  </Row>
+
+                  {!this.state.readonly && !this.props.readMode && (
+                    <Row size={100}>
+                      <Col size={40} />
+
+                      <Col size={20}>
                         <Button
-                            title={translate('transverse.confirmer')}
-                            type={'solid'}
-                            buttonStyle={style.modalAction}
-                            onPress={() => this.confirmPictureRemoval()}
+                          title={translate('reconnaissance.core.addImage')}
+                          type={'solid'}
+                          buttonStyle={style.buttonAction}
+                          onPress={() => this.onAddPicture()}
                         />
+                      </Col>
 
-                        <Button
-                            title={translate('transverse.annuler')}
-                            type={'solid'}
-                            buttonStyle={style.modalAction}
-                            onPress={() => this.cancelPictureRemoval()}
+                      <Col size={40} />
+                    </Row>
+                  )}
+                  <View>
+                    <Row size={100}>
+                      <Col size={100}>
+                        <FlatList style={{height:"100%",width:"100%"}}
+                          data={this.state.reconnaissanceVo.photoList}
+                          bounces={false}
+                          renderItem={(picture) => this.renderPicture(picture)}
+                          keyExtractor={(item) => item.urlPhoto}
+                          ItemSeparatorComponent={() => (
+                            <View style={styles.separator} />
+                          )}
+                          onEndReached={this._callTheAPIToFetchMoreData}
+                        //  initialNumToRender = {3}
+                          onEndReachedThreshold={.01}
+                        //  onMomentumScrollBegin={() => this._onMomentumScrollBegin()}
+                          // ListFooterComponent={this.renderFooter.bind(this)}
+                          horizontal={true}
                         />
-                      </View>
-                    </Modal>
-                )}
+                      </Col>
+                    </Row>
+                  </View>
+                  {!this.props.readMode &&
+                    (this.props.mode === 'add' ||
+                      this.props.mode === 'edit') && (
+                      <Row size={100}>
+                        <Col size={25} />
+
+                        <Col size={20}>
+                          <Button
+                            title={translate('transverse.sauvegarder')}
+                            type={'solid'}
+                            buttonStyle={style.buttonAction}
+                            onPress={() => this.confirm('sauvegarde')}
+                          />
+                        </Col>
+
+                        <Col size={2} />
+
+                        <Col size={20}>
+                          <Button
+                            title={translate('transverse.enregistrer')}
+                            type={'solid'}
+                            buttonStyle={style.buttonAction}
+                            onPress={() => this.confirm('enregistrement')}
+                          />
+                        </Col>
+
+                        <Col size={25} />
+                      </Row>
+                    )}
+
+                  {!this.props.readMode && this.props.mode === 'cancel' && (
+                    <Row size={100}>
+                      <Col size={40} />
+
+                      <Col size={20}>
+                        <Button
+                          title={translate('transverse.annuler')}
+                          type={'solid'}
+                          buttonStyle={style.buttonAction}
+                          onPress={() => this.confirm('annulation')}
+                        />
+                      </Col>
+
+                      <Col size={40} />
+                    </Row>
+                  )}
+
+                  <Row size={100}>
+                    <Col size={40} />
+
+                    <Col size={20}>
+                      <Button
+                        title={translate('transverse.back')}
+                        type={'solid'}
+                        buttonStyle={style.buttonAction}
+                        onPress={() => this.back()}
+                      />
+                    </Col>
+
+                    <Col size={40} />
+                  </Row>
+                </Grid>
               </View>
-          )}
-        </ScrollView>
+            )}
+
+            {this.state.cameraMode && (
+              <ComBadrCameraComp onTakePicture={this.onTakePicture} />
+            )}
+
+            {this.state.deleteMode && (
+              <Modal
+                isVisible={this.state.deleteMode}
+                onBackdropPress={this.close}
+                style={style.modalContainer}>
+                <View>
+                  <Text style={style.modalMessage}>
+                    {translate('reconnaissance.core.removalModal.message')}
+                  </Text>
+
+                  <Button
+                    title={translate('transverse.confirmer')}
+                    type={'solid'}
+                    buttonStyle={style.modalAction}
+                    onPress={() => this.confirmPictureRemoval()}
+                  />
+
+                  <Button
+                    title={translate('transverse.annuler')}
+                    type={'solid'}
+                    buttonStyle={style.modalAction}
+                    onPress={() => this.cancelPictureRemoval()}
+                  />
+                </View>
+              </Modal>
+            )}
+          </View>
+        )}
+      </ScrollView>
     );
   }
 }
@@ -983,6 +1009,6 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps,
+  mapStateToProps,
+  mapDispatchToProps,
 )(CtrlReconnaissanceCoreComponent);

@@ -100,6 +100,19 @@ export default class EciDeclarationEnDetailBlock extends React.Component {
               </Col>
               <Col size={2} />
             </Row>
+            <Row style={CustomStyleSheet.whiteRow}>
+              <Col size={2}>
+                <ComBadrLibelleComp >
+                  {translate('ecorimport.mainlevee.conteneurCibles')}
+                </ComBadrLibelleComp>
+              </Col>
+              <Col size={4}>
+                <ComBadrLibelleComp>
+                  {translate('ecorimport.mainlevee.aucun')}
+                </ComBadrLibelleComp>
+              </Col>
+            </Row>
+
           </Grid>
         </ComAccordionComp>
       </ComBadrCardBoxComp>

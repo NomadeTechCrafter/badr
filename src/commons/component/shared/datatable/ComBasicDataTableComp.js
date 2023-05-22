@@ -209,7 +209,7 @@ export default class ComBasicDataTableComp extends React.Component {
                     : this.props.rows
                   ).map((row, index) => (
                     <DataTable.Row
-                      key={index}
+                      key={index + this.state.offset}
                       onPress={() => {
                         if (this.props.onItemSelected) {
                           this.props.onItemSelected(row);
@@ -217,7 +217,7 @@ export default class ComBasicDataTableComp extends React.Component {
                       }}>
                       {this.props.hasId && (
                         <DataTable.Cell style={styles.datatableCell}>
-                          {index + 1}
+                          {index + this.state.offset + 1}
                         </DataTable.Cell>
                       )}
 
@@ -230,8 +230,12 @@ export default class ComBasicDataTableComp extends React.Component {
                                 status={
                                   this.state.checkedItems &&
                                   this.state.checkedItems.length > 0 &&
-                                  this.state.checkedItems[index] &&
-                                  this.state.checkedItems[index].checked
+                                  this.state.checkedItems[
+                                    index + this.state.offset
+                                  ] &&
+                                  this.state.checkedItems[
+                                    index + this.state.offset
+                                  ].checked
                                     ? 'checked'
                                     : 'unchecked'
                                 }
@@ -242,14 +246,16 @@ export default class ComBasicDataTableComp extends React.Component {
                                 }
                                 onPress={() => {
                                   let items = this.state.checkedItems;
-                                  items[index] = {
-                                    checked: items[index]
-                                      ? !items[index].checked
+                                  items[index + this.state.offset] = {
+                                    checked: items[index + this.state.offset]
+                                      ? !items[index + this.state.offset]
+                                          .checked
                                       : false,
                                   };
                                   this.setState({checkedItems: items});
-                                  row.selected = items[index].checked;
-                                  column.action(row, index);
+                                  row.selected =
+                                    items[index + this.state.offset].checked;
+                                  column.action(row, index + this.state.offset);
                                 }}
                               />
                             )}
@@ -259,8 +265,12 @@ export default class ComBasicDataTableComp extends React.Component {
                                 status={
                                   this.state.checkedItems &&
                                   this.state.checkedItems.length > 0 &&
-                                  this.state.checkedItems[index] &&
-                                  this.state.checkedItems[index].checked
+                                  this.state.checkedItems[
+                                    index + this.state.offset
+                                  ] &&
+                                  this.state.checkedItems[
+                                    index + this.state.offset
+                                  ].checked
                                     ? 'checked'
                                     : 'unchecked'
                                 }
@@ -274,14 +284,16 @@ export default class ComBasicDataTableComp extends React.Component {
                                   items.forEach((item) => {
                                     item.checked = false;
                                   });
-                                  items[index] = {
-                                    checked: items[index]
-                                      ? !items[index].checked
+                                  items[index + this.state.offset] = {
+                                    checked: items[index + this.state.offset]
+                                      ? !items[index + this.state.offset]
+                                          .checked
                                       : false,
                                   };
                                   this.setState({checkedItems: items});
-                                  row.selected = items[index].checked;
-                                  column.action(row, index);
+                                  row.selected =
+                                    items[index + this.state.offset].checked;
+                                  column.action(row, index + this.state.offset);
                                 }}
                               />
                             )}
@@ -297,7 +309,6 @@ export default class ComBasicDataTableComp extends React.Component {
                                   onPress={() => column.action(row, index)}
                                 />
                               )}
-
                             {column.component === 'basic-button' &&
                               row[column.attrCondition] && (
                                 <ComBadrButtonIconComp

@@ -40,7 +40,12 @@ class RechParRefScanner extends React.Component {
       {
         code: 'commentaire',
         libelle: translate('annoter.scanner.commentaire'),
-        width: 300,
+        width: 200,
+      },
+      {
+        code: 'controleApresScanner',
+        libelle: translate('annoter.scanner.ctrlApresScn'),
+        width: 200,
       },
     ];
   }

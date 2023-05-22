@@ -1,11 +1,9 @@
-import {
-  MODULE_DED
-} from '../../../../../commons/Config';
-import { TYPE_SERVICE_UC } from '../../../../../commons/constants/ComGlobalConstants';
+import {MODULE_DED} from '../../../../../commons/Config';
+import {TYPE_SERVICE_UC} from '../../../../../commons/constants/ComGlobalConstants';
 import ComHttpHelperApi from '../../../../../commons/services/api/common/ComHttpHelperApi';
-import { ComSessionService } from '../../../../../commons/services/session/ComSessionService';
+import {ComSessionService} from '../../../../../commons/services/session/ComSessionService';
 
-const CODE_FONCTIONNALITE_INITIER_CONTROLE='cf4011'
+const CODE_FONCTIONNALITE_INITIER_CONTROLE = 'cf100001';
 
 export default class dedInitierControlApi {
   static initierControle = async (params) => {
@@ -19,11 +17,10 @@ export default class dedInitierControlApi {
       },
       jsonVO: params,
     };
-    console.log('initierControle : ',data);
+    console.log('initierControle : ', data);
     let response = await ComHttpHelperApi.process(data);
     return response;
   };
-
 
   static initierListControle = async (params) => {
     const data = {
@@ -36,7 +33,7 @@ export default class dedInitierControlApi {
       },
       jsonVO: params,
     };
-    console.log('initierListControle : ',data);
+    console.log('initierListControle : ', data);
     let response = await ComHttpHelperApi.process(data);
     return response;
   };

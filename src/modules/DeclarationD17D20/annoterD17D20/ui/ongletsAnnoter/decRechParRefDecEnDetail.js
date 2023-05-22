@@ -68,7 +68,7 @@ class RechParRefDecEnDetail extends React.Component {
       {
         code: 'dedServicesVO.valeurDeclaree',
         libelle: translate('annoter.decEnDetail.valDeclaree'),
-        width: 100,
+        width: 200,
       },
     ];
   };

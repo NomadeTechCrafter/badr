@@ -13,6 +13,9 @@ export default {
                 commentaire: 'Commentaire',
                 resultatControle: 'Résultat de contrôle',
             },
+            depotage:{
+                title:'Dépotage marchandise'
+            },
             scelles: {
                 title: 'Scellés',
                 scellesConfirmationEntree: 'Scellés de la confirmation d\'entrée',

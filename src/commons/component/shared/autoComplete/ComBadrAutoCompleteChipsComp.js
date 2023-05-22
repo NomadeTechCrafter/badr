@@ -113,6 +113,7 @@ class ComBadrAutoCompleteChipsComp extends Component {
 
   valueinput = () => {
     if (!_.isEmpty(this.props.selected) && !this.state.edited) {
+      console.log('1');
       // chargement avec une valeur dans le props
       return this.props.selected;
     } else if (
@@ -120,8 +121,10 @@ class ComBadrAutoCompleteChipsComp extends Component {
       _.isEmpty(this.props.selected) &&
       !_.isEmpty(this.state.selected[this.props.libelle])
     ) {
+      console.log('2');
       return '';
     } else {
+      console.log('3');
       return this.state.selected[
         this.props.libelle ? this.props.libelle : 'libelle'
       ];

@@ -1,5 +1,5 @@
 import React from 'react';
-
+import _ from 'lodash';
 import { Dimensions, View, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
@@ -8,6 +8,8 @@ import AtComposant from './composant/AtComposantScreen';
 import AtCreateApurementScreen from './apurement/AtCreateApurementScreen';
 import AtDocAnnexeScreen from './docAnnexe/AtDocAnnexeScreen';
 import AtHistoriqueScreen from './historique/AtHistoriqueScreen';
+import * as InitApurementAction from '../../state/actions/atApurementInitAction';
+import * as ConstantsAt from '../../state/atConstants';
 /**Custom Components */
 import {
   ComBadrProgressBarComp,
@@ -31,7 +33,7 @@ function ComposantScreen({ route, navigation }) {
 }
 
 function ApurementScreen({ route, navigation }) {
-  return <AtCreateApurementScreen navigation={navigation} route={route} consultation={true} />;
+  return <AtCreateApurementScreen navigation={navigation} route={route} />;
 }
 
 function DocAnnexeScreen({ route, navigation }) {
@@ -49,16 +51,70 @@ class AtGestionScreen extends React.Component {
     super(props);
   }
 
+  componentDidMount() {
+    if (!_.isEmpty(this.props.initApurement?.data)) {
+      this.unsubscribe = this.props.navigation.addListener('focus', () => {
+        this.onScreenReloaded();
+      });
+    }
+  }
+  
+  componentWillUnmount() {
+    if (!_.isEmpty(this.props.initApurement?.data)) {
+      this.unsubscribe();
+    }
+  }
+
+  onScreenReloaded = () => {
+    if (
+      this.props.initApurement &&
+      this.props.initApurement.data &&
+      this.props.initApurement.data.atEnteteVO
+    ) {
+      let verifierDelaiDepassementAction = InitApurementAction.verifierDepassementDelaiRequest(
+        {
+          type: ConstantsAt.VERIFIER_DELAI_DEPASSEMENT_REQUEST,
+          value: {
+            dateFinSaisieAT: this.props.initApurement.data.atEnteteVO
+              .dateFinSaisieAT,
+          },
+        },
+      );
+      this.props.actions.dispatch(verifierDelaiDepassementAction);
+
+      let verifierExistanceAutreATVoyVehMotoAction = InitApurementAction.verifierExistanceAutreATVoyVehMotoRequest(
+        {
+          type: ConstantsAt.VERIFIER_EXISTANCE_AUTRE_AT_VOY_VEH_MOTO_REQUEST,
+          value: {
+            atVo: this.props.initApurement.data,
+          },
+        },
+      );
+      this.props.actions.dispatch(verifierExistanceAutreATVoyVehMotoAction);
+    }
+  };
+
   render() {
     return (
       <View style={styles.container}>
-        <ComBadrToolbarComp
-          back={true}
-          navigation={this.props.navigation}
-          icon="menu"
-          title={translate('at.title')}
-          subtitle={translate('at.recherche.subTitleMulti')}
-        />
+        {!this.props.route.params.consultation &&
+          <ComBadrToolbarComp
+            back={true}
+            navigation={this.props.navigation}
+            title={translate('at.title')}
+            subtitle={translate('at.apurement.title')}
+            icon="menu"
+          />
+        }
+        {this.props.route.params.consultation &&
+          <ComBadrToolbarComp
+            back={true}
+            navigation={this.props.navigation}
+            icon="menu"
+            title={translate('at.title')}
+            subtitle={translate('at.recherche.subTitleMulti')}
+          />
+        }
         {this.props.showProgress && <ComBadrProgressBarComp circle={false} />}
         <Tab.Navigator
           initialLayout={{ height: Dimensions.get('window').height }}
@@ -95,7 +151,11 @@ class AtGestionScreen extends React.Component {
 }
 
 function mapStateToProps(state) {
-  return { ...state.atConsulterReducer };
+  const combinedState = {
+    initApurement: { ...state.initApurementReducer },
+    atConsulter: { ...state.atConsulterReducer },
+  };
+  return combinedState;
 }
 
 function mapDispatchToProps(dispatch) {

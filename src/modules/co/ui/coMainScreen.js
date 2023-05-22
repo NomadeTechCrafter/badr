@@ -35,14 +35,14 @@ const initialState = {
   dateFin: '30/01/2021',
   numeroSerie: '',
   anneeRef: '2021',
-  reference: '0000065',
-  idDED: '196849',
+  reference: '0000066',
+  idDED: '',
   referenceDUM: '',
-  bureau: '309',
-  regime: '060',
-  annee: '2019',
-  serie: '0000114',
-  cle: 'M',
+  bureau: '',
+  regime: '',
+  annee: '',
+  serie: '',
+  cle: '',
   cleValide: '',
   traite: false,
   errorMessage: '',
@@ -57,6 +57,7 @@ const initialState = {
 class COMainScreen extends React.Component {
   constructor(props) {
     super(props);
+    this.handleClear();
     this.state = initialState;
     this.coCols = [
       {
@@ -94,15 +95,61 @@ class COMainScreen extends React.Component {
         width: 250,
       },
       {
-        code: '',
+        code: 'reference',
         libelle: translate('co.action'),
         component: 'basic-button',
-        // attrCondition: this.props?.route?.params?.ecran === 'CONSULTER',
+        attrCondition: 'reference',
         text: 'Traiter',
         action: (row, index) => this.traiter(row, index),
         width: 150,
       },
     ];
+    this.coColsAnnuler = [
+      {
+        code: 'numeroSerieConfinement',
+        libelle: translate('co.numeroSerieConfinement'),
+        component: 'basic-button',
+        attrCondition: 'numeroSerieConfinement',
+        action: (row, index) => this.redirectToConsultationCO(row, index),
+        width: 340,
+      },
+      {
+        code: 'reference',
+        libelle: translate('co.reference'),
+        component: 'basic-button',
+        attrCondition: 'reference',
+        action: (row, index) => this.redirectToConsultationCO(row, index),
+        width: 250,
+      },
+      {
+        code: 'referenceDUM',
+        libelle: translate('co.referenceDUM'),
+        attrCondition: 'referenceDUM',
+        component: 'basic-button',
+        action: (row, index) => this.redirectToConsultationDUM(row, index),
+        width: 250,
+      },
+      {
+        code: 'versionDUM',
+        libelle: translate('co.versionDUM'),
+        width: 150,
+      },
+      {
+        code: 'dateEnregistrement',
+        libelle: translate('co.dateEnregistrement'),
+        width: 250,
+      },
+      {
+        code: 'reference',
+        libelle: translate('co.action'),
+        component: 'basic-button',
+        attrCondition: 'reference',
+        text: 'Annuler',
+        action: (row, index) => this.annuler(row, index),
+        width: 150,
+      },
+    ];
+
     this.coColsWithoutAction = [
       {
         code: 'numeroSerieConfinement',
@@ -141,12 +188,28 @@ class COMainScreen extends React.Component {
     ];
   }
 
+  componentDidUpdate() {
+    if (this.state.selectedMenu !== this.props?.route?.params?.ecran) {
+      this.handleClear();
+      this.setState({
+        selectedMenu: this.props?.route?.params?.ecran,
+      });
+    }
+  }
+
   traiter = (row, index) => {
-    console.log('traiter 001');
-    console.log(JSON.stringify(row));
-    console.log('traiter 002');
-    console.log(JSON.stringify(index));
-    console.log('traiter 003');
+    // console.log('traiter 001');
+    // console.log(JSON.stringify(row));
+    // console.log('traiter 002');
+    // console.log(JSON.stringify(index));
+    // console.log('traiter 003');
+  };
+  annuler = (row, index) => {
+    // console.log('annuler 001');
+    // console.log(JSON.stringify(row));
+    // console.log('annuler 002');
+    // console.log(JSON.stringify(index));
+    // console.log('annuler 003');
   };
 
   checkRequiredFields = () => {
@@ -221,9 +284,6 @@ class COMainScreen extends React.Component {
           msg.push(translate('co.filtreRecherche.dateFin'));
         }
 
-        console.log('++++++++++++++++++++++++++++++++++++++++++++++++');
-        console.log('++++++++++++++++++++++++++++++++++++++++++++++++');
-        console.log('++++++++++++++++++++++++++++++++++++++++++++++++');
         let start = new Date(moment(this.state.dateDebut, 'DD/MM/YYYY', true));
         let end = new Date(moment(this.state.dateFin, 'DD/MM/YYYY', true));
         const diffTime = Math.abs(end - start);
@@ -240,11 +300,6 @@ class COMainScreen extends React.Component {
           validation = true;
           msg.push(translate('co.filtreRecherche.periode'));
         }
-        console.log(diffDays + ' days');
-        console.log(absolutDiff + ' absolutDiff');
-        console.log('++++++++++++++++++++++++++++++++++++++++++++++++');
-        console.log('++++++++++++++++++++++++++++++++++++++++++++++++');
-        console.log('++++++++++++++++++++++++++++++++++++++++++++++++');
         break;
 
       default:
@@ -281,7 +336,8 @@ class COMainScreen extends React.Component {
           myVO.numeroSerie = this.state.numeroSerie;
           break;
         case 'reference':
-          myVO.reference = this.state.reference;
+          myVO.reference =
+            this.state.anneeRef + this.state.pays + this.state.reference;
           break;
         case 'referenceDUM':
           myVO.idDED = this.state.idDED;
@@ -289,6 +345,21 @@ class COMainScreen extends React.Component {
         case 'dates':
           myVO.dateDebut = this.state.dateDebut;
           myVO.dateFin = this.state.dateFin;
+          break;
+
+        default:
+          break;
+      }
+
+      switch (this.props?.route?.params?.ecran) {
+        case 'TRAITER':
+          myVO.traiter = true;
+          break;
+        case 'CONSULTER':
+          break;
+        case 'ANNULER':
+          break;
+        case 'Traiter Duplicata':
           break;
 
         default:
@@ -435,11 +506,11 @@ class COMainScreen extends React.Component {
   };
 
   render() {
-    console.log('***********************************************************');
-    console.log('***********************************************************');
-    console.log(JSON.stringify(this.props?.route?.params?.ecran));
-    console.log('***********************************************************');
-    console.log('***********************************************************');
+    // console.log('***********************************************************');
+    // console.log('***********************************************************');
+    // console.log(JSON.stringify(this.props?.route?.params?.ecran));
+    // console.log('***********************************************************');
+    // console.log('***********************************************************');
     const titre = "Nombre d'éléments: " + this.props?.data?.length;
     return (
       <View style={style.container}>
@@ -495,6 +566,7 @@ class COMainScreen extends React.Component {
                       <Col size={8}>
                         <TextInput
                           mode="outlined"
+                          keyboardType="numeric"
                           label={translate('co.filtreRecherche.annee')}
                           value={this.state.anneeRef}
                           onChangeText={(text) =>
@@ -514,10 +586,17 @@ class COMainScreen extends React.Component {
                       <Col size={16}>
                         <TextInput
                           mode="outlined"
+                          keyboardType="numeric"
                           label={translate('co.filtreRecherche.reference')}
                           value={this.state.reference}
                           onChangeText={(text) =>
                             this.setState({reference: text})
+                          }
+                          onEndEditing={(event) =>
+                            this.addZeros({
+                              reference: event.nativeEvent.text,
+                              maxLength: 7,
+                            })
                           }
                         />
                       </Col>
@@ -636,7 +715,7 @@ class COMainScreen extends React.Component {
                           }
                         />
                       </Col>
-                      <Col size={1}></Col>
+                      <Col size={1} />
                       <Col size={4}>
                         <ComBadrDatePickerComp
                           dateFormat="DD/MM/YYYY"
@@ -706,9 +785,11 @@ class COMainScreen extends React.Component {
                   id="coLots"
                   rows={this.props?.data}
                   cols={
-                    this.props?.route?.params?.ecran === 'CONSULTER'
-                      ? this.coColsWithoutAction
-                      : this.coCols
+                    this.props?.route?.params?.ecran === 'TRAITER'
+                      ? this.coCols
+                      : this.props?.route?.params?.ecran === 'ANNULER'
+                      ? this.coColsAnnuler
+                      : this.coColsWithoutAction
                   }
                   totalElements={this.props?.data?.length}
                   maxResultsPerPage={10}

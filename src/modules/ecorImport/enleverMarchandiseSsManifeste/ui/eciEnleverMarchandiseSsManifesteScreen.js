@@ -83,6 +83,7 @@ const champsObligatoire = [
 class EciEnleverMarchandiseSsManifesteScreen extends Component {
   constructor(props) {
     super(props);
+    this.composantTablesCols = this.buildComposantsColumns(true);
     this.state = {
       refDeclaration: props.route.params.refDeclaration,
       cle: props.route.params.cle,
@@ -110,11 +111,14 @@ class EciEnleverMarchandiseSsManifesteScreen extends Component {
       selectedScelle: {},
       errorMessageScelle: '',
       bonSortie: {},
+      confirmed:props.route.params.declarationRI.dateHeureEnlevement!==""?true:false
     };
   }
-
+  abandonner = () => {
+    this.setState({confirmed: false});
+  };
   componentDidMount() {
-    load('user',false,true).then((user) => {
+    load('user', false, true).then((user) => {
       this.setState({login: JSON.parse(user).login});
     });
   }
@@ -186,7 +190,7 @@ class EciEnleverMarchandiseSsManifesteScreen extends Component {
           regime: referenceDSTab[1],
           numeroSerieEnregistrement: referenceDSTab[3],
           cle: ComUtils.cleDS(
-            referenceDSTab[1] + referenceDSTab[3] + referenceDSTab[2],
+              referenceDSTab[1] + referenceDSTab[3] + referenceDSTab[2],
           ),
         },
         marque: lot.marques,
@@ -195,6 +199,45 @@ class EciEnleverMarchandiseSsManifesteScreen extends Component {
     });
     this.getListeEquipementLots(lot);
     this.onCloseModal();
+  };
+  buildComposantsColumns = (actions) => {
+    return [
+      {
+        code: 'enleverMarchandiseVO.bonSortie.referenceBonSortie',
+        libelle: translate('ecorimport.bonSortie.referencebonDeSortie'),
+        width: 200,
+      },
+      {
+        code: 'enleverMarchandiseVO.bonSortie?.dateHeureBS',
+        libelle: translate('ecorimport.bonSortie.dateHeureBS'),
+        width: 160,
+      },
+      {
+        code: 'enleverMarchandiseVO.bonSortie?.nombreColis',
+        libelle: translate('ecorimport.nbreContenant'),
+        width: 200,
+      },
+      {
+        code: 'enleverMarchandiseVO.bonSortie?.poidsNet',
+        libelle: translate('ecorimport.bonSortie.poidsNet'),
+        width: 150,
+      },
+      {
+        code: 'enleverMarchandiseVO.bonSortie.nombreContenants',
+        libelle: translate('etatChargement.nbreContenant'),
+        width: 100,
+      },
+      {
+        code: 'enleverMarchandiseVO.bonSortie?.immatriculationsVehicules',
+        libelle: translate('ecorimport.bonSortie.immatriculationsVehicules'),
+        width: 100,
+      },
+      {
+        code: '',
+        libelle: 'Action',
+        width: 100,
+      },
+    ];
   };
   listLotsCols = () => {
     return [
@@ -271,7 +314,7 @@ class EciEnleverMarchandiseSsManifesteScreen extends Component {
           return this.state.selectedLot.dateHeureEnlevement;
         },
         libelle: translate(
-          'ecorimport.listeEquipementsLot.dateHeureEnlevement',
+            'ecorimport.listeEquipementsLot.dateHeureEnlevement',
         ),
       },
     ];
@@ -279,8 +322,8 @@ class EciEnleverMarchandiseSsManifesteScreen extends Component {
   getListeLotsApures = () => {
     this.props.dispatch(requestModal({type: GENERIC_OPEN_MODAL, value: {}}));
     let identifiant = getValueByPath(
-      'referenceDED.indentifiant',
-      this.state.enleverMarchandiseVO,
+        'referenceDED.indentifiant',
+        this.state.enleverMarchandiseVO,
     );
     this.callRedux({
       command: 'getLotsApures',
@@ -329,35 +372,35 @@ class EciEnleverMarchandiseSsManifesteScreen extends Component {
       };
 
       let refEquipementEnleve = this.chargerListeEquipementsLot(
-        this.state.selectedLot.refEquipementEnleve,
+          this.state.selectedLot.refEquipementEnleve,
       );
       this.setState(
-        {
-          ...this.state,
-          showEnlevements: false,
-          enleverMarchandiseVO: {
-            ...this.state.enleverMarchandiseVO,
-            refMarchandiseEnlevee: [
-              ...this.state.enleverMarchandiseVO.refMarchandiseEnlevee,
-              {
-                ...this.state.selectedLot,
-                refEquipementEnleve: refEquipementEnleve,
-                acteurInterneEnlevement: acteurInterneEnlevement,
-                acteurInternePesage: acteurInternePesage,
-                dateHeureEffectiveEnlevement:
-                  this.state.selectedLot.dateEffectiveEnlevement +
-                  ' ' +
-                  this.state.selectedLot.heureEffectiveEnlevement,
-                allRefEquipementEnleve: [],
-              },
-            ],
+          {
+            ...this.state,
+            showEnlevements: false,
+            enleverMarchandiseVO: {
+              ...this.state.enleverMarchandiseVO,
+              refMarchandiseEnlevee: [
+                ...this.state.enleverMarchandiseVO.refMarchandiseEnlevee,
+                {
+                  ...this.state.selectedLot,
+                  refEquipementEnleve: refEquipementEnleve,
+                  acteurInterneEnlevement: acteurInterneEnlevement,
+                  acteurInternePesage: acteurInternePesage,
+                  dateHeureEffectiveEnlevement:
+                      this.state.selectedLot.dateEffectiveEnlevement +
+                      ' ' +
+                      this.state.selectedLot.heureEffectiveEnlevement,
+                  allRefEquipementEnleve: [],
+                },
+              ],
+            },
           },
-        },
-        () =>
-          console.log(
-            'enleverMarchandiseVO',
-            JSON.stringify(this.state.enleverMarchandiseVO),
-          ),
+          () =>
+              console.log(
+                  'enleverMarchandiseVO',
+                  JSON.stringify(this.state.enleverMarchandiseVO),
+              ),
       );
     }
   };
@@ -365,30 +408,30 @@ class EciEnleverMarchandiseSsManifesteScreen extends Component {
     console.log('valider update');
     if (this.testIsChampsValid(champsObligatoire) === true) {
       const currentIndex = _.findIndex(
-        this.state.enleverMarchandiseVO.refMarchandiseEnlevee,
-        ['id', this.state.selectedLot.id],
+          this.state.enleverMarchandiseVO.refMarchandiseEnlevee,
+          ['id', this.state.selectedLot.id],
       );
       console.log('currentIndex----', currentIndex);
       const myNewArray = Object.assign(
-        [...this.state.enleverMarchandiseVO.refMarchandiseEnlevee],
-        {
-          [this.state.indexEditItem]: this.state.selectedLot,
-        },
+          [...this.state.enleverMarchandiseVO.refMarchandiseEnlevee],
+          {
+            [this.state.indexEditItem]: this.state.selectedLot,
+          },
       );
       this.setState(
-        {
-          ...this.state,
-          showEnlevements: false,
-          enleverMarchandiseVO: {
-            ...this.state.enleverMarchandiseVO,
-            refMarchandiseEnlevee: myNewArray,
+          {
+            ...this.state,
+            showEnlevements: false,
+            enleverMarchandiseVO: {
+              ...this.state.enleverMarchandiseVO,
+              refMarchandiseEnlevee: myNewArray,
+            },
           },
-        },
-        () =>
-          console.log(
-            'enleverMarchandiseVO after update',
-            JSON.stringify(this.state.enleverMarchandiseVO),
-          ),
+          () =>
+              console.log(
+                  'enleverMarchandiseVO after update',
+                  JSON.stringify(this.state.enleverMarchandiseVO),
+              ),
       );
     }
   };
@@ -413,7 +456,7 @@ class EciEnleverMarchandiseSsManifesteScreen extends Component {
   addEnlevement = () => {
     this.scrollViewRef.scrollTo({y: 0, animated: true});
     this.props.dispatch(
-      init({type: GENERIC_ECI_INIT, value: {command: 'getEquipementsbyLot'}}),
+        init({type: GENERIC_ECI_INIT, value: {command: 'getEquipementsbyLot'}}),
     );
     this.setState({
       showEnlevements: true,
@@ -424,12 +467,12 @@ class EciEnleverMarchandiseSsManifesteScreen extends Component {
   editEnlevement = (item, index) => {
     this.scrollViewRef.scrollTo({y: 0, animated: true});
     this.setState(
-      {
-        selectedLot: this.state.enleverMarchandiseVO.refMarchandiseEnlevee[
-          index
-        ],
-      },
-      () => this.initEditEnlevement(this.state.selectedLot),
+        {
+          selectedLot: this.state.enleverMarchandiseVO.refMarchandiseEnlevee[
+              index
+              ],
+        },
+        () => this.initEditEnlevement(this.state.selectedLot),
     );
     this.setState({
       showEnlevements: true,
@@ -474,22 +517,22 @@ class EciEnleverMarchandiseSsManifesteScreen extends Component {
   testIfEquipementDisponible = (equipement) => {
     let res = true;
     _.forEach(
-      this.state.enleverMarchandiseVO.refMarchandiseEnlevee,
-      (value) => {
-        _.forEach(value.refEquipementEnleve, (value) => {
-          if (value.referenceEquipement === equipement.referenceEquipement) {
-            res = false;
-          }
-        });
-      },
+        this.state.enleverMarchandiseVO.refMarchandiseEnlevee,
+        (value) => {
+          _.forEach(value.refEquipementEnleve, (value) => {
+            if (value.referenceEquipement === equipement.referenceEquipement) {
+              res = false;
+            }
+          });
+        },
     );
     return res;
   };
   deleteEnlevement = () => {
     let enleverMarchandiseVO = {...this.state.enleverMarchandiseVO};
     enleverMarchandiseVO.refMarchandiseEnlevee.splice(
-      this.state.indexsSuppItem,
-      1,
+        this.state.indexsSuppItem,
+        1,
     );
     this.setState({
       enleverMarchandiseVO: enleverMarchandiseVO,
@@ -503,13 +546,13 @@ class EciEnleverMarchandiseSsManifesteScreen extends Component {
   };
   static getDerivedStateFromProps(nextProps, prevState) {
     let getEquipementsbyLot =
-      nextProps.picker && nextProps.picker.getEquipementsbyLot
-        ? nextProps.picker.getEquipementsbyLot
-        : null;
+        nextProps.picker && nextProps.picker.getEquipementsbyLot
+            ? nextProps.picker.getEquipementsbyLot
+            : null;
 
     if (
-      !_.isEmpty(getEquipementsbyLot?.data) &&
-      prevState.selectedLot.refEquipementEnleve !== getEquipementsbyLot.data
+        !_.isEmpty(getEquipementsbyLot?.data) &&
+        prevState.selectedLot.refEquipementEnleve !== getEquipementsbyLot.data
     ) {
       // console.log('getDerivedStateFromProps--- 2',JSON.stringify( prevState.selectedLot.refEquipementEnleve), JSON.stringify(getEquipementsbyLot.data));
 
@@ -533,23 +576,23 @@ class EciEnleverMarchandiseSsManifesteScreen extends Component {
       };
     }
     let dataAfterConfirmation =
-      nextProps.picker && nextProps.picker.enleverMarchandiseParPesage
-        ? nextProps.picker.enleverMarchandiseParPesage
-        : null;
+        nextProps.picker && nextProps.picker.enleverMarchandiseParPesage
+            ? nextProps.picker.enleverMarchandiseParPesage
+            : null;
     /*console.log(
       'getDerivedStateFromProps dataAfterConfirmation 0',
       dataAfterConfirmation,
     );*/
     if (
-      !_.isEmpty(dataAfterConfirmation?.data) &&
-      prevState.enleverMarchandiseVO !== dataAfterConfirmation.data
+        !_.isEmpty(dataAfterConfirmation?.data) &&
+        prevState.enleverMarchandiseVO !== dataAfterConfirmation.data
     ) {
       /*console.log(
         'getDerivedStateFromProps dataAfterConfirmation 1',
         JSON.stringify(dataAfterConfirmation),
       );*/
 
-      return {enleverMarchandiseVO: dataAfterConfirmation.data};
+      return {enleverMarchandiseVO: dataAfterConfirmation.data,confirmed:true};
     }
 
     return null;
@@ -585,13 +628,35 @@ class EciEnleverMarchandiseSsManifesteScreen extends Component {
     });*/
     console.log('confirmer ecor sent data-----', JSON.stringify(data));
     this.callRedux({
-      command: 'enleverMarchandiseParPesage',
+      command: 'enleverSansDS',
       typeService: 'UC',
       module: 'ECI_LIB',
       jsonVO: data,
     });
+    this.setState({confirmed:true})
   };
+  supprimerEcor = () => {
+    console.log('supprimer ecor -----');
+    this.scrollViewRef.scrollTo({y: 0, animated: true});
+    this.setState({IsChampsAddEnlevementsValid: true});
+    let data = Utils.deepDelete(this.state.enleverMarchandiseVO, [
+      '$$hashKey',
+      'defaultConverter',
+      'isRowSelected',
+      'selected',
+    ]);
+    delete data.referenceDED.regime;
+    data.referenceDED.numeroOrdreVoyage = this.state.numeroVoyage;
 
+    console.log('supprimer ecor sent data-----', JSON.stringify(data));
+    this.callRedux({
+      command: 'supprimerSansDS',
+      typeService: 'UC',
+      module: 'ECI_LIB',
+      jsonVO: data,
+    });
+    this.setState({confirmed:false})
+  };
   genererNumeroScelle = () => {
     console.log('generateurNumScelleDu');
     let listeScelles = [];
@@ -602,8 +667,8 @@ class EciEnleverMarchandiseSsManifesteScreen extends Component {
     } = this.state;
     if (generateurNumScelleDu && generateurNumScelleAu) {
       if (
-        generateurNumScelleDu.length === 8 &&
-        generateurNumScelleAu.length === 8
+          generateurNumScelleDu.length === 8 &&
+          generateurNumScelleAu.length === 8
       ) {
         let du = Number(generateurNumScelleDu);
         let au = Number(generateurNumScelleAu);
@@ -620,8 +685,8 @@ class EciEnleverMarchandiseSsManifesteScreen extends Component {
             this.setState({
               ...this.state,
               listeNombreDeScelles: _.concat(
-                listeNombreDeScelles,
-                listeScelles,
+                  listeNombreDeScelles,
+                  listeScelles,
               ),
               generateurNumScelleDu: '',
               generateurNumScelleAu: '',
@@ -677,26 +742,26 @@ class EciEnleverMarchandiseSsManifesteScreen extends Component {
 
   renderBoxItem = ({item}) => {
     const itemStyle =
-      item === this.state.selectedScelle
-        ? styles.selectedBoxItem
-        : styles.boxItem;
+        item === this.state.selectedScelle
+            ? styles.selectedBoxItem
+            : styles.boxItem;
     const itemTextStyle =
-      item === this.state.selectedScelle
-        ? styles.selectedBoxItemText
-        : styles.boxItemText;
+        item === this.state.selectedScelle
+            ? styles.selectedBoxItemText
+            : styles.boxItemText;
 
     return (
-      <View style={itemStyle}>
-        <TouchableOpacity
-          onPress={() =>
-            this.setState({
-              ...this.state,
-              selectedScelle: item,
-            })
-          }>
-          <Text style={itemTextStyle}>{item}</Text>
-        </TouchableOpacity>
-      </View>
+        <View style={itemStyle}>
+          <TouchableOpacity
+              onPress={() =>
+                  this.setState({
+                    ...this.state,
+                    selectedScelle: item,
+                  })
+              }>
+            <Text style={itemTextStyle}>{item}</Text>
+          </TouchableOpacity>
+        </View>
     );
   };
 
@@ -717,15 +782,18 @@ class EciEnleverMarchandiseSsManifesteScreen extends Component {
       selectedLot,
       bonSortie,
     } = this.state;
-     console.log('in render selectedLot ', JSON.stringify(selectedLot));
+    console.log('in render selectedLot ', JSON.stringify(selectedLot));
+    const listDeclarationDetail = [
+      {enleverMarchandiseVO: this.state.enleverMarchandiseVO},
+    ];
     let lotsApures = this.extractCommandData('getLotsApures');
     let isConsultationMode =
-      !_.isEmpty(this.extractCommandData('enleverMarchandiseParPesage')) &&
-      !_.isEmpty(
-        this.extractCommandData('enleverMarchandiseParPesage').successMessage,
-      )
-        ? true
-        : false;
+        !_.isEmpty(this.extractCommandData('enleverMarchandiseParPesage')) &&
+        !_.isEmpty(
+            this.extractCommandData('enleverMarchandiseParPesage').successMessage,
+        )
+            ? true
+            : false;
     console.log(' isConsultationMode----', isConsultationMode);
     //let equipementsbyLot = this.extractCommandData('getEquipementsbyLot');
     let {
@@ -735,160 +803,177 @@ class EciEnleverMarchandiseSsManifesteScreen extends Component {
       numeroScelle,
     } = this.state;
     return (
-      <View style={CustomStyleSheet.fullContainer}>
-        <ComBadrToolbarComp
-          navigation={this.props.navigation}
-          title={translate('ecorimport.title')}
-          subtitle={translate('ecorimport.enleverMarchandiseSsManifeste.title')}
-          icon="menu"
-        />
-        <ComContainerComp
-          ContainerRef={(ref) => {
-            this.scrollViewRef = ref;
-          }}>
-          {this.props.showProgress && <ComBadrProgressBarComp />}
-
-          {!_.isEmpty(this.extractCommandData('enleverMarchandiseParPesage')) &&
-            !_.isEmpty(
-              this.extractCommandData('enleverMarchandiseParPesage')
-                .successMessage,
-            ) && (
-              <ComBadrInfoMessageComp
-                message={
-                  this.extractCommandData('enleverMarchandiseParPesage')
-                    .successMessage
-                }
-              />
-            )}
-
-          {!_.isEmpty(this.extractCommandData('enleverMarchandiseParPesage')) &&
-            !_.isEmpty(
-              this.extractCommandData('enleverMarchandiseParPesage')
-                .errorMessage,
-            ) && (
-              <ComBadrErrorMessageComp
-                message={
-                  this.extractCommandData('enleverMarchandiseParPesage')
-                    .errorMessage
-                }
-              />
-            )}
-          {!_.isEmpty(this.state.errorMessageScelle) && (
-            <ComBadrErrorMessageComp message={this.state.errorMessageScelle} />
-          )}
-          {/* Référence déclaration */}
-          <EciReferenceDeclarationBlock
-            enleverMarchandiseVO={enleverMarchandiseVO}
-            refDeclaration={refDeclaration}
-            cle={cle}
-            numeroVoyage={numeroVoyage}
+        <View style={CustomStyleSheet.fullContainer}>
+          <ComBadrToolbarComp
+              navigation={this.props.navigation}
+              title={translate('ecorimport.title')}
+              subtitle={translate('ecorimport.enleverMarchandiseSsManifeste.title')}
+              icon="menu"
           />
-          {/* Affichge du bloc initiale */}
-          {!this.state.showEnlevements && (
-            <View>
-              {/* Accordion Déclaration en Détail*/}
-              <EciDeclarationEnDetailBlock
-                enleverMarchandiseVO={enleverMarchandiseVO}
-              />
+          <ComContainerComp
+              ContainerRef={(ref) => {
+                this.scrollViewRef = ref;
+              }}>
+            {this.props.showProgress && <ComBadrProgressBarComp />}
 
-              {/*Accordion Mainlevée*/}
-              <EciMainleveeBlock enleverMarchandiseVO={enleverMarchandiseVO} />
-              {/*Accordion Liste des Enlevements Effectues*/}
-
-              {/*Accordion Mainlevée Scelle*/}
-              <EciMainleveeScelleBlock
-                enleverMarchandiseVO={enleverMarchandiseVO}
-              />
-
-              {/*Accordion Liste des Enlevements Effectues*/}
-
-            </View>
-          )}
-          <ComBadrDialogComp
-            title={translate('transverse.suppressionTitre')}
-            confirmMessage={translate('transverse.confirmer')}
-            cancelMessage={translate('transverse.annuler')}
-            dialogMessage={translate('transverse.supprimerLigne')}
-            onCancel={this.hideSuppDialog}
-            onOk={this.deleteEnlevement}
-            dialogVisibility={this.state.suppDialogVisibility}
-          />
-          {true && (
-            <View style={CustomStyleSheet.fullContainer}>
-              <ComContainerComp
-                ContainerRef={(ref) => {
-                  this.scrollViewRefShowEnlevements = ref;
-                }}>
-                {this.props.showProgress && <ComBadrProgressBarComp />}
-
-                {this.state.IsChampsAddEnlevementsValid === false && (
-                  <ComBadrErrorMessageComp
-                    message={translate('ecorimport.errorChampsObligatoire')}
-                  />
+            {!_.isEmpty(this.extractCommandData('enleverMarchandiseParPesage')) &&
+                !_.isEmpty(
+                    this.extractCommandData('enleverMarchandiseParPesage')
+                        .successMessage,
+                ) && (
+                    <ComBadrInfoMessageComp
+                        message={
+                          this.extractCommandData('enleverMarchandiseParPesage')
+                              .successMessage
+                        }
+                    />
                 )}
-                {/* Accordion Marchandises Enlevées */}
-                <ComBadrCardBoxComp style={styles.cardBox}>
-                  <ComAccordionComp
-                    title={translate('ecorimport.marchandisesEnlevees.title')}
-                    extraFieldKey={translate('ecorimport.agentEcoreur')}
-                    extraFieldValue={translate('ecorimport.agentEcoreur')}
-                    expanded={true}>
-                    <Grid>
-                      <Row style={CustomStyleSheet.whiteRow}>
-                        <Col size={2}>
-                          <ComBadrLibelleComp
-                            withColor={true}
-                            isRequired={true}>
-                            {translate(
-                              'ecorimport.marchandisesEnlevees.lieuStockage',
-                            )}
-                          </ComBadrLibelleComp>
-                        </Col>
-                        <Col size={6}>
-                          <ComBadrPickerComp
-                            disabled={isConsultationMode}
-                            onRef={(ref) => (this.comboLieuStockage = ref)}
-                            style={{
-                              flex: 1,
-                              marginLeft: -80,
-                            }}
-                            titleStyle={{flex: 1}}
-                            key="lieuStockage"
-                            cle="code"
-                            libelle="libelle"
-                            module="REF_LIB"
-                            command="getCmbLieuStockageParBureau"
-                            typeService="SP"
-                            selectedValue={ComUtils.getValueByPath(
-                              'lieuStockage.codeLieuStockage',
-                              selectedLot,
-                            )}
-                            onValueChange={(
-                              selectedValue,
-                              selectedIndex,
-                              item,
-                            ) => {
-                              this.setState({
-                                ...this.state,
-                                selectedLot: {
-                                  ...this.state.selectedLot,
-                                  lieuStockage: {
-                                    codeLieuStockage: selectedValue,
-                                    descriptionLieuStockage: item.libelle,
-                                  },
-                                },
-                              });
-                            }}
-                            param={{
-                              codeBureau: enleverMarchandiseVO.referenceDED.referenceEnregistrement.substring(
-                                0,
-                                3,
-                              ),
-                            }}
-                          />
-                        </Col>
-                      </Row>
-                      <Row style={CustomStyleSheet.lightBlueRow}>
+
+            {!_.isEmpty(this.extractCommandData('enleverMarchandiseParPesage')) &&
+                !_.isEmpty(
+                    this.extractCommandData('enleverMarchandiseParPesage')
+                        .errorMessage,
+                ) && (
+                    <ComBadrErrorMessageComp
+                        message={
+                          this.extractCommandData('enleverMarchandiseParPesage')
+                              .errorMessage
+                        }
+                    />
+                )}
+            {!_.isEmpty(this.state.errorMessageScelle) && (
+                <ComBadrErrorMessageComp message={this.state.errorMessageScelle} />
+            )}
+            {/* Référence déclaration */}
+            <EciReferenceDeclarationBlock
+                enleverMarchandiseVO={enleverMarchandiseVO}
+                refDeclaration={refDeclaration}
+                cle={cle}
+                numeroVoyage={numeroVoyage}
+            />
+            {/* Affichge du bloc initiale */}
+            {!this.state.showEnlevements && (
+                <View>
+                  {/* Accordion Déclaration en Détail*/}
+                  <EciDeclarationEnDetailBlock
+                      enleverMarchandiseVO={enleverMarchandiseVO}
+                  />
+
+                  {/*Accordion Mainlevée*/}
+                  <EciMainleveeBlock enleverMarchandiseVO={enleverMarchandiseVO} />
+                  {/*Accordion Liste des Enlevements Effectues*/}
+
+                  {/*Accordion Mainlevée Scelle*/}
+                  <EciMainleveeScelleBlock
+                      enleverMarchandiseVO={enleverMarchandiseVO}
+                  />
+
+                  {/*Accordion Liste des Enlevements Effectues*/}
+                </View>
+            )}
+            <ComBadrDialogComp
+                title={translate('transverse.suppressionTitre')}
+                confirmMessage={translate('transverse.confirmer')}
+                cancelMessage={translate('transverse.annuler')}
+                dialogMessage={translate('transverse.supprimerLigne')}
+                onCancel={this.hideSuppDialog}
+                onOk={this.deleteEnlevement}
+                dialogVisibility={this.state.suppDialogVisibility}
+            />
+            {true && (
+                <View style={CustomStyleSheet.fullContainer}>
+                  <ComContainerComp
+                      ContainerRef={(ref) => {
+                        this.scrollViewRefShowEnlevements = ref;
+                      }}>
+                    {this.props.showProgress && <ComBadrProgressBarComp />}
+
+                    {this.state.IsChampsAddEnlevementsValid === false && (
+                        <ComBadrErrorMessageComp
+                            message={translate('ecorimport.errorChampsObligatoire')}
+                        />
+                    )}
+                    {/* Accordion Marchandises Enlevées */}
+                    <ComBadrCardBoxComp style={styles.cardBox}>
+                      <ComAccordionComp
+                          title={translate('ecorimport.agentEcoreur')}
+                          extraFieldKey={translate('ecorimport.agentEcoreur')}
+                          extraFieldValue={translate('ecorimport.agentEcoreur')}
+                          expanded={true}>
+                        <Grid>
+                          <Row style={CustomStyleSheet.whiteRow}>
+                            <Col>
+                              <ComBadrLibelleComp withColor={true}>
+                                {translate(
+                                    'autoriserAcheminemenMainScreen.entreeEnceinteDouaniere.agentDouanier',
+                                )}
+                              </ComBadrLibelleComp>
+                            </Col>
+                            <Col>
+                              <ComBadrLibelleComp>
+                                {
+                                  enleverMarchandiseVO
+                                      ?.refActeurEnlevement?.nom
+                                }{' '}
+                                {
+                                  enleverMarchandiseVO
+                                      ?.refActeurEnlevement?.prenom
+                                }
+                              </ComBadrLibelleComp>
+                            </Col>
+                          </Row>
+                          <Row style={CustomStyleSheet.whiteRow}>
+                            <Col size={2}>
+                              <ComBadrLibelleComp
+                                  withColor={true}
+                                  isRequired={true}>
+                                {translate(
+                                    'ecorimport.marchandisesEnlevees.lieuStockage',
+                                )}
+                              </ComBadrLibelleComp>
+                            </Col>
+                            <Col size={6}>
+                              <ComBadrPickerComp
+                                  disabled={isConsultationMode}
+                                  onRef={(ref) => (this.comboLieuStockage = ref)}
+                                  style={{
+                                    flex: 1,
+                                    marginLeft: -80,
+                                  }}
+                                  titleStyle={{flex: 1}}
+                                  key="lieuStockage"
+                                  cle="code"
+                                  libelle="libelle"
+                                  module="REF_LIB"
+                                  command="getCmbLieuStockageParBureau"
+                                  typeService="SP"
+                                  selectedValue={ComUtils.getValueByPath(
+                                      'refLieuStockage.codeLieuStockage',
+                                      enleverMarchandiseVO,
+                                  )}
+                                  onValueChange={(
+                                      selectedValue,
+                                      selectedIndex,
+                                      item,
+                                  ) => {
+                                    this.setState({
+                                      ...this.state,
+                                      selectedLot: {
+                                        ...this.state.selectedLot,
+                                        lieuStockage: {
+                                          codeLieuStockage: selectedValue,
+                                          descriptionLieuStockage: item.libelle,
+                                        },
+                                      },
+                                    });
+                                  }}
+                                  param={{
+                                    codeBureau: ComSessionService.getInstance().getCodeBureau(),
+                                  }}
+                              />
+                            </Col>
+                          </Row>
+                          {/*<Row style={CustomStyleSheet.lightBlueRow}>
                         <Col size={2}>
                           <ComBadrLibelleComp
                             withColor={true}
@@ -915,593 +1000,527 @@ class EciEnleverMarchandiseSsManifesteScreen extends Component {
                             }
                           />
                         </Col>
-                      </Row>
-                      <Row style={CustomStyleSheet.whiteRow}>
-                        <Col size={1}>
-                          <ComBadrLibelleComp
-                            withColor={true}
-                            isRequired={true}>
-                            {translate(
-                              'ecorimport.enleverMarchandise.numBonSortie',
-                            )}
-                          </ComBadrLibelleComp>
-                        </Col>
-                        <Col size={1}>
-                          <TextInput
-                            ref={(ref) => (this.numeroBonSortie = ref)}
-                            mode="outlined"
-                            style={styles.columnThree}
-                            label=""
-                            value={selectedLot.numeroBonSortie}
-                            disabled={isConsultationMode}
-                            onChangeText={(text) =>
-                              this.setState({
-                                ...this.state,
-                                selectedLot: {
-                                  ...this.state.selectedLot,
-                                  numeroBonSortie: text,
-                                },
-                              })
-                            }
-                          />
-                        </Col>
-                        <Col size={1}>
-                          <ComBadrLibelleComp
-                            withColor={true}
-                            isRequired={true}>
-                            {translate(
-                              'ecorimport.marchandisesEnlevees.delivrePar',
-                            )}
-                          </ComBadrLibelleComp>
-                        </Col>
-                        <Col size={4}>
-                          <ComBadrAutoCompleteChipsComp
-                            onRef={(ref) => (this.acOperateur = ref)}
-                            code="code"
-                            disabled={isConsultationMode}
-                            selected={
-                              _.isEmpty(
-                                ComUtils.getValueByPath(
-                                  'gestionnaireEnceinte.nomOperateur',
-                                  selectedLot,
-                                ),
-                              )
-                                ? ''
-                                : ComUtils.getValueByPath(
-                                    'gestionnaireEnceinte.nomOperateur',
-                                    selectedLot,
-                                  ) +
-                                  '(' +
-                                  ComUtils.getValueByPath(
-                                    'gestionnaireEnceinte.identifiantOperateur',
-                                    selectedLot,
-                                  ) +
-                                  ')'
-                            }
-                            maxItems={3}
-                            libelle="libelle"
-                            command="getCmbOperateur"
-                            onDemand={true}
-                            searchZoneFirst={false}
-                            onValueChange={(item) => {
-                              this.setState({
-                                ...this.state,
-                                selectedLot: {
-                                  ...this.state.selectedLot,
-                                  gestionnaireEnceinte: {
-                                    identifiantOperateur: item.code,
-                                    nomOperateur: item.libelle,
-                                  },
-                                },
-                              });
-                            }}
-                          />
-                        </Col>
-                      </Row>
-                      <Row style={CustomStyleSheet.lightBlueRow}>
-                        <Col size={2}>
-                          <ComBadrLibelleComp
-                            withColor={true}
-                            isRequired={true}>
-                            {translate(
-                              'ecorimport.marchandisesEnlevees.immatriculationsVehicules',
-                            )}
-                          </ComBadrLibelleComp>
-                        </Col>
-                        <Col size={6}>
-                          <TextInput
-                            mode="outlined"
-                            style={styles.columnThree}
-                            label=""
-                            value={selectedLot.immatriculationsVehicules}
-                            disabled={isConsultationMode}
-                            onChangeText={(text) =>
-                              this.setState({
-                                ...this.state,
-                                selectedLot: {
-                                  ...this.state.selectedLot,
-                                  immatriculationsVehicules: text,
-                                },
-                              })
-                            }
-                            numberOfLines={6}
-                          />
-                        </Col>
-                      </Row>
-                      <Row style={CustomStyleSheet.whiteRow}>
-                        <Col>
-                          <ComBadrDatePickerComp
-                            dateFormat="DD/MM/yyyy"
-                            heureFormat="HH:mm"
-                            value={
-                              selectedLot.dateEffectiveEnlevement
-                                ? moment(
-                                    selectedLot.dateEffectiveEnlevement,
-                                    'DD/MM/yyyy',
-                                    true,
-                                  )
-                                : ''
-                            }
-                            timeValue={
-                              selectedLot.heureEffectiveEnlevement
-                                ? moment(
-                                    selectedLot.heureEffectiveEnlevement,
-                                    'HH:mm',
-                                    true,
-                                  )
-                                : ''
-                            }
-                            onDateChanged={(date) =>
-                              this.setState({
-                                ...this.state,
-                                selectedLot: {
-                                  ...this.state.selectedLot,
-                                  dateEffectiveEnlevement: date,
-                                },
-                              })
-                            }
-                            onTimeChanged={(time) =>
-                              this.setState({
-                                ...this.state,
-                                selectedLot: {
-                                  ...this.state.selectedLot,
-                                  heureEffectiveEnlevement: time,
-                                },
-                              })
-                            }
-                            labelDate={translate(
-                              'ecorimport.marchandisesEnlevees.dateEffectiveEnlevement',
-                            )}
-                            labelHeure={translate(
-                              'ecorimport.marchandisesEnlevees.heureEffectiveEnlevement',
-                            )}
-                            inputStyle={style.dateInputStyle}
-                            readonly={isConsultationMode}
-                          />
-                        </Col>
-                      </Row>
-                    </Grid>
-                  </ComAccordionComp>
-                </ComBadrCardBoxComp>
-
-                {/* Accordion Scellés */}
-                <ComBadrCardBoxComp noPadding={true}>
-                  {/* Informations ECOR */}
-                  <ComAccordionComp
-                    title={translate('ecorimport.scelles.title')}
-                    expanded={true}>
-                    <Grid>
-                      <Row style={CustomStyleSheet.whiteRow}>
-                        <Col>
-                          <ComBadrLibelleComp withColor={true}>
-                            {translate('ecorimport.scelles.nouveauxScelles')}
-                          </ComBadrLibelleComp>
-                        </Col>
-                        <Col>
-                          <View style={styles.flexRow}>
-                            <RadioButton.Group
-                              onValueChange={(choix) =>
-                                this.setState({
-                                  ...this.state,
-                                  selectedLot: {
-                                    ...this.state.selectedLot,
-                                    infoEcorScelle: choix,
-                                  },
-                                })
-                              }
-                              value={
-                                selectedLot?.infoEcorScelle
-                                  ? selectedLot?.infoEcorScelle.toString()
-                                  : 'false'
-                              }>
-                              <View style={styles.flexColumn}>
-                                <Text>
-                                  {translate('ecorimport.scelles.oui')}
-                                </Text>
-                                <RadioButton
-                                  value="true"
-                                  disabled={isConsultationMode}
-                                  color={primaryColor}
-                                />
-                              </View>
-                              <View style={styles.flexColumn}>
-                                <Text>
-                                  {translate('ecorimport.scelles.non')}
-                                </Text>
-                                <RadioButton
-                                  value="false"
-                                  disabled={isConsultationMode}
-                                  color={primaryColor}
-                                />
-                              </View>
-                            </RadioButton.Group>
-                          </View>
-                        </Col>
-                        <Col />
-                        <Col />
-                      </Row>
-                      {selectedLot?.infoEcorScelle == 'true' && (
-                        <View>
+                      </Row>*/}
                           <Row style={CustomStyleSheet.whiteRow}>
                             <Col size={1}>
-                              <TextInput
-                                mode={'outlined'}
-                                maxLength={8}
-                                value={selectedLot.numeroPince}
-                                label={translate(
-                                  'ecorimport.scelles.numeroPince',
+                              <ComBadrLibelleComp
+                                  withColor={true}
+                                  isRequired={true}>
+                                {translate(
+                                    'ecorimport.enleverMarchandise.numBonSortie',
                                 )}
-                                style={CustomStyleSheet.badrInputHeight}
-                                disabled={isConsultationMode}
-                                onChangeText={(text) =>
-                                  this.setState({
-                                    ...this.state,
-                                    selectedLot: {
-                                      ...this.state.selectedLot,
-                                      numeroPince: text,
-                                    },
-                                  })
-                                }
+                              </ComBadrLibelleComp>
+                            </Col>
+                            <Col size={1}>
+                              <TextInput
+                                  ref={(ref) => (this.numeroBonSortie = ref)}
+                                  mode="outlined"
+                                  style={styles.columnThree}
+                                  label=""
+                                  value={enleverMarchandiseVO.numeroBonSortie}
+                                  disabled={isConsultationMode}
+                                  onChangeText={(text) =>
+                                      this.setState({
+                                        ...this.state,
+                                        selectedLot: {
+                                          ...this.state.selectedLot,
+                                          numeroBonSortie: text,
+                                        },
+                                      })
+                                  }
                               />
                             </Col>
-                            <Col size={1} />
                             <Col size={1}>
-                              <ComBadrNumericTextInputComp
-                                maxLength={8}
-                                value={selectedLot.nombreScelle}
-                                disabled={isConsultationMode}
-                                label={translate(
-                                  'ecorimport.scelles.nombreScelles',
+                              <ComBadrLibelleComp
+                                  withColor={true}
+                                  isRequired={true}>
+                                {translate(
+                                    'ecorimport.marchandisesEnlevees.delivrePar',
                                 )}
-                                onChangeBadrInput={(text) =>
-                                  this.setState({
-                                    ...this.state,
-                                    selectedLot: {
-                                      ...this.state.selectedLot,
-                                      numeroPince: text,
-                                    },
-                                  })
-                                }
+                              </ComBadrLibelleComp>
+                            </Col>
+                            <Col size={4}>
+                              <ComBadrAutoCompleteChipsComp
+                                  onRef={(ref) => (this.acOperateur = ref)}
+                                  code="code"
+                                  disabled={isConsultationMode}
+                                  selected={
+                                    _.isEmpty(
+                                        ComUtils.getValueByPath(
+                                            'gestionnaireEnceinte.nomOperateur',
+                                            selectedLot,
+                                        ),
+                                    )
+                                        ? ''
+                                        : ComUtils.getValueByPath(
+                                            'gestionnaireEnceinte.nomOperateur',
+                                            selectedLot,
+                                        ) +
+                                        '(' +
+                                        ComUtils.getValueByPath(
+                                            'gestionnaireEnceinte.identifiantOperateur',
+                                            selectedLot,
+                                        ) +
+                                        ')'
+                                  }
+                                  maxItems={3}
+                                  libelle="libelle"
+                                  command="getCmbOperateur"
+                                  onDemand={true}
+                                  searchZoneFirst={false}
+                                  onValueChange={(item) => {
+                                    this.setState({
+                                      ...this.state,
+                                      selectedLot: {
+                                        ...this.state.selectedLot,
+                                        gestionnaireEnceinte: {
+                                          identifiantOperateur: item.code,
+                                          nomOperateur: item.libelle,
+                                        },
+                                      },
+                                    });
+                                  }}
                               />
                             </Col>
                           </Row>
                           <Row style={CustomStyleSheet.lightBlueRow}>
-                            <Col size={5}>
-                              <ComBadrLibelleComp withColor={true}>
+                            <Col size={2}>
+                              <ComBadrLibelleComp
+                                  withColor={true}
+                                  isRequired={true}>
                                 {translate(
-                                  'ecorimport.scelles.generateurScelle',
+                                    'ecorimport.marchandisesEnlevees.immatriculationsVehicules',
                                 )}
                               </ComBadrLibelleComp>
                             </Col>
-                            <Col size={2}>
-                              <ComBadrNumericTextInputComp
-                                onRef={(input) => {
-                                  this.generateurNumScelleDu = input;
-                                }}
-                                maxLength={8}
-                                value={this.state.generateurNumScelleDu}
-                                label={translate('transverse.du')}
-                                disabled={isConsultationMode}
-                                onChangeBadrInput={(text) =>
-                                  this.setState({
-                                    generateurNumScelleDu: text,
-                                  })
-                                }
+                            <Col size={6}>
+                              <TextInput
+                                  mode="outlined"
+                                  style={styles.columnThree}
+                                  label=""
+                                  value={selectedLot.immatriculationsVehicules}
+                                  disabled={isConsultationMode}
+                                  onChangeText={(text) =>
+                                      this.setState({
+                                        ...this.state,
+                                        selectedLot: {
+                                          ...this.state.selectedLot,
+                                          immatriculationsVehicules: text,
+                                        },
+                                      })
+                                  }
+                                  numberOfLines={6}
                               />
-                            </Col>
-                            <Col size={1} />
-                            <Col size={2}>
-                              <ComBadrNumericTextInputComp
-                                onRef={(input) => {
-                                  this.generateurNumScelleAu = input;
-                                }}
-                                maxLength={8}
-                                value={generateurNumScelleAu}
-                                disabled={isConsultationMode}
-                                label={translate('transverse.au')}
-                                onChangeBadrInput={(text) =>
-                                  this.setState({
-                                    generateurNumScelleAu: text,
-                                  })
-                                }
-                              />
-                            </Col>
-                            <Col size={2} />
-                            <Col size={1}>
-                              <Button
-                                mode="contained"
-                                compact="true"
-                                disabled={isConsultationMode}
-                                onPress={this.genererNumeroScelle}>
-                                {translate('transverse.Ok')}
-                              </Button>
-                            </Col>
-                            <Col size={2} />
-                          </Row>
-                          <Row
-                            style={[
-                              CustomStyleSheet.whiteRow,
-                              style.rowListNumScelle,
-                            ]}>
-                            <Col size={5}>
-                              <ComBadrNumericTextInputComp
-                                onRef={(input) => {
-                                  this.numeroScelleInput = input;
-                                }}
-                                maxLength={8}
-                                value={numeroScelle}
-                                label={translate(
-                                  'ecorimport.scelles.numeroScelle',
-                                )}
-                                disabled={isConsultationMode}
-                                onChangeBadrInput={(text) => {
-                                  this.setState({
-                                    numeroScelle: text,
-                                  });
-                                }}
-                              />
-                            </Col>
-                            <Col size={2} />
-
-                            <Col size={1}>
-                              <Button
-                                onPress={this.addNumeroScelle}
-                                icon="plus-box"
-                                mode="contained"
-                                compact="true"
-                                disabled={isConsultationMode}
-                                style={style.btnActionList}
-                              />
-                              <Button
-                                onPress={this.deleteNumeroScelle}
-                                icon="delete"
-                                mode="contained"
-                                compact="true"
-                                disabled={isConsultationMode}
-                                style={style.btnActionList}
-                              />
-                            </Col>
-                            <Col size={2} />
-
-                            <Col size={5} style={style.boxContainer}>
-                              <SafeAreaView style={style.boxSafeArea}>
-                                {_.isEmpty(listeNombreDeScelles) && (
-                                  <Text style={style.boxItemText}>
-                                    {translate(
-                                      'ecorimport.scelles.aucunElement',
-                                    )}
-                                  </Text>
-                                )}
-
-                                {!_.isEmpty(listeNombreDeScelles) && (
-                                  <FlatList
-                                    data={listeNombreDeScelles}
-                                    renderItem={(item) =>
-                                      this.renderBoxItem(item)
-                                    }
-                                    keyExtractor={(item) => item}
-                                    nestedScrollEnabled={true}
-                                  />
-                                )}
-                              </SafeAreaView>
                             </Col>
                           </Row>
                           <Row style={CustomStyleSheet.whiteRow}>
-                            <Col size={1}>
-                              <ComBadrLibelleComp withColor={true}>
-                                {translate(
-                                  'ecorimport.scelles.transporteurExploitantMEAD',
-                                )}
-                              </ComBadrLibelleComp>
-                            </Col>
-                            <Col size={2}>
-                              <ComBadrAutoCompleteChipsComp
-                                placeholder={translate(
-                                  'ecorimport.scelles.choisirValeur',
-                                )}
-                                code="code"
-                                disabled={isConsultationMode}
-                                selected={
-                                  this.state.selectedLot
-                                    ?.transporteurExploitantMEAD
-                                }
-                                maxItems={3}
-                                libelle="libelle"
-                                command="getCmbOperateur"
-                                onDemand={true}
-                                searchZoneFirst={false}
-                                onValueChange={(item) => {
-                                  this.setState({
-                                    ...this.state,
-                                    selectedLot: {
-                                      ...this.state.selectedLot,
-                                      transporteurExploitantMEAD: item.code,
-                                    },
-                                  });
-                                }}
+                            <Col>
+                              <ComBadrDatePickerComp
+                                  dateFormat="DD/MM/yyyy"
+                                  heureFormat="HH:mm"
+                                  value={
+                                    selectedLot.dateEffectiveEnlevement
+                                        ? moment(
+                                            selectedLot.dateEffectiveEnlevement,
+                                            'DD/MM/yyyy',
+                                            true,
+                                        )
+                                        : ''
+                                  }
+                                  timeValue={
+                                    selectedLot.heureEffectiveEnlevement
+                                        ? moment(
+                                            selectedLot.heureEffectiveEnlevement,
+                                            'HH:mm',
+                                            true,
+                                        )
+                                        : ''
+                                  }
+                                  onDateChanged={(date) =>
+                                      this.setState({
+                                        ...this.state,
+                                        selectedLot: {
+                                          ...this.state.selectedLot,
+                                          dateEffectiveEnlevement: date,
+                                        },
+                                      })
+                                  }
+                                  onTimeChanged={(time) =>
+                                      this.setState({
+                                        ...this.state,
+                                        selectedLot: {
+                                          ...this.state.selectedLot,
+                                          heureEffectiveEnlevement: time,
+                                        },
+                                      })
+                                  }
+                                  labelDate={translate(
+                                      'ecorimport.marchandisesEnlevees.dateEffectiveEnlevement',
+                                  )}
+                                  labelHeure={translate(
+                                      'ecorimport.marchandisesEnlevees.heureEffectiveEnlevement',
+                                  )}
+                                  inputStyle={style.dateInputStyle}
+                                  readonly={isConsultationMode}
                               />
                             </Col>
                           </Row>
-                        </View>
-                      )}
-                    </Grid>
-                  </ComAccordionComp>
-                </ComBadrCardBoxComp>
-                {/* Accordion Bon Sortie  */}
-                <ComBadrCardBoxComp style={styles.cardBox}>
-                  <ComAccordionComp
-                      title={translate('ecorimport.bonSortie.bonDeSortie')}
-                      expanded={true}>
-                    <Grid>
-                      <Row style={CustomStyleSheet.whiteRow}>
-                        <Col size={2}>
-                          <ComBadrLibelleComp withColor={true}>
-                            {translate('ecorimport.bonSortie.bonDeSortie')}
-                          </ComBadrLibelleComp>
-                        </Col>
-                        <Col size={6}>
-                          <ComBadrPickerComp
-                              onRef={(ref) => (this.pickerBonSortie = ref)}
-                              disabled={false}
-                              style={{
-                                flex: 1,
-                                marginLeft: -80,
-                              }}
-                              titleStyle={{flex: 1}}
-                              key="bonDeSortie"
-                              cle="code"
-                              libelle="libelle"
-                              module="ECI"
-                              command="getListeBonSortieSsManifeste"
-                              typeService="SP"
-                              selectedValue={ComUtils.getValueByPath(
-                                  'bonSortie.id',
-                                  selectedLot,
-                              )}
-                              onValueChange={(
-                                  selectedValue,
-                                  selectedIndex,
-                                  item,
-                              ) => this.chargerListeBondeSortie(selectedValue)}
-                              param={{
-                                //idDs: selectedLot.referenceDS.identifiantDS,
-                                //idLot: selectedLot.referenceLot,
-                                refDed:
-                                enleverMarchandiseVO.referenceDED
-                                    .referenceEnregistrement,
-                                idDed:
-                                enleverMarchandiseVO.referenceDED.indentifiant,
-                              }}
-                          />
-                        </Col>
-                      </Row>
-                      <Row style={CustomStyleSheet.lightBlueRow}>
-                        <Col size={2}>
-                          <ComBadrLibelleComp withColor={true}>
-                            {translate(
-                                'ecorimport.enleverMarchandise.nombreColis',
-                            )}
-                          </ComBadrLibelleComp>
-                        </Col>
-                        <Col size={6}>
-                          <ComBadrNumericTextInputComp
-                              ref={(ref) => (this.nombreContenantBS = ref)}
-                              mode={'outlined'}
-                              disabled={true}
-                              value={bonSortie?.nombreColis}
-                          />
-                        </Col>
-                      </Row>
-                      <Row style={CustomStyleSheet.whiteRow}>
-                        <Col size={1}>
-                          <ComBadrLibelleComp withColor={true}>
-                            {translate('ecorimport.bonSortie.poidsNet')}
-                          </ComBadrLibelleComp>
-                        </Col>
-                        <Col size={1}>
-                          <TextInput
-                              ref={(ref) => (this.numeroBonSortieBS = ref)}
-                              mode="outlined"
-                              disabled={true}
-                              style={styles.columnThree}
-                              label=""
-                              value={bonSortie?.poidsNet}
-                          />
-                        </Col>
-                        <Col size={1}>
-                          <ComBadrLibelleComp withColor={true}>
-                            {translate(
-                                'ecorimport.marchandisesEnlevees.delivrePar',
-                            )}
-                          </ComBadrLibelleComp>
-                        </Col>
-                        <Col size={4}>
-                          <ComBadrLibelleComp withColor={false}>
-                            {bonSortie?.delivrePar}
-                          </ComBadrLibelleComp>
-                        </Col>
-                      </Row>
-                      <Row style={CustomStyleSheet.lightBlueRow}>
-                        <Col size={2}>
-                          <ComBadrLibelleComp withColor={true}>
-                            {translate('ecorimport.bonSortie.dateHeureBS')}
-                          </ComBadrLibelleComp>
-                        </Col>
-                        <Col size={6}>
-                          <TextInput
-                              mode="outlined"
-                              style={styles.columnThree}
-                              disabled={true}
-                              label=""
-                              value={bonSortie?.dateHeureBS}
-                              numberOfLines={6}
-                          />
-                        </Col>
-                      </Row>
-                      <Row style={CustomStyleSheet.lightBlueRow}>
-                        <Col size={2}>
-                          <ComBadrLibelleComp withColor={true}>
-                            {translate(
-                                'ecorimport.bonSortie.immatriculationsVehicules',
-                            )}
-                          </ComBadrLibelleComp>
-                        </Col>
-                        <Col size={6}>
-                          <TextInput
-                              mode="outlined"
-                              style={styles.columnThree}
-                              disabled={true}
-                              label=""
-                              value={bonSortie.immatriculationsVehicules}
-                              numberOfLines={6}
-                          />
-                        </Col>
-                      </Row>
-                    </Grid>
-                  </ComAccordionComp>
-                </ComBadrCardBoxComp>
+                        </Grid>
+                      </ComAccordionComp>
+                    </ComBadrCardBoxComp>
 
+                    {/* Accordion Scellés */}
+                    <ComBadrCardBoxComp noPadding={true}>
+                      {/* Informations ECOR */}
+                      <ComAccordionComp
+                          title={translate('ecorimport.scelles.title')}
+                          expanded={true}>
+                        <Grid>
+                          <Row style={CustomStyleSheet.whiteRow}>
+                            <Col>
+                              <ComBadrLibelleComp withColor={true}>
+                                {translate('ecorimport.scelles.nouveauxScelles')}
+                              </ComBadrLibelleComp>
+                            </Col>
+                            <Col>
+                              <View style={styles.flexRow}>
+                                <RadioButton.Group
+                                    onValueChange={(choix) =>
+                                        this.setState({
+                                          ...this.state,
+                                          selectedLot: {
+                                            ...this.state.selectedLot,
+                                            infoEcorScelle: choix,
+                                          },
+                                        })
+                                    }
+                                    value={
+                                      selectedLot?.infoEcorScelle
+                                          ? selectedLot?.infoEcorScelle.toString()
+                                          : 'false'
+                                    }>
+                                  <View style={styles.flexColumn}>
+                                    <Text>
+                                      {translate('ecorimport.scelles.oui')}
+                                    </Text>
+                                    <RadioButton
+                                        value="true"
+                                        disabled={isConsultationMode}
+                                        color={primaryColor}
+                                    />
+                                  </View>
+                                  <View style={styles.flexColumn}>
+                                    <Text>
+                                      {translate('ecorimport.scelles.non')}
+                                    </Text>
+                                    <RadioButton
+                                        value="false"
+                                        disabled={isConsultationMode}
+                                        color={primaryColor}
+                                    />
+                                  </View>
+                                </RadioButton.Group>
+                              </View>
+                            </Col>
+                            <Col />
+                            <Col />
+                          </Row>
+                          {selectedLot?.infoEcorScelle == 'true' && (
+                              <View>
+                                <Row style={CustomStyleSheet.whiteRow}>
+                                  <Col size={1}>
+                                    <TextInput
+                                        mode={'outlined'}
+                                        maxLength={8}
+                                        value={selectedLot.numeroPince}
+                                        label={translate(
+                                            'ecorimport.scelles.numeroPince',
+                                        )}
+                                        style={CustomStyleSheet.badrInputHeight}
+                                        disabled={isConsultationMode}
+                                        onChangeText={(text) =>
+                                            this.setState({
+                                              ...this.state,
+                                              selectedLot: {
+                                                ...this.state.selectedLot,
+                                                numeroPince: text,
+                                              },
+                                            })
+                                        }
+                                    />
+                                  </Col>
+                                  <Col size={1} />
+                                  <Col size={1}>
+                                    <ComBadrNumericTextInputComp
+                                        maxLength={8}
+                                        value={selectedLot.nombreScelle}
+                                        disabled={isConsultationMode}
+                                        label={translate(
+                                            'ecorimport.scelles.nombreScelles',
+                                        )}
+                                        onChangeBadrInput={(text) =>
+                                            this.setState({
+                                              ...this.state,
+                                              selectedLot: {
+                                                ...this.state.selectedLot,
+                                                numeroPince: text,
+                                              },
+                                            })
+                                        }
+                                    />
+                                  </Col>
+                                </Row>
+                                <Row style={CustomStyleSheet.lightBlueRow}>
+                                  <Col size={5}>
+                                    <ComBadrLibelleComp withColor={true}>
+                                      {translate(
+                                          'ecorimport.scelles.generateurScelle',
+                                      )}
+                                    </ComBadrLibelleComp>
+                                  </Col>
+                                  <Col size={2}>
+                                    <ComBadrNumericTextInputComp
+                                        onRef={(input) => {
+                                          this.generateurNumScelleDu = input;
+                                        }}
+                                        maxLength={8}
+                                        value={this.state.generateurNumScelleDu}
+                                        label={translate('transverse.du')}
+                                        disabled={isConsultationMode}
+                                        onChangeBadrInput={(text) =>
+                                            this.setState({
+                                              generateurNumScelleDu: text,
+                                            })
+                                        }
+                                    />
+                                  </Col>
+                                  <Col size={1} />
+                                  <Col size={2}>
+                                    <ComBadrNumericTextInputComp
+                                        onRef={(input) => {
+                                          this.generateurNumScelleAu = input;
+                                        }}
+                                        maxLength={8}
+                                        value={generateurNumScelleAu}
+                                        disabled={isConsultationMode}
+                                        label={translate('transverse.au')}
+                                        onChangeBadrInput={(text) =>
+                                            this.setState({
+                                              generateurNumScelleAu: text,
+                                            })
+                                        }
+                                    />
+                                  </Col>
+                                  <Col size={2} />
+                                  <Col size={1}>
+                                    <Button
+                                        mode="contained"
+                                        compact="true"
+                                        disabled={isConsultationMode}
+                                        onPress={this.genererNumeroScelle}>
+                                      {translate('transverse.Ok')}
+                                    </Button>
+                                  </Col>
+                                  <Col size={2} />
+                                </Row>
+                                <Row
+                                    style={[
+                                      CustomStyleSheet.whiteRow,
+                                      style.rowListNumScelle,
+                                    ]}>
+                                  <Col size={5}>
+                                    <ComBadrNumericTextInputComp
+                                        onRef={(input) => {
+                                          this.numeroScelleInput = input;
+                                        }}
+                                        maxLength={8}
+                                        value={numeroScelle}
+                                        label={translate(
+                                            'ecorimport.scelles.numeroScelle',
+                                        )}
+                                        disabled={isConsultationMode}
+                                        onChangeBadrInput={(text) => {
+                                          this.setState({
+                                            numeroScelle: text,
+                                          });
+                                        }}
+                                    />
+                                  </Col>
+                                  <Col size={2} />
 
-                {/* Accordion liste des équipement du lot */}
-                {!_.isNil(selectedLot.refEquipementEnleve) && (
-                  <ComBadrCardBoxComp style={styles.cardBox}>
-                    <ComAccordionComp
-                      title={translate('ecorimport.listeEquipementsLot.title')}
-                      expanded={true}>
-                      <ComBasicDataTableComp
-                        rows={selectedLot.refEquipementEnleve}
-                        cols={this.state.listEquipementLotsCols}
-                        totalElements={selectedLot.refEquipementEnleve.length}
-                        maxResultsPerPage={10}
-                        paginate={true}
-                        readonly={isConsultationMode}
-                      />
-                    </ComAccordionComp>
-                  </ComBadrCardBoxComp>
-                )}
+                                  <Col size={1}>
+                                    <Button
+                                        onPress={this.addNumeroScelle}
+                                        icon="plus-box"
+                                        mode="contained"
+                                        compact="true"
+                                        disabled={isConsultationMode}
+                                        style={style.btnActionList}
+                                    />
+                                    <Button
+                                        onPress={this.deleteNumeroScelle}
+                                        icon="delete"
+                                        mode="contained"
+                                        compact="true"
+                                        disabled={isConsultationMode}
+                                        style={style.btnActionList}
+                                    />
+                                  </Col>
+                                  <Col size={2} />
 
+                                  <Col size={5} style={style.boxContainer}>
+                                    <SafeAreaView style={style.boxSafeArea}>
+                                      {_.isEmpty(listeNombreDeScelles) && (
+                                          <Text style={style.boxItemText}>
+                                            {translate(
+                                                'ecorimport.scelles.aucunElement',
+                                            )}
+                                          </Text>
+                                      )}
 
-                {/* Modal Lot Apures
+                                      {!_.isEmpty(listeNombreDeScelles) && (
+                                          <FlatList
+                                              data={listeNombreDeScelles}
+                                              renderItem={(item) =>
+                                                  this.renderBoxItem(item)
+                                              }
+                                              keyExtractor={(item) => item}
+                                              nestedScrollEnabled={true}
+                                          />
+                                      )}
+                                    </SafeAreaView>
+                                  </Col>
+                                </Row>
+                                <Row style={CustomStyleSheet.whiteRow}>
+                                  <Col size={1}>
+                                    <ComBadrLibelleComp withColor={true}>
+                                      {translate(
+                                          'ecorimport.scelles.transporteurExploitantMEAD',
+                                      )}
+                                    </ComBadrLibelleComp>
+                                  </Col>
+                                  <Col size={2}>
+                                    <ComBadrAutoCompleteChipsComp
+                                        placeholder={translate(
+                                            'ecorimport.scelles.choisirValeur',
+                                        )}
+                                        code="code"
+                                        disabled={isConsultationMode}
+                                        selected={
+                                          this.state.selectedLot
+                                              ?.transporteurExploitantMEAD
+                                        }
+                                        maxItems={3}
+                                        libelle="libelle"
+                                        command="getCmbOperateur"
+                                        onDemand={true}
+                                        searchZoneFirst={false}
+                                        onValueChange={(item) => {
+                                          this.setState({
+                                            ...this.state,
+                                            selectedLot: {
+                                              ...this.state.selectedLot,
+                                              transporteurExploitantMEAD: item.code,
+                                            },
+                                          });
+                                        }}
+                                    />
+                                  </Col>
+                                </Row>
+                              </View>
+                          )}
+                        </Grid>
+                      </ComAccordionComp>
+                    </ComBadrCardBoxComp>
+                    {/* Accordion Bon Sortie  */}
+                    <ComBadrCardBoxComp style={styles.cardBox}>
+                      <ComAccordionComp
+                          title={translate('ecorimport.bonSortie.bonDeSortie')}
+                          expanded={true}>
+                        <Grid>
+                          <Row style={CustomStyleSheet.whiteRow}>
+                            <Col size={2}>
+                              <ComBadrLibelleComp withColor={true}>
+                                {translate('ecorimport.bonSortie.bonDeSortie')}
+                              </ComBadrLibelleComp>
+                            </Col>
+                            <Col size={6}>
+                              <ComBadrPickerComp
+                                  onRef={(ref) => (this.pickerBonSortie = ref)}
+                                  disabled={false}
+                                  style={{
+                                    flex: 1,
+                                    marginLeft: -80,
+                                  }}
+                                  titleStyle={{flex: 1}}
+                                  key="bonDeSortie"
+                                  cle="code"
+                                  libelle="libelle"
+                                  module="ECI"
+                                  command="getListeBonSortieSsManifeste"
+                                  typeService="SP"
+                                  selectedValue={ComUtils.getValueByPath(
+                                      'bonSortie.id',
+                                      selectedLot,
+                                  )}
+                                  onValueChange={(
+                                      selectedValue,
+                                      selectedIndex,
+                                      item,
+                                  ) => this.chargerListeBondeSortie(selectedValue)}
+                                  param={{
+                                    //idDs: selectedLot.referenceDS.identifiantDS,
+                                    //idLot: selectedLot.referenceLot,
+                                    refDed:
+                                    enleverMarchandiseVO.referenceDED
+                                        .referenceEnregistrement,
+                                    idDed:
+                                    enleverMarchandiseVO.referenceDED.indentifiant,
+                                  }}
+                              />
+                            </Col>
+                          </Row>
+
+                          <ComBasicDataTableComp
+                              badr
+                              onRef={(ref) => (this.badrComposantsTable = ref)}
+                              ref="_badrTable"
+                              hasId={false}
+                              id="idComposant"
+                              rows={listDeclarationDetail}
+                              cols={this.composantTablesCols}
+                              //onItemSelected={(row) => this.onComposantSelected(row)}
+                              totalElements={
+                                listDeclarationDetail?.length
+                                    ? listDeclarationDetail?.length
+                                    : 0
+                              }
+                              maxResultsPerPage={5}
+                              paginate={true}
+                          />
+                        </Grid>
+                      </ComAccordionComp>
+                    </ComBadrCardBoxComp>
+
+                    {/* Accordion liste des équipement du lot */}
+                    {!_.isNil(selectedLot.refEquipementEnleve) && (
+                        <ComBadrCardBoxComp style={styles.cardBox}>
+                          <ComAccordionComp
+                              title={translate('ecorimport.listeEquipementsLot.title')}
+                              expanded={true}>
+                            <ComBasicDataTableComp
+                                rows={selectedLot.refEquipementEnleve}
+                                cols={this.state.listEquipementLotsCols}
+                                totalElements={selectedLot.refEquipementEnleve.length}
+                                maxResultsPerPage={10}
+                                paginate={true}
+                                readonly={isConsultationMode}
+                            />
+                          </ComAccordionComp>
+                        </ComBadrCardBoxComp>
+                    )}
+
+                    {/* Modal Lot Apures
                 {!_.isNil(lotsApures) && !_.isNil(lotsApures.data) && (
                   <ComBadrModalComp
                     visible={this.props.showListeLotsApures}
@@ -1520,12 +1539,12 @@ class EciEnleverMarchandiseSsManifesteScreen extends Component {
                   </ComBadrModalComp>
                 )}
             */}
-              </ComContainerComp>
-            </View>
-          )}
-        </ComContainerComp>
+                  </ComContainerComp>
+                </View>
+            )}
+          </ComContainerComp>
 
-        <FAB.Group
+          {/*<FAB.Group
           open={isActionMenuOpen}
           icon={isActionMenuOpen ? 'close' : 'plus'}
           color={primaryColor}
@@ -1547,8 +1566,35 @@ class EciEnleverMarchandiseSsManifesteScreen extends Component {
               // do something if the speed dial is open
             }
           }}
-        />
-      </View>
+        />*/}
+          <View style={styles.ComContainerCompBtn}>
+            {!this.state.confirmed && <Button
+                onPress={this.confirmerEcor}
+                icon="check"
+                compact="true"
+                mode="contained"
+                style={styles.btnConfirmer}
+                loading={this.props.showProgress}>
+              {translate('transverse.confirmer')}
+            </Button>
+            }
+            {this.state.confirmed && <Button
+                onPress={this.supprimerEcor}
+                icon="trash-can-outline"
+                mode="contained"
+                style={styles.btnRetablir}>
+              {translate('transverse.supprimer')}
+            </Button>
+            }
+            <Button
+                onPress={() => this.abandonner()}
+                mode="contained"
+                style={styles.btnActions}>
+              {translate('transverse.abandonner')}
+            </Button>
+          </View>
+        </View>
+
     );
   }
 
@@ -1569,8 +1615,8 @@ class EciEnleverMarchandiseSsManifesteScreen extends Component {
   };
   static extractCommandDataFromProps = (nextProps, command) => {
     return nextProps && nextProps.picker && nextProps.picker[command]
-      ? nextProps.picker[command]
-      : null;
+        ? nextProps.picker[command]
+        : null;
   };
 }
 
@@ -1583,6 +1629,21 @@ const styles = {
   cardBox: {
     flexDirection: 'column',
     padding: 0,
+  },
+
+  ComContainerCompBtn: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 10,
+  },
+  btnConfirmer: {
+    color: '#FFF',
+    padding: 5,
+    marginRight: 15,
+  },
+  btnRetablir: {
+    color: '#FFF',
+    padding: 5,
   },
   actionBtn: {
     width: 200,
@@ -1616,12 +1677,11 @@ const styles = {
     color: '#ffffff',
   },
 };
-
 function mapStateToProps(state) {
   return {...state.EcorImportReducer};
 }
 
 export default connect(
-  mapStateToProps,
-  null,
+    mapStateToProps,
+    null,
 )(EciEnleverMarchandiseSsManifesteScreen);

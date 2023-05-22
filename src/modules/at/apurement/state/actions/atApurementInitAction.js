@@ -24,7 +24,11 @@ export function request(action, navigation) {
               data.dtoHeader.messagesErreur.length === 0)
           ) {
             dispatch(success(data));
-            navigation.navigate('Apurement', {});
+            navigation.navigate('AtGestion', {
+              screen: "Apurement",
+              data: data,
+              consultation: false
+            });
           } else {
             dispatch(failed(data));
           }
@@ -232,6 +236,47 @@ export function verifierDepassementDelaiFailed(data) {
   };
 }
 
+export function verifierExistanceAutreATVoyVehMotoRequest(action) {
+  return (dispatch) => {
+    dispatch(action);
+    dispatch(verifierExistanceAutreATVoyVehMotoInprogress(action));
+    AtApurementApi.verifierExistanceAutreATVoyVehMoto(action.value.atVo)
+      .then((vddResponse) => {
+        console.log('vddResponse.data.jsonVO');
+        if (!vddResponse.data.jsonVO) {
+          dispatch(verifierExistanceAutreATVoyVehMotoSuccess(vddResponse.data.jsonVO));
+        } else {
+          console.log(vddResponse.data);
+          dispatch(verifierExistanceAutreATVoyVehMotoFailed(vddResponse.data));
+        }
+      })
+      .catch((e) => {
+        dispatch(failed(translate('errors.technicalIssue')));
+      });
+  };
+}
+
+export function verifierExistanceAutreATVoyVehMotoInprogress(data) {
+  return {
+    type: Constants.VERIFIER_EXISTANCE_AUTRE_AT_VOY_VEH_MOTO_IN_PROGRESS,
+    value: data,
+  };
+}
+
+export function verifierExistanceAutreATVoyVehMotoSuccess(data) {
+  return {
+    type: Constants.VERIFIER_EXISTANCE_AUTRE_AT_VOY_VEH_MOTO_SUCCESS,
+    value: data,
+  };
+}
+
+export function verifierExistanceAutreATVoyVehMotoFailed(data) {
+  return {
+    type: Constants.VERIFIER_EXISTANCE_AUTRE_AT_VOY_VEH_MOTO_FAILED,
+    value: data,
+  };
+}
+
 export default {
   request,
   success,
@@ -247,4 +292,8 @@ export default {
   verifierDepassementDelaiInprogress,
   verifierDepassementDelaiSuccess,
   verifierDepassementDelaiFailed,
+  verifierExistanceAutreATVoyVehMotoRequest,
+  verifierExistanceAutreATVoyVehMotoInprogress,
+  verifierExistanceAutreATVoyVehMotoSuccess,
+  verifierExistanceAutreATVoyVehMotoFailed,
 };

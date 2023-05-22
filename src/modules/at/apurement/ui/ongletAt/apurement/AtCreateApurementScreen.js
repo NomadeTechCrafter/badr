@@ -347,44 +347,6 @@ class Apurement extends React.Component {
     this.setState({showNouveauApur: false});
   };
 
-  /**
-   * Method fired each time the screen is visible to check the 'depassement de delai'
-   * the componentDidMount lifecycle method do not handle this issue => Called only at the first time when component is created.
-   * */
-  onScreenReloaded = () => {
-    if (
-      this.props.initApurement &&
-      this.props.initApurement.data &&
-      this.props.initApurement.data.atEnteteVO
-    ) {
-      let verifierDelaiDepassementAction = InitApurementAction.verifierDepassementDelaiRequest(
-        {
-          type: ConstantsAt.VERIFIER_DELAI_DEPASSEMENT_REQUEST,
-          value: {
-            dateFinSaisieAT: this.props.initApurement.data.atEnteteVO
-              .dateFinSaisieAT,
-          },
-        },
-      );
-      this.props.actions.dispatch(verifierDelaiDepassementAction);
-    }
-  };
-
-  componentDidMount = () => {
-    this.componentsAapurer = [];
-    if (!this.props.consultation) {
-      this.unsubscribe = this.props.navigation.addListener('focus', () => {
-        this.onScreenReloaded();
-      });
-    }
-  };
-
-  componentWillUnmount() {
-    if (!this.props.consultation) {
-      this.unsubscribe();
-    }
-  }
-
   buildMotif = () => {
     return this.state.selectedApurement.motifDateApur ? (
       <TextInput
@@ -404,7 +366,7 @@ class Apurement extends React.Component {
 
   render() {
     let atVo;
-    if (!this.props.consultation) {
+    if (!_.isEmpty(this.props.initApurement?.data)) {
       atVo=this.props.initApurement.data;
     } else {
       atVo = this.props.atConsulter.data;
@@ -416,18 +378,9 @@ class Apurement extends React.Component {
           ref={(c) => {
             this.scroll = c;
           }}>
-          {!this.props.consultation &&
-            <ComBadrToolbarComp
-              back={true}
-              navigation={this.props.navigation}
-              title={translate('at.title')}
-              subtitle={translate('at.apurement.title')}
-              icon="menu"
-            />
-          }
           {atVo != null && atVo.atEnteteVO != null && (
             <ComContainerComp>
-              {(!this.props.consultation && this.props.initApurement.errorMessage != null) && (
+              {(!_.isEmpty(this.props.initApurement?.data) && this.props.initApurement.errorMessage != null) && (
                 <View style={styles.messages}>
                   <ComBadrErrorMessageComp
                     message={this.props.initApurement.errorMessage}

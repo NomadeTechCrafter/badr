@@ -70,18 +70,6 @@ export default class EciMainleveeBlock extends React.Component {
               </Col>
             </Row>
 
-            <Row style={CustomStyleSheet.whiteRow}>
-              <Col size={2}>
-                <ComBadrLibelleComp withColor={true}>
-                  {translate('ecorimport.mainlevee.conteneurCibles')}
-                </ComBadrLibelleComp>
-              </Col>
-              <Col size={4}>
-                <ComBadrLibelleComp>
-                  {translate('ecorimport.mainlevee.aucun')}
-                </ComBadrLibelleComp>
-              </Col>
-            </Row>
 
             <Row style={CustomStyleSheet.lightBlueRow}>
               <Col size={2}>

@@ -21,6 +21,7 @@ import {
 } from '../../../../../commons/component';
 import ComBadrReferentielPickerComp from '../../../../../commons/component/shared/pickers/ComBadrReferentielPickerComp';
 import atRechercheAction, * as AtRechercheAction from '../../state/actions/atRechercheAction';
+import * as InitApurementAction from '../../state/actions/atApurementInitAction';
 import {
   CustomStyleSheet,
   primaryColor,
@@ -57,9 +58,9 @@ class AtRechMultiSearchScreen extends React.Component {
 
   componentDidMount() {
     this.state = { ...initialState };
-    // this.unsubscribe = this.props.navigation.addListener('focus', () => {
-    //   this.onScreenReloaded();
-    // });
+    this.unsubscribe = this.props.navigation.addListener('focus', () => {
+      this.onScreenReloaded();
+    });
   }
 
   componentWillUnmount() {
@@ -97,8 +98,17 @@ class AtRechMultiSearchScreen extends React.Component {
     this.props.actions.dispatch(action);
   }
 
+  initApurement = () => {
+    let action = InitApurementAction.init({
+      type: ConstantsAt.INIT_APUR_INIT,
+      value: {},
+    });
+    this.props.actions.dispatch(action);
+  };
+
   onScreenReloaded = () => {
     this.initRechercheAt();
+    this.initApurement();
   };
 
   handleTypeIdentChanged = (selectedValue, selectedIndex, item) => {

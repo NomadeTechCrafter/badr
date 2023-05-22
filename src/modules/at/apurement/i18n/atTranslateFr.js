@@ -118,6 +118,8 @@ export default {
     typeCompo: 'Type Composant',
     numMatricule: 'N° Matricule',
     retablir: 'Rétablir',
+    optionRech: 'Options de recherche',
+    rechercheRef: 'Recherche par réference',
     apurementauto: {
       confirmDialog: {
         info: 'Admission temporaire automatique',
@@ -168,6 +170,8 @@ export default {
       rechercher: 'Rechercher',
       titleResult: "Nombre d'admission temporaire",
       msgRequiredField: 'Au moins un champs est obligatoire à saisir',
+      msgReqFieldVeh: 'Veuillez remplir les champs suivants : TypeComposant, N° Matricule, Pays',
+      msgReqFieldApur: 'Veuillez remplir au moins un critère : voyageur ou véhicule / moto',
     },
   },
 };
