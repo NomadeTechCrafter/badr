@@ -5,6 +5,7 @@ import {TextInput} from 'react-native-paper';
 import {connect} from 'react-redux';
 import {
   ComBadrAutoCompleteChipsComp,
+  ComBadrButtonComp,
   ComBadrButtonRadioComp,
   ComBadrCardBoxComp,
   ComBadrCardWithTileComp,
@@ -25,14 +26,17 @@ import {
   radioButtonsDataCumulAR,
   radioButtonsDataCumulFR,
   typesCertificats,
-  vctDestination,
 } from '../state/coConstants';
 import coStyle from '../style/coStyle';
+import { ComSessionService } from '../../../commons/services/session/ComSessionService';
 
 class COConsultationDetail extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      commentaire: '',
+      selectedCachet: {},
+    };
     this.coCols = [
       {
         code: 'numeroOrdreArticle',
@@ -189,7 +193,30 @@ class COConsultationDetail extends React.Component {
     return typeCertificat === '04' || typeCertificat === '05';
   }
 
+  accepter() {
+    console.log(JSON.stringify('ACCEPTER'));
+  }
+
+  rejeter() {
+    console.log(JSON.stringify('rejeter'));
+  }
+
+  visualiser() {
+    console.log(JSON.stringify('visualiser'));
+  }
+
   render() {
+    const coFromWhichScreen = this.props?.route?.params?.coFromWhichScreen;
+    console.log('+++++++++++++++++++++++++++++++++++++++++++');
+    console.log('+++++++++++++++++++++++++++++++++++++++++++');
+    console.log('+++++++++++++++++++++++++++++++++++++++++++');
+    console.log(
+      JSON.stringify(ComSessionService.getInstance().getUserObject()),
+    );
+    console.log('+++++++++++++++++++++++++++++++++++++++++++');
+    console.log('+++++++++++++++++++++++++++++++++++++++++++');
+    console.log('+++++++++++++++++++++++++++++++++++++++++++');
+
     const co = this.props.data;
     let destinationCommand = '';
     let destinationParam = null;
@@ -230,6 +257,86 @@ class COConsultationDetail extends React.Component {
             title={translate('co.titleConsultation')}
             subtitle={translate('co.demandeCertificatOrigine')}
           />
+
+          {coFromWhichScreen && coFromWhichScreen === 'TRAITER' && (
+            <View style={coStyle.comContainerCompBtn}>
+              <ComBadrButtonComp
+                style={coStyle.actionBtn}
+                onPress={() => {
+                  this.accepter();
+                }}
+                text={translate('co.buttons.accepter')}
+              />
+              <ComBadrButtonComp
+                style={coStyle.actionBtn}
+                onPress={() => {
+                  this.rejeter();
+                }}
+                text={translate('co.buttons.rejeter')}
+              />
+              <ComBadrButtonComp
+                style={coStyle.actionBtn}
+                onPress={() => {
+                  this.visualiser();
+                }}
+                text={translate('co.buttons.visualiser')}
+              />
+            </View>
+          )}
+
+          {coFromWhichScreen && coFromWhichScreen === 'TRAITER' && (
+            <ComBadrCardBoxComp style={coStyle.cardBox}>
+              <ComBadrCardWithTileComp title={translate('at.apurement.title')}>
+                <Grid>
+                  <Row style={CustomStyleSheet.lightBlueRow}>
+                    <Col size={2}>
+                      <ComBadrLibelleComp>
+                        {translate('co.requiredCachet')}
+                      </ComBadrLibelleComp>
+                    </Col>
+                    <Col size={4}>
+                      <ComBadrItemsPickerComp
+                        selectedValue={this.state.selectedCachet}
+                        items={typesCertificats}
+                        onValueChanged={(value, index) =>
+                          value?.code
+                            ? this.setState({
+                                selectedCachet: value,
+                              })
+                            : {}
+                        }
+                      />
+                    </Col>
+                    <Col size={5}>
+                      <ComBadrLibelleComp>
+                        {'DIRECTION REGIONALE DU NORT OUEST'}
+                      </ComBadrLibelleComp>
+                    </Col>
+                  </Row>
+                  <Row style={CustomStyleSheet.lightBlueRow}>
+                    <Col size={2}>
+                      <ComBadrLibelleComp>
+                        {translate('co.commentaire')}
+                      </ComBadrLibelleComp>
+                    </Col>
+                    <Col size={9}>
+                      <TextInput
+                        mode={'outlined'}
+                        multiline={true}
+                        numberOfLines={4}
+                        value={this.state.commentaire}
+                        onChangeText={(text) =>
+                          this.setState({
+                            commentaire: text,
+                          })
+                        }
+                      />
+                    </Col>
+                  </Row>
+                </Grid>
+              </ComBadrCardWithTileComp>
+            </ComBadrCardBoxComp>
+          )}
           <ComBadrCardBoxComp>
             <Grid>
               <Row style={CustomStyleSheet.lightBlueRow}>

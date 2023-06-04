@@ -24,7 +24,9 @@ export function request(action, navigation, successRedirection) {
           ) {
             dispatch(success(data));
             if (successRedirection) {
-              navigation.navigate(successRedirection);
+              navigation.navigate(successRedirection, {
+                coFromWhichScreen: action.value.coFromWhichScreen,
+              });
             }
           } else {
             dispatch(failed(data));

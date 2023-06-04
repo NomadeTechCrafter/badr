@@ -100,7 +100,7 @@ class COMainScreen extends React.Component {
         component: 'basic-button',
         attrCondition: 'reference',
         text: 'Traiter',
-        action: (row, index) => this.traiter(row, index),
+        action: (row, index) => this.redirectToTraiter(row, index),
         width: 150,
       },
     ];
@@ -145,7 +145,7 @@ class COMainScreen extends React.Component {
         component: 'basic-button',
         attrCondition: 'reference',
         text: 'Annuler',
-        action: (row, index) => this.annuler(row, index),
+        action: (row, index) => this.redirectToAnnuler(row, index),
         width: 150,
       },
     ];
@@ -196,21 +196,6 @@ class COMainScreen extends React.Component {
       });
     }
   }
-
-  traiter = (row, index) => {
-    // console.log('traiter 001');
-    // console.log(JSON.stringify(row));
-    // console.log('traiter 002');
-    // console.log(JSON.stringify(index));
-    // console.log('traiter 003');
-  };
-  annuler = (row, index) => {
-    // console.log('annuler 001');
-    // console.log(JSON.stringify(row));
-    // console.log('annuler 002');
-    // console.log(JSON.stringify(index));
-    // console.log('annuler 003');
-  };
 
   checkRequiredFields = () => {
     let msg = [];
@@ -458,6 +443,30 @@ class COMainScreen extends React.Component {
     this.props.actions.dispatch(action);
   }
 
+  redirectToTraiter = (row, index) => {
+    let action = COAction.request(
+      {
+        type: CO_CONSULTATION_REQUEST,
+        value: {
+          reference: row?.reference,
+          coFromWhichScreen: this.props?.route?.params?.ecran,
+        },
+        command: 'recupererCertificatOrigineByRef',
+      },
+      this.props.navigation,
+      'COConsultationDetail',
+    );
+    this.props.actions.dispatch(action);
+  };
+
+  redirectToAnnuler = (row, index) => {
+    // console.log('annuler 001');
+    // console.log(JSON.stringify(row));
+    // console.log('annuler 002');
+    // console.log(JSON.stringify(index));
+    // console.log('annuler 003');
+  };
+
   redirectToConsultationDUM(row, index) {
     let action = ConsulterDumAction.request(
       {
@@ -468,7 +477,6 @@ class COMainScreen extends React.Component {
             enregistre: true,
             identifiantOperateur: ComSessionService.getInstance().getOperateur(),
           },
-          // cle: 'F',
         },
         command: 'ded.ConsulterDum',
         fromCO: true,
@@ -506,11 +514,15 @@ class COMainScreen extends React.Component {
   };
 
   render() {
-    // console.log('***********************************************************');
-    // console.log('***********************************************************');
-    // console.log(JSON.stringify(this.props?.route?.params?.ecran));
-    // console.log('***********************************************************');
-    // console.log('***********************************************************');
+    console.log('+++++++++++++++++++++++++++++++++++++++++++');
+    console.log('+++++++++++++++++++++++++++++++++++++++++++');
+    console.log('+++++++++++++++++++++++++++++++++++++++++++');
+    console.log(
+      JSON.stringify(ComSessionService.getInstance().getUserObject()),
+    );
+    console.log('+++++++++++++++++++++++++++++++++++++++++++');
+    console.log('+++++++++++++++++++++++++++++++++++++++++++');
+    console.log('+++++++++++++++++++++++++++++++++++++++++++');
     const titre = "Nombre d'éléments: " + this.props?.data?.length;
     return (
       <View style={style.container}>

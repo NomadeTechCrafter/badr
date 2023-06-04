@@ -73,6 +73,8 @@ export default {
     action: 'Action',
     operateurCertificatOrigine: "Opérateur du certificat d'origine",
     cachet: 'Cachet',
+    requiredCachet: 'Cachet (*)',
+    commentaire: 'Commentaire (*)',
     dateEnregistrementDum: 'Date Enregistrement',
     dateMLV: 'Date Mainlevée',
     statut: 'Statut',
@@ -112,5 +114,10 @@ export default {
     quantite: 'Quantité',
     unite: 'Unité',
     groupArcticles: 'Groupage Articles',
+    buttons: {
+      accepter: 'ACCEPTER',
+      rejeter: 'REJETER',
+      visualiser: 'VISUALISER',
+    },
   },
 };

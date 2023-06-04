@@ -23,6 +23,15 @@ const style = {
     padding: 10,
     margin: 10,
   },
+  comContainerCompBtn: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 10,
+  },
+  actionBtn: {
+    width: 100,
+    margin: 15,
+  },
   centerErrorMsg: {
     width: '100%',
     justifyContent: 'center',
