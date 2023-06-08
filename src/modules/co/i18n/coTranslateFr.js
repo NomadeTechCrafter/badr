@@ -75,6 +75,7 @@ export default {
     cachet: 'Cachet',
     requiredCachet: 'Cachet (*)',
     commentaire: 'Commentaire (*)',
+    intervention: 'Intervention',
     dateEnregistrementDum: 'Date Enregistrement',
     dateMLV: 'Date Mainlevée',
     statut: 'Statut',
@@ -118,6 +119,7 @@ export default {
       accepter: 'ACCEPTER',
       rejeter: 'REJETER',
       visualiser: 'VISUALISER',
+      annuler: 'Annuler',
     },
   },
 };

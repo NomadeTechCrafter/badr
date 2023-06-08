@@ -1,5 +1,5 @@
 import React from 'react';
-import {ScrollView, View} from 'react-native';
+import {PermissionsAndroid, Platform, ScrollView, View} from 'react-native';
 import {Col, Grid, Row} from 'react-native-easy-grid';
 import {TextInput} from 'react-native-paper';
 import {connect} from 'react-redux';
@@ -10,6 +10,8 @@ import {
   ComBadrCardBoxComp,
   ComBadrCardWithTileComp,
   ComBadrCheckboxTreeComp,
+  ComBadrErrorMessageComp,
+  ComBadrInfoMessageComp,
   ComBadrItemsPickerComp,
   ComBadrKeyValueComp,
   ComBadrLibelleComp,
@@ -28,7 +30,19 @@ import {
   typesCertificats,
 } from '../state/coConstants';
 import coStyle from '../style/coStyle';
-import { ComSessionService } from '../../../commons/services/session/ComSessionService';
+import ComBadrReferentielPickerComp from '../../../commons/component/shared/pickers/ComBadrReferentielPickerComp';
+import {getValueByPath} from '../../t6bis/utils/t6bisUtils';
+import {GENERIC_ECI_REQUEST} from '../../ecorImport/enleverMarchandise/state/EcorImportConstants';
+import {request} from '../state/actions/coAction';
+import {GENERIC_REQUEST} from '../../../commons/constants/generic/ComGenericConstants';
+import {ComSessionService} from '../../../commons/services/session/ComSessionService';
+import {
+  TYPE_SERVICE_SP,
+  TYPE_SERVICE_UC,
+} from '../../../commons/constants/ComGlobalConstants';
+import ComHttpHelperApi from '../../../commons/services/api/common/ComHttpHelperApi';
+import _ from 'lodash';
+import RNFetchBlob from 'rn-fetch-blob';
 
 class COConsultationDetail extends React.Component {
   constructor(props) {
@@ -36,6 +50,10 @@ class COConsultationDetail extends React.Component {
     this.state = {
       commentaire: '',
       selectedCachet: {},
+      isAccepter: false,
+      isRejeter: false,
+      showButtons: true,
+      uor: null,
     };
     this.coCols = [
       {
@@ -122,26 +140,6 @@ class COConsultationDetail extends React.Component {
     });
   }
 
-  redirectToConsultationDUM(row, index) {
-    console.log('============================================');
-    console.log('============================================');
-    console.log(JSON.stringify(row));
-    console.log('============================================');
-    console.log('============================================');
-    console.log(JSON.stringify(index));
-    console.log('============================================');
-    console.log('============================================');
-  }
-
-  toShow(typeCertificat) {
-    return (
-      typeCertificat === '06' ||
-      typeCertificat === '07' ||
-      typeCertificat === '02' ||
-      typeCertificat === '03'
-    );
-  }
-
   toShowDestinationAR(typeCertificat) {
     return (
       typeCertificat === '03' ||
@@ -155,13 +153,6 @@ class COConsultationDetail extends React.Component {
       typeCertificat === '07' ||
       typeCertificat === '01'
     );
-  }
-  toShow1(typeCertificat) {
-    return typeCertificat !== '06' && typeCertificat !== '07';
-  }
-
-  toShow2(typeCertificat) {
-    return typeCertificat === '06' || typeCertificat === '07';
   }
 
   toShowMoyenTransport(typeCertificat) {
@@ -193,29 +184,282 @@ class COConsultationDetail extends React.Component {
     return typeCertificat === '04' || typeCertificat === '05';
   }
 
-  accepter() {
-    console.log(JSON.stringify('ACCEPTER'));
+  async accepter() {
+    const data = {
+      dtoHeader: {
+        userLogin: ComSessionService.getInstance().getLogin(),
+        fonctionnalite: ComSessionService.getInstance().getFonctionalite()
+          ? ComSessionService.getInstance().getFonctionalite()
+          : '9932',
+        module: 'CO_LIB',
+        commande: 'descriptionUniteOrganisationnelle',
+        typeService: TYPE_SERVICE_SP,
+      },
+      jsonVO: null,
+    };
+    const response = await ComHttpHelperApi.process(data);
+    this.setState({
+      isAccepter: true,
+      isRejeter: false,
+      showButtons: false,
+      uor: response?.data?.jsonVO,
+    });
+  }
+
+  annuler() {
+    this.setState({
+      isAccepter: false,
+      isRejeter: true,
+      showButtons: false,
+      commentaire: '',
+    });
   }
 
   rejeter() {
-    console.log(JSON.stringify('rejeter'));
+    this.setState({
+      isAccepter: false,
+      isRejeter: true,
+      showButtons: false,
+      commentaire: '',
+    });
   }
 
-  visualiser() {
-    console.log(JSON.stringify('visualiser'));
+  async visualiser() {
+    const data = {
+      dtoHeader: {
+        userLogin: ComSessionService.getInstance().getLogin(),
+        fonctionnalite: ComSessionService.getInstance().getFonctionalite(),
+        module: 'CO_LIB',
+        commande: 'visualiserCertificatOrigine',
+        typeService: TYPE_SERVICE_SP,
+      },
+      jsonVO: {
+        reference: this.props.data?.reference,
+      },
+    };
+    const response = await ComHttpHelperApi.process(data);
+    this.downloadFile('CertificatOrigine.pdf', response.data?.jsonVO);
+    console.log(JSON.stringify(response));
   }
+
+  downloadFile = async (nameFile, base64File) => {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+        {
+          title: 'External Storage Permission',
+          message:
+            "L'application a besoin des permissions nécessaires pour procéder.",
+          buttonNeutral: 'Demander ultérieurement',
+          buttonNegative: 'Annuler',
+          buttonPositive: 'OK',
+        },
+      );
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        let pdfLocation = RNFetchBlob.fs.dirs.DocumentDir + '/' + nameFile;
+        RNFetchBlob.fs
+          .writeFile(pdfLocation, base64File, 'base64')
+          .then((result) => {
+            if (Platform.OS === 'android') {
+              RNFetchBlob.android.actionViewIntent(
+                pdfLocation,
+                'application/pdf',
+              );
+            } else {
+              RNFetchBlob.ios.previewDocument(pdfLocation);
+            }
+            result.flush();
+          });
+      } else {
+        console.log('External storage permission denied');
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  async confirmer() {
+    this.setState({
+      errorMessage: '',
+    });
+    if (this.state.isAccepter) {
+      if (!this.checkRequiredFields()) {
+        const data = {
+          dtoHeader: {
+            userLogin: ComSessionService.getInstance().getLogin(),
+            fonctionnalite: ComSessionService.getInstance().getFonctionalite(),
+            module: 'CO_LIB',
+            commande: 'accepterCertificatOrigine',
+            typeService: TYPE_SERVICE_UC,
+          },
+          jsonVO: {
+            identifiant: this.props?.route?.params?.identifiant,
+            idAgentValidation: ComSessionService.getInstance().getLogin(),
+            commentaire: this.state.commentaire,
+            cachet: this.state.selectedCachet?.code,
+          },
+        };
+        const response = await ComHttpHelperApi.process(data);
+        console.log(JSON.stringify(response?.data?.dtoHeader?.messagesInfo));
+        console.log(JSON.stringify(response?.data?.dtoHeader?.messagesErreur));
+        if (response?.data?.dtoHeader?.messagesErreur) {
+          this.setState({
+            errorMessage: response?.data?.dtoHeader?.messagesErreur,
+          });
+        } else {
+          this.setState({
+            errorMessage: '',
+          });
+        }
+        if (response?.data?.dtoHeader?.messagesInfo) {
+          this.setState({
+            infoMessage: response?.data?.dtoHeader?.messagesInfo,
+            isAccepter: false,
+            isRejeter: false,
+            showButtons: false,
+          });
+        } else {
+          this.setState({
+            infoMessage: null,
+          });
+        }
+      }
+    }
+    if (this.state.isRejeter) {
+      if (!this.checkRequiredFieldsRejeter()) {
+        const data = {
+          dtoHeader: {
+            userLogin: ComSessionService.getInstance().getLogin(),
+            fonctionnalite: ComSessionService.getInstance().getFonctionalite(),
+            module: 'CO_LIB',
+            commande: 'annulerCertificatOrigine',
+            typeService: TYPE_SERVICE_UC,
+          },
+          jsonVO: {
+            identifiant: this.props?.route?.params?.identifiant,
+            commentaire: this.state.commentaire,
+          },
+        };
+        const response = await ComHttpHelperApi.process(data);
+        console.log(JSON.stringify(response?.data?.dtoHeader?.messagesInfo));
+        console.log(JSON.stringify(response?.data?.dtoHeader?.messagesErreur));
+        if (response?.data?.dtoHeader?.messagesErreur) {
+          this.setState({
+            errorMessage: response?.data?.dtoHeader?.messagesErreur,
+          });
+        } else {
+          this.setState({
+            errorMessage: '',
+          });
+        }
+        if (response?.data?.dtoHeader?.messagesInfo) {
+          this.setState({
+            infoMessage: response?.data?.dtoHeader?.messagesInfo,
+            isAccepter: false,
+            isRejeter: false,
+            showButtons: false,
+          });
+        } else {
+          this.setState({
+            infoMessage: null,
+          });
+        }
+      }
+    }
+  }
+
+  retablir() {
+    if (this.isAccepter) {
+      this.comboCachets.clearInput();
+    }
+    this.setState({
+      commentaire: '',
+      selectedCachet: {},
+      errorMessage: '',
+      infoMessage: null,
+    });
+  }
+
+  abandonner() {
+    this.setState({
+      isAccepter: false,
+      isRejeter: false,
+      showButtons: true,
+      commentaire: '',
+      infoMessage: null,
+      errorMessage: '',
+    });
+  }
+
+  toShow(typeCertificat) {
+    return (
+      typeCertificat === '06' ||
+      typeCertificat === '07' ||
+      typeCertificat === '02' ||
+      typeCertificat === '03'
+    );
+  }
+
+  checkRequiredFields = () => {
+    let msg = [];
+    let required = false;
+    let validation = false;
+
+    if (_.isEmpty(this.state.commentaire)) {
+      required = true;
+      msg.push(translate('co.commentaire'));
+    }
+    if (!this.state.selectedCachet?.code) {
+      required = true;
+      msg.push(translate('co.cachet'));
+    }
+
+    if (required) {
+      let message =
+        translate('actifsCreation.avionsPrivees.champsObligatoires') + msg;
+      if (validation) {
+        message = msg;
+      }
+      this.setState({
+        errorMessage: message,
+      });
+    } else {
+      this.setState({
+        errorMessage: null,
+      });
+    }
+    return required;
+  };
+
+  checkRequiredFieldsRejeter = () => {
+    let msg = [];
+    let required = false;
+    let validation = false;
+
+    if (_.isEmpty(this.state.commentaire)) {
+      required = true;
+      msg.push(translate('co.commentaire'));
+    }
+
+    if (required) {
+      let message =
+        translate('actifsCreation.avionsPrivees.champsObligatoires') + msg;
+      if (validation) {
+        message = msg;
+      }
+      this.setState({
+        errorMessage: message,
+      });
+    } else {
+      this.setState({
+        errorMessage: null,
+      });
+    }
+    return required;
+  };
 
   render() {
     const coFromWhichScreen = this.props?.route?.params?.coFromWhichScreen;
-    console.log('+++++++++++++++++++++++++++++++++++++++++++');
-    console.log('+++++++++++++++++++++++++++++++++++++++++++');
-    console.log('+++++++++++++++++++++++++++++++++++++++++++');
-    console.log(
-      JSON.stringify(ComSessionService.getInstance().getUserObject()),
-    );
-    console.log('+++++++++++++++++++++++++++++++++++++++++++');
-    console.log('+++++++++++++++++++++++++++++++++++++++++++');
-    console.log('+++++++++++++++++++++++++++++++++++++++++++');
 
     const co = this.props.data;
     let destinationCommand = '';
@@ -257,36 +501,71 @@ class COConsultationDetail extends React.Component {
             title={translate('co.titleConsultation')}
             subtitle={translate('co.demandeCertificatOrigine')}
           />
+          <View>
+            {this.state?.errorMessage != null && (
+              <ComBadrErrorMessageComp message={this.state?.errorMessage} />
+            )}
+            {this.state.infoMessage != null && (
+              <ComBadrInfoMessageComp message={this.state?.infoMessage} />
+            )}
+          </View>
+          {coFromWhichScreen &&
+            coFromWhichScreen === 'TRAITER' &&
+            this.state.showButtons && (
+              <View style={coStyle.comContainerCompBtn}>
+                <ComBadrButtonComp
+                  style={coStyle.actionBtn}
+                  onPress={() => {
+                    this.accepter();
+                  }}
+                  text={translate('co.buttons.accepter')}
+                />
+                <ComBadrButtonComp
+                  style={coStyle.actionBtn}
+                  onPress={() => {
+                    this.rejeter();
+                  }}
+                  text={translate('co.buttons.rejeter')}
+                />
+                <ComBadrButtonComp
+                  style={coStyle.actionBtn}
+                  onPress={() => {
+                    this.visualiser();
+                  }}
+                  text={translate('co.buttons.visualiser')}
+                />
+              </View>
+            )}
+          {coFromWhichScreen &&
+            coFromWhichScreen === 'ANNULER' &&
+            this.state.showButtons && (
+              <View style={coStyle.comContainerCompBtn}>
+                <ComBadrButtonComp
+                  style={coStyle.actionBtn}
+                  onPress={() => {
+                    this.annuler();
+                  }}
+                  text={translate('co.buttons.annuler')}
+                />
+              </View>
+            )}
+          {coFromWhichScreen &&
+            coFromWhichScreen === 'CONSULTER' &&
+            this.state.showButtons && (
+              <View style={coStyle.comContainerCompBtn}>
+                <ComBadrButtonComp
+                  style={coStyle.actionBtn}
+                  onPress={() => {
+                    this.visualiser();
+                  }}
+                  text={translate('co.buttons.visualiser')}
+                />
+              </View>
+            )}
 
-          {coFromWhichScreen && coFromWhichScreen === 'TRAITER' && (
-            <View style={coStyle.comContainerCompBtn}>
-              <ComBadrButtonComp
-                style={coStyle.actionBtn}
-                onPress={() => {
-                  this.accepter();
-                }}
-                text={translate('co.buttons.accepter')}
-              />
-              <ComBadrButtonComp
-                style={coStyle.actionBtn}
-                onPress={() => {
-                  this.rejeter();
-                }}
-                text={translate('co.buttons.rejeter')}
-              />
-              <ComBadrButtonComp
-                style={coStyle.actionBtn}
-                onPress={() => {
-                  this.visualiser();
-                }}
-                text={translate('co.buttons.visualiser')}
-              />
-            </View>
-          )}
-
-          {coFromWhichScreen && coFromWhichScreen === 'TRAITER' && (
+          {this.state.isAccepter && (
             <ComBadrCardBoxComp style={coStyle.cardBox}>
-              <ComBadrCardWithTileComp title={translate('at.apurement.title')}>
+              <ComBadrCardWithTileComp title={translate('co.intervention')}>
                 <Grid>
                   <Row style={CustomStyleSheet.lightBlueRow}>
                     <Col size={2}>
@@ -295,26 +574,31 @@ class COConsultationDetail extends React.Component {
                       </ComBadrLibelleComp>
                     </Col>
                     <Col size={4}>
-                      <ComBadrItemsPickerComp
+                      <ComBadrPickerComp
+                        onRef={(ref) => (this.comboCachets = ref)}
+                        key="code"
                         selectedValue={this.state.selectedCachet}
-                        items={typesCertificats}
-                        onValueChanged={(value, index) =>
-                          value?.code
-                            ? this.setState({
-                                selectedCachet: value,
-                              })
-                            : {}
+                        cle="code"
+                        libelle="libelle"
+                        command="listeCachetCombo"
+                        module="CO_LIB"
+                        typeService="SP"
+                        storeWithKey="code"
+                        storeLibelleWithKey="libelle"
+                        param={null}
+                        onValueChange={(itemValue, itemIndex, selectedItem) =>
+                          this.setState({
+                            selectedCachet: selectedItem ? selectedItem : {},
+                          })
                         }
                       />
                     </Col>
                     <Col size={5}>
-                      <ComBadrLibelleComp>
-                        {'DIRECTION REGIONALE DU NORT OUEST'}
-                      </ComBadrLibelleComp>
+                      <ComBadrLibelleComp>{this.state.uor}</ComBadrLibelleComp>
                     </Col>
                   </Row>
                   <Row style={CustomStyleSheet.lightBlueRow}>
-                    <Col size={2}>
+                    <Col size={3}>
                       <ComBadrLibelleComp>
                         {translate('co.commentaire')}
                       </ComBadrLibelleComp>
@@ -332,6 +616,96 @@ class COConsultationDetail extends React.Component {
                         }
                       />
                     </Col>
+                  </Row>
+                  <Row>
+                    <Col />
+                    <Col>
+                      <ComBadrButtonComp
+                        style={coStyle.actionBtn}
+                        onPress={() => {
+                          this.confirmer();
+                        }}
+                        text={translate('transverse.confirmer')}
+                      />
+                    </Col>
+                    <Col>
+                      <ComBadrButtonComp
+                        style={coStyle.actionBtn}
+                        onPress={() => {
+                          this.retablir();
+                        }}
+                        text={translate('transverse.retablir')}
+                      />
+                    </Col>
+                    <Col>
+                      <ComBadrButtonComp
+                        style={coStyle.actionBtn}
+                        onPress={() => {
+                          this.abandonner();
+                        }}
+                        text={translate('transverse.abandonner')}
+                      />
+                    </Col>
+                    <Col />
+                  </Row>
+                </Grid>
+              </ComBadrCardWithTileComp>
+            </ComBadrCardBoxComp>
+          )}
+          {this.state.isRejeter && (
+            <ComBadrCardBoxComp style={coStyle.cardBox}>
+              <ComBadrCardWithTileComp title={translate('co.intervention')}>
+                <Grid>
+                  <Row style={CustomStyleSheet.lightBlueRow}>
+                    <Col size={3}>
+                      <ComBadrLibelleComp>
+                        {translate('co.commentaire')}
+                      </ComBadrLibelleComp>
+                    </Col>
+                    <Col size={9}>
+                      <TextInput
+                        mode={'outlined'}
+                        multiline={true}
+                        numberOfLines={4}
+                        value={this.state.commentaire}
+                        onChangeText={(text) =>
+                          this.setState({
+                            commentaire: text,
+                          })
+                        }
+                      />
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col />
+                    <Col>
+                      <ComBadrButtonComp
+                        style={coStyle.actionBtn}
+                        onPress={() => {
+                          this.confirmer();
+                        }}
+                        text={translate('transverse.confirmer')}
+                      />
+                    </Col>
+                    <Col>
+                      <ComBadrButtonComp
+                        style={coStyle.actionBtn}
+                        onPress={() => {
+                          this.retablir();
+                        }}
+                        text={translate('transverse.retablir')}
+                      />
+                    </Col>
+                    <Col>
+                      <ComBadrButtonComp
+                        style={coStyle.actionBtn}
+                        onPress={() => {
+                          this.abandonner();
+                        }}
+                        text={translate('transverse.abandonner')}
+                      />
+                    </Col>
+                    <Col />
                   </Row>
                 </Grid>
               </ComBadrCardWithTileComp>
@@ -441,18 +815,6 @@ class COConsultationDetail extends React.Component {
                         storeWithKey="code"
                         storeLibelleWithKey="libelle"
                       />
-                      {/* )}
-                      {this.toShow2(co?.typeCertificat) && (
-                        <ComBadrAutoCompleteChipsComp
-                          code="libelle"
-                          disabled={true}
-                          selected={co?.paysDestination}
-                          maxItems={3}
-                          libelle="libelle"
-                          command="getCmbPays"
-                          paramName="libellePays"
-                        />
-                      )} */}
                     </Col>
                     <Col size={1} />
                   </Row>

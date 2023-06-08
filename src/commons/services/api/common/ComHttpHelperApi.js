@@ -19,7 +19,7 @@ import {ComSessionService} from '../../session/ComSessionService';
 import localStore from '../local-data/ComLocalDataService';
 import * as GenericAction from '../../../state/actions/ComGenericAction';
 import * as Constants from '../../../constants/generic/ComGenericConstants';
-import { Instrumentation } from '@appdynamics/react-native-agent';
+import {Instrumentation} from '@appdynamics/react-native-agent';
 
 const instance = axios.create({
   baseURL: BASE_SERVER_URL,
@@ -51,7 +51,7 @@ export default class ComHttpHelperApi {
       return response;
     } else {
       return {
-        data: localStore['login'],
+        data: localStore.login,
       };
     }
   }
@@ -64,12 +64,11 @@ export default class ComHttpHelperApi {
     return instance.post(CLEAR_CACHE_OBJECTS_API, JSON.stringify(user));
   }
 
-
   static async process(object) {
     if (remote) {
       try {
-    	if (object && object.dtoHeader && object.dtoHeader.module) {
-            Instrumentation.setUserData("Module", object.dtoHeader.module);
+        if (object && object.dtoHeader && object.dtoHeader.module) {
+          Instrumentation.setUserData('Module', object.dtoHeader.module);
         }
         let response = await instance.post(
           PROCESS_API,

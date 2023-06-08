@@ -34,8 +34,8 @@ const initialState = {
   dateDebut: '15/01/2021',
   dateFin: '30/01/2021',
   numeroSerie: '',
-  anneeRef: '2021',
-  reference: '0000066',
+  anneeRef: '2022',
+  reference: '0000019',
   idDED: '',
   referenceDUM: '',
   bureau: '',
@@ -434,6 +434,7 @@ class COMainScreen extends React.Component {
         type: CO_CONSULTATION_REQUEST,
         value: {
           reference: row?.reference,
+          coFromWhichScreen: this.props?.route?.params?.ecran,
         },
         command: 'recupererCertificatOrigineByRef',
       },
@@ -449,6 +450,7 @@ class COMainScreen extends React.Component {
         type: CO_CONSULTATION_REQUEST,
         value: {
           reference: row?.reference,
+          identifiant: row?.identifiant,
           coFromWhichScreen: this.props?.route?.params?.ecran,
         },
         command: 'recupererCertificatOrigineByRef',
@@ -460,11 +462,7 @@ class COMainScreen extends React.Component {
   };
 
   redirectToAnnuler = (row, index) => {
-    // console.log('annuler 001');
-    // console.log(JSON.stringify(row));
-    // console.log('annuler 002');
-    // console.log(JSON.stringify(index));
-    // console.log('annuler 003');
+    this.redirectToTraiter(row, index);
   };
 
   redirectToConsultationDUM(row, index) {
@@ -514,15 +512,6 @@ class COMainScreen extends React.Component {
   };
 
   render() {
-    console.log('+++++++++++++++++++++++++++++++++++++++++++');
-    console.log('+++++++++++++++++++++++++++++++++++++++++++');
-    console.log('+++++++++++++++++++++++++++++++++++++++++++');
-    console.log(
-      JSON.stringify(ComSessionService.getInstance().getUserObject()),
-    );
-    console.log('+++++++++++++++++++++++++++++++++++++++++++');
-    console.log('+++++++++++++++++++++++++++++++++++++++++++');
-    console.log('+++++++++++++++++++++++++++++++++++++++++++');
     const titre = "Nombre d'éléments: " + this.props?.data?.length;
     return (
       <View style={style.container}>

@@ -1,8 +1,13 @@
 import ComHttpHelperApi from '../../../../../commons/services/api/common/ComHttpHelperApi';
-import { ComSessionService } from '../../../../../commons/services/session/ComSessionService';
+import {ComSessionService} from '../../../../../commons/services/session/ComSessionService';
 
 export default class HabLoginApi {
-  static login = async (login, pwd, forcerConnexion = false, isFromCohabitation) => {
+  static login = async (
+    login,
+    pwd,
+    forcerConnexion = false,
+    isFromCohabitation,
+  ) => {
     const response = await ComHttpHelperApi.login({
       login: login,
       password: pwd,
@@ -13,21 +18,11 @@ export default class HabLoginApi {
   };
 
   static clearCacheObjects = async () => {
-
     const data = {
       login: ComSessionService.getInstance().getLogin(),
     };
 
-    console.log('..................................clearCacheObjects....................................');
-    console.log('..................................clearCacheObjects....................................');
-    console.log('..................................clearCacheObjects....................................');
-    console.log(JSON.stringify(data));
-    console.log('..................................clearCacheObjects....................................');
-    console.log('..................................clearCacheObjects....................................');
-    console.log('..................................clearCacheObjects....................................');
-
     return await ComHttpHelperApi.clearCacheObjects(data);
-    
   };
 
   static logout = async () => {

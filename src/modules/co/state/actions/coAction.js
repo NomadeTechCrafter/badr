@@ -26,6 +26,7 @@ export function request(action, navigation, successRedirection) {
             if (successRedirection) {
               navigation.navigate(successRedirection, {
                 coFromWhichScreen: action.value.coFromWhichScreen,
+                identifiant: action.value.identifiant,
               });
             }
           } else {
