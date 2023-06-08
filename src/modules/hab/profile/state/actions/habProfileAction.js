@@ -47,12 +47,11 @@ function doAsyncStorageOperations(data) {
     nomAgent: data.nomAgent,
     prenomAgent: data.prenomAgent,
     codeUOR: data.codeUOR,
-    libelleUOR: data.libelleUOR,
   };
 
   ComSessionService.getInstance().setUserObject(user);
   /** Saving user information in the local storage */
-  saveStringified('user', user, true).then(() => user);
+  saveStringified('user',user,true).then(() => user);
 }
 
 export function inProgress(action) {

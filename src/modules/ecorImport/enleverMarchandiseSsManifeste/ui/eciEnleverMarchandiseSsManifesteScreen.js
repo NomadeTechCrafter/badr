@@ -111,11 +111,13 @@ class EciEnleverMarchandiseSsManifesteScreen extends Component {
       selectedScelle: {},
       errorMessageScelle: '',
       bonSortie: {},
+      submitted:false,
       confirmed:props.route.params.declarationRI.dateHeureEnlevement!==""?true:false
     };
   }
   abandonner = () => {
-    this.setState({confirmed: false});
+    this.setState({submitted: false});
+    this.props.navigation.navigate('RechercheEcorImport')
   };
   componentDidMount() {
     load('user', false, true).then((user) => {
@@ -545,6 +547,7 @@ class EciEnleverMarchandiseSsManifesteScreen extends Component {
     this.setState({isActionMenuOpen: !this.state.isActionMenuOpen});
   };
   static getDerivedStateFromProps(nextProps, prevState) {
+    console.log('getDerivedStateFromProps--- 2',JSON.stringify( nextProps));
     let getEquipementsbyLot =
         nextProps.picker && nextProps.picker.getEquipementsbyLot
             ? nextProps.picker.getEquipementsbyLot
@@ -554,7 +557,7 @@ class EciEnleverMarchandiseSsManifesteScreen extends Component {
         !_.isEmpty(getEquipementsbyLot?.data) &&
         prevState.selectedLot.refEquipementEnleve !== getEquipementsbyLot.data
     ) {
-      // console.log('getDerivedStateFromProps--- 2',JSON.stringify( prevState.selectedLot.refEquipementEnleve), JSON.stringify(getEquipementsbyLot.data));
+
 
       let listeEquipementsLot = [];
       _.forEach(getEquipementsbyLot.data, (equipement) => {
@@ -626,14 +629,23 @@ class EciEnleverMarchandiseSsManifesteScreen extends Component {
         },
       );
     });*/
-    console.log('confirmer ecor sent data-----', JSON.stringify(data));
-    this.callRedux({
-      command: 'enleverSansDS',
-      typeService: 'UC',
-      module: 'ECI_LIB',
-      jsonVO: data,
-    });
-    this.setState({confirmed:true})
+    if(this.state?.selectedLot?.lieuStockage?.codeLieuStockage) {
+      console.log('confirmer ecor sent data-----', JSON.stringify(data));
+      this.callRedux({
+        command: 'enleverSansDS',
+        typeService: 'UC',
+        module: 'ECI_LIB',
+        jsonVO: data,
+      });
+
+      this.setState({submitted: true})
+      this.setState({confirmed: true})
+    }
+    else {
+      this.setState({
+        errorMessage: 'Merci de saisir les champs obligatoires).',
+      })
+    }
   };
   supprimerEcor = () => {
     console.log('supprimer ecor -----');
@@ -655,6 +667,7 @@ class EciEnleverMarchandiseSsManifesteScreen extends Component {
       module: 'ECI_LIB',
       jsonVO: data,
     });
+    this.setState({submitted:true})
     this.setState({confirmed:false})
   };
   genererNumeroScelle = () => {
@@ -816,31 +829,104 @@ class EciEnleverMarchandiseSsManifesteScreen extends Component {
               }}>
             {this.props.showProgress && <ComBadrProgressBarComp />}
 
-            {!_.isEmpty(this.extractCommandData('enleverMarchandiseParPesage')) &&
-                !_.isEmpty(
-                    this.extractCommandData('enleverMarchandiseParPesage')
-                        .successMessage,
-                ) && (
-                    <ComBadrInfoMessageComp
-                        message={
-                          this.extractCommandData('enleverMarchandiseParPesage')
-                              .successMessage
-                        }
-                    />
-                )}
+            {(!_.isEmpty(
+                        this.extractCommandData(
+                            'enleverSansDS',
+                        ),
+                    ) &&
+                    !_.isEmpty(
+                        this.extractCommandData(
+                            'enleverSansDS',
+                        )?.successMessage,
+                    ) && (
+                        <ComBadrInfoMessageComp
+                            message={
+                              this.extractCommandData(
+                                  'enleverSansDS',
+                              )?.successMessage
+                            }
+                        />
+                    )) ||
+                (!_.isEmpty(
+                        this.extractCommandData(
+                            'supprimerSansDS',
+                        ),
+                    ) &&
+                    !_.isEmpty(
+                        this.extractCommandData(
+                            'supprimerSansDS',
+                        )?.successMessage,
+                    ) && (
+                        <ComBadrInfoMessageComp
+                            message={
+                              this.extractCommandData(
+                                  'supprimerSansDS',
+                              )?.successMessage
+                            }
+                        />
+                    ))}
+            {(!_.isEmpty(
+                        this.extractCommandData(
+                            'supprimerSansDS',
+                        ),
+                    ) &&
+                    !_.isEmpty(
+                        this.extractCommandData(
+                            'enleverSansDS',
+                        )?.errorMessage,
+                    ) && (
+                        <ComBadrErrorMessageComp
+                            message={
+                              this.extractCommandData(
+                                  'enleverSansDS',
+                              )?.errorMessage
+                            }
+                        />
 
-            {!_.isEmpty(this.extractCommandData('enleverMarchandiseParPesage')) &&
-                !_.isEmpty(
-                    this.extractCommandData('enleverMarchandiseParPesage')
-                        .errorMessage,
-                ) && (
-                    <ComBadrErrorMessageComp
-                        message={
-                          this.extractCommandData('enleverMarchandiseParPesage')
-                              .errorMessage
-                        }
-                    />
-                )}
+                    ) ) ||(
+
+                    !_.isEmpty(
+                        this.state.errorMessage,
+                    ) && (
+                        <ComBadrErrorMessageComp
+                            message={
+                              this.state.errorMessage
+                            }
+                        />
+
+                    )
+                )||(
+
+                    !_.isEmpty(
+                        this.state.messagesInfo,
+                    ) && (
+                        <ComBadrInfoMessageComp
+                            message={
+                              this.state.messagesInfo
+                            }
+                        />
+
+                    )
+                )||
+                (!_.isEmpty(
+                        this.extractCommandData(
+                            'supprimerSansDS',
+                        ),
+                    ) &&
+                    !_.isEmpty(
+                        this.extractCommandData(
+                            'supprimerSansDS',
+                        )?.errorMessage,
+                    ) && (
+                        <ComBadrErrorMessageComp
+                            message={
+                              this.extractCommandData(
+                                  'supprimerSansDS',
+                              )?.errorMessage
+                            }
+                        />
+                    ))}
+
             {!_.isEmpty(this.state.errorMessageScelle) && (
                 <ComBadrErrorMessageComp message={this.state.errorMessageScelle} />
             )}
@@ -934,7 +1020,7 @@ class EciEnleverMarchandiseSsManifesteScreen extends Component {
                             </Col>
                             <Col size={6}>
                               <ComBadrPickerComp
-                                  disabled={isConsultationMode}
+                                  disabled={this.state.confirmed && !this.state.submitted}
                                   onRef={(ref) => (this.comboLieuStockage = ref)}
                                   style={{
                                     flex: 1,
@@ -1018,7 +1104,7 @@ class EciEnleverMarchandiseSsManifesteScreen extends Component {
                                   style={styles.columnThree}
                                   label=""
                                   value={enleverMarchandiseVO.numeroBonSortie}
-                                  disabled={isConsultationMode}
+                                  disabled={this.state.confirmed && !this.state.submitted}
                                   onChangeText={(text) =>
                                       this.setState({
                                         ...this.state,
@@ -1043,7 +1129,7 @@ class EciEnleverMarchandiseSsManifesteScreen extends Component {
                               <ComBadrAutoCompleteChipsComp
                                   onRef={(ref) => (this.acOperateur = ref)}
                                   code="code"
-                                  disabled={isConsultationMode}
+                                  disabled={this.state.confirmed && !this.state.submitted}
                                   selected={
                                     _.isEmpty(
                                         ComUtils.getValueByPath(
@@ -1099,7 +1185,7 @@ class EciEnleverMarchandiseSsManifesteScreen extends Component {
                                   style={styles.columnThree}
                                   label=""
                                   value={selectedLot.immatriculationsVehicules}
-                                  disabled={isConsultationMode}
+                                  disabled={this.state.confirmed && !this.state.submitted}
                                   onChangeText={(text) =>
                                       this.setState({
                                         ...this.state,
@@ -1161,7 +1247,7 @@ class EciEnleverMarchandiseSsManifesteScreen extends Component {
                                       'ecorimport.marchandisesEnlevees.heureEffectiveEnlevement',
                                   )}
                                   inputStyle={style.dateInputStyle}
-                                  readonly={isConsultationMode}
+                                  readonly={this.state.confirmed && !this.state.submitted}
                               />
                             </Col>
                           </Row>
@@ -1205,7 +1291,7 @@ class EciEnleverMarchandiseSsManifesteScreen extends Component {
                                     </Text>
                                     <RadioButton
                                         value="true"
-                                        disabled={isConsultationMode}
+                                        disabled={this.state.confirmed && !this.state.submitted}
                                         color={primaryColor}
                                     />
                                   </View>
@@ -1215,7 +1301,7 @@ class EciEnleverMarchandiseSsManifesteScreen extends Component {
                                     </Text>
                                     <RadioButton
                                         value="false"
-                                        disabled={isConsultationMode}
+                                        disabled={this.state.confirmed && !this.state.submitted}
                                         color={primaryColor}
                                     />
                                   </View>
@@ -1237,7 +1323,7 @@ class EciEnleverMarchandiseSsManifesteScreen extends Component {
                                             'ecorimport.scelles.numeroPince',
                                         )}
                                         style={CustomStyleSheet.badrInputHeight}
-                                        disabled={isConsultationMode}
+                                        disabled={this.state.confirmed && !this.state.submitted}
                                         onChangeText={(text) =>
                                             this.setState({
                                               ...this.state,
@@ -1254,7 +1340,7 @@ class EciEnleverMarchandiseSsManifesteScreen extends Component {
                                     <ComBadrNumericTextInputComp
                                         maxLength={8}
                                         value={selectedLot.nombreScelle}
-                                        disabled={isConsultationMode}
+                                        disabled={this.state.confirmed && !this.state.submitted}
                                         label={translate(
                                             'ecorimport.scelles.nombreScelles',
                                         )}
@@ -1286,7 +1372,7 @@ class EciEnleverMarchandiseSsManifesteScreen extends Component {
                                         maxLength={8}
                                         value={this.state.generateurNumScelleDu}
                                         label={translate('transverse.du')}
-                                        disabled={isConsultationMode}
+                                        disabled={this.state.confirmed && !this.state.submitted}
                                         onChangeBadrInput={(text) =>
                                             this.setState({
                                               generateurNumScelleDu: text,
@@ -1302,7 +1388,7 @@ class EciEnleverMarchandiseSsManifesteScreen extends Component {
                                         }}
                                         maxLength={8}
                                         value={generateurNumScelleAu}
-                                        disabled={isConsultationMode}
+                                        disabled={this.state.confirmed && !this.state.submitted}
                                         label={translate('transverse.au')}
                                         onChangeBadrInput={(text) =>
                                             this.setState({
@@ -1316,7 +1402,7 @@ class EciEnleverMarchandiseSsManifesteScreen extends Component {
                                     <Button
                                         mode="contained"
                                         compact="true"
-                                        disabled={isConsultationMode}
+                                        disabled={this.state.confirmed && !this.state.submitted}
                                         onPress={this.genererNumeroScelle}>
                                       {translate('transverse.Ok')}
                                     </Button>
@@ -1338,7 +1424,7 @@ class EciEnleverMarchandiseSsManifesteScreen extends Component {
                                         label={translate(
                                             'ecorimport.scelles.numeroScelle',
                                         )}
-                                        disabled={isConsultationMode}
+                                        disabled={this.state.confirmed && !this.state.submitted}
                                         onChangeBadrInput={(text) => {
                                           this.setState({
                                             numeroScelle: text,
@@ -1354,7 +1440,7 @@ class EciEnleverMarchandiseSsManifesteScreen extends Component {
                                         icon="plus-box"
                                         mode="contained"
                                         compact="true"
-                                        disabled={isConsultationMode}
+                                        disabled={this.state.confirmed && !this.state.submitted}
                                         style={style.btnActionList}
                                     />
                                     <Button
@@ -1362,7 +1448,7 @@ class EciEnleverMarchandiseSsManifesteScreen extends Component {
                                         icon="delete"
                                         mode="contained"
                                         compact="true"
-                                        disabled={isConsultationMode}
+                                        disabled={this.state.confirmed && !this.state.submitted}
                                         style={style.btnActionList}
                                     />
                                   </Col>
@@ -1405,7 +1491,7 @@ class EciEnleverMarchandiseSsManifesteScreen extends Component {
                                             'ecorimport.scelles.choisirValeur',
                                         )}
                                         code="code"
-                                        disabled={isConsultationMode}
+                                        disabled={this.state.confirmed && !this.state.submitted}
                                         selected={
                                           this.state.selectedLot
                                               ?.transporteurExploitantMEAD
@@ -1514,7 +1600,7 @@ class EciEnleverMarchandiseSsManifesteScreen extends Component {
                                 totalElements={selectedLot.refEquipementEnleve.length}
                                 maxResultsPerPage={10}
                                 paginate={true}
-                                readonly={isConsultationMode}
+                                readonly={this.state.confirmed}
                             />
                           </ComAccordionComp>
                         </ComBadrCardBoxComp>
@@ -1568,7 +1654,7 @@ class EciEnleverMarchandiseSsManifesteScreen extends Component {
           }}
         />*/}
           <View style={styles.ComContainerCompBtn}>
-            {!this.state.confirmed && <Button
+            {!this.state.confirmed &&!this.state.submitted &&  <Button
                 onPress={this.confirmerEcor}
                 icon="check"
                 compact="true"
@@ -1578,7 +1664,7 @@ class EciEnleverMarchandiseSsManifesteScreen extends Component {
               {translate('transverse.confirmer')}
             </Button>
             }
-            {this.state.confirmed && <Button
+            {this.state.confirmed && !this.state.submitted &&<Button
                 onPress={this.supprimerEcor}
                 icon="trash-can-outline"
                 mode="contained"

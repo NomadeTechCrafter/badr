@@ -84,6 +84,7 @@ const champsObligatoire = [
 class VerifierPContreEcorSsManifesteScreen extends Component {
   constructor(props) {
     super(props);
+  //  alert(props.route.params.declarationRI.dateHeureEnlevement!==""?true:false)
     this.composantTablesCols = this.buildComposantsColumns(true);
     this.state = {
       refDeclaration: props.route.params.refDeclaration,
@@ -112,7 +113,8 @@ class VerifierPContreEcorSsManifesteScreen extends Component {
       selectedScelle: {},
       errorMessageScelle: '',
       bonSortie: {},
-      submitted:false
+      submitted:false,
+      confirmed:props.route.params.declarationRI.dateHeureContreEcor!==""?true:false
     };
   }
 
@@ -604,7 +606,8 @@ class VerifierPContreEcorSsManifesteScreen extends Component {
     return null;
   }
   abandonner = () => {
-    this.setState({confirmed: false});
+    this.setState({submitted: false});
+    this.props.navigation.navigate('RechercheEcorImport')
   };
   confirmerEcor = () => {
     console.log('confirmer ecor -----');
@@ -627,6 +630,7 @@ class VerifierPContreEcorSsManifesteScreen extends Component {
       jsonVO: data,
     });
     this.setState({submitted:true})
+    this.setState({confirmed:true})
   };
   supprimerEcor = () => {
     console.log('supprimer ecor -----');
@@ -649,6 +653,7 @@ class VerifierPContreEcorSsManifesteScreen extends Component {
       jsonVO: data,
     });
     this.setState({submitted:true})
+    this.setState({confirmed:false})
   };
   genererNumeroScelle = () => {
     console.log('generateurNumScelleDu');
@@ -980,7 +985,7 @@ class VerifierPContreEcorSsManifesteScreen extends Component {
                                     'refLieuStockage.codeLieuStockage',
                                     verifierCntEcorVO,
                                 )}
-                                disabled={isConsultationMode}
+                                disabled={true}
 
                             />
                             {/* <ComBadrPickerComp
@@ -1050,7 +1055,7 @@ class VerifierPContreEcorSsManifesteScreen extends Component {
                                 style={styles.columnThree}
                                 label=""
                                 value={verifierCntEcorVO.numeroBonSortie}
-                                disabled={isConsultationMode}
+                                disabled={true}
                                 /*onChangeText={(text) =>
                                   this.setState({
                                     ...this.state,
@@ -1075,7 +1080,7 @@ class VerifierPContreEcorSsManifesteScreen extends Component {
                             <ComBadrAutoCompleteChipsComp
                                 onRef={(ref) => (this.acOperateur = ref)}
                                 code="code"
-                                disabled={isConsultationMode}
+                                disabled={true}
                                 selected={
                                   _.isEmpty(
                                       ComUtils.getValueByPath(
@@ -1131,7 +1136,7 @@ class VerifierPContreEcorSsManifesteScreen extends Component {
                                 style={styles.columnThree}
                                 label=""
                                 value={verifierCntEcorVO.immatriculationsVehicules}
-                                disabled={isConsultationMode}
+                                disabled={true}
                                 /*onChangeText={(text) =>
                                   this.setState({
                                     ...this.state,
@@ -1479,7 +1484,7 @@ class VerifierPContreEcorSsManifesteScreen extends Component {
                           <Col size={6}>
                             <ComBadrPickerComp
                                 onRef={(ref) => (this.pickerBonSortie = ref)}
-                                disabled={isConsultationMode}
+                                disabled={this.state.confirmed || this.state.submitted}
                                 style={{
                                   flex: 1,
                                   /*  marginLeft: -80,*/
@@ -1548,7 +1553,7 @@ class VerifierPContreEcorSsManifesteScreen extends Component {
                             <ComBadrDatePickerComp
                                 dateFormat="DD/MM/yyyy"
                                 /*   heureFormat="HH:mm"*/
-                                readonly={isConsultationMode}
+                                readonly={this.state.submitted}
                                 value={
                                   verifierCntEcorVO.dateHeureContreEcor
                                       ? moment(
@@ -1559,7 +1564,9 @@ class VerifierPContreEcorSsManifesteScreen extends Component {
                                       : ''
                                 }
                                 timeValue={
-                                  verifierCntEcorVO.dateHeureContreEcor
+                                  verifierCntEcorVO.dateHeureContreEcor?.split(
+                                      ' ',
+                                  )[1]
                                       ? moment(
                                           verifierCntEcorVO.dateHeureContreEcor?.split(
                                               ' ',
@@ -1574,7 +1581,7 @@ class VerifierPContreEcorSsManifesteScreen extends Component {
                                       ...this.state,
                                       verifierCntEcorVO: {
                                         ...this.state.verifierCntEcorVO,
-                                        dateHeureContreEcor: date+' '+'12:00'
+                                        dateHeureContreEcor: date+' '
                                       },
                                     })
                                 }
@@ -1585,7 +1592,7 @@ class VerifierPContreEcorSsManifesteScreen extends Component {
                                         ...this.state.verifierCntEcorVO,
                                         dateHeureContreEcor:
                                             verifierCntEcorVO.dateHeureContreEcor.length>0?
-                                            verifierCntEcorVO.dateHeureContreEcor?.split(' ')[0]+' ' +time:'',
+                                                verifierCntEcorVO.dateHeureContreEcor?.split(' ')[0]+' ' +time:'',
                                       },
                                     })
                                 }
@@ -1596,7 +1603,7 @@ class VerifierPContreEcorSsManifesteScreen extends Component {
                                   'ecorimport.verifierParContreEcor.contreEcor.dateHeureSorti',
                                 )}*/
                                 inputStyle={style.dateInputStyle}
-                                readonly={false}
+
                             />
                           </Col>
 
@@ -1659,7 +1666,7 @@ class VerifierPContreEcorSsManifesteScreen extends Component {
                                 ref={(ref) => (this.numeroPorteSortie = ref)}
                                 mode={'outlined'}
                                 value={verifierCntEcorVO.numeroPorteSortie}
-                                disabled={false}
+                                disabled={this.state.submitted}
                                 onChangeBadrInput={(text) =>
                                     this.setState({
                                       ...this.state,
@@ -1688,7 +1695,7 @@ class VerifierPContreEcorSsManifesteScreen extends Component {
                               totalElements={selectedLot.refEquipementEnleve.length}
                               maxResultsPerPage={10}
                               paginate={true}
-                              readonly={isConsultationMode}
+                              readonly={this.state.submitted}
                           />
                         </ComAccordionComp>
                       </ComBadrCardBoxComp>

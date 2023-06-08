@@ -110,7 +110,8 @@ class ConfirmerArriveeSsManifesteScreen extends Component {
       selectedScelle: {},
       errorMessageScelle: '',
       bonSortie: {},
-      confirmed:props.route.params.declarationRI.dateHeureArrivee!==""?true:false
+      submitted:false,
+      confirmed:props.route.params.declarationRI.dateHeureEnlevement!==""?true:false
     };
   }
 
@@ -176,7 +177,8 @@ class ConfirmerArriveeSsManifesteScreen extends Component {
     }
   };
   abandonner = () => {
-    this.setState({confirmed: false});
+    this.setState({submitted: false});
+    this.props.navigation.navigate('RechercheEcorImport')
   };
   validerChoixLot = () => {
     let lot = this.state.selectedLot;
@@ -624,6 +626,7 @@ class ConfirmerArriveeSsManifesteScreen extends Component {
       module: 'ECI_LIB',
       jsonVO: data,
     });
+    this.setState({submitted:true})
     this.setState({confirmed:true})
   };
   supprimerEcor = () => {
@@ -646,6 +649,7 @@ class ConfirmerArriveeSsManifesteScreen extends Component {
       module: 'ECI_LIB',
       jsonVO: data,
     });
+    this.setState({submitted:true})
     this.setState({confirmed:false})
   };
   genererNumeroScelle = () => {
@@ -974,7 +978,7 @@ class ConfirmerArriveeSsManifesteScreen extends Component {
                           </Col>
                           <Col size={6}>
                             <ComBadrPickerComp
-                                disabled={isConsultationMode}
+                                disabled={true}
 
                                 onRef={(ref) => (this.comboLieuStockage = ref)}
                                 style={{
@@ -1056,7 +1060,7 @@ class ConfirmerArriveeSsManifesteScreen extends Component {
                                 style={styles.columnThree}
                                 label=""
                                 value={confirmerArriveeVO.numeroBonSortie}
-                                disabled={isConsultationMode}
+                                disabled={true}
                                 /*onChangeText={(text) =>
                                   this.setState({
                                     ...this.state,
@@ -1081,7 +1085,7 @@ class ConfirmerArriveeSsManifesteScreen extends Component {
                             <ComBadrAutoCompleteChipsComp
                                 onRef={(ref) => (this.acOperateur = ref)}
                                 code="code"
-                                disabled={isConsultationMode}
+                                disabled={true}
                                 selected={
                                   _.isEmpty(
                                       ComUtils.getValueByPath(
@@ -1137,7 +1141,7 @@ class ConfirmerArriveeSsManifesteScreen extends Component {
                                 style={styles.columnThree}
                                 label=""
                                 value={confirmerArriveeVO.immatriculationsVehicules}
-                                disabled={isConsultationMode}
+                                disabled={true}
                                 /*onChangeText={(text) =>
                                   this.setState({
                                     ...this.state,
@@ -1167,7 +1171,7 @@ class ConfirmerArriveeSsManifesteScreen extends Component {
                                       : ''
                                 }
                                 timeValue={
-                                  confirmerArriveeVO.dateHeureEffectiveEnlevement
+                                  confirmerArriveeVO.dateHeureEffectiveEnlevement?.split(' ')[1]
                                       ? moment(
                                           confirmerArriveeVO.dateHeureEffectiveEnlevement?.split(' ')[1],
                                           'HH:mm',
@@ -1189,7 +1193,9 @@ class ConfirmerArriveeSsManifesteScreen extends Component {
                                       ...this.state,
                                       confirmerArriveeVO: {
                                         ...this.state.confirmerArriveeVO,
-                                        dateHeureEffectiveEnlevement: time,
+                                        dateHeureEffectiveEnlevement: confirmerArriveeVO.dateHeureEffectiveEnlevement.length>0?
+                                            confirmerArriveeVO.dateHeureEffectiveEnlevement?.split(' ')[0]+' ' +time:'',
+
                                       },
                                     })
                                 }
@@ -1200,7 +1206,7 @@ class ConfirmerArriveeSsManifesteScreen extends Component {
                                     'ecorimport.marchandisesEnlevees.heureEffectiveEnlevement',
                                 )}
                                 inputStyle={style.dateInputStyle}
-                                readonly={isConsultationMode}
+                                readonly={true}
                             />
                           </Col>
                         </Row>
@@ -1486,7 +1492,7 @@ class ConfirmerArriveeSsManifesteScreen extends Component {
                           <Col size={6}>
                             <ComBadrPickerComp
                                 onRef={(ref) => (this.pickerBonSortie = ref)}
-                                disabled={isConsultationMode}
+                                disabled={this.state.confirmed && !this.state.submitted}
                                 style={{
                                   flex: 1,
                                   /*  marginLeft: -80,*/
@@ -1557,9 +1563,9 @@ class ConfirmerArriveeSsManifesteScreen extends Component {
                             <ComBadrDatePickerComp
                                 dateFormat="DD/MM/yyyy"
                                 /*   heureFormat="HH:mm"*/
-                                readonly={false}
+                                readonly={this.state.submitted }
                                 value={
-                                  confirmerArriveeVO.dateHeureArrivee
+                                  confirmerArriveeVO.dateHeureArrivee?.split(' ')[0]
                                       ? moment(
                                           confirmerArriveeVO.dateHeureArrivee?.split(' ')[0],
                                           'DD/MM/yyyy',
@@ -1568,7 +1574,7 @@ class ConfirmerArriveeSsManifesteScreen extends Component {
                                       : ''
                                 }
                                 timeValue={
-                                  confirmerArriveeVO.dateHeureArrivee
+                                  confirmerArriveeVO.dateHeureArrivee?.split(' ')[1]
                                       ? moment(
                                           confirmerArriveeVO.dateHeureArrivee?.split(' ')[1],
                                           'HH:mm',
@@ -1581,7 +1587,7 @@ class ConfirmerArriveeSsManifesteScreen extends Component {
                                       ...this.state,
                                       confirmerArriveeVO: {
                                         ...this.state.confirmerArriveeVO,
-                                        dateHeureArrivee: date+' '+'12:00'
+                                        dateHeureArrivee: date+' '
                                       },
                                     })
                                 }
@@ -1592,7 +1598,7 @@ class ConfirmerArriveeSsManifesteScreen extends Component {
                                         ...this.state.confirmerArriveeVO,
                                         dateHeureArrivee:
                                             confirmerArriveeVO.dateHeureArrivee.length>0?
-                                            confirmerArriveeVO.dateHeureArrivee?.split(' ')[0]+' ' +time:'',
+                                                confirmerArriveeVO.dateHeureArrivee?.split(' ')[0]+' ' +time:'',
                                       },
                                     })
                                 }
@@ -1672,7 +1678,7 @@ class ConfirmerArriveeSsManifesteScreen extends Component {
                               totalElements={selectedLot.refEquipementEnleve.length}
                               maxResultsPerPage={10}
                               paginate={true}
-                              readonly={isConsultationMode}
+                              readonly={this.state.confirmed && !this.state.submitted}
                           />
                         </ComAccordionComp>
                       </ComBadrCardBoxComp>
@@ -1726,7 +1732,7 @@ class ConfirmerArriveeSsManifesteScreen extends Component {
           }}
         />*/}
           <View style={styles.ComContainerCompBtn}>
-            {!this.state.confirmed && <Button
+            {!this.state.confirmed && !this.state.submitted && <Button
                 onPress={this.confirmerEcor}
                 icon="check"
                 compact="true"
@@ -1736,7 +1742,7 @@ class ConfirmerArriveeSsManifesteScreen extends Component {
               {translate('transverse.confirmer')}
             </Button>
             }
-            {this.state.confirmed && <Button
+            {this.state.confirmed && !this.state.submitted && <Button
                 onPress={this.supprimerEcor}
                 icon="trash-can-outline"
                 mode="contained"

@@ -13,7 +13,7 @@ export default {
                 commentaire: 'Commentaire',
                 resultatControle: 'Résultat de contrôle',
             },
-            depotage:{
+            depotageEffectue:{
                 title:'Dépotage marchandise'
             },
             scelles: {

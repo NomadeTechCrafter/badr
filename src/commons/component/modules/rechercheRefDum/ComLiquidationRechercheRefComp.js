@@ -29,22 +29,14 @@ import { connect } from 'react-redux';
 import * as Constants from '../../../../modules/liquidation/state/liquidationRechercheRefDumConstants';
 import * as RechecheDumAction from '../../../../modules/liquidation/state/actions/liquidationRechercheRefDumAction';
 import { callRedux, extractCommandData } from '../../../../modules/liquidation/utils/LiqUtils';
-import { ComSessionService } from "../../../services/session/ComSessionService";
 
 class ComLiquidationRechercheRefComp extends Component {
   defaultState = {
-     bureau: '309',
-    regime: '010',//'040',
-    annee: '2022',//'2021',
-    serie: '0000106',// '0963966',
-    cle: 'F',//'A',
-    /*bureau: ComSessionService.getInstance().getCodeBureau()
-      ? ComSessionService.getInstance().getCodeBureau()
-      : '',
+    bureau: '',
     regime: '',
     annee: '',
     serie: '',
-    cle: '',*/
+    cle: '',
     cleValide: '',
     login: '',
     numeroVoyage: '',
@@ -126,17 +118,6 @@ class ComLiquidationRechercheRefComp extends Component {
   };
 
   callLiquidationRedux = (props, data, successRedirection) => {
-
-
-    console.log('-------------------------------- LIQ Action ------------------------------------');
-    console.log('-------------------------------- LIQ Action ------------------------------------');
-    console.log('-------------------------------- LIQ Action ------------------------------------');
-    console.log('-------------------------------- LIQ Action ------------------------------------');
-    console.log('----LIQ Action', JSON.stringify(data));
-    console.log('----LIQ Action', JSON.stringify(successRedirection));
-    console.log('-------------------------------- LIQ Action ------------------------------------');
-    console.log('-------------------------------- LIQ Action ------------------------------------');
-    console.log('-------------------------------- LIQ Action ------------------------------------');
     if (props.dispatch) {
       console.log('calling redux dispatch ...');
       var action = RechecheDumAction.request(
@@ -269,7 +250,6 @@ class ComLiquidationRechercheRefComp extends Component {
                 })
               }
               style={CustomStyleSheet.largeInput}
-              disabled={this.props.type === 'automatique'}
             />
             <HelperText
               type="error"

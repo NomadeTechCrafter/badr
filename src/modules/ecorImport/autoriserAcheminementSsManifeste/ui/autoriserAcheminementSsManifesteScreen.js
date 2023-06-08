@@ -147,7 +147,8 @@ class AutoriserAcheminementSsManifesteScreen extends Component {
     });
   };
   abandonner = () => {
-    this.setState({confirmed: false});
+    this.setState({submitted: false});
+    this.props.navigation.navigate('RechercheEcorImport')
   };
   buildComposantsColumns = (actions) => {
     return [
@@ -680,6 +681,7 @@ class AutoriserAcheminementSsManifesteScreen extends Component {
       jsonVO: data,
     });
     this.setState({submitted:true})
+    this.setState({confirmed:true})
   };
   supprimerEcor = () => {
     console.log('supprimer ecor -----');
@@ -702,6 +704,7 @@ class AutoriserAcheminementSsManifesteScreen extends Component {
       jsonVO: data,
     });
     this.setState({submitted:true})
+    this.setState({confirmed:false})
   };
   genererNumeroScelle = () => {
     console.log('generateurNumScelleDu');
@@ -1028,7 +1031,7 @@ class AutoriserAcheminementSsManifesteScreen extends Component {
                           </Col>
                           <Col size={6}>
                             <ComBadrPickerComp
-                                disabled={isConsultationMode}
+                                disabled={this.state.confirmed && !this.state.submitted}
                                 onRef={(ref) => (this.comboLieuStockage = ref)}
                                 style={{
                                   flex: 1,
@@ -1112,7 +1115,7 @@ class AutoriserAcheminementSsManifesteScreen extends Component {
                                 style={styles.columnThree}
                                 label=""
                                 value={autoriserAcheminementVO.numeroBonSortie}
-                                disabled={isConsultationMode}
+                                disabled={true}
                                 /*onChangeText={(text) =>
                                   this.setState({
                                     ...this.state,
@@ -1137,7 +1140,7 @@ class AutoriserAcheminementSsManifesteScreen extends Component {
                             <ComBadrAutoCompleteChipsComp
                                 onRef={(ref) => (this.acOperateur = ref)}
                                 code="code"
-                                disabled={isConsultationMode}
+                                disabled={true}
                                 selected={
                                   _.isEmpty(
                                       ComUtils.getValueByPath(
@@ -1195,7 +1198,7 @@ class AutoriserAcheminementSsManifesteScreen extends Component {
                                 value={
                                   autoriserAcheminementVO.immatriculationsVehicules
                                 }
-                                disabled={isConsultationMode}
+                                disabled={true}
                                 /*onChangeText={(text) =>
                                   this.setState({
                                     ...this.state,
@@ -1262,7 +1265,7 @@ class AutoriserAcheminementSsManifesteScreen extends Component {
                                     'ecorimport.marchandisesEnlevees.heureEffectiveEnlevement',
                                 )}
                                 inputStyle={style.dateInputStyle}
-                                readonly={isConsultationMode}
+                                readonly={true}
                             />
                           </Col>
                         </Row>
@@ -1549,7 +1552,7 @@ class AutoriserAcheminementSsManifesteScreen extends Component {
                           <Col size={6}>
                             <ComBadrPickerComp
                                 onRef={(ref) => (this.pickerBonSortie = ref)}
-                                disabled={isConsultationMode}
+                                disabled={this.state.confirmed && !this.state.submitted}
                                 style={{
                                   flex: 1,
                                   /*  marginLeft: -80,*/
@@ -1619,7 +1622,7 @@ class AutoriserAcheminementSsManifesteScreen extends Component {
                             <ComBadrDatePickerComp
                                 dateFormat="DD/MM/yyyy"
                                 /*   heureFormat="HH:mm"*/
-                                readonly={false}
+                                readonly={this.state.submitted}
                                 value={
                                   autoriserAcheminementVO.dateHeureAutorisationAcheminement
                                       ? moment(
@@ -1632,7 +1635,9 @@ class AutoriserAcheminementSsManifesteScreen extends Component {
                                       : ''
                                 }
                                 timeValue={
-                                  autoriserAcheminementVO.dateHeureAutorisationAcheminement
+                                  autoriserAcheminementVO.dateHeureAutorisationAcheminement?.split(
+                                      ' ',
+                                  )[1]
                                       ? moment(
                                           autoriserAcheminementVO.dateHeureAutorisationAcheminement?.split(
                                               ' ',
@@ -1651,7 +1656,7 @@ class AutoriserAcheminementSsManifesteScreen extends Component {
                                             date +
                                             ' ' +
 
-                                            '12:00',
+                                            '',
                                       },
                                     })
                                 }
@@ -1744,7 +1749,7 @@ class AutoriserAcheminementSsManifesteScreen extends Component {
                               totalElements={selectedLot.refEquipementEnleve.length}
                               maxResultsPerPage={10}
                               paginate={true}
-                              readonly={isConsultationMode}
+                              readonly={this.state.confirmed && !this.state.submitted}
                           />
                         </ComAccordionComp>
                       </ComBadrCardBoxComp>

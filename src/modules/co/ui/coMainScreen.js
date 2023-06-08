@@ -513,14 +513,13 @@ class COMainScreen extends React.Component {
 
   render() {
     const titre = "Nombre d'éléments: " + this.props?.data?.length;
+    const screen = this.props?.route?.params?.ecran;
     return (
       <View style={style.container}>
         <ComBadrToolbarComp
           navigation={this.props.navigation}
           icon="menu"
-          title={
-            this.props?.route?.params?.ecran + translate('co.titleConsultation')
-          }
+          title={screen + translate('co.titleConsultation')}
           subtitle={translate('co.subTitleTraiter')}
         />
         {this.props.showProgress && <ComBadrProgressBarComp circle={false} />}
@@ -530,39 +529,12 @@ class COMainScreen extends React.Component {
           )}
         </View>
         <ComBadrCardBoxComp style={style.cardBox}>
-          <ComBadrCardWithTileComp
-            title={translate('co.filtreRecherche.critereTitle')}>
-            <ScrollView>
-              <View>
-                <ComBadrItemsPickerComp
-                  label={translate('co.filtreRecherche.selectionnerCritere')}
-                  selectedValue={this.state.critereRecherche}
-                  items={criteresRecherche}
-                  onValueChanged={(v, i) =>
-                    this.onCritereRecherchePickerChanged(v, i)
-                  }
-                  style={style.picker}
-                />
-                <Grid>
-                  <Row style={style.row} />
-                  {this.state.blocNumeroSerie && (
-                    <Row>
-                      <Col size={1} />
-                      <Col size={8}>
-                        <TextInput
-                          mode="outlined"
-                          label={translate('co.filtreRecherche.numeroSerie')}
-                          value={this.state.numeroSerie}
-                          onChangeText={(text) =>
-                            this.setState({numeroSerie: text})
-                          }
-                        />
-                      </Col>
-                      <Col size={1} />
-                    </Row>
-                  )}
-
-                  {this.state.blocReference && (
+          {screen === 'Traiter Duplicata' && (
+            <ComBadrCardWithTileComp
+              title={translate('co.filtreRecherche.critereTitle')}>
+              <ScrollView>
+                <View>
+                  <Grid>
                     <Row>
                       <Col size={8}>
                         <TextInput
@@ -602,181 +574,272 @@ class COMainScreen extends React.Component {
                         />
                       </Col>
                     </Row>
-                  )}
-                  {this.state.blocReferenceDUM && (
                     <Row>
-                      <ComContainerComp style={style.container}>
-                        <View style={style.containerInputs}>
-                          <View>
-                            <TextInput
-                              maxLength={3}
-                              keyboardType={'number-pad'}
-                              value={this.state.bureau}
-                              label={translate('transverse.bureau')}
-                              onChangeText={(val) =>
-                                this.onChangeInput({bureau: val})
-                              }
-                              onEndEditing={(event) =>
-                                this.addZeros({
-                                  bureau: event.nativeEvent.text,
-                                  maxLength: 3,
-                                })
-                              }
-                              style={CustomStyleSheet.largeInput}
-                            />
-                          </View>
-
-                          <View>
-                            <TextInput
-                              maxLength={3}
-                              keyboardType={'number-pad'}
-                              value={this.state.regime}
-                              label={translate('transverse.regime')}
-                              onChangeText={(val) =>
-                                this.onChangeInput({regime: val})
-                              }
-                              onEndEditing={(event) =>
-                                this.addZeros({
-                                  regime: event.nativeEvent.text,
-                                  maxLength: 3,
-                                })
-                              }
-                              style={CustomStyleSheet.largeInput}
-                            />
-                          </View>
-
-                          <View>
-                            <TextInput
-                              maxLength={4}
-                              keyboardType={'number-pad'}
-                              value={this.state.annee}
-                              label={translate('transverse.annee')}
-                              onChangeText={(val) =>
-                                this.onChangeInput({annee: val})
-                              }
-                              onEndEditing={(event) =>
-                                this.addZeros({
-                                  annee: event.nativeEvent.text,
-                                  maxLength: 4,
-                                })
-                              }
-                              style={CustomStyleSheet.largeInput}
-                            />
-                          </View>
-
-                          <View>
-                            <TextInput
-                              maxLength={7}
-                              keyboardType={'number-pad'}
-                              value={this.state.serie}
-                              label={translate('transverse.serie')}
-                              onChangeText={(val) =>
-                                this.onChangeInput({serie: val})
-                              }
-                              onEndEditing={(event) =>
-                                this.addZeros({
-                                  serie: event.nativeEvent.text,
-                                  maxLength: 7,
-                                })
-                              }
-                              style={CustomStyleSheet.largeInput}
-                            />
-                          </View>
-                          <View>
-                            <TextInput
-                              maxLength={1}
-                              autoCapitalize={'characters'}
-                              value={this.state.cle}
-                              label={translate('transverse.cle')}
-                              onChangeText={(val) => this.onChangeInputCle(val)}
-                              style={CustomStyleSheet.largeInput}
-                            />
-                          </View>
-                        </View>
-                      </ComContainerComp>
-                    </Row>
-                  )}
-                  {this.state.blocDates && (
-                    <Row>
-                      <Col size={4}>
-                        <ComBadrDatePickerComp
-                          dateFormat="DD/MM/YYYY"
-                          value={
-                            this.state.dateDebut
-                              ? moment(this.state.dateDebut, 'DD/MM/yyyy', true)
-                              : ''
-                          }
-                          labelDate={translate('consultationBLS.startDate')}
-                          inputStyle={style.textInputsStyle}
-                          onDateChanged={(date) =>
-                            this.setState({
-                              ...this.state,
-                              dateDebut: date,
-                            })
-                          }
-                        />
-                      </Col>
-                      <Col size={1} />
-                      <Col size={4}>
-                        <ComBadrDatePickerComp
-                          dateFormat="DD/MM/YYYY"
-                          value={
-                            this.state.dateFin
-                              ? moment(this.state.dateFin, 'DD/MM/yyyy', true)
-                              : ''
-                          }
-                          labelDate={translate('consultationBLS.endDate')}
-                          inputStyle={style.textInputsStyle}
-                          onDateChanged={(date) =>
-                            this.setState({
-                              ...this.state,
-                              dateFin: date,
-                            })
-                          }
-                        />
-                      </Col>
-                    </Row>
-                  )}
-                  <Row>
-                    <Col size={20} />
-                    <Col size={30}>
-                      <ComBadrButtonIconComp
-                        onPress={() => this.confirmer()}
-                        icon="check"
-                        style={style.buttonIcon}
-                        loading={this.props.showProgress}
-                        text={translate('transverse.confirmer')}
-                      />
-                    </Col>
-                    <Col size={30}>
-                      <ComBadrButtonIconComp
-                        onPress={() => this.handleClear()}
-                        icon="autorenew"
-                        style={style.buttonIcon}
-                        text={translate('transverse.retablir')}
-                      />
-                    </Col>
-                    <Col size={20} />
-                    {/* <Col size={20}>
-                      <ComBadrLibelleComp>
-                        <Button
-                          mode="contained"
+                      <Col size={20} />
+                      <Col size={30}>
+                        <ComBadrButtonIconComp
+                          onPress={() => this.confirmer()}
                           icon="check"
-                          compact="true"
-                          onPress={this.redirectToConsultationDUM.bind(
-                            this,
-                            this.state.rows[5].referenceDUM,
-                            this.props.navigation,
-                          )}>
-                          {this.state.rows[5].referenceDUM}
-                        </Button>
-                      </ComBadrLibelleComp>
-                    </Col> */}
-                  </Row>
-                </Grid>
-              </View>
-            </ScrollView>
-          </ComBadrCardWithTileComp>
+                          style={style.buttonIcon}
+                          loading={this.props.showProgress}
+                          text={translate('transverse.confirmer')}
+                        />
+                      </Col>
+                      <Col size={30}>
+                        <ComBadrButtonIconComp
+                          onPress={() => this.handleClear()}
+                          icon="autorenew"
+                          style={style.buttonIcon}
+                          text={translate('transverse.retablir')}
+                        />
+                      </Col>
+                      <Col size={20} />
+                    </Row>
+                  </Grid>
+                </View>
+              </ScrollView>
+            </ComBadrCardWithTileComp>
+          )}
+          {screen !== 'Traiter Duplicata' && (
+            <ComBadrCardWithTileComp
+              title={translate('co.filtreRecherche.critereTitle')}>
+              <ScrollView>
+                <View>
+                  <ComBadrItemsPickerComp
+                    label={translate('co.filtreRecherche.selectionnerCritere')}
+                    selectedValue={this.state.critereRecherche}
+                    items={criteresRecherche}
+                    onValueChanged={(v, i) =>
+                      this.onCritereRecherchePickerChanged(v, i)
+                    }
+                    style={style.picker}
+                  />
+                  <Grid>
+                    <Row style={style.row} />
+                    {this.state.blocNumeroSerie && (
+                      <Row>
+                        <Col size={1} />
+                        <Col size={8}>
+                          <TextInput
+                            mode="outlined"
+                            label={translate('co.filtreRecherche.numeroSerie')}
+                            value={this.state.numeroSerie}
+                            onChangeText={(text) =>
+                              this.setState({numeroSerie: text})
+                            }
+                          />
+                        </Col>
+                        <Col size={1} />
+                      </Row>
+                    )}
+
+                    {this.state.blocReference && (
+                      <Row>
+                        <Col size={8}>
+                          <TextInput
+                            mode="outlined"
+                            keyboardType="numeric"
+                            label={translate('co.filtreRecherche.annee')}
+                            value={this.state.anneeRef}
+                            onChangeText={(text) =>
+                              this.setState({anneeRef: text})
+                            }
+                          />
+                        </Col>
+                        <Col size={1} />
+                        <Col size={3}>
+                          <TextInput
+                            disabled
+                            mode="outlined"
+                            value={this.state.pays}
+                          />
+                        </Col>
+                        <Col size={1} />
+                        <Col size={16}>
+                          <TextInput
+                            mode="outlined"
+                            keyboardType="numeric"
+                            label={translate('co.filtreRecherche.reference')}
+                            value={this.state.reference}
+                            onChangeText={(text) =>
+                              this.setState({reference: text})
+                            }
+                            onEndEditing={(event) =>
+                              this.addZeros({
+                                reference: event.nativeEvent.text,
+                                maxLength: 7,
+                              })
+                            }
+                          />
+                        </Col>
+                      </Row>
+                    )}
+                    {this.state.blocReferenceDUM && (
+                      <Row>
+                        <ComContainerComp style={style.container}>
+                          <View style={style.containerInputs}>
+                            <View>
+                              <TextInput
+                                maxLength={3}
+                                keyboardType={'number-pad'}
+                                value={this.state.bureau}
+                                label={translate('transverse.bureau')}
+                                onChangeText={(val) =>
+                                  this.onChangeInput({bureau: val})
+                                }
+                                onEndEditing={(event) =>
+                                  this.addZeros({
+                                    bureau: event.nativeEvent.text,
+                                    maxLength: 3,
+                                  })
+                                }
+                                style={CustomStyleSheet.largeInput}
+                              />
+                            </View>
+
+                            <View>
+                              <TextInput
+                                maxLength={3}
+                                keyboardType={'number-pad'}
+                                value={this.state.regime}
+                                label={translate('transverse.regime')}
+                                onChangeText={(val) =>
+                                  this.onChangeInput({regime: val})
+                                }
+                                onEndEditing={(event) =>
+                                  this.addZeros({
+                                    regime: event.nativeEvent.text,
+                                    maxLength: 3,
+                                  })
+                                }
+                                style={CustomStyleSheet.largeInput}
+                              />
+                            </View>
+
+                            <View>
+                              <TextInput
+                                maxLength={4}
+                                keyboardType={'number-pad'}
+                                value={this.state.annee}
+                                label={translate('transverse.annee')}
+                                onChangeText={(val) =>
+                                  this.onChangeInput({annee: val})
+                                }
+                                onEndEditing={(event) =>
+                                  this.addZeros({
+                                    annee: event.nativeEvent.text,
+                                    maxLength: 4,
+                                  })
+                                }
+                                style={CustomStyleSheet.largeInput}
+                              />
+                            </View>
+
+                            <View>
+                              <TextInput
+                                maxLength={7}
+                                keyboardType={'number-pad'}
+                                value={this.state.serie}
+                                label={translate('transverse.serie')}
+                                onChangeText={(val) =>
+                                  this.onChangeInput({serie: val})
+                                }
+                                onEndEditing={(event) =>
+                                  this.addZeros({
+                                    serie: event.nativeEvent.text,
+                                    maxLength: 7,
+                                  })
+                                }
+                                style={CustomStyleSheet.largeInput}
+                              />
+                            </View>
+                            <View>
+                              <TextInput
+                                maxLength={1}
+                                autoCapitalize={'characters'}
+                                value={this.state.cle}
+                                label={translate('transverse.cle')}
+                                onChangeText={(val) =>
+                                  this.onChangeInputCle(val)
+                                }
+                                style={CustomStyleSheet.largeInput}
+                              />
+                            </View>
+                          </View>
+                        </ComContainerComp>
+                      </Row>
+                    )}
+                    {this.state.blocDates && (
+                      <Row>
+                        <Col size={4}>
+                          <ComBadrDatePickerComp
+                            dateFormat="DD/MM/YYYY"
+                            value={
+                              this.state.dateDebut
+                                ? moment(
+                                    this.state.dateDebut,
+                                    'DD/MM/yyyy',
+                                    true,
+                                  )
+                                : ''
+                            }
+                            labelDate={translate('consultationBLS.startDate')}
+                            inputStyle={style.textInputsStyle}
+                            onDateChanged={(date) =>
+                              this.setState({
+                                ...this.state,
+                                dateDebut: date,
+                              })
+                            }
+                          />
+                        </Col>
+                        <Col size={1} />
+                        <Col size={4}>
+                          <ComBadrDatePickerComp
+                            dateFormat="DD/MM/YYYY"
+                            value={
+                              this.state.dateFin
+                                ? moment(this.state.dateFin, 'DD/MM/yyyy', true)
+                                : ''
+                            }
+                            labelDate={translate('consultationBLS.endDate')}
+                            inputStyle={style.textInputsStyle}
+                            onDateChanged={(date) =>
+                              this.setState({
+                                ...this.state,
+                                dateFin: date,
+                              })
+                            }
+                          />
+                        </Col>
+                      </Row>
+                    )}
+                    <Row>
+                      <Col size={20} />
+                      <Col size={30}>
+                        <ComBadrButtonIconComp
+                          onPress={() => this.confirmer()}
+                          icon="check"
+                          style={style.buttonIcon}
+                          loading={this.props.showProgress}
+                          text={translate('transverse.confirmer')}
+                        />
+                      </Col>
+                      <Col size={30}>
+                        <ComBadrButtonIconComp
+                          onPress={() => this.handleClear()}
+                          icon="autorenew"
+                          style={style.buttonIcon}
+                          text={translate('transverse.retablir')}
+                        />
+                      </Col>
+                      <Col size={20} />
+                    </Row>
+                  </Grid>
+                </View>
+              </ScrollView>
+            </ComBadrCardWithTileComp>
+          )}
         </ComBadrCardBoxComp>
         {this.props?.data?.length > 0 && (
           <ScrollView style={style.innerContainer}>

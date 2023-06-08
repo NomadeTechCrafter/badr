@@ -52,6 +52,7 @@ class COConsultationDetail extends React.Component {
       selectedCachet: {},
       isAccepter: false,
       isRejeter: false,
+      isAnnuler: false,
       showButtons: true,
       uor: null,
     };
@@ -201,6 +202,7 @@ class COConsultationDetail extends React.Component {
     this.setState({
       isAccepter: true,
       isRejeter: false,
+      isAnnuler: false,
       showButtons: false,
       uor: response?.data?.jsonVO,
     });
@@ -209,7 +211,8 @@ class COConsultationDetail extends React.Component {
   annuler() {
     this.setState({
       isAccepter: false,
-      isRejeter: true,
+      isRejeter: false,
+      isAnnuler: true,
       showButtons: false,
       commentaire: '',
     });
@@ -219,6 +222,7 @@ class COConsultationDetail extends React.Component {
     this.setState({
       isAccepter: false,
       isRejeter: true,
+      isAnnuler: false,
       showButtons: false,
       commentaire: '',
     });
@@ -316,6 +320,7 @@ class COConsultationDetail extends React.Component {
             infoMessage: response?.data?.dtoHeader?.messagesInfo,
             isAccepter: false,
             isRejeter: false,
+            isAnnuler: false,
             showButtons: false,
           });
         } else {
@@ -326,6 +331,48 @@ class COConsultationDetail extends React.Component {
       }
     }
     if (this.state.isRejeter) {
+      if (!this.checkRequiredFieldsRejeter()) {
+        const data = {
+          dtoHeader: {
+            userLogin: ComSessionService.getInstance().getLogin(),
+            fonctionnalite: ComSessionService.getInstance().getFonctionalite(),
+            module: 'CO_LIB',
+            commande: 'rejeterCertificatOrigine',
+            typeService: TYPE_SERVICE_UC,
+          },
+          jsonVO: {
+            identifiant: this.props?.route?.params?.identifiant,
+            commentaire: this.state.commentaire,
+          },
+        };
+        const response = await ComHttpHelperApi.process(data);
+        console.log(JSON.stringify(response?.data?.dtoHeader?.messagesInfo));
+        console.log(JSON.stringify(response?.data?.dtoHeader?.messagesErreur));
+        if (response?.data?.dtoHeader?.messagesErreur) {
+          this.setState({
+            errorMessage: response?.data?.dtoHeader?.messagesErreur,
+          });
+        } else {
+          this.setState({
+            errorMessage: '',
+          });
+        }
+        if (response?.data?.dtoHeader?.messagesInfo) {
+          this.setState({
+            infoMessage: response?.data?.dtoHeader?.messagesInfo,
+            isAccepter: false,
+            isRejeter: false,
+            isAnnuler: false,
+            showButtons: false,
+          });
+        } else {
+          this.setState({
+            infoMessage: null,
+          });
+        }
+      }
+    }
+    if (this.state.isAnnuler) {
       if (!this.checkRequiredFieldsRejeter()) {
         const data = {
           dtoHeader: {
@@ -357,6 +404,7 @@ class COConsultationDetail extends React.Component {
             infoMessage: response?.data?.dtoHeader?.messagesInfo,
             isAccepter: false,
             isRejeter: false,
+            isAnnuler: false,
             showButtons: false,
           });
         } else {
@@ -384,6 +432,7 @@ class COConsultationDetail extends React.Component {
     this.setState({
       isAccepter: false,
       isRejeter: false,
+      isAnnuler: false,
       showButtons: true,
       commentaire: '',
       infoMessage: null,

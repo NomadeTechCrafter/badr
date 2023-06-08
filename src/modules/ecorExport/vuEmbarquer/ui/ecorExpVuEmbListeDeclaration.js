@@ -55,6 +55,7 @@ const initialState = {
   erreur: null,
   modeConsultation: false,
   resultatsScanner: null,
+  messagesInfo:[]
 };
 
 class VuEmbListeDeclaration extends React.Component {
@@ -104,11 +105,11 @@ class VuEmbListeDeclaration extends React.Component {
           dateVuEmbarquer: jsonVO?.dateHeureEmbarquement?.slice(0, 10),
           heureVuEmbarquer: jsonVO?.dateHeureEmbarquement?.slice(11, 16),
           navire: jsonVO?.refMoyenTransport?.codeMoyenTransport
-            ? jsonVO?.refMoyenTransport?.descriptionMoyenTransport +
+              ? jsonVO?.refMoyenTransport?.descriptionMoyenTransport +
               '(' +
               jsonVO?.refMoyenTransport?.codeMoyenTransport +
               ')'
-            : '',
+              : '',
           dateVoyage: jsonVO?.dateHeureVoyage?.slice(0, 10),
           heureVoyage: jsonVO?.dateHeureVoyage?.slice(11, 16),
           numeroVoyage: jsonVO?.numeroVoyage,
@@ -120,8 +121,8 @@ class VuEmbListeDeclaration extends React.Component {
       this.populateResultatScanner();
       this.setState({
         resultatsScanner: this.props?.resScan?.dataScanner
-          ? this.props?.resScan?.dataScanner
-          : null,
+            ? this.props?.resScan?.dataScanner
+            : null,
       });
       this.populateLibelleTransporteurControleApresScanner();
       this.populateLibelleTransporteur();
@@ -135,10 +136,10 @@ class VuEmbListeDeclaration extends React.Component {
   populateResultatScanner() {
     let localReference = this.props?.route?.params?.params?.params;
     let data =
-      localReference?.bureau +
-      localReference?.regime +
-      localReference?.annee +
-      localReference?.serie;
+        localReference?.bureau +
+        localReference?.regime +
+        localReference?.annee +
+        localReference?.serie;
 
     var action = ResultatScannerVuEmbAction.request({
       type: VuEmbConstants.SCANNER_VU_EMB_REQUEST,
@@ -155,24 +156,24 @@ class VuEmbListeDeclaration extends React.Component {
 
   populateLibelleTransporteurControleApresScanner() {
     let transporteurExploitantMEADCrtlApresScanner = this.props?.vuEmbInit
-      ?.value?.jsonVO?.transporteurExploitantMEADCrtlApresScanner;
+        ?.value?.jsonVO?.transporteurExploitantMEADCrtlApresScanner;
     console.log(
-      'transporteurExploitantMEADCrtlApresScanner',
-      transporteurExploitantMEADCrtlApresScanner,
+        'transporteurExploitantMEADCrtlApresScanner',
+        transporteurExploitantMEADCrtlApresScanner,
     );
     if (!_.isEmpty(transporteurExploitantMEADCrtlApresScanner)) {
       if (
-        _.isEmpty(this.props.transporteurExploitantMEADCtrlApresScanner) ||
-        this.props.transporteurExploitantMEADCtrlApresScanner.code !==
+          _.isEmpty(this.props.transporteurExploitantMEADCtrlApresScanner) ||
+          this.props.transporteurExploitantMEADCtrlApresScanner.code !==
           transporteurExploitantMEADCrtlApresScanner
       ) {
         console.log(
-          'transporteurExploitantMEADCtrlApresScannerLibelle',
-          this.props.transporteurExploitantMEADCtrlApresScanner,
+            'transporteurExploitantMEADCtrlApresScannerLibelle',
+            this.props.transporteurExploitantMEADCtrlApresScanner,
         );
         let action = getCmbOperateurByCodeAction.request({
           type:
-            Constants.AUTORISER_ACHEMINEMENT_GET_CMB_OPERATEUR_BY_CODE_REQUEST,
+          Constants.AUTORISER_ACHEMINEMENT_GET_CMB_OPERATEUR_BY_CODE_REQUEST,
           value: {
             idOperateur: transporteurExploitantMEADCrtlApresScanner,
             isCtrlApresScanner: true,
@@ -186,21 +187,21 @@ class VuEmbListeDeclaration extends React.Component {
 
   populateLibelleTransporteur() {
     let transporteurExploitantMEAD = this.props?.vuEmbInit?.value?.jsonVO
-      ?.transporteurExploitantMEAD;
+        ?.transporteurExploitantMEAD;
     console.log('populateLibelleTransporteur', transporteurExploitantMEAD);
     if (!_.isEmpty(transporteurExploitantMEAD)) {
       if (
-        _.isEmpty(this.props.transporteurExploitantMEAD) ||
-        this.props.transporteurExploitantMEAD.code !==
+          _.isEmpty(this.props.transporteurExploitantMEAD) ||
+          this.props.transporteurExploitantMEAD.code !==
           transporteurExploitantMEAD
       ) {
         console.log(
-          'transporteurExploitantMEADCtrl',
-          this.props.transporteurExploitantMEAD,
+            'transporteurExploitantMEADCtrl',
+            this.props.transporteurExploitantMEAD,
         );
         let action = getCmbOperateurByCodeAction.request({
           type:
-            Constants.AUTORISER_ACHEMINEMENT_GET_CMB_OPERATEUR_BY_CODE_REQUEST,
+          Constants.AUTORISER_ACHEMINEMENT_GET_CMB_OPERATEUR_BY_CODE_REQUEST,
           value: {
             idOperateur: transporteurExploitantMEAD,
             isCtrlApresScanner: false,
@@ -223,9 +224,9 @@ class VuEmbListeDeclaration extends React.Component {
 
   renderBoxItem = ({item}) => {
     return (
-      <View style={styles.boxItem}>
-        <Text style={styles.boxItemText}>{item}</Text>
-      </View>
+        <View style={styles.boxItem}>
+          <Text style={styles.boxItemText}>{item}</Text>
+        </View>
     );
   };
 
@@ -235,8 +236,8 @@ class VuEmbListeDeclaration extends React.Component {
 
   confirmerVuEmbarquer = () => {
     if (
-      !stringNotEmpty(this.state.dateVuEmbarquer) ||
-      !stringNotEmpty(this.state.heureVuEmbarquer)
+        !stringNotEmpty(this.state.dateVuEmbarquer) ||
+        !stringNotEmpty(this.state.heureVuEmbarquer)
     ) {
       this.setState({
         erreur: 'Date et Heure embarquement: Valeur obligatoire.',
@@ -255,7 +256,7 @@ class VuEmbListeDeclaration extends React.Component {
 
       delete data?.refAgentAutorisationAcheminement?.defaultConverter;
       delete data?.refAgentAutorisationAcheminement?.refBureau
-        ?.defaultConverter;
+          ?.defaultConverter;
 
       delete data?.refAgentAnnulationEmbarquement?.defaultConverter;
       delete data?.refAgentAnnulationEmbarquement?.refBureau?.defaultConverter;
@@ -276,7 +277,7 @@ class VuEmbListeDeclaration extends React.Component {
 
       delete data?.refMainlevee?.refAgentValidation?.defaultConverter;
       delete data?.refMainlevee?.refAgentValidation?.refBureau
-        ?.defaultConverter;
+          ?.defaultConverter;
 
       delete data?.refMainlevee?.refAgentEdition?.defaultConverter;
       delete data?.refMainlevee?.refAgentEdition?.refBureau?.defaultConverter;
@@ -288,9 +289,9 @@ class VuEmbListeDeclaration extends React.Component {
 
       data.refDUM = localReference;
       data.dateHeureEmbarquement =
-        this.state.dateVuEmbarquer + ' ' + this.state.heureVuEmbarquer;
+          this.state.dateVuEmbarquer + ' ' + this.state.heureVuEmbarquer;
       data.dateHeureVoyage =
-        this.state.dateVoyage + ' ' + this.state.heureVoyage;
+          this.state.dateVoyage + ' ' + this.state.heureVoyage;
       data.numeroVoyage = this.state.numeroVoyage;
       data.commentaireEmbarquement = this.state.commentaire;
       data.refMoyenTransport = {
@@ -347,1111 +348,1114 @@ class VuEmbListeDeclaration extends React.Component {
     alpha = alpha.charAt(RS);
     return alpha;
   };
-
+  static getDerivedStateFromProps(nextProps, prevState) {
+    return {...prevState,messagesInfo:
+          [...prevState.messagesInfo,nextProps?.vuEmbInit?.value?.dtoHeader?.messagesInfo]}
+  }
   render() {
     let reference = this.state?.ecorDUM?.refDUM;
     let cle = this.cleDUM(reference?.regime, reference?.serie);
     return (
-      <View style={styles.container}>
-        <ComBadrToolbarComp
-          navigation={this.props.navigation}
-          icon="menu"
-          title={translate('vuEmbarquee.title')}
-          subtitle={translate('vuEmbarquee.subTitleAction')}
-        />
-        {this.props.showProgress && <ComBadrProgressBarComp />}
-        <View style={styles.messages}>
-          <ComBadrErrorMessageComp
-            style={styles.centerErrorMsg}
-            message={this.state.erreur}
+        <View style={styles.container}>
+          <ComBadrToolbarComp
+              navigation={this.props.navigation}
+              icon="menu"
+              title={translate('vuEmbarquee.title')}
+              subtitle={translate('vuEmbarquee.subTitleAction')}
           />
-        </View>
-        {this.props?.vuEmbInit?.messageInfo != null && (
-          <View style={styles.messages}>
-            <ComBadrInfoMessageComp
-              style={styles.centerInfoMsg}
-              message={this.props?.vuEmbInit?.messageInfo}
-            />
-          </View>
-        )}
-        {this.props?.vuEmbInit?.errorMessage != null && (
+          {this.props.showProgress && <ComBadrProgressBarComp />}
           <View style={styles.messages}>
             <ComBadrErrorMessageComp
-              style={styles.centerInfoMsg}
-              message={this.props?.vuEmbInit?.errorMessage}
+                style={styles.centerErrorMsg}
+                message={this.state.erreur}
             />
           </View>
-        )}
-        <ScrollView>
-          <ComBadrCardBoxComp style={styles.cardBoxInfoDum}>
-            <Row>
-              <Col size={7}>
-                <View style={[styles.flexDirectionRow, styles.margtb]}>
-                  <Text style={styles.libelleS}>
-                    {translate('transverse.bureau')}
-                  </Text>
-                  <Text style={styles.libelleS}>
-                    {translate('transverse.regime')}
-                  </Text>
-                  <Text style={styles.libelleS}>
-                    {translate('transverse.annee')}
-                  </Text>
-                  <Text style={styles.libelleM}>
-                    {translate('transverse.serie')}
-                  </Text>
-                  <Text style={styles.libelleS}>
-                    {translate('transverse.cle')}
-                  </Text>
-                  {/* <Text style={styles.libelleS}>{translate('controleApresScanner.search.declarationEnDetail.numeroSousDum')}</Text> */}
-                </View>
-                <View style={styles.flexDirectionRow}>
-                  <Text style={styles.valueS}>{reference?.bureau}</Text>
-                  <Text style={styles.valueS}>{reference?.regime}</Text>
-                  <Text style={styles.valueS}>{reference?.annee}</Text>
-                  <Text style={styles.valueM}>{reference?.serie}</Text>
-                  <Text style={styles.valueS}>{cle}</Text>
-                  {/* <Text style={styles.valueS}>
+          {this.state.messagesInfo != null && (
+              <View style={styles.messages}>
+                <ComBadrInfoMessageComp
+                    style={styles.centerInfoMsg}
+                    message={this.state.messagesInfo}
+                />
+              </View>
+          )}
+          {this.props?.vuEmbInit?.errorMessage != null && (
+              <View style={styles.messages}>
+                <ComBadrErrorMessageComp
+                    style={styles.centerInfoMsg}
+                    message={this.props?.vuEmbInit?.errorMessage}
+                />
+              </View>
+          )}
+          <ScrollView>
+            <ComBadrCardBoxComp style={styles.cardBoxInfoDum}>
+              <Row>
+                <Col size={7}>
+                  <View style={[styles.flexDirectionRow, styles.margtb]}>
+                    <Text style={styles.libelleS}>
+                      {translate('transverse.bureau')}
+                    </Text>
+                    <Text style={styles.libelleS}>
+                      {translate('transverse.regime')}
+                    </Text>
+                    <Text style={styles.libelleS}>
+                      {translate('transverse.annee')}
+                    </Text>
+                    <Text style={styles.libelleM}>
+                      {translate('transverse.serie')}
+                    </Text>
+                    <Text style={styles.libelleS}>
+                      {translate('transverse.cle')}
+                    </Text>
+                    {/* <Text style={styles.libelleS}>{translate('controleApresScanner.search.declarationEnDetail.numeroSousDum')}</Text> */}
+                  </View>
+                  <View style={styles.flexDirectionRow}>
+                    <Text style={styles.valueS}>{reference?.bureau}</Text>
+                    <Text style={styles.valueS}>{reference?.regime}</Text>
+                    <Text style={styles.valueS}>{reference?.annee}</Text>
+                    <Text style={styles.valueM}>{reference?.serie}</Text>
+                    <Text style={styles.valueS}>{cle}</Text>
+                    {/* <Text style={styles.valueS}>
                 {reference.cle}
               </Text> */}
-                </View>
-              </Col>
-              <Col size={3}>
-                <Row>
-                  <Col>
-                    <Text style={styles.libelleS}>
-                      {translate(
-                        'controleApresScanner.search.declarationEnDetail.numeroSousDum',
-                      )}
-                    </Text>
-                  </Col>
-                  <Col>
-                    <Text style={styles.valueS}>
-                      {this.state?.ecorDUM?.refDUM?.numeroOrdreVoyage}
-                    </Text>
-                  </Col>
-                </Row>
-              </Col>
-            </Row>
-          </ComBadrCardBoxComp>
-          <ComBadrCardBoxComp style={styles.cardBox}>
-            <ComAccordionComp
-              title={translate(
-                'autoriserAcheminemenMainScreen.declarationDetail.title',
-              )}
-              expanded={true}>
-              {/* <Grid> */}
-              <Row style={CustomStyleSheet.lightBlueRow}>
-                <Col>
-                  <ComBadrLibelleComp withColor={true}>
-                    {translate(
-                      'autoriserAcheminemenMainScreen.declarationDetail.dateHeureEnreg',
-                    )}
-                  </ComBadrLibelleComp>
+                  </View>
                 </Col>
-                <Col>
-                  <ComBadrLibelleComp>
-                    {this.state?.ecorDUM?.refDedServices?.dateEnregistrement}
-                  </ComBadrLibelleComp>
-                </Col>
-                <Col />
-                <Col />
-              </Row>
-              <Row style={CustomStyleSheet.whiteRow}>
-                <Col>
-                  <ComBadrLibelleComp withColor={true}>
-                    {translate(
-                      'autoriserAcheminemenMainScreen.declarationDetail.typeDed',
-                    )}
-                  </ComBadrLibelleComp>
-                </Col>
-                <Col>
-                  <ComBadrLibelleComp>
-                    {this.state?.ecorDUM?.refDedServices.libelleTypeDED}
-                  </ComBadrLibelleComp>
-                </Col>
-                <Col>
-                  <ComBadrLibelleComp withColor={true}>
-                    {translate('transverse.poidsBrut')}
-                  </ComBadrLibelleComp>
-                </Col>
-                <Col>
-                  <ComBadrLibelleComp>
-                    {this.state?.ecorDUM?.refDedServices.poidsBruts}
-                  </ComBadrLibelleComp>
-                </Col>
-              </Row>
-              <Row style={CustomStyleSheet.lightBlueRow}>
-                <Col>
-                  <ComBadrLibelleComp withColor={true}>
-                    {translate(
-                      'autoriserAcheminemenMainScreen.declarationDetail.operateurDeclarant',
-                    )}
-                  </ComBadrLibelleComp>
-                </Col>
-                <Col>
-                  <ComBadrLibelleComp>
-                    {this.state?.ecorDUM?.refDedServices.operateurDeclarant}
-                  </ComBadrLibelleComp>
-                </Col>
-                <Col>
-                  <ComBadrLibelleComp withColor={true}>
-                    {translate('transverse.poidsNet')}
-                  </ComBadrLibelleComp>
-                </Col>
-                <Col>
-                  <ComBadrLibelleComp>
-                    {this.state?.ecorDUM?.refDedServices.poidsNet}
-                  </ComBadrLibelleComp>
-                </Col>
-              </Row>
-              <Row style={CustomStyleSheet.whiteRow}>
-                <Col size={1}>
-                  <ComBadrLibelleComp withColor={true}>
-                    {translate(
-                      'autoriserAcheminemenMainScreen.declarationDetail.valeurDeclaree',
-                    )}
-                  </ComBadrLibelleComp>
-                </Col>
-                <Col size={1}>
-                  <ComBadrLibelleComp>
-                    {this.state?.ecorDUM?.refDedServices.valeurDeclaree}
-                  </ComBadrLibelleComp>
-                </Col>
-                <Col>
-                  <ComBadrLibelleComp withColor={true}>
-                    {translate(
-                      'autoriserAcheminemenMainScreen.declarationDetail.nbreContenant',
-                    )}
-                  </ComBadrLibelleComp>
-                </Col>
-                <Col>
-                  <ComBadrLibelleComp>
-                    {this.state?.ecorDUM?.refDedServices.nombreContenants}
-                  </ComBadrLibelleComp>
-                </Col>
-              </Row>
-              {/* </Grid> */}
-            </ComAccordionComp>
-          </ComBadrCardBoxComp>
-          <ComBadrCardBoxComp style={styles.cardBox}>
-            <ComAccordionComp
-              title={translate(
-                'autoriserAcheminemenMainScreen.entreeEnceinteDouaniere.title',
-              )}
-              expanded={true}>
-              <Grid>
-                <Row style={CustomStyleSheet.whiteRow}>
-                  <Col>
-                    <ComBadrLibelleComp withColor={true}>
-                      {translate(
-                        'autoriserAcheminemenMainScreen.entreeEnceinteDouaniere.dateHeure',
-                      )}
-                    </ComBadrLibelleComp>
-                  </Col>
-                  <Col>
-                    <ComBadrLibelleComp>
-                      {this.state?.ecorDUM?.dateHeureEntree}
-                    </ComBadrLibelleComp>
-                  </Col>
-                  <Col>
-                    <ComBadrLibelleComp withColor={true}>
-                      {translate(
-                        'autoriserAcheminemenMainScreen.entreeEnceinteDouaniere.agentDouanier',
-                      )}
-                    </ComBadrLibelleComp>
-                  </Col>
-                  <Col>
-                    <ComBadrLibelleComp>
-                      {this.state?.ecorDUM?.refAgentEntree?.nom}{' '}
-                      {this.state?.ecorDUM?.refAgentEntree?.prenom}
-                    </ComBadrLibelleComp>
-                  </Col>
-                </Row>
-                <Row style={CustomStyleSheet.lightBlueRow}>
-                  <Col size={2}>
-                    <ComBadrLibelleComp withColor={true}>
-                      {translate(
-                        'autoriserAcheminemenMainScreen.entreeEnceinteDouaniere.refDocument',
-                      )}
-                    </ComBadrLibelleComp>
-                  </Col>
-                  <Col size={2}>
-                    <ComBadrLibelleComp>
-                      {this.state?.ecorDUM?.documentEntreeEnceinte}
-                    </ComBadrLibelleComp>
-                  </Col>
-                  <Col />
-                  <Col />
-                </Row>
-              </Grid>
-            </ComAccordionComp>
-          </ComBadrCardBoxComp>
-          <ComBadrCardBoxComp>
-            {/* Informations ECOR */}
-            <ComAccordionComp
-              title={translate(
-                'autoriserAcheminemenMainScreen.informationsEcor.title',
-              )}
-              expanded={true}>
-              <Grid>
-                <Row style={CustomStyleSheet.whiteRow}>
-                  <Col>
-                    <ComBadrLibelleComp withColor={true}>
-                      {translate(
-                        'autoriserAcheminemenMainScreen.informationsEcor.numeroPince',
-                      )}
-                    </ComBadrLibelleComp>
-                  </Col>
-                  <Col>
-                    <ComBadrLibelleComp>
-                      {this.state?.ecorDUM?.numeroPinceConfirmationEntree}
-                    </ComBadrLibelleComp>
-                  </Col>
-                  <Col>
-                    <ComBadrLibelleComp withColor={true}>
-                      {translate(
-                        'autoriserAcheminemenMainScreen.informationsEcor.nombreScelles',
-                      )}
-                    </ComBadrLibelleComp>
-                  </Col>
-                  <Col>
-                    <ComBadrLibelleComp>
-                      {this.state?.ecorDUM?.nombreScelleConfirmationEntree}
-                    </ComBadrLibelleComp>
-                  </Col>
-                </Row>
-                <Row style={CustomStyleSheet.lightBlueRow}>
-                  <Col size={2}>
-                    <ComBadrLibelleComp withColor={true}>
-                      {translate(
-                        'confirmationEntree.informationsEcor.generateurScelle',
-                      )}
-                    </ComBadrLibelleComp>
-                  </Col>
-                  <Col>
-                    <ComBadrNumericTextInputComp
-                      // onRef={(input) => {
-                      //   this.generateurNumScelleDu = input;
-                      // }}
-                      maxLength={8}
-                      // value={this.state.generateurNumScelleDu}
-                      label={translate('transverse.du')}
-                      // onChangeBadrInput={(text) =>
-                      //   this.setState({
-                      //     generateurNumScelleDu: text,
-                      //   })
-                      // }
-                      disabled={true}
-                    />
-                  </Col>
-                  <Col />
-                  <Col>
-                    <ComBadrNumericTextInputComp
-                      // onRef={(input) => {
-                      //   this.generateurNumScelleAu = input;
-                      // }}
-                      maxLength={8}
-                      // value={generateurNumScelleAu}
-                      label={translate('transverse.au')}
-                      // onChangeBadrInput={(text) =>
-                      //   this.setState({
-                      //     generateurNumScelleAu: text,
-                      //   })
-                      // }
-                      disabled={true}
-                    />
-                  </Col>
-                  <Col />
-                  <Col>
-                    <Button
-                      mode="contained"
-                      compact="true"
-                      // onPress={this.genererNumeroScelle}
-                      disabled={true}>
-                      {translate('transverse.Ok')}
-                    </Button>
-                  </Col>
-                  <Col />
-                </Row>
-              </Grid>
-              <Row>
-                <Col>
-                  <ComBadrNumericTextInputComp
-                    // onRef={(input) => {
-                    //   this.numeroScelleInput = input;
-                    // }}
-                    maxLength={8}
-                    // value={numeroScelle}
-                    label={translate(
-                      'confirmationEntree.informationsEcor.numeroScelle',
-                    )}
-                    // onChangeBadrInput={(text) => {
-                    //   this.setState({
-                    //     numeroScelle: text,
-                    //   });
-                    // }}
-                    disabled={true}
-                  />
-                </Col>
-                <Col>
-                  <Button
-                    onPress={this.addNumeroScelle}
-                    icon="plus-box"
-                    mode="contained"
-                    compact="true"
-                    style={styles.btnActionList}
-                    disabled={true}
-                  />
-                  <Button
-                    onPress={this.deleteNumeroScelle}
-                    icon="minus-box"
-                    mode="contained"
-                    compact="true"
-                    style={styles.btnActionList}
-                    disabled={true}
-                  />
-                </Col>
-                <Col style={styles.boxContainer}>
-                  <SafeAreaView style={styles.boxSafeArea}>
-                    {_.isEmpty(this.state?.ecorDUM?.scelles) && (
-                      <Text style={styles.boxItemText}>
+                <Col size={3}>
+                  <Row>
+                    <Col>
+                      <Text style={styles.libelleS}>
                         {translate(
-                          'confirmationEntree.informationsEcor.aucunElement',
+                            'controleApresScanner.search.declarationEnDetail.numeroSousDum',
                         )}
                       </Text>
+                    </Col>
+                    <Col>
+                      <Text style={styles.valueS}>
+                        {this.state?.ecorDUM?.refDUM?.numeroOrdreVoyage}
+                      </Text>
+                    </Col>
+                  </Row>
+                </Col>
+              </Row>
+            </ComBadrCardBoxComp>
+            <ComBadrCardBoxComp style={styles.cardBox}>
+              <ComAccordionComp
+                  title={translate(
+                      'autoriserAcheminemenMainScreen.declarationDetail.title',
+                  )}
+                  expanded={true}>
+                {/* <Grid> */}
+                <Row style={CustomStyleSheet.lightBlueRow}>
+                  <Col>
+                    <ComBadrLibelleComp withColor={true}>
+                      {translate(
+                          'autoriserAcheminemenMainScreen.declarationDetail.dateHeureEnreg',
+                      )}
+                    </ComBadrLibelleComp>
+                  </Col>
+                  <Col>
+                    <ComBadrLibelleComp>
+                      {this.state?.ecorDUM?.refDedServices?.dateEnregistrement}
+                    </ComBadrLibelleComp>
+                  </Col>
+                  <Col />
+                  <Col />
+                </Row>
+                <Row style={CustomStyleSheet.whiteRow}>
+                  <Col>
+                    <ComBadrLibelleComp withColor={true}>
+                      {translate(
+                          'autoriserAcheminemenMainScreen.declarationDetail.typeDed',
+                      )}
+                    </ComBadrLibelleComp>
+                  </Col>
+                  <Col>
+                    <ComBadrLibelleComp>
+                      {this.state?.ecorDUM?.refDedServices.libelleTypeDED}
+                    </ComBadrLibelleComp>
+                  </Col>
+                  <Col>
+                    <ComBadrLibelleComp withColor={true}>
+                      {translate('transverse.poidsBrut')}
+                    </ComBadrLibelleComp>
+                  </Col>
+                  <Col>
+                    <ComBadrLibelleComp>
+                      {this.state?.ecorDUM?.refDedServices.poidsBruts}
+                    </ComBadrLibelleComp>
+                  </Col>
+                </Row>
+                <Row style={CustomStyleSheet.lightBlueRow}>
+                  <Col>
+                    <ComBadrLibelleComp withColor={true}>
+                      {translate(
+                          'autoriserAcheminemenMainScreen.declarationDetail.operateurDeclarant',
+                      )}
+                    </ComBadrLibelleComp>
+                  </Col>
+                  <Col>
+                    <ComBadrLibelleComp>
+                      {this.state?.ecorDUM?.refDedServices.operateurDeclarant}
+                    </ComBadrLibelleComp>
+                  </Col>
+                  <Col>
+                    <ComBadrLibelleComp withColor={true}>
+                      {translate('transverse.poidsNet')}
+                    </ComBadrLibelleComp>
+                  </Col>
+                  <Col>
+                    <ComBadrLibelleComp>
+                      {this.state?.ecorDUM?.refDedServices.poidsNet}
+                    </ComBadrLibelleComp>
+                  </Col>
+                </Row>
+                <Row style={CustomStyleSheet.whiteRow}>
+                  <Col size={1}>
+                    <ComBadrLibelleComp withColor={true}>
+                      {translate(
+                          'autoriserAcheminemenMainScreen.declarationDetail.valeurDeclaree',
+                      )}
+                    </ComBadrLibelleComp>
+                  </Col>
+                  <Col size={1}>
+                    <ComBadrLibelleComp>
+                      {this.state?.ecorDUM?.refDedServices.valeurDeclaree}
+                    </ComBadrLibelleComp>
+                  </Col>
+                  <Col>
+                    <ComBadrLibelleComp withColor={true}>
+                      {translate(
+                          'autoriserAcheminemenMainScreen.declarationDetail.nbreContenant',
+                      )}
+                    </ComBadrLibelleComp>
+                  </Col>
+                  <Col>
+                    <ComBadrLibelleComp>
+                      {this.state?.ecorDUM?.refDedServices.nombreContenants}
+                    </ComBadrLibelleComp>
+                  </Col>
+                </Row>
+                {/* </Grid> */}
+              </ComAccordionComp>
+            </ComBadrCardBoxComp>
+            <ComBadrCardBoxComp style={styles.cardBox}>
+              <ComAccordionComp
+                  title={translate(
+                      'autoriserAcheminemenMainScreen.entreeEnceinteDouaniere.title',
+                  )}
+                  expanded={true}>
+                <Grid>
+                  <Row style={CustomStyleSheet.whiteRow}>
+                    <Col>
+                      <ComBadrLibelleComp withColor={true}>
+                        {translate(
+                            'autoriserAcheminemenMainScreen.entreeEnceinteDouaniere.dateHeure',
+                        )}
+                      </ComBadrLibelleComp>
+                    </Col>
+                    <Col>
+                      <ComBadrLibelleComp>
+                        {this.state?.ecorDUM?.dateHeureEntree}
+                      </ComBadrLibelleComp>
+                    </Col>
+                    <Col>
+                      <ComBadrLibelleComp withColor={true}>
+                        {translate(
+                            'autoriserAcheminemenMainScreen.entreeEnceinteDouaniere.agentDouanier',
+                        )}
+                      </ComBadrLibelleComp>
+                    </Col>
+                    <Col>
+                      <ComBadrLibelleComp>
+                        {this.state?.ecorDUM?.refAgentEntree?.nom}{' '}
+                        {this.state?.ecorDUM?.refAgentEntree?.prenom}
+                      </ComBadrLibelleComp>
+                    </Col>
+                  </Row>
+                  <Row style={CustomStyleSheet.lightBlueRow}>
+                    <Col size={2}>
+                      <ComBadrLibelleComp withColor={true}>
+                        {translate(
+                            'autoriserAcheminemenMainScreen.entreeEnceinteDouaniere.refDocument',
+                        )}
+                      </ComBadrLibelleComp>
+                    </Col>
+                    <Col size={2}>
+                      <ComBadrLibelleComp>
+                        {this.state?.ecorDUM?.documentEntreeEnceinte}
+                      </ComBadrLibelleComp>
+                    </Col>
+                    <Col />
+                    <Col />
+                  </Row>
+                </Grid>
+              </ComAccordionComp>
+            </ComBadrCardBoxComp>
+            <ComBadrCardBoxComp>
+              {/* Informations ECOR */}
+              <ComAccordionComp
+                  title={translate(
+                      'autoriserAcheminemenMainScreen.informationsEcor.title',
+                  )}
+                  expanded={true}>
+                <Grid>
+                  <Row style={CustomStyleSheet.whiteRow}>
+                    <Col>
+                      <ComBadrLibelleComp withColor={true}>
+                        {translate(
+                            'autoriserAcheminemenMainScreen.informationsEcor.numeroPince',
+                        )}
+                      </ComBadrLibelleComp>
+                    </Col>
+                    <Col>
+                      <ComBadrLibelleComp>
+                        {this.state?.ecorDUM?.numeroPinceConfirmationEntree}
+                      </ComBadrLibelleComp>
+                    </Col>
+                    <Col>
+                      <ComBadrLibelleComp withColor={true}>
+                        {translate(
+                            'autoriserAcheminemenMainScreen.informationsEcor.nombreScelles',
+                        )}
+                      </ComBadrLibelleComp>
+                    </Col>
+                    <Col>
+                      <ComBadrLibelleComp>
+                        {this.state?.ecorDUM?.nombreScelleConfirmationEntree}
+                      </ComBadrLibelleComp>
+                    </Col>
+                  </Row>
+                  <Row style={CustomStyleSheet.lightBlueRow}>
+                    <Col size={2}>
+                      <ComBadrLibelleComp withColor={true}>
+                        {translate(
+                            'confirmationEntree.informationsEcor.generateurScelle',
+                        )}
+                      </ComBadrLibelleComp>
+                    </Col>
+                    <Col>
+                      <ComBadrNumericTextInputComp
+                          // onRef={(input) => {
+                          //   this.generateurNumScelleDu = input;
+                          // }}
+                          maxLength={8}
+                          // value={this.state.generateurNumScelleDu}
+                          label={translate('transverse.du')}
+                          // onChangeBadrInput={(text) =>
+                          //   this.setState({
+                          //     generateurNumScelleDu: text,
+                          //   })
+                          // }
+                          disabled={true}
+                      />
+                    </Col>
+                    <Col />
+                    <Col>
+                      <ComBadrNumericTextInputComp
+                          // onRef={(input) => {
+                          //   this.generateurNumScelleAu = input;
+                          // }}
+                          maxLength={8}
+                          // value={generateurNumScelleAu}
+                          label={translate('transverse.au')}
+                          // onChangeBadrInput={(text) =>
+                          //   this.setState({
+                          //     generateurNumScelleAu: text,
+                          //   })
+                          // }
+                          disabled={true}
+                      />
+                    </Col>
+                    <Col />
+                    <Col>
+                      <Button
+                          mode="contained"
+                          compact="true"
+                          // onPress={this.genererNumeroScelle}
+                          disabled={true}>
+                        {translate('transverse.Ok')}
+                      </Button>
+                    </Col>
+                    <Col />
+                  </Row>
+                </Grid>
+                <Row>
+                  <Col>
+                    <ComBadrNumericTextInputComp
+                        // onRef={(input) => {
+                        //   this.numeroScelleInput = input;
+                        // }}
+                        maxLength={8}
+                        // value={numeroScelle}
+                        label={translate(
+                            'confirmationEntree.informationsEcor.numeroScelle',
+                        )}
+                        // onChangeBadrInput={(text) => {
+                        //   this.setState({
+                        //     numeroScelle: text,
+                        //   });
+                        // }}
+                        disabled={true}
+                    />
+                  </Col>
+                  <Col>
+                    <Button
+                        onPress={this.addNumeroScelle}
+                        icon="plus-box"
+                        mode="contained"
+                        compact="true"
+                        style={styles.btnActionList}
+                        disabled={true}
+                    />
+                    <Button
+                        onPress={this.deleteNumeroScelle}
+                        icon="minus-box"
+                        mode="contained"
+                        compact="true"
+                        style={styles.btnActionList}
+                        disabled={true}
+                    />
+                  </Col>
+                  <Col style={styles.boxContainer}>
+                    <SafeAreaView style={styles.boxSafeArea}>
+                      {_.isEmpty(this.state?.ecorDUM?.scelles) && (
+                          <Text style={styles.boxItemText}>
+                            {translate(
+                                'confirmationEntree.informationsEcor.aucunElement',
+                            )}
+                          </Text>
+                      )}
+
+                      {!_.isEmpty(this.state?.ecorDUM?.scelles) && (
+                          <FlatList
+                              data={this.state?.ecorDUM?.scelles}
+                              renderItem={(item) => this.renderBoxItem(item)}
+                              keyExtractor={(item) => item}
+                              nestedScrollEnabled={true}
+                              // disabled={true}
+                          />
+                      )}
+                    </SafeAreaView>
+                  </Col>
+                  <Col style={styles.boxContainer}>
+                    {_.isEmpty(this.state?.ecorDUM?.scelles) && (
+                        <Text style={styles.boxItemText}>
+                          {translate(
+                              'autoriserAcheminemenMainScreen.informationsEcor.aucunElement',
+                          )}
+                        </Text>
                     )}
 
                     {!_.isEmpty(this.state?.ecorDUM?.scelles) && (
-                      <FlatList
-                        data={this.state?.ecorDUM?.scelles}
-                        renderItem={(item) => this.renderBoxItem(item)}
-                        keyExtractor={(item) => item}
-                        nestedScrollEnabled={true}
-                        // disabled={true}
-                      />
-                    )}
-                  </SafeAreaView>
-                </Col>
-                <Col style={styles.boxContainer}>
-                  {_.isEmpty(this.state?.ecorDUM?.scelles) && (
-                    <Text style={styles.boxItemText}>
-                      {translate(
-                        'autoriserAcheminemenMainScreen.informationsEcor.aucunElement',
-                      )}
-                    </Text>
-                  )}
-
-                  {!_.isEmpty(this.state?.ecorDUM?.scelles) && (
-                    <SafeAreaView style={styles.boxSafeArea}>
-                      <FlatList
-                        data={this.getFormattedScelles(
-                          this.state?.ecorDUM?.scelles,
-                        )}
-                        renderItem={(item) => this.renderBoxItem(item)}
-                        keyExtractor={(item) => item}
-                        nestedScrollEnabled={true}
-                        disabled={true}
-                      />
-                    </SafeAreaView>
-                  )}
-                </Col>
-              </Row>
-              <Grid>
-                <Row style={CustomStyleSheet.lightBlueRow}>
-                  <Col size={40} style={styles.labelContainer}>
-                    <ComBadrLibelleComp withColor={true}>
-                      {translate(
-                        'autoriserAcheminemenMainScreen.informationsEcor.transporteurExploitantMEAD',
-                      )}
-                    </ComBadrLibelleComp>
-                  </Col>
-                  <Col size={70}>
-                    <TextInput
-                      value={
-                        this.props?.resOperateur?.transporteurExploitantMEAD
-                          ?.libelle
-                      }
-                      disabled={true}
-                    />
-                  </Col>
-                </Row>
-              </Grid>
-            </ComAccordionComp>
-          </ComBadrCardBoxComp>
-
-          {/*Accordion Mainlevée*/}
-          <ComBadrCardBoxComp>
-            <ComAccordionComp
-              title={translate('ecorimport.mainlevee.title')}
-              expanded={true}>
-              <Grid>
-                <Row style={CustomStyleSheet.whiteRow}>
-                  <Col>
-                    <ComBadrLibelleComp withColor={true}>
-                      {translate(
-                        'ecorimport.mainlevee.dateValidationMainlevee',
-                      )}
-                    </ComBadrLibelleComp>
-                  </Col>
-                  <Col>
-                    <ComBadrLibelleComp>
-                      {this.state?.ecorDUM?.refMainlevee?.dateValidation}
-                    </ComBadrLibelleComp>
-                  </Col>
-                  <Col>
-                    <ComBadrLibelleComp withColor={true}>
-                      {translate(
-                        'ecorimport.mainlevee.agentValidationMainlevee',
-                      )}
-                    </ComBadrLibelleComp>
-                  </Col>
-                  <Col>
-                    <ComBadrLibelleComp>
-                      {
-                        this.state?.ecorDUM?.refMainlevee?.refAgentValidation
-                          ?.nom
-                      }{' '}
-                      {
-                        this.state?.ecorDUM?.refMainlevee?.refAgentValidation
-                          ?.prenom
-                      }
-                    </ComBadrLibelleComp>
-                  </Col>
-                </Row>
-                <Row style={CustomStyleSheet.lightBlueRow}>
-                  <Col>
-                    <ComBadrLibelleComp withColor={true}>
-                      {translate(
-                        'ecorimport.mainlevee.dateDelivranceMainlevee',
-                      )}
-                    </ComBadrLibelleComp>
-                  </Col>
-                  <Col>
-                    <ComBadrLibelleComp>
-                      {this.state?.ecorDUM?.refMainlevee.dateImpression}
-                    </ComBadrLibelleComp>
-                  </Col>
-                  <Col>
-                    <ComBadrLibelleComp withColor={true}>
-                      {translate(
-                        'ecorimport.mainlevee.agentDelivranceMainlevee',
-                      )}
-                    </ComBadrLibelleComp>
-                  </Col>
-                  <Col>
-                    <ComBadrLibelleComp>
-                      {this.state?.ecorDUM?.refMainlevee.refAgentEdition.nom}{' '}
-                      {this.state?.ecorDUM?.refMainlevee.refAgentEdition.prenom}
-                    </ComBadrLibelleComp>
-                  </Col>
-                </Row>
-                <Row style={CustomStyleSheet.whiteRow}>
-                  <Col>
-                    <ComBadrLibelleComp withColor={true}>
-                      {translate('vuEmbarquee.conteneursCibles')}
-                    </ComBadrLibelleComp>
-                  </Col>
-                  <Col>
-                    {_.isEmpty(
-                      this.state?.ecorDUM?.refMainlevee?.conteneursCibles,
-                    ) && (
-                      <Text>
-                        {translate(
-                          'autoriserAcheminemenMainScreen.informationsEcor.aucunElement',
-                        )}
-                      </Text>
-                    )}
-
-                    {!_.isEmpty(
-                      this.state?.ecorDUM?.refMainlevee?.conteneursCibles,
-                    ) && (
-                      <SafeAreaView style={styles.boxSafeArea}>
-                        <FlatList
-                          data={
-                            this.state?.ecorDUM?.refMainlevee?.conteneursCibles
-                          }
-                          renderItem={(item) => this.renderBoxItem(item)}
-                          keyExtractor={(item) => item}
-                          nestedScrollEnabled={true}
-                          disabled={true}
-                        />
-                      </SafeAreaView>
-                    )}
-                  </Col>
-                  <Col />
-                  <Col />
-                </Row>
-                <Row style={CustomStyleSheet.lightBlueRow}>
-                  <Col>
-                    <ComBadrLibelleComp withColor={true}>
-                      {translate(
-                        'autoriserAcheminemenMainScreen.mainlevee.scellesMainLevee',
-                      )}
-                    </ComBadrLibelleComp>
-                  </Col>
-                  <Col>
-                    {_.isEmpty(
-                      this.state?.ecorDUM?.refMainlevee?.listScelle,
-                    ) && (
-                      <Text>
-                        {translate(
-                          'autoriserAcheminemenMainScreen.informationsEcor.aucunElement',
-                        )}
-                      </Text>
-                    )}
-                    {!_.isEmpty(
-                      this.state?.ecorDUM?.refMainlevee?.listScelle,
-                    ) && (
-                      <SafeAreaView>
-                        <FlatList
-                          data={this.getFormattedScelles(
-                            this.state?.ecorDUM?.refMainlevee?.listScelle,
-                          )}
-                          renderItem={(item) => this.renderBoxItem(item)}
-                          keyExtractor={(item) => item}
-                          nestedScrollEnabled={true}
-                          disabled={true}
-                        />
-                      </SafeAreaView>
-                    )}
-                  </Col>
-                  <Col />
-                  <Col />
-                </Row>
-              </Grid>
-            </ComAccordionComp>
-          </ComBadrCardBoxComp>
-
-          {/* Accordion Autorisation acheminement */}
-          {!_.isEmpty(this.state?.ecorDUM?.dateHeureAcheminement) && (
-            <ComBadrCardBoxComp style={styles.cardBox}>
-              <ComAccordionComp
-                expanded={true}
-                title={translate(
-                  'autoriserAcheminemenMainScreen.autorisationAcheminement.title',
-                )}>
-                <Grid>
-                  <Row style={CustomStyleSheet.whiteRow}>
-                    <Col>
-                      <ComBadrLibelleComp withColor={true}>
-                        {translate(
-                          'autoriserAcheminemenMainScreen.entreeEnceinteDouaniere.dateHeure',
-                        )}
-                      </ComBadrLibelleComp>
-                    </Col>
-                    <Col>
-                      <ComBadrLibelleComp>
-                        {this.state?.ecorDUM?.dateHeureAcheminement}
-                      </ComBadrLibelleComp>
-                    </Col>
-                    <Col>
-                      <ComBadrLibelleComp withColor={true}>
-                        {translate(
-                          'autoriserAcheminemenMainScreen.entreeEnceinteDouaniere.agentDouanier',
-                        )}
-                      </ComBadrLibelleComp>
-                    </Col>
-                    <Col>
-                      <ComBadrLibelleComp>
-                        {
-                          this.state?.ecorDUM?.refAgentAutorisationAcheminement
-                            ?.nom
-                        }{' '}
-                        {
-                          this.state?.ecorDUM?.refAgentAutorisationAcheminement
-                            ?.prenom
-                        }
-                      </ComBadrLibelleComp>
-                    </Col>
-                  </Row>
-                  <Row style={CustomStyleSheet.lightBlueRow}>
-                    <Col>
-                      <ComBadrLibelleComp withColor={true}>
-                        {translate(
-                          'autoriserAcheminemenMainScreen.informationsEcor.nouveauxScelles',
-                        )}
-                      </ComBadrLibelleComp>
-                    </Col>
-                    <Col>
-                      <View style={styles.flexRow}>
-                        <RadioButton.Group
-                          value={this.state?.ecorDUM?.infoEcorScelle + ''}>
-                          <View style={styles.flexRowRadioButton}>
-                            <Text>{translate('confirmationArrivee.oui')}</Text>
-                            <RadioButton
-                              value="true"
-                              color={primaryColor}
-                              disabled={true}
-                            />
-                          </View>
-                          <View style={styles.flexRowRadioButton}>
-                            <Text>{translate('confirmationArrivee.non')}</Text>
-                            <RadioButton
-                              value="false"
-                              color={primaryColor}
-                              disabled={true}
-                            />
-                          </View>
-                        </RadioButton.Group>
-                      </View>
-                    </Col>
-                    <Col />
-                    <Col />
-                  </Row>
-                </Grid>
-              </ComAccordionComp>
-            </ComBadrCardBoxComp>
-          )}
-          {/* Accordion Confirmation Arrivée */}
-          {!_.isEmpty(this.state?.ecorDUM?.dateHeureArrive) && (
-            <ComBadrCardBoxComp style={styles.cardBox}>
-              <ComAccordionComp
-                expanded={true}
-                title={translate(
-                  'autoriserAcheminemenMainScreen.confirmationArrivee.title',
-                )}>
-                <Grid>
-                  <Row style={CustomStyleSheet.whiteRow}>
-                    <Col>
-                      <ComBadrLibelleComp withColor={true}>
-                        {translate(
-                          'autoriserAcheminemenMainScreen.entreeEnceinteDouaniere.dateHeure',
-                        )}
-                      </ComBadrLibelleComp>
-                    </Col>
-                    <Col>
-                      <ComBadrLibelleComp>
-                        {this.state?.ecorDUM?.dateHeureArrive}
-                      </ComBadrLibelleComp>
-                    </Col>
-                    <Col>
-                      <ComBadrLibelleComp withColor={true}>
-                        {translate(
-                          'autoriserAcheminemenMainScreen.entreeEnceinteDouaniere.agentDouanier',
-                        )}
-                      </ComBadrLibelleComp>
-                    </Col>
-                    <Col>
-                      <ComBadrLibelleComp>
-                        {this.state?.ecorDUM?.refAgentConfirmationArrive?.nom}{' '}
-                        {
-                          this.state?.ecorDUM?.refAgentConfirmationArrive
-                            ?.prenom
-                        }
-                      </ComBadrLibelleComp>
-                    </Col>
-                  </Row>
-                  <Row style={CustomStyleSheet.lightBlueRow}>
-                    <Col>
-                      <ComBadrLibelleComp withColor={true}>
-                        {translate('confirmationArrivee.avecReserves')}
-                      </ComBadrLibelleComp>
-                    </Col>
-                    <Col>
-                      <View style={styles.flexRow}>
-                        <RadioButton.Group
-                          value={this.state?.ecorDUM?.sousReserve + ''}>
-                          <View style={styles.flexRowRadioButton}>
-                            <Text>{translate('confirmationArrivee.oui')}</Text>
-                            <RadioButton
-                              value="true"
-                              color={primaryColor}
-                              disabled={true}
-                            />
-                          </View>
-                          <View style={styles.flexRowRadioButton}>
-                            <Text>{translate('confirmationArrivee.non')}</Text>
-                            <RadioButton
-                              value="false"
-                              color={primaryColor}
-                              disabled={true}
-                            />
-                          </View>
-                        </RadioButton.Group>
-                      </View>
-                    </Col>
-                    <Col />
-                    <Col />
-                  </Row>
-                </Grid>
-              </ComAccordionComp>
-            </ComBadrCardBoxComp>
-          )}
-
-          {/* Accordion Contrôle Après Scanner */}
-          {!_.isEmpty(this.state?.ecorDUM?.dateHeureAcheminement) && (
-            <ComBadrCardBoxComp style={styles.cardBox}>
-              <ComAccordionComp
-                expanded={true}
-                title={translate(
-                  'confirmationArrivee.controleApresScanner.title',
-                )}>
-                <Grid>
-                  <Row style={CustomStyleSheet.whiteRow}>
-                    <Col>
-                      <ComBadrLibelleComp withColor={true}>
-                        {translate(
-                          'autoriserAcheminemenMainScreen.entreeEnceinteDouaniere.dateHeure',
-                        )}
-                      </ComBadrLibelleComp>
-                    </Col>
-                    <Col>
-                      <ComBadrLibelleComp>
-                        {this.state?.ecorDUM?.dateHeureCtrlApresScanner}
-                      </ComBadrLibelleComp>
-                    </Col>
-                    <Col>
-                      <ComBadrLibelleComp withColor={true}>
-                        {translate(
-                          'autoriserAcheminemenMainScreen.entreeEnceinteDouaniere.agentDouanier',
-                        )}
-                      </ComBadrLibelleComp>
-                    </Col>
-                    <Col>
-                      <ComBadrLibelleComp>
-                        {this.state?.ecorDUM?.refAgentCrtlApresScanner?.nom}{' '}
-                        {this.state?.ecorDUM?.refAgentCrtlApresScanner?.prenom}
-                      </ComBadrLibelleComp>
-                    </Col>
-                  </Row>
-                  <Row style={CustomStyleSheet.lightBlueRow}>
-                    <Col>
-                      <ComBadrLibelleComp withColor={true}>
-                        {translate(
-                          'autoriserAcheminemenMainScreen.informationsEcor.nouveauxScelles',
-                        )}
-                      </ComBadrLibelleComp>
-                    </Col>
-                    <Col>
-                      <View style={styles.flexRow}>
-                        <RadioButton.Group
-                          value={
-                            this.state?.ecorDUM
-                              ?.infoEcorScelleCrtlApresScanner + ''
-                          }>
-                          <View style={styles.flexRowRadioButton}>
-                            <Text>{translate('confirmationArrivee.oui')}</Text>
-                            <RadioButton
-                              value="true"
-                              color={primaryColor}
-                              disabled={true}
-                            />
-                          </View>
-                          <View style={styles.flexRowRadioButton}>
-                            <Text>{translate('confirmationArrivee.non')}</Text>
-                            <RadioButton
-                              value="false"
-                              color={primaryColor}
-                              disabled={true}
-                            />
-                          </View>
-                        </RadioButton.Group>
-                      </View>
-                    </Col>
-                    <Col />
-                    <Col />
-                  </Row>
-                  <Row style={CustomStyleSheet.whiteRow}>
-                    <Col>
-                      <ComBadrLibelleComp withColor={true}>
-                        {translate(
-                          'autoriserAcheminemenMainScreen.informationsEcor.numeroPince',
-                        )}
-                      </ComBadrLibelleComp>
-                    </Col>
-                    <Col>
-                      <ComBadrLibelleComp>
-                        {this.state?.ecorDUM?.numeroPinceCrtlApresScanner}
-                      </ComBadrLibelleComp>
-                    </Col>
-                    <Col>
-                      <ComBadrLibelleComp withColor={true}>
-                        {translate(
-                          'autoriserAcheminemenMainScreen.informationsEcor.nombreScelles',
-                        )}
-                      </ComBadrLibelleComp>
-                    </Col>
-                    <Col>
-                      <ComBadrLibelleComp>
-                        {this.state?.ecorDUM?.nombreScelleCrtlApresScanner}
-                      </ComBadrLibelleComp>
-                    </Col>
-                  </Row>
-                  <Row style={CustomStyleSheet.lightBlueRow}>
-                    <Col>
-                      <ComBadrLibelleComp withColor={true}>
-                        {translate('vuEmbarquee.numerosScelles')}
-                      </ComBadrLibelleComp>
-                    </Col>
-                    <Col style={styles.boxContainer}>
-                      <SafeAreaView style={styles.boxSafeArea}>
-                        {_.isEmpty(
-                          this.state?.ecorDUM?.scellesCrtlApresScanner,
-                        ) && (
-                          <Text style={styles.boxItemText}>
-                            {translate(
-                              'confirmationEntree.informationsEcor.aucunElement',
-                            )}
-                          </Text>
-                        )}
-
-                        {!_.isEmpty(
-                          this.state?.ecorDUM?.scellesCrtlApresScanner,
-                        ) && (
+                        <SafeAreaView style={styles.boxSafeArea}>
                           <FlatList
-                            data={this.getFormattedScelles(
-                              this.state?.ecorDUM?.scellesCrtlApresScanner,
-                            )}
-                            renderItem={(item) => this.renderBoxItem(item)}
-                            keyExtractor={(item) => item}
-                            nestedScrollEnabled={true}
-                            // disabled={true}
+                              data={this.getFormattedScelles(
+                                  this.state?.ecorDUM?.scelles,
+                              )}
+                              renderItem={(item) => this.renderBoxItem(item)}
+                              keyExtractor={(item) => item}
+                              nestedScrollEnabled={true}
+                              disabled={true}
                           />
-                        )}
-                      </SafeAreaView>
-                    </Col>
-                    <Col />
-                    <Col />
-                  </Row>
+                        </SafeAreaView>
+                    )}
+                  </Col>
+                </Row>
+                <Grid>
                   <Row style={CustomStyleSheet.lightBlueRow}>
                     <Col size={40} style={styles.labelContainer}>
                       <ComBadrLibelleComp withColor={true}>
                         {translate(
-                          'autoriserAcheminemenMainScreen.informationsEcor.transporteurExploitantMEAD',
+                            'autoriserAcheminemenMainScreen.informationsEcor.transporteurExploitantMEAD',
                         )}
                       </ComBadrLibelleComp>
                     </Col>
                     <Col size={70}>
                       <TextInput
-                        value={
-                          this.props?.resOperateur
-                            ?.transporteurExploitantMEADCtrlApresScanner
-                            ?.libelle
-                        }
-                        disabled={true}
+                          value={
+                            this.props?.resOperateur?.transporteurExploitantMEAD
+                                ?.libelle
+                          }
+                          disabled={true}
                       />
                     </Col>
                   </Row>
                 </Grid>
               </ComAccordionComp>
             </ComBadrCardBoxComp>
-          )}
 
-          {/* Accordion vuEmbarquee */}
-          <ComBadrCardBoxComp>
-            <ComAccordionComp
-              expanded={true}
-              title={translate('vuEmbarquee.subTitleAction')}>
-              <Row style={CustomStyleSheet.lightBlueRow}>
-                <Col>
-                  <ComBadrLibelleComp withColor={true}>
-                    {translate('vuEmbarquee.dateHeure')}
-                  </ComBadrLibelleComp>
-                </Col>
-                <Col size={2}>
-                  <ComBadrDatePickerComp
-                    dateFormat="DD/MM/YYYY"
-                    readonly={
-                      this.props?.vuEmbInit?.successAction ||
-                      this.state.modeConsultation
-                    }
-                    value={
-                      !_.isEmpty(this.state.dateVuEmbarquer)
-                        ? moment(this.state.dateVuEmbarquer, 'DD/MM/yyyy', true)
-                        : null
-                    }
-                    timeValue={
-                      !_.isEmpty(this.state.heureVuEmbarquer)
-                        ? moment(this.state.heureVuEmbarquer, 'HH:mm', true)
-                        : null
-                    }
-                    labelDate={translate('vuEmbarquee.dateHeure')}
-                    // inputStyle={styles.textInputsStyle}
-                    onDateChanged={(date) =>
-                      this.setState({
-                        ...this.state,
-                        dateVuEmbarquer: date,
-                      })
-                    }
-                    onTimeChanged={(time) =>
-                      this.setState({
-                        ...this.state,
-                        heureVuEmbarquer: time,
-                      })
-                    }
-                  />
-                </Col>
-                <Col>
-                  <ComBadrLibelleComp withColor={true}>
-                    {translate(
-                      'autoriserAcheminemenMainScreen.autorisationAcheminement.agentDouanier',
-                    )}
-                  </ComBadrLibelleComp>
-                </Col>
-                <Col>
-                  <ComBadrLibelleComp>
-                    {this.state?.ecorDUM?.refAgentEmbarquement?.nom}{' '}
-                    {this.state?.ecorDUM?.refAgentEmbarquement?.prenom}
-                  </ComBadrLibelleComp>
-                </Col>
-              </Row>
-              <Row style={CustomStyleSheet.whiteRow}>
-                <Col size={50}>
-                  <ComBadrLibelleComp withColor={true}>
-                    {translate('etatChargementVE.navire')}
-                  </ComBadrLibelleComp>
-                </Col>
-                <Col size={150}>
-                  <ComBadrAutoCompleteChipsComp
-                    code="code"
-                    disabled={
-                      this.props?.vuEmbInit?.successAction ||
-                      this.state.modeConsultation
-                    }
-                    placeholder={translate('etatChargement.navire')}
-                    selected={this.state.navire}
-                    maxItems={3}
-                    libelle="libelle"
-                    command="getCmbMoyenTransport"
-                    paramName="libelleMoyenTransport"
-                    onDemand={true}
-                    searchZoneFirst={false}
-                    onValueChange={this.handleCmbMoyenTransport}
-                  />
-                </Col>
-              </Row>
-              <Row style={CustomStyleSheet.lightBlueRow}>
-                <Col>
-                  <ComBadrLibelleComp withColor={true}>
-                    {translate('etatChargementVE.dateHeureVoyage')}
-                  </ComBadrLibelleComp>
-                </Col>
-                <Col size={2}>
-                  <ComBadrDatePickerComp
-                    dateFormat="DD/MM/YYYY"
-                    readonly={
-                      this.props?.vuEmbInit?.successAction ||
-                      this.state.modeConsultation
-                    }
-                    value={
-                      !_.isEmpty(this.state.dateVoyage)
-                        ? moment(this.state.dateVoyage, 'DD/MM/yyyy', true)
-                        : null
-                    }
-                    timeValue={
-                      !_.isEmpty(this.state.heureVoyage)
-                        ? moment(this.state.heureVoyage, 'HH:mm', true)
-                        : null
-                    }
-                    labelDate={translate('etatChargementVE.dateHeureVoyage')}
-                    // inputStyle={styles.textInputsStyle}
-                    onDateChanged={(date) =>
-                      this.setState({
-                        ...this.state,
-                        dateVoyage: date,
-                      })
-                    }
-                    onTimeChanged={(time) =>
-                      this.setState({
-                        ...this.state,
-                        heureVoyage: time,
-                      })
-                    }
-                  />
-                </Col>
-                <Col>
-                  <ComBadrLibelleComp withColor={true}>
-                    {translate('vuEmbarquee.numeroVoyage')}
-                  </ComBadrLibelleComp>
-                </Col>
-                <Col>
-                  <TextInput
-                    disabled={
-                      this.props?.vuEmbInit?.successAction ||
-                      this.state.modeConsultation
-                    }
-                    value={this.state.numeroVoyage}
-                    onChangeText={(val) => this.setState({numeroVoyage: val})}
-                  />
-                </Col>
-              </Row>
-              <Row size={200} style={CustomStyleSheet.whiteRow}>
-                <Col size={40}>
-                  <ComBadrLibelleComp withColor={true}>
-                    {translate('etatChargementVE.commentaire')}
-                  </ComBadrLibelleComp>
-                </Col>
-
-                <Col size={160}>
-                  {/* <ComBadrCardBoxComp style={[styles.cardBoxInfoDum, styles.container, styles.width90]}> */}
-                  <TextInput
-                    disabled={
-                      this.props?.vuEmbInit?.successAction ||
-                      this.state.modeConsultation
-                    }
-                    value={this.state.commentaire}
-                    multiline={true}
-                    numberOfLines={5}
-                    onChangeText={(val) => this.setState({commentaire: val})}
-                  />
-                </Col>
-              </Row>
-            </ComAccordionComp>
-          </ComBadrCardBoxComp>
-          {this.props?.resScan?.dataScanner && (
+            {/*Accordion Mainlevée*/}
             <ComBadrCardBoxComp>
               <ComAccordionComp
-                badr
-                expanded={true}
-                title={translate('etatChargement.resultatScanner')}>
-                <ComBasicDataTableComp
-                  ref="_badrTable"
-                  id="scannerTable"
-                  rows={this.props?.resScan?.dataScanner}
-                  cols={this.cols}
-                  totalElements={this.props?.resScan?.dataScanner?.length}
-                  maxResultsPerPage={10}
-                  paginate={true}
-                  showProgress={this.props.showProgress}
-                  withId={false}
-                />
+                  title={translate('ecorimport.mainlevee.title')}
+                  expanded={true}>
+                <Grid>
+                  <Row style={CustomStyleSheet.whiteRow}>
+                    <Col>
+                      <ComBadrLibelleComp withColor={true}>
+                        {translate(
+                            'ecorimport.mainlevee.dateValidationMainlevee',
+                        )}
+                      </ComBadrLibelleComp>
+                    </Col>
+                    <Col>
+                      <ComBadrLibelleComp>
+                        {this.state?.ecorDUM?.refMainlevee?.dateValidation}
+                      </ComBadrLibelleComp>
+                    </Col>
+                    <Col>
+                      <ComBadrLibelleComp withColor={true}>
+                        {translate(
+                            'ecorimport.mainlevee.agentValidationMainlevee',
+                        )}
+                      </ComBadrLibelleComp>
+                    </Col>
+                    <Col>
+                      <ComBadrLibelleComp>
+                        {
+                          this.state?.ecorDUM?.refMainlevee?.refAgentValidation
+                              ?.nom
+                        }{' '}
+                        {
+                          this.state?.ecorDUM?.refMainlevee?.refAgentValidation
+                              ?.prenom
+                        }
+                      </ComBadrLibelleComp>
+                    </Col>
+                  </Row>
+                  <Row style={CustomStyleSheet.lightBlueRow}>
+                    <Col>
+                      <ComBadrLibelleComp withColor={true}>
+                        {translate(
+                            'ecorimport.mainlevee.dateDelivranceMainlevee',
+                        )}
+                      </ComBadrLibelleComp>
+                    </Col>
+                    <Col>
+                      <ComBadrLibelleComp>
+                        {this.state?.ecorDUM?.refMainlevee.dateImpression}
+                      </ComBadrLibelleComp>
+                    </Col>
+                    <Col>
+                      <ComBadrLibelleComp withColor={true}>
+                        {translate(
+                            'ecorimport.mainlevee.agentDelivranceMainlevee',
+                        )}
+                      </ComBadrLibelleComp>
+                    </Col>
+                    <Col>
+                      <ComBadrLibelleComp>
+                        {this.state?.ecorDUM?.refMainlevee.refAgentEdition.nom}{' '}
+                        {this.state?.ecorDUM?.refMainlevee.refAgentEdition.prenom}
+                      </ComBadrLibelleComp>
+                    </Col>
+                  </Row>
+                  <Row style={CustomStyleSheet.whiteRow}>
+                    <Col>
+                      <ComBadrLibelleComp withColor={true}>
+                        {translate('vuEmbarquee.conteneursCibles')}
+                      </ComBadrLibelleComp>
+                    </Col>
+                    <Col>
+                      {_.isEmpty(
+                          this.state?.ecorDUM?.refMainlevee?.conteneursCibles,
+                      ) && (
+                          <Text>
+                            {translate(
+                                'autoriserAcheminemenMainScreen.informationsEcor.aucunElement',
+                            )}
+                          </Text>
+                      )}
+
+                      {!_.isEmpty(
+                          this.state?.ecorDUM?.refMainlevee?.conteneursCibles,
+                      ) && (
+                          <SafeAreaView style={styles.boxSafeArea}>
+                            <FlatList
+                                data={
+                                  this.state?.ecorDUM?.refMainlevee?.conteneursCibles
+                                }
+                                renderItem={(item) => this.renderBoxItem(item)}
+                                keyExtractor={(item) => item}
+                                nestedScrollEnabled={true}
+                                disabled={true}
+                            />
+                          </SafeAreaView>
+                      )}
+                    </Col>
+                    <Col />
+                    <Col />
+                  </Row>
+                  <Row style={CustomStyleSheet.lightBlueRow}>
+                    <Col>
+                      <ComBadrLibelleComp withColor={true}>
+                        {translate(
+                            'autoriserAcheminemenMainScreen.mainlevee.scellesMainLevee',
+                        )}
+                      </ComBadrLibelleComp>
+                    </Col>
+                    <Col>
+                      {_.isEmpty(
+                          this.state?.ecorDUM?.refMainlevee?.listScelle,
+                      ) && (
+                          <Text>
+                            {translate(
+                                'autoriserAcheminemenMainScreen.informationsEcor.aucunElement',
+                            )}
+                          </Text>
+                      )}
+                      {!_.isEmpty(
+                          this.state?.ecorDUM?.refMainlevee?.listScelle,
+                      ) && (
+                          <SafeAreaView>
+                            <FlatList
+                                data={this.getFormattedScelles(
+                                    this.state?.ecorDUM?.refMainlevee?.listScelle,
+                                )}
+                                renderItem={(item) => this.renderBoxItem(item)}
+                                keyExtractor={(item) => item}
+                                nestedScrollEnabled={true}
+                                disabled={true}
+                            />
+                          </SafeAreaView>
+                      )}
+                    </Col>
+                    <Col />
+                    <Col />
+                  </Row>
+                </Grid>
               </ComAccordionComp>
             </ComBadrCardBoxComp>
-          )}
-          <ComBadrCardBoxComp>
-            <Row style={CustomStyleSheet.lightBlueRow}>
-              <Col>
-                {!this.props?.vuEmbInit?.successAction &&
-                  !this.state.modeConsultation && (
-                    <ComBadrButtonIconComp
-                      onPress={() => this.confirmerVuEmbarquer()}
-                      style={styles.buttonIcon}
-                      loading={this.props.showProgress}
-                      text={translate(
-                        'etatChargementVE.buttonConfirmerVuEmbarquer',
+
+            {/* Accordion Autorisation acheminement */}
+            {!_.isEmpty(this.state?.ecorDUM?.dateHeureAcheminement) && (
+                <ComBadrCardBoxComp style={styles.cardBox}>
+                  <ComAccordionComp
+                      expanded={true}
+                      title={translate(
+                          'autoriserAcheminemenMainScreen.autorisationAcheminement.title',
+                      )}>
+                    <Grid>
+                      <Row style={CustomStyleSheet.whiteRow}>
+                        <Col>
+                          <ComBadrLibelleComp withColor={true}>
+                            {translate(
+                                'autoriserAcheminemenMainScreen.entreeEnceinteDouaniere.dateHeure',
+                            )}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col>
+                          <ComBadrLibelleComp>
+                            {this.state?.ecorDUM?.dateHeureAcheminement}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col>
+                          <ComBadrLibelleComp withColor={true}>
+                            {translate(
+                                'autoriserAcheminemenMainScreen.entreeEnceinteDouaniere.agentDouanier',
+                            )}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col>
+                          <ComBadrLibelleComp>
+                            {
+                              this.state?.ecorDUM?.refAgentAutorisationAcheminement
+                                  ?.nom
+                            }{' '}
+                            {
+                              this.state?.ecorDUM?.refAgentAutorisationAcheminement
+                                  ?.prenom
+                            }
+                          </ComBadrLibelleComp>
+                        </Col>
+                      </Row>
+                      <Row style={CustomStyleSheet.lightBlueRow}>
+                        <Col>
+                          <ComBadrLibelleComp withColor={true}>
+                            {translate(
+                                'autoriserAcheminemenMainScreen.informationsEcor.nouveauxScelles',
+                            )}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col>
+                          <View style={styles.flexRow}>
+                            <RadioButton.Group
+                                value={this.state?.ecorDUM?.infoEcorScelle + ''}>
+                              <View style={styles.flexRowRadioButton}>
+                                <Text>{translate('confirmationArrivee.oui')}</Text>
+                                <RadioButton
+                                    value="true"
+                                    color={primaryColor}
+                                    disabled={true}
+                                />
+                              </View>
+                              <View style={styles.flexRowRadioButton}>
+                                <Text>{translate('confirmationArrivee.non')}</Text>
+                                <RadioButton
+                                    value="false"
+                                    color={primaryColor}
+                                    disabled={true}
+                                />
+                              </View>
+                            </RadioButton.Group>
+                          </View>
+                        </Col>
+                        <Col />
+                        <Col />
+                      </Row>
+                    </Grid>
+                  </ComAccordionComp>
+                </ComBadrCardBoxComp>
+            )}
+            {/* Accordion Confirmation Arrivée */}
+            {!_.isEmpty(this.state?.ecorDUM?.dateHeureArrive) && (
+                <ComBadrCardBoxComp style={styles.cardBox}>
+                  <ComAccordionComp
+                      expanded={true}
+                      title={translate(
+                          'autoriserAcheminemenMainScreen.confirmationArrivee.title',
+                      )}>
+                    <Grid>
+                      <Row style={CustomStyleSheet.whiteRow}>
+                        <Col>
+                          <ComBadrLibelleComp withColor={true}>
+                            {translate(
+                                'autoriserAcheminemenMainScreen.entreeEnceinteDouaniere.dateHeure',
+                            )}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col>
+                          <ComBadrLibelleComp>
+                            {this.state?.ecorDUM?.dateHeureArrive}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col>
+                          <ComBadrLibelleComp withColor={true}>
+                            {translate(
+                                'autoriserAcheminemenMainScreen.entreeEnceinteDouaniere.agentDouanier',
+                            )}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col>
+                          <ComBadrLibelleComp>
+                            {this.state?.ecorDUM?.refAgentConfirmationArrive?.nom}{' '}
+                            {
+                              this.state?.ecorDUM?.refAgentConfirmationArrive
+                                  ?.prenom
+                            }
+                          </ComBadrLibelleComp>
+                        </Col>
+                      </Row>
+                      <Row style={CustomStyleSheet.lightBlueRow}>
+                        <Col>
+                          <ComBadrLibelleComp withColor={true}>
+                            {translate('confirmationArrivee.avecReserves')}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col>
+                          <View style={styles.flexRow}>
+                            <RadioButton.Group
+                                value={this.state?.ecorDUM?.sousReserve + ''}>
+                              <View style={styles.flexRowRadioButton}>
+                                <Text>{translate('confirmationArrivee.oui')}</Text>
+                                <RadioButton
+                                    value="true"
+                                    color={primaryColor}
+                                    disabled={true}
+                                />
+                              </View>
+                              <View style={styles.flexRowRadioButton}>
+                                <Text>{translate('confirmationArrivee.non')}</Text>
+                                <RadioButton
+                                    value="false"
+                                    color={primaryColor}
+                                    disabled={true}
+                                />
+                              </View>
+                            </RadioButton.Group>
+                          </View>
+                        </Col>
+                        <Col />
+                        <Col />
+                      </Row>
+                    </Grid>
+                  </ComAccordionComp>
+                </ComBadrCardBoxComp>
+            )}
+
+            {/* Accordion Contrôle Après Scanner */}
+            {!_.isEmpty(this.state?.ecorDUM?.dateHeureAcheminement) && (
+                <ComBadrCardBoxComp style={styles.cardBox}>
+                  <ComAccordionComp
+                      expanded={true}
+                      title={translate(
+                          'confirmationArrivee.controleApresScanner.title',
+                      )}>
+                    <Grid>
+                      <Row style={CustomStyleSheet.whiteRow}>
+                        <Col>
+                          <ComBadrLibelleComp withColor={true}>
+                            {translate(
+                                'autoriserAcheminemenMainScreen.entreeEnceinteDouaniere.dateHeure',
+                            )}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col>
+                          <ComBadrLibelleComp>
+                            {this.state?.ecorDUM?.dateHeureCtrlApresScanner}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col>
+                          <ComBadrLibelleComp withColor={true}>
+                            {translate(
+                                'autoriserAcheminemenMainScreen.entreeEnceinteDouaniere.agentDouanier',
+                            )}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col>
+                          <ComBadrLibelleComp>
+                            {this.state?.ecorDUM?.refAgentCrtlApresScanner?.nom}{' '}
+                            {this.state?.ecorDUM?.refAgentCrtlApresScanner?.prenom}
+                          </ComBadrLibelleComp>
+                        </Col>
+                      </Row>
+                      <Row style={CustomStyleSheet.lightBlueRow}>
+                        <Col>
+                          <ComBadrLibelleComp withColor={true}>
+                            {translate(
+                                'autoriserAcheminemenMainScreen.informationsEcor.nouveauxScelles',
+                            )}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col>
+                          <View style={styles.flexRow}>
+                            <RadioButton.Group
+                                value={
+                                    this.state?.ecorDUM
+                                        ?.infoEcorScelleCrtlApresScanner + ''
+                                }>
+                              <View style={styles.flexRowRadioButton}>
+                                <Text>{translate('confirmationArrivee.oui')}</Text>
+                                <RadioButton
+                                    value="true"
+                                    color={primaryColor}
+                                    disabled={true}
+                                />
+                              </View>
+                              <View style={styles.flexRowRadioButton}>
+                                <Text>{translate('confirmationArrivee.non')}</Text>
+                                <RadioButton
+                                    value="false"
+                                    color={primaryColor}
+                                    disabled={true}
+                                />
+                              </View>
+                            </RadioButton.Group>
+                          </View>
+                        </Col>
+                        <Col />
+                        <Col />
+                      </Row>
+                      <Row style={CustomStyleSheet.whiteRow}>
+                        <Col>
+                          <ComBadrLibelleComp withColor={true}>
+                            {translate(
+                                'autoriserAcheminemenMainScreen.informationsEcor.numeroPince',
+                            )}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col>
+                          <ComBadrLibelleComp>
+                            {this.state?.ecorDUM?.numeroPinceCrtlApresScanner}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col>
+                          <ComBadrLibelleComp withColor={true}>
+                            {translate(
+                                'autoriserAcheminemenMainScreen.informationsEcor.nombreScelles',
+                            )}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col>
+                          <ComBadrLibelleComp>
+                            {this.state?.ecorDUM?.nombreScelleCrtlApresScanner}
+                          </ComBadrLibelleComp>
+                        </Col>
+                      </Row>
+                      <Row style={CustomStyleSheet.lightBlueRow}>
+                        <Col>
+                          <ComBadrLibelleComp withColor={true}>
+                            {translate('vuEmbarquee.numerosScelles')}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col style={styles.boxContainer}>
+                          <SafeAreaView style={styles.boxSafeArea}>
+                            {_.isEmpty(
+                                this.state?.ecorDUM?.scellesCrtlApresScanner,
+                            ) && (
+                                <Text style={styles.boxItemText}>
+                                  {translate(
+                                      'confirmationEntree.informationsEcor.aucunElement',
+                                  )}
+                                </Text>
+                            )}
+
+                            {!_.isEmpty(
+                                this.state?.ecorDUM?.scellesCrtlApresScanner,
+                            ) && (
+                                <FlatList
+                                    data={this.getFormattedScelles(
+                                        this.state?.ecorDUM?.scellesCrtlApresScanner,
+                                    )}
+                                    renderItem={(item) => this.renderBoxItem(item)}
+                                    keyExtractor={(item) => item}
+                                    nestedScrollEnabled={true}
+                                    // disabled={true}
+                                />
+                            )}
+                          </SafeAreaView>
+                        </Col>
+                        <Col />
+                        <Col />
+                      </Row>
+                      <Row style={CustomStyleSheet.lightBlueRow}>
+                        <Col size={40} style={styles.labelContainer}>
+                          <ComBadrLibelleComp withColor={true}>
+                            {translate(
+                                'autoriserAcheminemenMainScreen.informationsEcor.transporteurExploitantMEAD',
+                            )}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col size={70}>
+                          <TextInput
+                              value={
+                                this.props?.resOperateur
+                                    ?.transporteurExploitantMEADCtrlApresScanner
+                                    ?.libelle
+                              }
+                              disabled={true}
+                          />
+                        </Col>
+                      </Row>
+                    </Grid>
+                  </ComAccordionComp>
+                </ComBadrCardBoxComp>
+            )}
+
+            {/* Accordion vuEmbarquee */}
+            <ComBadrCardBoxComp>
+              <ComAccordionComp
+                  expanded={true}
+                  title={translate('vuEmbarquee.subTitleAction')}>
+                <Row style={CustomStyleSheet.lightBlueRow}>
+                  <Col>
+                    <ComBadrLibelleComp withColor={true}>
+                      {translate('vuEmbarquee.dateHeure')}
+                    </ComBadrLibelleComp>
+                  </Col>
+                  <Col size={2}>
+                    <ComBadrDatePickerComp
+                        dateFormat="DD/MM/YYYY"
+                        readonly={
+                            this.props?.vuEmbInit?.successAction ||
+                            this.state.modeConsultation
+                        }
+                        value={
+                          !_.isEmpty(this.state.dateVuEmbarquer)
+                              ? moment(this.state.dateVuEmbarquer, 'DD/MM/yyyy', true)
+                              : null
+                        }
+                        timeValue={
+                          !_.isEmpty(this.state.heureVuEmbarquer)
+                              ? moment(this.state.heureVuEmbarquer, 'HH:mm', true)
+                              : null
+                        }
+                        labelDate={translate('vuEmbarquee.dateHeure')}
+                        // inputStyle={styles.textInputsStyle}
+                        onDateChanged={(date) =>
+                            this.setState({
+                              ...this.state,
+                              dateVuEmbarquer: date,
+                            })
+                        }
+                        onTimeChanged={(time) =>
+                            this.setState({
+                              ...this.state,
+                              heureVuEmbarquer: time,
+                            })
+                        }
+                    />
+                  </Col>
+                  <Col>
+                    <ComBadrLibelleComp withColor={true}>
+                      {translate(
+                          'autoriserAcheminemenMainScreen.autorisationAcheminement.agentDouanier',
                       )}
+                    </ComBadrLibelleComp>
+                  </Col>
+                  <Col>
+                    <ComBadrLibelleComp>
+                      {this.state?.ecorDUM?.refAgentEmbarquement?.nom}{' '}
+                      {this.state?.ecorDUM?.refAgentEmbarquement?.prenom}
+                    </ComBadrLibelleComp>
+                  </Col>
+                </Row>
+                <Row style={CustomStyleSheet.whiteRow}>
+                  <Col size={50}>
+                    <ComBadrLibelleComp withColor={true}>
+                      {translate('etatChargementVE.navire')}
+                    </ComBadrLibelleComp>
+                  </Col>
+                  <Col size={150}>
+                    <ComBadrAutoCompleteChipsComp
+                        code="code"
+                        disabled={
+                            this.props?.vuEmbInit?.successAction ||
+                            this.state.modeConsultation
+                        }
+                        placeholder={translate('etatChargement.navire')}
+                        selected={this.state.navire}
+                        maxItems={3}
+                        libelle="libelle"
+                        command="getCmbMoyenTransport"
+                        paramName="libelleMoyenTransport"
+                        onDemand={true}
+                        searchZoneFirst={false}
+                        onValueChange={this.handleCmbMoyenTransport}
                     />
-                  )}
-                {!this.props?.vuEmbInit?.successAction &&
-                  this.state.modeConsultation && (
-                    <ComBadrButtonIconComp
-                      onPress={() => this.supprimerVuEmbarquer()}
+                  </Col>
+                </Row>
+                <Row style={CustomStyleSheet.lightBlueRow}>
+                  <Col>
+                    <ComBadrLibelleComp withColor={true}>
+                      {translate('etatChargementVE.dateHeureVoyage')}
+                    </ComBadrLibelleComp>
+                  </Col>
+                  <Col size={2}>
+                    <ComBadrDatePickerComp
+                        dateFormat="DD/MM/YYYY"
+                        readonly={
+                            this.props?.vuEmbInit?.successAction ||
+                            this.state.modeConsultation
+                        }
+                        value={
+                          !_.isEmpty(this.state.dateVoyage)
+                              ? moment(this.state.dateVoyage, 'DD/MM/yyyy', true)
+                              : null
+                        }
+                        timeValue={
+                          !_.isEmpty(this.state.heureVoyage)
+                              ? moment(this.state.heureVoyage, 'HH:mm', true)
+                              : null
+                        }
+                        labelDate={translate('etatChargementVE.dateHeureVoyage')}
+                        // inputStyle={styles.textInputsStyle}
+                        onDateChanged={(date) =>
+                            this.setState({
+                              ...this.state,
+                              dateVoyage: date,
+                            })
+                        }
+                        onTimeChanged={(time) =>
+                            this.setState({
+                              ...this.state,
+                              heureVoyage: time,
+                            })
+                        }
+                    />
+                  </Col>
+                  <Col>
+                    <ComBadrLibelleComp withColor={true}>
+                      {translate('vuEmbarquee.numeroVoyage')}
+                    </ComBadrLibelleComp>
+                  </Col>
+                  <Col>
+                    <TextInput
+                        disabled={
+                            this.props?.vuEmbInit?.successAction ||
+                            this.state.modeConsultation
+                        }
+                        value={this.state.numeroVoyage}
+                        onChangeText={(val) => this.setState({numeroVoyage: val})}
+                    />
+                  </Col>
+                </Row>
+                <Row size={200} style={CustomStyleSheet.whiteRow}>
+                  <Col size={40}>
+                    <ComBadrLibelleComp withColor={true}>
+                      {translate('etatChargementVE.commentaire')}
+                    </ComBadrLibelleComp>
+                  </Col>
+
+                  <Col size={160}>
+                    {/* <ComBadrCardBoxComp style={[styles.cardBoxInfoDum, styles.container, styles.width90]}> */}
+                    <TextInput
+                        disabled={
+                            this.props?.vuEmbInit?.successAction ||
+                            this.state.modeConsultation
+                        }
+                        value={this.state.commentaire}
+                        multiline={true}
+                        numberOfLines={5}
+                        onChangeText={(val) => this.setState({commentaire: val})}
+                    />
+                  </Col>
+                </Row>
+              </ComAccordionComp>
+            </ComBadrCardBoxComp>
+            {this.props?.resScan?.dataScanner && (
+                <ComBadrCardBoxComp>
+                  <ComAccordionComp
+                      badr
+                      expanded={true}
+                      title={translate('etatChargement.resultatScanner')}>
+                    <ComBasicDataTableComp
+                        ref="_badrTable"
+                        id="scannerTable"
+                        rows={this.props?.resScan?.dataScanner}
+                        cols={this.cols}
+                        totalElements={this.props?.resScan?.dataScanner?.length}
+                        maxResultsPerPage={10}
+                        paginate={true}
+                        showProgress={this.props.showProgress}
+                        withId={false}
+                    />
+                  </ComAccordionComp>
+                </ComBadrCardBoxComp>
+            )}
+            <ComBadrCardBoxComp>
+              <Row style={CustomStyleSheet.lightBlueRow}>
+                <Col>
+                  {!this.props?.vuEmbInit?.successAction &&
+                      !this.state.modeConsultation && (
+                          <ComBadrButtonIconComp
+                              onPress={() => this.confirmerVuEmbarquer()}
+                              style={styles.buttonIcon}
+                              loading={this.props.showProgress}
+                              text={translate(
+                                  'etatChargementVE.buttonConfirmerVuEmbarquer',
+                              )}
+                          />
+                      )}
+                  {!this.props?.vuEmbInit?.successAction &&
+                      this.state.modeConsultation && (
+                          <ComBadrButtonIconComp
+                              onPress={() => this.supprimerVuEmbarquer()}
+                              style={styles.buttonIcon}
+                              loading={this.props.showProgress}
+                              text={translate('vuEmbarquee.SUPPRIMER')}
+                          />
+                      )}
+                  <ComBadrButtonIconComp
+                      onPress={() => this.abandonnerVuEmbarquer()}
                       style={styles.buttonIcon}
                       loading={this.props.showProgress}
-                      text={translate('vuEmbarquee.SUPPRIMER')}
-                    />
-                  )}
-                <ComBadrButtonIconComp
-                  onPress={() => this.abandonnerVuEmbarquer()}
-                  style={styles.buttonIcon}
-                  loading={this.props.showProgress}
-                  text={translate('vuEmbarquee.ABANDONNER')}
-                />
-              </Col>
-            </Row>
-          </ComBadrCardBoxComp>
-        </ScrollView>
-      </View>
+                      text={translate('vuEmbarquee.ABANDONNER')}
+                  />
+                </Col>
+              </Row>
+            </ComBadrCardBoxComp>
+          </ScrollView>
+        </View>
     );
   }
 }
@@ -1556,6 +1560,6 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
+    mapStateToProps,
+    mapDispatchToProps,
 )(VuEmbListeDeclaration);

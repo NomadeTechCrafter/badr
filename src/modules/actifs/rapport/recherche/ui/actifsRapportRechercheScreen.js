@@ -194,15 +194,15 @@ class ActifsRapportRechercheScreen extends Component {
     this.setState({ show: true, mode: currentMode, errorMessage: null });
   };
 
-  render_cols = (item, code) => {
-    if (code === 'rapportExiste') {
+  render_cols = (item, code,leveeConfidentialite) => {
+    if (code === 'rapportExiste'&& leveeConfidentialite) {
       if (item === true) {
         return <Text>{'mode consultation'}</Text>;
       } else {
         return <Text>{'mode creation'}</Text>;
       }
     }
-    if (code === 'confidentiel' || code === 'additif') {
+    if (leveeConfidentialite&&(code === 'confidentiel' || code === 'additif')) {
       if (item) {
         return <Text>{'Oui'}</Text>;
       } else {
@@ -212,24 +212,33 @@ class ActifsRapportRechercheScreen extends Component {
     if (_.isArray(item)) {
 
       return item.map((object) => {
-
+if(leveeConfidentialite){
         if (code === 'agentsBrigade') {
           return <Row><Text key={object.agentBrigade}> {object.agentBrigade}</Text></Row>;
         }
-        if (code === 'vehicules') {
+         if (code === 'vehicules') {
           return <Text key={object.matricule}> {object.matricule}</Text>;
-        }
+        }}
       });
     }
     if (_.isObject(item)) {
-      if (code === 'chefEquipe') {
-        return <Text> {item.nom} {item.prenom} ({item.idActeur})</Text>;
-      } else {
-        return <Text>{JSON.stringify(item)}</Text>;
-      }
+
+        if (code === 'chefEquipe' ) {
+          return <Text> {item.nom} {item.prenom} ({item.idActeur})</Text>;
+        } else {
+          return <Text>{leveeConfidentialite&&JSON.stringify(item)}</Text>;
+        }
+
     }
     if (_.property(item)) {
-      return <Text>{item}</Text>;
+
+      if(leveeConfidentialite)
+        return <Text>{item}</Text>;
+      if (code === 'chefEquipe'||code === 'dateDebut'||code === 'dateFin') {
+        return <Text key={item.description}> {item}</Text>;
+      }
+
+
     }
   };
 
@@ -400,7 +409,7 @@ class ActifsRapportRechercheScreen extends Component {
                           {this.cols.map((column, index) => (
                             <DataTable.Cell style={{ width: column.width }} key={index}>
                               {' '}
-                              {this.render_cols(row[column.code], column.code)}
+                              {this.render_cols(row[column.code], column.code,row['leveeConfidentialite'])}
                             </DataTable.Cell>
                           ))}
                         </DataTable.Row>
