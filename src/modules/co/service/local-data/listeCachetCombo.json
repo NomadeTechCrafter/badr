@@ -1,0 +1,32 @@
+{
+    "dtoHeader": {
+        "userLogin": "YELM",
+        "fonctionnalite": "cf4011",
+        "module": "CO_LIB",
+        "commande": "listeCachetCombo",
+        "typeService": "SP",
+        "offset": 0,
+        "pageSize": 0,
+        "rowCount": 0
+    },
+    "jsonVO": [
+        {
+            "code": "CC344",
+            "libelle": "CC344",
+            "actif": false,
+            "showDropDown": false,
+            "disableAutoComplete": true,
+            "onFocus": "",
+            "disabled": false
+        },
+        {
+            "code": "CC798",
+            "libelle": "CC798",
+            "actif": false,
+            "showDropDown": false,
+            "disableAutoComplete": true,
+            "onFocus": "",
+            "disabled": false
+        }
+    ]
+}
