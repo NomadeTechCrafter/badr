@@ -97,7 +97,6 @@ import COConsultationDetail from './modules/co/ui/coConsultationDetail';
 import actifsRapportCreationSaisieTab from './modules/actifs/rapport/creation/ui/saisie/actifsRapportCreationSaisieTab';
 import actifsRapportCreationDetails from './modules/actifs/rapport/creation/ui/details/actifsRapportCreationDetails';
 
-
 //setGlobalHandler();
 export default class App extends React.Component {
   componentDidMount() {}
@@ -119,7 +118,7 @@ export default class App extends React.Component {
                 <Stack.Screen
                   name="test"
                   options={{headerShown: false}}
-                    component={COMainScreen}
+                  component={COMainScreen}
                 />
               )}
               <Stack.Screen

@@ -124,6 +124,7 @@ if (process.env.NODE_ENV === 'development') {
     getCmbPays: require('../../../../modules/co/service/local-data/getCmbPays.json'),
     vctDestinationLigueArabe: require('../../../../modules/co/service/local-data/vctDestinationLigueArabe.json'),
     findListCoMultiRecherche: require('../../../../modules/co/service/local-data/findListCoMultiRecherche.json'),
+    recupererCertificatOrigineDuplicata: require('../../../../modules/co/service/local-data/recupererCertificatOrigineDuplicata.json'),
   };
 }
 export default localStore;

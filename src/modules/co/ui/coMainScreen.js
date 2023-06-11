@@ -4,12 +4,14 @@ import {ScrollView, View} from 'react-native';
 /**Custom Components */
 import {
   ComAccordionComp,
+  ComBadrButtonComp,
   ComBadrButtonIconComp,
   ComBadrCardBoxComp,
   ComBadrCardWithTileComp,
   ComBadrDatePickerComp,
   ComBadrErrorMessageComp,
   ComBadrItemsPickerComp,
+  ComBadrLibelleComp,
   ComBadrProgressBarComp,
   ComBadrToolbarComp,
   ComBasicDataTableComp,
@@ -28,6 +30,7 @@ import {GENERIC_REQUEST} from '../../../commons/constants/generic/ComGenericCons
 import * as COAction from '../state/actions/coAction';
 import _ from 'lodash';
 import {CustomStyleSheet} from '../../../commons/styles/ComThemeStyle';
+import coStyle from '../style/coStyle';
 
 const initialState = {
   login: ComSessionService.getInstance().getLogin(),
@@ -215,6 +218,10 @@ class COMainScreen extends React.Component {
           required = true;
           msg.push(translate('co.filtreRecherche.reference'));
         }
+        if (_.isEmpty(this.state.anneeRef)) {
+          required = true;
+          msg.push(translate('co.filtreRecherche.anneeRef'));
+        }
         break;
       case 'referenceDUM':
         msg = [];
@@ -306,6 +313,60 @@ class COMainScreen extends React.Component {
       });
     }
     return required;
+  };
+
+  checkRequiredFieldsForDuplicata = () => {
+    let msg = [];
+    let required = false;
+    let validation = false;
+    msg = [];
+    if (_.isEmpty(this.state.reference)) {
+      required = true;
+      msg.push(translate('co.filtreRecherche.reference'));
+    }
+    if (_.isEmpty(this.state.anneeRef)) {
+      required = true;
+      msg.push(translate('co.filtreRecherche.anneeRef'));
+    }
+
+    if (required) {
+      let message =
+        translate('actifsCreation.avionsPrivees.champsObligatoires') + msg;
+      if (validation) {
+        message = msg;
+      }
+      this.setState({
+        errorMessage: message,
+      });
+    } else {
+      this.setState({
+        errorMessage: null,
+      });
+    }
+    return required;
+  };
+
+  confirmerDuplicata = () => {
+    let myVO = {};
+    this.setState({
+      errorMessage: '',
+    });
+    const validation = this.checkRequiredFieldsForDuplicata();
+
+    if (validation === false) {
+      myVO.reference =
+        this.state.anneeRef + this.state.pays + this.state.reference;
+      let action = COAction.request(
+        {
+          type: CO_CONSULTATION_REQUEST,
+          value: myVO,
+          command: 'recupererCertificatOrigineDuplicata',
+        },
+        this.props.navigation,
+        null,
+      );
+      this.props.actions.dispatch(action);
+    }
   };
 
   confirmer = () => {
@@ -513,7 +574,9 @@ class COMainScreen extends React.Component {
 
   render() {
     const titre = "Nombre d'éléments: " + this.props?.data?.length;
-    const screen = this.props?.route?.params?.ecran;
+    const screen = this.props?.route?.params?.ecran
+      ? this.props?.route?.params?.ecran
+      : 'Traiter Duplicata';
     return (
       <View style={style.container}>
         <ComBadrToolbarComp
@@ -578,7 +641,7 @@ class COMainScreen extends React.Component {
                       <Col size={20} />
                       <Col size={30}>
                         <ComBadrButtonIconComp
-                          onPress={() => this.confirmer()}
+                          onPress={() => this.confirmerDuplicata()}
                           icon="check"
                           style={style.buttonIcon}
                           loading={this.props.showProgress}
@@ -595,6 +658,62 @@ class COMainScreen extends React.Component {
                       </Col>
                       <Col size={20} />
                     </Row>
+
+                    {!_.isEmpty(this.props.data?.serieDuplicata) && (
+                      <Row style={CustomStyleSheet.lightBlueRow}>
+                        <Col size={3}>
+                          <ComBadrLibelleComp>
+                            {translate('co.serieDuplicata')}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col size={9}>
+                          <TextInput
+                            mode={'outlined'}
+                            disabled={true}
+                            value={this.props.data?.serieDuplicata}
+                          />
+                        </Col>
+                      </Row>
+                    )}
+                    {!_.isEmpty(this.props.data?.serieDuplicata) && (
+                      <Row style={CustomStyleSheet.lightBlueRow}>
+                        <Col size={3}>
+                          <ComBadrLibelleComp>
+                            {translate('co.commentaire')}
+                          </ComBadrLibelleComp>
+                        </Col>
+                        <Col size={9}>
+                          <TextInput
+                            mode={'outlined'}
+                            multiline={true}
+                            disabled={true}
+                            numberOfLines={4}
+                            value={this.props.data?.commentaire}
+                          />
+                        </Col>
+                      </Row>
+                    )}
+                    {!_.isEmpty(this.props.data?.serieDuplicata) && (
+                      <Row>
+                        <Col size={20} />
+                        <Col size={30}>
+                          <ComBadrButtonIconComp
+                            onPress={() => this.accepter()}
+                            style={style.buttonIcon}
+                            loading={this.props.showProgress}
+                            text={translate('co.buttons.accepter')}
+                          />
+                        </Col>
+                        <Col size={30}>
+                          <ComBadrButtonIconComp
+                            onPress={() => this.rejeter()}
+                            style={style.buttonIcon}
+                            text={translate('co.buttons.rejeter')}
+                          />
+                        </Col>
+                        <Col size={20} />
+                      </Row>
+                    )}
                   </Grid>
                 </View>
               </ScrollView>
@@ -841,7 +960,7 @@ class COMainScreen extends React.Component {
             </ComBadrCardWithTileComp>
           )}
         </ComBadrCardBoxComp>
-        {this.props?.data?.length > 0 && (
+        {screen !== 'Traiter Duplicata' && this.props?.data?.length > 0 && (
           <ScrollView style={style.innerContainer}>
             <View>
               <ComAccordionComp badr title={titre} expanded={true}>

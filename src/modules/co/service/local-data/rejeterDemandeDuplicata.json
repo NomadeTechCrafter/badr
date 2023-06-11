@@ -1,0 +1,58 @@
+{
+  "dtoHeader": {
+    "userLogin": "YELM",
+    "fonctionnalite": "cf4011",
+    "module": "CO_LIB",
+    "commande": "rejeterDemandeDuplicata",
+    "typeService": "UC"
+  },
+  "jsonVO": {
+    "id": 47,
+    "dateCreation": 1587992492000,
+    "serieDuplicata": "S4545454",
+    "motifRejet": "mrs test",
+    "refCertificatVO": {
+      "identifiant": 605,
+      "reference": "2020MA0000043",
+      "dateEnregistrement": "27/04/2020 14:39:18:013",
+      "refArticlesCOVO": [],
+      "statut": "Accepté",
+      "codeDeclarant": "AAM",
+      "numeroSerie": "de",
+      "typeCertificat": "07",
+      "destination": "DK",
+      "langue": "FR",
+      "cumul": false,
+      "showDest": false,
+      "regimeSpecial": false,
+      "regimeSpecialBeforeConfinment": false,
+      "opPourLequel": false,
+      "nomImageSignValidateur": "/fsbadr/srv_badr_recette/FILES/REF_LIB/SIGNATURE_AGENT/2020/5/ASSRHLI MLY ELBACHIR_1588945016238_1589987572222.jpg",
+      "numeroSerieConfinement": "S4545454",
+      "idPourRecherche": "2020MA0000043",
+      "defaultConverter": {}
+    },
+    "refOperateur": {
+      "code": "16688",
+      "libelle": "BABYTEX TEST",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    "refDeclarant": {
+      "code": "AAM",
+      "libelle": "AMMARI AHMED",
+      "actif": false,
+      "showDropDown": false,
+      "disableAutoComplete": true,
+      "onFocus": "",
+      "disabled": false
+    },
+    "demandeDuplicataStatut": "CREE",
+    "commentaire": "sss",
+    "duplicatatImprime": false,
+    "defaultConverter": {}
+  }
+}

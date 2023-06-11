@@ -67,6 +67,7 @@ export default {
     numeroSerieConfinement:
       'Numéro de série du document (Disponible sur le pré-imprimé)',
     reference: "Référence du certificat d'origine",
+    serieDuplicata: 'Numéro de serie *',
     referenceDUM: 'Référence de la déclaration',
     versionDUM: 'Version de la déclaration',
     dateEnregistrement: "Date d'enregistrement du certificat d'origine",

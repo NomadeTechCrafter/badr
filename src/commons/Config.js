@@ -42,6 +42,6 @@ module.exports = {
   MODULE_CO: 'CO_LIB',
   AUTOCOMPLETE_MIN_CHARACTERS: 2,
   AUTOCOMPLETE_LIST_NB_ELEMENTS: -1,
-  remote: true,
+  remote: false,
   bootstrapRoute: 'test',
 };
