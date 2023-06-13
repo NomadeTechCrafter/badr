@@ -1031,7 +1031,7 @@ class AutoriserAcheminementSsManifesteScreen extends Component {
                           </Col>
                           <Col size={6}>
                             <ComBadrPickerComp
-                                disabled={this.state.confirmed && !this.state.submitted}
+                                disabled={true}
                                 onRef={(ref) => (this.comboLieuStockage = ref)}
                                 style={{
                                   flex: 1,

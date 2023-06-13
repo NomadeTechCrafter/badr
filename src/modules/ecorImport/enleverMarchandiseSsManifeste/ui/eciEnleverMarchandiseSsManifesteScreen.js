@@ -629,7 +629,12 @@ class EciEnleverMarchandiseSsManifesteScreen extends Component {
         },
       );
     });*/
-    if(this.state?.selectedLot?.lieuStockage?.codeLieuStockage) {
+    if(this.state?.selectedLot?.lieuStockage?.codeLieuStockage&&
+        this.state?.selectedLot?.numeroBonSortie&&
+        this.state?.selectedLot?.gestionnaireEnceinte?.identifiantOperateur&&
+        this.state?.selectedLot?.immatriculationsVehicules&&
+        this.state?.selectedLot?.heureEffectiveEnlevement&&
+        this.state?.selectedLot?.dateEffectiveEnlevement) {
       console.log('confirmer ecor sent data-----', JSON.stringify(data));
       this.callRedux({
         command: 'enleverSansDS',
@@ -1020,7 +1025,7 @@ class EciEnleverMarchandiseSsManifesteScreen extends Component {
                             </Col>
                             <Col size={6}>
                               <ComBadrPickerComp
-                                  disabled={this.state.confirmed && !this.state.submitted}
+                                  disabled={true}
                                   onRef={(ref) => (this.comboLieuStockage = ref)}
                                   style={{
                                     flex: 1,
@@ -1104,7 +1109,7 @@ class EciEnleverMarchandiseSsManifesteScreen extends Component {
                                   style={styles.columnThree}
                                   label=""
                                   value={enleverMarchandiseVO.numeroBonSortie}
-                                  disabled={this.state.confirmed && !this.state.submitted}
+                                  disabled={this.state.submitted}
                                   onChangeText={(text) =>
                                       this.setState({
                                         ...this.state,
@@ -1129,7 +1134,7 @@ class EciEnleverMarchandiseSsManifesteScreen extends Component {
                               <ComBadrAutoCompleteChipsComp
                                   onRef={(ref) => (this.acOperateur = ref)}
                                   code="code"
-                                  disabled={this.state.confirmed && !this.state.submitted}
+                                  disabled={this.state.submitted}
                                   selected={
                                     _.isEmpty(
                                         ComUtils.getValueByPath(
@@ -1185,7 +1190,7 @@ class EciEnleverMarchandiseSsManifesteScreen extends Component {
                                   style={styles.columnThree}
                                   label=""
                                   value={selectedLot.immatriculationsVehicules}
-                                  disabled={this.state.confirmed && !this.state.submitted}
+                                  disabled={this.state.submitted}
                                   onChangeText={(text) =>
                                       this.setState({
                                         ...this.state,
@@ -1247,7 +1252,7 @@ class EciEnleverMarchandiseSsManifesteScreen extends Component {
                                       'ecorimport.marchandisesEnlevees.heureEffectiveEnlevement',
                                   )}
                                   inputStyle={style.dateInputStyle}
-                                  readonly={this.state.confirmed && !this.state.submitted}
+                                  readonly={this.state.submitted}
                               />
                             </Col>
                           </Row>
