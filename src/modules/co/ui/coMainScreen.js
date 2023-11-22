@@ -34,11 +34,11 @@ import coStyle from '../style/coStyle';
 
 const initialState = {
   login: ComSessionService.getInstance().getLogin(),
-  dateDebut: '15/01/2021',
-  dateFin: '30/01/2021',
+  dateDebut: '',
+  dateFin: '',
   numeroSerie: '',
-  anneeRef: '2022',
-  reference: '0000019',
+  anneeRef: '',
+  reference: '',
   idDED: '',
   referenceDUM: '',
   bureau: '',

@@ -622,11 +622,6 @@
   // If set, automatically switch to the preferred color theme based on the OS appearance.
   "window.autoDetectColorScheme": false,
 
-  // Workbench
-
-  // Controls the visibility of the activity bar in the workbench.
-  "workbench.activityBar.visible": true,
-
   // Overrides colors from the currently selected color theme.
   "workbench.colorCustomizations": {},
 
@@ -701,7 +696,7 @@
   "workbench.editor.showIcons": true,
 
   // Controls whether opened editors should show in tabs or not.
-  "workbench.editor.showTabs": true,
+  "workbench.editor.showTabs": "multiple",
 
   // Controls the sizing of editor groups when splitting them.
   //  - distribute: Splits all the editor groups to equal parts.
@@ -1030,9 +1025,6 @@
 
   // Controls whether turning on Zen Mode also hides the status bar at the bottom of the workbench.
   "zenMode.hideStatusBar": true,
-
-  // Controls whether turning on Zen Mode also hides workbench tabs.
-  "zenMode.hideTabs": true,
 
   // Controls whether a window should restore to zen mode if it was exited in zen mode.
   "zenMode.restore": false,
@@ -2761,5 +2753,6 @@
   },
   "java.configuration.updateBuildConfiguration": "disabled",
   "editor.guides.indentation": true,
-  "editor.guides.highlightActiveIndentation": true
+  "editor.guides.highlightActiveIndentation": true,
+  "zenMode.showTabs": "single"
 }
