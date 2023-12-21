@@ -511,6 +511,7 @@ class COConsultationDetail extends React.Component {
     const coFromWhichScreen = this.props?.route?.params?.coFromWhichScreen;
 
     const co = this.props.data;
+    console.log(co.typeCertificat);
     let destinationCommand = '';
     let destinationParam = null;
     switch (co.typeCertificat) {
@@ -600,7 +601,7 @@ class COConsultationDetail extends React.Component {
             )}
           {coFromWhichScreen &&
             coFromWhichScreen === 'CONSULTER' &&
-            this.state.showButtons && (
+            this.state.showButtons && 'Accepté' === co?.statut && (
               <View style={coStyle.comContainerCompBtn}>
                 <ComBadrButtonComp
                   style={coStyle.actionBtn}
@@ -830,10 +831,24 @@ class COConsultationDetail extends React.Component {
                   </ComBadrLibelleComp>
                 </Col>
                 <Col size={6}>
-                  <ComBadrItemsPickerComp
+                  {/* <ComBadrItemsPickerComp
                     selectedValue={co?.typeCertificat}
                     items={typesCertificats}
                     disabled={true}
+                  /> */}
+                  <ComBadrPickerComp
+                    disabled={true}
+                    key="code"
+                    selectedValue={co?.typeCertificat}
+                    selected={co?.typeCertificat}
+                    cle="code"
+                    libelle="libelle"
+                    command="getVctTypeCO"
+                    module="CO_LIB"
+                    // param={destinationParam}
+                    typeService="SP"
+                    storeWithKey="code"
+                    storeLibelleWithKey="libelle"
                   />
                 </Col>
                 <Col size={1} />

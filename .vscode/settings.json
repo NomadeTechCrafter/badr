@@ -298,7 +298,7 @@
   "editor.multiCursorPaste": "spread",
 
   // Controls whether the editor should highlight semantic symbol occurrences.
-  "editor.occurrencesHighlight": true,
+  "editor.occurrencesHighlight": "singleFile",
 
   // Controls whether a border should be drawn around the overview ruler.
   "editor.overviewRulerBorder": true,
@@ -551,7 +551,7 @@
   "editor.useTabStops": true,
 
   // Controls whether completions should be computed based on words in the document.
-  "editor.wordBasedSuggestions": true,
+  "editor.wordBasedSuggestions": "matchingDocuments",
 
   // Characters that will be used as word separators when doing word related navigations or operations.
   "editor.wordSeparators": "`~!@#$%^&*()-=+[{]}\\|;:'\",.<>/?",
@@ -2754,5 +2754,6 @@
   "java.configuration.updateBuildConfiguration": "disabled",
   "editor.guides.indentation": true,
   "editor.guides.highlightActiveIndentation": true,
-  "zenMode.showTabs": "single"
+  "zenMode.showTabs": "single",
+  "workbench.editor.tabActionLocation": "right"
 }
