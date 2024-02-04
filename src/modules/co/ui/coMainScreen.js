@@ -1,6 +1,6 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import {ScrollView, View} from 'react-native';
+import { connect } from 'react-redux';
+import { ScrollView, View } from 'react-native';
 /**Custom Components */
 import {
   ComAccordionComp,
@@ -20,17 +20,19 @@ import {
 } from '../../../commons/component';
 import translate from '../../../commons/i18n/ComI18nHelper';
 import style from '../style/coStyle';
-import {CO_CONSULTATION_REQUEST, criteresRecherche} from '../state/coConstants';
-import {ComSessionService} from '../../../commons/services/session/ComSessionService';
-import {HelperText, TextInput} from 'react-native-paper';
-import {Col, Grid, Row} from 'react-native-easy-grid';
+import { CO_CONSULTATION_REQUEST, criteresRecherche } from '../state/coConstants';
+import { ComSessionService } from '../../../commons/services/session/ComSessionService';
+import { HelperText, TextInput } from 'react-native-paper';
+import { Col, Grid, Row } from 'react-native-easy-grid';
 import moment from 'moment/moment';
 import * as ConsulterDumAction from '../../../commons/state/actions/ConsulterDumAction';
-import {GENERIC_REQUEST} from '../../../commons/constants/generic/ComGenericConstants';
+import { GENERIC_REQUEST } from '../../../commons/constants/generic/ComGenericConstants';
 import * as COAction from '../state/actions/coAction';
 import _ from 'lodash';
-import {CustomStyleSheet} from '../../../commons/styles/ComThemeStyle';
+import { CustomStyleSheet } from '../../../commons/styles/ComThemeStyle';
 import coStyle from '../style/coStyle';
+import { TYPE_SERVICE_SP, TYPE_SERVICE_UC } from '../../../commons/constants/ComGlobalConstants';
+import ComHttpHelperApi from '../../../commons/services/api/common/ComHttpHelperApi';
 
 const initialState = {
   login: ComSessionService.getInstance().getLogin(),
@@ -258,9 +260,9 @@ class COMainScreen extends React.Component {
             required = true;
             msg.push(
               translate('co.filtreRecherche.cleValide') +
-                '(' +
-                this.state.cleValide +
-                ')',
+              '(' +
+              this.state.cleValide +
+              ')',
             );
           }
         }
@@ -369,7 +371,7 @@ class COMainScreen extends React.Component {
     }
   };
 
-  confirmer = () => {
+  confirmer = async () => {
     let myVO = {};
     if (this.state.critereRecherche) {
       this.setState({
@@ -386,7 +388,19 @@ class COMainScreen extends React.Component {
             this.state.anneeRef + this.state.pays + this.state.reference;
           break;
         case 'referenceDUM':
-          myVO.idDED = this.state.idDED;
+          const result = {
+            dtoHeader: {
+              userLogin: ComSessionService.getInstance().getLogin(),
+              fonctionnalite: ComSessionService.getInstance().getFonctionalite(),
+              module: 'CO_LIB',
+              commande: 'getIdDUM',
+              typeService: TYPE_SERVICE_SP
+            },
+            jsonVO: this.state.bureau + this.regime + this.state.annee + this.serie //"30906020190000114"          ,
+          };
+          let response = await ComHttpHelperApi.process(result);
+          console.log(JSON.stringify(response.data.jsonVO));
+          myVO.idDED = response.data.jsonVO;
           break;
         case 'dates':
           myVO.dateDebut = this.state.dateDebut;
@@ -546,7 +560,7 @@ class COMainScreen extends React.Component {
   }
 
   onChangeInputCle = (cle) => {
-    this.setState({cle: cle.replace(/[^A-Za-z]/g, '')});
+    this.setState({ cle: cle.replace(/[^A-Za-z]/g, '') });
   };
 
   cleDUM = function (regime, serie) {
@@ -561,6 +575,11 @@ class COMainScreen extends React.Component {
     let RS = obj % 23;
     alpha = alpha.charAt(RS);
     return alpha;
+  };
+
+  onChangeInput = (input) => {
+    let keyImput = _.keys(input)[0];
+    this.setState({ [keyImput]: input[keyImput].replace(/[^0-9]/g, '') });
   };
 
   addZeros = (input) => {
@@ -606,7 +625,7 @@ class COMainScreen extends React.Component {
                           label={translate('co.filtreRecherche.annee')}
                           value={this.state.anneeRef}
                           onChangeText={(text) =>
-                            this.setState({anneeRef: text})
+                            this.setState({ anneeRef: text })
                           }
                         />
                       </Col>
@@ -626,7 +645,7 @@ class COMainScreen extends React.Component {
                           label={translate('co.filtreRecherche.reference')}
                           value={this.state.reference}
                           onChangeText={(text) =>
-                            this.setState({reference: text})
+                            this.setState({ reference: text })
                           }
                           onEndEditing={(event) =>
                             this.addZeros({
@@ -744,7 +763,7 @@ class COMainScreen extends React.Component {
                             label={translate('co.filtreRecherche.numeroSerie')}
                             value={this.state.numeroSerie}
                             onChangeText={(text) =>
-                              this.setState({numeroSerie: text})
+                              this.setState({ numeroSerie: text })
                             }
                           />
                         </Col>
@@ -761,7 +780,7 @@ class COMainScreen extends React.Component {
                             label={translate('co.filtreRecherche.annee')}
                             value={this.state.anneeRef}
                             onChangeText={(text) =>
-                              this.setState({anneeRef: text})
+                              this.setState({ anneeRef: text })
                             }
                           />
                         </Col>
@@ -781,7 +800,7 @@ class COMainScreen extends React.Component {
                             label={translate('co.filtreRecherche.reference')}
                             value={this.state.reference}
                             onChangeText={(text) =>
-                              this.setState({reference: text})
+                              this.setState({ reference: text })
                             }
                             onEndEditing={(event) =>
                               this.addZeros({
@@ -804,7 +823,7 @@ class COMainScreen extends React.Component {
                                 value={this.state.bureau}
                                 label={translate('transverse.bureau')}
                                 onChangeText={(val) =>
-                                  this.onChangeInput({bureau: val})
+                                  this.onChangeInput({ bureau: val })
                                 }
                                 onEndEditing={(event) =>
                                   this.addZeros({
@@ -823,7 +842,7 @@ class COMainScreen extends React.Component {
                                 value={this.state.regime}
                                 label={translate('transverse.regime')}
                                 onChangeText={(val) =>
-                                  this.onChangeInput({regime: val})
+                                  this.onChangeInput({ regime: val })
                                 }
                                 onEndEditing={(event) =>
                                   this.addZeros({
@@ -842,7 +861,7 @@ class COMainScreen extends React.Component {
                                 value={this.state.annee}
                                 label={translate('transverse.annee')}
                                 onChangeText={(val) =>
-                                  this.onChangeInput({annee: val})
+                                  this.onChangeInput({ annee: val })
                                 }
                                 onEndEditing={(event) =>
                                   this.addZeros({
@@ -861,7 +880,7 @@ class COMainScreen extends React.Component {
                                 value={this.state.serie}
                                 label={translate('transverse.serie')}
                                 onChangeText={(val) =>
-                                  this.onChangeInput({serie: val})
+                                  this.onChangeInput({ serie: val })
                                 }
                                 onEndEditing={(event) =>
                                   this.addZeros({
@@ -896,10 +915,10 @@ class COMainScreen extends React.Component {
                             value={
                               this.state.dateDebut
                                 ? moment(
-                                    this.state.dateDebut,
-                                    'DD/MM/yyyy',
-                                    true,
-                                  )
+                                  this.state.dateDebut,
+                                  'DD/MM/yyyy',
+                                  true,
+                                )
                                 : ''
                             }
                             labelDate={translate('consultationBLS.startDate')}
@@ -971,8 +990,8 @@ class COMainScreen extends React.Component {
                     this.props?.route?.params?.ecran === 'TRAITER'
                       ? this.coCols
                       : this.props?.route?.params?.ecran === 'ANNULER'
-                      ? this.coColsAnnuler
-                      : this.coColsWithoutAction
+                        ? this.coColsAnnuler
+                        : this.coColsWithoutAction
                   }
                   totalElements={this.props?.data?.length}
                   maxResultsPerPage={10}
@@ -989,11 +1008,11 @@ class COMainScreen extends React.Component {
 }
 
 function mapStateToProps(state) {
-  return {...state.coReducer};
+  return { ...state.coReducer };
 }
 
 function mapDispatchToProps(dispatch) {
-  let actions = {dispatch};
+  let actions = { dispatch };
   return {
     actions,
   };

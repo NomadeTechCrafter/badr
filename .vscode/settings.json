@@ -238,9 +238,6 @@
   // Controls the letter spacing in pixels.
   "editor.letterSpacing": 0,
 
-  // Enables the code action lightbulb in the editor.
-  "editor.lightbulb.enabled": true,
-
   // Controls the line height. Use 0 to compute the line height from the font size.
   "editor.lineHeight": 0,
 
